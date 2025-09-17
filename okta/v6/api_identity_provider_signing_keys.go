@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,29 +26,28 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
-	"strings"
 	"os"
+	"strings"
+	"time"
 )
-
 
 type IdentityProviderSigningKeysAPI interface {
 
 	/*
-	CloneIdentityProviderKey Clone a signing key credential for IdP
+			CloneIdentityProviderKey Clone a signing key credential for IdP
 
-	Clones an X.509 certificate for an identity provider (IdP) signing key credential from a source IdP to target IdP
-> **Caution:** Sharing certificates isn't a recommended security practice.
+			Clones an X.509 certificate for an identity provider (IdP) signing key credential from a source IdP to target IdP
+		> **Caution:** Sharing certificates isn't a recommended security practice.
 
-> **Note:** If the key is already present in the list of key credentials for the target IdP, you receive a 400 error response.
+		> **Note:** If the key is already present in the list of key credentials for the target IdP, you receive a 400 error response.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@param kid Unique `id` of the IdP key credential
-	@return ApiCloneIdentityProviderKeyRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param idpId `id` of IdP
+			@param kid Unique `id` of the IdP key credential
+			@return ApiCloneIdentityProviderKeyRequest
 	*/
 	CloneIdentityProviderKey(ctx context.Context, idpId string, kid string) ApiCloneIdentityProviderKeyRequest
 
@@ -57,14 +56,14 @@ type IdentityProviderSigningKeysAPI interface {
 	CloneIdentityProviderKeyExecute(r ApiCloneIdentityProviderKeyRequest) (*IdPKeyCredential, *APIResponse, error)
 
 	/*
-	GenerateCsrForIdentityProvider Generate a certificate signing request
+			GenerateCsrForIdentityProvider Generate a certificate signing request
 
-	Generates a new key pair and returns a certificate signing request (CSR) for it
-> **Note:** The private key isn't listed in the [signing key credentials for the identity provider (IdP)](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/IdentityProviderSigningKeys/#tag/IdentityProviderSigningKeys/operation/listIdentityProviderSigningKeys) until it's published.
+			Generates a new key pair and returns a certificate signing request (CSR) for it
+		> **Note:** The private key isn't listed in the [signing key credentials for the identity provider (IdP)](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/IdentityProviderSigningKeys/#tag/IdentityProviderSigningKeys/operation/listIdentityProviderSigningKeys) until it's published.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@return ApiGenerateCsrForIdentityProviderRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param idpId `id` of IdP
+			@return ApiGenerateCsrForIdentityProviderRequest
 	*/
 	GenerateCsrForIdentityProvider(ctx context.Context, idpId string) ApiGenerateCsrForIdentityProviderRequest
 
@@ -73,14 +72,14 @@ type IdentityProviderSigningKeysAPI interface {
 	GenerateCsrForIdentityProviderExecute(r ApiGenerateCsrForIdentityProviderRequest) (*IdPCsr, *APIResponse, error)
 
 	/*
-	GenerateIdentityProviderSigningKey Generate a new signing key credential for IdP
+			GenerateIdentityProviderSigningKey Generate a new signing key credential for IdP
 
-	Generates a new X.509 certificate for an identity provider (IdP) signing key credential to be used for signing assertions sent to the IdP. IdP signing keys are read-only.
-> **Note:** To update an IdP with the newly generated key credential, [update your IdP](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/replaceIdentityProvider) using the returned key's `kid` in the [signing credential](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/replaceIdentityProvider!path=protocol/0/credentials/signing/kid&t=request).
+			Generates a new X.509 certificate for an identity provider (IdP) signing key credential to be used for signing assertions sent to the IdP. IdP signing keys are read-only.
+		> **Note:** To update an IdP with the newly generated key credential, [update your IdP](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/replaceIdentityProvider) using the returned key's `kid` in the [signing credential](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/replaceIdentityProvider!path=protocol/0/credentials/signing/kid&t=request).
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@return ApiGenerateIdentityProviderSigningKeyRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param idpId `id` of IdP
+			@return ApiGenerateIdentityProviderSigningKeyRequest
 	*/
 	GenerateIdentityProviderSigningKey(ctx context.Context, idpId string) ApiGenerateIdentityProviderSigningKeyRequest
 
@@ -89,14 +88,14 @@ type IdentityProviderSigningKeysAPI interface {
 	GenerateIdentityProviderSigningKeyExecute(r ApiGenerateIdentityProviderSigningKeyRequest) (*IdPKeyCredential, *APIResponse, error)
 
 	/*
-	GetCsrForIdentityProvider Retrieve a certificate signing request
+		GetCsrForIdentityProvider Retrieve a certificate signing request
 
-	Retrieves a specific certificate signing request (CSR) by `id`
+		Retrieves a specific certificate signing request (CSR) by `id`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@param idpCsrId `id` of the IdP CSR
-	@return ApiGetCsrForIdentityProviderRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpId `id` of IdP
+		@param idpCsrId `id` of the IdP CSR
+		@return ApiGetCsrForIdentityProviderRequest
 	*/
 	GetCsrForIdentityProvider(ctx context.Context, idpId string, idpCsrId string) ApiGetCsrForIdentityProviderRequest
 
@@ -105,14 +104,14 @@ type IdentityProviderSigningKeysAPI interface {
 	GetCsrForIdentityProviderExecute(r ApiGetCsrForIdentityProviderRequest) (*IdPCsr, *APIResponse, error)
 
 	/*
-	GetIdentityProviderSigningKey Retrieve a signing key credential for IdP
+		GetIdentityProviderSigningKey Retrieve a signing key credential for IdP
 
-	Retrieves a specific identity provider (IdP) key credential by `kid`
+		Retrieves a specific identity provider (IdP) key credential by `kid`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@param kid Unique `id` of the IdP key credential
-	@return ApiGetIdentityProviderSigningKeyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpId `id` of IdP
+		@param kid Unique `id` of the IdP key credential
+		@return ApiGetIdentityProviderSigningKeyRequest
 	*/
 	GetIdentityProviderSigningKey(ctx context.Context, idpId string, kid string) ApiGetIdentityProviderSigningKeyRequest
 
@@ -121,13 +120,13 @@ type IdentityProviderSigningKeysAPI interface {
 	GetIdentityProviderSigningKeyExecute(r ApiGetIdentityProviderSigningKeyRequest) (*IdPKeyCredential, *APIResponse, error)
 
 	/*
-	ListActiveIdentityProviderSigningKey List the active signing key credential for IdP
+		ListActiveIdentityProviderSigningKey List the active signing key credential for IdP
 
-	Lists the active signing key credential for an identity provider (IdP)
+		Lists the active signing key credential for an identity provider (IdP)
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@return ApiListActiveIdentityProviderSigningKeyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpId `id` of IdP
+		@return ApiListActiveIdentityProviderSigningKeyRequest
 	*/
 	ListActiveIdentityProviderSigningKey(ctx context.Context, idpId string) ApiListActiveIdentityProviderSigningKeyRequest
 
@@ -136,13 +135,13 @@ type IdentityProviderSigningKeysAPI interface {
 	ListActiveIdentityProviderSigningKeyExecute(r ApiListActiveIdentityProviderSigningKeyRequest) ([]IdPKeyCredential, *APIResponse, error)
 
 	/*
-	ListCsrsForIdentityProvider List all certificate signing requests
+		ListCsrsForIdentityProvider List all certificate signing requests
 
-	Lists all certificate signing requests (CSRs) for an identity provider (IdP)
+		Lists all certificate signing requests (CSRs) for an identity provider (IdP)
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@return ApiListCsrsForIdentityProviderRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpId `id` of IdP
+		@return ApiListCsrsForIdentityProviderRequest
 	*/
 	ListCsrsForIdentityProvider(ctx context.Context, idpId string) ApiListCsrsForIdentityProviderRequest
 
@@ -151,13 +150,13 @@ type IdentityProviderSigningKeysAPI interface {
 	ListCsrsForIdentityProviderExecute(r ApiListCsrsForIdentityProviderRequest) ([]IdPCsr, *APIResponse, error)
 
 	/*
-	ListIdentityProviderSigningKeys List all signing key credentials for IdP
+		ListIdentityProviderSigningKeys List all signing key credentials for IdP
 
-	Lists all signing key credentials for an identity provider (IdP)
+		Lists all signing key credentials for an identity provider (IdP)
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@return ApiListIdentityProviderSigningKeysRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpId `id` of IdP
+		@return ApiListIdentityProviderSigningKeysRequest
 	*/
 	ListIdentityProviderSigningKeys(ctx context.Context, idpId string) ApiListIdentityProviderSigningKeysRequest
 
@@ -166,17 +165,17 @@ type IdentityProviderSigningKeysAPI interface {
 	ListIdentityProviderSigningKeysExecute(r ApiListIdentityProviderSigningKeysRequest) ([]IdPKeyCredential, *APIResponse, error)
 
 	/*
-	PublishCsrForIdentityProvider Publish a certificate signing request
+			PublishCsrForIdentityProvider Publish a certificate signing request
 
-	Publishes the certificate signing request (CSR) with a signed X.509 certificate and adds it into the signing key credentials for the identity provider (IdP)
-> **Notes:**
-> * Publishing a certificate completes the lifecycle of the CSR, and it's no longer accessible.
-> * If the validity period of the certificate is less than 90 days, a 400 error response is returned.
+			Publishes the certificate signing request (CSR) with a signed X.509 certificate and adds it into the signing key credentials for the identity provider (IdP)
+		> **Notes:**
+		> * Publishing a certificate completes the lifecycle of the CSR, and it's no longer accessible.
+		> * If the validity period of the certificate is less than 90 days, a 400 error response is returned.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@param idpCsrId `id` of the IdP CSR
-	@return ApiPublishCsrForIdentityProviderRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param idpId `id` of IdP
+			@param idpCsrId `id` of the IdP CSR
+			@return ApiPublishCsrForIdentityProviderRequest
 	*/
 	PublishCsrForIdentityProvider(ctx context.Context, idpId string, idpCsrId string) ApiPublishCsrForIdentityProviderRequest
 
@@ -185,14 +184,14 @@ type IdentityProviderSigningKeysAPI interface {
 	PublishCsrForIdentityProviderExecute(r ApiPublishCsrForIdentityProviderRequest) (*IdPKeyCredential, *APIResponse, error)
 
 	/*
-	RevokeCsrForIdentityProvider Revoke a certificate signing request
+		RevokeCsrForIdentityProvider Revoke a certificate signing request
 
-	Revokes a certificate signing request (CSR) and deletes the key pair from the identity provider (IdP)
+		Revokes a certificate signing request (CSR) and deletes the key pair from the identity provider (IdP)
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@param idpCsrId `id` of the IdP CSR
-	@return ApiRevokeCsrForIdentityProviderRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpId `id` of IdP
+		@param idpCsrId `id` of the IdP CSR
+		@return ApiRevokeCsrForIdentityProviderRequest
 	*/
 	RevokeCsrForIdentityProvider(ctx context.Context, idpId string, idpCsrId string) ApiRevokeCsrForIdentityProviderRequest
 
@@ -204,12 +203,12 @@ type IdentityProviderSigningKeysAPI interface {
 type IdentityProviderSigningKeysAPIService service
 
 type ApiCloneIdentityProviderKeyRequest struct {
-	ctx context.Context
-	ApiService IdentityProviderSigningKeysAPI
-	idpId string
-	kid string
+	ctx         context.Context
+	ApiService  IdentityProviderSigningKeysAPI
+	idpId       string
+	kid         string
 	targetIdpId *string
-	retryCount int32
+	retryCount  int32
 }
 
 // &#x60;id&#x60; of the target IdP
@@ -230,23 +229,24 @@ Clones an X.509 certificate for an identity provider (IdP) signing key credentia
 
 > **Note:** If the key is already present in the list of key credentials for the target IdP, you receive a 400 error response.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param idpId `id` of IdP
- @param kid Unique `id` of the IdP key credential
- @return ApiCloneIdentityProviderKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param idpId `id` of IdP
+	@param kid Unique `id` of the IdP key credential
+	@return ApiCloneIdentityProviderKeyRequest
 */
 func (a *IdentityProviderSigningKeysAPIService) CloneIdentityProviderKey(ctx context.Context, idpId string, kid string) ApiCloneIdentityProviderKeyRequest {
 	return ApiCloneIdentityProviderKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
-		kid: kid,
+		ctx:        ctx,
+		idpId:      idpId,
+		kid:        kid,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return IdPKeyCredential
+//
+//	@return IdPKeyCredential
 func (a *IdentityProviderSigningKeysAPIService) CloneIdentityProviderKeyExecute(r ApiCloneIdentityProviderKeyRequest) (*IdPKeyCredential, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -255,7 +255,7 @@ func (a *IdentityProviderSigningKeysAPIService) CloneIdentityProviderKeyExecute(
 		localVarReturnValue  *IdPKeyCredential
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -321,9 +321,9 @@ func (a *IdentityProviderSigningKeysAPIService) CloneIdentityProviderKeyExecute(
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -381,16 +381,16 @@ func (a *IdentityProviderSigningKeysAPIService) CloneIdentityProviderKeyExecute(
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGenerateCsrForIdentityProviderRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderSigningKeysAPI
-	idpId string
-	metadata *CsrMetadata
+	idpId      string
+	metadata   *CsrMetadata
 	retryCount int32
 }
 
@@ -409,21 +409,22 @@ GenerateCsrForIdentityProvider Generate a certificate signing request
 Generates a new key pair and returns a certificate signing request (CSR) for it
 > **Note:** The private key isn't listed in the [signing key credentials for the identity provider (IdP)](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/IdentityProviderSigningKeys/#tag/IdentityProviderSigningKeys/operation/listIdentityProviderSigningKeys) until it's published.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param idpId `id` of IdP
- @return ApiGenerateCsrForIdentityProviderRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param idpId `id` of IdP
+	@return ApiGenerateCsrForIdentityProviderRequest
 */
 func (a *IdentityProviderSigningKeysAPIService) GenerateCsrForIdentityProvider(ctx context.Context, idpId string) ApiGenerateCsrForIdentityProviderRequest {
 	return ApiGenerateCsrForIdentityProviderRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
+		ctx:        ctx,
+		idpId:      idpId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return IdPCsr
+//
+//	@return IdPCsr
 func (a *IdentityProviderSigningKeysAPIService) GenerateCsrForIdentityProviderExecute(r ApiGenerateCsrForIdentityProviderRequest) (*IdPCsr, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -432,7 +433,7 @@ func (a *IdentityProviderSigningKeysAPIService) GenerateCsrForIdentityProviderEx
 		localVarReturnValue  *IdPCsr
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -498,9 +499,9 @@ func (a *IdentityProviderSigningKeysAPIService) GenerateCsrForIdentityProviderEx
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -570,17 +571,17 @@ func (a *IdentityProviderSigningKeysAPIService) GenerateCsrForIdentityProviderEx
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGenerateIdentityProviderSigningKeyRequest struct {
-	ctx context.Context
-	ApiService IdentityProviderSigningKeysAPI
-	idpId string
+	ctx           context.Context
+	ApiService    IdentityProviderSigningKeysAPI
+	idpId         string
 	validityYears *int32
-	retryCount int32
+	retryCount    int32
 }
 
 // expiry of the IdP key credential
@@ -599,21 +600,22 @@ GenerateIdentityProviderSigningKey Generate a new signing key credential for IdP
 Generates a new X.509 certificate for an identity provider (IdP) signing key credential to be used for signing assertions sent to the IdP. IdP signing keys are read-only.
 > **Note:** To update an IdP with the newly generated key credential, [update your IdP](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/replaceIdentityProvider) using the returned key's `kid` in the [signing credential](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/replaceIdentityProvider!path=protocol/0/credentials/signing/kid&t=request).
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param idpId `id` of IdP
- @return ApiGenerateIdentityProviderSigningKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param idpId `id` of IdP
+	@return ApiGenerateIdentityProviderSigningKeyRequest
 */
 func (a *IdentityProviderSigningKeysAPIService) GenerateIdentityProviderSigningKey(ctx context.Context, idpId string) ApiGenerateIdentityProviderSigningKeyRequest {
 	return ApiGenerateIdentityProviderSigningKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
+		ctx:        ctx,
+		idpId:      idpId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return IdPKeyCredential
+//
+//	@return IdPKeyCredential
 func (a *IdentityProviderSigningKeysAPIService) GenerateIdentityProviderSigningKeyExecute(r ApiGenerateIdentityProviderSigningKeyRequest) (*IdPKeyCredential, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -622,7 +624,7 @@ func (a *IdentityProviderSigningKeysAPIService) GenerateIdentityProviderSigningK
 		localVarReturnValue  *IdPKeyCredential
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -693,9 +695,9 @@ func (a *IdentityProviderSigningKeysAPIService) GenerateIdentityProviderSigningK
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -753,16 +755,16 @@ func (a *IdentityProviderSigningKeysAPIService) GenerateIdentityProviderSigningK
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetCsrForIdentityProviderRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderSigningKeysAPI
-	idpId string
-	idpCsrId string
+	idpId      string
+	idpCsrId   string
 	retryCount int32
 }
 
@@ -775,23 +777,24 @@ GetCsrForIdentityProvider Retrieve a certificate signing request
 
 Retrieves a specific certificate signing request (CSR) by `id`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param idpId `id` of IdP
- @param idpCsrId `id` of the IdP CSR
- @return ApiGetCsrForIdentityProviderRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param idpId `id` of IdP
+	@param idpCsrId `id` of the IdP CSR
+	@return ApiGetCsrForIdentityProviderRequest
 */
 func (a *IdentityProviderSigningKeysAPIService) GetCsrForIdentityProvider(ctx context.Context, idpId string, idpCsrId string) ApiGetCsrForIdentityProviderRequest {
 	return ApiGetCsrForIdentityProviderRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
-		idpCsrId: idpCsrId,
+		ctx:        ctx,
+		idpId:      idpId,
+		idpCsrId:   idpCsrId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return IdPCsr
+//
+//	@return IdPCsr
 func (a *IdentityProviderSigningKeysAPIService) GetCsrForIdentityProviderExecute(r ApiGetCsrForIdentityProviderRequest) (*IdPCsr, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -800,7 +803,7 @@ func (a *IdentityProviderSigningKeysAPIService) GetCsrForIdentityProviderExecute
 		localVarReturnValue  *IdPCsr
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -862,9 +865,9 @@ func (a *IdentityProviderSigningKeysAPIService) GetCsrForIdentityProviderExecute
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -922,16 +925,16 @@ func (a *IdentityProviderSigningKeysAPIService) GetCsrForIdentityProviderExecute
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetIdentityProviderSigningKeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderSigningKeysAPI
-	idpId string
-	kid string
+	idpId      string
+	kid        string
 	retryCount int32
 }
 
@@ -944,23 +947,24 @@ GetIdentityProviderSigningKey Retrieve a signing key credential for IdP
 
 Retrieves a specific identity provider (IdP) key credential by `kid`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param idpId `id` of IdP
- @param kid Unique `id` of the IdP key credential
- @return ApiGetIdentityProviderSigningKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param idpId `id` of IdP
+	@param kid Unique `id` of the IdP key credential
+	@return ApiGetIdentityProviderSigningKeyRequest
 */
 func (a *IdentityProviderSigningKeysAPIService) GetIdentityProviderSigningKey(ctx context.Context, idpId string, kid string) ApiGetIdentityProviderSigningKeyRequest {
 	return ApiGetIdentityProviderSigningKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
-		kid: kid,
+		ctx:        ctx,
+		idpId:      idpId,
+		kid:        kid,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return IdPKeyCredential
+//
+//	@return IdPKeyCredential
 func (a *IdentityProviderSigningKeysAPIService) GetIdentityProviderSigningKeyExecute(r ApiGetIdentityProviderSigningKeyRequest) (*IdPKeyCredential, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -969,7 +973,7 @@ func (a *IdentityProviderSigningKeysAPIService) GetIdentityProviderSigningKeyExe
 		localVarReturnValue  *IdPKeyCredential
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1031,9 +1035,9 @@ func (a *IdentityProviderSigningKeysAPIService) GetIdentityProviderSigningKeyExe
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1091,15 +1095,15 @@ func (a *IdentityProviderSigningKeysAPIService) GetIdentityProviderSigningKeyExe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListActiveIdentityProviderSigningKeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderSigningKeysAPI
-	idpId string
+	idpId      string
 	retryCount int32
 }
 
@@ -1112,21 +1116,22 @@ ListActiveIdentityProviderSigningKey List the active signing key credential for 
 
 Lists the active signing key credential for an identity provider (IdP)
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param idpId `id` of IdP
- @return ApiListActiveIdentityProviderSigningKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param idpId `id` of IdP
+	@return ApiListActiveIdentityProviderSigningKeyRequest
 */
 func (a *IdentityProviderSigningKeysAPIService) ListActiveIdentityProviderSigningKey(ctx context.Context, idpId string) ApiListActiveIdentityProviderSigningKeyRequest {
 	return ApiListActiveIdentityProviderSigningKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
+		ctx:        ctx,
+		idpId:      idpId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []IdPKeyCredential
+//
+//	@return []IdPKeyCredential
 func (a *IdentityProviderSigningKeysAPIService) ListActiveIdentityProviderSigningKeyExecute(r ApiListActiveIdentityProviderSigningKeyRequest) ([]IdPKeyCredential, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1135,7 +1140,7 @@ func (a *IdentityProviderSigningKeysAPIService) ListActiveIdentityProviderSignin
 		localVarReturnValue  []IdPKeyCredential
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1196,9 +1201,9 @@ func (a *IdentityProviderSigningKeysAPIService) ListActiveIdentityProviderSignin
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1232,15 +1237,15 @@ func (a *IdentityProviderSigningKeysAPIService) ListActiveIdentityProviderSignin
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListCsrsForIdentityProviderRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderSigningKeysAPI
-	idpId string
+	idpId      string
 	retryCount int32
 }
 
@@ -1253,21 +1258,22 @@ ListCsrsForIdentityProvider List all certificate signing requests
 
 Lists all certificate signing requests (CSRs) for an identity provider (IdP)
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param idpId `id` of IdP
- @return ApiListCsrsForIdentityProviderRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param idpId `id` of IdP
+	@return ApiListCsrsForIdentityProviderRequest
 */
 func (a *IdentityProviderSigningKeysAPIService) ListCsrsForIdentityProvider(ctx context.Context, idpId string) ApiListCsrsForIdentityProviderRequest {
 	return ApiListCsrsForIdentityProviderRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
+		ctx:        ctx,
+		idpId:      idpId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []IdPCsr
+//
+//	@return []IdPCsr
 func (a *IdentityProviderSigningKeysAPIService) ListCsrsForIdentityProviderExecute(r ApiListCsrsForIdentityProviderRequest) ([]IdPCsr, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1276,7 +1282,7 @@ func (a *IdentityProviderSigningKeysAPIService) ListCsrsForIdentityProviderExecu
 		localVarReturnValue  []IdPCsr
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1337,9 +1343,9 @@ func (a *IdentityProviderSigningKeysAPIService) ListCsrsForIdentityProviderExecu
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1397,15 +1403,15 @@ func (a *IdentityProviderSigningKeysAPIService) ListCsrsForIdentityProviderExecu
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListIdentityProviderSigningKeysRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderSigningKeysAPI
-	idpId string
+	idpId      string
 	retryCount int32
 }
 
@@ -1418,21 +1424,22 @@ ListIdentityProviderSigningKeys List all signing key credentials for IdP
 
 Lists all signing key credentials for an identity provider (IdP)
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param idpId `id` of IdP
- @return ApiListIdentityProviderSigningKeysRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param idpId `id` of IdP
+	@return ApiListIdentityProviderSigningKeysRequest
 */
 func (a *IdentityProviderSigningKeysAPIService) ListIdentityProviderSigningKeys(ctx context.Context, idpId string) ApiListIdentityProviderSigningKeysRequest {
 	return ApiListIdentityProviderSigningKeysRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
+		ctx:        ctx,
+		idpId:      idpId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []IdPKeyCredential
+//
+//	@return []IdPKeyCredential
 func (a *IdentityProviderSigningKeysAPIService) ListIdentityProviderSigningKeysExecute(r ApiListIdentityProviderSigningKeysRequest) ([]IdPKeyCredential, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1441,7 +1448,7 @@ func (a *IdentityProviderSigningKeysAPIService) ListIdentityProviderSigningKeysE
 		localVarReturnValue  []IdPKeyCredential
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1502,9 +1509,9 @@ func (a *IdentityProviderSigningKeysAPIService) ListIdentityProviderSigningKeysE
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1562,17 +1569,17 @@ func (a *IdentityProviderSigningKeysAPIService) ListIdentityProviderSigningKeysE
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiPublishCsrForIdentityProviderRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderSigningKeysAPI
-	idpId string
-	idpCsrId string
-	body **os.File
+	idpId      string
+	idpCsrId   string
+	body       **os.File
 	retryCount int32
 }
 
@@ -1593,23 +1600,24 @@ Publishes the certificate signing request (CSR) with a signed X.509 certificate 
 > * Publishing a certificate completes the lifecycle of the CSR, and it's no longer accessible.
 > * If the validity period of the certificate is less than 90 days, a 400 error response is returned.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param idpId `id` of IdP
- @param idpCsrId `id` of the IdP CSR
- @return ApiPublishCsrForIdentityProviderRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param idpId `id` of IdP
+	@param idpCsrId `id` of the IdP CSR
+	@return ApiPublishCsrForIdentityProviderRequest
 */
 func (a *IdentityProviderSigningKeysAPIService) PublishCsrForIdentityProvider(ctx context.Context, idpId string, idpCsrId string) ApiPublishCsrForIdentityProviderRequest {
 	return ApiPublishCsrForIdentityProviderRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
-		idpCsrId: idpCsrId,
+		ctx:        ctx,
+		idpId:      idpId,
+		idpCsrId:   idpCsrId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return IdPKeyCredential
+//
+//	@return IdPKeyCredential
 func (a *IdentityProviderSigningKeysAPIService) PublishCsrForIdentityProviderExecute(r ApiPublishCsrForIdentityProviderRequest) (*IdPKeyCredential, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1618,7 +1626,7 @@ func (a *IdentityProviderSigningKeysAPIService) PublishCsrForIdentityProviderExe
 		localVarReturnValue  *IdPKeyCredential
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1685,9 +1693,9 @@ func (a *IdentityProviderSigningKeysAPIService) PublishCsrForIdentityProviderExe
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1757,16 +1765,16 @@ func (a *IdentityProviderSigningKeysAPIService) PublishCsrForIdentityProviderExe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiRevokeCsrForIdentityProviderRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderSigningKeysAPI
-	idpId string
-	idpCsrId string
+	idpId      string
+	idpCsrId   string
 	retryCount int32
 }
 
@@ -1779,17 +1787,17 @@ RevokeCsrForIdentityProvider Revoke a certificate signing request
 
 Revokes a certificate signing request (CSR) and deletes the key pair from the identity provider (IdP)
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param idpId `id` of IdP
- @param idpCsrId `id` of the IdP CSR
- @return ApiRevokeCsrForIdentityProviderRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param idpId `id` of IdP
+	@param idpCsrId `id` of the IdP CSR
+	@return ApiRevokeCsrForIdentityProviderRequest
 */
 func (a *IdentityProviderSigningKeysAPIService) RevokeCsrForIdentityProvider(ctx context.Context, idpId string, idpCsrId string) ApiRevokeCsrForIdentityProviderRequest {
 	return ApiRevokeCsrForIdentityProviderRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
-		idpCsrId: idpCsrId,
+		ctx:        ctx,
+		idpId:      idpId,
+		idpCsrId:   idpCsrId,
 		retryCount: 0,
 	}
 }
@@ -1802,7 +1810,7 @@ func (a *IdentityProviderSigningKeysAPIService) RevokeCsrForIdentityProviderExec
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1864,9 +1872,9 @@ func (a *IdentityProviderSigningKeysAPIService) RevokeCsrForIdentityProviderExec
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err

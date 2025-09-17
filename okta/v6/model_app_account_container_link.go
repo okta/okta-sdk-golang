@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the AppAccountContainerLink type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AppAccountContainerLink{}
+
 // AppAccountContainerLink struct for AppAccountContainerLink
 type AppAccountContainerLink struct {
-	Login *HrefObjectAppLink `json:"login,omitempty"`
-	Logo *HrefObjectLogoLink `json:"logo,omitempty"`
+	Login                *HrefObjectAppLink  `json:"login,omitempty"`
+	Logo                 *HrefObjectLogoLink `json:"logo,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewAppAccountContainerLinkWithDefaults() *AppAccountContainerLink {
 
 // GetLogin returns the Login field value if set, zero value otherwise.
 func (o *AppAccountContainerLink) GetLogin() HrefObjectAppLink {
-	if o == nil || o.Login == nil {
+	if o == nil || IsNil(o.Login) {
 		var ret HrefObjectAppLink
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *AppAccountContainerLink) GetLogin() HrefObjectAppLink {
 // GetLoginOk returns a tuple with the Login field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppAccountContainerLink) GetLoginOk() (*HrefObjectAppLink, bool) {
-	if o == nil || o.Login == nil {
+	if o == nil || IsNil(o.Login) {
 		return nil, false
 	}
 	return o.Login, true
@@ -73,7 +76,7 @@ func (o *AppAccountContainerLink) GetLoginOk() (*HrefObjectAppLink, bool) {
 
 // HasLogin returns a boolean if a field has been set.
 func (o *AppAccountContainerLink) HasLogin() bool {
-	if o != nil && o.Login != nil {
+	if o != nil && !IsNil(o.Login) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *AppAccountContainerLink) SetLogin(v HrefObjectAppLink) {
 
 // GetLogo returns the Logo field value if set, zero value otherwise.
 func (o *AppAccountContainerLink) GetLogo() HrefObjectLogoLink {
-	if o == nil || o.Logo == nil {
+	if o == nil || IsNil(o.Logo) {
 		var ret HrefObjectLogoLink
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *AppAccountContainerLink) GetLogo() HrefObjectLogoLink {
 // GetLogoOk returns a tuple with the Logo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppAccountContainerLink) GetLogoOk() (*HrefObjectLogoLink, bool) {
-	if o == nil || o.Logo == nil {
+	if o == nil || IsNil(o.Logo) {
 		return nil, false
 	}
 	return o.Logo, true
@@ -105,7 +108,7 @@ func (o *AppAccountContainerLink) GetLogoOk() (*HrefObjectLogoLink, bool) {
 
 // HasLogo returns a boolean if a field has been set.
 func (o *AppAccountContainerLink) HasLogo() bool {
-	if o != nil && o.Logo != nil {
+	if o != nil && !IsNil(o.Logo) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *AppAccountContainerLink) SetLogo(v HrefObjectLogoLink) {
 }
 
 func (o AppAccountContainerLink) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AppAccountContainerLink) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Login != nil {
+	if !IsNil(o.Login) {
 		toSerialize["login"] = o.Login
 	}
-	if o.Logo != nil {
+	if !IsNil(o.Logo) {
 		toSerialize["logo"] = o.Logo
 	}
 
@@ -130,28 +141,26 @@ func (o AppAccountContainerLink) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AppAccountContainerLink) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AppAccountContainerLink) UnmarshalJSON(data []byte) (err error) {
 	varAppAccountContainerLink := _AppAccountContainerLink{}
 
-	err = json.Unmarshal(bytes, &varAppAccountContainerLink)
-	if err == nil {
-		*o = AppAccountContainerLink(varAppAccountContainerLink)
-	} else {
+	err = json.Unmarshal(data, &varAppAccountContainerLink)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AppAccountContainerLink(varAppAccountContainerLink)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "login")
 		delete(additionalProperties, "logo")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableAppAccountContainerLink) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

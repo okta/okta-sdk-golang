@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the CsrMetadataSubjectAltNames type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CsrMetadataSubjectAltNames{}
+
 // CsrMetadataSubjectAltNames struct for CsrMetadataSubjectAltNames
 type CsrMetadataSubjectAltNames struct {
 	// DNS names of the subject
-	DnsNames []string `json:"dnsNames,omitempty"`
+	DnsNames             []string `json:"dnsNames,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewCsrMetadataSubjectAltNamesWithDefaults() *CsrMetadataSubjectAltNames {
 
 // GetDnsNames returns the DnsNames field value if set, zero value otherwise.
 func (o *CsrMetadataSubjectAltNames) GetDnsNames() []string {
-	if o == nil || o.DnsNames == nil {
+	if o == nil || IsNil(o.DnsNames) {
 		var ret []string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *CsrMetadataSubjectAltNames) GetDnsNames() []string {
 // GetDnsNamesOk returns a tuple with the DnsNames field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CsrMetadataSubjectAltNames) GetDnsNamesOk() ([]string, bool) {
-	if o == nil || o.DnsNames == nil {
+	if o == nil || IsNil(o.DnsNames) {
 		return nil, false
 	}
 	return o.DnsNames, true
@@ -73,7 +76,7 @@ func (o *CsrMetadataSubjectAltNames) GetDnsNamesOk() ([]string, bool) {
 
 // HasDnsNames returns a boolean if a field has been set.
 func (o *CsrMetadataSubjectAltNames) HasDnsNames() bool {
-	if o != nil && o.DnsNames != nil {
+	if o != nil && !IsNil(o.DnsNames) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *CsrMetadataSubjectAltNames) SetDnsNames(v []string) {
 }
 
 func (o CsrMetadataSubjectAltNames) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CsrMetadataSubjectAltNames) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.DnsNames != nil {
+	if !IsNil(o.DnsNames) {
 		toSerialize["dnsNames"] = o.DnsNames
 	}
 
@@ -95,27 +106,25 @@ func (o CsrMetadataSubjectAltNames) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CsrMetadataSubjectAltNames) UnmarshalJSON(bytes []byte) (err error) {
+func (o *CsrMetadataSubjectAltNames) UnmarshalJSON(data []byte) (err error) {
 	varCsrMetadataSubjectAltNames := _CsrMetadataSubjectAltNames{}
 
-	err = json.Unmarshal(bytes, &varCsrMetadataSubjectAltNames)
-	if err == nil {
-		*o = CsrMetadataSubjectAltNames(varCsrMetadataSubjectAltNames)
-	} else {
+	err = json.Unmarshal(data, &varCsrMetadataSubjectAltNames)
+
+	if err != nil {
 		return err
 	}
 
+	*o = CsrMetadataSubjectAltNames(varCsrMetadataSubjectAltNames)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "dnsNames")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableCsrMetadataSubjectAltNames) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

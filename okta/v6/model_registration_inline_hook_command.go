@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the RegistrationInlineHookCommand type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RegistrationInlineHookCommand{}
+
 // RegistrationInlineHookCommand struct for RegistrationInlineHookCommand
 type RegistrationInlineHookCommand struct {
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewRegistrationInlineHookCommandWithDefaults() *RegistrationInlineHookComma
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *RegistrationInlineHookCommand) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *RegistrationInlineHookCommand) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationInlineHookCommand) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -72,7 +75,7 @@ func (o *RegistrationInlineHookCommand) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *RegistrationInlineHookCommand) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *RegistrationInlineHookCommand) SetType(v string) {
 }
 
 func (o RegistrationInlineHookCommand) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RegistrationInlineHookCommand) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -94,27 +105,25 @@ func (o RegistrationInlineHookCommand) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RegistrationInlineHookCommand) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RegistrationInlineHookCommand) UnmarshalJSON(data []byte) (err error) {
 	varRegistrationInlineHookCommand := _RegistrationInlineHookCommand{}
 
-	err = json.Unmarshal(bytes, &varRegistrationInlineHookCommand)
-	if err == nil {
-		*o = RegistrationInlineHookCommand(varRegistrationInlineHookCommand)
-	} else {
+	err = json.Unmarshal(data, &varRegistrationInlineHookCommand)
+
+	if err != nil {
 		return err
 	}
 
+	*o = RegistrationInlineHookCommand(varRegistrationInlineHookCommand)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableRegistrationInlineHookCommand) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

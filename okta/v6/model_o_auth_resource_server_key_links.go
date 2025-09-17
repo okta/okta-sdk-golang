@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the OAuthResourceServerKeyLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OAuthResourceServerKeyLinks{}
+
 // OAuthResourceServerKeyLinks Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available for the current status of a JSON Web Key using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification. This object is used for dynamic discovery of related resources and lifecycle operations.
 type OAuthResourceServerKeyLinks struct {
-	Activate *HrefObjectActivateLink `json:"activate,omitempty"`
-	Delete *HrefObjectDeleteLink `json:"delete,omitempty"`
+	Activate             *HrefObjectActivateLink `json:"activate,omitempty"`
+	Delete               *HrefObjectDeleteLink   `json:"delete,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewOAuthResourceServerKeyLinksWithDefaults() *OAuthResourceServerKeyLinks {
 
 // GetActivate returns the Activate field value if set, zero value otherwise.
 func (o *OAuthResourceServerKeyLinks) GetActivate() HrefObjectActivateLink {
-	if o == nil || o.Activate == nil {
+	if o == nil || IsNil(o.Activate) {
 		var ret HrefObjectActivateLink
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *OAuthResourceServerKeyLinks) GetActivate() HrefObjectActivateLink {
 // GetActivateOk returns a tuple with the Activate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthResourceServerKeyLinks) GetActivateOk() (*HrefObjectActivateLink, bool) {
-	if o == nil || o.Activate == nil {
+	if o == nil || IsNil(o.Activate) {
 		return nil, false
 	}
 	return o.Activate, true
@@ -73,7 +76,7 @@ func (o *OAuthResourceServerKeyLinks) GetActivateOk() (*HrefObjectActivateLink, 
 
 // HasActivate returns a boolean if a field has been set.
 func (o *OAuthResourceServerKeyLinks) HasActivate() bool {
-	if o != nil && o.Activate != nil {
+	if o != nil && !IsNil(o.Activate) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *OAuthResourceServerKeyLinks) SetActivate(v HrefObjectActivateLink) {
 
 // GetDelete returns the Delete field value if set, zero value otherwise.
 func (o *OAuthResourceServerKeyLinks) GetDelete() HrefObjectDeleteLink {
-	if o == nil || o.Delete == nil {
+	if o == nil || IsNil(o.Delete) {
 		var ret HrefObjectDeleteLink
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *OAuthResourceServerKeyLinks) GetDelete() HrefObjectDeleteLink {
 // GetDeleteOk returns a tuple with the Delete field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthResourceServerKeyLinks) GetDeleteOk() (*HrefObjectDeleteLink, bool) {
-	if o == nil || o.Delete == nil {
+	if o == nil || IsNil(o.Delete) {
 		return nil, false
 	}
 	return o.Delete, true
@@ -105,7 +108,7 @@ func (o *OAuthResourceServerKeyLinks) GetDeleteOk() (*HrefObjectDeleteLink, bool
 
 // HasDelete returns a boolean if a field has been set.
 func (o *OAuthResourceServerKeyLinks) HasDelete() bool {
-	if o != nil && o.Delete != nil {
+	if o != nil && !IsNil(o.Delete) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *OAuthResourceServerKeyLinks) SetDelete(v HrefObjectDeleteLink) {
 }
 
 func (o OAuthResourceServerKeyLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OAuthResourceServerKeyLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Activate != nil {
+	if !IsNil(o.Activate) {
 		toSerialize["activate"] = o.Activate
 	}
-	if o.Delete != nil {
+	if !IsNil(o.Delete) {
 		toSerialize["delete"] = o.Delete
 	}
 
@@ -130,28 +141,26 @@ func (o OAuthResourceServerKeyLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OAuthResourceServerKeyLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OAuthResourceServerKeyLinks) UnmarshalJSON(data []byte) (err error) {
 	varOAuthResourceServerKeyLinks := _OAuthResourceServerKeyLinks{}
 
-	err = json.Unmarshal(bytes, &varOAuthResourceServerKeyLinks)
-	if err == nil {
-		*o = OAuthResourceServerKeyLinks(varOAuthResourceServerKeyLinks)
-	} else {
+	err = json.Unmarshal(data, &varOAuthResourceServerKeyLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OAuthResourceServerKeyLinks(varOAuthResourceServerKeyLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "activate")
 		delete(additionalProperties, "delete")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableOAuthResourceServerKeyLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

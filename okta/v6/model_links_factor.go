@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the LinksFactor type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LinksFactor{}
+
 // LinksFactor struct for LinksFactor
 type LinksFactor struct {
 	// Link to the factor resource
-	Factor *HrefObject `json:"factor,omitempty"`
+	Factor               *HrefObject `json:"factor,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewLinksFactorWithDefaults() *LinksFactor {
 
 // GetFactor returns the Factor field value if set, zero value otherwise.
 func (o *LinksFactor) GetFactor() HrefObject {
-	if o == nil || o.Factor == nil {
+	if o == nil || IsNil(o.Factor) {
 		var ret HrefObject
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *LinksFactor) GetFactor() HrefObject {
 // GetFactorOk returns a tuple with the Factor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksFactor) GetFactorOk() (*HrefObject, bool) {
-	if o == nil || o.Factor == nil {
+	if o == nil || IsNil(o.Factor) {
 		return nil, false
 	}
 	return o.Factor, true
@@ -73,7 +76,7 @@ func (o *LinksFactor) GetFactorOk() (*HrefObject, bool) {
 
 // HasFactor returns a boolean if a field has been set.
 func (o *LinksFactor) HasFactor() bool {
-	if o != nil && o.Factor != nil {
+	if o != nil && !IsNil(o.Factor) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *LinksFactor) SetFactor(v HrefObject) {
 }
 
 func (o LinksFactor) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LinksFactor) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Factor != nil {
+	if !IsNil(o.Factor) {
 		toSerialize["factor"] = o.Factor
 	}
 
@@ -95,27 +106,25 @@ func (o LinksFactor) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LinksFactor) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LinksFactor) UnmarshalJSON(data []byte) (err error) {
 	varLinksFactor := _LinksFactor{}
 
-	err = json.Unmarshal(bytes, &varLinksFactor)
-	if err == nil {
-		*o = LinksFactor(varLinksFactor)
-	} else {
+	err = json.Unmarshal(data, &varLinksFactor)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LinksFactor(varLinksFactor)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "factor")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableLinksFactor) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

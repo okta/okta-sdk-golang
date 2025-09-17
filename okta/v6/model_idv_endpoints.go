@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the IDVEndpoints type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IDVEndpoints{}
+
 // IDVEndpoints Contains the endpoints for the IDV
 type IDVEndpoints struct {
-	Authorization *IDVAuthorizationEndpoint `json:"authorization,omitempty"`
-	Par *IDVParEndpoint `json:"par,omitempty"`
-	Token *IDVTokenEndpoint `json:"token,omitempty"`
+	Authorization        *IDVAuthorizationEndpoint `json:"authorization,omitempty"`
+	Par                  *IDVParEndpoint           `json:"par,omitempty"`
+	Token                *IDVTokenEndpoint         `json:"token,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewIDVEndpointsWithDefaults() *IDVEndpoints {
 
 // GetAuthorization returns the Authorization field value if set, zero value otherwise.
 func (o *IDVEndpoints) GetAuthorization() IDVAuthorizationEndpoint {
-	if o == nil || o.Authorization == nil {
+	if o == nil || IsNil(o.Authorization) {
 		var ret IDVAuthorizationEndpoint
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *IDVEndpoints) GetAuthorization() IDVAuthorizationEndpoint {
 // GetAuthorizationOk returns a tuple with the Authorization field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IDVEndpoints) GetAuthorizationOk() (*IDVAuthorizationEndpoint, bool) {
-	if o == nil || o.Authorization == nil {
+	if o == nil || IsNil(o.Authorization) {
 		return nil, false
 	}
 	return o.Authorization, true
@@ -74,7 +77,7 @@ func (o *IDVEndpoints) GetAuthorizationOk() (*IDVAuthorizationEndpoint, bool) {
 
 // HasAuthorization returns a boolean if a field has been set.
 func (o *IDVEndpoints) HasAuthorization() bool {
-	if o != nil && o.Authorization != nil {
+	if o != nil && !IsNil(o.Authorization) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *IDVEndpoints) SetAuthorization(v IDVAuthorizationEndpoint) {
 
 // GetPar returns the Par field value if set, zero value otherwise.
 func (o *IDVEndpoints) GetPar() IDVParEndpoint {
-	if o == nil || o.Par == nil {
+	if o == nil || IsNil(o.Par) {
 		var ret IDVParEndpoint
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *IDVEndpoints) GetPar() IDVParEndpoint {
 // GetParOk returns a tuple with the Par field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IDVEndpoints) GetParOk() (*IDVParEndpoint, bool) {
-	if o == nil || o.Par == nil {
+	if o == nil || IsNil(o.Par) {
 		return nil, false
 	}
 	return o.Par, true
@@ -106,7 +109,7 @@ func (o *IDVEndpoints) GetParOk() (*IDVParEndpoint, bool) {
 
 // HasPar returns a boolean if a field has been set.
 func (o *IDVEndpoints) HasPar() bool {
-	if o != nil && o.Par != nil {
+	if o != nil && !IsNil(o.Par) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *IDVEndpoints) SetPar(v IDVParEndpoint) {
 
 // GetToken returns the Token field value if set, zero value otherwise.
 func (o *IDVEndpoints) GetToken() IDVTokenEndpoint {
-	if o == nil || o.Token == nil {
+	if o == nil || IsNil(o.Token) {
 		var ret IDVTokenEndpoint
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *IDVEndpoints) GetToken() IDVTokenEndpoint {
 // GetTokenOk returns a tuple with the Token field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IDVEndpoints) GetTokenOk() (*IDVTokenEndpoint, bool) {
-	if o == nil || o.Token == nil {
+	if o == nil || IsNil(o.Token) {
 		return nil, false
 	}
 	return o.Token, true
@@ -138,7 +141,7 @@ func (o *IDVEndpoints) GetTokenOk() (*IDVTokenEndpoint, bool) {
 
 // HasToken returns a boolean if a field has been set.
 func (o *IDVEndpoints) HasToken() bool {
-	if o != nil && o.Token != nil {
+	if o != nil && !IsNil(o.Token) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *IDVEndpoints) SetToken(v IDVTokenEndpoint) {
 }
 
 func (o IDVEndpoints) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IDVEndpoints) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Authorization != nil {
+	if !IsNil(o.Authorization) {
 		toSerialize["authorization"] = o.Authorization
 	}
-	if o.Par != nil {
+	if !IsNil(o.Par) {
 		toSerialize["par"] = o.Par
 	}
-	if o.Token != nil {
+	if !IsNil(o.Token) {
 		toSerialize["token"] = o.Token
 	}
 
@@ -166,29 +177,27 @@ func (o IDVEndpoints) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *IDVEndpoints) UnmarshalJSON(bytes []byte) (err error) {
+func (o *IDVEndpoints) UnmarshalJSON(data []byte) (err error) {
 	varIDVEndpoints := _IDVEndpoints{}
 
-	err = json.Unmarshal(bytes, &varIDVEndpoints)
-	if err == nil {
-		*o = IDVEndpoints(varIDVEndpoints)
-	} else {
+	err = json.Unmarshal(data, &varIDVEndpoints)
+
+	if err != nil {
 		return err
 	}
 
+	*o = IDVEndpoints(varIDVEndpoints)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "authorization")
 		delete(additionalProperties, "par")
 		delete(additionalProperties, "token")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullableIDVEndpoints) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

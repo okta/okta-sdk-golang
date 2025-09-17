@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the RegistrationResponseErrorErrorCausesInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RegistrationResponseErrorErrorCausesInner{}
+
 // RegistrationResponseErrorErrorCausesInner struct for RegistrationResponseErrorErrorCausesInner
 type RegistrationResponseErrorErrorCausesInner struct {
 	// Human-readable summary of the error.
@@ -38,7 +41,7 @@ type RegistrationResponseErrorErrorCausesInner struct {
 	// The valid JSON path to the location of the error. For example, if there was an error in the user's `login` field, the `location` might be `data.userProfile.login`.
 	Location *string `json:"location,omitempty"`
 	// Indicates the source of the error. If the error was in the user's profile, for example, you might use `end-user`. If the error occurred in the external service, you might use `external-service`.
-	Domain *string `json:"domain,omitempty"`
+	Domain               *string `json:"domain,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -63,7 +66,7 @@ func NewRegistrationResponseErrorErrorCausesInnerWithDefaults() *RegistrationRes
 
 // GetErrorSummary returns the ErrorSummary field value if set, zero value otherwise.
 func (o *RegistrationResponseErrorErrorCausesInner) GetErrorSummary() string {
-	if o == nil || o.ErrorSummary == nil {
+	if o == nil || IsNil(o.ErrorSummary) {
 		var ret string
 		return ret
 	}
@@ -73,7 +76,7 @@ func (o *RegistrationResponseErrorErrorCausesInner) GetErrorSummary() string {
 // GetErrorSummaryOk returns a tuple with the ErrorSummary field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationResponseErrorErrorCausesInner) GetErrorSummaryOk() (*string, bool) {
-	if o == nil || o.ErrorSummary == nil {
+	if o == nil || IsNil(o.ErrorSummary) {
 		return nil, false
 	}
 	return o.ErrorSummary, true
@@ -81,7 +84,7 @@ func (o *RegistrationResponseErrorErrorCausesInner) GetErrorSummaryOk() (*string
 
 // HasErrorSummary returns a boolean if a field has been set.
 func (o *RegistrationResponseErrorErrorCausesInner) HasErrorSummary() bool {
-	if o != nil && o.ErrorSummary != nil {
+	if o != nil && !IsNil(o.ErrorSummary) {
 		return true
 	}
 
@@ -95,7 +98,7 @@ func (o *RegistrationResponseErrorErrorCausesInner) SetErrorSummary(v string) {
 
 // GetReason returns the Reason field value if set, zero value otherwise.
 func (o *RegistrationResponseErrorErrorCausesInner) GetReason() string {
-	if o == nil || o.Reason == nil {
+	if o == nil || IsNil(o.Reason) {
 		var ret string
 		return ret
 	}
@@ -105,7 +108,7 @@ func (o *RegistrationResponseErrorErrorCausesInner) GetReason() string {
 // GetReasonOk returns a tuple with the Reason field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationResponseErrorErrorCausesInner) GetReasonOk() (*string, bool) {
-	if o == nil || o.Reason == nil {
+	if o == nil || IsNil(o.Reason) {
 		return nil, false
 	}
 	return o.Reason, true
@@ -113,7 +116,7 @@ func (o *RegistrationResponseErrorErrorCausesInner) GetReasonOk() (*string, bool
 
 // HasReason returns a boolean if a field has been set.
 func (o *RegistrationResponseErrorErrorCausesInner) HasReason() bool {
-	if o != nil && o.Reason != nil {
+	if o != nil && !IsNil(o.Reason) {
 		return true
 	}
 
@@ -127,7 +130,7 @@ func (o *RegistrationResponseErrorErrorCausesInner) SetReason(v string) {
 
 // GetLocationType returns the LocationType field value if set, zero value otherwise.
 func (o *RegistrationResponseErrorErrorCausesInner) GetLocationType() string {
-	if o == nil || o.LocationType == nil {
+	if o == nil || IsNil(o.LocationType) {
 		var ret string
 		return ret
 	}
@@ -137,7 +140,7 @@ func (o *RegistrationResponseErrorErrorCausesInner) GetLocationType() string {
 // GetLocationTypeOk returns a tuple with the LocationType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationResponseErrorErrorCausesInner) GetLocationTypeOk() (*string, bool) {
-	if o == nil || o.LocationType == nil {
+	if o == nil || IsNil(o.LocationType) {
 		return nil, false
 	}
 	return o.LocationType, true
@@ -145,7 +148,7 @@ func (o *RegistrationResponseErrorErrorCausesInner) GetLocationTypeOk() (*string
 
 // HasLocationType returns a boolean if a field has been set.
 func (o *RegistrationResponseErrorErrorCausesInner) HasLocationType() bool {
-	if o != nil && o.LocationType != nil {
+	if o != nil && !IsNil(o.LocationType) {
 		return true
 	}
 
@@ -159,7 +162,7 @@ func (o *RegistrationResponseErrorErrorCausesInner) SetLocationType(v string) {
 
 // GetLocation returns the Location field value if set, zero value otherwise.
 func (o *RegistrationResponseErrorErrorCausesInner) GetLocation() string {
-	if o == nil || o.Location == nil {
+	if o == nil || IsNil(o.Location) {
 		var ret string
 		return ret
 	}
@@ -169,7 +172,7 @@ func (o *RegistrationResponseErrorErrorCausesInner) GetLocation() string {
 // GetLocationOk returns a tuple with the Location field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationResponseErrorErrorCausesInner) GetLocationOk() (*string, bool) {
-	if o == nil || o.Location == nil {
+	if o == nil || IsNil(o.Location) {
 		return nil, false
 	}
 	return o.Location, true
@@ -177,7 +180,7 @@ func (o *RegistrationResponseErrorErrorCausesInner) GetLocationOk() (*string, bo
 
 // HasLocation returns a boolean if a field has been set.
 func (o *RegistrationResponseErrorErrorCausesInner) HasLocation() bool {
-	if o != nil && o.Location != nil {
+	if o != nil && !IsNil(o.Location) {
 		return true
 	}
 
@@ -191,7 +194,7 @@ func (o *RegistrationResponseErrorErrorCausesInner) SetLocation(v string) {
 
 // GetDomain returns the Domain field value if set, zero value otherwise.
 func (o *RegistrationResponseErrorErrorCausesInner) GetDomain() string {
-	if o == nil || o.Domain == nil {
+	if o == nil || IsNil(o.Domain) {
 		var ret string
 		return ret
 	}
@@ -201,7 +204,7 @@ func (o *RegistrationResponseErrorErrorCausesInner) GetDomain() string {
 // GetDomainOk returns a tuple with the Domain field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationResponseErrorErrorCausesInner) GetDomainOk() (*string, bool) {
-	if o == nil || o.Domain == nil {
+	if o == nil || IsNil(o.Domain) {
 		return nil, false
 	}
 	return o.Domain, true
@@ -209,7 +212,7 @@ func (o *RegistrationResponseErrorErrorCausesInner) GetDomainOk() (*string, bool
 
 // HasDomain returns a boolean if a field has been set.
 func (o *RegistrationResponseErrorErrorCausesInner) HasDomain() bool {
-	if o != nil && o.Domain != nil {
+	if o != nil && !IsNil(o.Domain) {
 		return true
 	}
 
@@ -222,20 +225,28 @@ func (o *RegistrationResponseErrorErrorCausesInner) SetDomain(v string) {
 }
 
 func (o RegistrationResponseErrorErrorCausesInner) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RegistrationResponseErrorErrorCausesInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ErrorSummary != nil {
+	if !IsNil(o.ErrorSummary) {
 		toSerialize["errorSummary"] = o.ErrorSummary
 	}
-	if o.Reason != nil {
+	if !IsNil(o.Reason) {
 		toSerialize["reason"] = o.Reason
 	}
-	if o.LocationType != nil {
+	if !IsNil(o.LocationType) {
 		toSerialize["locationType"] = o.LocationType
 	}
-	if o.Location != nil {
+	if !IsNil(o.Location) {
 		toSerialize["location"] = o.Location
 	}
-	if o.Domain != nil {
+	if !IsNil(o.Domain) {
 		toSerialize["domain"] = o.Domain
 	}
 
@@ -243,31 +254,29 @@ func (o RegistrationResponseErrorErrorCausesInner) MarshalJSON() ([]byte, error)
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RegistrationResponseErrorErrorCausesInner) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RegistrationResponseErrorErrorCausesInner) UnmarshalJSON(data []byte) (err error) {
 	varRegistrationResponseErrorErrorCausesInner := _RegistrationResponseErrorErrorCausesInner{}
 
-	err = json.Unmarshal(bytes, &varRegistrationResponseErrorErrorCausesInner)
-	if err == nil {
-		*o = RegistrationResponseErrorErrorCausesInner(varRegistrationResponseErrorErrorCausesInner)
-	} else {
+	err = json.Unmarshal(data, &varRegistrationResponseErrorErrorCausesInner)
+
+	if err != nil {
 		return err
 	}
 
+	*o = RegistrationResponseErrorErrorCausesInner(varRegistrationResponseErrorErrorCausesInner)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "errorSummary")
 		delete(additionalProperties, "reason")
 		delete(additionalProperties, "locationType")
 		delete(additionalProperties, "location")
 		delete(additionalProperties, "domain")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -308,4 +317,3 @@ func (v *NullableRegistrationResponseErrorErrorCausesInner) UnmarshalJSON(src []
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

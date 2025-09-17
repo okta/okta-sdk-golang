@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -29,13 +29,16 @@ import (
 	"strings"
 )
 
+// checks if the UserFactorTokenHardware type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserFactorTokenHardware{}
+
 // UserFactorTokenHardware struct for UserFactorTokenHardware
 type UserFactorTokenHardware struct {
 	UserFactor
-	FactorType interface{} `json:"factorType,omitempty"`
-	Profile *UserFactorTokenProfile `json:"profile,omitempty"`
-	Provider *string `json:"provider,omitempty"`
-	Verify *UserFactorTokenHardwareAllOfVerify `json:"verify,omitempty"`
+	FactorType           interface{}                         `json:"factorType,omitempty"`
+	Profile              *UserFactorTokenProfile             `json:"profile,omitempty"`
+	Provider             *string                             `json:"provider,omitempty"`
+	Verify               *UserFactorTokenHardwareAllOfVerify `json:"verify,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -71,7 +74,7 @@ func (o *UserFactorTokenHardware) GetFactorType() interface{} {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UserFactorTokenHardware) GetFactorTypeOk() (*interface{}, bool) {
-	if o == nil || o.FactorType == nil {
+	if o == nil || IsNil(o.FactorType) {
 		return nil, false
 	}
 	return &o.FactorType, true
@@ -79,7 +82,7 @@ func (o *UserFactorTokenHardware) GetFactorTypeOk() (*interface{}, bool) {
 
 // HasFactorType returns a boolean if a field has been set.
 func (o *UserFactorTokenHardware) HasFactorType() bool {
-	if o != nil && o.FactorType != nil {
+	if o != nil && !IsNil(o.FactorType) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *UserFactorTokenHardware) SetFactorType(v interface{}) {
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *UserFactorTokenHardware) GetProfile() UserFactorTokenProfile {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret UserFactorTokenProfile
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *UserFactorTokenHardware) GetProfile() UserFactorTokenProfile {
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorTokenHardware) GetProfileOk() (*UserFactorTokenProfile, bool) {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		return nil, false
 	}
 	return o.Profile, true
@@ -111,7 +114,7 @@ func (o *UserFactorTokenHardware) GetProfileOk() (*UserFactorTokenProfile, bool)
 
 // HasProfile returns a boolean if a field has been set.
 func (o *UserFactorTokenHardware) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *UserFactorTokenHardware) SetProfile(v UserFactorTokenProfile) {
 
 // GetProvider returns the Provider field value if set, zero value otherwise.
 func (o *UserFactorTokenHardware) GetProvider() string {
-	if o == nil || o.Provider == nil {
+	if o == nil || IsNil(o.Provider) {
 		var ret string
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *UserFactorTokenHardware) GetProvider() string {
 // GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorTokenHardware) GetProviderOk() (*string, bool) {
-	if o == nil || o.Provider == nil {
+	if o == nil || IsNil(o.Provider) {
 		return nil, false
 	}
 	return o.Provider, true
@@ -143,7 +146,7 @@ func (o *UserFactorTokenHardware) GetProviderOk() (*string, bool) {
 
 // HasProvider returns a boolean if a field has been set.
 func (o *UserFactorTokenHardware) HasProvider() bool {
-	if o != nil && o.Provider != nil {
+	if o != nil && !IsNil(o.Provider) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *UserFactorTokenHardware) SetProvider(v string) {
 
 // GetVerify returns the Verify field value if set, zero value otherwise.
 func (o *UserFactorTokenHardware) GetVerify() UserFactorTokenHardwareAllOfVerify {
-	if o == nil || o.Verify == nil {
+	if o == nil || IsNil(o.Verify) {
 		var ret UserFactorTokenHardwareAllOfVerify
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *UserFactorTokenHardware) GetVerify() UserFactorTokenHardwareAllOfVerify
 // GetVerifyOk returns a tuple with the Verify field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorTokenHardware) GetVerifyOk() (*UserFactorTokenHardwareAllOfVerify, bool) {
-	if o == nil || o.Verify == nil {
+	if o == nil || IsNil(o.Verify) {
 		return nil, false
 	}
 	return o.Verify, true
@@ -175,7 +178,7 @@ func (o *UserFactorTokenHardware) GetVerifyOk() (*UserFactorTokenHardwareAllOfVe
 
 // HasVerify returns a boolean if a field has been set.
 func (o *UserFactorTokenHardware) HasVerify() bool {
-	if o != nil && o.Verify != nil {
+	if o != nil && !IsNil(o.Verify) {
 		return true
 	}
 
@@ -188,25 +191,33 @@ func (o *UserFactorTokenHardware) SetVerify(v UserFactorTokenHardwareAllOfVerify
 }
 
 func (o UserFactorTokenHardware) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserFactorTokenHardware) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedUserFactor, errUserFactor := json.Marshal(o.UserFactor)
 	if errUserFactor != nil {
-		return []byte{}, errUserFactor
+		return map[string]interface{}{}, errUserFactor
 	}
 	errUserFactor = json.Unmarshal([]byte(serializedUserFactor), &toSerialize)
 	if errUserFactor != nil {
-		return []byte{}, errUserFactor
+		return map[string]interface{}{}, errUserFactor
 	}
 	if o.FactorType != nil {
 		toSerialize["factorType"] = o.FactorType
 	}
-	if o.Profile != nil {
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
-	if o.Provider != nil {
+	if !IsNil(o.Provider) {
 		toSerialize["provider"] = o.Provider
 	}
-	if o.Verify != nil {
+	if !IsNil(o.Verify) {
 		toSerialize["verify"] = o.Verify
 	}
 
@@ -214,20 +225,20 @@ func (o UserFactorTokenHardware) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserFactorTokenHardware) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserFactorTokenHardware) UnmarshalJSON(data []byte) (err error) {
 	type UserFactorTokenHardwareWithoutEmbeddedStruct struct {
-		FactorType interface{} `json:"factorType,omitempty"`
-		Profile *UserFactorTokenProfile `json:"profile,omitempty"`
-		Provider *string `json:"provider,omitempty"`
-		Verify *UserFactorTokenHardwareAllOfVerify `json:"verify,omitempty"`
+		FactorType interface{}                         `json:"factorType,omitempty"`
+		Profile    *UserFactorTokenProfile             `json:"profile,omitempty"`
+		Provider   *string                             `json:"provider,omitempty"`
+		Verify     *UserFactorTokenHardwareAllOfVerify `json:"verify,omitempty"`
 	}
 
 	varUserFactorTokenHardwareWithoutEmbeddedStruct := UserFactorTokenHardwareWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varUserFactorTokenHardwareWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varUserFactorTokenHardwareWithoutEmbeddedStruct)
 	if err == nil {
 		varUserFactorTokenHardware := _UserFactorTokenHardware{}
 		varUserFactorTokenHardware.FactorType = varUserFactorTokenHardwareWithoutEmbeddedStruct.FactorType
@@ -241,7 +252,7 @@ func (o *UserFactorTokenHardware) UnmarshalJSON(bytes []byte) (err error) {
 
 	varUserFactorTokenHardware := _UserFactorTokenHardware{}
 
-	err = json.Unmarshal(bytes, &varUserFactorTokenHardware)
+	err = json.Unmarshal(data, &varUserFactorTokenHardware)
 	if err == nil {
 		o.UserFactor = varUserFactorTokenHardware.UserFactor
 	} else {
@@ -250,8 +261,7 @@ func (o *UserFactorTokenHardware) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "factorType")
 		delete(additionalProperties, "profile")
 		delete(additionalProperties, "provider")
@@ -276,8 +286,6 @@ func (o *UserFactorTokenHardware) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -318,4 +326,3 @@ func (v *NullableUserFactorTokenHardware) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

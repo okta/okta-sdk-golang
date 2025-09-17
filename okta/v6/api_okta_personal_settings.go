@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,22 +26,21 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"time"
 )
 
-
 type OktaPersonalSettingsAPI interface {
 
 	/*
-	ListPersonalAppsExportBlockList List all blocked email domains
+		ListPersonalAppsExportBlockList List all blocked email domains
 
-	Lists all blocked email domains which are excluded from app migration
+		Lists all blocked email domains which are excluded from app migration
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListPersonalAppsExportBlockListRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListPersonalAppsExportBlockListRequest
 	*/
 	ListPersonalAppsExportBlockList(ctx context.Context) ApiListPersonalAppsExportBlockListRequest
 
@@ -50,12 +49,12 @@ type OktaPersonalSettingsAPI interface {
 	ListPersonalAppsExportBlockListExecute(r ApiListPersonalAppsExportBlockListRequest) (*PersonalAppsBlockList, *APIResponse, error)
 
 	/*
-	ReplaceBlockedEmailDomains Replace the blocked email domains
+		ReplaceBlockedEmailDomains Replace the blocked email domains
 
-	Replaces the list of blocked email domains which are excluded from app migration
+		Replaces the list of blocked email domains which are excluded from app migration
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiReplaceBlockedEmailDomainsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiReplaceBlockedEmailDomainsRequest
 	*/
 	ReplaceBlockedEmailDomains(ctx context.Context) ApiReplaceBlockedEmailDomainsRequest
 
@@ -63,12 +62,12 @@ type OktaPersonalSettingsAPI interface {
 	ReplaceBlockedEmailDomainsExecute(r ApiReplaceBlockedEmailDomainsRequest) (*APIResponse, error)
 
 	/*
-	ReplaceOktaPersonalAdminSettings Replace the Okta Personal admin settings
+		ReplaceOktaPersonalAdminSettings Replace the Okta Personal admin settings
 
-	Replaces Okta Personal admin settings in a Workforce org
+		Replaces Okta Personal admin settings in a Workforce org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiReplaceOktaPersonalAdminSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiReplaceOktaPersonalAdminSettingsRequest
 	*/
 	ReplaceOktaPersonalAdminSettings(ctx context.Context) ApiReplaceOktaPersonalAdminSettingsRequest
 
@@ -80,7 +79,7 @@ type OktaPersonalSettingsAPI interface {
 type OktaPersonalSettingsAPIService service
 
 type ApiListPersonalAppsExportBlockListRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OktaPersonalSettingsAPI
 	retryCount int32
 }
@@ -94,19 +93,20 @@ ListPersonalAppsExportBlockList List all blocked email domains
 
 Lists all blocked email domains which are excluded from app migration
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListPersonalAppsExportBlockListRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListPersonalAppsExportBlockListRequest
 */
 func (a *OktaPersonalSettingsAPIService) ListPersonalAppsExportBlockList(ctx context.Context) ApiListPersonalAppsExportBlockListRequest {
 	return ApiListPersonalAppsExportBlockListRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return PersonalAppsBlockList
+//
+//	@return PersonalAppsBlockList
 func (a *OktaPersonalSettingsAPIService) ListPersonalAppsExportBlockListExecute(r ApiListPersonalAppsExportBlockListRequest) (*PersonalAppsBlockList, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -115,7 +115,7 @@ func (a *OktaPersonalSettingsAPIService) ListPersonalAppsExportBlockListExecute(
 		localVarReturnValue  *PersonalAppsBlockList
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -175,9 +175,9 @@ func (a *OktaPersonalSettingsAPIService) ListPersonalAppsExportBlockListExecute(
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -235,16 +235,16 @@ func (a *OktaPersonalSettingsAPIService) ListPersonalAppsExportBlockListExecute(
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceBlockedEmailDomainsRequest struct {
-	ctx context.Context
-	ApiService OktaPersonalSettingsAPI
+	ctx                   context.Context
+	ApiService            OktaPersonalSettingsAPI
 	personalAppsBlockList *PersonalAppsBlockList
-	retryCount int32
+	retryCount            int32
 }
 
 func (r ApiReplaceBlockedEmailDomainsRequest) PersonalAppsBlockList(personalAppsBlockList PersonalAppsBlockList) ApiReplaceBlockedEmailDomainsRequest {
@@ -261,13 +261,13 @@ ReplaceBlockedEmailDomains Replace the blocked email domains
 
 Replaces the list of blocked email domains which are excluded from app migration
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiReplaceBlockedEmailDomainsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiReplaceBlockedEmailDomainsRequest
 */
 func (a *OktaPersonalSettingsAPIService) ReplaceBlockedEmailDomains(ctx context.Context) ApiReplaceBlockedEmailDomainsRequest {
 	return ApiReplaceBlockedEmailDomainsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -280,7 +280,7 @@ func (a *OktaPersonalSettingsAPIService) ReplaceBlockedEmailDomainsExecute(r Api
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -345,9 +345,9 @@ func (a *OktaPersonalSettingsAPIService) ReplaceBlockedEmailDomainsExecute(r Api
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -401,10 +401,10 @@ func (a *OktaPersonalSettingsAPIService) ReplaceBlockedEmailDomainsExecute(r Api
 }
 
 type ApiReplaceOktaPersonalAdminSettingsRequest struct {
-	ctx context.Context
-	ApiService OktaPersonalSettingsAPI
+	ctx                              context.Context
+	ApiService                       OktaPersonalSettingsAPI
 	oktaPersonalAdminFeatureSettings *OktaPersonalAdminFeatureSettings
-	retryCount int32
+	retryCount                       int32
 }
 
 func (r ApiReplaceOktaPersonalAdminSettingsRequest) OktaPersonalAdminFeatureSettings(oktaPersonalAdminFeatureSettings OktaPersonalAdminFeatureSettings) ApiReplaceOktaPersonalAdminSettingsRequest {
@@ -421,13 +421,13 @@ ReplaceOktaPersonalAdminSettings Replace the Okta Personal admin settings
 
 Replaces Okta Personal admin settings in a Workforce org
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiReplaceOktaPersonalAdminSettingsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiReplaceOktaPersonalAdminSettingsRequest
 */
 func (a *OktaPersonalSettingsAPIService) ReplaceOktaPersonalAdminSettings(ctx context.Context) ApiReplaceOktaPersonalAdminSettingsRequest {
 	return ApiReplaceOktaPersonalAdminSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -440,7 +440,7 @@ func (a *OktaPersonalSettingsAPIService) ReplaceOktaPersonalAdminSettingsExecute
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -505,9 +505,9 @@ func (a *OktaPersonalSettingsAPIService) ReplaceOktaPersonalAdminSettingsExecute
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err

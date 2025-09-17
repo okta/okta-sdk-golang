@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints{}
+
 // AuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints Constraints for the authenticator
 type AuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints struct {
 	// The list of FIDO2 WebAuthn authenticator groups allowed for enrollment. The authenticators in the group are based on FIDO Alliance Metadata Service that's identified by name or the Authenticator Attestation Global Unique Identifier ([AAGUID](https://support.yubico.com/hc/en-us/articles/360016648959-YubiKey-Hardware-FIDO2-AAGUIDs)) number. These groups are defined in the [WebAuthn authenticator method settings](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Authenticator/#tag/Authenticator/operation/listAuthenticatorMethods).
-	AaguidGroups []string `json:"aaguidGroups,omitempty"`
+	AaguidGroups         []string `json:"aaguidGroups,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewAuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraintsWithDefault
 
 // GetAaguidGroups returns the AaguidGroups field value if set, zero value otherwise.
 func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints) GetAaguidGroups() []string {
-	if o == nil || o.AaguidGroups == nil {
+	if o == nil || IsNil(o.AaguidGroups) {
 		var ret []string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints) GetAagui
 // GetAaguidGroupsOk returns a tuple with the AaguidGroups field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints) GetAaguidGroupsOk() ([]string, bool) {
-	if o == nil || o.AaguidGroups == nil {
+	if o == nil || IsNil(o.AaguidGroups) {
 		return nil, false
 	}
 	return o.AaguidGroups, true
@@ -73,7 +76,7 @@ func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints) GetAagui
 
 // HasAaguidGroups returns a boolean if a field has been set.
 func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints) HasAaguidGroups() bool {
-	if o != nil && o.AaguidGroups != nil {
+	if o != nil && !IsNil(o.AaguidGroups) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints) SetAagui
 }
 
 func (o AuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AaguidGroups != nil {
+	if !IsNil(o.AaguidGroups) {
 		toSerialize["aaguidGroups"] = o.AaguidGroups
 	}
 
@@ -95,27 +106,25 @@ func (o AuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints) MarshalJS
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints) UnmarshalJSON(data []byte) (err error) {
 	varAuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints := _AuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints)
-	if err == nil {
-		*o = AuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints(varAuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints)
-	} else {
+	err = json.Unmarshal(data, &varAuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints(varAuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "aaguidGroups")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableAuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

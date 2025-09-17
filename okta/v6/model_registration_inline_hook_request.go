@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the RegistrationInlineHookRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RegistrationInlineHookRequest{}
+
 // RegistrationInlineHookRequest Registration inline hook request
 type RegistrationInlineHookRequest struct {
 	// The type of inline hook. The registration inline hook type is `com.okta.user.pre-registration`.
@@ -34,7 +37,7 @@ type RegistrationInlineHookRequest struct {
 	// The type of registration hook. Use either `self.service.registration` or `progressive.profile`.
 	RequestType *string `json:"requestType,omitempty"`
 	// The ID of the registration inline hook
-	Source *string `json:"source,omitempty"`
+	Source               *string `json:"source,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewRegistrationInlineHookRequestWithDefaults() *RegistrationInlineHookReque
 
 // GetEventType returns the EventType field value if set, zero value otherwise.
 func (o *RegistrationInlineHookRequest) GetEventType() string {
-	if o == nil || o.EventType == nil {
+	if o == nil || IsNil(o.EventType) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *RegistrationInlineHookRequest) GetEventType() string {
 // GetEventTypeOk returns a tuple with the EventType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationInlineHookRequest) GetEventTypeOk() (*string, bool) {
-	if o == nil || o.EventType == nil {
+	if o == nil || IsNil(o.EventType) {
 		return nil, false
 	}
 	return o.EventType, true
@@ -77,7 +80,7 @@ func (o *RegistrationInlineHookRequest) GetEventTypeOk() (*string, bool) {
 
 // HasEventType returns a boolean if a field has been set.
 func (o *RegistrationInlineHookRequest) HasEventType() bool {
-	if o != nil && o.EventType != nil {
+	if o != nil && !IsNil(o.EventType) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *RegistrationInlineHookRequest) SetEventType(v string) {
 
 // GetRequestType returns the RequestType field value if set, zero value otherwise.
 func (o *RegistrationInlineHookRequest) GetRequestType() string {
-	if o == nil || o.RequestType == nil {
+	if o == nil || IsNil(o.RequestType) {
 		var ret string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *RegistrationInlineHookRequest) GetRequestType() string {
 // GetRequestTypeOk returns a tuple with the RequestType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationInlineHookRequest) GetRequestTypeOk() (*string, bool) {
-	if o == nil || o.RequestType == nil {
+	if o == nil || IsNil(o.RequestType) {
 		return nil, false
 	}
 	return o.RequestType, true
@@ -109,7 +112,7 @@ func (o *RegistrationInlineHookRequest) GetRequestTypeOk() (*string, bool) {
 
 // HasRequestType returns a boolean if a field has been set.
 func (o *RegistrationInlineHookRequest) HasRequestType() bool {
-	if o != nil && o.RequestType != nil {
+	if o != nil && !IsNil(o.RequestType) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *RegistrationInlineHookRequest) SetRequestType(v string) {
 
 // GetSource returns the Source field value if set, zero value otherwise.
 func (o *RegistrationInlineHookRequest) GetSource() string {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		var ret string
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *RegistrationInlineHookRequest) GetSource() string {
 // GetSourceOk returns a tuple with the Source field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationInlineHookRequest) GetSourceOk() (*string, bool) {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		return nil, false
 	}
 	return o.Source, true
@@ -141,7 +144,7 @@ func (o *RegistrationInlineHookRequest) GetSourceOk() (*string, bool) {
 
 // HasSource returns a boolean if a field has been set.
 func (o *RegistrationInlineHookRequest) HasSource() bool {
-	if o != nil && o.Source != nil {
+	if o != nil && !IsNil(o.Source) {
 		return true
 	}
 
@@ -154,14 +157,22 @@ func (o *RegistrationInlineHookRequest) SetSource(v string) {
 }
 
 func (o RegistrationInlineHookRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RegistrationInlineHookRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.EventType != nil {
+	if !IsNil(o.EventType) {
 		toSerialize["eventType"] = o.EventType
 	}
-	if o.RequestType != nil {
+	if !IsNil(o.RequestType) {
 		toSerialize["requestType"] = o.RequestType
 	}
-	if o.Source != nil {
+	if !IsNil(o.Source) {
 		toSerialize["source"] = o.Source
 	}
 
@@ -169,29 +180,27 @@ func (o RegistrationInlineHookRequest) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RegistrationInlineHookRequest) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RegistrationInlineHookRequest) UnmarshalJSON(data []byte) (err error) {
 	varRegistrationInlineHookRequest := _RegistrationInlineHookRequest{}
 
-	err = json.Unmarshal(bytes, &varRegistrationInlineHookRequest)
-	if err == nil {
-		*o = RegistrationInlineHookRequest(varRegistrationInlineHookRequest)
-	} else {
+	err = json.Unmarshal(data, &varRegistrationInlineHookRequest)
+
+	if err != nil {
 		return err
 	}
 
+	*o = RegistrationInlineHookRequest(varRegistrationInlineHookRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "eventType")
 		delete(additionalProperties, "requestType")
 		delete(additionalProperties, "source")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -232,4 +241,3 @@ func (v *NullableRegistrationInlineHookRequest) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

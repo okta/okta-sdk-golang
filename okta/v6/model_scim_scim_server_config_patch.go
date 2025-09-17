@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the ScimScimServerConfigPatch type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ScimScimServerConfigPatch{}
+
 // ScimScimServerConfigPatch PATCH operation options
 type ScimScimServerConfigPatch struct {
 	// Specifies if the PATCH operation is supported
-	Supported *bool `json:"supported,omitempty"`
+	Supported            *bool `json:"supported,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewScimScimServerConfigPatchWithDefaults() *ScimScimServerConfigPatch {
 
 // GetSupported returns the Supported field value if set, zero value otherwise.
 func (o *ScimScimServerConfigPatch) GetSupported() bool {
-	if o == nil || o.Supported == nil {
+	if o == nil || IsNil(o.Supported) {
 		var ret bool
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *ScimScimServerConfigPatch) GetSupported() bool {
 // GetSupportedOk returns a tuple with the Supported field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ScimScimServerConfigPatch) GetSupportedOk() (*bool, bool) {
-	if o == nil || o.Supported == nil {
+	if o == nil || IsNil(o.Supported) {
 		return nil, false
 	}
 	return o.Supported, true
@@ -77,7 +80,7 @@ func (o *ScimScimServerConfigPatch) GetSupportedOk() (*bool, bool) {
 
 // HasSupported returns a boolean if a field has been set.
 func (o *ScimScimServerConfigPatch) HasSupported() bool {
-	if o != nil && o.Supported != nil {
+	if o != nil && !IsNil(o.Supported) {
 		return true
 	}
 
@@ -90,8 +93,16 @@ func (o *ScimScimServerConfigPatch) SetSupported(v bool) {
 }
 
 func (o ScimScimServerConfigPatch) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ScimScimServerConfigPatch) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Supported != nil {
+	if !IsNil(o.Supported) {
 		toSerialize["supported"] = o.Supported
 	}
 
@@ -99,27 +110,25 @@ func (o ScimScimServerConfigPatch) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ScimScimServerConfigPatch) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ScimScimServerConfigPatch) UnmarshalJSON(data []byte) (err error) {
 	varScimScimServerConfigPatch := _ScimScimServerConfigPatch{}
 
-	err = json.Unmarshal(bytes, &varScimScimServerConfigPatch)
-	if err == nil {
-		*o = ScimScimServerConfigPatch(varScimScimServerConfigPatch)
-	} else {
+	err = json.Unmarshal(data, &varScimScimServerConfigPatch)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ScimScimServerConfigPatch(varScimScimServerConfigPatch)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "supported")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -160,4 +169,3 @@ func (v *NullableScimScimServerConfigPatch) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

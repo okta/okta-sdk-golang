@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the OktaPersonalAdminFeatureSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OktaPersonalAdminFeatureSettings{}
+
 // OktaPersonalAdminFeatureSettings Defines a list of Okta Personal settings that can be enabled or disabled for the org
 type OktaPersonalAdminFeatureSettings struct {
 	// Allow entry points for an Okta Personal account in a Workforce org
 	EnableEnduserEntryPoints *bool `json:"enableEnduserEntryPoints,omitempty"`
 	// Allow users to migrate apps from a Workforce account to an Okta Personal account
-	EnableExportApps *bool `json:"enableExportApps,omitempty"`
+	EnableExportApps     *bool `json:"enableExportApps,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewOktaPersonalAdminFeatureSettingsWithDefaults() *OktaPersonalAdminFeature
 
 // GetEnableEnduserEntryPoints returns the EnableEnduserEntryPoints field value if set, zero value otherwise.
 func (o *OktaPersonalAdminFeatureSettings) GetEnableEnduserEntryPoints() bool {
-	if o == nil || o.EnableEnduserEntryPoints == nil {
+	if o == nil || IsNil(o.EnableEnduserEntryPoints) {
 		var ret bool
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *OktaPersonalAdminFeatureSettings) GetEnableEnduserEntryPoints() bool {
 // GetEnableEnduserEntryPointsOk returns a tuple with the EnableEnduserEntryPoints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaPersonalAdminFeatureSettings) GetEnableEnduserEntryPointsOk() (*bool, bool) {
-	if o == nil || o.EnableEnduserEntryPoints == nil {
+	if o == nil || IsNil(o.EnableEnduserEntryPoints) {
 		return nil, false
 	}
 	return o.EnableEnduserEntryPoints, true
@@ -75,7 +78,7 @@ func (o *OktaPersonalAdminFeatureSettings) GetEnableEnduserEntryPointsOk() (*boo
 
 // HasEnableEnduserEntryPoints returns a boolean if a field has been set.
 func (o *OktaPersonalAdminFeatureSettings) HasEnableEnduserEntryPoints() bool {
-	if o != nil && o.EnableEnduserEntryPoints != nil {
+	if o != nil && !IsNil(o.EnableEnduserEntryPoints) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *OktaPersonalAdminFeatureSettings) SetEnableEnduserEntryPoints(v bool) {
 
 // GetEnableExportApps returns the EnableExportApps field value if set, zero value otherwise.
 func (o *OktaPersonalAdminFeatureSettings) GetEnableExportApps() bool {
-	if o == nil || o.EnableExportApps == nil {
+	if o == nil || IsNil(o.EnableExportApps) {
 		var ret bool
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *OktaPersonalAdminFeatureSettings) GetEnableExportApps() bool {
 // GetEnableExportAppsOk returns a tuple with the EnableExportApps field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaPersonalAdminFeatureSettings) GetEnableExportAppsOk() (*bool, bool) {
-	if o == nil || o.EnableExportApps == nil {
+	if o == nil || IsNil(o.EnableExportApps) {
 		return nil, false
 	}
 	return o.EnableExportApps, true
@@ -107,7 +110,7 @@ func (o *OktaPersonalAdminFeatureSettings) GetEnableExportAppsOk() (*bool, bool)
 
 // HasEnableExportApps returns a boolean if a field has been set.
 func (o *OktaPersonalAdminFeatureSettings) HasEnableExportApps() bool {
-	if o != nil && o.EnableExportApps != nil {
+	if o != nil && !IsNil(o.EnableExportApps) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *OktaPersonalAdminFeatureSettings) SetEnableExportApps(v bool) {
 }
 
 func (o OktaPersonalAdminFeatureSettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OktaPersonalAdminFeatureSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.EnableEnduserEntryPoints != nil {
+	if !IsNil(o.EnableEnduserEntryPoints) {
 		toSerialize["enableEnduserEntryPoints"] = o.EnableEnduserEntryPoints
 	}
-	if o.EnableExportApps != nil {
+	if !IsNil(o.EnableExportApps) {
 		toSerialize["enableExportApps"] = o.EnableExportApps
 	}
 
@@ -132,28 +143,26 @@ func (o OktaPersonalAdminFeatureSettings) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OktaPersonalAdminFeatureSettings) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OktaPersonalAdminFeatureSettings) UnmarshalJSON(data []byte) (err error) {
 	varOktaPersonalAdminFeatureSettings := _OktaPersonalAdminFeatureSettings{}
 
-	err = json.Unmarshal(bytes, &varOktaPersonalAdminFeatureSettings)
-	if err == nil {
-		*o = OktaPersonalAdminFeatureSettings(varOktaPersonalAdminFeatureSettings)
-	} else {
+	err = json.Unmarshal(data, &varOktaPersonalAdminFeatureSettings)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OktaPersonalAdminFeatureSettings(varOktaPersonalAdminFeatureSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "enableEnduserEntryPoints")
 		delete(additionalProperties, "enableExportApps")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableOktaPersonalAdminFeatureSettings) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

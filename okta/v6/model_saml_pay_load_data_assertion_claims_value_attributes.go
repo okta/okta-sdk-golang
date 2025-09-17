@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the SAMLPayLoadDataAssertionClaimsValueAttributes type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SAMLPayLoadDataAssertionClaimsValueAttributes{}
+
 // SAMLPayLoadDataAssertionClaimsValueAttributes struct for SAMLPayLoadDataAssertionClaimsValueAttributes
 type SAMLPayLoadDataAssertionClaimsValueAttributes struct {
 	// Indicates how to interpret the attribute name
-	NameFormat *string `json:"NameFormat,omitempty"`
+	NameFormat           *string `json:"NameFormat,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewSAMLPayLoadDataAssertionClaimsValueAttributesWithDefaults() *SAMLPayLoad
 
 // GetNameFormat returns the NameFormat field value if set, zero value otherwise.
 func (o *SAMLPayLoadDataAssertionClaimsValueAttributes) GetNameFormat() string {
-	if o == nil || o.NameFormat == nil {
+	if o == nil || IsNil(o.NameFormat) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *SAMLPayLoadDataAssertionClaimsValueAttributes) GetNameFormat() string {
 // GetNameFormatOk returns a tuple with the NameFormat field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoadDataAssertionClaimsValueAttributes) GetNameFormatOk() (*string, bool) {
-	if o == nil || o.NameFormat == nil {
+	if o == nil || IsNil(o.NameFormat) {
 		return nil, false
 	}
 	return o.NameFormat, true
@@ -73,7 +76,7 @@ func (o *SAMLPayLoadDataAssertionClaimsValueAttributes) GetNameFormatOk() (*stri
 
 // HasNameFormat returns a boolean if a field has been set.
 func (o *SAMLPayLoadDataAssertionClaimsValueAttributes) HasNameFormat() bool {
-	if o != nil && o.NameFormat != nil {
+	if o != nil && !IsNil(o.NameFormat) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *SAMLPayLoadDataAssertionClaimsValueAttributes) SetNameFormat(v string) 
 }
 
 func (o SAMLPayLoadDataAssertionClaimsValueAttributes) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SAMLPayLoadDataAssertionClaimsValueAttributes) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.NameFormat != nil {
+	if !IsNil(o.NameFormat) {
 		toSerialize["NameFormat"] = o.NameFormat
 	}
 
@@ -95,27 +106,25 @@ func (o SAMLPayLoadDataAssertionClaimsValueAttributes) MarshalJSON() ([]byte, er
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SAMLPayLoadDataAssertionClaimsValueAttributes) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SAMLPayLoadDataAssertionClaimsValueAttributes) UnmarshalJSON(data []byte) (err error) {
 	varSAMLPayLoadDataAssertionClaimsValueAttributes := _SAMLPayLoadDataAssertionClaimsValueAttributes{}
 
-	err = json.Unmarshal(bytes, &varSAMLPayLoadDataAssertionClaimsValueAttributes)
-	if err == nil {
-		*o = SAMLPayLoadDataAssertionClaimsValueAttributes(varSAMLPayLoadDataAssertionClaimsValueAttributes)
-	} else {
+	err = json.Unmarshal(data, &varSAMLPayLoadDataAssertionClaimsValueAttributes)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SAMLPayLoadDataAssertionClaimsValueAttributes(varSAMLPayLoadDataAssertionClaimsValueAttributes)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "NameFormat")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableSAMLPayLoadDataAssertionClaimsValueAttributes) UnmarshalJSON(sr
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

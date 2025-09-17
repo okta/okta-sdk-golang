@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the PasswordImportRequestData type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordImportRequestData{}
+
 // PasswordImportRequestData struct for PasswordImportRequestData
 type PasswordImportRequestData struct {
-	Action *PasswordImportRequestDataAction `json:"action,omitempty"`
-	Context *PasswordImportRequestDataContext `json:"context,omitempty"`
+	Action               *PasswordImportRequestDataAction  `json:"action,omitempty"`
+	Context              *PasswordImportRequestDataContext `json:"context,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewPasswordImportRequestDataWithDefaults() *PasswordImportRequestData {
 
 // GetAction returns the Action field value if set, zero value otherwise.
 func (o *PasswordImportRequestData) GetAction() PasswordImportRequestDataAction {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		var ret PasswordImportRequestDataAction
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *PasswordImportRequestData) GetAction() PasswordImportRequestDataAction 
 // GetActionOk returns a tuple with the Action field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordImportRequestData) GetActionOk() (*PasswordImportRequestDataAction, bool) {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		return nil, false
 	}
 	return o.Action, true
@@ -73,7 +76,7 @@ func (o *PasswordImportRequestData) GetActionOk() (*PasswordImportRequestDataAct
 
 // HasAction returns a boolean if a field has been set.
 func (o *PasswordImportRequestData) HasAction() bool {
-	if o != nil && o.Action != nil {
+	if o != nil && !IsNil(o.Action) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *PasswordImportRequestData) SetAction(v PasswordImportRequestDataAction)
 
 // GetContext returns the Context field value if set, zero value otherwise.
 func (o *PasswordImportRequestData) GetContext() PasswordImportRequestDataContext {
-	if o == nil || o.Context == nil {
+	if o == nil || IsNil(o.Context) {
 		var ret PasswordImportRequestDataContext
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *PasswordImportRequestData) GetContext() PasswordImportRequestDataContex
 // GetContextOk returns a tuple with the Context field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordImportRequestData) GetContextOk() (*PasswordImportRequestDataContext, bool) {
-	if o == nil || o.Context == nil {
+	if o == nil || IsNil(o.Context) {
 		return nil, false
 	}
 	return o.Context, true
@@ -105,7 +108,7 @@ func (o *PasswordImportRequestData) GetContextOk() (*PasswordImportRequestDataCo
 
 // HasContext returns a boolean if a field has been set.
 func (o *PasswordImportRequestData) HasContext() bool {
-	if o != nil && o.Context != nil {
+	if o != nil && !IsNil(o.Context) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *PasswordImportRequestData) SetContext(v PasswordImportRequestDataContex
 }
 
 func (o PasswordImportRequestData) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordImportRequestData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Action != nil {
+	if !IsNil(o.Action) {
 		toSerialize["action"] = o.Action
 	}
-	if o.Context != nil {
+	if !IsNil(o.Context) {
 		toSerialize["context"] = o.Context
 	}
 
@@ -130,28 +141,26 @@ func (o PasswordImportRequestData) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordImportRequestData) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordImportRequestData) UnmarshalJSON(data []byte) (err error) {
 	varPasswordImportRequestData := _PasswordImportRequestData{}
 
-	err = json.Unmarshal(bytes, &varPasswordImportRequestData)
-	if err == nil {
-		*o = PasswordImportRequestData(varPasswordImportRequestData)
-	} else {
+	err = json.Unmarshal(data, &varPasswordImportRequestData)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PasswordImportRequestData(varPasswordImportRequestData)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "action")
 		delete(additionalProperties, "context")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullablePasswordImportRequestData) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

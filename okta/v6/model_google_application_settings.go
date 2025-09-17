@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"fmt"
 )
 
+// checks if the GoogleApplicationSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GoogleApplicationSettings{}
+
 // GoogleApplicationSettings struct for GoogleApplicationSettings
 type GoogleApplicationSettings struct {
 	// The Governance Engine opt-in status for the app
@@ -37,11 +40,11 @@ type GoogleApplicationSettings struct {
 	// Controls whether Okta automatically assigns users to the app based on the user's role or group membership.
 	ImplicitAssignment *bool `json:"implicitAssignment,omitempty"`
 	// Identifier of an inline hook. Inline hooks are outbound calls from Okta to your own custom code, triggered at specific points in Okta process flows. They allow you to integrate custom functionality into those flows. See [Inline hooks](/openapi/okta-management/management/tag/InlineHook/).
-	InlineHookId *string `json:"inlineHookId,omitempty"`
-	Notes *ApplicationSettingsNotes `json:"notes,omitempty"`
-	Notifications *ApplicationSettingsNotifications `json:"notifications,omitempty"`
-	App GoogleApplicationSettingsApplication `json:"app"`
-	SignOn *OINSaml20ApplicationSettingsSignOn `json:"signOn,omitempty"`
+	InlineHookId         *string                              `json:"inlineHookId,omitempty"`
+	Notes                *ApplicationSettingsNotes            `json:"notes,omitempty"`
+	Notifications        *ApplicationSettingsNotifications    `json:"notifications,omitempty"`
+	App                  GoogleApplicationSettingsApplication `json:"app"`
+	SignOn               *OINSaml20ApplicationSettingsSignOn  `json:"signOn,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -67,7 +70,7 @@ func NewGoogleApplicationSettingsWithDefaults() *GoogleApplicationSettings {
 
 // GetEmOptInStatus returns the EmOptInStatus field value if set, zero value otherwise.
 func (o *GoogleApplicationSettings) GetEmOptInStatus() string {
-	if o == nil || o.EmOptInStatus == nil {
+	if o == nil || IsNil(o.EmOptInStatus) {
 		var ret string
 		return ret
 	}
@@ -77,7 +80,7 @@ func (o *GoogleApplicationSettings) GetEmOptInStatus() string {
 // GetEmOptInStatusOk returns a tuple with the EmOptInStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GoogleApplicationSettings) GetEmOptInStatusOk() (*string, bool) {
-	if o == nil || o.EmOptInStatus == nil {
+	if o == nil || IsNil(o.EmOptInStatus) {
 		return nil, false
 	}
 	return o.EmOptInStatus, true
@@ -85,7 +88,7 @@ func (o *GoogleApplicationSettings) GetEmOptInStatusOk() (*string, bool) {
 
 // HasEmOptInStatus returns a boolean if a field has been set.
 func (o *GoogleApplicationSettings) HasEmOptInStatus() bool {
-	if o != nil && o.EmOptInStatus != nil {
+	if o != nil && !IsNil(o.EmOptInStatus) {
 		return true
 	}
 
@@ -99,7 +102,7 @@ func (o *GoogleApplicationSettings) SetEmOptInStatus(v string) {
 
 // GetIdentityStoreId returns the IdentityStoreId field value if set, zero value otherwise.
 func (o *GoogleApplicationSettings) GetIdentityStoreId() string {
-	if o == nil || o.IdentityStoreId == nil {
+	if o == nil || IsNil(o.IdentityStoreId) {
 		var ret string
 		return ret
 	}
@@ -109,7 +112,7 @@ func (o *GoogleApplicationSettings) GetIdentityStoreId() string {
 // GetIdentityStoreIdOk returns a tuple with the IdentityStoreId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GoogleApplicationSettings) GetIdentityStoreIdOk() (*string, bool) {
-	if o == nil || o.IdentityStoreId == nil {
+	if o == nil || IsNil(o.IdentityStoreId) {
 		return nil, false
 	}
 	return o.IdentityStoreId, true
@@ -117,7 +120,7 @@ func (o *GoogleApplicationSettings) GetIdentityStoreIdOk() (*string, bool) {
 
 // HasIdentityStoreId returns a boolean if a field has been set.
 func (o *GoogleApplicationSettings) HasIdentityStoreId() bool {
-	if o != nil && o.IdentityStoreId != nil {
+	if o != nil && !IsNil(o.IdentityStoreId) {
 		return true
 	}
 
@@ -131,7 +134,7 @@ func (o *GoogleApplicationSettings) SetIdentityStoreId(v string) {
 
 // GetImplicitAssignment returns the ImplicitAssignment field value if set, zero value otherwise.
 func (o *GoogleApplicationSettings) GetImplicitAssignment() bool {
-	if o == nil || o.ImplicitAssignment == nil {
+	if o == nil || IsNil(o.ImplicitAssignment) {
 		var ret bool
 		return ret
 	}
@@ -141,7 +144,7 @@ func (o *GoogleApplicationSettings) GetImplicitAssignment() bool {
 // GetImplicitAssignmentOk returns a tuple with the ImplicitAssignment field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GoogleApplicationSettings) GetImplicitAssignmentOk() (*bool, bool) {
-	if o == nil || o.ImplicitAssignment == nil {
+	if o == nil || IsNil(o.ImplicitAssignment) {
 		return nil, false
 	}
 	return o.ImplicitAssignment, true
@@ -149,7 +152,7 @@ func (o *GoogleApplicationSettings) GetImplicitAssignmentOk() (*bool, bool) {
 
 // HasImplicitAssignment returns a boolean if a field has been set.
 func (o *GoogleApplicationSettings) HasImplicitAssignment() bool {
-	if o != nil && o.ImplicitAssignment != nil {
+	if o != nil && !IsNil(o.ImplicitAssignment) {
 		return true
 	}
 
@@ -163,7 +166,7 @@ func (o *GoogleApplicationSettings) SetImplicitAssignment(v bool) {
 
 // GetInlineHookId returns the InlineHookId field value if set, zero value otherwise.
 func (o *GoogleApplicationSettings) GetInlineHookId() string {
-	if o == nil || o.InlineHookId == nil {
+	if o == nil || IsNil(o.InlineHookId) {
 		var ret string
 		return ret
 	}
@@ -173,7 +176,7 @@ func (o *GoogleApplicationSettings) GetInlineHookId() string {
 // GetInlineHookIdOk returns a tuple with the InlineHookId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GoogleApplicationSettings) GetInlineHookIdOk() (*string, bool) {
-	if o == nil || o.InlineHookId == nil {
+	if o == nil || IsNil(o.InlineHookId) {
 		return nil, false
 	}
 	return o.InlineHookId, true
@@ -181,7 +184,7 @@ func (o *GoogleApplicationSettings) GetInlineHookIdOk() (*string, bool) {
 
 // HasInlineHookId returns a boolean if a field has been set.
 func (o *GoogleApplicationSettings) HasInlineHookId() bool {
-	if o != nil && o.InlineHookId != nil {
+	if o != nil && !IsNil(o.InlineHookId) {
 		return true
 	}
 
@@ -195,7 +198,7 @@ func (o *GoogleApplicationSettings) SetInlineHookId(v string) {
 
 // GetNotes returns the Notes field value if set, zero value otherwise.
 func (o *GoogleApplicationSettings) GetNotes() ApplicationSettingsNotes {
-	if o == nil || o.Notes == nil {
+	if o == nil || IsNil(o.Notes) {
 		var ret ApplicationSettingsNotes
 		return ret
 	}
@@ -205,7 +208,7 @@ func (o *GoogleApplicationSettings) GetNotes() ApplicationSettingsNotes {
 // GetNotesOk returns a tuple with the Notes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GoogleApplicationSettings) GetNotesOk() (*ApplicationSettingsNotes, bool) {
-	if o == nil || o.Notes == nil {
+	if o == nil || IsNil(o.Notes) {
 		return nil, false
 	}
 	return o.Notes, true
@@ -213,7 +216,7 @@ func (o *GoogleApplicationSettings) GetNotesOk() (*ApplicationSettingsNotes, boo
 
 // HasNotes returns a boolean if a field has been set.
 func (o *GoogleApplicationSettings) HasNotes() bool {
-	if o != nil && o.Notes != nil {
+	if o != nil && !IsNil(o.Notes) {
 		return true
 	}
 
@@ -227,7 +230,7 @@ func (o *GoogleApplicationSettings) SetNotes(v ApplicationSettingsNotes) {
 
 // GetNotifications returns the Notifications field value if set, zero value otherwise.
 func (o *GoogleApplicationSettings) GetNotifications() ApplicationSettingsNotifications {
-	if o == nil || o.Notifications == nil {
+	if o == nil || IsNil(o.Notifications) {
 		var ret ApplicationSettingsNotifications
 		return ret
 	}
@@ -237,7 +240,7 @@ func (o *GoogleApplicationSettings) GetNotifications() ApplicationSettingsNotifi
 // GetNotificationsOk returns a tuple with the Notifications field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GoogleApplicationSettings) GetNotificationsOk() (*ApplicationSettingsNotifications, bool) {
-	if o == nil || o.Notifications == nil {
+	if o == nil || IsNil(o.Notifications) {
 		return nil, false
 	}
 	return o.Notifications, true
@@ -245,7 +248,7 @@ func (o *GoogleApplicationSettings) GetNotificationsOk() (*ApplicationSettingsNo
 
 // HasNotifications returns a boolean if a field has been set.
 func (o *GoogleApplicationSettings) HasNotifications() bool {
-	if o != nil && o.Notifications != nil {
+	if o != nil && !IsNil(o.Notifications) {
 		return true
 	}
 
@@ -283,7 +286,7 @@ func (o *GoogleApplicationSettings) SetApp(v GoogleApplicationSettingsApplicatio
 
 // GetSignOn returns the SignOn field value if set, zero value otherwise.
 func (o *GoogleApplicationSettings) GetSignOn() OINSaml20ApplicationSettingsSignOn {
-	if o == nil || o.SignOn == nil {
+	if o == nil || IsNil(o.SignOn) {
 		var ret OINSaml20ApplicationSettingsSignOn
 		return ret
 	}
@@ -293,7 +296,7 @@ func (o *GoogleApplicationSettings) GetSignOn() OINSaml20ApplicationSettingsSign
 // GetSignOnOk returns a tuple with the SignOn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GoogleApplicationSettings) GetSignOnOk() (*OINSaml20ApplicationSettingsSignOn, bool) {
-	if o == nil || o.SignOn == nil {
+	if o == nil || IsNil(o.SignOn) {
 		return nil, false
 	}
 	return o.SignOn, true
@@ -301,7 +304,7 @@ func (o *GoogleApplicationSettings) GetSignOnOk() (*OINSaml20ApplicationSettings
 
 // HasSignOn returns a boolean if a field has been set.
 func (o *GoogleApplicationSettings) HasSignOn() bool {
-	if o != nil && o.SignOn != nil {
+	if o != nil && !IsNil(o.SignOn) {
 		return true
 	}
 
@@ -314,29 +317,35 @@ func (o *GoogleApplicationSettings) SetSignOn(v OINSaml20ApplicationSettingsSign
 }
 
 func (o GoogleApplicationSettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o GoogleApplicationSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.EmOptInStatus != nil {
+	if !IsNil(o.EmOptInStatus) {
 		toSerialize["emOptInStatus"] = o.EmOptInStatus
 	}
-	if o.IdentityStoreId != nil {
+	if !IsNil(o.IdentityStoreId) {
 		toSerialize["identityStoreId"] = o.IdentityStoreId
 	}
-	if o.ImplicitAssignment != nil {
+	if !IsNil(o.ImplicitAssignment) {
 		toSerialize["implicitAssignment"] = o.ImplicitAssignment
 	}
-	if o.InlineHookId != nil {
+	if !IsNil(o.InlineHookId) {
 		toSerialize["inlineHookId"] = o.InlineHookId
 	}
-	if o.Notes != nil {
+	if !IsNil(o.Notes) {
 		toSerialize["notes"] = o.Notes
 	}
-	if o.Notifications != nil {
+	if !IsNil(o.Notifications) {
 		toSerialize["notifications"] = o.Notifications
 	}
-	if true {
-		toSerialize["app"] = o.App
-	}
-	if o.SignOn != nil {
+	toSerialize["app"] = o.App
+	if !IsNil(o.SignOn) {
 		toSerialize["signOn"] = o.SignOn
 	}
 
@@ -344,23 +353,44 @@ func (o GoogleApplicationSettings) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *GoogleApplicationSettings) UnmarshalJSON(bytes []byte) (err error) {
-	varGoogleApplicationSettings := _GoogleApplicationSettings{}
+func (o *GoogleApplicationSettings) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"app",
+	}
 
-	err = json.Unmarshal(bytes, &varGoogleApplicationSettings)
-	if err == nil {
-		*o = GoogleApplicationSettings(varGoogleApplicationSettings)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varGoogleApplicationSettings := _GoogleApplicationSettings{}
+
+	err = json.Unmarshal(data, &varGoogleApplicationSettings)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GoogleApplicationSettings(varGoogleApplicationSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "emOptInStatus")
 		delete(additionalProperties, "identityStoreId")
 		delete(additionalProperties, "implicitAssignment")
@@ -370,8 +400,6 @@ func (o *GoogleApplicationSettings) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "app")
 		delete(additionalProperties, "signOn")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -412,4 +440,3 @@ func (v *NullableGoogleApplicationSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

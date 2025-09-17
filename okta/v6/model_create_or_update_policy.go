@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,9 +25,12 @@ package okta
 
 import (
 	"encoding/json"
-	"time"
 	"fmt"
+	"time"
 )
+
+// checks if the CreateOrUpdatePolicy type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateOrUpdatePolicy{}
 
 // CreateOrUpdatePolicy struct for CreateOrUpdatePolicy
 type CreateOrUpdatePolicy struct {
@@ -48,9 +51,9 @@ type CreateOrUpdatePolicy struct {
 	// Specifies whether Okta created the policy
 	System *bool `json:"system,omitempty"`
 	// All Okta orgs contain only one IdP discovery policy with an immutable default rule routing to your org's sign-in page, one entity risk policy, and one session protection policy. Creating or replacing a policy with the `IDP_DISCOVERY` type, the `ENTITY_RISK` type, or the `POST_AUTH_SESSION` type isn't supported. The following policy types are available with Identity Engine: `ACCESS_POLICY`, `PROFILE_ENROLLMENT`, `POST_AUTH_SESSION`, <x-lifecycle class=\"ea\"></x-lifecycle> `DEVICE_SIGNAL_COLLECTION`, and `ENTITY_RISK`.
-	Type string `json:"type"`
-	Embedded map[string]map[string]interface{} `json:"_embedded,omitempty"`
-	Links *PolicyLinks `json:"_links,omitempty"`
+	Type                 string                            `json:"type"`
+	Embedded             map[string]map[string]interface{} `json:"_embedded,omitempty"`
+	Links                *PolicyLinks                      `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -81,7 +84,7 @@ func NewCreateOrUpdatePolicyWithDefaults() *CreateOrUpdatePolicy {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *CreateOrUpdatePolicy) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -91,7 +94,7 @@ func (o *CreateOrUpdatePolicy) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateOrUpdatePolicy) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -99,7 +102,7 @@ func (o *CreateOrUpdatePolicy) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *CreateOrUpdatePolicy) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -113,7 +116,7 @@ func (o *CreateOrUpdatePolicy) SetCreated(v time.Time) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *CreateOrUpdatePolicy) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -123,7 +126,7 @@ func (o *CreateOrUpdatePolicy) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateOrUpdatePolicy) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -131,7 +134,7 @@ func (o *CreateOrUpdatePolicy) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *CreateOrUpdatePolicy) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -145,7 +148,7 @@ func (o *CreateOrUpdatePolicy) SetDescription(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *CreateOrUpdatePolicy) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -155,7 +158,7 @@ func (o *CreateOrUpdatePolicy) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateOrUpdatePolicy) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -163,7 +166,7 @@ func (o *CreateOrUpdatePolicy) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *CreateOrUpdatePolicy) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -177,7 +180,7 @@ func (o *CreateOrUpdatePolicy) SetId(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *CreateOrUpdatePolicy) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -187,7 +190,7 @@ func (o *CreateOrUpdatePolicy) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateOrUpdatePolicy) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -195,7 +198,7 @@ func (o *CreateOrUpdatePolicy) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *CreateOrUpdatePolicy) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -233,7 +236,7 @@ func (o *CreateOrUpdatePolicy) SetName(v string) {
 
 // GetPriority returns the Priority field value if set, zero value otherwise.
 func (o *CreateOrUpdatePolicy) GetPriority() int32 {
-	if o == nil || o.Priority == nil {
+	if o == nil || IsNil(o.Priority) {
 		var ret int32
 		return ret
 	}
@@ -243,7 +246,7 @@ func (o *CreateOrUpdatePolicy) GetPriority() int32 {
 // GetPriorityOk returns a tuple with the Priority field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateOrUpdatePolicy) GetPriorityOk() (*int32, bool) {
-	if o == nil || o.Priority == nil {
+	if o == nil || IsNil(o.Priority) {
 		return nil, false
 	}
 	return o.Priority, true
@@ -251,7 +254,7 @@ func (o *CreateOrUpdatePolicy) GetPriorityOk() (*int32, bool) {
 
 // HasPriority returns a boolean if a field has been set.
 func (o *CreateOrUpdatePolicy) HasPriority() bool {
-	if o != nil && o.Priority != nil {
+	if o != nil && !IsNil(o.Priority) {
 		return true
 	}
 
@@ -265,7 +268,7 @@ func (o *CreateOrUpdatePolicy) SetPriority(v int32) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *CreateOrUpdatePolicy) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -275,7 +278,7 @@ func (o *CreateOrUpdatePolicy) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateOrUpdatePolicy) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -283,7 +286,7 @@ func (o *CreateOrUpdatePolicy) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *CreateOrUpdatePolicy) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -297,7 +300,7 @@ func (o *CreateOrUpdatePolicy) SetStatus(v string) {
 
 // GetSystem returns the System field value if set, zero value otherwise.
 func (o *CreateOrUpdatePolicy) GetSystem() bool {
-	if o == nil || o.System == nil {
+	if o == nil || IsNil(o.System) {
 		var ret bool
 		return ret
 	}
@@ -307,7 +310,7 @@ func (o *CreateOrUpdatePolicy) GetSystem() bool {
 // GetSystemOk returns a tuple with the System field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateOrUpdatePolicy) GetSystemOk() (*bool, bool) {
-	if o == nil || o.System == nil {
+	if o == nil || IsNil(o.System) {
 		return nil, false
 	}
 	return o.System, true
@@ -315,7 +318,7 @@ func (o *CreateOrUpdatePolicy) GetSystemOk() (*bool, bool) {
 
 // HasSystem returns a boolean if a field has been set.
 func (o *CreateOrUpdatePolicy) HasSystem() bool {
-	if o != nil && o.System != nil {
+	if o != nil && !IsNil(o.System) {
 		return true
 	}
 
@@ -353,7 +356,7 @@ func (o *CreateOrUpdatePolicy) SetType(v string) {
 
 // GetEmbedded returns the Embedded field value if set, zero value otherwise.
 func (o *CreateOrUpdatePolicy) GetEmbedded() map[string]map[string]interface{} {
-	if o == nil || o.Embedded == nil {
+	if o == nil || IsNil(o.Embedded) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
@@ -363,15 +366,15 @@ func (o *CreateOrUpdatePolicy) GetEmbedded() map[string]map[string]interface{} {
 // GetEmbeddedOk returns a tuple with the Embedded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateOrUpdatePolicy) GetEmbeddedOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || o.Embedded == nil {
-		return nil, false
+	if o == nil || IsNil(o.Embedded) {
+		return map[string]map[string]interface{}{}, false
 	}
 	return o.Embedded, true
 }
 
 // HasEmbedded returns a boolean if a field has been set.
 func (o *CreateOrUpdatePolicy) HasEmbedded() bool {
-	if o != nil && o.Embedded != nil {
+	if o != nil && !IsNil(o.Embedded) {
 		return true
 	}
 
@@ -385,7 +388,7 @@ func (o *CreateOrUpdatePolicy) SetEmbedded(v map[string]map[string]interface{}) 
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *CreateOrUpdatePolicy) GetLinks() PolicyLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret PolicyLinks
 		return ret
 	}
@@ -395,7 +398,7 @@ func (o *CreateOrUpdatePolicy) GetLinks() PolicyLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateOrUpdatePolicy) GetLinksOk() (*PolicyLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -403,7 +406,7 @@ func (o *CreateOrUpdatePolicy) GetLinksOk() (*PolicyLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *CreateOrUpdatePolicy) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -416,38 +419,42 @@ func (o *CreateOrUpdatePolicy) SetLinks(v PolicyLinks) {
 }
 
 func (o CreateOrUpdatePolicy) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CreateOrUpdatePolicy) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Priority != nil {
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Priority) {
 		toSerialize["priority"] = o.Priority
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.System != nil {
+	if !IsNil(o.System) {
 		toSerialize["system"] = o.System
 	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if o.Embedded != nil {
+	toSerialize["type"] = o.Type
+	if !IsNil(o.Embedded) {
 		toSerialize["_embedded"] = o.Embedded
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -455,23 +462,45 @@ func (o CreateOrUpdatePolicy) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CreateOrUpdatePolicy) UnmarshalJSON(bytes []byte) (err error) {
-	varCreateOrUpdatePolicy := _CreateOrUpdatePolicy{}
+func (o *CreateOrUpdatePolicy) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"type",
+	}
 
-	err = json.Unmarshal(bytes, &varCreateOrUpdatePolicy)
-	if err == nil {
-		*o = CreateOrUpdatePolicy(varCreateOrUpdatePolicy)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCreateOrUpdatePolicy := _CreateOrUpdatePolicy{}
+
+	err = json.Unmarshal(data, &varCreateOrUpdatePolicy)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreateOrUpdatePolicy(varCreateOrUpdatePolicy)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "id")
@@ -484,8 +513,6 @@ func (o *CreateOrUpdatePolicy) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "_embedded")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -526,4 +553,3 @@ func (v *NullableCreateOrUpdatePolicy) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

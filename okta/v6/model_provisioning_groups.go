@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ProvisioningGroups type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ProvisioningGroups{}
+
 // ProvisioningGroups Provisioning settings for a user's group memberships
 type ProvisioningGroups struct {
 	// Provisioning action for the IdP user's group memberships  | Enum     | Description                                                                                                                                                       | Existing OKTA_GROUP Memberships                                                                       | Existing APP_GROUP Memberships | Existing BUILT_IN Memberships | | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------ | ----------------------------- | | `APPEND` | Adds a user to any group defined by the IdP as a value of the `sourceAttributeName` array that matches the name of the allow listed group defined in the `filter` | Unchanged                                                                                             | Unchanged                      | Unchanged                     | | `ASSIGN` | Assigns a user to groups defined in the `assignments` array                                                                                                       | Unchanged                                                                                             | Unchanged                      | Unchanged                     | | `NONE`   | Skips processing of group memberships                                                                                                                             | Unchanged                                                                                             | Unchanged                      | Unchanged                     | | `SYNC`   | Group memberships are sourced by the IdP as a value of the `sourceAttributeName` array that matches the name of the group defined in the `filter`                 | Removed if not defined by the IdP in `sourceAttributeName` and matching name of the group in `filter` | Unchanged                      | Unchanged                     |  > **Note:** Group provisioning action is processed independently from profile sourcing. You can sync group memberships through SAML with profile sourcing disabled.
@@ -36,7 +39,7 @@ type ProvisioningGroups struct {
 	// Allowlist of `OKTA_GROUP` group identifiers for the `APPEND` or `SYNC` provisioning action
 	Filter []string `json:"filter,omitempty"`
 	// IdP user profile attribute name (case-insensitive) for an array value that contains group memberships
-	SourceAttributeName *string `json:"sourceAttributeName,omitempty"`
+	SourceAttributeName  *string `json:"sourceAttributeName,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewProvisioningGroupsWithDefaults() *ProvisioningGroups {
 
 // GetAction returns the Action field value if set, zero value otherwise.
 func (o *ProvisioningGroups) GetAction() string {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		var ret string
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *ProvisioningGroups) GetAction() string {
 // GetActionOk returns a tuple with the Action field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProvisioningGroups) GetActionOk() (*string, bool) {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		return nil, false
 	}
 	return o.Action, true
@@ -79,7 +82,7 @@ func (o *ProvisioningGroups) GetActionOk() (*string, bool) {
 
 // HasAction returns a boolean if a field has been set.
 func (o *ProvisioningGroups) HasAction() bool {
-	if o != nil && o.Action != nil {
+	if o != nil && !IsNil(o.Action) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *ProvisioningGroups) SetAction(v string) {
 
 // GetAssignments returns the Assignments field value if set, zero value otherwise.
 func (o *ProvisioningGroups) GetAssignments() []string {
-	if o == nil || o.Assignments == nil {
+	if o == nil || IsNil(o.Assignments) {
 		var ret []string
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *ProvisioningGroups) GetAssignments() []string {
 // GetAssignmentsOk returns a tuple with the Assignments field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProvisioningGroups) GetAssignmentsOk() ([]string, bool) {
-	if o == nil || o.Assignments == nil {
+	if o == nil || IsNil(o.Assignments) {
 		return nil, false
 	}
 	return o.Assignments, true
@@ -111,7 +114,7 @@ func (o *ProvisioningGroups) GetAssignmentsOk() ([]string, bool) {
 
 // HasAssignments returns a boolean if a field has been set.
 func (o *ProvisioningGroups) HasAssignments() bool {
-	if o != nil && o.Assignments != nil {
+	if o != nil && !IsNil(o.Assignments) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *ProvisioningGroups) SetAssignments(v []string) {
 
 // GetFilter returns the Filter field value if set, zero value otherwise.
 func (o *ProvisioningGroups) GetFilter() []string {
-	if o == nil || o.Filter == nil {
+	if o == nil || IsNil(o.Filter) {
 		var ret []string
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *ProvisioningGroups) GetFilter() []string {
 // GetFilterOk returns a tuple with the Filter field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProvisioningGroups) GetFilterOk() ([]string, bool) {
-	if o == nil || o.Filter == nil {
+	if o == nil || IsNil(o.Filter) {
 		return nil, false
 	}
 	return o.Filter, true
@@ -143,7 +146,7 @@ func (o *ProvisioningGroups) GetFilterOk() ([]string, bool) {
 
 // HasFilter returns a boolean if a field has been set.
 func (o *ProvisioningGroups) HasFilter() bool {
-	if o != nil && o.Filter != nil {
+	if o != nil && !IsNil(o.Filter) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *ProvisioningGroups) SetFilter(v []string) {
 
 // GetSourceAttributeName returns the SourceAttributeName field value if set, zero value otherwise.
 func (o *ProvisioningGroups) GetSourceAttributeName() string {
-	if o == nil || o.SourceAttributeName == nil {
+	if o == nil || IsNil(o.SourceAttributeName) {
 		var ret string
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *ProvisioningGroups) GetSourceAttributeName() string {
 // GetSourceAttributeNameOk returns a tuple with the SourceAttributeName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProvisioningGroups) GetSourceAttributeNameOk() (*string, bool) {
-	if o == nil || o.SourceAttributeName == nil {
+	if o == nil || IsNil(o.SourceAttributeName) {
 		return nil, false
 	}
 	return o.SourceAttributeName, true
@@ -175,7 +178,7 @@ func (o *ProvisioningGroups) GetSourceAttributeNameOk() (*string, bool) {
 
 // HasSourceAttributeName returns a boolean if a field has been set.
 func (o *ProvisioningGroups) HasSourceAttributeName() bool {
-	if o != nil && o.SourceAttributeName != nil {
+	if o != nil && !IsNil(o.SourceAttributeName) {
 		return true
 	}
 
@@ -188,17 +191,25 @@ func (o *ProvisioningGroups) SetSourceAttributeName(v string) {
 }
 
 func (o ProvisioningGroups) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ProvisioningGroups) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Action != nil {
+	if !IsNil(o.Action) {
 		toSerialize["action"] = o.Action
 	}
-	if o.Assignments != nil {
+	if !IsNil(o.Assignments) {
 		toSerialize["assignments"] = o.Assignments
 	}
-	if o.Filter != nil {
+	if !IsNil(o.Filter) {
 		toSerialize["filter"] = o.Filter
 	}
-	if o.SourceAttributeName != nil {
+	if !IsNil(o.SourceAttributeName) {
 		toSerialize["sourceAttributeName"] = o.SourceAttributeName
 	}
 
@@ -206,30 +217,28 @@ func (o ProvisioningGroups) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ProvisioningGroups) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ProvisioningGroups) UnmarshalJSON(data []byte) (err error) {
 	varProvisioningGroups := _ProvisioningGroups{}
 
-	err = json.Unmarshal(bytes, &varProvisioningGroups)
-	if err == nil {
-		*o = ProvisioningGroups(varProvisioningGroups)
-	} else {
+	err = json.Unmarshal(data, &varProvisioningGroups)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ProvisioningGroups(varProvisioningGroups)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "action")
 		delete(additionalProperties, "assignments")
 		delete(additionalProperties, "filter")
 		delete(additionalProperties, "sourceAttributeName")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -270,4 +279,3 @@ func (v *NullableProvisioningGroups) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

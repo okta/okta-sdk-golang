@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the PasswordPolicySettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordPolicySettings{}
+
 // PasswordPolicySettings Specifies the policy level settings
 type PasswordPolicySettings struct {
-	Delegation *PasswordPolicyDelegationSettings `json:"delegation,omitempty"`
-	Password *PasswordPolicyPasswordSettings `json:"password,omitempty"`
-	Recovery *PasswordPolicyRecoverySettings `json:"recovery,omitempty"`
+	Delegation           *PasswordPolicyDelegationSettings `json:"delegation,omitempty"`
+	Password             *PasswordPolicyPasswordSettings   `json:"password,omitempty"`
+	Recovery             *PasswordPolicyRecoverySettings   `json:"recovery,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewPasswordPolicySettingsWithDefaults() *PasswordPolicySettings {
 
 // GetDelegation returns the Delegation field value if set, zero value otherwise.
 func (o *PasswordPolicySettings) GetDelegation() PasswordPolicyDelegationSettings {
-	if o == nil || o.Delegation == nil {
+	if o == nil || IsNil(o.Delegation) {
 		var ret PasswordPolicyDelegationSettings
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *PasswordPolicySettings) GetDelegation() PasswordPolicyDelegationSetting
 // GetDelegationOk returns a tuple with the Delegation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicySettings) GetDelegationOk() (*PasswordPolicyDelegationSettings, bool) {
-	if o == nil || o.Delegation == nil {
+	if o == nil || IsNil(o.Delegation) {
 		return nil, false
 	}
 	return o.Delegation, true
@@ -74,7 +77,7 @@ func (o *PasswordPolicySettings) GetDelegationOk() (*PasswordPolicyDelegationSet
 
 // HasDelegation returns a boolean if a field has been set.
 func (o *PasswordPolicySettings) HasDelegation() bool {
-	if o != nil && o.Delegation != nil {
+	if o != nil && !IsNil(o.Delegation) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *PasswordPolicySettings) SetDelegation(v PasswordPolicyDelegationSetting
 
 // GetPassword returns the Password field value if set, zero value otherwise.
 func (o *PasswordPolicySettings) GetPassword() PasswordPolicyPasswordSettings {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		var ret PasswordPolicyPasswordSettings
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *PasswordPolicySettings) GetPassword() PasswordPolicyPasswordSettings {
 // GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicySettings) GetPasswordOk() (*PasswordPolicyPasswordSettings, bool) {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		return nil, false
 	}
 	return o.Password, true
@@ -106,7 +109,7 @@ func (o *PasswordPolicySettings) GetPasswordOk() (*PasswordPolicyPasswordSetting
 
 // HasPassword returns a boolean if a field has been set.
 func (o *PasswordPolicySettings) HasPassword() bool {
-	if o != nil && o.Password != nil {
+	if o != nil && !IsNil(o.Password) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *PasswordPolicySettings) SetPassword(v PasswordPolicyPasswordSettings) {
 
 // GetRecovery returns the Recovery field value if set, zero value otherwise.
 func (o *PasswordPolicySettings) GetRecovery() PasswordPolicyRecoverySettings {
-	if o == nil || o.Recovery == nil {
+	if o == nil || IsNil(o.Recovery) {
 		var ret PasswordPolicyRecoverySettings
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *PasswordPolicySettings) GetRecovery() PasswordPolicyRecoverySettings {
 // GetRecoveryOk returns a tuple with the Recovery field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicySettings) GetRecoveryOk() (*PasswordPolicyRecoverySettings, bool) {
-	if o == nil || o.Recovery == nil {
+	if o == nil || IsNil(o.Recovery) {
 		return nil, false
 	}
 	return o.Recovery, true
@@ -138,7 +141,7 @@ func (o *PasswordPolicySettings) GetRecoveryOk() (*PasswordPolicyRecoverySetting
 
 // HasRecovery returns a boolean if a field has been set.
 func (o *PasswordPolicySettings) HasRecovery() bool {
-	if o != nil && o.Recovery != nil {
+	if o != nil && !IsNil(o.Recovery) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *PasswordPolicySettings) SetRecovery(v PasswordPolicyRecoverySettings) {
 }
 
 func (o PasswordPolicySettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordPolicySettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Delegation != nil {
+	if !IsNil(o.Delegation) {
 		toSerialize["delegation"] = o.Delegation
 	}
-	if o.Password != nil {
+	if !IsNil(o.Password) {
 		toSerialize["password"] = o.Password
 	}
-	if o.Recovery != nil {
+	if !IsNil(o.Recovery) {
 		toSerialize["recovery"] = o.Recovery
 	}
 
@@ -166,29 +177,27 @@ func (o PasswordPolicySettings) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordPolicySettings) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordPolicySettings) UnmarshalJSON(data []byte) (err error) {
 	varPasswordPolicySettings := _PasswordPolicySettings{}
 
-	err = json.Unmarshal(bytes, &varPasswordPolicySettings)
-	if err == nil {
-		*o = PasswordPolicySettings(varPasswordPolicySettings)
-	} else {
+	err = json.Unmarshal(data, &varPasswordPolicySettings)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PasswordPolicySettings(varPasswordPolicySettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "delegation")
 		delete(additionalProperties, "password")
 		delete(additionalProperties, "recovery")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullablePasswordPolicySettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

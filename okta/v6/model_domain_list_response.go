@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the DomainListResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DomainListResponse{}
+
 // DomainListResponse Defines a list of domains with a subset of the properties for each domain.
 type DomainListResponse struct {
 	// Each element of the array defines an individual domain.
-	Domains []DomainResponse `json:"domains,omitempty"`
+	Domains              []DomainResponse `json:"domains,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewDomainListResponseWithDefaults() *DomainListResponse {
 
 // GetDomains returns the Domains field value if set, zero value otherwise.
 func (o *DomainListResponse) GetDomains() []DomainResponse {
-	if o == nil || o.Domains == nil {
+	if o == nil || IsNil(o.Domains) {
 		var ret []DomainResponse
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *DomainListResponse) GetDomains() []DomainResponse {
 // GetDomainsOk returns a tuple with the Domains field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DomainListResponse) GetDomainsOk() ([]DomainResponse, bool) {
-	if o == nil || o.Domains == nil {
+	if o == nil || IsNil(o.Domains) {
 		return nil, false
 	}
 	return o.Domains, true
@@ -73,7 +76,7 @@ func (o *DomainListResponse) GetDomainsOk() ([]DomainResponse, bool) {
 
 // HasDomains returns a boolean if a field has been set.
 func (o *DomainListResponse) HasDomains() bool {
-	if o != nil && o.Domains != nil {
+	if o != nil && !IsNil(o.Domains) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *DomainListResponse) SetDomains(v []DomainResponse) {
 }
 
 func (o DomainListResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DomainListResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Domains != nil {
+	if !IsNil(o.Domains) {
 		toSerialize["domains"] = o.Domains
 	}
 
@@ -95,27 +106,25 @@ func (o DomainListResponse) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DomainListResponse) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DomainListResponse) UnmarshalJSON(data []byte) (err error) {
 	varDomainListResponse := _DomainListResponse{}
 
-	err = json.Unmarshal(bytes, &varDomainListResponse)
-	if err == nil {
-		*o = DomainListResponse(varDomainListResponse)
-	} else {
+	err = json.Unmarshal(data, &varDomainListResponse)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DomainListResponse(varDomainListResponse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "domains")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableDomainListResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

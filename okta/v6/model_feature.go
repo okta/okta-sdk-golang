@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the Feature type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Feature{}
+
 // Feature Specifies feature release cycle information
 type Feature struct {
 	// Brief description of the feature and what it provides
@@ -34,13 +37,13 @@ type Feature struct {
 	// Unique identifier for this feature
 	Id *string `json:"id,omitempty"`
 	// Name of the feature
-	Name *string `json:"name,omitempty"`
+	Name  *string       `json:"name,omitempty"`
 	Stage *FeatureStage `json:"stage,omitempty"`
 	// Setting status
 	Status *string `json:"status,omitempty"`
 	// Type of feature
-	Type *string `json:"type,omitempty"`
-	Links *FeatureLinks `json:"_links,omitempty"`
+	Type                 *string       `json:"type,omitempty"`
+	Links                *FeatureLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -65,7 +68,7 @@ func NewFeatureWithDefaults() *Feature {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *Feature) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -75,7 +78,7 @@ func (o *Feature) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Feature) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -83,7 +86,7 @@ func (o *Feature) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *Feature) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -97,7 +100,7 @@ func (o *Feature) SetDescription(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *Feature) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -107,7 +110,7 @@ func (o *Feature) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Feature) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -115,7 +118,7 @@ func (o *Feature) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *Feature) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -129,7 +132,7 @@ func (o *Feature) SetId(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *Feature) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -139,7 +142,7 @@ func (o *Feature) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Feature) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -147,7 +150,7 @@ func (o *Feature) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *Feature) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -161,7 +164,7 @@ func (o *Feature) SetName(v string) {
 
 // GetStage returns the Stage field value if set, zero value otherwise.
 func (o *Feature) GetStage() FeatureStage {
-	if o == nil || o.Stage == nil {
+	if o == nil || IsNil(o.Stage) {
 		var ret FeatureStage
 		return ret
 	}
@@ -171,7 +174,7 @@ func (o *Feature) GetStage() FeatureStage {
 // GetStageOk returns a tuple with the Stage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Feature) GetStageOk() (*FeatureStage, bool) {
-	if o == nil || o.Stage == nil {
+	if o == nil || IsNil(o.Stage) {
 		return nil, false
 	}
 	return o.Stage, true
@@ -179,7 +182,7 @@ func (o *Feature) GetStageOk() (*FeatureStage, bool) {
 
 // HasStage returns a boolean if a field has been set.
 func (o *Feature) HasStage() bool {
-	if o != nil && o.Stage != nil {
+	if o != nil && !IsNil(o.Stage) {
 		return true
 	}
 
@@ -193,7 +196,7 @@ func (o *Feature) SetStage(v FeatureStage) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *Feature) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -203,7 +206,7 @@ func (o *Feature) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Feature) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -211,7 +214,7 @@ func (o *Feature) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *Feature) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -225,7 +228,7 @@ func (o *Feature) SetStatus(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *Feature) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -235,7 +238,7 @@ func (o *Feature) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Feature) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -243,7 +246,7 @@ func (o *Feature) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *Feature) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -257,7 +260,7 @@ func (o *Feature) SetType(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *Feature) GetLinks() FeatureLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret FeatureLinks
 		return ret
 	}
@@ -267,7 +270,7 @@ func (o *Feature) GetLinks() FeatureLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Feature) GetLinksOk() (*FeatureLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -275,7 +278,7 @@ func (o *Feature) GetLinksOk() (*FeatureLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *Feature) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -288,26 +291,34 @@ func (o *Feature) SetLinks(v FeatureLinks) {
 }
 
 func (o Feature) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Feature) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Stage != nil {
+	if !IsNil(o.Stage) {
 		toSerialize["stage"] = o.Stage
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -315,23 +326,23 @@ func (o Feature) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Feature) UnmarshalJSON(bytes []byte) (err error) {
+func (o *Feature) UnmarshalJSON(data []byte) (err error) {
 	varFeature := _Feature{}
 
-	err = json.Unmarshal(bytes, &varFeature)
-	if err == nil {
-		*o = Feature(varFeature)
-	} else {
+	err = json.Unmarshal(data, &varFeature)
+
+	if err != nil {
 		return err
 	}
 
+	*o = Feature(varFeature)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
@@ -340,8 +351,6 @@ func (o *Feature) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -382,4 +391,3 @@ func (v *NullableFeature) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

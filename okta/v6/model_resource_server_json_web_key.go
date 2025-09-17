@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ResourceServerJsonWebKey type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceServerJsonWebKey{}
+
 // ResourceServerJsonWebKey A [JSON Web Key (JWK)](https://tools.ietf.org/html/rfc7517) is a JSON representation of a cryptographic key. Okta can use the active key to encrypt the access token minted by the authorization server. Okta supports only RSA keys with 'use: enc'.
 type ResourceServerJsonWebKey struct {
 	// The key exponent of a RSA key
@@ -40,7 +43,7 @@ type ResourceServerJsonWebKey struct {
 	// The status of the public key
 	Status *string `json:"status,omitempty"`
 	// The intended use of the public key
-	Use *string `json:"use,omitempty"`
+	Use                  *string `json:"use,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -65,7 +68,7 @@ func NewResourceServerJsonWebKeyWithDefaults() *ResourceServerJsonWebKey {
 
 // GetE returns the E field value if set, zero value otherwise.
 func (o *ResourceServerJsonWebKey) GetE() string {
-	if o == nil || o.E == nil {
+	if o == nil || IsNil(o.E) {
 		var ret string
 		return ret
 	}
@@ -75,7 +78,7 @@ func (o *ResourceServerJsonWebKey) GetE() string {
 // GetEOk returns a tuple with the E field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceServerJsonWebKey) GetEOk() (*string, bool) {
-	if o == nil || o.E == nil {
+	if o == nil || IsNil(o.E) {
 		return nil, false
 	}
 	return o.E, true
@@ -83,7 +86,7 @@ func (o *ResourceServerJsonWebKey) GetEOk() (*string, bool) {
 
 // HasE returns a boolean if a field has been set.
 func (o *ResourceServerJsonWebKey) HasE() bool {
-	if o != nil && o.E != nil {
+	if o != nil && !IsNil(o.E) {
 		return true
 	}
 
@@ -97,7 +100,7 @@ func (o *ResourceServerJsonWebKey) SetE(v string) {
 
 // GetKid returns the Kid field value if set, zero value otherwise.
 func (o *ResourceServerJsonWebKey) GetKid() string {
-	if o == nil || o.Kid == nil {
+	if o == nil || IsNil(o.Kid) {
 		var ret string
 		return ret
 	}
@@ -107,7 +110,7 @@ func (o *ResourceServerJsonWebKey) GetKid() string {
 // GetKidOk returns a tuple with the Kid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceServerJsonWebKey) GetKidOk() (*string, bool) {
-	if o == nil || o.Kid == nil {
+	if o == nil || IsNil(o.Kid) {
 		return nil, false
 	}
 	return o.Kid, true
@@ -115,7 +118,7 @@ func (o *ResourceServerJsonWebKey) GetKidOk() (*string, bool) {
 
 // HasKid returns a boolean if a field has been set.
 func (o *ResourceServerJsonWebKey) HasKid() bool {
-	if o != nil && o.Kid != nil {
+	if o != nil && !IsNil(o.Kid) {
 		return true
 	}
 
@@ -129,7 +132,7 @@ func (o *ResourceServerJsonWebKey) SetKid(v string) {
 
 // GetKty returns the Kty field value if set, zero value otherwise.
 func (o *ResourceServerJsonWebKey) GetKty() string {
-	if o == nil || o.Kty == nil {
+	if o == nil || IsNil(o.Kty) {
 		var ret string
 		return ret
 	}
@@ -139,7 +142,7 @@ func (o *ResourceServerJsonWebKey) GetKty() string {
 // GetKtyOk returns a tuple with the Kty field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceServerJsonWebKey) GetKtyOk() (*string, bool) {
-	if o == nil || o.Kty == nil {
+	if o == nil || IsNil(o.Kty) {
 		return nil, false
 	}
 	return o.Kty, true
@@ -147,7 +150,7 @@ func (o *ResourceServerJsonWebKey) GetKtyOk() (*string, bool) {
 
 // HasKty returns a boolean if a field has been set.
 func (o *ResourceServerJsonWebKey) HasKty() bool {
-	if o != nil && o.Kty != nil {
+	if o != nil && !IsNil(o.Kty) {
 		return true
 	}
 
@@ -161,7 +164,7 @@ func (o *ResourceServerJsonWebKey) SetKty(v string) {
 
 // GetN returns the N field value if set, zero value otherwise.
 func (o *ResourceServerJsonWebKey) GetN() string {
-	if o == nil || o.N == nil {
+	if o == nil || IsNil(o.N) {
 		var ret string
 		return ret
 	}
@@ -171,7 +174,7 @@ func (o *ResourceServerJsonWebKey) GetN() string {
 // GetNOk returns a tuple with the N field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceServerJsonWebKey) GetNOk() (*string, bool) {
-	if o == nil || o.N == nil {
+	if o == nil || IsNil(o.N) {
 		return nil, false
 	}
 	return o.N, true
@@ -179,7 +182,7 @@ func (o *ResourceServerJsonWebKey) GetNOk() (*string, bool) {
 
 // HasN returns a boolean if a field has been set.
 func (o *ResourceServerJsonWebKey) HasN() bool {
-	if o != nil && o.N != nil {
+	if o != nil && !IsNil(o.N) {
 		return true
 	}
 
@@ -193,7 +196,7 @@ func (o *ResourceServerJsonWebKey) SetN(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *ResourceServerJsonWebKey) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -203,7 +206,7 @@ func (o *ResourceServerJsonWebKey) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceServerJsonWebKey) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -211,7 +214,7 @@ func (o *ResourceServerJsonWebKey) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *ResourceServerJsonWebKey) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -225,7 +228,7 @@ func (o *ResourceServerJsonWebKey) SetStatus(v string) {
 
 // GetUse returns the Use field value if set, zero value otherwise.
 func (o *ResourceServerJsonWebKey) GetUse() string {
-	if o == nil || o.Use == nil {
+	if o == nil || IsNil(o.Use) {
 		var ret string
 		return ret
 	}
@@ -235,7 +238,7 @@ func (o *ResourceServerJsonWebKey) GetUse() string {
 // GetUseOk returns a tuple with the Use field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceServerJsonWebKey) GetUseOk() (*string, bool) {
-	if o == nil || o.Use == nil {
+	if o == nil || IsNil(o.Use) {
 		return nil, false
 	}
 	return o.Use, true
@@ -243,7 +246,7 @@ func (o *ResourceServerJsonWebKey) GetUseOk() (*string, bool) {
 
 // HasUse returns a boolean if a field has been set.
 func (o *ResourceServerJsonWebKey) HasUse() bool {
-	if o != nil && o.Use != nil {
+	if o != nil && !IsNil(o.Use) {
 		return true
 	}
 
@@ -256,23 +259,31 @@ func (o *ResourceServerJsonWebKey) SetUse(v string) {
 }
 
 func (o ResourceServerJsonWebKey) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ResourceServerJsonWebKey) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.E != nil {
+	if !IsNil(o.E) {
 		toSerialize["e"] = o.E
 	}
-	if o.Kid != nil {
+	if !IsNil(o.Kid) {
 		toSerialize["kid"] = o.Kid
 	}
-	if o.Kty != nil {
+	if !IsNil(o.Kty) {
 		toSerialize["kty"] = o.Kty
 	}
-	if o.N != nil {
+	if !IsNil(o.N) {
 		toSerialize["n"] = o.N
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Use != nil {
+	if !IsNil(o.Use) {
 		toSerialize["use"] = o.Use
 	}
 
@@ -280,23 +291,23 @@ func (o ResourceServerJsonWebKey) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResourceServerJsonWebKey) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ResourceServerJsonWebKey) UnmarshalJSON(data []byte) (err error) {
 	varResourceServerJsonWebKey := _ResourceServerJsonWebKey{}
 
-	err = json.Unmarshal(bytes, &varResourceServerJsonWebKey)
-	if err == nil {
-		*o = ResourceServerJsonWebKey(varResourceServerJsonWebKey)
-	} else {
+	err = json.Unmarshal(data, &varResourceServerJsonWebKey)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ResourceServerJsonWebKey(varResourceServerJsonWebKey)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "e")
 		delete(additionalProperties, "kid")
 		delete(additionalProperties, "kty")
@@ -304,8 +315,6 @@ func (o *ResourceServerJsonWebKey) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "use")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -346,4 +355,3 @@ func (v *NullableResourceServerJsonWebKey) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

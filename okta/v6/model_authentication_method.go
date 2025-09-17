@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"fmt"
 )
 
+// checks if the AuthenticationMethod type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticationMethod{}
+
 // AuthenticationMethod struct for AuthenticationMethod
 type AuthenticationMethod struct {
 	// Indicates if any secrets or private keys used during authentication must be hardware protected and not exportable. This property is only set for `POSSESSION` constraints.
@@ -44,7 +47,7 @@ type AuthenticationMethod struct {
 	UserVerification *string `json:"userVerification,omitempty"`
 	// Indicates which methods can be used for user verification. `userVerificationMethods` can only be used when `userVerification` is `REQUIRED`. `BIOMETRICS` is currently the only supported method.
 	UserVerificationMethods []string `json:"userVerificationMethods,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties    map[string]interface{}
 }
 
 type _AuthenticationMethod AuthenticationMethod
@@ -82,7 +85,7 @@ func NewAuthenticationMethodWithDefaults() *AuthenticationMethod {
 
 // GetHardwareProtection returns the HardwareProtection field value if set, zero value otherwise.
 func (o *AuthenticationMethod) GetHardwareProtection() string {
-	if o == nil || o.HardwareProtection == nil {
+	if o == nil || IsNil(o.HardwareProtection) {
 		var ret string
 		return ret
 	}
@@ -92,7 +95,7 @@ func (o *AuthenticationMethod) GetHardwareProtection() string {
 // GetHardwareProtectionOk returns a tuple with the HardwareProtection field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticationMethod) GetHardwareProtectionOk() (*string, bool) {
-	if o == nil || o.HardwareProtection == nil {
+	if o == nil || IsNil(o.HardwareProtection) {
 		return nil, false
 	}
 	return o.HardwareProtection, true
@@ -100,7 +103,7 @@ func (o *AuthenticationMethod) GetHardwareProtectionOk() (*string, bool) {
 
 // HasHardwareProtection returns a boolean if a field has been set.
 func (o *AuthenticationMethod) HasHardwareProtection() bool {
-	if o != nil && o.HardwareProtection != nil {
+	if o != nil && !IsNil(o.HardwareProtection) {
 		return true
 	}
 
@@ -114,7 +117,7 @@ func (o *AuthenticationMethod) SetHardwareProtection(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *AuthenticationMethod) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -124,7 +127,7 @@ func (o *AuthenticationMethod) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticationMethod) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -132,7 +135,7 @@ func (o *AuthenticationMethod) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *AuthenticationMethod) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -194,7 +197,7 @@ func (o *AuthenticationMethod) SetMethod(v string) {
 
 // GetPhishingResistant returns the PhishingResistant field value if set, zero value otherwise.
 func (o *AuthenticationMethod) GetPhishingResistant() string {
-	if o == nil || o.PhishingResistant == nil {
+	if o == nil || IsNil(o.PhishingResistant) {
 		var ret string
 		return ret
 	}
@@ -204,7 +207,7 @@ func (o *AuthenticationMethod) GetPhishingResistant() string {
 // GetPhishingResistantOk returns a tuple with the PhishingResistant field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticationMethod) GetPhishingResistantOk() (*string, bool) {
-	if o == nil || o.PhishingResistant == nil {
+	if o == nil || IsNil(o.PhishingResistant) {
 		return nil, false
 	}
 	return o.PhishingResistant, true
@@ -212,7 +215,7 @@ func (o *AuthenticationMethod) GetPhishingResistantOk() (*string, bool) {
 
 // HasPhishingResistant returns a boolean if a field has been set.
 func (o *AuthenticationMethod) HasPhishingResistant() bool {
-	if o != nil && o.PhishingResistant != nil {
+	if o != nil && !IsNil(o.PhishingResistant) {
 		return true
 	}
 
@@ -226,7 +229,7 @@ func (o *AuthenticationMethod) SetPhishingResistant(v string) {
 
 // GetUserVerification returns the UserVerification field value if set, zero value otherwise.
 func (o *AuthenticationMethod) GetUserVerification() string {
-	if o == nil || o.UserVerification == nil {
+	if o == nil || IsNil(o.UserVerification) {
 		var ret string
 		return ret
 	}
@@ -236,7 +239,7 @@ func (o *AuthenticationMethod) GetUserVerification() string {
 // GetUserVerificationOk returns a tuple with the UserVerification field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticationMethod) GetUserVerificationOk() (*string, bool) {
-	if o == nil || o.UserVerification == nil {
+	if o == nil || IsNil(o.UserVerification) {
 		return nil, false
 	}
 	return o.UserVerification, true
@@ -244,7 +247,7 @@ func (o *AuthenticationMethod) GetUserVerificationOk() (*string, bool) {
 
 // HasUserVerification returns a boolean if a field has been set.
 func (o *AuthenticationMethod) HasUserVerification() bool {
-	if o != nil && o.UserVerification != nil {
+	if o != nil && !IsNil(o.UserVerification) {
 		return true
 	}
 
@@ -258,7 +261,7 @@ func (o *AuthenticationMethod) SetUserVerification(v string) {
 
 // GetUserVerificationMethods returns the UserVerificationMethods field value if set, zero value otherwise.
 func (o *AuthenticationMethod) GetUserVerificationMethods() []string {
-	if o == nil || o.UserVerificationMethods == nil {
+	if o == nil || IsNil(o.UserVerificationMethods) {
 		var ret []string
 		return ret
 	}
@@ -268,7 +271,7 @@ func (o *AuthenticationMethod) GetUserVerificationMethods() []string {
 // GetUserVerificationMethodsOk returns a tuple with the UserVerificationMethods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticationMethod) GetUserVerificationMethodsOk() ([]string, bool) {
-	if o == nil || o.UserVerificationMethods == nil {
+	if o == nil || IsNil(o.UserVerificationMethods) {
 		return nil, false
 	}
 	return o.UserVerificationMethods, true
@@ -276,7 +279,7 @@ func (o *AuthenticationMethod) GetUserVerificationMethodsOk() ([]string, bool) {
 
 // HasUserVerificationMethods returns a boolean if a field has been set.
 func (o *AuthenticationMethod) HasUserVerificationMethods() bool {
-	if o != nil && o.UserVerificationMethods != nil {
+	if o != nil && !IsNil(o.UserVerificationMethods) {
 		return true
 	}
 
@@ -289,26 +292,30 @@ func (o *AuthenticationMethod) SetUserVerificationMethods(v []string) {
 }
 
 func (o AuthenticationMethod) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticationMethod) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.HardwareProtection != nil {
+	if !IsNil(o.HardwareProtection) {
 		toSerialize["hardwareProtection"] = o.HardwareProtection
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if true {
-		toSerialize["key"] = o.Key
-	}
-	if true {
-		toSerialize["method"] = o.Method
-	}
-	if o.PhishingResistant != nil {
+	toSerialize["key"] = o.Key
+	toSerialize["method"] = o.Method
+	if !IsNil(o.PhishingResistant) {
 		toSerialize["phishingResistant"] = o.PhishingResistant
 	}
-	if o.UserVerification != nil {
+	if !IsNil(o.UserVerification) {
 		toSerialize["userVerification"] = o.UserVerification
 	}
-	if o.UserVerificationMethods != nil {
+	if !IsNil(o.UserVerificationMethods) {
 		toSerialize["userVerificationMethods"] = o.UserVerificationMethods
 	}
 
@@ -316,23 +323,45 @@ func (o AuthenticationMethod) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticationMethod) UnmarshalJSON(bytes []byte) (err error) {
-	varAuthenticationMethod := _AuthenticationMethod{}
+func (o *AuthenticationMethod) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"key",
+		"method",
+	}
 
-	err = json.Unmarshal(bytes, &varAuthenticationMethod)
-	if err == nil {
-		*o = AuthenticationMethod(varAuthenticationMethod)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAuthenticationMethod := _AuthenticationMethod{}
+
+	err = json.Unmarshal(data, &varAuthenticationMethod)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AuthenticationMethod(varAuthenticationMethod)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "hardwareProtection")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "key")
@@ -341,8 +370,6 @@ func (o *AuthenticationMethod) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "userVerification")
 		delete(additionalProperties, "userVerificationMethods")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -383,4 +410,3 @@ func (v *NullableAuthenticationMethod) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

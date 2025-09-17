@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the ScimScimServerConfig type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ScimScimServerConfig{}
+
 // ScimScimServerConfig SCIM server schema configuration
 type ScimScimServerConfig struct {
-	Patch *ScimScimServerConfigPatch `json:"patch,omitempty"`
-	ChangePassword *ScimScimServerConfigChangePassword `json:"changePassword,omitempty"`
+	Patch                *ScimScimServerConfigPatch          `json:"patch,omitempty"`
+	ChangePassword       *ScimScimServerConfigChangePassword `json:"changePassword,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewScimScimServerConfigWithDefaults() *ScimScimServerConfig {
 
 // GetPatch returns the Patch field value if set, zero value otherwise.
 func (o *ScimScimServerConfig) GetPatch() ScimScimServerConfigPatch {
-	if o == nil || o.Patch == nil {
+	if o == nil || IsNil(o.Patch) {
 		var ret ScimScimServerConfigPatch
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *ScimScimServerConfig) GetPatch() ScimScimServerConfigPatch {
 // GetPatchOk returns a tuple with the Patch field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ScimScimServerConfig) GetPatchOk() (*ScimScimServerConfigPatch, bool) {
-	if o == nil || o.Patch == nil {
+	if o == nil || IsNil(o.Patch) {
 		return nil, false
 	}
 	return o.Patch, true
@@ -73,7 +76,7 @@ func (o *ScimScimServerConfig) GetPatchOk() (*ScimScimServerConfigPatch, bool) {
 
 // HasPatch returns a boolean if a field has been set.
 func (o *ScimScimServerConfig) HasPatch() bool {
-	if o != nil && o.Patch != nil {
+	if o != nil && !IsNil(o.Patch) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *ScimScimServerConfig) SetPatch(v ScimScimServerConfigPatch) {
 
 // GetChangePassword returns the ChangePassword field value if set, zero value otherwise.
 func (o *ScimScimServerConfig) GetChangePassword() ScimScimServerConfigChangePassword {
-	if o == nil || o.ChangePassword == nil {
+	if o == nil || IsNil(o.ChangePassword) {
 		var ret ScimScimServerConfigChangePassword
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *ScimScimServerConfig) GetChangePassword() ScimScimServerConfigChangePas
 // GetChangePasswordOk returns a tuple with the ChangePassword field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ScimScimServerConfig) GetChangePasswordOk() (*ScimScimServerConfigChangePassword, bool) {
-	if o == nil || o.ChangePassword == nil {
+	if o == nil || IsNil(o.ChangePassword) {
 		return nil, false
 	}
 	return o.ChangePassword, true
@@ -105,7 +108,7 @@ func (o *ScimScimServerConfig) GetChangePasswordOk() (*ScimScimServerConfigChang
 
 // HasChangePassword returns a boolean if a field has been set.
 func (o *ScimScimServerConfig) HasChangePassword() bool {
-	if o != nil && o.ChangePassword != nil {
+	if o != nil && !IsNil(o.ChangePassword) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *ScimScimServerConfig) SetChangePassword(v ScimScimServerConfigChangePas
 }
 
 func (o ScimScimServerConfig) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ScimScimServerConfig) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Patch != nil {
+	if !IsNil(o.Patch) {
 		toSerialize["patch"] = o.Patch
 	}
-	if o.ChangePassword != nil {
+	if !IsNil(o.ChangePassword) {
 		toSerialize["changePassword"] = o.ChangePassword
 	}
 
@@ -130,28 +141,26 @@ func (o ScimScimServerConfig) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ScimScimServerConfig) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ScimScimServerConfig) UnmarshalJSON(data []byte) (err error) {
 	varScimScimServerConfig := _ScimScimServerConfig{}
 
-	err = json.Unmarshal(bytes, &varScimScimServerConfig)
-	if err == nil {
-		*o = ScimScimServerConfig(varScimScimServerConfig)
-	} else {
+	err = json.Unmarshal(data, &varScimScimServerConfig)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ScimScimServerConfig(varScimScimServerConfig)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "patch")
 		delete(additionalProperties, "changePassword")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableScimScimServerConfig) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

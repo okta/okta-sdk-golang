@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the InlineHookOAuthChannelConfigCreate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InlineHookOAuthChannelConfigCreate{}
+
 // InlineHookOAuthChannelConfigCreate struct for InlineHookOAuthChannelConfigCreate
 type InlineHookOAuthChannelConfigCreate struct {
 	// The authentication method for the token endpoint
-	AuthType *string `json:"authType,omitempty"`
+	AuthType             *string `json:"authType,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewInlineHookOAuthChannelConfigCreateWithDefaults() *InlineHookOAuthChannel
 
 // GetAuthType returns the AuthType field value if set, zero value otherwise.
 func (o *InlineHookOAuthChannelConfigCreate) GetAuthType() string {
-	if o == nil || o.AuthType == nil {
+	if o == nil || IsNil(o.AuthType) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *InlineHookOAuthChannelConfigCreate) GetAuthType() string {
 // GetAuthTypeOk returns a tuple with the AuthType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookOAuthChannelConfigCreate) GetAuthTypeOk() (*string, bool) {
-	if o == nil || o.AuthType == nil {
+	if o == nil || IsNil(o.AuthType) {
 		return nil, false
 	}
 	return o.AuthType, true
@@ -73,7 +76,7 @@ func (o *InlineHookOAuthChannelConfigCreate) GetAuthTypeOk() (*string, bool) {
 
 // HasAuthType returns a boolean if a field has been set.
 func (o *InlineHookOAuthChannelConfigCreate) HasAuthType() bool {
-	if o != nil && o.AuthType != nil {
+	if o != nil && !IsNil(o.AuthType) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *InlineHookOAuthChannelConfigCreate) SetAuthType(v string) {
 }
 
 func (o InlineHookOAuthChannelConfigCreate) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o InlineHookOAuthChannelConfigCreate) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AuthType != nil {
+	if !IsNil(o.AuthType) {
 		toSerialize["authType"] = o.AuthType
 	}
 
@@ -95,27 +106,25 @@ func (o InlineHookOAuthChannelConfigCreate) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *InlineHookOAuthChannelConfigCreate) UnmarshalJSON(bytes []byte) (err error) {
+func (o *InlineHookOAuthChannelConfigCreate) UnmarshalJSON(data []byte) (err error) {
 	varInlineHookOAuthChannelConfigCreate := _InlineHookOAuthChannelConfigCreate{}
 
-	err = json.Unmarshal(bytes, &varInlineHookOAuthChannelConfigCreate)
-	if err == nil {
-		*o = InlineHookOAuthChannelConfigCreate(varInlineHookOAuthChannelConfigCreate)
-	} else {
+	err = json.Unmarshal(data, &varInlineHookOAuthChannelConfigCreate)
+
+	if err != nil {
 		return err
 	}
 
+	*o = InlineHookOAuthChannelConfigCreate(varInlineHookOAuthChannelConfigCreate)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "authType")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableInlineHookOAuthChannelConfigCreate) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the OrgAerialGrantNotFound type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrgAerialGrantNotFound{}
+
 // OrgAerialGrantNotFound struct for OrgAerialGrantNotFound
 type OrgAerialGrantNotFound struct {
 	// The unique ID of the Aerial account
@@ -34,8 +37,8 @@ type OrgAerialGrantNotFound struct {
 	// Principal ID of the user who granted the permission
 	GrantedBy *string `json:"grantedBy,omitempty"`
 	// Date when grant was created
-	GrantedDate *string `json:"grantedDate,omitempty"`
-	Links *LinksAerialConsentGranted `json:"_links,omitempty"`
+	GrantedDate          *string                    `json:"grantedDate,omitempty"`
+	Links                *LinksAerialConsentGranted `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +63,7 @@ func NewOrgAerialGrantNotFoundWithDefaults() *OrgAerialGrantNotFound {
 
 // GetAccountId returns the AccountId field value if set, zero value otherwise.
 func (o *OrgAerialGrantNotFound) GetAccountId() string {
-	if o == nil || o.AccountId == nil {
+	if o == nil || IsNil(o.AccountId) {
 		var ret string
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *OrgAerialGrantNotFound) GetAccountId() string {
 // GetAccountIdOk returns a tuple with the AccountId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgAerialGrantNotFound) GetAccountIdOk() (*string, bool) {
-	if o == nil || o.AccountId == nil {
+	if o == nil || IsNil(o.AccountId) {
 		return nil, false
 	}
 	return o.AccountId, true
@@ -78,7 +81,7 @@ func (o *OrgAerialGrantNotFound) GetAccountIdOk() (*string, bool) {
 
 // HasAccountId returns a boolean if a field has been set.
 func (o *OrgAerialGrantNotFound) HasAccountId() bool {
-	if o != nil && o.AccountId != nil {
+	if o != nil && !IsNil(o.AccountId) {
 		return true
 	}
 
@@ -92,7 +95,7 @@ func (o *OrgAerialGrantNotFound) SetAccountId(v string) {
 
 // GetGrantedBy returns the GrantedBy field value if set, zero value otherwise.
 func (o *OrgAerialGrantNotFound) GetGrantedBy() string {
-	if o == nil || o.GrantedBy == nil {
+	if o == nil || IsNil(o.GrantedBy) {
 		var ret string
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *OrgAerialGrantNotFound) GetGrantedBy() string {
 // GetGrantedByOk returns a tuple with the GrantedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgAerialGrantNotFound) GetGrantedByOk() (*string, bool) {
-	if o == nil || o.GrantedBy == nil {
+	if o == nil || IsNil(o.GrantedBy) {
 		return nil, false
 	}
 	return o.GrantedBy, true
@@ -110,7 +113,7 @@ func (o *OrgAerialGrantNotFound) GetGrantedByOk() (*string, bool) {
 
 // HasGrantedBy returns a boolean if a field has been set.
 func (o *OrgAerialGrantNotFound) HasGrantedBy() bool {
-	if o != nil && o.GrantedBy != nil {
+	if o != nil && !IsNil(o.GrantedBy) {
 		return true
 	}
 
@@ -124,7 +127,7 @@ func (o *OrgAerialGrantNotFound) SetGrantedBy(v string) {
 
 // GetGrantedDate returns the GrantedDate field value if set, zero value otherwise.
 func (o *OrgAerialGrantNotFound) GetGrantedDate() string {
-	if o == nil || o.GrantedDate == nil {
+	if o == nil || IsNil(o.GrantedDate) {
 		var ret string
 		return ret
 	}
@@ -134,7 +137,7 @@ func (o *OrgAerialGrantNotFound) GetGrantedDate() string {
 // GetGrantedDateOk returns a tuple with the GrantedDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgAerialGrantNotFound) GetGrantedDateOk() (*string, bool) {
-	if o == nil || o.GrantedDate == nil {
+	if o == nil || IsNil(o.GrantedDate) {
 		return nil, false
 	}
 	return o.GrantedDate, true
@@ -142,7 +145,7 @@ func (o *OrgAerialGrantNotFound) GetGrantedDateOk() (*string, bool) {
 
 // HasGrantedDate returns a boolean if a field has been set.
 func (o *OrgAerialGrantNotFound) HasGrantedDate() bool {
-	if o != nil && o.GrantedDate != nil {
+	if o != nil && !IsNil(o.GrantedDate) {
 		return true
 	}
 
@@ -156,7 +159,7 @@ func (o *OrgAerialGrantNotFound) SetGrantedDate(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *OrgAerialGrantNotFound) GetLinks() LinksAerialConsentGranted {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksAerialConsentGranted
 		return ret
 	}
@@ -166,7 +169,7 @@ func (o *OrgAerialGrantNotFound) GetLinks() LinksAerialConsentGranted {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgAerialGrantNotFound) GetLinksOk() (*LinksAerialConsentGranted, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -174,7 +177,7 @@ func (o *OrgAerialGrantNotFound) GetLinksOk() (*LinksAerialConsentGranted, bool)
 
 // HasLinks returns a boolean if a field has been set.
 func (o *OrgAerialGrantNotFound) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -187,17 +190,25 @@ func (o *OrgAerialGrantNotFound) SetLinks(v LinksAerialConsentGranted) {
 }
 
 func (o OrgAerialGrantNotFound) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OrgAerialGrantNotFound) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AccountId != nil {
+	if !IsNil(o.AccountId) {
 		toSerialize["accountId"] = o.AccountId
 	}
-	if o.GrantedBy != nil {
+	if !IsNil(o.GrantedBy) {
 		toSerialize["grantedBy"] = o.GrantedBy
 	}
-	if o.GrantedDate != nil {
+	if !IsNil(o.GrantedDate) {
 		toSerialize["grantedDate"] = o.GrantedDate
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -205,30 +216,28 @@ func (o OrgAerialGrantNotFound) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OrgAerialGrantNotFound) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OrgAerialGrantNotFound) UnmarshalJSON(data []byte) (err error) {
 	varOrgAerialGrantNotFound := _OrgAerialGrantNotFound{}
 
-	err = json.Unmarshal(bytes, &varOrgAerialGrantNotFound)
-	if err == nil {
-		*o = OrgAerialGrantNotFound(varOrgAerialGrantNotFound)
-	} else {
+	err = json.Unmarshal(data, &varOrgAerialGrantNotFound)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OrgAerialGrantNotFound(varOrgAerialGrantNotFound)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "accountId")
 		delete(additionalProperties, "grantedBy")
 		delete(additionalProperties, "grantedDate")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -269,4 +278,3 @@ func (v *NullableOrgAerialGrantNotFound) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

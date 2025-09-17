@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,21 +28,24 @@ import (
 	"fmt"
 )
 
-// ZoomUsApplication Schema for the Zoom app (key name: `zoomus`)  To create a Zoom app, use the [Create an Application](/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication) request with the following parameters in the request body. > **Note:** The Zoom app only supports `SAML_2_0` sign-on mode. 
+// checks if the ZoomUsApplication type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ZoomUsApplication{}
+
+// ZoomUsApplication Schema for the Zoom app (key name: `zoomus`)  To create a Zoom app, use the [Create an Application](/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication) request with the following parameters in the request body. > **Note:** The Zoom app only supports `SAML_2_0` sign-on mode.
 type ZoomUsApplication struct {
-	Accessibility *ApplicationAccessibility `json:"accessibility,omitempty"`
-	Credentials *SchemeApplicationCredentials `json:"credentials,omitempty"`
+	Accessibility *ApplicationAccessibility     `json:"accessibility,omitempty"`
+	Credentials   *SchemeApplicationCredentials `json:"credentials,omitempty"`
 	// User-defined display name for app
-	Label string `json:"label"`
+	Label     string                `json:"label"`
 	Licensing *ApplicationLicensing `json:"licensing,omitempty"`
-	Name string `json:"name"`
+	Name      string                `json:"name"`
 	// Contains any valid JSON schema for specifying properties that can be referenced from a request (only available to OAuth 2.0 client apps)
-	Profile map[string]map[string]interface{} `json:"profile,omitempty"`
-	SignOnMode *string `json:"signOnMode,omitempty"`
+	Profile    map[string]map[string]interface{} `json:"profile,omitempty"`
+	SignOnMode *string                           `json:"signOnMode,omitempty"`
 	// App instance status
-	Status *string `json:"status,omitempty"`
-	Visibility *ApplicationVisibility `json:"visibility,omitempty"`
-	Settings ZoomUsApplicationSettings `json:"settings"`
+	Status               *string                   `json:"status,omitempty"`
+	Visibility           *ApplicationVisibility    `json:"visibility,omitempty"`
+	Settings             ZoomUsApplicationSettings `json:"settings"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -70,7 +73,7 @@ func NewZoomUsApplicationWithDefaults() *ZoomUsApplication {
 
 // GetAccessibility returns the Accessibility field value if set, zero value otherwise.
 func (o *ZoomUsApplication) GetAccessibility() ApplicationAccessibility {
-	if o == nil || o.Accessibility == nil {
+	if o == nil || IsNil(o.Accessibility) {
 		var ret ApplicationAccessibility
 		return ret
 	}
@@ -80,7 +83,7 @@ func (o *ZoomUsApplication) GetAccessibility() ApplicationAccessibility {
 // GetAccessibilityOk returns a tuple with the Accessibility field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ZoomUsApplication) GetAccessibilityOk() (*ApplicationAccessibility, bool) {
-	if o == nil || o.Accessibility == nil {
+	if o == nil || IsNil(o.Accessibility) {
 		return nil, false
 	}
 	return o.Accessibility, true
@@ -88,7 +91,7 @@ func (o *ZoomUsApplication) GetAccessibilityOk() (*ApplicationAccessibility, boo
 
 // HasAccessibility returns a boolean if a field has been set.
 func (o *ZoomUsApplication) HasAccessibility() bool {
-	if o != nil && o.Accessibility != nil {
+	if o != nil && !IsNil(o.Accessibility) {
 		return true
 	}
 
@@ -102,7 +105,7 @@ func (o *ZoomUsApplication) SetAccessibility(v ApplicationAccessibility) {
 
 // GetCredentials returns the Credentials field value if set, zero value otherwise.
 func (o *ZoomUsApplication) GetCredentials() SchemeApplicationCredentials {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		var ret SchemeApplicationCredentials
 		return ret
 	}
@@ -112,7 +115,7 @@ func (o *ZoomUsApplication) GetCredentials() SchemeApplicationCredentials {
 // GetCredentialsOk returns a tuple with the Credentials field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ZoomUsApplication) GetCredentialsOk() (*SchemeApplicationCredentials, bool) {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		return nil, false
 	}
 	return o.Credentials, true
@@ -120,7 +123,7 @@ func (o *ZoomUsApplication) GetCredentialsOk() (*SchemeApplicationCredentials, b
 
 // HasCredentials returns a boolean if a field has been set.
 func (o *ZoomUsApplication) HasCredentials() bool {
-	if o != nil && o.Credentials != nil {
+	if o != nil && !IsNil(o.Credentials) {
 		return true
 	}
 
@@ -158,7 +161,7 @@ func (o *ZoomUsApplication) SetLabel(v string) {
 
 // GetLicensing returns the Licensing field value if set, zero value otherwise.
 func (o *ZoomUsApplication) GetLicensing() ApplicationLicensing {
-	if o == nil || o.Licensing == nil {
+	if o == nil || IsNil(o.Licensing) {
 		var ret ApplicationLicensing
 		return ret
 	}
@@ -168,7 +171,7 @@ func (o *ZoomUsApplication) GetLicensing() ApplicationLicensing {
 // GetLicensingOk returns a tuple with the Licensing field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ZoomUsApplication) GetLicensingOk() (*ApplicationLicensing, bool) {
-	if o == nil || o.Licensing == nil {
+	if o == nil || IsNil(o.Licensing) {
 		return nil, false
 	}
 	return o.Licensing, true
@@ -176,7 +179,7 @@ func (o *ZoomUsApplication) GetLicensingOk() (*ApplicationLicensing, bool) {
 
 // HasLicensing returns a boolean if a field has been set.
 func (o *ZoomUsApplication) HasLicensing() bool {
-	if o != nil && o.Licensing != nil {
+	if o != nil && !IsNil(o.Licensing) {
 		return true
 	}
 
@@ -214,7 +217,7 @@ func (o *ZoomUsApplication) SetName(v string) {
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *ZoomUsApplication) GetProfile() map[string]map[string]interface{} {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
@@ -224,15 +227,15 @@ func (o *ZoomUsApplication) GetProfile() map[string]map[string]interface{} {
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ZoomUsApplication) GetProfileOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || o.Profile == nil {
-		return nil, false
+	if o == nil || IsNil(o.Profile) {
+		return map[string]map[string]interface{}{}, false
 	}
 	return o.Profile, true
 }
 
 // HasProfile returns a boolean if a field has been set.
 func (o *ZoomUsApplication) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -246,7 +249,7 @@ func (o *ZoomUsApplication) SetProfile(v map[string]map[string]interface{}) {
 
 // GetSignOnMode returns the SignOnMode field value if set, zero value otherwise.
 func (o *ZoomUsApplication) GetSignOnMode() string {
-	if o == nil || o.SignOnMode == nil {
+	if o == nil || IsNil(o.SignOnMode) {
 		var ret string
 		return ret
 	}
@@ -256,7 +259,7 @@ func (o *ZoomUsApplication) GetSignOnMode() string {
 // GetSignOnModeOk returns a tuple with the SignOnMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ZoomUsApplication) GetSignOnModeOk() (*string, bool) {
-	if o == nil || o.SignOnMode == nil {
+	if o == nil || IsNil(o.SignOnMode) {
 		return nil, false
 	}
 	return o.SignOnMode, true
@@ -264,7 +267,7 @@ func (o *ZoomUsApplication) GetSignOnModeOk() (*string, bool) {
 
 // HasSignOnMode returns a boolean if a field has been set.
 func (o *ZoomUsApplication) HasSignOnMode() bool {
-	if o != nil && o.SignOnMode != nil {
+	if o != nil && !IsNil(o.SignOnMode) {
 		return true
 	}
 
@@ -278,7 +281,7 @@ func (o *ZoomUsApplication) SetSignOnMode(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *ZoomUsApplication) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -288,7 +291,7 @@ func (o *ZoomUsApplication) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ZoomUsApplication) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -296,7 +299,7 @@ func (o *ZoomUsApplication) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *ZoomUsApplication) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -310,7 +313,7 @@ func (o *ZoomUsApplication) SetStatus(v string) {
 
 // GetVisibility returns the Visibility field value if set, zero value otherwise.
 func (o *ZoomUsApplication) GetVisibility() ApplicationVisibility {
-	if o == nil || o.Visibility == nil {
+	if o == nil || IsNil(o.Visibility) {
 		var ret ApplicationVisibility
 		return ret
 	}
@@ -320,7 +323,7 @@ func (o *ZoomUsApplication) GetVisibility() ApplicationVisibility {
 // GetVisibilityOk returns a tuple with the Visibility field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ZoomUsApplication) GetVisibilityOk() (*ApplicationVisibility, bool) {
-	if o == nil || o.Visibility == nil {
+	if o == nil || IsNil(o.Visibility) {
 		return nil, false
 	}
 	return o.Visibility, true
@@ -328,7 +331,7 @@ func (o *ZoomUsApplication) GetVisibilityOk() (*ApplicationVisibility, bool) {
 
 // HasVisibility returns a boolean if a field has been set.
 func (o *ZoomUsApplication) HasVisibility() bool {
-	if o != nil && o.Visibility != nil {
+	if o != nil && !IsNil(o.Visibility) {
 		return true
 	}
 
@@ -365,59 +368,84 @@ func (o *ZoomUsApplication) SetSettings(v ZoomUsApplicationSettings) {
 }
 
 func (o ZoomUsApplication) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ZoomUsApplication) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Accessibility != nil {
+	if !IsNil(o.Accessibility) {
 		toSerialize["accessibility"] = o.Accessibility
 	}
-	if o.Credentials != nil {
+	if !IsNil(o.Credentials) {
 		toSerialize["credentials"] = o.Credentials
 	}
-	if true {
-		toSerialize["label"] = o.Label
-	}
-	if o.Licensing != nil {
+	toSerialize["label"] = o.Label
+	if !IsNil(o.Licensing) {
 		toSerialize["licensing"] = o.Licensing
 	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Profile != nil {
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
-	if o.SignOnMode != nil {
+	if !IsNil(o.SignOnMode) {
 		toSerialize["signOnMode"] = o.SignOnMode
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Visibility != nil {
+	if !IsNil(o.Visibility) {
 		toSerialize["visibility"] = o.Visibility
 	}
-	if true {
-		toSerialize["settings"] = o.Settings
-	}
+	toSerialize["settings"] = o.Settings
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ZoomUsApplication) UnmarshalJSON(bytes []byte) (err error) {
-	varZoomUsApplication := _ZoomUsApplication{}
+func (o *ZoomUsApplication) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"label",
+		"name",
+		"settings",
+	}
 
-	err = json.Unmarshal(bytes, &varZoomUsApplication)
-	if err == nil {
-		*o = ZoomUsApplication(varZoomUsApplication)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varZoomUsApplication := _ZoomUsApplication{}
+
+	err = json.Unmarshal(data, &varZoomUsApplication)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ZoomUsApplication(varZoomUsApplication)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "accessibility")
 		delete(additionalProperties, "credentials")
 		delete(additionalProperties, "label")
@@ -429,8 +457,6 @@ func (o *ZoomUsApplication) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "visibility")
 		delete(additionalProperties, "settings")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -471,4 +497,3 @@ func (v *NullableZoomUsApplication) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

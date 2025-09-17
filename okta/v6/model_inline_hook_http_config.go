@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the InlineHookHttpConfig type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InlineHookHttpConfig{}
+
 // InlineHookHttpConfig struct for InlineHookHttpConfig
 type InlineHookHttpConfig struct {
 	AuthScheme NullableInlineHookChannelConfigAuthSchemeResponse `json:"authScheme,omitempty"`
@@ -35,7 +38,7 @@ type InlineHookHttpConfig struct {
 	// The method of the Okta inline hook request
 	Method *string `json:"method,omitempty"`
 	// The external service endpoint that executes the inline hook handler. It must begin with `https://` and be reachable by Okta. No white space is allowed in the URI.
-	Uri *string `json:"uri,omitempty"`
+	Uri                  *string `json:"uri,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +63,7 @@ func NewInlineHookHttpConfigWithDefaults() *InlineHookHttpConfig {
 
 // GetAuthScheme returns the AuthScheme field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *InlineHookHttpConfig) GetAuthScheme() InlineHookChannelConfigAuthSchemeResponse {
-	if o == nil || o.AuthScheme.Get() == nil {
+	if o == nil || IsNil(o.AuthScheme.Get()) {
 		var ret InlineHookChannelConfigAuthSchemeResponse
 		return ret
 	}
@@ -90,6 +93,7 @@ func (o *InlineHookHttpConfig) HasAuthScheme() bool {
 func (o *InlineHookHttpConfig) SetAuthScheme(v InlineHookChannelConfigAuthSchemeResponse) {
 	o.AuthScheme.Set(&v)
 }
+
 // SetAuthSchemeNil sets the value for AuthScheme to be an explicit nil
 func (o *InlineHookHttpConfig) SetAuthSchemeNil() {
 	o.AuthScheme.Set(nil)
@@ -102,7 +106,7 @@ func (o *InlineHookHttpConfig) UnsetAuthScheme() {
 
 // GetHeaders returns the Headers field value if set, zero value otherwise.
 func (o *InlineHookHttpConfig) GetHeaders() []InlineHookChannelConfigHeaders {
-	if o == nil || o.Headers == nil {
+	if o == nil || IsNil(o.Headers) {
 		var ret []InlineHookChannelConfigHeaders
 		return ret
 	}
@@ -112,7 +116,7 @@ func (o *InlineHookHttpConfig) GetHeaders() []InlineHookChannelConfigHeaders {
 // GetHeadersOk returns a tuple with the Headers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookHttpConfig) GetHeadersOk() ([]InlineHookChannelConfigHeaders, bool) {
-	if o == nil || o.Headers == nil {
+	if o == nil || IsNil(o.Headers) {
 		return nil, false
 	}
 	return o.Headers, true
@@ -120,7 +124,7 @@ func (o *InlineHookHttpConfig) GetHeadersOk() ([]InlineHookChannelConfigHeaders,
 
 // HasHeaders returns a boolean if a field has been set.
 func (o *InlineHookHttpConfig) HasHeaders() bool {
-	if o != nil && o.Headers != nil {
+	if o != nil && !IsNil(o.Headers) {
 		return true
 	}
 
@@ -134,7 +138,7 @@ func (o *InlineHookHttpConfig) SetHeaders(v []InlineHookChannelConfigHeaders) {
 
 // GetMethod returns the Method field value if set, zero value otherwise.
 func (o *InlineHookHttpConfig) GetMethod() string {
-	if o == nil || o.Method == nil {
+	if o == nil || IsNil(o.Method) {
 		var ret string
 		return ret
 	}
@@ -144,7 +148,7 @@ func (o *InlineHookHttpConfig) GetMethod() string {
 // GetMethodOk returns a tuple with the Method field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookHttpConfig) GetMethodOk() (*string, bool) {
-	if o == nil || o.Method == nil {
+	if o == nil || IsNil(o.Method) {
 		return nil, false
 	}
 	return o.Method, true
@@ -152,7 +156,7 @@ func (o *InlineHookHttpConfig) GetMethodOk() (*string, bool) {
 
 // HasMethod returns a boolean if a field has been set.
 func (o *InlineHookHttpConfig) HasMethod() bool {
-	if o != nil && o.Method != nil {
+	if o != nil && !IsNil(o.Method) {
 		return true
 	}
 
@@ -166,7 +170,7 @@ func (o *InlineHookHttpConfig) SetMethod(v string) {
 
 // GetUri returns the Uri field value if set, zero value otherwise.
 func (o *InlineHookHttpConfig) GetUri() string {
-	if o == nil || o.Uri == nil {
+	if o == nil || IsNil(o.Uri) {
 		var ret string
 		return ret
 	}
@@ -176,7 +180,7 @@ func (o *InlineHookHttpConfig) GetUri() string {
 // GetUriOk returns a tuple with the Uri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookHttpConfig) GetUriOk() (*string, bool) {
-	if o == nil || o.Uri == nil {
+	if o == nil || IsNil(o.Uri) {
 		return nil, false
 	}
 	return o.Uri, true
@@ -184,7 +188,7 @@ func (o *InlineHookHttpConfig) GetUriOk() (*string, bool) {
 
 // HasUri returns a boolean if a field has been set.
 func (o *InlineHookHttpConfig) HasUri() bool {
-	if o != nil && o.Uri != nil {
+	if o != nil && !IsNil(o.Uri) {
 		return true
 	}
 
@@ -197,17 +201,25 @@ func (o *InlineHookHttpConfig) SetUri(v string) {
 }
 
 func (o InlineHookHttpConfig) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o InlineHookHttpConfig) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.AuthScheme.IsSet() {
 		toSerialize["authScheme"] = o.AuthScheme.Get()
 	}
-	if o.Headers != nil {
+	if !IsNil(o.Headers) {
 		toSerialize["headers"] = o.Headers
 	}
-	if o.Method != nil {
+	if !IsNil(o.Method) {
 		toSerialize["method"] = o.Method
 	}
-	if o.Uri != nil {
+	if !IsNil(o.Uri) {
 		toSerialize["uri"] = o.Uri
 	}
 
@@ -215,30 +227,28 @@ func (o InlineHookHttpConfig) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *InlineHookHttpConfig) UnmarshalJSON(bytes []byte) (err error) {
+func (o *InlineHookHttpConfig) UnmarshalJSON(data []byte) (err error) {
 	varInlineHookHttpConfig := _InlineHookHttpConfig{}
 
-	err = json.Unmarshal(bytes, &varInlineHookHttpConfig)
-	if err == nil {
-		*o = InlineHookHttpConfig(varInlineHookHttpConfig)
-	} else {
+	err = json.Unmarshal(data, &varInlineHookHttpConfig)
+
+	if err != nil {
 		return err
 	}
 
+	*o = InlineHookHttpConfig(varInlineHookHttpConfig)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "authScheme")
 		delete(additionalProperties, "headers")
 		delete(additionalProperties, "method")
 		delete(additionalProperties, "uri")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -279,4 +289,3 @@ func (v *NullableInlineHookHttpConfig) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

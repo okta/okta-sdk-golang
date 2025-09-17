@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the InlineHookLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InlineHookLinks{}
+
 // InlineHookLinks struct for InlineHookLinks
 type InlineHookLinks struct {
 	Self *HrefObjectSelfLink `json:"self,omitempty"`
@@ -37,7 +40,7 @@ type InlineHookLinks struct {
 	// URL to delete the inline hook
 	Delete *HrefObject `json:"delete,omitempty"`
 	// URL to test the inline hook
-	Execute *HrefObject `json:"execute,omitempty"`
+	Execute              *HrefObject `json:"execute,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -62,7 +65,7 @@ func NewInlineHookLinksWithDefaults() *InlineHookLinks {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *InlineHookLinks) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -72,7 +75,7 @@ func (o *InlineHookLinks) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -80,7 +83,7 @@ func (o *InlineHookLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *InlineHookLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -94,7 +97,7 @@ func (o *InlineHookLinks) SetSelf(v HrefObjectSelfLink) {
 
 // GetActivate returns the Activate field value if set, zero value otherwise.
 func (o *InlineHookLinks) GetActivate() HrefObject {
-	if o == nil || o.Activate == nil {
+	if o == nil || IsNil(o.Activate) {
 		var ret HrefObject
 		return ret
 	}
@@ -104,7 +107,7 @@ func (o *InlineHookLinks) GetActivate() HrefObject {
 // GetActivateOk returns a tuple with the Activate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookLinks) GetActivateOk() (*HrefObject, bool) {
-	if o == nil || o.Activate == nil {
+	if o == nil || IsNil(o.Activate) {
 		return nil, false
 	}
 	return o.Activate, true
@@ -112,7 +115,7 @@ func (o *InlineHookLinks) GetActivateOk() (*HrefObject, bool) {
 
 // HasActivate returns a boolean if a field has been set.
 func (o *InlineHookLinks) HasActivate() bool {
-	if o != nil && o.Activate != nil {
+	if o != nil && !IsNil(o.Activate) {
 		return true
 	}
 
@@ -126,7 +129,7 @@ func (o *InlineHookLinks) SetActivate(v HrefObject) {
 
 // GetDeactivate returns the Deactivate field value if set, zero value otherwise.
 func (o *InlineHookLinks) GetDeactivate() HrefObject {
-	if o == nil || o.Deactivate == nil {
+	if o == nil || IsNil(o.Deactivate) {
 		var ret HrefObject
 		return ret
 	}
@@ -136,7 +139,7 @@ func (o *InlineHookLinks) GetDeactivate() HrefObject {
 // GetDeactivateOk returns a tuple with the Deactivate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookLinks) GetDeactivateOk() (*HrefObject, bool) {
-	if o == nil || o.Deactivate == nil {
+	if o == nil || IsNil(o.Deactivate) {
 		return nil, false
 	}
 	return o.Deactivate, true
@@ -144,7 +147,7 @@ func (o *InlineHookLinks) GetDeactivateOk() (*HrefObject, bool) {
 
 // HasDeactivate returns a boolean if a field has been set.
 func (o *InlineHookLinks) HasDeactivate() bool {
-	if o != nil && o.Deactivate != nil {
+	if o != nil && !IsNil(o.Deactivate) {
 		return true
 	}
 
@@ -158,7 +161,7 @@ func (o *InlineHookLinks) SetDeactivate(v HrefObject) {
 
 // GetDelete returns the Delete field value if set, zero value otherwise.
 func (o *InlineHookLinks) GetDelete() HrefObject {
-	if o == nil || o.Delete == nil {
+	if o == nil || IsNil(o.Delete) {
 		var ret HrefObject
 		return ret
 	}
@@ -168,7 +171,7 @@ func (o *InlineHookLinks) GetDelete() HrefObject {
 // GetDeleteOk returns a tuple with the Delete field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookLinks) GetDeleteOk() (*HrefObject, bool) {
-	if o == nil || o.Delete == nil {
+	if o == nil || IsNil(o.Delete) {
 		return nil, false
 	}
 	return o.Delete, true
@@ -176,7 +179,7 @@ func (o *InlineHookLinks) GetDeleteOk() (*HrefObject, bool) {
 
 // HasDelete returns a boolean if a field has been set.
 func (o *InlineHookLinks) HasDelete() bool {
-	if o != nil && o.Delete != nil {
+	if o != nil && !IsNil(o.Delete) {
 		return true
 	}
 
@@ -190,7 +193,7 @@ func (o *InlineHookLinks) SetDelete(v HrefObject) {
 
 // GetExecute returns the Execute field value if set, zero value otherwise.
 func (o *InlineHookLinks) GetExecute() HrefObject {
-	if o == nil || o.Execute == nil {
+	if o == nil || IsNil(o.Execute) {
 		var ret HrefObject
 		return ret
 	}
@@ -200,7 +203,7 @@ func (o *InlineHookLinks) GetExecute() HrefObject {
 // GetExecuteOk returns a tuple with the Execute field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookLinks) GetExecuteOk() (*HrefObject, bool) {
-	if o == nil || o.Execute == nil {
+	if o == nil || IsNil(o.Execute) {
 		return nil, false
 	}
 	return o.Execute, true
@@ -208,7 +211,7 @@ func (o *InlineHookLinks) GetExecuteOk() (*HrefObject, bool) {
 
 // HasExecute returns a boolean if a field has been set.
 func (o *InlineHookLinks) HasExecute() bool {
-	if o != nil && o.Execute != nil {
+	if o != nil && !IsNil(o.Execute) {
 		return true
 	}
 
@@ -221,20 +224,28 @@ func (o *InlineHookLinks) SetExecute(v HrefObject) {
 }
 
 func (o InlineHookLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o InlineHookLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.Activate != nil {
+	if !IsNil(o.Activate) {
 		toSerialize["activate"] = o.Activate
 	}
-	if o.Deactivate != nil {
+	if !IsNil(o.Deactivate) {
 		toSerialize["deactivate"] = o.Deactivate
 	}
-	if o.Delete != nil {
+	if !IsNil(o.Delete) {
 		toSerialize["delete"] = o.Delete
 	}
-	if o.Execute != nil {
+	if !IsNil(o.Execute) {
 		toSerialize["execute"] = o.Execute
 	}
 
@@ -242,31 +253,29 @@ func (o InlineHookLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *InlineHookLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *InlineHookLinks) UnmarshalJSON(data []byte) (err error) {
 	varInlineHookLinks := _InlineHookLinks{}
 
-	err = json.Unmarshal(bytes, &varInlineHookLinks)
-	if err == nil {
-		*o = InlineHookLinks(varInlineHookLinks)
-	} else {
+	err = json.Unmarshal(data, &varInlineHookLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = InlineHookLinks(varInlineHookLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "activate")
 		delete(additionalProperties, "deactivate")
 		delete(additionalProperties, "delete")
 		delete(additionalProperties, "execute")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -307,4 +316,3 @@ func (v *NullableInlineHookLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the BehaviorRuleSettingsAnomalousIP type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BehaviorRuleSettingsAnomalousIP{}
+
 // BehaviorRuleSettingsAnomalousIP struct for BehaviorRuleSettingsAnomalousIP
 type BehaviorRuleSettingsAnomalousIP struct {
-	MaxEventsUsedForEvaluation *int32 `json:"maxEventsUsedForEvaluation,omitempty"`
+	MaxEventsUsedForEvaluation   *int32 `json:"maxEventsUsedForEvaluation,omitempty"`
 	MinEventsNeededForEvaluation *int32 `json:"minEventsNeededForEvaluation,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties         map[string]interface{}
 }
 
 type _BehaviorRuleSettingsAnomalousIP BehaviorRuleSettingsAnomalousIP
@@ -63,7 +66,7 @@ func NewBehaviorRuleSettingsAnomalousIPWithDefaults() *BehaviorRuleSettingsAnoma
 
 // GetMaxEventsUsedForEvaluation returns the MaxEventsUsedForEvaluation field value if set, zero value otherwise.
 func (o *BehaviorRuleSettingsAnomalousIP) GetMaxEventsUsedForEvaluation() int32 {
-	if o == nil || o.MaxEventsUsedForEvaluation == nil {
+	if o == nil || IsNil(o.MaxEventsUsedForEvaluation) {
 		var ret int32
 		return ret
 	}
@@ -73,7 +76,7 @@ func (o *BehaviorRuleSettingsAnomalousIP) GetMaxEventsUsedForEvaluation() int32 
 // GetMaxEventsUsedForEvaluationOk returns a tuple with the MaxEventsUsedForEvaluation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BehaviorRuleSettingsAnomalousIP) GetMaxEventsUsedForEvaluationOk() (*int32, bool) {
-	if o == nil || o.MaxEventsUsedForEvaluation == nil {
+	if o == nil || IsNil(o.MaxEventsUsedForEvaluation) {
 		return nil, false
 	}
 	return o.MaxEventsUsedForEvaluation, true
@@ -81,7 +84,7 @@ func (o *BehaviorRuleSettingsAnomalousIP) GetMaxEventsUsedForEvaluationOk() (*in
 
 // HasMaxEventsUsedForEvaluation returns a boolean if a field has been set.
 func (o *BehaviorRuleSettingsAnomalousIP) HasMaxEventsUsedForEvaluation() bool {
-	if o != nil && o.MaxEventsUsedForEvaluation != nil {
+	if o != nil && !IsNil(o.MaxEventsUsedForEvaluation) {
 		return true
 	}
 
@@ -95,7 +98,7 @@ func (o *BehaviorRuleSettingsAnomalousIP) SetMaxEventsUsedForEvaluation(v int32)
 
 // GetMinEventsNeededForEvaluation returns the MinEventsNeededForEvaluation field value if set, zero value otherwise.
 func (o *BehaviorRuleSettingsAnomalousIP) GetMinEventsNeededForEvaluation() int32 {
-	if o == nil || o.MinEventsNeededForEvaluation == nil {
+	if o == nil || IsNil(o.MinEventsNeededForEvaluation) {
 		var ret int32
 		return ret
 	}
@@ -105,7 +108,7 @@ func (o *BehaviorRuleSettingsAnomalousIP) GetMinEventsNeededForEvaluation() int3
 // GetMinEventsNeededForEvaluationOk returns a tuple with the MinEventsNeededForEvaluation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BehaviorRuleSettingsAnomalousIP) GetMinEventsNeededForEvaluationOk() (*int32, bool) {
-	if o == nil || o.MinEventsNeededForEvaluation == nil {
+	if o == nil || IsNil(o.MinEventsNeededForEvaluation) {
 		return nil, false
 	}
 	return o.MinEventsNeededForEvaluation, true
@@ -113,7 +116,7 @@ func (o *BehaviorRuleSettingsAnomalousIP) GetMinEventsNeededForEvaluationOk() (*
 
 // HasMinEventsNeededForEvaluation returns a boolean if a field has been set.
 func (o *BehaviorRuleSettingsAnomalousIP) HasMinEventsNeededForEvaluation() bool {
-	if o != nil && o.MinEventsNeededForEvaluation != nil {
+	if o != nil && !IsNil(o.MinEventsNeededForEvaluation) {
 		return true
 	}
 
@@ -126,11 +129,19 @@ func (o *BehaviorRuleSettingsAnomalousIP) SetMinEventsNeededForEvaluation(v int3
 }
 
 func (o BehaviorRuleSettingsAnomalousIP) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BehaviorRuleSettingsAnomalousIP) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.MaxEventsUsedForEvaluation != nil {
+	if !IsNil(o.MaxEventsUsedForEvaluation) {
 		toSerialize["maxEventsUsedForEvaluation"] = o.MaxEventsUsedForEvaluation
 	}
-	if o.MinEventsNeededForEvaluation != nil {
+	if !IsNil(o.MinEventsNeededForEvaluation) {
 		toSerialize["minEventsNeededForEvaluation"] = o.MinEventsNeededForEvaluation
 	}
 
@@ -138,28 +149,26 @@ func (o BehaviorRuleSettingsAnomalousIP) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *BehaviorRuleSettingsAnomalousIP) UnmarshalJSON(bytes []byte) (err error) {
+func (o *BehaviorRuleSettingsAnomalousIP) UnmarshalJSON(data []byte) (err error) {
 	varBehaviorRuleSettingsAnomalousIP := _BehaviorRuleSettingsAnomalousIP{}
 
-	err = json.Unmarshal(bytes, &varBehaviorRuleSettingsAnomalousIP)
-	if err == nil {
-		*o = BehaviorRuleSettingsAnomalousIP(varBehaviorRuleSettingsAnomalousIP)
-	} else {
+	err = json.Unmarshal(data, &varBehaviorRuleSettingsAnomalousIP)
+
+	if err != nil {
 		return err
 	}
 
+	*o = BehaviorRuleSettingsAnomalousIP(varBehaviorRuleSettingsAnomalousIP)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "maxEventsUsedForEvaluation")
 		delete(additionalProperties, "minEventsNeededForEvaluation")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -200,4 +209,3 @@ func (v *NullableBehaviorRuleSettingsAnomalousIP) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

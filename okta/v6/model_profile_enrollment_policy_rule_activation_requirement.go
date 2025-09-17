@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the ProfileEnrollmentPolicyRuleActivationRequirement type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ProfileEnrollmentPolicyRuleActivationRequirement{}
+
 // ProfileEnrollmentPolicyRuleActivationRequirement Contains a single Boolean property that indicates whether `emailVerification` should occur (`true`) or not (`false`, default)
 type ProfileEnrollmentPolicyRuleActivationRequirement struct {
-	EmailVerification *bool `json:"emailVerification,omitempty"`
+	EmailVerification    *bool `json:"emailVerification,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewProfileEnrollmentPolicyRuleActivationRequirementWithDefaults() *ProfileE
 
 // GetEmailVerification returns the EmailVerification field value if set, zero value otherwise.
 func (o *ProfileEnrollmentPolicyRuleActivationRequirement) GetEmailVerification() bool {
-	if o == nil || o.EmailVerification == nil {
+	if o == nil || IsNil(o.EmailVerification) {
 		var ret bool
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *ProfileEnrollmentPolicyRuleActivationRequirement) GetEmailVerification(
 // GetEmailVerificationOk returns a tuple with the EmailVerification field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProfileEnrollmentPolicyRuleActivationRequirement) GetEmailVerificationOk() (*bool, bool) {
-	if o == nil || o.EmailVerification == nil {
+	if o == nil || IsNil(o.EmailVerification) {
 		return nil, false
 	}
 	return o.EmailVerification, true
@@ -72,7 +75,7 @@ func (o *ProfileEnrollmentPolicyRuleActivationRequirement) GetEmailVerificationO
 
 // HasEmailVerification returns a boolean if a field has been set.
 func (o *ProfileEnrollmentPolicyRuleActivationRequirement) HasEmailVerification() bool {
-	if o != nil && o.EmailVerification != nil {
+	if o != nil && !IsNil(o.EmailVerification) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *ProfileEnrollmentPolicyRuleActivationRequirement) SetEmailVerification(
 }
 
 func (o ProfileEnrollmentPolicyRuleActivationRequirement) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ProfileEnrollmentPolicyRuleActivationRequirement) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.EmailVerification != nil {
+	if !IsNil(o.EmailVerification) {
 		toSerialize["emailVerification"] = o.EmailVerification
 	}
 
@@ -94,27 +105,25 @@ func (o ProfileEnrollmentPolicyRuleActivationRequirement) MarshalJSON() ([]byte,
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ProfileEnrollmentPolicyRuleActivationRequirement) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ProfileEnrollmentPolicyRuleActivationRequirement) UnmarshalJSON(data []byte) (err error) {
 	varProfileEnrollmentPolicyRuleActivationRequirement := _ProfileEnrollmentPolicyRuleActivationRequirement{}
 
-	err = json.Unmarshal(bytes, &varProfileEnrollmentPolicyRuleActivationRequirement)
-	if err == nil {
-		*o = ProfileEnrollmentPolicyRuleActivationRequirement(varProfileEnrollmentPolicyRuleActivationRequirement)
-	} else {
+	err = json.Unmarshal(data, &varProfileEnrollmentPolicyRuleActivationRequirement)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ProfileEnrollmentPolicyRuleActivationRequirement(varProfileEnrollmentPolicyRuleActivationRequirement)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "emailVerification")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableProfileEnrollmentPolicyRuleActivationRequirement) UnmarshalJSON
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

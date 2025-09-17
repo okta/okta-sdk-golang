@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the SsprRequirement type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SsprRequirement{}
+
 // SsprRequirement <x-lifecycle class=\"oie\"></x-lifecycle> Describes the initial and secondary authenticator requirements a user needs to reset their password
 type SsprRequirement struct {
 	// Determines which authentication requirements a user needs to perform self-service operations. `AUTH_POLICY` defers conditions and authentication requirements to the [Okta account management policy](https://developer.okta.com/docs/guides/okta-account-management-policy/main/). `LEGACY` refers to the requirements described by this rule.
-	AccessControl *string `json:"accessControl,omitempty"`
-	Primary *SsprPrimaryRequirement `json:"primary,omitempty"`
-	StepUp *SsprStepUpRequirement `json:"stepUp,omitempty"`
+	AccessControl        *string                 `json:"accessControl,omitempty"`
+	Primary              *SsprPrimaryRequirement `json:"primary,omitempty"`
+	StepUp               *SsprStepUpRequirement  `json:"stepUp,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewSsprRequirementWithDefaults() *SsprRequirement {
 
 // GetAccessControl returns the AccessControl field value if set, zero value otherwise.
 func (o *SsprRequirement) GetAccessControl() string {
-	if o == nil || o.AccessControl == nil {
+	if o == nil || IsNil(o.AccessControl) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *SsprRequirement) GetAccessControl() string {
 // GetAccessControlOk returns a tuple with the AccessControl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SsprRequirement) GetAccessControlOk() (*string, bool) {
-	if o == nil || o.AccessControl == nil {
+	if o == nil || IsNil(o.AccessControl) {
 		return nil, false
 	}
 	return o.AccessControl, true
@@ -75,7 +78,7 @@ func (o *SsprRequirement) GetAccessControlOk() (*string, bool) {
 
 // HasAccessControl returns a boolean if a field has been set.
 func (o *SsprRequirement) HasAccessControl() bool {
-	if o != nil && o.AccessControl != nil {
+	if o != nil && !IsNil(o.AccessControl) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *SsprRequirement) SetAccessControl(v string) {
 
 // GetPrimary returns the Primary field value if set, zero value otherwise.
 func (o *SsprRequirement) GetPrimary() SsprPrimaryRequirement {
-	if o == nil || o.Primary == nil {
+	if o == nil || IsNil(o.Primary) {
 		var ret SsprPrimaryRequirement
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *SsprRequirement) GetPrimary() SsprPrimaryRequirement {
 // GetPrimaryOk returns a tuple with the Primary field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SsprRequirement) GetPrimaryOk() (*SsprPrimaryRequirement, bool) {
-	if o == nil || o.Primary == nil {
+	if o == nil || IsNil(o.Primary) {
 		return nil, false
 	}
 	return o.Primary, true
@@ -107,7 +110,7 @@ func (o *SsprRequirement) GetPrimaryOk() (*SsprPrimaryRequirement, bool) {
 
 // HasPrimary returns a boolean if a field has been set.
 func (o *SsprRequirement) HasPrimary() bool {
-	if o != nil && o.Primary != nil {
+	if o != nil && !IsNil(o.Primary) {
 		return true
 	}
 
@@ -121,7 +124,7 @@ func (o *SsprRequirement) SetPrimary(v SsprPrimaryRequirement) {
 
 // GetStepUp returns the StepUp field value if set, zero value otherwise.
 func (o *SsprRequirement) GetStepUp() SsprStepUpRequirement {
-	if o == nil || o.StepUp == nil {
+	if o == nil || IsNil(o.StepUp) {
 		var ret SsprStepUpRequirement
 		return ret
 	}
@@ -131,7 +134,7 @@ func (o *SsprRequirement) GetStepUp() SsprStepUpRequirement {
 // GetStepUpOk returns a tuple with the StepUp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SsprRequirement) GetStepUpOk() (*SsprStepUpRequirement, bool) {
-	if o == nil || o.StepUp == nil {
+	if o == nil || IsNil(o.StepUp) {
 		return nil, false
 	}
 	return o.StepUp, true
@@ -139,7 +142,7 @@ func (o *SsprRequirement) GetStepUpOk() (*SsprStepUpRequirement, bool) {
 
 // HasStepUp returns a boolean if a field has been set.
 func (o *SsprRequirement) HasStepUp() bool {
-	if o != nil && o.StepUp != nil {
+	if o != nil && !IsNil(o.StepUp) {
 		return true
 	}
 
@@ -152,14 +155,22 @@ func (o *SsprRequirement) SetStepUp(v SsprStepUpRequirement) {
 }
 
 func (o SsprRequirement) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SsprRequirement) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AccessControl != nil {
+	if !IsNil(o.AccessControl) {
 		toSerialize["accessControl"] = o.AccessControl
 	}
-	if o.Primary != nil {
+	if !IsNil(o.Primary) {
 		toSerialize["primary"] = o.Primary
 	}
-	if o.StepUp != nil {
+	if !IsNil(o.StepUp) {
 		toSerialize["stepUp"] = o.StepUp
 	}
 
@@ -167,29 +178,27 @@ func (o SsprRequirement) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SsprRequirement) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SsprRequirement) UnmarshalJSON(data []byte) (err error) {
 	varSsprRequirement := _SsprRequirement{}
 
-	err = json.Unmarshal(bytes, &varSsprRequirement)
-	if err == nil {
-		*o = SsprRequirement(varSsprRequirement)
-	} else {
+	err = json.Unmarshal(data, &varSsprRequirement)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SsprRequirement(varSsprRequirement)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "accessControl")
 		delete(additionalProperties, "primary")
 		delete(additionalProperties, "stepUp")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -230,4 +239,3 @@ func (v *NullableSsprRequirement) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

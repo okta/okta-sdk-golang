@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,11 +25,14 @@ package okta
 
 import (
 	"encoding/json"
-	"time"
 	"fmt"
+	"time"
 )
 
-// PrincipalRateLimitEntity 
+// checks if the PrincipalRateLimitEntity type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PrincipalRateLimitEntity{}
+
+// PrincipalRateLimitEntity
 type PrincipalRateLimitEntity struct {
 	// The Okta user ID of the user who created the principle rate limit entity
 	CreatedBy *string `json:"createdBy,omitempty"`
@@ -50,7 +53,7 @@ type PrincipalRateLimitEntity struct {
 	// The unique identifier of the principal. This is the ID of the API token or OAuth 2.0 app.
 	PrincipalId string `json:"principalId"`
 	// The type of principal, either an API token or an OAuth 2.0 app
-	PrincipalType string `json:"principalType"`
+	PrincipalType        string `json:"principalType"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -77,7 +80,7 @@ func NewPrincipalRateLimitEntityWithDefaults() *PrincipalRateLimitEntity {
 
 // GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
 func (o *PrincipalRateLimitEntity) GetCreatedBy() string {
-	if o == nil || o.CreatedBy == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		var ret string
 		return ret
 	}
@@ -87,7 +90,7 @@ func (o *PrincipalRateLimitEntity) GetCreatedBy() string {
 // GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalRateLimitEntity) GetCreatedByOk() (*string, bool) {
-	if o == nil || o.CreatedBy == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		return nil, false
 	}
 	return o.CreatedBy, true
@@ -95,7 +98,7 @@ func (o *PrincipalRateLimitEntity) GetCreatedByOk() (*string, bool) {
 
 // HasCreatedBy returns a boolean if a field has been set.
 func (o *PrincipalRateLimitEntity) HasCreatedBy() bool {
-	if o != nil && o.CreatedBy != nil {
+	if o != nil && !IsNil(o.CreatedBy) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *PrincipalRateLimitEntity) SetCreatedBy(v string) {
 
 // GetCreatedDate returns the CreatedDate field value if set, zero value otherwise.
 func (o *PrincipalRateLimitEntity) GetCreatedDate() time.Time {
-	if o == nil || o.CreatedDate == nil {
+	if o == nil || IsNil(o.CreatedDate) {
 		var ret time.Time
 		return ret
 	}
@@ -119,7 +122,7 @@ func (o *PrincipalRateLimitEntity) GetCreatedDate() time.Time {
 // GetCreatedDateOk returns a tuple with the CreatedDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalRateLimitEntity) GetCreatedDateOk() (*time.Time, bool) {
-	if o == nil || o.CreatedDate == nil {
+	if o == nil || IsNil(o.CreatedDate) {
 		return nil, false
 	}
 	return o.CreatedDate, true
@@ -127,7 +130,7 @@ func (o *PrincipalRateLimitEntity) GetCreatedDateOk() (*time.Time, bool) {
 
 // HasCreatedDate returns a boolean if a field has been set.
 func (o *PrincipalRateLimitEntity) HasCreatedDate() bool {
-	if o != nil && o.CreatedDate != nil {
+	if o != nil && !IsNil(o.CreatedDate) {
 		return true
 	}
 
@@ -141,7 +144,7 @@ func (o *PrincipalRateLimitEntity) SetCreatedDate(v time.Time) {
 
 // GetDefaultConcurrencyPercentage returns the DefaultConcurrencyPercentage field value if set, zero value otherwise.
 func (o *PrincipalRateLimitEntity) GetDefaultConcurrencyPercentage() int32 {
-	if o == nil || o.DefaultConcurrencyPercentage == nil {
+	if o == nil || IsNil(o.DefaultConcurrencyPercentage) {
 		var ret int32
 		return ret
 	}
@@ -151,7 +154,7 @@ func (o *PrincipalRateLimitEntity) GetDefaultConcurrencyPercentage() int32 {
 // GetDefaultConcurrencyPercentageOk returns a tuple with the DefaultConcurrencyPercentage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalRateLimitEntity) GetDefaultConcurrencyPercentageOk() (*int32, bool) {
-	if o == nil || o.DefaultConcurrencyPercentage == nil {
+	if o == nil || IsNil(o.DefaultConcurrencyPercentage) {
 		return nil, false
 	}
 	return o.DefaultConcurrencyPercentage, true
@@ -159,7 +162,7 @@ func (o *PrincipalRateLimitEntity) GetDefaultConcurrencyPercentageOk() (*int32, 
 
 // HasDefaultConcurrencyPercentage returns a boolean if a field has been set.
 func (o *PrincipalRateLimitEntity) HasDefaultConcurrencyPercentage() bool {
-	if o != nil && o.DefaultConcurrencyPercentage != nil {
+	if o != nil && !IsNil(o.DefaultConcurrencyPercentage) {
 		return true
 	}
 
@@ -173,7 +176,7 @@ func (o *PrincipalRateLimitEntity) SetDefaultConcurrencyPercentage(v int32) {
 
 // GetDefaultPercentage returns the DefaultPercentage field value if set, zero value otherwise.
 func (o *PrincipalRateLimitEntity) GetDefaultPercentage() int32 {
-	if o == nil || o.DefaultPercentage == nil {
+	if o == nil || IsNil(o.DefaultPercentage) {
 		var ret int32
 		return ret
 	}
@@ -183,7 +186,7 @@ func (o *PrincipalRateLimitEntity) GetDefaultPercentage() int32 {
 // GetDefaultPercentageOk returns a tuple with the DefaultPercentage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalRateLimitEntity) GetDefaultPercentageOk() (*int32, bool) {
-	if o == nil || o.DefaultPercentage == nil {
+	if o == nil || IsNil(o.DefaultPercentage) {
 		return nil, false
 	}
 	return o.DefaultPercentage, true
@@ -191,7 +194,7 @@ func (o *PrincipalRateLimitEntity) GetDefaultPercentageOk() (*int32, bool) {
 
 // HasDefaultPercentage returns a boolean if a field has been set.
 func (o *PrincipalRateLimitEntity) HasDefaultPercentage() bool {
-	if o != nil && o.DefaultPercentage != nil {
+	if o != nil && !IsNil(o.DefaultPercentage) {
 		return true
 	}
 
@@ -205,7 +208,7 @@ func (o *PrincipalRateLimitEntity) SetDefaultPercentage(v int32) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *PrincipalRateLimitEntity) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -215,7 +218,7 @@ func (o *PrincipalRateLimitEntity) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalRateLimitEntity) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -223,7 +226,7 @@ func (o *PrincipalRateLimitEntity) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *PrincipalRateLimitEntity) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -237,7 +240,7 @@ func (o *PrincipalRateLimitEntity) SetId(v string) {
 
 // GetLastUpdate returns the LastUpdate field value if set, zero value otherwise.
 func (o *PrincipalRateLimitEntity) GetLastUpdate() time.Time {
-	if o == nil || o.LastUpdate == nil {
+	if o == nil || IsNil(o.LastUpdate) {
 		var ret time.Time
 		return ret
 	}
@@ -247,7 +250,7 @@ func (o *PrincipalRateLimitEntity) GetLastUpdate() time.Time {
 // GetLastUpdateOk returns a tuple with the LastUpdate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalRateLimitEntity) GetLastUpdateOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdate == nil {
+	if o == nil || IsNil(o.LastUpdate) {
 		return nil, false
 	}
 	return o.LastUpdate, true
@@ -255,7 +258,7 @@ func (o *PrincipalRateLimitEntity) GetLastUpdateOk() (*time.Time, bool) {
 
 // HasLastUpdate returns a boolean if a field has been set.
 func (o *PrincipalRateLimitEntity) HasLastUpdate() bool {
-	if o != nil && o.LastUpdate != nil {
+	if o != nil && !IsNil(o.LastUpdate) {
 		return true
 	}
 
@@ -269,7 +272,7 @@ func (o *PrincipalRateLimitEntity) SetLastUpdate(v time.Time) {
 
 // GetLastUpdatedBy returns the LastUpdatedBy field value if set, zero value otherwise.
 func (o *PrincipalRateLimitEntity) GetLastUpdatedBy() string {
-	if o == nil || o.LastUpdatedBy == nil {
+	if o == nil || IsNil(o.LastUpdatedBy) {
 		var ret string
 		return ret
 	}
@@ -279,7 +282,7 @@ func (o *PrincipalRateLimitEntity) GetLastUpdatedBy() string {
 // GetLastUpdatedByOk returns a tuple with the LastUpdatedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalRateLimitEntity) GetLastUpdatedByOk() (*string, bool) {
-	if o == nil || o.LastUpdatedBy == nil {
+	if o == nil || IsNil(o.LastUpdatedBy) {
 		return nil, false
 	}
 	return o.LastUpdatedBy, true
@@ -287,7 +290,7 @@ func (o *PrincipalRateLimitEntity) GetLastUpdatedByOk() (*string, bool) {
 
 // HasLastUpdatedBy returns a boolean if a field has been set.
 func (o *PrincipalRateLimitEntity) HasLastUpdatedBy() bool {
-	if o != nil && o.LastUpdatedBy != nil {
+	if o != nil && !IsNil(o.LastUpdatedBy) {
 		return true
 	}
 
@@ -301,7 +304,7 @@ func (o *PrincipalRateLimitEntity) SetLastUpdatedBy(v string) {
 
 // GetOrgId returns the OrgId field value if set, zero value otherwise.
 func (o *PrincipalRateLimitEntity) GetOrgId() string {
-	if o == nil || o.OrgId == nil {
+	if o == nil || IsNil(o.OrgId) {
 		var ret string
 		return ret
 	}
@@ -311,7 +314,7 @@ func (o *PrincipalRateLimitEntity) GetOrgId() string {
 // GetOrgIdOk returns a tuple with the OrgId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalRateLimitEntity) GetOrgIdOk() (*string, bool) {
-	if o == nil || o.OrgId == nil {
+	if o == nil || IsNil(o.OrgId) {
 		return nil, false
 	}
 	return o.OrgId, true
@@ -319,7 +322,7 @@ func (o *PrincipalRateLimitEntity) GetOrgIdOk() (*string, bool) {
 
 // HasOrgId returns a boolean if a field has been set.
 func (o *PrincipalRateLimitEntity) HasOrgId() bool {
-	if o != nil && o.OrgId != nil {
+	if o != nil && !IsNil(o.OrgId) {
 		return true
 	}
 
@@ -380,59 +383,85 @@ func (o *PrincipalRateLimitEntity) SetPrincipalType(v string) {
 }
 
 func (o PrincipalRateLimitEntity) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PrincipalRateLimitEntity) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.CreatedBy != nil {
+	if !IsNil(o.CreatedBy) {
 		toSerialize["createdBy"] = o.CreatedBy
 	}
-	if o.CreatedDate != nil {
+	if !IsNil(o.CreatedDate) {
 		toSerialize["createdDate"] = o.CreatedDate
 	}
-	if o.DefaultConcurrencyPercentage != nil {
+	if !IsNil(o.DefaultConcurrencyPercentage) {
 		toSerialize["defaultConcurrencyPercentage"] = o.DefaultConcurrencyPercentage
 	}
-	if o.DefaultPercentage != nil {
+	if !IsNil(o.DefaultPercentage) {
 		toSerialize["defaultPercentage"] = o.DefaultPercentage
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdate != nil {
+	if !IsNil(o.LastUpdate) {
 		toSerialize["lastUpdate"] = o.LastUpdate
 	}
-	if o.LastUpdatedBy != nil {
+	if !IsNil(o.LastUpdatedBy) {
 		toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
 	}
-	if o.OrgId != nil {
+	if !IsNil(o.OrgId) {
 		toSerialize["orgId"] = o.OrgId
 	}
-	if true {
-		toSerialize["principalId"] = o.PrincipalId
-	}
-	if true {
-		toSerialize["principalType"] = o.PrincipalType
-	}
+	toSerialize["principalId"] = o.PrincipalId
+	toSerialize["principalType"] = o.PrincipalType
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PrincipalRateLimitEntity) UnmarshalJSON(bytes []byte) (err error) {
-	varPrincipalRateLimitEntity := _PrincipalRateLimitEntity{}
+func (o *PrincipalRateLimitEntity) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"principalId",
+		"principalType",
+	}
 
-	err = json.Unmarshal(bytes, &varPrincipalRateLimitEntity)
-	if err == nil {
-		*o = PrincipalRateLimitEntity(varPrincipalRateLimitEntity)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPrincipalRateLimitEntity := _PrincipalRateLimitEntity{}
+
+	err = json.Unmarshal(data, &varPrincipalRateLimitEntity)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PrincipalRateLimitEntity(varPrincipalRateLimitEntity)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "createdBy")
 		delete(additionalProperties, "createdDate")
 		delete(additionalProperties, "defaultConcurrencyPercentage")
@@ -444,8 +473,6 @@ func (o *PrincipalRateLimitEntity) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "principalId")
 		delete(additionalProperties, "principalType")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -486,4 +513,3 @@ func (v *NullablePrincipalRateLimitEntity) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

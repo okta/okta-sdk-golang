@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 	"fmt"
 )
+
+// checks if the DeviceProfile type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeviceProfile{}
 
 // DeviceProfile struct for DeviceProfile
 type DeviceProfile struct {
@@ -61,7 +64,7 @@ type DeviceProfile struct {
 	// Windows Trusted Platform Module hash value
 	TpmPublicKeyHash *string `json:"tpmPublicKeyHash,omitempty"`
 	// macOS Unique device identifier of the device
-	Udid *string `json:"udid,omitempty"`
+	Udid                 *string `json:"udid,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -89,7 +92,7 @@ func NewDeviceProfileWithDefaults() *DeviceProfile {
 
 // GetDiskEncryptionType returns the DiskEncryptionType field value if set, zero value otherwise.
 func (o *DeviceProfile) GetDiskEncryptionType() string {
-	if o == nil || o.DiskEncryptionType == nil {
+	if o == nil || IsNil(o.DiskEncryptionType) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *DeviceProfile) GetDiskEncryptionType() string {
 // GetDiskEncryptionTypeOk returns a tuple with the DiskEncryptionType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceProfile) GetDiskEncryptionTypeOk() (*string, bool) {
-	if o == nil || o.DiskEncryptionType == nil {
+	if o == nil || IsNil(o.DiskEncryptionType) {
 		return nil, false
 	}
 	return o.DiskEncryptionType, true
@@ -107,7 +110,7 @@ func (o *DeviceProfile) GetDiskEncryptionTypeOk() (*string, bool) {
 
 // HasDiskEncryptionType returns a boolean if a field has been set.
 func (o *DeviceProfile) HasDiskEncryptionType() bool {
-	if o != nil && o.DiskEncryptionType != nil {
+	if o != nil && !IsNil(o.DiskEncryptionType) {
 		return true
 	}
 
@@ -145,7 +148,7 @@ func (o *DeviceProfile) SetDisplayName(v string) {
 
 // GetImei returns the Imei field value if set, zero value otherwise.
 func (o *DeviceProfile) GetImei() string {
-	if o == nil || o.Imei == nil {
+	if o == nil || IsNil(o.Imei) {
 		var ret string
 		return ret
 	}
@@ -155,7 +158,7 @@ func (o *DeviceProfile) GetImei() string {
 // GetImeiOk returns a tuple with the Imei field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceProfile) GetImeiOk() (*string, bool) {
-	if o == nil || o.Imei == nil {
+	if o == nil || IsNil(o.Imei) {
 		return nil, false
 	}
 	return o.Imei, true
@@ -163,7 +166,7 @@ func (o *DeviceProfile) GetImeiOk() (*string, bool) {
 
 // HasImei returns a boolean if a field has been set.
 func (o *DeviceProfile) HasImei() bool {
-	if o != nil && o.Imei != nil {
+	if o != nil && !IsNil(o.Imei) {
 		return true
 	}
 
@@ -177,7 +180,7 @@ func (o *DeviceProfile) SetImei(v string) {
 
 // GetIntegrityJailbreak returns the IntegrityJailbreak field value if set, zero value otherwise.
 func (o *DeviceProfile) GetIntegrityJailbreak() bool {
-	if o == nil || o.IntegrityJailbreak == nil {
+	if o == nil || IsNil(o.IntegrityJailbreak) {
 		var ret bool
 		return ret
 	}
@@ -187,7 +190,7 @@ func (o *DeviceProfile) GetIntegrityJailbreak() bool {
 // GetIntegrityJailbreakOk returns a tuple with the IntegrityJailbreak field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceProfile) GetIntegrityJailbreakOk() (*bool, bool) {
-	if o == nil || o.IntegrityJailbreak == nil {
+	if o == nil || IsNil(o.IntegrityJailbreak) {
 		return nil, false
 	}
 	return o.IntegrityJailbreak, true
@@ -195,7 +198,7 @@ func (o *DeviceProfile) GetIntegrityJailbreakOk() (*bool, bool) {
 
 // HasIntegrityJailbreak returns a boolean if a field has been set.
 func (o *DeviceProfile) HasIntegrityJailbreak() bool {
-	if o != nil && o.IntegrityJailbreak != nil {
+	if o != nil && !IsNil(o.IntegrityJailbreak) {
 		return true
 	}
 
@@ -209,7 +212,7 @@ func (o *DeviceProfile) SetIntegrityJailbreak(v bool) {
 
 // GetManaged returns the Managed field value if set, zero value otherwise.
 func (o *DeviceProfile) GetManaged() bool {
-	if o == nil || o.Managed == nil {
+	if o == nil || IsNil(o.Managed) {
 		var ret bool
 		return ret
 	}
@@ -219,7 +222,7 @@ func (o *DeviceProfile) GetManaged() bool {
 // GetManagedOk returns a tuple with the Managed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceProfile) GetManagedOk() (*bool, bool) {
-	if o == nil || o.Managed == nil {
+	if o == nil || IsNil(o.Managed) {
 		return nil, false
 	}
 	return o.Managed, true
@@ -227,7 +230,7 @@ func (o *DeviceProfile) GetManagedOk() (*bool, bool) {
 
 // HasManaged returns a boolean if a field has been set.
 func (o *DeviceProfile) HasManaged() bool {
-	if o != nil && o.Managed != nil {
+	if o != nil && !IsNil(o.Managed) {
 		return true
 	}
 
@@ -241,7 +244,7 @@ func (o *DeviceProfile) SetManaged(v bool) {
 
 // GetManufacturer returns the Manufacturer field value if set, zero value otherwise.
 func (o *DeviceProfile) GetManufacturer() string {
-	if o == nil || o.Manufacturer == nil {
+	if o == nil || IsNil(o.Manufacturer) {
 		var ret string
 		return ret
 	}
@@ -251,7 +254,7 @@ func (o *DeviceProfile) GetManufacturer() string {
 // GetManufacturerOk returns a tuple with the Manufacturer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceProfile) GetManufacturerOk() (*string, bool) {
-	if o == nil || o.Manufacturer == nil {
+	if o == nil || IsNil(o.Manufacturer) {
 		return nil, false
 	}
 	return o.Manufacturer, true
@@ -259,7 +262,7 @@ func (o *DeviceProfile) GetManufacturerOk() (*string, bool) {
 
 // HasManufacturer returns a boolean if a field has been set.
 func (o *DeviceProfile) HasManufacturer() bool {
-	if o != nil && o.Manufacturer != nil {
+	if o != nil && !IsNil(o.Manufacturer) {
 		return true
 	}
 
@@ -273,7 +276,7 @@ func (o *DeviceProfile) SetManufacturer(v string) {
 
 // GetMeid returns the Meid field value if set, zero value otherwise.
 func (o *DeviceProfile) GetMeid() string {
-	if o == nil || o.Meid == nil {
+	if o == nil || IsNil(o.Meid) {
 		var ret string
 		return ret
 	}
@@ -283,7 +286,7 @@ func (o *DeviceProfile) GetMeid() string {
 // GetMeidOk returns a tuple with the Meid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceProfile) GetMeidOk() (*string, bool) {
-	if o == nil || o.Meid == nil {
+	if o == nil || IsNil(o.Meid) {
 		return nil, false
 	}
 	return o.Meid, true
@@ -291,7 +294,7 @@ func (o *DeviceProfile) GetMeidOk() (*string, bool) {
 
 // HasMeid returns a boolean if a field has been set.
 func (o *DeviceProfile) HasMeid() bool {
-	if o != nil && o.Meid != nil {
+	if o != nil && !IsNil(o.Meid) {
 		return true
 	}
 
@@ -305,7 +308,7 @@ func (o *DeviceProfile) SetMeid(v string) {
 
 // GetModel returns the Model field value if set, zero value otherwise.
 func (o *DeviceProfile) GetModel() string {
-	if o == nil || o.Model == nil {
+	if o == nil || IsNil(o.Model) {
 		var ret string
 		return ret
 	}
@@ -315,7 +318,7 @@ func (o *DeviceProfile) GetModel() string {
 // GetModelOk returns a tuple with the Model field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceProfile) GetModelOk() (*string, bool) {
-	if o == nil || o.Model == nil {
+	if o == nil || IsNil(o.Model) {
 		return nil, false
 	}
 	return o.Model, true
@@ -323,7 +326,7 @@ func (o *DeviceProfile) GetModelOk() (*string, bool) {
 
 // HasModel returns a boolean if a field has been set.
 func (o *DeviceProfile) HasModel() bool {
-	if o != nil && o.Model != nil {
+	if o != nil && !IsNil(o.Model) {
 		return true
 	}
 
@@ -337,7 +340,7 @@ func (o *DeviceProfile) SetModel(v string) {
 
 // GetOsVersion returns the OsVersion field value if set, zero value otherwise.
 func (o *DeviceProfile) GetOsVersion() string {
-	if o == nil || o.OsVersion == nil {
+	if o == nil || IsNil(o.OsVersion) {
 		var ret string
 		return ret
 	}
@@ -347,7 +350,7 @@ func (o *DeviceProfile) GetOsVersion() string {
 // GetOsVersionOk returns a tuple with the OsVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceProfile) GetOsVersionOk() (*string, bool) {
-	if o == nil || o.OsVersion == nil {
+	if o == nil || IsNil(o.OsVersion) {
 		return nil, false
 	}
 	return o.OsVersion, true
@@ -355,7 +358,7 @@ func (o *DeviceProfile) GetOsVersionOk() (*string, bool) {
 
 // HasOsVersion returns a boolean if a field has been set.
 func (o *DeviceProfile) HasOsVersion() bool {
-	if o != nil && o.OsVersion != nil {
+	if o != nil && !IsNil(o.OsVersion) {
 		return true
 	}
 
@@ -417,7 +420,7 @@ func (o *DeviceProfile) SetRegistered(v bool) {
 
 // GetSecureHardwarePresent returns the SecureHardwarePresent field value if set, zero value otherwise.
 func (o *DeviceProfile) GetSecureHardwarePresent() bool {
-	if o == nil || o.SecureHardwarePresent == nil {
+	if o == nil || IsNil(o.SecureHardwarePresent) {
 		var ret bool
 		return ret
 	}
@@ -427,7 +430,7 @@ func (o *DeviceProfile) GetSecureHardwarePresent() bool {
 // GetSecureHardwarePresentOk returns a tuple with the SecureHardwarePresent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceProfile) GetSecureHardwarePresentOk() (*bool, bool) {
-	if o == nil || o.SecureHardwarePresent == nil {
+	if o == nil || IsNil(o.SecureHardwarePresent) {
 		return nil, false
 	}
 	return o.SecureHardwarePresent, true
@@ -435,7 +438,7 @@ func (o *DeviceProfile) GetSecureHardwarePresentOk() (*bool, bool) {
 
 // HasSecureHardwarePresent returns a boolean if a field has been set.
 func (o *DeviceProfile) HasSecureHardwarePresent() bool {
-	if o != nil && o.SecureHardwarePresent != nil {
+	if o != nil && !IsNil(o.SecureHardwarePresent) {
 		return true
 	}
 
@@ -449,7 +452,7 @@ func (o *DeviceProfile) SetSecureHardwarePresent(v bool) {
 
 // GetSerialNumber returns the SerialNumber field value if set, zero value otherwise.
 func (o *DeviceProfile) GetSerialNumber() string {
-	if o == nil || o.SerialNumber == nil {
+	if o == nil || IsNil(o.SerialNumber) {
 		var ret string
 		return ret
 	}
@@ -459,7 +462,7 @@ func (o *DeviceProfile) GetSerialNumber() string {
 // GetSerialNumberOk returns a tuple with the SerialNumber field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceProfile) GetSerialNumberOk() (*string, bool) {
-	if o == nil || o.SerialNumber == nil {
+	if o == nil || IsNil(o.SerialNumber) {
 		return nil, false
 	}
 	return o.SerialNumber, true
@@ -467,7 +470,7 @@ func (o *DeviceProfile) GetSerialNumberOk() (*string, bool) {
 
 // HasSerialNumber returns a boolean if a field has been set.
 func (o *DeviceProfile) HasSerialNumber() bool {
-	if o != nil && o.SerialNumber != nil {
+	if o != nil && !IsNil(o.SerialNumber) {
 		return true
 	}
 
@@ -481,7 +484,7 @@ func (o *DeviceProfile) SetSerialNumber(v string) {
 
 // GetSid returns the Sid field value if set, zero value otherwise.
 func (o *DeviceProfile) GetSid() string {
-	if o == nil || o.Sid == nil {
+	if o == nil || IsNil(o.Sid) {
 		var ret string
 		return ret
 	}
@@ -491,7 +494,7 @@ func (o *DeviceProfile) GetSid() string {
 // GetSidOk returns a tuple with the Sid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceProfile) GetSidOk() (*string, bool) {
-	if o == nil || o.Sid == nil {
+	if o == nil || IsNil(o.Sid) {
 		return nil, false
 	}
 	return o.Sid, true
@@ -499,7 +502,7 @@ func (o *DeviceProfile) GetSidOk() (*string, bool) {
 
 // HasSid returns a boolean if a field has been set.
 func (o *DeviceProfile) HasSid() bool {
-	if o != nil && o.Sid != nil {
+	if o != nil && !IsNil(o.Sid) {
 		return true
 	}
 
@@ -513,7 +516,7 @@ func (o *DeviceProfile) SetSid(v string) {
 
 // GetTpmPublicKeyHash returns the TpmPublicKeyHash field value if set, zero value otherwise.
 func (o *DeviceProfile) GetTpmPublicKeyHash() string {
-	if o == nil || o.TpmPublicKeyHash == nil {
+	if o == nil || IsNil(o.TpmPublicKeyHash) {
 		var ret string
 		return ret
 	}
@@ -523,7 +526,7 @@ func (o *DeviceProfile) GetTpmPublicKeyHash() string {
 // GetTpmPublicKeyHashOk returns a tuple with the TpmPublicKeyHash field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceProfile) GetTpmPublicKeyHashOk() (*string, bool) {
-	if o == nil || o.TpmPublicKeyHash == nil {
+	if o == nil || IsNil(o.TpmPublicKeyHash) {
 		return nil, false
 	}
 	return o.TpmPublicKeyHash, true
@@ -531,7 +534,7 @@ func (o *DeviceProfile) GetTpmPublicKeyHashOk() (*string, bool) {
 
 // HasTpmPublicKeyHash returns a boolean if a field has been set.
 func (o *DeviceProfile) HasTpmPublicKeyHash() bool {
-	if o != nil && o.TpmPublicKeyHash != nil {
+	if o != nil && !IsNil(o.TpmPublicKeyHash) {
 		return true
 	}
 
@@ -545,7 +548,7 @@ func (o *DeviceProfile) SetTpmPublicKeyHash(v string) {
 
 // GetUdid returns the Udid field value if set, zero value otherwise.
 func (o *DeviceProfile) GetUdid() string {
-	if o == nil || o.Udid == nil {
+	if o == nil || IsNil(o.Udid) {
 		var ret string
 		return ret
 	}
@@ -555,7 +558,7 @@ func (o *DeviceProfile) GetUdid() string {
 // GetUdidOk returns a tuple with the Udid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceProfile) GetUdidOk() (*string, bool) {
-	if o == nil || o.Udid == nil {
+	if o == nil || IsNil(o.Udid) {
 		return nil, false
 	}
 	return o.Udid, true
@@ -563,7 +566,7 @@ func (o *DeviceProfile) GetUdidOk() (*string, bool) {
 
 // HasUdid returns a boolean if a field has been set.
 func (o *DeviceProfile) HasUdid() bool {
-	if o != nil && o.Udid != nil {
+	if o != nil && !IsNil(o.Udid) {
 		return true
 	}
 
@@ -576,53 +579,55 @@ func (o *DeviceProfile) SetUdid(v string) {
 }
 
 func (o DeviceProfile) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DeviceProfile) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.DiskEncryptionType != nil {
+	if !IsNil(o.DiskEncryptionType) {
 		toSerialize["diskEncryptionType"] = o.DiskEncryptionType
 	}
-	if true {
-		toSerialize["displayName"] = o.DisplayName
-	}
-	if o.Imei != nil {
+	toSerialize["displayName"] = o.DisplayName
+	if !IsNil(o.Imei) {
 		toSerialize["imei"] = o.Imei
 	}
-	if o.IntegrityJailbreak != nil {
+	if !IsNil(o.IntegrityJailbreak) {
 		toSerialize["integrityJailbreak"] = o.IntegrityJailbreak
 	}
-	if o.Managed != nil {
+	if !IsNil(o.Managed) {
 		toSerialize["managed"] = o.Managed
 	}
-	if o.Manufacturer != nil {
+	if !IsNil(o.Manufacturer) {
 		toSerialize["manufacturer"] = o.Manufacturer
 	}
-	if o.Meid != nil {
+	if !IsNil(o.Meid) {
 		toSerialize["meid"] = o.Meid
 	}
-	if o.Model != nil {
+	if !IsNil(o.Model) {
 		toSerialize["model"] = o.Model
 	}
-	if o.OsVersion != nil {
+	if !IsNil(o.OsVersion) {
 		toSerialize["osVersion"] = o.OsVersion
 	}
-	if true {
-		toSerialize["platform"] = o.Platform
-	}
-	if true {
-		toSerialize["registered"] = o.Registered
-	}
-	if o.SecureHardwarePresent != nil {
+	toSerialize["platform"] = o.Platform
+	toSerialize["registered"] = o.Registered
+	if !IsNil(o.SecureHardwarePresent) {
 		toSerialize["secureHardwarePresent"] = o.SecureHardwarePresent
 	}
-	if o.SerialNumber != nil {
+	if !IsNil(o.SerialNumber) {
 		toSerialize["serialNumber"] = o.SerialNumber
 	}
-	if o.Sid != nil {
+	if !IsNil(o.Sid) {
 		toSerialize["sid"] = o.Sid
 	}
-	if o.TpmPublicKeyHash != nil {
+	if !IsNil(o.TpmPublicKeyHash) {
 		toSerialize["tpmPublicKeyHash"] = o.TpmPublicKeyHash
 	}
-	if o.Udid != nil {
+	if !IsNil(o.Udid) {
 		toSerialize["udid"] = o.Udid
 	}
 
@@ -630,23 +635,46 @@ func (o DeviceProfile) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DeviceProfile) UnmarshalJSON(bytes []byte) (err error) {
-	varDeviceProfile := _DeviceProfile{}
+func (o *DeviceProfile) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"displayName",
+		"platform",
+		"registered",
+	}
 
-	err = json.Unmarshal(bytes, &varDeviceProfile)
-	if err == nil {
-		*o = DeviceProfile(varDeviceProfile)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varDeviceProfile := _DeviceProfile{}
+
+	err = json.Unmarshal(data, &varDeviceProfile)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DeviceProfile(varDeviceProfile)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "diskEncryptionType")
 		delete(additionalProperties, "displayName")
 		delete(additionalProperties, "imei")
@@ -664,8 +692,6 @@ func (o *DeviceProfile) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "tpmPublicKeyHash")
 		delete(additionalProperties, "udid")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -706,4 +732,3 @@ func (v *NullableDeviceProfile) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

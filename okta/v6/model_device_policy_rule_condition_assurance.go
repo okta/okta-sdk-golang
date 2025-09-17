@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the DevicePolicyRuleConditionAssurance type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DevicePolicyRuleConditionAssurance{}
+
 // DevicePolicyRuleConditionAssurance Specifies [device assurance policies](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/DeviceAssurance/) in the policy rule
 type DevicePolicyRuleConditionAssurance struct {
 	// Specifies the device assurance policy ID
-	Include []string `json:"include,omitempty"`
+	Include              []string `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewDevicePolicyRuleConditionAssuranceWithDefaults() *DevicePolicyRuleCondit
 
 // GetInclude returns the Include field value if set, zero value otherwise.
 func (o *DevicePolicyRuleConditionAssurance) GetInclude() []string {
-	if o == nil || o.Include == nil {
+	if o == nil || IsNil(o.Include) {
 		var ret []string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *DevicePolicyRuleConditionAssurance) GetInclude() []string {
 // GetIncludeOk returns a tuple with the Include field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DevicePolicyRuleConditionAssurance) GetIncludeOk() ([]string, bool) {
-	if o == nil || o.Include == nil {
+	if o == nil || IsNil(o.Include) {
 		return nil, false
 	}
 	return o.Include, true
@@ -73,7 +76,7 @@ func (o *DevicePolicyRuleConditionAssurance) GetIncludeOk() ([]string, bool) {
 
 // HasInclude returns a boolean if a field has been set.
 func (o *DevicePolicyRuleConditionAssurance) HasInclude() bool {
-	if o != nil && o.Include != nil {
+	if o != nil && !IsNil(o.Include) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *DevicePolicyRuleConditionAssurance) SetInclude(v []string) {
 }
 
 func (o DevicePolicyRuleConditionAssurance) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DevicePolicyRuleConditionAssurance) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Include != nil {
+	if !IsNil(o.Include) {
 		toSerialize["include"] = o.Include
 	}
 
@@ -95,27 +106,25 @@ func (o DevicePolicyRuleConditionAssurance) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DevicePolicyRuleConditionAssurance) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DevicePolicyRuleConditionAssurance) UnmarshalJSON(data []byte) (err error) {
 	varDevicePolicyRuleConditionAssurance := _DevicePolicyRuleConditionAssurance{}
 
-	err = json.Unmarshal(bytes, &varDevicePolicyRuleConditionAssurance)
-	if err == nil {
-		*o = DevicePolicyRuleConditionAssurance(varDevicePolicyRuleConditionAssurance)
-	} else {
+	err = json.Unmarshal(data, &varDevicePolicyRuleConditionAssurance)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DevicePolicyRuleConditionAssurance(varDevicePolicyRuleConditionAssurance)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "include")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableDevicePolicyRuleConditionAssurance) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthenticatorProfileTacRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorProfileTacRequest{}
+
 // AuthenticatorProfileTacRequest Defines the authenticator specific parameters
 type AuthenticatorProfileTacRequest struct {
 	// Determines whether the enrollment can be used more than once. To enable multi-use, the org-level authenticator’s configuration must allow multi-use.
 	MultiUse *bool `json:"multiUse,omitempty"`
 	// Time-to-live (TTL) in minutes.  Specifies how long the TAC enrollment is valid after it's created and activated. The configured value must be between 10 minutes (`10`) and 10 days (`14400`), inclusive. The actual allowed range depends on the org-level authenticator configuration.
-	Ttl *string `json:"ttl,omitempty"`
+	Ttl                  *string `json:"ttl,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewAuthenticatorProfileTacRequestWithDefaults() *AuthenticatorProfileTacReq
 
 // GetMultiUse returns the MultiUse field value if set, zero value otherwise.
 func (o *AuthenticatorProfileTacRequest) GetMultiUse() bool {
-	if o == nil || o.MultiUse == nil {
+	if o == nil || IsNil(o.MultiUse) {
 		var ret bool
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *AuthenticatorProfileTacRequest) GetMultiUse() bool {
 // GetMultiUseOk returns a tuple with the MultiUse field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorProfileTacRequest) GetMultiUseOk() (*bool, bool) {
-	if o == nil || o.MultiUse == nil {
+	if o == nil || IsNil(o.MultiUse) {
 		return nil, false
 	}
 	return o.MultiUse, true
@@ -75,7 +78,7 @@ func (o *AuthenticatorProfileTacRequest) GetMultiUseOk() (*bool, bool) {
 
 // HasMultiUse returns a boolean if a field has been set.
 func (o *AuthenticatorProfileTacRequest) HasMultiUse() bool {
-	if o != nil && o.MultiUse != nil {
+	if o != nil && !IsNil(o.MultiUse) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *AuthenticatorProfileTacRequest) SetMultiUse(v bool) {
 
 // GetTtl returns the Ttl field value if set, zero value otherwise.
 func (o *AuthenticatorProfileTacRequest) GetTtl() string {
-	if o == nil || o.Ttl == nil {
+	if o == nil || IsNil(o.Ttl) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *AuthenticatorProfileTacRequest) GetTtl() string {
 // GetTtlOk returns a tuple with the Ttl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorProfileTacRequest) GetTtlOk() (*string, bool) {
-	if o == nil || o.Ttl == nil {
+	if o == nil || IsNil(o.Ttl) {
 		return nil, false
 	}
 	return o.Ttl, true
@@ -107,7 +110,7 @@ func (o *AuthenticatorProfileTacRequest) GetTtlOk() (*string, bool) {
 
 // HasTtl returns a boolean if a field has been set.
 func (o *AuthenticatorProfileTacRequest) HasTtl() bool {
-	if o != nil && o.Ttl != nil {
+	if o != nil && !IsNil(o.Ttl) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *AuthenticatorProfileTacRequest) SetTtl(v string) {
 }
 
 func (o AuthenticatorProfileTacRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorProfileTacRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.MultiUse != nil {
+	if !IsNil(o.MultiUse) {
 		toSerialize["multiUse"] = o.MultiUse
 	}
-	if o.Ttl != nil {
+	if !IsNil(o.Ttl) {
 		toSerialize["ttl"] = o.Ttl
 	}
 
@@ -132,28 +143,26 @@ func (o AuthenticatorProfileTacRequest) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorProfileTacRequest) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorProfileTacRequest) UnmarshalJSON(data []byte) (err error) {
 	varAuthenticatorProfileTacRequest := _AuthenticatorProfileTacRequest{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorProfileTacRequest)
-	if err == nil {
-		*o = AuthenticatorProfileTacRequest(varAuthenticatorProfileTacRequest)
-	} else {
+	err = json.Unmarshal(data, &varAuthenticatorProfileTacRequest)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthenticatorProfileTacRequest(varAuthenticatorProfileTacRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "multiUse")
 		delete(additionalProperties, "ttl")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableAuthenticatorProfileTacRequest) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,10 +28,13 @@ import (
 	"fmt"
 )
 
+// checks if the AuthenticatorProfile type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorProfile{}
+
 // AuthenticatorProfile Defines the authenticator specific parameters
 type AuthenticatorProfile struct {
 	// The phone number for a `call` or `sms` authenticator enrollment.
-	PhoneNumber string `json:"phoneNumber"`
+	PhoneNumber          string `json:"phoneNumber"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -80,36 +83,61 @@ func (o *AuthenticatorProfile) SetPhoneNumber(v string) {
 }
 
 func (o AuthenticatorProfile) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["phoneNumber"] = o.PhoneNumber
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorProfile) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["phoneNumber"] = o.PhoneNumber
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorProfile) UnmarshalJSON(bytes []byte) (err error) {
-	varAuthenticatorProfile := _AuthenticatorProfile{}
+func (o *AuthenticatorProfile) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"phoneNumber",
+	}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorProfile)
-	if err == nil {
-		*o = AuthenticatorProfile(varAuthenticatorProfile)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAuthenticatorProfile := _AuthenticatorProfile{}
+
+	err = json.Unmarshal(data, &varAuthenticatorProfile)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AuthenticatorProfile(varAuthenticatorProfile)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "phoneNumber")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -150,4 +178,3 @@ func (v *NullableAuthenticatorProfile) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,9 +28,12 @@ import (
 	"fmt"
 )
 
+// checks if the ProvisioningConnectionOauthRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ProvisioningConnectionOauthRequest{}
+
 // ProvisioningConnectionOauthRequest struct for ProvisioningConnectionOauthRequest
 type ProvisioningConnectionOauthRequest struct {
-	Profile ProvisioningConnectionOauthRequestProfile `json:"profile"`
+	Profile              ProvisioningConnectionOauthRequestProfile `json:"profile"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -79,36 +82,61 @@ func (o *ProvisioningConnectionOauthRequest) SetProfile(v ProvisioningConnection
 }
 
 func (o ProvisioningConnectionOauthRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["profile"] = o.Profile
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ProvisioningConnectionOauthRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["profile"] = o.Profile
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ProvisioningConnectionOauthRequest) UnmarshalJSON(bytes []byte) (err error) {
-	varProvisioningConnectionOauthRequest := _ProvisioningConnectionOauthRequest{}
+func (o *ProvisioningConnectionOauthRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"profile",
+	}
 
-	err = json.Unmarshal(bytes, &varProvisioningConnectionOauthRequest)
-	if err == nil {
-		*o = ProvisioningConnectionOauthRequest(varProvisioningConnectionOauthRequest)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varProvisioningConnectionOauthRequest := _ProvisioningConnectionOauthRequest{}
+
+	err = json.Unmarshal(data, &varProvisioningConnectionOauthRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ProvisioningConnectionOauthRequest(varProvisioningConnectionOauthRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "profile")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -149,4 +177,3 @@ func (v *NullableProvisioningConnectionOauthRequest) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

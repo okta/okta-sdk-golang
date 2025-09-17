@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the CreateSessionRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateSessionRequest{}
+
 // CreateSessionRequest struct for CreateSessionRequest
 type CreateSessionRequest struct {
 	// The session token obtained during authentication
-	SessionToken *string `json:"sessionToken,omitempty"`
+	SessionToken         *string `json:"sessionToken,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewCreateSessionRequestWithDefaults() *CreateSessionRequest {
 
 // GetSessionToken returns the SessionToken field value if set, zero value otherwise.
 func (o *CreateSessionRequest) GetSessionToken() string {
-	if o == nil || o.SessionToken == nil {
+	if o == nil || IsNil(o.SessionToken) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *CreateSessionRequest) GetSessionToken() string {
 // GetSessionTokenOk returns a tuple with the SessionToken field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateSessionRequest) GetSessionTokenOk() (*string, bool) {
-	if o == nil || o.SessionToken == nil {
+	if o == nil || IsNil(o.SessionToken) {
 		return nil, false
 	}
 	return o.SessionToken, true
@@ -73,7 +76,7 @@ func (o *CreateSessionRequest) GetSessionTokenOk() (*string, bool) {
 
 // HasSessionToken returns a boolean if a field has been set.
 func (o *CreateSessionRequest) HasSessionToken() bool {
-	if o != nil && o.SessionToken != nil {
+	if o != nil && !IsNil(o.SessionToken) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *CreateSessionRequest) SetSessionToken(v string) {
 }
 
 func (o CreateSessionRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CreateSessionRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.SessionToken != nil {
+	if !IsNil(o.SessionToken) {
 		toSerialize["sessionToken"] = o.SessionToken
 	}
 
@@ -95,27 +106,25 @@ func (o CreateSessionRequest) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CreateSessionRequest) UnmarshalJSON(bytes []byte) (err error) {
+func (o *CreateSessionRequest) UnmarshalJSON(data []byte) (err error) {
 	varCreateSessionRequest := _CreateSessionRequest{}
 
-	err = json.Unmarshal(bytes, &varCreateSessionRequest)
-	if err == nil {
-		*o = CreateSessionRequest(varCreateSessionRequest)
-	} else {
+	err = json.Unmarshal(data, &varCreateSessionRequest)
+
+	if err != nil {
 		return err
 	}
 
+	*o = CreateSessionRequest(varCreateSessionRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "sessionToken")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableCreateSessionRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

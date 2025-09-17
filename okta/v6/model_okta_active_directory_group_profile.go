@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the OktaActiveDirectoryGroupProfile type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OktaActiveDirectoryGroupProfile{}
+
 // OktaActiveDirectoryGroupProfile Profile for a group that is imported from Active Directory.  The `objectClass` for such groups is `okta:windows_security_principal`.
 type OktaActiveDirectoryGroupProfile struct {
 	// Description of the Windows group
@@ -41,7 +44,7 @@ type OktaActiveDirectoryGroupProfile struct {
 	SamAccountName *string `json:"samAccountName,omitempty"`
 	// Fully qualified name of the Windows group
 	WindowsDomainQualifiedName *string `json:"windowsDomainQualifiedName,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties       map[string]interface{}
 }
 
 type _OktaActiveDirectoryGroupProfile OktaActiveDirectoryGroupProfile
@@ -65,7 +68,7 @@ func NewOktaActiveDirectoryGroupProfileWithDefaults() *OktaActiveDirectoryGroupP
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *OktaActiveDirectoryGroupProfile) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -75,7 +78,7 @@ func (o *OktaActiveDirectoryGroupProfile) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaActiveDirectoryGroupProfile) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -83,7 +86,7 @@ func (o *OktaActiveDirectoryGroupProfile) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *OktaActiveDirectoryGroupProfile) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -97,7 +100,7 @@ func (o *OktaActiveDirectoryGroupProfile) SetDescription(v string) {
 
 // GetDn returns the Dn field value if set, zero value otherwise.
 func (o *OktaActiveDirectoryGroupProfile) GetDn() string {
-	if o == nil || o.Dn == nil {
+	if o == nil || IsNil(o.Dn) {
 		var ret string
 		return ret
 	}
@@ -107,7 +110,7 @@ func (o *OktaActiveDirectoryGroupProfile) GetDn() string {
 // GetDnOk returns a tuple with the Dn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaActiveDirectoryGroupProfile) GetDnOk() (*string, bool) {
-	if o == nil || o.Dn == nil {
+	if o == nil || IsNil(o.Dn) {
 		return nil, false
 	}
 	return o.Dn, true
@@ -115,7 +118,7 @@ func (o *OktaActiveDirectoryGroupProfile) GetDnOk() (*string, bool) {
 
 // HasDn returns a boolean if a field has been set.
 func (o *OktaActiveDirectoryGroupProfile) HasDn() bool {
-	if o != nil && o.Dn != nil {
+	if o != nil && !IsNil(o.Dn) {
 		return true
 	}
 
@@ -129,7 +132,7 @@ func (o *OktaActiveDirectoryGroupProfile) SetDn(v string) {
 
 // GetExternalId returns the ExternalId field value if set, zero value otherwise.
 func (o *OktaActiveDirectoryGroupProfile) GetExternalId() string {
-	if o == nil || o.ExternalId == nil {
+	if o == nil || IsNil(o.ExternalId) {
 		var ret string
 		return ret
 	}
@@ -139,7 +142,7 @@ func (o *OktaActiveDirectoryGroupProfile) GetExternalId() string {
 // GetExternalIdOk returns a tuple with the ExternalId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaActiveDirectoryGroupProfile) GetExternalIdOk() (*string, bool) {
-	if o == nil || o.ExternalId == nil {
+	if o == nil || IsNil(o.ExternalId) {
 		return nil, false
 	}
 	return o.ExternalId, true
@@ -147,7 +150,7 @@ func (o *OktaActiveDirectoryGroupProfile) GetExternalIdOk() (*string, bool) {
 
 // HasExternalId returns a boolean if a field has been set.
 func (o *OktaActiveDirectoryGroupProfile) HasExternalId() bool {
-	if o != nil && o.ExternalId != nil {
+	if o != nil && !IsNil(o.ExternalId) {
 		return true
 	}
 
@@ -161,7 +164,7 @@ func (o *OktaActiveDirectoryGroupProfile) SetExternalId(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *OktaActiveDirectoryGroupProfile) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -171,7 +174,7 @@ func (o *OktaActiveDirectoryGroupProfile) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaActiveDirectoryGroupProfile) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -179,7 +182,7 @@ func (o *OktaActiveDirectoryGroupProfile) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *OktaActiveDirectoryGroupProfile) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -193,7 +196,7 @@ func (o *OktaActiveDirectoryGroupProfile) SetName(v string) {
 
 // GetSamAccountName returns the SamAccountName field value if set, zero value otherwise.
 func (o *OktaActiveDirectoryGroupProfile) GetSamAccountName() string {
-	if o == nil || o.SamAccountName == nil {
+	if o == nil || IsNil(o.SamAccountName) {
 		var ret string
 		return ret
 	}
@@ -203,7 +206,7 @@ func (o *OktaActiveDirectoryGroupProfile) GetSamAccountName() string {
 // GetSamAccountNameOk returns a tuple with the SamAccountName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaActiveDirectoryGroupProfile) GetSamAccountNameOk() (*string, bool) {
-	if o == nil || o.SamAccountName == nil {
+	if o == nil || IsNil(o.SamAccountName) {
 		return nil, false
 	}
 	return o.SamAccountName, true
@@ -211,7 +214,7 @@ func (o *OktaActiveDirectoryGroupProfile) GetSamAccountNameOk() (*string, bool) 
 
 // HasSamAccountName returns a boolean if a field has been set.
 func (o *OktaActiveDirectoryGroupProfile) HasSamAccountName() bool {
-	if o != nil && o.SamAccountName != nil {
+	if o != nil && !IsNil(o.SamAccountName) {
 		return true
 	}
 
@@ -225,7 +228,7 @@ func (o *OktaActiveDirectoryGroupProfile) SetSamAccountName(v string) {
 
 // GetWindowsDomainQualifiedName returns the WindowsDomainQualifiedName field value if set, zero value otherwise.
 func (o *OktaActiveDirectoryGroupProfile) GetWindowsDomainQualifiedName() string {
-	if o == nil || o.WindowsDomainQualifiedName == nil {
+	if o == nil || IsNil(o.WindowsDomainQualifiedName) {
 		var ret string
 		return ret
 	}
@@ -235,7 +238,7 @@ func (o *OktaActiveDirectoryGroupProfile) GetWindowsDomainQualifiedName() string
 // GetWindowsDomainQualifiedNameOk returns a tuple with the WindowsDomainQualifiedName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaActiveDirectoryGroupProfile) GetWindowsDomainQualifiedNameOk() (*string, bool) {
-	if o == nil || o.WindowsDomainQualifiedName == nil {
+	if o == nil || IsNil(o.WindowsDomainQualifiedName) {
 		return nil, false
 	}
 	return o.WindowsDomainQualifiedName, true
@@ -243,7 +246,7 @@ func (o *OktaActiveDirectoryGroupProfile) GetWindowsDomainQualifiedNameOk() (*st
 
 // HasWindowsDomainQualifiedName returns a boolean if a field has been set.
 func (o *OktaActiveDirectoryGroupProfile) HasWindowsDomainQualifiedName() bool {
-	if o != nil && o.WindowsDomainQualifiedName != nil {
+	if o != nil && !IsNil(o.WindowsDomainQualifiedName) {
 		return true
 	}
 
@@ -256,23 +259,31 @@ func (o *OktaActiveDirectoryGroupProfile) SetWindowsDomainQualifiedName(v string
 }
 
 func (o OktaActiveDirectoryGroupProfile) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OktaActiveDirectoryGroupProfile) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.Dn != nil {
+	if !IsNil(o.Dn) {
 		toSerialize["dn"] = o.Dn
 	}
-	if o.ExternalId != nil {
+	if !IsNil(o.ExternalId) {
 		toSerialize["externalId"] = o.ExternalId
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.SamAccountName != nil {
+	if !IsNil(o.SamAccountName) {
 		toSerialize["samAccountName"] = o.SamAccountName
 	}
-	if o.WindowsDomainQualifiedName != nil {
+	if !IsNil(o.WindowsDomainQualifiedName) {
 		toSerialize["windowsDomainQualifiedName"] = o.WindowsDomainQualifiedName
 	}
 
@@ -280,23 +291,23 @@ func (o OktaActiveDirectoryGroupProfile) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OktaActiveDirectoryGroupProfile) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OktaActiveDirectoryGroupProfile) UnmarshalJSON(data []byte) (err error) {
 	varOktaActiveDirectoryGroupProfile := _OktaActiveDirectoryGroupProfile{}
 
-	err = json.Unmarshal(bytes, &varOktaActiveDirectoryGroupProfile)
-	if err == nil {
-		*o = OktaActiveDirectoryGroupProfile(varOktaActiveDirectoryGroupProfile)
-	} else {
+	err = json.Unmarshal(data, &varOktaActiveDirectoryGroupProfile)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OktaActiveDirectoryGroupProfile(varOktaActiveDirectoryGroupProfile)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "dn")
 		delete(additionalProperties, "externalId")
@@ -304,8 +315,6 @@ func (o *OktaActiveDirectoryGroupProfile) UnmarshalJSON(bytes []byte) (err error
 		delete(additionalProperties, "samAccountName")
 		delete(additionalProperties, "windowsDomainQualifiedName")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -346,4 +355,3 @@ func (v *NullableOktaActiveDirectoryGroupProfile) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

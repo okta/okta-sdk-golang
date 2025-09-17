@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PostAuthKeepMeSignedInPrompt type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PostAuthKeepMeSignedInPrompt{}
+
 // PostAuthKeepMeSignedInPrompt struct for PostAuthKeepMeSignedInPrompt
 type PostAuthKeepMeSignedInPrompt struct {
 	// The label on the accept button when prompting for Stay signed in
@@ -36,7 +39,7 @@ type PostAuthKeepMeSignedInPrompt struct {
 	// The subtitle on the Sign-In Widget when prompting for Stay signed in
 	Subtitle *string `json:"subtitle,omitempty"`
 	// The title on the Sign-In Widget when prompting for Stay signed in
-	Title *string `json:"title,omitempty"`
+	Title                *string `json:"title,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewPostAuthKeepMeSignedInPromptWithDefaults() *PostAuthKeepMeSignedInPrompt
 
 // GetAcceptButtonText returns the AcceptButtonText field value if set, zero value otherwise.
 func (o *PostAuthKeepMeSignedInPrompt) GetAcceptButtonText() string {
-	if o == nil || o.AcceptButtonText == nil {
+	if o == nil || IsNil(o.AcceptButtonText) {
 		var ret string
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *PostAuthKeepMeSignedInPrompt) GetAcceptButtonText() string {
 // GetAcceptButtonTextOk returns a tuple with the AcceptButtonText field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PostAuthKeepMeSignedInPrompt) GetAcceptButtonTextOk() (*string, bool) {
-	if o == nil || o.AcceptButtonText == nil {
+	if o == nil || IsNil(o.AcceptButtonText) {
 		return nil, false
 	}
 	return o.AcceptButtonText, true
@@ -79,7 +82,7 @@ func (o *PostAuthKeepMeSignedInPrompt) GetAcceptButtonTextOk() (*string, bool) {
 
 // HasAcceptButtonText returns a boolean if a field has been set.
 func (o *PostAuthKeepMeSignedInPrompt) HasAcceptButtonText() bool {
-	if o != nil && o.AcceptButtonText != nil {
+	if o != nil && !IsNil(o.AcceptButtonText) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *PostAuthKeepMeSignedInPrompt) SetAcceptButtonText(v string) {
 
 // GetRejectButtonText returns the RejectButtonText field value if set, zero value otherwise.
 func (o *PostAuthKeepMeSignedInPrompt) GetRejectButtonText() string {
-	if o == nil || o.RejectButtonText == nil {
+	if o == nil || IsNil(o.RejectButtonText) {
 		var ret string
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *PostAuthKeepMeSignedInPrompt) GetRejectButtonText() string {
 // GetRejectButtonTextOk returns a tuple with the RejectButtonText field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PostAuthKeepMeSignedInPrompt) GetRejectButtonTextOk() (*string, bool) {
-	if o == nil || o.RejectButtonText == nil {
+	if o == nil || IsNil(o.RejectButtonText) {
 		return nil, false
 	}
 	return o.RejectButtonText, true
@@ -111,7 +114,7 @@ func (o *PostAuthKeepMeSignedInPrompt) GetRejectButtonTextOk() (*string, bool) {
 
 // HasRejectButtonText returns a boolean if a field has been set.
 func (o *PostAuthKeepMeSignedInPrompt) HasRejectButtonText() bool {
-	if o != nil && o.RejectButtonText != nil {
+	if o != nil && !IsNil(o.RejectButtonText) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *PostAuthKeepMeSignedInPrompt) SetRejectButtonText(v string) {
 
 // GetSubtitle returns the Subtitle field value if set, zero value otherwise.
 func (o *PostAuthKeepMeSignedInPrompt) GetSubtitle() string {
-	if o == nil || o.Subtitle == nil {
+	if o == nil || IsNil(o.Subtitle) {
 		var ret string
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *PostAuthKeepMeSignedInPrompt) GetSubtitle() string {
 // GetSubtitleOk returns a tuple with the Subtitle field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PostAuthKeepMeSignedInPrompt) GetSubtitleOk() (*string, bool) {
-	if o == nil || o.Subtitle == nil {
+	if o == nil || IsNil(o.Subtitle) {
 		return nil, false
 	}
 	return o.Subtitle, true
@@ -143,7 +146,7 @@ func (o *PostAuthKeepMeSignedInPrompt) GetSubtitleOk() (*string, bool) {
 
 // HasSubtitle returns a boolean if a field has been set.
 func (o *PostAuthKeepMeSignedInPrompt) HasSubtitle() bool {
-	if o != nil && o.Subtitle != nil {
+	if o != nil && !IsNil(o.Subtitle) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *PostAuthKeepMeSignedInPrompt) SetSubtitle(v string) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *PostAuthKeepMeSignedInPrompt) GetTitle() string {
-	if o == nil || o.Title == nil {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *PostAuthKeepMeSignedInPrompt) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PostAuthKeepMeSignedInPrompt) GetTitleOk() (*string, bool) {
-	if o == nil || o.Title == nil {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -175,7 +178,7 @@ func (o *PostAuthKeepMeSignedInPrompt) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *PostAuthKeepMeSignedInPrompt) HasTitle() bool {
-	if o != nil && o.Title != nil {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -188,17 +191,25 @@ func (o *PostAuthKeepMeSignedInPrompt) SetTitle(v string) {
 }
 
 func (o PostAuthKeepMeSignedInPrompt) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PostAuthKeepMeSignedInPrompt) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AcceptButtonText != nil {
+	if !IsNil(o.AcceptButtonText) {
 		toSerialize["acceptButtonText"] = o.AcceptButtonText
 	}
-	if o.RejectButtonText != nil {
+	if !IsNil(o.RejectButtonText) {
 		toSerialize["rejectButtonText"] = o.RejectButtonText
 	}
-	if o.Subtitle != nil {
+	if !IsNil(o.Subtitle) {
 		toSerialize["subtitle"] = o.Subtitle
 	}
-	if o.Title != nil {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
 
@@ -206,30 +217,28 @@ func (o PostAuthKeepMeSignedInPrompt) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PostAuthKeepMeSignedInPrompt) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PostAuthKeepMeSignedInPrompt) UnmarshalJSON(data []byte) (err error) {
 	varPostAuthKeepMeSignedInPrompt := _PostAuthKeepMeSignedInPrompt{}
 
-	err = json.Unmarshal(bytes, &varPostAuthKeepMeSignedInPrompt)
-	if err == nil {
-		*o = PostAuthKeepMeSignedInPrompt(varPostAuthKeepMeSignedInPrompt)
-	} else {
+	err = json.Unmarshal(data, &varPostAuthKeepMeSignedInPrompt)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PostAuthKeepMeSignedInPrompt(varPostAuthKeepMeSignedInPrompt)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "acceptButtonText")
 		delete(additionalProperties, "rejectButtonText")
 		delete(additionalProperties, "subtitle")
 		delete(additionalProperties, "title")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -270,4 +279,3 @@ func (v *NullablePostAuthKeepMeSignedInPrompt) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

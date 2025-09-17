@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the TokenHookResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TokenHookResponse{}
+
 // TokenHookResponse For the token inline hook, the `commands` and `error` objects that you can return in the JSON payload of your response are defined in the following sections. > **Note:** The size of your response payload must be less than 256 KB.
 type TokenHookResponse struct {
 	// You can use the `commands` object to provide commands to Okta. It's where you can tell Okta to add more claims to the token. The `commands` object is an array, allowing you to send multiple commands. In each array element, there needs to be a `type` property and `value` property. The `type` property is where you specify which of the supported commands you want to execute, and `value` is where you supply an operand for that command. In the case of the token hook type, the `value` property is itself a nested object in which you specify a particular operation, a path to act on, and a value.
-	Commands []TokenHookResponseCommandsInner `json:"commands,omitempty"`
-	Error *TokenHookResponseError `json:"error,omitempty"`
+	Commands             []TokenHookResponseCommandsInner `json:"commands,omitempty"`
+	Error                *TokenHookResponseError          `json:"error,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewTokenHookResponseWithDefaults() *TokenHookResponse {
 
 // GetCommands returns the Commands field value if set, zero value otherwise.
 func (o *TokenHookResponse) GetCommands() []TokenHookResponseCommandsInner {
-	if o == nil || o.Commands == nil {
+	if o == nil || IsNil(o.Commands) {
 		var ret []TokenHookResponseCommandsInner
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *TokenHookResponse) GetCommands() []TokenHookResponseCommandsInner {
 // GetCommandsOk returns a tuple with the Commands field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenHookResponse) GetCommandsOk() ([]TokenHookResponseCommandsInner, bool) {
-	if o == nil || o.Commands == nil {
+	if o == nil || IsNil(o.Commands) {
 		return nil, false
 	}
 	return o.Commands, true
@@ -74,7 +77,7 @@ func (o *TokenHookResponse) GetCommandsOk() ([]TokenHookResponseCommandsInner, b
 
 // HasCommands returns a boolean if a field has been set.
 func (o *TokenHookResponse) HasCommands() bool {
-	if o != nil && o.Commands != nil {
+	if o != nil && !IsNil(o.Commands) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *TokenHookResponse) SetCommands(v []TokenHookResponseCommandsInner) {
 
 // GetError returns the Error field value if set, zero value otherwise.
 func (o *TokenHookResponse) GetError() TokenHookResponseError {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		var ret TokenHookResponseError
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *TokenHookResponse) GetError() TokenHookResponseError {
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenHookResponse) GetErrorOk() (*TokenHookResponseError, bool) {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		return nil, false
 	}
 	return o.Error, true
@@ -106,7 +109,7 @@ func (o *TokenHookResponse) GetErrorOk() (*TokenHookResponseError, bool) {
 
 // HasError returns a boolean if a field has been set.
 func (o *TokenHookResponse) HasError() bool {
-	if o != nil && o.Error != nil {
+	if o != nil && !IsNil(o.Error) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *TokenHookResponse) SetError(v TokenHookResponseError) {
 }
 
 func (o TokenHookResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TokenHookResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Commands != nil {
+	if !IsNil(o.Commands) {
 		toSerialize["commands"] = o.Commands
 	}
-	if o.Error != nil {
+	if !IsNil(o.Error) {
 		toSerialize["error"] = o.Error
 	}
 
@@ -131,28 +142,26 @@ func (o TokenHookResponse) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *TokenHookResponse) UnmarshalJSON(bytes []byte) (err error) {
+func (o *TokenHookResponse) UnmarshalJSON(data []byte) (err error) {
 	varTokenHookResponse := _TokenHookResponse{}
 
-	err = json.Unmarshal(bytes, &varTokenHookResponse)
-	if err == nil {
-		*o = TokenHookResponse(varTokenHookResponse)
-	} else {
+	err = json.Unmarshal(data, &varTokenHookResponse)
+
+	if err != nil {
 		return err
 	}
 
+	*o = TokenHookResponse(varTokenHookResponse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "commands")
 		delete(additionalProperties, "error")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableTokenHookResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

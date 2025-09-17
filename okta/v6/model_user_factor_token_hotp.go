@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -29,14 +29,17 @@ import (
 	"strings"
 )
 
+// checks if the UserFactorTokenHOTP type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserFactorTokenHOTP{}
+
 // UserFactorTokenHOTP struct for UserFactorTokenHOTP
 type UserFactorTokenHOTP struct {
 	UserFactor
 	// ID of an existing Custom TOTP factor profile. To create this, see [Custom TOTP factor](https://help.okta.com/okta_help.htm?id=ext-mfa-totp).
-	FactorProfileId *string `json:"factorProfileId,omitempty"`
-	FactorType interface{} `json:"factorType,omitempty"`
-	Profile *UserFactorTokenHOTPProfile `json:"profile,omitempty"`
-	Provider *string `json:"provider,omitempty"`
+	FactorProfileId      *string                     `json:"factorProfileId,omitempty"`
+	FactorType           interface{}                 `json:"factorType,omitempty"`
+	Profile              *UserFactorTokenHOTPProfile `json:"profile,omitempty"`
+	Provider             *string                     `json:"provider,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewUserFactorTokenHOTPWithDefaults() *UserFactorTokenHOTP {
 
 // GetFactorProfileId returns the FactorProfileId field value if set, zero value otherwise.
 func (o *UserFactorTokenHOTP) GetFactorProfileId() string {
-	if o == nil || o.FactorProfileId == nil {
+	if o == nil || IsNil(o.FactorProfileId) {
 		var ret string
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *UserFactorTokenHOTP) GetFactorProfileId() string {
 // GetFactorProfileIdOk returns a tuple with the FactorProfileId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorTokenHOTP) GetFactorProfileIdOk() (*string, bool) {
-	if o == nil || o.FactorProfileId == nil {
+	if o == nil || IsNil(o.FactorProfileId) {
 		return nil, false
 	}
 	return o.FactorProfileId, true
@@ -79,7 +82,7 @@ func (o *UserFactorTokenHOTP) GetFactorProfileIdOk() (*string, bool) {
 
 // HasFactorProfileId returns a boolean if a field has been set.
 func (o *UserFactorTokenHOTP) HasFactorProfileId() bool {
-	if o != nil && o.FactorProfileId != nil {
+	if o != nil && !IsNil(o.FactorProfileId) {
 		return true
 	}
 
@@ -104,7 +107,7 @@ func (o *UserFactorTokenHOTP) GetFactorType() interface{} {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UserFactorTokenHOTP) GetFactorTypeOk() (*interface{}, bool) {
-	if o == nil || o.FactorType == nil {
+	if o == nil || IsNil(o.FactorType) {
 		return nil, false
 	}
 	return &o.FactorType, true
@@ -112,7 +115,7 @@ func (o *UserFactorTokenHOTP) GetFactorTypeOk() (*interface{}, bool) {
 
 // HasFactorType returns a boolean if a field has been set.
 func (o *UserFactorTokenHOTP) HasFactorType() bool {
-	if o != nil && o.FactorType != nil {
+	if o != nil && !IsNil(o.FactorType) {
 		return true
 	}
 
@@ -126,7 +129,7 @@ func (o *UserFactorTokenHOTP) SetFactorType(v interface{}) {
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *UserFactorTokenHOTP) GetProfile() UserFactorTokenHOTPProfile {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret UserFactorTokenHOTPProfile
 		return ret
 	}
@@ -136,7 +139,7 @@ func (o *UserFactorTokenHOTP) GetProfile() UserFactorTokenHOTPProfile {
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorTokenHOTP) GetProfileOk() (*UserFactorTokenHOTPProfile, bool) {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		return nil, false
 	}
 	return o.Profile, true
@@ -144,7 +147,7 @@ func (o *UserFactorTokenHOTP) GetProfileOk() (*UserFactorTokenHOTPProfile, bool)
 
 // HasProfile returns a boolean if a field has been set.
 func (o *UserFactorTokenHOTP) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -158,7 +161,7 @@ func (o *UserFactorTokenHOTP) SetProfile(v UserFactorTokenHOTPProfile) {
 
 // GetProvider returns the Provider field value if set, zero value otherwise.
 func (o *UserFactorTokenHOTP) GetProvider() string {
-	if o == nil || o.Provider == nil {
+	if o == nil || IsNil(o.Provider) {
 		var ret string
 		return ret
 	}
@@ -168,7 +171,7 @@ func (o *UserFactorTokenHOTP) GetProvider() string {
 // GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorTokenHOTP) GetProviderOk() (*string, bool) {
-	if o == nil || o.Provider == nil {
+	if o == nil || IsNil(o.Provider) {
 		return nil, false
 	}
 	return o.Provider, true
@@ -176,7 +179,7 @@ func (o *UserFactorTokenHOTP) GetProviderOk() (*string, bool) {
 
 // HasProvider returns a boolean if a field has been set.
 func (o *UserFactorTokenHOTP) HasProvider() bool {
-	if o != nil && o.Provider != nil {
+	if o != nil && !IsNil(o.Provider) {
 		return true
 	}
 
@@ -189,25 +192,33 @@ func (o *UserFactorTokenHOTP) SetProvider(v string) {
 }
 
 func (o UserFactorTokenHOTP) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserFactorTokenHOTP) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedUserFactor, errUserFactor := json.Marshal(o.UserFactor)
 	if errUserFactor != nil {
-		return []byte{}, errUserFactor
+		return map[string]interface{}{}, errUserFactor
 	}
 	errUserFactor = json.Unmarshal([]byte(serializedUserFactor), &toSerialize)
 	if errUserFactor != nil {
-		return []byte{}, errUserFactor
+		return map[string]interface{}{}, errUserFactor
 	}
-	if o.FactorProfileId != nil {
+	if !IsNil(o.FactorProfileId) {
 		toSerialize["factorProfileId"] = o.FactorProfileId
 	}
 	if o.FactorType != nil {
 		toSerialize["factorType"] = o.FactorType
 	}
-	if o.Profile != nil {
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
-	if o.Provider != nil {
+	if !IsNil(o.Provider) {
 		toSerialize["provider"] = o.Provider
 	}
 
@@ -215,21 +226,21 @@ func (o UserFactorTokenHOTP) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserFactorTokenHOTP) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserFactorTokenHOTP) UnmarshalJSON(data []byte) (err error) {
 	type UserFactorTokenHOTPWithoutEmbeddedStruct struct {
 		// ID of an existing Custom TOTP factor profile. To create this, see [Custom TOTP factor](https://help.okta.com/okta_help.htm?id=ext-mfa-totp).
-		FactorProfileId *string `json:"factorProfileId,omitempty"`
-		FactorType interface{} `json:"factorType,omitempty"`
-		Profile *UserFactorTokenHOTPProfile `json:"profile,omitempty"`
-		Provider *string `json:"provider,omitempty"`
+		FactorProfileId *string                     `json:"factorProfileId,omitempty"`
+		FactorType      interface{}                 `json:"factorType,omitempty"`
+		Profile         *UserFactorTokenHOTPProfile `json:"profile,omitempty"`
+		Provider        *string                     `json:"provider,omitempty"`
 	}
 
 	varUserFactorTokenHOTPWithoutEmbeddedStruct := UserFactorTokenHOTPWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varUserFactorTokenHOTPWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varUserFactorTokenHOTPWithoutEmbeddedStruct)
 	if err == nil {
 		varUserFactorTokenHOTP := _UserFactorTokenHOTP{}
 		varUserFactorTokenHOTP.FactorProfileId = varUserFactorTokenHOTPWithoutEmbeddedStruct.FactorProfileId
@@ -243,7 +254,7 @@ func (o *UserFactorTokenHOTP) UnmarshalJSON(bytes []byte) (err error) {
 
 	varUserFactorTokenHOTP := _UserFactorTokenHOTP{}
 
-	err = json.Unmarshal(bytes, &varUserFactorTokenHOTP)
+	err = json.Unmarshal(data, &varUserFactorTokenHOTP)
 	if err == nil {
 		o.UserFactor = varUserFactorTokenHOTP.UserFactor
 	} else {
@@ -252,8 +263,7 @@ func (o *UserFactorTokenHOTP) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "factorProfileId")
 		delete(additionalProperties, "factorType")
 		delete(additionalProperties, "profile")
@@ -278,8 +288,6 @@ func (o *UserFactorTokenHOTP) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -320,4 +328,3 @@ func (v *NullableUserFactorTokenHOTP) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

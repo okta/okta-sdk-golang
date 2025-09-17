@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,30 +26,29 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type RoleAssignmentBGroupAPI interface {
 
 	/*
-	AssignRoleToGroup Assign a role to a group
+			AssignRoleToGroup Assign a role to a group
 
-	Assigns a [standard role](/openapi/okta-management/guides/roles/#standard-roles) to a group.
+			Assigns a [standard role](/openapi/okta-management/guides/roles/#standard-roles) to a group.
 
-You can also assign a custom role to a group, but the preferred method to assign a custom role to a group is to create a binding between the custom role, the resource set, and the group. See [Create a role resource set binding](/openapi/okta-management/management/tag/RoleDResourceSetBinding/#tag/RoleDResourceSetBinding/operation/createResourceSetBinding).
+		You can also assign a custom role to a group, but the preferred method to assign a custom role to a group is to create a binding between the custom role, the resource set, and the group. See [Create a role resource set binding](/openapi/okta-management/management/tag/RoleDResourceSetBinding/#tag/RoleDResourceSetBinding/operation/createResourceSetBinding).
 
-> **Notes:**
-> * The request payload is different for standard and custom role assignments.
-> * For IAM-based standard role assignments, use the request payload for standard roles. However, the response payload for IAM-based role assignments is similar to the custom role's assignment response.
+		> **Notes:**
+		> * The request payload is different for standard and custom role assignments.
+		> * For IAM-based standard role assignments, use the request payload for standard roles. However, the response payload for IAM-based role assignments is similar to the custom role's assignment response.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@return ApiAssignRoleToGroupRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param groupId The `id` of the group
+			@return ApiAssignRoleToGroupRequest
 	*/
 	AssignRoleToGroup(ctx context.Context, groupId string) ApiAssignRoleToGroupRequest
 
@@ -58,14 +57,14 @@ You can also assign a custom role to a group, but the preferred method to assign
 	AssignRoleToGroupExecute(r ApiAssignRoleToGroupRequest) (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error)
 
 	/*
-	GetGroupAssignedRole Retrieve a group role assignment
+		GetGroupAssignedRole Retrieve a group role assignment
 
-	Retrieves a role assigned to a group (identified by the `groupId`). The `roleAssignmentId` is the unique identifier for either a standard role group assignment object or a custom role resource set binding object.
+		Retrieves a role assigned to a group (identified by the `groupId`). The `roleAssignmentId` is the unique identifier for either a standard role group assignment object or a custom role resource set binding object.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleAssignmentId The `id` of the role assignment
-	@return ApiGetGroupAssignedRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@param roleAssignmentId The `id` of the role assignment
+		@return ApiGetGroupAssignedRoleRequest
 	*/
 	GetGroupAssignedRole(ctx context.Context, groupId string, roleAssignmentId string) ApiGetGroupAssignedRoleRequest
 
@@ -74,13 +73,13 @@ You can also assign a custom role to a group, but the preferred method to assign
 	GetGroupAssignedRoleExecute(r ApiGetGroupAssignedRoleRequest) (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error)
 
 	/*
-	ListGroupAssignedRoles List all group role assignments
+		ListGroupAssignedRoles List all group role assignments
 
-	Lists all assigned roles of a group by `groupId`
+		Lists all assigned roles of a group by `groupId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@return ApiListGroupAssignedRolesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@return ApiListGroupAssignedRolesRequest
 	*/
 	ListGroupAssignedRoles(ctx context.Context, groupId string) ApiListGroupAssignedRolesRequest
 
@@ -89,14 +88,14 @@ You can also assign a custom role to a group, but the preferred method to assign
 	ListGroupAssignedRolesExecute(r ApiListGroupAssignedRolesRequest) ([]ListGroupAssignedRoles200ResponseInner, *APIResponse, error)
 
 	/*
-	UnassignRoleFromGroup Unassign a group role
+		UnassignRoleFromGroup Unassign a group role
 
-	Unassigns a role assignment (identified by `roleAssignmentId`) from a group (identified by the `groupId`)
+		Unassigns a role assignment (identified by `roleAssignmentId`) from a group (identified by the `groupId`)
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleAssignmentId The `id` of the role assignment
-	@return ApiUnassignRoleFromGroupRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@param roleAssignmentId The `id` of the role assignment
+		@return ApiUnassignRoleFromGroupRequest
 	*/
 	UnassignRoleFromGroup(ctx context.Context, groupId string, roleAssignmentId string) ApiUnassignRoleFromGroupRequest
 
@@ -108,12 +107,12 @@ You can also assign a custom role to a group, but the preferred method to assign
 type RoleAssignmentBGroupAPIService service
 
 type ApiAssignRoleToGroupRequest struct {
-	ctx context.Context
-	ApiService RoleAssignmentBGroupAPI
-	groupId string
-	assignRoleRequest *AssignRoleToGroupRequest
+	ctx                  context.Context
+	ApiService           RoleAssignmentBGroupAPI
+	groupId              string
+	assignRoleRequest    *AssignRoleToGroupRequest
 	disableNotifications *bool
-	retryCount int32
+	retryCount           int32
 }
 
 func (r ApiAssignRoleToGroupRequest) AssignRoleRequest(assignRoleRequest AssignRoleToGroupRequest) ApiAssignRoleToGroupRequest {
@@ -142,21 +141,22 @@ You can also assign a custom role to a group, but the preferred method to assign
 > * The request payload is different for standard and custom role assignments.
 > * For IAM-based standard role assignments, use the request payload for standard roles. However, the response payload for IAM-based role assignments is similar to the custom role's assignment response.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId The `id` of the group
- @return ApiAssignRoleToGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@return ApiAssignRoleToGroupRequest
 */
 func (a *RoleAssignmentBGroupAPIService) AssignRoleToGroup(ctx context.Context, groupId string) ApiAssignRoleToGroupRequest {
 	return ApiAssignRoleToGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ctx:        ctx,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListGroupAssignedRoles200ResponseInner
+//
+//	@return ListGroupAssignedRoles200ResponseInner
 func (a *RoleAssignmentBGroupAPIService) AssignRoleToGroupExecute(r ApiAssignRoleToGroupRequest) (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -165,7 +165,7 @@ func (a *RoleAssignmentBGroupAPIService) AssignRoleToGroupExecute(r ApiAssignRol
 		localVarReturnValue  *ListGroupAssignedRoles200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -234,9 +234,9 @@ func (a *RoleAssignmentBGroupAPIService) AssignRoleToGroupExecute(r ApiAssignRol
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -306,17 +306,17 @@ func (a *RoleAssignmentBGroupAPIService) AssignRoleToGroupExecute(r ApiAssignRol
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetGroupAssignedRoleRequest struct {
-	ctx context.Context
-	ApiService RoleAssignmentBGroupAPI
-	groupId string
+	ctx              context.Context
+	ApiService       RoleAssignmentBGroupAPI
+	groupId          string
 	roleAssignmentId string
-	retryCount int32
+	retryCount       int32
 }
 
 func (r ApiGetGroupAssignedRoleRequest) Execute() (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error) {
@@ -328,23 +328,24 @@ GetGroupAssignedRole Retrieve a group role assignment
 
 Retrieves a role assigned to a group (identified by the `groupId`). The `roleAssignmentId` is the unique identifier for either a standard role group assignment object or a custom role resource set binding object.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId The `id` of the group
- @param roleAssignmentId The `id` of the role assignment
- @return ApiGetGroupAssignedRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@param roleAssignmentId The `id` of the role assignment
+	@return ApiGetGroupAssignedRoleRequest
 */
 func (a *RoleAssignmentBGroupAPIService) GetGroupAssignedRole(ctx context.Context, groupId string, roleAssignmentId string) ApiGetGroupAssignedRoleRequest {
 	return ApiGetGroupAssignedRoleRequest{
-		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ApiService:       a,
+		ctx:              ctx,
+		groupId:          groupId,
 		roleAssignmentId: roleAssignmentId,
-		retryCount: 0,
+		retryCount:       0,
 	}
 }
 
 // Execute executes the request
-//  @return ListGroupAssignedRoles200ResponseInner
+//
+//	@return ListGroupAssignedRoles200ResponseInner
 func (a *RoleAssignmentBGroupAPIService) GetGroupAssignedRoleExecute(r ApiGetGroupAssignedRoleRequest) (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -353,7 +354,7 @@ func (a *RoleAssignmentBGroupAPIService) GetGroupAssignedRoleExecute(r ApiGetGro
 		localVarReturnValue  *ListGroupAssignedRoles200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -415,9 +416,9 @@ func (a *RoleAssignmentBGroupAPIService) GetGroupAssignedRoleExecute(r ApiGetGro
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -475,16 +476,16 @@ func (a *RoleAssignmentBGroupAPIService) GetGroupAssignedRoleExecute(r ApiGetGro
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListGroupAssignedRolesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleAssignmentBGroupAPI
-	groupId string
-	expand *string
+	groupId    string
+	expand     *string
 	retryCount int32
 }
 
@@ -503,21 +504,22 @@ ListGroupAssignedRoles List all group role assignments
 
 Lists all assigned roles of a group by `groupId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId The `id` of the group
- @return ApiListGroupAssignedRolesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@return ApiListGroupAssignedRolesRequest
 */
 func (a *RoleAssignmentBGroupAPIService) ListGroupAssignedRoles(ctx context.Context, groupId string) ApiListGroupAssignedRolesRequest {
 	return ApiListGroupAssignedRolesRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ctx:        ctx,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []ListGroupAssignedRoles200ResponseInner
+//
+//	@return []ListGroupAssignedRoles200ResponseInner
 func (a *RoleAssignmentBGroupAPIService) ListGroupAssignedRolesExecute(r ApiListGroupAssignedRolesRequest) ([]ListGroupAssignedRoles200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -526,7 +528,7 @@ func (a *RoleAssignmentBGroupAPIService) ListGroupAssignedRolesExecute(r ApiList
 		localVarReturnValue  []ListGroupAssignedRoles200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -590,9 +592,9 @@ func (a *RoleAssignmentBGroupAPIService) ListGroupAssignedRolesExecute(r ApiList
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -650,17 +652,17 @@ func (a *RoleAssignmentBGroupAPIService) ListGroupAssignedRolesExecute(r ApiList
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUnassignRoleFromGroupRequest struct {
-	ctx context.Context
-	ApiService RoleAssignmentBGroupAPI
-	groupId string
+	ctx              context.Context
+	ApiService       RoleAssignmentBGroupAPI
+	groupId          string
 	roleAssignmentId string
-	retryCount int32
+	retryCount       int32
 }
 
 func (r ApiUnassignRoleFromGroupRequest) Execute() (*APIResponse, error) {
@@ -672,18 +674,18 @@ UnassignRoleFromGroup Unassign a group role
 
 Unassigns a role assignment (identified by `roleAssignmentId`) from a group (identified by the `groupId`)
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId The `id` of the group
- @param roleAssignmentId The `id` of the role assignment
- @return ApiUnassignRoleFromGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@param roleAssignmentId The `id` of the role assignment
+	@return ApiUnassignRoleFromGroupRequest
 */
 func (a *RoleAssignmentBGroupAPIService) UnassignRoleFromGroup(ctx context.Context, groupId string, roleAssignmentId string) ApiUnassignRoleFromGroupRequest {
 	return ApiUnassignRoleFromGroupRequest{
-		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ApiService:       a,
+		ctx:              ctx,
+		groupId:          groupId,
 		roleAssignmentId: roleAssignmentId,
-		retryCount: 0,
+		retryCount:       0,
 	}
 }
 
@@ -695,7 +697,7 @@ func (a *RoleAssignmentBGroupAPIService) UnassignRoleFromGroupExecute(r ApiUnass
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -757,9 +759,9 @@ func (a *RoleAssignmentBGroupAPIService) UnassignRoleFromGroupExecute(r ApiUnass
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err

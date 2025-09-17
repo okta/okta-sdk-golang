@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,17 +28,15 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
 // ActivateFactor200Response - struct for ActivateFactor200Response
 type ActivateFactor200Response struct {
-	UserFactorCall *UserFactorCall
-	UserFactorEmail *UserFactorEmail
-	UserFactorPush *UserFactorPush
-	UserFactorSMS *UserFactorSMS
+	UserFactorCall              *UserFactorCall
+	UserFactorEmail             *UserFactorEmail
+	UserFactorPush              *UserFactorPush
+	UserFactorSMS               *UserFactorSMS
 	UserFactorTokenSoftwareTOTP *UserFactorTokenSoftwareTOTP
-	UserFactorU2F *UserFactorU2F
-	UserFactorWebAuthn *UserFactorWebAuthn
+	UserFactorU2F               *UserFactorU2F
+	UserFactorWebAuthn          *UserFactorWebAuthn
 }
 
 // UserFactorCallAsActivateFactor200Response is a convenience function that returns UserFactorCall wrapped in ActivateFactor200Response
@@ -90,15 +88,14 @@ func UserFactorWebAuthnAsActivateFactor200Response(v *UserFactorWebAuthn) Activa
 	}
 }
 
-
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *ActivateFactor200Response) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	// check if the discriminator value is 'call'
@@ -109,7 +106,7 @@ func (dst *ActivateFactor200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.UserFactorCall, return on the first match
 		} else {
 			dst.UserFactorCall = nil
-			return fmt.Errorf("Failed to unmarshal ActivateFactor200Response as UserFactorCall: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ActivateFactor200Response as UserFactorCall: %s", err.Error())
 		}
 	}
 
@@ -121,7 +118,7 @@ func (dst *ActivateFactor200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.UserFactorEmail, return on the first match
 		} else {
 			dst.UserFactorEmail = nil
-			return fmt.Errorf("Failed to unmarshal ActivateFactor200Response as UserFactorEmail: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ActivateFactor200Response as UserFactorEmail: %s", err.Error())
 		}
 	}
 
@@ -133,7 +130,7 @@ func (dst *ActivateFactor200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.UserFactorPush, return on the first match
 		} else {
 			dst.UserFactorPush = nil
-			return fmt.Errorf("Failed to unmarshal ActivateFactor200Response as UserFactorPush: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ActivateFactor200Response as UserFactorPush: %s", err.Error())
 		}
 	}
 
@@ -145,7 +142,7 @@ func (dst *ActivateFactor200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.UserFactorSMS, return on the first match
 		} else {
 			dst.UserFactorSMS = nil
-			return fmt.Errorf("Failed to unmarshal ActivateFactor200Response as UserFactorSMS: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ActivateFactor200Response as UserFactorSMS: %s", err.Error())
 		}
 	}
 
@@ -157,7 +154,7 @@ func (dst *ActivateFactor200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.UserFactorTokenSoftwareTOTP, return on the first match
 		} else {
 			dst.UserFactorTokenSoftwareTOTP = nil
-			return fmt.Errorf("Failed to unmarshal ActivateFactor200Response as UserFactorTokenSoftwareTOTP: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ActivateFactor200Response as UserFactorTokenSoftwareTOTP: %s", err.Error())
 		}
 	}
 
@@ -169,7 +166,7 @@ func (dst *ActivateFactor200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.UserFactorU2F, return on the first match
 		} else {
 			dst.UserFactorU2F = nil
-			return fmt.Errorf("Failed to unmarshal ActivateFactor200Response as UserFactorU2F: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ActivateFactor200Response as UserFactorU2F: %s", err.Error())
 		}
 	}
 
@@ -181,7 +178,7 @@ func (dst *ActivateFactor200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.UserFactorWebAuthn, return on the first match
 		} else {
 			dst.UserFactorWebAuthn = nil
-			return fmt.Errorf("Failed to unmarshal ActivateFactor200Response as UserFactorWebAuthn: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ActivateFactor200Response as UserFactorWebAuthn: %s", err.Error())
 		}
 	}
 
@@ -193,7 +190,7 @@ func (dst *ActivateFactor200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.UserFactorCall, return on the first match
 		} else {
 			dst.UserFactorCall = nil
-			return fmt.Errorf("Failed to unmarshal ActivateFactor200Response as UserFactorCall: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ActivateFactor200Response as UserFactorCall: %s", err.Error())
 		}
 	}
 
@@ -205,7 +202,7 @@ func (dst *ActivateFactor200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.UserFactorEmail, return on the first match
 		} else {
 			dst.UserFactorEmail = nil
-			return fmt.Errorf("Failed to unmarshal ActivateFactor200Response as UserFactorEmail: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ActivateFactor200Response as UserFactorEmail: %s", err.Error())
 		}
 	}
 
@@ -217,7 +214,7 @@ func (dst *ActivateFactor200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.UserFactorPush, return on the first match
 		} else {
 			dst.UserFactorPush = nil
-			return fmt.Errorf("Failed to unmarshal ActivateFactor200Response as UserFactorPush: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ActivateFactor200Response as UserFactorPush: %s", err.Error())
 		}
 	}
 
@@ -229,7 +226,7 @@ func (dst *ActivateFactor200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.UserFactorSMS, return on the first match
 		} else {
 			dst.UserFactorSMS = nil
-			return fmt.Errorf("Failed to unmarshal ActivateFactor200Response as UserFactorSMS: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ActivateFactor200Response as UserFactorSMS: %s", err.Error())
 		}
 	}
 
@@ -241,7 +238,7 @@ func (dst *ActivateFactor200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.UserFactorTokenSoftwareTOTP, return on the first match
 		} else {
 			dst.UserFactorTokenSoftwareTOTP = nil
-			return fmt.Errorf("Failed to unmarshal ActivateFactor200Response as UserFactorTokenSoftwareTOTP: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ActivateFactor200Response as UserFactorTokenSoftwareTOTP: %s", err.Error())
 		}
 	}
 
@@ -253,7 +250,7 @@ func (dst *ActivateFactor200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.UserFactorU2F, return on the first match
 		} else {
 			dst.UserFactorU2F = nil
-			return fmt.Errorf("Failed to unmarshal ActivateFactor200Response as UserFactorU2F: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ActivateFactor200Response as UserFactorU2F: %s", err.Error())
 		}
 	}
 
@@ -265,7 +262,7 @@ func (dst *ActivateFactor200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.UserFactorWebAuthn, return on the first match
 		} else {
 			dst.UserFactorWebAuthn = nil
-			return fmt.Errorf("Failed to unmarshal ActivateFactor200Response as UserFactorWebAuthn: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ActivateFactor200Response as UserFactorWebAuthn: %s", err.Error())
 		}
 	}
 
@@ -306,7 +303,7 @@ func (src ActivateFactor200Response) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *ActivateFactor200Response) GetActualInstance() (interface{}) {
+func (obj *ActivateFactor200Response) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -336,6 +333,40 @@ func (obj *ActivateFactor200Response) GetActualInstance() (interface{}) {
 
 	if obj.UserFactorWebAuthn != nil {
 		return obj.UserFactorWebAuthn
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj ActivateFactor200Response) GetActualInstanceValue() interface{} {
+	if obj.UserFactorCall != nil {
+		return *obj.UserFactorCall
+	}
+
+	if obj.UserFactorEmail != nil {
+		return *obj.UserFactorEmail
+	}
+
+	if obj.UserFactorPush != nil {
+		return *obj.UserFactorPush
+	}
+
+	if obj.UserFactorSMS != nil {
+		return *obj.UserFactorSMS
+	}
+
+	if obj.UserFactorTokenSoftwareTOTP != nil {
+		return *obj.UserFactorTokenSoftwareTOTP
+	}
+
+	if obj.UserFactorU2F != nil {
+		return *obj.UserFactorU2F
+	}
+
+	if obj.UserFactorWebAuthn != nil {
+		return *obj.UserFactorWebAuthn
 	}
 
 	// all schemas are nil
@@ -377,5 +408,3 @@ func (v *NullableActivateFactor200Response) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

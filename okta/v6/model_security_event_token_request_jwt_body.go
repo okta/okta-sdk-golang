@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,17 +28,20 @@ import (
 	"fmt"
 )
 
+// checks if the SecurityEventTokenRequestJwtBody type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SecurityEventTokenRequestJwtBody{}
+
 // SecurityEventTokenRequestJwtBody JSON Web Token body payload for a Security Event Token
 type SecurityEventTokenRequestJwtBody struct {
 	// Audience
-	Aud string `json:"aud"`
+	Aud    string                             `json:"aud"`
 	Events SecurityEventTokenRequestJwtEvents `json:"events"`
 	// Token issue time (UNIX timestamp)
 	Iat int64 `json:"iat"`
 	// Token issuer
 	Iss string `json:"iss"`
 	// Token ID
-	Jti string `json:"jti"`
+	Jti                  string `json:"jti"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -187,52 +190,73 @@ func (o *SecurityEventTokenRequestJwtBody) SetJti(v string) {
 }
 
 func (o SecurityEventTokenRequestJwtBody) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SecurityEventTokenRequestJwtBody) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["aud"] = o.Aud
-	}
-	if true {
-		toSerialize["events"] = o.Events
-	}
-	if true {
-		toSerialize["iat"] = o.Iat
-	}
-	if true {
-		toSerialize["iss"] = o.Iss
-	}
-	if true {
-		toSerialize["jti"] = o.Jti
-	}
+	toSerialize["aud"] = o.Aud
+	toSerialize["events"] = o.Events
+	toSerialize["iat"] = o.Iat
+	toSerialize["iss"] = o.Iss
+	toSerialize["jti"] = o.Jti
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SecurityEventTokenRequestJwtBody) UnmarshalJSON(bytes []byte) (err error) {
-	varSecurityEventTokenRequestJwtBody := _SecurityEventTokenRequestJwtBody{}
+func (o *SecurityEventTokenRequestJwtBody) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"aud",
+		"events",
+		"iat",
+		"iss",
+		"jti",
+	}
 
-	err = json.Unmarshal(bytes, &varSecurityEventTokenRequestJwtBody)
-	if err == nil {
-		*o = SecurityEventTokenRequestJwtBody(varSecurityEventTokenRequestJwtBody)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSecurityEventTokenRequestJwtBody := _SecurityEventTokenRequestJwtBody{}
+
+	err = json.Unmarshal(data, &varSecurityEventTokenRequestJwtBody)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SecurityEventTokenRequestJwtBody(varSecurityEventTokenRequestJwtBody)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "aud")
 		delete(additionalProperties, "events")
 		delete(additionalProperties, "iat")
 		delete(additionalProperties, "iss")
 		delete(additionalProperties, "jti")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -273,4 +297,3 @@ func (v *NullableSecurityEventTokenRequestJwtBody) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

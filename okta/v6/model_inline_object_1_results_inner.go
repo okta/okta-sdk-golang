@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the InlineObject1ResultsInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InlineObject1ResultsInner{}
+
 // InlineObject1ResultsInner struct for InlineObject1ResultsInner
 type InlineObject1ResultsInner struct {
 	// Domain for your org
 	Domain *string `json:"domain,omitempty"`
 	// Domain failback message
-	Message *string `json:"message,omitempty"`
+	Message              *string `json:"message,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewInlineObject1ResultsInnerWithDefaults() *InlineObject1ResultsInner {
 
 // GetDomain returns the Domain field value if set, zero value otherwise.
 func (o *InlineObject1ResultsInner) GetDomain() string {
-	if o == nil || o.Domain == nil {
+	if o == nil || IsNil(o.Domain) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *InlineObject1ResultsInner) GetDomain() string {
 // GetDomainOk returns a tuple with the Domain field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineObject1ResultsInner) GetDomainOk() (*string, bool) {
-	if o == nil || o.Domain == nil {
+	if o == nil || IsNil(o.Domain) {
 		return nil, false
 	}
 	return o.Domain, true
@@ -75,7 +78,7 @@ func (o *InlineObject1ResultsInner) GetDomainOk() (*string, bool) {
 
 // HasDomain returns a boolean if a field has been set.
 func (o *InlineObject1ResultsInner) HasDomain() bool {
-	if o != nil && o.Domain != nil {
+	if o != nil && !IsNil(o.Domain) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *InlineObject1ResultsInner) SetDomain(v string) {
 
 // GetMessage returns the Message field value if set, zero value otherwise.
 func (o *InlineObject1ResultsInner) GetMessage() string {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *InlineObject1ResultsInner) GetMessage() string {
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineObject1ResultsInner) GetMessageOk() (*string, bool) {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
 	return o.Message, true
@@ -107,7 +110,7 @@ func (o *InlineObject1ResultsInner) GetMessageOk() (*string, bool) {
 
 // HasMessage returns a boolean if a field has been set.
 func (o *InlineObject1ResultsInner) HasMessage() bool {
-	if o != nil && o.Message != nil {
+	if o != nil && !IsNil(o.Message) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *InlineObject1ResultsInner) SetMessage(v string) {
 }
 
 func (o InlineObject1ResultsInner) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o InlineObject1ResultsInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Domain != nil {
+	if !IsNil(o.Domain) {
 		toSerialize["domain"] = o.Domain
 	}
-	if o.Message != nil {
+	if !IsNil(o.Message) {
 		toSerialize["message"] = o.Message
 	}
 
@@ -132,28 +143,26 @@ func (o InlineObject1ResultsInner) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *InlineObject1ResultsInner) UnmarshalJSON(bytes []byte) (err error) {
+func (o *InlineObject1ResultsInner) UnmarshalJSON(data []byte) (err error) {
 	varInlineObject1ResultsInner := _InlineObject1ResultsInner{}
 
-	err = json.Unmarshal(bytes, &varInlineObject1ResultsInner)
-	if err == nil {
-		*o = InlineObject1ResultsInner(varInlineObject1ResultsInner)
-	} else {
+	err = json.Unmarshal(data, &varInlineObject1ResultsInner)
+
+	if err != nil {
 		return err
 	}
 
+	*o = InlineObject1ResultsInner(varInlineObject1ResultsInner)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "domain")
 		delete(additionalProperties, "message")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableInlineObject1ResultsInner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

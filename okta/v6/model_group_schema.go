@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the GroupSchema type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GroupSchema{}
+
 // GroupSchema struct for GroupSchema
 type GroupSchema struct {
 	// JSON schema version identifier
 	Schema *string `json:"$schema,omitempty"`
 	// Timestamp when the schema was created
-	Created *string `json:"created,omitempty"`
+	Created     *string                 `json:"created,omitempty"`
 	Definitions *GroupSchemaDefinitions `json:"definitions,omitempty"`
 	// Description for the schema
 	Description *string `json:"description,omitempty"`
@@ -41,13 +44,13 @@ type GroupSchema struct {
 	// Timestamp when the schema was last updated
 	LastUpdated *string `json:"lastUpdated,omitempty"`
 	// Name of the schema
-	Name *string `json:"name,omitempty"`
+	Name       *string               `json:"name,omitempty"`
 	Properties *UserSchemaProperties `json:"properties,omitempty"`
 	// User-defined display name for the schema
 	Title *string `json:"title,omitempty"`
 	// Type of [root schema](https://tools.ietf.org/html/draft-zyp-json-schema-04#section-3.4)
-	Type *string `json:"type,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	Type                 *string    `json:"type,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -72,7 +75,7 @@ func NewGroupSchemaWithDefaults() *GroupSchema {
 
 // GetSchema returns the Schema field value if set, zero value otherwise.
 func (o *GroupSchema) GetSchema() string {
-	if o == nil || o.Schema == nil {
+	if o == nil || IsNil(o.Schema) {
 		var ret string
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *GroupSchema) GetSchema() string {
 // GetSchemaOk returns a tuple with the Schema field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupSchema) GetSchemaOk() (*string, bool) {
-	if o == nil || o.Schema == nil {
+	if o == nil || IsNil(o.Schema) {
 		return nil, false
 	}
 	return o.Schema, true
@@ -90,7 +93,7 @@ func (o *GroupSchema) GetSchemaOk() (*string, bool) {
 
 // HasSchema returns a boolean if a field has been set.
 func (o *GroupSchema) HasSchema() bool {
-	if o != nil && o.Schema != nil {
+	if o != nil && !IsNil(o.Schema) {
 		return true
 	}
 
@@ -104,7 +107,7 @@ func (o *GroupSchema) SetSchema(v string) {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *GroupSchema) GetCreated() string {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret string
 		return ret
 	}
@@ -114,7 +117,7 @@ func (o *GroupSchema) GetCreated() string {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupSchema) GetCreatedOk() (*string, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -122,7 +125,7 @@ func (o *GroupSchema) GetCreatedOk() (*string, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *GroupSchema) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -136,7 +139,7 @@ func (o *GroupSchema) SetCreated(v string) {
 
 // GetDefinitions returns the Definitions field value if set, zero value otherwise.
 func (o *GroupSchema) GetDefinitions() GroupSchemaDefinitions {
-	if o == nil || o.Definitions == nil {
+	if o == nil || IsNil(o.Definitions) {
 		var ret GroupSchemaDefinitions
 		return ret
 	}
@@ -146,7 +149,7 @@ func (o *GroupSchema) GetDefinitions() GroupSchemaDefinitions {
 // GetDefinitionsOk returns a tuple with the Definitions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupSchema) GetDefinitionsOk() (*GroupSchemaDefinitions, bool) {
-	if o == nil || o.Definitions == nil {
+	if o == nil || IsNil(o.Definitions) {
 		return nil, false
 	}
 	return o.Definitions, true
@@ -154,7 +157,7 @@ func (o *GroupSchema) GetDefinitionsOk() (*GroupSchemaDefinitions, bool) {
 
 // HasDefinitions returns a boolean if a field has been set.
 func (o *GroupSchema) HasDefinitions() bool {
-	if o != nil && o.Definitions != nil {
+	if o != nil && !IsNil(o.Definitions) {
 		return true
 	}
 
@@ -168,7 +171,7 @@ func (o *GroupSchema) SetDefinitions(v GroupSchemaDefinitions) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *GroupSchema) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -178,7 +181,7 @@ func (o *GroupSchema) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupSchema) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -186,7 +189,7 @@ func (o *GroupSchema) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *GroupSchema) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -200,7 +203,7 @@ func (o *GroupSchema) SetDescription(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *GroupSchema) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -210,7 +213,7 @@ func (o *GroupSchema) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupSchema) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -218,7 +221,7 @@ func (o *GroupSchema) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *GroupSchema) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -232,7 +235,7 @@ func (o *GroupSchema) SetId(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *GroupSchema) GetLastUpdated() string {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret string
 		return ret
 	}
@@ -242,7 +245,7 @@ func (o *GroupSchema) GetLastUpdated() string {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupSchema) GetLastUpdatedOk() (*string, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -250,7 +253,7 @@ func (o *GroupSchema) GetLastUpdatedOk() (*string, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *GroupSchema) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -264,7 +267,7 @@ func (o *GroupSchema) SetLastUpdated(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *GroupSchema) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -274,7 +277,7 @@ func (o *GroupSchema) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupSchema) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -282,7 +285,7 @@ func (o *GroupSchema) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *GroupSchema) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -296,7 +299,7 @@ func (o *GroupSchema) SetName(v string) {
 
 // GetProperties returns the Properties field value if set, zero value otherwise.
 func (o *GroupSchema) GetProperties() UserSchemaProperties {
-	if o == nil || o.Properties == nil {
+	if o == nil || IsNil(o.Properties) {
 		var ret UserSchemaProperties
 		return ret
 	}
@@ -306,7 +309,7 @@ func (o *GroupSchema) GetProperties() UserSchemaProperties {
 // GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupSchema) GetPropertiesOk() (*UserSchemaProperties, bool) {
-	if o == nil || o.Properties == nil {
+	if o == nil || IsNil(o.Properties) {
 		return nil, false
 	}
 	return o.Properties, true
@@ -314,7 +317,7 @@ func (o *GroupSchema) GetPropertiesOk() (*UserSchemaProperties, bool) {
 
 // HasProperties returns a boolean if a field has been set.
 func (o *GroupSchema) HasProperties() bool {
-	if o != nil && o.Properties != nil {
+	if o != nil && !IsNil(o.Properties) {
 		return true
 	}
 
@@ -328,7 +331,7 @@ func (o *GroupSchema) SetProperties(v UserSchemaProperties) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *GroupSchema) GetTitle() string {
-	if o == nil || o.Title == nil {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -338,7 +341,7 @@ func (o *GroupSchema) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupSchema) GetTitleOk() (*string, bool) {
-	if o == nil || o.Title == nil {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -346,7 +349,7 @@ func (o *GroupSchema) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *GroupSchema) HasTitle() bool {
-	if o != nil && o.Title != nil {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -360,7 +363,7 @@ func (o *GroupSchema) SetTitle(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *GroupSchema) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -370,7 +373,7 @@ func (o *GroupSchema) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupSchema) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -378,7 +381,7 @@ func (o *GroupSchema) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *GroupSchema) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -392,7 +395,7 @@ func (o *GroupSchema) SetType(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *GroupSchema) GetLinks() LinksSelf {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksSelf
 		return ret
 	}
@@ -402,7 +405,7 @@ func (o *GroupSchema) GetLinks() LinksSelf {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupSchema) GetLinksOk() (*LinksSelf, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -410,7 +413,7 @@ func (o *GroupSchema) GetLinksOk() (*LinksSelf, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *GroupSchema) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -423,38 +426,46 @@ func (o *GroupSchema) SetLinks(v LinksSelf) {
 }
 
 func (o GroupSchema) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o GroupSchema) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Schema != nil {
+	if !IsNil(o.Schema) {
 		toSerialize["$schema"] = o.Schema
 	}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Definitions != nil {
+	if !IsNil(o.Definitions) {
 		toSerialize["definitions"] = o.Definitions
 	}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Properties != nil {
+	if !IsNil(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
-	if o.Title != nil {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -462,23 +473,23 @@ func (o GroupSchema) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *GroupSchema) UnmarshalJSON(bytes []byte) (err error) {
+func (o *GroupSchema) UnmarshalJSON(data []byte) (err error) {
 	varGroupSchema := _GroupSchema{}
 
-	err = json.Unmarshal(bytes, &varGroupSchema)
-	if err == nil {
-		*o = GroupSchema(varGroupSchema)
-	} else {
+	err = json.Unmarshal(data, &varGroupSchema)
+
+	if err != nil {
 		return err
 	}
 
+	*o = GroupSchema(varGroupSchema)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "$schema")
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "definitions")
@@ -491,8 +502,6 @@ func (o *GroupSchema) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -533,4 +542,3 @@ func (v *NullableGroupSchema) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

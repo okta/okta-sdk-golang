@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the TokenPayLoadData type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TokenPayLoadData{}
+
 // TokenPayLoadData struct for TokenPayLoadData
 type TokenPayLoadData struct {
 	Context *TokenPayLoadDataContext `json:"context,omitempty"`
 	// Provides information on the properties of the ID token that Okta has generated, including the existing claims that it contains
-	Identity *BaseToken `json:"identity,omitempty"`
-	Access *TokenPayLoadDataAccess `json:"access,omitempty"`
-	RefreshToken *RefreshToken `json:"refresh_token,omitempty"`
+	Identity             *BaseToken              `json:"identity,omitempty"`
+	Access               *TokenPayLoadDataAccess `json:"access,omitempty"`
+	RefreshToken         *RefreshToken           `json:"refresh_token,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewTokenPayLoadDataWithDefaults() *TokenPayLoadData {
 
 // GetContext returns the Context field value if set, zero value otherwise.
 func (o *TokenPayLoadData) GetContext() TokenPayLoadDataContext {
-	if o == nil || o.Context == nil {
+	if o == nil || IsNil(o.Context) {
 		var ret TokenPayLoadDataContext
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *TokenPayLoadData) GetContext() TokenPayLoadDataContext {
 // GetContextOk returns a tuple with the Context field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenPayLoadData) GetContextOk() (*TokenPayLoadDataContext, bool) {
-	if o == nil || o.Context == nil {
+	if o == nil || IsNil(o.Context) {
 		return nil, false
 	}
 	return o.Context, true
@@ -76,7 +79,7 @@ func (o *TokenPayLoadData) GetContextOk() (*TokenPayLoadDataContext, bool) {
 
 // HasContext returns a boolean if a field has been set.
 func (o *TokenPayLoadData) HasContext() bool {
-	if o != nil && o.Context != nil {
+	if o != nil && !IsNil(o.Context) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *TokenPayLoadData) SetContext(v TokenPayLoadDataContext) {
 
 // GetIdentity returns the Identity field value if set, zero value otherwise.
 func (o *TokenPayLoadData) GetIdentity() BaseToken {
-	if o == nil || o.Identity == nil {
+	if o == nil || IsNil(o.Identity) {
 		var ret BaseToken
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *TokenPayLoadData) GetIdentity() BaseToken {
 // GetIdentityOk returns a tuple with the Identity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenPayLoadData) GetIdentityOk() (*BaseToken, bool) {
-	if o == nil || o.Identity == nil {
+	if o == nil || IsNil(o.Identity) {
 		return nil, false
 	}
 	return o.Identity, true
@@ -108,7 +111,7 @@ func (o *TokenPayLoadData) GetIdentityOk() (*BaseToken, bool) {
 
 // HasIdentity returns a boolean if a field has been set.
 func (o *TokenPayLoadData) HasIdentity() bool {
-	if o != nil && o.Identity != nil {
+	if o != nil && !IsNil(o.Identity) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *TokenPayLoadData) SetIdentity(v BaseToken) {
 
 // GetAccess returns the Access field value if set, zero value otherwise.
 func (o *TokenPayLoadData) GetAccess() TokenPayLoadDataAccess {
-	if o == nil || o.Access == nil {
+	if o == nil || IsNil(o.Access) {
 		var ret TokenPayLoadDataAccess
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *TokenPayLoadData) GetAccess() TokenPayLoadDataAccess {
 // GetAccessOk returns a tuple with the Access field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenPayLoadData) GetAccessOk() (*TokenPayLoadDataAccess, bool) {
-	if o == nil || o.Access == nil {
+	if o == nil || IsNil(o.Access) {
 		return nil, false
 	}
 	return o.Access, true
@@ -140,7 +143,7 @@ func (o *TokenPayLoadData) GetAccessOk() (*TokenPayLoadDataAccess, bool) {
 
 // HasAccess returns a boolean if a field has been set.
 func (o *TokenPayLoadData) HasAccess() bool {
-	if o != nil && o.Access != nil {
+	if o != nil && !IsNil(o.Access) {
 		return true
 	}
 
@@ -154,7 +157,7 @@ func (o *TokenPayLoadData) SetAccess(v TokenPayLoadDataAccess) {
 
 // GetRefreshToken returns the RefreshToken field value if set, zero value otherwise.
 func (o *TokenPayLoadData) GetRefreshToken() RefreshToken {
-	if o == nil || o.RefreshToken == nil {
+	if o == nil || IsNil(o.RefreshToken) {
 		var ret RefreshToken
 		return ret
 	}
@@ -164,7 +167,7 @@ func (o *TokenPayLoadData) GetRefreshToken() RefreshToken {
 // GetRefreshTokenOk returns a tuple with the RefreshToken field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenPayLoadData) GetRefreshTokenOk() (*RefreshToken, bool) {
-	if o == nil || o.RefreshToken == nil {
+	if o == nil || IsNil(o.RefreshToken) {
 		return nil, false
 	}
 	return o.RefreshToken, true
@@ -172,7 +175,7 @@ func (o *TokenPayLoadData) GetRefreshTokenOk() (*RefreshToken, bool) {
 
 // HasRefreshToken returns a boolean if a field has been set.
 func (o *TokenPayLoadData) HasRefreshToken() bool {
-	if o != nil && o.RefreshToken != nil {
+	if o != nil && !IsNil(o.RefreshToken) {
 		return true
 	}
 
@@ -185,17 +188,25 @@ func (o *TokenPayLoadData) SetRefreshToken(v RefreshToken) {
 }
 
 func (o TokenPayLoadData) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TokenPayLoadData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Context != nil {
+	if !IsNil(o.Context) {
 		toSerialize["context"] = o.Context
 	}
-	if o.Identity != nil {
+	if !IsNil(o.Identity) {
 		toSerialize["identity"] = o.Identity
 	}
-	if o.Access != nil {
+	if !IsNil(o.Access) {
 		toSerialize["access"] = o.Access
 	}
-	if o.RefreshToken != nil {
+	if !IsNil(o.RefreshToken) {
 		toSerialize["refresh_token"] = o.RefreshToken
 	}
 
@@ -203,30 +214,28 @@ func (o TokenPayLoadData) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *TokenPayLoadData) UnmarshalJSON(bytes []byte) (err error) {
+func (o *TokenPayLoadData) UnmarshalJSON(data []byte) (err error) {
 	varTokenPayLoadData := _TokenPayLoadData{}
 
-	err = json.Unmarshal(bytes, &varTokenPayLoadData)
-	if err == nil {
-		*o = TokenPayLoadData(varTokenPayLoadData)
-	} else {
+	err = json.Unmarshal(data, &varTokenPayLoadData)
+
+	if err != nil {
 		return err
 	}
 
+	*o = TokenPayLoadData(varTokenPayLoadData)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "context")
 		delete(additionalProperties, "identity")
 		delete(additionalProperties, "access")
 		delete(additionalProperties, "refresh_token")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -267,4 +276,3 @@ func (v *NullableTokenPayLoadData) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

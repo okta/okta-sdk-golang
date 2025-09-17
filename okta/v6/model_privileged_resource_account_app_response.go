@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -30,12 +30,15 @@ import (
 	"strings"
 )
 
+// checks if the PrivilegedResourceAccountAppResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PrivilegedResourceAccountAppResponse{}
+
 // PrivilegedResourceAccountAppResponse struct for PrivilegedResourceAccountAppResponse
 type PrivilegedResourceAccountAppResponse struct {
 	PrivilegedResource
 	Credentials *PrivilegedResourceCredentials `json:"credentials,omitempty"`
 	// Specific profile properties for the privileged resource
-	Profile map[string]interface{} `json:"profile,omitempty"`
+	Profile              map[string]interface{} `json:"profile,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewPrivilegedResourceAccountAppResponseWithDefaults() *PrivilegedResourceAc
 
 // GetCredentials returns the Credentials field value if set, zero value otherwise.
 func (o *PrivilegedResourceAccountAppResponse) GetCredentials() PrivilegedResourceCredentials {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		var ret PrivilegedResourceCredentials
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *PrivilegedResourceAccountAppResponse) GetCredentials() PrivilegedResour
 // GetCredentialsOk returns a tuple with the Credentials field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrivilegedResourceAccountAppResponse) GetCredentialsOk() (*PrivilegedResourceCredentials, bool) {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		return nil, false
 	}
 	return o.Credentials, true
@@ -79,7 +82,7 @@ func (o *PrivilegedResourceAccountAppResponse) GetCredentialsOk() (*PrivilegedRe
 
 // HasCredentials returns a boolean if a field has been set.
 func (o *PrivilegedResourceAccountAppResponse) HasCredentials() bool {
-	if o != nil && o.Credentials != nil {
+	if o != nil && !IsNil(o.Credentials) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *PrivilegedResourceAccountAppResponse) SetCredentials(v PrivilegedResour
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *PrivilegedResourceAccountAppResponse) GetProfile() map[string]interface{} {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -103,15 +106,15 @@ func (o *PrivilegedResourceAccountAppResponse) GetProfile() map[string]interface
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrivilegedResourceAccountAppResponse) GetProfileOk() (map[string]interface{}, bool) {
-	if o == nil || o.Profile == nil {
-		return nil, false
+	if o == nil || IsNil(o.Profile) {
+		return map[string]interface{}{}, false
 	}
 	return o.Profile, true
 }
 
 // HasProfile returns a boolean if a field has been set.
 func (o *PrivilegedResourceAccountAppResponse) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -124,19 +127,27 @@ func (o *PrivilegedResourceAccountAppResponse) SetProfile(v map[string]interface
 }
 
 func (o PrivilegedResourceAccountAppResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PrivilegedResourceAccountAppResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedPrivilegedResource, errPrivilegedResource := json.Marshal(o.PrivilegedResource)
 	if errPrivilegedResource != nil {
-		return []byte{}, errPrivilegedResource
+		return map[string]interface{}{}, errPrivilegedResource
 	}
 	errPrivilegedResource = json.Unmarshal([]byte(serializedPrivilegedResource), &toSerialize)
 	if errPrivilegedResource != nil {
-		return []byte{}, errPrivilegedResource
+		return map[string]interface{}{}, errPrivilegedResource
 	}
-	if o.Credentials != nil {
+	if !IsNil(o.Credentials) {
 		toSerialize["credentials"] = o.Credentials
 	}
-	if o.Profile != nil {
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
 
@@ -144,10 +155,31 @@ func (o PrivilegedResourceAccountAppResponse) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PrivilegedResourceAccountAppResponse) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PrivilegedResourceAccountAppResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"resourceType",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	type PrivilegedResourceAccountAppResponseWithoutEmbeddedStruct struct {
 		Credentials *PrivilegedResourceCredentials `json:"credentials,omitempty"`
 		// Specific profile properties for the privileged resource
@@ -156,7 +188,7 @@ func (o *PrivilegedResourceAccountAppResponse) UnmarshalJSON(bytes []byte) (err 
 
 	varPrivilegedResourceAccountAppResponseWithoutEmbeddedStruct := PrivilegedResourceAccountAppResponseWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varPrivilegedResourceAccountAppResponseWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varPrivilegedResourceAccountAppResponseWithoutEmbeddedStruct)
 	if err == nil {
 		varPrivilegedResourceAccountAppResponse := _PrivilegedResourceAccountAppResponse{}
 		varPrivilegedResourceAccountAppResponse.Credentials = varPrivilegedResourceAccountAppResponseWithoutEmbeddedStruct.Credentials
@@ -168,7 +200,7 @@ func (o *PrivilegedResourceAccountAppResponse) UnmarshalJSON(bytes []byte) (err 
 
 	varPrivilegedResourceAccountAppResponse := _PrivilegedResourceAccountAppResponse{}
 
-	err = json.Unmarshal(bytes, &varPrivilegedResourceAccountAppResponse)
+	err = json.Unmarshal(data, &varPrivilegedResourceAccountAppResponse)
 	if err == nil {
 		o.PrivilegedResource = varPrivilegedResourceAccountAppResponse.PrivilegedResource
 	} else {
@@ -177,8 +209,7 @@ func (o *PrivilegedResourceAccountAppResponse) UnmarshalJSON(bytes []byte) (err 
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "credentials")
 		delete(additionalProperties, "profile")
 
@@ -201,8 +232,6 @@ func (o *PrivilegedResourceAccountAppResponse) UnmarshalJSON(bytes []byte) (err 
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -243,4 +272,3 @@ func (v *NullablePrivilegedResourceAccountAppResponse) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

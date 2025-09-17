@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the LinksAuthenticator type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LinksAuthenticator{}
+
 // LinksAuthenticator struct for LinksAuthenticator
 type LinksAuthenticator struct {
 	// Returns information about a specific authenticator. See [Retrieve an authenticator](/openapi/okta-management/management/tag/Authenticator/#tag/Authenticator/operation/getAuthenticator).
-	Authenticator *HrefObject `json:"authenticator,omitempty"`
+	Authenticator        *HrefObject `json:"authenticator,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewLinksAuthenticatorWithDefaults() *LinksAuthenticator {
 
 // GetAuthenticator returns the Authenticator field value if set, zero value otherwise.
 func (o *LinksAuthenticator) GetAuthenticator() HrefObject {
-	if o == nil || o.Authenticator == nil {
+	if o == nil || IsNil(o.Authenticator) {
 		var ret HrefObject
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *LinksAuthenticator) GetAuthenticator() HrefObject {
 // GetAuthenticatorOk returns a tuple with the Authenticator field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksAuthenticator) GetAuthenticatorOk() (*HrefObject, bool) {
-	if o == nil || o.Authenticator == nil {
+	if o == nil || IsNil(o.Authenticator) {
 		return nil, false
 	}
 	return o.Authenticator, true
@@ -73,7 +76,7 @@ func (o *LinksAuthenticator) GetAuthenticatorOk() (*HrefObject, bool) {
 
 // HasAuthenticator returns a boolean if a field has been set.
 func (o *LinksAuthenticator) HasAuthenticator() bool {
-	if o != nil && o.Authenticator != nil {
+	if o != nil && !IsNil(o.Authenticator) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *LinksAuthenticator) SetAuthenticator(v HrefObject) {
 }
 
 func (o LinksAuthenticator) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LinksAuthenticator) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Authenticator != nil {
+	if !IsNil(o.Authenticator) {
 		toSerialize["authenticator"] = o.Authenticator
 	}
 
@@ -95,27 +106,25 @@ func (o LinksAuthenticator) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LinksAuthenticator) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LinksAuthenticator) UnmarshalJSON(data []byte) (err error) {
 	varLinksAuthenticator := _LinksAuthenticator{}
 
-	err = json.Unmarshal(bytes, &varLinksAuthenticator)
-	if err == nil {
-		*o = LinksAuthenticator(varLinksAuthenticator)
-	} else {
+	err = json.Unmarshal(data, &varLinksAuthenticator)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LinksAuthenticator(varLinksAuthenticator)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "authenticator")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableLinksAuthenticator) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

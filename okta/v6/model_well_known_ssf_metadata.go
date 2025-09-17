@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package okta
 import (
 	"encoding/json"
 )
+
+// checks if the WellKnownSSFMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WellKnownSSFMetadata{}
 
 // WellKnownSSFMetadata Metadata about Okta as a transmitter and relevant information for configuration.
 type WellKnownSSFMetadata struct {
@@ -69,7 +72,7 @@ func NewWellKnownSSFMetadataWithDefaults() *WellKnownSSFMetadata {
 
 // GetAuthorizationSchemes returns the AuthorizationSchemes field value if set, zero value otherwise.
 func (o *WellKnownSSFMetadata) GetAuthorizationSchemes() []WellKnownSSFMetadataSpecUrn {
-	if o == nil || o.AuthorizationSchemes == nil {
+	if o == nil || IsNil(o.AuthorizationSchemes) {
 		var ret []WellKnownSSFMetadataSpecUrn
 		return ret
 	}
@@ -79,7 +82,7 @@ func (o *WellKnownSSFMetadata) GetAuthorizationSchemes() []WellKnownSSFMetadataS
 // GetAuthorizationSchemesOk returns a tuple with the AuthorizationSchemes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownSSFMetadata) GetAuthorizationSchemesOk() ([]WellKnownSSFMetadataSpecUrn, bool) {
-	if o == nil || o.AuthorizationSchemes == nil {
+	if o == nil || IsNil(o.AuthorizationSchemes) {
 		return nil, false
 	}
 	return o.AuthorizationSchemes, true
@@ -87,7 +90,7 @@ func (o *WellKnownSSFMetadata) GetAuthorizationSchemesOk() ([]WellKnownSSFMetada
 
 // HasAuthorizationSchemes returns a boolean if a field has been set.
 func (o *WellKnownSSFMetadata) HasAuthorizationSchemes() bool {
-	if o != nil && o.AuthorizationSchemes != nil {
+	if o != nil && !IsNil(o.AuthorizationSchemes) {
 		return true
 	}
 
@@ -101,7 +104,7 @@ func (o *WellKnownSSFMetadata) SetAuthorizationSchemes(v []WellKnownSSFMetadataS
 
 // GetConfigurationEndpoint returns the ConfigurationEndpoint field value if set, zero value otherwise.
 func (o *WellKnownSSFMetadata) GetConfigurationEndpoint() string {
-	if o == nil || o.ConfigurationEndpoint == nil {
+	if o == nil || IsNil(o.ConfigurationEndpoint) {
 		var ret string
 		return ret
 	}
@@ -111,7 +114,7 @@ func (o *WellKnownSSFMetadata) GetConfigurationEndpoint() string {
 // GetConfigurationEndpointOk returns a tuple with the ConfigurationEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownSSFMetadata) GetConfigurationEndpointOk() (*string, bool) {
-	if o == nil || o.ConfigurationEndpoint == nil {
+	if o == nil || IsNil(o.ConfigurationEndpoint) {
 		return nil, false
 	}
 	return o.ConfigurationEndpoint, true
@@ -119,7 +122,7 @@ func (o *WellKnownSSFMetadata) GetConfigurationEndpointOk() (*string, bool) {
 
 // HasConfigurationEndpoint returns a boolean if a field has been set.
 func (o *WellKnownSSFMetadata) HasConfigurationEndpoint() bool {
-	if o != nil && o.ConfigurationEndpoint != nil {
+	if o != nil && !IsNil(o.ConfigurationEndpoint) {
 		return true
 	}
 
@@ -133,7 +136,7 @@ func (o *WellKnownSSFMetadata) SetConfigurationEndpoint(v string) {
 
 // GetDefaultSubjects returns the DefaultSubjects field value if set, zero value otherwise.
 func (o *WellKnownSSFMetadata) GetDefaultSubjects() string {
-	if o == nil || o.DefaultSubjects == nil {
+	if o == nil || IsNil(o.DefaultSubjects) {
 		var ret string
 		return ret
 	}
@@ -143,7 +146,7 @@ func (o *WellKnownSSFMetadata) GetDefaultSubjects() string {
 // GetDefaultSubjectsOk returns a tuple with the DefaultSubjects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownSSFMetadata) GetDefaultSubjectsOk() (*string, bool) {
-	if o == nil || o.DefaultSubjects == nil {
+	if o == nil || IsNil(o.DefaultSubjects) {
 		return nil, false
 	}
 	return o.DefaultSubjects, true
@@ -151,7 +154,7 @@ func (o *WellKnownSSFMetadata) GetDefaultSubjectsOk() (*string, bool) {
 
 // HasDefaultSubjects returns a boolean if a field has been set.
 func (o *WellKnownSSFMetadata) HasDefaultSubjects() bool {
-	if o != nil && o.DefaultSubjects != nil {
+	if o != nil && !IsNil(o.DefaultSubjects) {
 		return true
 	}
 
@@ -165,7 +168,7 @@ func (o *WellKnownSSFMetadata) SetDefaultSubjects(v string) {
 
 // GetDeliveryMethodsSupported returns the DeliveryMethodsSupported field value if set, zero value otherwise.
 func (o *WellKnownSSFMetadata) GetDeliveryMethodsSupported() []string {
-	if o == nil || o.DeliveryMethodsSupported == nil {
+	if o == nil || IsNil(o.DeliveryMethodsSupported) {
 		var ret []string
 		return ret
 	}
@@ -175,7 +178,7 @@ func (o *WellKnownSSFMetadata) GetDeliveryMethodsSupported() []string {
 // GetDeliveryMethodsSupportedOk returns a tuple with the DeliveryMethodsSupported field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownSSFMetadata) GetDeliveryMethodsSupportedOk() ([]string, bool) {
-	if o == nil || o.DeliveryMethodsSupported == nil {
+	if o == nil || IsNil(o.DeliveryMethodsSupported) {
 		return nil, false
 	}
 	return o.DeliveryMethodsSupported, true
@@ -183,7 +186,7 @@ func (o *WellKnownSSFMetadata) GetDeliveryMethodsSupportedOk() ([]string, bool) 
 
 // HasDeliveryMethodsSupported returns a boolean if a field has been set.
 func (o *WellKnownSSFMetadata) HasDeliveryMethodsSupported() bool {
-	if o != nil && o.DeliveryMethodsSupported != nil {
+	if o != nil && !IsNil(o.DeliveryMethodsSupported) {
 		return true
 	}
 
@@ -197,7 +200,7 @@ func (o *WellKnownSSFMetadata) SetDeliveryMethodsSupported(v []string) {
 
 // GetIssuer returns the Issuer field value if set, zero value otherwise.
 func (o *WellKnownSSFMetadata) GetIssuer() string {
-	if o == nil || o.Issuer == nil {
+	if o == nil || IsNil(o.Issuer) {
 		var ret string
 		return ret
 	}
@@ -207,7 +210,7 @@ func (o *WellKnownSSFMetadata) GetIssuer() string {
 // GetIssuerOk returns a tuple with the Issuer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownSSFMetadata) GetIssuerOk() (*string, bool) {
-	if o == nil || o.Issuer == nil {
+	if o == nil || IsNil(o.Issuer) {
 		return nil, false
 	}
 	return o.Issuer, true
@@ -215,7 +218,7 @@ func (o *WellKnownSSFMetadata) GetIssuerOk() (*string, bool) {
 
 // HasIssuer returns a boolean if a field has been set.
 func (o *WellKnownSSFMetadata) HasIssuer() bool {
-	if o != nil && o.Issuer != nil {
+	if o != nil && !IsNil(o.Issuer) {
 		return true
 	}
 
@@ -229,7 +232,7 @@ func (o *WellKnownSSFMetadata) SetIssuer(v string) {
 
 // GetJwksUri returns the JwksUri field value if set, zero value otherwise.
 func (o *WellKnownSSFMetadata) GetJwksUri() string {
-	if o == nil || o.JwksUri == nil {
+	if o == nil || IsNil(o.JwksUri) {
 		var ret string
 		return ret
 	}
@@ -239,7 +242,7 @@ func (o *WellKnownSSFMetadata) GetJwksUri() string {
 // GetJwksUriOk returns a tuple with the JwksUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownSSFMetadata) GetJwksUriOk() (*string, bool) {
-	if o == nil || o.JwksUri == nil {
+	if o == nil || IsNil(o.JwksUri) {
 		return nil, false
 	}
 	return o.JwksUri, true
@@ -247,7 +250,7 @@ func (o *WellKnownSSFMetadata) GetJwksUriOk() (*string, bool) {
 
 // HasJwksUri returns a boolean if a field has been set.
 func (o *WellKnownSSFMetadata) HasJwksUri() bool {
-	if o != nil && o.JwksUri != nil {
+	if o != nil && !IsNil(o.JwksUri) {
 		return true
 	}
 
@@ -261,7 +264,7 @@ func (o *WellKnownSSFMetadata) SetJwksUri(v string) {
 
 // GetSpecVersion returns the SpecVersion field value if set, zero value otherwise.
 func (o *WellKnownSSFMetadata) GetSpecVersion() string {
-	if o == nil || o.SpecVersion == nil {
+	if o == nil || IsNil(o.SpecVersion) {
 		var ret string
 		return ret
 	}
@@ -271,7 +274,7 @@ func (o *WellKnownSSFMetadata) GetSpecVersion() string {
 // GetSpecVersionOk returns a tuple with the SpecVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownSSFMetadata) GetSpecVersionOk() (*string, bool) {
-	if o == nil || o.SpecVersion == nil {
+	if o == nil || IsNil(o.SpecVersion) {
 		return nil, false
 	}
 	return o.SpecVersion, true
@@ -279,7 +282,7 @@ func (o *WellKnownSSFMetadata) GetSpecVersionOk() (*string, bool) {
 
 // HasSpecVersion returns a boolean if a field has been set.
 func (o *WellKnownSSFMetadata) HasSpecVersion() bool {
-	if o != nil && o.SpecVersion != nil {
+	if o != nil && !IsNil(o.SpecVersion) {
 		return true
 	}
 
@@ -293,7 +296,7 @@ func (o *WellKnownSSFMetadata) SetSpecVersion(v string) {
 
 // GetVerificationEndpoint returns the VerificationEndpoint field value if set, zero value otherwise.
 func (o *WellKnownSSFMetadata) GetVerificationEndpoint() string {
-	if o == nil || o.VerificationEndpoint == nil {
+	if o == nil || IsNil(o.VerificationEndpoint) {
 		var ret string
 		return ret
 	}
@@ -303,7 +306,7 @@ func (o *WellKnownSSFMetadata) GetVerificationEndpoint() string {
 // GetVerificationEndpointOk returns a tuple with the VerificationEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownSSFMetadata) GetVerificationEndpointOk() (*string, bool) {
-	if o == nil || o.VerificationEndpoint == nil {
+	if o == nil || IsNil(o.VerificationEndpoint) {
 		return nil, false
 	}
 	return o.VerificationEndpoint, true
@@ -311,7 +314,7 @@ func (o *WellKnownSSFMetadata) GetVerificationEndpointOk() (*string, bool) {
 
 // HasVerificationEndpoint returns a boolean if a field has been set.
 func (o *WellKnownSSFMetadata) HasVerificationEndpoint() bool {
-	if o != nil && o.VerificationEndpoint != nil {
+	if o != nil && !IsNil(o.VerificationEndpoint) {
 		return true
 	}
 
@@ -324,29 +327,37 @@ func (o *WellKnownSSFMetadata) SetVerificationEndpoint(v string) {
 }
 
 func (o WellKnownSSFMetadata) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o WellKnownSSFMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AuthorizationSchemes != nil {
+	if !IsNil(o.AuthorizationSchemes) {
 		toSerialize["authorization_schemes"] = o.AuthorizationSchemes
 	}
-	if o.ConfigurationEndpoint != nil {
+	if !IsNil(o.ConfigurationEndpoint) {
 		toSerialize["configuration_endpoint"] = o.ConfigurationEndpoint
 	}
-	if o.DefaultSubjects != nil {
+	if !IsNil(o.DefaultSubjects) {
 		toSerialize["default_subjects"] = o.DefaultSubjects
 	}
-	if o.DeliveryMethodsSupported != nil {
+	if !IsNil(o.DeliveryMethodsSupported) {
 		toSerialize["delivery_methods_supported"] = o.DeliveryMethodsSupported
 	}
-	if o.Issuer != nil {
+	if !IsNil(o.Issuer) {
 		toSerialize["issuer"] = o.Issuer
 	}
-	if o.JwksUri != nil {
+	if !IsNil(o.JwksUri) {
 		toSerialize["jwks_uri"] = o.JwksUri
 	}
-	if o.SpecVersion != nil {
+	if !IsNil(o.SpecVersion) {
 		toSerialize["spec_version"] = o.SpecVersion
 	}
-	if o.VerificationEndpoint != nil {
+	if !IsNil(o.VerificationEndpoint) {
 		toSerialize["verification_endpoint"] = o.VerificationEndpoint
 	}
 
@@ -354,23 +365,23 @@ func (o WellKnownSSFMetadata) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *WellKnownSSFMetadata) UnmarshalJSON(bytes []byte) (err error) {
+func (o *WellKnownSSFMetadata) UnmarshalJSON(data []byte) (err error) {
 	varWellKnownSSFMetadata := _WellKnownSSFMetadata{}
 
-	err = json.Unmarshal(bytes, &varWellKnownSSFMetadata)
-	if err == nil {
-		*o = WellKnownSSFMetadata(varWellKnownSSFMetadata)
-	} else {
+	err = json.Unmarshal(data, &varWellKnownSSFMetadata)
+
+	if err != nil {
 		return err
 	}
 
+	*o = WellKnownSSFMetadata(varWellKnownSSFMetadata)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "authorization_schemes")
 		delete(additionalProperties, "configuration_endpoint")
 		delete(additionalProperties, "default_subjects")
@@ -380,8 +391,6 @@ func (o *WellKnownSSFMetadata) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "spec_version")
 		delete(additionalProperties, "verification_endpoint")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -422,4 +431,3 @@ func (v *NullableWellKnownSSFMetadata) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

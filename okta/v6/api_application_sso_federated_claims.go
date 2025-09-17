@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,24 +26,23 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type ApplicationSSOFederatedClaimsAPI interface {
 
 	/*
-	CreateFederatedClaim Create a federated claim
+		CreateFederatedClaim Create a federated claim
 
-	Creates a claim that will be included in tokens produced by federation protocols (for example: OIDC `id_tokens` or SAML Assertions)
+		Creates a claim that will be included in tokens produced by federation protocols (for example: OIDC `id_tokens` or SAML Assertions)
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiCreateFederatedClaimRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiCreateFederatedClaimRequest
 	*/
 	CreateFederatedClaim(ctx context.Context, appId string) ApiCreateFederatedClaimRequest
 
@@ -52,14 +51,14 @@ type ApplicationSSOFederatedClaimsAPI interface {
 	CreateFederatedClaimExecute(r ApiCreateFederatedClaimRequest) (*FederatedClaim, *APIResponse, error)
 
 	/*
-	DeleteFederatedClaim Delete a federated claim
+		DeleteFederatedClaim Delete a federated claim
 
-	Deletes a federated claim by `claimId`
+		Deletes a federated claim by `claimId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param claimId The unique `id` of the federated claim
-	@return ApiDeleteFederatedClaimRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param claimId The unique `id` of the federated claim
+		@return ApiDeleteFederatedClaimRequest
 	*/
 	DeleteFederatedClaim(ctx context.Context, appId string, claimId string) ApiDeleteFederatedClaimRequest
 
@@ -67,14 +66,14 @@ type ApplicationSSOFederatedClaimsAPI interface {
 	DeleteFederatedClaimExecute(r ApiDeleteFederatedClaimRequest) (*APIResponse, error)
 
 	/*
-	GetFederatedClaim Retrieve a federated claim
+		GetFederatedClaim Retrieve a federated claim
 
-	Retrieves a federated claim by `claimId`
+		Retrieves a federated claim by `claimId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param claimId The unique `id` of the federated claim
-	@return ApiGetFederatedClaimRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param claimId The unique `id` of the federated claim
+		@return ApiGetFederatedClaimRequest
 	*/
 	GetFederatedClaim(ctx context.Context, appId string, claimId string) ApiGetFederatedClaimRequest
 
@@ -83,13 +82,13 @@ type ApplicationSSOFederatedClaimsAPI interface {
 	GetFederatedClaimExecute(r ApiGetFederatedClaimRequest) (*FederatedClaimRequestBody, *APIResponse, error)
 
 	/*
-	ListFederatedClaims List all configured federated claims
+		ListFederatedClaims List all configured federated claims
 
-	Lists all federated claims for your app
+		Lists all federated claims for your app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiListFederatedClaimsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiListFederatedClaimsRequest
 	*/
 	ListFederatedClaims(ctx context.Context, appId string) ApiListFederatedClaimsRequest
 
@@ -98,14 +97,14 @@ type ApplicationSSOFederatedClaimsAPI interface {
 	ListFederatedClaimsExecute(r ApiListFederatedClaimsRequest) ([]FederatedClaim, *APIResponse, error)
 
 	/*
-	ReplaceFederatedClaim Replace a federated claim
+		ReplaceFederatedClaim Replace a federated claim
 
-	Replaces a claim that will be included in tokens produced by federation protocols (for example: OIDC `id_tokens` or SAML Assertions)
+		Replaces a claim that will be included in tokens produced by federation protocols (for example: OIDC `id_tokens` or SAML Assertions)
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param claimId The unique `id` of the federated claim
-	@return ApiReplaceFederatedClaimRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param claimId The unique `id` of the federated claim
+		@return ApiReplaceFederatedClaimRequest
 	*/
 	ReplaceFederatedClaim(ctx context.Context, appId string, claimId string) ApiReplaceFederatedClaimRequest
 
@@ -118,11 +117,11 @@ type ApplicationSSOFederatedClaimsAPI interface {
 type ApplicationSSOFederatedClaimsAPIService service
 
 type ApiCreateFederatedClaimRequest struct {
-	ctx context.Context
-	ApiService ApplicationSSOFederatedClaimsAPI
-	appId string
+	ctx                       context.Context
+	ApiService                ApplicationSSOFederatedClaimsAPI
+	appId                     string
 	federatedClaimRequestBody *FederatedClaimRequestBody
-	retryCount int32
+	retryCount                int32
 }
 
 func (r ApiCreateFederatedClaimRequest) FederatedClaimRequestBody(federatedClaimRequestBody FederatedClaimRequestBody) ApiCreateFederatedClaimRequest {
@@ -139,21 +138,22 @@ CreateFederatedClaim Create a federated claim
 
 Creates a claim that will be included in tokens produced by federation protocols (for example: OIDC `id_tokens` or SAML Assertions)
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiCreateFederatedClaimRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiCreateFederatedClaimRequest
 */
 func (a *ApplicationSSOFederatedClaimsAPIService) CreateFederatedClaim(ctx context.Context, appId string) ApiCreateFederatedClaimRequest {
 	return ApiCreateFederatedClaimRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return FederatedClaim
+//
+//	@return FederatedClaim
 func (a *ApplicationSSOFederatedClaimsAPIService) CreateFederatedClaimExecute(r ApiCreateFederatedClaimRequest) (*FederatedClaim, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -162,7 +162,7 @@ func (a *ApplicationSSOFederatedClaimsAPIService) CreateFederatedClaimExecute(r 
 		localVarReturnValue  *FederatedClaim
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -228,9 +228,9 @@ func (a *ApplicationSSOFederatedClaimsAPIService) CreateFederatedClaimExecute(r 
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -300,16 +300,16 @@ func (a *ApplicationSSOFederatedClaimsAPIService) CreateFederatedClaimExecute(r 
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteFederatedClaimRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationSSOFederatedClaimsAPI
-	appId string
-	claimId string
+	appId      string
+	claimId    string
 	retryCount int32
 }
 
@@ -322,17 +322,17 @@ DeleteFederatedClaim Delete a federated claim
 
 Deletes a federated claim by `claimId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param claimId The unique `id` of the federated claim
- @return ApiDeleteFederatedClaimRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param claimId The unique `id` of the federated claim
+	@return ApiDeleteFederatedClaimRequest
 */
 func (a *ApplicationSSOFederatedClaimsAPIService) DeleteFederatedClaim(ctx context.Context, appId string, claimId string) ApiDeleteFederatedClaimRequest {
 	return ApiDeleteFederatedClaimRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		claimId: claimId,
+		ctx:        ctx,
+		appId:      appId,
+		claimId:    claimId,
 		retryCount: 0,
 	}
 }
@@ -345,7 +345,7 @@ func (a *ApplicationSSOFederatedClaimsAPIService) DeleteFederatedClaimExecute(r 
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -407,9 +407,9 @@ func (a *ApplicationSSOFederatedClaimsAPIService) DeleteFederatedClaimExecute(r 
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -475,10 +475,10 @@ func (a *ApplicationSSOFederatedClaimsAPIService) DeleteFederatedClaimExecute(r 
 }
 
 type ApiGetFederatedClaimRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationSSOFederatedClaimsAPI
-	appId string
-	claimId string
+	appId      string
+	claimId    string
 	retryCount int32
 }
 
@@ -491,23 +491,24 @@ GetFederatedClaim Retrieve a federated claim
 
 Retrieves a federated claim by `claimId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param claimId The unique `id` of the federated claim
- @return ApiGetFederatedClaimRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param claimId The unique `id` of the federated claim
+	@return ApiGetFederatedClaimRequest
 */
 func (a *ApplicationSSOFederatedClaimsAPIService) GetFederatedClaim(ctx context.Context, appId string, claimId string) ApiGetFederatedClaimRequest {
 	return ApiGetFederatedClaimRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		claimId: claimId,
+		ctx:        ctx,
+		appId:      appId,
+		claimId:    claimId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return FederatedClaimRequestBody
+//
+//	@return FederatedClaimRequestBody
 func (a *ApplicationSSOFederatedClaimsAPIService) GetFederatedClaimExecute(r ApiGetFederatedClaimRequest) (*FederatedClaimRequestBody, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -516,7 +517,7 @@ func (a *ApplicationSSOFederatedClaimsAPIService) GetFederatedClaimExecute(r Api
 		localVarReturnValue  *FederatedClaimRequestBody
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -578,9 +579,9 @@ func (a *ApplicationSSOFederatedClaimsAPIService) GetFederatedClaimExecute(r Api
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -650,15 +651,15 @@ func (a *ApplicationSSOFederatedClaimsAPIService) GetFederatedClaimExecute(r Api
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListFederatedClaimsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationSSOFederatedClaimsAPI
-	appId string
+	appId      string
 	retryCount int32
 }
 
@@ -671,21 +672,22 @@ ListFederatedClaims List all configured federated claims
 
 Lists all federated claims for your app
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiListFederatedClaimsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiListFederatedClaimsRequest
 */
 func (a *ApplicationSSOFederatedClaimsAPIService) ListFederatedClaims(ctx context.Context, appId string) ApiListFederatedClaimsRequest {
 	return ApiListFederatedClaimsRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []FederatedClaim
+//
+//	@return []FederatedClaim
 func (a *ApplicationSSOFederatedClaimsAPIService) ListFederatedClaimsExecute(r ApiListFederatedClaimsRequest) ([]FederatedClaim, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -694,7 +696,7 @@ func (a *ApplicationSSOFederatedClaimsAPIService) ListFederatedClaimsExecute(r A
 		localVarReturnValue  []FederatedClaim
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -755,9 +757,9 @@ func (a *ApplicationSSOFederatedClaimsAPIService) ListFederatedClaimsExecute(r A
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -827,18 +829,18 @@ func (a *ApplicationSSOFederatedClaimsAPIService) ListFederatedClaimsExecute(r A
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceFederatedClaimRequest struct {
-	ctx context.Context
-	ApiService ApplicationSSOFederatedClaimsAPI
-	appId string
-	claimId string
+	ctx            context.Context
+	ApiService     ApplicationSSOFederatedClaimsAPI
+	appId          string
+	claimId        string
 	federatedClaim *FederatedClaim
-	retryCount int32
+	retryCount     int32
 }
 
 func (r ApiReplaceFederatedClaimRequest) FederatedClaim(federatedClaim FederatedClaim) ApiReplaceFederatedClaimRequest {
@@ -855,23 +857,24 @@ ReplaceFederatedClaim Replace a federated claim
 
 Replaces a claim that will be included in tokens produced by federation protocols (for example: OIDC `id_tokens` or SAML Assertions)
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param claimId The unique `id` of the federated claim
- @return ApiReplaceFederatedClaimRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param claimId The unique `id` of the federated claim
+	@return ApiReplaceFederatedClaimRequest
 */
 func (a *ApplicationSSOFederatedClaimsAPIService) ReplaceFederatedClaim(ctx context.Context, appId string, claimId string) ApiReplaceFederatedClaimRequest {
 	return ApiReplaceFederatedClaimRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		claimId: claimId,
+		ctx:        ctx,
+		appId:      appId,
+		claimId:    claimId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return FederatedClaim
+//
+//	@return FederatedClaim
 func (a *ApplicationSSOFederatedClaimsAPIService) ReplaceFederatedClaimExecute(r ApiReplaceFederatedClaimRequest) (*FederatedClaim, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -880,7 +883,7 @@ func (a *ApplicationSSOFederatedClaimsAPIService) ReplaceFederatedClaimExecute(r
 		localVarReturnValue  *FederatedClaim
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -944,9 +947,9 @@ func (a *ApplicationSSOFederatedClaimsAPIService) ReplaceFederatedClaimExecute(r
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1016,7 +1019,7 @@ func (a *ApplicationSSOFederatedClaimsAPIService) ReplaceFederatedClaimExecute(r
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

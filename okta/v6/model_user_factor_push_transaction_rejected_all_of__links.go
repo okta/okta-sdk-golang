@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserFactorPushTransactionRejectedAllOfLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserFactorPushTransactionRejectedAllOfLinks{}
+
 // UserFactorPushTransactionRejectedAllOfLinks struct for UserFactorPushTransactionRejectedAllOfLinks
 type UserFactorPushTransactionRejectedAllOfLinks struct {
 	// Verifies the factor resource. See [Verify a factor](/openapi/okta-management/management/tag/UserFactor/#tag/UserFactor/operation/verifyFactor).
-	Verify *HrefObject `json:"verify,omitempty"`
-	Factor *UserFactor `json:"factor,omitempty"`
+	Verify               *HrefObject `json:"verify,omitempty"`
+	Factor               *UserFactor `json:"factor,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewUserFactorPushTransactionRejectedAllOfLinksWithDefaults() *UserFactorPus
 
 // GetVerify returns the Verify field value if set, zero value otherwise.
 func (o *UserFactorPushTransactionRejectedAllOfLinks) GetVerify() HrefObject {
-	if o == nil || o.Verify == nil {
+	if o == nil || IsNil(o.Verify) {
 		var ret HrefObject
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *UserFactorPushTransactionRejectedAllOfLinks) GetVerify() HrefObject {
 // GetVerifyOk returns a tuple with the Verify field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorPushTransactionRejectedAllOfLinks) GetVerifyOk() (*HrefObject, bool) {
-	if o == nil || o.Verify == nil {
+	if o == nil || IsNil(o.Verify) {
 		return nil, false
 	}
 	return o.Verify, true
@@ -74,7 +77,7 @@ func (o *UserFactorPushTransactionRejectedAllOfLinks) GetVerifyOk() (*HrefObject
 
 // HasVerify returns a boolean if a field has been set.
 func (o *UserFactorPushTransactionRejectedAllOfLinks) HasVerify() bool {
-	if o != nil && o.Verify != nil {
+	if o != nil && !IsNil(o.Verify) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *UserFactorPushTransactionRejectedAllOfLinks) SetVerify(v HrefObject) {
 
 // GetFactor returns the Factor field value if set, zero value otherwise.
 func (o *UserFactorPushTransactionRejectedAllOfLinks) GetFactor() UserFactor {
-	if o == nil || o.Factor == nil {
+	if o == nil || IsNil(o.Factor) {
 		var ret UserFactor
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *UserFactorPushTransactionRejectedAllOfLinks) GetFactor() UserFactor {
 // GetFactorOk returns a tuple with the Factor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorPushTransactionRejectedAllOfLinks) GetFactorOk() (*UserFactor, bool) {
-	if o == nil || o.Factor == nil {
+	if o == nil || IsNil(o.Factor) {
 		return nil, false
 	}
 	return o.Factor, true
@@ -106,7 +109,7 @@ func (o *UserFactorPushTransactionRejectedAllOfLinks) GetFactorOk() (*UserFactor
 
 // HasFactor returns a boolean if a field has been set.
 func (o *UserFactorPushTransactionRejectedAllOfLinks) HasFactor() bool {
-	if o != nil && o.Factor != nil {
+	if o != nil && !IsNil(o.Factor) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *UserFactorPushTransactionRejectedAllOfLinks) SetFactor(v UserFactor) {
 }
 
 func (o UserFactorPushTransactionRejectedAllOfLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserFactorPushTransactionRejectedAllOfLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Verify != nil {
+	if !IsNil(o.Verify) {
 		toSerialize["verify"] = o.Verify
 	}
-	if o.Factor != nil {
+	if !IsNil(o.Factor) {
 		toSerialize["factor"] = o.Factor
 	}
 
@@ -131,28 +142,26 @@ func (o UserFactorPushTransactionRejectedAllOfLinks) MarshalJSON() ([]byte, erro
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserFactorPushTransactionRejectedAllOfLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserFactorPushTransactionRejectedAllOfLinks) UnmarshalJSON(data []byte) (err error) {
 	varUserFactorPushTransactionRejectedAllOfLinks := _UserFactorPushTransactionRejectedAllOfLinks{}
 
-	err = json.Unmarshal(bytes, &varUserFactorPushTransactionRejectedAllOfLinks)
-	if err == nil {
-		*o = UserFactorPushTransactionRejectedAllOfLinks(varUserFactorPushTransactionRejectedAllOfLinks)
-	} else {
+	err = json.Unmarshal(data, &varUserFactorPushTransactionRejectedAllOfLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserFactorPushTransactionRejectedAllOfLinks(varUserFactorPushTransactionRejectedAllOfLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "verify")
 		delete(additionalProperties, "factor")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableUserFactorPushTransactionRejectedAllOfLinks) UnmarshalJSON(src 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

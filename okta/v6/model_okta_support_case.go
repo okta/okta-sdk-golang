@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,14 +27,17 @@ import (
 	"encoding/json"
 )
 
+// checks if the OktaSupportCase type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OktaSupportCase{}
+
 // OktaSupportCase struct for OktaSupportCase
 type OktaSupportCase struct {
 	// Okta Support case number
-	CaseNumber *string `json:"caseNumber,omitempty"`
+	CaseNumber    *string                       `json:"caseNumber,omitempty"`
 	Impersonation *OktaSupportCaseImpersonation `json:"impersonation,omitempty"`
-	SelfAssigned *OktaSupportCaseSelfAssigned `json:"selfAssigned,omitempty"`
+	SelfAssigned  *OktaSupportCaseSelfAssigned  `json:"selfAssigned,omitempty"`
 	// Subject of the support case
-	Subject *string `json:"subject,omitempty"`
+	Subject              *string `json:"subject,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewOktaSupportCaseWithDefaults() *OktaSupportCase {
 
 // GetCaseNumber returns the CaseNumber field value if set, zero value otherwise.
 func (o *OktaSupportCase) GetCaseNumber() string {
-	if o == nil || o.CaseNumber == nil {
+	if o == nil || IsNil(o.CaseNumber) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *OktaSupportCase) GetCaseNumber() string {
 // GetCaseNumberOk returns a tuple with the CaseNumber field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaSupportCase) GetCaseNumberOk() (*string, bool) {
-	if o == nil || o.CaseNumber == nil {
+	if o == nil || IsNil(o.CaseNumber) {
 		return nil, false
 	}
 	return o.CaseNumber, true
@@ -77,7 +80,7 @@ func (o *OktaSupportCase) GetCaseNumberOk() (*string, bool) {
 
 // HasCaseNumber returns a boolean if a field has been set.
 func (o *OktaSupportCase) HasCaseNumber() bool {
-	if o != nil && o.CaseNumber != nil {
+	if o != nil && !IsNil(o.CaseNumber) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *OktaSupportCase) SetCaseNumber(v string) {
 
 // GetImpersonation returns the Impersonation field value if set, zero value otherwise.
 func (o *OktaSupportCase) GetImpersonation() OktaSupportCaseImpersonation {
-	if o == nil || o.Impersonation == nil {
+	if o == nil || IsNil(o.Impersonation) {
 		var ret OktaSupportCaseImpersonation
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *OktaSupportCase) GetImpersonation() OktaSupportCaseImpersonation {
 // GetImpersonationOk returns a tuple with the Impersonation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaSupportCase) GetImpersonationOk() (*OktaSupportCaseImpersonation, bool) {
-	if o == nil || o.Impersonation == nil {
+	if o == nil || IsNil(o.Impersonation) {
 		return nil, false
 	}
 	return o.Impersonation, true
@@ -109,7 +112,7 @@ func (o *OktaSupportCase) GetImpersonationOk() (*OktaSupportCaseImpersonation, b
 
 // HasImpersonation returns a boolean if a field has been set.
 func (o *OktaSupportCase) HasImpersonation() bool {
-	if o != nil && o.Impersonation != nil {
+	if o != nil && !IsNil(o.Impersonation) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *OktaSupportCase) SetImpersonation(v OktaSupportCaseImpersonation) {
 
 // GetSelfAssigned returns the SelfAssigned field value if set, zero value otherwise.
 func (o *OktaSupportCase) GetSelfAssigned() OktaSupportCaseSelfAssigned {
-	if o == nil || o.SelfAssigned == nil {
+	if o == nil || IsNil(o.SelfAssigned) {
 		var ret OktaSupportCaseSelfAssigned
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *OktaSupportCase) GetSelfAssigned() OktaSupportCaseSelfAssigned {
 // GetSelfAssignedOk returns a tuple with the SelfAssigned field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaSupportCase) GetSelfAssignedOk() (*OktaSupportCaseSelfAssigned, bool) {
-	if o == nil || o.SelfAssigned == nil {
+	if o == nil || IsNil(o.SelfAssigned) {
 		return nil, false
 	}
 	return o.SelfAssigned, true
@@ -141,7 +144,7 @@ func (o *OktaSupportCase) GetSelfAssignedOk() (*OktaSupportCaseSelfAssigned, boo
 
 // HasSelfAssigned returns a boolean if a field has been set.
 func (o *OktaSupportCase) HasSelfAssigned() bool {
-	if o != nil && o.SelfAssigned != nil {
+	if o != nil && !IsNil(o.SelfAssigned) {
 		return true
 	}
 
@@ -155,7 +158,7 @@ func (o *OktaSupportCase) SetSelfAssigned(v OktaSupportCaseSelfAssigned) {
 
 // GetSubject returns the Subject field value if set, zero value otherwise.
 func (o *OktaSupportCase) GetSubject() string {
-	if o == nil || o.Subject == nil {
+	if o == nil || IsNil(o.Subject) {
 		var ret string
 		return ret
 	}
@@ -165,7 +168,7 @@ func (o *OktaSupportCase) GetSubject() string {
 // GetSubjectOk returns a tuple with the Subject field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaSupportCase) GetSubjectOk() (*string, bool) {
-	if o == nil || o.Subject == nil {
+	if o == nil || IsNil(o.Subject) {
 		return nil, false
 	}
 	return o.Subject, true
@@ -173,7 +176,7 @@ func (o *OktaSupportCase) GetSubjectOk() (*string, bool) {
 
 // HasSubject returns a boolean if a field has been set.
 func (o *OktaSupportCase) HasSubject() bool {
-	if o != nil && o.Subject != nil {
+	if o != nil && !IsNil(o.Subject) {
 		return true
 	}
 
@@ -186,17 +189,25 @@ func (o *OktaSupportCase) SetSubject(v string) {
 }
 
 func (o OktaSupportCase) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OktaSupportCase) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.CaseNumber != nil {
+	if !IsNil(o.CaseNumber) {
 		toSerialize["caseNumber"] = o.CaseNumber
 	}
-	if o.Impersonation != nil {
+	if !IsNil(o.Impersonation) {
 		toSerialize["impersonation"] = o.Impersonation
 	}
-	if o.SelfAssigned != nil {
+	if !IsNil(o.SelfAssigned) {
 		toSerialize["selfAssigned"] = o.SelfAssigned
 	}
-	if o.Subject != nil {
+	if !IsNil(o.Subject) {
 		toSerialize["subject"] = o.Subject
 	}
 
@@ -204,30 +215,28 @@ func (o OktaSupportCase) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OktaSupportCase) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OktaSupportCase) UnmarshalJSON(data []byte) (err error) {
 	varOktaSupportCase := _OktaSupportCase{}
 
-	err = json.Unmarshal(bytes, &varOktaSupportCase)
-	if err == nil {
-		*o = OktaSupportCase(varOktaSupportCase)
-	} else {
+	err = json.Unmarshal(data, &varOktaSupportCase)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OktaSupportCase(varOktaSupportCase)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "caseNumber")
 		delete(additionalProperties, "impersonation")
 		delete(additionalProperties, "selfAssigned")
 		delete(additionalProperties, "subject")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -268,4 +277,3 @@ func (v *NullableOktaSupportCase) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

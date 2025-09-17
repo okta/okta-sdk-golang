@@ -1752,7 +1752,6 @@ Class | Method | HTTP request | Description
  - [ProvisioningDetails](docs/ProvisioningDetails.md)
  - [ProvisioningGroups](docs/ProvisioningGroups.md)
  - [ProvisioningSuspendedCondition](docs/ProvisioningSuspendedCondition.md)
- - [PublicAssetLinksWellKnownURI](docs/PublicAssetLinksWellKnownURI.md)
  - [Push](docs/Push.md)
  - [Push1](docs/Push1.md)
  - [PushProvider](docs/PushProvider.md)

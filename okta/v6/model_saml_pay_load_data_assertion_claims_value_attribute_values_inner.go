@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the SAMLPayLoadDataAssertionClaimsValueAttributeValuesInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SAMLPayLoadDataAssertionClaimsValueAttributeValuesInner{}
+
 // SAMLPayLoadDataAssertionClaimsValueAttributeValuesInner struct for SAMLPayLoadDataAssertionClaimsValueAttributeValuesInner
 type SAMLPayLoadDataAssertionClaimsValueAttributeValuesInner struct {
 	Attributes *SAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributes `json:"attributes,omitempty"`
 	// The actual value of the attribute
-	Value *string `json:"value,omitempty"`
+	Value                *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewSAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerWithDefaults() *S
 
 // GetAttributes returns the Attributes field value if set, zero value otherwise.
 func (o *SAMLPayLoadDataAssertionClaimsValueAttributeValuesInner) GetAttributes() SAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributes {
-	if o == nil || o.Attributes == nil {
+	if o == nil || IsNil(o.Attributes) {
 		var ret SAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributes
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *SAMLPayLoadDataAssertionClaimsValueAttributeValuesInner) GetAttributes(
 // GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoadDataAssertionClaimsValueAttributeValuesInner) GetAttributesOk() (*SAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributes, bool) {
-	if o == nil || o.Attributes == nil {
+	if o == nil || IsNil(o.Attributes) {
 		return nil, false
 	}
 	return o.Attributes, true
@@ -74,7 +77,7 @@ func (o *SAMLPayLoadDataAssertionClaimsValueAttributeValuesInner) GetAttributesO
 
 // HasAttributes returns a boolean if a field has been set.
 func (o *SAMLPayLoadDataAssertionClaimsValueAttributeValuesInner) HasAttributes() bool {
-	if o != nil && o.Attributes != nil {
+	if o != nil && !IsNil(o.Attributes) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *SAMLPayLoadDataAssertionClaimsValueAttributeValuesInner) SetAttributes(
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *SAMLPayLoadDataAssertionClaimsValueAttributeValuesInner) GetValue() string {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret string
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *SAMLPayLoadDataAssertionClaimsValueAttributeValuesInner) GetValue() str
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoadDataAssertionClaimsValueAttributeValuesInner) GetValueOk() (*string, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -106,7 +109,7 @@ func (o *SAMLPayLoadDataAssertionClaimsValueAttributeValuesInner) GetValueOk() (
 
 // HasValue returns a boolean if a field has been set.
 func (o *SAMLPayLoadDataAssertionClaimsValueAttributeValuesInner) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *SAMLPayLoadDataAssertionClaimsValueAttributeValuesInner) SetValue(v str
 }
 
 func (o SAMLPayLoadDataAssertionClaimsValueAttributeValuesInner) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SAMLPayLoadDataAssertionClaimsValueAttributeValuesInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Attributes != nil {
+	if !IsNil(o.Attributes) {
 		toSerialize["attributes"] = o.Attributes
 	}
-	if o.Value != nil {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
 
@@ -131,28 +142,26 @@ func (o SAMLPayLoadDataAssertionClaimsValueAttributeValuesInner) MarshalJSON() (
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SAMLPayLoadDataAssertionClaimsValueAttributeValuesInner) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SAMLPayLoadDataAssertionClaimsValueAttributeValuesInner) UnmarshalJSON(data []byte) (err error) {
 	varSAMLPayLoadDataAssertionClaimsValueAttributeValuesInner := _SAMLPayLoadDataAssertionClaimsValueAttributeValuesInner{}
 
-	err = json.Unmarshal(bytes, &varSAMLPayLoadDataAssertionClaimsValueAttributeValuesInner)
-	if err == nil {
-		*o = SAMLPayLoadDataAssertionClaimsValueAttributeValuesInner(varSAMLPayLoadDataAssertionClaimsValueAttributeValuesInner)
-	} else {
+	err = json.Unmarshal(data, &varSAMLPayLoadDataAssertionClaimsValueAttributeValuesInner)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SAMLPayLoadDataAssertionClaimsValueAttributeValuesInner(varSAMLPayLoadDataAssertionClaimsValueAttributeValuesInner)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "attributes")
 		delete(additionalProperties, "value")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableSAMLPayLoadDataAssertionClaimsValueAttributeValuesInner) Unmars
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

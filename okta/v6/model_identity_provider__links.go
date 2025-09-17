@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the IdentityProviderLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IdentityProviderLinks{}
+
 // IdentityProviderLinks struct for IdentityProviderLinks
 type IdentityProviderLinks struct {
 	Self *HrefObjectSelfLink `json:"self,omitempty"`
@@ -45,7 +48,7 @@ type IdentityProviderLinks struct {
 	// Activate IdP
 	Activate *HrefObject `json:"activate,omitempty"`
 	// IdP keys
-	Keys *HrefObject `json:"keys,omitempty"`
+	Keys                 *HrefObject `json:"keys,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -70,7 +73,7 @@ func NewIdentityProviderLinksWithDefaults() *IdentityProviderLinks {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *IdentityProviderLinks) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -80,7 +83,7 @@ func (o *IdentityProviderLinks) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProviderLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -88,7 +91,7 @@ func (o *IdentityProviderLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *IdentityProviderLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -102,7 +105,7 @@ func (o *IdentityProviderLinks) SetSelf(v HrefObjectSelfLink) {
 
 // GetAcs returns the Acs field value if set, zero value otherwise.
 func (o *IdentityProviderLinks) GetAcs() HrefObject {
-	if o == nil || o.Acs == nil {
+	if o == nil || IsNil(o.Acs) {
 		var ret HrefObject
 		return ret
 	}
@@ -112,7 +115,7 @@ func (o *IdentityProviderLinks) GetAcs() HrefObject {
 // GetAcsOk returns a tuple with the Acs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProviderLinks) GetAcsOk() (*HrefObject, bool) {
-	if o == nil || o.Acs == nil {
+	if o == nil || IsNil(o.Acs) {
 		return nil, false
 	}
 	return o.Acs, true
@@ -120,7 +123,7 @@ func (o *IdentityProviderLinks) GetAcsOk() (*HrefObject, bool) {
 
 // HasAcs returns a boolean if a field has been set.
 func (o *IdentityProviderLinks) HasAcs() bool {
-	if o != nil && o.Acs != nil {
+	if o != nil && !IsNil(o.Acs) {
 		return true
 	}
 
@@ -134,7 +137,7 @@ func (o *IdentityProviderLinks) SetAcs(v HrefObject) {
 
 // GetAuthorize returns the Authorize field value if set, zero value otherwise.
 func (o *IdentityProviderLinks) GetAuthorize() HrefObject {
-	if o == nil || o.Authorize == nil {
+	if o == nil || IsNil(o.Authorize) {
 		var ret HrefObject
 		return ret
 	}
@@ -144,7 +147,7 @@ func (o *IdentityProviderLinks) GetAuthorize() HrefObject {
 // GetAuthorizeOk returns a tuple with the Authorize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProviderLinks) GetAuthorizeOk() (*HrefObject, bool) {
-	if o == nil || o.Authorize == nil {
+	if o == nil || IsNil(o.Authorize) {
 		return nil, false
 	}
 	return o.Authorize, true
@@ -152,7 +155,7 @@ func (o *IdentityProviderLinks) GetAuthorizeOk() (*HrefObject, bool) {
 
 // HasAuthorize returns a boolean if a field has been set.
 func (o *IdentityProviderLinks) HasAuthorize() bool {
-	if o != nil && o.Authorize != nil {
+	if o != nil && !IsNil(o.Authorize) {
 		return true
 	}
 
@@ -166,7 +169,7 @@ func (o *IdentityProviderLinks) SetAuthorize(v HrefObject) {
 
 // GetClientRedirectUri returns the ClientRedirectUri field value if set, zero value otherwise.
 func (o *IdentityProviderLinks) GetClientRedirectUri() HrefObject {
-	if o == nil || o.ClientRedirectUri == nil {
+	if o == nil || IsNil(o.ClientRedirectUri) {
 		var ret HrefObject
 		return ret
 	}
@@ -176,7 +179,7 @@ func (o *IdentityProviderLinks) GetClientRedirectUri() HrefObject {
 // GetClientRedirectUriOk returns a tuple with the ClientRedirectUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProviderLinks) GetClientRedirectUriOk() (*HrefObject, bool) {
-	if o == nil || o.ClientRedirectUri == nil {
+	if o == nil || IsNil(o.ClientRedirectUri) {
 		return nil, false
 	}
 	return o.ClientRedirectUri, true
@@ -184,7 +187,7 @@ func (o *IdentityProviderLinks) GetClientRedirectUriOk() (*HrefObject, bool) {
 
 // HasClientRedirectUri returns a boolean if a field has been set.
 func (o *IdentityProviderLinks) HasClientRedirectUri() bool {
-	if o != nil && o.ClientRedirectUri != nil {
+	if o != nil && !IsNil(o.ClientRedirectUri) {
 		return true
 	}
 
@@ -198,7 +201,7 @@ func (o *IdentityProviderLinks) SetClientRedirectUri(v HrefObject) {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *IdentityProviderLinks) GetMetadata() HrefObject {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret HrefObject
 		return ret
 	}
@@ -208,7 +211,7 @@ func (o *IdentityProviderLinks) GetMetadata() HrefObject {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProviderLinks) GetMetadataOk() (*HrefObject, bool) {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -216,7 +219,7 @@ func (o *IdentityProviderLinks) GetMetadataOk() (*HrefObject, bool) {
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *IdentityProviderLinks) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -230,7 +233,7 @@ func (o *IdentityProviderLinks) SetMetadata(v HrefObject) {
 
 // GetUsers returns the Users field value if set, zero value otherwise.
 func (o *IdentityProviderLinks) GetUsers() HrefObject {
-	if o == nil || o.Users == nil {
+	if o == nil || IsNil(o.Users) {
 		var ret HrefObject
 		return ret
 	}
@@ -240,7 +243,7 @@ func (o *IdentityProviderLinks) GetUsers() HrefObject {
 // GetUsersOk returns a tuple with the Users field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProviderLinks) GetUsersOk() (*HrefObject, bool) {
-	if o == nil || o.Users == nil {
+	if o == nil || IsNil(o.Users) {
 		return nil, false
 	}
 	return o.Users, true
@@ -248,7 +251,7 @@ func (o *IdentityProviderLinks) GetUsersOk() (*HrefObject, bool) {
 
 // HasUsers returns a boolean if a field has been set.
 func (o *IdentityProviderLinks) HasUsers() bool {
-	if o != nil && o.Users != nil {
+	if o != nil && !IsNil(o.Users) {
 		return true
 	}
 
@@ -262,7 +265,7 @@ func (o *IdentityProviderLinks) SetUsers(v HrefObject) {
 
 // GetDeactivate returns the Deactivate field value if set, zero value otherwise.
 func (o *IdentityProviderLinks) GetDeactivate() HrefObject {
-	if o == nil || o.Deactivate == nil {
+	if o == nil || IsNil(o.Deactivate) {
 		var ret HrefObject
 		return ret
 	}
@@ -272,7 +275,7 @@ func (o *IdentityProviderLinks) GetDeactivate() HrefObject {
 // GetDeactivateOk returns a tuple with the Deactivate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProviderLinks) GetDeactivateOk() (*HrefObject, bool) {
-	if o == nil || o.Deactivate == nil {
+	if o == nil || IsNil(o.Deactivate) {
 		return nil, false
 	}
 	return o.Deactivate, true
@@ -280,7 +283,7 @@ func (o *IdentityProviderLinks) GetDeactivateOk() (*HrefObject, bool) {
 
 // HasDeactivate returns a boolean if a field has been set.
 func (o *IdentityProviderLinks) HasDeactivate() bool {
-	if o != nil && o.Deactivate != nil {
+	if o != nil && !IsNil(o.Deactivate) {
 		return true
 	}
 
@@ -294,7 +297,7 @@ func (o *IdentityProviderLinks) SetDeactivate(v HrefObject) {
 
 // GetActivate returns the Activate field value if set, zero value otherwise.
 func (o *IdentityProviderLinks) GetActivate() HrefObject {
-	if o == nil || o.Activate == nil {
+	if o == nil || IsNil(o.Activate) {
 		var ret HrefObject
 		return ret
 	}
@@ -304,7 +307,7 @@ func (o *IdentityProviderLinks) GetActivate() HrefObject {
 // GetActivateOk returns a tuple with the Activate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProviderLinks) GetActivateOk() (*HrefObject, bool) {
-	if o == nil || o.Activate == nil {
+	if o == nil || IsNil(o.Activate) {
 		return nil, false
 	}
 	return o.Activate, true
@@ -312,7 +315,7 @@ func (o *IdentityProviderLinks) GetActivateOk() (*HrefObject, bool) {
 
 // HasActivate returns a boolean if a field has been set.
 func (o *IdentityProviderLinks) HasActivate() bool {
-	if o != nil && o.Activate != nil {
+	if o != nil && !IsNil(o.Activate) {
 		return true
 	}
 
@@ -326,7 +329,7 @@ func (o *IdentityProviderLinks) SetActivate(v HrefObject) {
 
 // GetKeys returns the Keys field value if set, zero value otherwise.
 func (o *IdentityProviderLinks) GetKeys() HrefObject {
-	if o == nil || o.Keys == nil {
+	if o == nil || IsNil(o.Keys) {
 		var ret HrefObject
 		return ret
 	}
@@ -336,7 +339,7 @@ func (o *IdentityProviderLinks) GetKeys() HrefObject {
 // GetKeysOk returns a tuple with the Keys field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProviderLinks) GetKeysOk() (*HrefObject, bool) {
-	if o == nil || o.Keys == nil {
+	if o == nil || IsNil(o.Keys) {
 		return nil, false
 	}
 	return o.Keys, true
@@ -344,7 +347,7 @@ func (o *IdentityProviderLinks) GetKeysOk() (*HrefObject, bool) {
 
 // HasKeys returns a boolean if a field has been set.
 func (o *IdentityProviderLinks) HasKeys() bool {
-	if o != nil && o.Keys != nil {
+	if o != nil && !IsNil(o.Keys) {
 		return true
 	}
 
@@ -357,32 +360,40 @@ func (o *IdentityProviderLinks) SetKeys(v HrefObject) {
 }
 
 func (o IdentityProviderLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IdentityProviderLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.Acs != nil {
+	if !IsNil(o.Acs) {
 		toSerialize["acs"] = o.Acs
 	}
-	if o.Authorize != nil {
+	if !IsNil(o.Authorize) {
 		toSerialize["authorize"] = o.Authorize
 	}
-	if o.ClientRedirectUri != nil {
+	if !IsNil(o.ClientRedirectUri) {
 		toSerialize["clientRedirectUri"] = o.ClientRedirectUri
 	}
-	if o.Metadata != nil {
+	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
-	if o.Users != nil {
+	if !IsNil(o.Users) {
 		toSerialize["users"] = o.Users
 	}
-	if o.Deactivate != nil {
+	if !IsNil(o.Deactivate) {
 		toSerialize["deactivate"] = o.Deactivate
 	}
-	if o.Activate != nil {
+	if !IsNil(o.Activate) {
 		toSerialize["activate"] = o.Activate
 	}
-	if o.Keys != nil {
+	if !IsNil(o.Keys) {
 		toSerialize["keys"] = o.Keys
 	}
 
@@ -390,23 +401,23 @@ func (o IdentityProviderLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *IdentityProviderLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *IdentityProviderLinks) UnmarshalJSON(data []byte) (err error) {
 	varIdentityProviderLinks := _IdentityProviderLinks{}
 
-	err = json.Unmarshal(bytes, &varIdentityProviderLinks)
-	if err == nil {
-		*o = IdentityProviderLinks(varIdentityProviderLinks)
-	} else {
+	err = json.Unmarshal(data, &varIdentityProviderLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = IdentityProviderLinks(varIdentityProviderLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "acs")
 		delete(additionalProperties, "authorize")
@@ -417,8 +428,6 @@ func (o *IdentityProviderLinks) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "activate")
 		delete(additionalProperties, "keys")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -459,4 +468,3 @@ func (v *NullableIdentityProviderLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

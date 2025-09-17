@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the OrgGeneralSettingLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrgGeneralSettingLinks{}
+
 // OrgGeneralSettingLinks Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available for the org using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification
 type OrgGeneralSettingLinks struct {
 	// Link to the [Org Contacts](/openapi/okta-management/management/tag/OrgSettingContact/) resource
@@ -40,7 +43,7 @@ type OrgGeneralSettingLinks struct {
 	// Link to the [Org Preferences](/openapi/okta-management/management/tag/OrgSettingCustomization/#tag/OrgSettingCustomization/operation/getOrgPreferences) resource
 	Preferences *HrefObject `json:"preferences,omitempty"`
 	// Link to the [Upload Org Logo](/openapi/okta-management/management/tag/OrgSettingCustomization/#tag/OrgSettingCustomization/operation/uploadOrgLogo) resource
-	UploadLogo *HrefObject `json:"uploadLogo,omitempty"`
+	UploadLogo           *HrefObject `json:"uploadLogo,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -65,7 +68,7 @@ func NewOrgGeneralSettingLinksWithDefaults() *OrgGeneralSettingLinks {
 
 // GetContacts returns the Contacts field value if set, zero value otherwise.
 func (o *OrgGeneralSettingLinks) GetContacts() HrefObject {
-	if o == nil || o.Contacts == nil {
+	if o == nil || IsNil(o.Contacts) {
 		var ret HrefObject
 		return ret
 	}
@@ -75,7 +78,7 @@ func (o *OrgGeneralSettingLinks) GetContacts() HrefObject {
 // GetContactsOk returns a tuple with the Contacts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgGeneralSettingLinks) GetContactsOk() (*HrefObject, bool) {
-	if o == nil || o.Contacts == nil {
+	if o == nil || IsNil(o.Contacts) {
 		return nil, false
 	}
 	return o.Contacts, true
@@ -83,7 +86,7 @@ func (o *OrgGeneralSettingLinks) GetContactsOk() (*HrefObject, bool) {
 
 // HasContacts returns a boolean if a field has been set.
 func (o *OrgGeneralSettingLinks) HasContacts() bool {
-	if o != nil && o.Contacts != nil {
+	if o != nil && !IsNil(o.Contacts) {
 		return true
 	}
 
@@ -97,7 +100,7 @@ func (o *OrgGeneralSettingLinks) SetContacts(v HrefObject) {
 
 // GetLogo returns the Logo field value if set, zero value otherwise.
 func (o *OrgGeneralSettingLinks) GetLogo() HrefObject {
-	if o == nil || o.Logo == nil {
+	if o == nil || IsNil(o.Logo) {
 		var ret HrefObject
 		return ret
 	}
@@ -107,7 +110,7 @@ func (o *OrgGeneralSettingLinks) GetLogo() HrefObject {
 // GetLogoOk returns a tuple with the Logo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgGeneralSettingLinks) GetLogoOk() (*HrefObject, bool) {
-	if o == nil || o.Logo == nil {
+	if o == nil || IsNil(o.Logo) {
 		return nil, false
 	}
 	return o.Logo, true
@@ -115,7 +118,7 @@ func (o *OrgGeneralSettingLinks) GetLogoOk() (*HrefObject, bool) {
 
 // HasLogo returns a boolean if a field has been set.
 func (o *OrgGeneralSettingLinks) HasLogo() bool {
-	if o != nil && o.Logo != nil {
+	if o != nil && !IsNil(o.Logo) {
 		return true
 	}
 
@@ -129,7 +132,7 @@ func (o *OrgGeneralSettingLinks) SetLogo(v HrefObject) {
 
 // GetOktaCommunication returns the OktaCommunication field value if set, zero value otherwise.
 func (o *OrgGeneralSettingLinks) GetOktaCommunication() HrefObject {
-	if o == nil || o.OktaCommunication == nil {
+	if o == nil || IsNil(o.OktaCommunication) {
 		var ret HrefObject
 		return ret
 	}
@@ -139,7 +142,7 @@ func (o *OrgGeneralSettingLinks) GetOktaCommunication() HrefObject {
 // GetOktaCommunicationOk returns a tuple with the OktaCommunication field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgGeneralSettingLinks) GetOktaCommunicationOk() (*HrefObject, bool) {
-	if o == nil || o.OktaCommunication == nil {
+	if o == nil || IsNil(o.OktaCommunication) {
 		return nil, false
 	}
 	return o.OktaCommunication, true
@@ -147,7 +150,7 @@ func (o *OrgGeneralSettingLinks) GetOktaCommunicationOk() (*HrefObject, bool) {
 
 // HasOktaCommunication returns a boolean if a field has been set.
 func (o *OrgGeneralSettingLinks) HasOktaCommunication() bool {
-	if o != nil && o.OktaCommunication != nil {
+	if o != nil && !IsNil(o.OktaCommunication) {
 		return true
 	}
 
@@ -161,7 +164,7 @@ func (o *OrgGeneralSettingLinks) SetOktaCommunication(v HrefObject) {
 
 // GetOktaSupport returns the OktaSupport field value if set, zero value otherwise.
 func (o *OrgGeneralSettingLinks) GetOktaSupport() HrefObject {
-	if o == nil || o.OktaSupport == nil {
+	if o == nil || IsNil(o.OktaSupport) {
 		var ret HrefObject
 		return ret
 	}
@@ -171,7 +174,7 @@ func (o *OrgGeneralSettingLinks) GetOktaSupport() HrefObject {
 // GetOktaSupportOk returns a tuple with the OktaSupport field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgGeneralSettingLinks) GetOktaSupportOk() (*HrefObject, bool) {
-	if o == nil || o.OktaSupport == nil {
+	if o == nil || IsNil(o.OktaSupport) {
 		return nil, false
 	}
 	return o.OktaSupport, true
@@ -179,7 +182,7 @@ func (o *OrgGeneralSettingLinks) GetOktaSupportOk() (*HrefObject, bool) {
 
 // HasOktaSupport returns a boolean if a field has been set.
 func (o *OrgGeneralSettingLinks) HasOktaSupport() bool {
-	if o != nil && o.OktaSupport != nil {
+	if o != nil && !IsNil(o.OktaSupport) {
 		return true
 	}
 
@@ -193,7 +196,7 @@ func (o *OrgGeneralSettingLinks) SetOktaSupport(v HrefObject) {
 
 // GetPreferences returns the Preferences field value if set, zero value otherwise.
 func (o *OrgGeneralSettingLinks) GetPreferences() HrefObject {
-	if o == nil || o.Preferences == nil {
+	if o == nil || IsNil(o.Preferences) {
 		var ret HrefObject
 		return ret
 	}
@@ -203,7 +206,7 @@ func (o *OrgGeneralSettingLinks) GetPreferences() HrefObject {
 // GetPreferencesOk returns a tuple with the Preferences field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgGeneralSettingLinks) GetPreferencesOk() (*HrefObject, bool) {
-	if o == nil || o.Preferences == nil {
+	if o == nil || IsNil(o.Preferences) {
 		return nil, false
 	}
 	return o.Preferences, true
@@ -211,7 +214,7 @@ func (o *OrgGeneralSettingLinks) GetPreferencesOk() (*HrefObject, bool) {
 
 // HasPreferences returns a boolean if a field has been set.
 func (o *OrgGeneralSettingLinks) HasPreferences() bool {
-	if o != nil && o.Preferences != nil {
+	if o != nil && !IsNil(o.Preferences) {
 		return true
 	}
 
@@ -225,7 +228,7 @@ func (o *OrgGeneralSettingLinks) SetPreferences(v HrefObject) {
 
 // GetUploadLogo returns the UploadLogo field value if set, zero value otherwise.
 func (o *OrgGeneralSettingLinks) GetUploadLogo() HrefObject {
-	if o == nil || o.UploadLogo == nil {
+	if o == nil || IsNil(o.UploadLogo) {
 		var ret HrefObject
 		return ret
 	}
@@ -235,7 +238,7 @@ func (o *OrgGeneralSettingLinks) GetUploadLogo() HrefObject {
 // GetUploadLogoOk returns a tuple with the UploadLogo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgGeneralSettingLinks) GetUploadLogoOk() (*HrefObject, bool) {
-	if o == nil || o.UploadLogo == nil {
+	if o == nil || IsNil(o.UploadLogo) {
 		return nil, false
 	}
 	return o.UploadLogo, true
@@ -243,7 +246,7 @@ func (o *OrgGeneralSettingLinks) GetUploadLogoOk() (*HrefObject, bool) {
 
 // HasUploadLogo returns a boolean if a field has been set.
 func (o *OrgGeneralSettingLinks) HasUploadLogo() bool {
-	if o != nil && o.UploadLogo != nil {
+	if o != nil && !IsNil(o.UploadLogo) {
 		return true
 	}
 
@@ -256,23 +259,31 @@ func (o *OrgGeneralSettingLinks) SetUploadLogo(v HrefObject) {
 }
 
 func (o OrgGeneralSettingLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OrgGeneralSettingLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Contacts != nil {
+	if !IsNil(o.Contacts) {
 		toSerialize["contacts"] = o.Contacts
 	}
-	if o.Logo != nil {
+	if !IsNil(o.Logo) {
 		toSerialize["logo"] = o.Logo
 	}
-	if o.OktaCommunication != nil {
+	if !IsNil(o.OktaCommunication) {
 		toSerialize["oktaCommunication"] = o.OktaCommunication
 	}
-	if o.OktaSupport != nil {
+	if !IsNil(o.OktaSupport) {
 		toSerialize["oktaSupport"] = o.OktaSupport
 	}
-	if o.Preferences != nil {
+	if !IsNil(o.Preferences) {
 		toSerialize["preferences"] = o.Preferences
 	}
-	if o.UploadLogo != nil {
+	if !IsNil(o.UploadLogo) {
 		toSerialize["uploadLogo"] = o.UploadLogo
 	}
 
@@ -280,23 +291,23 @@ func (o OrgGeneralSettingLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OrgGeneralSettingLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OrgGeneralSettingLinks) UnmarshalJSON(data []byte) (err error) {
 	varOrgGeneralSettingLinks := _OrgGeneralSettingLinks{}
 
-	err = json.Unmarshal(bytes, &varOrgGeneralSettingLinks)
-	if err == nil {
-		*o = OrgGeneralSettingLinks(varOrgGeneralSettingLinks)
-	} else {
+	err = json.Unmarshal(data, &varOrgGeneralSettingLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OrgGeneralSettingLinks(varOrgGeneralSettingLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "contacts")
 		delete(additionalProperties, "logo")
 		delete(additionalProperties, "oktaCommunication")
@@ -304,8 +315,6 @@ func (o *OrgGeneralSettingLinks) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "preferences")
 		delete(additionalProperties, "uploadLogo")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -346,4 +355,3 @@ func (v *NullableOrgGeneralSettingLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

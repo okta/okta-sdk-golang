@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the CreateGroupRuleRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateGroupRuleRequest{}
+
 // CreateGroupRuleRequest struct for CreateGroupRuleRequest
 type CreateGroupRuleRequest struct {
-	Actions *GroupRuleAction `json:"actions,omitempty"`
+	Actions    *GroupRuleAction     `json:"actions,omitempty"`
 	Conditions *GroupRuleConditions `json:"conditions,omitempty"`
 	// Name of the group rule
-	Name *string `json:"name,omitempty"`
-	Type *string `json:"type,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewCreateGroupRuleRequestWithDefaults() *CreateGroupRuleRequest {
 
 // GetActions returns the Actions field value if set, zero value otherwise.
 func (o *CreateGroupRuleRequest) GetActions() GroupRuleAction {
-	if o == nil || o.Actions == nil {
+	if o == nil || IsNil(o.Actions) {
 		var ret GroupRuleAction
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *CreateGroupRuleRequest) GetActions() GroupRuleAction {
 // GetActionsOk returns a tuple with the Actions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateGroupRuleRequest) GetActionsOk() (*GroupRuleAction, bool) {
-	if o == nil || o.Actions == nil {
+	if o == nil || IsNil(o.Actions) {
 		return nil, false
 	}
 	return o.Actions, true
@@ -76,7 +79,7 @@ func (o *CreateGroupRuleRequest) GetActionsOk() (*GroupRuleAction, bool) {
 
 // HasActions returns a boolean if a field has been set.
 func (o *CreateGroupRuleRequest) HasActions() bool {
-	if o != nil && o.Actions != nil {
+	if o != nil && !IsNil(o.Actions) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *CreateGroupRuleRequest) SetActions(v GroupRuleAction) {
 
 // GetConditions returns the Conditions field value if set, zero value otherwise.
 func (o *CreateGroupRuleRequest) GetConditions() GroupRuleConditions {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		var ret GroupRuleConditions
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *CreateGroupRuleRequest) GetConditions() GroupRuleConditions {
 // GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateGroupRuleRequest) GetConditionsOk() (*GroupRuleConditions, bool) {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		return nil, false
 	}
 	return o.Conditions, true
@@ -108,7 +111,7 @@ func (o *CreateGroupRuleRequest) GetConditionsOk() (*GroupRuleConditions, bool) 
 
 // HasConditions returns a boolean if a field has been set.
 func (o *CreateGroupRuleRequest) HasConditions() bool {
-	if o != nil && o.Conditions != nil {
+	if o != nil && !IsNil(o.Conditions) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *CreateGroupRuleRequest) SetConditions(v GroupRuleConditions) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *CreateGroupRuleRequest) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *CreateGroupRuleRequest) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateGroupRuleRequest) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -140,7 +143,7 @@ func (o *CreateGroupRuleRequest) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *CreateGroupRuleRequest) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -154,7 +157,7 @@ func (o *CreateGroupRuleRequest) SetName(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *CreateGroupRuleRequest) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -164,7 +167,7 @@ func (o *CreateGroupRuleRequest) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateGroupRuleRequest) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -172,7 +175,7 @@ func (o *CreateGroupRuleRequest) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *CreateGroupRuleRequest) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -185,17 +188,25 @@ func (o *CreateGroupRuleRequest) SetType(v string) {
 }
 
 func (o CreateGroupRuleRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CreateGroupRuleRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Actions != nil {
+	if !IsNil(o.Actions) {
 		toSerialize["actions"] = o.Actions
 	}
-	if o.Conditions != nil {
+	if !IsNil(o.Conditions) {
 		toSerialize["conditions"] = o.Conditions
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -203,30 +214,28 @@ func (o CreateGroupRuleRequest) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CreateGroupRuleRequest) UnmarshalJSON(bytes []byte) (err error) {
+func (o *CreateGroupRuleRequest) UnmarshalJSON(data []byte) (err error) {
 	varCreateGroupRuleRequest := _CreateGroupRuleRequest{}
 
-	err = json.Unmarshal(bytes, &varCreateGroupRuleRequest)
-	if err == nil {
-		*o = CreateGroupRuleRequest(varCreateGroupRuleRequest)
-	} else {
+	err = json.Unmarshal(data, &varCreateGroupRuleRequest)
+
+	if err != nil {
 		return err
 	}
 
+	*o = CreateGroupRuleRequest(varCreateGroupRuleRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "actions")
 		delete(additionalProperties, "conditions")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -267,4 +276,3 @@ func (v *NullableCreateGroupRuleRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

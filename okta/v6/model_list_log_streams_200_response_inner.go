@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,11 +28,9 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
 // ListLogStreams200ResponseInner - struct for ListLogStreams200ResponseInner
 type ListLogStreams200ResponseInner struct {
-	LogStreamAws *LogStreamAws
+	LogStreamAws    *LogStreamAws
 	LogStreamSplunk *LogStreamSplunk
 }
 
@@ -50,15 +48,14 @@ func LogStreamSplunkAsListLogStreams200ResponseInner(v *LogStreamSplunk) ListLog
 	}
 }
 
-
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *ListLogStreams200ResponseInner) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	// check if the discriminator value is 'aws_eventbridge'
@@ -69,7 +66,7 @@ func (dst *ListLogStreams200ResponseInner) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.LogStreamAws, return on the first match
 		} else {
 			dst.LogStreamAws = nil
-			return fmt.Errorf("Failed to unmarshal ListLogStreams200ResponseInner as LogStreamAws: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListLogStreams200ResponseInner as LogStreamAws: %s", err.Error())
 		}
 	}
 
@@ -81,7 +78,7 @@ func (dst *ListLogStreams200ResponseInner) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.LogStreamSplunk, return on the first match
 		} else {
 			dst.LogStreamSplunk = nil
-			return fmt.Errorf("Failed to unmarshal ListLogStreams200ResponseInner as LogStreamSplunk: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListLogStreams200ResponseInner as LogStreamSplunk: %s", err.Error())
 		}
 	}
 
@@ -93,7 +90,7 @@ func (dst *ListLogStreams200ResponseInner) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.LogStreamAws, return on the first match
 		} else {
 			dst.LogStreamAws = nil
-			return fmt.Errorf("Failed to unmarshal ListLogStreams200ResponseInner as LogStreamAws: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListLogStreams200ResponseInner as LogStreamAws: %s", err.Error())
 		}
 	}
 
@@ -105,7 +102,7 @@ func (dst *ListLogStreams200ResponseInner) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.LogStreamSplunk, return on the first match
 		} else {
 			dst.LogStreamSplunk = nil
-			return fmt.Errorf("Failed to unmarshal ListLogStreams200ResponseInner as LogStreamSplunk: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListLogStreams200ResponseInner as LogStreamSplunk: %s", err.Error())
 		}
 	}
 
@@ -126,7 +123,7 @@ func (src ListLogStreams200ResponseInner) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *ListLogStreams200ResponseInner) GetActualInstance() (interface{}) {
+func (obj *ListLogStreams200ResponseInner) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -136,6 +133,20 @@ func (obj *ListLogStreams200ResponseInner) GetActualInstance() (interface{}) {
 
 	if obj.LogStreamSplunk != nil {
 		return obj.LogStreamSplunk
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj ListLogStreams200ResponseInner) GetActualInstanceValue() interface{} {
+	if obj.LogStreamAws != nil {
+		return *obj.LogStreamAws
+	}
+
+	if obj.LogStreamSplunk != nil {
+		return *obj.LogStreamSplunk
 	}
 
 	// all schemas are nil
@@ -177,5 +188,3 @@ func (v *NullableListLogStreams200ResponseInner) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

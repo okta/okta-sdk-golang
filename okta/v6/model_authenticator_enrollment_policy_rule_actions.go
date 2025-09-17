@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthenticatorEnrollmentPolicyRuleActions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorEnrollmentPolicyRuleActions{}
+
 // AuthenticatorEnrollmentPolicyRuleActions struct for AuthenticatorEnrollmentPolicyRuleActions
 type AuthenticatorEnrollmentPolicyRuleActions struct {
-	Enroll *AuthenticatorEnrollmentPolicyRuleActionEnroll `json:"enroll,omitempty"`
+	Enroll               *AuthenticatorEnrollmentPolicyRuleActionEnroll `json:"enroll,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewAuthenticatorEnrollmentPolicyRuleActionsWithDefaults() *AuthenticatorEnr
 
 // GetEnroll returns the Enroll field value if set, zero value otherwise.
 func (o *AuthenticatorEnrollmentPolicyRuleActions) GetEnroll() AuthenticatorEnrollmentPolicyRuleActionEnroll {
-	if o == nil || o.Enroll == nil {
+	if o == nil || IsNil(o.Enroll) {
 		var ret AuthenticatorEnrollmentPolicyRuleActionEnroll
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *AuthenticatorEnrollmentPolicyRuleActions) GetEnroll() AuthenticatorEnro
 // GetEnrollOk returns a tuple with the Enroll field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorEnrollmentPolicyRuleActions) GetEnrollOk() (*AuthenticatorEnrollmentPolicyRuleActionEnroll, bool) {
-	if o == nil || o.Enroll == nil {
+	if o == nil || IsNil(o.Enroll) {
 		return nil, false
 	}
 	return o.Enroll, true
@@ -72,7 +75,7 @@ func (o *AuthenticatorEnrollmentPolicyRuleActions) GetEnrollOk() (*Authenticator
 
 // HasEnroll returns a boolean if a field has been set.
 func (o *AuthenticatorEnrollmentPolicyRuleActions) HasEnroll() bool {
-	if o != nil && o.Enroll != nil {
+	if o != nil && !IsNil(o.Enroll) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *AuthenticatorEnrollmentPolicyRuleActions) SetEnroll(v AuthenticatorEnro
 }
 
 func (o AuthenticatorEnrollmentPolicyRuleActions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorEnrollmentPolicyRuleActions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Enroll != nil {
+	if !IsNil(o.Enroll) {
 		toSerialize["enroll"] = o.Enroll
 	}
 
@@ -94,27 +105,25 @@ func (o AuthenticatorEnrollmentPolicyRuleActions) MarshalJSON() ([]byte, error) 
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorEnrollmentPolicyRuleActions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorEnrollmentPolicyRuleActions) UnmarshalJSON(data []byte) (err error) {
 	varAuthenticatorEnrollmentPolicyRuleActions := _AuthenticatorEnrollmentPolicyRuleActions{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorEnrollmentPolicyRuleActions)
-	if err == nil {
-		*o = AuthenticatorEnrollmentPolicyRuleActions(varAuthenticatorEnrollmentPolicyRuleActions)
-	} else {
+	err = json.Unmarshal(data, &varAuthenticatorEnrollmentPolicyRuleActions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthenticatorEnrollmentPolicyRuleActions(varAuthenticatorEnrollmentPolicyRuleActions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "enroll")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableAuthenticatorEnrollmentPolicyRuleActions) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the AssignRoleRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AssignRoleRequest{}
+
 // AssignRoleRequest struct for AssignRoleRequest
 type AssignRoleRequest struct {
 	// Standard role type
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewAssignRoleRequestWithDefaults() *AssignRoleRequest {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *AssignRoleRequest) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *AssignRoleRequest) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssignRoleRequest) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -73,7 +76,7 @@ func (o *AssignRoleRequest) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *AssignRoleRequest) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *AssignRoleRequest) SetType(v string) {
 }
 
 func (o AssignRoleRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AssignRoleRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -95,27 +106,25 @@ func (o AssignRoleRequest) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AssignRoleRequest) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AssignRoleRequest) UnmarshalJSON(data []byte) (err error) {
 	varAssignRoleRequest := _AssignRoleRequest{}
 
-	err = json.Unmarshal(bytes, &varAssignRoleRequest)
-	if err == nil {
-		*o = AssignRoleRequest(varAssignRoleRequest)
-	} else {
+	err = json.Unmarshal(data, &varAssignRoleRequest)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AssignRoleRequest(varAssignRoleRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableAssignRoleRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

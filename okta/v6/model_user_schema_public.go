@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserSchemaPublic type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserSchemaPublic{}
+
 // UserSchemaPublic All custom profile properties are defined in a profile subschema with the resolution scope `#custom`.  > **Notes:** > * When you refer to custom profile attributes that differ only by case, name collisions occur. This includes naming custom profile attributes the same as base profile attributes, for example, `firstName` and `FirstName`. > * Certain attributes are reserved and can't be used for custom user profiles. See [Review reserved attributes](https://help.okta.com/okta_help.htm?type=oie&id=reserved-attributes).
 type UserSchemaPublic struct {
 	// The subschema name
@@ -36,7 +39,7 @@ type UserSchemaPublic struct {
 	// A collection indicating required property names
 	Required []string `json:"required,omitempty"`
 	// The object type
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewUserSchemaPublicWithDefaults() *UserSchemaPublic {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *UserSchemaPublic) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *UserSchemaPublic) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaPublic) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -79,7 +82,7 @@ func (o *UserSchemaPublic) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *UserSchemaPublic) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *UserSchemaPublic) SetId(v string) {
 
 // GetProperties returns the Properties field value if set, zero value otherwise.
 func (o *UserSchemaPublic) GetProperties() map[string]UserSchemaAttribute {
-	if o == nil || o.Properties == nil {
+	if o == nil || IsNil(o.Properties) {
 		var ret map[string]UserSchemaAttribute
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *UserSchemaPublic) GetProperties() map[string]UserSchemaAttribute {
 // GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaPublic) GetPropertiesOk() (*map[string]UserSchemaAttribute, bool) {
-	if o == nil || o.Properties == nil {
+	if o == nil || IsNil(o.Properties) {
 		return nil, false
 	}
 	return o.Properties, true
@@ -111,7 +114,7 @@ func (o *UserSchemaPublic) GetPropertiesOk() (*map[string]UserSchemaAttribute, b
 
 // HasProperties returns a boolean if a field has been set.
 func (o *UserSchemaPublic) HasProperties() bool {
-	if o != nil && o.Properties != nil {
+	if o != nil && !IsNil(o.Properties) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *UserSchemaPublic) SetProperties(v map[string]UserSchemaAttribute) {
 
 // GetRequired returns the Required field value if set, zero value otherwise.
 func (o *UserSchemaPublic) GetRequired() []string {
-	if o == nil || o.Required == nil {
+	if o == nil || IsNil(o.Required) {
 		var ret []string
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *UserSchemaPublic) GetRequired() []string {
 // GetRequiredOk returns a tuple with the Required field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaPublic) GetRequiredOk() ([]string, bool) {
-	if o == nil || o.Required == nil {
+	if o == nil || IsNil(o.Required) {
 		return nil, false
 	}
 	return o.Required, true
@@ -143,7 +146,7 @@ func (o *UserSchemaPublic) GetRequiredOk() ([]string, bool) {
 
 // HasRequired returns a boolean if a field has been set.
 func (o *UserSchemaPublic) HasRequired() bool {
-	if o != nil && o.Required != nil {
+	if o != nil && !IsNil(o.Required) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *UserSchemaPublic) SetRequired(v []string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *UserSchemaPublic) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *UserSchemaPublic) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaPublic) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -175,7 +178,7 @@ func (o *UserSchemaPublic) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *UserSchemaPublic) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -188,17 +191,25 @@ func (o *UserSchemaPublic) SetType(v string) {
 }
 
 func (o UserSchemaPublic) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserSchemaPublic) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Properties != nil {
+	if !IsNil(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
-	if o.Required != nil {
+	if !IsNil(o.Required) {
 		toSerialize["required"] = o.Required
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -206,30 +217,28 @@ func (o UserSchemaPublic) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserSchemaPublic) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserSchemaPublic) UnmarshalJSON(data []byte) (err error) {
 	varUserSchemaPublic := _UserSchemaPublic{}
 
-	err = json.Unmarshal(bytes, &varUserSchemaPublic)
-	if err == nil {
-		*o = UserSchemaPublic(varUserSchemaPublic)
-	} else {
+	err = json.Unmarshal(data, &varUserSchemaPublic)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserSchemaPublic(varUserSchemaPublic)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "properties")
 		delete(additionalProperties, "required")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -270,4 +279,3 @@ func (v *NullableUserSchemaPublic) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

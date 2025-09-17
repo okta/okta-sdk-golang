@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,26 +26,25 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type GroupPushMappingAPI interface {
 
 	/*
-	CreateGroupPushMapping Create a group push mapping
+			CreateGroupPushMapping Create a group push mapping
 
-	Creates or links a group push mapping.
+			Creates or links a group push mapping.
 
-**Note:** Either `targetGroupId` or `targetGroupName` must be provided, but not both. If `targetGroupId` is provided, it links to an existing group. If `targetGroupName` is provided, it creates a new group.
+		**Note:** Either `targetGroupId` or `targetGroupName` must be provided, but not both. If `targetGroupId` is provided, it links to an existing group. If `targetGroupName` is provided, it creates a new group.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiCreateGroupPushMappingRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appId Application ID
+			@return ApiCreateGroupPushMappingRequest
 	*/
 	CreateGroupPushMapping(ctx context.Context, appId string) ApiCreateGroupPushMappingRequest
 
@@ -54,14 +53,14 @@ type GroupPushMappingAPI interface {
 	CreateGroupPushMappingExecute(r ApiCreateGroupPushMappingRequest) (*GroupPushMapping, *APIResponse, error)
 
 	/*
-	DeleteGroupPushMapping Delete a group push mapping
+		DeleteGroupPushMapping Delete a group push mapping
 
-	Deletes a specific group push mapping. The group push mapping must be in an `INACTIVE` state.
+		Deletes a specific group push mapping. The group push mapping must be in an `INACTIVE` state.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param mappingId Group push mapping ID
-	@return ApiDeleteGroupPushMappingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param mappingId Group push mapping ID
+		@return ApiDeleteGroupPushMappingRequest
 	*/
 	DeleteGroupPushMapping(ctx context.Context, appId string, mappingId string) ApiDeleteGroupPushMappingRequest
 
@@ -69,14 +68,14 @@ type GroupPushMappingAPI interface {
 	DeleteGroupPushMappingExecute(r ApiDeleteGroupPushMappingRequest) (*APIResponse, error)
 
 	/*
-	GetGroupPushMapping Retrieve a group push mapping
+		GetGroupPushMapping Retrieve a group push mapping
 
-	Retrieves a group push mapping by ID
+		Retrieves a group push mapping by ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param mappingId Group push mapping ID
-	@return ApiGetGroupPushMappingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param mappingId Group push mapping ID
+		@return ApiGetGroupPushMappingRequest
 	*/
 	GetGroupPushMapping(ctx context.Context, appId string, mappingId string) ApiGetGroupPushMappingRequest
 
@@ -85,13 +84,13 @@ type GroupPushMappingAPI interface {
 	GetGroupPushMappingExecute(r ApiGetGroupPushMappingRequest) (*GroupPushMapping, *APIResponse, error)
 
 	/*
-	ListGroupPushMappings List all group push mappings
+		ListGroupPushMappings List all group push mappings
 
-	Lists all group push mappings with pagination support
+		Lists all group push mappings with pagination support
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiListGroupPushMappingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiListGroupPushMappingsRequest
 	*/
 	ListGroupPushMappings(ctx context.Context, appId string) ApiListGroupPushMappingsRequest
 
@@ -100,14 +99,14 @@ type GroupPushMappingAPI interface {
 	ListGroupPushMappingsExecute(r ApiListGroupPushMappingsRequest) ([]GroupPushMapping, *APIResponse, error)
 
 	/*
-	UpdateGroupPushMapping Update a group push mapping
+		UpdateGroupPushMapping Update a group push mapping
 
-	Updates the status of a group push mapping
+		Updates the status of a group push mapping
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param mappingId Group push mapping ID
-	@return ApiUpdateGroupPushMappingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param mappingId Group push mapping ID
+		@return ApiUpdateGroupPushMappingRequest
 	*/
 	UpdateGroupPushMapping(ctx context.Context, appId string, mappingId string) ApiUpdateGroupPushMappingRequest
 
@@ -120,10 +119,10 @@ type GroupPushMappingAPI interface {
 type GroupPushMappingAPIService service
 
 type ApiCreateGroupPushMappingRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GroupPushMappingAPI
-	appId string
-	body *CreateGroupPushMappingRequest
+	appId      string
+	body       *CreateGroupPushMappingRequest
 	retryCount int32
 }
 
@@ -143,21 +142,22 @@ Creates or links a group push mapping.
 
 **Note:** Either `targetGroupId` or `targetGroupName` must be provided, but not both. If `targetGroupId` is provided, it links to an existing group. If `targetGroupName` is provided, it creates a new group.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiCreateGroupPushMappingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiCreateGroupPushMappingRequest
 */
 func (a *GroupPushMappingAPIService) CreateGroupPushMapping(ctx context.Context, appId string) ApiCreateGroupPushMappingRequest {
 	return ApiCreateGroupPushMappingRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return GroupPushMapping
+//
+//	@return GroupPushMapping
 func (a *GroupPushMappingAPIService) CreateGroupPushMappingExecute(r ApiCreateGroupPushMappingRequest) (*GroupPushMapping, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -166,7 +166,7 @@ func (a *GroupPushMappingAPIService) CreateGroupPushMappingExecute(r ApiCreateGr
 		localVarReturnValue  *GroupPushMapping
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -232,9 +232,9 @@ func (a *GroupPushMappingAPIService) CreateGroupPushMappingExecute(r ApiCreateGr
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -304,18 +304,18 @@ func (a *GroupPushMappingAPIService) CreateGroupPushMappingExecute(r ApiCreateGr
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteGroupPushMappingRequest struct {
-	ctx context.Context
-	ApiService GroupPushMappingAPI
-	appId string
-	mappingId string
+	ctx               context.Context
+	ApiService        GroupPushMappingAPI
+	appId             string
+	mappingId         string
 	deleteTargetGroup *bool
-	retryCount int32
+	retryCount        int32
 }
 
 // If set to &#x60;true&#x60;, the target group is also deleted. If set to &#x60;false&#x60;, the target group isn&#39;t deleted.
@@ -333,17 +333,17 @@ DeleteGroupPushMapping Delete a group push mapping
 
 Deletes a specific group push mapping. The group push mapping must be in an `INACTIVE` state.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param mappingId Group push mapping ID
- @return ApiDeleteGroupPushMappingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param mappingId Group push mapping ID
+	@return ApiDeleteGroupPushMappingRequest
 */
 func (a *GroupPushMappingAPIService) DeleteGroupPushMapping(ctx context.Context, appId string, mappingId string) ApiDeleteGroupPushMappingRequest {
 	return ApiDeleteGroupPushMappingRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		mappingId: mappingId,
+		ctx:        ctx,
+		appId:      appId,
+		mappingId:  mappingId,
 		retryCount: 0,
 	}
 }
@@ -356,7 +356,7 @@ func (a *GroupPushMappingAPIService) DeleteGroupPushMappingExecute(r ApiDeleteGr
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -422,9 +422,9 @@ func (a *GroupPushMappingAPIService) DeleteGroupPushMappingExecute(r ApiDeleteGr
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -490,10 +490,10 @@ func (a *GroupPushMappingAPIService) DeleteGroupPushMappingExecute(r ApiDeleteGr
 }
 
 type ApiGetGroupPushMappingRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GroupPushMappingAPI
-	appId string
-	mappingId string
+	appId      string
+	mappingId  string
 	retryCount int32
 }
 
@@ -506,23 +506,24 @@ GetGroupPushMapping Retrieve a group push mapping
 
 Retrieves a group push mapping by ID
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param mappingId Group push mapping ID
- @return ApiGetGroupPushMappingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param mappingId Group push mapping ID
+	@return ApiGetGroupPushMappingRequest
 */
 func (a *GroupPushMappingAPIService) GetGroupPushMapping(ctx context.Context, appId string, mappingId string) ApiGetGroupPushMappingRequest {
 	return ApiGetGroupPushMappingRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		mappingId: mappingId,
+		ctx:        ctx,
+		appId:      appId,
+		mappingId:  mappingId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return GroupPushMapping
+//
+//	@return GroupPushMapping
 func (a *GroupPushMappingAPIService) GetGroupPushMappingExecute(r ApiGetGroupPushMappingRequest) (*GroupPushMapping, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -531,7 +532,7 @@ func (a *GroupPushMappingAPIService) GetGroupPushMappingExecute(r ApiGetGroupPus
 		localVarReturnValue  *GroupPushMapping
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -593,9 +594,9 @@ func (a *GroupPushMappingAPIService) GetGroupPushMappingExecute(r ApiGetGroupPus
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -665,21 +666,21 @@ func (a *GroupPushMappingAPIService) GetGroupPushMappingExecute(r ApiGetGroupPus
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListGroupPushMappingsRequest struct {
-	ctx context.Context
-	ApiService GroupPushMappingAPI
-	appId string
-	after *string
-	limit *int32
-	lastUpdated *string
+	ctx           context.Context
+	ApiService    GroupPushMappingAPI
+	appId         string
+	after         *string
+	limit         *int32
+	lastUpdated   *string
 	sourceGroupId *string
-	status *string
-	retryCount int32
+	status        *string
+	retryCount    int32
 }
 
 // Specifies the pagination cursor for the next page of mappings
@@ -721,21 +722,22 @@ ListGroupPushMappings List all group push mappings
 
 Lists all group push mappings with pagination support
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiListGroupPushMappingsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiListGroupPushMappingsRequest
 */
 func (a *GroupPushMappingAPIService) ListGroupPushMappings(ctx context.Context, appId string) ApiListGroupPushMappingsRequest {
 	return ApiListGroupPushMappingsRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []GroupPushMapping
+//
+//	@return []GroupPushMapping
 func (a *GroupPushMappingAPIService) ListGroupPushMappingsExecute(r ApiListGroupPushMappingsRequest) ([]GroupPushMapping, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -744,7 +746,7 @@ func (a *GroupPushMappingAPIService) ListGroupPushMappingsExecute(r ApiListGroup
 		localVarReturnValue  []GroupPushMapping
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -820,9 +822,9 @@ func (a *GroupPushMappingAPIService) ListGroupPushMappingsExecute(r ApiListGroup
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -880,17 +882,17 @@ func (a *GroupPushMappingAPIService) ListGroupPushMappingsExecute(r ApiListGroup
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateGroupPushMappingRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GroupPushMappingAPI
-	appId string
-	mappingId string
-	body *UpdateGroupPushMappingRequest
+	appId      string
+	mappingId  string
+	body       *UpdateGroupPushMappingRequest
 	retryCount int32
 }
 
@@ -908,23 +910,24 @@ UpdateGroupPushMapping Update a group push mapping
 
 Updates the status of a group push mapping
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param mappingId Group push mapping ID
- @return ApiUpdateGroupPushMappingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param mappingId Group push mapping ID
+	@return ApiUpdateGroupPushMappingRequest
 */
 func (a *GroupPushMappingAPIService) UpdateGroupPushMapping(ctx context.Context, appId string, mappingId string) ApiUpdateGroupPushMappingRequest {
 	return ApiUpdateGroupPushMappingRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		mappingId: mappingId,
+		ctx:        ctx,
+		appId:      appId,
+		mappingId:  mappingId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return GroupPushMapping
+//
+//	@return GroupPushMapping
 func (a *GroupPushMappingAPIService) UpdateGroupPushMappingExecute(r ApiUpdateGroupPushMappingRequest) (*GroupPushMapping, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
@@ -933,7 +936,7 @@ func (a *GroupPushMappingAPIService) UpdateGroupPushMappingExecute(r ApiUpdateGr
 		localVarReturnValue  *GroupPushMapping
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1000,9 +1003,9 @@ func (a *GroupPushMappingAPIService) UpdateGroupPushMappingExecute(r ApiUpdateGr
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1084,7 +1087,7 @@ func (a *GroupPushMappingAPIService) UpdateGroupPushMappingExecute(r ApiUpdateGr
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

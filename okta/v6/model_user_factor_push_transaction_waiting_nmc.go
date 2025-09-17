@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -29,12 +29,15 @@ import (
 	"strings"
 )
 
+// checks if the UserFactorPushTransactionWaitingNMC type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserFactorPushTransactionWaitingNMC{}
+
 // UserFactorPushTransactionWaitingNMC struct for UserFactorPushTransactionWaitingNMC
 type UserFactorPushTransactionWaitingNMC struct {
 	UserFactorPushTransaction
-	Profile *UserFactorPushTransactionRejectedAllOfProfile `json:"profile,omitempty"`
-	Embedded *NumberFactorChallengeEmbeddedLinks `json:"_embedded,omitempty"`
-	Links *UserFactorPushTransactionWaitingNMCAllOfLinks `json:"_links,omitempty"`
+	Profile              *UserFactorPushTransactionRejectedAllOfProfile `json:"profile,omitempty"`
+	Embedded             *NumberFactorChallengeEmbeddedLinks            `json:"_embedded,omitempty"`
+	Links                *UserFactorPushTransactionWaitingNMCAllOfLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewUserFactorPushTransactionWaitingNMCWithDefaults() *UserFactorPushTransac
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *UserFactorPushTransactionWaitingNMC) GetProfile() UserFactorPushTransactionRejectedAllOfProfile {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret UserFactorPushTransactionRejectedAllOfProfile
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *UserFactorPushTransactionWaitingNMC) GetProfile() UserFactorPushTransac
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorPushTransactionWaitingNMC) GetProfileOk() (*UserFactorPushTransactionRejectedAllOfProfile, bool) {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		return nil, false
 	}
 	return o.Profile, true
@@ -77,7 +80,7 @@ func (o *UserFactorPushTransactionWaitingNMC) GetProfileOk() (*UserFactorPushTra
 
 // HasProfile returns a boolean if a field has been set.
 func (o *UserFactorPushTransactionWaitingNMC) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *UserFactorPushTransactionWaitingNMC) SetProfile(v UserFactorPushTransac
 
 // GetEmbedded returns the Embedded field value if set, zero value otherwise.
 func (o *UserFactorPushTransactionWaitingNMC) GetEmbedded() NumberFactorChallengeEmbeddedLinks {
-	if o == nil || o.Embedded == nil {
+	if o == nil || IsNil(o.Embedded) {
 		var ret NumberFactorChallengeEmbeddedLinks
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *UserFactorPushTransactionWaitingNMC) GetEmbedded() NumberFactorChalleng
 // GetEmbeddedOk returns a tuple with the Embedded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorPushTransactionWaitingNMC) GetEmbeddedOk() (*NumberFactorChallengeEmbeddedLinks, bool) {
-	if o == nil || o.Embedded == nil {
+	if o == nil || IsNil(o.Embedded) {
 		return nil, false
 	}
 	return o.Embedded, true
@@ -109,7 +112,7 @@ func (o *UserFactorPushTransactionWaitingNMC) GetEmbeddedOk() (*NumberFactorChal
 
 // HasEmbedded returns a boolean if a field has been set.
 func (o *UserFactorPushTransactionWaitingNMC) HasEmbedded() bool {
-	if o != nil && o.Embedded != nil {
+	if o != nil && !IsNil(o.Embedded) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *UserFactorPushTransactionWaitingNMC) SetEmbedded(v NumberFactorChalleng
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *UserFactorPushTransactionWaitingNMC) GetLinks() UserFactorPushTransactionWaitingNMCAllOfLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret UserFactorPushTransactionWaitingNMCAllOfLinks
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *UserFactorPushTransactionWaitingNMC) GetLinks() UserFactorPushTransacti
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorPushTransactionWaitingNMC) GetLinksOk() (*UserFactorPushTransactionWaitingNMCAllOfLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -141,7 +144,7 @@ func (o *UserFactorPushTransactionWaitingNMC) GetLinksOk() (*UserFactorPushTrans
 
 // HasLinks returns a boolean if a field has been set.
 func (o *UserFactorPushTransactionWaitingNMC) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -154,22 +157,30 @@ func (o *UserFactorPushTransactionWaitingNMC) SetLinks(v UserFactorPushTransacti
 }
 
 func (o UserFactorPushTransactionWaitingNMC) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserFactorPushTransactionWaitingNMC) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedUserFactorPushTransaction, errUserFactorPushTransaction := json.Marshal(o.UserFactorPushTransaction)
 	if errUserFactorPushTransaction != nil {
-		return []byte{}, errUserFactorPushTransaction
+		return map[string]interface{}{}, errUserFactorPushTransaction
 	}
 	errUserFactorPushTransaction = json.Unmarshal([]byte(serializedUserFactorPushTransaction), &toSerialize)
 	if errUserFactorPushTransaction != nil {
-		return []byte{}, errUserFactorPushTransaction
+		return map[string]interface{}{}, errUserFactorPushTransaction
 	}
-	if o.Profile != nil {
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
-	if o.Embedded != nil {
+	if !IsNil(o.Embedded) {
 		toSerialize["_embedded"] = o.Embedded
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -177,19 +188,19 @@ func (o UserFactorPushTransactionWaitingNMC) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserFactorPushTransactionWaitingNMC) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserFactorPushTransactionWaitingNMC) UnmarshalJSON(data []byte) (err error) {
 	type UserFactorPushTransactionWaitingNMCWithoutEmbeddedStruct struct {
-		Profile *UserFactorPushTransactionRejectedAllOfProfile `json:"profile,omitempty"`
-		Embedded *NumberFactorChallengeEmbeddedLinks `json:"_embedded,omitempty"`
-		Links *UserFactorPushTransactionWaitingNMCAllOfLinks `json:"_links,omitempty"`
+		Profile  *UserFactorPushTransactionRejectedAllOfProfile `json:"profile,omitempty"`
+		Embedded *NumberFactorChallengeEmbeddedLinks            `json:"_embedded,omitempty"`
+		Links    *UserFactorPushTransactionWaitingNMCAllOfLinks `json:"_links,omitempty"`
 	}
 
 	varUserFactorPushTransactionWaitingNMCWithoutEmbeddedStruct := UserFactorPushTransactionWaitingNMCWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varUserFactorPushTransactionWaitingNMCWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varUserFactorPushTransactionWaitingNMCWithoutEmbeddedStruct)
 	if err == nil {
 		varUserFactorPushTransactionWaitingNMC := _UserFactorPushTransactionWaitingNMC{}
 		varUserFactorPushTransactionWaitingNMC.Profile = varUserFactorPushTransactionWaitingNMCWithoutEmbeddedStruct.Profile
@@ -202,7 +213,7 @@ func (o *UserFactorPushTransactionWaitingNMC) UnmarshalJSON(bytes []byte) (err e
 
 	varUserFactorPushTransactionWaitingNMC := _UserFactorPushTransactionWaitingNMC{}
 
-	err = json.Unmarshal(bytes, &varUserFactorPushTransactionWaitingNMC)
+	err = json.Unmarshal(data, &varUserFactorPushTransactionWaitingNMC)
 	if err == nil {
 		o.UserFactorPushTransaction = varUserFactorPushTransactionWaitingNMC.UserFactorPushTransaction
 	} else {
@@ -211,8 +222,7 @@ func (o *UserFactorPushTransactionWaitingNMC) UnmarshalJSON(bytes []byte) (err e
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "profile")
 		delete(additionalProperties, "_embedded")
 		delete(additionalProperties, "_links")
@@ -236,8 +246,6 @@ func (o *UserFactorPushTransactionWaitingNMC) UnmarshalJSON(bytes []byte) (err e
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -278,4 +286,3 @@ func (v *NullableUserFactorPushTransactionWaitingNMC) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

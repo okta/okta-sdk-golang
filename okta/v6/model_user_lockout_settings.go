@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserLockoutSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserLockoutSettings{}
+
 // UserLockoutSettings struct for UserLockoutSettings
 type UserLockoutSettings struct {
 	// Prevents brute-force lockout from unknown devices for the password authenticator.
 	PreventBruteForceLockoutFromUnknownDevices *bool `json:"preventBruteForceLockoutFromUnknownDevices,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties                       map[string]interface{}
 }
 
 type _UserLockoutSettings UserLockoutSettings
@@ -59,7 +62,7 @@ func NewUserLockoutSettingsWithDefaults() *UserLockoutSettings {
 
 // GetPreventBruteForceLockoutFromUnknownDevices returns the PreventBruteForceLockoutFromUnknownDevices field value if set, zero value otherwise.
 func (o *UserLockoutSettings) GetPreventBruteForceLockoutFromUnknownDevices() bool {
-	if o == nil || o.PreventBruteForceLockoutFromUnknownDevices == nil {
+	if o == nil || IsNil(o.PreventBruteForceLockoutFromUnknownDevices) {
 		var ret bool
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *UserLockoutSettings) GetPreventBruteForceLockoutFromUnknownDevices() bo
 // GetPreventBruteForceLockoutFromUnknownDevicesOk returns a tuple with the PreventBruteForceLockoutFromUnknownDevices field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserLockoutSettings) GetPreventBruteForceLockoutFromUnknownDevicesOk() (*bool, bool) {
-	if o == nil || o.PreventBruteForceLockoutFromUnknownDevices == nil {
+	if o == nil || IsNil(o.PreventBruteForceLockoutFromUnknownDevices) {
 		return nil, false
 	}
 	return o.PreventBruteForceLockoutFromUnknownDevices, true
@@ -77,7 +80,7 @@ func (o *UserLockoutSettings) GetPreventBruteForceLockoutFromUnknownDevicesOk() 
 
 // HasPreventBruteForceLockoutFromUnknownDevices returns a boolean if a field has been set.
 func (o *UserLockoutSettings) HasPreventBruteForceLockoutFromUnknownDevices() bool {
-	if o != nil && o.PreventBruteForceLockoutFromUnknownDevices != nil {
+	if o != nil && !IsNil(o.PreventBruteForceLockoutFromUnknownDevices) {
 		return true
 	}
 
@@ -90,8 +93,16 @@ func (o *UserLockoutSettings) SetPreventBruteForceLockoutFromUnknownDevices(v bo
 }
 
 func (o UserLockoutSettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserLockoutSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.PreventBruteForceLockoutFromUnknownDevices != nil {
+	if !IsNil(o.PreventBruteForceLockoutFromUnknownDevices) {
 		toSerialize["preventBruteForceLockoutFromUnknownDevices"] = o.PreventBruteForceLockoutFromUnknownDevices
 	}
 
@@ -99,27 +110,25 @@ func (o UserLockoutSettings) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserLockoutSettings) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserLockoutSettings) UnmarshalJSON(data []byte) (err error) {
 	varUserLockoutSettings := _UserLockoutSettings{}
 
-	err = json.Unmarshal(bytes, &varUserLockoutSettings)
-	if err == nil {
-		*o = UserLockoutSettings(varUserLockoutSettings)
-	} else {
+	err = json.Unmarshal(data, &varUserLockoutSettings)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserLockoutSettings(varUserLockoutSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "preventBruteForceLockoutFromUnknownDevices")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -160,4 +169,3 @@ func (v *NullableUserLockoutSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

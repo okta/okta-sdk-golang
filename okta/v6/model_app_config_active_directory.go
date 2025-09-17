@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -30,6 +30,9 @@ import (
 	"strings"
 )
 
+// checks if the AppConfigActiveDirectory type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AppConfigActiveDirectory{}
+
 // AppConfigActiveDirectory struct for AppConfigActiveDirectory
 type AppConfigActiveDirectory struct {
 	AppConfig
@@ -40,7 +43,7 @@ type AppConfigActiveDirectory struct {
 	// The type of the group in Active Directory
 	GroupType string `json:"groupType"`
 	// The SAM account name of the group in Active Directory
-	SamAccountName string `json:"samAccountName"`
+	SamAccountName       string `json:"samAccountName"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -161,36 +164,61 @@ func (o *AppConfigActiveDirectory) SetSamAccountName(v string) {
 }
 
 func (o AppConfigActiveDirectory) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AppConfigActiveDirectory) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedAppConfig, errAppConfig := json.Marshal(o.AppConfig)
 	if errAppConfig != nil {
-		return []byte{}, errAppConfig
+		return map[string]interface{}{}, errAppConfig
 	}
 	errAppConfig = json.Unmarshal([]byte(serializedAppConfig), &toSerialize)
 	if errAppConfig != nil {
-		return []byte{}, errAppConfig
+		return map[string]interface{}{}, errAppConfig
 	}
-	if true {
-		toSerialize["distinguishedName"] = o.DistinguishedName
-	}
-	if true {
-		toSerialize["groupScope"] = o.GroupScope
-	}
-	if true {
-		toSerialize["groupType"] = o.GroupType
-	}
-	if true {
-		toSerialize["samAccountName"] = o.SamAccountName
-	}
+	toSerialize["distinguishedName"] = o.DistinguishedName
+	toSerialize["groupScope"] = o.GroupScope
+	toSerialize["groupType"] = o.GroupType
+	toSerialize["samAccountName"] = o.SamAccountName
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AppConfigActiveDirectory) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AppConfigActiveDirectory) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"distinguishedName",
+		"groupScope",
+		"groupType",
+		"samAccountName",
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	type AppConfigActiveDirectoryWithoutEmbeddedStruct struct {
 		// The distinguished name of the group in Active Directory
 		DistinguishedName string `json:"distinguishedName"`
@@ -204,7 +232,7 @@ func (o *AppConfigActiveDirectory) UnmarshalJSON(bytes []byte) (err error) {
 
 	varAppConfigActiveDirectoryWithoutEmbeddedStruct := AppConfigActiveDirectoryWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varAppConfigActiveDirectoryWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varAppConfigActiveDirectoryWithoutEmbeddedStruct)
 	if err == nil {
 		varAppConfigActiveDirectory := _AppConfigActiveDirectory{}
 		varAppConfigActiveDirectory.DistinguishedName = varAppConfigActiveDirectoryWithoutEmbeddedStruct.DistinguishedName
@@ -218,7 +246,7 @@ func (o *AppConfigActiveDirectory) UnmarshalJSON(bytes []byte) (err error) {
 
 	varAppConfigActiveDirectory := _AppConfigActiveDirectory{}
 
-	err = json.Unmarshal(bytes, &varAppConfigActiveDirectory)
+	err = json.Unmarshal(data, &varAppConfigActiveDirectory)
 	if err == nil {
 		o.AppConfig = varAppConfigActiveDirectory.AppConfig
 	} else {
@@ -227,8 +255,7 @@ func (o *AppConfigActiveDirectory) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "distinguishedName")
 		delete(additionalProperties, "groupScope")
 		delete(additionalProperties, "groupType")
@@ -253,8 +280,6 @@ func (o *AppConfigActiveDirectory) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -295,4 +320,3 @@ func (v *NullableAppConfigActiveDirectory) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

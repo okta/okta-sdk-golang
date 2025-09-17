@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AAGUIDAuthenticatorCharacteristics type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AAGUIDAuthenticatorCharacteristics{}
+
 // AAGUIDAuthenticatorCharacteristics Contains additional properties about custom AAGUID.
 type AAGUIDAuthenticatorCharacteristics struct {
 	// Indicates whether the authenticator meets Federal Information Processing Standards (FIPS) compliance requirements
@@ -34,7 +37,7 @@ type AAGUIDAuthenticatorCharacteristics struct {
 	// Indicates whether the authenticator stores the private key on a hardware component
 	HardwareProtected *bool `json:"hardwareProtected,omitempty"`
 	// Indicates whether the custom AAGUID is built into the authenticator (`true`) or if it's a separate, external authenticator
-	PlatformAttached *bool `json:"platformAttached,omitempty"`
+	PlatformAttached     *bool `json:"platformAttached,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewAAGUIDAuthenticatorCharacteristicsWithDefaults() *AAGUIDAuthenticatorCha
 
 // GetFipsCompliant returns the FipsCompliant field value if set, zero value otherwise.
 func (o *AAGUIDAuthenticatorCharacteristics) GetFipsCompliant() bool {
-	if o == nil || o.FipsCompliant == nil {
+	if o == nil || IsNil(o.FipsCompliant) {
 		var ret bool
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *AAGUIDAuthenticatorCharacteristics) GetFipsCompliant() bool {
 // GetFipsCompliantOk returns a tuple with the FipsCompliant field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AAGUIDAuthenticatorCharacteristics) GetFipsCompliantOk() (*bool, bool) {
-	if o == nil || o.FipsCompliant == nil {
+	if o == nil || IsNil(o.FipsCompliant) {
 		return nil, false
 	}
 	return o.FipsCompliant, true
@@ -77,7 +80,7 @@ func (o *AAGUIDAuthenticatorCharacteristics) GetFipsCompliantOk() (*bool, bool) 
 
 // HasFipsCompliant returns a boolean if a field has been set.
 func (o *AAGUIDAuthenticatorCharacteristics) HasFipsCompliant() bool {
-	if o != nil && o.FipsCompliant != nil {
+	if o != nil && !IsNil(o.FipsCompliant) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *AAGUIDAuthenticatorCharacteristics) SetFipsCompliant(v bool) {
 
 // GetHardwareProtected returns the HardwareProtected field value if set, zero value otherwise.
 func (o *AAGUIDAuthenticatorCharacteristics) GetHardwareProtected() bool {
-	if o == nil || o.HardwareProtected == nil {
+	if o == nil || IsNil(o.HardwareProtected) {
 		var ret bool
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *AAGUIDAuthenticatorCharacteristics) GetHardwareProtected() bool {
 // GetHardwareProtectedOk returns a tuple with the HardwareProtected field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AAGUIDAuthenticatorCharacteristics) GetHardwareProtectedOk() (*bool, bool) {
-	if o == nil || o.HardwareProtected == nil {
+	if o == nil || IsNil(o.HardwareProtected) {
 		return nil, false
 	}
 	return o.HardwareProtected, true
@@ -109,7 +112,7 @@ func (o *AAGUIDAuthenticatorCharacteristics) GetHardwareProtectedOk() (*bool, bo
 
 // HasHardwareProtected returns a boolean if a field has been set.
 func (o *AAGUIDAuthenticatorCharacteristics) HasHardwareProtected() bool {
-	if o != nil && o.HardwareProtected != nil {
+	if o != nil && !IsNil(o.HardwareProtected) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *AAGUIDAuthenticatorCharacteristics) SetHardwareProtected(v bool) {
 
 // GetPlatformAttached returns the PlatformAttached field value if set, zero value otherwise.
 func (o *AAGUIDAuthenticatorCharacteristics) GetPlatformAttached() bool {
-	if o == nil || o.PlatformAttached == nil {
+	if o == nil || IsNil(o.PlatformAttached) {
 		var ret bool
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *AAGUIDAuthenticatorCharacteristics) GetPlatformAttached() bool {
 // GetPlatformAttachedOk returns a tuple with the PlatformAttached field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AAGUIDAuthenticatorCharacteristics) GetPlatformAttachedOk() (*bool, bool) {
-	if o == nil || o.PlatformAttached == nil {
+	if o == nil || IsNil(o.PlatformAttached) {
 		return nil, false
 	}
 	return o.PlatformAttached, true
@@ -141,7 +144,7 @@ func (o *AAGUIDAuthenticatorCharacteristics) GetPlatformAttachedOk() (*bool, boo
 
 // HasPlatformAttached returns a boolean if a field has been set.
 func (o *AAGUIDAuthenticatorCharacteristics) HasPlatformAttached() bool {
-	if o != nil && o.PlatformAttached != nil {
+	if o != nil && !IsNil(o.PlatformAttached) {
 		return true
 	}
 
@@ -154,14 +157,22 @@ func (o *AAGUIDAuthenticatorCharacteristics) SetPlatformAttached(v bool) {
 }
 
 func (o AAGUIDAuthenticatorCharacteristics) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AAGUIDAuthenticatorCharacteristics) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.FipsCompliant != nil {
+	if !IsNil(o.FipsCompliant) {
 		toSerialize["fipsCompliant"] = o.FipsCompliant
 	}
-	if o.HardwareProtected != nil {
+	if !IsNil(o.HardwareProtected) {
 		toSerialize["hardwareProtected"] = o.HardwareProtected
 	}
-	if o.PlatformAttached != nil {
+	if !IsNil(o.PlatformAttached) {
 		toSerialize["platformAttached"] = o.PlatformAttached
 	}
 
@@ -169,29 +180,27 @@ func (o AAGUIDAuthenticatorCharacteristics) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AAGUIDAuthenticatorCharacteristics) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AAGUIDAuthenticatorCharacteristics) UnmarshalJSON(data []byte) (err error) {
 	varAAGUIDAuthenticatorCharacteristics := _AAGUIDAuthenticatorCharacteristics{}
 
-	err = json.Unmarshal(bytes, &varAAGUIDAuthenticatorCharacteristics)
-	if err == nil {
-		*o = AAGUIDAuthenticatorCharacteristics(varAAGUIDAuthenticatorCharacteristics)
-	} else {
+	err = json.Unmarshal(data, &varAAGUIDAuthenticatorCharacteristics)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AAGUIDAuthenticatorCharacteristics(varAAGUIDAuthenticatorCharacteristics)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "fipsCompliant")
 		delete(additionalProperties, "hardwareProtected")
 		delete(additionalProperties, "platformAttached")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -232,4 +241,3 @@ func (v *NullableAAGUIDAuthenticatorCharacteristics) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

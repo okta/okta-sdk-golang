@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
-// OrgCAPTCHASettings 
+// checks if the OrgCAPTCHASettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrgCAPTCHASettings{}
+
+// OrgCAPTCHASettings
 type OrgCAPTCHASettings struct {
 	// The unique key of the associated CAPTCHA instance
 	CaptchaId *string `json:"captchaId,omitempty"`
 	// An array of pages that have CAPTCHA enabled
-	EnabledPages []string `json:"enabledPages,omitempty"`
-	Links *OrgCAPTCHASettingsLinks `json:"_links,omitempty"`
+	EnabledPages         []string                 `json:"enabledPages,omitempty"`
+	Links                *OrgCAPTCHASettingsLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewOrgCAPTCHASettingsWithDefaults() *OrgCAPTCHASettings {
 
 // GetCaptchaId returns the CaptchaId field value if set, zero value otherwise.
 func (o *OrgCAPTCHASettings) GetCaptchaId() string {
-	if o == nil || o.CaptchaId == nil {
+	if o == nil || IsNil(o.CaptchaId) {
 		var ret string
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *OrgCAPTCHASettings) GetCaptchaId() string {
 // GetCaptchaIdOk returns a tuple with the CaptchaId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgCAPTCHASettings) GetCaptchaIdOk() (*string, bool) {
-	if o == nil || o.CaptchaId == nil {
+	if o == nil || IsNil(o.CaptchaId) {
 		return nil, false
 	}
 	return o.CaptchaId, true
@@ -76,7 +79,7 @@ func (o *OrgCAPTCHASettings) GetCaptchaIdOk() (*string, bool) {
 
 // HasCaptchaId returns a boolean if a field has been set.
 func (o *OrgCAPTCHASettings) HasCaptchaId() bool {
-	if o != nil && o.CaptchaId != nil {
+	if o != nil && !IsNil(o.CaptchaId) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *OrgCAPTCHASettings) SetCaptchaId(v string) {
 
 // GetEnabledPages returns the EnabledPages field value if set, zero value otherwise.
 func (o *OrgCAPTCHASettings) GetEnabledPages() []string {
-	if o == nil || o.EnabledPages == nil {
+	if o == nil || IsNil(o.EnabledPages) {
 		var ret []string
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *OrgCAPTCHASettings) GetEnabledPages() []string {
 // GetEnabledPagesOk returns a tuple with the EnabledPages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgCAPTCHASettings) GetEnabledPagesOk() ([]string, bool) {
-	if o == nil || o.EnabledPages == nil {
+	if o == nil || IsNil(o.EnabledPages) {
 		return nil, false
 	}
 	return o.EnabledPages, true
@@ -108,7 +111,7 @@ func (o *OrgCAPTCHASettings) GetEnabledPagesOk() ([]string, bool) {
 
 // HasEnabledPages returns a boolean if a field has been set.
 func (o *OrgCAPTCHASettings) HasEnabledPages() bool {
-	if o != nil && o.EnabledPages != nil {
+	if o != nil && !IsNil(o.EnabledPages) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *OrgCAPTCHASettings) SetEnabledPages(v []string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *OrgCAPTCHASettings) GetLinks() OrgCAPTCHASettingsLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret OrgCAPTCHASettingsLinks
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *OrgCAPTCHASettings) GetLinks() OrgCAPTCHASettingsLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgCAPTCHASettings) GetLinksOk() (*OrgCAPTCHASettingsLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -140,7 +143,7 @@ func (o *OrgCAPTCHASettings) GetLinksOk() (*OrgCAPTCHASettingsLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *OrgCAPTCHASettings) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -153,14 +156,22 @@ func (o *OrgCAPTCHASettings) SetLinks(v OrgCAPTCHASettingsLinks) {
 }
 
 func (o OrgCAPTCHASettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OrgCAPTCHASettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.CaptchaId != nil {
+	if !IsNil(o.CaptchaId) {
 		toSerialize["captchaId"] = o.CaptchaId
 	}
-	if o.EnabledPages != nil {
+	if !IsNil(o.EnabledPages) {
 		toSerialize["enabledPages"] = o.EnabledPages
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -168,29 +179,27 @@ func (o OrgCAPTCHASettings) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OrgCAPTCHASettings) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OrgCAPTCHASettings) UnmarshalJSON(data []byte) (err error) {
 	varOrgCAPTCHASettings := _OrgCAPTCHASettings{}
 
-	err = json.Unmarshal(bytes, &varOrgCAPTCHASettings)
-	if err == nil {
-		*o = OrgCAPTCHASettings(varOrgCAPTCHASettings)
-	} else {
+	err = json.Unmarshal(data, &varOrgCAPTCHASettings)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OrgCAPTCHASettings(varOrgCAPTCHASettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "captchaId")
 		delete(additionalProperties, "enabledPages")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -231,4 +240,3 @@ func (v *NullableOrgCAPTCHASettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserCredentialsWritable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserCredentialsWritable{}
+
 // UserCredentialsWritable Specifies primary authentication and recovery credentials for a user. Credential types and requirements vary depending on the provider and security policy of the org.
 type UserCredentialsWritable struct {
-	Password *PasswordCredential `json:"password,omitempty"`
-	Provider *AuthenticationProviderWritable `json:"provider,omitempty"`
-	RecoveryQuestion *RecoveryQuestionCredential `json:"recovery_question,omitempty"`
+	Password             *PasswordCredential             `json:"password,omitempty"`
+	Provider             *AuthenticationProviderWritable `json:"provider,omitempty"`
+	RecoveryQuestion     *RecoveryQuestionCredential     `json:"recovery_question,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewUserCredentialsWritableWithDefaults() *UserCredentialsWritable {
 
 // GetPassword returns the Password field value if set, zero value otherwise.
 func (o *UserCredentialsWritable) GetPassword() PasswordCredential {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		var ret PasswordCredential
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *UserCredentialsWritable) GetPassword() PasswordCredential {
 // GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserCredentialsWritable) GetPasswordOk() (*PasswordCredential, bool) {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		return nil, false
 	}
 	return o.Password, true
@@ -74,7 +77,7 @@ func (o *UserCredentialsWritable) GetPasswordOk() (*PasswordCredential, bool) {
 
 // HasPassword returns a boolean if a field has been set.
 func (o *UserCredentialsWritable) HasPassword() bool {
-	if o != nil && o.Password != nil {
+	if o != nil && !IsNil(o.Password) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *UserCredentialsWritable) SetPassword(v PasswordCredential) {
 
 // GetProvider returns the Provider field value if set, zero value otherwise.
 func (o *UserCredentialsWritable) GetProvider() AuthenticationProviderWritable {
-	if o == nil || o.Provider == nil {
+	if o == nil || IsNil(o.Provider) {
 		var ret AuthenticationProviderWritable
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *UserCredentialsWritable) GetProvider() AuthenticationProviderWritable {
 // GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserCredentialsWritable) GetProviderOk() (*AuthenticationProviderWritable, bool) {
-	if o == nil || o.Provider == nil {
+	if o == nil || IsNil(o.Provider) {
 		return nil, false
 	}
 	return o.Provider, true
@@ -106,7 +109,7 @@ func (o *UserCredentialsWritable) GetProviderOk() (*AuthenticationProviderWritab
 
 // HasProvider returns a boolean if a field has been set.
 func (o *UserCredentialsWritable) HasProvider() bool {
-	if o != nil && o.Provider != nil {
+	if o != nil && !IsNil(o.Provider) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *UserCredentialsWritable) SetProvider(v AuthenticationProviderWritable) 
 
 // GetRecoveryQuestion returns the RecoveryQuestion field value if set, zero value otherwise.
 func (o *UserCredentialsWritable) GetRecoveryQuestion() RecoveryQuestionCredential {
-	if o == nil || o.RecoveryQuestion == nil {
+	if o == nil || IsNil(o.RecoveryQuestion) {
 		var ret RecoveryQuestionCredential
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *UserCredentialsWritable) GetRecoveryQuestion() RecoveryQuestionCredenti
 // GetRecoveryQuestionOk returns a tuple with the RecoveryQuestion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserCredentialsWritable) GetRecoveryQuestionOk() (*RecoveryQuestionCredential, bool) {
-	if o == nil || o.RecoveryQuestion == nil {
+	if o == nil || IsNil(o.RecoveryQuestion) {
 		return nil, false
 	}
 	return o.RecoveryQuestion, true
@@ -138,7 +141,7 @@ func (o *UserCredentialsWritable) GetRecoveryQuestionOk() (*RecoveryQuestionCred
 
 // HasRecoveryQuestion returns a boolean if a field has been set.
 func (o *UserCredentialsWritable) HasRecoveryQuestion() bool {
-	if o != nil && o.RecoveryQuestion != nil {
+	if o != nil && !IsNil(o.RecoveryQuestion) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *UserCredentialsWritable) SetRecoveryQuestion(v RecoveryQuestionCredenti
 }
 
 func (o UserCredentialsWritable) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserCredentialsWritable) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Password != nil {
+	if !IsNil(o.Password) {
 		toSerialize["password"] = o.Password
 	}
-	if o.Provider != nil {
+	if !IsNil(o.Provider) {
 		toSerialize["provider"] = o.Provider
 	}
-	if o.RecoveryQuestion != nil {
+	if !IsNil(o.RecoveryQuestion) {
 		toSerialize["recovery_question"] = o.RecoveryQuestion
 	}
 
@@ -166,29 +177,27 @@ func (o UserCredentialsWritable) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserCredentialsWritable) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserCredentialsWritable) UnmarshalJSON(data []byte) (err error) {
 	varUserCredentialsWritable := _UserCredentialsWritable{}
 
-	err = json.Unmarshal(bytes, &varUserCredentialsWritable)
-	if err == nil {
-		*o = UserCredentialsWritable(varUserCredentialsWritable)
-	} else {
+	err = json.Unmarshal(data, &varUserCredentialsWritable)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserCredentialsWritable(varUserCredentialsWritable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "password")
 		delete(additionalProperties, "provider")
 		delete(additionalProperties, "recovery_question")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullableUserCredentialsWritable) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

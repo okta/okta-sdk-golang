@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the FederatedClaimRequestBody type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FederatedClaimRequestBody{}
+
 // FederatedClaimRequestBody struct for FederatedClaimRequestBody
 type FederatedClaimRequestBody struct {
 	// The Okta Expression Language expression to be evaluated at runtime
 	Expression *string `json:"expression,omitempty"`
 	// The name of the claim to be used in the produced token
-	Name *string `json:"name,omitempty"`
+	Name                 *string `json:"name,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewFederatedClaimRequestBodyWithDefaults() *FederatedClaimRequestBody {
 
 // GetExpression returns the Expression field value if set, zero value otherwise.
 func (o *FederatedClaimRequestBody) GetExpression() string {
-	if o == nil || o.Expression == nil {
+	if o == nil || IsNil(o.Expression) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *FederatedClaimRequestBody) GetExpression() string {
 // GetExpressionOk returns a tuple with the Expression field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FederatedClaimRequestBody) GetExpressionOk() (*string, bool) {
-	if o == nil || o.Expression == nil {
+	if o == nil || IsNil(o.Expression) {
 		return nil, false
 	}
 	return o.Expression, true
@@ -75,7 +78,7 @@ func (o *FederatedClaimRequestBody) GetExpressionOk() (*string, bool) {
 
 // HasExpression returns a boolean if a field has been set.
 func (o *FederatedClaimRequestBody) HasExpression() bool {
-	if o != nil && o.Expression != nil {
+	if o != nil && !IsNil(o.Expression) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *FederatedClaimRequestBody) SetExpression(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *FederatedClaimRequestBody) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *FederatedClaimRequestBody) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FederatedClaimRequestBody) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -107,7 +110,7 @@ func (o *FederatedClaimRequestBody) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *FederatedClaimRequestBody) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *FederatedClaimRequestBody) SetName(v string) {
 }
 
 func (o FederatedClaimRequestBody) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o FederatedClaimRequestBody) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Expression != nil {
+	if !IsNil(o.Expression) {
 		toSerialize["expression"] = o.Expression
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
 
@@ -132,28 +143,26 @@ func (o FederatedClaimRequestBody) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *FederatedClaimRequestBody) UnmarshalJSON(bytes []byte) (err error) {
+func (o *FederatedClaimRequestBody) UnmarshalJSON(data []byte) (err error) {
 	varFederatedClaimRequestBody := _FederatedClaimRequestBody{}
 
-	err = json.Unmarshal(bytes, &varFederatedClaimRequestBody)
-	if err == nil {
-		*o = FederatedClaimRequestBody(varFederatedClaimRequestBody)
-	} else {
+	err = json.Unmarshal(data, &varFederatedClaimRequestBody)
+
+	if err != nil {
 		return err
 	}
 
+	*o = FederatedClaimRequestBody(varFederatedClaimRequestBody)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "expression")
 		delete(additionalProperties, "name")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableFederatedClaimRequestBody) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

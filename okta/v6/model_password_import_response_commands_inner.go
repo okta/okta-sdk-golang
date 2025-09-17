@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the PasswordImportResponseCommandsInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordImportResponseCommandsInner{}
+
 // PasswordImportResponseCommandsInner struct for PasswordImportResponseCommandsInner
 type PasswordImportResponseCommandsInner struct {
 	// The location where you specify the command. For the password import inline hook, there's only one command, `com.okta.action.update`.
-	Type interface{} `json:"type,omitempty"`
-	Value *PasswordImportResponseCommandsInnerValue `json:"value,omitempty"`
+	Type                 interface{}                               `json:"type,omitempty"`
+	Value                *PasswordImportResponseCommandsInnerValue `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -67,7 +70,7 @@ func (o *PasswordImportResponseCommandsInner) GetType() interface{} {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PasswordImportResponseCommandsInner) GetTypeOk() (*interface{}, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return &o.Type, true
@@ -75,7 +78,7 @@ func (o *PasswordImportResponseCommandsInner) GetTypeOk() (*interface{}, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *PasswordImportResponseCommandsInner) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *PasswordImportResponseCommandsInner) SetType(v interface{}) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *PasswordImportResponseCommandsInner) GetValue() PasswordImportResponseCommandsInnerValue {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret PasswordImportResponseCommandsInnerValue
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *PasswordImportResponseCommandsInner) GetValue() PasswordImportResponseC
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordImportResponseCommandsInner) GetValueOk() (*PasswordImportResponseCommandsInnerValue, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -107,7 +110,7 @@ func (o *PasswordImportResponseCommandsInner) GetValueOk() (*PasswordImportRespo
 
 // HasValue returns a boolean if a field has been set.
 func (o *PasswordImportResponseCommandsInner) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *PasswordImportResponseCommandsInner) SetValue(v PasswordImportResponseC
 }
 
 func (o PasswordImportResponseCommandsInner) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordImportResponseCommandsInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Type != nil {
 		toSerialize["type"] = o.Type
 	}
-	if o.Value != nil {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
 
@@ -132,28 +143,26 @@ func (o PasswordImportResponseCommandsInner) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordImportResponseCommandsInner) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordImportResponseCommandsInner) UnmarshalJSON(data []byte) (err error) {
 	varPasswordImportResponseCommandsInner := _PasswordImportResponseCommandsInner{}
 
-	err = json.Unmarshal(bytes, &varPasswordImportResponseCommandsInner)
-	if err == nil {
-		*o = PasswordImportResponseCommandsInner(varPasswordImportResponseCommandsInner)
-	} else {
+	err = json.Unmarshal(data, &varPasswordImportResponseCommandsInner)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PasswordImportResponseCommandsInner(varPasswordImportResponseCommandsInner)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "value")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullablePasswordImportResponseCommandsInner) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

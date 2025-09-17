@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the LogOutcome type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LogOutcome{}
+
 // LogOutcome struct for LogOutcome
 type LogOutcome struct {
 	// Reason for the result, for example, `INVALID_CREDENTIALS`
 	Reason *string `json:"reason,omitempty"`
 	// Result of the action
-	Result *string `json:"result,omitempty"`
+	Result               *string `json:"result,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewLogOutcomeWithDefaults() *LogOutcome {
 
 // GetReason returns the Reason field value if set, zero value otherwise.
 func (o *LogOutcome) GetReason() string {
-	if o == nil || o.Reason == nil {
+	if o == nil || IsNil(o.Reason) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *LogOutcome) GetReason() string {
 // GetReasonOk returns a tuple with the Reason field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogOutcome) GetReasonOk() (*string, bool) {
-	if o == nil || o.Reason == nil {
+	if o == nil || IsNil(o.Reason) {
 		return nil, false
 	}
 	return o.Reason, true
@@ -75,7 +78,7 @@ func (o *LogOutcome) GetReasonOk() (*string, bool) {
 
 // HasReason returns a boolean if a field has been set.
 func (o *LogOutcome) HasReason() bool {
-	if o != nil && o.Reason != nil {
+	if o != nil && !IsNil(o.Reason) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *LogOutcome) SetReason(v string) {
 
 // GetResult returns the Result field value if set, zero value otherwise.
 func (o *LogOutcome) GetResult() string {
-	if o == nil || o.Result == nil {
+	if o == nil || IsNil(o.Result) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *LogOutcome) GetResult() string {
 // GetResultOk returns a tuple with the Result field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogOutcome) GetResultOk() (*string, bool) {
-	if o == nil || o.Result == nil {
+	if o == nil || IsNil(o.Result) {
 		return nil, false
 	}
 	return o.Result, true
@@ -107,7 +110,7 @@ func (o *LogOutcome) GetResultOk() (*string, bool) {
 
 // HasResult returns a boolean if a field has been set.
 func (o *LogOutcome) HasResult() bool {
-	if o != nil && o.Result != nil {
+	if o != nil && !IsNil(o.Result) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *LogOutcome) SetResult(v string) {
 }
 
 func (o LogOutcome) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LogOutcome) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Reason != nil {
+	if !IsNil(o.Reason) {
 		toSerialize["reason"] = o.Reason
 	}
-	if o.Result != nil {
+	if !IsNil(o.Result) {
 		toSerialize["result"] = o.Result
 	}
 
@@ -132,28 +143,26 @@ func (o LogOutcome) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LogOutcome) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LogOutcome) UnmarshalJSON(data []byte) (err error) {
 	varLogOutcome := _LogOutcome{}
 
-	err = json.Unmarshal(bytes, &varLogOutcome)
-	if err == nil {
-		*o = LogOutcome(varLogOutcome)
-	} else {
+	err = json.Unmarshal(data, &varLogOutcome)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LogOutcome(varLogOutcome)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "reason")
 		delete(additionalProperties, "result")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableLogOutcome) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

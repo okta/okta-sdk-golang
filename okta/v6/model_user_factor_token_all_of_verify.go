@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,11 +28,9 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
 // UserFactorTokenAllOfVerify - struct for UserFactorTokenAllOfVerify
 type UserFactorTokenAllOfVerify struct {
-	UserFactorTokenVerifyRSA *UserFactorTokenVerifyRSA
+	UserFactorTokenVerifyRSA      *UserFactorTokenVerifyRSA
 	UserFactorTokenVerifySymantec *UserFactorTokenVerifySymantec
 }
 
@@ -50,48 +48,47 @@ func UserFactorTokenVerifySymantecAsUserFactorTokenAllOfVerify(v *UserFactorToke
 	}
 }
 
-
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *UserFactorTokenAllOfVerify) UnmarshalJSON(data []byte) error {
 	var err error
-        match := 0
-        // try to unmarshal data into UserFactorTokenVerifyRSA
-        err = json.Unmarshal(data, &dst.UserFactorTokenVerifyRSA)
-        if err == nil {
-                jsonUserFactorTokenVerifyRSA, _ := json.Marshal(dst.UserFactorTokenVerifyRSA)
-                if string(jsonUserFactorTokenVerifyRSA) == "{}" { // empty struct
-                        dst.UserFactorTokenVerifyRSA = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.UserFactorTokenVerifyRSA = nil
-        }
+	match := 0
+	// try to unmarshal data into UserFactorTokenVerifyRSA
+	err = json.Unmarshal(data, &dst.UserFactorTokenVerifyRSA)
+	if err == nil {
+		jsonUserFactorTokenVerifyRSA, _ := json.Marshal(dst.UserFactorTokenVerifyRSA)
+		if string(jsonUserFactorTokenVerifyRSA) == "{}" { // empty struct
+			dst.UserFactorTokenVerifyRSA = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.UserFactorTokenVerifyRSA = nil
+	}
 
-        // try to unmarshal data into UserFactorTokenVerifySymantec
-        err = json.Unmarshal(data, &dst.UserFactorTokenVerifySymantec)
-        if err == nil {
-                jsonUserFactorTokenVerifySymantec, _ := json.Marshal(dst.UserFactorTokenVerifySymantec)
-                if string(jsonUserFactorTokenVerifySymantec) == "{}" { // empty struct
-                        dst.UserFactorTokenVerifySymantec = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.UserFactorTokenVerifySymantec = nil
-        }
+	// try to unmarshal data into UserFactorTokenVerifySymantec
+	err = json.Unmarshal(data, &dst.UserFactorTokenVerifySymantec)
+	if err == nil {
+		jsonUserFactorTokenVerifySymantec, _ := json.Marshal(dst.UserFactorTokenVerifySymantec)
+		if string(jsonUserFactorTokenVerifySymantec) == "{}" { // empty struct
+			dst.UserFactorTokenVerifySymantec = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.UserFactorTokenVerifySymantec = nil
+	}
 
-        if match > 1 { // more than 1 match
-                // reset to nil
-                dst.UserFactorTokenVerifyRSA = nil
-                dst.UserFactorTokenVerifySymantec = nil
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.UserFactorTokenVerifyRSA = nil
+		dst.UserFactorTokenVerifySymantec = nil
 
-                return fmt.Errorf("Data matches more than one schema in oneOf(UserFactorTokenAllOfVerify)")
-        } else if match == 1 {
-                return nil // exactly one match
-        } else { // no match
-                return fmt.Errorf("Data failed to match schemas in oneOf(UserFactorTokenAllOfVerify)")
-        }
+		return fmt.Errorf("data matches more than one schema in oneOf(UserFactorTokenAllOfVerify)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("data failed to match schemas in oneOf(UserFactorTokenAllOfVerify)")
+	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -108,7 +105,7 @@ func (src UserFactorTokenAllOfVerify) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *UserFactorTokenAllOfVerify) GetActualInstance() (interface{}) {
+func (obj *UserFactorTokenAllOfVerify) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -118,6 +115,20 @@ func (obj *UserFactorTokenAllOfVerify) GetActualInstance() (interface{}) {
 
 	if obj.UserFactorTokenVerifySymantec != nil {
 		return obj.UserFactorTokenVerifySymantec
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj UserFactorTokenAllOfVerify) GetActualInstanceValue() interface{} {
+	if obj.UserFactorTokenVerifyRSA != nil {
+		return *obj.UserFactorTokenVerifyRSA
+	}
+
+	if obj.UserFactorTokenVerifySymantec != nil {
+		return *obj.UserFactorTokenVerifySymantec
 	}
 
 	// all schemas are nil
@@ -159,5 +170,3 @@ func (v *NullableUserFactorTokenAllOfVerify) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

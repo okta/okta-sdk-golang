@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,13 +28,16 @@ import (
 	"time"
 )
 
+// checks if the UserDevice type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserDevice{}
+
 // UserDevice struct for UserDevice
 type UserDevice struct {
 	// Timestamp when the device was created
 	Created *time.Time `json:"created,omitempty"`
-	Device Device `json:"device,omitempty"`
+	Device  Device     `json:"device,omitempty"`
 	// Unique key for the user device link
-	DeviceUserId *string `json:"deviceUserId,omitempty"`
+	DeviceUserId         *string `json:"deviceUserId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewUserDeviceWithDefaults() *UserDevice {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *UserDevice) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *UserDevice) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserDevice) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -77,7 +80,7 @@ func (o *UserDevice) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *UserDevice) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *UserDevice) SetCreated(v time.Time) {
 
 // GetDevice returns the Device field value if set, zero value otherwise.
 func (o *UserDevice) GetDevice() Device {
-	if o == nil || o.Device == nil {
+	if o == nil || IsNil(o.Device) {
 		var ret Device
 		return ret
 	}
@@ -101,15 +104,15 @@ func (o *UserDevice) GetDevice() Device {
 // GetDeviceOk returns a tuple with the Device field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserDevice) GetDeviceOk() (Device, bool) {
-	if o == nil || o.Device == nil {
-		return nil, false
+	if o == nil || IsNil(o.Device) {
+		return Device{}, false
 	}
 	return o.Device, true
 }
 
 // HasDevice returns a boolean if a field has been set.
 func (o *UserDevice) HasDevice() bool {
-	if o != nil && o.Device != nil {
+	if o != nil && !IsNil(o.Device) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *UserDevice) SetDevice(v Device) {
 
 // GetDeviceUserId returns the DeviceUserId field value if set, zero value otherwise.
 func (o *UserDevice) GetDeviceUserId() string {
-	if o == nil || o.DeviceUserId == nil {
+	if o == nil || IsNil(o.DeviceUserId) {
 		var ret string
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *UserDevice) GetDeviceUserId() string {
 // GetDeviceUserIdOk returns a tuple with the DeviceUserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserDevice) GetDeviceUserIdOk() (*string, bool) {
-	if o == nil || o.DeviceUserId == nil {
+	if o == nil || IsNil(o.DeviceUserId) {
 		return nil, false
 	}
 	return o.DeviceUserId, true
@@ -141,7 +144,7 @@ func (o *UserDevice) GetDeviceUserIdOk() (*string, bool) {
 
 // HasDeviceUserId returns a boolean if a field has been set.
 func (o *UserDevice) HasDeviceUserId() bool {
-	if o != nil && o.DeviceUserId != nil {
+	if o != nil && !IsNil(o.DeviceUserId) {
 		return true
 	}
 
@@ -154,14 +157,22 @@ func (o *UserDevice) SetDeviceUserId(v string) {
 }
 
 func (o UserDevice) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserDevice) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Device != nil {
+	if !IsNil(o.Device) {
 		toSerialize["device"] = o.Device
 	}
-	if o.DeviceUserId != nil {
+	if !IsNil(o.DeviceUserId) {
 		toSerialize["deviceUserId"] = o.DeviceUserId
 	}
 
@@ -169,29 +180,27 @@ func (o UserDevice) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserDevice) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserDevice) UnmarshalJSON(data []byte) (err error) {
 	varUserDevice := _UserDevice{}
 
-	err = json.Unmarshal(bytes, &varUserDevice)
-	if err == nil {
-		*o = UserDevice(varUserDevice)
-	} else {
+	err = json.Unmarshal(data, &varUserDevice)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserDevice(varUserDevice)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "device")
 		delete(additionalProperties, "deviceUserId")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -232,4 +241,3 @@ func (v *NullableUserDevice) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

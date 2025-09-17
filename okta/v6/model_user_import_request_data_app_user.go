@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserImportRequestDataAppUser type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserImportRequestDataAppUser{}
+
 // UserImportRequestDataAppUser The app user profile being imported
 type UserImportRequestDataAppUser struct {
 	// Provides the name-value pairs of the attributes contained in the app user profile of the user who is being imported. You can change the values of attributes in the user's app profile by means of the `commands` object you return. If you change attributes in the app profile, they then flow through to the Okta user profile, based on matching and mapping rules.
-	Profile *map[string]string `json:"profile,omitempty"`
+	Profile              *map[string]string `json:"profile,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewUserImportRequestDataAppUserWithDefaults() *UserImportRequestDataAppUser
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *UserImportRequestDataAppUser) GetProfile() map[string]string {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret map[string]string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *UserImportRequestDataAppUser) GetProfile() map[string]string {
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserImportRequestDataAppUser) GetProfileOk() (*map[string]string, bool) {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		return nil, false
 	}
 	return o.Profile, true
@@ -73,7 +76,7 @@ func (o *UserImportRequestDataAppUser) GetProfileOk() (*map[string]string, bool)
 
 // HasProfile returns a boolean if a field has been set.
 func (o *UserImportRequestDataAppUser) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *UserImportRequestDataAppUser) SetProfile(v map[string]string) {
 }
 
 func (o UserImportRequestDataAppUser) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserImportRequestDataAppUser) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Profile != nil {
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
 
@@ -95,27 +106,25 @@ func (o UserImportRequestDataAppUser) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserImportRequestDataAppUser) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserImportRequestDataAppUser) UnmarshalJSON(data []byte) (err error) {
 	varUserImportRequestDataAppUser := _UserImportRequestDataAppUser{}
 
-	err = json.Unmarshal(bytes, &varUserImportRequestDataAppUser)
-	if err == nil {
-		*o = UserImportRequestDataAppUser(varUserImportRequestDataAppUser)
-	} else {
+	err = json.Unmarshal(data, &varUserImportRequestDataAppUser)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserImportRequestDataAppUser(varUserImportRequestDataAppUser)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "profile")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableUserImportRequestDataAppUser) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

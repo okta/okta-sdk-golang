@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the OINSaml20ApplicationSettingsSignOn type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OINSaml20ApplicationSettingsSignOn{}
+
 // OINSaml20ApplicationSettingsSignOn Contains SAML 2.0 sign-on mode attributes. > **Note:** Set `destinationOverride` to configure any other SAML 2.0 attributes in this section.
 type OINSaml20ApplicationSettingsSignOn struct {
-	// A list of custom attribute statements for the app's SAML assertion. See [SAML 2.0 Technical Overview](https://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0-cd-02.html).  There are two types of attribute statements: | Type | Description | | ---- | ----------- | | EXPRESSION | Generic attribute statement that can be dynamic and supports [Okta Expression Language](https://developer.okta.com/docs/reference/okta-expression-language/) | | GROUP | Group attribute statement | 
+	// A list of custom attribute statements for the app's SAML assertion. See [SAML 2.0 Technical Overview](https://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0-cd-02.html).  There are two types of attribute statements: | Type | Description | | ---- | ----------- | | EXPRESSION | Generic attribute statement that can be dynamic and supports [Okta Expression Language](https://developer.okta.com/docs/reference/okta-expression-language/) | | GROUP | Group attribute statement |
 	AttributeStatements []SamlAttributeStatement `json:"attributeStatements,omitempty"`
 	// Audience override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm).
 	AudienceOverride NullableString `json:"audienceOverride,omitempty"`
@@ -42,7 +45,7 @@ type OINSaml20ApplicationSettingsSignOn struct {
 	// Determines the SAML app session lifetimes with Okta
 	SamlAssertionLifetimeSeconds *int32 `json:"samlAssertionLifetimeSeconds,omitempty"`
 	// Assertion Consumer Service (ACS) URL override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm).
-	SsoAcsUrlOverride NullableString `json:"ssoAcsUrlOverride,omitempty"`
+	SsoAcsUrlOverride    NullableString `json:"ssoAcsUrlOverride,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -67,7 +70,7 @@ func NewOINSaml20ApplicationSettingsSignOnWithDefaults() *OINSaml20ApplicationSe
 
 // GetAttributeStatements returns the AttributeStatements field value if set, zero value otherwise.
 func (o *OINSaml20ApplicationSettingsSignOn) GetAttributeStatements() []SamlAttributeStatement {
-	if o == nil || o.AttributeStatements == nil {
+	if o == nil || IsNil(o.AttributeStatements) {
 		var ret []SamlAttributeStatement
 		return ret
 	}
@@ -77,7 +80,7 @@ func (o *OINSaml20ApplicationSettingsSignOn) GetAttributeStatements() []SamlAttr
 // GetAttributeStatementsOk returns a tuple with the AttributeStatements field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OINSaml20ApplicationSettingsSignOn) GetAttributeStatementsOk() ([]SamlAttributeStatement, bool) {
-	if o == nil || o.AttributeStatements == nil {
+	if o == nil || IsNil(o.AttributeStatements) {
 		return nil, false
 	}
 	return o.AttributeStatements, true
@@ -85,7 +88,7 @@ func (o *OINSaml20ApplicationSettingsSignOn) GetAttributeStatementsOk() ([]SamlA
 
 // HasAttributeStatements returns a boolean if a field has been set.
 func (o *OINSaml20ApplicationSettingsSignOn) HasAttributeStatements() bool {
-	if o != nil && o.AttributeStatements != nil {
+	if o != nil && !IsNil(o.AttributeStatements) {
 		return true
 	}
 
@@ -99,7 +102,7 @@ func (o *OINSaml20ApplicationSettingsSignOn) SetAttributeStatements(v []SamlAttr
 
 // GetAudienceOverride returns the AudienceOverride field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *OINSaml20ApplicationSettingsSignOn) GetAudienceOverride() string {
-	if o == nil || o.AudienceOverride.Get() == nil {
+	if o == nil || IsNil(o.AudienceOverride.Get()) {
 		var ret string
 		return ret
 	}
@@ -129,6 +132,7 @@ func (o *OINSaml20ApplicationSettingsSignOn) HasAudienceOverride() bool {
 func (o *OINSaml20ApplicationSettingsSignOn) SetAudienceOverride(v string) {
 	o.AudienceOverride.Set(&v)
 }
+
 // SetAudienceOverrideNil sets the value for AudienceOverride to be an explicit nil
 func (o *OINSaml20ApplicationSettingsSignOn) SetAudienceOverrideNil() {
 	o.AudienceOverride.Set(nil)
@@ -141,7 +145,7 @@ func (o *OINSaml20ApplicationSettingsSignOn) UnsetAudienceOverride() {
 
 // GetDefaultRelayState returns the DefaultRelayState field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *OINSaml20ApplicationSettingsSignOn) GetDefaultRelayState() string {
-	if o == nil || o.DefaultRelayState.Get() == nil {
+	if o == nil || IsNil(o.DefaultRelayState.Get()) {
 		var ret string
 		return ret
 	}
@@ -171,6 +175,7 @@ func (o *OINSaml20ApplicationSettingsSignOn) HasDefaultRelayState() bool {
 func (o *OINSaml20ApplicationSettingsSignOn) SetDefaultRelayState(v string) {
 	o.DefaultRelayState.Set(&v)
 }
+
 // SetDefaultRelayStateNil sets the value for DefaultRelayState to be an explicit nil
 func (o *OINSaml20ApplicationSettingsSignOn) SetDefaultRelayStateNil() {
 	o.DefaultRelayState.Set(nil)
@@ -183,7 +188,7 @@ func (o *OINSaml20ApplicationSettingsSignOn) UnsetDefaultRelayState() {
 
 // GetDestinationOverride returns the DestinationOverride field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *OINSaml20ApplicationSettingsSignOn) GetDestinationOverride() string {
-	if o == nil || o.DestinationOverride.Get() == nil {
+	if o == nil || IsNil(o.DestinationOverride.Get()) {
 		var ret string
 		return ret
 	}
@@ -213,6 +218,7 @@ func (o *OINSaml20ApplicationSettingsSignOn) HasDestinationOverride() bool {
 func (o *OINSaml20ApplicationSettingsSignOn) SetDestinationOverride(v string) {
 	o.DestinationOverride.Set(&v)
 }
+
 // SetDestinationOverrideNil sets the value for DestinationOverride to be an explicit nil
 func (o *OINSaml20ApplicationSettingsSignOn) SetDestinationOverrideNil() {
 	o.DestinationOverride.Set(nil)
@@ -225,7 +231,7 @@ func (o *OINSaml20ApplicationSettingsSignOn) UnsetDestinationOverride() {
 
 // GetRecipientOverride returns the RecipientOverride field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *OINSaml20ApplicationSettingsSignOn) GetRecipientOverride() string {
-	if o == nil || o.RecipientOverride.Get() == nil {
+	if o == nil || IsNil(o.RecipientOverride.Get()) {
 		var ret string
 		return ret
 	}
@@ -255,6 +261,7 @@ func (o *OINSaml20ApplicationSettingsSignOn) HasRecipientOverride() bool {
 func (o *OINSaml20ApplicationSettingsSignOn) SetRecipientOverride(v string) {
 	o.RecipientOverride.Set(&v)
 }
+
 // SetRecipientOverrideNil sets the value for RecipientOverride to be an explicit nil
 func (o *OINSaml20ApplicationSettingsSignOn) SetRecipientOverrideNil() {
 	o.RecipientOverride.Set(nil)
@@ -267,7 +274,7 @@ func (o *OINSaml20ApplicationSettingsSignOn) UnsetRecipientOverride() {
 
 // GetSamlAssertionLifetimeSeconds returns the SamlAssertionLifetimeSeconds field value if set, zero value otherwise.
 func (o *OINSaml20ApplicationSettingsSignOn) GetSamlAssertionLifetimeSeconds() int32 {
-	if o == nil || o.SamlAssertionLifetimeSeconds == nil {
+	if o == nil || IsNil(o.SamlAssertionLifetimeSeconds) {
 		var ret int32
 		return ret
 	}
@@ -277,7 +284,7 @@ func (o *OINSaml20ApplicationSettingsSignOn) GetSamlAssertionLifetimeSeconds() i
 // GetSamlAssertionLifetimeSecondsOk returns a tuple with the SamlAssertionLifetimeSeconds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OINSaml20ApplicationSettingsSignOn) GetSamlAssertionLifetimeSecondsOk() (*int32, bool) {
-	if o == nil || o.SamlAssertionLifetimeSeconds == nil {
+	if o == nil || IsNil(o.SamlAssertionLifetimeSeconds) {
 		return nil, false
 	}
 	return o.SamlAssertionLifetimeSeconds, true
@@ -285,7 +292,7 @@ func (o *OINSaml20ApplicationSettingsSignOn) GetSamlAssertionLifetimeSecondsOk()
 
 // HasSamlAssertionLifetimeSeconds returns a boolean if a field has been set.
 func (o *OINSaml20ApplicationSettingsSignOn) HasSamlAssertionLifetimeSeconds() bool {
-	if o != nil && o.SamlAssertionLifetimeSeconds != nil {
+	if o != nil && !IsNil(o.SamlAssertionLifetimeSeconds) {
 		return true
 	}
 
@@ -299,7 +306,7 @@ func (o *OINSaml20ApplicationSettingsSignOn) SetSamlAssertionLifetimeSeconds(v i
 
 // GetSsoAcsUrlOverride returns the SsoAcsUrlOverride field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *OINSaml20ApplicationSettingsSignOn) GetSsoAcsUrlOverride() string {
-	if o == nil || o.SsoAcsUrlOverride.Get() == nil {
+	if o == nil || IsNil(o.SsoAcsUrlOverride.Get()) {
 		var ret string
 		return ret
 	}
@@ -329,6 +336,7 @@ func (o *OINSaml20ApplicationSettingsSignOn) HasSsoAcsUrlOverride() bool {
 func (o *OINSaml20ApplicationSettingsSignOn) SetSsoAcsUrlOverride(v string) {
 	o.SsoAcsUrlOverride.Set(&v)
 }
+
 // SetSsoAcsUrlOverrideNil sets the value for SsoAcsUrlOverride to be an explicit nil
 func (o *OINSaml20ApplicationSettingsSignOn) SetSsoAcsUrlOverrideNil() {
 	o.SsoAcsUrlOverride.Set(nil)
@@ -340,8 +348,16 @@ func (o *OINSaml20ApplicationSettingsSignOn) UnsetSsoAcsUrlOverride() {
 }
 
 func (o OINSaml20ApplicationSettingsSignOn) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OINSaml20ApplicationSettingsSignOn) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AttributeStatements != nil {
+	if !IsNil(o.AttributeStatements) {
 		toSerialize["attributeStatements"] = o.AttributeStatements
 	}
 	if o.AudienceOverride.IsSet() {
@@ -356,7 +372,7 @@ func (o OINSaml20ApplicationSettingsSignOn) MarshalJSON() ([]byte, error) {
 	if o.RecipientOverride.IsSet() {
 		toSerialize["recipientOverride"] = o.RecipientOverride.Get()
 	}
-	if o.SamlAssertionLifetimeSeconds != nil {
+	if !IsNil(o.SamlAssertionLifetimeSeconds) {
 		toSerialize["samlAssertionLifetimeSeconds"] = o.SamlAssertionLifetimeSeconds
 	}
 	if o.SsoAcsUrlOverride.IsSet() {
@@ -367,23 +383,23 @@ func (o OINSaml20ApplicationSettingsSignOn) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OINSaml20ApplicationSettingsSignOn) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OINSaml20ApplicationSettingsSignOn) UnmarshalJSON(data []byte) (err error) {
 	varOINSaml20ApplicationSettingsSignOn := _OINSaml20ApplicationSettingsSignOn{}
 
-	err = json.Unmarshal(bytes, &varOINSaml20ApplicationSettingsSignOn)
-	if err == nil {
-		*o = OINSaml20ApplicationSettingsSignOn(varOINSaml20ApplicationSettingsSignOn)
-	} else {
+	err = json.Unmarshal(data, &varOINSaml20ApplicationSettingsSignOn)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OINSaml20ApplicationSettingsSignOn(varOINSaml20ApplicationSettingsSignOn)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "attributeStatements")
 		delete(additionalProperties, "audienceOverride")
 		delete(additionalProperties, "defaultRelayState")
@@ -392,8 +408,6 @@ func (o *OINSaml20ApplicationSettingsSignOn) UnmarshalJSON(bytes []byte) (err er
 		delete(additionalProperties, "samlAssertionLifetimeSeconds")
 		delete(additionalProperties, "ssoAcsUrlOverride")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -434,4 +448,3 @@ func (v *NullableOINSaml20ApplicationSettingsSignOn) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

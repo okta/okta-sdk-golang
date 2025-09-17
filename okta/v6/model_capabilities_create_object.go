@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
-// CapabilitiesCreateObject Determines whether Okta assigns a new app account to each user managed by Okta.  Okta doesn't create a new account if it detects that the username specified in Okta already exists in the app. The user's Okta username is assigned by default. 
+// checks if the CapabilitiesCreateObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CapabilitiesCreateObject{}
+
+// CapabilitiesCreateObject Determines whether Okta assigns a new app account to each user managed by Okta.  Okta doesn't create a new account if it detects that the username specified in Okta already exists in the app. The user's Okta username is assigned by default.
 type CapabilitiesCreateObject struct {
-	LifecycleCreate *LifecycleCreateSettingObject `json:"lifecycleCreate,omitempty"`
+	LifecycleCreate      *LifecycleCreateSettingObject `json:"lifecycleCreate,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewCapabilitiesCreateObjectWithDefaults() *CapabilitiesCreateObject {
 
 // GetLifecycleCreate returns the LifecycleCreate field value if set, zero value otherwise.
 func (o *CapabilitiesCreateObject) GetLifecycleCreate() LifecycleCreateSettingObject {
-	if o == nil || o.LifecycleCreate == nil {
+	if o == nil || IsNil(o.LifecycleCreate) {
 		var ret LifecycleCreateSettingObject
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *CapabilitiesCreateObject) GetLifecycleCreate() LifecycleCreateSettingOb
 // GetLifecycleCreateOk returns a tuple with the LifecycleCreate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CapabilitiesCreateObject) GetLifecycleCreateOk() (*LifecycleCreateSettingObject, bool) {
-	if o == nil || o.LifecycleCreate == nil {
+	if o == nil || IsNil(o.LifecycleCreate) {
 		return nil, false
 	}
 	return o.LifecycleCreate, true
@@ -72,7 +75,7 @@ func (o *CapabilitiesCreateObject) GetLifecycleCreateOk() (*LifecycleCreateSetti
 
 // HasLifecycleCreate returns a boolean if a field has been set.
 func (o *CapabilitiesCreateObject) HasLifecycleCreate() bool {
-	if o != nil && o.LifecycleCreate != nil {
+	if o != nil && !IsNil(o.LifecycleCreate) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *CapabilitiesCreateObject) SetLifecycleCreate(v LifecycleCreateSettingOb
 }
 
 func (o CapabilitiesCreateObject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CapabilitiesCreateObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.LifecycleCreate != nil {
+	if !IsNil(o.LifecycleCreate) {
 		toSerialize["lifecycleCreate"] = o.LifecycleCreate
 	}
 
@@ -94,27 +105,25 @@ func (o CapabilitiesCreateObject) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CapabilitiesCreateObject) UnmarshalJSON(bytes []byte) (err error) {
+func (o *CapabilitiesCreateObject) UnmarshalJSON(data []byte) (err error) {
 	varCapabilitiesCreateObject := _CapabilitiesCreateObject{}
 
-	err = json.Unmarshal(bytes, &varCapabilitiesCreateObject)
-	if err == nil {
-		*o = CapabilitiesCreateObject(varCapabilitiesCreateObject)
-	} else {
+	err = json.Unmarshal(data, &varCapabilitiesCreateObject)
+
+	if err != nil {
 		return err
 	}
 
+	*o = CapabilitiesCreateObject(varCapabilitiesCreateObject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "lifecycleCreate")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableCapabilitiesCreateObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

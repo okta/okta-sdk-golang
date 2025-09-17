@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthenticationProviderWritable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticationProviderWritable{}
+
 // AuthenticationProviderWritable Specifies the authentication provider that validates the user password credential. The user's current provider is managed by the **Delegated Authentication** settings in your org. See [Create user with authentication provider](/openapi/okta-management/management/tag/User/#create-user-with-authentication-provider).
 type AuthenticationProviderWritable struct {
 	// The name of the authentication provider
 	Name *string `json:"name,omitempty"`
 	// The type of authentication provider
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewAuthenticationProviderWritableWithDefaults() *AuthenticationProviderWrit
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *AuthenticationProviderWritable) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *AuthenticationProviderWritable) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticationProviderWritable) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -75,7 +78,7 @@ func (o *AuthenticationProviderWritable) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *AuthenticationProviderWritable) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *AuthenticationProviderWritable) SetName(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *AuthenticationProviderWritable) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *AuthenticationProviderWritable) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticationProviderWritable) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -107,7 +110,7 @@ func (o *AuthenticationProviderWritable) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *AuthenticationProviderWritable) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *AuthenticationProviderWritable) SetType(v string) {
 }
 
 func (o AuthenticationProviderWritable) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticationProviderWritable) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -132,28 +143,26 @@ func (o AuthenticationProviderWritable) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticationProviderWritable) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticationProviderWritable) UnmarshalJSON(data []byte) (err error) {
 	varAuthenticationProviderWritable := _AuthenticationProviderWritable{}
 
-	err = json.Unmarshal(bytes, &varAuthenticationProviderWritable)
-	if err == nil {
-		*o = AuthenticationProviderWritable(varAuthenticationProviderWritable)
-	} else {
+	err = json.Unmarshal(data, &varAuthenticationProviderWritable)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthenticationProviderWritable(varAuthenticationProviderWritable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableAuthenticationProviderWritable) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

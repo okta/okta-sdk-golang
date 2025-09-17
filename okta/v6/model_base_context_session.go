@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"time"
 )
 
+// checks if the BaseContextSession type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BaseContextSession{}
+
 // BaseContextSession Details of the user session
 type BaseContextSession struct {
 	// The unique identifier for the user's session
@@ -45,10 +48,10 @@ type BaseContextSession struct {
 	// Timestamp of when the user was last authenticated
 	LastPasswordVerification *time.Time `json:"lastPasswordVerification,omitempty"`
 	// The authentication method reference
-	Amr []string `json:"amr,omitempty"`
+	Amr []string                 `json:"amr,omitempty"`
 	Idp *SessionIdentityProvider `json:"idp,omitempty"`
 	// Describes whether multifactor authentication was enabled
-	MfaActive *bool `json:"mfaActive,omitempty"`
+	MfaActive            *bool `json:"mfaActive,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -73,7 +76,7 @@ func NewBaseContextSessionWithDefaults() *BaseContextSession {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *BaseContextSession) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *BaseContextSession) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseContextSession) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -91,7 +94,7 @@ func (o *BaseContextSession) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *BaseContextSession) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *BaseContextSession) SetId(v string) {
 
 // GetUserId returns the UserId field value if set, zero value otherwise.
 func (o *BaseContextSession) GetUserId() string {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		var ret string
 		return ret
 	}
@@ -115,7 +118,7 @@ func (o *BaseContextSession) GetUserId() string {
 // GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseContextSession) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		return nil, false
 	}
 	return o.UserId, true
@@ -123,7 +126,7 @@ func (o *BaseContextSession) GetUserIdOk() (*string, bool) {
 
 // HasUserId returns a boolean if a field has been set.
 func (o *BaseContextSession) HasUserId() bool {
-	if o != nil && o.UserId != nil {
+	if o != nil && !IsNil(o.UserId) {
 		return true
 	}
 
@@ -137,7 +140,7 @@ func (o *BaseContextSession) SetUserId(v string) {
 
 // GetLogin returns the Login field value if set, zero value otherwise.
 func (o *BaseContextSession) GetLogin() string {
-	if o == nil || o.Login == nil {
+	if o == nil || IsNil(o.Login) {
 		var ret string
 		return ret
 	}
@@ -147,7 +150,7 @@ func (o *BaseContextSession) GetLogin() string {
 // GetLoginOk returns a tuple with the Login field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseContextSession) GetLoginOk() (*string, bool) {
-	if o == nil || o.Login == nil {
+	if o == nil || IsNil(o.Login) {
 		return nil, false
 	}
 	return o.Login, true
@@ -155,7 +158,7 @@ func (o *BaseContextSession) GetLoginOk() (*string, bool) {
 
 // HasLogin returns a boolean if a field has been set.
 func (o *BaseContextSession) HasLogin() bool {
-	if o != nil && o.Login != nil {
+	if o != nil && !IsNil(o.Login) {
 		return true
 	}
 
@@ -169,7 +172,7 @@ func (o *BaseContextSession) SetLogin(v string) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *BaseContextSession) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -179,7 +182,7 @@ func (o *BaseContextSession) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseContextSession) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -187,7 +190,7 @@ func (o *BaseContextSession) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *BaseContextSession) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -201,7 +204,7 @@ func (o *BaseContextSession) SetCreatedAt(v time.Time) {
 
 // GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
 func (o *BaseContextSession) GetExpiresAt() time.Time {
-	if o == nil || o.ExpiresAt == nil {
+	if o == nil || IsNil(o.ExpiresAt) {
 		var ret time.Time
 		return ret
 	}
@@ -211,7 +214,7 @@ func (o *BaseContextSession) GetExpiresAt() time.Time {
 // GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseContextSession) GetExpiresAtOk() (*time.Time, bool) {
-	if o == nil || o.ExpiresAt == nil {
+	if o == nil || IsNil(o.ExpiresAt) {
 		return nil, false
 	}
 	return o.ExpiresAt, true
@@ -219,7 +222,7 @@ func (o *BaseContextSession) GetExpiresAtOk() (*time.Time, bool) {
 
 // HasExpiresAt returns a boolean if a field has been set.
 func (o *BaseContextSession) HasExpiresAt() bool {
-	if o != nil && o.ExpiresAt != nil {
+	if o != nil && !IsNil(o.ExpiresAt) {
 		return true
 	}
 
@@ -233,7 +236,7 @@ func (o *BaseContextSession) SetExpiresAt(v time.Time) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *BaseContextSession) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -243,7 +246,7 @@ func (o *BaseContextSession) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseContextSession) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -251,7 +254,7 @@ func (o *BaseContextSession) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *BaseContextSession) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -265,7 +268,7 @@ func (o *BaseContextSession) SetStatus(v string) {
 
 // GetLastPasswordVerification returns the LastPasswordVerification field value if set, zero value otherwise.
 func (o *BaseContextSession) GetLastPasswordVerification() time.Time {
-	if o == nil || o.LastPasswordVerification == nil {
+	if o == nil || IsNil(o.LastPasswordVerification) {
 		var ret time.Time
 		return ret
 	}
@@ -275,7 +278,7 @@ func (o *BaseContextSession) GetLastPasswordVerification() time.Time {
 // GetLastPasswordVerificationOk returns a tuple with the LastPasswordVerification field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseContextSession) GetLastPasswordVerificationOk() (*time.Time, bool) {
-	if o == nil || o.LastPasswordVerification == nil {
+	if o == nil || IsNil(o.LastPasswordVerification) {
 		return nil, false
 	}
 	return o.LastPasswordVerification, true
@@ -283,7 +286,7 @@ func (o *BaseContextSession) GetLastPasswordVerificationOk() (*time.Time, bool) 
 
 // HasLastPasswordVerification returns a boolean if a field has been set.
 func (o *BaseContextSession) HasLastPasswordVerification() bool {
-	if o != nil && o.LastPasswordVerification != nil {
+	if o != nil && !IsNil(o.LastPasswordVerification) {
 		return true
 	}
 
@@ -297,7 +300,7 @@ func (o *BaseContextSession) SetLastPasswordVerification(v time.Time) {
 
 // GetAmr returns the Amr field value if set, zero value otherwise.
 func (o *BaseContextSession) GetAmr() []string {
-	if o == nil || o.Amr == nil {
+	if o == nil || IsNil(o.Amr) {
 		var ret []string
 		return ret
 	}
@@ -307,7 +310,7 @@ func (o *BaseContextSession) GetAmr() []string {
 // GetAmrOk returns a tuple with the Amr field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseContextSession) GetAmrOk() ([]string, bool) {
-	if o == nil || o.Amr == nil {
+	if o == nil || IsNil(o.Amr) {
 		return nil, false
 	}
 	return o.Amr, true
@@ -315,7 +318,7 @@ func (o *BaseContextSession) GetAmrOk() ([]string, bool) {
 
 // HasAmr returns a boolean if a field has been set.
 func (o *BaseContextSession) HasAmr() bool {
-	if o != nil && o.Amr != nil {
+	if o != nil && !IsNil(o.Amr) {
 		return true
 	}
 
@@ -329,7 +332,7 @@ func (o *BaseContextSession) SetAmr(v []string) {
 
 // GetIdp returns the Idp field value if set, zero value otherwise.
 func (o *BaseContextSession) GetIdp() SessionIdentityProvider {
-	if o == nil || o.Idp == nil {
+	if o == nil || IsNil(o.Idp) {
 		var ret SessionIdentityProvider
 		return ret
 	}
@@ -339,7 +342,7 @@ func (o *BaseContextSession) GetIdp() SessionIdentityProvider {
 // GetIdpOk returns a tuple with the Idp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseContextSession) GetIdpOk() (*SessionIdentityProvider, bool) {
-	if o == nil || o.Idp == nil {
+	if o == nil || IsNil(o.Idp) {
 		return nil, false
 	}
 	return o.Idp, true
@@ -347,7 +350,7 @@ func (o *BaseContextSession) GetIdpOk() (*SessionIdentityProvider, bool) {
 
 // HasIdp returns a boolean if a field has been set.
 func (o *BaseContextSession) HasIdp() bool {
-	if o != nil && o.Idp != nil {
+	if o != nil && !IsNil(o.Idp) {
 		return true
 	}
 
@@ -361,7 +364,7 @@ func (o *BaseContextSession) SetIdp(v SessionIdentityProvider) {
 
 // GetMfaActive returns the MfaActive field value if set, zero value otherwise.
 func (o *BaseContextSession) GetMfaActive() bool {
-	if o == nil || o.MfaActive == nil {
+	if o == nil || IsNil(o.MfaActive) {
 		var ret bool
 		return ret
 	}
@@ -371,7 +374,7 @@ func (o *BaseContextSession) GetMfaActive() bool {
 // GetMfaActiveOk returns a tuple with the MfaActive field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseContextSession) GetMfaActiveOk() (*bool, bool) {
-	if o == nil || o.MfaActive == nil {
+	if o == nil || IsNil(o.MfaActive) {
 		return nil, false
 	}
 	return o.MfaActive, true
@@ -379,7 +382,7 @@ func (o *BaseContextSession) GetMfaActiveOk() (*bool, bool) {
 
 // HasMfaActive returns a boolean if a field has been set.
 func (o *BaseContextSession) HasMfaActive() bool {
-	if o != nil && o.MfaActive != nil {
+	if o != nil && !IsNil(o.MfaActive) {
 		return true
 	}
 
@@ -392,35 +395,43 @@ func (o *BaseContextSession) SetMfaActive(v bool) {
 }
 
 func (o BaseContextSession) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BaseContextSession) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.UserId != nil {
+	if !IsNil(o.UserId) {
 		toSerialize["userId"] = o.UserId
 	}
-	if o.Login != nil {
+	if !IsNil(o.Login) {
 		toSerialize["login"] = o.Login
 	}
-	if o.CreatedAt != nil {
+	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
 	}
-	if o.ExpiresAt != nil {
+	if !IsNil(o.ExpiresAt) {
 		toSerialize["expiresAt"] = o.ExpiresAt
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.LastPasswordVerification != nil {
+	if !IsNil(o.LastPasswordVerification) {
 		toSerialize["lastPasswordVerification"] = o.LastPasswordVerification
 	}
-	if o.Amr != nil {
+	if !IsNil(o.Amr) {
 		toSerialize["amr"] = o.Amr
 	}
-	if o.Idp != nil {
+	if !IsNil(o.Idp) {
 		toSerialize["idp"] = o.Idp
 	}
-	if o.MfaActive != nil {
+	if !IsNil(o.MfaActive) {
 		toSerialize["mfaActive"] = o.MfaActive
 	}
 
@@ -428,23 +439,23 @@ func (o BaseContextSession) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *BaseContextSession) UnmarshalJSON(bytes []byte) (err error) {
+func (o *BaseContextSession) UnmarshalJSON(data []byte) (err error) {
 	varBaseContextSession := _BaseContextSession{}
 
-	err = json.Unmarshal(bytes, &varBaseContextSession)
-	if err == nil {
-		*o = BaseContextSession(varBaseContextSession)
-	} else {
+	err = json.Unmarshal(data, &varBaseContextSession)
+
+	if err != nil {
 		return err
 	}
 
+	*o = BaseContextSession(varBaseContextSession)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "userId")
 		delete(additionalProperties, "login")
@@ -456,8 +467,6 @@ func (o *BaseContextSession) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "idp")
 		delete(additionalProperties, "mfaActive")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -498,4 +507,3 @@ func (v *NullableBaseContextSession) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

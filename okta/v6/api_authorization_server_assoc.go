@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,24 +26,23 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type AuthorizationServerAssocAPI interface {
 
 	/*
-	CreateAssociatedServers Create an associated authorization server
+		CreateAssociatedServers Create an associated authorization server
 
-	Creates trusted relationships between the given authorization server and other authorization servers
+		Creates trusted relationships between the given authorization server and other authorization servers
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@return ApiCreateAssociatedServersRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@return ApiCreateAssociatedServersRequest
 	*/
 	CreateAssociatedServers(ctx context.Context, authServerId string) ApiCreateAssociatedServersRequest
 
@@ -52,14 +51,14 @@ type AuthorizationServerAssocAPI interface {
 	CreateAssociatedServersExecute(r ApiCreateAssociatedServersRequest) ([]AuthorizationServer, *APIResponse, error)
 
 	/*
-	DeleteAssociatedServer Delete an associated authorization server
+		DeleteAssociatedServer Delete an associated authorization server
 
-	Deletes an associated Authorization Server
+		Deletes an associated Authorization Server
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param associatedServerId `id` of the associated Authorization Server
-	@return ApiDeleteAssociatedServerRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param associatedServerId `id` of the associated Authorization Server
+		@return ApiDeleteAssociatedServerRequest
 	*/
 	DeleteAssociatedServer(ctx context.Context, authServerId string, associatedServerId string) ApiDeleteAssociatedServerRequest
 
@@ -67,13 +66,13 @@ type AuthorizationServerAssocAPI interface {
 	DeleteAssociatedServerExecute(r ApiDeleteAssociatedServerRequest) (*APIResponse, error)
 
 	/*
-	ListAssociatedServersByTrustedType List all associated authorization servers
+		ListAssociatedServersByTrustedType List all associated authorization servers
 
-	Lists all associated Authorization Servers by trusted type for the given `authServerId`
+		Lists all associated Authorization Servers by trusted type for the given `authServerId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@return ApiListAssociatedServersByTrustedTypeRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@return ApiListAssociatedServersByTrustedTypeRequest
 	*/
 	ListAssociatedServersByTrustedType(ctx context.Context, authServerId string) ApiListAssociatedServersByTrustedTypeRequest
 
@@ -86,11 +85,11 @@ type AuthorizationServerAssocAPI interface {
 type AuthorizationServerAssocAPIService service
 
 type ApiCreateAssociatedServersRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerAssocAPI
-	authServerId string
+	ctx                      context.Context
+	ApiService               AuthorizationServerAssocAPI
+	authServerId             string
 	associatedServerMediated *AssociatedServerMediated
-	retryCount int32
+	retryCount               int32
 }
 
 func (r ApiCreateAssociatedServersRequest) AssociatedServerMediated(associatedServerMediated AssociatedServerMediated) ApiCreateAssociatedServersRequest {
@@ -107,21 +106,22 @@ CreateAssociatedServers Create an associated authorization server
 
 Creates trusted relationships between the given authorization server and other authorization servers
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @return ApiCreateAssociatedServersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@return ApiCreateAssociatedServersRequest
 */
 func (a *AuthorizationServerAssocAPIService) CreateAssociatedServers(ctx context.Context, authServerId string) ApiCreateAssociatedServersRequest {
 	return ApiCreateAssociatedServersRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return []AuthorizationServer
+//
+//	@return []AuthorizationServer
 func (a *AuthorizationServerAssocAPIService) CreateAssociatedServersExecute(r ApiCreateAssociatedServersRequest) ([]AuthorizationServer, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -130,7 +130,7 @@ func (a *AuthorizationServerAssocAPIService) CreateAssociatedServersExecute(r Ap
 		localVarReturnValue  []AuthorizationServer
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -196,9 +196,9 @@ func (a *AuthorizationServerAssocAPIService) CreateAssociatedServersExecute(r Ap
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -268,17 +268,17 @@ func (a *AuthorizationServerAssocAPIService) CreateAssociatedServersExecute(r Ap
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteAssociatedServerRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerAssocAPI
-	authServerId string
+	ctx                context.Context
+	ApiService         AuthorizationServerAssocAPI
+	authServerId       string
 	associatedServerId string
-	retryCount int32
+	retryCount         int32
 }
 
 func (r ApiDeleteAssociatedServerRequest) Execute() (*APIResponse, error) {
@@ -290,18 +290,18 @@ DeleteAssociatedServer Delete an associated authorization server
 
 Deletes an associated Authorization Server
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @param associatedServerId `id` of the associated Authorization Server
- @return ApiDeleteAssociatedServerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@param associatedServerId `id` of the associated Authorization Server
+	@return ApiDeleteAssociatedServerRequest
 */
 func (a *AuthorizationServerAssocAPIService) DeleteAssociatedServer(ctx context.Context, authServerId string, associatedServerId string) ApiDeleteAssociatedServerRequest {
 	return ApiDeleteAssociatedServerRequest{
-		ApiService: a,
-		ctx: ctx,
-		authServerId: authServerId,
+		ApiService:         a,
+		ctx:                ctx,
+		authServerId:       authServerId,
 		associatedServerId: associatedServerId,
-		retryCount: 0,
+		retryCount:         0,
 	}
 }
 
@@ -313,7 +313,7 @@ func (a *AuthorizationServerAssocAPIService) DeleteAssociatedServerExecute(r Api
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -375,9 +375,9 @@ func (a *AuthorizationServerAssocAPIService) DeleteAssociatedServerExecute(r Api
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -431,14 +431,14 @@ func (a *AuthorizationServerAssocAPIService) DeleteAssociatedServerExecute(r Api
 }
 
 type ApiListAssociatedServersByTrustedTypeRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerAssocAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerAssocAPI
 	authServerId string
-	trusted *bool
-	q *string
-	limit *int32
-	after *string
-	retryCount int32
+	trusted      *bool
+	q            *string
+	limit        *int32
+	after        *string
+	retryCount   int32
 }
 
 // Searches trusted authorization servers when &#x60;true&#x60; or searches untrusted authorization servers when &#x60;false&#x60;
@@ -474,21 +474,22 @@ ListAssociatedServersByTrustedType List all associated authorization servers
 
 Lists all associated Authorization Servers by trusted type for the given `authServerId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @return ApiListAssociatedServersByTrustedTypeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@return ApiListAssociatedServersByTrustedTypeRequest
 */
 func (a *AuthorizationServerAssocAPIService) ListAssociatedServersByTrustedType(ctx context.Context, authServerId string) ApiListAssociatedServersByTrustedTypeRequest {
 	return ApiListAssociatedServersByTrustedTypeRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return []AuthorizationServer
+//
+//	@return []AuthorizationServer
 func (a *AuthorizationServerAssocAPIService) ListAssociatedServersByTrustedTypeExecute(r ApiListAssociatedServersByTrustedTypeRequest) ([]AuthorizationServer, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -497,7 +498,7 @@ func (a *AuthorizationServerAssocAPIService) ListAssociatedServersByTrustedTypeE
 		localVarReturnValue  []AuthorizationServer
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -570,9 +571,9 @@ func (a *AuthorizationServerAssocAPIService) ListAssociatedServersByTrustedTypeE
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -630,7 +631,7 @@ func (a *AuthorizationServerAssocAPIService) ListAssociatedServersByTrustedTypeE
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

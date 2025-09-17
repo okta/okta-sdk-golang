@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"fmt"
 )
 
+// checks if the AuthenticatorKeyTacAllOfProviderConfiguration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorKeyTacAllOfProviderConfiguration{}
+
 // AuthenticatorKeyTacAllOfProviderConfiguration Define the configuration settings of the TAC
 type AuthenticatorKeyTacAllOfProviderConfiguration struct {
 	// Minimum time-to-live (TTL) of the TAC in minutes. The `minTtl` indicates the minimum amount of time that a TAC is valid. The `minTtl` must be less than the `maxTtl`.
@@ -37,10 +40,10 @@ type AuthenticatorKeyTacAllOfProviderConfiguration struct {
 	// The default TTL in minutes when you create a TAC. The `defaultTtl` indicates the actual amount of time that a TAC is valid before it expires. The `defaultTtl` must be greater than the `minTtl` and less than the `maxTtl`.
 	DefaultTtl float32 `json:"defaultTtl"`
 	// Defines the number of characters in a TAC. For example, a `length` of `16` means that the TAC is 16 characters.
-	Length float32 `json:"length"`
+	Length     float32                                                 `json:"length"`
 	Complexity AuthenticatorKeyTacAllOfProviderConfigurationComplexity `json:"complexity"`
 	// Indicates whether a TAC can be used multiple times. If set to `true`, the TAC can be used multiple times until it expires.
-	MultiUseAllowed *bool `json:"multiUseAllowed,omitempty"`
+	MultiUseAllowed      *bool `json:"multiUseAllowed,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -192,7 +195,7 @@ func (o *AuthenticatorKeyTacAllOfProviderConfiguration) SetComplexity(v Authenti
 
 // GetMultiUseAllowed returns the MultiUseAllowed field value if set, zero value otherwise.
 func (o *AuthenticatorKeyTacAllOfProviderConfiguration) GetMultiUseAllowed() bool {
-	if o == nil || o.MultiUseAllowed == nil {
+	if o == nil || IsNil(o.MultiUseAllowed) {
 		var ret bool
 		return ret
 	}
@@ -202,7 +205,7 @@ func (o *AuthenticatorKeyTacAllOfProviderConfiguration) GetMultiUseAllowed() boo
 // GetMultiUseAllowedOk returns a tuple with the MultiUseAllowed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorKeyTacAllOfProviderConfiguration) GetMultiUseAllowedOk() (*bool, bool) {
-	if o == nil || o.MultiUseAllowed == nil {
+	if o == nil || IsNil(o.MultiUseAllowed) {
 		return nil, false
 	}
 	return o.MultiUseAllowed, true
@@ -210,7 +213,7 @@ func (o *AuthenticatorKeyTacAllOfProviderConfiguration) GetMultiUseAllowedOk() (
 
 // HasMultiUseAllowed returns a boolean if a field has been set.
 func (o *AuthenticatorKeyTacAllOfProviderConfiguration) HasMultiUseAllowed() bool {
-	if o != nil && o.MultiUseAllowed != nil {
+	if o != nil && !IsNil(o.MultiUseAllowed) {
 		return true
 	}
 
@@ -223,23 +226,21 @@ func (o *AuthenticatorKeyTacAllOfProviderConfiguration) SetMultiUseAllowed(v boo
 }
 
 func (o AuthenticatorKeyTacAllOfProviderConfiguration) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorKeyTacAllOfProviderConfiguration) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["minTtl"] = o.MinTtl
-	}
-	if true {
-		toSerialize["maxTtl"] = o.MaxTtl
-	}
-	if true {
-		toSerialize["defaultTtl"] = o.DefaultTtl
-	}
-	if true {
-		toSerialize["length"] = o.Length
-	}
-	if true {
-		toSerialize["complexity"] = o.Complexity
-	}
-	if o.MultiUseAllowed != nil {
+	toSerialize["minTtl"] = o.MinTtl
+	toSerialize["maxTtl"] = o.MaxTtl
+	toSerialize["defaultTtl"] = o.DefaultTtl
+	toSerialize["length"] = o.Length
+	toSerialize["complexity"] = o.Complexity
+	if !IsNil(o.MultiUseAllowed) {
 		toSerialize["multiUseAllowed"] = o.MultiUseAllowed
 	}
 
@@ -247,23 +248,48 @@ func (o AuthenticatorKeyTacAllOfProviderConfiguration) MarshalJSON() ([]byte, er
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorKeyTacAllOfProviderConfiguration) UnmarshalJSON(bytes []byte) (err error) {
-	varAuthenticatorKeyTacAllOfProviderConfiguration := _AuthenticatorKeyTacAllOfProviderConfiguration{}
+func (o *AuthenticatorKeyTacAllOfProviderConfiguration) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"minTtl",
+		"maxTtl",
+		"defaultTtl",
+		"length",
+		"complexity",
+	}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorKeyTacAllOfProviderConfiguration)
-	if err == nil {
-		*o = AuthenticatorKeyTacAllOfProviderConfiguration(varAuthenticatorKeyTacAllOfProviderConfiguration)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAuthenticatorKeyTacAllOfProviderConfiguration := _AuthenticatorKeyTacAllOfProviderConfiguration{}
+
+	err = json.Unmarshal(data, &varAuthenticatorKeyTacAllOfProviderConfiguration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AuthenticatorKeyTacAllOfProviderConfiguration(varAuthenticatorKeyTacAllOfProviderConfiguration)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "minTtl")
 		delete(additionalProperties, "maxTtl")
 		delete(additionalProperties, "defaultTtl")
@@ -271,8 +297,6 @@ func (o *AuthenticatorKeyTacAllOfProviderConfiguration) UnmarshalJSON(bytes []by
 		delete(additionalProperties, "complexity")
 		delete(additionalProperties, "multiUseAllowed")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -313,4 +337,3 @@ func (v *NullableAuthenticatorKeyTacAllOfProviderConfiguration) UnmarshalJSON(sr
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

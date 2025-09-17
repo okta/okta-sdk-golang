@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,10 +28,13 @@ import (
 	"fmt"
 )
 
+// checks if the OrgAerialConsent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrgAerialConsent{}
+
 // OrgAerialConsent struct for OrgAerialConsent
 type OrgAerialConsent struct {
 	// The unique ID of the Aerial account
-	AccountId string `json:"accountId"`
+	AccountId            string `json:"accountId"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -80,36 +83,61 @@ func (o *OrgAerialConsent) SetAccountId(v string) {
 }
 
 func (o OrgAerialConsent) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["accountId"] = o.AccountId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OrgAerialConsent) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["accountId"] = o.AccountId
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OrgAerialConsent) UnmarshalJSON(bytes []byte) (err error) {
-	varOrgAerialConsent := _OrgAerialConsent{}
+func (o *OrgAerialConsent) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"accountId",
+	}
 
-	err = json.Unmarshal(bytes, &varOrgAerialConsent)
-	if err == nil {
-		*o = OrgAerialConsent(varOrgAerialConsent)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varOrgAerialConsent := _OrgAerialConsent{}
+
+	err = json.Unmarshal(data, &varOrgAerialConsent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OrgAerialConsent(varOrgAerialConsent)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "accountId")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -150,4 +178,3 @@ func (v *NullableOrgAerialConsent) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

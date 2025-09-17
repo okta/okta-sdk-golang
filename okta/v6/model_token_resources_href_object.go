@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the TokenResourcesHrefObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TokenResourcesHrefObject{}
+
 // TokenResourcesHrefObject struct for TokenResourcesHrefObject
 type TokenResourcesHrefObject struct {
 	// Link URI
-	Href *string `json:"href,omitempty"`
+	Href                 *string `json:"href,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewTokenResourcesHrefObjectWithDefaults() *TokenResourcesHrefObject {
 
 // GetHref returns the Href field value if set, zero value otherwise.
 func (o *TokenResourcesHrefObject) GetHref() string {
-	if o == nil || o.Href == nil {
+	if o == nil || IsNil(o.Href) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *TokenResourcesHrefObject) GetHref() string {
 // GetHrefOk returns a tuple with the Href field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenResourcesHrefObject) GetHrefOk() (*string, bool) {
-	if o == nil || o.Href == nil {
+	if o == nil || IsNil(o.Href) {
 		return nil, false
 	}
 	return o.Href, true
@@ -73,7 +76,7 @@ func (o *TokenResourcesHrefObject) GetHrefOk() (*string, bool) {
 
 // HasHref returns a boolean if a field has been set.
 func (o *TokenResourcesHrefObject) HasHref() bool {
-	if o != nil && o.Href != nil {
+	if o != nil && !IsNil(o.Href) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *TokenResourcesHrefObject) SetHref(v string) {
 }
 
 func (o TokenResourcesHrefObject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TokenResourcesHrefObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Href != nil {
+	if !IsNil(o.Href) {
 		toSerialize["href"] = o.Href
 	}
 
@@ -95,27 +106,25 @@ func (o TokenResourcesHrefObject) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *TokenResourcesHrefObject) UnmarshalJSON(bytes []byte) (err error) {
+func (o *TokenResourcesHrefObject) UnmarshalJSON(data []byte) (err error) {
 	varTokenResourcesHrefObject := _TokenResourcesHrefObject{}
 
-	err = json.Unmarshal(bytes, &varTokenResourcesHrefObject)
-	if err == nil {
-		*o = TokenResourcesHrefObject(varTokenResourcesHrefObject)
-	} else {
+	err = json.Unmarshal(data, &varTokenResourcesHrefObject)
+
+	if err != nil {
 		return err
 	}
 
+	*o = TokenResourcesHrefObject(varTokenResourcesHrefObject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "href")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableTokenResourcesHrefObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

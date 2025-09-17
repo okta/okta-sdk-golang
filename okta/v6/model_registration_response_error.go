@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the RegistrationResponseError type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RegistrationResponseError{}
+
 // RegistrationResponseError For the registration inline hook, the `error` object provides a way of displaying an error message to the end user who is trying to register or update their profile.  * If you're using the Okta Sign-In Widget for Profile Enrollment, only the `errorSummary` messages of the `errorCauses` objects that your external service returns appear as inline errors, given the following:   * You don't customize the error handling behavior of the widget.   * The `location` of `errorSummary` in the `errorCauses` object specifies the request object's user profile attribute. * If you don't return a value for the `errorCauses` object, and deny the user's registration attempt through the `commands` object in your response to Okta, one of the following generic messages appears to the end user:   * \"Registration cannot be completed at this time.\" (SSR)   * \"We found some errors. Please review the form and make corrections.\" (Progressive Enrollment) * If you don't return an `error` object at all and the registration is denied, the following generic message appears to the end user:   * \"Registration denied.\" (SSR)   * \"Profile update denied.\" (Progressive Enrollment)  >**Note:** If you include an error object in your response, no commands are executed and the registration fails. This holds true even if the top-level `errorSummary` and the `errorCauses` objects are omitted.
 type RegistrationResponseError struct {
 	// Human-readable summary of one or more errors
-	ErrorSummary *string `json:"errorSummary,omitempty"`
-	ErrorCauses []RegistrationResponseErrorErrorCausesInner `json:"errorCauses,omitempty"`
+	ErrorSummary         *string                                     `json:"errorSummary,omitempty"`
+	ErrorCauses          []RegistrationResponseErrorErrorCausesInner `json:"errorCauses,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewRegistrationResponseErrorWithDefaults() *RegistrationResponseError {
 
 // GetErrorSummary returns the ErrorSummary field value if set, zero value otherwise.
 func (o *RegistrationResponseError) GetErrorSummary() string {
-	if o == nil || o.ErrorSummary == nil {
+	if o == nil || IsNil(o.ErrorSummary) {
 		var ret string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *RegistrationResponseError) GetErrorSummary() string {
 // GetErrorSummaryOk returns a tuple with the ErrorSummary field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationResponseError) GetErrorSummaryOk() (*string, bool) {
-	if o == nil || o.ErrorSummary == nil {
+	if o == nil || IsNil(o.ErrorSummary) {
 		return nil, false
 	}
 	return o.ErrorSummary, true
@@ -74,7 +77,7 @@ func (o *RegistrationResponseError) GetErrorSummaryOk() (*string, bool) {
 
 // HasErrorSummary returns a boolean if a field has been set.
 func (o *RegistrationResponseError) HasErrorSummary() bool {
-	if o != nil && o.ErrorSummary != nil {
+	if o != nil && !IsNil(o.ErrorSummary) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *RegistrationResponseError) SetErrorSummary(v string) {
 
 // GetErrorCauses returns the ErrorCauses field value if set, zero value otherwise.
 func (o *RegistrationResponseError) GetErrorCauses() []RegistrationResponseErrorErrorCausesInner {
-	if o == nil || o.ErrorCauses == nil {
+	if o == nil || IsNil(o.ErrorCauses) {
 		var ret []RegistrationResponseErrorErrorCausesInner
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *RegistrationResponseError) GetErrorCauses() []RegistrationResponseError
 // GetErrorCausesOk returns a tuple with the ErrorCauses field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationResponseError) GetErrorCausesOk() ([]RegistrationResponseErrorErrorCausesInner, bool) {
-	if o == nil || o.ErrorCauses == nil {
+	if o == nil || IsNil(o.ErrorCauses) {
 		return nil, false
 	}
 	return o.ErrorCauses, true
@@ -106,7 +109,7 @@ func (o *RegistrationResponseError) GetErrorCausesOk() ([]RegistrationResponseEr
 
 // HasErrorCauses returns a boolean if a field has been set.
 func (o *RegistrationResponseError) HasErrorCauses() bool {
-	if o != nil && o.ErrorCauses != nil {
+	if o != nil && !IsNil(o.ErrorCauses) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *RegistrationResponseError) SetErrorCauses(v []RegistrationResponseError
 }
 
 func (o RegistrationResponseError) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RegistrationResponseError) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ErrorSummary != nil {
+	if !IsNil(o.ErrorSummary) {
 		toSerialize["errorSummary"] = o.ErrorSummary
 	}
-	if o.ErrorCauses != nil {
+	if !IsNil(o.ErrorCauses) {
 		toSerialize["errorCauses"] = o.ErrorCauses
 	}
 
@@ -131,28 +142,26 @@ func (o RegistrationResponseError) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RegistrationResponseError) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RegistrationResponseError) UnmarshalJSON(data []byte) (err error) {
 	varRegistrationResponseError := _RegistrationResponseError{}
 
-	err = json.Unmarshal(bytes, &varRegistrationResponseError)
-	if err == nil {
-		*o = RegistrationResponseError(varRegistrationResponseError)
-	} else {
+	err = json.Unmarshal(data, &varRegistrationResponseError)
+
+	if err != nil {
 		return err
 	}
 
+	*o = RegistrationResponseError(varRegistrationResponseError)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "errorSummary")
 		delete(additionalProperties, "errorCauses")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableRegistrationResponseError) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

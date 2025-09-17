@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UploadYubikeyOtpTokenSeedRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UploadYubikeyOtpTokenSeedRequest{}
+
 // UploadYubikeyOtpTokenSeedRequest struct for UploadYubikeyOtpTokenSeedRequest
 type UploadYubikeyOtpTokenSeedRequest struct {
 	// The unique identifier assigned to each YubiKey device
@@ -36,7 +39,7 @@ type UploadYubikeyOtpTokenSeedRequest struct {
 	// The YubiKey's private ID
 	PrivateId *string `json:"privateId,omitempty"`
 	// The cryptographic key used in the AES (Advanced Encryption Standard) algorithm to encrypt and decrypt the YubiKey OTP
-	AesKey *string `json:"aesKey,omitempty"`
+	AesKey               *string `json:"aesKey,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewUploadYubikeyOtpTokenSeedRequestWithDefaults() *UploadYubikeyOtpTokenSee
 
 // GetSerialNumber returns the SerialNumber field value if set, zero value otherwise.
 func (o *UploadYubikeyOtpTokenSeedRequest) GetSerialNumber() string {
-	if o == nil || o.SerialNumber == nil {
+	if o == nil || IsNil(o.SerialNumber) {
 		var ret string
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *UploadYubikeyOtpTokenSeedRequest) GetSerialNumber() string {
 // GetSerialNumberOk returns a tuple with the SerialNumber field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UploadYubikeyOtpTokenSeedRequest) GetSerialNumberOk() (*string, bool) {
-	if o == nil || o.SerialNumber == nil {
+	if o == nil || IsNil(o.SerialNumber) {
 		return nil, false
 	}
 	return o.SerialNumber, true
@@ -79,7 +82,7 @@ func (o *UploadYubikeyOtpTokenSeedRequest) GetSerialNumberOk() (*string, bool) {
 
 // HasSerialNumber returns a boolean if a field has been set.
 func (o *UploadYubikeyOtpTokenSeedRequest) HasSerialNumber() bool {
-	if o != nil && o.SerialNumber != nil {
+	if o != nil && !IsNil(o.SerialNumber) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *UploadYubikeyOtpTokenSeedRequest) SetSerialNumber(v string) {
 
 // GetPublicId returns the PublicId field value if set, zero value otherwise.
 func (o *UploadYubikeyOtpTokenSeedRequest) GetPublicId() string {
-	if o == nil || o.PublicId == nil {
+	if o == nil || IsNil(o.PublicId) {
 		var ret string
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *UploadYubikeyOtpTokenSeedRequest) GetPublicId() string {
 // GetPublicIdOk returns a tuple with the PublicId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UploadYubikeyOtpTokenSeedRequest) GetPublicIdOk() (*string, bool) {
-	if o == nil || o.PublicId == nil {
+	if o == nil || IsNil(o.PublicId) {
 		return nil, false
 	}
 	return o.PublicId, true
@@ -111,7 +114,7 @@ func (o *UploadYubikeyOtpTokenSeedRequest) GetPublicIdOk() (*string, bool) {
 
 // HasPublicId returns a boolean if a field has been set.
 func (o *UploadYubikeyOtpTokenSeedRequest) HasPublicId() bool {
-	if o != nil && o.PublicId != nil {
+	if o != nil && !IsNil(o.PublicId) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *UploadYubikeyOtpTokenSeedRequest) SetPublicId(v string) {
 
 // GetPrivateId returns the PrivateId field value if set, zero value otherwise.
 func (o *UploadYubikeyOtpTokenSeedRequest) GetPrivateId() string {
-	if o == nil || o.PrivateId == nil {
+	if o == nil || IsNil(o.PrivateId) {
 		var ret string
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *UploadYubikeyOtpTokenSeedRequest) GetPrivateId() string {
 // GetPrivateIdOk returns a tuple with the PrivateId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UploadYubikeyOtpTokenSeedRequest) GetPrivateIdOk() (*string, bool) {
-	if o == nil || o.PrivateId == nil {
+	if o == nil || IsNil(o.PrivateId) {
 		return nil, false
 	}
 	return o.PrivateId, true
@@ -143,7 +146,7 @@ func (o *UploadYubikeyOtpTokenSeedRequest) GetPrivateIdOk() (*string, bool) {
 
 // HasPrivateId returns a boolean if a field has been set.
 func (o *UploadYubikeyOtpTokenSeedRequest) HasPrivateId() bool {
-	if o != nil && o.PrivateId != nil {
+	if o != nil && !IsNil(o.PrivateId) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *UploadYubikeyOtpTokenSeedRequest) SetPrivateId(v string) {
 
 // GetAesKey returns the AesKey field value if set, zero value otherwise.
 func (o *UploadYubikeyOtpTokenSeedRequest) GetAesKey() string {
-	if o == nil || o.AesKey == nil {
+	if o == nil || IsNil(o.AesKey) {
 		var ret string
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *UploadYubikeyOtpTokenSeedRequest) GetAesKey() string {
 // GetAesKeyOk returns a tuple with the AesKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UploadYubikeyOtpTokenSeedRequest) GetAesKeyOk() (*string, bool) {
-	if o == nil || o.AesKey == nil {
+	if o == nil || IsNil(o.AesKey) {
 		return nil, false
 	}
 	return o.AesKey, true
@@ -175,7 +178,7 @@ func (o *UploadYubikeyOtpTokenSeedRequest) GetAesKeyOk() (*string, bool) {
 
 // HasAesKey returns a boolean if a field has been set.
 func (o *UploadYubikeyOtpTokenSeedRequest) HasAesKey() bool {
-	if o != nil && o.AesKey != nil {
+	if o != nil && !IsNil(o.AesKey) {
 		return true
 	}
 
@@ -188,17 +191,25 @@ func (o *UploadYubikeyOtpTokenSeedRequest) SetAesKey(v string) {
 }
 
 func (o UploadYubikeyOtpTokenSeedRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UploadYubikeyOtpTokenSeedRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.SerialNumber != nil {
+	if !IsNil(o.SerialNumber) {
 		toSerialize["serialNumber"] = o.SerialNumber
 	}
-	if o.PublicId != nil {
+	if !IsNil(o.PublicId) {
 		toSerialize["publicId"] = o.PublicId
 	}
-	if o.PrivateId != nil {
+	if !IsNil(o.PrivateId) {
 		toSerialize["privateId"] = o.PrivateId
 	}
-	if o.AesKey != nil {
+	if !IsNil(o.AesKey) {
 		toSerialize["aesKey"] = o.AesKey
 	}
 
@@ -206,30 +217,28 @@ func (o UploadYubikeyOtpTokenSeedRequest) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UploadYubikeyOtpTokenSeedRequest) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UploadYubikeyOtpTokenSeedRequest) UnmarshalJSON(data []byte) (err error) {
 	varUploadYubikeyOtpTokenSeedRequest := _UploadYubikeyOtpTokenSeedRequest{}
 
-	err = json.Unmarshal(bytes, &varUploadYubikeyOtpTokenSeedRequest)
-	if err == nil {
-		*o = UploadYubikeyOtpTokenSeedRequest(varUploadYubikeyOtpTokenSeedRequest)
-	} else {
+	err = json.Unmarshal(data, &varUploadYubikeyOtpTokenSeedRequest)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UploadYubikeyOtpTokenSeedRequest(varUploadYubikeyOtpTokenSeedRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "serialNumber")
 		delete(additionalProperties, "publicId")
 		delete(additionalProperties, "privateId")
 		delete(additionalProperties, "aesKey")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -270,4 +279,3 @@ func (v *NullableUploadYubikeyOtpTokenSeedRequest) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

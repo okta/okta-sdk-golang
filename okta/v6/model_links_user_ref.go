@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the LinksUserRef type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LinksUserRef{}
+
 // LinksUserRef struct for LinksUserRef
 type LinksUserRef struct {
-	User *HrefObjectUserLink `json:"user,omitempty"`
+	User                 *HrefObjectUserLink `json:"user,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewLinksUserRefWithDefaults() *LinksUserRef {
 
 // GetUser returns the User field value if set, zero value otherwise.
 func (o *LinksUserRef) GetUser() HrefObjectUserLink {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		var ret HrefObjectUserLink
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *LinksUserRef) GetUser() HrefObjectUserLink {
 // GetUserOk returns a tuple with the User field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksUserRef) GetUserOk() (*HrefObjectUserLink, bool) {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		return nil, false
 	}
 	return o.User, true
@@ -72,7 +75,7 @@ func (o *LinksUserRef) GetUserOk() (*HrefObjectUserLink, bool) {
 
 // HasUser returns a boolean if a field has been set.
 func (o *LinksUserRef) HasUser() bool {
-	if o != nil && o.User != nil {
+	if o != nil && !IsNil(o.User) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *LinksUserRef) SetUser(v HrefObjectUserLink) {
 }
 
 func (o LinksUserRef) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LinksUserRef) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.User != nil {
+	if !IsNil(o.User) {
 		toSerialize["user"] = o.User
 	}
 
@@ -94,27 +105,25 @@ func (o LinksUserRef) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LinksUserRef) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LinksUserRef) UnmarshalJSON(data []byte) (err error) {
 	varLinksUserRef := _LinksUserRef{}
 
-	err = json.Unmarshal(bytes, &varLinksUserRef)
-	if err == nil {
-		*o = LinksUserRef(varLinksUserRef)
-	} else {
+	err = json.Unmarshal(data, &varLinksUserRef)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LinksUserRef(varLinksUserRef)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "user")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableLinksUserRef) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

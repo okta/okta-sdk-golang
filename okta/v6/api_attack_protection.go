@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,22 +26,21 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"time"
 )
 
-
 type AttackProtectionAPI interface {
 
 	/*
-	GetAuthenticatorSettings Retrieve the authenticator settings
+		GetAuthenticatorSettings Retrieve the authenticator settings
 
-	Retrieves the Authenticator Settings for an org
+		Retrieves the Authenticator Settings for an org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetAuthenticatorSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetAuthenticatorSettingsRequest
 	*/
 	GetAuthenticatorSettings(ctx context.Context) ApiGetAuthenticatorSettingsRequest
 
@@ -50,12 +49,12 @@ type AttackProtectionAPI interface {
 	GetAuthenticatorSettingsExecute(r ApiGetAuthenticatorSettingsRequest) ([]AttackProtectionAuthenticatorSettings, *APIResponse, error)
 
 	/*
-	GetUserLockoutSettings Retrieve the user lockout settings
+		GetUserLockoutSettings Retrieve the user lockout settings
 
-	Retrieves the User Lockout Settings for an org
+		Retrieves the User Lockout Settings for an org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetUserLockoutSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetUserLockoutSettingsRequest
 	*/
 	GetUserLockoutSettings(ctx context.Context) ApiGetUserLockoutSettingsRequest
 
@@ -64,12 +63,12 @@ type AttackProtectionAPI interface {
 	GetUserLockoutSettingsExecute(r ApiGetUserLockoutSettingsRequest) ([]UserLockoutSettings, *APIResponse, error)
 
 	/*
-	ReplaceAuthenticatorSettings Replace the authenticator settings
+		ReplaceAuthenticatorSettings Replace the authenticator settings
 
-	Replaces the Authenticator Settings for an org
+		Replaces the Authenticator Settings for an org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiReplaceAuthenticatorSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiReplaceAuthenticatorSettingsRequest
 	*/
 	ReplaceAuthenticatorSettings(ctx context.Context) ApiReplaceAuthenticatorSettingsRequest
 
@@ -78,12 +77,12 @@ type AttackProtectionAPI interface {
 	ReplaceAuthenticatorSettingsExecute(r ApiReplaceAuthenticatorSettingsRequest) (*AttackProtectionAuthenticatorSettings, *APIResponse, error)
 
 	/*
-	ReplaceUserLockoutSettings Replace the user lockout settings
+		ReplaceUserLockoutSettings Replace the user lockout settings
 
-	Replaces the User Lockout Settings for an org
+		Replaces the User Lockout Settings for an org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiReplaceUserLockoutSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiReplaceUserLockoutSettingsRequest
 	*/
 	ReplaceUserLockoutSettings(ctx context.Context) ApiReplaceUserLockoutSettingsRequest
 
@@ -96,7 +95,7 @@ type AttackProtectionAPI interface {
 type AttackProtectionAPIService service
 
 type ApiGetAuthenticatorSettingsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AttackProtectionAPI
 	retryCount int32
 }
@@ -110,19 +109,20 @@ GetAuthenticatorSettings Retrieve the authenticator settings
 
 Retrieves the Authenticator Settings for an org
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetAuthenticatorSettingsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetAuthenticatorSettingsRequest
 */
 func (a *AttackProtectionAPIService) GetAuthenticatorSettings(ctx context.Context) ApiGetAuthenticatorSettingsRequest {
 	return ApiGetAuthenticatorSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []AttackProtectionAuthenticatorSettings
+//
+//	@return []AttackProtectionAuthenticatorSettings
 func (a *AttackProtectionAPIService) GetAuthenticatorSettingsExecute(r ApiGetAuthenticatorSettingsRequest) ([]AttackProtectionAuthenticatorSettings, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -131,7 +131,7 @@ func (a *AttackProtectionAPIService) GetAuthenticatorSettingsExecute(r ApiGetAut
 		localVarReturnValue  []AttackProtectionAuthenticatorSettings
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -191,9 +191,9 @@ func (a *AttackProtectionAPIService) GetAuthenticatorSettingsExecute(r ApiGetAut
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -239,13 +239,13 @@ func (a *AttackProtectionAPIService) GetAuthenticatorSettingsExecute(r ApiGetAut
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetUserLockoutSettingsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AttackProtectionAPI
 	retryCount int32
 }
@@ -259,19 +259,20 @@ GetUserLockoutSettings Retrieve the user lockout settings
 
 Retrieves the User Lockout Settings for an org
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetUserLockoutSettingsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetUserLockoutSettingsRequest
 */
 func (a *AttackProtectionAPIService) GetUserLockoutSettings(ctx context.Context) ApiGetUserLockoutSettingsRequest {
 	return ApiGetUserLockoutSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []UserLockoutSettings
+//
+//	@return []UserLockoutSettings
 func (a *AttackProtectionAPIService) GetUserLockoutSettingsExecute(r ApiGetUserLockoutSettingsRequest) ([]UserLockoutSettings, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -280,7 +281,7 @@ func (a *AttackProtectionAPIService) GetUserLockoutSettingsExecute(r ApiGetUserL
 		localVarReturnValue  []UserLockoutSettings
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -340,9 +341,9 @@ func (a *AttackProtectionAPIService) GetUserLockoutSettingsExecute(r ApiGetUserL
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -388,16 +389,16 @@ func (a *AttackProtectionAPIService) GetUserLockoutSettingsExecute(r ApiGetUserL
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceAuthenticatorSettingsRequest struct {
-	ctx context.Context
-	ApiService AttackProtectionAPI
+	ctx                   context.Context
+	ApiService            AttackProtectionAPI
 	authenticatorSettings *AttackProtectionAuthenticatorSettings
-	retryCount int32
+	retryCount            int32
 }
 
 func (r ApiReplaceAuthenticatorSettingsRequest) AuthenticatorSettings(authenticatorSettings AttackProtectionAuthenticatorSettings) ApiReplaceAuthenticatorSettingsRequest {
@@ -414,19 +415,20 @@ ReplaceAuthenticatorSettings Replace the authenticator settings
 
 Replaces the Authenticator Settings for an org
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiReplaceAuthenticatorSettingsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiReplaceAuthenticatorSettingsRequest
 */
 func (a *AttackProtectionAPIService) ReplaceAuthenticatorSettings(ctx context.Context) ApiReplaceAuthenticatorSettingsRequest {
 	return ApiReplaceAuthenticatorSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return AttackProtectionAuthenticatorSettings
+//
+//	@return AttackProtectionAuthenticatorSettings
 func (a *AttackProtectionAPIService) ReplaceAuthenticatorSettingsExecute(r ApiReplaceAuthenticatorSettingsRequest) (*AttackProtectionAuthenticatorSettings, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -435,7 +437,7 @@ func (a *AttackProtectionAPIService) ReplaceAuthenticatorSettingsExecute(r ApiRe
 		localVarReturnValue  *AttackProtectionAuthenticatorSettings
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -500,9 +502,9 @@ func (a *AttackProtectionAPIService) ReplaceAuthenticatorSettingsExecute(r ApiRe
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -560,16 +562,16 @@ func (a *AttackProtectionAPIService) ReplaceAuthenticatorSettingsExecute(r ApiRe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceUserLockoutSettingsRequest struct {
-	ctx context.Context
-	ApiService AttackProtectionAPI
+	ctx             context.Context
+	ApiService      AttackProtectionAPI
 	lockoutSettings *UserLockoutSettings
-	retryCount int32
+	retryCount      int32
 }
 
 func (r ApiReplaceUserLockoutSettingsRequest) LockoutSettings(lockoutSettings UserLockoutSettings) ApiReplaceUserLockoutSettingsRequest {
@@ -586,19 +588,20 @@ ReplaceUserLockoutSettings Replace the user lockout settings
 
 Replaces the User Lockout Settings for an org
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiReplaceUserLockoutSettingsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiReplaceUserLockoutSettingsRequest
 */
 func (a *AttackProtectionAPIService) ReplaceUserLockoutSettings(ctx context.Context) ApiReplaceUserLockoutSettingsRequest {
 	return ApiReplaceUserLockoutSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserLockoutSettings
+//
+//	@return UserLockoutSettings
 func (a *AttackProtectionAPIService) ReplaceUserLockoutSettingsExecute(r ApiReplaceUserLockoutSettingsRequest) (*UserLockoutSettings, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -607,7 +610,7 @@ func (a *AttackProtectionAPIService) ReplaceUserLockoutSettingsExecute(r ApiRepl
 		localVarReturnValue  *UserLockoutSettings
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -672,9 +675,9 @@ func (a *AttackProtectionAPIService) ReplaceUserLockoutSettingsExecute(r ApiRepl
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -732,7 +735,7 @@ func (a *AttackProtectionAPIService) ReplaceUserLockoutSettingsExecute(r ApiRepl
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

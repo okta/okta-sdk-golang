@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the OAuth2ClientJsonWebKeyRequestBase type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OAuth2ClientJsonWebKeyRequestBase{}
+
 // OAuth2ClientJsonWebKeyRequestBase struct for OAuth2ClientJsonWebKeyRequestBase
 type OAuth2ClientJsonWebKeyRequestBase struct {
 	// Unique identifier of the JSON Web Key in the OAUth 2.0 client's JWKS
 	Kid NullableString `json:"kid,omitempty"`
 	// Status of the OAuth 2.0 client JSON Web Key
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewOAuth2ClientJsonWebKeyRequestBaseWithDefaults() *OAuth2ClientJsonWebKeyR
 
 // GetKid returns the Kid field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *OAuth2ClientJsonWebKeyRequestBase) GetKid() string {
-	if o == nil || o.Kid.Get() == nil {
+	if o == nil || IsNil(o.Kid.Get()) {
 		var ret string
 		return ret
 	}
@@ -91,6 +94,7 @@ func (o *OAuth2ClientJsonWebKeyRequestBase) HasKid() bool {
 func (o *OAuth2ClientJsonWebKeyRequestBase) SetKid(v string) {
 	o.Kid.Set(&v)
 }
+
 // SetKidNil sets the value for Kid to be an explicit nil
 func (o *OAuth2ClientJsonWebKeyRequestBase) SetKidNil() {
 	o.Kid.Set(nil)
@@ -103,7 +107,7 @@ func (o *OAuth2ClientJsonWebKeyRequestBase) UnsetKid() {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *OAuth2ClientJsonWebKeyRequestBase) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -113,7 +117,7 @@ func (o *OAuth2ClientJsonWebKeyRequestBase) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ClientJsonWebKeyRequestBase) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -121,7 +125,7 @@ func (o *OAuth2ClientJsonWebKeyRequestBase) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *OAuth2ClientJsonWebKeyRequestBase) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -134,11 +138,19 @@ func (o *OAuth2ClientJsonWebKeyRequestBase) SetStatus(v string) {
 }
 
 func (o OAuth2ClientJsonWebKeyRequestBase) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OAuth2ClientJsonWebKeyRequestBase) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Kid.IsSet() {
 		toSerialize["kid"] = o.Kid.Get()
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
 
@@ -146,28 +158,26 @@ func (o OAuth2ClientJsonWebKeyRequestBase) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OAuth2ClientJsonWebKeyRequestBase) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OAuth2ClientJsonWebKeyRequestBase) UnmarshalJSON(data []byte) (err error) {
 	varOAuth2ClientJsonWebKeyRequestBase := _OAuth2ClientJsonWebKeyRequestBase{}
 
-	err = json.Unmarshal(bytes, &varOAuth2ClientJsonWebKeyRequestBase)
-	if err == nil {
-		*o = OAuth2ClientJsonWebKeyRequestBase(varOAuth2ClientJsonWebKeyRequestBase)
-	} else {
+	err = json.Unmarshal(data, &varOAuth2ClientJsonWebKeyRequestBase)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OAuth2ClientJsonWebKeyRequestBase(varOAuth2ClientJsonWebKeyRequestBase)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "kid")
 		delete(additionalProperties, "status")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -208,4 +218,3 @@ func (v *NullableOAuth2ClientJsonWebKeyRequestBase) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

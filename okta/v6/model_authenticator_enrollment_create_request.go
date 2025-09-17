@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,11 +28,14 @@ import (
 	"fmt"
 )
 
+// checks if the AuthenticatorEnrollmentCreateRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorEnrollmentCreateRequest{}
+
 // AuthenticatorEnrollmentCreateRequest struct for AuthenticatorEnrollmentCreateRequest
 type AuthenticatorEnrollmentCreateRequest struct {
 	// Unique identifier of the `phone` authenticator
-	AuthenticatorId string `json:"authenticatorId"`
-	Profile AuthenticatorProfile `json:"profile"`
+	AuthenticatorId      string               `json:"authenticatorId"`
+	Profile              AuthenticatorProfile `json:"profile"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -106,40 +109,64 @@ func (o *AuthenticatorEnrollmentCreateRequest) SetProfile(v AuthenticatorProfile
 }
 
 func (o AuthenticatorEnrollmentCreateRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorEnrollmentCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["authenticatorId"] = o.AuthenticatorId
-	}
-	if true {
-		toSerialize["profile"] = o.Profile
-	}
+	toSerialize["authenticatorId"] = o.AuthenticatorId
+	toSerialize["profile"] = o.Profile
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorEnrollmentCreateRequest) UnmarshalJSON(bytes []byte) (err error) {
-	varAuthenticatorEnrollmentCreateRequest := _AuthenticatorEnrollmentCreateRequest{}
+func (o *AuthenticatorEnrollmentCreateRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"authenticatorId",
+		"profile",
+	}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorEnrollmentCreateRequest)
-	if err == nil {
-		*o = AuthenticatorEnrollmentCreateRequest(varAuthenticatorEnrollmentCreateRequest)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAuthenticatorEnrollmentCreateRequest := _AuthenticatorEnrollmentCreateRequest{}
+
+	err = json.Unmarshal(data, &varAuthenticatorEnrollmentCreateRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AuthenticatorEnrollmentCreateRequest(varAuthenticatorEnrollmentCreateRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "authenticatorId")
 		delete(additionalProperties, "profile")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -180,4 +207,3 @@ func (v *NullableAuthenticatorEnrollmentCreateRequest) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -30,11 +30,14 @@ import (
 	"strings"
 )
 
+// checks if the AuthenticatorEnrollmentPolicy type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorEnrollmentPolicy{}
+
 // AuthenticatorEnrollmentPolicy struct for AuthenticatorEnrollmentPolicy
 type AuthenticatorEnrollmentPolicy struct {
 	Policy
-	Conditions *AuthenticatorEnrollmentPolicyConditions `json:"conditions,omitempty"`
-	Settings *AuthenticatorEnrollmentPolicySettings `json:"settings,omitempty"`
+	Conditions           *AuthenticatorEnrollmentPolicyConditions `json:"conditions,omitempty"`
+	Settings             *AuthenticatorEnrollmentPolicySettings   `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -63,7 +66,7 @@ func NewAuthenticatorEnrollmentPolicyWithDefaults() *AuthenticatorEnrollmentPoli
 
 // GetConditions returns the Conditions field value if set, zero value otherwise.
 func (o *AuthenticatorEnrollmentPolicy) GetConditions() AuthenticatorEnrollmentPolicyConditions {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		var ret AuthenticatorEnrollmentPolicyConditions
 		return ret
 	}
@@ -73,7 +76,7 @@ func (o *AuthenticatorEnrollmentPolicy) GetConditions() AuthenticatorEnrollmentP
 // GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorEnrollmentPolicy) GetConditionsOk() (*AuthenticatorEnrollmentPolicyConditions, bool) {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		return nil, false
 	}
 	return o.Conditions, true
@@ -81,7 +84,7 @@ func (o *AuthenticatorEnrollmentPolicy) GetConditionsOk() (*AuthenticatorEnrollm
 
 // HasConditions returns a boolean if a field has been set.
 func (o *AuthenticatorEnrollmentPolicy) HasConditions() bool {
-	if o != nil && o.Conditions != nil {
+	if o != nil && !IsNil(o.Conditions) {
 		return true
 	}
 
@@ -95,7 +98,7 @@ func (o *AuthenticatorEnrollmentPolicy) SetConditions(v AuthenticatorEnrollmentP
 
 // GetSettings returns the Settings field value if set, zero value otherwise.
 func (o *AuthenticatorEnrollmentPolicy) GetSettings() AuthenticatorEnrollmentPolicySettings {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		var ret AuthenticatorEnrollmentPolicySettings
 		return ret
 	}
@@ -105,7 +108,7 @@ func (o *AuthenticatorEnrollmentPolicy) GetSettings() AuthenticatorEnrollmentPol
 // GetSettingsOk returns a tuple with the Settings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorEnrollmentPolicy) GetSettingsOk() (*AuthenticatorEnrollmentPolicySettings, bool) {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		return nil, false
 	}
 	return o.Settings, true
@@ -113,7 +116,7 @@ func (o *AuthenticatorEnrollmentPolicy) GetSettingsOk() (*AuthenticatorEnrollmen
 
 // HasSettings returns a boolean if a field has been set.
 func (o *AuthenticatorEnrollmentPolicy) HasSettings() bool {
-	if o != nil && o.Settings != nil {
+	if o != nil && !IsNil(o.Settings) {
 		return true
 	}
 
@@ -126,19 +129,27 @@ func (o *AuthenticatorEnrollmentPolicy) SetSettings(v AuthenticatorEnrollmentPol
 }
 
 func (o AuthenticatorEnrollmentPolicy) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorEnrollmentPolicy) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedPolicy, errPolicy := json.Marshal(o.Policy)
 	if errPolicy != nil {
-		return []byte{}, errPolicy
+		return map[string]interface{}{}, errPolicy
 	}
 	errPolicy = json.Unmarshal([]byte(serializedPolicy), &toSerialize)
 	if errPolicy != nil {
-		return []byte{}, errPolicy
+		return map[string]interface{}{}, errPolicy
 	}
-	if o.Conditions != nil {
+	if !IsNil(o.Conditions) {
 		toSerialize["conditions"] = o.Conditions
 	}
-	if o.Settings != nil {
+	if !IsNil(o.Settings) {
 		toSerialize["settings"] = o.Settings
 	}
 
@@ -146,18 +157,40 @@ func (o AuthenticatorEnrollmentPolicy) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorEnrollmentPolicy) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorEnrollmentPolicy) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	type AuthenticatorEnrollmentPolicyWithoutEmbeddedStruct struct {
 		Conditions *AuthenticatorEnrollmentPolicyConditions `json:"conditions,omitempty"`
-		Settings *AuthenticatorEnrollmentPolicySettings `json:"settings,omitempty"`
+		Settings   *AuthenticatorEnrollmentPolicySettings   `json:"settings,omitempty"`
 	}
 
 	varAuthenticatorEnrollmentPolicyWithoutEmbeddedStruct := AuthenticatorEnrollmentPolicyWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorEnrollmentPolicyWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varAuthenticatorEnrollmentPolicyWithoutEmbeddedStruct)
 	if err == nil {
 		varAuthenticatorEnrollmentPolicy := _AuthenticatorEnrollmentPolicy{}
 		varAuthenticatorEnrollmentPolicy.Conditions = varAuthenticatorEnrollmentPolicyWithoutEmbeddedStruct.Conditions
@@ -169,7 +202,7 @@ func (o *AuthenticatorEnrollmentPolicy) UnmarshalJSON(bytes []byte) (err error) 
 
 	varAuthenticatorEnrollmentPolicy := _AuthenticatorEnrollmentPolicy{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorEnrollmentPolicy)
+	err = json.Unmarshal(data, &varAuthenticatorEnrollmentPolicy)
 	if err == nil {
 		o.Policy = varAuthenticatorEnrollmentPolicy.Policy
 	} else {
@@ -178,8 +211,7 @@ func (o *AuthenticatorEnrollmentPolicy) UnmarshalJSON(bytes []byte) (err error) 
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "conditions")
 		delete(additionalProperties, "settings")
 
@@ -202,8 +234,6 @@ func (o *AuthenticatorEnrollmentPolicy) UnmarshalJSON(bytes []byte) (err error) 
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -244,4 +274,3 @@ func (v *NullableAuthenticatorEnrollmentPolicy) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

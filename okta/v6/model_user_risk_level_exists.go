@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -29,11 +29,14 @@ import (
 	"strings"
 )
 
+// checks if the UserRiskLevelExists type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserRiskLevelExists{}
+
 // UserRiskLevelExists struct for UserRiskLevelExists
 type UserRiskLevelExists struct {
 	UserRiskGetResponse
 	// Describes the risk level for the user
-	Reason *string `json:"reason,omitempty"`
+	Reason               *string `json:"reason,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewUserRiskLevelExistsWithDefaults() *UserRiskLevelExists {
 
 // GetReason returns the Reason field value if set, zero value otherwise.
 func (o *UserRiskLevelExists) GetReason() string {
-	if o == nil || o.Reason == nil {
+	if o == nil || IsNil(o.Reason) {
 		var ret string
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *UserRiskLevelExists) GetReason() string {
 // GetReasonOk returns a tuple with the Reason field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserRiskLevelExists) GetReasonOk() (*string, bool) {
-	if o == nil || o.Reason == nil {
+	if o == nil || IsNil(o.Reason) {
 		return nil, false
 	}
 	return o.Reason, true
@@ -76,7 +79,7 @@ func (o *UserRiskLevelExists) GetReasonOk() (*string, bool) {
 
 // HasReason returns a boolean if a field has been set.
 func (o *UserRiskLevelExists) HasReason() bool {
-	if o != nil && o.Reason != nil {
+	if o != nil && !IsNil(o.Reason) {
 		return true
 	}
 
@@ -89,16 +92,24 @@ func (o *UserRiskLevelExists) SetReason(v string) {
 }
 
 func (o UserRiskLevelExists) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserRiskLevelExists) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedUserRiskGetResponse, errUserRiskGetResponse := json.Marshal(o.UserRiskGetResponse)
 	if errUserRiskGetResponse != nil {
-		return []byte{}, errUserRiskGetResponse
+		return map[string]interface{}{}, errUserRiskGetResponse
 	}
 	errUserRiskGetResponse = json.Unmarshal([]byte(serializedUserRiskGetResponse), &toSerialize)
 	if errUserRiskGetResponse != nil {
-		return []byte{}, errUserRiskGetResponse
+		return map[string]interface{}{}, errUserRiskGetResponse
 	}
-	if o.Reason != nil {
+	if !IsNil(o.Reason) {
 		toSerialize["reason"] = o.Reason
 	}
 
@@ -106,10 +117,10 @@ func (o UserRiskLevelExists) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserRiskLevelExists) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserRiskLevelExists) UnmarshalJSON(data []byte) (err error) {
 	type UserRiskLevelExistsWithoutEmbeddedStruct struct {
 		// Describes the risk level for the user
 		Reason *string `json:"reason,omitempty"`
@@ -117,7 +128,7 @@ func (o *UserRiskLevelExists) UnmarshalJSON(bytes []byte) (err error) {
 
 	varUserRiskLevelExistsWithoutEmbeddedStruct := UserRiskLevelExistsWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varUserRiskLevelExistsWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varUserRiskLevelExistsWithoutEmbeddedStruct)
 	if err == nil {
 		varUserRiskLevelExists := _UserRiskLevelExists{}
 		varUserRiskLevelExists.Reason = varUserRiskLevelExistsWithoutEmbeddedStruct.Reason
@@ -128,7 +139,7 @@ func (o *UserRiskLevelExists) UnmarshalJSON(bytes []byte) (err error) {
 
 	varUserRiskLevelExists := _UserRiskLevelExists{}
 
-	err = json.Unmarshal(bytes, &varUserRiskLevelExists)
+	err = json.Unmarshal(data, &varUserRiskLevelExists)
 	if err == nil {
 		o.UserRiskGetResponse = varUserRiskLevelExists.UserRiskGetResponse
 	} else {
@@ -137,8 +148,7 @@ func (o *UserRiskLevelExists) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "reason")
 
 		// remove fields from embedded structs
@@ -160,8 +170,6 @@ func (o *UserRiskLevelExists) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -202,4 +210,3 @@ func (v *NullableUserRiskLevelExists) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

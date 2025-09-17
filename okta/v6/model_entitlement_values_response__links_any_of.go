@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the EntitlementValuesResponseLinksAnyOf type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EntitlementValuesResponseLinksAnyOf{}
+
 // EntitlementValuesResponseLinksAnyOf struct for EntitlementValuesResponseLinksAnyOf
 type EntitlementValuesResponseLinksAnyOf struct {
-	Bundle *HrefObject `json:"bundle,omitempty"`
-	Entitlements *HrefObject `json:"entitlements,omitempty"`
+	Bundle               *HrefObject `json:"bundle,omitempty"`
+	Entitlements         *HrefObject `json:"entitlements,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewEntitlementValuesResponseLinksAnyOfWithDefaults() *EntitlementValuesResp
 
 // GetBundle returns the Bundle field value if set, zero value otherwise.
 func (o *EntitlementValuesResponseLinksAnyOf) GetBundle() HrefObject {
-	if o == nil || o.Bundle == nil {
+	if o == nil || IsNil(o.Bundle) {
 		var ret HrefObject
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *EntitlementValuesResponseLinksAnyOf) GetBundle() HrefObject {
 // GetBundleOk returns a tuple with the Bundle field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementValuesResponseLinksAnyOf) GetBundleOk() (*HrefObject, bool) {
-	if o == nil || o.Bundle == nil {
+	if o == nil || IsNil(o.Bundle) {
 		return nil, false
 	}
 	return o.Bundle, true
@@ -73,7 +76,7 @@ func (o *EntitlementValuesResponseLinksAnyOf) GetBundleOk() (*HrefObject, bool) 
 
 // HasBundle returns a boolean if a field has been set.
 func (o *EntitlementValuesResponseLinksAnyOf) HasBundle() bool {
-	if o != nil && o.Bundle != nil {
+	if o != nil && !IsNil(o.Bundle) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *EntitlementValuesResponseLinksAnyOf) SetBundle(v HrefObject) {
 
 // GetEntitlements returns the Entitlements field value if set, zero value otherwise.
 func (o *EntitlementValuesResponseLinksAnyOf) GetEntitlements() HrefObject {
-	if o == nil || o.Entitlements == nil {
+	if o == nil || IsNil(o.Entitlements) {
 		var ret HrefObject
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *EntitlementValuesResponseLinksAnyOf) GetEntitlements() HrefObject {
 // GetEntitlementsOk returns a tuple with the Entitlements field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementValuesResponseLinksAnyOf) GetEntitlementsOk() (*HrefObject, bool) {
-	if o == nil || o.Entitlements == nil {
+	if o == nil || IsNil(o.Entitlements) {
 		return nil, false
 	}
 	return o.Entitlements, true
@@ -105,7 +108,7 @@ func (o *EntitlementValuesResponseLinksAnyOf) GetEntitlementsOk() (*HrefObject, 
 
 // HasEntitlements returns a boolean if a field has been set.
 func (o *EntitlementValuesResponseLinksAnyOf) HasEntitlements() bool {
-	if o != nil && o.Entitlements != nil {
+	if o != nil && !IsNil(o.Entitlements) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *EntitlementValuesResponseLinksAnyOf) SetEntitlements(v HrefObject) {
 }
 
 func (o EntitlementValuesResponseLinksAnyOf) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EntitlementValuesResponseLinksAnyOf) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Bundle != nil {
+	if !IsNil(o.Bundle) {
 		toSerialize["bundle"] = o.Bundle
 	}
-	if o.Entitlements != nil {
+	if !IsNil(o.Entitlements) {
 		toSerialize["entitlements"] = o.Entitlements
 	}
 
@@ -130,28 +141,26 @@ func (o EntitlementValuesResponseLinksAnyOf) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EntitlementValuesResponseLinksAnyOf) UnmarshalJSON(bytes []byte) (err error) {
+func (o *EntitlementValuesResponseLinksAnyOf) UnmarshalJSON(data []byte) (err error) {
 	varEntitlementValuesResponseLinksAnyOf := _EntitlementValuesResponseLinksAnyOf{}
 
-	err = json.Unmarshal(bytes, &varEntitlementValuesResponseLinksAnyOf)
-	if err == nil {
-		*o = EntitlementValuesResponseLinksAnyOf(varEntitlementValuesResponseLinksAnyOf)
-	} else {
+	err = json.Unmarshal(data, &varEntitlementValuesResponseLinksAnyOf)
+
+	if err != nil {
 		return err
 	}
 
+	*o = EntitlementValuesResponseLinksAnyOf(varEntitlementValuesResponseLinksAnyOf)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "bundle")
 		delete(additionalProperties, "entitlements")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableEntitlementValuesResponseLinksAnyOf) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

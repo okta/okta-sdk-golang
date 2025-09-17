@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"time"
 )
 
+// checks if the OrgCrossAppAccessConnection type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrgCrossAppAccessConnection{}
+
 // OrgCrossAppAccessConnection Connection object for Cross App Access connections
 type OrgCrossAppAccessConnection struct {
 	// The ISO 8601 formatted date and time when the connection was created
@@ -41,7 +44,7 @@ type OrgCrossAppAccessConnection struct {
 	// ID of the resource app instance
 	ResourceAppInstanceId *string `json:"resourceAppInstanceId,omitempty"`
 	// Indicates if the Cross App Access connection is active or inactive
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -66,7 +69,7 @@ func NewOrgCrossAppAccessConnectionWithDefaults() *OrgCrossAppAccessConnection {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *OrgCrossAppAccessConnection) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -76,7 +79,7 @@ func (o *OrgCrossAppAccessConnection) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgCrossAppAccessConnection) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -84,7 +87,7 @@ func (o *OrgCrossAppAccessConnection) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *OrgCrossAppAccessConnection) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -98,7 +101,7 @@ func (o *OrgCrossAppAccessConnection) SetCreated(v time.Time) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *OrgCrossAppAccessConnection) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -108,7 +111,7 @@ func (o *OrgCrossAppAccessConnection) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgCrossAppAccessConnection) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -116,7 +119,7 @@ func (o *OrgCrossAppAccessConnection) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *OrgCrossAppAccessConnection) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -130,7 +133,7 @@ func (o *OrgCrossAppAccessConnection) SetId(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *OrgCrossAppAccessConnection) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -140,7 +143,7 @@ func (o *OrgCrossAppAccessConnection) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgCrossAppAccessConnection) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -148,7 +151,7 @@ func (o *OrgCrossAppAccessConnection) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *OrgCrossAppAccessConnection) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -162,7 +165,7 @@ func (o *OrgCrossAppAccessConnection) SetLastUpdated(v time.Time) {
 
 // GetRequestingAppInstanceId returns the RequestingAppInstanceId field value if set, zero value otherwise.
 func (o *OrgCrossAppAccessConnection) GetRequestingAppInstanceId() string {
-	if o == nil || o.RequestingAppInstanceId == nil {
+	if o == nil || IsNil(o.RequestingAppInstanceId) {
 		var ret string
 		return ret
 	}
@@ -172,7 +175,7 @@ func (o *OrgCrossAppAccessConnection) GetRequestingAppInstanceId() string {
 // GetRequestingAppInstanceIdOk returns a tuple with the RequestingAppInstanceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgCrossAppAccessConnection) GetRequestingAppInstanceIdOk() (*string, bool) {
-	if o == nil || o.RequestingAppInstanceId == nil {
+	if o == nil || IsNil(o.RequestingAppInstanceId) {
 		return nil, false
 	}
 	return o.RequestingAppInstanceId, true
@@ -180,7 +183,7 @@ func (o *OrgCrossAppAccessConnection) GetRequestingAppInstanceIdOk() (*string, b
 
 // HasRequestingAppInstanceId returns a boolean if a field has been set.
 func (o *OrgCrossAppAccessConnection) HasRequestingAppInstanceId() bool {
-	if o != nil && o.RequestingAppInstanceId != nil {
+	if o != nil && !IsNil(o.RequestingAppInstanceId) {
 		return true
 	}
 
@@ -194,7 +197,7 @@ func (o *OrgCrossAppAccessConnection) SetRequestingAppInstanceId(v string) {
 
 // GetResourceAppInstanceId returns the ResourceAppInstanceId field value if set, zero value otherwise.
 func (o *OrgCrossAppAccessConnection) GetResourceAppInstanceId() string {
-	if o == nil || o.ResourceAppInstanceId == nil {
+	if o == nil || IsNil(o.ResourceAppInstanceId) {
 		var ret string
 		return ret
 	}
@@ -204,7 +207,7 @@ func (o *OrgCrossAppAccessConnection) GetResourceAppInstanceId() string {
 // GetResourceAppInstanceIdOk returns a tuple with the ResourceAppInstanceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgCrossAppAccessConnection) GetResourceAppInstanceIdOk() (*string, bool) {
-	if o == nil || o.ResourceAppInstanceId == nil {
+	if o == nil || IsNil(o.ResourceAppInstanceId) {
 		return nil, false
 	}
 	return o.ResourceAppInstanceId, true
@@ -212,7 +215,7 @@ func (o *OrgCrossAppAccessConnection) GetResourceAppInstanceIdOk() (*string, boo
 
 // HasResourceAppInstanceId returns a boolean if a field has been set.
 func (o *OrgCrossAppAccessConnection) HasResourceAppInstanceId() bool {
-	if o != nil && o.ResourceAppInstanceId != nil {
+	if o != nil && !IsNil(o.ResourceAppInstanceId) {
 		return true
 	}
 
@@ -226,7 +229,7 @@ func (o *OrgCrossAppAccessConnection) SetResourceAppInstanceId(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *OrgCrossAppAccessConnection) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -236,7 +239,7 @@ func (o *OrgCrossAppAccessConnection) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgCrossAppAccessConnection) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -244,7 +247,7 @@ func (o *OrgCrossAppAccessConnection) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *OrgCrossAppAccessConnection) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -257,23 +260,31 @@ func (o *OrgCrossAppAccessConnection) SetStatus(v string) {
 }
 
 func (o OrgCrossAppAccessConnection) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OrgCrossAppAccessConnection) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.RequestingAppInstanceId != nil {
+	if !IsNil(o.RequestingAppInstanceId) {
 		toSerialize["requestingAppInstanceId"] = o.RequestingAppInstanceId
 	}
-	if o.ResourceAppInstanceId != nil {
+	if !IsNil(o.ResourceAppInstanceId) {
 		toSerialize["resourceAppInstanceId"] = o.ResourceAppInstanceId
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
 
@@ -281,23 +292,23 @@ func (o OrgCrossAppAccessConnection) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OrgCrossAppAccessConnection) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OrgCrossAppAccessConnection) UnmarshalJSON(data []byte) (err error) {
 	varOrgCrossAppAccessConnection := _OrgCrossAppAccessConnection{}
 
-	err = json.Unmarshal(bytes, &varOrgCrossAppAccessConnection)
-	if err == nil {
-		*o = OrgCrossAppAccessConnection(varOrgCrossAppAccessConnection)
-	} else {
+	err = json.Unmarshal(data, &varOrgCrossAppAccessConnection)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OrgCrossAppAccessConnection(varOrgCrossAppAccessConnection)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "lastUpdated")
@@ -305,8 +316,6 @@ func (o *OrgCrossAppAccessConnection) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "resourceAppInstanceId")
 		delete(additionalProperties, "status")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -347,4 +356,3 @@ func (v *NullableOrgCrossAppAccessConnection) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

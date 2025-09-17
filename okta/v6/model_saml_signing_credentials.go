@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the SamlSigningCredentials type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SamlSigningCredentials{}
+
 // SamlSigningCredentials Key used for signing requests to the IdP
 type SamlSigningCredentials struct {
 	// IdP key credential reference to the Okta X.509 signature certificate
-	Kid *string `json:"kid,omitempty"`
+	Kid                  *string `json:"kid,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewSamlSigningCredentialsWithDefaults() *SamlSigningCredentials {
 
 // GetKid returns the Kid field value if set, zero value otherwise.
 func (o *SamlSigningCredentials) GetKid() string {
-	if o == nil || o.Kid == nil {
+	if o == nil || IsNil(o.Kid) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *SamlSigningCredentials) GetKid() string {
 // GetKidOk returns a tuple with the Kid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlSigningCredentials) GetKidOk() (*string, bool) {
-	if o == nil || o.Kid == nil {
+	if o == nil || IsNil(o.Kid) {
 		return nil, false
 	}
 	return o.Kid, true
@@ -73,7 +76,7 @@ func (o *SamlSigningCredentials) GetKidOk() (*string, bool) {
 
 // HasKid returns a boolean if a field has been set.
 func (o *SamlSigningCredentials) HasKid() bool {
-	if o != nil && o.Kid != nil {
+	if o != nil && !IsNil(o.Kid) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *SamlSigningCredentials) SetKid(v string) {
 }
 
 func (o SamlSigningCredentials) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SamlSigningCredentials) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Kid != nil {
+	if !IsNil(o.Kid) {
 		toSerialize["kid"] = o.Kid
 	}
 
@@ -95,27 +106,25 @@ func (o SamlSigningCredentials) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SamlSigningCredentials) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SamlSigningCredentials) UnmarshalJSON(data []byte) (err error) {
 	varSamlSigningCredentials := _SamlSigningCredentials{}
 
-	err = json.Unmarshal(bytes, &varSamlSigningCredentials)
-	if err == nil {
-		*o = SamlSigningCredentials(varSamlSigningCredentials)
-	} else {
+	err = json.Unmarshal(data, &varSamlSigningCredentials)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SamlSigningCredentials(varSamlSigningCredentials)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "kid")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableSamlSigningCredentials) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

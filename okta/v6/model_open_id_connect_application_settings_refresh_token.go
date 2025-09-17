@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,12 +28,15 @@ import (
 	"fmt"
 )
 
-// OpenIdConnectApplicationSettingsRefreshToken Refresh token configuration for an OAuth 2.0 client  When you create or update an OAuth 2.0 client, you can configure refresh token rotation by setting the `rotation_type` and `leeway` properties. If you don't set these properties when you create an app integration, the default values are used. When you update an app integration, your previously configured values are used. 
+// checks if the OpenIdConnectApplicationSettingsRefreshToken type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OpenIdConnectApplicationSettingsRefreshToken{}
+
+// OpenIdConnectApplicationSettingsRefreshToken Refresh token configuration for an OAuth 2.0 client  When you create or update an OAuth 2.0 client, you can configure refresh token rotation by setting the `rotation_type` and `leeway` properties. If you don't set these properties when you create an app integration, the default values are used. When you update an app integration, your previously configured values are used.
 type OpenIdConnectApplicationSettingsRefreshToken struct {
-	// The leeway, in seconds, allowed for the OAuth 2.0 client. After the refresh token is rotated, the previous token remains valid for the specified period of time so clients can get the new token.  > **Note:** A leeway of 0 doesn't necessarily mean that the previous token is immediately invalidated. The previous token is invalidated after the new token is generated and returned in the response. 
+	// The leeway, in seconds, allowed for the OAuth 2.0 client. After the refresh token is rotated, the previous token remains valid for the specified period of time so clients can get the new token.  > **Note:** A leeway of 0 doesn't necessarily mean that the previous token is immediately invalidated. The previous token is invalidated after the new token is generated and returned in the response.
 	Leeway *int32 `json:"leeway,omitempty"`
 	// The refresh token rotation mode for the OAuth 2.0 client
-	RotationType string `json:"rotation_type"`
+	RotationType         string `json:"rotation_type"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -63,7 +66,7 @@ func NewOpenIdConnectApplicationSettingsRefreshTokenWithDefaults() *OpenIdConnec
 
 // GetLeeway returns the Leeway field value if set, zero value otherwise.
 func (o *OpenIdConnectApplicationSettingsRefreshToken) GetLeeway() int32 {
-	if o == nil || o.Leeway == nil {
+	if o == nil || IsNil(o.Leeway) {
 		var ret int32
 		return ret
 	}
@@ -73,7 +76,7 @@ func (o *OpenIdConnectApplicationSettingsRefreshToken) GetLeeway() int32 {
 // GetLeewayOk returns a tuple with the Leeway field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OpenIdConnectApplicationSettingsRefreshToken) GetLeewayOk() (*int32, bool) {
-	if o == nil || o.Leeway == nil {
+	if o == nil || IsNil(o.Leeway) {
 		return nil, false
 	}
 	return o.Leeway, true
@@ -81,7 +84,7 @@ func (o *OpenIdConnectApplicationSettingsRefreshToken) GetLeewayOk() (*int32, bo
 
 // HasLeeway returns a boolean if a field has been set.
 func (o *OpenIdConnectApplicationSettingsRefreshToken) HasLeeway() bool {
-	if o != nil && o.Leeway != nil {
+	if o != nil && !IsNil(o.Leeway) {
 		return true
 	}
 
@@ -118,40 +121,65 @@ func (o *OpenIdConnectApplicationSettingsRefreshToken) SetRotationType(v string)
 }
 
 func (o OpenIdConnectApplicationSettingsRefreshToken) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OpenIdConnectApplicationSettingsRefreshToken) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Leeway != nil {
+	if !IsNil(o.Leeway) {
 		toSerialize["leeway"] = o.Leeway
 	}
-	if true {
-		toSerialize["rotation_type"] = o.RotationType
-	}
+	toSerialize["rotation_type"] = o.RotationType
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OpenIdConnectApplicationSettingsRefreshToken) UnmarshalJSON(bytes []byte) (err error) {
-	varOpenIdConnectApplicationSettingsRefreshToken := _OpenIdConnectApplicationSettingsRefreshToken{}
+func (o *OpenIdConnectApplicationSettingsRefreshToken) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"rotation_type",
+	}
 
-	err = json.Unmarshal(bytes, &varOpenIdConnectApplicationSettingsRefreshToken)
-	if err == nil {
-		*o = OpenIdConnectApplicationSettingsRefreshToken(varOpenIdConnectApplicationSettingsRefreshToken)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varOpenIdConnectApplicationSettingsRefreshToken := _OpenIdConnectApplicationSettingsRefreshToken{}
+
+	err = json.Unmarshal(data, &varOpenIdConnectApplicationSettingsRefreshToken)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OpenIdConnectApplicationSettingsRefreshToken(varOpenIdConnectApplicationSettingsRefreshToken)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "leeway")
 		delete(additionalProperties, "rotation_type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +220,3 @@ func (v *NullableOpenIdConnectApplicationSettingsRefreshToken) UnmarshalJSON(src
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

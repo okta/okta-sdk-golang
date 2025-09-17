@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the SamlSloEndpoint type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SamlSloEndpoint{}
+
 // SamlSloEndpoint IdP's `SingleLogoutService` endpoint where Okta sends a `<LogoutRequest>` message
 type SamlSloEndpoint struct {
 	Binding *string `json:"binding,omitempty"`
 	// URL of the binding-specific IdP endpoint where Okta sends a `<LogoutRequest>`
-	Url *string `json:"url,omitempty"`
+	Url                  *string `json:"url,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewSamlSloEndpointWithDefaults() *SamlSloEndpoint {
 
 // GetBinding returns the Binding field value if set, zero value otherwise.
 func (o *SamlSloEndpoint) GetBinding() string {
-	if o == nil || o.Binding == nil {
+	if o == nil || IsNil(o.Binding) {
 		var ret string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *SamlSloEndpoint) GetBinding() string {
 // GetBindingOk returns a tuple with the Binding field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlSloEndpoint) GetBindingOk() (*string, bool) {
-	if o == nil || o.Binding == nil {
+	if o == nil || IsNil(o.Binding) {
 		return nil, false
 	}
 	return o.Binding, true
@@ -74,7 +77,7 @@ func (o *SamlSloEndpoint) GetBindingOk() (*string, bool) {
 
 // HasBinding returns a boolean if a field has been set.
 func (o *SamlSloEndpoint) HasBinding() bool {
-	if o != nil && o.Binding != nil {
+	if o != nil && !IsNil(o.Binding) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *SamlSloEndpoint) SetBinding(v string) {
 
 // GetUrl returns the Url field value if set, zero value otherwise.
 func (o *SamlSloEndpoint) GetUrl() string {
-	if o == nil || o.Url == nil {
+	if o == nil || IsNil(o.Url) {
 		var ret string
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *SamlSloEndpoint) GetUrl() string {
 // GetUrlOk returns a tuple with the Url field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlSloEndpoint) GetUrlOk() (*string, bool) {
-	if o == nil || o.Url == nil {
+	if o == nil || IsNil(o.Url) {
 		return nil, false
 	}
 	return o.Url, true
@@ -106,7 +109,7 @@ func (o *SamlSloEndpoint) GetUrlOk() (*string, bool) {
 
 // HasUrl returns a boolean if a field has been set.
 func (o *SamlSloEndpoint) HasUrl() bool {
-	if o != nil && o.Url != nil {
+	if o != nil && !IsNil(o.Url) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *SamlSloEndpoint) SetUrl(v string) {
 }
 
 func (o SamlSloEndpoint) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SamlSloEndpoint) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Binding != nil {
+	if !IsNil(o.Binding) {
 		toSerialize["binding"] = o.Binding
 	}
-	if o.Url != nil {
+	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
 	}
 
@@ -131,28 +142,26 @@ func (o SamlSloEndpoint) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SamlSloEndpoint) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SamlSloEndpoint) UnmarshalJSON(data []byte) (err error) {
 	varSamlSloEndpoint := _SamlSloEndpoint{}
 
-	err = json.Unmarshal(bytes, &varSamlSloEndpoint)
-	if err == nil {
-		*o = SamlSloEndpoint(varSamlSloEndpoint)
-	} else {
+	err = json.Unmarshal(data, &varSamlSloEndpoint)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SamlSloEndpoint(varSamlSloEndpoint)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "binding")
 		delete(additionalProperties, "url")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableSamlSloEndpoint) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the LinksNextForRoleAssignments type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LinksNextForRoleAssignments{}
+
 // LinksNextForRoleAssignments Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification.
 type LinksNextForRoleAssignments struct {
 	// The next page of results if [pagination](#pagination) is required
-	Next *HrefObject `json:"next,omitempty"`
+	Next                 *HrefObject `json:"next,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewLinksNextForRoleAssignmentsWithDefaults() *LinksNextForRoleAssignments {
 
 // GetNext returns the Next field value if set, zero value otherwise.
 func (o *LinksNextForRoleAssignments) GetNext() HrefObject {
-	if o == nil || o.Next == nil {
+	if o == nil || IsNil(o.Next) {
 		var ret HrefObject
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *LinksNextForRoleAssignments) GetNext() HrefObject {
 // GetNextOk returns a tuple with the Next field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksNextForRoleAssignments) GetNextOk() (*HrefObject, bool) {
-	if o == nil || o.Next == nil {
+	if o == nil || IsNil(o.Next) {
 		return nil, false
 	}
 	return o.Next, true
@@ -73,7 +76,7 @@ func (o *LinksNextForRoleAssignments) GetNextOk() (*HrefObject, bool) {
 
 // HasNext returns a boolean if a field has been set.
 func (o *LinksNextForRoleAssignments) HasNext() bool {
-	if o != nil && o.Next != nil {
+	if o != nil && !IsNil(o.Next) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *LinksNextForRoleAssignments) SetNext(v HrefObject) {
 }
 
 func (o LinksNextForRoleAssignments) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LinksNextForRoleAssignments) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Next != nil {
+	if !IsNil(o.Next) {
 		toSerialize["next"] = o.Next
 	}
 
@@ -95,27 +106,25 @@ func (o LinksNextForRoleAssignments) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LinksNextForRoleAssignments) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LinksNextForRoleAssignments) UnmarshalJSON(data []byte) (err error) {
 	varLinksNextForRoleAssignments := _LinksNextForRoleAssignments{}
 
-	err = json.Unmarshal(bytes, &varLinksNextForRoleAssignments)
-	if err == nil {
-		*o = LinksNextForRoleAssignments(varLinksNextForRoleAssignments)
-	} else {
+	err = json.Unmarshal(data, &varLinksNextForRoleAssignments)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LinksNextForRoleAssignments(varLinksNextForRoleAssignments)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "next")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableLinksNextForRoleAssignments) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

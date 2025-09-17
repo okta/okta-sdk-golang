@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the InlineHookChannel type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InlineHookChannel{}
+
 // InlineHookChannel struct for InlineHookChannel
 type InlineHookChannel struct {
 	Type *string `json:"type,omitempty"`
 	// Version of the inline hook type. The currently supported version is `1.0.0`.
-	Version *string `json:"version,omitempty"`
+	Version              *string `json:"version,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewInlineHookChannelWithDefaults() *InlineHookChannel {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *InlineHookChannel) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *InlineHookChannel) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookChannel) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -74,7 +77,7 @@ func (o *InlineHookChannel) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *InlineHookChannel) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *InlineHookChannel) SetType(v string) {
 
 // GetVersion returns the Version field value if set, zero value otherwise.
 func (o *InlineHookChannel) GetVersion() string {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		var ret string
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *InlineHookChannel) GetVersion() string {
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookChannel) GetVersionOk() (*string, bool) {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
 	return o.Version, true
@@ -106,7 +109,7 @@ func (o *InlineHookChannel) GetVersionOk() (*string, bool) {
 
 // HasVersion returns a boolean if a field has been set.
 func (o *InlineHookChannel) HasVersion() bool {
-	if o != nil && o.Version != nil {
+	if o != nil && !IsNil(o.Version) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *InlineHookChannel) SetVersion(v string) {
 }
 
 func (o InlineHookChannel) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o InlineHookChannel) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Version != nil {
+	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
 
@@ -131,28 +142,26 @@ func (o InlineHookChannel) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *InlineHookChannel) UnmarshalJSON(bytes []byte) (err error) {
+func (o *InlineHookChannel) UnmarshalJSON(data []byte) (err error) {
 	varInlineHookChannel := _InlineHookChannel{}
 
-	err = json.Unmarshal(bytes, &varInlineHookChannel)
-	if err == nil {
-		*o = InlineHookChannel(varInlineHookChannel)
-	} else {
+	err = json.Unmarshal(data, &varInlineHookChannel)
+
+	if err != nil {
 		return err
 	}
 
+	*o = InlineHookChannel(varInlineHookChannel)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "version")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableInlineHookChannel) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

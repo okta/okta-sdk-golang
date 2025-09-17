@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"time"
 )
 
+// checks if the RegistrationInlineHook type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RegistrationInlineHook{}
+
 // RegistrationInlineHook struct for RegistrationInlineHook
 type RegistrationInlineHook struct {
 	Channel *InlineHookChannel `json:"channel,omitempty"`
@@ -38,13 +41,13 @@ type RegistrationInlineHook struct {
 	// Date of the last inline hook update
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	// The display name of the inline hook
-	Name *string `json:"name,omitempty"`
+	Name   *string `json:"name,omitempty"`
 	Status *string `json:"status,omitempty"`
 	// One of the inline hook types
 	Type *string `json:"type,omitempty"`
 	// Version of the inline hook type. The currently supported version is `1.0.0`.
-	Version *string `json:"version,omitempty"`
-	Links *InlineHookLinks `json:"_links,omitempty"`
+	Version              *string          `json:"version,omitempty"`
+	Links                *InlineHookLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -69,7 +72,7 @@ func NewRegistrationInlineHookWithDefaults() *RegistrationInlineHook {
 
 // GetChannel returns the Channel field value if set, zero value otherwise.
 func (o *RegistrationInlineHook) GetChannel() InlineHookChannel {
-	if o == nil || o.Channel == nil {
+	if o == nil || IsNil(o.Channel) {
 		var ret InlineHookChannel
 		return ret
 	}
@@ -79,7 +82,7 @@ func (o *RegistrationInlineHook) GetChannel() InlineHookChannel {
 // GetChannelOk returns a tuple with the Channel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationInlineHook) GetChannelOk() (*InlineHookChannel, bool) {
-	if o == nil || o.Channel == nil {
+	if o == nil || IsNil(o.Channel) {
 		return nil, false
 	}
 	return o.Channel, true
@@ -87,7 +90,7 @@ func (o *RegistrationInlineHook) GetChannelOk() (*InlineHookChannel, bool) {
 
 // HasChannel returns a boolean if a field has been set.
 func (o *RegistrationInlineHook) HasChannel() bool {
-	if o != nil && o.Channel != nil {
+	if o != nil && !IsNil(o.Channel) {
 		return true
 	}
 
@@ -101,7 +104,7 @@ func (o *RegistrationInlineHook) SetChannel(v InlineHookChannel) {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *RegistrationInlineHook) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -111,7 +114,7 @@ func (o *RegistrationInlineHook) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationInlineHook) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -119,7 +122,7 @@ func (o *RegistrationInlineHook) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *RegistrationInlineHook) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -133,7 +136,7 @@ func (o *RegistrationInlineHook) SetCreated(v time.Time) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *RegistrationInlineHook) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -143,7 +146,7 @@ func (o *RegistrationInlineHook) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationInlineHook) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -151,7 +154,7 @@ func (o *RegistrationInlineHook) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *RegistrationInlineHook) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -165,7 +168,7 @@ func (o *RegistrationInlineHook) SetId(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *RegistrationInlineHook) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -175,7 +178,7 @@ func (o *RegistrationInlineHook) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationInlineHook) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -183,7 +186,7 @@ func (o *RegistrationInlineHook) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *RegistrationInlineHook) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -197,7 +200,7 @@ func (o *RegistrationInlineHook) SetLastUpdated(v time.Time) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *RegistrationInlineHook) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -207,7 +210,7 @@ func (o *RegistrationInlineHook) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationInlineHook) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -215,7 +218,7 @@ func (o *RegistrationInlineHook) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *RegistrationInlineHook) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -229,7 +232,7 @@ func (o *RegistrationInlineHook) SetName(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *RegistrationInlineHook) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -239,7 +242,7 @@ func (o *RegistrationInlineHook) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationInlineHook) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -247,7 +250,7 @@ func (o *RegistrationInlineHook) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *RegistrationInlineHook) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -261,7 +264,7 @@ func (o *RegistrationInlineHook) SetStatus(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *RegistrationInlineHook) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -271,7 +274,7 @@ func (o *RegistrationInlineHook) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationInlineHook) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -279,7 +282,7 @@ func (o *RegistrationInlineHook) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *RegistrationInlineHook) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -293,7 +296,7 @@ func (o *RegistrationInlineHook) SetType(v string) {
 
 // GetVersion returns the Version field value if set, zero value otherwise.
 func (o *RegistrationInlineHook) GetVersion() string {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		var ret string
 		return ret
 	}
@@ -303,7 +306,7 @@ func (o *RegistrationInlineHook) GetVersion() string {
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationInlineHook) GetVersionOk() (*string, bool) {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
 	return o.Version, true
@@ -311,7 +314,7 @@ func (o *RegistrationInlineHook) GetVersionOk() (*string, bool) {
 
 // HasVersion returns a boolean if a field has been set.
 func (o *RegistrationInlineHook) HasVersion() bool {
-	if o != nil && o.Version != nil {
+	if o != nil && !IsNil(o.Version) {
 		return true
 	}
 
@@ -325,7 +328,7 @@ func (o *RegistrationInlineHook) SetVersion(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *RegistrationInlineHook) GetLinks() InlineHookLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret InlineHookLinks
 		return ret
 	}
@@ -335,7 +338,7 @@ func (o *RegistrationInlineHook) GetLinks() InlineHookLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationInlineHook) GetLinksOk() (*InlineHookLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -343,7 +346,7 @@ func (o *RegistrationInlineHook) GetLinksOk() (*InlineHookLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *RegistrationInlineHook) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -356,32 +359,40 @@ func (o *RegistrationInlineHook) SetLinks(v InlineHookLinks) {
 }
 
 func (o RegistrationInlineHook) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RegistrationInlineHook) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Channel != nil {
+	if !IsNil(o.Channel) {
 		toSerialize["channel"] = o.Channel
 	}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Version != nil {
+	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -389,23 +400,23 @@ func (o RegistrationInlineHook) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RegistrationInlineHook) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RegistrationInlineHook) UnmarshalJSON(data []byte) (err error) {
 	varRegistrationInlineHook := _RegistrationInlineHook{}
 
-	err = json.Unmarshal(bytes, &varRegistrationInlineHook)
-	if err == nil {
-		*o = RegistrationInlineHook(varRegistrationInlineHook)
-	} else {
+	err = json.Unmarshal(data, &varRegistrationInlineHook)
+
+	if err != nil {
 		return err
 	}
 
+	*o = RegistrationInlineHook(varRegistrationInlineHook)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "channel")
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "id")
@@ -416,8 +427,6 @@ func (o *RegistrationInlineHook) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "version")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -458,4 +467,3 @@ func (v *NullableRegistrationInlineHook) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

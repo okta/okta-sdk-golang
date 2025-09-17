@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the OINApplication type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OINApplication{}
+
 // OINApplication struct for OINApplication
 type OINApplication struct {
-	Accessibility *ApplicationAccessibility `json:"accessibility,omitempty"`
-	Credentials *SchemeApplicationCredentials `json:"credentials,omitempty"`
+	Accessibility *ApplicationAccessibility     `json:"accessibility,omitempty"`
+	Credentials   *SchemeApplicationCredentials `json:"credentials,omitempty"`
 	// User-defined display name for app
-	Label *string `json:"label,omitempty"`
+	Label     *string               `json:"label,omitempty"`
 	Licensing *ApplicationLicensing `json:"licensing,omitempty"`
 	// The key name for the OIN app definition
 	Name *string `json:"name,omitempty"`
@@ -41,8 +44,8 @@ type OINApplication struct {
 	// Authentication mode for the app
 	SignOnMode *string `json:"signOnMode,omitempty"`
 	// App instance status
-	Status *string `json:"status,omitempty"`
-	Visibility *ApplicationVisibility `json:"visibility,omitempty"`
+	Status               *string                `json:"status,omitempty"`
+	Visibility           *ApplicationVisibility `json:"visibility,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -67,7 +70,7 @@ func NewOINApplicationWithDefaults() *OINApplication {
 
 // GetAccessibility returns the Accessibility field value if set, zero value otherwise.
 func (o *OINApplication) GetAccessibility() ApplicationAccessibility {
-	if o == nil || o.Accessibility == nil {
+	if o == nil || IsNil(o.Accessibility) {
 		var ret ApplicationAccessibility
 		return ret
 	}
@@ -77,7 +80,7 @@ func (o *OINApplication) GetAccessibility() ApplicationAccessibility {
 // GetAccessibilityOk returns a tuple with the Accessibility field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OINApplication) GetAccessibilityOk() (*ApplicationAccessibility, bool) {
-	if o == nil || o.Accessibility == nil {
+	if o == nil || IsNil(o.Accessibility) {
 		return nil, false
 	}
 	return o.Accessibility, true
@@ -85,7 +88,7 @@ func (o *OINApplication) GetAccessibilityOk() (*ApplicationAccessibility, bool) 
 
 // HasAccessibility returns a boolean if a field has been set.
 func (o *OINApplication) HasAccessibility() bool {
-	if o != nil && o.Accessibility != nil {
+	if o != nil && !IsNil(o.Accessibility) {
 		return true
 	}
 
@@ -99,7 +102,7 @@ func (o *OINApplication) SetAccessibility(v ApplicationAccessibility) {
 
 // GetCredentials returns the Credentials field value if set, zero value otherwise.
 func (o *OINApplication) GetCredentials() SchemeApplicationCredentials {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		var ret SchemeApplicationCredentials
 		return ret
 	}
@@ -109,7 +112,7 @@ func (o *OINApplication) GetCredentials() SchemeApplicationCredentials {
 // GetCredentialsOk returns a tuple with the Credentials field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OINApplication) GetCredentialsOk() (*SchemeApplicationCredentials, bool) {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		return nil, false
 	}
 	return o.Credentials, true
@@ -117,7 +120,7 @@ func (o *OINApplication) GetCredentialsOk() (*SchemeApplicationCredentials, bool
 
 // HasCredentials returns a boolean if a field has been set.
 func (o *OINApplication) HasCredentials() bool {
-	if o != nil && o.Credentials != nil {
+	if o != nil && !IsNil(o.Credentials) {
 		return true
 	}
 
@@ -131,7 +134,7 @@ func (o *OINApplication) SetCredentials(v SchemeApplicationCredentials) {
 
 // GetLabel returns the Label field value if set, zero value otherwise.
 func (o *OINApplication) GetLabel() string {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		var ret string
 		return ret
 	}
@@ -141,7 +144,7 @@ func (o *OINApplication) GetLabel() string {
 // GetLabelOk returns a tuple with the Label field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OINApplication) GetLabelOk() (*string, bool) {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		return nil, false
 	}
 	return o.Label, true
@@ -149,7 +152,7 @@ func (o *OINApplication) GetLabelOk() (*string, bool) {
 
 // HasLabel returns a boolean if a field has been set.
 func (o *OINApplication) HasLabel() bool {
-	if o != nil && o.Label != nil {
+	if o != nil && !IsNil(o.Label) {
 		return true
 	}
 
@@ -163,7 +166,7 @@ func (o *OINApplication) SetLabel(v string) {
 
 // GetLicensing returns the Licensing field value if set, zero value otherwise.
 func (o *OINApplication) GetLicensing() ApplicationLicensing {
-	if o == nil || o.Licensing == nil {
+	if o == nil || IsNil(o.Licensing) {
 		var ret ApplicationLicensing
 		return ret
 	}
@@ -173,7 +176,7 @@ func (o *OINApplication) GetLicensing() ApplicationLicensing {
 // GetLicensingOk returns a tuple with the Licensing field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OINApplication) GetLicensingOk() (*ApplicationLicensing, bool) {
-	if o == nil || o.Licensing == nil {
+	if o == nil || IsNil(o.Licensing) {
 		return nil, false
 	}
 	return o.Licensing, true
@@ -181,7 +184,7 @@ func (o *OINApplication) GetLicensingOk() (*ApplicationLicensing, bool) {
 
 // HasLicensing returns a boolean if a field has been set.
 func (o *OINApplication) HasLicensing() bool {
-	if o != nil && o.Licensing != nil {
+	if o != nil && !IsNil(o.Licensing) {
 		return true
 	}
 
@@ -195,7 +198,7 @@ func (o *OINApplication) SetLicensing(v ApplicationLicensing) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *OINApplication) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -205,7 +208,7 @@ func (o *OINApplication) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OINApplication) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -213,7 +216,7 @@ func (o *OINApplication) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *OINApplication) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -227,7 +230,7 @@ func (o *OINApplication) SetName(v string) {
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *OINApplication) GetProfile() map[string]map[string]interface{} {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
@@ -237,15 +240,15 @@ func (o *OINApplication) GetProfile() map[string]map[string]interface{} {
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OINApplication) GetProfileOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || o.Profile == nil {
-		return nil, false
+	if o == nil || IsNil(o.Profile) {
+		return map[string]map[string]interface{}{}, false
 	}
 	return o.Profile, true
 }
 
 // HasProfile returns a boolean if a field has been set.
 func (o *OINApplication) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -259,7 +262,7 @@ func (o *OINApplication) SetProfile(v map[string]map[string]interface{}) {
 
 // GetSignOnMode returns the SignOnMode field value if set, zero value otherwise.
 func (o *OINApplication) GetSignOnMode() string {
-	if o == nil || o.SignOnMode == nil {
+	if o == nil || IsNil(o.SignOnMode) {
 		var ret string
 		return ret
 	}
@@ -269,7 +272,7 @@ func (o *OINApplication) GetSignOnMode() string {
 // GetSignOnModeOk returns a tuple with the SignOnMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OINApplication) GetSignOnModeOk() (*string, bool) {
-	if o == nil || o.SignOnMode == nil {
+	if o == nil || IsNil(o.SignOnMode) {
 		return nil, false
 	}
 	return o.SignOnMode, true
@@ -277,7 +280,7 @@ func (o *OINApplication) GetSignOnModeOk() (*string, bool) {
 
 // HasSignOnMode returns a boolean if a field has been set.
 func (o *OINApplication) HasSignOnMode() bool {
-	if o != nil && o.SignOnMode != nil {
+	if o != nil && !IsNil(o.SignOnMode) {
 		return true
 	}
 
@@ -291,7 +294,7 @@ func (o *OINApplication) SetSignOnMode(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *OINApplication) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -301,7 +304,7 @@ func (o *OINApplication) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OINApplication) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -309,7 +312,7 @@ func (o *OINApplication) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *OINApplication) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -323,7 +326,7 @@ func (o *OINApplication) SetStatus(v string) {
 
 // GetVisibility returns the Visibility field value if set, zero value otherwise.
 func (o *OINApplication) GetVisibility() ApplicationVisibility {
-	if o == nil || o.Visibility == nil {
+	if o == nil || IsNil(o.Visibility) {
 		var ret ApplicationVisibility
 		return ret
 	}
@@ -333,7 +336,7 @@ func (o *OINApplication) GetVisibility() ApplicationVisibility {
 // GetVisibilityOk returns a tuple with the Visibility field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OINApplication) GetVisibilityOk() (*ApplicationVisibility, bool) {
-	if o == nil || o.Visibility == nil {
+	if o == nil || IsNil(o.Visibility) {
 		return nil, false
 	}
 	return o.Visibility, true
@@ -341,7 +344,7 @@ func (o *OINApplication) GetVisibilityOk() (*ApplicationVisibility, bool) {
 
 // HasVisibility returns a boolean if a field has been set.
 func (o *OINApplication) HasVisibility() bool {
-	if o != nil && o.Visibility != nil {
+	if o != nil && !IsNil(o.Visibility) {
 		return true
 	}
 
@@ -354,32 +357,40 @@ func (o *OINApplication) SetVisibility(v ApplicationVisibility) {
 }
 
 func (o OINApplication) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OINApplication) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Accessibility != nil {
+	if !IsNil(o.Accessibility) {
 		toSerialize["accessibility"] = o.Accessibility
 	}
-	if o.Credentials != nil {
+	if !IsNil(o.Credentials) {
 		toSerialize["credentials"] = o.Credentials
 	}
-	if o.Label != nil {
+	if !IsNil(o.Label) {
 		toSerialize["label"] = o.Label
 	}
-	if o.Licensing != nil {
+	if !IsNil(o.Licensing) {
 		toSerialize["licensing"] = o.Licensing
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Profile != nil {
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
-	if o.SignOnMode != nil {
+	if !IsNil(o.SignOnMode) {
 		toSerialize["signOnMode"] = o.SignOnMode
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Visibility != nil {
+	if !IsNil(o.Visibility) {
 		toSerialize["visibility"] = o.Visibility
 	}
 
@@ -387,23 +398,23 @@ func (o OINApplication) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OINApplication) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OINApplication) UnmarshalJSON(data []byte) (err error) {
 	varOINApplication := _OINApplication{}
 
-	err = json.Unmarshal(bytes, &varOINApplication)
-	if err == nil {
-		*o = OINApplication(varOINApplication)
-	} else {
+	err = json.Unmarshal(data, &varOINApplication)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OINApplication(varOINApplication)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "accessibility")
 		delete(additionalProperties, "credentials")
 		delete(additionalProperties, "label")
@@ -414,8 +425,6 @@ func (o *OINApplication) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "visibility")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -456,4 +465,3 @@ func (v *NullableOINApplication) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

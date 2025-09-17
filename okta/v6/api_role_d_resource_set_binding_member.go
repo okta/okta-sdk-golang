@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,25 +26,24 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type RoleDResourceSetBindingMemberAPI interface {
 
 	/*
-	AddMembersToBinding Add more role resource set binding members
+		AddMembersToBinding Add more role resource set binding members
 
-	Adds more members to a role resource set binding
+		Adds more members to a role resource set binding
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetIdOrLabel `id` or `label` of the resource set
-	@param roleIdOrLabel `id` or `label` of the role
-	@return ApiAddMembersToBindingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetIdOrLabel `id` or `label` of the resource set
+		@param roleIdOrLabel `id` or `label` of the role
+		@return ApiAddMembersToBindingRequest
 	*/
 	AddMembersToBinding(ctx context.Context, resourceSetIdOrLabel string, roleIdOrLabel string) ApiAddMembersToBindingRequest
 
@@ -53,15 +52,15 @@ type RoleDResourceSetBindingMemberAPI interface {
 	AddMembersToBindingExecute(r ApiAddMembersToBindingRequest) (*ResourceSetBindingEditResponse, *APIResponse, error)
 
 	/*
-	GetMemberOfBinding Retrieve a role resource set binding member
+		GetMemberOfBinding Retrieve a role resource set binding member
 
-	Retrieves a member (identified by `memberId`) that belongs to a role resource set binding
+		Retrieves a member (identified by `memberId`) that belongs to a role resource set binding
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetIdOrLabel `id` or `label` of the resource set
-	@param roleIdOrLabel `id` or `label` of the role
-	@param memberId `id` of the member
-	@return ApiGetMemberOfBindingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetIdOrLabel `id` or `label` of the resource set
+		@param roleIdOrLabel `id` or `label` of the role
+		@param memberId `id` of the member
+		@return ApiGetMemberOfBindingRequest
 	*/
 	GetMemberOfBinding(ctx context.Context, resourceSetIdOrLabel string, roleIdOrLabel string, memberId string) ApiGetMemberOfBindingRequest
 
@@ -70,14 +69,14 @@ type RoleDResourceSetBindingMemberAPI interface {
 	GetMemberOfBindingExecute(r ApiGetMemberOfBindingRequest) (*ResourceSetBindingMember, *APIResponse, error)
 
 	/*
-	ListMembersOfBinding List all role resource set binding members
+		ListMembersOfBinding List all role resource set binding members
 
-	Lists all members of a role resource set binding with pagination support
+		Lists all members of a role resource set binding with pagination support
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetIdOrLabel `id` or `label` of the resource set
-	@param roleIdOrLabel `id` or `label` of the role
-	@return ApiListMembersOfBindingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetIdOrLabel `id` or `label` of the resource set
+		@param roleIdOrLabel `id` or `label` of the role
+		@return ApiListMembersOfBindingRequest
 	*/
 	ListMembersOfBinding(ctx context.Context, resourceSetIdOrLabel string, roleIdOrLabel string) ApiListMembersOfBindingRequest
 
@@ -86,15 +85,15 @@ type RoleDResourceSetBindingMemberAPI interface {
 	ListMembersOfBindingExecute(r ApiListMembersOfBindingRequest) (*ResourceSetBindingMembers, *APIResponse, error)
 
 	/*
-	UnassignMemberFromBinding Unassign a role resource set binding member
+		UnassignMemberFromBinding Unassign a role resource set binding member
 
-	Unassigns a member (identified by `memberId`) from a role resource set binding
+		Unassigns a member (identified by `memberId`) from a role resource set binding
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetIdOrLabel `id` or `label` of the resource set
-	@param roleIdOrLabel `id` or `label` of the role
-	@param memberId `id` of the member
-	@return ApiUnassignMemberFromBindingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetIdOrLabel `id` or `label` of the resource set
+		@param roleIdOrLabel `id` or `label` of the role
+		@param memberId `id` of the member
+		@return ApiUnassignMemberFromBindingRequest
 	*/
 	UnassignMemberFromBinding(ctx context.Context, resourceSetIdOrLabel string, roleIdOrLabel string, memberId string) ApiUnassignMemberFromBindingRequest
 
@@ -106,12 +105,12 @@ type RoleDResourceSetBindingMemberAPI interface {
 type RoleDResourceSetBindingMemberAPIService service
 
 type ApiAddMembersToBindingRequest struct {
-	ctx context.Context
-	ApiService RoleDResourceSetBindingMemberAPI
+	ctx                  context.Context
+	ApiService           RoleDResourceSetBindingMemberAPI
 	resourceSetIdOrLabel string
-	roleIdOrLabel string
-	instance *ResourceSetBindingAddMembersRequest
-	retryCount int32
+	roleIdOrLabel        string
+	instance             *ResourceSetBindingAddMembersRequest
+	retryCount           int32
 }
 
 func (r ApiAddMembersToBindingRequest) Instance(instance ResourceSetBindingAddMembersRequest) ApiAddMembersToBindingRequest {
@@ -128,23 +127,24 @@ AddMembersToBinding Add more role resource set binding members
 
 Adds more members to a role resource set binding
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param resourceSetIdOrLabel `id` or `label` of the resource set
- @param roleIdOrLabel `id` or `label` of the role
- @return ApiAddMembersToBindingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param resourceSetIdOrLabel `id` or `label` of the resource set
+	@param roleIdOrLabel `id` or `label` of the role
+	@return ApiAddMembersToBindingRequest
 */
 func (a *RoleDResourceSetBindingMemberAPIService) AddMembersToBinding(ctx context.Context, resourceSetIdOrLabel string, roleIdOrLabel string) ApiAddMembersToBindingRequest {
 	return ApiAddMembersToBindingRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:           a,
+		ctx:                  ctx,
 		resourceSetIdOrLabel: resourceSetIdOrLabel,
-		roleIdOrLabel: roleIdOrLabel,
-		retryCount: 0,
+		roleIdOrLabel:        roleIdOrLabel,
+		retryCount:           0,
 	}
 }
 
 // Execute executes the request
-//  @return ResourceSetBindingEditResponse
+//
+//	@return ResourceSetBindingEditResponse
 func (a *RoleDResourceSetBindingMemberAPIService) AddMembersToBindingExecute(r ApiAddMembersToBindingRequest) (*ResourceSetBindingEditResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
@@ -153,7 +153,7 @@ func (a *RoleDResourceSetBindingMemberAPIService) AddMembersToBindingExecute(r A
 		localVarReturnValue  *ResourceSetBindingEditResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -220,9 +220,9 @@ func (a *RoleDResourceSetBindingMemberAPIService) AddMembersToBindingExecute(r A
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -292,18 +292,18 @@ func (a *RoleDResourceSetBindingMemberAPIService) AddMembersToBindingExecute(r A
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetMemberOfBindingRequest struct {
-	ctx context.Context
-	ApiService RoleDResourceSetBindingMemberAPI
+	ctx                  context.Context
+	ApiService           RoleDResourceSetBindingMemberAPI
 	resourceSetIdOrLabel string
-	roleIdOrLabel string
-	memberId string
-	retryCount int32
+	roleIdOrLabel        string
+	memberId             string
+	retryCount           int32
 }
 
 func (r ApiGetMemberOfBindingRequest) Execute() (*ResourceSetBindingMember, *APIResponse, error) {
@@ -315,25 +315,26 @@ GetMemberOfBinding Retrieve a role resource set binding member
 
 Retrieves a member (identified by `memberId`) that belongs to a role resource set binding
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param resourceSetIdOrLabel `id` or `label` of the resource set
- @param roleIdOrLabel `id` or `label` of the role
- @param memberId `id` of the member
- @return ApiGetMemberOfBindingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param resourceSetIdOrLabel `id` or `label` of the resource set
+	@param roleIdOrLabel `id` or `label` of the role
+	@param memberId `id` of the member
+	@return ApiGetMemberOfBindingRequest
 */
 func (a *RoleDResourceSetBindingMemberAPIService) GetMemberOfBinding(ctx context.Context, resourceSetIdOrLabel string, roleIdOrLabel string, memberId string) ApiGetMemberOfBindingRequest {
 	return ApiGetMemberOfBindingRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:           a,
+		ctx:                  ctx,
 		resourceSetIdOrLabel: resourceSetIdOrLabel,
-		roleIdOrLabel: roleIdOrLabel,
-		memberId: memberId,
-		retryCount: 0,
+		roleIdOrLabel:        roleIdOrLabel,
+		memberId:             memberId,
+		retryCount:           0,
 	}
 }
 
 // Execute executes the request
-//  @return ResourceSetBindingMember
+//
+//	@return ResourceSetBindingMember
 func (a *RoleDResourceSetBindingMemberAPIService) GetMemberOfBindingExecute(r ApiGetMemberOfBindingRequest) (*ResourceSetBindingMember, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -342,7 +343,7 @@ func (a *RoleDResourceSetBindingMemberAPIService) GetMemberOfBindingExecute(r Ap
 		localVarReturnValue  *ResourceSetBindingMember
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -405,9 +406,9 @@ func (a *RoleDResourceSetBindingMemberAPIService) GetMemberOfBindingExecute(r Ap
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -465,18 +466,18 @@ func (a *RoleDResourceSetBindingMemberAPIService) GetMemberOfBindingExecute(r Ap
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListMembersOfBindingRequest struct {
-	ctx context.Context
-	ApiService RoleDResourceSetBindingMemberAPI
+	ctx                  context.Context
+	ApiService           RoleDResourceSetBindingMemberAPI
 	resourceSetIdOrLabel string
-	roleIdOrLabel string
-	after *string
-	retryCount int32
+	roleIdOrLabel        string
+	after                *string
+	retryCount           int32
 }
 
 // The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination).
@@ -494,23 +495,24 @@ ListMembersOfBinding List all role resource set binding members
 
 Lists all members of a role resource set binding with pagination support
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param resourceSetIdOrLabel `id` or `label` of the resource set
- @param roleIdOrLabel `id` or `label` of the role
- @return ApiListMembersOfBindingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param resourceSetIdOrLabel `id` or `label` of the resource set
+	@param roleIdOrLabel `id` or `label` of the role
+	@return ApiListMembersOfBindingRequest
 */
 func (a *RoleDResourceSetBindingMemberAPIService) ListMembersOfBinding(ctx context.Context, resourceSetIdOrLabel string, roleIdOrLabel string) ApiListMembersOfBindingRequest {
 	return ApiListMembersOfBindingRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:           a,
+		ctx:                  ctx,
 		resourceSetIdOrLabel: resourceSetIdOrLabel,
-		roleIdOrLabel: roleIdOrLabel,
-		retryCount: 0,
+		roleIdOrLabel:        roleIdOrLabel,
+		retryCount:           0,
 	}
 }
 
 // Execute executes the request
-//  @return ResourceSetBindingMembers
+//
+//	@return ResourceSetBindingMembers
 func (a *RoleDResourceSetBindingMemberAPIService) ListMembersOfBindingExecute(r ApiListMembersOfBindingRequest) (*ResourceSetBindingMembers, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -519,7 +521,7 @@ func (a *RoleDResourceSetBindingMemberAPIService) ListMembersOfBindingExecute(r 
 		localVarReturnValue  *ResourceSetBindingMembers
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -584,9 +586,9 @@ func (a *RoleDResourceSetBindingMemberAPIService) ListMembersOfBindingExecute(r 
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -644,18 +646,18 @@ func (a *RoleDResourceSetBindingMemberAPIService) ListMembersOfBindingExecute(r 
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUnassignMemberFromBindingRequest struct {
-	ctx context.Context
-	ApiService RoleDResourceSetBindingMemberAPI
+	ctx                  context.Context
+	ApiService           RoleDResourceSetBindingMemberAPI
 	resourceSetIdOrLabel string
-	roleIdOrLabel string
-	memberId string
-	retryCount int32
+	roleIdOrLabel        string
+	memberId             string
+	retryCount           int32
 }
 
 func (r ApiUnassignMemberFromBindingRequest) Execute() (*APIResponse, error) {
@@ -667,20 +669,20 @@ UnassignMemberFromBinding Unassign a role resource set binding member
 
 Unassigns a member (identified by `memberId`) from a role resource set binding
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param resourceSetIdOrLabel `id` or `label` of the resource set
- @param roleIdOrLabel `id` or `label` of the role
- @param memberId `id` of the member
- @return ApiUnassignMemberFromBindingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param resourceSetIdOrLabel `id` or `label` of the resource set
+	@param roleIdOrLabel `id` or `label` of the role
+	@param memberId `id` of the member
+	@return ApiUnassignMemberFromBindingRequest
 */
 func (a *RoleDResourceSetBindingMemberAPIService) UnassignMemberFromBinding(ctx context.Context, resourceSetIdOrLabel string, roleIdOrLabel string, memberId string) ApiUnassignMemberFromBindingRequest {
 	return ApiUnassignMemberFromBindingRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:           a,
+		ctx:                  ctx,
 		resourceSetIdOrLabel: resourceSetIdOrLabel,
-		roleIdOrLabel: roleIdOrLabel,
-		memberId: memberId,
-		retryCount: 0,
+		roleIdOrLabel:        roleIdOrLabel,
+		memberId:             memberId,
+		retryCount:           0,
 	}
 }
 
@@ -692,7 +694,7 @@ func (a *RoleDResourceSetBindingMemberAPIService) UnassignMemberFromBindingExecu
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -755,9 +757,9 @@ func (a *RoleDResourceSetBindingMemberAPIService) UnassignMemberFromBindingExecu
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,15 +27,18 @@ import (
 	"encoding/json"
 )
 
+// checks if the ProtocolSaml type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ProtocolSaml{}
+
 // ProtocolSaml Protocol settings for the [SAML 2.0 Authentication Request Protocol](http://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf)
 type ProtocolSaml struct {
-	Algorithms *SamlAlgorithms `json:"algorithms,omitempty"`
+	Algorithms  *SamlAlgorithms  `json:"algorithms,omitempty"`
 	Credentials *SamlCredentials `json:"credentials,omitempty"`
-	Endpoints *SamlEndpoints `json:"endpoints,omitempty"`
-	RelayState *SamlRelayState `json:"relayState,omitempty"`
-	Settings *SamlSettings `json:"settings,omitempty"`
+	Endpoints   *SamlEndpoints   `json:"endpoints,omitempty"`
+	RelayState  *SamlRelayState  `json:"relayState,omitempty"`
+	Settings    *SamlSettings    `json:"settings,omitempty"`
 	// SAML 2.0 protocol
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +63,7 @@ func NewProtocolSamlWithDefaults() *ProtocolSaml {
 
 // GetAlgorithms returns the Algorithms field value if set, zero value otherwise.
 func (o *ProtocolSaml) GetAlgorithms() SamlAlgorithms {
-	if o == nil || o.Algorithms == nil {
+	if o == nil || IsNil(o.Algorithms) {
 		var ret SamlAlgorithms
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *ProtocolSaml) GetAlgorithms() SamlAlgorithms {
 // GetAlgorithmsOk returns a tuple with the Algorithms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProtocolSaml) GetAlgorithmsOk() (*SamlAlgorithms, bool) {
-	if o == nil || o.Algorithms == nil {
+	if o == nil || IsNil(o.Algorithms) {
 		return nil, false
 	}
 	return o.Algorithms, true
@@ -78,7 +81,7 @@ func (o *ProtocolSaml) GetAlgorithmsOk() (*SamlAlgorithms, bool) {
 
 // HasAlgorithms returns a boolean if a field has been set.
 func (o *ProtocolSaml) HasAlgorithms() bool {
-	if o != nil && o.Algorithms != nil {
+	if o != nil && !IsNil(o.Algorithms) {
 		return true
 	}
 
@@ -92,7 +95,7 @@ func (o *ProtocolSaml) SetAlgorithms(v SamlAlgorithms) {
 
 // GetCredentials returns the Credentials field value if set, zero value otherwise.
 func (o *ProtocolSaml) GetCredentials() SamlCredentials {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		var ret SamlCredentials
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *ProtocolSaml) GetCredentials() SamlCredentials {
 // GetCredentialsOk returns a tuple with the Credentials field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProtocolSaml) GetCredentialsOk() (*SamlCredentials, bool) {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		return nil, false
 	}
 	return o.Credentials, true
@@ -110,7 +113,7 @@ func (o *ProtocolSaml) GetCredentialsOk() (*SamlCredentials, bool) {
 
 // HasCredentials returns a boolean if a field has been set.
 func (o *ProtocolSaml) HasCredentials() bool {
-	if o != nil && o.Credentials != nil {
+	if o != nil && !IsNil(o.Credentials) {
 		return true
 	}
 
@@ -124,7 +127,7 @@ func (o *ProtocolSaml) SetCredentials(v SamlCredentials) {
 
 // GetEndpoints returns the Endpoints field value if set, zero value otherwise.
 func (o *ProtocolSaml) GetEndpoints() SamlEndpoints {
-	if o == nil || o.Endpoints == nil {
+	if o == nil || IsNil(o.Endpoints) {
 		var ret SamlEndpoints
 		return ret
 	}
@@ -134,7 +137,7 @@ func (o *ProtocolSaml) GetEndpoints() SamlEndpoints {
 // GetEndpointsOk returns a tuple with the Endpoints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProtocolSaml) GetEndpointsOk() (*SamlEndpoints, bool) {
-	if o == nil || o.Endpoints == nil {
+	if o == nil || IsNil(o.Endpoints) {
 		return nil, false
 	}
 	return o.Endpoints, true
@@ -142,7 +145,7 @@ func (o *ProtocolSaml) GetEndpointsOk() (*SamlEndpoints, bool) {
 
 // HasEndpoints returns a boolean if a field has been set.
 func (o *ProtocolSaml) HasEndpoints() bool {
-	if o != nil && o.Endpoints != nil {
+	if o != nil && !IsNil(o.Endpoints) {
 		return true
 	}
 
@@ -156,7 +159,7 @@ func (o *ProtocolSaml) SetEndpoints(v SamlEndpoints) {
 
 // GetRelayState returns the RelayState field value if set, zero value otherwise.
 func (o *ProtocolSaml) GetRelayState() SamlRelayState {
-	if o == nil || o.RelayState == nil {
+	if o == nil || IsNil(o.RelayState) {
 		var ret SamlRelayState
 		return ret
 	}
@@ -166,7 +169,7 @@ func (o *ProtocolSaml) GetRelayState() SamlRelayState {
 // GetRelayStateOk returns a tuple with the RelayState field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProtocolSaml) GetRelayStateOk() (*SamlRelayState, bool) {
-	if o == nil || o.RelayState == nil {
+	if o == nil || IsNil(o.RelayState) {
 		return nil, false
 	}
 	return o.RelayState, true
@@ -174,7 +177,7 @@ func (o *ProtocolSaml) GetRelayStateOk() (*SamlRelayState, bool) {
 
 // HasRelayState returns a boolean if a field has been set.
 func (o *ProtocolSaml) HasRelayState() bool {
-	if o != nil && o.RelayState != nil {
+	if o != nil && !IsNil(o.RelayState) {
 		return true
 	}
 
@@ -188,7 +191,7 @@ func (o *ProtocolSaml) SetRelayState(v SamlRelayState) {
 
 // GetSettings returns the Settings field value if set, zero value otherwise.
 func (o *ProtocolSaml) GetSettings() SamlSettings {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		var ret SamlSettings
 		return ret
 	}
@@ -198,7 +201,7 @@ func (o *ProtocolSaml) GetSettings() SamlSettings {
 // GetSettingsOk returns a tuple with the Settings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProtocolSaml) GetSettingsOk() (*SamlSettings, bool) {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		return nil, false
 	}
 	return o.Settings, true
@@ -206,7 +209,7 @@ func (o *ProtocolSaml) GetSettingsOk() (*SamlSettings, bool) {
 
 // HasSettings returns a boolean if a field has been set.
 func (o *ProtocolSaml) HasSettings() bool {
-	if o != nil && o.Settings != nil {
+	if o != nil && !IsNil(o.Settings) {
 		return true
 	}
 
@@ -220,7 +223,7 @@ func (o *ProtocolSaml) SetSettings(v SamlSettings) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *ProtocolSaml) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -230,7 +233,7 @@ func (o *ProtocolSaml) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProtocolSaml) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -238,7 +241,7 @@ func (o *ProtocolSaml) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *ProtocolSaml) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -251,23 +254,31 @@ func (o *ProtocolSaml) SetType(v string) {
 }
 
 func (o ProtocolSaml) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ProtocolSaml) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Algorithms != nil {
+	if !IsNil(o.Algorithms) {
 		toSerialize["algorithms"] = o.Algorithms
 	}
-	if o.Credentials != nil {
+	if !IsNil(o.Credentials) {
 		toSerialize["credentials"] = o.Credentials
 	}
-	if o.Endpoints != nil {
+	if !IsNil(o.Endpoints) {
 		toSerialize["endpoints"] = o.Endpoints
 	}
-	if o.RelayState != nil {
+	if !IsNil(o.RelayState) {
 		toSerialize["relayState"] = o.RelayState
 	}
-	if o.Settings != nil {
+	if !IsNil(o.Settings) {
 		toSerialize["settings"] = o.Settings
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -275,23 +286,23 @@ func (o ProtocolSaml) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ProtocolSaml) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ProtocolSaml) UnmarshalJSON(data []byte) (err error) {
 	varProtocolSaml := _ProtocolSaml{}
 
-	err = json.Unmarshal(bytes, &varProtocolSaml)
-	if err == nil {
-		*o = ProtocolSaml(varProtocolSaml)
-	} else {
+	err = json.Unmarshal(data, &varProtocolSaml)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ProtocolSaml(varProtocolSaml)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "algorithms")
 		delete(additionalProperties, "credentials")
 		delete(additionalProperties, "endpoints")
@@ -299,8 +310,6 @@ func (o *ProtocolSaml) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "settings")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -341,4 +350,3 @@ func (v *NullableProtocolSaml) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

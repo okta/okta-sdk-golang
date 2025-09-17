@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,24 +26,23 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type UserSessionsAPI interface {
 
 	/*
-	EndUserSessions End a current user session
+			EndUserSessions End a current user session
 
-	Ends Okta sessions for the currently signed in user. By default, the current session remains active. Use this method in a browser-based app.
-> **Note:** This operation requires a session cookie for the user. The API token isn't allowed for this operation.
+			Ends Okta sessions for the currently signed in user. By default, the current session remains active. Use this method in a browser-based app.
+		> **Note:** This operation requires a session cookie for the user. The API token isn't allowed for this operation.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiEndUserSessionsRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiEndUserSessionsRequest
 	*/
 	EndUserSessions(ctx context.Context) ApiEndUserSessionsRequest
 
@@ -51,16 +50,16 @@ type UserSessionsAPI interface {
 	EndUserSessionsExecute(r ApiEndUserSessionsRequest) (*APIResponse, error)
 
 	/*
-	RevokeUserSessions Revoke all user sessions
+			RevokeUserSessions Revoke all user sessions
 
-	Revokes all active identity provider sessions of the user. This forces the user to authenticate on the next operation. Optionally revokes OpenID Connect and OAuth refresh and access tokens issued to the user.
+			Revokes all active identity provider sessions of the user. This forces the user to authenticate on the next operation. Optionally revokes OpenID Connect and OAuth refresh and access tokens issued to the user.
 
-You can also clear the user's remembered factors for all devices using the `forgetDevices` parameter. See [forgetDevices](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserSessions/#tag/UserSessions/operation/revokeUserSessions!in=query&path=forgetDevices&t=request).
-> **Note:** This operation doesn't clear the sessions created for web or native apps.
+		You can also clear the user's remembered factors for all devices using the `forgetDevices` parameter. See [forgetDevices](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserSessions/#tag/UserSessions/operation/revokeUserSessions!in=query&path=forgetDevices&t=request).
+		> **Note:** This operation doesn't clear the sessions created for web or native apps.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiRevokeUserSessionsRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param userId ID of an existing Okta user
+			@return ApiRevokeUserSessionsRequest
 	*/
 	RevokeUserSessions(ctx context.Context, userId string) ApiRevokeUserSessionsRequest
 
@@ -72,10 +71,10 @@ You can also clear the user's remembered factors for all devices using the `forg
 type UserSessionsAPIService service
 
 type ApiEndUserSessionsRequest struct {
-	ctx context.Context
-	ApiService UserSessionsAPI
+	ctx         context.Context
+	ApiService  UserSessionsAPI
 	keepCurrent *KeepCurrent
-	retryCount int32
+	retryCount  int32
 }
 
 func (r ApiEndUserSessionsRequest) KeepCurrent(keepCurrent KeepCurrent) ApiEndUserSessionsRequest {
@@ -93,13 +92,13 @@ EndUserSessions End a current user session
 Ends Okta sessions for the currently signed in user. By default, the current session remains active. Use this method in a browser-based app.
 > **Note:** This operation requires a session cookie for the user. The API token isn't allowed for this operation.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiEndUserSessionsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiEndUserSessionsRequest
 */
 func (a *UserSessionsAPIService) EndUserSessions(ctx context.Context) ApiEndUserSessionsRequest {
 	return ApiEndUserSessionsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -112,7 +111,7 @@ func (a *UserSessionsAPIService) EndUserSessionsExecute(r ApiEndUserSessionsRequ
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -174,9 +173,9 @@ func (a *UserSessionsAPIService) EndUserSessionsExecute(r ApiEndUserSessionsRequ
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -230,12 +229,12 @@ func (a *UserSessionsAPIService) EndUserSessionsExecute(r ApiEndUserSessionsRequ
 }
 
 type ApiRevokeUserSessionsRequest struct {
-	ctx context.Context
-	ApiService UserSessionsAPI
-	userId string
-	oauthTokens *bool
+	ctx           context.Context
+	ApiService    UserSessionsAPI
+	userId        string
+	oauthTokens   *bool
 	forgetDevices *bool
-	retryCount int32
+	retryCount    int32
 }
 
 // Revokes issued OpenID Connect and OAuth refresh and access tokens
@@ -262,15 +261,15 @@ Revokes all active identity provider sessions of the user. This forces the user 
 You can also clear the user's remembered factors for all devices using the `forgetDevices` parameter. See [forgetDevices](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserSessions/#tag/UserSessions/operation/revokeUserSessions!in=query&path=forgetDevices&t=request).
 > **Note:** This operation doesn't clear the sessions created for web or native apps.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiRevokeUserSessionsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiRevokeUserSessionsRequest
 */
 func (a *UserSessionsAPIService) RevokeUserSessions(ctx context.Context, userId string) ApiRevokeUserSessionsRequest {
 	return ApiRevokeUserSessionsRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -283,7 +282,7 @@ func (a *UserSessionsAPIService) RevokeUserSessionsExecute(r ApiRevokeUserSessio
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -350,9 +349,9 @@ func (a *UserSessionsAPIService) RevokeUserSessionsExecute(r ApiRevokeUserSessio
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err

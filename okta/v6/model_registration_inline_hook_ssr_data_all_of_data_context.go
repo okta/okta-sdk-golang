@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the RegistrationInlineHookSSRDataAllOfDataContext type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RegistrationInlineHookSSRDataAllOfDataContext{}
+
 // RegistrationInlineHookSSRDataAllOfDataContext struct for RegistrationInlineHookSSRDataAllOfDataContext
 type RegistrationInlineHookSSRDataAllOfDataContext struct {
-	Request *InlineHookRequestObject `json:"request,omitempty"`
+	Request              *InlineHookRequestObject `json:"request,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewRegistrationInlineHookSSRDataAllOfDataContextWithDefaults() *Registratio
 
 // GetRequest returns the Request field value if set, zero value otherwise.
 func (o *RegistrationInlineHookSSRDataAllOfDataContext) GetRequest() InlineHookRequestObject {
-	if o == nil || o.Request == nil {
+	if o == nil || IsNil(o.Request) {
 		var ret InlineHookRequestObject
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *RegistrationInlineHookSSRDataAllOfDataContext) GetRequest() InlineHookR
 // GetRequestOk returns a tuple with the Request field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationInlineHookSSRDataAllOfDataContext) GetRequestOk() (*InlineHookRequestObject, bool) {
-	if o == nil || o.Request == nil {
+	if o == nil || IsNil(o.Request) {
 		return nil, false
 	}
 	return o.Request, true
@@ -72,7 +75,7 @@ func (o *RegistrationInlineHookSSRDataAllOfDataContext) GetRequestOk() (*InlineH
 
 // HasRequest returns a boolean if a field has been set.
 func (o *RegistrationInlineHookSSRDataAllOfDataContext) HasRequest() bool {
-	if o != nil && o.Request != nil {
+	if o != nil && !IsNil(o.Request) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *RegistrationInlineHookSSRDataAllOfDataContext) SetRequest(v InlineHookR
 }
 
 func (o RegistrationInlineHookSSRDataAllOfDataContext) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RegistrationInlineHookSSRDataAllOfDataContext) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Request != nil {
+	if !IsNil(o.Request) {
 		toSerialize["request"] = o.Request
 	}
 
@@ -94,27 +105,25 @@ func (o RegistrationInlineHookSSRDataAllOfDataContext) MarshalJSON() ([]byte, er
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RegistrationInlineHookSSRDataAllOfDataContext) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RegistrationInlineHookSSRDataAllOfDataContext) UnmarshalJSON(data []byte) (err error) {
 	varRegistrationInlineHookSSRDataAllOfDataContext := _RegistrationInlineHookSSRDataAllOfDataContext{}
 
-	err = json.Unmarshal(bytes, &varRegistrationInlineHookSSRDataAllOfDataContext)
-	if err == nil {
-		*o = RegistrationInlineHookSSRDataAllOfDataContext(varRegistrationInlineHookSSRDataAllOfDataContext)
-	} else {
+	err = json.Unmarshal(data, &varRegistrationInlineHookSSRDataAllOfDataContext)
+
+	if err != nil {
 		return err
 	}
 
+	*o = RegistrationInlineHookSSRDataAllOfDataContext(varRegistrationInlineHookSSRDataAllOfDataContext)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "request")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableRegistrationInlineHookSSRDataAllOfDataContext) UnmarshalJSON(sr
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

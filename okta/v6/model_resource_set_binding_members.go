@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the ResourceSetBindingMembers type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceSetBindingMembers{}
+
 // ResourceSetBindingMembers struct for ResourceSetBindingMembers
 type ResourceSetBindingMembers struct {
 	// The members of the role resource set binding. If there are more than 100 members for the binding, then the `_links.next` resource is returned with the next list of members.
-	Members []ResourceSetBindingMember `json:"members,omitempty"`
-	Links *ResourceSetBindingMembersLinks `json:"_links,omitempty"`
+	Members              []ResourceSetBindingMember      `json:"members,omitempty"`
+	Links                *ResourceSetBindingMembersLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewResourceSetBindingMembersWithDefaults() *ResourceSetBindingMembers {
 
 // GetMembers returns the Members field value if set, zero value otherwise.
 func (o *ResourceSetBindingMembers) GetMembers() []ResourceSetBindingMember {
-	if o == nil || o.Members == nil {
+	if o == nil || IsNil(o.Members) {
 		var ret []ResourceSetBindingMember
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *ResourceSetBindingMembers) GetMembers() []ResourceSetBindingMember {
 // GetMembersOk returns a tuple with the Members field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSetBindingMembers) GetMembersOk() ([]ResourceSetBindingMember, bool) {
-	if o == nil || o.Members == nil {
+	if o == nil || IsNil(o.Members) {
 		return nil, false
 	}
 	return o.Members, true
@@ -74,7 +77,7 @@ func (o *ResourceSetBindingMembers) GetMembersOk() ([]ResourceSetBindingMember, 
 
 // HasMembers returns a boolean if a field has been set.
 func (o *ResourceSetBindingMembers) HasMembers() bool {
-	if o != nil && o.Members != nil {
+	if o != nil && !IsNil(o.Members) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *ResourceSetBindingMembers) SetMembers(v []ResourceSetBindingMember) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *ResourceSetBindingMembers) GetLinks() ResourceSetBindingMembersLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret ResourceSetBindingMembersLinks
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *ResourceSetBindingMembers) GetLinks() ResourceSetBindingMembersLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSetBindingMembers) GetLinksOk() (*ResourceSetBindingMembersLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -106,7 +109,7 @@ func (o *ResourceSetBindingMembers) GetLinksOk() (*ResourceSetBindingMembersLink
 
 // HasLinks returns a boolean if a field has been set.
 func (o *ResourceSetBindingMembers) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *ResourceSetBindingMembers) SetLinks(v ResourceSetBindingMembersLinks) {
 }
 
 func (o ResourceSetBindingMembers) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ResourceSetBindingMembers) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Members != nil {
+	if !IsNil(o.Members) {
 		toSerialize["members"] = o.Members
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -131,28 +142,26 @@ func (o ResourceSetBindingMembers) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResourceSetBindingMembers) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ResourceSetBindingMembers) UnmarshalJSON(data []byte) (err error) {
 	varResourceSetBindingMembers := _ResourceSetBindingMembers{}
 
-	err = json.Unmarshal(bytes, &varResourceSetBindingMembers)
-	if err == nil {
-		*o = ResourceSetBindingMembers(varResourceSetBindingMembers)
-	} else {
+	err = json.Unmarshal(data, &varResourceSetBindingMembers)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ResourceSetBindingMembers(varResourceSetBindingMembers)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "members")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableResourceSetBindingMembers) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

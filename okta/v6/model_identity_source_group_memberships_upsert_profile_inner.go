@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the IdentitySourceGroupMembershipsUpsertProfileInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IdentitySourceGroupMembershipsUpsertProfileInner{}
+
 // IdentitySourceGroupMembershipsUpsertProfileInner struct for IdentitySourceGroupMembershipsUpsertProfileInner
 type IdentitySourceGroupMembershipsUpsertProfileInner struct {
 	// The external ID of the group whose memberships need to be inserted or updated in Okta
 	GroupExternalId *string `json:"groupExternalId,omitempty"`
 	// Array of external IDs of member profiles that need to be inserted in this group in Okta
-	MemberExternalIds []string `json:"memberExternalIds,omitempty"`
+	MemberExternalIds    []string `json:"memberExternalIds,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewIdentitySourceGroupMembershipsUpsertProfileInnerWithDefaults() *Identity
 
 // GetGroupExternalId returns the GroupExternalId field value if set, zero value otherwise.
 func (o *IdentitySourceGroupMembershipsUpsertProfileInner) GetGroupExternalId() string {
-	if o == nil || o.GroupExternalId == nil {
+	if o == nil || IsNil(o.GroupExternalId) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *IdentitySourceGroupMembershipsUpsertProfileInner) GetGroupExternalId() 
 // GetGroupExternalIdOk returns a tuple with the GroupExternalId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentitySourceGroupMembershipsUpsertProfileInner) GetGroupExternalIdOk() (*string, bool) {
-	if o == nil || o.GroupExternalId == nil {
+	if o == nil || IsNil(o.GroupExternalId) {
 		return nil, false
 	}
 	return o.GroupExternalId, true
@@ -75,7 +78,7 @@ func (o *IdentitySourceGroupMembershipsUpsertProfileInner) GetGroupExternalIdOk(
 
 // HasGroupExternalId returns a boolean if a field has been set.
 func (o *IdentitySourceGroupMembershipsUpsertProfileInner) HasGroupExternalId() bool {
-	if o != nil && o.GroupExternalId != nil {
+	if o != nil && !IsNil(o.GroupExternalId) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *IdentitySourceGroupMembershipsUpsertProfileInner) SetGroupExternalId(v 
 
 // GetMemberExternalIds returns the MemberExternalIds field value if set, zero value otherwise.
 func (o *IdentitySourceGroupMembershipsUpsertProfileInner) GetMemberExternalIds() []string {
-	if o == nil || o.MemberExternalIds == nil {
+	if o == nil || IsNil(o.MemberExternalIds) {
 		var ret []string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *IdentitySourceGroupMembershipsUpsertProfileInner) GetMemberExternalIds(
 // GetMemberExternalIdsOk returns a tuple with the MemberExternalIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentitySourceGroupMembershipsUpsertProfileInner) GetMemberExternalIdsOk() ([]string, bool) {
-	if o == nil || o.MemberExternalIds == nil {
+	if o == nil || IsNil(o.MemberExternalIds) {
 		return nil, false
 	}
 	return o.MemberExternalIds, true
@@ -107,7 +110,7 @@ func (o *IdentitySourceGroupMembershipsUpsertProfileInner) GetMemberExternalIdsO
 
 // HasMemberExternalIds returns a boolean if a field has been set.
 func (o *IdentitySourceGroupMembershipsUpsertProfileInner) HasMemberExternalIds() bool {
-	if o != nil && o.MemberExternalIds != nil {
+	if o != nil && !IsNil(o.MemberExternalIds) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *IdentitySourceGroupMembershipsUpsertProfileInner) SetMemberExternalIds(
 }
 
 func (o IdentitySourceGroupMembershipsUpsertProfileInner) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IdentitySourceGroupMembershipsUpsertProfileInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.GroupExternalId != nil {
+	if !IsNil(o.GroupExternalId) {
 		toSerialize["groupExternalId"] = o.GroupExternalId
 	}
-	if o.MemberExternalIds != nil {
+	if !IsNil(o.MemberExternalIds) {
 		toSerialize["memberExternalIds"] = o.MemberExternalIds
 	}
 
@@ -132,28 +143,26 @@ func (o IdentitySourceGroupMembershipsUpsertProfileInner) MarshalJSON() ([]byte,
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *IdentitySourceGroupMembershipsUpsertProfileInner) UnmarshalJSON(bytes []byte) (err error) {
+func (o *IdentitySourceGroupMembershipsUpsertProfileInner) UnmarshalJSON(data []byte) (err error) {
 	varIdentitySourceGroupMembershipsUpsertProfileInner := _IdentitySourceGroupMembershipsUpsertProfileInner{}
 
-	err = json.Unmarshal(bytes, &varIdentitySourceGroupMembershipsUpsertProfileInner)
-	if err == nil {
-		*o = IdentitySourceGroupMembershipsUpsertProfileInner(varIdentitySourceGroupMembershipsUpsertProfileInner)
-	} else {
+	err = json.Unmarshal(data, &varIdentitySourceGroupMembershipsUpsertProfileInner)
+
+	if err != nil {
 		return err
 	}
 
+	*o = IdentitySourceGroupMembershipsUpsertProfileInner(varIdentitySourceGroupMembershipsUpsertProfileInner)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "groupExternalId")
 		delete(additionalProperties, "memberExternalIds")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableIdentitySourceGroupMembershipsUpsertProfileInner) UnmarshalJSON
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

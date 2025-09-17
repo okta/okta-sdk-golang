@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,24 +26,23 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type UserClassificationAPI interface {
 
 	/*
-	GetUserClassification Retrieve a user's classification
+		GetUserClassification Retrieve a user's classification
 
-	Retrieves a user's classification
+		Retrieves a user's classification
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiGetUserClassificationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiGetUserClassificationRequest
 	*/
 	GetUserClassification(ctx context.Context, userId string) ApiGetUserClassificationRequest
 
@@ -52,13 +51,13 @@ type UserClassificationAPI interface {
 	GetUserClassificationExecute(r ApiGetUserClassificationRequest) (*UserClassification, *APIResponse, error)
 
 	/*
-	ReplaceUserClassification Replace the user's classification
+		ReplaceUserClassification Replace the user's classification
 
-	Replaces the user's classification
+		Replaces the user's classification
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiReplaceUserClassificationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiReplaceUserClassificationRequest
 	*/
 	ReplaceUserClassification(ctx context.Context, userId string) ApiReplaceUserClassificationRequest
 
@@ -71,9 +70,9 @@ type UserClassificationAPI interface {
 type UserClassificationAPIService service
 
 type ApiGetUserClassificationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserClassificationAPI
-	userId string
+	userId     string
 	retryCount int32
 }
 
@@ -86,21 +85,22 @@ GetUserClassification Retrieve a user's classification
 
 Retrieves a user's classification
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiGetUserClassificationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiGetUserClassificationRequest
 */
 func (a *UserClassificationAPIService) GetUserClassification(ctx context.Context, userId string) ApiGetUserClassificationRequest {
 	return ApiGetUserClassificationRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserClassification
+//
+//	@return UserClassification
 func (a *UserClassificationAPIService) GetUserClassificationExecute(r ApiGetUserClassificationRequest) (*UserClassification, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -109,7 +109,7 @@ func (a *UserClassificationAPIService) GetUserClassificationExecute(r ApiGetUser
 		localVarReturnValue  *UserClassification
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -170,9 +170,9 @@ func (a *UserClassificationAPIService) GetUserClassificationExecute(r ApiGetUser
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -230,17 +230,17 @@ func (a *UserClassificationAPIService) GetUserClassificationExecute(r ApiGetUser
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceUserClassificationRequest struct {
-	ctx context.Context
-	ApiService UserClassificationAPI
-	userId string
+	ctx                       context.Context
+	ApiService                UserClassificationAPI
+	userId                    string
 	replaceUserClassification *ReplaceUserClassification
-	retryCount int32
+	retryCount                int32
 }
 
 func (r ApiReplaceUserClassificationRequest) ReplaceUserClassification(replaceUserClassification ReplaceUserClassification) ApiReplaceUserClassificationRequest {
@@ -257,21 +257,22 @@ ReplaceUserClassification Replace the user's classification
 
 Replaces the user's classification
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiReplaceUserClassificationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiReplaceUserClassificationRequest
 */
 func (a *UserClassificationAPIService) ReplaceUserClassification(ctx context.Context, userId string) ApiReplaceUserClassificationRequest {
 	return ApiReplaceUserClassificationRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserClassification
+//
+//	@return UserClassification
 func (a *UserClassificationAPIService) ReplaceUserClassificationExecute(r ApiReplaceUserClassificationRequest) (*UserClassification, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -280,7 +281,7 @@ func (a *UserClassificationAPIService) ReplaceUserClassificationExecute(r ApiRep
 		localVarReturnValue  *UserClassification
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -346,9 +347,9 @@ func (a *UserClassificationAPIService) ReplaceUserClassificationExecute(r ApiRep
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -406,7 +407,7 @@ func (a *UserClassificationAPIService) ReplaceUserClassificationExecute(r ApiRep
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

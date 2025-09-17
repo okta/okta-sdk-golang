@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,12 +28,15 @@ import (
 	"fmt"
 )
 
+// checks if the RiskDetectionTypesPolicyRuleCondition type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RiskDetectionTypesPolicyRuleCondition{}
+
 // RiskDetectionTypesPolicyRuleCondition <x-lifecycle class=\"oie\"></x-lifecycle> An object that references detected risk events. This object can have an `include` parameter or an `exclude` parameter, but not both.
 type RiskDetectionTypesPolicyRuleCondition struct {
 	// An array of detected risk events to exclude in the entity policy rule
 	Exclude []string `json:"exclude"`
 	// An array of detected risk events to include in the entity policy rule
-	Include []string `json:"include"`
+	Include              []string `json:"include"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,40 +110,64 @@ func (o *RiskDetectionTypesPolicyRuleCondition) SetInclude(v []string) {
 }
 
 func (o RiskDetectionTypesPolicyRuleCondition) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RiskDetectionTypesPolicyRuleCondition) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["exclude"] = o.Exclude
-	}
-	if true {
-		toSerialize["include"] = o.Include
-	}
+	toSerialize["exclude"] = o.Exclude
+	toSerialize["include"] = o.Include
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RiskDetectionTypesPolicyRuleCondition) UnmarshalJSON(bytes []byte) (err error) {
-	varRiskDetectionTypesPolicyRuleCondition := _RiskDetectionTypesPolicyRuleCondition{}
+func (o *RiskDetectionTypesPolicyRuleCondition) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"exclude",
+		"include",
+	}
 
-	err = json.Unmarshal(bytes, &varRiskDetectionTypesPolicyRuleCondition)
-	if err == nil {
-		*o = RiskDetectionTypesPolicyRuleCondition(varRiskDetectionTypesPolicyRuleCondition)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRiskDetectionTypesPolicyRuleCondition := _RiskDetectionTypesPolicyRuleCondition{}
+
+	err = json.Unmarshal(data, &varRiskDetectionTypesPolicyRuleCondition)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RiskDetectionTypesPolicyRuleCondition(varRiskDetectionTypesPolicyRuleCondition)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "exclude")
 		delete(additionalProperties, "include")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -181,4 +208,3 @@ func (v *NullableRiskDetectionTypesPolicyRuleCondition) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

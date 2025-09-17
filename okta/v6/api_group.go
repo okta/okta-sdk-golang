@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,25 +26,24 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type GroupAPI interface {
 
 	/*
-	AddGroup Add a group
+			AddGroup Add a group
 
-	Adds a new group with the `OKTA_GROUP` type to your org.
-> **Note:** App import operations are responsible for syncing groups with `APP_GROUP` type such as Active Directory groups. See
-[About groups](https://help.okta.com/okta_help.htm?id=Directory_Groups) in the help documentation.
+			Adds a new group with the `OKTA_GROUP` type to your org.
+		> **Note:** App import operations are responsible for syncing groups with `APP_GROUP` type such as Active Directory groups. See
+		[About groups](https://help.okta.com/okta_help.htm?id=Directory_Groups) in the help documentation.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiAddGroupRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiAddGroupRequest
 	*/
 	AddGroup(ctx context.Context) ApiAddGroupRequest
 
@@ -53,15 +52,15 @@ type GroupAPI interface {
 	AddGroupExecute(r ApiAddGroupRequest) (*Group, *APIResponse, error)
 
 	/*
-	AssignUserToGroup Assign a user to a group
+			AssignUserToGroup Assign a user to a group
 
-	Assigns a user to a group with the `OKTA_GROUP` type.
-> **Note:** You only can modify memberships for groups of the `OKTA_GROUP` type. App imports are responsible for managing group memberships for groups of the `APP_GROUP` type, such as Active Directory groups.
+			Assigns a user to a group with the `OKTA_GROUP` type.
+		> **Note:** You only can modify memberships for groups of the `OKTA_GROUP` type. App imports are responsible for managing group memberships for groups of the `APP_GROUP` type, such as Active Directory groups.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param userId ID of an existing Okta user
-	@return ApiAssignUserToGroupRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param groupId The `id` of the group
+			@param userId ID of an existing Okta user
+			@return ApiAssignUserToGroupRequest
 	*/
 	AssignUserToGroup(ctx context.Context, groupId string, userId string) ApiAssignUserToGroupRequest
 
@@ -69,14 +68,14 @@ type GroupAPI interface {
 	AssignUserToGroupExecute(r ApiAssignUserToGroupRequest) (*APIResponse, error)
 
 	/*
-	DeleteGroup Delete a group
+			DeleteGroup Delete a group
 
-	Deletes a group of the `OKTA_GROUP` or `APP_GROUP` type from your org.
-> **Note:** You can't remove groups of type `APP_GROUP` if they are used in a group push mapping.
+			Deletes a group of the `OKTA_GROUP` or `APP_GROUP` type from your org.
+		> **Note:** You can't remove groups of type `APP_GROUP` if they are used in a group push mapping.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@return ApiDeleteGroupRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param groupId The `id` of the group
+			@return ApiDeleteGroupRequest
 	*/
 	DeleteGroup(ctx context.Context, groupId string) ApiDeleteGroupRequest
 
@@ -84,13 +83,13 @@ type GroupAPI interface {
 	DeleteGroupExecute(r ApiDeleteGroupRequest) (*APIResponse, error)
 
 	/*
-	GetGroup Retrieve a group
+		GetGroup Retrieve a group
 
-	Retrieves a specific group by `id` from your org
+		Retrieves a specific group by `id` from your org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@return ApiGetGroupRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@return ApiGetGroupRequest
 	*/
 	GetGroup(ctx context.Context, groupId string) ApiGetGroupRequest
 
@@ -99,13 +98,13 @@ type GroupAPI interface {
 	GetGroupExecute(r ApiGetGroupRequest) (*Group, *APIResponse, error)
 
 	/*
-	ListAssignedApplicationsForGroup List all assigned apps
+		ListAssignedApplicationsForGroup List all assigned apps
 
-	Lists all apps that are assigned to a group. See [Application Groups API](/openapi/okta-management/management/tag/ApplicationGroups/).
+		Lists all apps that are assigned to a group. See [Application Groups API](/openapi/okta-management/management/tag/ApplicationGroups/).
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@return ApiListAssignedApplicationsForGroupRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@return ApiListAssignedApplicationsForGroupRequest
 	*/
 	ListAssignedApplicationsForGroup(ctx context.Context, groupId string) ApiListAssignedApplicationsForGroupRequest
 
@@ -114,14 +113,14 @@ type GroupAPI interface {
 	ListAssignedApplicationsForGroupExecute(r ApiListAssignedApplicationsForGroupRequest) ([]ListApplications200ResponseInner, *APIResponse, error)
 
 	/*
-	ListGroupUsers List all member users
+			ListGroupUsers List all member users
 
-	Lists all users that are a member of a group.
-The default user limit is set to a very high number due to historical reasons that are no longer valid for most orgs. This will change in a future version of this API. The recommended page limit is now `limit=200`.
+			Lists all users that are a member of a group.
+		The default user limit is set to a very high number due to historical reasons that are no longer valid for most orgs. This will change in a future version of this API. The recommended page limit is now `limit=200`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@return ApiListGroupUsersRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param groupId The `id` of the group
+			@return ApiListGroupUsersRequest
 	*/
 	ListGroupUsers(ctx context.Context, groupId string) ApiListGroupUsersRequest
 
@@ -130,20 +129,20 @@ The default user limit is set to a very high number due to historical reasons th
 	ListGroupUsersExecute(r ApiListGroupUsersRequest) ([]User, *APIResponse, error)
 
 	/*
-	ListGroups List all groups
+			ListGroups List all groups
 
-	Lists all groups with pagination support.
+			Lists all groups with pagination support.
 
-> **Note:** To list all groups belonging to a member, use the [List all groups endpoint in the User Resources API](/openapi/okta-management/management/tag/UserResources/#tag/UserResources/operation/listUserGroups).
+		> **Note:** To list all groups belonging to a member, use the [List all groups endpoint in the User Resources API](/openapi/okta-management/management/tag/UserResources/#tag/UserResources/operation/listUserGroups).
 
-The number of groups returned depends on the specified [`limit`](/openapi/okta-management/management/tag/Group/#tag/Group/operation/listGroups!in=query&path=limit&t=request), if you have a search, filter, and/or query parameter set, and if that parameter is not null. We recommend using a limit less than or equal to 200.
+		The number of groups returned depends on the specified [`limit`](/openapi/okta-management/management/tag/Group/#tag/Group/operation/listGroups!in=query&path=limit&t=request), if you have a search, filter, and/or query parameter set, and if that parameter is not null. We recommend using a limit less than or equal to 200.
 
-A subset of groups can be returned that match a supported filter expression, query, or search criteria.
+		A subset of groups can be returned that match a supported filter expression, query, or search criteria.
 
-> **Note:** Results from the filter or query parameter are driven from an eventually consistent datasource. The synchronization lag is typically less than one second.
+		> **Note:** Results from the filter or query parameter are driven from an eventually consistent datasource. The synchronization lag is typically less than one second.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListGroupsRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiListGroupsRequest
 	*/
 	ListGroups(ctx context.Context) ApiListGroupsRequest
 
@@ -152,16 +151,16 @@ A subset of groups can be returned that match a supported filter expression, que
 	ListGroupsExecute(r ApiListGroupsRequest) ([]Group, *APIResponse, error)
 
 	/*
-	ReplaceGroup Replace a group
+			ReplaceGroup Replace a group
 
-	Replaces the profile for a group of `OKTA_GROUP` type from your org.
-> **Note :** You only can modify profiles for groups of the `OKTA_GROUP` type.
->
-> App imports are responsible for updating profiles for groups of the `APP_GROUP` type, such as Active Directory groups.
+			Replaces the profile for a group of `OKTA_GROUP` type from your org.
+		> **Note :** You only can modify profiles for groups of the `OKTA_GROUP` type.
+		>
+		> App imports are responsible for updating profiles for groups of the `APP_GROUP` type, such as Active Directory groups.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@return ApiReplaceGroupRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param groupId The `id` of the group
+			@return ApiReplaceGroupRequest
 	*/
 	ReplaceGroup(ctx context.Context, groupId string) ApiReplaceGroupRequest
 
@@ -170,17 +169,17 @@ A subset of groups can be returned that match a supported filter expression, que
 	ReplaceGroupExecute(r ApiReplaceGroupRequest) (*Group, *APIResponse, error)
 
 	/*
-	UnassignUserFromGroup Unassign a user from a group
+			UnassignUserFromGroup Unassign a user from a group
 
-	Unassigns a user from a group with the `OKTA_GROUP` type.
-> **Note:** You only can modify memberships for groups of the `OKTA_GROUP` type.
->
-> App imports are responsible for managing group memberships for groups of the `APP_GROUP` type, such as Active Directory groups.
+			Unassigns a user from a group with the `OKTA_GROUP` type.
+		> **Note:** You only can modify memberships for groups of the `OKTA_GROUP` type.
+		>
+		> App imports are responsible for managing group memberships for groups of the `APP_GROUP` type, such as Active Directory groups.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param userId ID of an existing Okta user
-	@return ApiUnassignUserFromGroupRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param groupId The `id` of the group
+			@param userId ID of an existing Okta user
+			@return ApiUnassignUserFromGroupRequest
 	*/
 	UnassignUserFromGroup(ctx context.Context, groupId string, userId string) ApiUnassignUserFromGroupRequest
 
@@ -192,9 +191,9 @@ A subset of groups can be returned that match a supported filter expression, que
 type GroupAPIService service
 
 type ApiAddGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GroupAPI
-	group *AddGroupRequest
+	group      *AddGroupRequest
 	retryCount int32
 }
 
@@ -214,19 +213,20 @@ Adds a new group with the `OKTA_GROUP` type to your org.
 > **Note:** App import operations are responsible for syncing groups with `APP_GROUP` type such as Active Directory groups. See
 [About groups](https://help.okta.com/okta_help.htm?id=Directory_Groups) in the help documentation.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiAddGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAddGroupRequest
 */
 func (a *GroupAPIService) AddGroup(ctx context.Context) ApiAddGroupRequest {
 	return ApiAddGroupRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return Group
+//
+//	@return Group
 func (a *GroupAPIService) AddGroupExecute(r ApiAddGroupRequest) (*Group, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -235,7 +235,7 @@ func (a *GroupAPIService) AddGroupExecute(r ApiAddGroupRequest) (*Group, *APIRes
 		localVarReturnValue  *Group
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -300,9 +300,9 @@ func (a *GroupAPIService) AddGroupExecute(r ApiAddGroupRequest) (*Group, *APIRes
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -360,16 +360,16 @@ func (a *GroupAPIService) AddGroupExecute(r ApiAddGroupRequest) (*Group, *APIRes
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiAssignUserToGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GroupAPI
-	groupId string
-	userId string
+	groupId    string
+	userId     string
 	retryCount int32
 }
 
@@ -383,17 +383,17 @@ AssignUserToGroup Assign a user to a group
 Assigns a user to a group with the `OKTA_GROUP` type.
 > **Note:** You only can modify memberships for groups of the `OKTA_GROUP` type. App imports are responsible for managing group memberships for groups of the `APP_GROUP` type, such as Active Directory groups.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId The `id` of the group
- @param userId ID of an existing Okta user
- @return ApiAssignUserToGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@param userId ID of an existing Okta user
+	@return ApiAssignUserToGroupRequest
 */
 func (a *GroupAPIService) AssignUserToGroup(ctx context.Context, groupId string, userId string) ApiAssignUserToGroupRequest {
 	return ApiAssignUserToGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
-		userId: userId,
+		ctx:        ctx,
+		groupId:    groupId,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -406,7 +406,7 @@ func (a *GroupAPIService) AssignUserToGroupExecute(r ApiAssignUserToGroupRequest
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -468,9 +468,9 @@ func (a *GroupAPIService) AssignUserToGroupExecute(r ApiAssignUserToGroupRequest
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -524,9 +524,9 @@ func (a *GroupAPIService) AssignUserToGroupExecute(r ApiAssignUserToGroupRequest
 }
 
 type ApiDeleteGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GroupAPI
-	groupId string
+	groupId    string
 	retryCount int32
 }
 
@@ -540,15 +540,15 @@ DeleteGroup Delete a group
 Deletes a group of the `OKTA_GROUP` or `APP_GROUP` type from your org.
 > **Note:** You can't remove groups of type `APP_GROUP` if they are used in a group push mapping.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId The `id` of the group
- @return ApiDeleteGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@return ApiDeleteGroupRequest
 */
 func (a *GroupAPIService) DeleteGroup(ctx context.Context, groupId string) ApiDeleteGroupRequest {
 	return ApiDeleteGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ctx:        ctx,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
@@ -561,7 +561,7 @@ func (a *GroupAPIService) DeleteGroupExecute(r ApiDeleteGroupRequest) (*APIRespo
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -622,9 +622,9 @@ func (a *GroupAPIService) DeleteGroupExecute(r ApiDeleteGroupRequest) (*APIRespo
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -678,9 +678,9 @@ func (a *GroupAPIService) DeleteGroupExecute(r ApiDeleteGroupRequest) (*APIRespo
 }
 
 type ApiGetGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GroupAPI
-	groupId string
+	groupId    string
 	retryCount int32
 }
 
@@ -693,21 +693,22 @@ GetGroup Retrieve a group
 
 Retrieves a specific group by `id` from your org
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId The `id` of the group
- @return ApiGetGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@return ApiGetGroupRequest
 */
 func (a *GroupAPIService) GetGroup(ctx context.Context, groupId string) ApiGetGroupRequest {
 	return ApiGetGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ctx:        ctx,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return Group
+//
+//	@return Group
 func (a *GroupAPIService) GetGroupExecute(r ApiGetGroupRequest) (*Group, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -716,7 +717,7 @@ func (a *GroupAPIService) GetGroupExecute(r ApiGetGroupRequest) (*Group, *APIRes
 		localVarReturnValue  *Group
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -777,9 +778,9 @@ func (a *GroupAPIService) GetGroupExecute(r ApiGetGroupRequest) (*Group, *APIRes
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -837,17 +838,17 @@ func (a *GroupAPIService) GetGroupExecute(r ApiGetGroupRequest) (*Group, *APIRes
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListAssignedApplicationsForGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GroupAPI
-	groupId string
-	after *string
-	limit *int32
+	groupId    string
+	after      *string
+	limit      *int32
 	retryCount int32
 }
 
@@ -872,21 +873,22 @@ ListAssignedApplicationsForGroup List all assigned apps
 
 Lists all apps that are assigned to a group. See [Application Groups API](/openapi/okta-management/management/tag/ApplicationGroups/).
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId The `id` of the group
- @return ApiListAssignedApplicationsForGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@return ApiListAssignedApplicationsForGroupRequest
 */
 func (a *GroupAPIService) ListAssignedApplicationsForGroup(ctx context.Context, groupId string) ApiListAssignedApplicationsForGroupRequest {
 	return ApiListAssignedApplicationsForGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ctx:        ctx,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []ListApplications200ResponseInner
+//
+//	@return []ListApplications200ResponseInner
 func (a *GroupAPIService) ListAssignedApplicationsForGroupExecute(r ApiListAssignedApplicationsForGroupRequest) ([]ListApplications200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -895,7 +897,7 @@ func (a *GroupAPIService) ListAssignedApplicationsForGroupExecute(r ApiListAssig
 		localVarReturnValue  []ListApplications200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -962,9 +964,9 @@ func (a *GroupAPIService) ListAssignedApplicationsForGroupExecute(r ApiListAssig
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1022,17 +1024,17 @@ func (a *GroupAPIService) ListAssignedApplicationsForGroupExecute(r ApiListAssig
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListGroupUsersRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GroupAPI
-	groupId string
-	after *string
-	limit *int32
+	groupId    string
+	after      *string
+	limit      *int32
 	retryCount int32
 }
 
@@ -1058,21 +1060,22 @@ ListGroupUsers List all member users
 Lists all users that are a member of a group.
 The default user limit is set to a very high number due to historical reasons that are no longer valid for most orgs. This will change in a future version of this API. The recommended page limit is now `limit=200`.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId The `id` of the group
- @return ApiListGroupUsersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@return ApiListGroupUsersRequest
 */
 func (a *GroupAPIService) ListGroupUsers(ctx context.Context, groupId string) ApiListGroupUsersRequest {
 	return ApiListGroupUsersRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ctx:        ctx,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []User
+//
+//	@return []User
 func (a *GroupAPIService) ListGroupUsersExecute(r ApiListGroupUsersRequest) ([]User, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1081,7 +1084,7 @@ func (a *GroupAPIService) ListGroupUsersExecute(r ApiListGroupUsersRequest) ([]U
 		localVarReturnValue  []User
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1148,9 +1151,9 @@ func (a *GroupAPIService) ListGroupUsersExecute(r ApiListGroupUsersRequest) ([]U
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1208,22 +1211,22 @@ func (a *GroupAPIService) ListGroupUsersExecute(r ApiListGroupUsersRequest) ([]U
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListGroupsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GroupAPI
-	search *string
-	filter *string
-	q *string
-	after *string
-	limit *int32
-	expand *string
-	sortBy *string
-	sortOrder *string
+	search     *string
+	filter     *string
+	q          *string
+	after      *string
+	limit      *int32
+	expand     *string
+	sortBy     *string
+	sortOrder  *string
 	retryCount int32
 }
 
@@ -1292,19 +1295,20 @@ A subset of groups can be returned that match a supported filter expression, que
 
 > **Note:** Results from the filter or query parameter are driven from an eventually consistent datasource. The synchronization lag is typically less than one second.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListGroupsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListGroupsRequest
 */
 func (a *GroupAPIService) ListGroups(ctx context.Context) ApiListGroupsRequest {
 	return ApiListGroupsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []Group
+//
+//	@return []Group
 func (a *GroupAPIService) ListGroupsExecute(r ApiListGroupsRequest) ([]Group, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1313,7 +1317,7 @@ func (a *GroupAPIService) ListGroupsExecute(r ApiListGroupsRequest) ([]Group, *A
 		localVarReturnValue  []Group
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1397,9 +1401,9 @@ func (a *GroupAPIService) ListGroupsExecute(r ApiListGroupsRequest) ([]Group, *A
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1445,16 +1449,16 @@ func (a *GroupAPIService) ListGroupsExecute(r ApiListGroupsRequest) ([]Group, *A
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GroupAPI
-	groupId string
-	group *AddGroupRequest
+	groupId    string
+	group      *AddGroupRequest
 	retryCount int32
 }
 
@@ -1475,21 +1479,22 @@ Replaces the profile for a group of `OKTA_GROUP` type from your org.
 >
 > App imports are responsible for updating profiles for groups of the `APP_GROUP` type, such as Active Directory groups.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId The `id` of the group
- @return ApiReplaceGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@return ApiReplaceGroupRequest
 */
 func (a *GroupAPIService) ReplaceGroup(ctx context.Context, groupId string) ApiReplaceGroupRequest {
 	return ApiReplaceGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ctx:        ctx,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return Group
+//
+//	@return Group
 func (a *GroupAPIService) ReplaceGroupExecute(r ApiReplaceGroupRequest) (*Group, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -1498,7 +1503,7 @@ func (a *GroupAPIService) ReplaceGroupExecute(r ApiReplaceGroupRequest) (*Group,
 		localVarReturnValue  *Group
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1564,9 +1569,9 @@ func (a *GroupAPIService) ReplaceGroupExecute(r ApiReplaceGroupRequest) (*Group,
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1636,16 +1641,16 @@ func (a *GroupAPIService) ReplaceGroupExecute(r ApiReplaceGroupRequest) (*Group,
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUnassignUserFromGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GroupAPI
-	groupId string
-	userId string
+	groupId    string
+	userId     string
 	retryCount int32
 }
 
@@ -1661,17 +1666,17 @@ Unassigns a user from a group with the `OKTA_GROUP` type.
 >
 > App imports are responsible for managing group memberships for groups of the `APP_GROUP` type, such as Active Directory groups.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId The `id` of the group
- @param userId ID of an existing Okta user
- @return ApiUnassignUserFromGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@param userId ID of an existing Okta user
+	@return ApiUnassignUserFromGroupRequest
 */
 func (a *GroupAPIService) UnassignUserFromGroup(ctx context.Context, groupId string, userId string) ApiUnassignUserFromGroupRequest {
 	return ApiUnassignUserFromGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
-		userId: userId,
+		ctx:        ctx,
+		groupId:    groupId,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -1684,7 +1689,7 @@ func (a *GroupAPIService) UnassignUserFromGroupExecute(r ApiUnassignUserFromGrou
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1746,9 +1751,9 @@ func (a *GroupAPIService) UnassignUserFromGroupExecute(r ApiUnassignUserFromGrou
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,10 +28,13 @@ import (
 	"fmt"
 )
 
+// checks if the AccessPolicyRuleCustomCondition type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AccessPolicyRuleCustomCondition{}
+
 // AccessPolicyRuleCustomCondition Specifies [Okta Expression Language](https://developer.okta.com/docs/reference/okta-expression-language-in-identity-engine/) expressions
 type AccessPolicyRuleCustomCondition struct {
 	// expression to match
-	Condition string `json:"condition"`
+	Condition            string `json:"condition"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -80,36 +83,61 @@ func (o *AccessPolicyRuleCustomCondition) SetCondition(v string) {
 }
 
 func (o AccessPolicyRuleCustomCondition) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["condition"] = o.Condition
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AccessPolicyRuleCustomCondition) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["condition"] = o.Condition
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AccessPolicyRuleCustomCondition) UnmarshalJSON(bytes []byte) (err error) {
-	varAccessPolicyRuleCustomCondition := _AccessPolicyRuleCustomCondition{}
+func (o *AccessPolicyRuleCustomCondition) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"condition",
+	}
 
-	err = json.Unmarshal(bytes, &varAccessPolicyRuleCustomCondition)
-	if err == nil {
-		*o = AccessPolicyRuleCustomCondition(varAccessPolicyRuleCustomCondition)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAccessPolicyRuleCustomCondition := _AccessPolicyRuleCustomCondition{}
+
+	err = json.Unmarshal(data, &varAccessPolicyRuleCustomCondition)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AccessPolicyRuleCustomCondition(varAccessPolicyRuleCustomCondition)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "condition")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -150,4 +178,3 @@ func (v *NullableAccessPolicyRuleCustomCondition) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the Embedded type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Embedded{}
+
 // Embedded The Public Key Details are defined in the `_embedded` property of the Key object.
 type Embedded struct {
 	// Algorithm used in the key
@@ -40,7 +43,7 @@ type Embedded struct {
 	// RSA key value (modulus) for key binding
 	N *string `json:"n,omitempty"`
 	// Acceptable use of the certificate
-	Use NullableString `json:"use,omitempty"`
+	Use                  NullableString `json:"use,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -65,7 +68,7 @@ func NewEmbeddedWithDefaults() *Embedded {
 
 // GetAlg returns the Alg field value if set, zero value otherwise.
 func (o *Embedded) GetAlg() string {
-	if o == nil || o.Alg == nil {
+	if o == nil || IsNil(o.Alg) {
 		var ret string
 		return ret
 	}
@@ -75,7 +78,7 @@ func (o *Embedded) GetAlg() string {
 // GetAlgOk returns a tuple with the Alg field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Embedded) GetAlgOk() (*string, bool) {
-	if o == nil || o.Alg == nil {
+	if o == nil || IsNil(o.Alg) {
 		return nil, false
 	}
 	return o.Alg, true
@@ -83,7 +86,7 @@ func (o *Embedded) GetAlgOk() (*string, bool) {
 
 // HasAlg returns a boolean if a field has been set.
 func (o *Embedded) HasAlg() bool {
-	if o != nil && o.Alg != nil {
+	if o != nil && !IsNil(o.Alg) {
 		return true
 	}
 
@@ -97,7 +100,7 @@ func (o *Embedded) SetAlg(v string) {
 
 // GetE returns the E field value if set, zero value otherwise.
 func (o *Embedded) GetE() string {
-	if o == nil || o.E == nil {
+	if o == nil || IsNil(o.E) {
 		var ret string
 		return ret
 	}
@@ -107,7 +110,7 @@ func (o *Embedded) GetE() string {
 // GetEOk returns a tuple with the E field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Embedded) GetEOk() (*string, bool) {
-	if o == nil || o.E == nil {
+	if o == nil || IsNil(o.E) {
 		return nil, false
 	}
 	return o.E, true
@@ -115,7 +118,7 @@ func (o *Embedded) GetEOk() (*string, bool) {
 
 // HasE returns a boolean if a field has been set.
 func (o *Embedded) HasE() bool {
-	if o != nil && o.E != nil {
+	if o != nil && !IsNil(o.E) {
 		return true
 	}
 
@@ -129,7 +132,7 @@ func (o *Embedded) SetE(v string) {
 
 // GetKid returns the Kid field value if set, zero value otherwise.
 func (o *Embedded) GetKid() string {
-	if o == nil || o.Kid == nil {
+	if o == nil || IsNil(o.Kid) {
 		var ret string
 		return ret
 	}
@@ -139,7 +142,7 @@ func (o *Embedded) GetKid() string {
 // GetKidOk returns a tuple with the Kid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Embedded) GetKidOk() (*string, bool) {
-	if o == nil || o.Kid == nil {
+	if o == nil || IsNil(o.Kid) {
 		return nil, false
 	}
 	return o.Kid, true
@@ -147,7 +150,7 @@ func (o *Embedded) GetKidOk() (*string, bool) {
 
 // HasKid returns a boolean if a field has been set.
 func (o *Embedded) HasKid() bool {
-	if o != nil && o.Kid != nil {
+	if o != nil && !IsNil(o.Kid) {
 		return true
 	}
 
@@ -161,7 +164,7 @@ func (o *Embedded) SetKid(v string) {
 
 // GetKty returns the Kty field value if set, zero value otherwise.
 func (o *Embedded) GetKty() string {
-	if o == nil || o.Kty == nil {
+	if o == nil || IsNil(o.Kty) {
 		var ret string
 		return ret
 	}
@@ -171,7 +174,7 @@ func (o *Embedded) GetKty() string {
 // GetKtyOk returns a tuple with the Kty field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Embedded) GetKtyOk() (*string, bool) {
-	if o == nil || o.Kty == nil {
+	if o == nil || IsNil(o.Kty) {
 		return nil, false
 	}
 	return o.Kty, true
@@ -179,7 +182,7 @@ func (o *Embedded) GetKtyOk() (*string, bool) {
 
 // HasKty returns a boolean if a field has been set.
 func (o *Embedded) HasKty() bool {
-	if o != nil && o.Kty != nil {
+	if o != nil && !IsNil(o.Kty) {
 		return true
 	}
 
@@ -193,7 +196,7 @@ func (o *Embedded) SetKty(v string) {
 
 // GetN returns the N field value if set, zero value otherwise.
 func (o *Embedded) GetN() string {
-	if o == nil || o.N == nil {
+	if o == nil || IsNil(o.N) {
 		var ret string
 		return ret
 	}
@@ -203,7 +206,7 @@ func (o *Embedded) GetN() string {
 // GetNOk returns a tuple with the N field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Embedded) GetNOk() (*string, bool) {
-	if o == nil || o.N == nil {
+	if o == nil || IsNil(o.N) {
 		return nil, false
 	}
 	return o.N, true
@@ -211,7 +214,7 @@ func (o *Embedded) GetNOk() (*string, bool) {
 
 // HasN returns a boolean if a field has been set.
 func (o *Embedded) HasN() bool {
-	if o != nil && o.N != nil {
+	if o != nil && !IsNil(o.N) {
 		return true
 	}
 
@@ -225,7 +228,7 @@ func (o *Embedded) SetN(v string) {
 
 // GetUse returns the Use field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Embedded) GetUse() string {
-	if o == nil || o.Use.Get() == nil {
+	if o == nil || IsNil(o.Use.Get()) {
 		var ret string
 		return ret
 	}
@@ -255,6 +258,7 @@ func (o *Embedded) HasUse() bool {
 func (o *Embedded) SetUse(v string) {
 	o.Use.Set(&v)
 }
+
 // SetUseNil sets the value for Use to be an explicit nil
 func (o *Embedded) SetUseNil() {
 	o.Use.Set(nil)
@@ -266,20 +270,28 @@ func (o *Embedded) UnsetUse() {
 }
 
 func (o Embedded) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Embedded) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Alg != nil {
+	if !IsNil(o.Alg) {
 		toSerialize["alg"] = o.Alg
 	}
-	if o.E != nil {
+	if !IsNil(o.E) {
 		toSerialize["e"] = o.E
 	}
-	if o.Kid != nil {
+	if !IsNil(o.Kid) {
 		toSerialize["kid"] = o.Kid
 	}
-	if o.Kty != nil {
+	if !IsNil(o.Kty) {
 		toSerialize["kty"] = o.Kty
 	}
-	if o.N != nil {
+	if !IsNil(o.N) {
 		toSerialize["n"] = o.N
 	}
 	if o.Use.IsSet() {
@@ -290,23 +302,23 @@ func (o Embedded) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Embedded) UnmarshalJSON(bytes []byte) (err error) {
+func (o *Embedded) UnmarshalJSON(data []byte) (err error) {
 	varEmbedded := _Embedded{}
 
-	err = json.Unmarshal(bytes, &varEmbedded)
-	if err == nil {
-		*o = Embedded(varEmbedded)
-	} else {
+	err = json.Unmarshal(data, &varEmbedded)
+
+	if err != nil {
 		return err
 	}
 
+	*o = Embedded(varEmbedded)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "alg")
 		delete(additionalProperties, "e")
 		delete(additionalProperties, "kid")
@@ -314,8 +326,6 @@ func (o *Embedded) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "n")
 		delete(additionalProperties, "use")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -356,4 +366,3 @@ func (v *NullableEmbedded) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

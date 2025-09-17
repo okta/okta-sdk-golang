@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the AppResourceHrefObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AppResourceHrefObject{}
+
 // AppResourceHrefObject struct for AppResourceHrefObject
 type AppResourceHrefObject struct {
 	// Link URI
 	Href *string `json:"href,omitempty"`
 	// Link name
-	Title *string `json:"title,omitempty"`
+	Title                *string `json:"title,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewAppResourceHrefObjectWithDefaults() *AppResourceHrefObject {
 
 // GetHref returns the Href field value if set, zero value otherwise.
 func (o *AppResourceHrefObject) GetHref() string {
-	if o == nil || o.Href == nil {
+	if o == nil || IsNil(o.Href) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *AppResourceHrefObject) GetHref() string {
 // GetHrefOk returns a tuple with the Href field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppResourceHrefObject) GetHrefOk() (*string, bool) {
-	if o == nil || o.Href == nil {
+	if o == nil || IsNil(o.Href) {
 		return nil, false
 	}
 	return o.Href, true
@@ -75,7 +78,7 @@ func (o *AppResourceHrefObject) GetHrefOk() (*string, bool) {
 
 // HasHref returns a boolean if a field has been set.
 func (o *AppResourceHrefObject) HasHref() bool {
-	if o != nil && o.Href != nil {
+	if o != nil && !IsNil(o.Href) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *AppResourceHrefObject) SetHref(v string) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *AppResourceHrefObject) GetTitle() string {
-	if o == nil || o.Title == nil {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *AppResourceHrefObject) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppResourceHrefObject) GetTitleOk() (*string, bool) {
-	if o == nil || o.Title == nil {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -107,7 +110,7 @@ func (o *AppResourceHrefObject) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *AppResourceHrefObject) HasTitle() bool {
-	if o != nil && o.Title != nil {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *AppResourceHrefObject) SetTitle(v string) {
 }
 
 func (o AppResourceHrefObject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AppResourceHrefObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Href != nil {
+	if !IsNil(o.Href) {
 		toSerialize["href"] = o.Href
 	}
-	if o.Title != nil {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
 
@@ -132,28 +143,26 @@ func (o AppResourceHrefObject) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AppResourceHrefObject) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AppResourceHrefObject) UnmarshalJSON(data []byte) (err error) {
 	varAppResourceHrefObject := _AppResourceHrefObject{}
 
-	err = json.Unmarshal(bytes, &varAppResourceHrefObject)
-	if err == nil {
-		*o = AppResourceHrefObject(varAppResourceHrefObject)
-	} else {
+	err = json.Unmarshal(data, &varAppResourceHrefObject)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AppResourceHrefObject(varAppResourceHrefObject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "href")
 		delete(additionalProperties, "title")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableAppResourceHrefObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

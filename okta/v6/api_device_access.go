@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,22 +26,21 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"time"
 )
 
-
 type DeviceAccessAPI interface {
 
 	/*
-	GetDesktopMFAEnforceNumberMatchingChallengeOrgSetting Retrieve the Desktop MFA Enforce Number Matching Challenge org setting
+		GetDesktopMFAEnforceNumberMatchingChallengeOrgSetting Retrieve the Desktop MFA Enforce Number Matching Challenge org setting
 
-	Retrieves the status of the Desktop MFA Enforce Number Matching Challenge push notifications feature. That is, whether or not the feature is enabled for your org.
+		Retrieves the status of the Desktop MFA Enforce Number Matching Challenge push notifications feature. That is, whether or not the feature is enabled for your org.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetDesktopMFAEnforceNumberMatchingChallengeOrgSettingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetDesktopMFAEnforceNumberMatchingChallengeOrgSettingRequest
 	*/
 	GetDesktopMFAEnforceNumberMatchingChallengeOrgSetting(ctx context.Context) ApiGetDesktopMFAEnforceNumberMatchingChallengeOrgSettingRequest
 
@@ -50,12 +49,12 @@ type DeviceAccessAPI interface {
 	GetDesktopMFAEnforceNumberMatchingChallengeOrgSettingExecute(r ApiGetDesktopMFAEnforceNumberMatchingChallengeOrgSettingRequest) (*DesktopMFAEnforceNumberMatchingChallengeOrgSetting, *APIResponse, error)
 
 	/*
-	GetDesktopMFARecoveryPinOrgSetting Retrieve the Desktop MFA Recovery PIN org setting
+		GetDesktopMFARecoveryPinOrgSetting Retrieve the Desktop MFA Recovery PIN org setting
 
-	Retrieves the status of the Desktop MFA Recovery PIN feature. That is, whether or not the feature is enabled for your org.
+		Retrieves the status of the Desktop MFA Recovery PIN feature. That is, whether or not the feature is enabled for your org.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetDesktopMFARecoveryPinOrgSettingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetDesktopMFARecoveryPinOrgSettingRequest
 	*/
 	GetDesktopMFARecoveryPinOrgSetting(ctx context.Context) ApiGetDesktopMFARecoveryPinOrgSettingRequest
 
@@ -64,12 +63,12 @@ type DeviceAccessAPI interface {
 	GetDesktopMFARecoveryPinOrgSettingExecute(r ApiGetDesktopMFARecoveryPinOrgSettingRequest) (*DesktopMFARecoveryPinOrgSetting, *APIResponse, error)
 
 	/*
-	ReplaceDesktopMFAEnforceNumberMatchingChallengeOrgSetting Replace the Desktop MFA Enforce Number Matching Challenge org setting
+		ReplaceDesktopMFAEnforceNumberMatchingChallengeOrgSetting Replace the Desktop MFA Enforce Number Matching Challenge org setting
 
-	Replaces the status of the Desktop MFA Enforce Number Matching Challenge push notifications feature. That is, whether or not the feature is enabled for your org.
+		Replaces the status of the Desktop MFA Enforce Number Matching Challenge push notifications feature. That is, whether or not the feature is enabled for your org.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiReplaceDesktopMFAEnforceNumberMatchingChallengeOrgSettingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiReplaceDesktopMFAEnforceNumberMatchingChallengeOrgSettingRequest
 	*/
 	ReplaceDesktopMFAEnforceNumberMatchingChallengeOrgSetting(ctx context.Context) ApiReplaceDesktopMFAEnforceNumberMatchingChallengeOrgSettingRequest
 
@@ -78,12 +77,12 @@ type DeviceAccessAPI interface {
 	ReplaceDesktopMFAEnforceNumberMatchingChallengeOrgSettingExecute(r ApiReplaceDesktopMFAEnforceNumberMatchingChallengeOrgSettingRequest) (*DesktopMFAEnforceNumberMatchingChallengeOrgSetting, *APIResponse, error)
 
 	/*
-	ReplaceDesktopMFARecoveryPinOrgSetting Replace the Desktop MFA Recovery PIN org setting
+		ReplaceDesktopMFARecoveryPinOrgSetting Replace the Desktop MFA Recovery PIN org setting
 
-	Replaces the Desktop MFA Recovery PIN feature for your org
+		Replaces the Desktop MFA Recovery PIN feature for your org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiReplaceDesktopMFARecoveryPinOrgSettingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiReplaceDesktopMFARecoveryPinOrgSettingRequest
 	*/
 	ReplaceDesktopMFARecoveryPinOrgSetting(ctx context.Context) ApiReplaceDesktopMFARecoveryPinOrgSettingRequest
 
@@ -96,7 +95,7 @@ type DeviceAccessAPI interface {
 type DeviceAccessAPIService service
 
 type ApiGetDesktopMFAEnforceNumberMatchingChallengeOrgSettingRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService DeviceAccessAPI
 	retryCount int32
 }
@@ -110,19 +109,20 @@ GetDesktopMFAEnforceNumberMatchingChallengeOrgSetting Retrieve the Desktop MFA E
 
 Retrieves the status of the Desktop MFA Enforce Number Matching Challenge push notifications feature. That is, whether or not the feature is enabled for your org.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetDesktopMFAEnforceNumberMatchingChallengeOrgSettingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetDesktopMFAEnforceNumberMatchingChallengeOrgSettingRequest
 */
 func (a *DeviceAccessAPIService) GetDesktopMFAEnforceNumberMatchingChallengeOrgSetting(ctx context.Context) ApiGetDesktopMFAEnforceNumberMatchingChallengeOrgSettingRequest {
 	return ApiGetDesktopMFAEnforceNumberMatchingChallengeOrgSettingRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return DesktopMFAEnforceNumberMatchingChallengeOrgSetting
+//
+//	@return DesktopMFAEnforceNumberMatchingChallengeOrgSetting
 func (a *DeviceAccessAPIService) GetDesktopMFAEnforceNumberMatchingChallengeOrgSettingExecute(r ApiGetDesktopMFAEnforceNumberMatchingChallengeOrgSettingRequest) (*DesktopMFAEnforceNumberMatchingChallengeOrgSetting, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -131,7 +131,7 @@ func (a *DeviceAccessAPIService) GetDesktopMFAEnforceNumberMatchingChallengeOrgS
 		localVarReturnValue  *DesktopMFAEnforceNumberMatchingChallengeOrgSetting
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -191,9 +191,9 @@ func (a *DeviceAccessAPIService) GetDesktopMFAEnforceNumberMatchingChallengeOrgS
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -239,13 +239,13 @@ func (a *DeviceAccessAPIService) GetDesktopMFAEnforceNumberMatchingChallengeOrgS
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetDesktopMFARecoveryPinOrgSettingRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService DeviceAccessAPI
 	retryCount int32
 }
@@ -259,19 +259,20 @@ GetDesktopMFARecoveryPinOrgSetting Retrieve the Desktop MFA Recovery PIN org set
 
 Retrieves the status of the Desktop MFA Recovery PIN feature. That is, whether or not the feature is enabled for your org.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetDesktopMFARecoveryPinOrgSettingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetDesktopMFARecoveryPinOrgSettingRequest
 */
 func (a *DeviceAccessAPIService) GetDesktopMFARecoveryPinOrgSetting(ctx context.Context) ApiGetDesktopMFARecoveryPinOrgSettingRequest {
 	return ApiGetDesktopMFARecoveryPinOrgSettingRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return DesktopMFARecoveryPinOrgSetting
+//
+//	@return DesktopMFARecoveryPinOrgSetting
 func (a *DeviceAccessAPIService) GetDesktopMFARecoveryPinOrgSettingExecute(r ApiGetDesktopMFARecoveryPinOrgSettingRequest) (*DesktopMFARecoveryPinOrgSetting, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -280,7 +281,7 @@ func (a *DeviceAccessAPIService) GetDesktopMFARecoveryPinOrgSettingExecute(r Api
 		localVarReturnValue  *DesktopMFARecoveryPinOrgSetting
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -340,9 +341,9 @@ func (a *DeviceAccessAPIService) GetDesktopMFARecoveryPinOrgSettingExecute(r Api
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -388,16 +389,16 @@ func (a *DeviceAccessAPIService) GetDesktopMFARecoveryPinOrgSettingExecute(r Api
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceDesktopMFAEnforceNumberMatchingChallengeOrgSettingRequest struct {
-	ctx context.Context
-	ApiService DeviceAccessAPI
+	ctx                                                context.Context
+	ApiService                                         DeviceAccessAPI
 	desktopMFAEnforceNumberMatchingChallengeOrgSetting *DesktopMFAEnforceNumberMatchingChallengeOrgSetting
-	retryCount int32
+	retryCount                                         int32
 }
 
 func (r ApiReplaceDesktopMFAEnforceNumberMatchingChallengeOrgSettingRequest) DesktopMFAEnforceNumberMatchingChallengeOrgSetting(desktopMFAEnforceNumberMatchingChallengeOrgSetting DesktopMFAEnforceNumberMatchingChallengeOrgSetting) ApiReplaceDesktopMFAEnforceNumberMatchingChallengeOrgSettingRequest {
@@ -414,19 +415,20 @@ ReplaceDesktopMFAEnforceNumberMatchingChallengeOrgSetting Replace the Desktop MF
 
 Replaces the status of the Desktop MFA Enforce Number Matching Challenge push notifications feature. That is, whether or not the feature is enabled for your org.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiReplaceDesktopMFAEnforceNumberMatchingChallengeOrgSettingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiReplaceDesktopMFAEnforceNumberMatchingChallengeOrgSettingRequest
 */
 func (a *DeviceAccessAPIService) ReplaceDesktopMFAEnforceNumberMatchingChallengeOrgSetting(ctx context.Context) ApiReplaceDesktopMFAEnforceNumberMatchingChallengeOrgSettingRequest {
 	return ApiReplaceDesktopMFAEnforceNumberMatchingChallengeOrgSettingRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return DesktopMFAEnforceNumberMatchingChallengeOrgSetting
+//
+//	@return DesktopMFAEnforceNumberMatchingChallengeOrgSetting
 func (a *DeviceAccessAPIService) ReplaceDesktopMFAEnforceNumberMatchingChallengeOrgSettingExecute(r ApiReplaceDesktopMFAEnforceNumberMatchingChallengeOrgSettingRequest) (*DesktopMFAEnforceNumberMatchingChallengeOrgSetting, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -435,7 +437,7 @@ func (a *DeviceAccessAPIService) ReplaceDesktopMFAEnforceNumberMatchingChallenge
 		localVarReturnValue  *DesktopMFAEnforceNumberMatchingChallengeOrgSetting
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -500,9 +502,9 @@ func (a *DeviceAccessAPIService) ReplaceDesktopMFAEnforceNumberMatchingChallenge
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -560,16 +562,16 @@ func (a *DeviceAccessAPIService) ReplaceDesktopMFAEnforceNumberMatchingChallenge
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceDesktopMFARecoveryPinOrgSettingRequest struct {
-	ctx context.Context
-	ApiService DeviceAccessAPI
+	ctx                             context.Context
+	ApiService                      DeviceAccessAPI
 	desktopMFARecoveryPinOrgSetting *DesktopMFARecoveryPinOrgSetting
-	retryCount int32
+	retryCount                      int32
 }
 
 func (r ApiReplaceDesktopMFARecoveryPinOrgSettingRequest) DesktopMFARecoveryPinOrgSetting(desktopMFARecoveryPinOrgSetting DesktopMFARecoveryPinOrgSetting) ApiReplaceDesktopMFARecoveryPinOrgSettingRequest {
@@ -586,19 +588,20 @@ ReplaceDesktopMFARecoveryPinOrgSetting Replace the Desktop MFA Recovery PIN org 
 
 Replaces the Desktop MFA Recovery PIN feature for your org
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiReplaceDesktopMFARecoveryPinOrgSettingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiReplaceDesktopMFARecoveryPinOrgSettingRequest
 */
 func (a *DeviceAccessAPIService) ReplaceDesktopMFARecoveryPinOrgSetting(ctx context.Context) ApiReplaceDesktopMFARecoveryPinOrgSettingRequest {
 	return ApiReplaceDesktopMFARecoveryPinOrgSettingRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return DesktopMFARecoveryPinOrgSetting
+//
+//	@return DesktopMFARecoveryPinOrgSetting
 func (a *DeviceAccessAPIService) ReplaceDesktopMFARecoveryPinOrgSettingExecute(r ApiReplaceDesktopMFARecoveryPinOrgSettingRequest) (*DesktopMFARecoveryPinOrgSetting, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -607,7 +610,7 @@ func (a *DeviceAccessAPIService) ReplaceDesktopMFARecoveryPinOrgSettingExecute(r
 		localVarReturnValue  *DesktopMFARecoveryPinOrgSetting
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -672,9 +675,9 @@ func (a *DeviceAccessAPIService) ReplaceDesktopMFARecoveryPinOrgSettingExecute(r
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -732,7 +735,7 @@ func (a *DeviceAccessAPIService) ReplaceDesktopMFARecoveryPinOrgSettingExecute(r
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

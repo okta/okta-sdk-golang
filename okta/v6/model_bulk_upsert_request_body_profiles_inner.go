@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the BulkUpsertRequestBodyProfilesInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BulkUpsertRequestBodyProfilesInner{}
+
 // BulkUpsertRequestBodyProfilesInner struct for BulkUpsertRequestBodyProfilesInner
 type BulkUpsertRequestBodyProfilesInner struct {
 	// The external ID of the entity that needs to be created or updated in Okta
-	ExternalId *string `json:"externalId,omitempty"`
-	Profile *IdentitySourceUserProfileForUpsert `json:"profile,omitempty"`
+	ExternalId           *string                             `json:"externalId,omitempty"`
+	Profile              *IdentitySourceUserProfileForUpsert `json:"profile,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewBulkUpsertRequestBodyProfilesInnerWithDefaults() *BulkUpsertRequestBodyP
 
 // GetExternalId returns the ExternalId field value if set, zero value otherwise.
 func (o *BulkUpsertRequestBodyProfilesInner) GetExternalId() string {
-	if o == nil || o.ExternalId == nil {
+	if o == nil || IsNil(o.ExternalId) {
 		var ret string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *BulkUpsertRequestBodyProfilesInner) GetExternalId() string {
 // GetExternalIdOk returns a tuple with the ExternalId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BulkUpsertRequestBodyProfilesInner) GetExternalIdOk() (*string, bool) {
-	if o == nil || o.ExternalId == nil {
+	if o == nil || IsNil(o.ExternalId) {
 		return nil, false
 	}
 	return o.ExternalId, true
@@ -74,7 +77,7 @@ func (o *BulkUpsertRequestBodyProfilesInner) GetExternalIdOk() (*string, bool) {
 
 // HasExternalId returns a boolean if a field has been set.
 func (o *BulkUpsertRequestBodyProfilesInner) HasExternalId() bool {
-	if o != nil && o.ExternalId != nil {
+	if o != nil && !IsNil(o.ExternalId) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *BulkUpsertRequestBodyProfilesInner) SetExternalId(v string) {
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *BulkUpsertRequestBodyProfilesInner) GetProfile() IdentitySourceUserProfileForUpsert {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret IdentitySourceUserProfileForUpsert
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *BulkUpsertRequestBodyProfilesInner) GetProfile() IdentitySourceUserProf
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BulkUpsertRequestBodyProfilesInner) GetProfileOk() (*IdentitySourceUserProfileForUpsert, bool) {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		return nil, false
 	}
 	return o.Profile, true
@@ -106,7 +109,7 @@ func (o *BulkUpsertRequestBodyProfilesInner) GetProfileOk() (*IdentitySourceUser
 
 // HasProfile returns a boolean if a field has been set.
 func (o *BulkUpsertRequestBodyProfilesInner) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *BulkUpsertRequestBodyProfilesInner) SetProfile(v IdentitySourceUserProf
 }
 
 func (o BulkUpsertRequestBodyProfilesInner) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BulkUpsertRequestBodyProfilesInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ExternalId != nil {
+	if !IsNil(o.ExternalId) {
 		toSerialize["externalId"] = o.ExternalId
 	}
-	if o.Profile != nil {
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
 
@@ -131,28 +142,26 @@ func (o BulkUpsertRequestBodyProfilesInner) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *BulkUpsertRequestBodyProfilesInner) UnmarshalJSON(bytes []byte) (err error) {
+func (o *BulkUpsertRequestBodyProfilesInner) UnmarshalJSON(data []byte) (err error) {
 	varBulkUpsertRequestBodyProfilesInner := _BulkUpsertRequestBodyProfilesInner{}
 
-	err = json.Unmarshal(bytes, &varBulkUpsertRequestBodyProfilesInner)
-	if err == nil {
-		*o = BulkUpsertRequestBodyProfilesInner(varBulkUpsertRequestBodyProfilesInner)
-	} else {
+	err = json.Unmarshal(data, &varBulkUpsertRequestBodyProfilesInner)
+
+	if err != nil {
 		return err
 	}
 
+	*o = BulkUpsertRequestBodyProfilesInner(varBulkUpsertRequestBodyProfilesInner)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "externalId")
 		delete(additionalProperties, "profile")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableBulkUpsertRequestBodyProfilesInner) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

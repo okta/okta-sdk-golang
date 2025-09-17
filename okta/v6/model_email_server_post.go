@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the EmailServerPost type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EmailServerPost{}
+
 // EmailServerPost struct for EmailServerPost
 type EmailServerPost struct {
 	// Human-readable name for your SMTP server
@@ -40,7 +43,7 @@ type EmailServerPost struct {
 	// Username used to access your SMTP server
 	Username *string `json:"username,omitempty"`
 	// Password used to access your SMTP server
-	Password *string `json:"password,omitempty"`
+	Password             *string `json:"password,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -65,7 +68,7 @@ func NewEmailServerPostWithDefaults() *EmailServerPost {
 
 // GetAlias returns the Alias field value if set, zero value otherwise.
 func (o *EmailServerPost) GetAlias() string {
-	if o == nil || o.Alias == nil {
+	if o == nil || IsNil(o.Alias) {
 		var ret string
 		return ret
 	}
@@ -75,7 +78,7 @@ func (o *EmailServerPost) GetAlias() string {
 // GetAliasOk returns a tuple with the Alias field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EmailServerPost) GetAliasOk() (*string, bool) {
-	if o == nil || o.Alias == nil {
+	if o == nil || IsNil(o.Alias) {
 		return nil, false
 	}
 	return o.Alias, true
@@ -83,7 +86,7 @@ func (o *EmailServerPost) GetAliasOk() (*string, bool) {
 
 // HasAlias returns a boolean if a field has been set.
 func (o *EmailServerPost) HasAlias() bool {
-	if o != nil && o.Alias != nil {
+	if o != nil && !IsNil(o.Alias) {
 		return true
 	}
 
@@ -97,7 +100,7 @@ func (o *EmailServerPost) SetAlias(v string) {
 
 // GetEnabled returns the Enabled field value if set, zero value otherwise.
 func (o *EmailServerPost) GetEnabled() bool {
-	if o == nil || o.Enabled == nil {
+	if o == nil || IsNil(o.Enabled) {
 		var ret bool
 		return ret
 	}
@@ -107,7 +110,7 @@ func (o *EmailServerPost) GetEnabled() bool {
 // GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EmailServerPost) GetEnabledOk() (*bool, bool) {
-	if o == nil || o.Enabled == nil {
+	if o == nil || IsNil(o.Enabled) {
 		return nil, false
 	}
 	return o.Enabled, true
@@ -115,7 +118,7 @@ func (o *EmailServerPost) GetEnabledOk() (*bool, bool) {
 
 // HasEnabled returns a boolean if a field has been set.
 func (o *EmailServerPost) HasEnabled() bool {
-	if o != nil && o.Enabled != nil {
+	if o != nil && !IsNil(o.Enabled) {
 		return true
 	}
 
@@ -129,7 +132,7 @@ func (o *EmailServerPost) SetEnabled(v bool) {
 
 // GetHost returns the Host field value if set, zero value otherwise.
 func (o *EmailServerPost) GetHost() string {
-	if o == nil || o.Host == nil {
+	if o == nil || IsNil(o.Host) {
 		var ret string
 		return ret
 	}
@@ -139,7 +142,7 @@ func (o *EmailServerPost) GetHost() string {
 // GetHostOk returns a tuple with the Host field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EmailServerPost) GetHostOk() (*string, bool) {
-	if o == nil || o.Host == nil {
+	if o == nil || IsNil(o.Host) {
 		return nil, false
 	}
 	return o.Host, true
@@ -147,7 +150,7 @@ func (o *EmailServerPost) GetHostOk() (*string, bool) {
 
 // HasHost returns a boolean if a field has been set.
 func (o *EmailServerPost) HasHost() bool {
-	if o != nil && o.Host != nil {
+	if o != nil && !IsNil(o.Host) {
 		return true
 	}
 
@@ -161,7 +164,7 @@ func (o *EmailServerPost) SetHost(v string) {
 
 // GetPort returns the Port field value if set, zero value otherwise.
 func (o *EmailServerPost) GetPort() int32 {
-	if o == nil || o.Port == nil {
+	if o == nil || IsNil(o.Port) {
 		var ret int32
 		return ret
 	}
@@ -171,7 +174,7 @@ func (o *EmailServerPost) GetPort() int32 {
 // GetPortOk returns a tuple with the Port field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EmailServerPost) GetPortOk() (*int32, bool) {
-	if o == nil || o.Port == nil {
+	if o == nil || IsNil(o.Port) {
 		return nil, false
 	}
 	return o.Port, true
@@ -179,7 +182,7 @@ func (o *EmailServerPost) GetPortOk() (*int32, bool) {
 
 // HasPort returns a boolean if a field has been set.
 func (o *EmailServerPost) HasPort() bool {
-	if o != nil && o.Port != nil {
+	if o != nil && !IsNil(o.Port) {
 		return true
 	}
 
@@ -193,7 +196,7 @@ func (o *EmailServerPost) SetPort(v int32) {
 
 // GetUsername returns the Username field value if set, zero value otherwise.
 func (o *EmailServerPost) GetUsername() string {
-	if o == nil || o.Username == nil {
+	if o == nil || IsNil(o.Username) {
 		var ret string
 		return ret
 	}
@@ -203,7 +206,7 @@ func (o *EmailServerPost) GetUsername() string {
 // GetUsernameOk returns a tuple with the Username field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EmailServerPost) GetUsernameOk() (*string, bool) {
-	if o == nil || o.Username == nil {
+	if o == nil || IsNil(o.Username) {
 		return nil, false
 	}
 	return o.Username, true
@@ -211,7 +214,7 @@ func (o *EmailServerPost) GetUsernameOk() (*string, bool) {
 
 // HasUsername returns a boolean if a field has been set.
 func (o *EmailServerPost) HasUsername() bool {
-	if o != nil && o.Username != nil {
+	if o != nil && !IsNil(o.Username) {
 		return true
 	}
 
@@ -225,7 +228,7 @@ func (o *EmailServerPost) SetUsername(v string) {
 
 // GetPassword returns the Password field value if set, zero value otherwise.
 func (o *EmailServerPost) GetPassword() string {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		var ret string
 		return ret
 	}
@@ -235,7 +238,7 @@ func (o *EmailServerPost) GetPassword() string {
 // GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EmailServerPost) GetPasswordOk() (*string, bool) {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		return nil, false
 	}
 	return o.Password, true
@@ -243,7 +246,7 @@ func (o *EmailServerPost) GetPasswordOk() (*string, bool) {
 
 // HasPassword returns a boolean if a field has been set.
 func (o *EmailServerPost) HasPassword() bool {
-	if o != nil && o.Password != nil {
+	if o != nil && !IsNil(o.Password) {
 		return true
 	}
 
@@ -256,23 +259,31 @@ func (o *EmailServerPost) SetPassword(v string) {
 }
 
 func (o EmailServerPost) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EmailServerPost) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Alias != nil {
+	if !IsNil(o.Alias) {
 		toSerialize["alias"] = o.Alias
 	}
-	if o.Enabled != nil {
+	if !IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
 	}
-	if o.Host != nil {
+	if !IsNil(o.Host) {
 		toSerialize["host"] = o.Host
 	}
-	if o.Port != nil {
+	if !IsNil(o.Port) {
 		toSerialize["port"] = o.Port
 	}
-	if o.Username != nil {
+	if !IsNil(o.Username) {
 		toSerialize["username"] = o.Username
 	}
-	if o.Password != nil {
+	if !IsNil(o.Password) {
 		toSerialize["password"] = o.Password
 	}
 
@@ -280,23 +291,23 @@ func (o EmailServerPost) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EmailServerPost) UnmarshalJSON(bytes []byte) (err error) {
+func (o *EmailServerPost) UnmarshalJSON(data []byte) (err error) {
 	varEmailServerPost := _EmailServerPost{}
 
-	err = json.Unmarshal(bytes, &varEmailServerPost)
-	if err == nil {
-		*o = EmailServerPost(varEmailServerPost)
-	} else {
+	err = json.Unmarshal(data, &varEmailServerPost)
+
+	if err != nil {
 		return err
 	}
 
+	*o = EmailServerPost(varEmailServerPost)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "alias")
 		delete(additionalProperties, "enabled")
 		delete(additionalProperties, "host")
@@ -304,8 +315,6 @@ func (o *EmailServerPost) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "username")
 		delete(additionalProperties, "password")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -346,4 +355,3 @@ func (v *NullableEmailServerPost) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

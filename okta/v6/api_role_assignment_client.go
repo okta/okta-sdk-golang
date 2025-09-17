@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,30 +26,29 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type RoleAssignmentClientAPI interface {
 
 	/*
-	AssignRoleToClient Assign a client role
+			AssignRoleToClient Assign a client role
 
-	Assigns a [standard role](/openapi/okta-management/guides/roles/#standard-roles) to a client app.
+			Assigns a [standard role](/openapi/okta-management/guides/roles/#standard-roles) to a client app.
 
-You can also assign a custom role to a client app, but the preferred method to assign a custom role to a client is to create a binding between the custom role, the resource set, and the client app. See [Create a role resource set binding](/openapi/okta-management/management/tag/RoleDResourceSetBinding/#tag/RoleDResourceSetBinding/operation/createResourceSetBinding).
+		You can also assign a custom role to a client app, but the preferred method to assign a custom role to a client is to create a binding between the custom role, the resource set, and the client app. See [Create a role resource set binding](/openapi/okta-management/management/tag/RoleDResourceSetBinding/#tag/RoleDResourceSetBinding/operation/createResourceSetBinding).
 
-> **Notes:**
-> * The request payload is different for standard and custom role assignments.
-> * For IAM-based standard role assignments, use the request payload for standard roles. However, the response payload for IAM-based role assignments is similar to the custom role's assignment response.
+		> **Notes:**
+		> * The request payload is different for standard and custom role assignments.
+		> * For IAM-based standard role assignments, use the request payload for standard roles. However, the response payload for IAM-based role assignments is similar to the custom role's assignment response.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId Client app ID
-	@return ApiAssignRoleToClientRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param clientId Client app ID
+			@return ApiAssignRoleToClientRequest
 	*/
 	AssignRoleToClient(ctx context.Context, clientId string) ApiAssignRoleToClientRequest
 
@@ -58,14 +57,14 @@ You can also assign a custom role to a client app, but the preferred method to a
 	AssignRoleToClientExecute(r ApiAssignRoleToClientRequest) (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error)
 
 	/*
-	DeleteRoleFromClient Unassign a client role
+		DeleteRoleFromClient Unassign a client role
 
-	Unassigns a role assignment (identified by `roleAssignmentId`) from a client app (identified by `clientId`)
+		Unassigns a role assignment (identified by `roleAssignmentId`) from a client app (identified by `clientId`)
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId Client app ID
-	@param roleAssignmentId The `id` of the role assignment
-	@return ApiDeleteRoleFromClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param clientId Client app ID
+		@param roleAssignmentId The `id` of the role assignment
+		@return ApiDeleteRoleFromClientRequest
 	*/
 	DeleteRoleFromClient(ctx context.Context, clientId string, roleAssignmentId string) ApiDeleteRoleFromClientRequest
 
@@ -73,13 +72,13 @@ You can also assign a custom role to a client app, but the preferred method to a
 	DeleteRoleFromClientExecute(r ApiDeleteRoleFromClientRequest) (*APIResponse, error)
 
 	/*
-	ListRolesForClient List all client role assignments
+		ListRolesForClient List all client role assignments
 
-	Lists all roles assigned to a client app identified by `clientId`
+		Lists all roles assigned to a client app identified by `clientId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId Client app ID
-	@return ApiListRolesForClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param clientId Client app ID
+		@return ApiListRolesForClientRequest
 	*/
 	ListRolesForClient(ctx context.Context, clientId string) ApiListRolesForClientRequest
 
@@ -88,14 +87,14 @@ You can also assign a custom role to a client app, but the preferred method to a
 	ListRolesForClientExecute(r ApiListRolesForClientRequest) (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error)
 
 	/*
-	RetrieveClientRole Retrieve a client role
+		RetrieveClientRole Retrieve a client role
 
-	Retrieves a role assignment (identified by `roleAssignmentId`) for a client app (identified by `clientId`)
+		Retrieves a role assignment (identified by `roleAssignmentId`) for a client app (identified by `clientId`)
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId Client app ID
-	@param roleAssignmentId The `id` of the role assignment
-	@return ApiRetrieveClientRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param clientId Client app ID
+		@param roleAssignmentId The `id` of the role assignment
+		@return ApiRetrieveClientRoleRequest
 	*/
 	RetrieveClientRole(ctx context.Context, clientId string, roleAssignmentId string) ApiRetrieveClientRoleRequest
 
@@ -108,11 +107,11 @@ You can also assign a custom role to a client app, but the preferred method to a
 type RoleAssignmentClientAPIService service
 
 type ApiAssignRoleToClientRequest struct {
-	ctx context.Context
-	ApiService RoleAssignmentClientAPI
-	clientId string
+	ctx                      context.Context
+	ApiService               RoleAssignmentClientAPI
+	clientId                 string
 	assignRoleToGroupRequest *AssignRoleToGroupRequest
-	retryCount int32
+	retryCount               int32
 }
 
 func (r ApiAssignRoleToClientRequest) AssignRoleToGroupRequest(assignRoleToGroupRequest AssignRoleToGroupRequest) ApiAssignRoleToClientRequest {
@@ -135,21 +134,22 @@ You can also assign a custom role to a client app, but the preferred method to a
 > * The request payload is different for standard and custom role assignments.
 > * For IAM-based standard role assignments, use the request payload for standard roles. However, the response payload for IAM-based role assignments is similar to the custom role's assignment response.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param clientId Client app ID
- @return ApiAssignRoleToClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param clientId Client app ID
+	@return ApiAssignRoleToClientRequest
 */
 func (a *RoleAssignmentClientAPIService) AssignRoleToClient(ctx context.Context, clientId string) ApiAssignRoleToClientRequest {
 	return ApiAssignRoleToClientRequest{
 		ApiService: a,
-		ctx: ctx,
-		clientId: clientId,
+		ctx:        ctx,
+		clientId:   clientId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListGroupAssignedRoles200ResponseInner
+//
+//	@return ListGroupAssignedRoles200ResponseInner
 func (a *RoleAssignmentClientAPIService) AssignRoleToClientExecute(r ApiAssignRoleToClientRequest) (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -158,7 +158,7 @@ func (a *RoleAssignmentClientAPIService) AssignRoleToClientExecute(r ApiAssignRo
 		localVarReturnValue  *ListGroupAssignedRoles200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -224,9 +224,9 @@ func (a *RoleAssignmentClientAPIService) AssignRoleToClientExecute(r ApiAssignRo
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -284,17 +284,17 @@ func (a *RoleAssignmentClientAPIService) AssignRoleToClientExecute(r ApiAssignRo
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteRoleFromClientRequest struct {
-	ctx context.Context
-	ApiService RoleAssignmentClientAPI
-	clientId string
+	ctx              context.Context
+	ApiService       RoleAssignmentClientAPI
+	clientId         string
 	roleAssignmentId string
-	retryCount int32
+	retryCount       int32
 }
 
 func (r ApiDeleteRoleFromClientRequest) Execute() (*APIResponse, error) {
@@ -306,18 +306,18 @@ DeleteRoleFromClient Unassign a client role
 
 Unassigns a role assignment (identified by `roleAssignmentId`) from a client app (identified by `clientId`)
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param clientId Client app ID
- @param roleAssignmentId The `id` of the role assignment
- @return ApiDeleteRoleFromClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param clientId Client app ID
+	@param roleAssignmentId The `id` of the role assignment
+	@return ApiDeleteRoleFromClientRequest
 */
 func (a *RoleAssignmentClientAPIService) DeleteRoleFromClient(ctx context.Context, clientId string, roleAssignmentId string) ApiDeleteRoleFromClientRequest {
 	return ApiDeleteRoleFromClientRequest{
-		ApiService: a,
-		ctx: ctx,
-		clientId: clientId,
+		ApiService:       a,
+		ctx:              ctx,
+		clientId:         clientId,
 		roleAssignmentId: roleAssignmentId,
-		retryCount: 0,
+		retryCount:       0,
 	}
 }
 
@@ -329,7 +329,7 @@ func (a *RoleAssignmentClientAPIService) DeleteRoleFromClientExecute(r ApiDelete
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -391,9 +391,9 @@ func (a *RoleAssignmentClientAPIService) DeleteRoleFromClientExecute(r ApiDelete
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -447,9 +447,9 @@ func (a *RoleAssignmentClientAPIService) DeleteRoleFromClientExecute(r ApiDelete
 }
 
 type ApiListRolesForClientRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleAssignmentClientAPI
-	clientId string
+	clientId   string
 	retryCount int32
 }
 
@@ -462,21 +462,22 @@ ListRolesForClient List all client role assignments
 
 Lists all roles assigned to a client app identified by `clientId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param clientId Client app ID
- @return ApiListRolesForClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param clientId Client app ID
+	@return ApiListRolesForClientRequest
 */
 func (a *RoleAssignmentClientAPIService) ListRolesForClient(ctx context.Context, clientId string) ApiListRolesForClientRequest {
 	return ApiListRolesForClientRequest{
 		ApiService: a,
-		ctx: ctx,
-		clientId: clientId,
+		ctx:        ctx,
+		clientId:   clientId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListGroupAssignedRoles200ResponseInner
+//
+//	@return ListGroupAssignedRoles200ResponseInner
 func (a *RoleAssignmentClientAPIService) ListRolesForClientExecute(r ApiListRolesForClientRequest) (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -485,7 +486,7 @@ func (a *RoleAssignmentClientAPIService) ListRolesForClientExecute(r ApiListRole
 		localVarReturnValue  *ListGroupAssignedRoles200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -546,9 +547,9 @@ func (a *RoleAssignmentClientAPIService) ListRolesForClientExecute(r ApiListRole
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -606,17 +607,17 @@ func (a *RoleAssignmentClientAPIService) ListRolesForClientExecute(r ApiListRole
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiRetrieveClientRoleRequest struct {
-	ctx context.Context
-	ApiService RoleAssignmentClientAPI
-	clientId string
+	ctx              context.Context
+	ApiService       RoleAssignmentClientAPI
+	clientId         string
 	roleAssignmentId string
-	retryCount int32
+	retryCount       int32
 }
 
 func (r ApiRetrieveClientRoleRequest) Execute() (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error) {
@@ -628,23 +629,24 @@ RetrieveClientRole Retrieve a client role
 
 Retrieves a role assignment (identified by `roleAssignmentId`) for a client app (identified by `clientId`)
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param clientId Client app ID
- @param roleAssignmentId The `id` of the role assignment
- @return ApiRetrieveClientRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param clientId Client app ID
+	@param roleAssignmentId The `id` of the role assignment
+	@return ApiRetrieveClientRoleRequest
 */
 func (a *RoleAssignmentClientAPIService) RetrieveClientRole(ctx context.Context, clientId string, roleAssignmentId string) ApiRetrieveClientRoleRequest {
 	return ApiRetrieveClientRoleRequest{
-		ApiService: a,
-		ctx: ctx,
-		clientId: clientId,
+		ApiService:       a,
+		ctx:              ctx,
+		clientId:         clientId,
 		roleAssignmentId: roleAssignmentId,
-		retryCount: 0,
+		retryCount:       0,
 	}
 }
 
 // Execute executes the request
-//  @return ListGroupAssignedRoles200ResponseInner
+//
+//	@return ListGroupAssignedRoles200ResponseInner
 func (a *RoleAssignmentClientAPIService) RetrieveClientRoleExecute(r ApiRetrieveClientRoleRequest) (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -653,7 +655,7 @@ func (a *RoleAssignmentClientAPIService) RetrieveClientRoleExecute(r ApiRetrieve
 		localVarReturnValue  *ListGroupAssignedRoles200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -715,9 +717,9 @@ func (a *RoleAssignmentClientAPIService) RetrieveClientRoleExecute(r ApiRetrieve
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -775,7 +777,7 @@ func (a *RoleAssignmentClientAPIService) RetrieveClientRoleExecute(r ApiRetrieve
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

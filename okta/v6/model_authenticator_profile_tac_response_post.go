@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"time"
 )
 
+// checks if the AuthenticatorProfileTacResponsePost type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorProfileTacResponsePost{}
+
 // AuthenticatorProfileTacResponsePost Defines the authenticator specific parameters
 type AuthenticatorProfileTacResponsePost struct {
 	// The time when the TAC enrollment expires in the UTC timezone
@@ -35,7 +38,7 @@ type AuthenticatorProfileTacResponsePost struct {
 	// Determines whether an enrollment can be used more than once
 	MultiUse *bool `json:"multiUse,omitempty"`
 	// A temporary access code used for authentication. It can be used one or more times and is valid for a defined period specified by the `ttl` property. The `tac` is returned in the response when the enrollment is created. It is not returned when the enrollment is retrieved. Issuing a new TAC invalidates any existing TAC for this user.
-	Tac *string `json:"tac,omitempty"`
+	Tac                  *string `json:"tac,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +63,7 @@ func NewAuthenticatorProfileTacResponsePostWithDefaults() *AuthenticatorProfileT
 
 // GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
 func (o *AuthenticatorProfileTacResponsePost) GetExpiresAt() time.Time {
-	if o == nil || o.ExpiresAt == nil {
+	if o == nil || IsNil(o.ExpiresAt) {
 		var ret time.Time
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *AuthenticatorProfileTacResponsePost) GetExpiresAt() time.Time {
 // GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorProfileTacResponsePost) GetExpiresAtOk() (*time.Time, bool) {
-	if o == nil || o.ExpiresAt == nil {
+	if o == nil || IsNil(o.ExpiresAt) {
 		return nil, false
 	}
 	return o.ExpiresAt, true
@@ -78,7 +81,7 @@ func (o *AuthenticatorProfileTacResponsePost) GetExpiresAtOk() (*time.Time, bool
 
 // HasExpiresAt returns a boolean if a field has been set.
 func (o *AuthenticatorProfileTacResponsePost) HasExpiresAt() bool {
-	if o != nil && o.ExpiresAt != nil {
+	if o != nil && !IsNil(o.ExpiresAt) {
 		return true
 	}
 
@@ -92,7 +95,7 @@ func (o *AuthenticatorProfileTacResponsePost) SetExpiresAt(v time.Time) {
 
 // GetMultiUse returns the MultiUse field value if set, zero value otherwise.
 func (o *AuthenticatorProfileTacResponsePost) GetMultiUse() bool {
-	if o == nil || o.MultiUse == nil {
+	if o == nil || IsNil(o.MultiUse) {
 		var ret bool
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *AuthenticatorProfileTacResponsePost) GetMultiUse() bool {
 // GetMultiUseOk returns a tuple with the MultiUse field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorProfileTacResponsePost) GetMultiUseOk() (*bool, bool) {
-	if o == nil || o.MultiUse == nil {
+	if o == nil || IsNil(o.MultiUse) {
 		return nil, false
 	}
 	return o.MultiUse, true
@@ -110,7 +113,7 @@ func (o *AuthenticatorProfileTacResponsePost) GetMultiUseOk() (*bool, bool) {
 
 // HasMultiUse returns a boolean if a field has been set.
 func (o *AuthenticatorProfileTacResponsePost) HasMultiUse() bool {
-	if o != nil && o.MultiUse != nil {
+	if o != nil && !IsNil(o.MultiUse) {
 		return true
 	}
 
@@ -124,7 +127,7 @@ func (o *AuthenticatorProfileTacResponsePost) SetMultiUse(v bool) {
 
 // GetTac returns the Tac field value if set, zero value otherwise.
 func (o *AuthenticatorProfileTacResponsePost) GetTac() string {
-	if o == nil || o.Tac == nil {
+	if o == nil || IsNil(o.Tac) {
 		var ret string
 		return ret
 	}
@@ -134,7 +137,7 @@ func (o *AuthenticatorProfileTacResponsePost) GetTac() string {
 // GetTacOk returns a tuple with the Tac field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorProfileTacResponsePost) GetTacOk() (*string, bool) {
-	if o == nil || o.Tac == nil {
+	if o == nil || IsNil(o.Tac) {
 		return nil, false
 	}
 	return o.Tac, true
@@ -142,7 +145,7 @@ func (o *AuthenticatorProfileTacResponsePost) GetTacOk() (*string, bool) {
 
 // HasTac returns a boolean if a field has been set.
 func (o *AuthenticatorProfileTacResponsePost) HasTac() bool {
-	if o != nil && o.Tac != nil {
+	if o != nil && !IsNil(o.Tac) {
 		return true
 	}
 
@@ -155,14 +158,22 @@ func (o *AuthenticatorProfileTacResponsePost) SetTac(v string) {
 }
 
 func (o AuthenticatorProfileTacResponsePost) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorProfileTacResponsePost) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ExpiresAt != nil {
+	if !IsNil(o.ExpiresAt) {
 		toSerialize["expiresAt"] = o.ExpiresAt
 	}
-	if o.MultiUse != nil {
+	if !IsNil(o.MultiUse) {
 		toSerialize["multiUse"] = o.MultiUse
 	}
-	if o.Tac != nil {
+	if !IsNil(o.Tac) {
 		toSerialize["tac"] = o.Tac
 	}
 
@@ -170,29 +181,27 @@ func (o AuthenticatorProfileTacResponsePost) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorProfileTacResponsePost) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorProfileTacResponsePost) UnmarshalJSON(data []byte) (err error) {
 	varAuthenticatorProfileTacResponsePost := _AuthenticatorProfileTacResponsePost{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorProfileTacResponsePost)
-	if err == nil {
-		*o = AuthenticatorProfileTacResponsePost(varAuthenticatorProfileTacResponsePost)
-	} else {
+	err = json.Unmarshal(data, &varAuthenticatorProfileTacResponsePost)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthenticatorProfileTacResponsePost(varAuthenticatorProfileTacResponsePost)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "expiresAt")
 		delete(additionalProperties, "multiUse")
 		delete(additionalProperties, "tac")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -233,4 +242,3 @@ func (v *NullableAuthenticatorProfileTacResponsePost) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

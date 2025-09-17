@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"fmt"
 )
 
+// checks if the SubmissionRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SubmissionRequest{}
+
 // SubmissionRequest struct for SubmissionRequest
 type SubmissionRequest struct {
 	// List of org-level variables for the customer per-tenant configuration. For example, a `subdomain` variable can be used in the ACS URL: `https://${org.subdomain}.example.com/saml/login`
@@ -45,11 +48,11 @@ type SubmissionRequest struct {
 	// URL to an uploaded application logo. This logo appears next to your app integration name in the OIN catalog. You must first [Upload an OIN Integration logo](/openapi/okta-management/management/tag/YourOinIntegrations/#tag/YourOinIntegrations/operation/uploadSubmissionLogo) to obtain the logo URL before you can specify this value.
 	Logo string `json:"logo"`
 	// The app integration name. This is the main title used for your integration in the OIN catalog.
-	Name string `json:"name"`
+	Name         string               `json:"name"`
 	Provisioning *ProvisioningDetails `json:"provisioning,omitempty"`
-	Sso *Sso `json:"sso,omitempty"`
+	Sso          *Sso                 `json:"sso,omitempty"`
 	// Status of the OIN Integration submission
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -77,7 +80,7 @@ func NewSubmissionRequestWithDefaults() *SubmissionRequest {
 
 // GetConfig returns the Config field value if set, zero value otherwise.
 func (o *SubmissionRequest) GetConfig() []SubmissionResponseConfigInner {
-	if o == nil || o.Config == nil {
+	if o == nil || IsNil(o.Config) {
 		var ret []SubmissionResponseConfigInner
 		return ret
 	}
@@ -87,7 +90,7 @@ func (o *SubmissionRequest) GetConfig() []SubmissionResponseConfigInner {
 // GetConfigOk returns a tuple with the Config field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SubmissionRequest) GetConfigOk() ([]SubmissionResponseConfigInner, bool) {
-	if o == nil || o.Config == nil {
+	if o == nil || IsNil(o.Config) {
 		return nil, false
 	}
 	return o.Config, true
@@ -95,7 +98,7 @@ func (o *SubmissionRequest) GetConfigOk() ([]SubmissionResponseConfigInner, bool
 
 // HasConfig returns a boolean if a field has been set.
 func (o *SubmissionRequest) HasConfig() bool {
-	if o != nil && o.Config != nil {
+	if o != nil && !IsNil(o.Config) {
 		return true
 	}
 
@@ -133,7 +136,7 @@ func (o *SubmissionRequest) SetDescription(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *SubmissionRequest) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -143,7 +146,7 @@ func (o *SubmissionRequest) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SubmissionRequest) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -151,7 +154,7 @@ func (o *SubmissionRequest) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *SubmissionRequest) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -165,7 +168,7 @@ func (o *SubmissionRequest) SetId(v string) {
 
 // GetLastPublished returns the LastPublished field value if set, zero value otherwise.
 func (o *SubmissionRequest) GetLastPublished() string {
-	if o == nil || o.LastPublished == nil {
+	if o == nil || IsNil(o.LastPublished) {
 		var ret string
 		return ret
 	}
@@ -175,7 +178,7 @@ func (o *SubmissionRequest) GetLastPublished() string {
 // GetLastPublishedOk returns a tuple with the LastPublished field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SubmissionRequest) GetLastPublishedOk() (*string, bool) {
-	if o == nil || o.LastPublished == nil {
+	if o == nil || IsNil(o.LastPublished) {
 		return nil, false
 	}
 	return o.LastPublished, true
@@ -183,7 +186,7 @@ func (o *SubmissionRequest) GetLastPublishedOk() (*string, bool) {
 
 // HasLastPublished returns a boolean if a field has been set.
 func (o *SubmissionRequest) HasLastPublished() bool {
-	if o != nil && o.LastPublished != nil {
+	if o != nil && !IsNil(o.LastPublished) {
 		return true
 	}
 
@@ -197,7 +200,7 @@ func (o *SubmissionRequest) SetLastPublished(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *SubmissionRequest) GetLastUpdated() string {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret string
 		return ret
 	}
@@ -207,7 +210,7 @@ func (o *SubmissionRequest) GetLastUpdated() string {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SubmissionRequest) GetLastUpdatedOk() (*string, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -215,7 +218,7 @@ func (o *SubmissionRequest) GetLastUpdatedOk() (*string, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *SubmissionRequest) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -229,7 +232,7 @@ func (o *SubmissionRequest) SetLastUpdated(v string) {
 
 // GetLastUpdatedBy returns the LastUpdatedBy field value if set, zero value otherwise.
 func (o *SubmissionRequest) GetLastUpdatedBy() string {
-	if o == nil || o.LastUpdatedBy == nil {
+	if o == nil || IsNil(o.LastUpdatedBy) {
 		var ret string
 		return ret
 	}
@@ -239,7 +242,7 @@ func (o *SubmissionRequest) GetLastUpdatedBy() string {
 // GetLastUpdatedByOk returns a tuple with the LastUpdatedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SubmissionRequest) GetLastUpdatedByOk() (*string, bool) {
-	if o == nil || o.LastUpdatedBy == nil {
+	if o == nil || IsNil(o.LastUpdatedBy) {
 		return nil, false
 	}
 	return o.LastUpdatedBy, true
@@ -247,7 +250,7 @@ func (o *SubmissionRequest) GetLastUpdatedByOk() (*string, bool) {
 
 // HasLastUpdatedBy returns a boolean if a field has been set.
 func (o *SubmissionRequest) HasLastUpdatedBy() bool {
-	if o != nil && o.LastUpdatedBy != nil {
+	if o != nil && !IsNil(o.LastUpdatedBy) {
 		return true
 	}
 
@@ -309,7 +312,7 @@ func (o *SubmissionRequest) SetName(v string) {
 
 // GetProvisioning returns the Provisioning field value if set, zero value otherwise.
 func (o *SubmissionRequest) GetProvisioning() ProvisioningDetails {
-	if o == nil || o.Provisioning == nil {
+	if o == nil || IsNil(o.Provisioning) {
 		var ret ProvisioningDetails
 		return ret
 	}
@@ -319,7 +322,7 @@ func (o *SubmissionRequest) GetProvisioning() ProvisioningDetails {
 // GetProvisioningOk returns a tuple with the Provisioning field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SubmissionRequest) GetProvisioningOk() (*ProvisioningDetails, bool) {
-	if o == nil || o.Provisioning == nil {
+	if o == nil || IsNil(o.Provisioning) {
 		return nil, false
 	}
 	return o.Provisioning, true
@@ -327,7 +330,7 @@ func (o *SubmissionRequest) GetProvisioningOk() (*ProvisioningDetails, bool) {
 
 // HasProvisioning returns a boolean if a field has been set.
 func (o *SubmissionRequest) HasProvisioning() bool {
-	if o != nil && o.Provisioning != nil {
+	if o != nil && !IsNil(o.Provisioning) {
 		return true
 	}
 
@@ -341,7 +344,7 @@ func (o *SubmissionRequest) SetProvisioning(v ProvisioningDetails) {
 
 // GetSso returns the Sso field value if set, zero value otherwise.
 func (o *SubmissionRequest) GetSso() Sso {
-	if o == nil || o.Sso == nil {
+	if o == nil || IsNil(o.Sso) {
 		var ret Sso
 		return ret
 	}
@@ -351,7 +354,7 @@ func (o *SubmissionRequest) GetSso() Sso {
 // GetSsoOk returns a tuple with the Sso field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SubmissionRequest) GetSsoOk() (*Sso, bool) {
-	if o == nil || o.Sso == nil {
+	if o == nil || IsNil(o.Sso) {
 		return nil, false
 	}
 	return o.Sso, true
@@ -359,7 +362,7 @@ func (o *SubmissionRequest) GetSsoOk() (*Sso, bool) {
 
 // HasSso returns a boolean if a field has been set.
 func (o *SubmissionRequest) HasSso() bool {
-	if o != nil && o.Sso != nil {
+	if o != nil && !IsNil(o.Sso) {
 		return true
 	}
 
@@ -373,7 +376,7 @@ func (o *SubmissionRequest) SetSso(v Sso) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *SubmissionRequest) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -383,7 +386,7 @@ func (o *SubmissionRequest) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SubmissionRequest) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -391,7 +394,7 @@ func (o *SubmissionRequest) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *SubmissionRequest) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -404,38 +407,40 @@ func (o *SubmissionRequest) SetStatus(v string) {
 }
 
 func (o SubmissionRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SubmissionRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Config != nil {
+	if !IsNil(o.Config) {
 		toSerialize["config"] = o.Config
 	}
-	if true {
-		toSerialize["description"] = o.Description
-	}
-	if o.Id != nil {
+	toSerialize["description"] = o.Description
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastPublished != nil {
+	if !IsNil(o.LastPublished) {
 		toSerialize["lastPublished"] = o.LastPublished
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.LastUpdatedBy != nil {
+	if !IsNil(o.LastUpdatedBy) {
 		toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
 	}
-	if true {
-		toSerialize["logo"] = o.Logo
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Provisioning != nil {
+	toSerialize["logo"] = o.Logo
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Provisioning) {
 		toSerialize["provisioning"] = o.Provisioning
 	}
-	if o.Sso != nil {
+	if !IsNil(o.Sso) {
 		toSerialize["sso"] = o.Sso
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
 
@@ -443,23 +448,46 @@ func (o SubmissionRequest) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SubmissionRequest) UnmarshalJSON(bytes []byte) (err error) {
-	varSubmissionRequest := _SubmissionRequest{}
+func (o *SubmissionRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"description",
+		"logo",
+		"name",
+	}
 
-	err = json.Unmarshal(bytes, &varSubmissionRequest)
-	if err == nil {
-		*o = SubmissionRequest(varSubmissionRequest)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSubmissionRequest := _SubmissionRequest{}
+
+	err = json.Unmarshal(data, &varSubmissionRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SubmissionRequest(varSubmissionRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "config")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "id")
@@ -472,8 +500,6 @@ func (o *SubmissionRequest) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "sso")
 		delete(additionalProperties, "status")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -514,4 +540,3 @@ func (v *NullableSubmissionRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the EnhancedDynamicNetworkZoneAllOfLocations type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EnhancedDynamicNetworkZoneAllOfLocations{}
+
 // EnhancedDynamicNetworkZoneAllOfLocations The list of geolocations to include or exclude for an Enhanced Dynamic Network Zone
 type EnhancedDynamicNetworkZoneAllOfLocations struct {
 	// An array of geolocations to include for an Enhanced Dynamic Network Zone
 	Include []NetworkZoneLocation `json:"include,omitempty"`
 	// An array of geolocations to exclude for an Enhanced Dynamic Network Zone
-	Exclude []NetworkZoneLocation `json:"exclude,omitempty"`
+	Exclude              []NetworkZoneLocation `json:"exclude,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -68,7 +71,7 @@ func (o *EnhancedDynamicNetworkZoneAllOfLocations) GetInclude() []NetworkZoneLoc
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *EnhancedDynamicNetworkZoneAllOfLocations) GetIncludeOk() ([]NetworkZoneLocation, bool) {
-	if o == nil || o.Include == nil {
+	if o == nil || IsNil(o.Include) {
 		return nil, false
 	}
 	return o.Include, true
@@ -76,7 +79,7 @@ func (o *EnhancedDynamicNetworkZoneAllOfLocations) GetIncludeOk() ([]NetworkZone
 
 // HasInclude returns a boolean if a field has been set.
 func (o *EnhancedDynamicNetworkZoneAllOfLocations) HasInclude() bool {
-	if o != nil && o.Include != nil {
+	if o != nil && !IsNil(o.Include) {
 		return true
 	}
 
@@ -101,7 +104,7 @@ func (o *EnhancedDynamicNetworkZoneAllOfLocations) GetExclude() []NetworkZoneLoc
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *EnhancedDynamicNetworkZoneAllOfLocations) GetExcludeOk() ([]NetworkZoneLocation, bool) {
-	if o == nil || o.Exclude == nil {
+	if o == nil || IsNil(o.Exclude) {
 		return nil, false
 	}
 	return o.Exclude, true
@@ -109,7 +112,7 @@ func (o *EnhancedDynamicNetworkZoneAllOfLocations) GetExcludeOk() ([]NetworkZone
 
 // HasExclude returns a boolean if a field has been set.
 func (o *EnhancedDynamicNetworkZoneAllOfLocations) HasExclude() bool {
-	if o != nil && o.Exclude != nil {
+	if o != nil && !IsNil(o.Exclude) {
 		return true
 	}
 
@@ -122,6 +125,14 @@ func (o *EnhancedDynamicNetworkZoneAllOfLocations) SetExclude(v []NetworkZoneLoc
 }
 
 func (o EnhancedDynamicNetworkZoneAllOfLocations) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EnhancedDynamicNetworkZoneAllOfLocations) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Include != nil {
 		toSerialize["include"] = o.Include
@@ -134,28 +145,26 @@ func (o EnhancedDynamicNetworkZoneAllOfLocations) MarshalJSON() ([]byte, error) 
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EnhancedDynamicNetworkZoneAllOfLocations) UnmarshalJSON(bytes []byte) (err error) {
+func (o *EnhancedDynamicNetworkZoneAllOfLocations) UnmarshalJSON(data []byte) (err error) {
 	varEnhancedDynamicNetworkZoneAllOfLocations := _EnhancedDynamicNetworkZoneAllOfLocations{}
 
-	err = json.Unmarshal(bytes, &varEnhancedDynamicNetworkZoneAllOfLocations)
-	if err == nil {
-		*o = EnhancedDynamicNetworkZoneAllOfLocations(varEnhancedDynamicNetworkZoneAllOfLocations)
-	} else {
+	err = json.Unmarshal(data, &varEnhancedDynamicNetworkZoneAllOfLocations)
+
+	if err != nil {
 		return err
 	}
 
+	*o = EnhancedDynamicNetworkZoneAllOfLocations(varEnhancedDynamicNetworkZoneAllOfLocations)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "include")
 		delete(additionalProperties, "exclude")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -196,4 +205,3 @@ func (v *NullableEnhancedDynamicNetworkZoneAllOfLocations) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

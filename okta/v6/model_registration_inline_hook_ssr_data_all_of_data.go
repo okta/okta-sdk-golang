@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the RegistrationInlineHookSSRDataAllOfData type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RegistrationInlineHookSSRDataAllOfData{}
+
 // RegistrationInlineHookSSRDataAllOfData struct for RegistrationInlineHookSSRDataAllOfData
 type RegistrationInlineHookSSRDataAllOfData struct {
 	Context *RegistrationInlineHookSSRDataAllOfDataContext `json:"context,omitempty"`
 	// The default action the system will take. Will be `ALLOW`. `DENY` will never be sent to your external service.
 	Action *string `json:"action,omitempty"`
 	// The name-value pairs for each registration-related attribute supplied by the user in the Profile Enrollment form.
-	UserProfile map[string]interface{} `json:"userProfile,omitempty"`
+	UserProfile          map[string]interface{} `json:"userProfile,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewRegistrationInlineHookSSRDataAllOfDataWithDefaults() *RegistrationInline
 
 // GetContext returns the Context field value if set, zero value otherwise.
 func (o *RegistrationInlineHookSSRDataAllOfData) GetContext() RegistrationInlineHookSSRDataAllOfDataContext {
-	if o == nil || o.Context == nil {
+	if o == nil || IsNil(o.Context) {
 		var ret RegistrationInlineHookSSRDataAllOfDataContext
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *RegistrationInlineHookSSRDataAllOfData) GetContext() RegistrationInline
 // GetContextOk returns a tuple with the Context field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationInlineHookSSRDataAllOfData) GetContextOk() (*RegistrationInlineHookSSRDataAllOfDataContext, bool) {
-	if o == nil || o.Context == nil {
+	if o == nil || IsNil(o.Context) {
 		return nil, false
 	}
 	return o.Context, true
@@ -76,7 +79,7 @@ func (o *RegistrationInlineHookSSRDataAllOfData) GetContextOk() (*RegistrationIn
 
 // HasContext returns a boolean if a field has been set.
 func (o *RegistrationInlineHookSSRDataAllOfData) HasContext() bool {
-	if o != nil && o.Context != nil {
+	if o != nil && !IsNil(o.Context) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *RegistrationInlineHookSSRDataAllOfData) SetContext(v RegistrationInline
 
 // GetAction returns the Action field value if set, zero value otherwise.
 func (o *RegistrationInlineHookSSRDataAllOfData) GetAction() string {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		var ret string
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *RegistrationInlineHookSSRDataAllOfData) GetAction() string {
 // GetActionOk returns a tuple with the Action field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationInlineHookSSRDataAllOfData) GetActionOk() (*string, bool) {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		return nil, false
 	}
 	return o.Action, true
@@ -108,7 +111,7 @@ func (o *RegistrationInlineHookSSRDataAllOfData) GetActionOk() (*string, bool) {
 
 // HasAction returns a boolean if a field has been set.
 func (o *RegistrationInlineHookSSRDataAllOfData) HasAction() bool {
-	if o != nil && o.Action != nil {
+	if o != nil && !IsNil(o.Action) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *RegistrationInlineHookSSRDataAllOfData) SetAction(v string) {
 
 // GetUserProfile returns the UserProfile field value if set, zero value otherwise.
 func (o *RegistrationInlineHookSSRDataAllOfData) GetUserProfile() map[string]interface{} {
-	if o == nil || o.UserProfile == nil {
+	if o == nil || IsNil(o.UserProfile) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -132,15 +135,15 @@ func (o *RegistrationInlineHookSSRDataAllOfData) GetUserProfile() map[string]int
 // GetUserProfileOk returns a tuple with the UserProfile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationInlineHookSSRDataAllOfData) GetUserProfileOk() (map[string]interface{}, bool) {
-	if o == nil || o.UserProfile == nil {
-		return nil, false
+	if o == nil || IsNil(o.UserProfile) {
+		return map[string]interface{}{}, false
 	}
 	return o.UserProfile, true
 }
 
 // HasUserProfile returns a boolean if a field has been set.
 func (o *RegistrationInlineHookSSRDataAllOfData) HasUserProfile() bool {
-	if o != nil && o.UserProfile != nil {
+	if o != nil && !IsNil(o.UserProfile) {
 		return true
 	}
 
@@ -153,14 +156,22 @@ func (o *RegistrationInlineHookSSRDataAllOfData) SetUserProfile(v map[string]int
 }
 
 func (o RegistrationInlineHookSSRDataAllOfData) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RegistrationInlineHookSSRDataAllOfData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Context != nil {
+	if !IsNil(o.Context) {
 		toSerialize["context"] = o.Context
 	}
-	if o.Action != nil {
+	if !IsNil(o.Action) {
 		toSerialize["action"] = o.Action
 	}
-	if o.UserProfile != nil {
+	if !IsNil(o.UserProfile) {
 		toSerialize["userProfile"] = o.UserProfile
 	}
 
@@ -168,29 +179,27 @@ func (o RegistrationInlineHookSSRDataAllOfData) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RegistrationInlineHookSSRDataAllOfData) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RegistrationInlineHookSSRDataAllOfData) UnmarshalJSON(data []byte) (err error) {
 	varRegistrationInlineHookSSRDataAllOfData := _RegistrationInlineHookSSRDataAllOfData{}
 
-	err = json.Unmarshal(bytes, &varRegistrationInlineHookSSRDataAllOfData)
-	if err == nil {
-		*o = RegistrationInlineHookSSRDataAllOfData(varRegistrationInlineHookSSRDataAllOfData)
-	} else {
+	err = json.Unmarshal(data, &varRegistrationInlineHookSSRDataAllOfData)
+
+	if err != nil {
 		return err
 	}
 
+	*o = RegistrationInlineHookSSRDataAllOfData(varRegistrationInlineHookSSRDataAllOfData)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "context")
 		delete(additionalProperties, "action")
 		delete(additionalProperties, "userProfile")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -231,4 +240,3 @@ func (v *NullableRegistrationInlineHookSSRDataAllOfData) UnmarshalJSON(src []byt
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

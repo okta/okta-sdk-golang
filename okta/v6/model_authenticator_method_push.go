@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -29,10 +29,13 @@ import (
 	"strings"
 )
 
+// checks if the AuthenticatorMethodPush type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorMethodPush{}
+
 // AuthenticatorMethodPush struct for AuthenticatorMethodPush
 type AuthenticatorMethodPush struct {
 	AuthenticatorMethodBase
-	Settings *AuthenticatorMethodPushAllOfSettings `json:"settings,omitempty"`
+	Settings             *AuthenticatorMethodPushAllOfSettings `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewAuthenticatorMethodPushWithDefaults() *AuthenticatorMethodPush {
 
 // GetSettings returns the Settings field value if set, zero value otherwise.
 func (o *AuthenticatorMethodPush) GetSettings() AuthenticatorMethodPushAllOfSettings {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		var ret AuthenticatorMethodPushAllOfSettings
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *AuthenticatorMethodPush) GetSettings() AuthenticatorMethodPushAllOfSett
 // GetSettingsOk returns a tuple with the Settings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorMethodPush) GetSettingsOk() (*AuthenticatorMethodPushAllOfSettings, bool) {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		return nil, false
 	}
 	return o.Settings, true
@@ -75,7 +78,7 @@ func (o *AuthenticatorMethodPush) GetSettingsOk() (*AuthenticatorMethodPushAllOf
 
 // HasSettings returns a boolean if a field has been set.
 func (o *AuthenticatorMethodPush) HasSettings() bool {
-	if o != nil && o.Settings != nil {
+	if o != nil && !IsNil(o.Settings) {
 		return true
 	}
 
@@ -88,16 +91,24 @@ func (o *AuthenticatorMethodPush) SetSettings(v AuthenticatorMethodPushAllOfSett
 }
 
 func (o AuthenticatorMethodPush) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorMethodPush) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedAuthenticatorMethodBase, errAuthenticatorMethodBase := json.Marshal(o.AuthenticatorMethodBase)
 	if errAuthenticatorMethodBase != nil {
-		return []byte{}, errAuthenticatorMethodBase
+		return map[string]interface{}{}, errAuthenticatorMethodBase
 	}
 	errAuthenticatorMethodBase = json.Unmarshal([]byte(serializedAuthenticatorMethodBase), &toSerialize)
 	if errAuthenticatorMethodBase != nil {
-		return []byte{}, errAuthenticatorMethodBase
+		return map[string]interface{}{}, errAuthenticatorMethodBase
 	}
-	if o.Settings != nil {
+	if !IsNil(o.Settings) {
 		toSerialize["settings"] = o.Settings
 	}
 
@@ -105,17 +116,17 @@ func (o AuthenticatorMethodPush) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorMethodPush) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorMethodPush) UnmarshalJSON(data []byte) (err error) {
 	type AuthenticatorMethodPushWithoutEmbeddedStruct struct {
 		Settings *AuthenticatorMethodPushAllOfSettings `json:"settings,omitempty"`
 	}
 
 	varAuthenticatorMethodPushWithoutEmbeddedStruct := AuthenticatorMethodPushWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorMethodPushWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varAuthenticatorMethodPushWithoutEmbeddedStruct)
 	if err == nil {
 		varAuthenticatorMethodPush := _AuthenticatorMethodPush{}
 		varAuthenticatorMethodPush.Settings = varAuthenticatorMethodPushWithoutEmbeddedStruct.Settings
@@ -126,7 +137,7 @@ func (o *AuthenticatorMethodPush) UnmarshalJSON(bytes []byte) (err error) {
 
 	varAuthenticatorMethodPush := _AuthenticatorMethodPush{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorMethodPush)
+	err = json.Unmarshal(data, &varAuthenticatorMethodPush)
 	if err == nil {
 		o.AuthenticatorMethodBase = varAuthenticatorMethodPush.AuthenticatorMethodBase
 	} else {
@@ -135,8 +146,7 @@ func (o *AuthenticatorMethodPush) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "settings")
 
 		// remove fields from embedded structs
@@ -158,8 +168,6 @@ func (o *AuthenticatorMethodPush) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -200,4 +208,3 @@ func (v *NullableAuthenticatorMethodPush) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

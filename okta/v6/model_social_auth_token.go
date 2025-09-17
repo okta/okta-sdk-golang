@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"time"
 )
 
+// checks if the SocialAuthToken type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SocialAuthToken{}
+
 // SocialAuthToken The social authentication token object provides the tokens and associated metadata provided by social providers during social authentication.
 type SocialAuthToken struct {
 	// Timestamp when the object expires
@@ -41,7 +44,7 @@ type SocialAuthToken struct {
 	// The token authentication scheme as defined by the social provider
 	TokenAuthScheme *string `json:"tokenAuthScheme,omitempty"`
 	// The type of token defined by the [OAuth Token Exchange Spec](https://tools.ietf.org/html/draft-ietf-oauth-token-exchange-07#section-3)
-	TokenType *string `json:"tokenType,omitempty"`
+	TokenType            *string `json:"tokenType,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -66,7 +69,7 @@ func NewSocialAuthTokenWithDefaults() *SocialAuthToken {
 
 // GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
 func (o *SocialAuthToken) GetExpiresAt() time.Time {
-	if o == nil || o.ExpiresAt == nil {
+	if o == nil || IsNil(o.ExpiresAt) {
 		var ret time.Time
 		return ret
 	}
@@ -76,7 +79,7 @@ func (o *SocialAuthToken) GetExpiresAt() time.Time {
 // GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SocialAuthToken) GetExpiresAtOk() (*time.Time, bool) {
-	if o == nil || o.ExpiresAt == nil {
+	if o == nil || IsNil(o.ExpiresAt) {
 		return nil, false
 	}
 	return o.ExpiresAt, true
@@ -84,7 +87,7 @@ func (o *SocialAuthToken) GetExpiresAtOk() (*time.Time, bool) {
 
 // HasExpiresAt returns a boolean if a field has been set.
 func (o *SocialAuthToken) HasExpiresAt() bool {
-	if o != nil && o.ExpiresAt != nil {
+	if o != nil && !IsNil(o.ExpiresAt) {
 		return true
 	}
 
@@ -98,7 +101,7 @@ func (o *SocialAuthToken) SetExpiresAt(v time.Time) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *SocialAuthToken) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -108,7 +111,7 @@ func (o *SocialAuthToken) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SocialAuthToken) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -116,7 +119,7 @@ func (o *SocialAuthToken) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *SocialAuthToken) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -130,7 +133,7 @@ func (o *SocialAuthToken) SetId(v string) {
 
 // GetScopes returns the Scopes field value if set, zero value otherwise.
 func (o *SocialAuthToken) GetScopes() []string {
-	if o == nil || o.Scopes == nil {
+	if o == nil || IsNil(o.Scopes) {
 		var ret []string
 		return ret
 	}
@@ -140,7 +143,7 @@ func (o *SocialAuthToken) GetScopes() []string {
 // GetScopesOk returns a tuple with the Scopes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SocialAuthToken) GetScopesOk() ([]string, bool) {
-	if o == nil || o.Scopes == nil {
+	if o == nil || IsNil(o.Scopes) {
 		return nil, false
 	}
 	return o.Scopes, true
@@ -148,7 +151,7 @@ func (o *SocialAuthToken) GetScopesOk() ([]string, bool) {
 
 // HasScopes returns a boolean if a field has been set.
 func (o *SocialAuthToken) HasScopes() bool {
-	if o != nil && o.Scopes != nil {
+	if o != nil && !IsNil(o.Scopes) {
 		return true
 	}
 
@@ -162,7 +165,7 @@ func (o *SocialAuthToken) SetScopes(v []string) {
 
 // GetToken returns the Token field value if set, zero value otherwise.
 func (o *SocialAuthToken) GetToken() string {
-	if o == nil || o.Token == nil {
+	if o == nil || IsNil(o.Token) {
 		var ret string
 		return ret
 	}
@@ -172,7 +175,7 @@ func (o *SocialAuthToken) GetToken() string {
 // GetTokenOk returns a tuple with the Token field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SocialAuthToken) GetTokenOk() (*string, bool) {
-	if o == nil || o.Token == nil {
+	if o == nil || IsNil(o.Token) {
 		return nil, false
 	}
 	return o.Token, true
@@ -180,7 +183,7 @@ func (o *SocialAuthToken) GetTokenOk() (*string, bool) {
 
 // HasToken returns a boolean if a field has been set.
 func (o *SocialAuthToken) HasToken() bool {
-	if o != nil && o.Token != nil {
+	if o != nil && !IsNil(o.Token) {
 		return true
 	}
 
@@ -194,7 +197,7 @@ func (o *SocialAuthToken) SetToken(v string) {
 
 // GetTokenAuthScheme returns the TokenAuthScheme field value if set, zero value otherwise.
 func (o *SocialAuthToken) GetTokenAuthScheme() string {
-	if o == nil || o.TokenAuthScheme == nil {
+	if o == nil || IsNil(o.TokenAuthScheme) {
 		var ret string
 		return ret
 	}
@@ -204,7 +207,7 @@ func (o *SocialAuthToken) GetTokenAuthScheme() string {
 // GetTokenAuthSchemeOk returns a tuple with the TokenAuthScheme field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SocialAuthToken) GetTokenAuthSchemeOk() (*string, bool) {
-	if o == nil || o.TokenAuthScheme == nil {
+	if o == nil || IsNil(o.TokenAuthScheme) {
 		return nil, false
 	}
 	return o.TokenAuthScheme, true
@@ -212,7 +215,7 @@ func (o *SocialAuthToken) GetTokenAuthSchemeOk() (*string, bool) {
 
 // HasTokenAuthScheme returns a boolean if a field has been set.
 func (o *SocialAuthToken) HasTokenAuthScheme() bool {
-	if o != nil && o.TokenAuthScheme != nil {
+	if o != nil && !IsNil(o.TokenAuthScheme) {
 		return true
 	}
 
@@ -226,7 +229,7 @@ func (o *SocialAuthToken) SetTokenAuthScheme(v string) {
 
 // GetTokenType returns the TokenType field value if set, zero value otherwise.
 func (o *SocialAuthToken) GetTokenType() string {
-	if o == nil || o.TokenType == nil {
+	if o == nil || IsNil(o.TokenType) {
 		var ret string
 		return ret
 	}
@@ -236,7 +239,7 @@ func (o *SocialAuthToken) GetTokenType() string {
 // GetTokenTypeOk returns a tuple with the TokenType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SocialAuthToken) GetTokenTypeOk() (*string, bool) {
-	if o == nil || o.TokenType == nil {
+	if o == nil || IsNil(o.TokenType) {
 		return nil, false
 	}
 	return o.TokenType, true
@@ -244,7 +247,7 @@ func (o *SocialAuthToken) GetTokenTypeOk() (*string, bool) {
 
 // HasTokenType returns a boolean if a field has been set.
 func (o *SocialAuthToken) HasTokenType() bool {
-	if o != nil && o.TokenType != nil {
+	if o != nil && !IsNil(o.TokenType) {
 		return true
 	}
 
@@ -257,23 +260,31 @@ func (o *SocialAuthToken) SetTokenType(v string) {
 }
 
 func (o SocialAuthToken) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SocialAuthToken) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ExpiresAt != nil {
+	if !IsNil(o.ExpiresAt) {
 		toSerialize["expiresAt"] = o.ExpiresAt
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Scopes != nil {
+	if !IsNil(o.Scopes) {
 		toSerialize["scopes"] = o.Scopes
 	}
-	if o.Token != nil {
+	if !IsNil(o.Token) {
 		toSerialize["token"] = o.Token
 	}
-	if o.TokenAuthScheme != nil {
+	if !IsNil(o.TokenAuthScheme) {
 		toSerialize["tokenAuthScheme"] = o.TokenAuthScheme
 	}
-	if o.TokenType != nil {
+	if !IsNil(o.TokenType) {
 		toSerialize["tokenType"] = o.TokenType
 	}
 
@@ -281,23 +292,23 @@ func (o SocialAuthToken) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SocialAuthToken) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SocialAuthToken) UnmarshalJSON(data []byte) (err error) {
 	varSocialAuthToken := _SocialAuthToken{}
 
-	err = json.Unmarshal(bytes, &varSocialAuthToken)
-	if err == nil {
-		*o = SocialAuthToken(varSocialAuthToken)
-	} else {
+	err = json.Unmarshal(data, &varSocialAuthToken)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SocialAuthToken(varSocialAuthToken)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "expiresAt")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "scopes")
@@ -305,8 +316,6 @@ func (o *SocialAuthToken) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "tokenAuthScheme")
 		delete(additionalProperties, "tokenType")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -347,4 +356,3 @@ func (v *NullableSocialAuthToken) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ var _ MappedNullable = &SamlAttributeStatement{}
 // SamlAttributeStatement struct for SamlAttributeStatement
 type SamlAttributeStatement struct {
 	SamlAttributeStatementExpression *SamlAttributeStatementExpression
-	SamlAttributeStatementGroup *SamlAttributeStatementGroup
+	SamlAttributeStatementGroup      *SamlAttributeStatementGroup
 }
 
 // Unmarshal JSON data into any of the pointers in the struct
@@ -50,7 +50,7 @@ func (dst *SamlAttributeStatement) UnmarshalJSON(data []byte) error {
 	// check if the discriminator value is 'EXPRESSION'
 	if jsonDict["type"] == "EXPRESSION" {
 		// try to unmarshal JSON data into SamlAttributeStatementExpression
-		err = json.Unmarshal(data, &dst.SamlAttributeStatementExpression);
+		err = json.Unmarshal(data, &dst.SamlAttributeStatementExpression)
 		if err == nil {
 			jsonSamlAttributeStatementExpression, _ := json.Marshal(dst.SamlAttributeStatementExpression)
 			if string(jsonSamlAttributeStatementExpression) == "{}" { // empty struct
@@ -66,7 +66,7 @@ func (dst *SamlAttributeStatement) UnmarshalJSON(data []byte) error {
 	// check if the discriminator value is 'GROUP'
 	if jsonDict["type"] == "GROUP" {
 		// try to unmarshal JSON data into SamlAttributeStatementGroup
-		err = json.Unmarshal(data, &dst.SamlAttributeStatementGroup);
+		err = json.Unmarshal(data, &dst.SamlAttributeStatementGroup)
 		if err == nil {
 			jsonSamlAttributeStatementGroup, _ := json.Marshal(dst.SamlAttributeStatementGroup)
 			if string(jsonSamlAttributeStatementGroup) == "{}" { // empty struct
@@ -82,7 +82,7 @@ func (dst *SamlAttributeStatement) UnmarshalJSON(data []byte) error {
 	// check if the discriminator value is 'SamlAttributeStatementExpression'
 	if jsonDict["type"] == "SamlAttributeStatementExpression" {
 		// try to unmarshal JSON data into SamlAttributeStatementExpression
-		err = json.Unmarshal(data, &dst.SamlAttributeStatementExpression);
+		err = json.Unmarshal(data, &dst.SamlAttributeStatementExpression)
 		if err == nil {
 			jsonSamlAttributeStatementExpression, _ := json.Marshal(dst.SamlAttributeStatementExpression)
 			if string(jsonSamlAttributeStatementExpression) == "{}" { // empty struct
@@ -98,7 +98,7 @@ func (dst *SamlAttributeStatement) UnmarshalJSON(data []byte) error {
 	// check if the discriminator value is 'SamlAttributeStatementGroup'
 	if jsonDict["type"] == "SamlAttributeStatementGroup" {
 		// try to unmarshal JSON data into SamlAttributeStatementGroup
-		err = json.Unmarshal(data, &dst.SamlAttributeStatementGroup);
+		err = json.Unmarshal(data, &dst.SamlAttributeStatementGroup)
 		if err == nil {
 			jsonSamlAttributeStatementGroup, _ := json.Marshal(dst.SamlAttributeStatementGroup)
 			if string(jsonSamlAttributeStatementGroup) == "{}" { // empty struct
@@ -112,7 +112,7 @@ func (dst *SamlAttributeStatement) UnmarshalJSON(data []byte) error {
 	}
 
 	// try to unmarshal JSON data into SamlAttributeStatementExpression
-	err = json.Unmarshal(data, &dst.SamlAttributeStatementExpression);
+	err = json.Unmarshal(data, &dst.SamlAttributeStatementExpression)
 	if err == nil {
 		jsonSamlAttributeStatementExpression, _ := json.Marshal(dst.SamlAttributeStatementExpression)
 		if string(jsonSamlAttributeStatementExpression) == "{}" { // empty struct
@@ -125,7 +125,7 @@ func (dst *SamlAttributeStatement) UnmarshalJSON(data []byte) error {
 	}
 
 	// try to unmarshal JSON data into SamlAttributeStatementGroup
-	err = json.Unmarshal(data, &dst.SamlAttributeStatementGroup);
+	err = json.Unmarshal(data, &dst.SamlAttributeStatementGroup)
 	if err == nil {
 		jsonSamlAttributeStatementGroup, _ := json.Marshal(dst.SamlAttributeStatementGroup)
 		if string(jsonSamlAttributeStatementGroup) == "{}" { // empty struct
@@ -162,7 +162,7 @@ func (src SamlAttributeStatement) ToMap() (map[string]interface{}, error) {
 		return src.SamlAttributeStatementGroup.ToMap()
 	}
 
-    return nil, nil // no data in anyOf schemas
+	return nil, nil // no data in anyOf schemas
 }
 
 type NullableSamlAttributeStatement struct {
@@ -200,5 +200,3 @@ func (v *NullableSamlAttributeStatement) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

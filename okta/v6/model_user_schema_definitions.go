@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserSchemaDefinitions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserSchemaDefinitions{}
+
 // UserSchemaDefinitions struct for UserSchemaDefinitions
 type UserSchemaDefinitions struct {
-	Base *UserSchemaBase `json:"base,omitempty"`
-	Custom *UserSchemaPublic `json:"custom,omitempty"`
+	Base                 *UserSchemaBase   `json:"base,omitempty"`
+	Custom               *UserSchemaPublic `json:"custom,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewUserSchemaDefinitionsWithDefaults() *UserSchemaDefinitions {
 
 // GetBase returns the Base field value if set, zero value otherwise.
 func (o *UserSchemaDefinitions) GetBase() UserSchemaBase {
-	if o == nil || o.Base == nil {
+	if o == nil || IsNil(o.Base) {
 		var ret UserSchemaBase
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *UserSchemaDefinitions) GetBase() UserSchemaBase {
 // GetBaseOk returns a tuple with the Base field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaDefinitions) GetBaseOk() (*UserSchemaBase, bool) {
-	if o == nil || o.Base == nil {
+	if o == nil || IsNil(o.Base) {
 		return nil, false
 	}
 	return o.Base, true
@@ -73,7 +76,7 @@ func (o *UserSchemaDefinitions) GetBaseOk() (*UserSchemaBase, bool) {
 
 // HasBase returns a boolean if a field has been set.
 func (o *UserSchemaDefinitions) HasBase() bool {
-	if o != nil && o.Base != nil {
+	if o != nil && !IsNil(o.Base) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *UserSchemaDefinitions) SetBase(v UserSchemaBase) {
 
 // GetCustom returns the Custom field value if set, zero value otherwise.
 func (o *UserSchemaDefinitions) GetCustom() UserSchemaPublic {
-	if o == nil || o.Custom == nil {
+	if o == nil || IsNil(o.Custom) {
 		var ret UserSchemaPublic
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *UserSchemaDefinitions) GetCustom() UserSchemaPublic {
 // GetCustomOk returns a tuple with the Custom field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaDefinitions) GetCustomOk() (*UserSchemaPublic, bool) {
-	if o == nil || o.Custom == nil {
+	if o == nil || IsNil(o.Custom) {
 		return nil, false
 	}
 	return o.Custom, true
@@ -105,7 +108,7 @@ func (o *UserSchemaDefinitions) GetCustomOk() (*UserSchemaPublic, bool) {
 
 // HasCustom returns a boolean if a field has been set.
 func (o *UserSchemaDefinitions) HasCustom() bool {
-	if o != nil && o.Custom != nil {
+	if o != nil && !IsNil(o.Custom) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *UserSchemaDefinitions) SetCustom(v UserSchemaPublic) {
 }
 
 func (o UserSchemaDefinitions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserSchemaDefinitions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Base != nil {
+	if !IsNil(o.Base) {
 		toSerialize["base"] = o.Base
 	}
-	if o.Custom != nil {
+	if !IsNil(o.Custom) {
 		toSerialize["custom"] = o.Custom
 	}
 
@@ -130,28 +141,26 @@ func (o UserSchemaDefinitions) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserSchemaDefinitions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserSchemaDefinitions) UnmarshalJSON(data []byte) (err error) {
 	varUserSchemaDefinitions := _UserSchemaDefinitions{}
 
-	err = json.Unmarshal(bytes, &varUserSchemaDefinitions)
-	if err == nil {
-		*o = UserSchemaDefinitions(varUserSchemaDefinitions)
-	} else {
+	err = json.Unmarshal(data, &varUserSchemaDefinitions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserSchemaDefinitions(varUserSchemaDefinitions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "base")
 		delete(additionalProperties, "custom")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableUserSchemaDefinitions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

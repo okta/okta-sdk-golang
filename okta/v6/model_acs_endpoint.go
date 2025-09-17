@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,12 +28,15 @@ import (
 	"fmt"
 )
 
+// checks if the AcsEndpoint type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AcsEndpoint{}
+
 // AcsEndpoint An array of ACS endpoints. You can configure a maximum of 100 endpoints.
 type AcsEndpoint struct {
 	// Index of the URL in the array of ACS endpoints
 	Index int32 `json:"index"`
 	// URL of the ACS
-	Url string `json:"url"`
+	Url                  string `json:"url"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,40 +110,64 @@ func (o *AcsEndpoint) SetUrl(v string) {
 }
 
 func (o AcsEndpoint) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AcsEndpoint) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["index"] = o.Index
-	}
-	if true {
-		toSerialize["url"] = o.Url
-	}
+	toSerialize["index"] = o.Index
+	toSerialize["url"] = o.Url
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AcsEndpoint) UnmarshalJSON(bytes []byte) (err error) {
-	varAcsEndpoint := _AcsEndpoint{}
+func (o *AcsEndpoint) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"index",
+		"url",
+	}
 
-	err = json.Unmarshal(bytes, &varAcsEndpoint)
-	if err == nil {
-		*o = AcsEndpoint(varAcsEndpoint)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAcsEndpoint := _AcsEndpoint{}
+
+	err = json.Unmarshal(data, &varAcsEndpoint)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AcsEndpoint(varAcsEndpoint)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "index")
 		delete(additionalProperties, "url")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -181,4 +208,3 @@ func (v *NullableAcsEndpoint) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,11 +28,14 @@ import (
 	"fmt"
 )
 
+// checks if the HrefCsrPublishLink type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &HrefCsrPublishLink{}
+
 // HrefCsrPublishLink Link to publish CSR
 type HrefCsrPublishLink struct {
 	Hints *CsrPublishHrefHints `json:"hints,omitempty"`
 	// Link URI
-	Href string `json:"href"`
+	Href                 string `json:"href"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewHrefCsrPublishLinkWithDefaults() *HrefCsrPublishLink {
 
 // GetHints returns the Hints field value if set, zero value otherwise.
 func (o *HrefCsrPublishLink) GetHints() CsrPublishHrefHints {
-	if o == nil || o.Hints == nil {
+	if o == nil || IsNil(o.Hints) {
 		var ret CsrPublishHrefHints
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *HrefCsrPublishLink) GetHints() CsrPublishHrefHints {
 // GetHintsOk returns a tuple with the Hints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HrefCsrPublishLink) GetHintsOk() (*CsrPublishHrefHints, bool) {
-	if o == nil || o.Hints == nil {
+	if o == nil || IsNil(o.Hints) {
 		return nil, false
 	}
 	return o.Hints, true
@@ -76,7 +79,7 @@ func (o *HrefCsrPublishLink) GetHintsOk() (*CsrPublishHrefHints, bool) {
 
 // HasHints returns a boolean if a field has been set.
 func (o *HrefCsrPublishLink) HasHints() bool {
-	if o != nil && o.Hints != nil {
+	if o != nil && !IsNil(o.Hints) {
 		return true
 	}
 
@@ -113,40 +116,65 @@ func (o *HrefCsrPublishLink) SetHref(v string) {
 }
 
 func (o HrefCsrPublishLink) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o HrefCsrPublishLink) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Hints != nil {
+	if !IsNil(o.Hints) {
 		toSerialize["hints"] = o.Hints
 	}
-	if true {
-		toSerialize["href"] = o.Href
-	}
+	toSerialize["href"] = o.Href
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *HrefCsrPublishLink) UnmarshalJSON(bytes []byte) (err error) {
-	varHrefCsrPublishLink := _HrefCsrPublishLink{}
+func (o *HrefCsrPublishLink) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"href",
+	}
 
-	err = json.Unmarshal(bytes, &varHrefCsrPublishLink)
-	if err == nil {
-		*o = HrefCsrPublishLink(varHrefCsrPublishLink)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varHrefCsrPublishLink := _HrefCsrPublishLink{}
+
+	err = json.Unmarshal(data, &varHrefCsrPublishLink)
+
+	if err != nil {
+		return err
+	}
+
+	*o = HrefCsrPublishLink(varHrefCsrPublishLink)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "hints")
 		delete(additionalProperties, "href")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -187,4 +215,3 @@ func (v *NullableHrefCsrPublishLink) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

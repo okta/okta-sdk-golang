@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"fmt"
 )
 
+// checks if the OAuth2Scope type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OAuth2Scope{}
+
 // OAuth2Scope struct for OAuth2Scope
 type OAuth2Scope struct {
 	// Indicates whether a consent dialog is needed for the Scope
@@ -47,8 +50,8 @@ type OAuth2Scope struct {
 	// Indicates whether the Scope is optional. When set to `true`, the user can skip consent for the scope.
 	Optional *bool `json:"optional,omitempty"`
 	// Indicates if Okta created the Scope
-	System *bool `json:"system,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	System               *bool      `json:"system,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -94,7 +97,7 @@ func NewOAuth2ScopeWithDefaults() *OAuth2Scope {
 
 // GetConsent returns the Consent field value if set, zero value otherwise.
 func (o *OAuth2Scope) GetConsent() string {
-	if o == nil || o.Consent == nil {
+	if o == nil || IsNil(o.Consent) {
 		var ret string
 		return ret
 	}
@@ -104,7 +107,7 @@ func (o *OAuth2Scope) GetConsent() string {
 // GetConsentOk returns a tuple with the Consent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Scope) GetConsentOk() (*string, bool) {
-	if o == nil || o.Consent == nil {
+	if o == nil || IsNil(o.Consent) {
 		return nil, false
 	}
 	return o.Consent, true
@@ -112,7 +115,7 @@ func (o *OAuth2Scope) GetConsentOk() (*string, bool) {
 
 // HasConsent returns a boolean if a field has been set.
 func (o *OAuth2Scope) HasConsent() bool {
-	if o != nil && o.Consent != nil {
+	if o != nil && !IsNil(o.Consent) {
 		return true
 	}
 
@@ -126,7 +129,7 @@ func (o *OAuth2Scope) SetConsent(v string) {
 
 // GetDefault returns the Default field value if set, zero value otherwise.
 func (o *OAuth2Scope) GetDefault() bool {
-	if o == nil || o.Default == nil {
+	if o == nil || IsNil(o.Default) {
 		var ret bool
 		return ret
 	}
@@ -136,7 +139,7 @@ func (o *OAuth2Scope) GetDefault() bool {
 // GetDefaultOk returns a tuple with the Default field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Scope) GetDefaultOk() (*bool, bool) {
-	if o == nil || o.Default == nil {
+	if o == nil || IsNil(o.Default) {
 		return nil, false
 	}
 	return o.Default, true
@@ -144,7 +147,7 @@ func (o *OAuth2Scope) GetDefaultOk() (*bool, bool) {
 
 // HasDefault returns a boolean if a field has been set.
 func (o *OAuth2Scope) HasDefault() bool {
-	if o != nil && o.Default != nil {
+	if o != nil && !IsNil(o.Default) {
 		return true
 	}
 
@@ -158,7 +161,7 @@ func (o *OAuth2Scope) SetDefault(v bool) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *OAuth2Scope) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -168,7 +171,7 @@ func (o *OAuth2Scope) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Scope) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -176,7 +179,7 @@ func (o *OAuth2Scope) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *OAuth2Scope) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -190,7 +193,7 @@ func (o *OAuth2Scope) SetDescription(v string) {
 
 // GetDisplayName returns the DisplayName field value if set, zero value otherwise.
 func (o *OAuth2Scope) GetDisplayName() string {
-	if o == nil || o.DisplayName == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		var ret string
 		return ret
 	}
@@ -200,7 +203,7 @@ func (o *OAuth2Scope) GetDisplayName() string {
 // GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Scope) GetDisplayNameOk() (*string, bool) {
-	if o == nil || o.DisplayName == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		return nil, false
 	}
 	return o.DisplayName, true
@@ -208,7 +211,7 @@ func (o *OAuth2Scope) GetDisplayNameOk() (*string, bool) {
 
 // HasDisplayName returns a boolean if a field has been set.
 func (o *OAuth2Scope) HasDisplayName() bool {
-	if o != nil && o.DisplayName != nil {
+	if o != nil && !IsNil(o.DisplayName) {
 		return true
 	}
 
@@ -222,7 +225,7 @@ func (o *OAuth2Scope) SetDisplayName(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *OAuth2Scope) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -232,7 +235,7 @@ func (o *OAuth2Scope) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Scope) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -240,7 +243,7 @@ func (o *OAuth2Scope) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *OAuth2Scope) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -254,7 +257,7 @@ func (o *OAuth2Scope) SetId(v string) {
 
 // GetMetadataPublish returns the MetadataPublish field value if set, zero value otherwise.
 func (o *OAuth2Scope) GetMetadataPublish() string {
-	if o == nil || o.MetadataPublish == nil {
+	if o == nil || IsNil(o.MetadataPublish) {
 		var ret string
 		return ret
 	}
@@ -264,7 +267,7 @@ func (o *OAuth2Scope) GetMetadataPublish() string {
 // GetMetadataPublishOk returns a tuple with the MetadataPublish field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Scope) GetMetadataPublishOk() (*string, bool) {
-	if o == nil || o.MetadataPublish == nil {
+	if o == nil || IsNil(o.MetadataPublish) {
 		return nil, false
 	}
 	return o.MetadataPublish, true
@@ -272,7 +275,7 @@ func (o *OAuth2Scope) GetMetadataPublishOk() (*string, bool) {
 
 // HasMetadataPublish returns a boolean if a field has been set.
 func (o *OAuth2Scope) HasMetadataPublish() bool {
-	if o != nil && o.MetadataPublish != nil {
+	if o != nil && !IsNil(o.MetadataPublish) {
 		return true
 	}
 
@@ -310,7 +313,7 @@ func (o *OAuth2Scope) SetName(v string) {
 
 // GetOptional returns the Optional field value if set, zero value otherwise.
 func (o *OAuth2Scope) GetOptional() bool {
-	if o == nil || o.Optional == nil {
+	if o == nil || IsNil(o.Optional) {
 		var ret bool
 		return ret
 	}
@@ -320,7 +323,7 @@ func (o *OAuth2Scope) GetOptional() bool {
 // GetOptionalOk returns a tuple with the Optional field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Scope) GetOptionalOk() (*bool, bool) {
-	if o == nil || o.Optional == nil {
+	if o == nil || IsNil(o.Optional) {
 		return nil, false
 	}
 	return o.Optional, true
@@ -328,7 +331,7 @@ func (o *OAuth2Scope) GetOptionalOk() (*bool, bool) {
 
 // HasOptional returns a boolean if a field has been set.
 func (o *OAuth2Scope) HasOptional() bool {
-	if o != nil && o.Optional != nil {
+	if o != nil && !IsNil(o.Optional) {
 		return true
 	}
 
@@ -342,7 +345,7 @@ func (o *OAuth2Scope) SetOptional(v bool) {
 
 // GetSystem returns the System field value if set, zero value otherwise.
 func (o *OAuth2Scope) GetSystem() bool {
-	if o == nil || o.System == nil {
+	if o == nil || IsNil(o.System) {
 		var ret bool
 		return ret
 	}
@@ -352,7 +355,7 @@ func (o *OAuth2Scope) GetSystem() bool {
 // GetSystemOk returns a tuple with the System field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Scope) GetSystemOk() (*bool, bool) {
-	if o == nil || o.System == nil {
+	if o == nil || IsNil(o.System) {
 		return nil, false
 	}
 	return o.System, true
@@ -360,7 +363,7 @@ func (o *OAuth2Scope) GetSystemOk() (*bool, bool) {
 
 // HasSystem returns a boolean if a field has been set.
 func (o *OAuth2Scope) HasSystem() bool {
-	if o != nil && o.System != nil {
+	if o != nil && !IsNil(o.System) {
 		return true
 	}
 
@@ -374,7 +377,7 @@ func (o *OAuth2Scope) SetSystem(v bool) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *OAuth2Scope) GetLinks() LinksSelf {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksSelf
 		return ret
 	}
@@ -384,7 +387,7 @@ func (o *OAuth2Scope) GetLinks() LinksSelf {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Scope) GetLinksOk() (*LinksSelf, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -392,7 +395,7 @@ func (o *OAuth2Scope) GetLinksOk() (*LinksSelf, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *OAuth2Scope) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -405,35 +408,41 @@ func (o *OAuth2Scope) SetLinks(v LinksSelf) {
 }
 
 func (o OAuth2Scope) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OAuth2Scope) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Consent != nil {
+	if !IsNil(o.Consent) {
 		toSerialize["consent"] = o.Consent
 	}
-	if o.Default != nil {
+	if !IsNil(o.Default) {
 		toSerialize["default"] = o.Default
 	}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.DisplayName != nil {
+	if !IsNil(o.DisplayName) {
 		toSerialize["displayName"] = o.DisplayName
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.MetadataPublish != nil {
+	if !IsNil(o.MetadataPublish) {
 		toSerialize["metadataPublish"] = o.MetadataPublish
 	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Optional != nil {
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Optional) {
 		toSerialize["optional"] = o.Optional
 	}
-	if o.System != nil {
+	if !IsNil(o.System) {
 		toSerialize["system"] = o.System
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -441,23 +450,44 @@ func (o OAuth2Scope) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OAuth2Scope) UnmarshalJSON(bytes []byte) (err error) {
-	varOAuth2Scope := _OAuth2Scope{}
+func (o *OAuth2Scope) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+	}
 
-	err = json.Unmarshal(bytes, &varOAuth2Scope)
-	if err == nil {
-		*o = OAuth2Scope(varOAuth2Scope)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varOAuth2Scope := _OAuth2Scope{}
+
+	err = json.Unmarshal(data, &varOAuth2Scope)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OAuth2Scope(varOAuth2Scope)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "consent")
 		delete(additionalProperties, "default")
 		delete(additionalProperties, "description")
@@ -469,8 +499,6 @@ func (o *OAuth2Scope) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "system")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -511,4 +539,3 @@ func (v *NullableOAuth2Scope) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the PrivilegedResourceFilters type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PrivilegedResourceFilters{}
+
 // PrivilegedResourceFilters struct for PrivilegedResourceFilters
 type PrivilegedResourceFilters struct {
 	// Array of app groups whose members might be privileged app users
 	AppGroups []AppGroup `json:"appGroups,omitempty"`
 	// Array of organizational units where privileged app users are present
-	OrganizationalUnits []OrganizationalUnit `json:"organizationalUnits,omitempty"`
+	OrganizationalUnits  []OrganizationalUnit `json:"organizationalUnits,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewPrivilegedResourceFiltersWithDefaults() *PrivilegedResourceFilters {
 
 // GetAppGroups returns the AppGroups field value if set, zero value otherwise.
 func (o *PrivilegedResourceFilters) GetAppGroups() []AppGroup {
-	if o == nil || o.AppGroups == nil {
+	if o == nil || IsNil(o.AppGroups) {
 		var ret []AppGroup
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *PrivilegedResourceFilters) GetAppGroups() []AppGroup {
 // GetAppGroupsOk returns a tuple with the AppGroups field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrivilegedResourceFilters) GetAppGroupsOk() ([]AppGroup, bool) {
-	if o == nil || o.AppGroups == nil {
+	if o == nil || IsNil(o.AppGroups) {
 		return nil, false
 	}
 	return o.AppGroups, true
@@ -75,7 +78,7 @@ func (o *PrivilegedResourceFilters) GetAppGroupsOk() ([]AppGroup, bool) {
 
 // HasAppGroups returns a boolean if a field has been set.
 func (o *PrivilegedResourceFilters) HasAppGroups() bool {
-	if o != nil && o.AppGroups != nil {
+	if o != nil && !IsNil(o.AppGroups) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *PrivilegedResourceFilters) SetAppGroups(v []AppGroup) {
 
 // GetOrganizationalUnits returns the OrganizationalUnits field value if set, zero value otherwise.
 func (o *PrivilegedResourceFilters) GetOrganizationalUnits() []OrganizationalUnit {
-	if o == nil || o.OrganizationalUnits == nil {
+	if o == nil || IsNil(o.OrganizationalUnits) {
 		var ret []OrganizationalUnit
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *PrivilegedResourceFilters) GetOrganizationalUnits() []OrganizationalUni
 // GetOrganizationalUnitsOk returns a tuple with the OrganizationalUnits field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrivilegedResourceFilters) GetOrganizationalUnitsOk() ([]OrganizationalUnit, bool) {
-	if o == nil || o.OrganizationalUnits == nil {
+	if o == nil || IsNil(o.OrganizationalUnits) {
 		return nil, false
 	}
 	return o.OrganizationalUnits, true
@@ -107,7 +110,7 @@ func (o *PrivilegedResourceFilters) GetOrganizationalUnitsOk() ([]Organizational
 
 // HasOrganizationalUnits returns a boolean if a field has been set.
 func (o *PrivilegedResourceFilters) HasOrganizationalUnits() bool {
-	if o != nil && o.OrganizationalUnits != nil {
+	if o != nil && !IsNil(o.OrganizationalUnits) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *PrivilegedResourceFilters) SetOrganizationalUnits(v []OrganizationalUni
 }
 
 func (o PrivilegedResourceFilters) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PrivilegedResourceFilters) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AppGroups != nil {
+	if !IsNil(o.AppGroups) {
 		toSerialize["appGroups"] = o.AppGroups
 	}
-	if o.OrganizationalUnits != nil {
+	if !IsNil(o.OrganizationalUnits) {
 		toSerialize["organizationalUnits"] = o.OrganizationalUnits
 	}
 
@@ -132,28 +143,26 @@ func (o PrivilegedResourceFilters) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PrivilegedResourceFilters) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PrivilegedResourceFilters) UnmarshalJSON(data []byte) (err error) {
 	varPrivilegedResourceFilters := _PrivilegedResourceFilters{}
 
-	err = json.Unmarshal(bytes, &varPrivilegedResourceFilters)
-	if err == nil {
-		*o = PrivilegedResourceFilters(varPrivilegedResourceFilters)
-	} else {
+	err = json.Unmarshal(data, &varPrivilegedResourceFilters)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PrivilegedResourceFilters(varPrivilegedResourceFilters)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "appGroups")
 		delete(additionalProperties, "organizationalUnits")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullablePrivilegedResourceFilters) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,12 +28,15 @@ import (
 	"fmt"
 )
 
+// checks if the ImportUsernameObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImportUsernameObject{}
+
 // ImportUsernameObject Determines the Okta username for the imported user
 type ImportUsernameObject struct {
 	// For `usernameFormat=CUSTOM`, specifies the Okta Expression Language statement for a username format that imported users use to sign in to Okta
 	UserNameExpression *string `json:"userNameExpression,omitempty"`
 	// Determines the username format when users sign in to Okta
-	UsernameFormat string `json:"usernameFormat"`
+	UsernameFormat       string `json:"usernameFormat"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewImportUsernameObjectWithDefaults() *ImportUsernameObject {
 
 // GetUserNameExpression returns the UserNameExpression field value if set, zero value otherwise.
 func (o *ImportUsernameObject) GetUserNameExpression() string {
-	if o == nil || o.UserNameExpression == nil {
+	if o == nil || IsNil(o.UserNameExpression) {
 		var ret string
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *ImportUsernameObject) GetUserNameExpression() string {
 // GetUserNameExpressionOk returns a tuple with the UserNameExpression field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImportUsernameObject) GetUserNameExpressionOk() (*string, bool) {
-	if o == nil || o.UserNameExpression == nil {
+	if o == nil || IsNil(o.UserNameExpression) {
 		return nil, false
 	}
 	return o.UserNameExpression, true
@@ -79,7 +82,7 @@ func (o *ImportUsernameObject) GetUserNameExpressionOk() (*string, bool) {
 
 // HasUserNameExpression returns a boolean if a field has been set.
 func (o *ImportUsernameObject) HasUserNameExpression() bool {
-	if o != nil && o.UserNameExpression != nil {
+	if o != nil && !IsNil(o.UserNameExpression) {
 		return true
 	}
 
@@ -116,40 +119,65 @@ func (o *ImportUsernameObject) SetUsernameFormat(v string) {
 }
 
 func (o ImportUsernameObject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ImportUsernameObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.UserNameExpression != nil {
+	if !IsNil(o.UserNameExpression) {
 		toSerialize["userNameExpression"] = o.UserNameExpression
 	}
-	if true {
-		toSerialize["usernameFormat"] = o.UsernameFormat
-	}
+	toSerialize["usernameFormat"] = o.UsernameFormat
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ImportUsernameObject) UnmarshalJSON(bytes []byte) (err error) {
-	varImportUsernameObject := _ImportUsernameObject{}
+func (o *ImportUsernameObject) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"usernameFormat",
+	}
 
-	err = json.Unmarshal(bytes, &varImportUsernameObject)
-	if err == nil {
-		*o = ImportUsernameObject(varImportUsernameObject)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varImportUsernameObject := _ImportUsernameObject{}
+
+	err = json.Unmarshal(data, &varImportUsernameObject)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ImportUsernameObject(varImportUsernameObject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "userNameExpression")
 		delete(additionalProperties, "usernameFormat")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -190,4 +218,3 @@ func (v *NullableImportUsernameObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the IdentityProviderPolicyRuleCondition type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IdentityProviderPolicyRuleCondition{}
+
 // IdentityProviderPolicyRuleCondition Specifies the IdP that's used to sign in
 type IdentityProviderPolicyRuleCondition struct {
 	// Specifies the IdP ID
-	IdpIds []string `json:"idpIds,omitempty"`
-	Provider *string `json:"provider,omitempty"`
+	IdpIds               []string `json:"idpIds,omitempty"`
+	Provider             *string  `json:"provider,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewIdentityProviderPolicyRuleConditionWithDefaults() *IdentityProviderPolic
 
 // GetIdpIds returns the IdpIds field value if set, zero value otherwise.
 func (o *IdentityProviderPolicyRuleCondition) GetIdpIds() []string {
-	if o == nil || o.IdpIds == nil {
+	if o == nil || IsNil(o.IdpIds) {
 		var ret []string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *IdentityProviderPolicyRuleCondition) GetIdpIds() []string {
 // GetIdpIdsOk returns a tuple with the IdpIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProviderPolicyRuleCondition) GetIdpIdsOk() ([]string, bool) {
-	if o == nil || o.IdpIds == nil {
+	if o == nil || IsNil(o.IdpIds) {
 		return nil, false
 	}
 	return o.IdpIds, true
@@ -74,7 +77,7 @@ func (o *IdentityProviderPolicyRuleCondition) GetIdpIdsOk() ([]string, bool) {
 
 // HasIdpIds returns a boolean if a field has been set.
 func (o *IdentityProviderPolicyRuleCondition) HasIdpIds() bool {
-	if o != nil && o.IdpIds != nil {
+	if o != nil && !IsNil(o.IdpIds) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *IdentityProviderPolicyRuleCondition) SetIdpIds(v []string) {
 
 // GetProvider returns the Provider field value if set, zero value otherwise.
 func (o *IdentityProviderPolicyRuleCondition) GetProvider() string {
-	if o == nil || o.Provider == nil {
+	if o == nil || IsNil(o.Provider) {
 		var ret string
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *IdentityProviderPolicyRuleCondition) GetProvider() string {
 // GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProviderPolicyRuleCondition) GetProviderOk() (*string, bool) {
-	if o == nil || o.Provider == nil {
+	if o == nil || IsNil(o.Provider) {
 		return nil, false
 	}
 	return o.Provider, true
@@ -106,7 +109,7 @@ func (o *IdentityProviderPolicyRuleCondition) GetProviderOk() (*string, bool) {
 
 // HasProvider returns a boolean if a field has been set.
 func (o *IdentityProviderPolicyRuleCondition) HasProvider() bool {
-	if o != nil && o.Provider != nil {
+	if o != nil && !IsNil(o.Provider) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *IdentityProviderPolicyRuleCondition) SetProvider(v string) {
 }
 
 func (o IdentityProviderPolicyRuleCondition) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IdentityProviderPolicyRuleCondition) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.IdpIds != nil {
+	if !IsNil(o.IdpIds) {
 		toSerialize["idpIds"] = o.IdpIds
 	}
-	if o.Provider != nil {
+	if !IsNil(o.Provider) {
 		toSerialize["provider"] = o.Provider
 	}
 
@@ -131,28 +142,26 @@ func (o IdentityProviderPolicyRuleCondition) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *IdentityProviderPolicyRuleCondition) UnmarshalJSON(bytes []byte) (err error) {
+func (o *IdentityProviderPolicyRuleCondition) UnmarshalJSON(data []byte) (err error) {
 	varIdentityProviderPolicyRuleCondition := _IdentityProviderPolicyRuleCondition{}
 
-	err = json.Unmarshal(bytes, &varIdentityProviderPolicyRuleCondition)
-	if err == nil {
-		*o = IdentityProviderPolicyRuleCondition(varIdentityProviderPolicyRuleCondition)
-	} else {
+	err = json.Unmarshal(data, &varIdentityProviderPolicyRuleCondition)
+
+	if err != nil {
 		return err
 	}
 
+	*o = IdentityProviderPolicyRuleCondition(varIdentityProviderPolicyRuleCondition)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "idpIds")
 		delete(additionalProperties, "provider")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableIdentityProviderPolicyRuleCondition) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

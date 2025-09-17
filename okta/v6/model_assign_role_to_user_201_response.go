@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,11 +28,9 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
 // AssignRoleToUser201Response - struct for AssignRoleToUser201Response
 type AssignRoleToUser201Response struct {
-	CustomRole *CustomRole
+	CustomRole   *CustomRole
 	StandardRole *StandardRole
 }
 
@@ -50,48 +48,47 @@ func StandardRoleAsAssignRoleToUser201Response(v *StandardRole) AssignRoleToUser
 	}
 }
 
-
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *AssignRoleToUser201Response) UnmarshalJSON(data []byte) error {
 	var err error
-        match := 0
-        // try to unmarshal data into CustomRole
-        err = json.Unmarshal(data, &dst.CustomRole)
-        if err == nil {
-                jsonCustomRole, _ := json.Marshal(dst.CustomRole)
-                if string(jsonCustomRole) == "{}" { // empty struct
-                        dst.CustomRole = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.CustomRole = nil
-        }
+	match := 0
+	// try to unmarshal data into CustomRole
+	err = json.Unmarshal(data, &dst.CustomRole)
+	if err == nil {
+		jsonCustomRole, _ := json.Marshal(dst.CustomRole)
+		if string(jsonCustomRole) == "{}" { // empty struct
+			dst.CustomRole = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.CustomRole = nil
+	}
 
-        // try to unmarshal data into StandardRole
-        err = json.Unmarshal(data, &dst.StandardRole)
-        if err == nil {
-                jsonStandardRole, _ := json.Marshal(dst.StandardRole)
-                if string(jsonStandardRole) == "{}" { // empty struct
-                        dst.StandardRole = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.StandardRole = nil
-        }
+	// try to unmarshal data into StandardRole
+	err = json.Unmarshal(data, &dst.StandardRole)
+	if err == nil {
+		jsonStandardRole, _ := json.Marshal(dst.StandardRole)
+		if string(jsonStandardRole) == "{}" { // empty struct
+			dst.StandardRole = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.StandardRole = nil
+	}
 
-        if match > 1 { // more than 1 match
-                // reset to nil
-                dst.CustomRole = nil
-                dst.StandardRole = nil
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.CustomRole = nil
+		dst.StandardRole = nil
 
-                return fmt.Errorf("Data matches more than one schema in oneOf(AssignRoleToUser201Response)")
-        } else if match == 1 {
-                return nil // exactly one match
-        } else { // no match
-                return fmt.Errorf("Data failed to match schemas in oneOf(AssignRoleToUser201Response)")
-        }
+		return fmt.Errorf("data matches more than one schema in oneOf(AssignRoleToUser201Response)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("data failed to match schemas in oneOf(AssignRoleToUser201Response)")
+	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -108,7 +105,7 @@ func (src AssignRoleToUser201Response) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *AssignRoleToUser201Response) GetActualInstance() (interface{}) {
+func (obj *AssignRoleToUser201Response) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -118,6 +115,20 @@ func (obj *AssignRoleToUser201Response) GetActualInstance() (interface{}) {
 
 	if obj.StandardRole != nil {
 		return obj.StandardRole
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj AssignRoleToUser201Response) GetActualInstanceValue() interface{} {
+	if obj.CustomRole != nil {
+		return *obj.CustomRole
+	}
+
+	if obj.StandardRole != nil {
+		return *obj.StandardRole
 	}
 
 	// all schemas are nil
@@ -159,5 +170,3 @@ func (v *NullableAssignRoleToUser201Response) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

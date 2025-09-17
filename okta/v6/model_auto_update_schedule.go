@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"time"
 )
 
+// checks if the AutoUpdateSchedule type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AutoUpdateSchedule{}
+
 // AutoUpdateSchedule The schedule of auto-update configured by the admin
 type AutoUpdateSchedule struct {
 	// The schedule of the update in cron format. The cron settings are limited to only the day of the month or the nth-day-of-the-week configurations. For example, `0 8 ? * 6#3` indicates every third Saturday at 8:00 AM.
@@ -39,7 +42,7 @@ type AutoUpdateSchedule struct {
 	// Timestamp when the update finished (only for a successful or failed update, not for a cancelled update). Null is returned if the job hasn't finished once yet.
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	// Timezone of where the scheduled job takes place
-	Timezone *string `json:"timezone,omitempty"`
+	Timezone             *string `json:"timezone,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -64,7 +67,7 @@ func NewAutoUpdateScheduleWithDefaults() *AutoUpdateSchedule {
 
 // GetCron returns the Cron field value if set, zero value otherwise.
 func (o *AutoUpdateSchedule) GetCron() string {
-	if o == nil || o.Cron == nil {
+	if o == nil || IsNil(o.Cron) {
 		var ret string
 		return ret
 	}
@@ -74,7 +77,7 @@ func (o *AutoUpdateSchedule) GetCron() string {
 // GetCronOk returns a tuple with the Cron field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AutoUpdateSchedule) GetCronOk() (*string, bool) {
-	if o == nil || o.Cron == nil {
+	if o == nil || IsNil(o.Cron) {
 		return nil, false
 	}
 	return o.Cron, true
@@ -82,7 +85,7 @@ func (o *AutoUpdateSchedule) GetCronOk() (*string, bool) {
 
 // HasCron returns a boolean if a field has been set.
 func (o *AutoUpdateSchedule) HasCron() bool {
-	if o != nil && o.Cron != nil {
+	if o != nil && !IsNil(o.Cron) {
 		return true
 	}
 
@@ -96,7 +99,7 @@ func (o *AutoUpdateSchedule) SetCron(v string) {
 
 // GetDelay returns the Delay field value if set, zero value otherwise.
 func (o *AutoUpdateSchedule) GetDelay() int32 {
-	if o == nil || o.Delay == nil {
+	if o == nil || IsNil(o.Delay) {
 		var ret int32
 		return ret
 	}
@@ -106,7 +109,7 @@ func (o *AutoUpdateSchedule) GetDelay() int32 {
 // GetDelayOk returns a tuple with the Delay field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AutoUpdateSchedule) GetDelayOk() (*int32, bool) {
-	if o == nil || o.Delay == nil {
+	if o == nil || IsNil(o.Delay) {
 		return nil, false
 	}
 	return o.Delay, true
@@ -114,7 +117,7 @@ func (o *AutoUpdateSchedule) GetDelayOk() (*int32, bool) {
 
 // HasDelay returns a boolean if a field has been set.
 func (o *AutoUpdateSchedule) HasDelay() bool {
-	if o != nil && o.Delay != nil {
+	if o != nil && !IsNil(o.Delay) {
 		return true
 	}
 
@@ -128,7 +131,7 @@ func (o *AutoUpdateSchedule) SetDelay(v int32) {
 
 // GetDuration returns the Duration field value if set, zero value otherwise.
 func (o *AutoUpdateSchedule) GetDuration() int32 {
-	if o == nil || o.Duration == nil {
+	if o == nil || IsNil(o.Duration) {
 		var ret int32
 		return ret
 	}
@@ -138,7 +141,7 @@ func (o *AutoUpdateSchedule) GetDuration() int32 {
 // GetDurationOk returns a tuple with the Duration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AutoUpdateSchedule) GetDurationOk() (*int32, bool) {
-	if o == nil || o.Duration == nil {
+	if o == nil || IsNil(o.Duration) {
 		return nil, false
 	}
 	return o.Duration, true
@@ -146,7 +149,7 @@ func (o *AutoUpdateSchedule) GetDurationOk() (*int32, bool) {
 
 // HasDuration returns a boolean if a field has been set.
 func (o *AutoUpdateSchedule) HasDuration() bool {
-	if o != nil && o.Duration != nil {
+	if o != nil && !IsNil(o.Duration) {
 		return true
 	}
 
@@ -160,7 +163,7 @@ func (o *AutoUpdateSchedule) SetDuration(v int32) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *AutoUpdateSchedule) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -170,7 +173,7 @@ func (o *AutoUpdateSchedule) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AutoUpdateSchedule) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -178,7 +181,7 @@ func (o *AutoUpdateSchedule) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *AutoUpdateSchedule) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -192,7 +195,7 @@ func (o *AutoUpdateSchedule) SetLastUpdated(v time.Time) {
 
 // GetTimezone returns the Timezone field value if set, zero value otherwise.
 func (o *AutoUpdateSchedule) GetTimezone() string {
-	if o == nil || o.Timezone == nil {
+	if o == nil || IsNil(o.Timezone) {
 		var ret string
 		return ret
 	}
@@ -202,7 +205,7 @@ func (o *AutoUpdateSchedule) GetTimezone() string {
 // GetTimezoneOk returns a tuple with the Timezone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AutoUpdateSchedule) GetTimezoneOk() (*string, bool) {
-	if o == nil || o.Timezone == nil {
+	if o == nil || IsNil(o.Timezone) {
 		return nil, false
 	}
 	return o.Timezone, true
@@ -210,7 +213,7 @@ func (o *AutoUpdateSchedule) GetTimezoneOk() (*string, bool) {
 
 // HasTimezone returns a boolean if a field has been set.
 func (o *AutoUpdateSchedule) HasTimezone() bool {
-	if o != nil && o.Timezone != nil {
+	if o != nil && !IsNil(o.Timezone) {
 		return true
 	}
 
@@ -223,20 +226,28 @@ func (o *AutoUpdateSchedule) SetTimezone(v string) {
 }
 
 func (o AutoUpdateSchedule) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AutoUpdateSchedule) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Cron != nil {
+	if !IsNil(o.Cron) {
 		toSerialize["cron"] = o.Cron
 	}
-	if o.Delay != nil {
+	if !IsNil(o.Delay) {
 		toSerialize["delay"] = o.Delay
 	}
-	if o.Duration != nil {
+	if !IsNil(o.Duration) {
 		toSerialize["duration"] = o.Duration
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Timezone != nil {
+	if !IsNil(o.Timezone) {
 		toSerialize["timezone"] = o.Timezone
 	}
 
@@ -244,31 +255,29 @@ func (o AutoUpdateSchedule) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AutoUpdateSchedule) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AutoUpdateSchedule) UnmarshalJSON(data []byte) (err error) {
 	varAutoUpdateSchedule := _AutoUpdateSchedule{}
 
-	err = json.Unmarshal(bytes, &varAutoUpdateSchedule)
-	if err == nil {
-		*o = AutoUpdateSchedule(varAutoUpdateSchedule)
-	} else {
+	err = json.Unmarshal(data, &varAutoUpdateSchedule)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AutoUpdateSchedule(varAutoUpdateSchedule)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "cron")
 		delete(additionalProperties, "delay")
 		delete(additionalProperties, "duration")
 		delete(additionalProperties, "lastUpdated")
 		delete(additionalProperties, "timezone")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -309,4 +318,3 @@ func (v *NullableAutoUpdateSchedule) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"fmt"
 )
 
+// checks if the Saml type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Saml{}
+
 // Saml SAML configuration details
 type Saml struct {
 	// List of Assertion Consumer Service (ACS) URLs. The default ACS URL is required and is indicated by a null `index` value. You can use the org-level variables you defined in the `config` array in the URL. For example: `https://${org.subdomain}.example.com/saml/login`
@@ -39,7 +42,7 @@ type Saml struct {
 	// Globally unique name for your SAML entity. For instance, your Identity Provider (IdP) or Service Provider (SP) URL.
 	EntityId string `json:"entityId"`
 	// Defines the group attribute names for the SAML assertion statement. Okta inserts the list of Okta user groups into the attribute names in the statement.
-	Groups []string `json:"groups,omitempty"`
+	Groups               []string `json:"groups,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -91,7 +94,7 @@ func (o *Saml) SetAcs(v []SamlAcsInner) {
 
 // GetClaims returns the Claims field value if set, zero value otherwise.
 func (o *Saml) GetClaims() []SamlClaimsInner {
-	if o == nil || o.Claims == nil {
+	if o == nil || IsNil(o.Claims) {
 		var ret []SamlClaimsInner
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *Saml) GetClaims() []SamlClaimsInner {
 // GetClaimsOk returns a tuple with the Claims field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Saml) GetClaimsOk() ([]SamlClaimsInner, bool) {
-	if o == nil || o.Claims == nil {
+	if o == nil || IsNil(o.Claims) {
 		return nil, false
 	}
 	return o.Claims, true
@@ -109,7 +112,7 @@ func (o *Saml) GetClaimsOk() ([]SamlClaimsInner, bool) {
 
 // HasClaims returns a boolean if a field has been set.
 func (o *Saml) HasClaims() bool {
-	if o != nil && o.Claims != nil {
+	if o != nil && !IsNil(o.Claims) {
 		return true
 	}
 
@@ -171,7 +174,7 @@ func (o *Saml) SetEntityId(v string) {
 
 // GetGroups returns the Groups field value if set, zero value otherwise.
 func (o *Saml) GetGroups() []string {
-	if o == nil || o.Groups == nil {
+	if o == nil || IsNil(o.Groups) {
 		var ret []string
 		return ret
 	}
@@ -181,7 +184,7 @@ func (o *Saml) GetGroups() []string {
 // GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Saml) GetGroupsOk() ([]string, bool) {
-	if o == nil || o.Groups == nil {
+	if o == nil || IsNil(o.Groups) {
 		return nil, false
 	}
 	return o.Groups, true
@@ -189,7 +192,7 @@ func (o *Saml) GetGroupsOk() ([]string, bool) {
 
 // HasGroups returns a boolean if a field has been set.
 func (o *Saml) HasGroups() bool {
-	if o != nil && o.Groups != nil {
+	if o != nil && !IsNil(o.Groups) {
 		return true
 	}
 
@@ -202,20 +205,22 @@ func (o *Saml) SetGroups(v []string) {
 }
 
 func (o Saml) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["acs"] = o.Acs
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Claims != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o Saml) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["acs"] = o.Acs
+	if !IsNil(o.Claims) {
 		toSerialize["claims"] = o.Claims
 	}
-	if true {
-		toSerialize["doc"] = o.Doc
-	}
-	if true {
-		toSerialize["entityId"] = o.EntityId
-	}
-	if o.Groups != nil {
+	toSerialize["doc"] = o.Doc
+	toSerialize["entityId"] = o.EntityId
+	if !IsNil(o.Groups) {
 		toSerialize["groups"] = o.Groups
 	}
 
@@ -223,31 +228,52 @@ func (o Saml) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Saml) UnmarshalJSON(bytes []byte) (err error) {
-	varSaml := _Saml{}
+func (o *Saml) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"acs",
+		"doc",
+		"entityId",
+	}
 
-	err = json.Unmarshal(bytes, &varSaml)
-	if err == nil {
-		*o = Saml(varSaml)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSaml := _Saml{}
+
+	err = json.Unmarshal(data, &varSaml)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Saml(varSaml)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "acs")
 		delete(additionalProperties, "claims")
 		delete(additionalProperties, "doc")
 		delete(additionalProperties, "entityId")
 		delete(additionalProperties, "groups")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -288,4 +314,3 @@ func (v *NullableSaml) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

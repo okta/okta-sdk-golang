@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ApplicationAccessibility type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApplicationAccessibility{}
+
 // ApplicationAccessibility Specifies access settings for the app
 type ApplicationAccessibility struct {
 	// Custom error page URL for the app
@@ -34,7 +37,7 @@ type ApplicationAccessibility struct {
 	// Custom login page URL for the app > **Note:** The `loginRedirectUrl` property is deprecated in Identity Engine. This property is used with the custom app login feature. Orgs that actively use this feature can continue to do so. See [Okta-hosted sign-in (redirect authentication)](https://developer.okta.com/docs/guides/redirect-authentication/) or [configure IdP routing rules](https://help.okta.com/okta_help.htm?type=oie&id=ext-cfg-routing-rules) to redirect users to the appropriate sign-in app for orgs that don't use the custom app login feature.
 	LoginRedirectUrl *string `json:"loginRedirectUrl,omitempty"`
 	// Represents whether the app can be self-assignable by users
-	SelfService *bool `json:"selfService,omitempty"`
+	SelfService          *bool `json:"selfService,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewApplicationAccessibilityWithDefaults() *ApplicationAccessibility {
 
 // GetErrorRedirectUrl returns the ErrorRedirectUrl field value if set, zero value otherwise.
 func (o *ApplicationAccessibility) GetErrorRedirectUrl() string {
-	if o == nil || o.ErrorRedirectUrl == nil {
+	if o == nil || IsNil(o.ErrorRedirectUrl) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *ApplicationAccessibility) GetErrorRedirectUrl() string {
 // GetErrorRedirectUrlOk returns a tuple with the ErrorRedirectUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationAccessibility) GetErrorRedirectUrlOk() (*string, bool) {
-	if o == nil || o.ErrorRedirectUrl == nil {
+	if o == nil || IsNil(o.ErrorRedirectUrl) {
 		return nil, false
 	}
 	return o.ErrorRedirectUrl, true
@@ -77,7 +80,7 @@ func (o *ApplicationAccessibility) GetErrorRedirectUrlOk() (*string, bool) {
 
 // HasErrorRedirectUrl returns a boolean if a field has been set.
 func (o *ApplicationAccessibility) HasErrorRedirectUrl() bool {
-	if o != nil && o.ErrorRedirectUrl != nil {
+	if o != nil && !IsNil(o.ErrorRedirectUrl) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *ApplicationAccessibility) SetErrorRedirectUrl(v string) {
 
 // GetLoginRedirectUrl returns the LoginRedirectUrl field value if set, zero value otherwise.
 func (o *ApplicationAccessibility) GetLoginRedirectUrl() string {
-	if o == nil || o.LoginRedirectUrl == nil {
+	if o == nil || IsNil(o.LoginRedirectUrl) {
 		var ret string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *ApplicationAccessibility) GetLoginRedirectUrl() string {
 // GetLoginRedirectUrlOk returns a tuple with the LoginRedirectUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationAccessibility) GetLoginRedirectUrlOk() (*string, bool) {
-	if o == nil || o.LoginRedirectUrl == nil {
+	if o == nil || IsNil(o.LoginRedirectUrl) {
 		return nil, false
 	}
 	return o.LoginRedirectUrl, true
@@ -109,7 +112,7 @@ func (o *ApplicationAccessibility) GetLoginRedirectUrlOk() (*string, bool) {
 
 // HasLoginRedirectUrl returns a boolean if a field has been set.
 func (o *ApplicationAccessibility) HasLoginRedirectUrl() bool {
-	if o != nil && o.LoginRedirectUrl != nil {
+	if o != nil && !IsNil(o.LoginRedirectUrl) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *ApplicationAccessibility) SetLoginRedirectUrl(v string) {
 
 // GetSelfService returns the SelfService field value if set, zero value otherwise.
 func (o *ApplicationAccessibility) GetSelfService() bool {
-	if o == nil || o.SelfService == nil {
+	if o == nil || IsNil(o.SelfService) {
 		var ret bool
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *ApplicationAccessibility) GetSelfService() bool {
 // GetSelfServiceOk returns a tuple with the SelfService field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationAccessibility) GetSelfServiceOk() (*bool, bool) {
-	if o == nil || o.SelfService == nil {
+	if o == nil || IsNil(o.SelfService) {
 		return nil, false
 	}
 	return o.SelfService, true
@@ -141,7 +144,7 @@ func (o *ApplicationAccessibility) GetSelfServiceOk() (*bool, bool) {
 
 // HasSelfService returns a boolean if a field has been set.
 func (o *ApplicationAccessibility) HasSelfService() bool {
-	if o != nil && o.SelfService != nil {
+	if o != nil && !IsNil(o.SelfService) {
 		return true
 	}
 
@@ -154,14 +157,22 @@ func (o *ApplicationAccessibility) SetSelfService(v bool) {
 }
 
 func (o ApplicationAccessibility) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApplicationAccessibility) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ErrorRedirectUrl != nil {
+	if !IsNil(o.ErrorRedirectUrl) {
 		toSerialize["errorRedirectUrl"] = o.ErrorRedirectUrl
 	}
-	if o.LoginRedirectUrl != nil {
+	if !IsNil(o.LoginRedirectUrl) {
 		toSerialize["loginRedirectUrl"] = o.LoginRedirectUrl
 	}
-	if o.SelfService != nil {
+	if !IsNil(o.SelfService) {
 		toSerialize["selfService"] = o.SelfService
 	}
 
@@ -169,29 +180,27 @@ func (o ApplicationAccessibility) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ApplicationAccessibility) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ApplicationAccessibility) UnmarshalJSON(data []byte) (err error) {
 	varApplicationAccessibility := _ApplicationAccessibility{}
 
-	err = json.Unmarshal(bytes, &varApplicationAccessibility)
-	if err == nil {
-		*o = ApplicationAccessibility(varApplicationAccessibility)
-	} else {
+	err = json.Unmarshal(data, &varApplicationAccessibility)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ApplicationAccessibility(varApplicationAccessibility)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "errorRedirectUrl")
 		delete(additionalProperties, "loginRedirectUrl")
 		delete(additionalProperties, "selfService")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -232,4 +241,3 @@ func (v *NullableApplicationAccessibility) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

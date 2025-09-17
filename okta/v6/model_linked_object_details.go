@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"fmt"
 )
 
+// checks if the LinkedObjectDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LinkedObjectDetails{}
+
 // LinkedObjectDetails struct for LinkedObjectDetails
 type LinkedObjectDetails struct {
 	// Description of the `primary` or the `associated` relationship
@@ -37,7 +40,7 @@ type LinkedObjectDetails struct {
 	// Display name of the `primary` or the `associated` link
 	Title string `json:"title"`
 	// The object type for this relationship
-	Type string `json:"type"`
+	Type                 string `json:"type"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -65,7 +68,7 @@ func NewLinkedObjectDetailsWithDefaults() *LinkedObjectDetails {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *LinkedObjectDetails) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -75,7 +78,7 @@ func (o *LinkedObjectDetails) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkedObjectDetails) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -83,7 +86,7 @@ func (o *LinkedObjectDetails) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *LinkedObjectDetails) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -168,48 +171,71 @@ func (o *LinkedObjectDetails) SetType(v string) {
 }
 
 func (o LinkedObjectDetails) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LinkedObjectDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["title"] = o.Title
-	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
+	toSerialize["name"] = o.Name
+	toSerialize["title"] = o.Title
+	toSerialize["type"] = o.Type
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LinkedObjectDetails) UnmarshalJSON(bytes []byte) (err error) {
-	varLinkedObjectDetails := _LinkedObjectDetails{}
+func (o *LinkedObjectDetails) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"title",
+		"type",
+	}
 
-	err = json.Unmarshal(bytes, &varLinkedObjectDetails)
-	if err == nil {
-		*o = LinkedObjectDetails(varLinkedObjectDetails)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varLinkedObjectDetails := _LinkedObjectDetails{}
+
+	err = json.Unmarshal(data, &varLinkedObjectDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LinkedObjectDetails(varLinkedObjectDetails)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "title")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -250,4 +276,3 @@ func (v *NullableLinkedObjectDetails) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

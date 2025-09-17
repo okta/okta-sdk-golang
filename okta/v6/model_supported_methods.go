@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the SupportedMethods type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SupportedMethods{}
+
 // SupportedMethods The supported methods of an authenticator
 type SupportedMethods struct {
 	Settings *SupportedMethodsSettings `json:"settings,omitempty"`
-	Status *string `json:"status,omitempty"`
+	Status   *string                   `json:"status,omitempty"`
 	// The type of authenticator method
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewSupportedMethodsWithDefaults() *SupportedMethods {
 
 // GetSettings returns the Settings field value if set, zero value otherwise.
 func (o *SupportedMethods) GetSettings() SupportedMethodsSettings {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		var ret SupportedMethodsSettings
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *SupportedMethods) GetSettings() SupportedMethodsSettings {
 // GetSettingsOk returns a tuple with the Settings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SupportedMethods) GetSettingsOk() (*SupportedMethodsSettings, bool) {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		return nil, false
 	}
 	return o.Settings, true
@@ -75,7 +78,7 @@ func (o *SupportedMethods) GetSettingsOk() (*SupportedMethodsSettings, bool) {
 
 // HasSettings returns a boolean if a field has been set.
 func (o *SupportedMethods) HasSettings() bool {
-	if o != nil && o.Settings != nil {
+	if o != nil && !IsNil(o.Settings) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *SupportedMethods) SetSettings(v SupportedMethodsSettings) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *SupportedMethods) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *SupportedMethods) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SupportedMethods) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -107,7 +110,7 @@ func (o *SupportedMethods) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *SupportedMethods) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -121,7 +124,7 @@ func (o *SupportedMethods) SetStatus(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *SupportedMethods) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -131,7 +134,7 @@ func (o *SupportedMethods) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SupportedMethods) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -139,7 +142,7 @@ func (o *SupportedMethods) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *SupportedMethods) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -152,14 +155,22 @@ func (o *SupportedMethods) SetType(v string) {
 }
 
 func (o SupportedMethods) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SupportedMethods) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Settings != nil {
+	if !IsNil(o.Settings) {
 		toSerialize["settings"] = o.Settings
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -167,29 +178,27 @@ func (o SupportedMethods) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SupportedMethods) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SupportedMethods) UnmarshalJSON(data []byte) (err error) {
 	varSupportedMethods := _SupportedMethods{}
 
-	err = json.Unmarshal(bytes, &varSupportedMethods)
-	if err == nil {
-		*o = SupportedMethods(varSupportedMethods)
-	} else {
+	err = json.Unmarshal(data, &varSupportedMethods)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SupportedMethods(varSupportedMethods)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "settings")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -230,4 +239,3 @@ func (v *NullableSupportedMethods) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

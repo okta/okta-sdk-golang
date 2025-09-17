@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,24 +26,23 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type DeviceIntegrationsAPI interface {
 
 	/*
-	ActivateDeviceIntegration Activate a device integration
+		ActivateDeviceIntegration Activate a device integration
 
-	Activates a device integration and populates the related configurations by `deviceIntegrationId`
+		Activates a device integration and populates the related configurations by `deviceIntegrationId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param deviceIntegrationId The ID of the device integration
-	@return ApiActivateDeviceIntegrationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param deviceIntegrationId The ID of the device integration
+		@return ApiActivateDeviceIntegrationRequest
 	*/
 	ActivateDeviceIntegration(ctx context.Context, deviceIntegrationId string) ApiActivateDeviceIntegrationRequest
 
@@ -52,13 +51,13 @@ type DeviceIntegrationsAPI interface {
 	ActivateDeviceIntegrationExecute(r ApiActivateDeviceIntegrationRequest) (*DeviceIntegrations, *APIResponse, error)
 
 	/*
-	DeactivateDeviceIntegration Deactivate a device integration
+		DeactivateDeviceIntegration Deactivate a device integration
 
-	Deactivates a device integration by `deviceIntegrationId`
+		Deactivates a device integration by `deviceIntegrationId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param deviceIntegrationId The ID of the device integration
-	@return ApiDeactivateDeviceIntegrationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param deviceIntegrationId The ID of the device integration
+		@return ApiDeactivateDeviceIntegrationRequest
 	*/
 	DeactivateDeviceIntegration(ctx context.Context, deviceIntegrationId string) ApiDeactivateDeviceIntegrationRequest
 
@@ -67,13 +66,13 @@ type DeviceIntegrationsAPI interface {
 	DeactivateDeviceIntegrationExecute(r ApiDeactivateDeviceIntegrationRequest) (*DeviceIntegrations, *APIResponse, error)
 
 	/*
-	GetDeviceIntegration Retrieve a device integration
+		GetDeviceIntegration Retrieve a device integration
 
-	Retrieves a device integration by `deviceIntegrationId`
+		Retrieves a device integration by `deviceIntegrationId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param deviceIntegrationId The ID of the device integration
-	@return ApiGetDeviceIntegrationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param deviceIntegrationId The ID of the device integration
+		@return ApiGetDeviceIntegrationRequest
 	*/
 	GetDeviceIntegration(ctx context.Context, deviceIntegrationId string) ApiGetDeviceIntegrationRequest
 
@@ -82,12 +81,12 @@ type DeviceIntegrationsAPI interface {
 	GetDeviceIntegrationExecute(r ApiGetDeviceIntegrationRequest) (*DeviceIntegrations, *APIResponse, error)
 
 	/*
-	ListDeviceIntegrations List all device integrations
+		ListDeviceIntegrations List all device integrations
 
-	Lists all device integrations for your org. Examples include Device Posture Provider, Windows Security Center, Chrome Device Trust, OSQuery, and Android Device Trust.
+		Lists all device integrations for your org. Examples include Device Posture Provider, Windows Security Center, Chrome Device Trust, OSQuery, and Android Device Trust.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListDeviceIntegrationsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListDeviceIntegrationsRequest
 	*/
 	ListDeviceIntegrations(ctx context.Context) ApiListDeviceIntegrationsRequest
 
@@ -100,10 +99,10 @@ type DeviceIntegrationsAPI interface {
 type DeviceIntegrationsAPIService service
 
 type ApiActivateDeviceIntegrationRequest struct {
-	ctx context.Context
-	ApiService DeviceIntegrationsAPI
+	ctx                 context.Context
+	ApiService          DeviceIntegrationsAPI
 	deviceIntegrationId string
-	retryCount int32
+	retryCount          int32
 }
 
 func (r ApiActivateDeviceIntegrationRequest) Execute() (*DeviceIntegrations, *APIResponse, error) {
@@ -115,21 +114,22 @@ ActivateDeviceIntegration Activate a device integration
 
 Activates a device integration and populates the related configurations by `deviceIntegrationId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param deviceIntegrationId The ID of the device integration
- @return ApiActivateDeviceIntegrationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param deviceIntegrationId The ID of the device integration
+	@return ApiActivateDeviceIntegrationRequest
 */
 func (a *DeviceIntegrationsAPIService) ActivateDeviceIntegration(ctx context.Context, deviceIntegrationId string) ApiActivateDeviceIntegrationRequest {
 	return ApiActivateDeviceIntegrationRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:          a,
+		ctx:                 ctx,
 		deviceIntegrationId: deviceIntegrationId,
-		retryCount: 0,
+		retryCount:          0,
 	}
 }
 
 // Execute executes the request
-//  @return DeviceIntegrations
+//
+//	@return DeviceIntegrations
 func (a *DeviceIntegrationsAPIService) ActivateDeviceIntegrationExecute(r ApiActivateDeviceIntegrationRequest) (*DeviceIntegrations, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -138,7 +138,7 @@ func (a *DeviceIntegrationsAPIService) ActivateDeviceIntegrationExecute(r ApiAct
 		localVarReturnValue  *DeviceIntegrations
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -199,9 +199,9 @@ func (a *DeviceIntegrationsAPIService) ActivateDeviceIntegrationExecute(r ApiAct
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -271,16 +271,16 @@ func (a *DeviceIntegrationsAPIService) ActivateDeviceIntegrationExecute(r ApiAct
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeactivateDeviceIntegrationRequest struct {
-	ctx context.Context
-	ApiService DeviceIntegrationsAPI
+	ctx                 context.Context
+	ApiService          DeviceIntegrationsAPI
 	deviceIntegrationId string
-	retryCount int32
+	retryCount          int32
 }
 
 func (r ApiDeactivateDeviceIntegrationRequest) Execute() (*DeviceIntegrations, *APIResponse, error) {
@@ -292,21 +292,22 @@ DeactivateDeviceIntegration Deactivate a device integration
 
 Deactivates a device integration by `deviceIntegrationId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param deviceIntegrationId The ID of the device integration
- @return ApiDeactivateDeviceIntegrationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param deviceIntegrationId The ID of the device integration
+	@return ApiDeactivateDeviceIntegrationRequest
 */
 func (a *DeviceIntegrationsAPIService) DeactivateDeviceIntegration(ctx context.Context, deviceIntegrationId string) ApiDeactivateDeviceIntegrationRequest {
 	return ApiDeactivateDeviceIntegrationRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:          a,
+		ctx:                 ctx,
 		deviceIntegrationId: deviceIntegrationId,
-		retryCount: 0,
+		retryCount:          0,
 	}
 }
 
 // Execute executes the request
-//  @return DeviceIntegrations
+//
+//	@return DeviceIntegrations
 func (a *DeviceIntegrationsAPIService) DeactivateDeviceIntegrationExecute(r ApiDeactivateDeviceIntegrationRequest) (*DeviceIntegrations, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -315,7 +316,7 @@ func (a *DeviceIntegrationsAPIService) DeactivateDeviceIntegrationExecute(r ApiD
 		localVarReturnValue  *DeviceIntegrations
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -376,9 +377,9 @@ func (a *DeviceIntegrationsAPIService) DeactivateDeviceIntegrationExecute(r ApiD
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -448,16 +449,16 @@ func (a *DeviceIntegrationsAPIService) DeactivateDeviceIntegrationExecute(r ApiD
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetDeviceIntegrationRequest struct {
-	ctx context.Context
-	ApiService DeviceIntegrationsAPI
+	ctx                 context.Context
+	ApiService          DeviceIntegrationsAPI
 	deviceIntegrationId string
-	retryCount int32
+	retryCount          int32
 }
 
 func (r ApiGetDeviceIntegrationRequest) Execute() (*DeviceIntegrations, *APIResponse, error) {
@@ -469,21 +470,22 @@ GetDeviceIntegration Retrieve a device integration
 
 Retrieves a device integration by `deviceIntegrationId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param deviceIntegrationId The ID of the device integration
- @return ApiGetDeviceIntegrationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param deviceIntegrationId The ID of the device integration
+	@return ApiGetDeviceIntegrationRequest
 */
 func (a *DeviceIntegrationsAPIService) GetDeviceIntegration(ctx context.Context, deviceIntegrationId string) ApiGetDeviceIntegrationRequest {
 	return ApiGetDeviceIntegrationRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:          a,
+		ctx:                 ctx,
 		deviceIntegrationId: deviceIntegrationId,
-		retryCount: 0,
+		retryCount:          0,
 	}
 }
 
 // Execute executes the request
-//  @return DeviceIntegrations
+//
+//	@return DeviceIntegrations
 func (a *DeviceIntegrationsAPIService) GetDeviceIntegrationExecute(r ApiGetDeviceIntegrationRequest) (*DeviceIntegrations, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -492,7 +494,7 @@ func (a *DeviceIntegrationsAPIService) GetDeviceIntegrationExecute(r ApiGetDevic
 		localVarReturnValue  *DeviceIntegrations
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -553,9 +555,9 @@ func (a *DeviceIntegrationsAPIService) GetDeviceIntegrationExecute(r ApiGetDevic
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -613,13 +615,13 @@ func (a *DeviceIntegrationsAPIService) GetDeviceIntegrationExecute(r ApiGetDevic
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListDeviceIntegrationsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService DeviceIntegrationsAPI
 	retryCount int32
 }
@@ -633,19 +635,20 @@ ListDeviceIntegrations List all device integrations
 
 Lists all device integrations for your org. Examples include Device Posture Provider, Windows Security Center, Chrome Device Trust, OSQuery, and Android Device Trust.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListDeviceIntegrationsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListDeviceIntegrationsRequest
 */
 func (a *DeviceIntegrationsAPIService) ListDeviceIntegrations(ctx context.Context) ApiListDeviceIntegrationsRequest {
 	return ApiListDeviceIntegrationsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []DeviceIntegrations
+//
+//	@return []DeviceIntegrations
 func (a *DeviceIntegrationsAPIService) ListDeviceIntegrationsExecute(r ApiListDeviceIntegrationsRequest) ([]DeviceIntegrations, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -654,7 +657,7 @@ func (a *DeviceIntegrationsAPIService) ListDeviceIntegrationsExecute(r ApiListDe
 		localVarReturnValue  []DeviceIntegrations
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -714,9 +717,9 @@ func (a *DeviceIntegrationsAPIService) ListDeviceIntegrationsExecute(r ApiListDe
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -774,7 +777,7 @@ func (a *DeviceIntegrationsAPIService) ListDeviceIntegrationsExecute(r ApiListDe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

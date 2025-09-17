@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserImportRequestDataContextApplication type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserImportRequestDataContextApplication{}
+
 // UserImportRequestDataContextApplication Details of the app from which the user is being imported
 type UserImportRequestDataContextApplication struct {
 	// The app name
@@ -36,7 +39,7 @@ type UserImportRequestDataContextApplication struct {
 	// The user-defined display name for the app
 	Label *string `json:"label,omitempty"`
 	// The status of the app
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewUserImportRequestDataContextApplicationWithDefaults() *UserImportRequest
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *UserImportRequestDataContextApplication) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *UserImportRequestDataContextApplication) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserImportRequestDataContextApplication) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -79,7 +82,7 @@ func (o *UserImportRequestDataContextApplication) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *UserImportRequestDataContextApplication) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *UserImportRequestDataContextApplication) SetName(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *UserImportRequestDataContextApplication) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *UserImportRequestDataContextApplication) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserImportRequestDataContextApplication) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -111,7 +114,7 @@ func (o *UserImportRequestDataContextApplication) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *UserImportRequestDataContextApplication) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *UserImportRequestDataContextApplication) SetId(v string) {
 
 // GetLabel returns the Label field value if set, zero value otherwise.
 func (o *UserImportRequestDataContextApplication) GetLabel() string {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		var ret string
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *UserImportRequestDataContextApplication) GetLabel() string {
 // GetLabelOk returns a tuple with the Label field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserImportRequestDataContextApplication) GetLabelOk() (*string, bool) {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		return nil, false
 	}
 	return o.Label, true
@@ -143,7 +146,7 @@ func (o *UserImportRequestDataContextApplication) GetLabelOk() (*string, bool) {
 
 // HasLabel returns a boolean if a field has been set.
 func (o *UserImportRequestDataContextApplication) HasLabel() bool {
-	if o != nil && o.Label != nil {
+	if o != nil && !IsNil(o.Label) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *UserImportRequestDataContextApplication) SetLabel(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *UserImportRequestDataContextApplication) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *UserImportRequestDataContextApplication) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserImportRequestDataContextApplication) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -175,7 +178,7 @@ func (o *UserImportRequestDataContextApplication) GetStatusOk() (*string, bool) 
 
 // HasStatus returns a boolean if a field has been set.
 func (o *UserImportRequestDataContextApplication) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -188,17 +191,25 @@ func (o *UserImportRequestDataContextApplication) SetStatus(v string) {
 }
 
 func (o UserImportRequestDataContextApplication) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserImportRequestDataContextApplication) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Label != nil {
+	if !IsNil(o.Label) {
 		toSerialize["label"] = o.Label
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
 
@@ -206,30 +217,28 @@ func (o UserImportRequestDataContextApplication) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserImportRequestDataContextApplication) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserImportRequestDataContextApplication) UnmarshalJSON(data []byte) (err error) {
 	varUserImportRequestDataContextApplication := _UserImportRequestDataContextApplication{}
 
-	err = json.Unmarshal(bytes, &varUserImportRequestDataContextApplication)
-	if err == nil {
-		*o = UserImportRequestDataContextApplication(varUserImportRequestDataContextApplication)
-	} else {
+	err = json.Unmarshal(data, &varUserImportRequestDataContextApplication)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserImportRequestDataContextApplication(varUserImportRequestDataContextApplication)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "label")
 		delete(additionalProperties, "status")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -270,4 +279,3 @@ func (v *NullableUserImportRequestDataContextApplication) UnmarshalJSON(src []by
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

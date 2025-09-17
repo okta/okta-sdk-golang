@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"fmt"
 )
 
+// checks if the HrefObjectDeleteLink type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &HrefObjectDeleteLink{}
+
 // HrefObjectDeleteLink Link to delete the resource
 type HrefObjectDeleteLink struct {
 	Hints *HrefHints `json:"hints,omitempty"`
@@ -38,7 +41,7 @@ type HrefObjectDeleteLink struct {
 	// Indicates whether the link object's `href` property is a URI template.
 	Templated *bool `json:"templated,omitempty"`
 	// The media type of the link. If omitted, it is implicitly `application/json`.
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -64,7 +67,7 @@ func NewHrefObjectDeleteLinkWithDefaults() *HrefObjectDeleteLink {
 
 // GetHints returns the Hints field value if set, zero value otherwise.
 func (o *HrefObjectDeleteLink) GetHints() HrefHints {
-	if o == nil || o.Hints == nil {
+	if o == nil || IsNil(o.Hints) {
 		var ret HrefHints
 		return ret
 	}
@@ -74,7 +77,7 @@ func (o *HrefObjectDeleteLink) GetHints() HrefHints {
 // GetHintsOk returns a tuple with the Hints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HrefObjectDeleteLink) GetHintsOk() (*HrefHints, bool) {
-	if o == nil || o.Hints == nil {
+	if o == nil || IsNil(o.Hints) {
 		return nil, false
 	}
 	return o.Hints, true
@@ -82,7 +85,7 @@ func (o *HrefObjectDeleteLink) GetHintsOk() (*HrefHints, bool) {
 
 // HasHints returns a boolean if a field has been set.
 func (o *HrefObjectDeleteLink) HasHints() bool {
-	if o != nil && o.Hints != nil {
+	if o != nil && !IsNil(o.Hints) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *HrefObjectDeleteLink) SetHref(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *HrefObjectDeleteLink) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *HrefObjectDeleteLink) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HrefObjectDeleteLink) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -138,7 +141,7 @@ func (o *HrefObjectDeleteLink) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *HrefObjectDeleteLink) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -152,7 +155,7 @@ func (o *HrefObjectDeleteLink) SetName(v string) {
 
 // GetTemplated returns the Templated field value if set, zero value otherwise.
 func (o *HrefObjectDeleteLink) GetTemplated() bool {
-	if o == nil || o.Templated == nil {
+	if o == nil || IsNil(o.Templated) {
 		var ret bool
 		return ret
 	}
@@ -162,7 +165,7 @@ func (o *HrefObjectDeleteLink) GetTemplated() bool {
 // GetTemplatedOk returns a tuple with the Templated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HrefObjectDeleteLink) GetTemplatedOk() (*bool, bool) {
-	if o == nil || o.Templated == nil {
+	if o == nil || IsNil(o.Templated) {
 		return nil, false
 	}
 	return o.Templated, true
@@ -170,7 +173,7 @@ func (o *HrefObjectDeleteLink) GetTemplatedOk() (*bool, bool) {
 
 // HasTemplated returns a boolean if a field has been set.
 func (o *HrefObjectDeleteLink) HasTemplated() bool {
-	if o != nil && o.Templated != nil {
+	if o != nil && !IsNil(o.Templated) {
 		return true
 	}
 
@@ -184,7 +187,7 @@ func (o *HrefObjectDeleteLink) SetTemplated(v bool) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *HrefObjectDeleteLink) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -194,7 +197,7 @@ func (o *HrefObjectDeleteLink) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HrefObjectDeleteLink) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -202,7 +205,7 @@ func (o *HrefObjectDeleteLink) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *HrefObjectDeleteLink) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -215,20 +218,26 @@ func (o *HrefObjectDeleteLink) SetType(v string) {
 }
 
 func (o HrefObjectDeleteLink) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o HrefObjectDeleteLink) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Hints != nil {
+	if !IsNil(o.Hints) {
 		toSerialize["hints"] = o.Hints
 	}
-	if true {
-		toSerialize["href"] = o.Href
-	}
-	if o.Name != nil {
+	toSerialize["href"] = o.Href
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Templated != nil {
+	if !IsNil(o.Templated) {
 		toSerialize["templated"] = o.Templated
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -236,31 +245,50 @@ func (o HrefObjectDeleteLink) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *HrefObjectDeleteLink) UnmarshalJSON(bytes []byte) (err error) {
-	varHrefObjectDeleteLink := _HrefObjectDeleteLink{}
+func (o *HrefObjectDeleteLink) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"href",
+	}
 
-	err = json.Unmarshal(bytes, &varHrefObjectDeleteLink)
-	if err == nil {
-		*o = HrefObjectDeleteLink(varHrefObjectDeleteLink)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varHrefObjectDeleteLink := _HrefObjectDeleteLink{}
+
+	err = json.Unmarshal(data, &varHrefObjectDeleteLink)
+
+	if err != nil {
+		return err
+	}
+
+	*o = HrefObjectDeleteLink(varHrefObjectDeleteLink)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "hints")
 		delete(additionalProperties, "href")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "templated")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -301,4 +329,3 @@ func (v *NullableHrefObjectDeleteLink) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

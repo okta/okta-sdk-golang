@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the EntityRiskPolicyRuleActionTerminateAllSessions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EntityRiskPolicyRuleActionTerminateAllSessions{}
+
 // EntityRiskPolicyRuleActionTerminateAllSessions struct for EntityRiskPolicyRuleActionTerminateAllSessions
 type EntityRiskPolicyRuleActionTerminateAllSessions struct {
 	// This action revokes or terminates all of the user's active sessions.
-	Action *string `json:"action,omitempty"`
+	Action               *string `json:"action,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewEntityRiskPolicyRuleActionTerminateAllSessionsWithDefaults() *EntityRisk
 
 // GetAction returns the Action field value if set, zero value otherwise.
 func (o *EntityRiskPolicyRuleActionTerminateAllSessions) GetAction() string {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *EntityRiskPolicyRuleActionTerminateAllSessions) GetAction() string {
 // GetActionOk returns a tuple with the Action field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntityRiskPolicyRuleActionTerminateAllSessions) GetActionOk() (*string, bool) {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		return nil, false
 	}
 	return o.Action, true
@@ -73,7 +76,7 @@ func (o *EntityRiskPolicyRuleActionTerminateAllSessions) GetActionOk() (*string,
 
 // HasAction returns a boolean if a field has been set.
 func (o *EntityRiskPolicyRuleActionTerminateAllSessions) HasAction() bool {
-	if o != nil && o.Action != nil {
+	if o != nil && !IsNil(o.Action) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *EntityRiskPolicyRuleActionTerminateAllSessions) SetAction(v string) {
 }
 
 func (o EntityRiskPolicyRuleActionTerminateAllSessions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EntityRiskPolicyRuleActionTerminateAllSessions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Action != nil {
+	if !IsNil(o.Action) {
 		toSerialize["action"] = o.Action
 	}
 
@@ -95,27 +106,25 @@ func (o EntityRiskPolicyRuleActionTerminateAllSessions) MarshalJSON() ([]byte, e
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EntityRiskPolicyRuleActionTerminateAllSessions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *EntityRiskPolicyRuleActionTerminateAllSessions) UnmarshalJSON(data []byte) (err error) {
 	varEntityRiskPolicyRuleActionTerminateAllSessions := _EntityRiskPolicyRuleActionTerminateAllSessions{}
 
-	err = json.Unmarshal(bytes, &varEntityRiskPolicyRuleActionTerminateAllSessions)
-	if err == nil {
-		*o = EntityRiskPolicyRuleActionTerminateAllSessions(varEntityRiskPolicyRuleActionTerminateAllSessions)
-	} else {
+	err = json.Unmarshal(data, &varEntityRiskPolicyRuleActionTerminateAllSessions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = EntityRiskPolicyRuleActionTerminateAllSessions(varEntityRiskPolicyRuleActionTerminateAllSessions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "action")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableEntityRiskPolicyRuleActionTerminateAllSessions) UnmarshalJSON(s
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

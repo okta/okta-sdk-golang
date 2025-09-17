@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the TokenProtocolRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TokenProtocolRequest{}
+
 // TokenProtocolRequest Details of the token request
 type TokenProtocolRequest struct {
 	// The ID of the client associated with the token
@@ -40,8 +43,8 @@ type TokenProtocolRequest struct {
 	// The authorization response type
 	ResponseType *string `json:"response_type,omitempty"`
 	// The scopes requested
-	Scope *string `json:"scope,omitempty"`
-	State *string `json:"state,omitempty"`
+	Scope                *string `json:"scope,omitempty"`
+	State                *string `json:"state,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -66,7 +69,7 @@ func NewTokenProtocolRequestWithDefaults() *TokenProtocolRequest {
 
 // GetClientId returns the ClientId field value if set, zero value otherwise.
 func (o *TokenProtocolRequest) GetClientId() string {
-	if o == nil || o.ClientId == nil {
+	if o == nil || IsNil(o.ClientId) {
 		var ret string
 		return ret
 	}
@@ -76,7 +79,7 @@ func (o *TokenProtocolRequest) GetClientId() string {
 // GetClientIdOk returns a tuple with the ClientId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenProtocolRequest) GetClientIdOk() (*string, bool) {
-	if o == nil || o.ClientId == nil {
+	if o == nil || IsNil(o.ClientId) {
 		return nil, false
 	}
 	return o.ClientId, true
@@ -84,7 +87,7 @@ func (o *TokenProtocolRequest) GetClientIdOk() (*string, bool) {
 
 // HasClientId returns a boolean if a field has been set.
 func (o *TokenProtocolRequest) HasClientId() bool {
-	if o != nil && o.ClientId != nil {
+	if o != nil && !IsNil(o.ClientId) {
 		return true
 	}
 
@@ -98,7 +101,7 @@ func (o *TokenProtocolRequest) SetClientId(v string) {
 
 // GetGrantType returns the GrantType field value if set, zero value otherwise.
 func (o *TokenProtocolRequest) GetGrantType() string {
-	if o == nil || o.GrantType == nil {
+	if o == nil || IsNil(o.GrantType) {
 		var ret string
 		return ret
 	}
@@ -108,7 +111,7 @@ func (o *TokenProtocolRequest) GetGrantType() string {
 // GetGrantTypeOk returns a tuple with the GrantType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenProtocolRequest) GetGrantTypeOk() (*string, bool) {
-	if o == nil || o.GrantType == nil {
+	if o == nil || IsNil(o.GrantType) {
 		return nil, false
 	}
 	return o.GrantType, true
@@ -116,7 +119,7 @@ func (o *TokenProtocolRequest) GetGrantTypeOk() (*string, bool) {
 
 // HasGrantType returns a boolean if a field has been set.
 func (o *TokenProtocolRequest) HasGrantType() bool {
-	if o != nil && o.GrantType != nil {
+	if o != nil && !IsNil(o.GrantType) {
 		return true
 	}
 
@@ -130,7 +133,7 @@ func (o *TokenProtocolRequest) SetGrantType(v string) {
 
 // GetRedirectUri returns the RedirectUri field value if set, zero value otherwise.
 func (o *TokenProtocolRequest) GetRedirectUri() string {
-	if o == nil || o.RedirectUri == nil {
+	if o == nil || IsNil(o.RedirectUri) {
 		var ret string
 		return ret
 	}
@@ -140,7 +143,7 @@ func (o *TokenProtocolRequest) GetRedirectUri() string {
 // GetRedirectUriOk returns a tuple with the RedirectUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenProtocolRequest) GetRedirectUriOk() (*string, bool) {
-	if o == nil || o.RedirectUri == nil {
+	if o == nil || IsNil(o.RedirectUri) {
 		return nil, false
 	}
 	return o.RedirectUri, true
@@ -148,7 +151,7 @@ func (o *TokenProtocolRequest) GetRedirectUriOk() (*string, bool) {
 
 // HasRedirectUri returns a boolean if a field has been set.
 func (o *TokenProtocolRequest) HasRedirectUri() bool {
-	if o != nil && o.RedirectUri != nil {
+	if o != nil && !IsNil(o.RedirectUri) {
 		return true
 	}
 
@@ -162,7 +165,7 @@ func (o *TokenProtocolRequest) SetRedirectUri(v string) {
 
 // GetResponseMode returns the ResponseMode field value if set, zero value otherwise.
 func (o *TokenProtocolRequest) GetResponseMode() string {
-	if o == nil || o.ResponseMode == nil {
+	if o == nil || IsNil(o.ResponseMode) {
 		var ret string
 		return ret
 	}
@@ -172,7 +175,7 @@ func (o *TokenProtocolRequest) GetResponseMode() string {
 // GetResponseModeOk returns a tuple with the ResponseMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenProtocolRequest) GetResponseModeOk() (*string, bool) {
-	if o == nil || o.ResponseMode == nil {
+	if o == nil || IsNil(o.ResponseMode) {
 		return nil, false
 	}
 	return o.ResponseMode, true
@@ -180,7 +183,7 @@ func (o *TokenProtocolRequest) GetResponseModeOk() (*string, bool) {
 
 // HasResponseMode returns a boolean if a field has been set.
 func (o *TokenProtocolRequest) HasResponseMode() bool {
-	if o != nil && o.ResponseMode != nil {
+	if o != nil && !IsNil(o.ResponseMode) {
 		return true
 	}
 
@@ -194,7 +197,7 @@ func (o *TokenProtocolRequest) SetResponseMode(v string) {
 
 // GetResponseType returns the ResponseType field value if set, zero value otherwise.
 func (o *TokenProtocolRequest) GetResponseType() string {
-	if o == nil || o.ResponseType == nil {
+	if o == nil || IsNil(o.ResponseType) {
 		var ret string
 		return ret
 	}
@@ -204,7 +207,7 @@ func (o *TokenProtocolRequest) GetResponseType() string {
 // GetResponseTypeOk returns a tuple with the ResponseType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenProtocolRequest) GetResponseTypeOk() (*string, bool) {
-	if o == nil || o.ResponseType == nil {
+	if o == nil || IsNil(o.ResponseType) {
 		return nil, false
 	}
 	return o.ResponseType, true
@@ -212,7 +215,7 @@ func (o *TokenProtocolRequest) GetResponseTypeOk() (*string, bool) {
 
 // HasResponseType returns a boolean if a field has been set.
 func (o *TokenProtocolRequest) HasResponseType() bool {
-	if o != nil && o.ResponseType != nil {
+	if o != nil && !IsNil(o.ResponseType) {
 		return true
 	}
 
@@ -226,7 +229,7 @@ func (o *TokenProtocolRequest) SetResponseType(v string) {
 
 // GetScope returns the Scope field value if set, zero value otherwise.
 func (o *TokenProtocolRequest) GetScope() string {
-	if o == nil || o.Scope == nil {
+	if o == nil || IsNil(o.Scope) {
 		var ret string
 		return ret
 	}
@@ -236,7 +239,7 @@ func (o *TokenProtocolRequest) GetScope() string {
 // GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenProtocolRequest) GetScopeOk() (*string, bool) {
-	if o == nil || o.Scope == nil {
+	if o == nil || IsNil(o.Scope) {
 		return nil, false
 	}
 	return o.Scope, true
@@ -244,7 +247,7 @@ func (o *TokenProtocolRequest) GetScopeOk() (*string, bool) {
 
 // HasScope returns a boolean if a field has been set.
 func (o *TokenProtocolRequest) HasScope() bool {
-	if o != nil && o.Scope != nil {
+	if o != nil && !IsNil(o.Scope) {
 		return true
 	}
 
@@ -258,7 +261,7 @@ func (o *TokenProtocolRequest) SetScope(v string) {
 
 // GetState returns the State field value if set, zero value otherwise.
 func (o *TokenProtocolRequest) GetState() string {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		var ret string
 		return ret
 	}
@@ -268,7 +271,7 @@ func (o *TokenProtocolRequest) GetState() string {
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenProtocolRequest) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
 	return o.State, true
@@ -276,7 +279,7 @@ func (o *TokenProtocolRequest) GetStateOk() (*string, bool) {
 
 // HasState returns a boolean if a field has been set.
 func (o *TokenProtocolRequest) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && !IsNil(o.State) {
 		return true
 	}
 
@@ -289,26 +292,34 @@ func (o *TokenProtocolRequest) SetState(v string) {
 }
 
 func (o TokenProtocolRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TokenProtocolRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ClientId != nil {
+	if !IsNil(o.ClientId) {
 		toSerialize["client_id"] = o.ClientId
 	}
-	if o.GrantType != nil {
+	if !IsNil(o.GrantType) {
 		toSerialize["grant_type"] = o.GrantType
 	}
-	if o.RedirectUri != nil {
+	if !IsNil(o.RedirectUri) {
 		toSerialize["redirect_uri"] = o.RedirectUri
 	}
-	if o.ResponseMode != nil {
+	if !IsNil(o.ResponseMode) {
 		toSerialize["response_mode"] = o.ResponseMode
 	}
-	if o.ResponseType != nil {
+	if !IsNil(o.ResponseType) {
 		toSerialize["response_type"] = o.ResponseType
 	}
-	if o.Scope != nil {
+	if !IsNil(o.Scope) {
 		toSerialize["scope"] = o.Scope
 	}
-	if o.State != nil {
+	if !IsNil(o.State) {
 		toSerialize["state"] = o.State
 	}
 
@@ -316,23 +327,23 @@ func (o TokenProtocolRequest) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *TokenProtocolRequest) UnmarshalJSON(bytes []byte) (err error) {
+func (o *TokenProtocolRequest) UnmarshalJSON(data []byte) (err error) {
 	varTokenProtocolRequest := _TokenProtocolRequest{}
 
-	err = json.Unmarshal(bytes, &varTokenProtocolRequest)
-	if err == nil {
-		*o = TokenProtocolRequest(varTokenProtocolRequest)
-	} else {
+	err = json.Unmarshal(data, &varTokenProtocolRequest)
+
+	if err != nil {
 		return err
 	}
 
+	*o = TokenProtocolRequest(varTokenProtocolRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "client_id")
 		delete(additionalProperties, "grant_type")
 		delete(additionalProperties, "redirect_uri")
@@ -341,8 +352,6 @@ func (o *TokenProtocolRequest) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "scope")
 		delete(additionalProperties, "state")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -383,4 +392,3 @@ func (v *NullableTokenProtocolRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the WellKnownURIsRootLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WellKnownURIsRootLinks{}
+
 // WellKnownURIsRootLinks struct for WellKnownURIsRootLinks
 type WellKnownURIsRootLinks struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	AppleAppSiteAssociation *HrefObject `json:"apple-app-site-association,omitempty"`
-	AssetlinksJson *HrefObject `json:"assetlinks.json,omitempty"`
-	Webauthn *HrefObject `json:"webauthn,omitempty"`
-	AdditionalProperties map[string]interface{}
+	Self                    *HrefObjectSelfLink `json:"self,omitempty"`
+	AppleAppSiteAssociation *HrefObject         `json:"apple-app-site-association,omitempty"`
+	AssetlinksJson          *HrefObject         `json:"assetlinks.json,omitempty"`
+	Webauthn                *HrefObject         `json:"webauthn,omitempty"`
+	AdditionalProperties    map[string]interface{}
 }
 
 type _WellKnownURIsRootLinks WellKnownURIsRootLinks
@@ -57,7 +60,7 @@ func NewWellKnownURIsRootLinksWithDefaults() *WellKnownURIsRootLinks {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *WellKnownURIsRootLinks) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *WellKnownURIsRootLinks) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownURIsRootLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -75,7 +78,7 @@ func (o *WellKnownURIsRootLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *WellKnownURIsRootLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *WellKnownURIsRootLinks) SetSelf(v HrefObjectSelfLink) {
 
 // GetAppleAppSiteAssociation returns the AppleAppSiteAssociation field value if set, zero value otherwise.
 func (o *WellKnownURIsRootLinks) GetAppleAppSiteAssociation() HrefObject {
-	if o == nil || o.AppleAppSiteAssociation == nil {
+	if o == nil || IsNil(o.AppleAppSiteAssociation) {
 		var ret HrefObject
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *WellKnownURIsRootLinks) GetAppleAppSiteAssociation() HrefObject {
 // GetAppleAppSiteAssociationOk returns a tuple with the AppleAppSiteAssociation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownURIsRootLinks) GetAppleAppSiteAssociationOk() (*HrefObject, bool) {
-	if o == nil || o.AppleAppSiteAssociation == nil {
+	if o == nil || IsNil(o.AppleAppSiteAssociation) {
 		return nil, false
 	}
 	return o.AppleAppSiteAssociation, true
@@ -107,7 +110,7 @@ func (o *WellKnownURIsRootLinks) GetAppleAppSiteAssociationOk() (*HrefObject, bo
 
 // HasAppleAppSiteAssociation returns a boolean if a field has been set.
 func (o *WellKnownURIsRootLinks) HasAppleAppSiteAssociation() bool {
-	if o != nil && o.AppleAppSiteAssociation != nil {
+	if o != nil && !IsNil(o.AppleAppSiteAssociation) {
 		return true
 	}
 
@@ -121,7 +124,7 @@ func (o *WellKnownURIsRootLinks) SetAppleAppSiteAssociation(v HrefObject) {
 
 // GetAssetlinksJson returns the AssetlinksJson field value if set, zero value otherwise.
 func (o *WellKnownURIsRootLinks) GetAssetlinksJson() HrefObject {
-	if o == nil || o.AssetlinksJson == nil {
+	if o == nil || IsNil(o.AssetlinksJson) {
 		var ret HrefObject
 		return ret
 	}
@@ -131,7 +134,7 @@ func (o *WellKnownURIsRootLinks) GetAssetlinksJson() HrefObject {
 // GetAssetlinksJsonOk returns a tuple with the AssetlinksJson field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownURIsRootLinks) GetAssetlinksJsonOk() (*HrefObject, bool) {
-	if o == nil || o.AssetlinksJson == nil {
+	if o == nil || IsNil(o.AssetlinksJson) {
 		return nil, false
 	}
 	return o.AssetlinksJson, true
@@ -139,7 +142,7 @@ func (o *WellKnownURIsRootLinks) GetAssetlinksJsonOk() (*HrefObject, bool) {
 
 // HasAssetlinksJson returns a boolean if a field has been set.
 func (o *WellKnownURIsRootLinks) HasAssetlinksJson() bool {
-	if o != nil && o.AssetlinksJson != nil {
+	if o != nil && !IsNil(o.AssetlinksJson) {
 		return true
 	}
 
@@ -153,7 +156,7 @@ func (o *WellKnownURIsRootLinks) SetAssetlinksJson(v HrefObject) {
 
 // GetWebauthn returns the Webauthn field value if set, zero value otherwise.
 func (o *WellKnownURIsRootLinks) GetWebauthn() HrefObject {
-	if o == nil || o.Webauthn == nil {
+	if o == nil || IsNil(o.Webauthn) {
 		var ret HrefObject
 		return ret
 	}
@@ -163,7 +166,7 @@ func (o *WellKnownURIsRootLinks) GetWebauthn() HrefObject {
 // GetWebauthnOk returns a tuple with the Webauthn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownURIsRootLinks) GetWebauthnOk() (*HrefObject, bool) {
-	if o == nil || o.Webauthn == nil {
+	if o == nil || IsNil(o.Webauthn) {
 		return nil, false
 	}
 	return o.Webauthn, true
@@ -171,7 +174,7 @@ func (o *WellKnownURIsRootLinks) GetWebauthnOk() (*HrefObject, bool) {
 
 // HasWebauthn returns a boolean if a field has been set.
 func (o *WellKnownURIsRootLinks) HasWebauthn() bool {
-	if o != nil && o.Webauthn != nil {
+	if o != nil && !IsNil(o.Webauthn) {
 		return true
 	}
 
@@ -184,17 +187,25 @@ func (o *WellKnownURIsRootLinks) SetWebauthn(v HrefObject) {
 }
 
 func (o WellKnownURIsRootLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o WellKnownURIsRootLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.AppleAppSiteAssociation != nil {
+	if !IsNil(o.AppleAppSiteAssociation) {
 		toSerialize["apple-app-site-association"] = o.AppleAppSiteAssociation
 	}
-	if o.AssetlinksJson != nil {
+	if !IsNil(o.AssetlinksJson) {
 		toSerialize["assetlinks.json"] = o.AssetlinksJson
 	}
-	if o.Webauthn != nil {
+	if !IsNil(o.Webauthn) {
 		toSerialize["webauthn"] = o.Webauthn
 	}
 
@@ -202,30 +213,28 @@ func (o WellKnownURIsRootLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *WellKnownURIsRootLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *WellKnownURIsRootLinks) UnmarshalJSON(data []byte) (err error) {
 	varWellKnownURIsRootLinks := _WellKnownURIsRootLinks{}
 
-	err = json.Unmarshal(bytes, &varWellKnownURIsRootLinks)
-	if err == nil {
-		*o = WellKnownURIsRootLinks(varWellKnownURIsRootLinks)
-	} else {
+	err = json.Unmarshal(data, &varWellKnownURIsRootLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = WellKnownURIsRootLinks(varWellKnownURIsRootLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "apple-app-site-association")
 		delete(additionalProperties, "assetlinks.json")
 		delete(additionalProperties, "webauthn")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -266,4 +275,3 @@ func (v *NullableWellKnownURIsRootLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

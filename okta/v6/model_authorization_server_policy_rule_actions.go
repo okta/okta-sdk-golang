@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthorizationServerPolicyRuleActions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthorizationServerPolicyRuleActions{}
+
 // AuthorizationServerPolicyRuleActions struct for AuthorizationServerPolicyRuleActions
 type AuthorizationServerPolicyRuleActions struct {
-	Token *TokenAuthorizationServerPolicyRuleAction `json:"token,omitempty"`
+	Token                *TokenAuthorizationServerPolicyRuleAction `json:"token,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewAuthorizationServerPolicyRuleActionsWithDefaults() *AuthorizationServerP
 
 // GetToken returns the Token field value if set, zero value otherwise.
 func (o *AuthorizationServerPolicyRuleActions) GetToken() TokenAuthorizationServerPolicyRuleAction {
-	if o == nil || o.Token == nil {
+	if o == nil || IsNil(o.Token) {
 		var ret TokenAuthorizationServerPolicyRuleAction
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *AuthorizationServerPolicyRuleActions) GetToken() TokenAuthorizationServ
 // GetTokenOk returns a tuple with the Token field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerPolicyRuleActions) GetTokenOk() (*TokenAuthorizationServerPolicyRuleAction, bool) {
-	if o == nil || o.Token == nil {
+	if o == nil || IsNil(o.Token) {
 		return nil, false
 	}
 	return o.Token, true
@@ -72,7 +75,7 @@ func (o *AuthorizationServerPolicyRuleActions) GetTokenOk() (*TokenAuthorization
 
 // HasToken returns a boolean if a field has been set.
 func (o *AuthorizationServerPolicyRuleActions) HasToken() bool {
-	if o != nil && o.Token != nil {
+	if o != nil && !IsNil(o.Token) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *AuthorizationServerPolicyRuleActions) SetToken(v TokenAuthorizationServ
 }
 
 func (o AuthorizationServerPolicyRuleActions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthorizationServerPolicyRuleActions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Token != nil {
+	if !IsNil(o.Token) {
 		toSerialize["token"] = o.Token
 	}
 
@@ -94,27 +105,25 @@ func (o AuthorizationServerPolicyRuleActions) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthorizationServerPolicyRuleActions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthorizationServerPolicyRuleActions) UnmarshalJSON(data []byte) (err error) {
 	varAuthorizationServerPolicyRuleActions := _AuthorizationServerPolicyRuleActions{}
 
-	err = json.Unmarshal(bytes, &varAuthorizationServerPolicyRuleActions)
-	if err == nil {
-		*o = AuthorizationServerPolicyRuleActions(varAuthorizationServerPolicyRuleActions)
-	} else {
+	err = json.Unmarshal(data, &varAuthorizationServerPolicyRuleActions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthorizationServerPolicyRuleActions(varAuthorizationServerPolicyRuleActions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "token")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableAuthorizationServerPolicyRuleActions) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

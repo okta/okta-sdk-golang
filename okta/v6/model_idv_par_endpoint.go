@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the IDVParEndpoint type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IDVParEndpoint{}
+
 // IDVParEndpoint IDV [PAR](https://datatracker.ietf.org/doc/html/rfc9126) endpoint
 type IDVParEndpoint struct {
 	Binding *string `json:"binding,omitempty"`
 	// URL of the IDV `par` endpoint
-	Url *string `json:"url,omitempty"`
+	Url                  *string `json:"url,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewIDVParEndpointWithDefaults() *IDVParEndpoint {
 
 // GetBinding returns the Binding field value if set, zero value otherwise.
 func (o *IDVParEndpoint) GetBinding() string {
-	if o == nil || o.Binding == nil {
+	if o == nil || IsNil(o.Binding) {
 		var ret string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *IDVParEndpoint) GetBinding() string {
 // GetBindingOk returns a tuple with the Binding field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IDVParEndpoint) GetBindingOk() (*string, bool) {
-	if o == nil || o.Binding == nil {
+	if o == nil || IsNil(o.Binding) {
 		return nil, false
 	}
 	return o.Binding, true
@@ -74,7 +77,7 @@ func (o *IDVParEndpoint) GetBindingOk() (*string, bool) {
 
 // HasBinding returns a boolean if a field has been set.
 func (o *IDVParEndpoint) HasBinding() bool {
-	if o != nil && o.Binding != nil {
+	if o != nil && !IsNil(o.Binding) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *IDVParEndpoint) SetBinding(v string) {
 
 // GetUrl returns the Url field value if set, zero value otherwise.
 func (o *IDVParEndpoint) GetUrl() string {
-	if o == nil || o.Url == nil {
+	if o == nil || IsNil(o.Url) {
 		var ret string
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *IDVParEndpoint) GetUrl() string {
 // GetUrlOk returns a tuple with the Url field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IDVParEndpoint) GetUrlOk() (*string, bool) {
-	if o == nil || o.Url == nil {
+	if o == nil || IsNil(o.Url) {
 		return nil, false
 	}
 	return o.Url, true
@@ -106,7 +109,7 @@ func (o *IDVParEndpoint) GetUrlOk() (*string, bool) {
 
 // HasUrl returns a boolean if a field has been set.
 func (o *IDVParEndpoint) HasUrl() bool {
-	if o != nil && o.Url != nil {
+	if o != nil && !IsNil(o.Url) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *IDVParEndpoint) SetUrl(v string) {
 }
 
 func (o IDVParEndpoint) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IDVParEndpoint) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Binding != nil {
+	if !IsNil(o.Binding) {
 		toSerialize["binding"] = o.Binding
 	}
-	if o.Url != nil {
+	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
 	}
 
@@ -131,28 +142,26 @@ func (o IDVParEndpoint) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *IDVParEndpoint) UnmarshalJSON(bytes []byte) (err error) {
+func (o *IDVParEndpoint) UnmarshalJSON(data []byte) (err error) {
 	varIDVParEndpoint := _IDVParEndpoint{}
 
-	err = json.Unmarshal(bytes, &varIDVParEndpoint)
-	if err == nil {
-		*o = IDVParEndpoint(varIDVParEndpoint)
-	} else {
+	err = json.Unmarshal(data, &varIDVParEndpoint)
+
+	if err != nil {
 		return err
 	}
 
+	*o = IDVParEndpoint(varIDVParEndpoint)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "binding")
 		delete(additionalProperties, "url")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableIDVParEndpoint) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

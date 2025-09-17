@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the Error409 type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Error409{}
+
 // Error409 Conflict error object
 type Error409 struct {
 	// Another request has already been received for the settings for this email template
@@ -38,7 +41,7 @@ type Error409 struct {
 	// E0000254
 	ErrorLink *string `json:"errorLink,omitempty"`
 	// Another request has already been received for the settings for this email template
-	ErrorSummary *string `json:"errorSummary,omitempty"`
+	ErrorSummary         *string `json:"errorSummary,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -63,7 +66,7 @@ func NewError409WithDefaults() *Error409 {
 
 // GetErrorCauses returns the ErrorCauses field value if set, zero value otherwise.
 func (o *Error409) GetErrorCauses() []string {
-	if o == nil || o.ErrorCauses == nil {
+	if o == nil || IsNil(o.ErrorCauses) {
 		var ret []string
 		return ret
 	}
@@ -73,7 +76,7 @@ func (o *Error409) GetErrorCauses() []string {
 // GetErrorCausesOk returns a tuple with the ErrorCauses field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Error409) GetErrorCausesOk() ([]string, bool) {
-	if o == nil || o.ErrorCauses == nil {
+	if o == nil || IsNil(o.ErrorCauses) {
 		return nil, false
 	}
 	return o.ErrorCauses, true
@@ -81,7 +84,7 @@ func (o *Error409) GetErrorCausesOk() ([]string, bool) {
 
 // HasErrorCauses returns a boolean if a field has been set.
 func (o *Error409) HasErrorCauses() bool {
-	if o != nil && o.ErrorCauses != nil {
+	if o != nil && !IsNil(o.ErrorCauses) {
 		return true
 	}
 
@@ -95,7 +98,7 @@ func (o *Error409) SetErrorCauses(v []string) {
 
 // GetErrorCode returns the ErrorCode field value if set, zero value otherwise.
 func (o *Error409) GetErrorCode() string {
-	if o == nil || o.ErrorCode == nil {
+	if o == nil || IsNil(o.ErrorCode) {
 		var ret string
 		return ret
 	}
@@ -105,7 +108,7 @@ func (o *Error409) GetErrorCode() string {
 // GetErrorCodeOk returns a tuple with the ErrorCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Error409) GetErrorCodeOk() (*string, bool) {
-	if o == nil || o.ErrorCode == nil {
+	if o == nil || IsNil(o.ErrorCode) {
 		return nil, false
 	}
 	return o.ErrorCode, true
@@ -113,7 +116,7 @@ func (o *Error409) GetErrorCodeOk() (*string, bool) {
 
 // HasErrorCode returns a boolean if a field has been set.
 func (o *Error409) HasErrorCode() bool {
-	if o != nil && o.ErrorCode != nil {
+	if o != nil && !IsNil(o.ErrorCode) {
 		return true
 	}
 
@@ -127,7 +130,7 @@ func (o *Error409) SetErrorCode(v string) {
 
 // GetErrorId returns the ErrorId field value if set, zero value otherwise.
 func (o *Error409) GetErrorId() string {
-	if o == nil || o.ErrorId == nil {
+	if o == nil || IsNil(o.ErrorId) {
 		var ret string
 		return ret
 	}
@@ -137,7 +140,7 @@ func (o *Error409) GetErrorId() string {
 // GetErrorIdOk returns a tuple with the ErrorId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Error409) GetErrorIdOk() (*string, bool) {
-	if o == nil || o.ErrorId == nil {
+	if o == nil || IsNil(o.ErrorId) {
 		return nil, false
 	}
 	return o.ErrorId, true
@@ -145,7 +148,7 @@ func (o *Error409) GetErrorIdOk() (*string, bool) {
 
 // HasErrorId returns a boolean if a field has been set.
 func (o *Error409) HasErrorId() bool {
-	if o != nil && o.ErrorId != nil {
+	if o != nil && !IsNil(o.ErrorId) {
 		return true
 	}
 
@@ -159,7 +162,7 @@ func (o *Error409) SetErrorId(v string) {
 
 // GetErrorLink returns the ErrorLink field value if set, zero value otherwise.
 func (o *Error409) GetErrorLink() string {
-	if o == nil || o.ErrorLink == nil {
+	if o == nil || IsNil(o.ErrorLink) {
 		var ret string
 		return ret
 	}
@@ -169,7 +172,7 @@ func (o *Error409) GetErrorLink() string {
 // GetErrorLinkOk returns a tuple with the ErrorLink field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Error409) GetErrorLinkOk() (*string, bool) {
-	if o == nil || o.ErrorLink == nil {
+	if o == nil || IsNil(o.ErrorLink) {
 		return nil, false
 	}
 	return o.ErrorLink, true
@@ -177,7 +180,7 @@ func (o *Error409) GetErrorLinkOk() (*string, bool) {
 
 // HasErrorLink returns a boolean if a field has been set.
 func (o *Error409) HasErrorLink() bool {
-	if o != nil && o.ErrorLink != nil {
+	if o != nil && !IsNil(o.ErrorLink) {
 		return true
 	}
 
@@ -191,7 +194,7 @@ func (o *Error409) SetErrorLink(v string) {
 
 // GetErrorSummary returns the ErrorSummary field value if set, zero value otherwise.
 func (o *Error409) GetErrorSummary() string {
-	if o == nil || o.ErrorSummary == nil {
+	if o == nil || IsNil(o.ErrorSummary) {
 		var ret string
 		return ret
 	}
@@ -201,7 +204,7 @@ func (o *Error409) GetErrorSummary() string {
 // GetErrorSummaryOk returns a tuple with the ErrorSummary field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Error409) GetErrorSummaryOk() (*string, bool) {
-	if o == nil || o.ErrorSummary == nil {
+	if o == nil || IsNil(o.ErrorSummary) {
 		return nil, false
 	}
 	return o.ErrorSummary, true
@@ -209,7 +212,7 @@ func (o *Error409) GetErrorSummaryOk() (*string, bool) {
 
 // HasErrorSummary returns a boolean if a field has been set.
 func (o *Error409) HasErrorSummary() bool {
-	if o != nil && o.ErrorSummary != nil {
+	if o != nil && !IsNil(o.ErrorSummary) {
 		return true
 	}
 
@@ -222,20 +225,28 @@ func (o *Error409) SetErrorSummary(v string) {
 }
 
 func (o Error409) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Error409) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ErrorCauses != nil {
+	if !IsNil(o.ErrorCauses) {
 		toSerialize["errorCauses"] = o.ErrorCauses
 	}
-	if o.ErrorCode != nil {
+	if !IsNil(o.ErrorCode) {
 		toSerialize["errorCode"] = o.ErrorCode
 	}
-	if o.ErrorId != nil {
+	if !IsNil(o.ErrorId) {
 		toSerialize["errorId"] = o.ErrorId
 	}
-	if o.ErrorLink != nil {
+	if !IsNil(o.ErrorLink) {
 		toSerialize["errorLink"] = o.ErrorLink
 	}
-	if o.ErrorSummary != nil {
+	if !IsNil(o.ErrorSummary) {
 		toSerialize["errorSummary"] = o.ErrorSummary
 	}
 
@@ -243,31 +254,29 @@ func (o Error409) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Error409) UnmarshalJSON(bytes []byte) (err error) {
+func (o *Error409) UnmarshalJSON(data []byte) (err error) {
 	varError409 := _Error409{}
 
-	err = json.Unmarshal(bytes, &varError409)
-	if err == nil {
-		*o = Error409(varError409)
-	} else {
+	err = json.Unmarshal(data, &varError409)
+
+	if err != nil {
 		return err
 	}
 
+	*o = Error409(varError409)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "errorCauses")
 		delete(additionalProperties, "errorCode")
 		delete(additionalProperties, "errorId")
 		delete(additionalProperties, "errorLink")
 		delete(additionalProperties, "errorSummary")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -308,4 +317,3 @@ func (v *NullableError409) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

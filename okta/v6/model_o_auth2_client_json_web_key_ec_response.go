@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the OAuth2ClientJsonWebKeyECResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OAuth2ClientJsonWebKeyECResponse{}
+
 // OAuth2ClientJsonWebKeyECResponse An EC signing key
 type OAuth2ClientJsonWebKeyECResponse struct {
 	// Cryptographic algorithm family for the certificate's key pair
@@ -44,8 +47,8 @@ type OAuth2ClientJsonWebKeyECResponse struct {
 	// The unique ID of the OAuth Client JSON Web Key
 	Id *string `json:"id,omitempty"`
 	// Timestamp when the OAuth 2.0 client JSON Web Key was updated
-	LastUpdated *string `json:"lastUpdated,omitempty"`
-	Links *OAuthClientSecretLinks `json:"_links,omitempty"`
+	LastUpdated          *string                 `json:"lastUpdated,omitempty"`
+	Links                *OAuthClientSecretLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -74,7 +77,7 @@ func NewOAuth2ClientJsonWebKeyECResponseWithDefaults() *OAuth2ClientJsonWebKeyEC
 
 // GetKty returns the Kty field value if set, zero value otherwise.
 func (o *OAuth2ClientJsonWebKeyECResponse) GetKty() string {
-	if o == nil || o.Kty == nil {
+	if o == nil || IsNil(o.Kty) {
 		var ret string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *OAuth2ClientJsonWebKeyECResponse) GetKty() string {
 // GetKtyOk returns a tuple with the Kty field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ClientJsonWebKeyECResponse) GetKtyOk() (*string, bool) {
-	if o == nil || o.Kty == nil {
+	if o == nil || IsNil(o.Kty) {
 		return nil, false
 	}
 	return o.Kty, true
@@ -92,7 +95,7 @@ func (o *OAuth2ClientJsonWebKeyECResponse) GetKtyOk() (*string, bool) {
 
 // HasKty returns a boolean if a field has been set.
 func (o *OAuth2ClientJsonWebKeyECResponse) HasKty() bool {
-	if o != nil && o.Kty != nil {
+	if o != nil && !IsNil(o.Kty) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *OAuth2ClientJsonWebKeyECResponse) SetKty(v string) {
 
 // GetX returns the X field value if set, zero value otherwise.
 func (o *OAuth2ClientJsonWebKeyECResponse) GetX() string {
-	if o == nil || o.X == nil {
+	if o == nil || IsNil(o.X) {
 		var ret string
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *OAuth2ClientJsonWebKeyECResponse) GetX() string {
 // GetXOk returns a tuple with the X field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ClientJsonWebKeyECResponse) GetXOk() (*string, bool) {
-	if o == nil || o.X == nil {
+	if o == nil || IsNil(o.X) {
 		return nil, false
 	}
 	return o.X, true
@@ -124,7 +127,7 @@ func (o *OAuth2ClientJsonWebKeyECResponse) GetXOk() (*string, bool) {
 
 // HasX returns a boolean if a field has been set.
 func (o *OAuth2ClientJsonWebKeyECResponse) HasX() bool {
-	if o != nil && o.X != nil {
+	if o != nil && !IsNil(o.X) {
 		return true
 	}
 
@@ -138,7 +141,7 @@ func (o *OAuth2ClientJsonWebKeyECResponse) SetX(v string) {
 
 // GetY returns the Y field value if set, zero value otherwise.
 func (o *OAuth2ClientJsonWebKeyECResponse) GetY() string {
-	if o == nil || o.Y == nil {
+	if o == nil || IsNil(o.Y) {
 		var ret string
 		return ret
 	}
@@ -148,7 +151,7 @@ func (o *OAuth2ClientJsonWebKeyECResponse) GetY() string {
 // GetYOk returns a tuple with the Y field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ClientJsonWebKeyECResponse) GetYOk() (*string, bool) {
-	if o == nil || o.Y == nil {
+	if o == nil || IsNil(o.Y) {
 		return nil, false
 	}
 	return o.Y, true
@@ -156,7 +159,7 @@ func (o *OAuth2ClientJsonWebKeyECResponse) GetYOk() (*string, bool) {
 
 // HasY returns a boolean if a field has been set.
 func (o *OAuth2ClientJsonWebKeyECResponse) HasY() bool {
-	if o != nil && o.Y != nil {
+	if o != nil && !IsNil(o.Y) {
 		return true
 	}
 
@@ -170,7 +173,7 @@ func (o *OAuth2ClientJsonWebKeyECResponse) SetY(v string) {
 
 // GetKid returns the Kid field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *OAuth2ClientJsonWebKeyECResponse) GetKid() string {
-	if o == nil || o.Kid.Get() == nil {
+	if o == nil || IsNil(o.Kid.Get()) {
 		var ret string
 		return ret
 	}
@@ -200,6 +203,7 @@ func (o *OAuth2ClientJsonWebKeyECResponse) HasKid() bool {
 func (o *OAuth2ClientJsonWebKeyECResponse) SetKid(v string) {
 	o.Kid.Set(&v)
 }
+
 // SetKidNil sets the value for Kid to be an explicit nil
 func (o *OAuth2ClientJsonWebKeyECResponse) SetKidNil() {
 	o.Kid.Set(nil)
@@ -212,7 +216,7 @@ func (o *OAuth2ClientJsonWebKeyECResponse) UnsetKid() {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *OAuth2ClientJsonWebKeyECResponse) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -222,7 +226,7 @@ func (o *OAuth2ClientJsonWebKeyECResponse) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ClientJsonWebKeyECResponse) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -230,7 +234,7 @@ func (o *OAuth2ClientJsonWebKeyECResponse) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *OAuth2ClientJsonWebKeyECResponse) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -244,7 +248,7 @@ func (o *OAuth2ClientJsonWebKeyECResponse) SetStatus(v string) {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *OAuth2ClientJsonWebKeyECResponse) GetCreated() string {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret string
 		return ret
 	}
@@ -254,7 +258,7 @@ func (o *OAuth2ClientJsonWebKeyECResponse) GetCreated() string {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ClientJsonWebKeyECResponse) GetCreatedOk() (*string, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -262,7 +266,7 @@ func (o *OAuth2ClientJsonWebKeyECResponse) GetCreatedOk() (*string, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *OAuth2ClientJsonWebKeyECResponse) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -276,7 +280,7 @@ func (o *OAuth2ClientJsonWebKeyECResponse) SetCreated(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *OAuth2ClientJsonWebKeyECResponse) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -286,7 +290,7 @@ func (o *OAuth2ClientJsonWebKeyECResponse) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ClientJsonWebKeyECResponse) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -294,7 +298,7 @@ func (o *OAuth2ClientJsonWebKeyECResponse) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *OAuth2ClientJsonWebKeyECResponse) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -308,7 +312,7 @@ func (o *OAuth2ClientJsonWebKeyECResponse) SetId(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *OAuth2ClientJsonWebKeyECResponse) GetLastUpdated() string {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret string
 		return ret
 	}
@@ -318,7 +322,7 @@ func (o *OAuth2ClientJsonWebKeyECResponse) GetLastUpdated() string {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ClientJsonWebKeyECResponse) GetLastUpdatedOk() (*string, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -326,7 +330,7 @@ func (o *OAuth2ClientJsonWebKeyECResponse) GetLastUpdatedOk() (*string, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *OAuth2ClientJsonWebKeyECResponse) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -340,7 +344,7 @@ func (o *OAuth2ClientJsonWebKeyECResponse) SetLastUpdated(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *OAuth2ClientJsonWebKeyECResponse) GetLinks() OAuthClientSecretLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret OAuthClientSecretLinks
 		return ret
 	}
@@ -350,7 +354,7 @@ func (o *OAuth2ClientJsonWebKeyECResponse) GetLinks() OAuthClientSecretLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ClientJsonWebKeyECResponse) GetLinksOk() (*OAuthClientSecretLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -358,7 +362,7 @@ func (o *OAuth2ClientJsonWebKeyECResponse) GetLinksOk() (*OAuthClientSecretLinks
 
 // HasLinks returns a boolean if a field has been set.
 func (o *OAuth2ClientJsonWebKeyECResponse) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -371,32 +375,40 @@ func (o *OAuth2ClientJsonWebKeyECResponse) SetLinks(v OAuthClientSecretLinks) {
 }
 
 func (o OAuth2ClientJsonWebKeyECResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OAuth2ClientJsonWebKeyECResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Kty != nil {
+	if !IsNil(o.Kty) {
 		toSerialize["kty"] = o.Kty
 	}
-	if o.X != nil {
+	if !IsNil(o.X) {
 		toSerialize["x"] = o.X
 	}
-	if o.Y != nil {
+	if !IsNil(o.Y) {
 		toSerialize["y"] = o.Y
 	}
 	if o.Kid.IsSet() {
 		toSerialize["kid"] = o.Kid.Get()
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -404,23 +416,23 @@ func (o OAuth2ClientJsonWebKeyECResponse) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OAuth2ClientJsonWebKeyECResponse) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OAuth2ClientJsonWebKeyECResponse) UnmarshalJSON(data []byte) (err error) {
 	varOAuth2ClientJsonWebKeyECResponse := _OAuth2ClientJsonWebKeyECResponse{}
 
-	err = json.Unmarshal(bytes, &varOAuth2ClientJsonWebKeyECResponse)
-	if err == nil {
-		*o = OAuth2ClientJsonWebKeyECResponse(varOAuth2ClientJsonWebKeyECResponse)
-	} else {
+	err = json.Unmarshal(data, &varOAuth2ClientJsonWebKeyECResponse)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OAuth2ClientJsonWebKeyECResponse(varOAuth2ClientJsonWebKeyECResponse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "kty")
 		delete(additionalProperties, "x")
 		delete(additionalProperties, "y")
@@ -431,8 +443,6 @@ func (o *OAuth2ClientJsonWebKeyECResponse) UnmarshalJSON(bytes []byte) (err erro
 		delete(additionalProperties, "lastUpdated")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -473,4 +483,3 @@ func (v *NullableOAuth2ClientJsonWebKeyECResponse) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

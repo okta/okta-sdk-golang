@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"fmt"
 )
 
+// checks if the HrefObjectResourceSetResourcesLink type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &HrefObjectResourceSetResourcesLink{}
+
 // HrefObjectResourceSetResourcesLink Link to resource set resources
 type HrefObjectResourceSetResourcesLink struct {
 	Hints *HrefHints `json:"hints,omitempty"`
@@ -38,7 +41,7 @@ type HrefObjectResourceSetResourcesLink struct {
 	// Indicates whether the link object's `href` property is a URI template.
 	Templated *bool `json:"templated,omitempty"`
 	// The media type of the link. If omitted, it is implicitly `application/json`.
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -64,7 +67,7 @@ func NewHrefObjectResourceSetResourcesLinkWithDefaults() *HrefObjectResourceSetR
 
 // GetHints returns the Hints field value if set, zero value otherwise.
 func (o *HrefObjectResourceSetResourcesLink) GetHints() HrefHints {
-	if o == nil || o.Hints == nil {
+	if o == nil || IsNil(o.Hints) {
 		var ret HrefHints
 		return ret
 	}
@@ -74,7 +77,7 @@ func (o *HrefObjectResourceSetResourcesLink) GetHints() HrefHints {
 // GetHintsOk returns a tuple with the Hints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HrefObjectResourceSetResourcesLink) GetHintsOk() (*HrefHints, bool) {
-	if o == nil || o.Hints == nil {
+	if o == nil || IsNil(o.Hints) {
 		return nil, false
 	}
 	return o.Hints, true
@@ -82,7 +85,7 @@ func (o *HrefObjectResourceSetResourcesLink) GetHintsOk() (*HrefHints, bool) {
 
 // HasHints returns a boolean if a field has been set.
 func (o *HrefObjectResourceSetResourcesLink) HasHints() bool {
-	if o != nil && o.Hints != nil {
+	if o != nil && !IsNil(o.Hints) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *HrefObjectResourceSetResourcesLink) SetHref(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *HrefObjectResourceSetResourcesLink) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *HrefObjectResourceSetResourcesLink) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HrefObjectResourceSetResourcesLink) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -138,7 +141,7 @@ func (o *HrefObjectResourceSetResourcesLink) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *HrefObjectResourceSetResourcesLink) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -152,7 +155,7 @@ func (o *HrefObjectResourceSetResourcesLink) SetName(v string) {
 
 // GetTemplated returns the Templated field value if set, zero value otherwise.
 func (o *HrefObjectResourceSetResourcesLink) GetTemplated() bool {
-	if o == nil || o.Templated == nil {
+	if o == nil || IsNil(o.Templated) {
 		var ret bool
 		return ret
 	}
@@ -162,7 +165,7 @@ func (o *HrefObjectResourceSetResourcesLink) GetTemplated() bool {
 // GetTemplatedOk returns a tuple with the Templated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HrefObjectResourceSetResourcesLink) GetTemplatedOk() (*bool, bool) {
-	if o == nil || o.Templated == nil {
+	if o == nil || IsNil(o.Templated) {
 		return nil, false
 	}
 	return o.Templated, true
@@ -170,7 +173,7 @@ func (o *HrefObjectResourceSetResourcesLink) GetTemplatedOk() (*bool, bool) {
 
 // HasTemplated returns a boolean if a field has been set.
 func (o *HrefObjectResourceSetResourcesLink) HasTemplated() bool {
-	if o != nil && o.Templated != nil {
+	if o != nil && !IsNil(o.Templated) {
 		return true
 	}
 
@@ -184,7 +187,7 @@ func (o *HrefObjectResourceSetResourcesLink) SetTemplated(v bool) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *HrefObjectResourceSetResourcesLink) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -194,7 +197,7 @@ func (o *HrefObjectResourceSetResourcesLink) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HrefObjectResourceSetResourcesLink) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -202,7 +205,7 @@ func (o *HrefObjectResourceSetResourcesLink) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *HrefObjectResourceSetResourcesLink) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -215,20 +218,26 @@ func (o *HrefObjectResourceSetResourcesLink) SetType(v string) {
 }
 
 func (o HrefObjectResourceSetResourcesLink) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o HrefObjectResourceSetResourcesLink) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Hints != nil {
+	if !IsNil(o.Hints) {
 		toSerialize["hints"] = o.Hints
 	}
-	if true {
-		toSerialize["href"] = o.Href
-	}
-	if o.Name != nil {
+	toSerialize["href"] = o.Href
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Templated != nil {
+	if !IsNil(o.Templated) {
 		toSerialize["templated"] = o.Templated
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -236,31 +245,50 @@ func (o HrefObjectResourceSetResourcesLink) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *HrefObjectResourceSetResourcesLink) UnmarshalJSON(bytes []byte) (err error) {
-	varHrefObjectResourceSetResourcesLink := _HrefObjectResourceSetResourcesLink{}
+func (o *HrefObjectResourceSetResourcesLink) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"href",
+	}
 
-	err = json.Unmarshal(bytes, &varHrefObjectResourceSetResourcesLink)
-	if err == nil {
-		*o = HrefObjectResourceSetResourcesLink(varHrefObjectResourceSetResourcesLink)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varHrefObjectResourceSetResourcesLink := _HrefObjectResourceSetResourcesLink{}
+
+	err = json.Unmarshal(data, &varHrefObjectResourceSetResourcesLink)
+
+	if err != nil {
+		return err
+	}
+
+	*o = HrefObjectResourceSetResourcesLink(varHrefObjectResourceSetResourcesLink)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "hints")
 		delete(additionalProperties, "href")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "templated")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -301,4 +329,3 @@ func (v *NullableHrefObjectResourceSetResourcesLink) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

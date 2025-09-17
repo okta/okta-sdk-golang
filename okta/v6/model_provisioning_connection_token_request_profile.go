@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,12 +28,15 @@ import (
 	"fmt"
 )
 
+// checks if the ProvisioningConnectionTokenRequestProfile type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ProvisioningConnectionTokenRequestProfile{}
+
 // ProvisioningConnectionTokenRequestProfile struct for ProvisioningConnectionTokenRequestProfile
 type ProvisioningConnectionTokenRequestProfile struct {
 	// A token is used to authenticate with the app. This property is only returned for the `TOKEN` authentication scheme.
 	AuthScheme string `json:"authScheme"`
 	// Token used to authenticate with the app
-	Token *string `json:"token,omitempty"`
+	Token                *string `json:"token,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -83,7 +86,7 @@ func (o *ProvisioningConnectionTokenRequestProfile) SetAuthScheme(v string) {
 
 // GetToken returns the Token field value if set, zero value otherwise.
 func (o *ProvisioningConnectionTokenRequestProfile) GetToken() string {
-	if o == nil || o.Token == nil {
+	if o == nil || IsNil(o.Token) {
 		var ret string
 		return ret
 	}
@@ -93,7 +96,7 @@ func (o *ProvisioningConnectionTokenRequestProfile) GetToken() string {
 // GetTokenOk returns a tuple with the Token field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProvisioningConnectionTokenRequestProfile) GetTokenOk() (*string, bool) {
-	if o == nil || o.Token == nil {
+	if o == nil || IsNil(o.Token) {
 		return nil, false
 	}
 	return o.Token, true
@@ -101,7 +104,7 @@ func (o *ProvisioningConnectionTokenRequestProfile) GetTokenOk() (*string, bool)
 
 // HasToken returns a boolean if a field has been set.
 func (o *ProvisioningConnectionTokenRequestProfile) HasToken() bool {
-	if o != nil && o.Token != nil {
+	if o != nil && !IsNil(o.Token) {
 		return true
 	}
 
@@ -114,11 +117,17 @@ func (o *ProvisioningConnectionTokenRequestProfile) SetToken(v string) {
 }
 
 func (o ProvisioningConnectionTokenRequestProfile) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["authScheme"] = o.AuthScheme
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Token != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o ProvisioningConnectionTokenRequestProfile) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["authScheme"] = o.AuthScheme
+	if !IsNil(o.Token) {
 		toSerialize["token"] = o.Token
 	}
 
@@ -126,28 +135,47 @@ func (o ProvisioningConnectionTokenRequestProfile) MarshalJSON() ([]byte, error)
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ProvisioningConnectionTokenRequestProfile) UnmarshalJSON(bytes []byte) (err error) {
-	varProvisioningConnectionTokenRequestProfile := _ProvisioningConnectionTokenRequestProfile{}
+func (o *ProvisioningConnectionTokenRequestProfile) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"authScheme",
+	}
 
-	err = json.Unmarshal(bytes, &varProvisioningConnectionTokenRequestProfile)
-	if err == nil {
-		*o = ProvisioningConnectionTokenRequestProfile(varProvisioningConnectionTokenRequestProfile)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varProvisioningConnectionTokenRequestProfile := _ProvisioningConnectionTokenRequestProfile{}
+
+	err = json.Unmarshal(data, &varProvisioningConnectionTokenRequestProfile)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ProvisioningConnectionTokenRequestProfile(varProvisioningConnectionTokenRequestProfile)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "authScheme")
 		delete(additionalProperties, "token")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -188,4 +216,3 @@ func (v *NullableProvisioningConnectionTokenRequestProfile) UnmarshalJSON(src []
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

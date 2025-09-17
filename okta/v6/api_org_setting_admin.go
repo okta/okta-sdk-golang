@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,22 +26,21 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"time"
 )
 
-
 type OrgSettingAdminAPI interface {
 
 	/*
-	AssignClientPrivilegesSetting Assign the default public client app role setting
+		AssignClientPrivilegesSetting Assign the default public client app role setting
 
-	Assigns the [Super Admin role](https://help.okta.com/okta_help.htm?type=oie&id=ext_superadmin) as the default role for new public client apps
+		Assigns the [Super Admin role](https://help.okta.com/okta_help.htm?type=oie&id=ext_superadmin) as the default role for new public client apps
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiAssignClientPrivilegesSettingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiAssignClientPrivilegesSettingRequest
 	*/
 	AssignClientPrivilegesSetting(ctx context.Context) ApiAssignClientPrivilegesSettingRequest
 
@@ -50,12 +49,12 @@ type OrgSettingAdminAPI interface {
 	AssignClientPrivilegesSettingExecute(r ApiAssignClientPrivilegesSettingRequest) (*ClientPrivilegesSetting, *APIResponse, error)
 
 	/*
-	GetAutoAssignAdminAppSetting Retrieve the Okta Admin Console assignment setting
+		GetAutoAssignAdminAppSetting Retrieve the Okta Admin Console assignment setting
 
-	Retrieves the org setting to automatically assign the Okta Admin Console when an admin role is assigned
+		Retrieves the org setting to automatically assign the Okta Admin Console when an admin role is assigned
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetAutoAssignAdminAppSettingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetAutoAssignAdminAppSettingRequest
 	*/
 	GetAutoAssignAdminAppSetting(ctx context.Context) ApiGetAutoAssignAdminAppSettingRequest
 
@@ -64,12 +63,12 @@ type OrgSettingAdminAPI interface {
 	GetAutoAssignAdminAppSettingExecute(r ApiGetAutoAssignAdminAppSettingRequest) (*AutoAssignAdminAppSetting, *APIResponse, error)
 
 	/*
-	GetClientPrivilegesSetting Retrieve the default public client app role setting
+		GetClientPrivilegesSetting Retrieve the default public client app role setting
 
-	Retrieves the org setting to assign the [Super Admin role](https://help.okta.com/okta_help.htm?type=oie&id=ext_superadmin) to new public client apps
+		Retrieves the org setting to assign the [Super Admin role](https://help.okta.com/okta_help.htm?type=oie&id=ext_superadmin) to new public client apps
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetClientPrivilegesSettingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetClientPrivilegesSettingRequest
 	*/
 	GetClientPrivilegesSetting(ctx context.Context) ApiGetClientPrivilegesSettingRequest
 
@@ -78,12 +77,12 @@ type OrgSettingAdminAPI interface {
 	GetClientPrivilegesSettingExecute(r ApiGetClientPrivilegesSettingRequest) (*ClientPrivilegesSetting, *APIResponse, error)
 
 	/*
-	GetThirdPartyAdminSetting Retrieve the org third-party admin setting
+		GetThirdPartyAdminSetting Retrieve the org third-party admin setting
 
-	Retrieves the third-party admin setting. See [Configure third-party administrators](https://help.okta.com/okta_help.htm?type=oie&id=csh_admin-third) in the Okta product documentation.
+		Retrieves the third-party admin setting. See [Configure third-party administrators](https://help.okta.com/okta_help.htm?type=oie&id=csh_admin-third) in the Okta product documentation.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetThirdPartyAdminSettingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetThirdPartyAdminSettingRequest
 	*/
 	GetThirdPartyAdminSetting(ctx context.Context) ApiGetThirdPartyAdminSettingRequest
 
@@ -92,15 +91,15 @@ type OrgSettingAdminAPI interface {
 	GetThirdPartyAdminSettingExecute(r ApiGetThirdPartyAdminSettingRequest) (*ThirdPartyAdminSetting, *APIResponse, error)
 
 	/*
-	UpdateAutoAssignAdminAppSetting Update the Okta Admin Console assignment setting
+			UpdateAutoAssignAdminAppSetting Update the Okta Admin Console assignment setting
 
-	Updates the org setting to automatically assign the Okta Admin Console when an admin role is assigned
+			Updates the org setting to automatically assign the Okta Admin Console when an admin role is assigned
 
-> **Note:** This setting doesn't apply to the `SUPER_ADMIN` role.
-> When you assign the `SUPER_ADMIN` role to a user, the Admin Console is always assigned to the user regardless of the `autoAssignAdminAppSetting` setting.
+		> **Note:** This setting doesn't apply to the `SUPER_ADMIN` role.
+		> When you assign the `SUPER_ADMIN` role to a user, the Admin Console is always assigned to the user regardless of the `autoAssignAdminAppSetting` setting.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiUpdateAutoAssignAdminAppSettingRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiUpdateAutoAssignAdminAppSettingRequest
 	*/
 	UpdateAutoAssignAdminAppSetting(ctx context.Context) ApiUpdateAutoAssignAdminAppSettingRequest
 
@@ -109,19 +108,19 @@ type OrgSettingAdminAPI interface {
 	UpdateAutoAssignAdminAppSettingExecute(r ApiUpdateAutoAssignAdminAppSettingRequest) (*AutoAssignAdminAppSetting, *APIResponse, error)
 
 	/*
-	UpdateThirdPartyAdminSetting Update the org third-party admin setting
+			UpdateThirdPartyAdminSetting Update the org third-party admin setting
 
-	Updates the third-party admin setting.
-This setting allows third-party admins to perform administrative actions in the Admin Console, but they can't do any of the following:
-  * Receive Okta admin email notifications
-  * Contact Okta support
-  * Sign in to the Okta Help Center
+			Updates the third-party admin setting.
+		This setting allows third-party admins to perform administrative actions in the Admin Console, but they can't do any of the following:
+		  * Receive Okta admin email notifications
+		  * Contact Okta support
+		  * Sign in to the Okta Help Center
 
-See [Configure third-party administrators](https://help.okta.com/okta_help.htm?type=oie&id=csh_admin-third) in the Okta product documentation.
+		See [Configure third-party administrators](https://help.okta.com/okta_help.htm?type=oie&id=csh_admin-third) in the Okta product documentation.
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiUpdateThirdPartyAdminSettingRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiUpdateThirdPartyAdminSettingRequest
 	*/
 	UpdateThirdPartyAdminSetting(ctx context.Context) ApiUpdateThirdPartyAdminSettingRequest
 
@@ -134,10 +133,10 @@ See [Configure third-party administrators](https://help.okta.com/okta_help.htm?t
 type OrgSettingAdminAPIService service
 
 type ApiAssignClientPrivilegesSettingRequest struct {
-	ctx context.Context
-	ApiService OrgSettingAdminAPI
+	ctx                     context.Context
+	ApiService              OrgSettingAdminAPI
 	clientPrivilegesSetting *ClientPrivilegesSetting
-	retryCount int32
+	retryCount              int32
 }
 
 func (r ApiAssignClientPrivilegesSettingRequest) ClientPrivilegesSetting(clientPrivilegesSetting ClientPrivilegesSetting) ApiAssignClientPrivilegesSettingRequest {
@@ -154,19 +153,20 @@ AssignClientPrivilegesSetting Assign the default public client app role setting
 
 Assigns the [Super Admin role](https://help.okta.com/okta_help.htm?type=oie&id=ext_superadmin) as the default role for new public client apps
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiAssignClientPrivilegesSettingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAssignClientPrivilegesSettingRequest
 */
 func (a *OrgSettingAdminAPIService) AssignClientPrivilegesSetting(ctx context.Context) ApiAssignClientPrivilegesSettingRequest {
 	return ApiAssignClientPrivilegesSettingRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ClientPrivilegesSetting
+//
+//	@return ClientPrivilegesSetting
 func (a *OrgSettingAdminAPIService) AssignClientPrivilegesSettingExecute(r ApiAssignClientPrivilegesSettingRequest) (*ClientPrivilegesSetting, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -175,7 +175,7 @@ func (a *OrgSettingAdminAPIService) AssignClientPrivilegesSettingExecute(r ApiAs
 		localVarReturnValue  *ClientPrivilegesSetting
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -237,9 +237,9 @@ func (a *OrgSettingAdminAPIService) AssignClientPrivilegesSettingExecute(r ApiAs
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -285,13 +285,13 @@ func (a *OrgSettingAdminAPIService) AssignClientPrivilegesSettingExecute(r ApiAs
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetAutoAssignAdminAppSettingRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingAdminAPI
 	retryCount int32
 }
@@ -305,19 +305,20 @@ GetAutoAssignAdminAppSetting Retrieve the Okta Admin Console assignment setting
 
 Retrieves the org setting to automatically assign the Okta Admin Console when an admin role is assigned
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetAutoAssignAdminAppSettingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetAutoAssignAdminAppSettingRequest
 */
 func (a *OrgSettingAdminAPIService) GetAutoAssignAdminAppSetting(ctx context.Context) ApiGetAutoAssignAdminAppSettingRequest {
 	return ApiGetAutoAssignAdminAppSettingRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return AutoAssignAdminAppSetting
+//
+//	@return AutoAssignAdminAppSetting
 func (a *OrgSettingAdminAPIService) GetAutoAssignAdminAppSettingExecute(r ApiGetAutoAssignAdminAppSettingRequest) (*AutoAssignAdminAppSetting, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -326,7 +327,7 @@ func (a *OrgSettingAdminAPIService) GetAutoAssignAdminAppSettingExecute(r ApiGet
 		localVarReturnValue  *AutoAssignAdminAppSetting
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -386,9 +387,9 @@ func (a *OrgSettingAdminAPIService) GetAutoAssignAdminAppSettingExecute(r ApiGet
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -434,13 +435,13 @@ func (a *OrgSettingAdminAPIService) GetAutoAssignAdminAppSettingExecute(r ApiGet
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetClientPrivilegesSettingRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingAdminAPI
 	retryCount int32
 }
@@ -454,19 +455,20 @@ GetClientPrivilegesSetting Retrieve the default public client app role setting
 
 Retrieves the org setting to assign the [Super Admin role](https://help.okta.com/okta_help.htm?type=oie&id=ext_superadmin) to new public client apps
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetClientPrivilegesSettingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetClientPrivilegesSettingRequest
 */
 func (a *OrgSettingAdminAPIService) GetClientPrivilegesSetting(ctx context.Context) ApiGetClientPrivilegesSettingRequest {
 	return ApiGetClientPrivilegesSettingRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ClientPrivilegesSetting
+//
+//	@return ClientPrivilegesSetting
 func (a *OrgSettingAdminAPIService) GetClientPrivilegesSettingExecute(r ApiGetClientPrivilegesSettingRequest) (*ClientPrivilegesSetting, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -475,7 +477,7 @@ func (a *OrgSettingAdminAPIService) GetClientPrivilegesSettingExecute(r ApiGetCl
 		localVarReturnValue  *ClientPrivilegesSetting
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -535,9 +537,9 @@ func (a *OrgSettingAdminAPIService) GetClientPrivilegesSettingExecute(r ApiGetCl
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -583,13 +585,13 @@ func (a *OrgSettingAdminAPIService) GetClientPrivilegesSettingExecute(r ApiGetCl
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetThirdPartyAdminSettingRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingAdminAPI
 	retryCount int32
 }
@@ -603,19 +605,20 @@ GetThirdPartyAdminSetting Retrieve the org third-party admin setting
 
 Retrieves the third-party admin setting. See [Configure third-party administrators](https://help.okta.com/okta_help.htm?type=oie&id=csh_admin-third) in the Okta product documentation.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetThirdPartyAdminSettingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetThirdPartyAdminSettingRequest
 */
 func (a *OrgSettingAdminAPIService) GetThirdPartyAdminSetting(ctx context.Context) ApiGetThirdPartyAdminSettingRequest {
 	return ApiGetThirdPartyAdminSettingRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ThirdPartyAdminSetting
+//
+//	@return ThirdPartyAdminSetting
 func (a *OrgSettingAdminAPIService) GetThirdPartyAdminSettingExecute(r ApiGetThirdPartyAdminSettingRequest) (*ThirdPartyAdminSetting, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -624,7 +627,7 @@ func (a *OrgSettingAdminAPIService) GetThirdPartyAdminSettingExecute(r ApiGetThi
 		localVarReturnValue  *ThirdPartyAdminSetting
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -684,9 +687,9 @@ func (a *OrgSettingAdminAPIService) GetThirdPartyAdminSettingExecute(r ApiGetThi
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -732,16 +735,16 @@ func (a *OrgSettingAdminAPIService) GetThirdPartyAdminSettingExecute(r ApiGetThi
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateAutoAssignAdminAppSettingRequest struct {
-	ctx context.Context
-	ApiService OrgSettingAdminAPI
+	ctx                       context.Context
+	ApiService                OrgSettingAdminAPI
 	autoAssignAdminAppSetting *AutoAssignAdminAppSetting
-	retryCount int32
+	retryCount                int32
 }
 
 func (r ApiUpdateAutoAssignAdminAppSettingRequest) AutoAssignAdminAppSetting(autoAssignAdminAppSetting AutoAssignAdminAppSetting) ApiUpdateAutoAssignAdminAppSettingRequest {
@@ -756,24 +759,25 @@ func (r ApiUpdateAutoAssignAdminAppSettingRequest) Execute() (*AutoAssignAdminAp
 /*
 UpdateAutoAssignAdminAppSetting Update the Okta Admin Console assignment setting
 
-Updates the org setting to automatically assign the Okta Admin Console when an admin role is assigned
+# Updates the org setting to automatically assign the Okta Admin Console when an admin role is assigned
 
 > **Note:** This setting doesn't apply to the `SUPER_ADMIN` role.
 > When you assign the `SUPER_ADMIN` role to a user, the Admin Console is always assigned to the user regardless of the `autoAssignAdminAppSetting` setting.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiUpdateAutoAssignAdminAppSettingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUpdateAutoAssignAdminAppSettingRequest
 */
 func (a *OrgSettingAdminAPIService) UpdateAutoAssignAdminAppSetting(ctx context.Context) ApiUpdateAutoAssignAdminAppSettingRequest {
 	return ApiUpdateAutoAssignAdminAppSettingRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return AutoAssignAdminAppSetting
+//
+//	@return AutoAssignAdminAppSetting
 func (a *OrgSettingAdminAPIService) UpdateAutoAssignAdminAppSettingExecute(r ApiUpdateAutoAssignAdminAppSettingRequest) (*AutoAssignAdminAppSetting, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -782,7 +786,7 @@ func (a *OrgSettingAdminAPIService) UpdateAutoAssignAdminAppSettingExecute(r Api
 		localVarReturnValue  *AutoAssignAdminAppSetting
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -844,9 +848,9 @@ func (a *OrgSettingAdminAPIService) UpdateAutoAssignAdminAppSettingExecute(r Api
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -892,16 +896,16 @@ func (a *OrgSettingAdminAPIService) UpdateAutoAssignAdminAppSettingExecute(r Api
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateThirdPartyAdminSettingRequest struct {
-	ctx context.Context
-	ApiService OrgSettingAdminAPI
+	ctx                    context.Context
+	ApiService             OrgSettingAdminAPI
 	thirdPartyAdminSetting *ThirdPartyAdminSetting
-	retryCount int32
+	retryCount             int32
 }
 
 func (r ApiUpdateThirdPartyAdminSettingRequest) ThirdPartyAdminSetting(thirdPartyAdminSetting ThirdPartyAdminSetting) ApiUpdateThirdPartyAdminSettingRequest {
@@ -918,26 +922,26 @@ UpdateThirdPartyAdminSetting Update the org third-party admin setting
 
 Updates the third-party admin setting.
 This setting allows third-party admins to perform administrative actions in the Admin Console, but they can't do any of the following:
-  * Receive Okta admin email notifications
-  * Contact Okta support
-  * Sign in to the Okta Help Center
+  - Receive Okta admin email notifications
+  - Contact Okta support
+  - Sign in to the Okta Help Center
 
 See [Configure third-party administrators](https://help.okta.com/okta_help.htm?type=oie&id=csh_admin-third) in the Okta product documentation.
 
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiUpdateThirdPartyAdminSettingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUpdateThirdPartyAdminSettingRequest
 */
 func (a *OrgSettingAdminAPIService) UpdateThirdPartyAdminSetting(ctx context.Context) ApiUpdateThirdPartyAdminSettingRequest {
 	return ApiUpdateThirdPartyAdminSettingRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ThirdPartyAdminSetting
+//
+//	@return ThirdPartyAdminSetting
 func (a *OrgSettingAdminAPIService) UpdateThirdPartyAdminSettingExecute(r ApiUpdateThirdPartyAdminSettingRequest) (*ThirdPartyAdminSetting, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -946,7 +950,7 @@ func (a *OrgSettingAdminAPIService) UpdateThirdPartyAdminSettingExecute(r ApiUpd
 		localVarReturnValue  *ThirdPartyAdminSetting
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1011,9 +1015,9 @@ func (a *OrgSettingAdminAPIService) UpdateThirdPartyAdminSettingExecute(r ApiUpd
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1059,7 +1063,7 @@ func (a *OrgSettingAdminAPIService) UpdateThirdPartyAdminSettingExecute(r ApiUpd
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

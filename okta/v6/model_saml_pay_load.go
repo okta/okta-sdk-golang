@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the SAMLPayLoad type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SAMLPayLoad{}
+
 // SAMLPayLoad struct for SAMLPayLoad
 type SAMLPayLoad struct {
 	Data *SAMLPayLoadData `json:"data,omitempty"`
 	// The type of inline hook. The SAML assertion inline hook type is `com.okta.saml.tokens.transform`.
 	EventType *string `json:"eventType,omitempty"`
 	// The ID and URL of the SAML assertion inline hook
-	Source *string `json:"source,omitempty"`
+	Source               *string `json:"source,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewSAMLPayLoadWithDefaults() *SAMLPayLoad {
 
 // GetData returns the Data field value if set, zero value otherwise.
 func (o *SAMLPayLoad) GetData() SAMLPayLoadData {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		var ret SAMLPayLoadData
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *SAMLPayLoad) GetData() SAMLPayLoadData {
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoad) GetDataOk() (*SAMLPayLoadData, bool) {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
 	return o.Data, true
@@ -76,7 +79,7 @@ func (o *SAMLPayLoad) GetDataOk() (*SAMLPayLoadData, bool) {
 
 // HasData returns a boolean if a field has been set.
 func (o *SAMLPayLoad) HasData() bool {
-	if o != nil && o.Data != nil {
+	if o != nil && !IsNil(o.Data) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *SAMLPayLoad) SetData(v SAMLPayLoadData) {
 
 // GetEventType returns the EventType field value if set, zero value otherwise.
 func (o *SAMLPayLoad) GetEventType() string {
-	if o == nil || o.EventType == nil {
+	if o == nil || IsNil(o.EventType) {
 		var ret string
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *SAMLPayLoad) GetEventType() string {
 // GetEventTypeOk returns a tuple with the EventType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoad) GetEventTypeOk() (*string, bool) {
-	if o == nil || o.EventType == nil {
+	if o == nil || IsNil(o.EventType) {
 		return nil, false
 	}
 	return o.EventType, true
@@ -108,7 +111,7 @@ func (o *SAMLPayLoad) GetEventTypeOk() (*string, bool) {
 
 // HasEventType returns a boolean if a field has been set.
 func (o *SAMLPayLoad) HasEventType() bool {
-	if o != nil && o.EventType != nil {
+	if o != nil && !IsNil(o.EventType) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *SAMLPayLoad) SetEventType(v string) {
 
 // GetSource returns the Source field value if set, zero value otherwise.
 func (o *SAMLPayLoad) GetSource() string {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		var ret string
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *SAMLPayLoad) GetSource() string {
 // GetSourceOk returns a tuple with the Source field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoad) GetSourceOk() (*string, bool) {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		return nil, false
 	}
 	return o.Source, true
@@ -140,7 +143,7 @@ func (o *SAMLPayLoad) GetSourceOk() (*string, bool) {
 
 // HasSource returns a boolean if a field has been set.
 func (o *SAMLPayLoad) HasSource() bool {
-	if o != nil && o.Source != nil {
+	if o != nil && !IsNil(o.Source) {
 		return true
 	}
 
@@ -153,14 +156,22 @@ func (o *SAMLPayLoad) SetSource(v string) {
 }
 
 func (o SAMLPayLoad) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SAMLPayLoad) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Data != nil {
+	if !IsNil(o.Data) {
 		toSerialize["data"] = o.Data
 	}
-	if o.EventType != nil {
+	if !IsNil(o.EventType) {
 		toSerialize["eventType"] = o.EventType
 	}
-	if o.Source != nil {
+	if !IsNil(o.Source) {
 		toSerialize["source"] = o.Source
 	}
 
@@ -168,29 +179,27 @@ func (o SAMLPayLoad) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SAMLPayLoad) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SAMLPayLoad) UnmarshalJSON(data []byte) (err error) {
 	varSAMLPayLoad := _SAMLPayLoad{}
 
-	err = json.Unmarshal(bytes, &varSAMLPayLoad)
-	if err == nil {
-		*o = SAMLPayLoad(varSAMLPayLoad)
-	} else {
+	err = json.Unmarshal(data, &varSAMLPayLoad)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SAMLPayLoad(varSAMLPayLoad)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "data")
 		delete(additionalProperties, "eventType")
 		delete(additionalProperties, "source")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -231,4 +240,3 @@ func (v *NullableSAMLPayLoad) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

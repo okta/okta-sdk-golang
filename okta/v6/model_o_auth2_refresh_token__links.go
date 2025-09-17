@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,18 +27,21 @@ import (
 	"encoding/json"
 )
 
+// checks if the OAuth2RefreshTokenLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OAuth2RefreshTokenLinks{}
+
 // OAuth2RefreshTokenLinks struct for OAuth2RefreshTokenLinks
 type OAuth2RefreshTokenLinks struct {
 	Self *HrefObjectSelfLink `json:"self,omitempty"`
 	// Link to the app resource
-	App *AppResourceHrefObject `json:"app,omitempty"`
+	App    *AppResourceHrefObject              `json:"app,omitempty"`
 	Revoke *OAuth2RefreshTokenLinksAllOfRevoke `json:"revoke,omitempty"`
 	// Link to the client resource
 	Client *AppResourceHrefObject `json:"client,omitempty"`
 	// Link to the user resource
 	User *UserResourceHrefObject `json:"user,omitempty"`
 	// Link to the Token authorization server resource
-	AuthorizationServer *AuthorizationServerResourceHrefObject `json:"authorizationServer,omitempty"`
+	AuthorizationServer  *AuthorizationServerResourceHrefObject `json:"authorizationServer,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -63,7 +66,7 @@ func NewOAuth2RefreshTokenLinksWithDefaults() *OAuth2RefreshTokenLinks {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *OAuth2RefreshTokenLinks) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -73,7 +76,7 @@ func (o *OAuth2RefreshTokenLinks) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2RefreshTokenLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -81,7 +84,7 @@ func (o *OAuth2RefreshTokenLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *OAuth2RefreshTokenLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -95,7 +98,7 @@ func (o *OAuth2RefreshTokenLinks) SetSelf(v HrefObjectSelfLink) {
 
 // GetApp returns the App field value if set, zero value otherwise.
 func (o *OAuth2RefreshTokenLinks) GetApp() AppResourceHrefObject {
-	if o == nil || o.App == nil {
+	if o == nil || IsNil(o.App) {
 		var ret AppResourceHrefObject
 		return ret
 	}
@@ -105,7 +108,7 @@ func (o *OAuth2RefreshTokenLinks) GetApp() AppResourceHrefObject {
 // GetAppOk returns a tuple with the App field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2RefreshTokenLinks) GetAppOk() (*AppResourceHrefObject, bool) {
-	if o == nil || o.App == nil {
+	if o == nil || IsNil(o.App) {
 		return nil, false
 	}
 	return o.App, true
@@ -113,7 +116,7 @@ func (o *OAuth2RefreshTokenLinks) GetAppOk() (*AppResourceHrefObject, bool) {
 
 // HasApp returns a boolean if a field has been set.
 func (o *OAuth2RefreshTokenLinks) HasApp() bool {
-	if o != nil && o.App != nil {
+	if o != nil && !IsNil(o.App) {
 		return true
 	}
 
@@ -127,7 +130,7 @@ func (o *OAuth2RefreshTokenLinks) SetApp(v AppResourceHrefObject) {
 
 // GetRevoke returns the Revoke field value if set, zero value otherwise.
 func (o *OAuth2RefreshTokenLinks) GetRevoke() OAuth2RefreshTokenLinksAllOfRevoke {
-	if o == nil || o.Revoke == nil {
+	if o == nil || IsNil(o.Revoke) {
 		var ret OAuth2RefreshTokenLinksAllOfRevoke
 		return ret
 	}
@@ -137,7 +140,7 @@ func (o *OAuth2RefreshTokenLinks) GetRevoke() OAuth2RefreshTokenLinksAllOfRevoke
 // GetRevokeOk returns a tuple with the Revoke field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2RefreshTokenLinks) GetRevokeOk() (*OAuth2RefreshTokenLinksAllOfRevoke, bool) {
-	if o == nil || o.Revoke == nil {
+	if o == nil || IsNil(o.Revoke) {
 		return nil, false
 	}
 	return o.Revoke, true
@@ -145,7 +148,7 @@ func (o *OAuth2RefreshTokenLinks) GetRevokeOk() (*OAuth2RefreshTokenLinksAllOfRe
 
 // HasRevoke returns a boolean if a field has been set.
 func (o *OAuth2RefreshTokenLinks) HasRevoke() bool {
-	if o != nil && o.Revoke != nil {
+	if o != nil && !IsNil(o.Revoke) {
 		return true
 	}
 
@@ -159,7 +162,7 @@ func (o *OAuth2RefreshTokenLinks) SetRevoke(v OAuth2RefreshTokenLinksAllOfRevoke
 
 // GetClient returns the Client field value if set, zero value otherwise.
 func (o *OAuth2RefreshTokenLinks) GetClient() AppResourceHrefObject {
-	if o == nil || o.Client == nil {
+	if o == nil || IsNil(o.Client) {
 		var ret AppResourceHrefObject
 		return ret
 	}
@@ -169,7 +172,7 @@ func (o *OAuth2RefreshTokenLinks) GetClient() AppResourceHrefObject {
 // GetClientOk returns a tuple with the Client field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2RefreshTokenLinks) GetClientOk() (*AppResourceHrefObject, bool) {
-	if o == nil || o.Client == nil {
+	if o == nil || IsNil(o.Client) {
 		return nil, false
 	}
 	return o.Client, true
@@ -177,7 +180,7 @@ func (o *OAuth2RefreshTokenLinks) GetClientOk() (*AppResourceHrefObject, bool) {
 
 // HasClient returns a boolean if a field has been set.
 func (o *OAuth2RefreshTokenLinks) HasClient() bool {
-	if o != nil && o.Client != nil {
+	if o != nil && !IsNil(o.Client) {
 		return true
 	}
 
@@ -191,7 +194,7 @@ func (o *OAuth2RefreshTokenLinks) SetClient(v AppResourceHrefObject) {
 
 // GetUser returns the User field value if set, zero value otherwise.
 func (o *OAuth2RefreshTokenLinks) GetUser() UserResourceHrefObject {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		var ret UserResourceHrefObject
 		return ret
 	}
@@ -201,7 +204,7 @@ func (o *OAuth2RefreshTokenLinks) GetUser() UserResourceHrefObject {
 // GetUserOk returns a tuple with the User field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2RefreshTokenLinks) GetUserOk() (*UserResourceHrefObject, bool) {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		return nil, false
 	}
 	return o.User, true
@@ -209,7 +212,7 @@ func (o *OAuth2RefreshTokenLinks) GetUserOk() (*UserResourceHrefObject, bool) {
 
 // HasUser returns a boolean if a field has been set.
 func (o *OAuth2RefreshTokenLinks) HasUser() bool {
-	if o != nil && o.User != nil {
+	if o != nil && !IsNil(o.User) {
 		return true
 	}
 
@@ -223,7 +226,7 @@ func (o *OAuth2RefreshTokenLinks) SetUser(v UserResourceHrefObject) {
 
 // GetAuthorizationServer returns the AuthorizationServer field value if set, zero value otherwise.
 func (o *OAuth2RefreshTokenLinks) GetAuthorizationServer() AuthorizationServerResourceHrefObject {
-	if o == nil || o.AuthorizationServer == nil {
+	if o == nil || IsNil(o.AuthorizationServer) {
 		var ret AuthorizationServerResourceHrefObject
 		return ret
 	}
@@ -233,7 +236,7 @@ func (o *OAuth2RefreshTokenLinks) GetAuthorizationServer() AuthorizationServerRe
 // GetAuthorizationServerOk returns a tuple with the AuthorizationServer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2RefreshTokenLinks) GetAuthorizationServerOk() (*AuthorizationServerResourceHrefObject, bool) {
-	if o == nil || o.AuthorizationServer == nil {
+	if o == nil || IsNil(o.AuthorizationServer) {
 		return nil, false
 	}
 	return o.AuthorizationServer, true
@@ -241,7 +244,7 @@ func (o *OAuth2RefreshTokenLinks) GetAuthorizationServerOk() (*AuthorizationServ
 
 // HasAuthorizationServer returns a boolean if a field has been set.
 func (o *OAuth2RefreshTokenLinks) HasAuthorizationServer() bool {
-	if o != nil && o.AuthorizationServer != nil {
+	if o != nil && !IsNil(o.AuthorizationServer) {
 		return true
 	}
 
@@ -254,23 +257,31 @@ func (o *OAuth2RefreshTokenLinks) SetAuthorizationServer(v AuthorizationServerRe
 }
 
 func (o OAuth2RefreshTokenLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OAuth2RefreshTokenLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.App != nil {
+	if !IsNil(o.App) {
 		toSerialize["app"] = o.App
 	}
-	if o.Revoke != nil {
+	if !IsNil(o.Revoke) {
 		toSerialize["revoke"] = o.Revoke
 	}
-	if o.Client != nil {
+	if !IsNil(o.Client) {
 		toSerialize["client"] = o.Client
 	}
-	if o.User != nil {
+	if !IsNil(o.User) {
 		toSerialize["user"] = o.User
 	}
-	if o.AuthorizationServer != nil {
+	if !IsNil(o.AuthorizationServer) {
 		toSerialize["authorizationServer"] = o.AuthorizationServer
 	}
 
@@ -278,23 +289,23 @@ func (o OAuth2RefreshTokenLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OAuth2RefreshTokenLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OAuth2RefreshTokenLinks) UnmarshalJSON(data []byte) (err error) {
 	varOAuth2RefreshTokenLinks := _OAuth2RefreshTokenLinks{}
 
-	err = json.Unmarshal(bytes, &varOAuth2RefreshTokenLinks)
-	if err == nil {
-		*o = OAuth2RefreshTokenLinks(varOAuth2RefreshTokenLinks)
-	} else {
+	err = json.Unmarshal(data, &varOAuth2RefreshTokenLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OAuth2RefreshTokenLinks(varOAuth2RefreshTokenLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "app")
 		delete(additionalProperties, "revoke")
@@ -302,8 +313,6 @@ func (o *OAuth2RefreshTokenLinks) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "user")
 		delete(additionalProperties, "authorizationServer")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -344,4 +353,3 @@ func (v *NullableOAuth2RefreshTokenLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

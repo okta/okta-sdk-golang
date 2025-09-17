@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"time"
 )
 
+// checks if the OrgOktaSupportSettingsObj type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrgOktaSupportSettingsObj{}
+
 // OrgOktaSupportSettingsObj struct for OrgOktaSupportSettingsObj
 type OrgOktaSupportSettingsObj struct {
 	// Support case number for the Okta Support access grant
@@ -35,8 +38,8 @@ type OrgOktaSupportSettingsObj struct {
 	// Expiration of Okta Support
 	Expiration NullableTime `json:"expiration,omitempty"`
 	// Status of Okta Support Settings
-	Support *string `json:"support,omitempty"`
-	Links *OrgOktaSupportSettingsObjLinks `json:"_links,omitempty"`
+	Support              *string                         `json:"support,omitempty"`
+	Links                *OrgOktaSupportSettingsObjLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewOrgOktaSupportSettingsObjWithDefaults() *OrgOktaSupportSettingsObj {
 
 // GetCaseNumber returns the CaseNumber field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *OrgOktaSupportSettingsObj) GetCaseNumber() string {
-	if o == nil || o.CaseNumber.Get() == nil {
+	if o == nil || IsNil(o.CaseNumber.Get()) {
 		var ret string
 		return ret
 	}
@@ -91,6 +94,7 @@ func (o *OrgOktaSupportSettingsObj) HasCaseNumber() bool {
 func (o *OrgOktaSupportSettingsObj) SetCaseNumber(v string) {
 	o.CaseNumber.Set(&v)
 }
+
 // SetCaseNumberNil sets the value for CaseNumber to be an explicit nil
 func (o *OrgOktaSupportSettingsObj) SetCaseNumberNil() {
 	o.CaseNumber.Set(nil)
@@ -103,7 +107,7 @@ func (o *OrgOktaSupportSettingsObj) UnsetCaseNumber() {
 
 // GetExpiration returns the Expiration field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *OrgOktaSupportSettingsObj) GetExpiration() time.Time {
-	if o == nil || o.Expiration.Get() == nil {
+	if o == nil || IsNil(o.Expiration.Get()) {
 		var ret time.Time
 		return ret
 	}
@@ -133,6 +137,7 @@ func (o *OrgOktaSupportSettingsObj) HasExpiration() bool {
 func (o *OrgOktaSupportSettingsObj) SetExpiration(v time.Time) {
 	o.Expiration.Set(&v)
 }
+
 // SetExpirationNil sets the value for Expiration to be an explicit nil
 func (o *OrgOktaSupportSettingsObj) SetExpirationNil() {
 	o.Expiration.Set(nil)
@@ -145,7 +150,7 @@ func (o *OrgOktaSupportSettingsObj) UnsetExpiration() {
 
 // GetSupport returns the Support field value if set, zero value otherwise.
 func (o *OrgOktaSupportSettingsObj) GetSupport() string {
-	if o == nil || o.Support == nil {
+	if o == nil || IsNil(o.Support) {
 		var ret string
 		return ret
 	}
@@ -155,7 +160,7 @@ func (o *OrgOktaSupportSettingsObj) GetSupport() string {
 // GetSupportOk returns a tuple with the Support field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgOktaSupportSettingsObj) GetSupportOk() (*string, bool) {
-	if o == nil || o.Support == nil {
+	if o == nil || IsNil(o.Support) {
 		return nil, false
 	}
 	return o.Support, true
@@ -163,7 +168,7 @@ func (o *OrgOktaSupportSettingsObj) GetSupportOk() (*string, bool) {
 
 // HasSupport returns a boolean if a field has been set.
 func (o *OrgOktaSupportSettingsObj) HasSupport() bool {
-	if o != nil && o.Support != nil {
+	if o != nil && !IsNil(o.Support) {
 		return true
 	}
 
@@ -177,7 +182,7 @@ func (o *OrgOktaSupportSettingsObj) SetSupport(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *OrgOktaSupportSettingsObj) GetLinks() OrgOktaSupportSettingsObjLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret OrgOktaSupportSettingsObjLinks
 		return ret
 	}
@@ -187,7 +192,7 @@ func (o *OrgOktaSupportSettingsObj) GetLinks() OrgOktaSupportSettingsObjLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgOktaSupportSettingsObj) GetLinksOk() (*OrgOktaSupportSettingsObjLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -195,7 +200,7 @@ func (o *OrgOktaSupportSettingsObj) GetLinksOk() (*OrgOktaSupportSettingsObjLink
 
 // HasLinks returns a boolean if a field has been set.
 func (o *OrgOktaSupportSettingsObj) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -208,6 +213,14 @@ func (o *OrgOktaSupportSettingsObj) SetLinks(v OrgOktaSupportSettingsObjLinks) {
 }
 
 func (o OrgOktaSupportSettingsObj) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OrgOktaSupportSettingsObj) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.CaseNumber.IsSet() {
 		toSerialize["caseNumber"] = o.CaseNumber.Get()
@@ -215,10 +228,10 @@ func (o OrgOktaSupportSettingsObj) MarshalJSON() ([]byte, error) {
 	if o.Expiration.IsSet() {
 		toSerialize["expiration"] = o.Expiration.Get()
 	}
-	if o.Support != nil {
+	if !IsNil(o.Support) {
 		toSerialize["support"] = o.Support
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -226,30 +239,28 @@ func (o OrgOktaSupportSettingsObj) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OrgOktaSupportSettingsObj) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OrgOktaSupportSettingsObj) UnmarshalJSON(data []byte) (err error) {
 	varOrgOktaSupportSettingsObj := _OrgOktaSupportSettingsObj{}
 
-	err = json.Unmarshal(bytes, &varOrgOktaSupportSettingsObj)
-	if err == nil {
-		*o = OrgOktaSupportSettingsObj(varOrgOktaSupportSettingsObj)
-	} else {
+	err = json.Unmarshal(data, &varOrgOktaSupportSettingsObj)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OrgOktaSupportSettingsObj(varOrgOktaSupportSettingsObj)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "caseNumber")
 		delete(additionalProperties, "expiration")
 		delete(additionalProperties, "support")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -290,4 +301,3 @@ func (v *NullableOrgOktaSupportSettingsObj) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

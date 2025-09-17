@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the TokenPayLoadDataContextAllOfProtocolOriginalGrant type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TokenPayLoadDataContextAllOfProtocolOriginalGrant{}
+
 // TokenPayLoadDataContextAllOfProtocolOriginalGrant Information about the original token request used to get the refresh token being used, when in a refresh token request
 type TokenPayLoadDataContextAllOfProtocolOriginalGrant struct {
-	Request *TokenProtocolRequest `json:"request,omitempty"`
-	RefreshToken *RefreshToken `json:"refresh_token,omitempty"`
+	Request              *TokenProtocolRequest `json:"request,omitempty"`
+	RefreshToken         *RefreshToken         `json:"refresh_token,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewTokenPayLoadDataContextAllOfProtocolOriginalGrantWithDefaults() *TokenPa
 
 // GetRequest returns the Request field value if set, zero value otherwise.
 func (o *TokenPayLoadDataContextAllOfProtocolOriginalGrant) GetRequest() TokenProtocolRequest {
-	if o == nil || o.Request == nil {
+	if o == nil || IsNil(o.Request) {
 		var ret TokenProtocolRequest
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *TokenPayLoadDataContextAllOfProtocolOriginalGrant) GetRequest() TokenPr
 // GetRequestOk returns a tuple with the Request field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenPayLoadDataContextAllOfProtocolOriginalGrant) GetRequestOk() (*TokenProtocolRequest, bool) {
-	if o == nil || o.Request == nil {
+	if o == nil || IsNil(o.Request) {
 		return nil, false
 	}
 	return o.Request, true
@@ -73,7 +76,7 @@ func (o *TokenPayLoadDataContextAllOfProtocolOriginalGrant) GetRequestOk() (*Tok
 
 // HasRequest returns a boolean if a field has been set.
 func (o *TokenPayLoadDataContextAllOfProtocolOriginalGrant) HasRequest() bool {
-	if o != nil && o.Request != nil {
+	if o != nil && !IsNil(o.Request) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *TokenPayLoadDataContextAllOfProtocolOriginalGrant) SetRequest(v TokenPr
 
 // GetRefreshToken returns the RefreshToken field value if set, zero value otherwise.
 func (o *TokenPayLoadDataContextAllOfProtocolOriginalGrant) GetRefreshToken() RefreshToken {
-	if o == nil || o.RefreshToken == nil {
+	if o == nil || IsNil(o.RefreshToken) {
 		var ret RefreshToken
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *TokenPayLoadDataContextAllOfProtocolOriginalGrant) GetRefreshToken() Re
 // GetRefreshTokenOk returns a tuple with the RefreshToken field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenPayLoadDataContextAllOfProtocolOriginalGrant) GetRefreshTokenOk() (*RefreshToken, bool) {
-	if o == nil || o.RefreshToken == nil {
+	if o == nil || IsNil(o.RefreshToken) {
 		return nil, false
 	}
 	return o.RefreshToken, true
@@ -105,7 +108,7 @@ func (o *TokenPayLoadDataContextAllOfProtocolOriginalGrant) GetRefreshTokenOk() 
 
 // HasRefreshToken returns a boolean if a field has been set.
 func (o *TokenPayLoadDataContextAllOfProtocolOriginalGrant) HasRefreshToken() bool {
-	if o != nil && o.RefreshToken != nil {
+	if o != nil && !IsNil(o.RefreshToken) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *TokenPayLoadDataContextAllOfProtocolOriginalGrant) SetRefreshToken(v Re
 }
 
 func (o TokenPayLoadDataContextAllOfProtocolOriginalGrant) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TokenPayLoadDataContextAllOfProtocolOriginalGrant) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Request != nil {
+	if !IsNil(o.Request) {
 		toSerialize["request"] = o.Request
 	}
-	if o.RefreshToken != nil {
+	if !IsNil(o.RefreshToken) {
 		toSerialize["refresh_token"] = o.RefreshToken
 	}
 
@@ -130,28 +141,26 @@ func (o TokenPayLoadDataContextAllOfProtocolOriginalGrant) MarshalJSON() ([]byte
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *TokenPayLoadDataContextAllOfProtocolOriginalGrant) UnmarshalJSON(bytes []byte) (err error) {
+func (o *TokenPayLoadDataContextAllOfProtocolOriginalGrant) UnmarshalJSON(data []byte) (err error) {
 	varTokenPayLoadDataContextAllOfProtocolOriginalGrant := _TokenPayLoadDataContextAllOfProtocolOriginalGrant{}
 
-	err = json.Unmarshal(bytes, &varTokenPayLoadDataContextAllOfProtocolOriginalGrant)
-	if err == nil {
-		*o = TokenPayLoadDataContextAllOfProtocolOriginalGrant(varTokenPayLoadDataContextAllOfProtocolOriginalGrant)
-	} else {
+	err = json.Unmarshal(data, &varTokenPayLoadDataContextAllOfProtocolOriginalGrant)
+
+	if err != nil {
 		return err
 	}
 
+	*o = TokenPayLoadDataContextAllOfProtocolOriginalGrant(varTokenPayLoadDataContextAllOfProtocolOriginalGrant)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "request")
 		delete(additionalProperties, "refresh_token")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableTokenPayLoadDataContextAllOfProtocolOriginalGrant) UnmarshalJSO
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

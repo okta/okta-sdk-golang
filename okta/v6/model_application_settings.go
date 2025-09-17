@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ApplicationSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApplicationSettings{}
+
 // ApplicationSettings App settings
 type ApplicationSettings struct {
 	// The Governance Engine opt-in status for the app
@@ -36,9 +39,9 @@ type ApplicationSettings struct {
 	// Controls whether Okta automatically assigns users to the app based on the user's role or group membership.
 	ImplicitAssignment *bool `json:"implicitAssignment,omitempty"`
 	// Identifier of an inline hook. Inline hooks are outbound calls from Okta to your own custom code, triggered at specific points in Okta process flows. They allow you to integrate custom functionality into those flows. See [Inline hooks](/openapi/okta-management/management/tag/InlineHook/).
-	InlineHookId *string `json:"inlineHookId,omitempty"`
-	Notes *ApplicationSettingsNotes `json:"notes,omitempty"`
-	Notifications *ApplicationSettingsNotifications `json:"notifications,omitempty"`
+	InlineHookId         *string                           `json:"inlineHookId,omitempty"`
+	Notes                *ApplicationSettingsNotes         `json:"notes,omitempty"`
+	Notifications        *ApplicationSettingsNotifications `json:"notifications,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -63,7 +66,7 @@ func NewApplicationSettingsWithDefaults() *ApplicationSettings {
 
 // GetEmOptInStatus returns the EmOptInStatus field value if set, zero value otherwise.
 func (o *ApplicationSettings) GetEmOptInStatus() string {
-	if o == nil || o.EmOptInStatus == nil {
+	if o == nil || IsNil(o.EmOptInStatus) {
 		var ret string
 		return ret
 	}
@@ -73,7 +76,7 @@ func (o *ApplicationSettings) GetEmOptInStatus() string {
 // GetEmOptInStatusOk returns a tuple with the EmOptInStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationSettings) GetEmOptInStatusOk() (*string, bool) {
-	if o == nil || o.EmOptInStatus == nil {
+	if o == nil || IsNil(o.EmOptInStatus) {
 		return nil, false
 	}
 	return o.EmOptInStatus, true
@@ -81,7 +84,7 @@ func (o *ApplicationSettings) GetEmOptInStatusOk() (*string, bool) {
 
 // HasEmOptInStatus returns a boolean if a field has been set.
 func (o *ApplicationSettings) HasEmOptInStatus() bool {
-	if o != nil && o.EmOptInStatus != nil {
+	if o != nil && !IsNil(o.EmOptInStatus) {
 		return true
 	}
 
@@ -95,7 +98,7 @@ func (o *ApplicationSettings) SetEmOptInStatus(v string) {
 
 // GetIdentityStoreId returns the IdentityStoreId field value if set, zero value otherwise.
 func (o *ApplicationSettings) GetIdentityStoreId() string {
-	if o == nil || o.IdentityStoreId == nil {
+	if o == nil || IsNil(o.IdentityStoreId) {
 		var ret string
 		return ret
 	}
@@ -105,7 +108,7 @@ func (o *ApplicationSettings) GetIdentityStoreId() string {
 // GetIdentityStoreIdOk returns a tuple with the IdentityStoreId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationSettings) GetIdentityStoreIdOk() (*string, bool) {
-	if o == nil || o.IdentityStoreId == nil {
+	if o == nil || IsNil(o.IdentityStoreId) {
 		return nil, false
 	}
 	return o.IdentityStoreId, true
@@ -113,7 +116,7 @@ func (o *ApplicationSettings) GetIdentityStoreIdOk() (*string, bool) {
 
 // HasIdentityStoreId returns a boolean if a field has been set.
 func (o *ApplicationSettings) HasIdentityStoreId() bool {
-	if o != nil && o.IdentityStoreId != nil {
+	if o != nil && !IsNil(o.IdentityStoreId) {
 		return true
 	}
 
@@ -127,7 +130,7 @@ func (o *ApplicationSettings) SetIdentityStoreId(v string) {
 
 // GetImplicitAssignment returns the ImplicitAssignment field value if set, zero value otherwise.
 func (o *ApplicationSettings) GetImplicitAssignment() bool {
-	if o == nil || o.ImplicitAssignment == nil {
+	if o == nil || IsNil(o.ImplicitAssignment) {
 		var ret bool
 		return ret
 	}
@@ -137,7 +140,7 @@ func (o *ApplicationSettings) GetImplicitAssignment() bool {
 // GetImplicitAssignmentOk returns a tuple with the ImplicitAssignment field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationSettings) GetImplicitAssignmentOk() (*bool, bool) {
-	if o == nil || o.ImplicitAssignment == nil {
+	if o == nil || IsNil(o.ImplicitAssignment) {
 		return nil, false
 	}
 	return o.ImplicitAssignment, true
@@ -145,7 +148,7 @@ func (o *ApplicationSettings) GetImplicitAssignmentOk() (*bool, bool) {
 
 // HasImplicitAssignment returns a boolean if a field has been set.
 func (o *ApplicationSettings) HasImplicitAssignment() bool {
-	if o != nil && o.ImplicitAssignment != nil {
+	if o != nil && !IsNil(o.ImplicitAssignment) {
 		return true
 	}
 
@@ -159,7 +162,7 @@ func (o *ApplicationSettings) SetImplicitAssignment(v bool) {
 
 // GetInlineHookId returns the InlineHookId field value if set, zero value otherwise.
 func (o *ApplicationSettings) GetInlineHookId() string {
-	if o == nil || o.InlineHookId == nil {
+	if o == nil || IsNil(o.InlineHookId) {
 		var ret string
 		return ret
 	}
@@ -169,7 +172,7 @@ func (o *ApplicationSettings) GetInlineHookId() string {
 // GetInlineHookIdOk returns a tuple with the InlineHookId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationSettings) GetInlineHookIdOk() (*string, bool) {
-	if o == nil || o.InlineHookId == nil {
+	if o == nil || IsNil(o.InlineHookId) {
 		return nil, false
 	}
 	return o.InlineHookId, true
@@ -177,7 +180,7 @@ func (o *ApplicationSettings) GetInlineHookIdOk() (*string, bool) {
 
 // HasInlineHookId returns a boolean if a field has been set.
 func (o *ApplicationSettings) HasInlineHookId() bool {
-	if o != nil && o.InlineHookId != nil {
+	if o != nil && !IsNil(o.InlineHookId) {
 		return true
 	}
 
@@ -191,7 +194,7 @@ func (o *ApplicationSettings) SetInlineHookId(v string) {
 
 // GetNotes returns the Notes field value if set, zero value otherwise.
 func (o *ApplicationSettings) GetNotes() ApplicationSettingsNotes {
-	if o == nil || o.Notes == nil {
+	if o == nil || IsNil(o.Notes) {
 		var ret ApplicationSettingsNotes
 		return ret
 	}
@@ -201,7 +204,7 @@ func (o *ApplicationSettings) GetNotes() ApplicationSettingsNotes {
 // GetNotesOk returns a tuple with the Notes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationSettings) GetNotesOk() (*ApplicationSettingsNotes, bool) {
-	if o == nil || o.Notes == nil {
+	if o == nil || IsNil(o.Notes) {
 		return nil, false
 	}
 	return o.Notes, true
@@ -209,7 +212,7 @@ func (o *ApplicationSettings) GetNotesOk() (*ApplicationSettingsNotes, bool) {
 
 // HasNotes returns a boolean if a field has been set.
 func (o *ApplicationSettings) HasNotes() bool {
-	if o != nil && o.Notes != nil {
+	if o != nil && !IsNil(o.Notes) {
 		return true
 	}
 
@@ -223,7 +226,7 @@ func (o *ApplicationSettings) SetNotes(v ApplicationSettingsNotes) {
 
 // GetNotifications returns the Notifications field value if set, zero value otherwise.
 func (o *ApplicationSettings) GetNotifications() ApplicationSettingsNotifications {
-	if o == nil || o.Notifications == nil {
+	if o == nil || IsNil(o.Notifications) {
 		var ret ApplicationSettingsNotifications
 		return ret
 	}
@@ -233,7 +236,7 @@ func (o *ApplicationSettings) GetNotifications() ApplicationSettingsNotification
 // GetNotificationsOk returns a tuple with the Notifications field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationSettings) GetNotificationsOk() (*ApplicationSettingsNotifications, bool) {
-	if o == nil || o.Notifications == nil {
+	if o == nil || IsNil(o.Notifications) {
 		return nil, false
 	}
 	return o.Notifications, true
@@ -241,7 +244,7 @@ func (o *ApplicationSettings) GetNotificationsOk() (*ApplicationSettingsNotifica
 
 // HasNotifications returns a boolean if a field has been set.
 func (o *ApplicationSettings) HasNotifications() bool {
-	if o != nil && o.Notifications != nil {
+	if o != nil && !IsNil(o.Notifications) {
 		return true
 	}
 
@@ -254,23 +257,31 @@ func (o *ApplicationSettings) SetNotifications(v ApplicationSettingsNotification
 }
 
 func (o ApplicationSettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApplicationSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.EmOptInStatus != nil {
+	if !IsNil(o.EmOptInStatus) {
 		toSerialize["emOptInStatus"] = o.EmOptInStatus
 	}
-	if o.IdentityStoreId != nil {
+	if !IsNil(o.IdentityStoreId) {
 		toSerialize["identityStoreId"] = o.IdentityStoreId
 	}
-	if o.ImplicitAssignment != nil {
+	if !IsNil(o.ImplicitAssignment) {
 		toSerialize["implicitAssignment"] = o.ImplicitAssignment
 	}
-	if o.InlineHookId != nil {
+	if !IsNil(o.InlineHookId) {
 		toSerialize["inlineHookId"] = o.InlineHookId
 	}
-	if o.Notes != nil {
+	if !IsNil(o.Notes) {
 		toSerialize["notes"] = o.Notes
 	}
-	if o.Notifications != nil {
+	if !IsNil(o.Notifications) {
 		toSerialize["notifications"] = o.Notifications
 	}
 
@@ -278,23 +289,23 @@ func (o ApplicationSettings) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ApplicationSettings) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ApplicationSettings) UnmarshalJSON(data []byte) (err error) {
 	varApplicationSettings := _ApplicationSettings{}
 
-	err = json.Unmarshal(bytes, &varApplicationSettings)
-	if err == nil {
-		*o = ApplicationSettings(varApplicationSettings)
-	} else {
+	err = json.Unmarshal(data, &varApplicationSettings)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ApplicationSettings(varApplicationSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "emOptInStatus")
 		delete(additionalProperties, "identityStoreId")
 		delete(additionalProperties, "implicitAssignment")
@@ -302,8 +313,6 @@ func (o *ApplicationSettings) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "notes")
 		delete(additionalProperties, "notifications")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -344,4 +353,3 @@ func (v *NullableApplicationSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

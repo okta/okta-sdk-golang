@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the StandardRoleEmbedded type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StandardRoleEmbedded{}
+
 // StandardRoleEmbedded Optional embedded resources for the role assignment
 type StandardRoleEmbedded struct {
-	Targets *StandardRoleEmbeddedTargets `json:"targets,omitempty"`
+	Targets              *StandardRoleEmbeddedTargets `json:"targets,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewStandardRoleEmbeddedWithDefaults() *StandardRoleEmbedded {
 
 // GetTargets returns the Targets field value if set, zero value otherwise.
 func (o *StandardRoleEmbedded) GetTargets() StandardRoleEmbeddedTargets {
-	if o == nil || o.Targets == nil {
+	if o == nil || IsNil(o.Targets) {
 		var ret StandardRoleEmbeddedTargets
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *StandardRoleEmbedded) GetTargets() StandardRoleEmbeddedTargets {
 // GetTargetsOk returns a tuple with the Targets field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StandardRoleEmbedded) GetTargetsOk() (*StandardRoleEmbeddedTargets, bool) {
-	if o == nil || o.Targets == nil {
+	if o == nil || IsNil(o.Targets) {
 		return nil, false
 	}
 	return o.Targets, true
@@ -72,7 +75,7 @@ func (o *StandardRoleEmbedded) GetTargetsOk() (*StandardRoleEmbeddedTargets, boo
 
 // HasTargets returns a boolean if a field has been set.
 func (o *StandardRoleEmbedded) HasTargets() bool {
-	if o != nil && o.Targets != nil {
+	if o != nil && !IsNil(o.Targets) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *StandardRoleEmbedded) SetTargets(v StandardRoleEmbeddedTargets) {
 }
 
 func (o StandardRoleEmbedded) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o StandardRoleEmbedded) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Targets != nil {
+	if !IsNil(o.Targets) {
 		toSerialize["targets"] = o.Targets
 	}
 
@@ -94,27 +105,25 @@ func (o StandardRoleEmbedded) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *StandardRoleEmbedded) UnmarshalJSON(bytes []byte) (err error) {
+func (o *StandardRoleEmbedded) UnmarshalJSON(data []byte) (err error) {
 	varStandardRoleEmbedded := _StandardRoleEmbedded{}
 
-	err = json.Unmarshal(bytes, &varStandardRoleEmbedded)
-	if err == nil {
-		*o = StandardRoleEmbedded(varStandardRoleEmbedded)
-	} else {
+	err = json.Unmarshal(data, &varStandardRoleEmbedded)
+
+	if err != nil {
 		return err
 	}
 
+	*o = StandardRoleEmbedded(varStandardRoleEmbedded)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "targets")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableStandardRoleEmbedded) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

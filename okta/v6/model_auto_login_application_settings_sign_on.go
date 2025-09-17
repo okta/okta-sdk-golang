@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,12 +28,15 @@ import (
 	"fmt"
 )
 
+// checks if the AutoLoginApplicationSettingsSignOn type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AutoLoginApplicationSettingsSignOn{}
+
 // AutoLoginApplicationSettingsSignOn struct for AutoLoginApplicationSettingsSignOn
 type AutoLoginApplicationSettingsSignOn struct {
 	// Primary URL of the sign-in page for this app
 	LoginUrl string `json:"loginUrl"`
 	// Secondary URL of the sign-in page for this app
-	RedirectUrl *string `json:"redirectUrl,omitempty"`
+	RedirectUrl          *string `json:"redirectUrl,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -83,7 +86,7 @@ func (o *AutoLoginApplicationSettingsSignOn) SetLoginUrl(v string) {
 
 // GetRedirectUrl returns the RedirectUrl field value if set, zero value otherwise.
 func (o *AutoLoginApplicationSettingsSignOn) GetRedirectUrl() string {
-	if o == nil || o.RedirectUrl == nil {
+	if o == nil || IsNil(o.RedirectUrl) {
 		var ret string
 		return ret
 	}
@@ -93,7 +96,7 @@ func (o *AutoLoginApplicationSettingsSignOn) GetRedirectUrl() string {
 // GetRedirectUrlOk returns a tuple with the RedirectUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AutoLoginApplicationSettingsSignOn) GetRedirectUrlOk() (*string, bool) {
-	if o == nil || o.RedirectUrl == nil {
+	if o == nil || IsNil(o.RedirectUrl) {
 		return nil, false
 	}
 	return o.RedirectUrl, true
@@ -101,7 +104,7 @@ func (o *AutoLoginApplicationSettingsSignOn) GetRedirectUrlOk() (*string, bool) 
 
 // HasRedirectUrl returns a boolean if a field has been set.
 func (o *AutoLoginApplicationSettingsSignOn) HasRedirectUrl() bool {
-	if o != nil && o.RedirectUrl != nil {
+	if o != nil && !IsNil(o.RedirectUrl) {
 		return true
 	}
 
@@ -114,11 +117,17 @@ func (o *AutoLoginApplicationSettingsSignOn) SetRedirectUrl(v string) {
 }
 
 func (o AutoLoginApplicationSettingsSignOn) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["loginUrl"] = o.LoginUrl
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.RedirectUrl != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o AutoLoginApplicationSettingsSignOn) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["loginUrl"] = o.LoginUrl
+	if !IsNil(o.RedirectUrl) {
 		toSerialize["redirectUrl"] = o.RedirectUrl
 	}
 
@@ -126,28 +135,47 @@ func (o AutoLoginApplicationSettingsSignOn) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AutoLoginApplicationSettingsSignOn) UnmarshalJSON(bytes []byte) (err error) {
-	varAutoLoginApplicationSettingsSignOn := _AutoLoginApplicationSettingsSignOn{}
+func (o *AutoLoginApplicationSettingsSignOn) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"loginUrl",
+	}
 
-	err = json.Unmarshal(bytes, &varAutoLoginApplicationSettingsSignOn)
-	if err == nil {
-		*o = AutoLoginApplicationSettingsSignOn(varAutoLoginApplicationSettingsSignOn)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAutoLoginApplicationSettingsSignOn := _AutoLoginApplicationSettingsSignOn{}
+
+	err = json.Unmarshal(data, &varAutoLoginApplicationSettingsSignOn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AutoLoginApplicationSettingsSignOn(varAutoLoginApplicationSettingsSignOn)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "loginUrl")
 		delete(additionalProperties, "redirectUrl")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -188,4 +216,3 @@ func (v *NullableAutoLoginApplicationSettingsSignOn) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

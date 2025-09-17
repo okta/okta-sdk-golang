@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PasswordSettingObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordSettingObject{}
+
 // PasswordSettingObject Determines whether Okta creates and pushes a password in the app for each assigned user
 type PasswordSettingObject struct {
 	// Determines whether a change in a user's password also updates the user's password in the app
@@ -34,7 +37,7 @@ type PasswordSettingObject struct {
 	// Determines whether the generated password is the user's Okta password or a randomly generated password
 	Seed *string `json:"seed,omitempty"`
 	// Setting status
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -71,7 +74,7 @@ func NewPasswordSettingObjectWithDefaults() *PasswordSettingObject {
 
 // GetChange returns the Change field value if set, zero value otherwise.
 func (o *PasswordSettingObject) GetChange() string {
-	if o == nil || o.Change == nil {
+	if o == nil || IsNil(o.Change) {
 		var ret string
 		return ret
 	}
@@ -81,7 +84,7 @@ func (o *PasswordSettingObject) GetChange() string {
 // GetChangeOk returns a tuple with the Change field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordSettingObject) GetChangeOk() (*string, bool) {
-	if o == nil || o.Change == nil {
+	if o == nil || IsNil(o.Change) {
 		return nil, false
 	}
 	return o.Change, true
@@ -89,7 +92,7 @@ func (o *PasswordSettingObject) GetChangeOk() (*string, bool) {
 
 // HasChange returns a boolean if a field has been set.
 func (o *PasswordSettingObject) HasChange() bool {
-	if o != nil && o.Change != nil {
+	if o != nil && !IsNil(o.Change) {
 		return true
 	}
 
@@ -103,7 +106,7 @@ func (o *PasswordSettingObject) SetChange(v string) {
 
 // GetSeed returns the Seed field value if set, zero value otherwise.
 func (o *PasswordSettingObject) GetSeed() string {
-	if o == nil || o.Seed == nil {
+	if o == nil || IsNil(o.Seed) {
 		var ret string
 		return ret
 	}
@@ -113,7 +116,7 @@ func (o *PasswordSettingObject) GetSeed() string {
 // GetSeedOk returns a tuple with the Seed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordSettingObject) GetSeedOk() (*string, bool) {
-	if o == nil || o.Seed == nil {
+	if o == nil || IsNil(o.Seed) {
 		return nil, false
 	}
 	return o.Seed, true
@@ -121,7 +124,7 @@ func (o *PasswordSettingObject) GetSeedOk() (*string, bool) {
 
 // HasSeed returns a boolean if a field has been set.
 func (o *PasswordSettingObject) HasSeed() bool {
-	if o != nil && o.Seed != nil {
+	if o != nil && !IsNil(o.Seed) {
 		return true
 	}
 
@@ -135,7 +138,7 @@ func (o *PasswordSettingObject) SetSeed(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *PasswordSettingObject) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -145,7 +148,7 @@ func (o *PasswordSettingObject) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordSettingObject) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -153,7 +156,7 @@ func (o *PasswordSettingObject) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *PasswordSettingObject) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -166,14 +169,22 @@ func (o *PasswordSettingObject) SetStatus(v string) {
 }
 
 func (o PasswordSettingObject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordSettingObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Change != nil {
+	if !IsNil(o.Change) {
 		toSerialize["change"] = o.Change
 	}
-	if o.Seed != nil {
+	if !IsNil(o.Seed) {
 		toSerialize["seed"] = o.Seed
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
 
@@ -181,29 +192,27 @@ func (o PasswordSettingObject) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordSettingObject) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordSettingObject) UnmarshalJSON(data []byte) (err error) {
 	varPasswordSettingObject := _PasswordSettingObject{}
 
-	err = json.Unmarshal(bytes, &varPasswordSettingObject)
-	if err == nil {
-		*o = PasswordSettingObject(varPasswordSettingObject)
-	} else {
+	err = json.Unmarshal(data, &varPasswordSettingObject)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PasswordSettingObject(varPasswordSettingObject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "change")
 		delete(additionalProperties, "seed")
 		delete(additionalProperties, "status")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -244,4 +253,3 @@ func (v *NullablePasswordSettingObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

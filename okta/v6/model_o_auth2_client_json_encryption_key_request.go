@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the OAuth2ClientJsonEncryptionKeyRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OAuth2ClientJsonEncryptionKeyRequest{}
+
 // OAuth2ClientJsonEncryptionKeyRequest <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>A [JSON Web Key (JWK)](https://tools.ietf.org/html/rfc7517) is a JSON representation of a cryptographic key. Okta uses an encryption key to encrypt an ID token JWT minted by the org authorization server or custom authorization server. Okta supports only RSA keys for encrypting tokens.
 type OAuth2ClientJsonEncryptionKeyRequest struct {
 	// RSA key value (exponent) for key binding
@@ -40,7 +43,7 @@ type OAuth2ClientJsonEncryptionKeyRequest struct {
 	// Unique identifier of the JSON Web Key in the OAUth 2.0 client's JWKS
 	Kid NullableString `json:"kid,omitempty"`
 	// Status of the OAuth 2.0 client JSON Web Key
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -69,7 +72,7 @@ func NewOAuth2ClientJsonEncryptionKeyRequestWithDefaults() *OAuth2ClientJsonEncr
 
 // GetE returns the E field value if set, zero value otherwise.
 func (o *OAuth2ClientJsonEncryptionKeyRequest) GetE() string {
-	if o == nil || o.E == nil {
+	if o == nil || IsNil(o.E) {
 		var ret string
 		return ret
 	}
@@ -79,7 +82,7 @@ func (o *OAuth2ClientJsonEncryptionKeyRequest) GetE() string {
 // GetEOk returns a tuple with the E field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ClientJsonEncryptionKeyRequest) GetEOk() (*string, bool) {
-	if o == nil || o.E == nil {
+	if o == nil || IsNil(o.E) {
 		return nil, false
 	}
 	return o.E, true
@@ -87,7 +90,7 @@ func (o *OAuth2ClientJsonEncryptionKeyRequest) GetEOk() (*string, bool) {
 
 // HasE returns a boolean if a field has been set.
 func (o *OAuth2ClientJsonEncryptionKeyRequest) HasE() bool {
-	if o != nil && o.E != nil {
+	if o != nil && !IsNil(o.E) {
 		return true
 	}
 
@@ -101,7 +104,7 @@ func (o *OAuth2ClientJsonEncryptionKeyRequest) SetE(v string) {
 
 // GetKty returns the Kty field value if set, zero value otherwise.
 func (o *OAuth2ClientJsonEncryptionKeyRequest) GetKty() string {
-	if o == nil || o.Kty == nil {
+	if o == nil || IsNil(o.Kty) {
 		var ret string
 		return ret
 	}
@@ -111,7 +114,7 @@ func (o *OAuth2ClientJsonEncryptionKeyRequest) GetKty() string {
 // GetKtyOk returns a tuple with the Kty field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ClientJsonEncryptionKeyRequest) GetKtyOk() (*string, bool) {
-	if o == nil || o.Kty == nil {
+	if o == nil || IsNil(o.Kty) {
 		return nil, false
 	}
 	return o.Kty, true
@@ -119,7 +122,7 @@ func (o *OAuth2ClientJsonEncryptionKeyRequest) GetKtyOk() (*string, bool) {
 
 // HasKty returns a boolean if a field has been set.
 func (o *OAuth2ClientJsonEncryptionKeyRequest) HasKty() bool {
-	if o != nil && o.Kty != nil {
+	if o != nil && !IsNil(o.Kty) {
 		return true
 	}
 
@@ -133,7 +136,7 @@ func (o *OAuth2ClientJsonEncryptionKeyRequest) SetKty(v string) {
 
 // GetN returns the N field value if set, zero value otherwise.
 func (o *OAuth2ClientJsonEncryptionKeyRequest) GetN() string {
-	if o == nil || o.N == nil {
+	if o == nil || IsNil(o.N) {
 		var ret string
 		return ret
 	}
@@ -143,7 +146,7 @@ func (o *OAuth2ClientJsonEncryptionKeyRequest) GetN() string {
 // GetNOk returns a tuple with the N field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ClientJsonEncryptionKeyRequest) GetNOk() (*string, bool) {
-	if o == nil || o.N == nil {
+	if o == nil || IsNil(o.N) {
 		return nil, false
 	}
 	return o.N, true
@@ -151,7 +154,7 @@ func (o *OAuth2ClientJsonEncryptionKeyRequest) GetNOk() (*string, bool) {
 
 // HasN returns a boolean if a field has been set.
 func (o *OAuth2ClientJsonEncryptionKeyRequest) HasN() bool {
-	if o != nil && o.N != nil {
+	if o != nil && !IsNil(o.N) {
 		return true
 	}
 
@@ -165,7 +168,7 @@ func (o *OAuth2ClientJsonEncryptionKeyRequest) SetN(v string) {
 
 // GetUse returns the Use field value if set, zero value otherwise.
 func (o *OAuth2ClientJsonEncryptionKeyRequest) GetUse() string {
-	if o == nil || o.Use == nil {
+	if o == nil || IsNil(o.Use) {
 		var ret string
 		return ret
 	}
@@ -175,7 +178,7 @@ func (o *OAuth2ClientJsonEncryptionKeyRequest) GetUse() string {
 // GetUseOk returns a tuple with the Use field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ClientJsonEncryptionKeyRequest) GetUseOk() (*string, bool) {
-	if o == nil || o.Use == nil {
+	if o == nil || IsNil(o.Use) {
 		return nil, false
 	}
 	return o.Use, true
@@ -183,7 +186,7 @@ func (o *OAuth2ClientJsonEncryptionKeyRequest) GetUseOk() (*string, bool) {
 
 // HasUse returns a boolean if a field has been set.
 func (o *OAuth2ClientJsonEncryptionKeyRequest) HasUse() bool {
-	if o != nil && o.Use != nil {
+	if o != nil && !IsNil(o.Use) {
 		return true
 	}
 
@@ -197,7 +200,7 @@ func (o *OAuth2ClientJsonEncryptionKeyRequest) SetUse(v string) {
 
 // GetKid returns the Kid field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *OAuth2ClientJsonEncryptionKeyRequest) GetKid() string {
-	if o == nil || o.Kid.Get() == nil {
+	if o == nil || IsNil(o.Kid.Get()) {
 		var ret string
 		return ret
 	}
@@ -227,6 +230,7 @@ func (o *OAuth2ClientJsonEncryptionKeyRequest) HasKid() bool {
 func (o *OAuth2ClientJsonEncryptionKeyRequest) SetKid(v string) {
 	o.Kid.Set(&v)
 }
+
 // SetKidNil sets the value for Kid to be an explicit nil
 func (o *OAuth2ClientJsonEncryptionKeyRequest) SetKidNil() {
 	o.Kid.Set(nil)
@@ -239,7 +243,7 @@ func (o *OAuth2ClientJsonEncryptionKeyRequest) UnsetKid() {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *OAuth2ClientJsonEncryptionKeyRequest) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -249,7 +253,7 @@ func (o *OAuth2ClientJsonEncryptionKeyRequest) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ClientJsonEncryptionKeyRequest) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -257,7 +261,7 @@ func (o *OAuth2ClientJsonEncryptionKeyRequest) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *OAuth2ClientJsonEncryptionKeyRequest) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -270,23 +274,31 @@ func (o *OAuth2ClientJsonEncryptionKeyRequest) SetStatus(v string) {
 }
 
 func (o OAuth2ClientJsonEncryptionKeyRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OAuth2ClientJsonEncryptionKeyRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.E != nil {
+	if !IsNil(o.E) {
 		toSerialize["e"] = o.E
 	}
-	if o.Kty != nil {
+	if !IsNil(o.Kty) {
 		toSerialize["kty"] = o.Kty
 	}
-	if o.N != nil {
+	if !IsNil(o.N) {
 		toSerialize["n"] = o.N
 	}
-	if o.Use != nil {
+	if !IsNil(o.Use) {
 		toSerialize["use"] = o.Use
 	}
 	if o.Kid.IsSet() {
 		toSerialize["kid"] = o.Kid.Get()
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
 
@@ -294,23 +306,23 @@ func (o OAuth2ClientJsonEncryptionKeyRequest) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OAuth2ClientJsonEncryptionKeyRequest) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OAuth2ClientJsonEncryptionKeyRequest) UnmarshalJSON(data []byte) (err error) {
 	varOAuth2ClientJsonEncryptionKeyRequest := _OAuth2ClientJsonEncryptionKeyRequest{}
 
-	err = json.Unmarshal(bytes, &varOAuth2ClientJsonEncryptionKeyRequest)
-	if err == nil {
-		*o = OAuth2ClientJsonEncryptionKeyRequest(varOAuth2ClientJsonEncryptionKeyRequest)
-	} else {
+	err = json.Unmarshal(data, &varOAuth2ClientJsonEncryptionKeyRequest)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OAuth2ClientJsonEncryptionKeyRequest(varOAuth2ClientJsonEncryptionKeyRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "e")
 		delete(additionalProperties, "kty")
 		delete(additionalProperties, "n")
@@ -318,8 +330,6 @@ func (o *OAuth2ClientJsonEncryptionKeyRequest) UnmarshalJSON(bytes []byte) (err 
 		delete(additionalProperties, "kid")
 		delete(additionalProperties, "status")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -360,4 +370,3 @@ func (v *NullableOAuth2ClientJsonEncryptionKeyRequest) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

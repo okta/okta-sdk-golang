@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,11 +28,14 @@ import (
 	"fmt"
 )
 
+// checks if the HrefCsrSelfLink type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &HrefCsrSelfLink{}
+
 // HrefCsrSelfLink Link to the resource (self)
 type HrefCsrSelfLink struct {
 	Hints *CsrSelfHrefHints `json:"hints,omitempty"`
 	// Link URI
-	Href string `json:"href"`
+	Href                 string `json:"href"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewHrefCsrSelfLinkWithDefaults() *HrefCsrSelfLink {
 
 // GetHints returns the Hints field value if set, zero value otherwise.
 func (o *HrefCsrSelfLink) GetHints() CsrSelfHrefHints {
-	if o == nil || o.Hints == nil {
+	if o == nil || IsNil(o.Hints) {
 		var ret CsrSelfHrefHints
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *HrefCsrSelfLink) GetHints() CsrSelfHrefHints {
 // GetHintsOk returns a tuple with the Hints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HrefCsrSelfLink) GetHintsOk() (*CsrSelfHrefHints, bool) {
-	if o == nil || o.Hints == nil {
+	if o == nil || IsNil(o.Hints) {
 		return nil, false
 	}
 	return o.Hints, true
@@ -76,7 +79,7 @@ func (o *HrefCsrSelfLink) GetHintsOk() (*CsrSelfHrefHints, bool) {
 
 // HasHints returns a boolean if a field has been set.
 func (o *HrefCsrSelfLink) HasHints() bool {
-	if o != nil && o.Hints != nil {
+	if o != nil && !IsNil(o.Hints) {
 		return true
 	}
 
@@ -113,40 +116,65 @@ func (o *HrefCsrSelfLink) SetHref(v string) {
 }
 
 func (o HrefCsrSelfLink) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o HrefCsrSelfLink) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Hints != nil {
+	if !IsNil(o.Hints) {
 		toSerialize["hints"] = o.Hints
 	}
-	if true {
-		toSerialize["href"] = o.Href
-	}
+	toSerialize["href"] = o.Href
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *HrefCsrSelfLink) UnmarshalJSON(bytes []byte) (err error) {
-	varHrefCsrSelfLink := _HrefCsrSelfLink{}
+func (o *HrefCsrSelfLink) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"href",
+	}
 
-	err = json.Unmarshal(bytes, &varHrefCsrSelfLink)
-	if err == nil {
-		*o = HrefCsrSelfLink(varHrefCsrSelfLink)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varHrefCsrSelfLink := _HrefCsrSelfLink{}
+
+	err = json.Unmarshal(data, &varHrefCsrSelfLink)
+
+	if err != nil {
+		return err
+	}
+
+	*o = HrefCsrSelfLink(varHrefCsrSelfLink)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "hints")
 		delete(additionalProperties, "href")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -187,4 +215,3 @@ func (v *NullableHrefCsrSelfLink) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

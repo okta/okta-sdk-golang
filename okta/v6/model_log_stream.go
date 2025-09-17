@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,9 +25,12 @@ package okta
 
 import (
 	"encoding/json"
-	"time"
 	"fmt"
+	"time"
 )
+
+// checks if the LogStream type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LogStream{}
 
 // LogStream struct for LogStream
 type LogStream struct {
@@ -42,8 +45,8 @@ type LogStream struct {
 	// Lifecycle status of the log stream object
 	Status string `json:"status"`
 	// Specifies the streaming provider used  Supported providers:   * `aws_eventbridge` ([AWS EventBridge](https://aws.amazon.com/eventbridge))   * `splunk_cloud_logstreaming` ([Splunk Cloud](https://www.splunk.com/en_us/software/splunk-cloud-platform.html))  Select the provider type to see provider-specific configurations in the `settings` property:
-	Type string `json:"type"`
-	Links LogStreamLinksSelfAndLifecycle `json:"_links"`
+	Type                 string                         `json:"type"`
+	Links                LogStreamLinksSelfAndLifecycle `json:"_links"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -242,50 +245,71 @@ func (o *LogStream) SetLinks(v LogStreamLinksSelfAndLifecycle) {
 }
 
 func (o LogStream) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LogStream) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["lastUpdated"] = o.LastUpdated
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["_links"] = o.Links
-	}
+	toSerialize["created"] = o.Created
+	toSerialize["id"] = o.Id
+	toSerialize["lastUpdated"] = o.LastUpdated
+	toSerialize["name"] = o.Name
+	toSerialize["status"] = o.Status
+	toSerialize["type"] = o.Type
+	toSerialize["_links"] = o.Links
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LogStream) UnmarshalJSON(bytes []byte) (err error) {
-	varLogStream := _LogStream{}
+func (o *LogStream) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"created",
+		"id",
+		"lastUpdated",
+		"name",
+		"status",
+		"type",
+		"_links",
+	}
 
-	err = json.Unmarshal(bytes, &varLogStream)
-	if err == nil {
-		*o = LogStream(varLogStream)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varLogStream := _LogStream{}
+
+	err = json.Unmarshal(data, &varLogStream)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LogStream(varLogStream)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "lastUpdated")
@@ -294,8 +318,6 @@ func (o *LogStream) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -336,4 +358,3 @@ func (v *NullableLogStream) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

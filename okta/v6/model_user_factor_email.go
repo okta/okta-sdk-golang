@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -29,12 +29,15 @@ import (
 	"strings"
 )
 
+// checks if the UserFactorEmail type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserFactorEmail{}
+
 // UserFactorEmail struct for UserFactorEmail
 type UserFactorEmail struct {
 	UserFactor
-	FactorType interface{} `json:"factorType,omitempty"`
-	Profile *UserFactorEmailProfile `json:"profile,omitempty"`
-	Provider *string `json:"provider,omitempty"`
+	FactorType           interface{}             `json:"factorType,omitempty"`
+	Profile              *UserFactorEmailProfile `json:"profile,omitempty"`
+	Provider             *string                 `json:"provider,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -70,7 +73,7 @@ func (o *UserFactorEmail) GetFactorType() interface{} {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UserFactorEmail) GetFactorTypeOk() (*interface{}, bool) {
-	if o == nil || o.FactorType == nil {
+	if o == nil || IsNil(o.FactorType) {
 		return nil, false
 	}
 	return &o.FactorType, true
@@ -78,7 +81,7 @@ func (o *UserFactorEmail) GetFactorTypeOk() (*interface{}, bool) {
 
 // HasFactorType returns a boolean if a field has been set.
 func (o *UserFactorEmail) HasFactorType() bool {
-	if o != nil && o.FactorType != nil {
+	if o != nil && !IsNil(o.FactorType) {
 		return true
 	}
 
@@ -92,7 +95,7 @@ func (o *UserFactorEmail) SetFactorType(v interface{}) {
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *UserFactorEmail) GetProfile() UserFactorEmailProfile {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret UserFactorEmailProfile
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *UserFactorEmail) GetProfile() UserFactorEmailProfile {
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorEmail) GetProfileOk() (*UserFactorEmailProfile, bool) {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		return nil, false
 	}
 	return o.Profile, true
@@ -110,7 +113,7 @@ func (o *UserFactorEmail) GetProfileOk() (*UserFactorEmailProfile, bool) {
 
 // HasProfile returns a boolean if a field has been set.
 func (o *UserFactorEmail) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -124,7 +127,7 @@ func (o *UserFactorEmail) SetProfile(v UserFactorEmailProfile) {
 
 // GetProvider returns the Provider field value if set, zero value otherwise.
 func (o *UserFactorEmail) GetProvider() string {
-	if o == nil || o.Provider == nil {
+	if o == nil || IsNil(o.Provider) {
 		var ret string
 		return ret
 	}
@@ -134,7 +137,7 @@ func (o *UserFactorEmail) GetProvider() string {
 // GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorEmail) GetProviderOk() (*string, bool) {
-	if o == nil || o.Provider == nil {
+	if o == nil || IsNil(o.Provider) {
 		return nil, false
 	}
 	return o.Provider, true
@@ -142,7 +145,7 @@ func (o *UserFactorEmail) GetProviderOk() (*string, bool) {
 
 // HasProvider returns a boolean if a field has been set.
 func (o *UserFactorEmail) HasProvider() bool {
-	if o != nil && o.Provider != nil {
+	if o != nil && !IsNil(o.Provider) {
 		return true
 	}
 
@@ -155,22 +158,30 @@ func (o *UserFactorEmail) SetProvider(v string) {
 }
 
 func (o UserFactorEmail) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserFactorEmail) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedUserFactor, errUserFactor := json.Marshal(o.UserFactor)
 	if errUserFactor != nil {
-		return []byte{}, errUserFactor
+		return map[string]interface{}{}, errUserFactor
 	}
 	errUserFactor = json.Unmarshal([]byte(serializedUserFactor), &toSerialize)
 	if errUserFactor != nil {
-		return []byte{}, errUserFactor
+		return map[string]interface{}{}, errUserFactor
 	}
 	if o.FactorType != nil {
 		toSerialize["factorType"] = o.FactorType
 	}
-	if o.Profile != nil {
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
-	if o.Provider != nil {
+	if !IsNil(o.Provider) {
 		toSerialize["provider"] = o.Provider
 	}
 
@@ -178,19 +189,19 @@ func (o UserFactorEmail) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserFactorEmail) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserFactorEmail) UnmarshalJSON(data []byte) (err error) {
 	type UserFactorEmailWithoutEmbeddedStruct struct {
-		FactorType interface{} `json:"factorType,omitempty"`
-		Profile *UserFactorEmailProfile `json:"profile,omitempty"`
-		Provider *string `json:"provider,omitempty"`
+		FactorType interface{}             `json:"factorType,omitempty"`
+		Profile    *UserFactorEmailProfile `json:"profile,omitempty"`
+		Provider   *string                 `json:"provider,omitempty"`
 	}
 
 	varUserFactorEmailWithoutEmbeddedStruct := UserFactorEmailWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varUserFactorEmailWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varUserFactorEmailWithoutEmbeddedStruct)
 	if err == nil {
 		varUserFactorEmail := _UserFactorEmail{}
 		varUserFactorEmail.FactorType = varUserFactorEmailWithoutEmbeddedStruct.FactorType
@@ -203,7 +214,7 @@ func (o *UserFactorEmail) UnmarshalJSON(bytes []byte) (err error) {
 
 	varUserFactorEmail := _UserFactorEmail{}
 
-	err = json.Unmarshal(bytes, &varUserFactorEmail)
+	err = json.Unmarshal(data, &varUserFactorEmail)
 	if err == nil {
 		o.UserFactor = varUserFactorEmail.UserFactor
 	} else {
@@ -212,8 +223,7 @@ func (o *UserFactorEmail) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "factorType")
 		delete(additionalProperties, "profile")
 		delete(additionalProperties, "provider")
@@ -237,8 +247,6 @@ func (o *UserFactorEmail) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -279,4 +287,3 @@ func (v *NullableUserFactorEmail) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

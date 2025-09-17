@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -29,10 +29,13 @@ import (
 	"strings"
 )
 
+// checks if the InlineHookChannelOAuthCreate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InlineHookChannelOAuthCreate{}
+
 // InlineHookChannelOAuthCreate struct for InlineHookChannelOAuthCreate
 type InlineHookChannelOAuthCreate struct {
 	InlineHookChannelCreate
-	Config *InlineHookOAuthChannelConfigCreate `json:"config,omitempty"`
+	Config               *InlineHookOAuthChannelConfigCreate `json:"config,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewInlineHookChannelOAuthCreateWithDefaults() *InlineHookChannelOAuthCreate
 
 // GetConfig returns the Config field value if set, zero value otherwise.
 func (o *InlineHookChannelOAuthCreate) GetConfig() InlineHookOAuthChannelConfigCreate {
-	if o == nil || o.Config == nil {
+	if o == nil || IsNil(o.Config) {
 		var ret InlineHookOAuthChannelConfigCreate
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *InlineHookChannelOAuthCreate) GetConfig() InlineHookOAuthChannelConfigC
 // GetConfigOk returns a tuple with the Config field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookChannelOAuthCreate) GetConfigOk() (*InlineHookOAuthChannelConfigCreate, bool) {
-	if o == nil || o.Config == nil {
+	if o == nil || IsNil(o.Config) {
 		return nil, false
 	}
 	return o.Config, true
@@ -75,7 +78,7 @@ func (o *InlineHookChannelOAuthCreate) GetConfigOk() (*InlineHookOAuthChannelCon
 
 // HasConfig returns a boolean if a field has been set.
 func (o *InlineHookChannelOAuthCreate) HasConfig() bool {
-	if o != nil && o.Config != nil {
+	if o != nil && !IsNil(o.Config) {
 		return true
 	}
 
@@ -88,16 +91,24 @@ func (o *InlineHookChannelOAuthCreate) SetConfig(v InlineHookOAuthChannelConfigC
 }
 
 func (o InlineHookChannelOAuthCreate) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o InlineHookChannelOAuthCreate) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedInlineHookChannelCreate, errInlineHookChannelCreate := json.Marshal(o.InlineHookChannelCreate)
 	if errInlineHookChannelCreate != nil {
-		return []byte{}, errInlineHookChannelCreate
+		return map[string]interface{}{}, errInlineHookChannelCreate
 	}
 	errInlineHookChannelCreate = json.Unmarshal([]byte(serializedInlineHookChannelCreate), &toSerialize)
 	if errInlineHookChannelCreate != nil {
-		return []byte{}, errInlineHookChannelCreate
+		return map[string]interface{}{}, errInlineHookChannelCreate
 	}
-	if o.Config != nil {
+	if !IsNil(o.Config) {
 		toSerialize["config"] = o.Config
 	}
 
@@ -105,17 +116,17 @@ func (o InlineHookChannelOAuthCreate) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *InlineHookChannelOAuthCreate) UnmarshalJSON(bytes []byte) (err error) {
+func (o *InlineHookChannelOAuthCreate) UnmarshalJSON(data []byte) (err error) {
 	type InlineHookChannelOAuthCreateWithoutEmbeddedStruct struct {
 		Config *InlineHookOAuthChannelConfigCreate `json:"config,omitempty"`
 	}
 
 	varInlineHookChannelOAuthCreateWithoutEmbeddedStruct := InlineHookChannelOAuthCreateWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varInlineHookChannelOAuthCreateWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varInlineHookChannelOAuthCreateWithoutEmbeddedStruct)
 	if err == nil {
 		varInlineHookChannelOAuthCreate := _InlineHookChannelOAuthCreate{}
 		varInlineHookChannelOAuthCreate.Config = varInlineHookChannelOAuthCreateWithoutEmbeddedStruct.Config
@@ -126,7 +137,7 @@ func (o *InlineHookChannelOAuthCreate) UnmarshalJSON(bytes []byte) (err error) {
 
 	varInlineHookChannelOAuthCreate := _InlineHookChannelOAuthCreate{}
 
-	err = json.Unmarshal(bytes, &varInlineHookChannelOAuthCreate)
+	err = json.Unmarshal(data, &varInlineHookChannelOAuthCreate)
 	if err == nil {
 		o.InlineHookChannelCreate = varInlineHookChannelOAuthCreate.InlineHookChannelCreate
 	} else {
@@ -135,8 +146,7 @@ func (o *InlineHookChannelOAuthCreate) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "config")
 
 		// remove fields from embedded structs
@@ -158,8 +168,6 @@ func (o *InlineHookChannelOAuthCreate) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -200,4 +208,3 @@ func (v *NullableInlineHookChannelOAuthCreate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

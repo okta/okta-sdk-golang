@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,25 +26,24 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type ApplicationCrossAppAccessConnectionsAPI interface {
 
 	/*
-	CreateCrossAppAccessConnection Create a Cross App Access connection
+		CreateCrossAppAccessConnection Create a Cross App Access connection
 
-	Creates a Cross App Access connection
+		Creates a Cross App Access connection
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiCreateCrossAppAccessConnectionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiCreateCrossAppAccessConnectionRequest
 	*/
 	CreateCrossAppAccessConnection(ctx context.Context, appId string) ApiCreateCrossAppAccessConnectionRequest
 
@@ -53,15 +52,15 @@ type ApplicationCrossAppAccessConnectionsAPI interface {
 	CreateCrossAppAccessConnectionExecute(r ApiCreateCrossAppAccessConnectionRequest) (*OrgCrossAppAccessConnection, *APIResponse, error)
 
 	/*
-	DeleteCrossAppAccessConnection Delete a Cross App Access connection
+		DeleteCrossAppAccessConnection Delete a Cross App Access connection
 
-	Deletes a Cross App Access connection with the specified ID
+		Deletes a Cross App Access connection with the specified ID
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param connectionId Connection ID
-	@return ApiDeleteCrossAppAccessConnectionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param connectionId Connection ID
+		@return ApiDeleteCrossAppAccessConnectionRequest
 	*/
 	DeleteCrossAppAccessConnection(ctx context.Context, appId string, connectionId string) ApiDeleteCrossAppAccessConnectionRequest
 
@@ -69,14 +68,14 @@ type ApplicationCrossAppAccessConnectionsAPI interface {
 	DeleteCrossAppAccessConnectionExecute(r ApiDeleteCrossAppAccessConnectionRequest) (*APIResponse, error)
 
 	/*
-	GetAllCrossAppAccessConnections Retrieve all Cross App Access connections
+		GetAllCrossAppAccessConnections Retrieve all Cross App Access connections
 
-	Retrieves inbound and outbound Cross App Access connections associated with an app
+		Retrieves inbound and outbound Cross App Access connections associated with an app
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiGetAllCrossAppAccessConnectionsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiGetAllCrossAppAccessConnectionsRequest
 	*/
 	GetAllCrossAppAccessConnections(ctx context.Context, appId string) ApiGetAllCrossAppAccessConnectionsRequest
 
@@ -85,15 +84,15 @@ type ApplicationCrossAppAccessConnectionsAPI interface {
 	GetAllCrossAppAccessConnectionsExecute(r ApiGetAllCrossAppAccessConnectionsRequest) ([]OrgCrossAppAccessConnection, *APIResponse, error)
 
 	/*
-	GetCrossAppAccessConnection Retrieve a Cross App Access connection
+		GetCrossAppAccessConnection Retrieve a Cross App Access connection
 
-	Retrieves the Cross App Access connection with the specified ID
+		Retrieves the Cross App Access connection with the specified ID
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param connectionId Connection ID
-	@return ApiGetCrossAppAccessConnectionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param connectionId Connection ID
+		@return ApiGetCrossAppAccessConnectionRequest
 	*/
 	GetCrossAppAccessConnection(ctx context.Context, appId string, connectionId string) ApiGetCrossAppAccessConnectionRequest
 
@@ -102,15 +101,15 @@ type ApplicationCrossAppAccessConnectionsAPI interface {
 	GetCrossAppAccessConnectionExecute(r ApiGetCrossAppAccessConnectionRequest) (*OrgCrossAppAccessConnection, *APIResponse, error)
 
 	/*
-	UpdateCrossAppAccessConnection Update a Cross App Access connection
+		UpdateCrossAppAccessConnection Update a Cross App Access connection
 
-	Updates the Cross App Access connection with the specified ID
+		Updates the Cross App Access connection with the specified ID
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param connectionId Connection ID
-	@return ApiUpdateCrossAppAccessConnectionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param connectionId Connection ID
+		@return ApiUpdateCrossAppAccessConnectionRequest
 	*/
 	UpdateCrossAppAccessConnection(ctx context.Context, appId string, connectionId string) ApiUpdateCrossAppAccessConnectionRequest
 
@@ -123,11 +122,11 @@ type ApplicationCrossAppAccessConnectionsAPI interface {
 type ApplicationCrossAppAccessConnectionsAPIService service
 
 type ApiCreateCrossAppAccessConnectionRequest struct {
-	ctx context.Context
-	ApiService ApplicationCrossAppAccessConnectionsAPI
-	appId string
+	ctx                         context.Context
+	ApiService                  ApplicationCrossAppAccessConnectionsAPI
+	appId                       string
 	orgCrossAppAccessConnection *OrgCrossAppAccessConnection
-	retryCount int32
+	retryCount                  int32
 }
 
 func (r ApiCreateCrossAppAccessConnectionRequest) OrgCrossAppAccessConnection(orgCrossAppAccessConnection OrgCrossAppAccessConnection) ApiCreateCrossAppAccessConnectionRequest {
@@ -142,24 +141,24 @@ func (r ApiCreateCrossAppAccessConnectionRequest) Execute() (*OrgCrossAppAccessC
 /*
 CreateCrossAppAccessConnection Create a Cross App Access connection
 
-Creates a Cross App Access connection
+# Creates a Cross App Access connection
 
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiCreateCrossAppAccessConnectionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiCreateCrossAppAccessConnectionRequest
 */
 func (a *ApplicationCrossAppAccessConnectionsAPIService) CreateCrossAppAccessConnection(ctx context.Context, appId string) ApiCreateCrossAppAccessConnectionRequest {
 	return ApiCreateCrossAppAccessConnectionRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OrgCrossAppAccessConnection
+//
+//	@return OrgCrossAppAccessConnection
 func (a *ApplicationCrossAppAccessConnectionsAPIService) CreateCrossAppAccessConnectionExecute(r ApiCreateCrossAppAccessConnectionRequest) (*OrgCrossAppAccessConnection, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -168,7 +167,7 @@ func (a *ApplicationCrossAppAccessConnectionsAPIService) CreateCrossAppAccessCon
 		localVarReturnValue  *OrgCrossAppAccessConnection
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -234,9 +233,9 @@ func (a *ApplicationCrossAppAccessConnectionsAPIService) CreateCrossAppAccessCon
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -318,17 +317,17 @@ func (a *ApplicationCrossAppAccessConnectionsAPIService) CreateCrossAppAccessCon
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteCrossAppAccessConnectionRequest struct {
-	ctx context.Context
-	ApiService ApplicationCrossAppAccessConnectionsAPI
-	appId string
+	ctx          context.Context
+	ApiService   ApplicationCrossAppAccessConnectionsAPI
+	appId        string
 	connectionId string
-	retryCount int32
+	retryCount   int32
 }
 
 func (r ApiDeleteCrossAppAccessConnectionRequest) Execute() (*APIResponse, error) {
@@ -338,21 +337,20 @@ func (r ApiDeleteCrossAppAccessConnectionRequest) Execute() (*APIResponse, error
 /*
 DeleteCrossAppAccessConnection Delete a Cross App Access connection
 
-Deletes a Cross App Access connection with the specified ID
+# Deletes a Cross App Access connection with the specified ID
 
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param connectionId Connection ID
- @return ApiDeleteCrossAppAccessConnectionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param connectionId Connection ID
+	@return ApiDeleteCrossAppAccessConnectionRequest
 */
 func (a *ApplicationCrossAppAccessConnectionsAPIService) DeleteCrossAppAccessConnection(ctx context.Context, appId string, connectionId string) ApiDeleteCrossAppAccessConnectionRequest {
 	return ApiDeleteCrossAppAccessConnectionRequest{
-		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ApiService:   a,
+		ctx:          ctx,
+		appId:        appId,
 		connectionId: connectionId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -364,7 +362,7 @@ func (a *ApplicationCrossAppAccessConnectionsAPIService) DeleteCrossAppAccessCon
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -426,9 +424,9 @@ func (a *ApplicationCrossAppAccessConnectionsAPIService) DeleteCrossAppAccessCon
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -494,11 +492,11 @@ func (a *ApplicationCrossAppAccessConnectionsAPIService) DeleteCrossAppAccessCon
 }
 
 type ApiGetAllCrossAppAccessConnectionsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationCrossAppAccessConnectionsAPI
-	appId string
-	after *string
-	limit *int32
+	appId      string
+	after      *string
+	limit      *int32
 	retryCount int32
 }
 
@@ -508,7 +506,7 @@ func (r ApiGetAllCrossAppAccessConnectionsRequest) After(after string) ApiGetAll
 	return r
 }
 
-// Specifies the number of results to return per page. The values:   * -1: Return all results (up to system maximum)   * 0: Return an empty result set   * Positive integer: Return up to that many results (capped at system maximum) 
+// Specifies the number of results to return per page. The values:   * -1: Return all results (up to system maximum)   * 0: Return an empty result set   * Positive integer: Return up to that many results (capped at system maximum)
 func (r ApiGetAllCrossAppAccessConnectionsRequest) Limit(limit int32) ApiGetAllCrossAppAccessConnectionsRequest {
 	r.limit = &limit
 	return r
@@ -521,24 +519,24 @@ func (r ApiGetAllCrossAppAccessConnectionsRequest) Execute() ([]OrgCrossAppAcces
 /*
 GetAllCrossAppAccessConnections Retrieve all Cross App Access connections
 
-Retrieves inbound and outbound Cross App Access connections associated with an app
+# Retrieves inbound and outbound Cross App Access connections associated with an app
 
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiGetAllCrossAppAccessConnectionsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiGetAllCrossAppAccessConnectionsRequest
 */
 func (a *ApplicationCrossAppAccessConnectionsAPIService) GetAllCrossAppAccessConnections(ctx context.Context, appId string) ApiGetAllCrossAppAccessConnectionsRequest {
 	return ApiGetAllCrossAppAccessConnectionsRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []OrgCrossAppAccessConnection
+//
+//	@return []OrgCrossAppAccessConnection
 func (a *ApplicationCrossAppAccessConnectionsAPIService) GetAllCrossAppAccessConnectionsExecute(r ApiGetAllCrossAppAccessConnectionsRequest) ([]OrgCrossAppAccessConnection, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -547,7 +545,7 @@ func (a *ApplicationCrossAppAccessConnectionsAPIService) GetAllCrossAppAccessCon
 		localVarReturnValue  []OrgCrossAppAccessConnection
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -614,9 +612,9 @@ func (a *ApplicationCrossAppAccessConnectionsAPIService) GetAllCrossAppAccessCon
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -686,17 +684,17 @@ func (a *ApplicationCrossAppAccessConnectionsAPIService) GetAllCrossAppAccessCon
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetCrossAppAccessConnectionRequest struct {
-	ctx context.Context
-	ApiService ApplicationCrossAppAccessConnectionsAPI
-	appId string
+	ctx          context.Context
+	ApiService   ApplicationCrossAppAccessConnectionsAPI
+	appId        string
 	connectionId string
-	retryCount int32
+	retryCount   int32
 }
 
 func (r ApiGetCrossAppAccessConnectionRequest) Execute() (*OrgCrossAppAccessConnection, *APIResponse, error) {
@@ -706,26 +704,26 @@ func (r ApiGetCrossAppAccessConnectionRequest) Execute() (*OrgCrossAppAccessConn
 /*
 GetCrossAppAccessConnection Retrieve a Cross App Access connection
 
-Retrieves the Cross App Access connection with the specified ID
+# Retrieves the Cross App Access connection with the specified ID
 
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param connectionId Connection ID
- @return ApiGetCrossAppAccessConnectionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param connectionId Connection ID
+	@return ApiGetCrossAppAccessConnectionRequest
 */
 func (a *ApplicationCrossAppAccessConnectionsAPIService) GetCrossAppAccessConnection(ctx context.Context, appId string, connectionId string) ApiGetCrossAppAccessConnectionRequest {
 	return ApiGetCrossAppAccessConnectionRequest{
-		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ApiService:   a,
+		ctx:          ctx,
+		appId:        appId,
 		connectionId: connectionId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return OrgCrossAppAccessConnection
+//
+//	@return OrgCrossAppAccessConnection
 func (a *ApplicationCrossAppAccessConnectionsAPIService) GetCrossAppAccessConnectionExecute(r ApiGetCrossAppAccessConnectionRequest) (*OrgCrossAppAccessConnection, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -734,7 +732,7 @@ func (a *ApplicationCrossAppAccessConnectionsAPIService) GetCrossAppAccessConnec
 		localVarReturnValue  *OrgCrossAppAccessConnection
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -796,9 +794,9 @@ func (a *ApplicationCrossAppAccessConnectionsAPIService) GetCrossAppAccessConnec
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -868,18 +866,18 @@ func (a *ApplicationCrossAppAccessConnectionsAPIService) GetCrossAppAccessConnec
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateCrossAppAccessConnectionRequest struct {
-	ctx context.Context
-	ApiService ApplicationCrossAppAccessConnectionsAPI
-	appId string
-	connectionId string
+	ctx                                     context.Context
+	ApiService                              ApplicationCrossAppAccessConnectionsAPI
+	appId                                   string
+	connectionId                            string
 	orgCrossAppAccessConnectionPatchRequest *OrgCrossAppAccessConnectionPatchRequest
-	retryCount int32
+	retryCount                              int32
 }
 
 func (r ApiUpdateCrossAppAccessConnectionRequest) OrgCrossAppAccessConnectionPatchRequest(orgCrossAppAccessConnectionPatchRequest OrgCrossAppAccessConnectionPatchRequest) ApiUpdateCrossAppAccessConnectionRequest {
@@ -894,26 +892,26 @@ func (r ApiUpdateCrossAppAccessConnectionRequest) Execute() (*OrgCrossAppAccessC
 /*
 UpdateCrossAppAccessConnection Update a Cross App Access connection
 
-Updates the Cross App Access connection with the specified ID
+# Updates the Cross App Access connection with the specified ID
 
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param connectionId Connection ID
- @return ApiUpdateCrossAppAccessConnectionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param connectionId Connection ID
+	@return ApiUpdateCrossAppAccessConnectionRequest
 */
 func (a *ApplicationCrossAppAccessConnectionsAPIService) UpdateCrossAppAccessConnection(ctx context.Context, appId string, connectionId string) ApiUpdateCrossAppAccessConnectionRequest {
 	return ApiUpdateCrossAppAccessConnectionRequest{
-		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ApiService:   a,
+		ctx:          ctx,
+		appId:        appId,
 		connectionId: connectionId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return OrgCrossAppAccessConnection
+//
+//	@return OrgCrossAppAccessConnection
 func (a *ApplicationCrossAppAccessConnectionsAPIService) UpdateCrossAppAccessConnectionExecute(r ApiUpdateCrossAppAccessConnectionRequest) (*OrgCrossAppAccessConnection, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
@@ -922,7 +920,7 @@ func (a *ApplicationCrossAppAccessConnectionsAPIService) UpdateCrossAppAccessCon
 		localVarReturnValue  *OrgCrossAppAccessConnection
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -989,9 +987,9 @@ func (a *ApplicationCrossAppAccessConnectionsAPIService) UpdateCrossAppAccessCon
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1073,7 +1071,7 @@ func (a *ApplicationCrossAppAccessConnectionsAPIService) UpdateCrossAppAccessCon
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

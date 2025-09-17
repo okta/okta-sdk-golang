@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserImportResponseCommandsInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserImportResponseCommandsInner{}
+
 // UserImportResponseCommandsInner struct for UserImportResponseCommandsInner
 type UserImportResponseCommandsInner struct {
 	// The command types supported for the import inline hook. When using the `com.okta.action.update` command to specify that the user should be treated as a match, you need to also provide a `com.okta.user.update` command that sets the ID of the Okta user.
 	Type *string `json:"type,omitempty"`
 	// The `value` object is the parameter to pass to the command. In the case of the `com.okta.appUser.profile.update` and `com.okta.user.profile.update` commands, the parameter should be a list of one or more profile attributes and the values you wish to set them to. In the case of the `com.okta.action.update` command, the parameter should be a `result` property set to either `CREATE_USER` or `LINK_USER`.
-	Value *map[string]string `json:"value,omitempty"`
+	Value                *map[string]string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewUserImportResponseCommandsInnerWithDefaults() *UserImportResponseCommand
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *UserImportResponseCommandsInner) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *UserImportResponseCommandsInner) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserImportResponseCommandsInner) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -75,7 +78,7 @@ func (o *UserImportResponseCommandsInner) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *UserImportResponseCommandsInner) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *UserImportResponseCommandsInner) SetType(v string) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *UserImportResponseCommandsInner) GetValue() map[string]string {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret map[string]string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *UserImportResponseCommandsInner) GetValue() map[string]string {
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserImportResponseCommandsInner) GetValueOk() (*map[string]string, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -107,7 +110,7 @@ func (o *UserImportResponseCommandsInner) GetValueOk() (*map[string]string, bool
 
 // HasValue returns a boolean if a field has been set.
 func (o *UserImportResponseCommandsInner) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *UserImportResponseCommandsInner) SetValue(v map[string]string) {
 }
 
 func (o UserImportResponseCommandsInner) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserImportResponseCommandsInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Value != nil {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
 
@@ -132,28 +143,26 @@ func (o UserImportResponseCommandsInner) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserImportResponseCommandsInner) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserImportResponseCommandsInner) UnmarshalJSON(data []byte) (err error) {
 	varUserImportResponseCommandsInner := _UserImportResponseCommandsInner{}
 
-	err = json.Unmarshal(bytes, &varUserImportResponseCommandsInner)
-	if err == nil {
-		*o = UserImportResponseCommandsInner(varUserImportResponseCommandsInner)
-	} else {
+	err = json.Unmarshal(data, &varUserImportResponseCommandsInner)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserImportResponseCommandsInner(varUserImportResponseCommandsInner)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "value")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableUserImportResponseCommandsInner) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the SamlRequestAlgorithm type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SamlRequestAlgorithm{}
+
 // SamlRequestAlgorithm Algorithm settings used to secure an `<AuthnRequest>` message
 type SamlRequestAlgorithm struct {
-	Signature *SamlRequestSignatureAlgorithm `json:"signature,omitempty"`
+	Signature            *SamlRequestSignatureAlgorithm `json:"signature,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewSamlRequestAlgorithmWithDefaults() *SamlRequestAlgorithm {
 
 // GetSignature returns the Signature field value if set, zero value otherwise.
 func (o *SamlRequestAlgorithm) GetSignature() SamlRequestSignatureAlgorithm {
-	if o == nil || o.Signature == nil {
+	if o == nil || IsNil(o.Signature) {
 		var ret SamlRequestSignatureAlgorithm
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *SamlRequestAlgorithm) GetSignature() SamlRequestSignatureAlgorithm {
 // GetSignatureOk returns a tuple with the Signature field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlRequestAlgorithm) GetSignatureOk() (*SamlRequestSignatureAlgorithm, bool) {
-	if o == nil || o.Signature == nil {
+	if o == nil || IsNil(o.Signature) {
 		return nil, false
 	}
 	return o.Signature, true
@@ -72,7 +75,7 @@ func (o *SamlRequestAlgorithm) GetSignatureOk() (*SamlRequestSignatureAlgorithm,
 
 // HasSignature returns a boolean if a field has been set.
 func (o *SamlRequestAlgorithm) HasSignature() bool {
-	if o != nil && o.Signature != nil {
+	if o != nil && !IsNil(o.Signature) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *SamlRequestAlgorithm) SetSignature(v SamlRequestSignatureAlgorithm) {
 }
 
 func (o SamlRequestAlgorithm) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SamlRequestAlgorithm) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Signature != nil {
+	if !IsNil(o.Signature) {
 		toSerialize["signature"] = o.Signature
 	}
 
@@ -94,27 +105,25 @@ func (o SamlRequestAlgorithm) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SamlRequestAlgorithm) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SamlRequestAlgorithm) UnmarshalJSON(data []byte) (err error) {
 	varSamlRequestAlgorithm := _SamlRequestAlgorithm{}
 
-	err = json.Unmarshal(bytes, &varSamlRequestAlgorithm)
-	if err == nil {
-		*o = SamlRequestAlgorithm(varSamlRequestAlgorithm)
-	} else {
+	err = json.Unmarshal(data, &varSamlRequestAlgorithm)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SamlRequestAlgorithm(varSamlRequestAlgorithm)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "signature")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableSamlRequestAlgorithm) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

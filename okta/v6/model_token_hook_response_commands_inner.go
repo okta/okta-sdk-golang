@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the TokenHookResponseCommandsInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TokenHookResponseCommandsInner{}
+
 // TokenHookResponseCommandsInner struct for TokenHookResponseCommandsInner
 type TokenHookResponseCommandsInner struct {
 	// One of the supported commands:   `com.okta.identity.patch`: Modify an ID token   `com.okta.access.patch`: Modify an access token > **Note:** The `commands` array should only contain commands that can be applied to the requested tokens. For example, if only an ID token is requested, the `commands` array shouldn't contain commands of the type `com.okta.access.patch`.
 	Type *string `json:"type,omitempty"`
 	// The `value` object is where you specify the operation to perform. It's an array, which allows you to request more than one operation.
-	Value []TokenHookResponseCommandsInnerValueInner `json:"value,omitempty"`
+	Value                []TokenHookResponseCommandsInnerValueInner `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewTokenHookResponseCommandsInnerWithDefaults() *TokenHookResponseCommandsI
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *TokenHookResponseCommandsInner) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *TokenHookResponseCommandsInner) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenHookResponseCommandsInner) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -75,7 +78,7 @@ func (o *TokenHookResponseCommandsInner) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *TokenHookResponseCommandsInner) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *TokenHookResponseCommandsInner) SetType(v string) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *TokenHookResponseCommandsInner) GetValue() []TokenHookResponseCommandsInnerValueInner {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret []TokenHookResponseCommandsInnerValueInner
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *TokenHookResponseCommandsInner) GetValue() []TokenHookResponseCommandsI
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenHookResponseCommandsInner) GetValueOk() ([]TokenHookResponseCommandsInnerValueInner, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -107,7 +110,7 @@ func (o *TokenHookResponseCommandsInner) GetValueOk() ([]TokenHookResponseComman
 
 // HasValue returns a boolean if a field has been set.
 func (o *TokenHookResponseCommandsInner) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *TokenHookResponseCommandsInner) SetValue(v []TokenHookResponseCommandsI
 }
 
 func (o TokenHookResponseCommandsInner) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TokenHookResponseCommandsInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Value != nil {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
 
@@ -132,28 +143,26 @@ func (o TokenHookResponseCommandsInner) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *TokenHookResponseCommandsInner) UnmarshalJSON(bytes []byte) (err error) {
+func (o *TokenHookResponseCommandsInner) UnmarshalJSON(data []byte) (err error) {
 	varTokenHookResponseCommandsInner := _TokenHookResponseCommandsInner{}
 
-	err = json.Unmarshal(bytes, &varTokenHookResponseCommandsInner)
-	if err == nil {
-		*o = TokenHookResponseCommandsInner(varTokenHookResponseCommandsInner)
-	} else {
+	err = json.Unmarshal(data, &varTokenHookResponseCommandsInner)
+
+	if err != nil {
 		return err
 	}
 
+	*o = TokenHookResponseCommandsInner(varTokenHookResponseCommandsInner)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "value")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableTokenHookResponseCommandsInner) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

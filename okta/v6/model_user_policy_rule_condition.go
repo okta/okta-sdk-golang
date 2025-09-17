@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,17 +27,20 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserPolicyRuleCondition type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserPolicyRuleCondition{}
+
 // UserPolicyRuleCondition Specifies a set of Users to be included or excluded
 type UserPolicyRuleCondition struct {
 	// Users to be excluded
-	Exclude []string `json:"exclude,omitempty"`
+	Exclude    []string                       `json:"exclude,omitempty"`
 	Inactivity *InactivityPolicyRuleCondition `json:"inactivity,omitempty"`
 	// Users to be included
-	Include []string `json:"include,omitempty"`
-	LifecycleExpiration *LifecycleExpirationPolicyRuleCondition `json:"lifecycleExpiration,omitempty"`
-	PasswordExpiration *PasswordExpirationPolicyRuleCondition `json:"passwordExpiration,omitempty"`
+	Include                []string                                   `json:"include,omitempty"`
+	LifecycleExpiration    *LifecycleExpirationPolicyRuleCondition    `json:"lifecycleExpiration,omitempty"`
+	PasswordExpiration     *PasswordExpirationPolicyRuleCondition     `json:"passwordExpiration,omitempty"`
 	UserLifecycleAttribute *UserLifecycleAttributePolicyRuleCondition `json:"userLifecycleAttribute,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties   map[string]interface{}
 }
 
 type _UserPolicyRuleCondition UserPolicyRuleCondition
@@ -61,7 +64,7 @@ func NewUserPolicyRuleConditionWithDefaults() *UserPolicyRuleCondition {
 
 // GetExclude returns the Exclude field value if set, zero value otherwise.
 func (o *UserPolicyRuleCondition) GetExclude() []string {
-	if o == nil || o.Exclude == nil {
+	if o == nil || IsNil(o.Exclude) {
 		var ret []string
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *UserPolicyRuleCondition) GetExclude() []string {
 // GetExcludeOk returns a tuple with the Exclude field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserPolicyRuleCondition) GetExcludeOk() ([]string, bool) {
-	if o == nil || o.Exclude == nil {
+	if o == nil || IsNil(o.Exclude) {
 		return nil, false
 	}
 	return o.Exclude, true
@@ -79,7 +82,7 @@ func (o *UserPolicyRuleCondition) GetExcludeOk() ([]string, bool) {
 
 // HasExclude returns a boolean if a field has been set.
 func (o *UserPolicyRuleCondition) HasExclude() bool {
-	if o != nil && o.Exclude != nil {
+	if o != nil && !IsNil(o.Exclude) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *UserPolicyRuleCondition) SetExclude(v []string) {
 
 // GetInactivity returns the Inactivity field value if set, zero value otherwise.
 func (o *UserPolicyRuleCondition) GetInactivity() InactivityPolicyRuleCondition {
-	if o == nil || o.Inactivity == nil {
+	if o == nil || IsNil(o.Inactivity) {
 		var ret InactivityPolicyRuleCondition
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *UserPolicyRuleCondition) GetInactivity() InactivityPolicyRuleCondition 
 // GetInactivityOk returns a tuple with the Inactivity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserPolicyRuleCondition) GetInactivityOk() (*InactivityPolicyRuleCondition, bool) {
-	if o == nil || o.Inactivity == nil {
+	if o == nil || IsNil(o.Inactivity) {
 		return nil, false
 	}
 	return o.Inactivity, true
@@ -111,7 +114,7 @@ func (o *UserPolicyRuleCondition) GetInactivityOk() (*InactivityPolicyRuleCondit
 
 // HasInactivity returns a boolean if a field has been set.
 func (o *UserPolicyRuleCondition) HasInactivity() bool {
-	if o != nil && o.Inactivity != nil {
+	if o != nil && !IsNil(o.Inactivity) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *UserPolicyRuleCondition) SetInactivity(v InactivityPolicyRuleCondition)
 
 // GetInclude returns the Include field value if set, zero value otherwise.
 func (o *UserPolicyRuleCondition) GetInclude() []string {
-	if o == nil || o.Include == nil {
+	if o == nil || IsNil(o.Include) {
 		var ret []string
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *UserPolicyRuleCondition) GetInclude() []string {
 // GetIncludeOk returns a tuple with the Include field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserPolicyRuleCondition) GetIncludeOk() ([]string, bool) {
-	if o == nil || o.Include == nil {
+	if o == nil || IsNil(o.Include) {
 		return nil, false
 	}
 	return o.Include, true
@@ -143,7 +146,7 @@ func (o *UserPolicyRuleCondition) GetIncludeOk() ([]string, bool) {
 
 // HasInclude returns a boolean if a field has been set.
 func (o *UserPolicyRuleCondition) HasInclude() bool {
-	if o != nil && o.Include != nil {
+	if o != nil && !IsNil(o.Include) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *UserPolicyRuleCondition) SetInclude(v []string) {
 
 // GetLifecycleExpiration returns the LifecycleExpiration field value if set, zero value otherwise.
 func (o *UserPolicyRuleCondition) GetLifecycleExpiration() LifecycleExpirationPolicyRuleCondition {
-	if o == nil || o.LifecycleExpiration == nil {
+	if o == nil || IsNil(o.LifecycleExpiration) {
 		var ret LifecycleExpirationPolicyRuleCondition
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *UserPolicyRuleCondition) GetLifecycleExpiration() LifecycleExpirationPo
 // GetLifecycleExpirationOk returns a tuple with the LifecycleExpiration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserPolicyRuleCondition) GetLifecycleExpirationOk() (*LifecycleExpirationPolicyRuleCondition, bool) {
-	if o == nil || o.LifecycleExpiration == nil {
+	if o == nil || IsNil(o.LifecycleExpiration) {
 		return nil, false
 	}
 	return o.LifecycleExpiration, true
@@ -175,7 +178,7 @@ func (o *UserPolicyRuleCondition) GetLifecycleExpirationOk() (*LifecycleExpirati
 
 // HasLifecycleExpiration returns a boolean if a field has been set.
 func (o *UserPolicyRuleCondition) HasLifecycleExpiration() bool {
-	if o != nil && o.LifecycleExpiration != nil {
+	if o != nil && !IsNil(o.LifecycleExpiration) {
 		return true
 	}
 
@@ -189,7 +192,7 @@ func (o *UserPolicyRuleCondition) SetLifecycleExpiration(v LifecycleExpirationPo
 
 // GetPasswordExpiration returns the PasswordExpiration field value if set, zero value otherwise.
 func (o *UserPolicyRuleCondition) GetPasswordExpiration() PasswordExpirationPolicyRuleCondition {
-	if o == nil || o.PasswordExpiration == nil {
+	if o == nil || IsNil(o.PasswordExpiration) {
 		var ret PasswordExpirationPolicyRuleCondition
 		return ret
 	}
@@ -199,7 +202,7 @@ func (o *UserPolicyRuleCondition) GetPasswordExpiration() PasswordExpirationPoli
 // GetPasswordExpirationOk returns a tuple with the PasswordExpiration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserPolicyRuleCondition) GetPasswordExpirationOk() (*PasswordExpirationPolicyRuleCondition, bool) {
-	if o == nil || o.PasswordExpiration == nil {
+	if o == nil || IsNil(o.PasswordExpiration) {
 		return nil, false
 	}
 	return o.PasswordExpiration, true
@@ -207,7 +210,7 @@ func (o *UserPolicyRuleCondition) GetPasswordExpirationOk() (*PasswordExpiration
 
 // HasPasswordExpiration returns a boolean if a field has been set.
 func (o *UserPolicyRuleCondition) HasPasswordExpiration() bool {
-	if o != nil && o.PasswordExpiration != nil {
+	if o != nil && !IsNil(o.PasswordExpiration) {
 		return true
 	}
 
@@ -221,7 +224,7 @@ func (o *UserPolicyRuleCondition) SetPasswordExpiration(v PasswordExpirationPoli
 
 // GetUserLifecycleAttribute returns the UserLifecycleAttribute field value if set, zero value otherwise.
 func (o *UserPolicyRuleCondition) GetUserLifecycleAttribute() UserLifecycleAttributePolicyRuleCondition {
-	if o == nil || o.UserLifecycleAttribute == nil {
+	if o == nil || IsNil(o.UserLifecycleAttribute) {
 		var ret UserLifecycleAttributePolicyRuleCondition
 		return ret
 	}
@@ -231,7 +234,7 @@ func (o *UserPolicyRuleCondition) GetUserLifecycleAttribute() UserLifecycleAttri
 // GetUserLifecycleAttributeOk returns a tuple with the UserLifecycleAttribute field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserPolicyRuleCondition) GetUserLifecycleAttributeOk() (*UserLifecycleAttributePolicyRuleCondition, bool) {
-	if o == nil || o.UserLifecycleAttribute == nil {
+	if o == nil || IsNil(o.UserLifecycleAttribute) {
 		return nil, false
 	}
 	return o.UserLifecycleAttribute, true
@@ -239,7 +242,7 @@ func (o *UserPolicyRuleCondition) GetUserLifecycleAttributeOk() (*UserLifecycleA
 
 // HasUserLifecycleAttribute returns a boolean if a field has been set.
 func (o *UserPolicyRuleCondition) HasUserLifecycleAttribute() bool {
-	if o != nil && o.UserLifecycleAttribute != nil {
+	if o != nil && !IsNil(o.UserLifecycleAttribute) {
 		return true
 	}
 
@@ -252,23 +255,31 @@ func (o *UserPolicyRuleCondition) SetUserLifecycleAttribute(v UserLifecycleAttri
 }
 
 func (o UserPolicyRuleCondition) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserPolicyRuleCondition) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Exclude != nil {
+	if !IsNil(o.Exclude) {
 		toSerialize["exclude"] = o.Exclude
 	}
-	if o.Inactivity != nil {
+	if !IsNil(o.Inactivity) {
 		toSerialize["inactivity"] = o.Inactivity
 	}
-	if o.Include != nil {
+	if !IsNil(o.Include) {
 		toSerialize["include"] = o.Include
 	}
-	if o.LifecycleExpiration != nil {
+	if !IsNil(o.LifecycleExpiration) {
 		toSerialize["lifecycleExpiration"] = o.LifecycleExpiration
 	}
-	if o.PasswordExpiration != nil {
+	if !IsNil(o.PasswordExpiration) {
 		toSerialize["passwordExpiration"] = o.PasswordExpiration
 	}
-	if o.UserLifecycleAttribute != nil {
+	if !IsNil(o.UserLifecycleAttribute) {
 		toSerialize["userLifecycleAttribute"] = o.UserLifecycleAttribute
 	}
 
@@ -276,23 +287,23 @@ func (o UserPolicyRuleCondition) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserPolicyRuleCondition) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserPolicyRuleCondition) UnmarshalJSON(data []byte) (err error) {
 	varUserPolicyRuleCondition := _UserPolicyRuleCondition{}
 
-	err = json.Unmarshal(bytes, &varUserPolicyRuleCondition)
-	if err == nil {
-		*o = UserPolicyRuleCondition(varUserPolicyRuleCondition)
-	} else {
+	err = json.Unmarshal(data, &varUserPolicyRuleCondition)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserPolicyRuleCondition(varUserPolicyRuleCondition)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "exclude")
 		delete(additionalProperties, "inactivity")
 		delete(additionalProperties, "include")
@@ -300,8 +311,6 @@ func (o *UserPolicyRuleCondition) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "passwordExpiration")
 		delete(additionalProperties, "userLifecycleAttribute")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -342,4 +351,3 @@ func (v *NullableUserPolicyRuleCondition) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthenticatorKeyTacAllOfProvider type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorKeyTacAllOfProvider{}
+
 // AuthenticatorKeyTacAllOfProvider <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Settings for the TAC authenticator
 type AuthenticatorKeyTacAllOfProvider struct {
 	// Provider type
-	Type *string `json:"type,omitempty"`
-	Configuration *AuthenticatorKeyTacAllOfProviderConfiguration `json:"configuration,omitempty"`
+	Type                 *string                                        `json:"type,omitempty"`
+	Configuration        *AuthenticatorKeyTacAllOfProviderConfiguration `json:"configuration,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewAuthenticatorKeyTacAllOfProviderWithDefaults() *AuthenticatorKeyTacAllOf
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *AuthenticatorKeyTacAllOfProvider) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *AuthenticatorKeyTacAllOfProvider) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorKeyTacAllOfProvider) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -74,7 +77,7 @@ func (o *AuthenticatorKeyTacAllOfProvider) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *AuthenticatorKeyTacAllOfProvider) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *AuthenticatorKeyTacAllOfProvider) SetType(v string) {
 
 // GetConfiguration returns the Configuration field value if set, zero value otherwise.
 func (o *AuthenticatorKeyTacAllOfProvider) GetConfiguration() AuthenticatorKeyTacAllOfProviderConfiguration {
-	if o == nil || o.Configuration == nil {
+	if o == nil || IsNil(o.Configuration) {
 		var ret AuthenticatorKeyTacAllOfProviderConfiguration
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *AuthenticatorKeyTacAllOfProvider) GetConfiguration() AuthenticatorKeyTa
 // GetConfigurationOk returns a tuple with the Configuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorKeyTacAllOfProvider) GetConfigurationOk() (*AuthenticatorKeyTacAllOfProviderConfiguration, bool) {
-	if o == nil || o.Configuration == nil {
+	if o == nil || IsNil(o.Configuration) {
 		return nil, false
 	}
 	return o.Configuration, true
@@ -106,7 +109,7 @@ func (o *AuthenticatorKeyTacAllOfProvider) GetConfigurationOk() (*AuthenticatorK
 
 // HasConfiguration returns a boolean if a field has been set.
 func (o *AuthenticatorKeyTacAllOfProvider) HasConfiguration() bool {
-	if o != nil && o.Configuration != nil {
+	if o != nil && !IsNil(o.Configuration) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *AuthenticatorKeyTacAllOfProvider) SetConfiguration(v AuthenticatorKeyTa
 }
 
 func (o AuthenticatorKeyTacAllOfProvider) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorKeyTacAllOfProvider) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Configuration != nil {
+	if !IsNil(o.Configuration) {
 		toSerialize["configuration"] = o.Configuration
 	}
 
@@ -131,28 +142,26 @@ func (o AuthenticatorKeyTacAllOfProvider) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorKeyTacAllOfProvider) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorKeyTacAllOfProvider) UnmarshalJSON(data []byte) (err error) {
 	varAuthenticatorKeyTacAllOfProvider := _AuthenticatorKeyTacAllOfProvider{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorKeyTacAllOfProvider)
-	if err == nil {
-		*o = AuthenticatorKeyTacAllOfProvider(varAuthenticatorKeyTacAllOfProvider)
-	} else {
+	err = json.Unmarshal(data, &varAuthenticatorKeyTacAllOfProvider)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthenticatorKeyTacAllOfProvider(varAuthenticatorKeyTacAllOfProvider)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "configuration")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableAuthenticatorKeyTacAllOfProvider) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

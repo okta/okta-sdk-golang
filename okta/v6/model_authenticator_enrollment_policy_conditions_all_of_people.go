@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthenticatorEnrollmentPolicyConditionsAllOfPeople type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorEnrollmentPolicyConditionsAllOfPeople{}
+
 // AuthenticatorEnrollmentPolicyConditionsAllOfPeople Identifies users and groups that are used together
 type AuthenticatorEnrollmentPolicyConditionsAllOfPeople struct {
-	Groups *AuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups `json:"groups,omitempty"`
+	Groups               *AuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups `json:"groups,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewAuthenticatorEnrollmentPolicyConditionsAllOfPeopleWithDefaults() *Authen
 
 // GetGroups returns the Groups field value if set, zero value otherwise.
 func (o *AuthenticatorEnrollmentPolicyConditionsAllOfPeople) GetGroups() AuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups {
-	if o == nil || o.Groups == nil {
+	if o == nil || IsNil(o.Groups) {
 		var ret AuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *AuthenticatorEnrollmentPolicyConditionsAllOfPeople) GetGroups() Authent
 // GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorEnrollmentPolicyConditionsAllOfPeople) GetGroupsOk() (*AuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups, bool) {
-	if o == nil || o.Groups == nil {
+	if o == nil || IsNil(o.Groups) {
 		return nil, false
 	}
 	return o.Groups, true
@@ -72,7 +75,7 @@ func (o *AuthenticatorEnrollmentPolicyConditionsAllOfPeople) GetGroupsOk() (*Aut
 
 // HasGroups returns a boolean if a field has been set.
 func (o *AuthenticatorEnrollmentPolicyConditionsAllOfPeople) HasGroups() bool {
-	if o != nil && o.Groups != nil {
+	if o != nil && !IsNil(o.Groups) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *AuthenticatorEnrollmentPolicyConditionsAllOfPeople) SetGroups(v Authent
 }
 
 func (o AuthenticatorEnrollmentPolicyConditionsAllOfPeople) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorEnrollmentPolicyConditionsAllOfPeople) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Groups != nil {
+	if !IsNil(o.Groups) {
 		toSerialize["groups"] = o.Groups
 	}
 
@@ -94,27 +105,25 @@ func (o AuthenticatorEnrollmentPolicyConditionsAllOfPeople) MarshalJSON() ([]byt
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorEnrollmentPolicyConditionsAllOfPeople) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorEnrollmentPolicyConditionsAllOfPeople) UnmarshalJSON(data []byte) (err error) {
 	varAuthenticatorEnrollmentPolicyConditionsAllOfPeople := _AuthenticatorEnrollmentPolicyConditionsAllOfPeople{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorEnrollmentPolicyConditionsAllOfPeople)
-	if err == nil {
-		*o = AuthenticatorEnrollmentPolicyConditionsAllOfPeople(varAuthenticatorEnrollmentPolicyConditionsAllOfPeople)
-	} else {
+	err = json.Unmarshal(data, &varAuthenticatorEnrollmentPolicyConditionsAllOfPeople)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthenticatorEnrollmentPolicyConditionsAllOfPeople(varAuthenticatorEnrollmentPolicyConditionsAllOfPeople)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "groups")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableAuthenticatorEnrollmentPolicyConditionsAllOfPeople) UnmarshalJS
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

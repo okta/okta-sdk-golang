@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the GroupLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GroupLinks{}
+
 // GroupLinks [Discoverable resources](/openapi/okta-management/management/tag/Group/#tag/Group/operation/listGroups!c=200&path=_links&t=response) related to the group
 type GroupLinks struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Apps *HrefObject `json:"apps,omitempty"`
-	Logo []HrefObject `json:"logo,omitempty"`
-	Source *HrefObject `json:"source,omitempty"`
-	Users *HrefObject `json:"users,omitempty"`
+	Self                 *HrefObjectSelfLink `json:"self,omitempty"`
+	Apps                 *HrefObject         `json:"apps,omitempty"`
+	Logo                 []HrefObject        `json:"logo,omitempty"`
+	Source               *HrefObject         `json:"source,omitempty"`
+	Users                *HrefObject         `json:"users,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewGroupLinksWithDefaults() *GroupLinks {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *GroupLinks) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *GroupLinks) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -76,7 +79,7 @@ func (o *GroupLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *GroupLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *GroupLinks) SetSelf(v HrefObjectSelfLink) {
 
 // GetApps returns the Apps field value if set, zero value otherwise.
 func (o *GroupLinks) GetApps() HrefObject {
-	if o == nil || o.Apps == nil {
+	if o == nil || IsNil(o.Apps) {
 		var ret HrefObject
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *GroupLinks) GetApps() HrefObject {
 // GetAppsOk returns a tuple with the Apps field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupLinks) GetAppsOk() (*HrefObject, bool) {
-	if o == nil || o.Apps == nil {
+	if o == nil || IsNil(o.Apps) {
 		return nil, false
 	}
 	return o.Apps, true
@@ -108,7 +111,7 @@ func (o *GroupLinks) GetAppsOk() (*HrefObject, bool) {
 
 // HasApps returns a boolean if a field has been set.
 func (o *GroupLinks) HasApps() bool {
-	if o != nil && o.Apps != nil {
+	if o != nil && !IsNil(o.Apps) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *GroupLinks) SetApps(v HrefObject) {
 
 // GetLogo returns the Logo field value if set, zero value otherwise.
 func (o *GroupLinks) GetLogo() []HrefObject {
-	if o == nil || o.Logo == nil {
+	if o == nil || IsNil(o.Logo) {
 		var ret []HrefObject
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *GroupLinks) GetLogo() []HrefObject {
 // GetLogoOk returns a tuple with the Logo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupLinks) GetLogoOk() ([]HrefObject, bool) {
-	if o == nil || o.Logo == nil {
+	if o == nil || IsNil(o.Logo) {
 		return nil, false
 	}
 	return o.Logo, true
@@ -140,7 +143,7 @@ func (o *GroupLinks) GetLogoOk() ([]HrefObject, bool) {
 
 // HasLogo returns a boolean if a field has been set.
 func (o *GroupLinks) HasLogo() bool {
-	if o != nil && o.Logo != nil {
+	if o != nil && !IsNil(o.Logo) {
 		return true
 	}
 
@@ -154,7 +157,7 @@ func (o *GroupLinks) SetLogo(v []HrefObject) {
 
 // GetSource returns the Source field value if set, zero value otherwise.
 func (o *GroupLinks) GetSource() HrefObject {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		var ret HrefObject
 		return ret
 	}
@@ -164,7 +167,7 @@ func (o *GroupLinks) GetSource() HrefObject {
 // GetSourceOk returns a tuple with the Source field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupLinks) GetSourceOk() (*HrefObject, bool) {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		return nil, false
 	}
 	return o.Source, true
@@ -172,7 +175,7 @@ func (o *GroupLinks) GetSourceOk() (*HrefObject, bool) {
 
 // HasSource returns a boolean if a field has been set.
 func (o *GroupLinks) HasSource() bool {
-	if o != nil && o.Source != nil {
+	if o != nil && !IsNil(o.Source) {
 		return true
 	}
 
@@ -186,7 +189,7 @@ func (o *GroupLinks) SetSource(v HrefObject) {
 
 // GetUsers returns the Users field value if set, zero value otherwise.
 func (o *GroupLinks) GetUsers() HrefObject {
-	if o == nil || o.Users == nil {
+	if o == nil || IsNil(o.Users) {
 		var ret HrefObject
 		return ret
 	}
@@ -196,7 +199,7 @@ func (o *GroupLinks) GetUsers() HrefObject {
 // GetUsersOk returns a tuple with the Users field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupLinks) GetUsersOk() (*HrefObject, bool) {
-	if o == nil || o.Users == nil {
+	if o == nil || IsNil(o.Users) {
 		return nil, false
 	}
 	return o.Users, true
@@ -204,7 +207,7 @@ func (o *GroupLinks) GetUsersOk() (*HrefObject, bool) {
 
 // HasUsers returns a boolean if a field has been set.
 func (o *GroupLinks) HasUsers() bool {
-	if o != nil && o.Users != nil {
+	if o != nil && !IsNil(o.Users) {
 		return true
 	}
 
@@ -217,20 +220,28 @@ func (o *GroupLinks) SetUsers(v HrefObject) {
 }
 
 func (o GroupLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o GroupLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.Apps != nil {
+	if !IsNil(o.Apps) {
 		toSerialize["apps"] = o.Apps
 	}
-	if o.Logo != nil {
+	if !IsNil(o.Logo) {
 		toSerialize["logo"] = o.Logo
 	}
-	if o.Source != nil {
+	if !IsNil(o.Source) {
 		toSerialize["source"] = o.Source
 	}
-	if o.Users != nil {
+	if !IsNil(o.Users) {
 		toSerialize["users"] = o.Users
 	}
 
@@ -238,31 +249,29 @@ func (o GroupLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *GroupLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *GroupLinks) UnmarshalJSON(data []byte) (err error) {
 	varGroupLinks := _GroupLinks{}
 
-	err = json.Unmarshal(bytes, &varGroupLinks)
-	if err == nil {
-		*o = GroupLinks(varGroupLinks)
-	} else {
+	err = json.Unmarshal(data, &varGroupLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = GroupLinks(varGroupLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "apps")
 		delete(additionalProperties, "logo")
 		delete(additionalProperties, "source")
 		delete(additionalProperties, "users")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -303,4 +312,3 @@ func (v *NullableGroupLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

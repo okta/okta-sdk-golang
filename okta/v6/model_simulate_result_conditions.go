@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the SimulateResultConditions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SimulateResultConditions{}
+
 // SimulateResultConditions struct for SimulateResultConditions
 type SimulateResultConditions struct {
 	// The result of this entity evaluation
 	Status *string `json:"status,omitempty"`
 	// The type of condition
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewSimulateResultConditionsWithDefaults() *SimulateResultConditions {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *SimulateResultConditions) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *SimulateResultConditions) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SimulateResultConditions) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -75,7 +78,7 @@ func (o *SimulateResultConditions) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *SimulateResultConditions) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *SimulateResultConditions) SetStatus(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *SimulateResultConditions) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *SimulateResultConditions) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SimulateResultConditions) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -107,7 +110,7 @@ func (o *SimulateResultConditions) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *SimulateResultConditions) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *SimulateResultConditions) SetType(v string) {
 }
 
 func (o SimulateResultConditions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SimulateResultConditions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -132,28 +143,26 @@ func (o SimulateResultConditions) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SimulateResultConditions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SimulateResultConditions) UnmarshalJSON(data []byte) (err error) {
 	varSimulateResultConditions := _SimulateResultConditions{}
 
-	err = json.Unmarshal(bytes, &varSimulateResultConditions)
-	if err == nil {
-		*o = SimulateResultConditions(varSimulateResultConditions)
-	} else {
+	err = json.Unmarshal(data, &varSimulateResultConditions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SimulateResultConditions(varSimulateResultConditions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableSimulateResultConditions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

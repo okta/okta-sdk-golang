@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the InlineHookChannelConfig type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InlineHookChannelConfig{}
+
 // InlineHookChannelConfig Properties of the communications channel that are used to contact your external service
 type InlineHookChannelConfig struct {
 	// An optional list of key/value pairs for headers that you can send with the request to the external service
@@ -34,7 +37,7 @@ type InlineHookChannelConfig struct {
 	// The method of the Okta inline hook request
 	Method *string `json:"method,omitempty"`
 	// The external service endpoint that executes the inline hook handler. It must begin with `https://` and be reachable by Okta. No white space is allowed in the URI.
-	Uri *string `json:"uri,omitempty"`
+	Uri                  *string `json:"uri,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewInlineHookChannelConfigWithDefaults() *InlineHookChannelConfig {
 
 // GetHeaders returns the Headers field value if set, zero value otherwise.
 func (o *InlineHookChannelConfig) GetHeaders() []InlineHookChannelConfigHeaders {
-	if o == nil || o.Headers == nil {
+	if o == nil || IsNil(o.Headers) {
 		var ret []InlineHookChannelConfigHeaders
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *InlineHookChannelConfig) GetHeaders() []InlineHookChannelConfigHeaders 
 // GetHeadersOk returns a tuple with the Headers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookChannelConfig) GetHeadersOk() ([]InlineHookChannelConfigHeaders, bool) {
-	if o == nil || o.Headers == nil {
+	if o == nil || IsNil(o.Headers) {
 		return nil, false
 	}
 	return o.Headers, true
@@ -77,7 +80,7 @@ func (o *InlineHookChannelConfig) GetHeadersOk() ([]InlineHookChannelConfigHeade
 
 // HasHeaders returns a boolean if a field has been set.
 func (o *InlineHookChannelConfig) HasHeaders() bool {
-	if o != nil && o.Headers != nil {
+	if o != nil && !IsNil(o.Headers) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *InlineHookChannelConfig) SetHeaders(v []InlineHookChannelConfigHeaders)
 
 // GetMethod returns the Method field value if set, zero value otherwise.
 func (o *InlineHookChannelConfig) GetMethod() string {
-	if o == nil || o.Method == nil {
+	if o == nil || IsNil(o.Method) {
 		var ret string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *InlineHookChannelConfig) GetMethod() string {
 // GetMethodOk returns a tuple with the Method field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookChannelConfig) GetMethodOk() (*string, bool) {
-	if o == nil || o.Method == nil {
+	if o == nil || IsNil(o.Method) {
 		return nil, false
 	}
 	return o.Method, true
@@ -109,7 +112,7 @@ func (o *InlineHookChannelConfig) GetMethodOk() (*string, bool) {
 
 // HasMethod returns a boolean if a field has been set.
 func (o *InlineHookChannelConfig) HasMethod() bool {
-	if o != nil && o.Method != nil {
+	if o != nil && !IsNil(o.Method) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *InlineHookChannelConfig) SetMethod(v string) {
 
 // GetUri returns the Uri field value if set, zero value otherwise.
 func (o *InlineHookChannelConfig) GetUri() string {
-	if o == nil || o.Uri == nil {
+	if o == nil || IsNil(o.Uri) {
 		var ret string
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *InlineHookChannelConfig) GetUri() string {
 // GetUriOk returns a tuple with the Uri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookChannelConfig) GetUriOk() (*string, bool) {
-	if o == nil || o.Uri == nil {
+	if o == nil || IsNil(o.Uri) {
 		return nil, false
 	}
 	return o.Uri, true
@@ -141,7 +144,7 @@ func (o *InlineHookChannelConfig) GetUriOk() (*string, bool) {
 
 // HasUri returns a boolean if a field has been set.
 func (o *InlineHookChannelConfig) HasUri() bool {
-	if o != nil && o.Uri != nil {
+	if o != nil && !IsNil(o.Uri) {
 		return true
 	}
 
@@ -154,14 +157,22 @@ func (o *InlineHookChannelConfig) SetUri(v string) {
 }
 
 func (o InlineHookChannelConfig) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o InlineHookChannelConfig) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Headers != nil {
+	if !IsNil(o.Headers) {
 		toSerialize["headers"] = o.Headers
 	}
-	if o.Method != nil {
+	if !IsNil(o.Method) {
 		toSerialize["method"] = o.Method
 	}
-	if o.Uri != nil {
+	if !IsNil(o.Uri) {
 		toSerialize["uri"] = o.Uri
 	}
 
@@ -169,29 +180,27 @@ func (o InlineHookChannelConfig) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *InlineHookChannelConfig) UnmarshalJSON(bytes []byte) (err error) {
+func (o *InlineHookChannelConfig) UnmarshalJSON(data []byte) (err error) {
 	varInlineHookChannelConfig := _InlineHookChannelConfig{}
 
-	err = json.Unmarshal(bytes, &varInlineHookChannelConfig)
-	if err == nil {
-		*o = InlineHookChannelConfig(varInlineHookChannelConfig)
-	} else {
+	err = json.Unmarshal(data, &varInlineHookChannelConfig)
+
+	if err != nil {
 		return err
 	}
 
+	*o = InlineHookChannelConfig(varInlineHookChannelConfig)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "headers")
 		delete(additionalProperties, "method")
 		delete(additionalProperties, "uri")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -232,4 +241,3 @@ func (v *NullableInlineHookChannelConfig) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

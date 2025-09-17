@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the StreamStatus type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StreamStatus{}
+
 // StreamStatus Status corresponding to the `stream_id` of the SSF Stream
 type StreamStatus struct {
 	// The status of the SSF Stream configuration
 	Status *string `json:"status,omitempty"`
 	// The ID of the SSF Stream configuration. This corresponds to the value in the query parameter of the request.
-	StreamId *string `json:"stream_id,omitempty"`
+	StreamId             *string `json:"stream_id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewStreamStatusWithDefaults() *StreamStatus {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *StreamStatus) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *StreamStatus) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StreamStatus) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -75,7 +78,7 @@ func (o *StreamStatus) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *StreamStatus) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *StreamStatus) SetStatus(v string) {
 
 // GetStreamId returns the StreamId field value if set, zero value otherwise.
 func (o *StreamStatus) GetStreamId() string {
-	if o == nil || o.StreamId == nil {
+	if o == nil || IsNil(o.StreamId) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *StreamStatus) GetStreamId() string {
 // GetStreamIdOk returns a tuple with the StreamId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StreamStatus) GetStreamIdOk() (*string, bool) {
-	if o == nil || o.StreamId == nil {
+	if o == nil || IsNil(o.StreamId) {
 		return nil, false
 	}
 	return o.StreamId, true
@@ -107,7 +110,7 @@ func (o *StreamStatus) GetStreamIdOk() (*string, bool) {
 
 // HasStreamId returns a boolean if a field has been set.
 func (o *StreamStatus) HasStreamId() bool {
-	if o != nil && o.StreamId != nil {
+	if o != nil && !IsNil(o.StreamId) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *StreamStatus) SetStreamId(v string) {
 }
 
 func (o StreamStatus) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o StreamStatus) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.StreamId != nil {
+	if !IsNil(o.StreamId) {
 		toSerialize["stream_id"] = o.StreamId
 	}
 
@@ -132,28 +143,26 @@ func (o StreamStatus) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *StreamStatus) UnmarshalJSON(bytes []byte) (err error) {
+func (o *StreamStatus) UnmarshalJSON(data []byte) (err error) {
 	varStreamStatus := _StreamStatus{}
 
-	err = json.Unmarshal(bytes, &varStreamStatus)
-	if err == nil {
-		*o = StreamStatus(varStreamStatus)
-	} else {
+	err = json.Unmarshal(data, &varStreamStatus)
+
+	if err != nil {
 		return err
 	}
 
+	*o = StreamStatus(varStreamStatus)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "stream_id")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableStreamStatus) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the OrgContactUserLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrgContactUserLinks{}
+
 // OrgContactUserLinks Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available for the contact type user object using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification
 type OrgContactUserLinks struct {
-	User *HrefObjectUserLink `json:"user,omitempty"`
+	User                 *HrefObjectUserLink `json:"user,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewOrgContactUserLinksWithDefaults() *OrgContactUserLinks {
 
 // GetUser returns the User field value if set, zero value otherwise.
 func (o *OrgContactUserLinks) GetUser() HrefObjectUserLink {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		var ret HrefObjectUserLink
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *OrgContactUserLinks) GetUser() HrefObjectUserLink {
 // GetUserOk returns a tuple with the User field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgContactUserLinks) GetUserOk() (*HrefObjectUserLink, bool) {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		return nil, false
 	}
 	return o.User, true
@@ -72,7 +75,7 @@ func (o *OrgContactUserLinks) GetUserOk() (*HrefObjectUserLink, bool) {
 
 // HasUser returns a boolean if a field has been set.
 func (o *OrgContactUserLinks) HasUser() bool {
-	if o != nil && o.User != nil {
+	if o != nil && !IsNil(o.User) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *OrgContactUserLinks) SetUser(v HrefObjectUserLink) {
 }
 
 func (o OrgContactUserLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OrgContactUserLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.User != nil {
+	if !IsNil(o.User) {
 		toSerialize["user"] = o.User
 	}
 
@@ -94,27 +105,25 @@ func (o OrgContactUserLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OrgContactUserLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OrgContactUserLinks) UnmarshalJSON(data []byte) (err error) {
 	varOrgContactUserLinks := _OrgContactUserLinks{}
 
-	err = json.Unmarshal(bytes, &varOrgContactUserLinks)
-	if err == nil {
-		*o = OrgContactUserLinks(varOrgContactUserLinks)
-	} else {
+	err = json.Unmarshal(data, &varOrgContactUserLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OrgContactUserLinks(varOrgContactUserLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "user")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableOrgContactUserLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

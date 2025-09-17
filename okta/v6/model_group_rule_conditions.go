@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the GroupRuleConditions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GroupRuleConditions{}
+
 // GroupRuleConditions Defines group rule conditions
 type GroupRuleConditions struct {
-	Expression *GroupRuleExpression `json:"expression,omitempty"`
-	People *GroupRulePeopleCondition `json:"people,omitempty"`
+	Expression           *GroupRuleExpression      `json:"expression,omitempty"`
+	People               *GroupRulePeopleCondition `json:"people,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewGroupRuleConditionsWithDefaults() *GroupRuleConditions {
 
 // GetExpression returns the Expression field value if set, zero value otherwise.
 func (o *GroupRuleConditions) GetExpression() GroupRuleExpression {
-	if o == nil || o.Expression == nil {
+	if o == nil || IsNil(o.Expression) {
 		var ret GroupRuleExpression
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *GroupRuleConditions) GetExpression() GroupRuleExpression {
 // GetExpressionOk returns a tuple with the Expression field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupRuleConditions) GetExpressionOk() (*GroupRuleExpression, bool) {
-	if o == nil || o.Expression == nil {
+	if o == nil || IsNil(o.Expression) {
 		return nil, false
 	}
 	return o.Expression, true
@@ -73,7 +76,7 @@ func (o *GroupRuleConditions) GetExpressionOk() (*GroupRuleExpression, bool) {
 
 // HasExpression returns a boolean if a field has been set.
 func (o *GroupRuleConditions) HasExpression() bool {
-	if o != nil && o.Expression != nil {
+	if o != nil && !IsNil(o.Expression) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *GroupRuleConditions) SetExpression(v GroupRuleExpression) {
 
 // GetPeople returns the People field value if set, zero value otherwise.
 func (o *GroupRuleConditions) GetPeople() GroupRulePeopleCondition {
-	if o == nil || o.People == nil {
+	if o == nil || IsNil(o.People) {
 		var ret GroupRulePeopleCondition
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *GroupRuleConditions) GetPeople() GroupRulePeopleCondition {
 // GetPeopleOk returns a tuple with the People field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupRuleConditions) GetPeopleOk() (*GroupRulePeopleCondition, bool) {
-	if o == nil || o.People == nil {
+	if o == nil || IsNil(o.People) {
 		return nil, false
 	}
 	return o.People, true
@@ -105,7 +108,7 @@ func (o *GroupRuleConditions) GetPeopleOk() (*GroupRulePeopleCondition, bool) {
 
 // HasPeople returns a boolean if a field has been set.
 func (o *GroupRuleConditions) HasPeople() bool {
-	if o != nil && o.People != nil {
+	if o != nil && !IsNil(o.People) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *GroupRuleConditions) SetPeople(v GroupRulePeopleCondition) {
 }
 
 func (o GroupRuleConditions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o GroupRuleConditions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Expression != nil {
+	if !IsNil(o.Expression) {
 		toSerialize["expression"] = o.Expression
 	}
-	if o.People != nil {
+	if !IsNil(o.People) {
 		toSerialize["people"] = o.People
 	}
 
@@ -130,28 +141,26 @@ func (o GroupRuleConditions) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *GroupRuleConditions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *GroupRuleConditions) UnmarshalJSON(data []byte) (err error) {
 	varGroupRuleConditions := _GroupRuleConditions{}
 
-	err = json.Unmarshal(bytes, &varGroupRuleConditions)
-	if err == nil {
-		*o = GroupRuleConditions(varGroupRuleConditions)
-	} else {
+	err = json.Unmarshal(data, &varGroupRuleConditions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = GroupRuleConditions(varGroupRuleConditions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "expression")
 		delete(additionalProperties, "people")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableGroupRuleConditions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

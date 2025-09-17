@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the APIServiceIntegrationLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &APIServiceIntegrationLinks{}
+
 // APIServiceIntegrationLinks Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available for the current status of an application using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification. This object is used for dynamic discovery of related resources and lifecycle operations.
 type APIServiceIntegrationLinks struct {
-	Client *HrefObjectClientLink `json:"client,omitempty"`
-	Logo *HrefObjectLogoLink `json:"logo,omitempty"`
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
+	Client               *HrefObjectClientLink `json:"client,omitempty"`
+	Logo                 *HrefObjectLogoLink   `json:"logo,omitempty"`
+	Self                 *HrefObjectSelfLink   `json:"self,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewAPIServiceIntegrationLinksWithDefaults() *APIServiceIntegrationLinks {
 
 // GetClient returns the Client field value if set, zero value otherwise.
 func (o *APIServiceIntegrationLinks) GetClient() HrefObjectClientLink {
-	if o == nil || o.Client == nil {
+	if o == nil || IsNil(o.Client) {
 		var ret HrefObjectClientLink
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *APIServiceIntegrationLinks) GetClient() HrefObjectClientLink {
 // GetClientOk returns a tuple with the Client field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *APIServiceIntegrationLinks) GetClientOk() (*HrefObjectClientLink, bool) {
-	if o == nil || o.Client == nil {
+	if o == nil || IsNil(o.Client) {
 		return nil, false
 	}
 	return o.Client, true
@@ -74,7 +77,7 @@ func (o *APIServiceIntegrationLinks) GetClientOk() (*HrefObjectClientLink, bool)
 
 // HasClient returns a boolean if a field has been set.
 func (o *APIServiceIntegrationLinks) HasClient() bool {
-	if o != nil && o.Client != nil {
+	if o != nil && !IsNil(o.Client) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *APIServiceIntegrationLinks) SetClient(v HrefObjectClientLink) {
 
 // GetLogo returns the Logo field value if set, zero value otherwise.
 func (o *APIServiceIntegrationLinks) GetLogo() HrefObjectLogoLink {
-	if o == nil || o.Logo == nil {
+	if o == nil || IsNil(o.Logo) {
 		var ret HrefObjectLogoLink
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *APIServiceIntegrationLinks) GetLogo() HrefObjectLogoLink {
 // GetLogoOk returns a tuple with the Logo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *APIServiceIntegrationLinks) GetLogoOk() (*HrefObjectLogoLink, bool) {
-	if o == nil || o.Logo == nil {
+	if o == nil || IsNil(o.Logo) {
 		return nil, false
 	}
 	return o.Logo, true
@@ -106,7 +109,7 @@ func (o *APIServiceIntegrationLinks) GetLogoOk() (*HrefObjectLogoLink, bool) {
 
 // HasLogo returns a boolean if a field has been set.
 func (o *APIServiceIntegrationLinks) HasLogo() bool {
-	if o != nil && o.Logo != nil {
+	if o != nil && !IsNil(o.Logo) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *APIServiceIntegrationLinks) SetLogo(v HrefObjectLogoLink) {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *APIServiceIntegrationLinks) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *APIServiceIntegrationLinks) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *APIServiceIntegrationLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -138,7 +141,7 @@ func (o *APIServiceIntegrationLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *APIServiceIntegrationLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *APIServiceIntegrationLinks) SetSelf(v HrefObjectSelfLink) {
 }
 
 func (o APIServiceIntegrationLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o APIServiceIntegrationLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Client != nil {
+	if !IsNil(o.Client) {
 		toSerialize["client"] = o.Client
 	}
-	if o.Logo != nil {
+	if !IsNil(o.Logo) {
 		toSerialize["logo"] = o.Logo
 	}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
 
@@ -166,29 +177,27 @@ func (o APIServiceIntegrationLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *APIServiceIntegrationLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *APIServiceIntegrationLinks) UnmarshalJSON(data []byte) (err error) {
 	varAPIServiceIntegrationLinks := _APIServiceIntegrationLinks{}
 
-	err = json.Unmarshal(bytes, &varAPIServiceIntegrationLinks)
-	if err == nil {
-		*o = APIServiceIntegrationLinks(varAPIServiceIntegrationLinks)
-	} else {
+	err = json.Unmarshal(data, &varAPIServiceIntegrationLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = APIServiceIntegrationLinks(varAPIServiceIntegrationLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "client")
 		delete(additionalProperties, "logo")
 		delete(additionalProperties, "self")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullableAPIServiceIntegrationLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

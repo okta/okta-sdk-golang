@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the ContentSecurityPolicySetting type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ContentSecurityPolicySetting{}
+
 // ContentSecurityPolicySetting struct for ContentSecurityPolicySetting
 type ContentSecurityPolicySetting struct {
-	Mode *string `json:"mode,omitempty"`
-	ReportUri *string `json:"reportUri,omitempty"`
-	SrcList []string `json:"srcList,omitempty"`
+	Mode                 *string  `json:"mode,omitempty"`
+	ReportUri            *string  `json:"reportUri,omitempty"`
+	SrcList              []string `json:"srcList,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewContentSecurityPolicySettingWithDefaults() *ContentSecurityPolicySetting
 
 // GetMode returns the Mode field value if set, zero value otherwise.
 func (o *ContentSecurityPolicySetting) GetMode() string {
-	if o == nil || o.Mode == nil {
+	if o == nil || IsNil(o.Mode) {
 		var ret string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *ContentSecurityPolicySetting) GetMode() string {
 // GetModeOk returns a tuple with the Mode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ContentSecurityPolicySetting) GetModeOk() (*string, bool) {
-	if o == nil || o.Mode == nil {
+	if o == nil || IsNil(o.Mode) {
 		return nil, false
 	}
 	return o.Mode, true
@@ -74,7 +77,7 @@ func (o *ContentSecurityPolicySetting) GetModeOk() (*string, bool) {
 
 // HasMode returns a boolean if a field has been set.
 func (o *ContentSecurityPolicySetting) HasMode() bool {
-	if o != nil && o.Mode != nil {
+	if o != nil && !IsNil(o.Mode) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *ContentSecurityPolicySetting) SetMode(v string) {
 
 // GetReportUri returns the ReportUri field value if set, zero value otherwise.
 func (o *ContentSecurityPolicySetting) GetReportUri() string {
-	if o == nil || o.ReportUri == nil {
+	if o == nil || IsNil(o.ReportUri) {
 		var ret string
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *ContentSecurityPolicySetting) GetReportUri() string {
 // GetReportUriOk returns a tuple with the ReportUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ContentSecurityPolicySetting) GetReportUriOk() (*string, bool) {
-	if o == nil || o.ReportUri == nil {
+	if o == nil || IsNil(o.ReportUri) {
 		return nil, false
 	}
 	return o.ReportUri, true
@@ -106,7 +109,7 @@ func (o *ContentSecurityPolicySetting) GetReportUriOk() (*string, bool) {
 
 // HasReportUri returns a boolean if a field has been set.
 func (o *ContentSecurityPolicySetting) HasReportUri() bool {
-	if o != nil && o.ReportUri != nil {
+	if o != nil && !IsNil(o.ReportUri) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *ContentSecurityPolicySetting) SetReportUri(v string) {
 
 // GetSrcList returns the SrcList field value if set, zero value otherwise.
 func (o *ContentSecurityPolicySetting) GetSrcList() []string {
-	if o == nil || o.SrcList == nil {
+	if o == nil || IsNil(o.SrcList) {
 		var ret []string
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *ContentSecurityPolicySetting) GetSrcList() []string {
 // GetSrcListOk returns a tuple with the SrcList field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ContentSecurityPolicySetting) GetSrcListOk() ([]string, bool) {
-	if o == nil || o.SrcList == nil {
+	if o == nil || IsNil(o.SrcList) {
 		return nil, false
 	}
 	return o.SrcList, true
@@ -138,7 +141,7 @@ func (o *ContentSecurityPolicySetting) GetSrcListOk() ([]string, bool) {
 
 // HasSrcList returns a boolean if a field has been set.
 func (o *ContentSecurityPolicySetting) HasSrcList() bool {
-	if o != nil && o.SrcList != nil {
+	if o != nil && !IsNil(o.SrcList) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *ContentSecurityPolicySetting) SetSrcList(v []string) {
 }
 
 func (o ContentSecurityPolicySetting) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ContentSecurityPolicySetting) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Mode != nil {
+	if !IsNil(o.Mode) {
 		toSerialize["mode"] = o.Mode
 	}
-	if o.ReportUri != nil {
+	if !IsNil(o.ReportUri) {
 		toSerialize["reportUri"] = o.ReportUri
 	}
-	if o.SrcList != nil {
+	if !IsNil(o.SrcList) {
 		toSerialize["srcList"] = o.SrcList
 	}
 
@@ -166,29 +177,27 @@ func (o ContentSecurityPolicySetting) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ContentSecurityPolicySetting) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ContentSecurityPolicySetting) UnmarshalJSON(data []byte) (err error) {
 	varContentSecurityPolicySetting := _ContentSecurityPolicySetting{}
 
-	err = json.Unmarshal(bytes, &varContentSecurityPolicySetting)
-	if err == nil {
-		*o = ContentSecurityPolicySetting(varContentSecurityPolicySetting)
-	} else {
+	err = json.Unmarshal(data, &varContentSecurityPolicySetting)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ContentSecurityPolicySetting(varContentSecurityPolicySetting)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "mode")
 		delete(additionalProperties, "reportUri")
 		delete(additionalProperties, "srcList")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullableContentSecurityPolicySetting) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

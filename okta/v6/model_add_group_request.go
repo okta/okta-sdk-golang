@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the AddGroupRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AddGroupRequest{}
+
 // AddGroupRequest struct for AddGroupRequest
 type AddGroupRequest struct {
-	Profile *OktaUserGroupProfile `json:"profile,omitempty"`
+	Profile              *OktaUserGroupProfile `json:"profile,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewAddGroupRequestWithDefaults() *AddGroupRequest {
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *AddGroupRequest) GetProfile() OktaUserGroupProfile {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret OktaUserGroupProfile
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *AddGroupRequest) GetProfile() OktaUserGroupProfile {
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AddGroupRequest) GetProfileOk() (*OktaUserGroupProfile, bool) {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		return nil, false
 	}
 	return o.Profile, true
@@ -72,7 +75,7 @@ func (o *AddGroupRequest) GetProfileOk() (*OktaUserGroupProfile, bool) {
 
 // HasProfile returns a boolean if a field has been set.
 func (o *AddGroupRequest) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *AddGroupRequest) SetProfile(v OktaUserGroupProfile) {
 }
 
 func (o AddGroupRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AddGroupRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Profile != nil {
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
 
@@ -94,27 +105,25 @@ func (o AddGroupRequest) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AddGroupRequest) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AddGroupRequest) UnmarshalJSON(data []byte) (err error) {
 	varAddGroupRequest := _AddGroupRequest{}
 
-	err = json.Unmarshal(bytes, &varAddGroupRequest)
-	if err == nil {
-		*o = AddGroupRequest(varAddGroupRequest)
-	} else {
+	err = json.Unmarshal(data, &varAddGroupRequest)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AddGroupRequest(varAddGroupRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "profile")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableAddGroupRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

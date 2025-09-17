@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -38,7 +38,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"mime/multipart"
 	"net/http"
@@ -50,16 +49,17 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 	"unicode/utf8"
 
 	"github.com/cenkalti/backoff/v4"
 	"github.com/go-jose/go-jose/v3"
 	"github.com/go-jose/go-jose/v3/jwt"
-	"golang.org/x/oauth2"
 	"github.com/google/uuid"
 	"github.com/lestrrat-go/jwx/jwk"
 	goCache "github.com/patrickmn/go-cache"
+	"golang.org/x/oauth2"
 )
 
 var (
@@ -609,8 +609,8 @@ func NewJWKAuth(config JWKAuthConfig) *JWKAuth {
 	return &JWKAuth{
 		tokenCache:       config.TokenCache,
 		httpClient:       config.HttpClient,
-		jwk: 		      config.JWK,
-		encryptionType: config.EncryptionType,
+		jwk:              config.JWK,
+		encryptionType:   config.EncryptionType,
 		privateKeySigner: config.PrivateKeySigner,
 		privateKeyId:     config.PrivateKeyId,
 		clientId:         config.ClientId,
@@ -1048,10 +1048,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	return c
 }
 
-func atoi(in string) (int, error) {
-	return strconv.Atoi(in)
-}
-
 // selectHeaderContentType select a content type from the available list.
 func selectHeaderContentType(contentTypes []string) string {
 	if len(contentTypes) == 0 {
@@ -1082,20 +1078,6 @@ func contains(haystack []string, needle string) bool {
 	return false
 }
 
-// Verify optional parameters are of the correct type.
-func typeCheckParameter(obj interface{}, expected string, name string) error {
-	// Make sure there is an object.
-	if obj == nil {
-		return nil
-	}
-
-	// Check the type is as expected.
-	if reflect.TypeOf(obj).String() != expected {
-		return fmt.Errorf("Expected %s to be of type %s but received %s.", name, expected, reflect.TypeOf(obj).String())
-	}
-	return nil
-}
-
 // parameterToString convert interface{} parameters to string, using a delimiter if format is provided.
 func parameterToString(obj interface{}, collectionFormat string) string {
 	var delimiter string
@@ -1118,15 +1100,6 @@ func parameterToString(obj interface{}, collectionFormat string) string {
 	}
 
 	return fmt.Sprintf("%v", obj)
-}
-
-// helper for converting interface{} parameters to json strings
-func parameterToJson(obj interface{}) (string, error) {
-	jsonBuf, err := json.Marshal(obj)
-	if err != nil {
-		return "", err
-	}
-	return string(jsonBuf), err
 }
 
 // callAPI do the request.
@@ -1397,7 +1370,7 @@ func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err err
 		return nil
 	}
 	if f, ok := v.(**os.File); ok {
-		*f, err = ioutil.TempFile("", "HttpClientFile")
+		*f, err = os.CreateTemp("", "HttpClientFile")
 		if err != nil {
 			return
 		}
@@ -1487,12 +1460,12 @@ func (c *APIClient) do(ctx context.Context, req *http.Request) (*http.Response, 
 func (c *APIClient) doWithRetries(ctx context.Context, req *http.Request) (*http.Response, error) {
 	var bodyReader func() io.ReadCloser
 	if req.Body != nil {
-		buf, err := ioutil.ReadAll(req.Body)
+		buf, err := io.ReadAll(req.Body)
 		if err != nil {
 			return nil, err
 		}
 		bodyReader = func() io.ReadCloser {
-			return ioutil.NopCloser(bytes.NewReader(buf))
+			return io.NopCloser(bytes.NewReader(buf))
 		}
 	}
 	var (
@@ -1554,18 +1527,6 @@ func addFile(w *multipart.Writer, fieldName, path string) error {
 	_, err = io.Copy(part, file)
 
 	return err
-}
-
-// Prevent trying to import "fmt"
-func reportError(format string, a ...interface{}) error {
-	return fmt.Errorf(format, a...)
-}
-
-// A wrapper for strict JSON decoding
-func newStrictDecoder(data []byte) *json.Decoder {
-	dec := json.NewDecoder(bytes.NewBuffer(data))
-	dec.DisallowUnknownFields()
-	return dec
 }
 
 // Set request body from an interface{}
@@ -1672,10 +1633,6 @@ func CacheExpires(r *http.Response) time.Time {
 	return expires
 }
 
-func strlen(s string) int {
-	return utf8.RuneCountInString(s)
-}
-
 // GenericOpenAPIError Provides access to the body, error and model on returned errors.
 type GenericOpenAPIError struct {
 	body  []byte
@@ -1728,7 +1685,7 @@ func tooManyRequests(resp *http.Response) bool {
 
 func tryDrainBody(body io.ReadCloser) error {
 	defer body.Close()
-	_, err := io.Copy(ioutil.Discard, io.LimitReader(body, 4096))
+	_, err := io.Copy(io.Discard, io.LimitReader(body, 4096))
 	return err
 }
 
@@ -1779,16 +1736,6 @@ func privateKeyToBytes(priv *rsa.PrivateKey) []byte {
 		&pem.Block{
 			Type:  "RSA PRIVATE KEY",
 			Bytes: x509.MarshalPKCS1PrivateKey(priv),
-		},
-	)
-	return privBytes
-}
-
-func publicKeyToBytes(priv *rsa.PrivateKey) []byte {
-	privBytes := pem.EncodeToMemory(
-		&pem.Block{
-			Type:  "RSA PUBLIC KEY",
-			Bytes: x509.MarshalPKCS1PublicKey(&priv.PublicKey),
 		},
 	)
 	return privBytes

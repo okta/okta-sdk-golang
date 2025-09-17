@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,13 +28,16 @@ import (
 	"fmt"
 )
 
+// checks if the RiscIdentifierChangedEvent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RiscIdentifierChangedEvent{}
+
 // RiscIdentifierChangedEvent The subject's identifier has changed, which is either an email address or a phone number change
 type RiscIdentifierChangedEvent struct {
 	// The time of the event (UNIX timestamp)
 	EventTimestamp int64 `json:"event_timestamp"`
 	// The new identifier value
-	NewValue *string `json:"new-value,omitempty"`
-	Subject SecurityEventSubject `json:"subject"`
+	NewValue             *string              `json:"new-value,omitempty"`
+	Subject              SecurityEventSubject `json:"subject"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -85,7 +88,7 @@ func (o *RiscIdentifierChangedEvent) SetEventTimestamp(v int64) {
 
 // GetNewValue returns the NewValue field value if set, zero value otherwise.
 func (o *RiscIdentifierChangedEvent) GetNewValue() string {
-	if o == nil || o.NewValue == nil {
+	if o == nil || IsNil(o.NewValue) {
 		var ret string
 		return ret
 	}
@@ -95,7 +98,7 @@ func (o *RiscIdentifierChangedEvent) GetNewValue() string {
 // GetNewValueOk returns a tuple with the NewValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiscIdentifierChangedEvent) GetNewValueOk() (*string, bool) {
-	if o == nil || o.NewValue == nil {
+	if o == nil || IsNil(o.NewValue) {
 		return nil, false
 	}
 	return o.NewValue, true
@@ -103,7 +106,7 @@ func (o *RiscIdentifierChangedEvent) GetNewValueOk() (*string, bool) {
 
 // HasNewValue returns a boolean if a field has been set.
 func (o *RiscIdentifierChangedEvent) HasNewValue() bool {
-	if o != nil && o.NewValue != nil {
+	if o != nil && !IsNil(o.NewValue) {
 		return true
 	}
 
@@ -140,44 +143,68 @@ func (o *RiscIdentifierChangedEvent) SetSubject(v SecurityEventSubject) {
 }
 
 func (o RiscIdentifierChangedEvent) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["event_timestamp"] = o.EventTimestamp
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.NewValue != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o RiscIdentifierChangedEvent) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["event_timestamp"] = o.EventTimestamp
+	if !IsNil(o.NewValue) {
 		toSerialize["new-value"] = o.NewValue
 	}
-	if true {
-		toSerialize["subject"] = o.Subject
-	}
+	toSerialize["subject"] = o.Subject
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RiscIdentifierChangedEvent) UnmarshalJSON(bytes []byte) (err error) {
-	varRiscIdentifierChangedEvent := _RiscIdentifierChangedEvent{}
+func (o *RiscIdentifierChangedEvent) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"event_timestamp",
+		"subject",
+	}
 
-	err = json.Unmarshal(bytes, &varRiscIdentifierChangedEvent)
-	if err == nil {
-		*o = RiscIdentifierChangedEvent(varRiscIdentifierChangedEvent)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRiscIdentifierChangedEvent := _RiscIdentifierChangedEvent{}
+
+	err = json.Unmarshal(data, &varRiscIdentifierChangedEvent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RiscIdentifierChangedEvent(varRiscIdentifierChangedEvent)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "event_timestamp")
 		delete(additionalProperties, "new-value")
 		delete(additionalProperties, "subject")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -218,4 +245,3 @@ func (v *NullableRiscIdentifierChangedEvent) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

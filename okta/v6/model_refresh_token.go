@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the RefreshToken type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RefreshToken{}
+
 // RefreshToken The refresh token
 type RefreshToken struct {
 	// The refresh token ID
-	Jti *string `json:"jti,omitempty"`
+	Jti                  *string `json:"jti,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewRefreshTokenWithDefaults() *RefreshToken {
 
 // GetJti returns the Jti field value if set, zero value otherwise.
 func (o *RefreshToken) GetJti() string {
-	if o == nil || o.Jti == nil {
+	if o == nil || IsNil(o.Jti) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *RefreshToken) GetJti() string {
 // GetJtiOk returns a tuple with the Jti field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RefreshToken) GetJtiOk() (*string, bool) {
-	if o == nil || o.Jti == nil {
+	if o == nil || IsNil(o.Jti) {
 		return nil, false
 	}
 	return o.Jti, true
@@ -73,7 +76,7 @@ func (o *RefreshToken) GetJtiOk() (*string, bool) {
 
 // HasJti returns a boolean if a field has been set.
 func (o *RefreshToken) HasJti() bool {
-	if o != nil && o.Jti != nil {
+	if o != nil && !IsNil(o.Jti) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *RefreshToken) SetJti(v string) {
 }
 
 func (o RefreshToken) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RefreshToken) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Jti != nil {
+	if !IsNil(o.Jti) {
 		toSerialize["jti"] = o.Jti
 	}
 
@@ -95,27 +106,25 @@ func (o RefreshToken) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RefreshToken) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RefreshToken) UnmarshalJSON(data []byte) (err error) {
 	varRefreshToken := _RefreshToken{}
 
-	err = json.Unmarshal(bytes, &varRefreshToken)
-	if err == nil {
-		*o = RefreshToken(varRefreshToken)
-	} else {
+	err = json.Unmarshal(data, &varRefreshToken)
+
+	if err != nil {
 		return err
 	}
 
+	*o = RefreshToken(varRefreshToken)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "jti")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableRefreshToken) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

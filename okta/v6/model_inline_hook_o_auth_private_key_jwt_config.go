@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the InlineHookOAuthPrivateKeyJwtConfig type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InlineHookOAuthPrivateKeyJwtConfig{}
+
 // InlineHookOAuthPrivateKeyJwtConfig struct for InlineHookOAuthPrivateKeyJwtConfig
 type InlineHookOAuthPrivateKeyJwtConfig struct {
 	// Not applicable. Must be `null`.
@@ -34,7 +37,7 @@ type InlineHookOAuthPrivateKeyJwtConfig struct {
 	// An ID value of the hook key pair generated from the [Hook Keys API](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/HookKey/#tag/HookKey)
 	HookKeyId *string `json:"hookKeyId,omitempty"`
 	// The method of the Okta inline hook request. Only accepts `POST`.
-	Method *string `json:"method,omitempty"`
+	Method   *string `json:"method,omitempty"`
 	AuthType *string `json:"authType,omitempty"`
 	// A publicly exposed string provided by the service that's used to identify the OAuth app and build authorization URLs
 	ClientId *string `json:"clientId,omitempty"`
@@ -45,7 +48,7 @@ type InlineHookOAuthPrivateKeyJwtConfig struct {
 	// An optional list of key/value pairs for headers that you can send with the request to the external service
 	Headers []InlineHookChannelConfigHeaders `json:"headers,omitempty"`
 	// The external service endpoint that executes the inline hook handler. It must begin with `https://` and be reachable by Okta. No white space is allowed in the URI.
-	Uri *string `json:"uri,omitempty"`
+	Uri                  *string `json:"uri,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -70,7 +73,7 @@ func NewInlineHookOAuthPrivateKeyJwtConfigWithDefaults() *InlineHookOAuthPrivate
 
 // GetAuthScheme returns the AuthScheme field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *InlineHookOAuthPrivateKeyJwtConfig) GetAuthScheme() string {
-	if o == nil || o.AuthScheme.Get() == nil {
+	if o == nil || IsNil(o.AuthScheme.Get()) {
 		var ret string
 		return ret
 	}
@@ -100,6 +103,7 @@ func (o *InlineHookOAuthPrivateKeyJwtConfig) HasAuthScheme() bool {
 func (o *InlineHookOAuthPrivateKeyJwtConfig) SetAuthScheme(v string) {
 	o.AuthScheme.Set(&v)
 }
+
 // SetAuthSchemeNil sets the value for AuthScheme to be an explicit nil
 func (o *InlineHookOAuthPrivateKeyJwtConfig) SetAuthSchemeNil() {
 	o.AuthScheme.Set(nil)
@@ -112,7 +116,7 @@ func (o *InlineHookOAuthPrivateKeyJwtConfig) UnsetAuthScheme() {
 
 // GetHookKeyId returns the HookKeyId field value if set, zero value otherwise.
 func (o *InlineHookOAuthPrivateKeyJwtConfig) GetHookKeyId() string {
-	if o == nil || o.HookKeyId == nil {
+	if o == nil || IsNil(o.HookKeyId) {
 		var ret string
 		return ret
 	}
@@ -122,7 +126,7 @@ func (o *InlineHookOAuthPrivateKeyJwtConfig) GetHookKeyId() string {
 // GetHookKeyIdOk returns a tuple with the HookKeyId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookOAuthPrivateKeyJwtConfig) GetHookKeyIdOk() (*string, bool) {
-	if o == nil || o.HookKeyId == nil {
+	if o == nil || IsNil(o.HookKeyId) {
 		return nil, false
 	}
 	return o.HookKeyId, true
@@ -130,7 +134,7 @@ func (o *InlineHookOAuthPrivateKeyJwtConfig) GetHookKeyIdOk() (*string, bool) {
 
 // HasHookKeyId returns a boolean if a field has been set.
 func (o *InlineHookOAuthPrivateKeyJwtConfig) HasHookKeyId() bool {
-	if o != nil && o.HookKeyId != nil {
+	if o != nil && !IsNil(o.HookKeyId) {
 		return true
 	}
 
@@ -144,7 +148,7 @@ func (o *InlineHookOAuthPrivateKeyJwtConfig) SetHookKeyId(v string) {
 
 // GetMethod returns the Method field value if set, zero value otherwise.
 func (o *InlineHookOAuthPrivateKeyJwtConfig) GetMethod() string {
-	if o == nil || o.Method == nil {
+	if o == nil || IsNil(o.Method) {
 		var ret string
 		return ret
 	}
@@ -154,7 +158,7 @@ func (o *InlineHookOAuthPrivateKeyJwtConfig) GetMethod() string {
 // GetMethodOk returns a tuple with the Method field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookOAuthPrivateKeyJwtConfig) GetMethodOk() (*string, bool) {
-	if o == nil || o.Method == nil {
+	if o == nil || IsNil(o.Method) {
 		return nil, false
 	}
 	return o.Method, true
@@ -162,7 +166,7 @@ func (o *InlineHookOAuthPrivateKeyJwtConfig) GetMethodOk() (*string, bool) {
 
 // HasMethod returns a boolean if a field has been set.
 func (o *InlineHookOAuthPrivateKeyJwtConfig) HasMethod() bool {
-	if o != nil && o.Method != nil {
+	if o != nil && !IsNil(o.Method) {
 		return true
 	}
 
@@ -176,7 +180,7 @@ func (o *InlineHookOAuthPrivateKeyJwtConfig) SetMethod(v string) {
 
 // GetAuthType returns the AuthType field value if set, zero value otherwise.
 func (o *InlineHookOAuthPrivateKeyJwtConfig) GetAuthType() string {
-	if o == nil || o.AuthType == nil {
+	if o == nil || IsNil(o.AuthType) {
 		var ret string
 		return ret
 	}
@@ -186,7 +190,7 @@ func (o *InlineHookOAuthPrivateKeyJwtConfig) GetAuthType() string {
 // GetAuthTypeOk returns a tuple with the AuthType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookOAuthPrivateKeyJwtConfig) GetAuthTypeOk() (*string, bool) {
-	if o == nil || o.AuthType == nil {
+	if o == nil || IsNil(o.AuthType) {
 		return nil, false
 	}
 	return o.AuthType, true
@@ -194,7 +198,7 @@ func (o *InlineHookOAuthPrivateKeyJwtConfig) GetAuthTypeOk() (*string, bool) {
 
 // HasAuthType returns a boolean if a field has been set.
 func (o *InlineHookOAuthPrivateKeyJwtConfig) HasAuthType() bool {
-	if o != nil && o.AuthType != nil {
+	if o != nil && !IsNil(o.AuthType) {
 		return true
 	}
 
@@ -208,7 +212,7 @@ func (o *InlineHookOAuthPrivateKeyJwtConfig) SetAuthType(v string) {
 
 // GetClientId returns the ClientId field value if set, zero value otherwise.
 func (o *InlineHookOAuthPrivateKeyJwtConfig) GetClientId() string {
-	if o == nil || o.ClientId == nil {
+	if o == nil || IsNil(o.ClientId) {
 		var ret string
 		return ret
 	}
@@ -218,7 +222,7 @@ func (o *InlineHookOAuthPrivateKeyJwtConfig) GetClientId() string {
 // GetClientIdOk returns a tuple with the ClientId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookOAuthPrivateKeyJwtConfig) GetClientIdOk() (*string, bool) {
-	if o == nil || o.ClientId == nil {
+	if o == nil || IsNil(o.ClientId) {
 		return nil, false
 	}
 	return o.ClientId, true
@@ -226,7 +230,7 @@ func (o *InlineHookOAuthPrivateKeyJwtConfig) GetClientIdOk() (*string, bool) {
 
 // HasClientId returns a boolean if a field has been set.
 func (o *InlineHookOAuthPrivateKeyJwtConfig) HasClientId() bool {
-	if o != nil && o.ClientId != nil {
+	if o != nil && !IsNil(o.ClientId) {
 		return true
 	}
 
@@ -240,7 +244,7 @@ func (o *InlineHookOAuthPrivateKeyJwtConfig) SetClientId(v string) {
 
 // GetScope returns the Scope field value if set, zero value otherwise.
 func (o *InlineHookOAuthPrivateKeyJwtConfig) GetScope() string {
-	if o == nil || o.Scope == nil {
+	if o == nil || IsNil(o.Scope) {
 		var ret string
 		return ret
 	}
@@ -250,7 +254,7 @@ func (o *InlineHookOAuthPrivateKeyJwtConfig) GetScope() string {
 // GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookOAuthPrivateKeyJwtConfig) GetScopeOk() (*string, bool) {
-	if o == nil || o.Scope == nil {
+	if o == nil || IsNil(o.Scope) {
 		return nil, false
 	}
 	return o.Scope, true
@@ -258,7 +262,7 @@ func (o *InlineHookOAuthPrivateKeyJwtConfig) GetScopeOk() (*string, bool) {
 
 // HasScope returns a boolean if a field has been set.
 func (o *InlineHookOAuthPrivateKeyJwtConfig) HasScope() bool {
-	if o != nil && o.Scope != nil {
+	if o != nil && !IsNil(o.Scope) {
 		return true
 	}
 
@@ -272,7 +276,7 @@ func (o *InlineHookOAuthPrivateKeyJwtConfig) SetScope(v string) {
 
 // GetTokenUrl returns the TokenUrl field value if set, zero value otherwise.
 func (o *InlineHookOAuthPrivateKeyJwtConfig) GetTokenUrl() string {
-	if o == nil || o.TokenUrl == nil {
+	if o == nil || IsNil(o.TokenUrl) {
 		var ret string
 		return ret
 	}
@@ -282,7 +286,7 @@ func (o *InlineHookOAuthPrivateKeyJwtConfig) GetTokenUrl() string {
 // GetTokenUrlOk returns a tuple with the TokenUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookOAuthPrivateKeyJwtConfig) GetTokenUrlOk() (*string, bool) {
-	if o == nil || o.TokenUrl == nil {
+	if o == nil || IsNil(o.TokenUrl) {
 		return nil, false
 	}
 	return o.TokenUrl, true
@@ -290,7 +294,7 @@ func (o *InlineHookOAuthPrivateKeyJwtConfig) GetTokenUrlOk() (*string, bool) {
 
 // HasTokenUrl returns a boolean if a field has been set.
 func (o *InlineHookOAuthPrivateKeyJwtConfig) HasTokenUrl() bool {
-	if o != nil && o.TokenUrl != nil {
+	if o != nil && !IsNil(o.TokenUrl) {
 		return true
 	}
 
@@ -304,7 +308,7 @@ func (o *InlineHookOAuthPrivateKeyJwtConfig) SetTokenUrl(v string) {
 
 // GetHeaders returns the Headers field value if set, zero value otherwise.
 func (o *InlineHookOAuthPrivateKeyJwtConfig) GetHeaders() []InlineHookChannelConfigHeaders {
-	if o == nil || o.Headers == nil {
+	if o == nil || IsNil(o.Headers) {
 		var ret []InlineHookChannelConfigHeaders
 		return ret
 	}
@@ -314,7 +318,7 @@ func (o *InlineHookOAuthPrivateKeyJwtConfig) GetHeaders() []InlineHookChannelCon
 // GetHeadersOk returns a tuple with the Headers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookOAuthPrivateKeyJwtConfig) GetHeadersOk() ([]InlineHookChannelConfigHeaders, bool) {
-	if o == nil || o.Headers == nil {
+	if o == nil || IsNil(o.Headers) {
 		return nil, false
 	}
 	return o.Headers, true
@@ -322,7 +326,7 @@ func (o *InlineHookOAuthPrivateKeyJwtConfig) GetHeadersOk() ([]InlineHookChannel
 
 // HasHeaders returns a boolean if a field has been set.
 func (o *InlineHookOAuthPrivateKeyJwtConfig) HasHeaders() bool {
-	if o != nil && o.Headers != nil {
+	if o != nil && !IsNil(o.Headers) {
 		return true
 	}
 
@@ -336,7 +340,7 @@ func (o *InlineHookOAuthPrivateKeyJwtConfig) SetHeaders(v []InlineHookChannelCon
 
 // GetUri returns the Uri field value if set, zero value otherwise.
 func (o *InlineHookOAuthPrivateKeyJwtConfig) GetUri() string {
-	if o == nil || o.Uri == nil {
+	if o == nil || IsNil(o.Uri) {
 		var ret string
 		return ret
 	}
@@ -346,7 +350,7 @@ func (o *InlineHookOAuthPrivateKeyJwtConfig) GetUri() string {
 // GetUriOk returns a tuple with the Uri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookOAuthPrivateKeyJwtConfig) GetUriOk() (*string, bool) {
-	if o == nil || o.Uri == nil {
+	if o == nil || IsNil(o.Uri) {
 		return nil, false
 	}
 	return o.Uri, true
@@ -354,7 +358,7 @@ func (o *InlineHookOAuthPrivateKeyJwtConfig) GetUriOk() (*string, bool) {
 
 // HasUri returns a boolean if a field has been set.
 func (o *InlineHookOAuthPrivateKeyJwtConfig) HasUri() bool {
-	if o != nil && o.Uri != nil {
+	if o != nil && !IsNil(o.Uri) {
 		return true
 	}
 
@@ -367,32 +371,40 @@ func (o *InlineHookOAuthPrivateKeyJwtConfig) SetUri(v string) {
 }
 
 func (o InlineHookOAuthPrivateKeyJwtConfig) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o InlineHookOAuthPrivateKeyJwtConfig) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.AuthScheme.IsSet() {
 		toSerialize["authScheme"] = o.AuthScheme.Get()
 	}
-	if o.HookKeyId != nil {
+	if !IsNil(o.HookKeyId) {
 		toSerialize["hookKeyId"] = o.HookKeyId
 	}
-	if o.Method != nil {
+	if !IsNil(o.Method) {
 		toSerialize["method"] = o.Method
 	}
-	if o.AuthType != nil {
+	if !IsNil(o.AuthType) {
 		toSerialize["authType"] = o.AuthType
 	}
-	if o.ClientId != nil {
+	if !IsNil(o.ClientId) {
 		toSerialize["clientId"] = o.ClientId
 	}
-	if o.Scope != nil {
+	if !IsNil(o.Scope) {
 		toSerialize["scope"] = o.Scope
 	}
-	if o.TokenUrl != nil {
+	if !IsNil(o.TokenUrl) {
 		toSerialize["tokenUrl"] = o.TokenUrl
 	}
-	if o.Headers != nil {
+	if !IsNil(o.Headers) {
 		toSerialize["headers"] = o.Headers
 	}
-	if o.Uri != nil {
+	if !IsNil(o.Uri) {
 		toSerialize["uri"] = o.Uri
 	}
 
@@ -400,23 +412,23 @@ func (o InlineHookOAuthPrivateKeyJwtConfig) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *InlineHookOAuthPrivateKeyJwtConfig) UnmarshalJSON(bytes []byte) (err error) {
+func (o *InlineHookOAuthPrivateKeyJwtConfig) UnmarshalJSON(data []byte) (err error) {
 	varInlineHookOAuthPrivateKeyJwtConfig := _InlineHookOAuthPrivateKeyJwtConfig{}
 
-	err = json.Unmarshal(bytes, &varInlineHookOAuthPrivateKeyJwtConfig)
-	if err == nil {
-		*o = InlineHookOAuthPrivateKeyJwtConfig(varInlineHookOAuthPrivateKeyJwtConfig)
-	} else {
+	err = json.Unmarshal(data, &varInlineHookOAuthPrivateKeyJwtConfig)
+
+	if err != nil {
 		return err
 	}
 
+	*o = InlineHookOAuthPrivateKeyJwtConfig(varInlineHookOAuthPrivateKeyJwtConfig)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "authScheme")
 		delete(additionalProperties, "hookKeyId")
 		delete(additionalProperties, "method")
@@ -427,8 +439,6 @@ func (o *InlineHookOAuthPrivateKeyJwtConfig) UnmarshalJSON(bytes []byte) (err er
 		delete(additionalProperties, "headers")
 		delete(additionalProperties, "uri")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -469,4 +479,3 @@ func (v *NullableInlineHookOAuthPrivateKeyJwtConfig) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,12 +28,15 @@ import (
 	"fmt"
 )
 
+// checks if the AppGroup type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AppGroup{}
+
 // AppGroup struct for AppGroup
 type AppGroup struct {
 	// The external ID of the app group whose members might be privileged app users
 	ExternalId string `json:"externalId"`
 	// The name of the app group whose members might be privileged app users
-	Name string `json:"name"`
+	Name                 string `json:"name"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,40 +110,64 @@ func (o *AppGroup) SetName(v string) {
 }
 
 func (o AppGroup) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AppGroup) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["externalId"] = o.ExternalId
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
+	toSerialize["externalId"] = o.ExternalId
+	toSerialize["name"] = o.Name
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AppGroup) UnmarshalJSON(bytes []byte) (err error) {
-	varAppGroup := _AppGroup{}
+func (o *AppGroup) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"externalId",
+		"name",
+	}
 
-	err = json.Unmarshal(bytes, &varAppGroup)
-	if err == nil {
-		*o = AppGroup(varAppGroup)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAppGroup := _AppGroup{}
+
+	err = json.Unmarshal(data, &varAppGroup)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AppGroup(varAppGroup)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "externalId")
 		delete(additionalProperties, "name")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -181,4 +208,3 @@ func (v *NullableAppGroup) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the PolicyAccountLinkFilter type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PolicyAccountLinkFilter{}
+
 // PolicyAccountLinkFilter Specifies filters on which users are available for account linking by an IdP
 type PolicyAccountLinkFilter struct {
-	Groups *PolicyAccountLinkFilterGroups `json:"groups,omitempty"`
-	Users *PolicyAccountLinkFilterUsers `json:"users,omitempty"`
+	Groups               *PolicyAccountLinkFilterGroups `json:"groups,omitempty"`
+	Users                *PolicyAccountLinkFilterUsers  `json:"users,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewPolicyAccountLinkFilterWithDefaults() *PolicyAccountLinkFilter {
 
 // GetGroups returns the Groups field value if set, zero value otherwise.
 func (o *PolicyAccountLinkFilter) GetGroups() PolicyAccountLinkFilterGroups {
-	if o == nil || o.Groups == nil {
+	if o == nil || IsNil(o.Groups) {
 		var ret PolicyAccountLinkFilterGroups
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *PolicyAccountLinkFilter) GetGroups() PolicyAccountLinkFilterGroups {
 // GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyAccountLinkFilter) GetGroupsOk() (*PolicyAccountLinkFilterGroups, bool) {
-	if o == nil || o.Groups == nil {
+	if o == nil || IsNil(o.Groups) {
 		return nil, false
 	}
 	return o.Groups, true
@@ -73,7 +76,7 @@ func (o *PolicyAccountLinkFilter) GetGroupsOk() (*PolicyAccountLinkFilterGroups,
 
 // HasGroups returns a boolean if a field has been set.
 func (o *PolicyAccountLinkFilter) HasGroups() bool {
-	if o != nil && o.Groups != nil {
+	if o != nil && !IsNil(o.Groups) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *PolicyAccountLinkFilter) SetGroups(v PolicyAccountLinkFilterGroups) {
 
 // GetUsers returns the Users field value if set, zero value otherwise.
 func (o *PolicyAccountLinkFilter) GetUsers() PolicyAccountLinkFilterUsers {
-	if o == nil || o.Users == nil {
+	if o == nil || IsNil(o.Users) {
 		var ret PolicyAccountLinkFilterUsers
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *PolicyAccountLinkFilter) GetUsers() PolicyAccountLinkFilterUsers {
 // GetUsersOk returns a tuple with the Users field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyAccountLinkFilter) GetUsersOk() (*PolicyAccountLinkFilterUsers, bool) {
-	if o == nil || o.Users == nil {
+	if o == nil || IsNil(o.Users) {
 		return nil, false
 	}
 	return o.Users, true
@@ -105,7 +108,7 @@ func (o *PolicyAccountLinkFilter) GetUsersOk() (*PolicyAccountLinkFilterUsers, b
 
 // HasUsers returns a boolean if a field has been set.
 func (o *PolicyAccountLinkFilter) HasUsers() bool {
-	if o != nil && o.Users != nil {
+	if o != nil && !IsNil(o.Users) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *PolicyAccountLinkFilter) SetUsers(v PolicyAccountLinkFilterUsers) {
 }
 
 func (o PolicyAccountLinkFilter) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PolicyAccountLinkFilter) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Groups != nil {
+	if !IsNil(o.Groups) {
 		toSerialize["groups"] = o.Groups
 	}
-	if o.Users != nil {
+	if !IsNil(o.Users) {
 		toSerialize["users"] = o.Users
 	}
 
@@ -130,28 +141,26 @@ func (o PolicyAccountLinkFilter) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PolicyAccountLinkFilter) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PolicyAccountLinkFilter) UnmarshalJSON(data []byte) (err error) {
 	varPolicyAccountLinkFilter := _PolicyAccountLinkFilter{}
 
-	err = json.Unmarshal(bytes, &varPolicyAccountLinkFilter)
-	if err == nil {
-		*o = PolicyAccountLinkFilter(varPolicyAccountLinkFilter)
-	} else {
+	err = json.Unmarshal(data, &varPolicyAccountLinkFilter)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PolicyAccountLinkFilter(varPolicyAccountLinkFilter)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "groups")
 		delete(additionalProperties, "users")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullablePolicyAccountLinkFilter) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

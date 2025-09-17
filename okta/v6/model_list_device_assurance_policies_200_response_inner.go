@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,15 +28,13 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
 // ListDeviceAssurancePolicies200ResponseInner - struct for ListDeviceAssurancePolicies200ResponseInner
 type ListDeviceAssurancePolicies200ResponseInner struct {
-	DeviceAssuranceAndroidPlatform *DeviceAssuranceAndroidPlatform
+	DeviceAssuranceAndroidPlatform  *DeviceAssuranceAndroidPlatform
 	DeviceAssuranceChromeOSPlatform *DeviceAssuranceChromeOSPlatform
-	DeviceAssuranceIOSPlatform *DeviceAssuranceIOSPlatform
-	DeviceAssuranceMacOSPlatform *DeviceAssuranceMacOSPlatform
-	DeviceAssuranceWindowsPlatform *DeviceAssuranceWindowsPlatform
+	DeviceAssuranceIOSPlatform      *DeviceAssuranceIOSPlatform
+	DeviceAssuranceMacOSPlatform    *DeviceAssuranceMacOSPlatform
+	DeviceAssuranceWindowsPlatform  *DeviceAssuranceWindowsPlatform
 }
 
 // DeviceAssuranceAndroidPlatformAsListDeviceAssurancePolicies200ResponseInner is a convenience function that returns DeviceAssuranceAndroidPlatform wrapped in ListDeviceAssurancePolicies200ResponseInner
@@ -74,15 +72,14 @@ func DeviceAssuranceWindowsPlatformAsListDeviceAssurancePolicies200ResponseInner
 	}
 }
 
-
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *ListDeviceAssurancePolicies200ResponseInner) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	// check if the discriminator value is 'ANDROID'
@@ -93,7 +90,7 @@ func (dst *ListDeviceAssurancePolicies200ResponseInner) UnmarshalJSON(data []byt
 			return nil // data stored in dst.DeviceAssuranceAndroidPlatform, return on the first match
 		} else {
 			dst.DeviceAssuranceAndroidPlatform = nil
-			return fmt.Errorf("Failed to unmarshal ListDeviceAssurancePolicies200ResponseInner as DeviceAssuranceAndroidPlatform: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListDeviceAssurancePolicies200ResponseInner as DeviceAssuranceAndroidPlatform: %s", err.Error())
 		}
 	}
 
@@ -105,7 +102,7 @@ func (dst *ListDeviceAssurancePolicies200ResponseInner) UnmarshalJSON(data []byt
 			return nil // data stored in dst.DeviceAssuranceChromeOSPlatform, return on the first match
 		} else {
 			dst.DeviceAssuranceChromeOSPlatform = nil
-			return fmt.Errorf("Failed to unmarshal ListDeviceAssurancePolicies200ResponseInner as DeviceAssuranceChromeOSPlatform: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListDeviceAssurancePolicies200ResponseInner as DeviceAssuranceChromeOSPlatform: %s", err.Error())
 		}
 	}
 
@@ -117,7 +114,7 @@ func (dst *ListDeviceAssurancePolicies200ResponseInner) UnmarshalJSON(data []byt
 			return nil // data stored in dst.DeviceAssuranceIOSPlatform, return on the first match
 		} else {
 			dst.DeviceAssuranceIOSPlatform = nil
-			return fmt.Errorf("Failed to unmarshal ListDeviceAssurancePolicies200ResponseInner as DeviceAssuranceIOSPlatform: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListDeviceAssurancePolicies200ResponseInner as DeviceAssuranceIOSPlatform: %s", err.Error())
 		}
 	}
 
@@ -129,7 +126,7 @@ func (dst *ListDeviceAssurancePolicies200ResponseInner) UnmarshalJSON(data []byt
 			return nil // data stored in dst.DeviceAssuranceMacOSPlatform, return on the first match
 		} else {
 			dst.DeviceAssuranceMacOSPlatform = nil
-			return fmt.Errorf("Failed to unmarshal ListDeviceAssurancePolicies200ResponseInner as DeviceAssuranceMacOSPlatform: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListDeviceAssurancePolicies200ResponseInner as DeviceAssuranceMacOSPlatform: %s", err.Error())
 		}
 	}
 
@@ -141,7 +138,7 @@ func (dst *ListDeviceAssurancePolicies200ResponseInner) UnmarshalJSON(data []byt
 			return nil // data stored in dst.DeviceAssuranceWindowsPlatform, return on the first match
 		} else {
 			dst.DeviceAssuranceWindowsPlatform = nil
-			return fmt.Errorf("Failed to unmarshal ListDeviceAssurancePolicies200ResponseInner as DeviceAssuranceWindowsPlatform: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListDeviceAssurancePolicies200ResponseInner as DeviceAssuranceWindowsPlatform: %s", err.Error())
 		}
 	}
 
@@ -153,7 +150,7 @@ func (dst *ListDeviceAssurancePolicies200ResponseInner) UnmarshalJSON(data []byt
 			return nil // data stored in dst.DeviceAssuranceAndroidPlatform, return on the first match
 		} else {
 			dst.DeviceAssuranceAndroidPlatform = nil
-			return fmt.Errorf("Failed to unmarshal ListDeviceAssurancePolicies200ResponseInner as DeviceAssuranceAndroidPlatform: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListDeviceAssurancePolicies200ResponseInner as DeviceAssuranceAndroidPlatform: %s", err.Error())
 		}
 	}
 
@@ -165,7 +162,7 @@ func (dst *ListDeviceAssurancePolicies200ResponseInner) UnmarshalJSON(data []byt
 			return nil // data stored in dst.DeviceAssuranceChromeOSPlatform, return on the first match
 		} else {
 			dst.DeviceAssuranceChromeOSPlatform = nil
-			return fmt.Errorf("Failed to unmarshal ListDeviceAssurancePolicies200ResponseInner as DeviceAssuranceChromeOSPlatform: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListDeviceAssurancePolicies200ResponseInner as DeviceAssuranceChromeOSPlatform: %s", err.Error())
 		}
 	}
 
@@ -177,7 +174,7 @@ func (dst *ListDeviceAssurancePolicies200ResponseInner) UnmarshalJSON(data []byt
 			return nil // data stored in dst.DeviceAssuranceIOSPlatform, return on the first match
 		} else {
 			dst.DeviceAssuranceIOSPlatform = nil
-			return fmt.Errorf("Failed to unmarshal ListDeviceAssurancePolicies200ResponseInner as DeviceAssuranceIOSPlatform: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListDeviceAssurancePolicies200ResponseInner as DeviceAssuranceIOSPlatform: %s", err.Error())
 		}
 	}
 
@@ -189,7 +186,7 @@ func (dst *ListDeviceAssurancePolicies200ResponseInner) UnmarshalJSON(data []byt
 			return nil // data stored in dst.DeviceAssuranceMacOSPlatform, return on the first match
 		} else {
 			dst.DeviceAssuranceMacOSPlatform = nil
-			return fmt.Errorf("Failed to unmarshal ListDeviceAssurancePolicies200ResponseInner as DeviceAssuranceMacOSPlatform: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListDeviceAssurancePolicies200ResponseInner as DeviceAssuranceMacOSPlatform: %s", err.Error())
 		}
 	}
 
@@ -201,7 +198,7 @@ func (dst *ListDeviceAssurancePolicies200ResponseInner) UnmarshalJSON(data []byt
 			return nil // data stored in dst.DeviceAssuranceWindowsPlatform, return on the first match
 		} else {
 			dst.DeviceAssuranceWindowsPlatform = nil
-			return fmt.Errorf("Failed to unmarshal ListDeviceAssurancePolicies200ResponseInner as DeviceAssuranceWindowsPlatform: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListDeviceAssurancePolicies200ResponseInner as DeviceAssuranceWindowsPlatform: %s", err.Error())
 		}
 	}
 
@@ -234,7 +231,7 @@ func (src ListDeviceAssurancePolicies200ResponseInner) MarshalJSON() ([]byte, er
 }
 
 // Get the actual instance
-func (obj *ListDeviceAssurancePolicies200ResponseInner) GetActualInstance() (interface{}) {
+func (obj *ListDeviceAssurancePolicies200ResponseInner) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -256,6 +253,32 @@ func (obj *ListDeviceAssurancePolicies200ResponseInner) GetActualInstance() (int
 
 	if obj.DeviceAssuranceWindowsPlatform != nil {
 		return obj.DeviceAssuranceWindowsPlatform
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj ListDeviceAssurancePolicies200ResponseInner) GetActualInstanceValue() interface{} {
+	if obj.DeviceAssuranceAndroidPlatform != nil {
+		return *obj.DeviceAssuranceAndroidPlatform
+	}
+
+	if obj.DeviceAssuranceChromeOSPlatform != nil {
+		return *obj.DeviceAssuranceChromeOSPlatform
+	}
+
+	if obj.DeviceAssuranceIOSPlatform != nil {
+		return *obj.DeviceAssuranceIOSPlatform
+	}
+
+	if obj.DeviceAssuranceMacOSPlatform != nil {
+		return *obj.DeviceAssuranceMacOSPlatform
+	}
+
+	if obj.DeviceAssuranceWindowsPlatform != nil {
+		return *obj.DeviceAssuranceWindowsPlatform
 	}
 
 	// all schemas are nil
@@ -297,5 +320,3 @@ func (v *NullableListDeviceAssurancePolicies200ResponseInner) UnmarshalJSON(src 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

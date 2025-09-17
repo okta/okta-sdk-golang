@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the OktaSignOnPolicyRuleSignonSessionActions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OktaSignOnPolicyRuleSignonSessionActions{}
+
 // OktaSignOnPolicyRuleSignonSessionActions Properties governing the user's session lifetime
 type OktaSignOnPolicyRuleSignonSessionActions struct {
 	// Maximum number of minutes that a user session can be idle before the session is ended
@@ -34,7 +37,7 @@ type OktaSignOnPolicyRuleSignonSessionActions struct {
 	// Maximum number of minutes (from when the user signs in) that a user's session is active. Set this to force users to sign in again after the number of specified minutes. Disable by setting to `0`.
 	MaxSessionLifetimeMinutes *int32 `json:"maxSessionLifetimeMinutes,omitempty"`
 	// If set to `false`, user session cookies only last the length of a browser session. If set to `true`, user session cookies last across browser sessions. This setting doesn't impact administrators who can never have persistent session cookies. This property is read-only for the default rule of the default global session policy.
-	UsePersistentCookie *bool `json:"usePersistentCookie,omitempty"`
+	UsePersistentCookie  *bool `json:"usePersistentCookie,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -71,7 +74,7 @@ func NewOktaSignOnPolicyRuleSignonSessionActionsWithDefaults() *OktaSignOnPolicy
 
 // GetMaxSessionIdleMinutes returns the MaxSessionIdleMinutes field value if set, zero value otherwise.
 func (o *OktaSignOnPolicyRuleSignonSessionActions) GetMaxSessionIdleMinutes() int32 {
-	if o == nil || o.MaxSessionIdleMinutes == nil {
+	if o == nil || IsNil(o.MaxSessionIdleMinutes) {
 		var ret int32
 		return ret
 	}
@@ -81,7 +84,7 @@ func (o *OktaSignOnPolicyRuleSignonSessionActions) GetMaxSessionIdleMinutes() in
 // GetMaxSessionIdleMinutesOk returns a tuple with the MaxSessionIdleMinutes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaSignOnPolicyRuleSignonSessionActions) GetMaxSessionIdleMinutesOk() (*int32, bool) {
-	if o == nil || o.MaxSessionIdleMinutes == nil {
+	if o == nil || IsNil(o.MaxSessionIdleMinutes) {
 		return nil, false
 	}
 	return o.MaxSessionIdleMinutes, true
@@ -89,7 +92,7 @@ func (o *OktaSignOnPolicyRuleSignonSessionActions) GetMaxSessionIdleMinutesOk() 
 
 // HasMaxSessionIdleMinutes returns a boolean if a field has been set.
 func (o *OktaSignOnPolicyRuleSignonSessionActions) HasMaxSessionIdleMinutes() bool {
-	if o != nil && o.MaxSessionIdleMinutes != nil {
+	if o != nil && !IsNil(o.MaxSessionIdleMinutes) {
 		return true
 	}
 
@@ -103,7 +106,7 @@ func (o *OktaSignOnPolicyRuleSignonSessionActions) SetMaxSessionIdleMinutes(v in
 
 // GetMaxSessionLifetimeMinutes returns the MaxSessionLifetimeMinutes field value if set, zero value otherwise.
 func (o *OktaSignOnPolicyRuleSignonSessionActions) GetMaxSessionLifetimeMinutes() int32 {
-	if o == nil || o.MaxSessionLifetimeMinutes == nil {
+	if o == nil || IsNil(o.MaxSessionLifetimeMinutes) {
 		var ret int32
 		return ret
 	}
@@ -113,7 +116,7 @@ func (o *OktaSignOnPolicyRuleSignonSessionActions) GetMaxSessionLifetimeMinutes(
 // GetMaxSessionLifetimeMinutesOk returns a tuple with the MaxSessionLifetimeMinutes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaSignOnPolicyRuleSignonSessionActions) GetMaxSessionLifetimeMinutesOk() (*int32, bool) {
-	if o == nil || o.MaxSessionLifetimeMinutes == nil {
+	if o == nil || IsNil(o.MaxSessionLifetimeMinutes) {
 		return nil, false
 	}
 	return o.MaxSessionLifetimeMinutes, true
@@ -121,7 +124,7 @@ func (o *OktaSignOnPolicyRuleSignonSessionActions) GetMaxSessionLifetimeMinutesO
 
 // HasMaxSessionLifetimeMinutes returns a boolean if a field has been set.
 func (o *OktaSignOnPolicyRuleSignonSessionActions) HasMaxSessionLifetimeMinutes() bool {
-	if o != nil && o.MaxSessionLifetimeMinutes != nil {
+	if o != nil && !IsNil(o.MaxSessionLifetimeMinutes) {
 		return true
 	}
 
@@ -135,7 +138,7 @@ func (o *OktaSignOnPolicyRuleSignonSessionActions) SetMaxSessionLifetimeMinutes(
 
 // GetUsePersistentCookie returns the UsePersistentCookie field value if set, zero value otherwise.
 func (o *OktaSignOnPolicyRuleSignonSessionActions) GetUsePersistentCookie() bool {
-	if o == nil || o.UsePersistentCookie == nil {
+	if o == nil || IsNil(o.UsePersistentCookie) {
 		var ret bool
 		return ret
 	}
@@ -145,7 +148,7 @@ func (o *OktaSignOnPolicyRuleSignonSessionActions) GetUsePersistentCookie() bool
 // GetUsePersistentCookieOk returns a tuple with the UsePersistentCookie field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaSignOnPolicyRuleSignonSessionActions) GetUsePersistentCookieOk() (*bool, bool) {
-	if o == nil || o.UsePersistentCookie == nil {
+	if o == nil || IsNil(o.UsePersistentCookie) {
 		return nil, false
 	}
 	return o.UsePersistentCookie, true
@@ -153,7 +156,7 @@ func (o *OktaSignOnPolicyRuleSignonSessionActions) GetUsePersistentCookieOk() (*
 
 // HasUsePersistentCookie returns a boolean if a field has been set.
 func (o *OktaSignOnPolicyRuleSignonSessionActions) HasUsePersistentCookie() bool {
-	if o != nil && o.UsePersistentCookie != nil {
+	if o != nil && !IsNil(o.UsePersistentCookie) {
 		return true
 	}
 
@@ -166,14 +169,22 @@ func (o *OktaSignOnPolicyRuleSignonSessionActions) SetUsePersistentCookie(v bool
 }
 
 func (o OktaSignOnPolicyRuleSignonSessionActions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OktaSignOnPolicyRuleSignonSessionActions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.MaxSessionIdleMinutes != nil {
+	if !IsNil(o.MaxSessionIdleMinutes) {
 		toSerialize["maxSessionIdleMinutes"] = o.MaxSessionIdleMinutes
 	}
-	if o.MaxSessionLifetimeMinutes != nil {
+	if !IsNil(o.MaxSessionLifetimeMinutes) {
 		toSerialize["maxSessionLifetimeMinutes"] = o.MaxSessionLifetimeMinutes
 	}
-	if o.UsePersistentCookie != nil {
+	if !IsNil(o.UsePersistentCookie) {
 		toSerialize["usePersistentCookie"] = o.UsePersistentCookie
 	}
 
@@ -181,29 +192,27 @@ func (o OktaSignOnPolicyRuleSignonSessionActions) MarshalJSON() ([]byte, error) 
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OktaSignOnPolicyRuleSignonSessionActions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OktaSignOnPolicyRuleSignonSessionActions) UnmarshalJSON(data []byte) (err error) {
 	varOktaSignOnPolicyRuleSignonSessionActions := _OktaSignOnPolicyRuleSignonSessionActions{}
 
-	err = json.Unmarshal(bytes, &varOktaSignOnPolicyRuleSignonSessionActions)
-	if err == nil {
-		*o = OktaSignOnPolicyRuleSignonSessionActions(varOktaSignOnPolicyRuleSignonSessionActions)
-	} else {
+	err = json.Unmarshal(data, &varOktaSignOnPolicyRuleSignonSessionActions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OktaSignOnPolicyRuleSignonSessionActions(varOktaSignOnPolicyRuleSignonSessionActions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "maxSessionIdleMinutes")
 		delete(additionalProperties, "maxSessionLifetimeMinutes")
 		delete(additionalProperties, "usePersistentCookie")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -244,4 +253,3 @@ func (v *NullableOktaSignOnPolicyRuleSignonSessionActions) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

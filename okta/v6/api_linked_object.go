@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,23 +26,22 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type LinkedObjectAPI interface {
 
 	/*
-	CreateLinkedObjectDefinition Create a linked object definition
+		CreateLinkedObjectDefinition Create a linked object definition
 
-	Creates a Linked Object definition
+		Creates a Linked Object definition
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateLinkedObjectDefinitionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateLinkedObjectDefinitionRequest
 	*/
 	CreateLinkedObjectDefinition(ctx context.Context) ApiCreateLinkedObjectDefinitionRequest
 
@@ -51,13 +50,13 @@ type LinkedObjectAPI interface {
 	CreateLinkedObjectDefinitionExecute(r ApiCreateLinkedObjectDefinitionRequest) (*LinkedObject, *APIResponse, error)
 
 	/*
-	DeleteLinkedObjectDefinition Delete a linked object definition
+		DeleteLinkedObjectDefinition Delete a linked object definition
 
-	Deletes the Linked Object definition specified by either the `primary` or `associated` name. The entire definition is removed, regardless of which name that you specify.
+		Deletes the Linked Object definition specified by either the `primary` or `associated` name. The entire definition is removed, regardless of which name that you specify.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param linkedObjectName Primary or Associated name
-	@return ApiDeleteLinkedObjectDefinitionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param linkedObjectName Primary or Associated name
+		@return ApiDeleteLinkedObjectDefinitionRequest
 	*/
 	DeleteLinkedObjectDefinition(ctx context.Context, linkedObjectName string) ApiDeleteLinkedObjectDefinitionRequest
 
@@ -65,13 +64,13 @@ type LinkedObjectAPI interface {
 	DeleteLinkedObjectDefinitionExecute(r ApiDeleteLinkedObjectDefinitionRequest) (*APIResponse, error)
 
 	/*
-	GetLinkedObjectDefinition Retrieve a linked object definition
+		GetLinkedObjectDefinition Retrieve a linked object definition
 
-	Retrieves a Linked Object definition
+		Retrieves a Linked Object definition
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param linkedObjectName Primary or Associated name
-	@return ApiGetLinkedObjectDefinitionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param linkedObjectName Primary or Associated name
+		@return ApiGetLinkedObjectDefinitionRequest
 	*/
 	GetLinkedObjectDefinition(ctx context.Context, linkedObjectName string) ApiGetLinkedObjectDefinitionRequest
 
@@ -80,12 +79,12 @@ type LinkedObjectAPI interface {
 	GetLinkedObjectDefinitionExecute(r ApiGetLinkedObjectDefinitionRequest) (*LinkedObject, *APIResponse, error)
 
 	/*
-	ListLinkedObjectDefinitions List all linked object definitions
+		ListLinkedObjectDefinitions List all linked object definitions
 
-	Lists all Linked Object definitions
+		Lists all Linked Object definitions
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListLinkedObjectDefinitionsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListLinkedObjectDefinitionsRequest
 	*/
 	ListLinkedObjectDefinitions(ctx context.Context) ApiListLinkedObjectDefinitionsRequest
 
@@ -98,10 +97,10 @@ type LinkedObjectAPI interface {
 type LinkedObjectAPIService service
 
 type ApiCreateLinkedObjectDefinitionRequest struct {
-	ctx context.Context
-	ApiService LinkedObjectAPI
+	ctx          context.Context
+	ApiService   LinkedObjectAPI
 	linkedObject *LinkedObject
-	retryCount int32
+	retryCount   int32
 }
 
 func (r ApiCreateLinkedObjectDefinitionRequest) LinkedObject(linkedObject LinkedObject) ApiCreateLinkedObjectDefinitionRequest {
@@ -118,19 +117,20 @@ CreateLinkedObjectDefinition Create a linked object definition
 
 Creates a Linked Object definition
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateLinkedObjectDefinitionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateLinkedObjectDefinitionRequest
 */
 func (a *LinkedObjectAPIService) CreateLinkedObjectDefinition(ctx context.Context) ApiCreateLinkedObjectDefinitionRequest {
 	return ApiCreateLinkedObjectDefinitionRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return LinkedObject
+//
+//	@return LinkedObject
 func (a *LinkedObjectAPIService) CreateLinkedObjectDefinitionExecute(r ApiCreateLinkedObjectDefinitionRequest) (*LinkedObject, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -139,7 +139,7 @@ func (a *LinkedObjectAPIService) CreateLinkedObjectDefinitionExecute(r ApiCreate
 		localVarReturnValue  *LinkedObject
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -204,9 +204,9 @@ func (a *LinkedObjectAPIService) CreateLinkedObjectDefinitionExecute(r ApiCreate
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -276,16 +276,16 @@ func (a *LinkedObjectAPIService) CreateLinkedObjectDefinitionExecute(r ApiCreate
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteLinkedObjectDefinitionRequest struct {
-	ctx context.Context
-	ApiService LinkedObjectAPI
+	ctx              context.Context
+	ApiService       LinkedObjectAPI
 	linkedObjectName string
-	retryCount int32
+	retryCount       int32
 }
 
 func (r ApiDeleteLinkedObjectDefinitionRequest) Execute() (*APIResponse, error) {
@@ -297,16 +297,16 @@ DeleteLinkedObjectDefinition Delete a linked object definition
 
 Deletes the Linked Object definition specified by either the `primary` or `associated` name. The entire definition is removed, regardless of which name that you specify.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param linkedObjectName Primary or Associated name
- @return ApiDeleteLinkedObjectDefinitionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param linkedObjectName Primary or Associated name
+	@return ApiDeleteLinkedObjectDefinitionRequest
 */
 func (a *LinkedObjectAPIService) DeleteLinkedObjectDefinition(ctx context.Context, linkedObjectName string) ApiDeleteLinkedObjectDefinitionRequest {
 	return ApiDeleteLinkedObjectDefinitionRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:       a,
+		ctx:              ctx,
 		linkedObjectName: linkedObjectName,
-		retryCount: 0,
+		retryCount:       0,
 	}
 }
 
@@ -318,7 +318,7 @@ func (a *LinkedObjectAPIService) DeleteLinkedObjectDefinitionExecute(r ApiDelete
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -379,9 +379,9 @@ func (a *LinkedObjectAPIService) DeleteLinkedObjectDefinitionExecute(r ApiDelete
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -435,10 +435,10 @@ func (a *LinkedObjectAPIService) DeleteLinkedObjectDefinitionExecute(r ApiDelete
 }
 
 type ApiGetLinkedObjectDefinitionRequest struct {
-	ctx context.Context
-	ApiService LinkedObjectAPI
+	ctx              context.Context
+	ApiService       LinkedObjectAPI
 	linkedObjectName string
-	retryCount int32
+	retryCount       int32
 }
 
 func (r ApiGetLinkedObjectDefinitionRequest) Execute() (*LinkedObject, *APIResponse, error) {
@@ -450,21 +450,22 @@ GetLinkedObjectDefinition Retrieve a linked object definition
 
 Retrieves a Linked Object definition
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param linkedObjectName Primary or Associated name
- @return ApiGetLinkedObjectDefinitionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param linkedObjectName Primary or Associated name
+	@return ApiGetLinkedObjectDefinitionRequest
 */
 func (a *LinkedObjectAPIService) GetLinkedObjectDefinition(ctx context.Context, linkedObjectName string) ApiGetLinkedObjectDefinitionRequest {
 	return ApiGetLinkedObjectDefinitionRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:       a,
+		ctx:              ctx,
 		linkedObjectName: linkedObjectName,
-		retryCount: 0,
+		retryCount:       0,
 	}
 }
 
 // Execute executes the request
-//  @return LinkedObject
+//
+//	@return LinkedObject
 func (a *LinkedObjectAPIService) GetLinkedObjectDefinitionExecute(r ApiGetLinkedObjectDefinitionRequest) (*LinkedObject, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -473,7 +474,7 @@ func (a *LinkedObjectAPIService) GetLinkedObjectDefinitionExecute(r ApiGetLinked
 		localVarReturnValue  *LinkedObject
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -534,9 +535,9 @@ func (a *LinkedObjectAPIService) GetLinkedObjectDefinitionExecute(r ApiGetLinked
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -594,13 +595,13 @@ func (a *LinkedObjectAPIService) GetLinkedObjectDefinitionExecute(r ApiGetLinked
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListLinkedObjectDefinitionsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService LinkedObjectAPI
 	retryCount int32
 }
@@ -614,19 +615,20 @@ ListLinkedObjectDefinitions List all linked object definitions
 
 Lists all Linked Object definitions
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListLinkedObjectDefinitionsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListLinkedObjectDefinitionsRequest
 */
 func (a *LinkedObjectAPIService) ListLinkedObjectDefinitions(ctx context.Context) ApiListLinkedObjectDefinitionsRequest {
 	return ApiListLinkedObjectDefinitionsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []LinkedObject
+//
+//	@return []LinkedObject
 func (a *LinkedObjectAPIService) ListLinkedObjectDefinitionsExecute(r ApiListLinkedObjectDefinitionsRequest) ([]LinkedObject, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -635,7 +637,7 @@ func (a *LinkedObjectAPIService) ListLinkedObjectDefinitionsExecute(r ApiListLin
 		localVarReturnValue  []LinkedObject
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -695,9 +697,9 @@ func (a *LinkedObjectAPIService) ListLinkedObjectDefinitionsExecute(r ApiListLin
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -743,7 +745,7 @@ func (a *LinkedObjectAPIService) ListLinkedObjectDefinitionsExecute(r ApiListLin
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

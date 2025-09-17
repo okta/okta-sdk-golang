@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,15 +28,18 @@ import (
 	"fmt"
 )
 
+// checks if the ServiceAccountDetailsAppAccountSub type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ServiceAccountDetailsAppAccountSub{}
+
 // ServiceAccountDetailsAppAccountSub Details for a SaaS app account, which will be managed as a service account
 type ServiceAccountDetailsAppAccountSub struct {
 	// The name of the SaaS app in the Okta Integration Network catalog
 	AppGlobalName *string `json:"appGlobalName,omitempty"`
 	// The instance name of the SaaS app
-	AppInstanceName *string `json:"appInstanceName,omitempty"`
-	Credentials AppServiceAccountCredentials `json:"credentials"`
+	AppInstanceName *string                      `json:"appInstanceName,omitempty"`
+	Credentials     AppServiceAccountCredentials `json:"credentials"`
 	// The Okta app instance ID of the SaaS app
-	OktaApplicationId string `json:"oktaApplicationId"`
+	OktaApplicationId    string `json:"oktaApplicationId"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -63,7 +66,7 @@ func NewServiceAccountDetailsAppAccountSubWithDefaults() *ServiceAccountDetailsA
 
 // GetAppGlobalName returns the AppGlobalName field value if set, zero value otherwise.
 func (o *ServiceAccountDetailsAppAccountSub) GetAppGlobalName() string {
-	if o == nil || o.AppGlobalName == nil {
+	if o == nil || IsNil(o.AppGlobalName) {
 		var ret string
 		return ret
 	}
@@ -73,7 +76,7 @@ func (o *ServiceAccountDetailsAppAccountSub) GetAppGlobalName() string {
 // GetAppGlobalNameOk returns a tuple with the AppGlobalName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServiceAccountDetailsAppAccountSub) GetAppGlobalNameOk() (*string, bool) {
-	if o == nil || o.AppGlobalName == nil {
+	if o == nil || IsNil(o.AppGlobalName) {
 		return nil, false
 	}
 	return o.AppGlobalName, true
@@ -81,7 +84,7 @@ func (o *ServiceAccountDetailsAppAccountSub) GetAppGlobalNameOk() (*string, bool
 
 // HasAppGlobalName returns a boolean if a field has been set.
 func (o *ServiceAccountDetailsAppAccountSub) HasAppGlobalName() bool {
-	if o != nil && o.AppGlobalName != nil {
+	if o != nil && !IsNil(o.AppGlobalName) {
 		return true
 	}
 
@@ -95,7 +98,7 @@ func (o *ServiceAccountDetailsAppAccountSub) SetAppGlobalName(v string) {
 
 // GetAppInstanceName returns the AppInstanceName field value if set, zero value otherwise.
 func (o *ServiceAccountDetailsAppAccountSub) GetAppInstanceName() string {
-	if o == nil || o.AppInstanceName == nil {
+	if o == nil || IsNil(o.AppInstanceName) {
 		var ret string
 		return ret
 	}
@@ -105,7 +108,7 @@ func (o *ServiceAccountDetailsAppAccountSub) GetAppInstanceName() string {
 // GetAppInstanceNameOk returns a tuple with the AppInstanceName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServiceAccountDetailsAppAccountSub) GetAppInstanceNameOk() (*string, bool) {
-	if o == nil || o.AppInstanceName == nil {
+	if o == nil || IsNil(o.AppInstanceName) {
 		return nil, false
 	}
 	return o.AppInstanceName, true
@@ -113,7 +116,7 @@ func (o *ServiceAccountDetailsAppAccountSub) GetAppInstanceNameOk() (*string, bo
 
 // HasAppInstanceName returns a boolean if a field has been set.
 func (o *ServiceAccountDetailsAppAccountSub) HasAppInstanceName() bool {
-	if o != nil && o.AppInstanceName != nil {
+	if o != nil && !IsNil(o.AppInstanceName) {
 		return true
 	}
 
@@ -174,48 +177,72 @@ func (o *ServiceAccountDetailsAppAccountSub) SetOktaApplicationId(v string) {
 }
 
 func (o ServiceAccountDetailsAppAccountSub) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ServiceAccountDetailsAppAccountSub) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AppGlobalName != nil {
+	if !IsNil(o.AppGlobalName) {
 		toSerialize["appGlobalName"] = o.AppGlobalName
 	}
-	if o.AppInstanceName != nil {
+	if !IsNil(o.AppInstanceName) {
 		toSerialize["appInstanceName"] = o.AppInstanceName
 	}
-	if true {
-		toSerialize["credentials"] = o.Credentials
-	}
-	if true {
-		toSerialize["oktaApplicationId"] = o.OktaApplicationId
-	}
+	toSerialize["credentials"] = o.Credentials
+	toSerialize["oktaApplicationId"] = o.OktaApplicationId
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ServiceAccountDetailsAppAccountSub) UnmarshalJSON(bytes []byte) (err error) {
-	varServiceAccountDetailsAppAccountSub := _ServiceAccountDetailsAppAccountSub{}
+func (o *ServiceAccountDetailsAppAccountSub) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"credentials",
+		"oktaApplicationId",
+	}
 
-	err = json.Unmarshal(bytes, &varServiceAccountDetailsAppAccountSub)
-	if err == nil {
-		*o = ServiceAccountDetailsAppAccountSub(varServiceAccountDetailsAppAccountSub)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varServiceAccountDetailsAppAccountSub := _ServiceAccountDetailsAppAccountSub{}
+
+	err = json.Unmarshal(data, &varServiceAccountDetailsAppAccountSub)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServiceAccountDetailsAppAccountSub(varServiceAccountDetailsAppAccountSub)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "appGlobalName")
 		delete(additionalProperties, "appInstanceName")
 		delete(additionalProperties, "credentials")
 		delete(additionalProperties, "oktaApplicationId")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -256,4 +283,3 @@ func (v *NullableServiceAccountDetailsAppAccountSub) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

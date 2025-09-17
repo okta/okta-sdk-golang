@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the RoleGovernanceResource type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RoleGovernanceResource{}
+
 // RoleGovernanceResource The resource of a grant
 type RoleGovernanceResource struct {
 	// The resource name
 	Label *string `json:"label,omitempty"`
 	// The resources id
-	Resource *string `json:"resource,omitempty"`
+	Resource             *string `json:"resource,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewRoleGovernanceResourceWithDefaults() *RoleGovernanceResource {
 
 // GetLabel returns the Label field value if set, zero value otherwise.
 func (o *RoleGovernanceResource) GetLabel() string {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *RoleGovernanceResource) GetLabel() string {
 // GetLabelOk returns a tuple with the Label field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RoleGovernanceResource) GetLabelOk() (*string, bool) {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		return nil, false
 	}
 	return o.Label, true
@@ -75,7 +78,7 @@ func (o *RoleGovernanceResource) GetLabelOk() (*string, bool) {
 
 // HasLabel returns a boolean if a field has been set.
 func (o *RoleGovernanceResource) HasLabel() bool {
-	if o != nil && o.Label != nil {
+	if o != nil && !IsNil(o.Label) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *RoleGovernanceResource) SetLabel(v string) {
 
 // GetResource returns the Resource field value if set, zero value otherwise.
 func (o *RoleGovernanceResource) GetResource() string {
-	if o == nil || o.Resource == nil {
+	if o == nil || IsNil(o.Resource) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *RoleGovernanceResource) GetResource() string {
 // GetResourceOk returns a tuple with the Resource field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RoleGovernanceResource) GetResourceOk() (*string, bool) {
-	if o == nil || o.Resource == nil {
+	if o == nil || IsNil(o.Resource) {
 		return nil, false
 	}
 	return o.Resource, true
@@ -107,7 +110,7 @@ func (o *RoleGovernanceResource) GetResourceOk() (*string, bool) {
 
 // HasResource returns a boolean if a field has been set.
 func (o *RoleGovernanceResource) HasResource() bool {
-	if o != nil && o.Resource != nil {
+	if o != nil && !IsNil(o.Resource) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *RoleGovernanceResource) SetResource(v string) {
 }
 
 func (o RoleGovernanceResource) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RoleGovernanceResource) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Label != nil {
+	if !IsNil(o.Label) {
 		toSerialize["label"] = o.Label
 	}
-	if o.Resource != nil {
+	if !IsNil(o.Resource) {
 		toSerialize["resource"] = o.Resource
 	}
 
@@ -132,28 +143,26 @@ func (o RoleGovernanceResource) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RoleGovernanceResource) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RoleGovernanceResource) UnmarshalJSON(data []byte) (err error) {
 	varRoleGovernanceResource := _RoleGovernanceResource{}
 
-	err = json.Unmarshal(bytes, &varRoleGovernanceResource)
-	if err == nil {
-		*o = RoleGovernanceResource(varRoleGovernanceResource)
-	} else {
+	err = json.Unmarshal(data, &varRoleGovernanceResource)
+
+	if err != nil {
 		return err
 	}
 
+	*o = RoleGovernanceResource(varRoleGovernanceResource)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "label")
 		delete(additionalProperties, "resource")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableRoleGovernanceResource) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

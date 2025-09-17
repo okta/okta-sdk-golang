@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the SAMLPayLoadDataAssertionSubject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SAMLPayLoadDataAssertionSubject{}
+
 // SAMLPayLoadDataAssertionSubject Provides a JSON representation of the `<saml:Subject>` element of the SAML assertion
 type SAMLPayLoadDataAssertionSubject struct {
 	// The unique identifier of the user
 	NameId *string `json:"nameId,omitempty"`
 	// Indicates how to interpret the attribute name
-	NameFormat *string `json:"nameFormat,omitempty"`
-	Confirmation *SAMLPayLoadDataAssertionSubjectConfirmation `json:"confirmation,omitempty"`
+	NameFormat           *string                                      `json:"nameFormat,omitempty"`
+	Confirmation         *SAMLPayLoadDataAssertionSubjectConfirmation `json:"confirmation,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewSAMLPayLoadDataAssertionSubjectWithDefaults() *SAMLPayLoadDataAssertionS
 
 // GetNameId returns the NameId field value if set, zero value otherwise.
 func (o *SAMLPayLoadDataAssertionSubject) GetNameId() string {
-	if o == nil || o.NameId == nil {
+	if o == nil || IsNil(o.NameId) {
 		var ret string
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *SAMLPayLoadDataAssertionSubject) GetNameId() string {
 // GetNameIdOk returns a tuple with the NameId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoadDataAssertionSubject) GetNameIdOk() (*string, bool) {
-	if o == nil || o.NameId == nil {
+	if o == nil || IsNil(o.NameId) {
 		return nil, false
 	}
 	return o.NameId, true
@@ -76,7 +79,7 @@ func (o *SAMLPayLoadDataAssertionSubject) GetNameIdOk() (*string, bool) {
 
 // HasNameId returns a boolean if a field has been set.
 func (o *SAMLPayLoadDataAssertionSubject) HasNameId() bool {
-	if o != nil && o.NameId != nil {
+	if o != nil && !IsNil(o.NameId) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *SAMLPayLoadDataAssertionSubject) SetNameId(v string) {
 
 // GetNameFormat returns the NameFormat field value if set, zero value otherwise.
 func (o *SAMLPayLoadDataAssertionSubject) GetNameFormat() string {
-	if o == nil || o.NameFormat == nil {
+	if o == nil || IsNil(o.NameFormat) {
 		var ret string
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *SAMLPayLoadDataAssertionSubject) GetNameFormat() string {
 // GetNameFormatOk returns a tuple with the NameFormat field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoadDataAssertionSubject) GetNameFormatOk() (*string, bool) {
-	if o == nil || o.NameFormat == nil {
+	if o == nil || IsNil(o.NameFormat) {
 		return nil, false
 	}
 	return o.NameFormat, true
@@ -108,7 +111,7 @@ func (o *SAMLPayLoadDataAssertionSubject) GetNameFormatOk() (*string, bool) {
 
 // HasNameFormat returns a boolean if a field has been set.
 func (o *SAMLPayLoadDataAssertionSubject) HasNameFormat() bool {
-	if o != nil && o.NameFormat != nil {
+	if o != nil && !IsNil(o.NameFormat) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *SAMLPayLoadDataAssertionSubject) SetNameFormat(v string) {
 
 // GetConfirmation returns the Confirmation field value if set, zero value otherwise.
 func (o *SAMLPayLoadDataAssertionSubject) GetConfirmation() SAMLPayLoadDataAssertionSubjectConfirmation {
-	if o == nil || o.Confirmation == nil {
+	if o == nil || IsNil(o.Confirmation) {
 		var ret SAMLPayLoadDataAssertionSubjectConfirmation
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *SAMLPayLoadDataAssertionSubject) GetConfirmation() SAMLPayLoadDataAsser
 // GetConfirmationOk returns a tuple with the Confirmation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoadDataAssertionSubject) GetConfirmationOk() (*SAMLPayLoadDataAssertionSubjectConfirmation, bool) {
-	if o == nil || o.Confirmation == nil {
+	if o == nil || IsNil(o.Confirmation) {
 		return nil, false
 	}
 	return o.Confirmation, true
@@ -140,7 +143,7 @@ func (o *SAMLPayLoadDataAssertionSubject) GetConfirmationOk() (*SAMLPayLoadDataA
 
 // HasConfirmation returns a boolean if a field has been set.
 func (o *SAMLPayLoadDataAssertionSubject) HasConfirmation() bool {
-	if o != nil && o.Confirmation != nil {
+	if o != nil && !IsNil(o.Confirmation) {
 		return true
 	}
 
@@ -153,14 +156,22 @@ func (o *SAMLPayLoadDataAssertionSubject) SetConfirmation(v SAMLPayLoadDataAsser
 }
 
 func (o SAMLPayLoadDataAssertionSubject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SAMLPayLoadDataAssertionSubject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.NameId != nil {
+	if !IsNil(o.NameId) {
 		toSerialize["nameId"] = o.NameId
 	}
-	if o.NameFormat != nil {
+	if !IsNil(o.NameFormat) {
 		toSerialize["nameFormat"] = o.NameFormat
 	}
-	if o.Confirmation != nil {
+	if !IsNil(o.Confirmation) {
 		toSerialize["confirmation"] = o.Confirmation
 	}
 
@@ -168,29 +179,27 @@ func (o SAMLPayLoadDataAssertionSubject) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SAMLPayLoadDataAssertionSubject) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SAMLPayLoadDataAssertionSubject) UnmarshalJSON(data []byte) (err error) {
 	varSAMLPayLoadDataAssertionSubject := _SAMLPayLoadDataAssertionSubject{}
 
-	err = json.Unmarshal(bytes, &varSAMLPayLoadDataAssertionSubject)
-	if err == nil {
-		*o = SAMLPayLoadDataAssertionSubject(varSAMLPayLoadDataAssertionSubject)
-	} else {
+	err = json.Unmarshal(data, &varSAMLPayLoadDataAssertionSubject)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SAMLPayLoadDataAssertionSubject(varSAMLPayLoadDataAssertionSubject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "nameId")
 		delete(additionalProperties, "nameFormat")
 		delete(additionalProperties, "confirmation")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -231,4 +240,3 @@ func (v *NullableSAMLPayLoadDataAssertionSubject) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

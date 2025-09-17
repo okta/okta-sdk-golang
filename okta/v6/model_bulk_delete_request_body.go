@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the BulkDeleteRequestBody type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BulkDeleteRequestBody{}
+
 // BulkDeleteRequestBody struct for BulkDeleteRequestBody
 type BulkDeleteRequestBody struct {
 	// The type of data to bulk delete in a session. Currently, only `USERS` is supported.
 	EntityType *string `json:"entityType,omitempty"`
 	// Array of profiles to be deleted
-	Profiles []IdentitySourceUserProfileForDelete `json:"profiles,omitempty"`
+	Profiles             []IdentitySourceUserProfileForDelete `json:"profiles,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewBulkDeleteRequestBodyWithDefaults() *BulkDeleteRequestBody {
 
 // GetEntityType returns the EntityType field value if set, zero value otherwise.
 func (o *BulkDeleteRequestBody) GetEntityType() string {
-	if o == nil || o.EntityType == nil {
+	if o == nil || IsNil(o.EntityType) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *BulkDeleteRequestBody) GetEntityType() string {
 // GetEntityTypeOk returns a tuple with the EntityType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BulkDeleteRequestBody) GetEntityTypeOk() (*string, bool) {
-	if o == nil || o.EntityType == nil {
+	if o == nil || IsNil(o.EntityType) {
 		return nil, false
 	}
 	return o.EntityType, true
@@ -75,7 +78,7 @@ func (o *BulkDeleteRequestBody) GetEntityTypeOk() (*string, bool) {
 
 // HasEntityType returns a boolean if a field has been set.
 func (o *BulkDeleteRequestBody) HasEntityType() bool {
-	if o != nil && o.EntityType != nil {
+	if o != nil && !IsNil(o.EntityType) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *BulkDeleteRequestBody) SetEntityType(v string) {
 
 // GetProfiles returns the Profiles field value if set, zero value otherwise.
 func (o *BulkDeleteRequestBody) GetProfiles() []IdentitySourceUserProfileForDelete {
-	if o == nil || o.Profiles == nil {
+	if o == nil || IsNil(o.Profiles) {
 		var ret []IdentitySourceUserProfileForDelete
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *BulkDeleteRequestBody) GetProfiles() []IdentitySourceUserProfileForDele
 // GetProfilesOk returns a tuple with the Profiles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BulkDeleteRequestBody) GetProfilesOk() ([]IdentitySourceUserProfileForDelete, bool) {
-	if o == nil || o.Profiles == nil {
+	if o == nil || IsNil(o.Profiles) {
 		return nil, false
 	}
 	return o.Profiles, true
@@ -107,7 +110,7 @@ func (o *BulkDeleteRequestBody) GetProfilesOk() ([]IdentitySourceUserProfileForD
 
 // HasProfiles returns a boolean if a field has been set.
 func (o *BulkDeleteRequestBody) HasProfiles() bool {
-	if o != nil && o.Profiles != nil {
+	if o != nil && !IsNil(o.Profiles) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *BulkDeleteRequestBody) SetProfiles(v []IdentitySourceUserProfileForDele
 }
 
 func (o BulkDeleteRequestBody) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BulkDeleteRequestBody) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.EntityType != nil {
+	if !IsNil(o.EntityType) {
 		toSerialize["entityType"] = o.EntityType
 	}
-	if o.Profiles != nil {
+	if !IsNil(o.Profiles) {
 		toSerialize["profiles"] = o.Profiles
 	}
 
@@ -132,28 +143,26 @@ func (o BulkDeleteRequestBody) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *BulkDeleteRequestBody) UnmarshalJSON(bytes []byte) (err error) {
+func (o *BulkDeleteRequestBody) UnmarshalJSON(data []byte) (err error) {
 	varBulkDeleteRequestBody := _BulkDeleteRequestBody{}
 
-	err = json.Unmarshal(bytes, &varBulkDeleteRequestBody)
-	if err == nil {
-		*o = BulkDeleteRequestBody(varBulkDeleteRequestBody)
-	} else {
+	err = json.Unmarshal(data, &varBulkDeleteRequestBody)
+
+	if err != nil {
 		return err
 	}
 
+	*o = BulkDeleteRequestBody(varBulkDeleteRequestBody)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "entityType")
 		delete(additionalProperties, "profiles")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableBulkDeleteRequestBody) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

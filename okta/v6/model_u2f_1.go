@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the U2f1 type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &U2f1{}
+
 // U2f1 Verifies a `u2f` factor challenge by posting a signed assertion using the challenge `nonce`
 type U2f1 struct {
 	// Base64-encoded client data from the U2F token
 	ClientData *string `json:"clientData,omitempty"`
 	// Base64-encoded signature data from the U2F token
-	SignatureData interface{} `json:"signatureData,omitempty"`
+	SignatureData        interface{} `json:"signatureData,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewU2f1WithDefaults() *U2f1 {
 
 // GetClientData returns the ClientData field value if set, zero value otherwise.
 func (o *U2f1) GetClientData() string {
-	if o == nil || o.ClientData == nil {
+	if o == nil || IsNil(o.ClientData) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *U2f1) GetClientData() string {
 // GetClientDataOk returns a tuple with the ClientData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *U2f1) GetClientDataOk() (*string, bool) {
-	if o == nil || o.ClientData == nil {
+	if o == nil || IsNil(o.ClientData) {
 		return nil, false
 	}
 	return o.ClientData, true
@@ -75,7 +78,7 @@ func (o *U2f1) GetClientDataOk() (*string, bool) {
 
 // HasClientData returns a boolean if a field has been set.
 func (o *U2f1) HasClientData() bool {
-	if o != nil && o.ClientData != nil {
+	if o != nil && !IsNil(o.ClientData) {
 		return true
 	}
 
@@ -100,7 +103,7 @@ func (o *U2f1) GetSignatureData() interface{} {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *U2f1) GetSignatureDataOk() (*interface{}, bool) {
-	if o == nil || o.SignatureData == nil {
+	if o == nil || IsNil(o.SignatureData) {
 		return nil, false
 	}
 	return &o.SignatureData, true
@@ -108,7 +111,7 @@ func (o *U2f1) GetSignatureDataOk() (*interface{}, bool) {
 
 // HasSignatureData returns a boolean if a field has been set.
 func (o *U2f1) HasSignatureData() bool {
-	if o != nil && o.SignatureData != nil {
+	if o != nil && !IsNil(o.SignatureData) {
 		return true
 	}
 
@@ -121,8 +124,16 @@ func (o *U2f1) SetSignatureData(v interface{}) {
 }
 
 func (o U2f1) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o U2f1) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ClientData != nil {
+	if !IsNil(o.ClientData) {
 		toSerialize["clientData"] = o.ClientData
 	}
 	if o.SignatureData != nil {
@@ -133,28 +144,26 @@ func (o U2f1) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *U2f1) UnmarshalJSON(bytes []byte) (err error) {
+func (o *U2f1) UnmarshalJSON(data []byte) (err error) {
 	varU2f1 := _U2f1{}
 
-	err = json.Unmarshal(bytes, &varU2f1)
-	if err == nil {
-		*o = U2f1(varU2f1)
-	} else {
+	err = json.Unmarshal(data, &varU2f1)
+
+	if err != nil {
 		return err
 	}
 
+	*o = U2f1(varU2f1)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "clientData")
 		delete(additionalProperties, "signatureData")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -195,4 +204,3 @@ func (v *NullableU2f1) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

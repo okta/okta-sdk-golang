@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the ProfileEnrollmentPolicyRuleAction type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ProfileEnrollmentPolicyRuleAction{}
+
 // ProfileEnrollmentPolicyRuleAction struct for ProfileEnrollmentPolicyRuleAction
 type ProfileEnrollmentPolicyRuleAction struct {
 	// Indicates if the user profile is granted access  > **Note:** You can't set the `access` property to `DENY` after you create the policy
-	Access *string `json:"access,omitempty"`
+	Access                 *string                                           `json:"access,omitempty"`
 	ActivationRequirements *ProfileEnrollmentPolicyRuleActivationRequirement `json:"activationRequirements,omitempty"`
 	// A list of attributes to identify an end user. Can be used across Okta sign-in, unlock, and recovery flows.
 	AllowedIdentifiers []string `json:"allowedIdentifiers,omitempty"`
@@ -47,7 +50,7 @@ type ProfileEnrollmentPolicyRuleAction struct {
 	// Value created by the backend. If present, all policy updates must include this attribute/value.
 	UiSchemaId *string `json:"uiSchemaId,omitempty"`
 	// Which action should be taken if this user is new
-	UnknownUserAction *string `json:"unknownUserAction,omitempty"`
+	UnknownUserAction    *string `json:"unknownUserAction,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -72,7 +75,7 @@ func NewProfileEnrollmentPolicyRuleActionWithDefaults() *ProfileEnrollmentPolicy
 
 // GetAccess returns the Access field value if set, zero value otherwise.
 func (o *ProfileEnrollmentPolicyRuleAction) GetAccess() string {
-	if o == nil || o.Access == nil {
+	if o == nil || IsNil(o.Access) {
 		var ret string
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) GetAccess() string {
 // GetAccessOk returns a tuple with the Access field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProfileEnrollmentPolicyRuleAction) GetAccessOk() (*string, bool) {
-	if o == nil || o.Access == nil {
+	if o == nil || IsNil(o.Access) {
 		return nil, false
 	}
 	return o.Access, true
@@ -90,7 +93,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) GetAccessOk() (*string, bool) {
 
 // HasAccess returns a boolean if a field has been set.
 func (o *ProfileEnrollmentPolicyRuleAction) HasAccess() bool {
-	if o != nil && o.Access != nil {
+	if o != nil && !IsNil(o.Access) {
 		return true
 	}
 
@@ -104,7 +107,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) SetAccess(v string) {
 
 // GetActivationRequirements returns the ActivationRequirements field value if set, zero value otherwise.
 func (o *ProfileEnrollmentPolicyRuleAction) GetActivationRequirements() ProfileEnrollmentPolicyRuleActivationRequirement {
-	if o == nil || o.ActivationRequirements == nil {
+	if o == nil || IsNil(o.ActivationRequirements) {
 		var ret ProfileEnrollmentPolicyRuleActivationRequirement
 		return ret
 	}
@@ -114,7 +117,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) GetActivationRequirements() ProfileE
 // GetActivationRequirementsOk returns a tuple with the ActivationRequirements field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProfileEnrollmentPolicyRuleAction) GetActivationRequirementsOk() (*ProfileEnrollmentPolicyRuleActivationRequirement, bool) {
-	if o == nil || o.ActivationRequirements == nil {
+	if o == nil || IsNil(o.ActivationRequirements) {
 		return nil, false
 	}
 	return o.ActivationRequirements, true
@@ -122,7 +125,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) GetActivationRequirementsOk() (*Prof
 
 // HasActivationRequirements returns a boolean if a field has been set.
 func (o *ProfileEnrollmentPolicyRuleAction) HasActivationRequirements() bool {
-	if o != nil && o.ActivationRequirements != nil {
+	if o != nil && !IsNil(o.ActivationRequirements) {
 		return true
 	}
 
@@ -136,7 +139,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) SetActivationRequirements(v ProfileE
 
 // GetAllowedIdentifiers returns the AllowedIdentifiers field value if set, zero value otherwise.
 func (o *ProfileEnrollmentPolicyRuleAction) GetAllowedIdentifiers() []string {
-	if o == nil || o.AllowedIdentifiers == nil {
+	if o == nil || IsNil(o.AllowedIdentifiers) {
 		var ret []string
 		return ret
 	}
@@ -146,7 +149,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) GetAllowedIdentifiers() []string {
 // GetAllowedIdentifiersOk returns a tuple with the AllowedIdentifiers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProfileEnrollmentPolicyRuleAction) GetAllowedIdentifiersOk() ([]string, bool) {
-	if o == nil || o.AllowedIdentifiers == nil {
+	if o == nil || IsNil(o.AllowedIdentifiers) {
 		return nil, false
 	}
 	return o.AllowedIdentifiers, true
@@ -154,7 +157,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) GetAllowedIdentifiersOk() ([]string,
 
 // HasAllowedIdentifiers returns a boolean if a field has been set.
 func (o *ProfileEnrollmentPolicyRuleAction) HasAllowedIdentifiers() bool {
-	if o != nil && o.AllowedIdentifiers != nil {
+	if o != nil && !IsNil(o.AllowedIdentifiers) {
 		return true
 	}
 
@@ -168,7 +171,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) SetAllowedIdentifiers(v []string) {
 
 // GetEnrollAuthenticatorTypes returns the EnrollAuthenticatorTypes field value if set, zero value otherwise.
 func (o *ProfileEnrollmentPolicyRuleAction) GetEnrollAuthenticatorTypes() []string {
-	if o == nil || o.EnrollAuthenticatorTypes == nil {
+	if o == nil || IsNil(o.EnrollAuthenticatorTypes) {
 		var ret []string
 		return ret
 	}
@@ -178,7 +181,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) GetEnrollAuthenticatorTypes() []stri
 // GetEnrollAuthenticatorTypesOk returns a tuple with the EnrollAuthenticatorTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProfileEnrollmentPolicyRuleAction) GetEnrollAuthenticatorTypesOk() ([]string, bool) {
-	if o == nil || o.EnrollAuthenticatorTypes == nil {
+	if o == nil || IsNil(o.EnrollAuthenticatorTypes) {
 		return nil, false
 	}
 	return o.EnrollAuthenticatorTypes, true
@@ -186,7 +189,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) GetEnrollAuthenticatorTypesOk() ([]s
 
 // HasEnrollAuthenticatorTypes returns a boolean if a field has been set.
 func (o *ProfileEnrollmentPolicyRuleAction) HasEnrollAuthenticatorTypes() bool {
-	if o != nil && o.EnrollAuthenticatorTypes != nil {
+	if o != nil && !IsNil(o.EnrollAuthenticatorTypes) {
 		return true
 	}
 
@@ -200,7 +203,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) SetEnrollAuthenticatorTypes(v []stri
 
 // GetPreRegistrationInlineHooks returns the PreRegistrationInlineHooks field value if set, zero value otherwise.
 func (o *ProfileEnrollmentPolicyRuleAction) GetPreRegistrationInlineHooks() []PreRegistrationInlineHook {
-	if o == nil || o.PreRegistrationInlineHooks == nil {
+	if o == nil || IsNil(o.PreRegistrationInlineHooks) {
 		var ret []PreRegistrationInlineHook
 		return ret
 	}
@@ -210,7 +213,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) GetPreRegistrationInlineHooks() []Pr
 // GetPreRegistrationInlineHooksOk returns a tuple with the PreRegistrationInlineHooks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProfileEnrollmentPolicyRuleAction) GetPreRegistrationInlineHooksOk() ([]PreRegistrationInlineHook, bool) {
-	if o == nil || o.PreRegistrationInlineHooks == nil {
+	if o == nil || IsNil(o.PreRegistrationInlineHooks) {
 		return nil, false
 	}
 	return o.PreRegistrationInlineHooks, true
@@ -218,7 +221,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) GetPreRegistrationInlineHooksOk() ([
 
 // HasPreRegistrationInlineHooks returns a boolean if a field has been set.
 func (o *ProfileEnrollmentPolicyRuleAction) HasPreRegistrationInlineHooks() bool {
-	if o != nil && o.PreRegistrationInlineHooks != nil {
+	if o != nil && !IsNil(o.PreRegistrationInlineHooks) {
 		return true
 	}
 
@@ -232,7 +235,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) SetPreRegistrationInlineHooks(v []Pr
 
 // GetProfileAttributes returns the ProfileAttributes field value if set, zero value otherwise.
 func (o *ProfileEnrollmentPolicyRuleAction) GetProfileAttributes() []ProfileEnrollmentPolicyRuleProfileAttribute {
-	if o == nil || o.ProfileAttributes == nil {
+	if o == nil || IsNil(o.ProfileAttributes) {
 		var ret []ProfileEnrollmentPolicyRuleProfileAttribute
 		return ret
 	}
@@ -242,7 +245,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) GetProfileAttributes() []ProfileEnro
 // GetProfileAttributesOk returns a tuple with the ProfileAttributes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProfileEnrollmentPolicyRuleAction) GetProfileAttributesOk() ([]ProfileEnrollmentPolicyRuleProfileAttribute, bool) {
-	if o == nil || o.ProfileAttributes == nil {
+	if o == nil || IsNil(o.ProfileAttributes) {
 		return nil, false
 	}
 	return o.ProfileAttributes, true
@@ -250,7 +253,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) GetProfileAttributesOk() ([]ProfileE
 
 // HasProfileAttributes returns a boolean if a field has been set.
 func (o *ProfileEnrollmentPolicyRuleAction) HasProfileAttributes() bool {
-	if o != nil && o.ProfileAttributes != nil {
+	if o != nil && !IsNil(o.ProfileAttributes) {
 		return true
 	}
 
@@ -264,7 +267,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) SetProfileAttributes(v []ProfileEnro
 
 // GetProgressiveProfilingAction returns the ProgressiveProfilingAction field value if set, zero value otherwise.
 func (o *ProfileEnrollmentPolicyRuleAction) GetProgressiveProfilingAction() string {
-	if o == nil || o.ProgressiveProfilingAction == nil {
+	if o == nil || IsNil(o.ProgressiveProfilingAction) {
 		var ret string
 		return ret
 	}
@@ -274,7 +277,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) GetProgressiveProfilingAction() stri
 // GetProgressiveProfilingActionOk returns a tuple with the ProgressiveProfilingAction field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProfileEnrollmentPolicyRuleAction) GetProgressiveProfilingActionOk() (*string, bool) {
-	if o == nil || o.ProgressiveProfilingAction == nil {
+	if o == nil || IsNil(o.ProgressiveProfilingAction) {
 		return nil, false
 	}
 	return o.ProgressiveProfilingAction, true
@@ -282,7 +285,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) GetProgressiveProfilingActionOk() (*
 
 // HasProgressiveProfilingAction returns a boolean if a field has been set.
 func (o *ProfileEnrollmentPolicyRuleAction) HasProgressiveProfilingAction() bool {
-	if o != nil && o.ProgressiveProfilingAction != nil {
+	if o != nil && !IsNil(o.ProgressiveProfilingAction) {
 		return true
 	}
 
@@ -296,7 +299,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) SetProgressiveProfilingAction(v stri
 
 // GetTargetGroupIds returns the TargetGroupIds field value if set, zero value otherwise.
 func (o *ProfileEnrollmentPolicyRuleAction) GetTargetGroupIds() []string {
-	if o == nil || o.TargetGroupIds == nil {
+	if o == nil || IsNil(o.TargetGroupIds) {
 		var ret []string
 		return ret
 	}
@@ -306,7 +309,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) GetTargetGroupIds() []string {
 // GetTargetGroupIdsOk returns a tuple with the TargetGroupIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProfileEnrollmentPolicyRuleAction) GetTargetGroupIdsOk() ([]string, bool) {
-	if o == nil || o.TargetGroupIds == nil {
+	if o == nil || IsNil(o.TargetGroupIds) {
 		return nil, false
 	}
 	return o.TargetGroupIds, true
@@ -314,7 +317,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) GetTargetGroupIdsOk() ([]string, boo
 
 // HasTargetGroupIds returns a boolean if a field has been set.
 func (o *ProfileEnrollmentPolicyRuleAction) HasTargetGroupIds() bool {
-	if o != nil && o.TargetGroupIds != nil {
+	if o != nil && !IsNil(o.TargetGroupIds) {
 		return true
 	}
 
@@ -328,7 +331,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) SetTargetGroupIds(v []string) {
 
 // GetUiSchemaId returns the UiSchemaId field value if set, zero value otherwise.
 func (o *ProfileEnrollmentPolicyRuleAction) GetUiSchemaId() string {
-	if o == nil || o.UiSchemaId == nil {
+	if o == nil || IsNil(o.UiSchemaId) {
 		var ret string
 		return ret
 	}
@@ -338,7 +341,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) GetUiSchemaId() string {
 // GetUiSchemaIdOk returns a tuple with the UiSchemaId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProfileEnrollmentPolicyRuleAction) GetUiSchemaIdOk() (*string, bool) {
-	if o == nil || o.UiSchemaId == nil {
+	if o == nil || IsNil(o.UiSchemaId) {
 		return nil, false
 	}
 	return o.UiSchemaId, true
@@ -346,7 +349,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) GetUiSchemaIdOk() (*string, bool) {
 
 // HasUiSchemaId returns a boolean if a field has been set.
 func (o *ProfileEnrollmentPolicyRuleAction) HasUiSchemaId() bool {
-	if o != nil && o.UiSchemaId != nil {
+	if o != nil && !IsNil(o.UiSchemaId) {
 		return true
 	}
 
@@ -360,7 +363,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) SetUiSchemaId(v string) {
 
 // GetUnknownUserAction returns the UnknownUserAction field value if set, zero value otherwise.
 func (o *ProfileEnrollmentPolicyRuleAction) GetUnknownUserAction() string {
-	if o == nil || o.UnknownUserAction == nil {
+	if o == nil || IsNil(o.UnknownUserAction) {
 		var ret string
 		return ret
 	}
@@ -370,7 +373,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) GetUnknownUserAction() string {
 // GetUnknownUserActionOk returns a tuple with the UnknownUserAction field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProfileEnrollmentPolicyRuleAction) GetUnknownUserActionOk() (*string, bool) {
-	if o == nil || o.UnknownUserAction == nil {
+	if o == nil || IsNil(o.UnknownUserAction) {
 		return nil, false
 	}
 	return o.UnknownUserAction, true
@@ -378,7 +381,7 @@ func (o *ProfileEnrollmentPolicyRuleAction) GetUnknownUserActionOk() (*string, b
 
 // HasUnknownUserAction returns a boolean if a field has been set.
 func (o *ProfileEnrollmentPolicyRuleAction) HasUnknownUserAction() bool {
-	if o != nil && o.UnknownUserAction != nil {
+	if o != nil && !IsNil(o.UnknownUserAction) {
 		return true
 	}
 
@@ -391,35 +394,43 @@ func (o *ProfileEnrollmentPolicyRuleAction) SetUnknownUserAction(v string) {
 }
 
 func (o ProfileEnrollmentPolicyRuleAction) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ProfileEnrollmentPolicyRuleAction) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Access != nil {
+	if !IsNil(o.Access) {
 		toSerialize["access"] = o.Access
 	}
-	if o.ActivationRequirements != nil {
+	if !IsNil(o.ActivationRequirements) {
 		toSerialize["activationRequirements"] = o.ActivationRequirements
 	}
-	if o.AllowedIdentifiers != nil {
+	if !IsNil(o.AllowedIdentifiers) {
 		toSerialize["allowedIdentifiers"] = o.AllowedIdentifiers
 	}
-	if o.EnrollAuthenticatorTypes != nil {
+	if !IsNil(o.EnrollAuthenticatorTypes) {
 		toSerialize["enrollAuthenticatorTypes"] = o.EnrollAuthenticatorTypes
 	}
-	if o.PreRegistrationInlineHooks != nil {
+	if !IsNil(o.PreRegistrationInlineHooks) {
 		toSerialize["preRegistrationInlineHooks"] = o.PreRegistrationInlineHooks
 	}
-	if o.ProfileAttributes != nil {
+	if !IsNil(o.ProfileAttributes) {
 		toSerialize["profileAttributes"] = o.ProfileAttributes
 	}
-	if o.ProgressiveProfilingAction != nil {
+	if !IsNil(o.ProgressiveProfilingAction) {
 		toSerialize["progressiveProfilingAction"] = o.ProgressiveProfilingAction
 	}
-	if o.TargetGroupIds != nil {
+	if !IsNil(o.TargetGroupIds) {
 		toSerialize["targetGroupIds"] = o.TargetGroupIds
 	}
-	if o.UiSchemaId != nil {
+	if !IsNil(o.UiSchemaId) {
 		toSerialize["uiSchemaId"] = o.UiSchemaId
 	}
-	if o.UnknownUserAction != nil {
+	if !IsNil(o.UnknownUserAction) {
 		toSerialize["unknownUserAction"] = o.UnknownUserAction
 	}
 
@@ -427,23 +438,23 @@ func (o ProfileEnrollmentPolicyRuleAction) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ProfileEnrollmentPolicyRuleAction) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ProfileEnrollmentPolicyRuleAction) UnmarshalJSON(data []byte) (err error) {
 	varProfileEnrollmentPolicyRuleAction := _ProfileEnrollmentPolicyRuleAction{}
 
-	err = json.Unmarshal(bytes, &varProfileEnrollmentPolicyRuleAction)
-	if err == nil {
-		*o = ProfileEnrollmentPolicyRuleAction(varProfileEnrollmentPolicyRuleAction)
-	} else {
+	err = json.Unmarshal(data, &varProfileEnrollmentPolicyRuleAction)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ProfileEnrollmentPolicyRuleAction(varProfileEnrollmentPolicyRuleAction)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "access")
 		delete(additionalProperties, "activationRequirements")
 		delete(additionalProperties, "allowedIdentifiers")
@@ -455,8 +466,6 @@ func (o *ProfileEnrollmentPolicyRuleAction) UnmarshalJSON(bytes []byte) (err err
 		delete(additionalProperties, "uiSchemaId")
 		delete(additionalProperties, "unknownUserAction")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -497,4 +506,3 @@ func (v *NullableProfileEnrollmentPolicyRuleAction) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

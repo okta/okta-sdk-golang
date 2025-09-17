@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the OktaSupportCases type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OktaSupportCases{}
+
 // OktaSupportCases struct for OktaSupportCases
 type OktaSupportCases struct {
-	SupportCases []OktaSupportCase `json:"supportCases,omitempty"`
+	SupportCases         []OktaSupportCase `json:"supportCases,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewOktaSupportCasesWithDefaults() *OktaSupportCases {
 
 // GetSupportCases returns the SupportCases field value if set, zero value otherwise.
 func (o *OktaSupportCases) GetSupportCases() []OktaSupportCase {
-	if o == nil || o.SupportCases == nil {
+	if o == nil || IsNil(o.SupportCases) {
 		var ret []OktaSupportCase
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *OktaSupportCases) GetSupportCases() []OktaSupportCase {
 // GetSupportCasesOk returns a tuple with the SupportCases field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaSupportCases) GetSupportCasesOk() ([]OktaSupportCase, bool) {
-	if o == nil || o.SupportCases == nil {
+	if o == nil || IsNil(o.SupportCases) {
 		return nil, false
 	}
 	return o.SupportCases, true
@@ -72,7 +75,7 @@ func (o *OktaSupportCases) GetSupportCasesOk() ([]OktaSupportCase, bool) {
 
 // HasSupportCases returns a boolean if a field has been set.
 func (o *OktaSupportCases) HasSupportCases() bool {
-	if o != nil && o.SupportCases != nil {
+	if o != nil && !IsNil(o.SupportCases) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *OktaSupportCases) SetSupportCases(v []OktaSupportCase) {
 }
 
 func (o OktaSupportCases) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OktaSupportCases) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.SupportCases != nil {
+	if !IsNil(o.SupportCases) {
 		toSerialize["supportCases"] = o.SupportCases
 	}
 
@@ -94,27 +105,25 @@ func (o OktaSupportCases) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OktaSupportCases) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OktaSupportCases) UnmarshalJSON(data []byte) (err error) {
 	varOktaSupportCases := _OktaSupportCases{}
 
-	err = json.Unmarshal(bytes, &varOktaSupportCases)
-	if err == nil {
-		*o = OktaSupportCases(varOktaSupportCases)
-	} else {
+	err = json.Unmarshal(data, &varOktaSupportCases)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OktaSupportCases(varOktaSupportCases)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "supportCases")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableOktaSupportCases) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

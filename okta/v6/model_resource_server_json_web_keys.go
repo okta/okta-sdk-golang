@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the ResourceServerJsonWebKeys type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceServerJsonWebKeys{}
+
 // ResourceServerJsonWebKeys <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>A [JSON Web Key Set](https://tools.ietf.org/html/rfc7517#section-5) for encrypting JWTs minted by the custom authorization server
 type ResourceServerJsonWebKeys struct {
-	Keys []ResourceServerJsonWebKey `json:"keys,omitempty"`
+	Keys                 []ResourceServerJsonWebKey `json:"keys,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewResourceServerJsonWebKeysWithDefaults() *ResourceServerJsonWebKeys {
 
 // GetKeys returns the Keys field value if set, zero value otherwise.
 func (o *ResourceServerJsonWebKeys) GetKeys() []ResourceServerJsonWebKey {
-	if o == nil || o.Keys == nil {
+	if o == nil || IsNil(o.Keys) {
 		var ret []ResourceServerJsonWebKey
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *ResourceServerJsonWebKeys) GetKeys() []ResourceServerJsonWebKey {
 // GetKeysOk returns a tuple with the Keys field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceServerJsonWebKeys) GetKeysOk() ([]ResourceServerJsonWebKey, bool) {
-	if o == nil || o.Keys == nil {
+	if o == nil || IsNil(o.Keys) {
 		return nil, false
 	}
 	return o.Keys, true
@@ -72,7 +75,7 @@ func (o *ResourceServerJsonWebKeys) GetKeysOk() ([]ResourceServerJsonWebKey, boo
 
 // HasKeys returns a boolean if a field has been set.
 func (o *ResourceServerJsonWebKeys) HasKeys() bool {
-	if o != nil && o.Keys != nil {
+	if o != nil && !IsNil(o.Keys) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *ResourceServerJsonWebKeys) SetKeys(v []ResourceServerJsonWebKey) {
 }
 
 func (o ResourceServerJsonWebKeys) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ResourceServerJsonWebKeys) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Keys != nil {
+	if !IsNil(o.Keys) {
 		toSerialize["keys"] = o.Keys
 	}
 
@@ -94,27 +105,25 @@ func (o ResourceServerJsonWebKeys) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResourceServerJsonWebKeys) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ResourceServerJsonWebKeys) UnmarshalJSON(data []byte) (err error) {
 	varResourceServerJsonWebKeys := _ResourceServerJsonWebKeys{}
 
-	err = json.Unmarshal(bytes, &varResourceServerJsonWebKeys)
-	if err == nil {
-		*o = ResourceServerJsonWebKeys(varResourceServerJsonWebKeys)
-	} else {
+	err = json.Unmarshal(data, &varResourceServerJsonWebKeys)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ResourceServerJsonWebKeys(varResourceServerJsonWebKeys)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "keys")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableResourceServerJsonWebKeys) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,26 +26,25 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type OAuth2ResourceServerCredentialsKeysAPI interface {
 
 	/*
-	ActivateOAuth2ResourceServerJsonWebKey Activate a Custom Authorization Server Public JSON Web Key
+			ActivateOAuth2ResourceServerJsonWebKey Activate a Custom Authorization Server Public JSON Web Key
 
-	Activates a custom authorization server public JSON web key by key `id`.
-> **Note:** You can have only one active key at any given time for the authorization server. When you activate an inactive key, Okta automatically deactivates the current active key.
+			Activates a custom authorization server public JSON web key by key `id`.
+		> **Note:** You can have only one active key at any given time for the authorization server. When you activate an inactive key, Okta automatically deactivates the current active key.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
-	@return ApiActivateOAuth2ResourceServerJsonWebKeyRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param authServerId `id` of the Authorization Server
+			@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
+			@return ApiActivateOAuth2ResourceServerJsonWebKeyRequest
 	*/
 	ActivateOAuth2ResourceServerJsonWebKey(ctx context.Context, authServerId string, keyId string) ApiActivateOAuth2ResourceServerJsonWebKeyRequest
 
@@ -54,15 +53,15 @@ type OAuth2ResourceServerCredentialsKeysAPI interface {
 	ActivateOAuth2ResourceServerJsonWebKeyExecute(r ApiActivateOAuth2ResourceServerJsonWebKeyRequest) (*OAuth2ResourceServerJsonWebKey, *APIResponse, error)
 
 	/*
-	AddOAuth2ResourceServerJsonWebKey Add a JSON Web Key
+			AddOAuth2ResourceServerJsonWebKey Add a JSON Web Key
 
-	Adds a new JSON Web Key to the custom authorization server`s JSON web keys.
-> **Note:** This API doesn't allow you to add a key if the existing key doesn't have a `kid`. Use the [Replace an Authorization Server](/openapi/okta-management/management/tag/AuthorizationServer/#tag/AuthorizationServer/operation/replaceAuthorizationServer) operation to update the JWKS or [Delete a Custom Authorization Server Public JSON Web Key](/openapi/okta-management/management/tag/OAuth2ResourceServerCredentialsKeys/#tag/OAuth2ResourceServerCredentialsKeys/operation/deleteOAuth2ResourceServerJsonWebKey) and re-add the key with a `kid`.
-> **Note:** This API doesn't allow you to add a key with an ACTIVE status. You need to add an INACTIVE key first, and then ACTIVATE the key.
+			Adds a new JSON Web Key to the custom authorization server`s JSON web keys.
+		> **Note:** This API doesn't allow you to add a key if the existing key doesn't have a `kid`. Use the [Replace an Authorization Server](/openapi/okta-management/management/tag/AuthorizationServer/#tag/AuthorizationServer/operation/replaceAuthorizationServer) operation to update the JWKS or [Delete a Custom Authorization Server Public JSON Web Key](/openapi/okta-management/management/tag/OAuth2ResourceServerCredentialsKeys/#tag/OAuth2ResourceServerCredentialsKeys/operation/deleteOAuth2ResourceServerJsonWebKey) and re-add the key with a `kid`.
+		> **Note:** This API doesn't allow you to add a key with an ACTIVE status. You need to add an INACTIVE key first, and then ACTIVATE the key.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@return ApiAddOAuth2ResourceServerJsonWebKeyRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param authServerId `id` of the Authorization Server
+			@return ApiAddOAuth2ResourceServerJsonWebKeyRequest
 	*/
 	AddOAuth2ResourceServerJsonWebKey(ctx context.Context, authServerId string) ApiAddOAuth2ResourceServerJsonWebKeyRequest
 
@@ -71,15 +70,15 @@ type OAuth2ResourceServerCredentialsKeysAPI interface {
 	AddOAuth2ResourceServerJsonWebKeyExecute(r ApiAddOAuth2ResourceServerJsonWebKeyRequest) (*OAuth2ResourceServerJsonWebKey, *APIResponse, error)
 
 	/*
-	DeactivateOAuth2ResourceServerJsonWebKey Deactivate a Custom Authorization Server Public JSON Web Key
+			DeactivateOAuth2ResourceServerJsonWebKey Deactivate a Custom Authorization Server Public JSON Web Key
 
-	Deactivates a custom authorization server public JSON web key by key `id`.
-> **Note:** Deactivating the active key isn't allowed if the authorization server has access token encryption enabled. You can activate another key, which makes the current key inactive.
+			Deactivates a custom authorization server public JSON web key by key `id`.
+		> **Note:** Deactivating the active key isn't allowed if the authorization server has access token encryption enabled. You can activate another key, which makes the current key inactive.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
-	@return ApiDeactivateOAuth2ResourceServerJsonWebKeyRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param authServerId `id` of the Authorization Server
+			@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
+			@return ApiDeactivateOAuth2ResourceServerJsonWebKeyRequest
 	*/
 	DeactivateOAuth2ResourceServerJsonWebKey(ctx context.Context, authServerId string, keyId string) ApiDeactivateOAuth2ResourceServerJsonWebKeyRequest
 
@@ -88,14 +87,14 @@ type OAuth2ResourceServerCredentialsKeysAPI interface {
 	DeactivateOAuth2ResourceServerJsonWebKeyExecute(r ApiDeactivateOAuth2ResourceServerJsonWebKeyRequest) (*OAuth2ResourceServerJsonWebKey, *APIResponse, error)
 
 	/*
-	DeleteOAuth2ResourceServerJsonWebKey Delete a Custom Authorization Server Public JSON Web Key
+		DeleteOAuth2ResourceServerJsonWebKey Delete a Custom Authorization Server Public JSON Web Key
 
-	Deletes a custom authorization server public JSON web key by key `id`. You can only delete an inactive key.
+		Deletes a custom authorization server public JSON web key by key `id`. You can only delete an inactive key.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
-	@return ApiDeleteOAuth2ResourceServerJsonWebKeyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
+		@return ApiDeleteOAuth2ResourceServerJsonWebKeyRequest
 	*/
 	DeleteOAuth2ResourceServerJsonWebKey(ctx context.Context, authServerId string, keyId string) ApiDeleteOAuth2ResourceServerJsonWebKeyRequest
 
@@ -103,14 +102,14 @@ type OAuth2ResourceServerCredentialsKeysAPI interface {
 	DeleteOAuth2ResourceServerJsonWebKeyExecute(r ApiDeleteOAuth2ResourceServerJsonWebKeyRequest) (*APIResponse, error)
 
 	/*
-	GetOAuth2ResourceServerJsonWebKey Retrieve a Custom Authorization Server Public JSON Web Key
+		GetOAuth2ResourceServerJsonWebKey Retrieve a Custom Authorization Server Public JSON Web Key
 
-	Retrieves a custom authorization server public JSON web key by key `id`
+		Retrieves a custom authorization server public JSON web key by key `id`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
-	@return ApiGetOAuth2ResourceServerJsonWebKeyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
+		@return ApiGetOAuth2ResourceServerJsonWebKeyRequest
 	*/
 	GetOAuth2ResourceServerJsonWebKey(ctx context.Context, authServerId string, keyId string) ApiGetOAuth2ResourceServerJsonWebKeyRequest
 
@@ -119,13 +118,13 @@ type OAuth2ResourceServerCredentialsKeysAPI interface {
 	GetOAuth2ResourceServerJsonWebKeyExecute(r ApiGetOAuth2ResourceServerJsonWebKeyRequest) (*OAuth2ResourceServerJsonWebKey, *APIResponse, error)
 
 	/*
-	ListOAuth2ResourceServerJsonWebKeys List all Custom Authorization Server Public JSON Web Keys
+		ListOAuth2ResourceServerJsonWebKeys List all Custom Authorization Server Public JSON Web Keys
 
-	Lists all the public keys used by the custom authorization server
+		Lists all the public keys used by the custom authorization server
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@return ApiListOAuth2ResourceServerJsonWebKeysRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@return ApiListOAuth2ResourceServerJsonWebKeysRequest
 	*/
 	ListOAuth2ResourceServerJsonWebKeys(ctx context.Context, authServerId string) ApiListOAuth2ResourceServerJsonWebKeysRequest
 
@@ -138,11 +137,11 @@ type OAuth2ResourceServerCredentialsKeysAPI interface {
 type OAuth2ResourceServerCredentialsKeysAPIService service
 
 type ApiActivateOAuth2ResourceServerJsonWebKeyRequest struct {
-	ctx context.Context
-	ApiService OAuth2ResourceServerCredentialsKeysAPI
+	ctx          context.Context
+	ApiService   OAuth2ResourceServerCredentialsKeysAPI
 	authServerId string
-	keyId string
-	retryCount int32
+	keyId        string
+	retryCount   int32
 }
 
 func (r ApiActivateOAuth2ResourceServerJsonWebKeyRequest) Execute() (*OAuth2ResourceServerJsonWebKey, *APIResponse, error) {
@@ -155,23 +154,24 @@ ActivateOAuth2ResourceServerJsonWebKey Activate a Custom Authorization Server Pu
 Activates a custom authorization server public JSON web key by key `id`.
 > **Note:** You can have only one active key at any given time for the authorization server. When you activate an inactive key, Okta automatically deactivates the current active key.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @param keyId Unique `id` of the Custom Authorization Server JSON Web Key
- @return ApiActivateOAuth2ResourceServerJsonWebKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
+	@return ApiActivateOAuth2ResourceServerJsonWebKeyRequest
 */
 func (a *OAuth2ResourceServerCredentialsKeysAPIService) ActivateOAuth2ResourceServerJsonWebKey(ctx context.Context, authServerId string, keyId string) ApiActivateOAuth2ResourceServerJsonWebKeyRequest {
 	return ApiActivateOAuth2ResourceServerJsonWebKeyRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		keyId: keyId,
-		retryCount: 0,
+		keyId:        keyId,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return OAuth2ResourceServerJsonWebKey
+//
+//	@return OAuth2ResourceServerJsonWebKey
 func (a *OAuth2ResourceServerCredentialsKeysAPIService) ActivateOAuth2ResourceServerJsonWebKeyExecute(r ApiActivateOAuth2ResourceServerJsonWebKeyRequest) (*OAuth2ResourceServerJsonWebKey, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -180,7 +180,7 @@ func (a *OAuth2ResourceServerCredentialsKeysAPIService) ActivateOAuth2ResourceSe
 		localVarReturnValue  *OAuth2ResourceServerJsonWebKey
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -242,9 +242,9 @@ func (a *OAuth2ResourceServerCredentialsKeysAPIService) ActivateOAuth2ResourceSe
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -314,17 +314,17 @@ func (a *OAuth2ResourceServerCredentialsKeysAPIService) ActivateOAuth2ResourceSe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiAddOAuth2ResourceServerJsonWebKeyRequest struct {
-	ctx context.Context
-	ApiService OAuth2ResourceServerCredentialsKeysAPI
-	authServerId string
+	ctx                                       context.Context
+	ApiService                                OAuth2ResourceServerCredentialsKeysAPI
+	authServerId                              string
 	oAuth2ResourceServerJsonWebKeyRequestBody *OAuth2ResourceServerJsonWebKeyRequestBody
-	retryCount int32
+	retryCount                                int32
 }
 
 func (r ApiAddOAuth2ResourceServerJsonWebKeyRequest) OAuth2ResourceServerJsonWebKeyRequestBody(oAuth2ResourceServerJsonWebKeyRequestBody OAuth2ResourceServerJsonWebKeyRequestBody) ApiAddOAuth2ResourceServerJsonWebKeyRequest {
@@ -343,21 +343,22 @@ Adds a new JSON Web Key to the custom authorization server`s JSON web keys.
 > **Note:** This API doesn't allow you to add a key if the existing key doesn't have a `kid`. Use the [Replace an Authorization Server](/openapi/okta-management/management/tag/AuthorizationServer/#tag/AuthorizationServer/operation/replaceAuthorizationServer) operation to update the JWKS or [Delete a Custom Authorization Server Public JSON Web Key](/openapi/okta-management/management/tag/OAuth2ResourceServerCredentialsKeys/#tag/OAuth2ResourceServerCredentialsKeys/operation/deleteOAuth2ResourceServerJsonWebKey) and re-add the key with a `kid`.
 > **Note:** This API doesn't allow you to add a key with an ACTIVE status. You need to add an INACTIVE key first, and then ACTIVATE the key.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @return ApiAddOAuth2ResourceServerJsonWebKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@return ApiAddOAuth2ResourceServerJsonWebKeyRequest
 */
 func (a *OAuth2ResourceServerCredentialsKeysAPIService) AddOAuth2ResourceServerJsonWebKey(ctx context.Context, authServerId string) ApiAddOAuth2ResourceServerJsonWebKeyRequest {
 	return ApiAddOAuth2ResourceServerJsonWebKeyRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return OAuth2ResourceServerJsonWebKey
+//
+//	@return OAuth2ResourceServerJsonWebKey
 func (a *OAuth2ResourceServerCredentialsKeysAPIService) AddOAuth2ResourceServerJsonWebKeyExecute(r ApiAddOAuth2ResourceServerJsonWebKeyRequest) (*OAuth2ResourceServerJsonWebKey, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -366,7 +367,7 @@ func (a *OAuth2ResourceServerCredentialsKeysAPIService) AddOAuth2ResourceServerJ
 		localVarReturnValue  *OAuth2ResourceServerJsonWebKey
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -432,9 +433,9 @@ func (a *OAuth2ResourceServerCredentialsKeysAPIService) AddOAuth2ResourceServerJ
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -504,17 +505,17 @@ func (a *OAuth2ResourceServerCredentialsKeysAPIService) AddOAuth2ResourceServerJ
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeactivateOAuth2ResourceServerJsonWebKeyRequest struct {
-	ctx context.Context
-	ApiService OAuth2ResourceServerCredentialsKeysAPI
+	ctx          context.Context
+	ApiService   OAuth2ResourceServerCredentialsKeysAPI
 	authServerId string
-	keyId string
-	retryCount int32
+	keyId        string
+	retryCount   int32
 }
 
 func (r ApiDeactivateOAuth2ResourceServerJsonWebKeyRequest) Execute() (*OAuth2ResourceServerJsonWebKey, *APIResponse, error) {
@@ -527,23 +528,24 @@ DeactivateOAuth2ResourceServerJsonWebKey Deactivate a Custom Authorization Serve
 Deactivates a custom authorization server public JSON web key by key `id`.
 > **Note:** Deactivating the active key isn't allowed if the authorization server has access token encryption enabled. You can activate another key, which makes the current key inactive.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @param keyId Unique `id` of the Custom Authorization Server JSON Web Key
- @return ApiDeactivateOAuth2ResourceServerJsonWebKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
+	@return ApiDeactivateOAuth2ResourceServerJsonWebKeyRequest
 */
 func (a *OAuth2ResourceServerCredentialsKeysAPIService) DeactivateOAuth2ResourceServerJsonWebKey(ctx context.Context, authServerId string, keyId string) ApiDeactivateOAuth2ResourceServerJsonWebKeyRequest {
 	return ApiDeactivateOAuth2ResourceServerJsonWebKeyRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		keyId: keyId,
-		retryCount: 0,
+		keyId:        keyId,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return OAuth2ResourceServerJsonWebKey
+//
+//	@return OAuth2ResourceServerJsonWebKey
 func (a *OAuth2ResourceServerCredentialsKeysAPIService) DeactivateOAuth2ResourceServerJsonWebKeyExecute(r ApiDeactivateOAuth2ResourceServerJsonWebKeyRequest) (*OAuth2ResourceServerJsonWebKey, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -552,7 +554,7 @@ func (a *OAuth2ResourceServerCredentialsKeysAPIService) DeactivateOAuth2Resource
 		localVarReturnValue  *OAuth2ResourceServerJsonWebKey
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -614,9 +616,9 @@ func (a *OAuth2ResourceServerCredentialsKeysAPIService) DeactivateOAuth2Resource
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -698,17 +700,17 @@ func (a *OAuth2ResourceServerCredentialsKeysAPIService) DeactivateOAuth2Resource
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteOAuth2ResourceServerJsonWebKeyRequest struct {
-	ctx context.Context
-	ApiService OAuth2ResourceServerCredentialsKeysAPI
+	ctx          context.Context
+	ApiService   OAuth2ResourceServerCredentialsKeysAPI
 	authServerId string
-	keyId string
-	retryCount int32
+	keyId        string
+	retryCount   int32
 }
 
 func (r ApiDeleteOAuth2ResourceServerJsonWebKeyRequest) Execute() (*APIResponse, error) {
@@ -720,18 +722,18 @@ DeleteOAuth2ResourceServerJsonWebKey Delete a Custom Authorization Server Public
 
 Deletes a custom authorization server public JSON web key by key `id`. You can only delete an inactive key.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @param keyId Unique `id` of the Custom Authorization Server JSON Web Key
- @return ApiDeleteOAuth2ResourceServerJsonWebKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
+	@return ApiDeleteOAuth2ResourceServerJsonWebKeyRequest
 */
 func (a *OAuth2ResourceServerCredentialsKeysAPIService) DeleteOAuth2ResourceServerJsonWebKey(ctx context.Context, authServerId string, keyId string) ApiDeleteOAuth2ResourceServerJsonWebKeyRequest {
 	return ApiDeleteOAuth2ResourceServerJsonWebKeyRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		keyId: keyId,
-		retryCount: 0,
+		keyId:        keyId,
+		retryCount:   0,
 	}
 }
 
@@ -743,7 +745,7 @@ func (a *OAuth2ResourceServerCredentialsKeysAPIService) DeleteOAuth2ResourceServ
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -805,9 +807,9 @@ func (a *OAuth2ResourceServerCredentialsKeysAPIService) DeleteOAuth2ResourceServ
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -885,11 +887,11 @@ func (a *OAuth2ResourceServerCredentialsKeysAPIService) DeleteOAuth2ResourceServ
 }
 
 type ApiGetOAuth2ResourceServerJsonWebKeyRequest struct {
-	ctx context.Context
-	ApiService OAuth2ResourceServerCredentialsKeysAPI
+	ctx          context.Context
+	ApiService   OAuth2ResourceServerCredentialsKeysAPI
 	authServerId string
-	keyId string
-	retryCount int32
+	keyId        string
+	retryCount   int32
 }
 
 func (r ApiGetOAuth2ResourceServerJsonWebKeyRequest) Execute() (*OAuth2ResourceServerJsonWebKey, *APIResponse, error) {
@@ -901,23 +903,24 @@ GetOAuth2ResourceServerJsonWebKey Retrieve a Custom Authorization Server Public 
 
 Retrieves a custom authorization server public JSON web key by key `id`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @param keyId Unique `id` of the Custom Authorization Server JSON Web Key
- @return ApiGetOAuth2ResourceServerJsonWebKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
+	@return ApiGetOAuth2ResourceServerJsonWebKeyRequest
 */
 func (a *OAuth2ResourceServerCredentialsKeysAPIService) GetOAuth2ResourceServerJsonWebKey(ctx context.Context, authServerId string, keyId string) ApiGetOAuth2ResourceServerJsonWebKeyRequest {
 	return ApiGetOAuth2ResourceServerJsonWebKeyRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		keyId: keyId,
-		retryCount: 0,
+		keyId:        keyId,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return OAuth2ResourceServerJsonWebKey
+//
+//	@return OAuth2ResourceServerJsonWebKey
 func (a *OAuth2ResourceServerCredentialsKeysAPIService) GetOAuth2ResourceServerJsonWebKeyExecute(r ApiGetOAuth2ResourceServerJsonWebKeyRequest) (*OAuth2ResourceServerJsonWebKey, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -926,7 +929,7 @@ func (a *OAuth2ResourceServerCredentialsKeysAPIService) GetOAuth2ResourceServerJ
 		localVarReturnValue  *OAuth2ResourceServerJsonWebKey
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -988,9 +991,9 @@ func (a *OAuth2ResourceServerCredentialsKeysAPIService) GetOAuth2ResourceServerJ
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1060,16 +1063,16 @@ func (a *OAuth2ResourceServerCredentialsKeysAPIService) GetOAuth2ResourceServerJ
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListOAuth2ResourceServerJsonWebKeysRequest struct {
-	ctx context.Context
-	ApiService OAuth2ResourceServerCredentialsKeysAPI
+	ctx          context.Context
+	ApiService   OAuth2ResourceServerCredentialsKeysAPI
 	authServerId string
-	retryCount int32
+	retryCount   int32
 }
 
 func (r ApiListOAuth2ResourceServerJsonWebKeysRequest) Execute() ([]OAuth2ResourceServerJsonWebKey, *APIResponse, error) {
@@ -1081,21 +1084,22 @@ ListOAuth2ResourceServerJsonWebKeys List all Custom Authorization Server Public 
 
 Lists all the public keys used by the custom authorization server
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @return ApiListOAuth2ResourceServerJsonWebKeysRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@return ApiListOAuth2ResourceServerJsonWebKeysRequest
 */
 func (a *OAuth2ResourceServerCredentialsKeysAPIService) ListOAuth2ResourceServerJsonWebKeys(ctx context.Context, authServerId string) ApiListOAuth2ResourceServerJsonWebKeysRequest {
 	return ApiListOAuth2ResourceServerJsonWebKeysRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return []OAuth2ResourceServerJsonWebKey
+//
+//	@return []OAuth2ResourceServerJsonWebKey
 func (a *OAuth2ResourceServerCredentialsKeysAPIService) ListOAuth2ResourceServerJsonWebKeysExecute(r ApiListOAuth2ResourceServerJsonWebKeysRequest) ([]OAuth2ResourceServerJsonWebKey, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1104,7 +1108,7 @@ func (a *OAuth2ResourceServerCredentialsKeysAPIService) ListOAuth2ResourceServer
 		localVarReturnValue  []OAuth2ResourceServerJsonWebKey
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1165,9 +1169,9 @@ func (a *OAuth2ResourceServerCredentialsKeysAPIService) ListOAuth2ResourceServer
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1237,7 +1241,7 @@ func (a *OAuth2ResourceServerCredentialsKeysAPIService) ListOAuth2ResourceServer
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

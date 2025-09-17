@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the OAuthEndpoints type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OAuthEndpoints{}
+
 // OAuthEndpoints The `OAUTH2` and `OIDC` protocols support the `authorization` and `token` endpoints. Also, the `OIDC` protocol supports the `userInfo` and `jwks` endpoints.  The IdP Authorization Server (AS) endpoints are currently defined as part of the [IdP provider]((https://developer.okta.com/docs/api/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/createIdentityProvider!path=type&t=request)) and are read-only.
 type OAuthEndpoints struct {
-	Authorization *OAuthAuthorizationEndpoint `json:"authorization,omitempty"`
-	Jwks *OidcJwksEndpoint `json:"jwks,omitempty"`
-	Slo *OidcSloEndpoint `json:"slo,omitempty"`
-	Token *OAuthTokenEndpoint `json:"token,omitempty"`
-	UserInfo *OidcUserInfoEndpoint `json:"userInfo,omitempty"`
+	Authorization        *OAuthAuthorizationEndpoint `json:"authorization,omitempty"`
+	Jwks                 *OidcJwksEndpoint           `json:"jwks,omitempty"`
+	Slo                  *OidcSloEndpoint            `json:"slo,omitempty"`
+	Token                *OAuthTokenEndpoint         `json:"token,omitempty"`
+	UserInfo             *OidcUserInfoEndpoint       `json:"userInfo,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewOAuthEndpointsWithDefaults() *OAuthEndpoints {
 
 // GetAuthorization returns the Authorization field value if set, zero value otherwise.
 func (o *OAuthEndpoints) GetAuthorization() OAuthAuthorizationEndpoint {
-	if o == nil || o.Authorization == nil {
+	if o == nil || IsNil(o.Authorization) {
 		var ret OAuthAuthorizationEndpoint
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *OAuthEndpoints) GetAuthorization() OAuthAuthorizationEndpoint {
 // GetAuthorizationOk returns a tuple with the Authorization field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthEndpoints) GetAuthorizationOk() (*OAuthAuthorizationEndpoint, bool) {
-	if o == nil || o.Authorization == nil {
+	if o == nil || IsNil(o.Authorization) {
 		return nil, false
 	}
 	return o.Authorization, true
@@ -76,7 +79,7 @@ func (o *OAuthEndpoints) GetAuthorizationOk() (*OAuthAuthorizationEndpoint, bool
 
 // HasAuthorization returns a boolean if a field has been set.
 func (o *OAuthEndpoints) HasAuthorization() bool {
-	if o != nil && o.Authorization != nil {
+	if o != nil && !IsNil(o.Authorization) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *OAuthEndpoints) SetAuthorization(v OAuthAuthorizationEndpoint) {
 
 // GetJwks returns the Jwks field value if set, zero value otherwise.
 func (o *OAuthEndpoints) GetJwks() OidcJwksEndpoint {
-	if o == nil || o.Jwks == nil {
+	if o == nil || IsNil(o.Jwks) {
 		var ret OidcJwksEndpoint
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *OAuthEndpoints) GetJwks() OidcJwksEndpoint {
 // GetJwksOk returns a tuple with the Jwks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthEndpoints) GetJwksOk() (*OidcJwksEndpoint, bool) {
-	if o == nil || o.Jwks == nil {
+	if o == nil || IsNil(o.Jwks) {
 		return nil, false
 	}
 	return o.Jwks, true
@@ -108,7 +111,7 @@ func (o *OAuthEndpoints) GetJwksOk() (*OidcJwksEndpoint, bool) {
 
 // HasJwks returns a boolean if a field has been set.
 func (o *OAuthEndpoints) HasJwks() bool {
-	if o != nil && o.Jwks != nil {
+	if o != nil && !IsNil(o.Jwks) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *OAuthEndpoints) SetJwks(v OidcJwksEndpoint) {
 
 // GetSlo returns the Slo field value if set, zero value otherwise.
 func (o *OAuthEndpoints) GetSlo() OidcSloEndpoint {
-	if o == nil || o.Slo == nil {
+	if o == nil || IsNil(o.Slo) {
 		var ret OidcSloEndpoint
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *OAuthEndpoints) GetSlo() OidcSloEndpoint {
 // GetSloOk returns a tuple with the Slo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthEndpoints) GetSloOk() (*OidcSloEndpoint, bool) {
-	if o == nil || o.Slo == nil {
+	if o == nil || IsNil(o.Slo) {
 		return nil, false
 	}
 	return o.Slo, true
@@ -140,7 +143,7 @@ func (o *OAuthEndpoints) GetSloOk() (*OidcSloEndpoint, bool) {
 
 // HasSlo returns a boolean if a field has been set.
 func (o *OAuthEndpoints) HasSlo() bool {
-	if o != nil && o.Slo != nil {
+	if o != nil && !IsNil(o.Slo) {
 		return true
 	}
 
@@ -154,7 +157,7 @@ func (o *OAuthEndpoints) SetSlo(v OidcSloEndpoint) {
 
 // GetToken returns the Token field value if set, zero value otherwise.
 func (o *OAuthEndpoints) GetToken() OAuthTokenEndpoint {
-	if o == nil || o.Token == nil {
+	if o == nil || IsNil(o.Token) {
 		var ret OAuthTokenEndpoint
 		return ret
 	}
@@ -164,7 +167,7 @@ func (o *OAuthEndpoints) GetToken() OAuthTokenEndpoint {
 // GetTokenOk returns a tuple with the Token field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthEndpoints) GetTokenOk() (*OAuthTokenEndpoint, bool) {
-	if o == nil || o.Token == nil {
+	if o == nil || IsNil(o.Token) {
 		return nil, false
 	}
 	return o.Token, true
@@ -172,7 +175,7 @@ func (o *OAuthEndpoints) GetTokenOk() (*OAuthTokenEndpoint, bool) {
 
 // HasToken returns a boolean if a field has been set.
 func (o *OAuthEndpoints) HasToken() bool {
-	if o != nil && o.Token != nil {
+	if o != nil && !IsNil(o.Token) {
 		return true
 	}
 
@@ -186,7 +189,7 @@ func (o *OAuthEndpoints) SetToken(v OAuthTokenEndpoint) {
 
 // GetUserInfo returns the UserInfo field value if set, zero value otherwise.
 func (o *OAuthEndpoints) GetUserInfo() OidcUserInfoEndpoint {
-	if o == nil || o.UserInfo == nil {
+	if o == nil || IsNil(o.UserInfo) {
 		var ret OidcUserInfoEndpoint
 		return ret
 	}
@@ -196,7 +199,7 @@ func (o *OAuthEndpoints) GetUserInfo() OidcUserInfoEndpoint {
 // GetUserInfoOk returns a tuple with the UserInfo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthEndpoints) GetUserInfoOk() (*OidcUserInfoEndpoint, bool) {
-	if o == nil || o.UserInfo == nil {
+	if o == nil || IsNil(o.UserInfo) {
 		return nil, false
 	}
 	return o.UserInfo, true
@@ -204,7 +207,7 @@ func (o *OAuthEndpoints) GetUserInfoOk() (*OidcUserInfoEndpoint, bool) {
 
 // HasUserInfo returns a boolean if a field has been set.
 func (o *OAuthEndpoints) HasUserInfo() bool {
-	if o != nil && o.UserInfo != nil {
+	if o != nil && !IsNil(o.UserInfo) {
 		return true
 	}
 
@@ -217,20 +220,28 @@ func (o *OAuthEndpoints) SetUserInfo(v OidcUserInfoEndpoint) {
 }
 
 func (o OAuthEndpoints) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OAuthEndpoints) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Authorization != nil {
+	if !IsNil(o.Authorization) {
 		toSerialize["authorization"] = o.Authorization
 	}
-	if o.Jwks != nil {
+	if !IsNil(o.Jwks) {
 		toSerialize["jwks"] = o.Jwks
 	}
-	if o.Slo != nil {
+	if !IsNil(o.Slo) {
 		toSerialize["slo"] = o.Slo
 	}
-	if o.Token != nil {
+	if !IsNil(o.Token) {
 		toSerialize["token"] = o.Token
 	}
-	if o.UserInfo != nil {
+	if !IsNil(o.UserInfo) {
 		toSerialize["userInfo"] = o.UserInfo
 	}
 
@@ -238,31 +249,29 @@ func (o OAuthEndpoints) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OAuthEndpoints) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OAuthEndpoints) UnmarshalJSON(data []byte) (err error) {
 	varOAuthEndpoints := _OAuthEndpoints{}
 
-	err = json.Unmarshal(bytes, &varOAuthEndpoints)
-	if err == nil {
-		*o = OAuthEndpoints(varOAuthEndpoints)
-	} else {
+	err = json.Unmarshal(data, &varOAuthEndpoints)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OAuthEndpoints(varOAuthEndpoints)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "authorization")
 		delete(additionalProperties, "jwks")
 		delete(additionalProperties, "slo")
 		delete(additionalProperties, "token")
 		delete(additionalProperties, "userInfo")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -303,4 +312,3 @@ func (v *NullableOAuthEndpoints) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

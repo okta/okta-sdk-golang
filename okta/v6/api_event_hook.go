@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,24 +26,23 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type EventHookAPI interface {
 
 	/*
-	ActivateEventHook Activate an event hook
+		ActivateEventHook Activate an event hook
 
-	Activates the event hook that matches the provided `id`
+		Activates the event hook that matches the provided `id`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param eventHookId `id` of the Event Hook
-	@return ApiActivateEventHookRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param eventHookId `id` of the Event Hook
+		@return ApiActivateEventHookRequest
 	*/
 	ActivateEventHook(ctx context.Context, eventHookId string) ApiActivateEventHookRequest
 
@@ -52,22 +51,22 @@ type EventHookAPI interface {
 	ActivateEventHookExecute(r ApiActivateEventHookRequest) (*EventHook, *APIResponse, error)
 
 	/*
-	CreateEventHook Create an event hook
+			CreateEventHook Create an event hook
 
-	Creates a new event hook for your organization in `ACTIVE` status. You pass an event hook object in the JSON payload
-of your request. That object represents the set of required information about the event hook you're registering, including:
-  * The URI of your external service
-  * The [events](https://developer.okta.com/docs/reference/api/event-types/) in Okta you want to subscribe to
-  * An optional event hook filter that can reduce the number of event hook calls. This is a self-service Early Access (EA) feature.
-    See [Create an event hook filter](https://developer.okta.com/docs/concepts/event-hooks/#create-an-event-hook-filter).
+			Creates a new event hook for your organization in `ACTIVE` status. You pass an event hook object in the JSON payload
+		of your request. That object represents the set of required information about the event hook you're registering, including:
+		  * The URI of your external service
+		  * The [events](https://developer.okta.com/docs/reference/api/event-types/) in Okta you want to subscribe to
+		  * An optional event hook filter that can reduce the number of event hook calls. This is a self-service Early Access (EA) feature.
+		    See [Create an event hook filter](https://developer.okta.com/docs/concepts/event-hooks/#create-an-event-hook-filter).
 
-    Additionally, you can specify a secret API key for Okta to pass to your external service endpoint for security verification. Note that the API key you set here is unrelated to the Okta API token
-you must supply when making calls to Okta APIs. Optionally, you can specify extra headers that Okta passes to your external
-service with each call.
-Your external service must use a valid HTTPS endpoint.
+		    Additionally, you can specify a secret API key for Okta to pass to your external service endpoint for security verification. Note that the API key you set here is unrelated to the Okta API token
+		you must supply when making calls to Okta APIs. Optionally, you can specify extra headers that Okta passes to your external
+		service with each call.
+		Your external service must use a valid HTTPS endpoint.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateEventHookRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiCreateEventHookRequest
 	*/
 	CreateEventHook(ctx context.Context) ApiCreateEventHookRequest
 
@@ -76,13 +75,13 @@ Your external service must use a valid HTTPS endpoint.
 	CreateEventHookExecute(r ApiCreateEventHookRequest) (*EventHook, *APIResponse, error)
 
 	/*
-	DeactivateEventHook Deactivate an event hook
+		DeactivateEventHook Deactivate an event hook
 
-	Deactivates the event hook that matches the provided `id`
+		Deactivates the event hook that matches the provided `id`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param eventHookId `id` of the Event Hook
-	@return ApiDeactivateEventHookRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param eventHookId `id` of the Event Hook
+		@return ApiDeactivateEventHookRequest
 	*/
 	DeactivateEventHook(ctx context.Context, eventHookId string) ApiDeactivateEventHookRequest
 
@@ -91,14 +90,14 @@ Your external service must use a valid HTTPS endpoint.
 	DeactivateEventHookExecute(r ApiDeactivateEventHookRequest) (*EventHook, *APIResponse, error)
 
 	/*
-	DeleteEventHook Delete an event hook
+			DeleteEventHook Delete an event hook
 
-	Deletes the event hook that matches the provided `id`. After deletion, the event hook is unrecoverable.
-As a safety precaution, you can only delete event hooks with a status of `INACTIVE`.
+			Deletes the event hook that matches the provided `id`. After deletion, the event hook is unrecoverable.
+		As a safety precaution, you can only delete event hooks with a status of `INACTIVE`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param eventHookId `id` of the Event Hook
-	@return ApiDeleteEventHookRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param eventHookId `id` of the Event Hook
+			@return ApiDeleteEventHookRequest
 	*/
 	DeleteEventHook(ctx context.Context, eventHookId string) ApiDeleteEventHookRequest
 
@@ -106,13 +105,13 @@ As a safety precaution, you can only delete event hooks with a status of `INACTI
 	DeleteEventHookExecute(r ApiDeleteEventHookRequest) (*APIResponse, error)
 
 	/*
-	GetEventHook Retrieve an event hook
+		GetEventHook Retrieve an event hook
 
-	Retrieves an event hook
+		Retrieves an event hook
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param eventHookId `id` of the Event Hook
-	@return ApiGetEventHookRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param eventHookId `id` of the Event Hook
+		@return ApiGetEventHookRequest
 	*/
 	GetEventHook(ctx context.Context, eventHookId string) ApiGetEventHookRequest
 
@@ -121,12 +120,12 @@ As a safety precaution, you can only delete event hooks with a status of `INACTI
 	GetEventHookExecute(r ApiGetEventHookRequest) (*EventHook, *APIResponse, error)
 
 	/*
-	ListEventHooks List all event hooks
+		ListEventHooks List all event hooks
 
-	Lists all event hooks
+		Lists all event hooks
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListEventHooksRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListEventHooksRequest
 	*/
 	ListEventHooks(ctx context.Context) ApiListEventHooksRequest
 
@@ -135,16 +134,16 @@ As a safety precaution, you can only delete event hooks with a status of `INACTI
 	ListEventHooksExecute(r ApiListEventHooksRequest) ([]EventHook, *APIResponse, error)
 
 	/*
-	ReplaceEventHook Replace an event hook
+			ReplaceEventHook Replace an event hook
 
-	Replaces an event hook. Okta validates the new properties before replacing the existing values.
-Some event hook properties are immutable and can't be updated. Refer to the parameter description in the request body schema.
+			Replaces an event hook. Okta validates the new properties before replacing the existing values.
+		Some event hook properties are immutable and can't be updated. Refer to the parameter description in the request body schema.
 
->**Note:** Updating the `channel` property requires you to verify the hook again.
+		>**Note:** Updating the `channel` property requires you to verify the hook again.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param eventHookId `id` of the Event Hook
-	@return ApiReplaceEventHookRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param eventHookId `id` of the Event Hook
+			@return ApiReplaceEventHookRequest
 	*/
 	ReplaceEventHook(ctx context.Context, eventHookId string) ApiReplaceEventHookRequest
 
@@ -153,18 +152,18 @@ Some event hook properties are immutable and can't be updated. Refer to the para
 	ReplaceEventHookExecute(r ApiReplaceEventHookRequest) (*EventHook, *APIResponse, error)
 
 	/*
-	VerifyEventHook Verify an event hook
+			VerifyEventHook Verify an event hook
 
-	Verifies that the event hook matches the provided `eventHookId`. To verify ownership, your endpoint must send information back to Okta in JSON format. See [Event hooks](https://developer.okta.com/docs/concepts/event-hooks/#one-time-verification-request).
+			Verifies that the event hook matches the provided `eventHookId`. To verify ownership, your endpoint must send information back to Okta in JSON format. See [Event hooks](https://developer.okta.com/docs/concepts/event-hooks/#one-time-verification-request).
 
-Only `ACTIVE` and `VERIFIED` event hooks can receive events from Okta.
+		Only `ACTIVE` and `VERIFIED` event hooks can receive events from Okta.
 
-If a response is not received within 3 seconds, the outbound request times out. One retry is attempted after a timeout or error response.
-If a successful response still isn't received, this operation returns a 400 error with more information about the failure.
+		If a response is not received within 3 seconds, the outbound request times out. One retry is attempted after a timeout or error response.
+		If a successful response still isn't received, this operation returns a 400 error with more information about the failure.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param eventHookId `id` of the Event Hook
-	@return ApiVerifyEventHookRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param eventHookId `id` of the Event Hook
+			@return ApiVerifyEventHookRequest
 	*/
 	VerifyEventHook(ctx context.Context, eventHookId string) ApiVerifyEventHookRequest
 
@@ -177,10 +176,10 @@ If a successful response still isn't received, this operation returns a 400 erro
 type EventHookAPIService service
 
 type ApiActivateEventHookRequest struct {
-	ctx context.Context
-	ApiService EventHookAPI
+	ctx         context.Context
+	ApiService  EventHookAPI
 	eventHookId string
-	retryCount int32
+	retryCount  int32
 }
 
 func (r ApiActivateEventHookRequest) Execute() (*EventHook, *APIResponse, error) {
@@ -192,21 +191,22 @@ ActivateEventHook Activate an event hook
 
 Activates the event hook that matches the provided `id`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param eventHookId `id` of the Event Hook
- @return ApiActivateEventHookRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param eventHookId `id` of the Event Hook
+	@return ApiActivateEventHookRequest
 */
 func (a *EventHookAPIService) ActivateEventHook(ctx context.Context, eventHookId string) ApiActivateEventHookRequest {
 	return ApiActivateEventHookRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		eventHookId: eventHookId,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
 // Execute executes the request
-//  @return EventHook
+//
+//	@return EventHook
 func (a *EventHookAPIService) ActivateEventHookExecute(r ApiActivateEventHookRequest) (*EventHook, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -215,7 +215,7 @@ func (a *EventHookAPIService) ActivateEventHookExecute(r ApiActivateEventHookReq
 		localVarReturnValue  *EventHook
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -276,9 +276,9 @@ func (a *EventHookAPIService) ActivateEventHookExecute(r ApiActivateEventHookReq
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -336,15 +336,15 @@ func (a *EventHookAPIService) ActivateEventHookExecute(r ApiActivateEventHookReq
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiCreateEventHookRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService EventHookAPI
-	eventHook *EventHook
+	eventHook  *EventHook
 	retryCount int32
 }
 
@@ -362,29 +362,34 @@ CreateEventHook Create an event hook
 
 Creates a new event hook for your organization in `ACTIVE` status. You pass an event hook object in the JSON payload
 of your request. That object represents the set of required information about the event hook you're registering, including:
-  * The URI of your external service
-  * The [events](https://developer.okta.com/docs/reference/api/event-types/) in Okta you want to subscribe to
-  * An optional event hook filter that can reduce the number of event hook calls. This is a self-service Early Access (EA) feature.
+
+  - The URI of your external service
+
+  - The [events](https://developer.okta.com/docs/reference/api/event-types/) in Okta you want to subscribe to
+
+  - An optional event hook filter that can reduce the number of event hook calls. This is a self-service Early Access (EA) feature.
     See [Create an event hook filter](https://developer.okta.com/docs/concepts/event-hooks/#create-an-event-hook-filter).
 
     Additionally, you can specify a secret API key for Okta to pass to your external service endpoint for security verification. Note that the API key you set here is unrelated to the Okta API token
+
 you must supply when making calls to Okta APIs. Optionally, you can specify extra headers that Okta passes to your external
 service with each call.
 Your external service must use a valid HTTPS endpoint.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateEventHookRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateEventHookRequest
 */
 func (a *EventHookAPIService) CreateEventHook(ctx context.Context) ApiCreateEventHookRequest {
 	return ApiCreateEventHookRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return EventHook
+//
+//	@return EventHook
 func (a *EventHookAPIService) CreateEventHookExecute(r ApiCreateEventHookRequest) (*EventHook, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -393,7 +398,7 @@ func (a *EventHookAPIService) CreateEventHookExecute(r ApiCreateEventHookRequest
 		localVarReturnValue  *EventHook
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -458,9 +463,9 @@ func (a *EventHookAPIService) CreateEventHookExecute(r ApiCreateEventHookRequest
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -518,16 +523,16 @@ func (a *EventHookAPIService) CreateEventHookExecute(r ApiCreateEventHookRequest
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeactivateEventHookRequest struct {
-	ctx context.Context
-	ApiService EventHookAPI
+	ctx         context.Context
+	ApiService  EventHookAPI
 	eventHookId string
-	retryCount int32
+	retryCount  int32
 }
 
 func (r ApiDeactivateEventHookRequest) Execute() (*EventHook, *APIResponse, error) {
@@ -539,21 +544,22 @@ DeactivateEventHook Deactivate an event hook
 
 Deactivates the event hook that matches the provided `id`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param eventHookId `id` of the Event Hook
- @return ApiDeactivateEventHookRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param eventHookId `id` of the Event Hook
+	@return ApiDeactivateEventHookRequest
 */
 func (a *EventHookAPIService) DeactivateEventHook(ctx context.Context, eventHookId string) ApiDeactivateEventHookRequest {
 	return ApiDeactivateEventHookRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		eventHookId: eventHookId,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
 // Execute executes the request
-//  @return EventHook
+//
+//	@return EventHook
 func (a *EventHookAPIService) DeactivateEventHookExecute(r ApiDeactivateEventHookRequest) (*EventHook, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -562,7 +568,7 @@ func (a *EventHookAPIService) DeactivateEventHookExecute(r ApiDeactivateEventHoo
 		localVarReturnValue  *EventHook
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -623,9 +629,9 @@ func (a *EventHookAPIService) DeactivateEventHookExecute(r ApiDeactivateEventHoo
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -683,16 +689,16 @@ func (a *EventHookAPIService) DeactivateEventHookExecute(r ApiDeactivateEventHoo
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteEventHookRequest struct {
-	ctx context.Context
-	ApiService EventHookAPI
+	ctx         context.Context
+	ApiService  EventHookAPI
 	eventHookId string
-	retryCount int32
+	retryCount  int32
 }
 
 func (r ApiDeleteEventHookRequest) Execute() (*APIResponse, error) {
@@ -705,16 +711,16 @@ DeleteEventHook Delete an event hook
 Deletes the event hook that matches the provided `id`. After deletion, the event hook is unrecoverable.
 As a safety precaution, you can only delete event hooks with a status of `INACTIVE`.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param eventHookId `id` of the Event Hook
- @return ApiDeleteEventHookRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param eventHookId `id` of the Event Hook
+	@return ApiDeleteEventHookRequest
 */
 func (a *EventHookAPIService) DeleteEventHook(ctx context.Context, eventHookId string) ApiDeleteEventHookRequest {
 	return ApiDeleteEventHookRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		eventHookId: eventHookId,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
@@ -726,7 +732,7 @@ func (a *EventHookAPIService) DeleteEventHookExecute(r ApiDeleteEventHookRequest
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -787,9 +793,9 @@ func (a *EventHookAPIService) DeleteEventHookExecute(r ApiDeleteEventHookRequest
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -843,10 +849,10 @@ func (a *EventHookAPIService) DeleteEventHookExecute(r ApiDeleteEventHookRequest
 }
 
 type ApiGetEventHookRequest struct {
-	ctx context.Context
-	ApiService EventHookAPI
+	ctx         context.Context
+	ApiService  EventHookAPI
 	eventHookId string
-	retryCount int32
+	retryCount  int32
 }
 
 func (r ApiGetEventHookRequest) Execute() (*EventHook, *APIResponse, error) {
@@ -858,21 +864,22 @@ GetEventHook Retrieve an event hook
 
 Retrieves an event hook
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param eventHookId `id` of the Event Hook
- @return ApiGetEventHookRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param eventHookId `id` of the Event Hook
+	@return ApiGetEventHookRequest
 */
 func (a *EventHookAPIService) GetEventHook(ctx context.Context, eventHookId string) ApiGetEventHookRequest {
 	return ApiGetEventHookRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		eventHookId: eventHookId,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
 // Execute executes the request
-//  @return EventHook
+//
+//	@return EventHook
 func (a *EventHookAPIService) GetEventHookExecute(r ApiGetEventHookRequest) (*EventHook, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -881,7 +888,7 @@ func (a *EventHookAPIService) GetEventHookExecute(r ApiGetEventHookRequest) (*Ev
 		localVarReturnValue  *EventHook
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -942,9 +949,9 @@ func (a *EventHookAPIService) GetEventHookExecute(r ApiGetEventHookRequest) (*Ev
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1002,13 +1009,13 @@ func (a *EventHookAPIService) GetEventHookExecute(r ApiGetEventHookRequest) (*Ev
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListEventHooksRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService EventHookAPI
 	retryCount int32
 }
@@ -1022,19 +1029,20 @@ ListEventHooks List all event hooks
 
 Lists all event hooks
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListEventHooksRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListEventHooksRequest
 */
 func (a *EventHookAPIService) ListEventHooks(ctx context.Context) ApiListEventHooksRequest {
 	return ApiListEventHooksRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []EventHook
+//
+//	@return []EventHook
 func (a *EventHookAPIService) ListEventHooksExecute(r ApiListEventHooksRequest) ([]EventHook, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1043,7 +1051,7 @@ func (a *EventHookAPIService) ListEventHooksExecute(r ApiListEventHooksRequest) 
 		localVarReturnValue  []EventHook
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1103,9 +1111,9 @@ func (a *EventHookAPIService) ListEventHooksExecute(r ApiListEventHooksRequest) 
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1151,17 +1159,17 @@ func (a *EventHookAPIService) ListEventHooksExecute(r ApiListEventHooksRequest) 
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceEventHookRequest struct {
-	ctx context.Context
-	ApiService EventHookAPI
+	ctx         context.Context
+	ApiService  EventHookAPI
 	eventHookId string
-	eventHook *EventHook
-	retryCount int32
+	eventHook   *EventHook
+	retryCount  int32
 }
 
 func (r ApiReplaceEventHookRequest) EventHook(eventHook EventHook) ApiReplaceEventHookRequest {
@@ -1181,21 +1189,22 @@ Some event hook properties are immutable and can't be updated. Refer to the para
 
 >**Note:** Updating the `channel` property requires you to verify the hook again.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param eventHookId `id` of the Event Hook
- @return ApiReplaceEventHookRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param eventHookId `id` of the Event Hook
+	@return ApiReplaceEventHookRequest
 */
 func (a *EventHookAPIService) ReplaceEventHook(ctx context.Context, eventHookId string) ApiReplaceEventHookRequest {
 	return ApiReplaceEventHookRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		eventHookId: eventHookId,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
 // Execute executes the request
-//  @return EventHook
+//
+//	@return EventHook
 func (a *EventHookAPIService) ReplaceEventHookExecute(r ApiReplaceEventHookRequest) (*EventHook, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -1204,7 +1213,7 @@ func (a *EventHookAPIService) ReplaceEventHookExecute(r ApiReplaceEventHookReque
 		localVarReturnValue  *EventHook
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1270,9 +1279,9 @@ func (a *EventHookAPIService) ReplaceEventHookExecute(r ApiReplaceEventHookReque
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1342,16 +1351,16 @@ func (a *EventHookAPIService) ReplaceEventHookExecute(r ApiReplaceEventHookReque
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiVerifyEventHookRequest struct {
-	ctx context.Context
-	ApiService EventHookAPI
+	ctx         context.Context
+	ApiService  EventHookAPI
 	eventHookId string
-	retryCount int32
+	retryCount  int32
 }
 
 func (r ApiVerifyEventHookRequest) Execute() (*EventHook, *APIResponse, error) {
@@ -1368,21 +1377,22 @@ Only `ACTIVE` and `VERIFIED` event hooks can receive events from Okta.
 If a response is not received within 3 seconds, the outbound request times out. One retry is attempted after a timeout or error response.
 If a successful response still isn't received, this operation returns a 400 error with more information about the failure.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param eventHookId `id` of the Event Hook
- @return ApiVerifyEventHookRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param eventHookId `id` of the Event Hook
+	@return ApiVerifyEventHookRequest
 */
 func (a *EventHookAPIService) VerifyEventHook(ctx context.Context, eventHookId string) ApiVerifyEventHookRequest {
 	return ApiVerifyEventHookRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		eventHookId: eventHookId,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
 // Execute executes the request
-//  @return EventHook
+//
+//	@return EventHook
 func (a *EventHookAPIService) VerifyEventHookExecute(r ApiVerifyEventHookRequest) (*EventHook, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1391,7 +1401,7 @@ func (a *EventHookAPIService) VerifyEventHookExecute(r ApiVerifyEventHookRequest
 		localVarReturnValue  *EventHook
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1452,9 +1462,9 @@ func (a *EventHookAPIService) VerifyEventHookExecute(r ApiVerifyEventHookRequest
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1524,7 +1534,7 @@ func (a *EventHookAPIService) VerifyEventHookExecute(r ApiVerifyEventHookRequest
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the ResourceSetBindingEditResponseLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceSetBindingEditResponseLinks{}
+
 // ResourceSetBindingEditResponseLinks struct for ResourceSetBindingEditResponseLinks
 type ResourceSetBindingEditResponseLinks struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	ResourceSet *HrefObjectResourceSetLink `json:"resource-set,omitempty"`
-	Bindings *HrefObjectBindingsLink `json:"bindings,omitempty"`
+	Self                 *HrefObjectSelfLink        `json:"self,omitempty"`
+	ResourceSet          *HrefObjectResourceSetLink `json:"resource-set,omitempty"`
+	Bindings             *HrefObjectBindingsLink    `json:"bindings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewResourceSetBindingEditResponseLinksWithDefaults() *ResourceSetBindingEdi
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *ResourceSetBindingEditResponseLinks) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *ResourceSetBindingEditResponseLinks) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSetBindingEditResponseLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -74,7 +77,7 @@ func (o *ResourceSetBindingEditResponseLinks) GetSelfOk() (*HrefObjectSelfLink, 
 
 // HasSelf returns a boolean if a field has been set.
 func (o *ResourceSetBindingEditResponseLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *ResourceSetBindingEditResponseLinks) SetSelf(v HrefObjectSelfLink) {
 
 // GetResourceSet returns the ResourceSet field value if set, zero value otherwise.
 func (o *ResourceSetBindingEditResponseLinks) GetResourceSet() HrefObjectResourceSetLink {
-	if o == nil || o.ResourceSet == nil {
+	if o == nil || IsNil(o.ResourceSet) {
 		var ret HrefObjectResourceSetLink
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *ResourceSetBindingEditResponseLinks) GetResourceSet() HrefObjectResourc
 // GetResourceSetOk returns a tuple with the ResourceSet field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSetBindingEditResponseLinks) GetResourceSetOk() (*HrefObjectResourceSetLink, bool) {
-	if o == nil || o.ResourceSet == nil {
+	if o == nil || IsNil(o.ResourceSet) {
 		return nil, false
 	}
 	return o.ResourceSet, true
@@ -106,7 +109,7 @@ func (o *ResourceSetBindingEditResponseLinks) GetResourceSetOk() (*HrefObjectRes
 
 // HasResourceSet returns a boolean if a field has been set.
 func (o *ResourceSetBindingEditResponseLinks) HasResourceSet() bool {
-	if o != nil && o.ResourceSet != nil {
+	if o != nil && !IsNil(o.ResourceSet) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *ResourceSetBindingEditResponseLinks) SetResourceSet(v HrefObjectResourc
 
 // GetBindings returns the Bindings field value if set, zero value otherwise.
 func (o *ResourceSetBindingEditResponseLinks) GetBindings() HrefObjectBindingsLink {
-	if o == nil || o.Bindings == nil {
+	if o == nil || IsNil(o.Bindings) {
 		var ret HrefObjectBindingsLink
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *ResourceSetBindingEditResponseLinks) GetBindings() HrefObjectBindingsLi
 // GetBindingsOk returns a tuple with the Bindings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSetBindingEditResponseLinks) GetBindingsOk() (*HrefObjectBindingsLink, bool) {
-	if o == nil || o.Bindings == nil {
+	if o == nil || IsNil(o.Bindings) {
 		return nil, false
 	}
 	return o.Bindings, true
@@ -138,7 +141,7 @@ func (o *ResourceSetBindingEditResponseLinks) GetBindingsOk() (*HrefObjectBindin
 
 // HasBindings returns a boolean if a field has been set.
 func (o *ResourceSetBindingEditResponseLinks) HasBindings() bool {
-	if o != nil && o.Bindings != nil {
+	if o != nil && !IsNil(o.Bindings) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *ResourceSetBindingEditResponseLinks) SetBindings(v HrefObjectBindingsLi
 }
 
 func (o ResourceSetBindingEditResponseLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ResourceSetBindingEditResponseLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.ResourceSet != nil {
+	if !IsNil(o.ResourceSet) {
 		toSerialize["resource-set"] = o.ResourceSet
 	}
-	if o.Bindings != nil {
+	if !IsNil(o.Bindings) {
 		toSerialize["bindings"] = o.Bindings
 	}
 
@@ -166,29 +177,27 @@ func (o ResourceSetBindingEditResponseLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResourceSetBindingEditResponseLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ResourceSetBindingEditResponseLinks) UnmarshalJSON(data []byte) (err error) {
 	varResourceSetBindingEditResponseLinks := _ResourceSetBindingEditResponseLinks{}
 
-	err = json.Unmarshal(bytes, &varResourceSetBindingEditResponseLinks)
-	if err == nil {
-		*o = ResourceSetBindingEditResponseLinks(varResourceSetBindingEditResponseLinks)
-	} else {
+	err = json.Unmarshal(data, &varResourceSetBindingEditResponseLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ResourceSetBindingEditResponseLinks(varResourceSetBindingEditResponseLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "resource-set")
 		delete(additionalProperties, "bindings")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullableResourceSetBindingEditResponseLinks) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,12 +28,15 @@ import (
 	"fmt"
 )
 
+// checks if the UserIdentifierConditionEvaluatorPattern type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserIdentifierConditionEvaluatorPattern{}
+
 // UserIdentifierConditionEvaluatorPattern Specifies the details of the patterns to match against
 type UserIdentifierConditionEvaluatorPattern struct {
 	// The type of pattern. For regex, use `EXPRESSION`.
 	MatchType string `json:"matchType"`
 	// The regular expression or simple match string
-	Value string `json:"value"`
+	Value                string `json:"value"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,40 +110,64 @@ func (o *UserIdentifierConditionEvaluatorPattern) SetValue(v string) {
 }
 
 func (o UserIdentifierConditionEvaluatorPattern) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserIdentifierConditionEvaluatorPattern) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["matchType"] = o.MatchType
-	}
-	if true {
-		toSerialize["value"] = o.Value
-	}
+	toSerialize["matchType"] = o.MatchType
+	toSerialize["value"] = o.Value
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserIdentifierConditionEvaluatorPattern) UnmarshalJSON(bytes []byte) (err error) {
-	varUserIdentifierConditionEvaluatorPattern := _UserIdentifierConditionEvaluatorPattern{}
+func (o *UserIdentifierConditionEvaluatorPattern) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"matchType",
+		"value",
+	}
 
-	err = json.Unmarshal(bytes, &varUserIdentifierConditionEvaluatorPattern)
-	if err == nil {
-		*o = UserIdentifierConditionEvaluatorPattern(varUserIdentifierConditionEvaluatorPattern)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varUserIdentifierConditionEvaluatorPattern := _UserIdentifierConditionEvaluatorPattern{}
+
+	err = json.Unmarshal(data, &varUserIdentifierConditionEvaluatorPattern)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UserIdentifierConditionEvaluatorPattern(varUserIdentifierConditionEvaluatorPattern)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "matchType")
 		delete(additionalProperties, "value")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -181,4 +208,3 @@ func (v *NullableUserIdentifierConditionEvaluatorPattern) UnmarshalJSON(src []by
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

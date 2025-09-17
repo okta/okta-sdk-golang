@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,14 +27,17 @@ import (
 	"encoding/json"
 )
 
-// LogUserAgent \"A user agent is software (a software agent) that is acting on behalf of a user.\" ([Definition of User Agent](https://developer.mozilla.org/en-US/docs/Glossary/User_agent))  In the Okta event data object, the `UserAgent` object provides specifications about the client software that makes event-triggering HTTP requests. User agent identification is often useful for identifying interoperability problems between servers and clients, and also for browser and operating system usage analytics. 
+// checks if the LogUserAgent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LogUserAgent{}
+
+// LogUserAgent \"A user agent is software (a software agent) that is acting on behalf of a user.\" ([Definition of User Agent](https://developer.mozilla.org/en-US/docs/Glossary/User_agent))  In the Okta event data object, the `UserAgent` object provides specifications about the client software that makes event-triggering HTTP requests. User agent identification is often useful for identifying interoperability problems between servers and clients, and also for browser and operating system usage analytics.
 type LogUserAgent struct {
 	// If the client is a web browser, this field identifies the type of web browser (for example, CHROME, FIREFOX)
 	Browser *string `json:"browser,omitempty"`
 	// The operating system that the client runs on (for example, Windows 10)
 	Os *string `json:"os,omitempty"`
 	// A raw string representation of the user agent that is formatted according to [section 5.5.3 of HTTP/1.1 Semantics and Content](https://datatracker.ietf.org/doc/html/rfc7231#section-5.5.3). Both the `browser` and the `OS` fields can be derived from this field.
-	RawUserAgent *string `json:"rawUserAgent,omitempty"`
+	RawUserAgent         *string `json:"rawUserAgent,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewLogUserAgentWithDefaults() *LogUserAgent {
 
 // GetBrowser returns the Browser field value if set, zero value otherwise.
 func (o *LogUserAgent) GetBrowser() string {
-	if o == nil || o.Browser == nil {
+	if o == nil || IsNil(o.Browser) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *LogUserAgent) GetBrowser() string {
 // GetBrowserOk returns a tuple with the Browser field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogUserAgent) GetBrowserOk() (*string, bool) {
-	if o == nil || o.Browser == nil {
+	if o == nil || IsNil(o.Browser) {
 		return nil, false
 	}
 	return o.Browser, true
@@ -77,7 +80,7 @@ func (o *LogUserAgent) GetBrowserOk() (*string, bool) {
 
 // HasBrowser returns a boolean if a field has been set.
 func (o *LogUserAgent) HasBrowser() bool {
-	if o != nil && o.Browser != nil {
+	if o != nil && !IsNil(o.Browser) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *LogUserAgent) SetBrowser(v string) {
 
 // GetOs returns the Os field value if set, zero value otherwise.
 func (o *LogUserAgent) GetOs() string {
-	if o == nil || o.Os == nil {
+	if o == nil || IsNil(o.Os) {
 		var ret string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *LogUserAgent) GetOs() string {
 // GetOsOk returns a tuple with the Os field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogUserAgent) GetOsOk() (*string, bool) {
-	if o == nil || o.Os == nil {
+	if o == nil || IsNil(o.Os) {
 		return nil, false
 	}
 	return o.Os, true
@@ -109,7 +112,7 @@ func (o *LogUserAgent) GetOsOk() (*string, bool) {
 
 // HasOs returns a boolean if a field has been set.
 func (o *LogUserAgent) HasOs() bool {
-	if o != nil && o.Os != nil {
+	if o != nil && !IsNil(o.Os) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *LogUserAgent) SetOs(v string) {
 
 // GetRawUserAgent returns the RawUserAgent field value if set, zero value otherwise.
 func (o *LogUserAgent) GetRawUserAgent() string {
-	if o == nil || o.RawUserAgent == nil {
+	if o == nil || IsNil(o.RawUserAgent) {
 		var ret string
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *LogUserAgent) GetRawUserAgent() string {
 // GetRawUserAgentOk returns a tuple with the RawUserAgent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogUserAgent) GetRawUserAgentOk() (*string, bool) {
-	if o == nil || o.RawUserAgent == nil {
+	if o == nil || IsNil(o.RawUserAgent) {
 		return nil, false
 	}
 	return o.RawUserAgent, true
@@ -141,7 +144,7 @@ func (o *LogUserAgent) GetRawUserAgentOk() (*string, bool) {
 
 // HasRawUserAgent returns a boolean if a field has been set.
 func (o *LogUserAgent) HasRawUserAgent() bool {
-	if o != nil && o.RawUserAgent != nil {
+	if o != nil && !IsNil(o.RawUserAgent) {
 		return true
 	}
 
@@ -154,14 +157,22 @@ func (o *LogUserAgent) SetRawUserAgent(v string) {
 }
 
 func (o LogUserAgent) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LogUserAgent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Browser != nil {
+	if !IsNil(o.Browser) {
 		toSerialize["browser"] = o.Browser
 	}
-	if o.Os != nil {
+	if !IsNil(o.Os) {
 		toSerialize["os"] = o.Os
 	}
-	if o.RawUserAgent != nil {
+	if !IsNil(o.RawUserAgent) {
 		toSerialize["rawUserAgent"] = o.RawUserAgent
 	}
 
@@ -169,29 +180,27 @@ func (o LogUserAgent) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LogUserAgent) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LogUserAgent) UnmarshalJSON(data []byte) (err error) {
 	varLogUserAgent := _LogUserAgent{}
 
-	err = json.Unmarshal(bytes, &varLogUserAgent)
-	if err == nil {
-		*o = LogUserAgent(varLogUserAgent)
-	} else {
+	err = json.Unmarshal(data, &varLogUserAgent)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LogUserAgent(varLogUserAgent)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "browser")
 		delete(additionalProperties, "os")
 		delete(additionalProperties, "rawUserAgent")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -232,4 +241,3 @@ func (v *NullableLogUserAgent) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

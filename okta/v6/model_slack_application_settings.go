@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"fmt"
 )
 
+// checks if the SlackApplicationSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SlackApplicationSettings{}
+
 // SlackApplicationSettings struct for SlackApplicationSettings
 type SlackApplicationSettings struct {
 	// The Governance Engine opt-in status for the app
@@ -37,11 +40,11 @@ type SlackApplicationSettings struct {
 	// Controls whether Okta automatically assigns users to the app based on the user's role or group membership.
 	ImplicitAssignment *bool `json:"implicitAssignment,omitempty"`
 	// Identifier of an inline hook. Inline hooks are outbound calls from Okta to your own custom code, triggered at specific points in Okta process flows. They allow you to integrate custom functionality into those flows. See [Inline hooks](/openapi/okta-management/management/tag/InlineHook/).
-	InlineHookId *string `json:"inlineHookId,omitempty"`
-	Notes *ApplicationSettingsNotes `json:"notes,omitempty"`
-	Notifications *ApplicationSettingsNotifications `json:"notifications,omitempty"`
-	App SlackApplicationSettingsApplication `json:"app"`
-	SignOn *OINSaml20ApplicationSettingsSignOn `json:"signOn,omitempty"`
+	InlineHookId         *string                             `json:"inlineHookId,omitempty"`
+	Notes                *ApplicationSettingsNotes           `json:"notes,omitempty"`
+	Notifications        *ApplicationSettingsNotifications   `json:"notifications,omitempty"`
+	App                  SlackApplicationSettingsApplication `json:"app"`
+	SignOn               *OINSaml20ApplicationSettingsSignOn `json:"signOn,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -67,7 +70,7 @@ func NewSlackApplicationSettingsWithDefaults() *SlackApplicationSettings {
 
 // GetEmOptInStatus returns the EmOptInStatus field value if set, zero value otherwise.
 func (o *SlackApplicationSettings) GetEmOptInStatus() string {
-	if o == nil || o.EmOptInStatus == nil {
+	if o == nil || IsNil(o.EmOptInStatus) {
 		var ret string
 		return ret
 	}
@@ -77,7 +80,7 @@ func (o *SlackApplicationSettings) GetEmOptInStatus() string {
 // GetEmOptInStatusOk returns a tuple with the EmOptInStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SlackApplicationSettings) GetEmOptInStatusOk() (*string, bool) {
-	if o == nil || o.EmOptInStatus == nil {
+	if o == nil || IsNil(o.EmOptInStatus) {
 		return nil, false
 	}
 	return o.EmOptInStatus, true
@@ -85,7 +88,7 @@ func (o *SlackApplicationSettings) GetEmOptInStatusOk() (*string, bool) {
 
 // HasEmOptInStatus returns a boolean if a field has been set.
 func (o *SlackApplicationSettings) HasEmOptInStatus() bool {
-	if o != nil && o.EmOptInStatus != nil {
+	if o != nil && !IsNil(o.EmOptInStatus) {
 		return true
 	}
 
@@ -99,7 +102,7 @@ func (o *SlackApplicationSettings) SetEmOptInStatus(v string) {
 
 // GetIdentityStoreId returns the IdentityStoreId field value if set, zero value otherwise.
 func (o *SlackApplicationSettings) GetIdentityStoreId() string {
-	if o == nil || o.IdentityStoreId == nil {
+	if o == nil || IsNil(o.IdentityStoreId) {
 		var ret string
 		return ret
 	}
@@ -109,7 +112,7 @@ func (o *SlackApplicationSettings) GetIdentityStoreId() string {
 // GetIdentityStoreIdOk returns a tuple with the IdentityStoreId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SlackApplicationSettings) GetIdentityStoreIdOk() (*string, bool) {
-	if o == nil || o.IdentityStoreId == nil {
+	if o == nil || IsNil(o.IdentityStoreId) {
 		return nil, false
 	}
 	return o.IdentityStoreId, true
@@ -117,7 +120,7 @@ func (o *SlackApplicationSettings) GetIdentityStoreIdOk() (*string, bool) {
 
 // HasIdentityStoreId returns a boolean if a field has been set.
 func (o *SlackApplicationSettings) HasIdentityStoreId() bool {
-	if o != nil && o.IdentityStoreId != nil {
+	if o != nil && !IsNil(o.IdentityStoreId) {
 		return true
 	}
 
@@ -131,7 +134,7 @@ func (o *SlackApplicationSettings) SetIdentityStoreId(v string) {
 
 // GetImplicitAssignment returns the ImplicitAssignment field value if set, zero value otherwise.
 func (o *SlackApplicationSettings) GetImplicitAssignment() bool {
-	if o == nil || o.ImplicitAssignment == nil {
+	if o == nil || IsNil(o.ImplicitAssignment) {
 		var ret bool
 		return ret
 	}
@@ -141,7 +144,7 @@ func (o *SlackApplicationSettings) GetImplicitAssignment() bool {
 // GetImplicitAssignmentOk returns a tuple with the ImplicitAssignment field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SlackApplicationSettings) GetImplicitAssignmentOk() (*bool, bool) {
-	if o == nil || o.ImplicitAssignment == nil {
+	if o == nil || IsNil(o.ImplicitAssignment) {
 		return nil, false
 	}
 	return o.ImplicitAssignment, true
@@ -149,7 +152,7 @@ func (o *SlackApplicationSettings) GetImplicitAssignmentOk() (*bool, bool) {
 
 // HasImplicitAssignment returns a boolean if a field has been set.
 func (o *SlackApplicationSettings) HasImplicitAssignment() bool {
-	if o != nil && o.ImplicitAssignment != nil {
+	if o != nil && !IsNil(o.ImplicitAssignment) {
 		return true
 	}
 
@@ -163,7 +166,7 @@ func (o *SlackApplicationSettings) SetImplicitAssignment(v bool) {
 
 // GetInlineHookId returns the InlineHookId field value if set, zero value otherwise.
 func (o *SlackApplicationSettings) GetInlineHookId() string {
-	if o == nil || o.InlineHookId == nil {
+	if o == nil || IsNil(o.InlineHookId) {
 		var ret string
 		return ret
 	}
@@ -173,7 +176,7 @@ func (o *SlackApplicationSettings) GetInlineHookId() string {
 // GetInlineHookIdOk returns a tuple with the InlineHookId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SlackApplicationSettings) GetInlineHookIdOk() (*string, bool) {
-	if o == nil || o.InlineHookId == nil {
+	if o == nil || IsNil(o.InlineHookId) {
 		return nil, false
 	}
 	return o.InlineHookId, true
@@ -181,7 +184,7 @@ func (o *SlackApplicationSettings) GetInlineHookIdOk() (*string, bool) {
 
 // HasInlineHookId returns a boolean if a field has been set.
 func (o *SlackApplicationSettings) HasInlineHookId() bool {
-	if o != nil && o.InlineHookId != nil {
+	if o != nil && !IsNil(o.InlineHookId) {
 		return true
 	}
 
@@ -195,7 +198,7 @@ func (o *SlackApplicationSettings) SetInlineHookId(v string) {
 
 // GetNotes returns the Notes field value if set, zero value otherwise.
 func (o *SlackApplicationSettings) GetNotes() ApplicationSettingsNotes {
-	if o == nil || o.Notes == nil {
+	if o == nil || IsNil(o.Notes) {
 		var ret ApplicationSettingsNotes
 		return ret
 	}
@@ -205,7 +208,7 @@ func (o *SlackApplicationSettings) GetNotes() ApplicationSettingsNotes {
 // GetNotesOk returns a tuple with the Notes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SlackApplicationSettings) GetNotesOk() (*ApplicationSettingsNotes, bool) {
-	if o == nil || o.Notes == nil {
+	if o == nil || IsNil(o.Notes) {
 		return nil, false
 	}
 	return o.Notes, true
@@ -213,7 +216,7 @@ func (o *SlackApplicationSettings) GetNotesOk() (*ApplicationSettingsNotes, bool
 
 // HasNotes returns a boolean if a field has been set.
 func (o *SlackApplicationSettings) HasNotes() bool {
-	if o != nil && o.Notes != nil {
+	if o != nil && !IsNil(o.Notes) {
 		return true
 	}
 
@@ -227,7 +230,7 @@ func (o *SlackApplicationSettings) SetNotes(v ApplicationSettingsNotes) {
 
 // GetNotifications returns the Notifications field value if set, zero value otherwise.
 func (o *SlackApplicationSettings) GetNotifications() ApplicationSettingsNotifications {
-	if o == nil || o.Notifications == nil {
+	if o == nil || IsNil(o.Notifications) {
 		var ret ApplicationSettingsNotifications
 		return ret
 	}
@@ -237,7 +240,7 @@ func (o *SlackApplicationSettings) GetNotifications() ApplicationSettingsNotific
 // GetNotificationsOk returns a tuple with the Notifications field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SlackApplicationSettings) GetNotificationsOk() (*ApplicationSettingsNotifications, bool) {
-	if o == nil || o.Notifications == nil {
+	if o == nil || IsNil(o.Notifications) {
 		return nil, false
 	}
 	return o.Notifications, true
@@ -245,7 +248,7 @@ func (o *SlackApplicationSettings) GetNotificationsOk() (*ApplicationSettingsNot
 
 // HasNotifications returns a boolean if a field has been set.
 func (o *SlackApplicationSettings) HasNotifications() bool {
-	if o != nil && o.Notifications != nil {
+	if o != nil && !IsNil(o.Notifications) {
 		return true
 	}
 
@@ -283,7 +286,7 @@ func (o *SlackApplicationSettings) SetApp(v SlackApplicationSettingsApplication)
 
 // GetSignOn returns the SignOn field value if set, zero value otherwise.
 func (o *SlackApplicationSettings) GetSignOn() OINSaml20ApplicationSettingsSignOn {
-	if o == nil || o.SignOn == nil {
+	if o == nil || IsNil(o.SignOn) {
 		var ret OINSaml20ApplicationSettingsSignOn
 		return ret
 	}
@@ -293,7 +296,7 @@ func (o *SlackApplicationSettings) GetSignOn() OINSaml20ApplicationSettingsSignO
 // GetSignOnOk returns a tuple with the SignOn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SlackApplicationSettings) GetSignOnOk() (*OINSaml20ApplicationSettingsSignOn, bool) {
-	if o == nil || o.SignOn == nil {
+	if o == nil || IsNil(o.SignOn) {
 		return nil, false
 	}
 	return o.SignOn, true
@@ -301,7 +304,7 @@ func (o *SlackApplicationSettings) GetSignOnOk() (*OINSaml20ApplicationSettingsS
 
 // HasSignOn returns a boolean if a field has been set.
 func (o *SlackApplicationSettings) HasSignOn() bool {
-	if o != nil && o.SignOn != nil {
+	if o != nil && !IsNil(o.SignOn) {
 		return true
 	}
 
@@ -314,29 +317,35 @@ func (o *SlackApplicationSettings) SetSignOn(v OINSaml20ApplicationSettingsSignO
 }
 
 func (o SlackApplicationSettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SlackApplicationSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.EmOptInStatus != nil {
+	if !IsNil(o.EmOptInStatus) {
 		toSerialize["emOptInStatus"] = o.EmOptInStatus
 	}
-	if o.IdentityStoreId != nil {
+	if !IsNil(o.IdentityStoreId) {
 		toSerialize["identityStoreId"] = o.IdentityStoreId
 	}
-	if o.ImplicitAssignment != nil {
+	if !IsNil(o.ImplicitAssignment) {
 		toSerialize["implicitAssignment"] = o.ImplicitAssignment
 	}
-	if o.InlineHookId != nil {
+	if !IsNil(o.InlineHookId) {
 		toSerialize["inlineHookId"] = o.InlineHookId
 	}
-	if o.Notes != nil {
+	if !IsNil(o.Notes) {
 		toSerialize["notes"] = o.Notes
 	}
-	if o.Notifications != nil {
+	if !IsNil(o.Notifications) {
 		toSerialize["notifications"] = o.Notifications
 	}
-	if true {
-		toSerialize["app"] = o.App
-	}
-	if o.SignOn != nil {
+	toSerialize["app"] = o.App
+	if !IsNil(o.SignOn) {
 		toSerialize["signOn"] = o.SignOn
 	}
 
@@ -344,23 +353,44 @@ func (o SlackApplicationSettings) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SlackApplicationSettings) UnmarshalJSON(bytes []byte) (err error) {
-	varSlackApplicationSettings := _SlackApplicationSettings{}
+func (o *SlackApplicationSettings) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"app",
+	}
 
-	err = json.Unmarshal(bytes, &varSlackApplicationSettings)
-	if err == nil {
-		*o = SlackApplicationSettings(varSlackApplicationSettings)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSlackApplicationSettings := _SlackApplicationSettings{}
+
+	err = json.Unmarshal(data, &varSlackApplicationSettings)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SlackApplicationSettings(varSlackApplicationSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "emOptInStatus")
 		delete(additionalProperties, "identityStoreId")
 		delete(additionalProperties, "implicitAssignment")
@@ -370,8 +400,6 @@ func (o *SlackApplicationSettings) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "app")
 		delete(additionalProperties, "signOn")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -412,4 +440,3 @@ func (v *NullableSlackApplicationSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

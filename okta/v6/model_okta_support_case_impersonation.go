@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,12 +28,15 @@ import (
 	"time"
 )
 
+// checks if the OktaSupportCaseImpersonation type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OktaSupportCaseImpersonation{}
+
 // OktaSupportCaseImpersonation Allows the Okta Support team to sign in to your org as an admin and troubleshoot issues
 type OktaSupportCaseImpersonation struct {
 	// Status of Okta Support access
 	Status *string `json:"status,omitempty"`
 	// Expiration date of Okta Support access
-	Expiration NullableTime `json:"expiration,omitempty"`
+	Expiration           NullableTime `json:"expiration,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewOktaSupportCaseImpersonationWithDefaults() *OktaSupportCaseImpersonation
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *OktaSupportCaseImpersonation) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *OktaSupportCaseImpersonation) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaSupportCaseImpersonation) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -76,7 +79,7 @@ func (o *OktaSupportCaseImpersonation) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *OktaSupportCaseImpersonation) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *OktaSupportCaseImpersonation) SetStatus(v string) {
 
 // GetExpiration returns the Expiration field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *OktaSupportCaseImpersonation) GetExpiration() time.Time {
-	if o == nil || o.Expiration.Get() == nil {
+	if o == nil || IsNil(o.Expiration.Get()) {
 		var ret time.Time
 		return ret
 	}
@@ -120,6 +123,7 @@ func (o *OktaSupportCaseImpersonation) HasExpiration() bool {
 func (o *OktaSupportCaseImpersonation) SetExpiration(v time.Time) {
 	o.Expiration.Set(&v)
 }
+
 // SetExpirationNil sets the value for Expiration to be an explicit nil
 func (o *OktaSupportCaseImpersonation) SetExpirationNil() {
 	o.Expiration.Set(nil)
@@ -131,8 +135,16 @@ func (o *OktaSupportCaseImpersonation) UnsetExpiration() {
 }
 
 func (o OktaSupportCaseImpersonation) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OktaSupportCaseImpersonation) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
 	if o.Expiration.IsSet() {
@@ -143,28 +155,26 @@ func (o OktaSupportCaseImpersonation) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OktaSupportCaseImpersonation) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OktaSupportCaseImpersonation) UnmarshalJSON(data []byte) (err error) {
 	varOktaSupportCaseImpersonation := _OktaSupportCaseImpersonation{}
 
-	err = json.Unmarshal(bytes, &varOktaSupportCaseImpersonation)
-	if err == nil {
-		*o = OktaSupportCaseImpersonation(varOktaSupportCaseImpersonation)
-	} else {
+	err = json.Unmarshal(data, &varOktaSupportCaseImpersonation)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OktaSupportCaseImpersonation(varOktaSupportCaseImpersonation)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "expiration")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -205,4 +215,3 @@ func (v *NullableOktaSupportCaseImpersonation) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

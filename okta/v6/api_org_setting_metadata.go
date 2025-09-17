@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,22 +26,21 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"time"
 )
 
-
 type OrgSettingMetadataAPI interface {
 
 	/*
-	GetWellknownOrgMetadata Retrieve the Org metadata
+		GetWellknownOrgMetadata Retrieve the Org metadata
 
-	Retrieves the org metadata, which includes the org ID, configured custom domains, and authentication pipeline
+		Retrieves the org metadata, which includes the org ID, configured custom domains, and authentication pipeline
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetWellknownOrgMetadataRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetWellknownOrgMetadataRequest
 	*/
 	GetWellknownOrgMetadata(ctx context.Context) ApiGetWellknownOrgMetadataRequest
 
@@ -54,7 +53,7 @@ type OrgSettingMetadataAPI interface {
 type OrgSettingMetadataAPIService service
 
 type ApiGetWellknownOrgMetadataRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingMetadataAPI
 	retryCount int32
 }
@@ -68,19 +67,20 @@ GetWellknownOrgMetadata Retrieve the Org metadata
 
 Retrieves the org metadata, which includes the org ID, configured custom domains, and authentication pipeline
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetWellknownOrgMetadataRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetWellknownOrgMetadataRequest
 */
 func (a *OrgSettingMetadataAPIService) GetWellknownOrgMetadata(ctx context.Context) ApiGetWellknownOrgMetadataRequest {
 	return ApiGetWellknownOrgMetadataRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return WellKnownOrgMetadata
+//
+//	@return WellKnownOrgMetadata
 func (a *OrgSettingMetadataAPIService) GetWellknownOrgMetadataExecute(r ApiGetWellknownOrgMetadataRequest) (*WellKnownOrgMetadata, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -89,7 +89,7 @@ func (a *OrgSettingMetadataAPIService) GetWellknownOrgMetadataExecute(r ApiGetWe
 		localVarReturnValue  *WellKnownOrgMetadata
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -135,9 +135,9 @@ func (a *OrgSettingMetadataAPIService) GetWellknownOrgMetadataExecute(r ApiGetWe
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -171,7 +171,7 @@ func (a *OrgSettingMetadataAPIService) GetWellknownOrgMetadataExecute(r ApiGetWe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

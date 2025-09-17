@@ -18,7 +18,6 @@ api_application_sso.go
 api_application_sso_credential_key.go
 api_application_sso_federated_claims.go
 api_application_sso_public_keys.go
-api_application_test.go
 api_application_tokens.go
 api_application_users.go
 api_associated_domain_customizations.go
@@ -48,21 +47,18 @@ api_email_customization.go
 api_email_domain.go
 api_email_server.go
 api_event_hook.go
-api_factors_test.go
 api_feature.go
 api_governance_bundle.go
 api_group.go
 api_group_owner.go
 api_group_push_mapping.go
 api_group_rule.go
-api_group_test.go
 api_hook_key.go
 api_identity_provider.go
 api_identity_provider_keys.go
 api_identity_provider_signing_keys.go
 api_identity_provider_users.go
 api_identity_source.go
-api_idp_test.go
 api_inline_hook.go
 api_linked_object.go
 api_log_stream.go
@@ -79,7 +75,6 @@ api_org_setting_general.go
 api_org_setting_metadata.go
 api_org_setting_support.go
 api_policy.go
-api_policy_test.go
 api_principal_rate_limit.go
 api_profile_mapping.go
 api_push_provider.go
@@ -124,9 +119,7 @@ api_user_linked_object.go
 api_user_o_auth.go
 api_user_resources.go
 api_user_risk.go
-api_user_schema_test.go
 api_user_sessions.go
-api_user_test.go
 api_user_type.go
 api_web_authn_preregistration.go
 asset/logo.png
@@ -1165,7 +1158,6 @@ docs/ProvisioningDeprovisionedCondition.md
 docs/ProvisioningDetails.md
 docs/ProvisioningGroups.md
 docs/ProvisioningSuspendedCondition.md
-docs/PublicAssetLinksWellKnownURI.md
 docs/Push.md
 docs/Push1.md
 docs/PushProvider.md
@@ -1637,7 +1629,6 @@ git_push.sh
 go.mod
 go.sum
 gocache.go
-main_test.go
 model__embedded.go
 model_aaguid_authenticator_characteristics.go
 model_aaguid_group_object.go
@@ -2594,7 +2585,6 @@ model_provisioning_deprovisioned_condition.go
 model_provisioning_details.go
 model_provisioning_groups.go
 model_provisioning_suspended_condition.go
-model_public_asset_links_well_known_uri.go
 model_push.go
 model_push_1.go
 model_push_provider.go
@@ -3018,10 +3008,8 @@ model_zscalerbyz_application.go
 model_zscalerbyz_application_settings.go
 model_zscalerbyz_application_settings_application.go
 noopcache.go
-private_key_test.go
 proxy_test.go
 response.go
-retry_logic_test.go
 test/api_agent_pools_test.go
 test/api_api_service_integrations_test.go
 test/api_api_token_test.go
@@ -3141,6 +3129,5 @@ test/api_user_sessions_test.go
 test/api_user_test.go
 test/api_user_type_test.go
 test/api_web_authn_preregistration_test.go
-test_helpers.go
 user_agent.go
 utils.go

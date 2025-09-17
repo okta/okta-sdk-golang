@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the DeviceDisplayName type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeviceDisplayName{}
+
 // DeviceDisplayName Display name of the device
 type DeviceDisplayName struct {
 	// Indicates whether the associated value is Personal Identifiable Information (PII) and requires masking
 	Sensitive *bool `json:"sensitive,omitempty"`
 	// Display name of the device
-	Value *string `json:"value,omitempty"`
+	Value                *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewDeviceDisplayNameWithDefaults() *DeviceDisplayName {
 
 // GetSensitive returns the Sensitive field value if set, zero value otherwise.
 func (o *DeviceDisplayName) GetSensitive() bool {
-	if o == nil || o.Sensitive == nil {
+	if o == nil || IsNil(o.Sensitive) {
 		var ret bool
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *DeviceDisplayName) GetSensitive() bool {
 // GetSensitiveOk returns a tuple with the Sensitive field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceDisplayName) GetSensitiveOk() (*bool, bool) {
-	if o == nil || o.Sensitive == nil {
+	if o == nil || IsNil(o.Sensitive) {
 		return nil, false
 	}
 	return o.Sensitive, true
@@ -79,7 +82,7 @@ func (o *DeviceDisplayName) GetSensitiveOk() (*bool, bool) {
 
 // HasSensitive returns a boolean if a field has been set.
 func (o *DeviceDisplayName) HasSensitive() bool {
-	if o != nil && o.Sensitive != nil {
+	if o != nil && !IsNil(o.Sensitive) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *DeviceDisplayName) SetSensitive(v bool) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *DeviceDisplayName) GetValue() string {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret string
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *DeviceDisplayName) GetValue() string {
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceDisplayName) GetValueOk() (*string, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -111,7 +114,7 @@ func (o *DeviceDisplayName) GetValueOk() (*string, bool) {
 
 // HasValue returns a boolean if a field has been set.
 func (o *DeviceDisplayName) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -124,11 +127,19 @@ func (o *DeviceDisplayName) SetValue(v string) {
 }
 
 func (o DeviceDisplayName) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DeviceDisplayName) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Sensitive != nil {
+	if !IsNil(o.Sensitive) {
 		toSerialize["sensitive"] = o.Sensitive
 	}
-	if o.Value != nil {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
 
@@ -136,28 +147,26 @@ func (o DeviceDisplayName) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DeviceDisplayName) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DeviceDisplayName) UnmarshalJSON(data []byte) (err error) {
 	varDeviceDisplayName := _DeviceDisplayName{}
 
-	err = json.Unmarshal(bytes, &varDeviceDisplayName)
-	if err == nil {
-		*o = DeviceDisplayName(varDeviceDisplayName)
-	} else {
+	err = json.Unmarshal(data, &varDeviceDisplayName)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DeviceDisplayName(varDeviceDisplayName)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "sensitive")
 		delete(additionalProperties, "value")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -198,4 +207,3 @@ func (v *NullableDeviceDisplayName) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

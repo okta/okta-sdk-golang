@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the PasswordPolicyRuleActions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordPolicyRuleActions{}
+
 // PasswordPolicyRuleActions struct for PasswordPolicyRuleActions
 type PasswordPolicyRuleActions struct {
-	PasswordChange *PasswordPolicyRuleAction `json:"passwordChange,omitempty"`
+	PasswordChange           *PasswordPolicyRuleAction       `json:"passwordChange,omitempty"`
 	SelfServicePasswordReset *SelfServicePasswordResetAction `json:"selfServicePasswordReset,omitempty"`
-	SelfServiceUnlock *PasswordPolicyRuleAction `json:"selfServiceUnlock,omitempty"`
-	AdditionalProperties map[string]interface{}
+	SelfServiceUnlock        *PasswordPolicyRuleAction       `json:"selfServiceUnlock,omitempty"`
+	AdditionalProperties     map[string]interface{}
 }
 
 type _PasswordPolicyRuleActions PasswordPolicyRuleActions
@@ -56,7 +59,7 @@ func NewPasswordPolicyRuleActionsWithDefaults() *PasswordPolicyRuleActions {
 
 // GetPasswordChange returns the PasswordChange field value if set, zero value otherwise.
 func (o *PasswordPolicyRuleActions) GetPasswordChange() PasswordPolicyRuleAction {
-	if o == nil || o.PasswordChange == nil {
+	if o == nil || IsNil(o.PasswordChange) {
 		var ret PasswordPolicyRuleAction
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *PasswordPolicyRuleActions) GetPasswordChange() PasswordPolicyRuleAction
 // GetPasswordChangeOk returns a tuple with the PasswordChange field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyRuleActions) GetPasswordChangeOk() (*PasswordPolicyRuleAction, bool) {
-	if o == nil || o.PasswordChange == nil {
+	if o == nil || IsNil(o.PasswordChange) {
 		return nil, false
 	}
 	return o.PasswordChange, true
@@ -74,7 +77,7 @@ func (o *PasswordPolicyRuleActions) GetPasswordChangeOk() (*PasswordPolicyRuleAc
 
 // HasPasswordChange returns a boolean if a field has been set.
 func (o *PasswordPolicyRuleActions) HasPasswordChange() bool {
-	if o != nil && o.PasswordChange != nil {
+	if o != nil && !IsNil(o.PasswordChange) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *PasswordPolicyRuleActions) SetPasswordChange(v PasswordPolicyRuleAction
 
 // GetSelfServicePasswordReset returns the SelfServicePasswordReset field value if set, zero value otherwise.
 func (o *PasswordPolicyRuleActions) GetSelfServicePasswordReset() SelfServicePasswordResetAction {
-	if o == nil || o.SelfServicePasswordReset == nil {
+	if o == nil || IsNil(o.SelfServicePasswordReset) {
 		var ret SelfServicePasswordResetAction
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *PasswordPolicyRuleActions) GetSelfServicePasswordReset() SelfServicePas
 // GetSelfServicePasswordResetOk returns a tuple with the SelfServicePasswordReset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyRuleActions) GetSelfServicePasswordResetOk() (*SelfServicePasswordResetAction, bool) {
-	if o == nil || o.SelfServicePasswordReset == nil {
+	if o == nil || IsNil(o.SelfServicePasswordReset) {
 		return nil, false
 	}
 	return o.SelfServicePasswordReset, true
@@ -106,7 +109,7 @@ func (o *PasswordPolicyRuleActions) GetSelfServicePasswordResetOk() (*SelfServic
 
 // HasSelfServicePasswordReset returns a boolean if a field has been set.
 func (o *PasswordPolicyRuleActions) HasSelfServicePasswordReset() bool {
-	if o != nil && o.SelfServicePasswordReset != nil {
+	if o != nil && !IsNil(o.SelfServicePasswordReset) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *PasswordPolicyRuleActions) SetSelfServicePasswordReset(v SelfServicePas
 
 // GetSelfServiceUnlock returns the SelfServiceUnlock field value if set, zero value otherwise.
 func (o *PasswordPolicyRuleActions) GetSelfServiceUnlock() PasswordPolicyRuleAction {
-	if o == nil || o.SelfServiceUnlock == nil {
+	if o == nil || IsNil(o.SelfServiceUnlock) {
 		var ret PasswordPolicyRuleAction
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *PasswordPolicyRuleActions) GetSelfServiceUnlock() PasswordPolicyRuleAct
 // GetSelfServiceUnlockOk returns a tuple with the SelfServiceUnlock field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyRuleActions) GetSelfServiceUnlockOk() (*PasswordPolicyRuleAction, bool) {
-	if o == nil || o.SelfServiceUnlock == nil {
+	if o == nil || IsNil(o.SelfServiceUnlock) {
 		return nil, false
 	}
 	return o.SelfServiceUnlock, true
@@ -138,7 +141,7 @@ func (o *PasswordPolicyRuleActions) GetSelfServiceUnlockOk() (*PasswordPolicyRul
 
 // HasSelfServiceUnlock returns a boolean if a field has been set.
 func (o *PasswordPolicyRuleActions) HasSelfServiceUnlock() bool {
-	if o != nil && o.SelfServiceUnlock != nil {
+	if o != nil && !IsNil(o.SelfServiceUnlock) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *PasswordPolicyRuleActions) SetSelfServiceUnlock(v PasswordPolicyRuleAct
 }
 
 func (o PasswordPolicyRuleActions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordPolicyRuleActions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.PasswordChange != nil {
+	if !IsNil(o.PasswordChange) {
 		toSerialize["passwordChange"] = o.PasswordChange
 	}
-	if o.SelfServicePasswordReset != nil {
+	if !IsNil(o.SelfServicePasswordReset) {
 		toSerialize["selfServicePasswordReset"] = o.SelfServicePasswordReset
 	}
-	if o.SelfServiceUnlock != nil {
+	if !IsNil(o.SelfServiceUnlock) {
 		toSerialize["selfServiceUnlock"] = o.SelfServiceUnlock
 	}
 
@@ -166,29 +177,27 @@ func (o PasswordPolicyRuleActions) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordPolicyRuleActions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordPolicyRuleActions) UnmarshalJSON(data []byte) (err error) {
 	varPasswordPolicyRuleActions := _PasswordPolicyRuleActions{}
 
-	err = json.Unmarshal(bytes, &varPasswordPolicyRuleActions)
-	if err == nil {
-		*o = PasswordPolicyRuleActions(varPasswordPolicyRuleActions)
-	} else {
+	err = json.Unmarshal(data, &varPasswordPolicyRuleActions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PasswordPolicyRuleActions(varPasswordPolicyRuleActions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "passwordChange")
 		delete(additionalProperties, "selfServicePasswordReset")
 		delete(additionalProperties, "selfServiceUnlock")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullablePasswordPolicyRuleActions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

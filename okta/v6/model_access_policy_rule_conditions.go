@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,15 +27,18 @@ import (
 	"encoding/json"
 )
 
+// checks if the AccessPolicyRuleConditions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AccessPolicyRuleConditions{}
+
 // AccessPolicyRuleConditions struct for AccessPolicyRuleConditions
 type AccessPolicyRuleConditions struct {
-	Device *DeviceAccessPolicyRuleCondition `json:"device,omitempty"`
-	ElCondition *AccessPolicyRuleCustomCondition `json:"elCondition,omitempty"`
-	Network *PolicyNetworkCondition `json:"network,omitempty"`
-	People *PolicyPeopleCondition `json:"people,omitempty"`
-	Platform *PlatformPolicyRuleCondition `json:"platform,omitempty"`
-	RiskScore *RiskScorePolicyRuleCondition `json:"riskScore,omitempty"`
-	UserType *UserTypeCondition `json:"userType,omitempty"`
+	Device               *DeviceAccessPolicyRuleCondition `json:"device,omitempty"`
+	ElCondition          *AccessPolicyRuleCustomCondition `json:"elCondition,omitempty"`
+	Network              *PolicyNetworkCondition          `json:"network,omitempty"`
+	People               *PolicyPeopleCondition           `json:"people,omitempty"`
+	Platform             *PlatformPolicyRuleCondition     `json:"platform,omitempty"`
+	RiskScore            *RiskScorePolicyRuleCondition    `json:"riskScore,omitempty"`
+	UserType             *UserTypeCondition               `json:"userType,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +63,7 @@ func NewAccessPolicyRuleConditionsWithDefaults() *AccessPolicyRuleConditions {
 
 // GetDevice returns the Device field value if set, zero value otherwise.
 func (o *AccessPolicyRuleConditions) GetDevice() DeviceAccessPolicyRuleCondition {
-	if o == nil || o.Device == nil {
+	if o == nil || IsNil(o.Device) {
 		var ret DeviceAccessPolicyRuleCondition
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *AccessPolicyRuleConditions) GetDevice() DeviceAccessPolicyRuleCondition
 // GetDeviceOk returns a tuple with the Device field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccessPolicyRuleConditions) GetDeviceOk() (*DeviceAccessPolicyRuleCondition, bool) {
-	if o == nil || o.Device == nil {
+	if o == nil || IsNil(o.Device) {
 		return nil, false
 	}
 	return o.Device, true
@@ -78,7 +81,7 @@ func (o *AccessPolicyRuleConditions) GetDeviceOk() (*DeviceAccessPolicyRuleCondi
 
 // HasDevice returns a boolean if a field has been set.
 func (o *AccessPolicyRuleConditions) HasDevice() bool {
-	if o != nil && o.Device != nil {
+	if o != nil && !IsNil(o.Device) {
 		return true
 	}
 
@@ -92,7 +95,7 @@ func (o *AccessPolicyRuleConditions) SetDevice(v DeviceAccessPolicyRuleCondition
 
 // GetElCondition returns the ElCondition field value if set, zero value otherwise.
 func (o *AccessPolicyRuleConditions) GetElCondition() AccessPolicyRuleCustomCondition {
-	if o == nil || o.ElCondition == nil {
+	if o == nil || IsNil(o.ElCondition) {
 		var ret AccessPolicyRuleCustomCondition
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *AccessPolicyRuleConditions) GetElCondition() AccessPolicyRuleCustomCond
 // GetElConditionOk returns a tuple with the ElCondition field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccessPolicyRuleConditions) GetElConditionOk() (*AccessPolicyRuleCustomCondition, bool) {
-	if o == nil || o.ElCondition == nil {
+	if o == nil || IsNil(o.ElCondition) {
 		return nil, false
 	}
 	return o.ElCondition, true
@@ -110,7 +113,7 @@ func (o *AccessPolicyRuleConditions) GetElConditionOk() (*AccessPolicyRuleCustom
 
 // HasElCondition returns a boolean if a field has been set.
 func (o *AccessPolicyRuleConditions) HasElCondition() bool {
-	if o != nil && o.ElCondition != nil {
+	if o != nil && !IsNil(o.ElCondition) {
 		return true
 	}
 
@@ -124,7 +127,7 @@ func (o *AccessPolicyRuleConditions) SetElCondition(v AccessPolicyRuleCustomCond
 
 // GetNetwork returns the Network field value if set, zero value otherwise.
 func (o *AccessPolicyRuleConditions) GetNetwork() PolicyNetworkCondition {
-	if o == nil || o.Network == nil {
+	if o == nil || IsNil(o.Network) {
 		var ret PolicyNetworkCondition
 		return ret
 	}
@@ -134,7 +137,7 @@ func (o *AccessPolicyRuleConditions) GetNetwork() PolicyNetworkCondition {
 // GetNetworkOk returns a tuple with the Network field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccessPolicyRuleConditions) GetNetworkOk() (*PolicyNetworkCondition, bool) {
-	if o == nil || o.Network == nil {
+	if o == nil || IsNil(o.Network) {
 		return nil, false
 	}
 	return o.Network, true
@@ -142,7 +145,7 @@ func (o *AccessPolicyRuleConditions) GetNetworkOk() (*PolicyNetworkCondition, bo
 
 // HasNetwork returns a boolean if a field has been set.
 func (o *AccessPolicyRuleConditions) HasNetwork() bool {
-	if o != nil && o.Network != nil {
+	if o != nil && !IsNil(o.Network) {
 		return true
 	}
 
@@ -156,7 +159,7 @@ func (o *AccessPolicyRuleConditions) SetNetwork(v PolicyNetworkCondition) {
 
 // GetPeople returns the People field value if set, zero value otherwise.
 func (o *AccessPolicyRuleConditions) GetPeople() PolicyPeopleCondition {
-	if o == nil || o.People == nil {
+	if o == nil || IsNil(o.People) {
 		var ret PolicyPeopleCondition
 		return ret
 	}
@@ -166,7 +169,7 @@ func (o *AccessPolicyRuleConditions) GetPeople() PolicyPeopleCondition {
 // GetPeopleOk returns a tuple with the People field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccessPolicyRuleConditions) GetPeopleOk() (*PolicyPeopleCondition, bool) {
-	if o == nil || o.People == nil {
+	if o == nil || IsNil(o.People) {
 		return nil, false
 	}
 	return o.People, true
@@ -174,7 +177,7 @@ func (o *AccessPolicyRuleConditions) GetPeopleOk() (*PolicyPeopleCondition, bool
 
 // HasPeople returns a boolean if a field has been set.
 func (o *AccessPolicyRuleConditions) HasPeople() bool {
-	if o != nil && o.People != nil {
+	if o != nil && !IsNil(o.People) {
 		return true
 	}
 
@@ -188,7 +191,7 @@ func (o *AccessPolicyRuleConditions) SetPeople(v PolicyPeopleCondition) {
 
 // GetPlatform returns the Platform field value if set, zero value otherwise.
 func (o *AccessPolicyRuleConditions) GetPlatform() PlatformPolicyRuleCondition {
-	if o == nil || o.Platform == nil {
+	if o == nil || IsNil(o.Platform) {
 		var ret PlatformPolicyRuleCondition
 		return ret
 	}
@@ -198,7 +201,7 @@ func (o *AccessPolicyRuleConditions) GetPlatform() PlatformPolicyRuleCondition {
 // GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccessPolicyRuleConditions) GetPlatformOk() (*PlatformPolicyRuleCondition, bool) {
-	if o == nil || o.Platform == nil {
+	if o == nil || IsNil(o.Platform) {
 		return nil, false
 	}
 	return o.Platform, true
@@ -206,7 +209,7 @@ func (o *AccessPolicyRuleConditions) GetPlatformOk() (*PlatformPolicyRuleConditi
 
 // HasPlatform returns a boolean if a field has been set.
 func (o *AccessPolicyRuleConditions) HasPlatform() bool {
-	if o != nil && o.Platform != nil {
+	if o != nil && !IsNil(o.Platform) {
 		return true
 	}
 
@@ -220,7 +223,7 @@ func (o *AccessPolicyRuleConditions) SetPlatform(v PlatformPolicyRuleCondition) 
 
 // GetRiskScore returns the RiskScore field value if set, zero value otherwise.
 func (o *AccessPolicyRuleConditions) GetRiskScore() RiskScorePolicyRuleCondition {
-	if o == nil || o.RiskScore == nil {
+	if o == nil || IsNil(o.RiskScore) {
 		var ret RiskScorePolicyRuleCondition
 		return ret
 	}
@@ -230,7 +233,7 @@ func (o *AccessPolicyRuleConditions) GetRiskScore() RiskScorePolicyRuleCondition
 // GetRiskScoreOk returns a tuple with the RiskScore field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccessPolicyRuleConditions) GetRiskScoreOk() (*RiskScorePolicyRuleCondition, bool) {
-	if o == nil || o.RiskScore == nil {
+	if o == nil || IsNil(o.RiskScore) {
 		return nil, false
 	}
 	return o.RiskScore, true
@@ -238,7 +241,7 @@ func (o *AccessPolicyRuleConditions) GetRiskScoreOk() (*RiskScorePolicyRuleCondi
 
 // HasRiskScore returns a boolean if a field has been set.
 func (o *AccessPolicyRuleConditions) HasRiskScore() bool {
-	if o != nil && o.RiskScore != nil {
+	if o != nil && !IsNil(o.RiskScore) {
 		return true
 	}
 
@@ -252,7 +255,7 @@ func (o *AccessPolicyRuleConditions) SetRiskScore(v RiskScorePolicyRuleCondition
 
 // GetUserType returns the UserType field value if set, zero value otherwise.
 func (o *AccessPolicyRuleConditions) GetUserType() UserTypeCondition {
-	if o == nil || o.UserType == nil {
+	if o == nil || IsNil(o.UserType) {
 		var ret UserTypeCondition
 		return ret
 	}
@@ -262,7 +265,7 @@ func (o *AccessPolicyRuleConditions) GetUserType() UserTypeCondition {
 // GetUserTypeOk returns a tuple with the UserType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccessPolicyRuleConditions) GetUserTypeOk() (*UserTypeCondition, bool) {
-	if o == nil || o.UserType == nil {
+	if o == nil || IsNil(o.UserType) {
 		return nil, false
 	}
 	return o.UserType, true
@@ -270,7 +273,7 @@ func (o *AccessPolicyRuleConditions) GetUserTypeOk() (*UserTypeCondition, bool) 
 
 // HasUserType returns a boolean if a field has been set.
 func (o *AccessPolicyRuleConditions) HasUserType() bool {
-	if o != nil && o.UserType != nil {
+	if o != nil && !IsNil(o.UserType) {
 		return true
 	}
 
@@ -283,26 +286,34 @@ func (o *AccessPolicyRuleConditions) SetUserType(v UserTypeCondition) {
 }
 
 func (o AccessPolicyRuleConditions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AccessPolicyRuleConditions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Device != nil {
+	if !IsNil(o.Device) {
 		toSerialize["device"] = o.Device
 	}
-	if o.ElCondition != nil {
+	if !IsNil(o.ElCondition) {
 		toSerialize["elCondition"] = o.ElCondition
 	}
-	if o.Network != nil {
+	if !IsNil(o.Network) {
 		toSerialize["network"] = o.Network
 	}
-	if o.People != nil {
+	if !IsNil(o.People) {
 		toSerialize["people"] = o.People
 	}
-	if o.Platform != nil {
+	if !IsNil(o.Platform) {
 		toSerialize["platform"] = o.Platform
 	}
-	if o.RiskScore != nil {
+	if !IsNil(o.RiskScore) {
 		toSerialize["riskScore"] = o.RiskScore
 	}
-	if o.UserType != nil {
+	if !IsNil(o.UserType) {
 		toSerialize["userType"] = o.UserType
 	}
 
@@ -310,23 +321,23 @@ func (o AccessPolicyRuleConditions) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AccessPolicyRuleConditions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AccessPolicyRuleConditions) UnmarshalJSON(data []byte) (err error) {
 	varAccessPolicyRuleConditions := _AccessPolicyRuleConditions{}
 
-	err = json.Unmarshal(bytes, &varAccessPolicyRuleConditions)
-	if err == nil {
-		*o = AccessPolicyRuleConditions(varAccessPolicyRuleConditions)
-	} else {
+	err = json.Unmarshal(data, &varAccessPolicyRuleConditions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AccessPolicyRuleConditions(varAccessPolicyRuleConditions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "device")
 		delete(additionalProperties, "elCondition")
 		delete(additionalProperties, "network")
@@ -335,8 +346,6 @@ func (o *AccessPolicyRuleConditions) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "riskScore")
 		delete(additionalProperties, "userType")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -377,4 +386,3 @@ func (v *NullableAccessPolicyRuleConditions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

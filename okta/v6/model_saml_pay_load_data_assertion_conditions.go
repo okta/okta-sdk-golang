@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the SAMLPayLoadDataAssertionConditions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SAMLPayLoadDataAssertionConditions{}
+
 // SAMLPayLoadDataAssertionConditions Provides a JSON representation of the `<saml:Conditions>` element of the SAML assertion
 type SAMLPayLoadDataAssertionConditions struct {
 	// Describes which service providers the assertion is valid for
-	AudienceRestriction []string `json:"audienceRestriction,omitempty"`
+	AudienceRestriction  []string `json:"audienceRestriction,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewSAMLPayLoadDataAssertionConditionsWithDefaults() *SAMLPayLoadDataAsserti
 
 // GetAudienceRestriction returns the AudienceRestriction field value if set, zero value otherwise.
 func (o *SAMLPayLoadDataAssertionConditions) GetAudienceRestriction() []string {
-	if o == nil || o.AudienceRestriction == nil {
+	if o == nil || IsNil(o.AudienceRestriction) {
 		var ret []string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *SAMLPayLoadDataAssertionConditions) GetAudienceRestriction() []string {
 // GetAudienceRestrictionOk returns a tuple with the AudienceRestriction field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoadDataAssertionConditions) GetAudienceRestrictionOk() ([]string, bool) {
-	if o == nil || o.AudienceRestriction == nil {
+	if o == nil || IsNil(o.AudienceRestriction) {
 		return nil, false
 	}
 	return o.AudienceRestriction, true
@@ -73,7 +76,7 @@ func (o *SAMLPayLoadDataAssertionConditions) GetAudienceRestrictionOk() ([]strin
 
 // HasAudienceRestriction returns a boolean if a field has been set.
 func (o *SAMLPayLoadDataAssertionConditions) HasAudienceRestriction() bool {
-	if o != nil && o.AudienceRestriction != nil {
+	if o != nil && !IsNil(o.AudienceRestriction) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *SAMLPayLoadDataAssertionConditions) SetAudienceRestriction(v []string) 
 }
 
 func (o SAMLPayLoadDataAssertionConditions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SAMLPayLoadDataAssertionConditions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AudienceRestriction != nil {
+	if !IsNil(o.AudienceRestriction) {
 		toSerialize["audienceRestriction"] = o.AudienceRestriction
 	}
 
@@ -95,27 +106,25 @@ func (o SAMLPayLoadDataAssertionConditions) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SAMLPayLoadDataAssertionConditions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SAMLPayLoadDataAssertionConditions) UnmarshalJSON(data []byte) (err error) {
 	varSAMLPayLoadDataAssertionConditions := _SAMLPayLoadDataAssertionConditions{}
 
-	err = json.Unmarshal(bytes, &varSAMLPayLoadDataAssertionConditions)
-	if err == nil {
-		*o = SAMLPayLoadDataAssertionConditions(varSAMLPayLoadDataAssertionConditions)
-	} else {
+	err = json.Unmarshal(data, &varSAMLPayLoadDataAssertionConditions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SAMLPayLoadDataAssertionConditions(varSAMLPayLoadDataAssertionConditions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "audienceRestriction")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableSAMLPayLoadDataAssertionConditions) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

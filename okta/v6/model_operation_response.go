@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"time"
 )
 
+// checks if the OperationResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OperationResponse{}
+
 // OperationResponse struct for OperationResponse
 type OperationResponse struct {
 	AssignmentOperation *OperationResponseAssignmentOperation `json:"assignmentOperation,omitempty"`
@@ -48,8 +51,8 @@ type OperationResponse struct {
 	// Current status of the operation
 	Status *string `json:"status,omitempty"`
 	// Realm type
-	Type *string `json:"type,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	Type                 *string    `json:"type,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -74,7 +77,7 @@ func NewOperationResponseWithDefaults() *OperationResponse {
 
 // GetAssignmentOperation returns the AssignmentOperation field value if set, zero value otherwise.
 func (o *OperationResponse) GetAssignmentOperation() OperationResponseAssignmentOperation {
-	if o == nil || o.AssignmentOperation == nil {
+	if o == nil || IsNil(o.AssignmentOperation) {
 		var ret OperationResponseAssignmentOperation
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *OperationResponse) GetAssignmentOperation() OperationResponseAssignment
 // GetAssignmentOperationOk returns a tuple with the AssignmentOperation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OperationResponse) GetAssignmentOperationOk() (*OperationResponseAssignmentOperation, bool) {
-	if o == nil || o.AssignmentOperation == nil {
+	if o == nil || IsNil(o.AssignmentOperation) {
 		return nil, false
 	}
 	return o.AssignmentOperation, true
@@ -92,7 +95,7 @@ func (o *OperationResponse) GetAssignmentOperationOk() (*OperationResponseAssign
 
 // HasAssignmentOperation returns a boolean if a field has been set.
 func (o *OperationResponse) HasAssignmentOperation() bool {
-	if o != nil && o.AssignmentOperation != nil {
+	if o != nil && !IsNil(o.AssignmentOperation) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *OperationResponse) SetAssignmentOperation(v OperationResponseAssignment
 
 // GetCompleted returns the Completed field value if set, zero value otherwise.
 func (o *OperationResponse) GetCompleted() time.Time {
-	if o == nil || o.Completed == nil {
+	if o == nil || IsNil(o.Completed) {
 		var ret time.Time
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *OperationResponse) GetCompleted() time.Time {
 // GetCompletedOk returns a tuple with the Completed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OperationResponse) GetCompletedOk() (*time.Time, bool) {
-	if o == nil || o.Completed == nil {
+	if o == nil || IsNil(o.Completed) {
 		return nil, false
 	}
 	return o.Completed, true
@@ -124,7 +127,7 @@ func (o *OperationResponse) GetCompletedOk() (*time.Time, bool) {
 
 // HasCompleted returns a boolean if a field has been set.
 func (o *OperationResponse) HasCompleted() bool {
-	if o != nil && o.Completed != nil {
+	if o != nil && !IsNil(o.Completed) {
 		return true
 	}
 
@@ -138,7 +141,7 @@ func (o *OperationResponse) SetCompleted(v time.Time) {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *OperationResponse) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -148,7 +151,7 @@ func (o *OperationResponse) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OperationResponse) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -156,7 +159,7 @@ func (o *OperationResponse) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *OperationResponse) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -170,7 +173,7 @@ func (o *OperationResponse) SetCreated(v time.Time) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *OperationResponse) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -180,7 +183,7 @@ func (o *OperationResponse) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OperationResponse) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -188,7 +191,7 @@ func (o *OperationResponse) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *OperationResponse) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -202,7 +205,7 @@ func (o *OperationResponse) SetId(v string) {
 
 // GetNumUserMoved returns the NumUserMoved field value if set, zero value otherwise.
 func (o *OperationResponse) GetNumUserMoved() float32 {
-	if o == nil || o.NumUserMoved == nil {
+	if o == nil || IsNil(o.NumUserMoved) {
 		var ret float32
 		return ret
 	}
@@ -212,7 +215,7 @@ func (o *OperationResponse) GetNumUserMoved() float32 {
 // GetNumUserMovedOk returns a tuple with the NumUserMoved field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OperationResponse) GetNumUserMovedOk() (*float32, bool) {
-	if o == nil || o.NumUserMoved == nil {
+	if o == nil || IsNil(o.NumUserMoved) {
 		return nil, false
 	}
 	return o.NumUserMoved, true
@@ -220,7 +223,7 @@ func (o *OperationResponse) GetNumUserMovedOk() (*float32, bool) {
 
 // HasNumUserMoved returns a boolean if a field has been set.
 func (o *OperationResponse) HasNumUserMoved() bool {
-	if o != nil && o.NumUserMoved != nil {
+	if o != nil && !IsNil(o.NumUserMoved) {
 		return true
 	}
 
@@ -234,7 +237,7 @@ func (o *OperationResponse) SetNumUserMoved(v float32) {
 
 // GetRealmId returns the RealmId field value if set, zero value otherwise.
 func (o *OperationResponse) GetRealmId() string {
-	if o == nil || o.RealmId == nil {
+	if o == nil || IsNil(o.RealmId) {
 		var ret string
 		return ret
 	}
@@ -244,7 +247,7 @@ func (o *OperationResponse) GetRealmId() string {
 // GetRealmIdOk returns a tuple with the RealmId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OperationResponse) GetRealmIdOk() (*string, bool) {
-	if o == nil || o.RealmId == nil {
+	if o == nil || IsNil(o.RealmId) {
 		return nil, false
 	}
 	return o.RealmId, true
@@ -252,7 +255,7 @@ func (o *OperationResponse) GetRealmIdOk() (*string, bool) {
 
 // HasRealmId returns a boolean if a field has been set.
 func (o *OperationResponse) HasRealmId() bool {
-	if o != nil && o.RealmId != nil {
+	if o != nil && !IsNil(o.RealmId) {
 		return true
 	}
 
@@ -266,7 +269,7 @@ func (o *OperationResponse) SetRealmId(v string) {
 
 // GetRealmName returns the RealmName field value if set, zero value otherwise.
 func (o *OperationResponse) GetRealmName() string {
-	if o == nil || o.RealmName == nil {
+	if o == nil || IsNil(o.RealmName) {
 		var ret string
 		return ret
 	}
@@ -276,7 +279,7 @@ func (o *OperationResponse) GetRealmName() string {
 // GetRealmNameOk returns a tuple with the RealmName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OperationResponse) GetRealmNameOk() (*string, bool) {
-	if o == nil || o.RealmName == nil {
+	if o == nil || IsNil(o.RealmName) {
 		return nil, false
 	}
 	return o.RealmName, true
@@ -284,7 +287,7 @@ func (o *OperationResponse) GetRealmNameOk() (*string, bool) {
 
 // HasRealmName returns a boolean if a field has been set.
 func (o *OperationResponse) HasRealmName() bool {
-	if o != nil && o.RealmName != nil {
+	if o != nil && !IsNil(o.RealmName) {
 		return true
 	}
 
@@ -298,7 +301,7 @@ func (o *OperationResponse) SetRealmName(v string) {
 
 // GetStarted returns the Started field value if set, zero value otherwise.
 func (o *OperationResponse) GetStarted() time.Time {
-	if o == nil || o.Started == nil {
+	if o == nil || IsNil(o.Started) {
 		var ret time.Time
 		return ret
 	}
@@ -308,7 +311,7 @@ func (o *OperationResponse) GetStarted() time.Time {
 // GetStartedOk returns a tuple with the Started field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OperationResponse) GetStartedOk() (*time.Time, bool) {
-	if o == nil || o.Started == nil {
+	if o == nil || IsNil(o.Started) {
 		return nil, false
 	}
 	return o.Started, true
@@ -316,7 +319,7 @@ func (o *OperationResponse) GetStartedOk() (*time.Time, bool) {
 
 // HasStarted returns a boolean if a field has been set.
 func (o *OperationResponse) HasStarted() bool {
-	if o != nil && o.Started != nil {
+	if o != nil && !IsNil(o.Started) {
 		return true
 	}
 
@@ -330,7 +333,7 @@ func (o *OperationResponse) SetStarted(v time.Time) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *OperationResponse) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -340,7 +343,7 @@ func (o *OperationResponse) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OperationResponse) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -348,7 +351,7 @@ func (o *OperationResponse) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *OperationResponse) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -362,7 +365,7 @@ func (o *OperationResponse) SetStatus(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *OperationResponse) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -372,7 +375,7 @@ func (o *OperationResponse) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OperationResponse) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -380,7 +383,7 @@ func (o *OperationResponse) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *OperationResponse) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -394,7 +397,7 @@ func (o *OperationResponse) SetType(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *OperationResponse) GetLinks() LinksSelf {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksSelf
 		return ret
 	}
@@ -404,7 +407,7 @@ func (o *OperationResponse) GetLinks() LinksSelf {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OperationResponse) GetLinksOk() (*LinksSelf, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -412,7 +415,7 @@ func (o *OperationResponse) GetLinksOk() (*LinksSelf, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *OperationResponse) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -425,38 +428,46 @@ func (o *OperationResponse) SetLinks(v LinksSelf) {
 }
 
 func (o OperationResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OperationResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AssignmentOperation != nil {
+	if !IsNil(o.AssignmentOperation) {
 		toSerialize["assignmentOperation"] = o.AssignmentOperation
 	}
-	if o.Completed != nil {
+	if !IsNil(o.Completed) {
 		toSerialize["completed"] = o.Completed
 	}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.NumUserMoved != nil {
+	if !IsNil(o.NumUserMoved) {
 		toSerialize["numUserMoved"] = o.NumUserMoved
 	}
-	if o.RealmId != nil {
+	if !IsNil(o.RealmId) {
 		toSerialize["realmId"] = o.RealmId
 	}
-	if o.RealmName != nil {
+	if !IsNil(o.RealmName) {
 		toSerialize["realmName"] = o.RealmName
 	}
-	if o.Started != nil {
+	if !IsNil(o.Started) {
 		toSerialize["started"] = o.Started
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -464,23 +475,23 @@ func (o OperationResponse) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OperationResponse) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OperationResponse) UnmarshalJSON(data []byte) (err error) {
 	varOperationResponse := _OperationResponse{}
 
-	err = json.Unmarshal(bytes, &varOperationResponse)
-	if err == nil {
-		*o = OperationResponse(varOperationResponse)
-	} else {
+	err = json.Unmarshal(data, &varOperationResponse)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OperationResponse(varOperationResponse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "assignmentOperation")
 		delete(additionalProperties, "completed")
 		delete(additionalProperties, "created")
@@ -493,8 +504,6 @@ func (o *OperationResponse) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -535,4 +544,3 @@ func (v *NullableOperationResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

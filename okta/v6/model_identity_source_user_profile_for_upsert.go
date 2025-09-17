@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the IdentitySourceUserProfileForUpsert type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IdentitySourceUserProfileForUpsert{}
+
 // IdentitySourceUserProfileForUpsert Contains a set of external user attributes and their values that are mapped to Okta standard and custom profile properties. See the [`profile` object](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/User/#tag/User/operation/getUser!c=200&path=profile&t=response) and Declaration of a Custom Identity Source Schema in [Using anything as a source](https://help.okta.com/okta_help.htm?type=oie&id=ext-anything-as-a-source). > **Note:** Profile attributes can only be of the string type.
 type IdentitySourceUserProfileForUpsert struct {
 	// Email address of the user
@@ -42,7 +45,7 @@ type IdentitySourceUserProfileForUpsert struct {
 	// Alternative email address of the user
 	SecondEmail *string `json:"secondEmail,omitempty"`
 	// Username of the user
-	UserName *string `json:"userName,omitempty"`
+	UserName             *string `json:"userName,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -67,7 +70,7 @@ func NewIdentitySourceUserProfileForUpsertWithDefaults() *IdentitySourceUserProf
 
 // GetEmail returns the Email field value if set, zero value otherwise.
 func (o *IdentitySourceUserProfileForUpsert) GetEmail() string {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		var ret string
 		return ret
 	}
@@ -77,7 +80,7 @@ func (o *IdentitySourceUserProfileForUpsert) GetEmail() string {
 // GetEmailOk returns a tuple with the Email field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentitySourceUserProfileForUpsert) GetEmailOk() (*string, bool) {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		return nil, false
 	}
 	return o.Email, true
@@ -85,7 +88,7 @@ func (o *IdentitySourceUserProfileForUpsert) GetEmailOk() (*string, bool) {
 
 // HasEmail returns a boolean if a field has been set.
 func (o *IdentitySourceUserProfileForUpsert) HasEmail() bool {
-	if o != nil && o.Email != nil {
+	if o != nil && !IsNil(o.Email) {
 		return true
 	}
 
@@ -99,7 +102,7 @@ func (o *IdentitySourceUserProfileForUpsert) SetEmail(v string) {
 
 // GetFirstName returns the FirstName field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *IdentitySourceUserProfileForUpsert) GetFirstName() string {
-	if o == nil || o.FirstName.Get() == nil {
+	if o == nil || IsNil(o.FirstName.Get()) {
 		var ret string
 		return ret
 	}
@@ -129,6 +132,7 @@ func (o *IdentitySourceUserProfileForUpsert) HasFirstName() bool {
 func (o *IdentitySourceUserProfileForUpsert) SetFirstName(v string) {
 	o.FirstName.Set(&v)
 }
+
 // SetFirstNameNil sets the value for FirstName to be an explicit nil
 func (o *IdentitySourceUserProfileForUpsert) SetFirstNameNil() {
 	o.FirstName.Set(nil)
@@ -141,7 +145,7 @@ func (o *IdentitySourceUserProfileForUpsert) UnsetFirstName() {
 
 // GetHomeAddress returns the HomeAddress field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *IdentitySourceUserProfileForUpsert) GetHomeAddress() string {
-	if o == nil || o.HomeAddress.Get() == nil {
+	if o == nil || IsNil(o.HomeAddress.Get()) {
 		var ret string
 		return ret
 	}
@@ -171,6 +175,7 @@ func (o *IdentitySourceUserProfileForUpsert) HasHomeAddress() bool {
 func (o *IdentitySourceUserProfileForUpsert) SetHomeAddress(v string) {
 	o.HomeAddress.Set(&v)
 }
+
 // SetHomeAddressNil sets the value for HomeAddress to be an explicit nil
 func (o *IdentitySourceUserProfileForUpsert) SetHomeAddressNil() {
 	o.HomeAddress.Set(nil)
@@ -183,7 +188,7 @@ func (o *IdentitySourceUserProfileForUpsert) UnsetHomeAddress() {
 
 // GetLastName returns the LastName field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *IdentitySourceUserProfileForUpsert) GetLastName() string {
-	if o == nil || o.LastName.Get() == nil {
+	if o == nil || IsNil(o.LastName.Get()) {
 		var ret string
 		return ret
 	}
@@ -213,6 +218,7 @@ func (o *IdentitySourceUserProfileForUpsert) HasLastName() bool {
 func (o *IdentitySourceUserProfileForUpsert) SetLastName(v string) {
 	o.LastName.Set(&v)
 }
+
 // SetLastNameNil sets the value for LastName to be an explicit nil
 func (o *IdentitySourceUserProfileForUpsert) SetLastNameNil() {
 	o.LastName.Set(nil)
@@ -225,7 +231,7 @@ func (o *IdentitySourceUserProfileForUpsert) UnsetLastName() {
 
 // GetMobilePhone returns the MobilePhone field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *IdentitySourceUserProfileForUpsert) GetMobilePhone() string {
-	if o == nil || o.MobilePhone.Get() == nil {
+	if o == nil || IsNil(o.MobilePhone.Get()) {
 		var ret string
 		return ret
 	}
@@ -255,6 +261,7 @@ func (o *IdentitySourceUserProfileForUpsert) HasMobilePhone() bool {
 func (o *IdentitySourceUserProfileForUpsert) SetMobilePhone(v string) {
 	o.MobilePhone.Set(&v)
 }
+
 // SetMobilePhoneNil sets the value for MobilePhone to be an explicit nil
 func (o *IdentitySourceUserProfileForUpsert) SetMobilePhoneNil() {
 	o.MobilePhone.Set(nil)
@@ -267,7 +274,7 @@ func (o *IdentitySourceUserProfileForUpsert) UnsetMobilePhone() {
 
 // GetSecondEmail returns the SecondEmail field value if set, zero value otherwise.
 func (o *IdentitySourceUserProfileForUpsert) GetSecondEmail() string {
-	if o == nil || o.SecondEmail == nil {
+	if o == nil || IsNil(o.SecondEmail) {
 		var ret string
 		return ret
 	}
@@ -277,7 +284,7 @@ func (o *IdentitySourceUserProfileForUpsert) GetSecondEmail() string {
 // GetSecondEmailOk returns a tuple with the SecondEmail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentitySourceUserProfileForUpsert) GetSecondEmailOk() (*string, bool) {
-	if o == nil || o.SecondEmail == nil {
+	if o == nil || IsNil(o.SecondEmail) {
 		return nil, false
 	}
 	return o.SecondEmail, true
@@ -285,7 +292,7 @@ func (o *IdentitySourceUserProfileForUpsert) GetSecondEmailOk() (*string, bool) 
 
 // HasSecondEmail returns a boolean if a field has been set.
 func (o *IdentitySourceUserProfileForUpsert) HasSecondEmail() bool {
-	if o != nil && o.SecondEmail != nil {
+	if o != nil && !IsNil(o.SecondEmail) {
 		return true
 	}
 
@@ -299,7 +306,7 @@ func (o *IdentitySourceUserProfileForUpsert) SetSecondEmail(v string) {
 
 // GetUserName returns the UserName field value if set, zero value otherwise.
 func (o *IdentitySourceUserProfileForUpsert) GetUserName() string {
-	if o == nil || o.UserName == nil {
+	if o == nil || IsNil(o.UserName) {
 		var ret string
 		return ret
 	}
@@ -309,7 +316,7 @@ func (o *IdentitySourceUserProfileForUpsert) GetUserName() string {
 // GetUserNameOk returns a tuple with the UserName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentitySourceUserProfileForUpsert) GetUserNameOk() (*string, bool) {
-	if o == nil || o.UserName == nil {
+	if o == nil || IsNil(o.UserName) {
 		return nil, false
 	}
 	return o.UserName, true
@@ -317,7 +324,7 @@ func (o *IdentitySourceUserProfileForUpsert) GetUserNameOk() (*string, bool) {
 
 // HasUserName returns a boolean if a field has been set.
 func (o *IdentitySourceUserProfileForUpsert) HasUserName() bool {
-	if o != nil && o.UserName != nil {
+	if o != nil && !IsNil(o.UserName) {
 		return true
 	}
 
@@ -330,8 +337,16 @@ func (o *IdentitySourceUserProfileForUpsert) SetUserName(v string) {
 }
 
 func (o IdentitySourceUserProfileForUpsert) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IdentitySourceUserProfileForUpsert) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Email != nil {
+	if !IsNil(o.Email) {
 		toSerialize["email"] = o.Email
 	}
 	if o.FirstName.IsSet() {
@@ -346,10 +361,10 @@ func (o IdentitySourceUserProfileForUpsert) MarshalJSON() ([]byte, error) {
 	if o.MobilePhone.IsSet() {
 		toSerialize["mobilePhone"] = o.MobilePhone.Get()
 	}
-	if o.SecondEmail != nil {
+	if !IsNil(o.SecondEmail) {
 		toSerialize["secondEmail"] = o.SecondEmail
 	}
-	if o.UserName != nil {
+	if !IsNil(o.UserName) {
 		toSerialize["userName"] = o.UserName
 	}
 
@@ -357,23 +372,23 @@ func (o IdentitySourceUserProfileForUpsert) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *IdentitySourceUserProfileForUpsert) UnmarshalJSON(bytes []byte) (err error) {
+func (o *IdentitySourceUserProfileForUpsert) UnmarshalJSON(data []byte) (err error) {
 	varIdentitySourceUserProfileForUpsert := _IdentitySourceUserProfileForUpsert{}
 
-	err = json.Unmarshal(bytes, &varIdentitySourceUserProfileForUpsert)
-	if err == nil {
-		*o = IdentitySourceUserProfileForUpsert(varIdentitySourceUserProfileForUpsert)
-	} else {
+	err = json.Unmarshal(data, &varIdentitySourceUserProfileForUpsert)
+
+	if err != nil {
 		return err
 	}
 
+	*o = IdentitySourceUserProfileForUpsert(varIdentitySourceUserProfileForUpsert)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "email")
 		delete(additionalProperties, "firstName")
 		delete(additionalProperties, "homeAddress")
@@ -382,8 +397,6 @@ func (o *IdentitySourceUserProfileForUpsert) UnmarshalJSON(bytes []byte) (err er
 		delete(additionalProperties, "secondEmail")
 		delete(additionalProperties, "userName")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -424,4 +437,3 @@ func (v *NullableIdentitySourceUserProfileForUpsert) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

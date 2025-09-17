@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the PasswordPolicyRuleConditions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordPolicyRuleConditions{}
+
 // PasswordPolicyRuleConditions Specifies conditions that must be met during policy evaluation to apply the rule. All policy conditions and conditions for at least one rule must be met to apply the settings specified in the policy and the associated rule.
 type PasswordPolicyRuleConditions struct {
-	Network *PolicyNetworkCondition `json:"network,omitempty"`
-	People *PolicyPeopleCondition `json:"people,omitempty"`
+	Network              *PolicyNetworkCondition `json:"network,omitempty"`
+	People               *PolicyPeopleCondition  `json:"people,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewPasswordPolicyRuleConditionsWithDefaults() *PasswordPolicyRuleConditions
 
 // GetNetwork returns the Network field value if set, zero value otherwise.
 func (o *PasswordPolicyRuleConditions) GetNetwork() PolicyNetworkCondition {
-	if o == nil || o.Network == nil {
+	if o == nil || IsNil(o.Network) {
 		var ret PolicyNetworkCondition
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *PasswordPolicyRuleConditions) GetNetwork() PolicyNetworkCondition {
 // GetNetworkOk returns a tuple with the Network field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyRuleConditions) GetNetworkOk() (*PolicyNetworkCondition, bool) {
-	if o == nil || o.Network == nil {
+	if o == nil || IsNil(o.Network) {
 		return nil, false
 	}
 	return o.Network, true
@@ -73,7 +76,7 @@ func (o *PasswordPolicyRuleConditions) GetNetworkOk() (*PolicyNetworkCondition, 
 
 // HasNetwork returns a boolean if a field has been set.
 func (o *PasswordPolicyRuleConditions) HasNetwork() bool {
-	if o != nil && o.Network != nil {
+	if o != nil && !IsNil(o.Network) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *PasswordPolicyRuleConditions) SetNetwork(v PolicyNetworkCondition) {
 
 // GetPeople returns the People field value if set, zero value otherwise.
 func (o *PasswordPolicyRuleConditions) GetPeople() PolicyPeopleCondition {
-	if o == nil || o.People == nil {
+	if o == nil || IsNil(o.People) {
 		var ret PolicyPeopleCondition
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *PasswordPolicyRuleConditions) GetPeople() PolicyPeopleCondition {
 // GetPeopleOk returns a tuple with the People field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyRuleConditions) GetPeopleOk() (*PolicyPeopleCondition, bool) {
-	if o == nil || o.People == nil {
+	if o == nil || IsNil(o.People) {
 		return nil, false
 	}
 	return o.People, true
@@ -105,7 +108,7 @@ func (o *PasswordPolicyRuleConditions) GetPeopleOk() (*PolicyPeopleCondition, bo
 
 // HasPeople returns a boolean if a field has been set.
 func (o *PasswordPolicyRuleConditions) HasPeople() bool {
-	if o != nil && o.People != nil {
+	if o != nil && !IsNil(o.People) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *PasswordPolicyRuleConditions) SetPeople(v PolicyPeopleCondition) {
 }
 
 func (o PasswordPolicyRuleConditions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordPolicyRuleConditions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Network != nil {
+	if !IsNil(o.Network) {
 		toSerialize["network"] = o.Network
 	}
-	if o.People != nil {
+	if !IsNil(o.People) {
 		toSerialize["people"] = o.People
 	}
 
@@ -130,28 +141,26 @@ func (o PasswordPolicyRuleConditions) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordPolicyRuleConditions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordPolicyRuleConditions) UnmarshalJSON(data []byte) (err error) {
 	varPasswordPolicyRuleConditions := _PasswordPolicyRuleConditions{}
 
-	err = json.Unmarshal(bytes, &varPasswordPolicyRuleConditions)
-	if err == nil {
-		*o = PasswordPolicyRuleConditions(varPasswordPolicyRuleConditions)
-	} else {
+	err = json.Unmarshal(data, &varPasswordPolicyRuleConditions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PasswordPolicyRuleConditions(varPasswordPolicyRuleConditions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "network")
 		delete(additionalProperties, "people")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullablePasswordPolicyRuleConditions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

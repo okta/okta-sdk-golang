@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the OperationResponseAssignmentOperationConfigurationActions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OperationResponseAssignmentOperationConfigurationActions{}
+
 // OperationResponseAssignmentOperationConfigurationActions Realm assignment action
 type OperationResponseAssignmentOperationConfigurationActions struct {
-	AssignUserToRealm *OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm `json:"assignUserToRealm,omitempty"`
+	AssignUserToRealm    *OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm `json:"assignUserToRealm,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewOperationResponseAssignmentOperationConfigurationActionsWithDefaults() *
 
 // GetAssignUserToRealm returns the AssignUserToRealm field value if set, zero value otherwise.
 func (o *OperationResponseAssignmentOperationConfigurationActions) GetAssignUserToRealm() OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm {
-	if o == nil || o.AssignUserToRealm == nil {
+	if o == nil || IsNil(o.AssignUserToRealm) {
 		var ret OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *OperationResponseAssignmentOperationConfigurationActions) GetAssignUser
 // GetAssignUserToRealmOk returns a tuple with the AssignUserToRealm field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OperationResponseAssignmentOperationConfigurationActions) GetAssignUserToRealmOk() (*OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm, bool) {
-	if o == nil || o.AssignUserToRealm == nil {
+	if o == nil || IsNil(o.AssignUserToRealm) {
 		return nil, false
 	}
 	return o.AssignUserToRealm, true
@@ -72,7 +75,7 @@ func (o *OperationResponseAssignmentOperationConfigurationActions) GetAssignUser
 
 // HasAssignUserToRealm returns a boolean if a field has been set.
 func (o *OperationResponseAssignmentOperationConfigurationActions) HasAssignUserToRealm() bool {
-	if o != nil && o.AssignUserToRealm != nil {
+	if o != nil && !IsNil(o.AssignUserToRealm) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *OperationResponseAssignmentOperationConfigurationActions) SetAssignUser
 }
 
 func (o OperationResponseAssignmentOperationConfigurationActions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OperationResponseAssignmentOperationConfigurationActions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AssignUserToRealm != nil {
+	if !IsNil(o.AssignUserToRealm) {
 		toSerialize["assignUserToRealm"] = o.AssignUserToRealm
 	}
 
@@ -94,27 +105,25 @@ func (o OperationResponseAssignmentOperationConfigurationActions) MarshalJSON() 
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OperationResponseAssignmentOperationConfigurationActions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OperationResponseAssignmentOperationConfigurationActions) UnmarshalJSON(data []byte) (err error) {
 	varOperationResponseAssignmentOperationConfigurationActions := _OperationResponseAssignmentOperationConfigurationActions{}
 
-	err = json.Unmarshal(bytes, &varOperationResponseAssignmentOperationConfigurationActions)
-	if err == nil {
-		*o = OperationResponseAssignmentOperationConfigurationActions(varOperationResponseAssignmentOperationConfigurationActions)
-	} else {
+	err = json.Unmarshal(data, &varOperationResponseAssignmentOperationConfigurationActions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OperationResponseAssignmentOperationConfigurationActions(varOperationResponseAssignmentOperationConfigurationActions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "assignUserToRealm")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableOperationResponseAssignmentOperationConfigurationActions) Unmar
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

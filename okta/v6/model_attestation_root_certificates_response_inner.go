@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AttestationRootCertificatesResponseInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AttestationRootCertificatesResponseInner{}
+
 // AttestationRootCertificatesResponseInner struct for AttestationRootCertificatesResponseInner
 type AttestationRootCertificatesResponseInner struct {
 	// X.509 certificate chain
@@ -36,7 +39,7 @@ type AttestationRootCertificatesResponseInner struct {
 	// Issuer of certificate
 	Iss *string `json:"iss,omitempty"`
 	// Expiry date of certificate
-	Exp *string `json:"exp,omitempty"`
+	Exp                  *string `json:"exp,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewAttestationRootCertificatesResponseInnerWithDefaults() *AttestationRootC
 
 // GetX5c returns the X5c field value if set, zero value otherwise.
 func (o *AttestationRootCertificatesResponseInner) GetX5c() string {
-	if o == nil || o.X5c == nil {
+	if o == nil || IsNil(o.X5c) {
 		var ret string
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *AttestationRootCertificatesResponseInner) GetX5c() string {
 // GetX5cOk returns a tuple with the X5c field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AttestationRootCertificatesResponseInner) GetX5cOk() (*string, bool) {
-	if o == nil || o.X5c == nil {
+	if o == nil || IsNil(o.X5c) {
 		return nil, false
 	}
 	return o.X5c, true
@@ -79,7 +82,7 @@ func (o *AttestationRootCertificatesResponseInner) GetX5cOk() (*string, bool) {
 
 // HasX5c returns a boolean if a field has been set.
 func (o *AttestationRootCertificatesResponseInner) HasX5c() bool {
-	if o != nil && o.X5c != nil {
+	if o != nil && !IsNil(o.X5c) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *AttestationRootCertificatesResponseInner) SetX5c(v string) {
 
 // GetX5tS256 returns the X5tS256 field value if set, zero value otherwise.
 func (o *AttestationRootCertificatesResponseInner) GetX5tS256() string {
-	if o == nil || o.X5tS256 == nil {
+	if o == nil || IsNil(o.X5tS256) {
 		var ret string
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *AttestationRootCertificatesResponseInner) GetX5tS256() string {
 // GetX5tS256Ok returns a tuple with the X5tS256 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AttestationRootCertificatesResponseInner) GetX5tS256Ok() (*string, bool) {
-	if o == nil || o.X5tS256 == nil {
+	if o == nil || IsNil(o.X5tS256) {
 		return nil, false
 	}
 	return o.X5tS256, true
@@ -111,7 +114,7 @@ func (o *AttestationRootCertificatesResponseInner) GetX5tS256Ok() (*string, bool
 
 // HasX5tS256 returns a boolean if a field has been set.
 func (o *AttestationRootCertificatesResponseInner) HasX5tS256() bool {
-	if o != nil && o.X5tS256 != nil {
+	if o != nil && !IsNil(o.X5tS256) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *AttestationRootCertificatesResponseInner) SetX5tS256(v string) {
 
 // GetIss returns the Iss field value if set, zero value otherwise.
 func (o *AttestationRootCertificatesResponseInner) GetIss() string {
-	if o == nil || o.Iss == nil {
+	if o == nil || IsNil(o.Iss) {
 		var ret string
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *AttestationRootCertificatesResponseInner) GetIss() string {
 // GetIssOk returns a tuple with the Iss field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AttestationRootCertificatesResponseInner) GetIssOk() (*string, bool) {
-	if o == nil || o.Iss == nil {
+	if o == nil || IsNil(o.Iss) {
 		return nil, false
 	}
 	return o.Iss, true
@@ -143,7 +146,7 @@ func (o *AttestationRootCertificatesResponseInner) GetIssOk() (*string, bool) {
 
 // HasIss returns a boolean if a field has been set.
 func (o *AttestationRootCertificatesResponseInner) HasIss() bool {
-	if o != nil && o.Iss != nil {
+	if o != nil && !IsNil(o.Iss) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *AttestationRootCertificatesResponseInner) SetIss(v string) {
 
 // GetExp returns the Exp field value if set, zero value otherwise.
 func (o *AttestationRootCertificatesResponseInner) GetExp() string {
-	if o == nil || o.Exp == nil {
+	if o == nil || IsNil(o.Exp) {
 		var ret string
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *AttestationRootCertificatesResponseInner) GetExp() string {
 // GetExpOk returns a tuple with the Exp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AttestationRootCertificatesResponseInner) GetExpOk() (*string, bool) {
-	if o == nil || o.Exp == nil {
+	if o == nil || IsNil(o.Exp) {
 		return nil, false
 	}
 	return o.Exp, true
@@ -175,7 +178,7 @@ func (o *AttestationRootCertificatesResponseInner) GetExpOk() (*string, bool) {
 
 // HasExp returns a boolean if a field has been set.
 func (o *AttestationRootCertificatesResponseInner) HasExp() bool {
-	if o != nil && o.Exp != nil {
+	if o != nil && !IsNil(o.Exp) {
 		return true
 	}
 
@@ -188,17 +191,25 @@ func (o *AttestationRootCertificatesResponseInner) SetExp(v string) {
 }
 
 func (o AttestationRootCertificatesResponseInner) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AttestationRootCertificatesResponseInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.X5c != nil {
+	if !IsNil(o.X5c) {
 		toSerialize["x5c"] = o.X5c
 	}
-	if o.X5tS256 != nil {
+	if !IsNil(o.X5tS256) {
 		toSerialize["x5t#S256"] = o.X5tS256
 	}
-	if o.Iss != nil {
+	if !IsNil(o.Iss) {
 		toSerialize["iss"] = o.Iss
 	}
-	if o.Exp != nil {
+	if !IsNil(o.Exp) {
 		toSerialize["exp"] = o.Exp
 	}
 
@@ -206,30 +217,28 @@ func (o AttestationRootCertificatesResponseInner) MarshalJSON() ([]byte, error) 
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AttestationRootCertificatesResponseInner) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AttestationRootCertificatesResponseInner) UnmarshalJSON(data []byte) (err error) {
 	varAttestationRootCertificatesResponseInner := _AttestationRootCertificatesResponseInner{}
 
-	err = json.Unmarshal(bytes, &varAttestationRootCertificatesResponseInner)
-	if err == nil {
-		*o = AttestationRootCertificatesResponseInner(varAttestationRootCertificatesResponseInner)
-	} else {
+	err = json.Unmarshal(data, &varAttestationRootCertificatesResponseInner)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AttestationRootCertificatesResponseInner(varAttestationRootCertificatesResponseInner)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "x5c")
 		delete(additionalProperties, "x5t#S256")
 		delete(additionalProperties, "iss")
 		delete(additionalProperties, "exp")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -270,4 +279,3 @@ func (v *NullableAttestationRootCertificatesResponseInner) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the ApplicationLayoutsLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApplicationLayoutsLinks{}
+
 // ApplicationLayoutsLinks struct for ApplicationLayoutsLinks
 type ApplicationLayoutsLinks struct {
-	General []HrefObject `json:"general,omitempty"`
-	SignOn []HrefObject `json:"signOn,omitempty"`
-	Provisioning []HrefObject `json:"provisioning,omitempty"`
+	General              []HrefObject `json:"general,omitempty"`
+	SignOn               []HrefObject `json:"signOn,omitempty"`
+	Provisioning         []HrefObject `json:"provisioning,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewApplicationLayoutsLinksWithDefaults() *ApplicationLayoutsLinks {
 
 // GetGeneral returns the General field value if set, zero value otherwise.
 func (o *ApplicationLayoutsLinks) GetGeneral() []HrefObject {
-	if o == nil || o.General == nil {
+	if o == nil || IsNil(o.General) {
 		var ret []HrefObject
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *ApplicationLayoutsLinks) GetGeneral() []HrefObject {
 // GetGeneralOk returns a tuple with the General field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationLayoutsLinks) GetGeneralOk() ([]HrefObject, bool) {
-	if o == nil || o.General == nil {
+	if o == nil || IsNil(o.General) {
 		return nil, false
 	}
 	return o.General, true
@@ -74,7 +77,7 @@ func (o *ApplicationLayoutsLinks) GetGeneralOk() ([]HrefObject, bool) {
 
 // HasGeneral returns a boolean if a field has been set.
 func (o *ApplicationLayoutsLinks) HasGeneral() bool {
-	if o != nil && o.General != nil {
+	if o != nil && !IsNil(o.General) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *ApplicationLayoutsLinks) SetGeneral(v []HrefObject) {
 
 // GetSignOn returns the SignOn field value if set, zero value otherwise.
 func (o *ApplicationLayoutsLinks) GetSignOn() []HrefObject {
-	if o == nil || o.SignOn == nil {
+	if o == nil || IsNil(o.SignOn) {
 		var ret []HrefObject
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *ApplicationLayoutsLinks) GetSignOn() []HrefObject {
 // GetSignOnOk returns a tuple with the SignOn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationLayoutsLinks) GetSignOnOk() ([]HrefObject, bool) {
-	if o == nil || o.SignOn == nil {
+	if o == nil || IsNil(o.SignOn) {
 		return nil, false
 	}
 	return o.SignOn, true
@@ -106,7 +109,7 @@ func (o *ApplicationLayoutsLinks) GetSignOnOk() ([]HrefObject, bool) {
 
 // HasSignOn returns a boolean if a field has been set.
 func (o *ApplicationLayoutsLinks) HasSignOn() bool {
-	if o != nil && o.SignOn != nil {
+	if o != nil && !IsNil(o.SignOn) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *ApplicationLayoutsLinks) SetSignOn(v []HrefObject) {
 
 // GetProvisioning returns the Provisioning field value if set, zero value otherwise.
 func (o *ApplicationLayoutsLinks) GetProvisioning() []HrefObject {
-	if o == nil || o.Provisioning == nil {
+	if o == nil || IsNil(o.Provisioning) {
 		var ret []HrefObject
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *ApplicationLayoutsLinks) GetProvisioning() []HrefObject {
 // GetProvisioningOk returns a tuple with the Provisioning field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationLayoutsLinks) GetProvisioningOk() ([]HrefObject, bool) {
-	if o == nil || o.Provisioning == nil {
+	if o == nil || IsNil(o.Provisioning) {
 		return nil, false
 	}
 	return o.Provisioning, true
@@ -138,7 +141,7 @@ func (o *ApplicationLayoutsLinks) GetProvisioningOk() ([]HrefObject, bool) {
 
 // HasProvisioning returns a boolean if a field has been set.
 func (o *ApplicationLayoutsLinks) HasProvisioning() bool {
-	if o != nil && o.Provisioning != nil {
+	if o != nil && !IsNil(o.Provisioning) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *ApplicationLayoutsLinks) SetProvisioning(v []HrefObject) {
 }
 
 func (o ApplicationLayoutsLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApplicationLayoutsLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.General != nil {
+	if !IsNil(o.General) {
 		toSerialize["general"] = o.General
 	}
-	if o.SignOn != nil {
+	if !IsNil(o.SignOn) {
 		toSerialize["signOn"] = o.SignOn
 	}
-	if o.Provisioning != nil {
+	if !IsNil(o.Provisioning) {
 		toSerialize["provisioning"] = o.Provisioning
 	}
 
@@ -166,29 +177,27 @@ func (o ApplicationLayoutsLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ApplicationLayoutsLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ApplicationLayoutsLinks) UnmarshalJSON(data []byte) (err error) {
 	varApplicationLayoutsLinks := _ApplicationLayoutsLinks{}
 
-	err = json.Unmarshal(bytes, &varApplicationLayoutsLinks)
-	if err == nil {
-		*o = ApplicationLayoutsLinks(varApplicationLayoutsLinks)
-	} else {
+	err = json.Unmarshal(data, &varApplicationLayoutsLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ApplicationLayoutsLinks(varApplicationLayoutsLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "general")
 		delete(additionalProperties, "signOn")
 		delete(additionalProperties, "provisioning")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullableApplicationLayoutsLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

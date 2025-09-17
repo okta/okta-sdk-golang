@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SamlSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SamlSettings{}
+
 // SamlSettings Advanced settings for the SAML 2.0 protocol
 type SamlSettings struct {
 	// Determines if the IdP should persist account linking when the incoming assertion NameID format is `urn:oasis:names:tc:SAML:2.0:nameid-format:persistent`
@@ -37,7 +40,7 @@ type SamlSettings struct {
 	ParticipateSlo *bool `json:"participateSlo,omitempty"`
 	// Determines if the IdP should send the application context as `<OktaAppInstanceId>` and `<OktaAppName>` in the `<saml2p:Extensions>` element of the `<AuthnRequest>` message
 	SendApplicationContext *bool `json:"sendApplicationContext,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties   map[string]interface{}
 }
 
 type _SamlSettings SamlSettings
@@ -73,7 +76,7 @@ func NewSamlSettingsWithDefaults() *SamlSettings {
 
 // GetHonorPersistentNameId returns the HonorPersistentNameId field value if set, zero value otherwise.
 func (o *SamlSettings) GetHonorPersistentNameId() bool {
-	if o == nil || o.HonorPersistentNameId == nil {
+	if o == nil || IsNil(o.HonorPersistentNameId) {
 		var ret bool
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *SamlSettings) GetHonorPersistentNameId() bool {
 // GetHonorPersistentNameIdOk returns a tuple with the HonorPersistentNameId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlSettings) GetHonorPersistentNameIdOk() (*bool, bool) {
-	if o == nil || o.HonorPersistentNameId == nil {
+	if o == nil || IsNil(o.HonorPersistentNameId) {
 		return nil, false
 	}
 	return o.HonorPersistentNameId, true
@@ -91,7 +94,7 @@ func (o *SamlSettings) GetHonorPersistentNameIdOk() (*bool, bool) {
 
 // HasHonorPersistentNameId returns a boolean if a field has been set.
 func (o *SamlSettings) HasHonorPersistentNameId() bool {
-	if o != nil && o.HonorPersistentNameId != nil {
+	if o != nil && !IsNil(o.HonorPersistentNameId) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *SamlSettings) SetHonorPersistentNameId(v bool) {
 
 // GetNameFormat returns the NameFormat field value if set, zero value otherwise.
 func (o *SamlSettings) GetNameFormat() string {
-	if o == nil || o.NameFormat == nil {
+	if o == nil || IsNil(o.NameFormat) {
 		var ret string
 		return ret
 	}
@@ -115,7 +118,7 @@ func (o *SamlSettings) GetNameFormat() string {
 // GetNameFormatOk returns a tuple with the NameFormat field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlSettings) GetNameFormatOk() (*string, bool) {
-	if o == nil || o.NameFormat == nil {
+	if o == nil || IsNil(o.NameFormat) {
 		return nil, false
 	}
 	return o.NameFormat, true
@@ -123,7 +126,7 @@ func (o *SamlSettings) GetNameFormatOk() (*string, bool) {
 
 // HasNameFormat returns a boolean if a field has been set.
 func (o *SamlSettings) HasNameFormat() bool {
-	if o != nil && o.NameFormat != nil {
+	if o != nil && !IsNil(o.NameFormat) {
 		return true
 	}
 
@@ -137,7 +140,7 @@ func (o *SamlSettings) SetNameFormat(v string) {
 
 // GetParticipateSlo returns the ParticipateSlo field value if set, zero value otherwise.
 func (o *SamlSettings) GetParticipateSlo() bool {
-	if o == nil || o.ParticipateSlo == nil {
+	if o == nil || IsNil(o.ParticipateSlo) {
 		var ret bool
 		return ret
 	}
@@ -147,7 +150,7 @@ func (o *SamlSettings) GetParticipateSlo() bool {
 // GetParticipateSloOk returns a tuple with the ParticipateSlo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlSettings) GetParticipateSloOk() (*bool, bool) {
-	if o == nil || o.ParticipateSlo == nil {
+	if o == nil || IsNil(o.ParticipateSlo) {
 		return nil, false
 	}
 	return o.ParticipateSlo, true
@@ -155,7 +158,7 @@ func (o *SamlSettings) GetParticipateSloOk() (*bool, bool) {
 
 // HasParticipateSlo returns a boolean if a field has been set.
 func (o *SamlSettings) HasParticipateSlo() bool {
-	if o != nil && o.ParticipateSlo != nil {
+	if o != nil && !IsNil(o.ParticipateSlo) {
 		return true
 	}
 
@@ -169,7 +172,7 @@ func (o *SamlSettings) SetParticipateSlo(v bool) {
 
 // GetSendApplicationContext returns the SendApplicationContext field value if set, zero value otherwise.
 func (o *SamlSettings) GetSendApplicationContext() bool {
-	if o == nil || o.SendApplicationContext == nil {
+	if o == nil || IsNil(o.SendApplicationContext) {
 		var ret bool
 		return ret
 	}
@@ -179,7 +182,7 @@ func (o *SamlSettings) GetSendApplicationContext() bool {
 // GetSendApplicationContextOk returns a tuple with the SendApplicationContext field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlSettings) GetSendApplicationContextOk() (*bool, bool) {
-	if o == nil || o.SendApplicationContext == nil {
+	if o == nil || IsNil(o.SendApplicationContext) {
 		return nil, false
 	}
 	return o.SendApplicationContext, true
@@ -187,7 +190,7 @@ func (o *SamlSettings) GetSendApplicationContextOk() (*bool, bool) {
 
 // HasSendApplicationContext returns a boolean if a field has been set.
 func (o *SamlSettings) HasSendApplicationContext() bool {
-	if o != nil && o.SendApplicationContext != nil {
+	if o != nil && !IsNil(o.SendApplicationContext) {
 		return true
 	}
 
@@ -200,17 +203,25 @@ func (o *SamlSettings) SetSendApplicationContext(v bool) {
 }
 
 func (o SamlSettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SamlSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.HonorPersistentNameId != nil {
+	if !IsNil(o.HonorPersistentNameId) {
 		toSerialize["honorPersistentNameId"] = o.HonorPersistentNameId
 	}
-	if o.NameFormat != nil {
+	if !IsNil(o.NameFormat) {
 		toSerialize["nameFormat"] = o.NameFormat
 	}
-	if o.ParticipateSlo != nil {
+	if !IsNil(o.ParticipateSlo) {
 		toSerialize["participateSlo"] = o.ParticipateSlo
 	}
-	if o.SendApplicationContext != nil {
+	if !IsNil(o.SendApplicationContext) {
 		toSerialize["sendApplicationContext"] = o.SendApplicationContext
 	}
 
@@ -218,30 +229,28 @@ func (o SamlSettings) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SamlSettings) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SamlSettings) UnmarshalJSON(data []byte) (err error) {
 	varSamlSettings := _SamlSettings{}
 
-	err = json.Unmarshal(bytes, &varSamlSettings)
-	if err == nil {
-		*o = SamlSettings(varSamlSettings)
-	} else {
+	err = json.Unmarshal(data, &varSamlSettings)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SamlSettings(varSamlSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "honorPersistentNameId")
 		delete(additionalProperties, "nameFormat")
 		delete(additionalProperties, "participateSlo")
 		delete(additionalProperties, "sendApplicationContext")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -282,4 +291,3 @@ func (v *NullableSamlSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

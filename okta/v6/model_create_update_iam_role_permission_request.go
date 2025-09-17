@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the CreateUpdateIamRolePermissionRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateUpdateIamRolePermissionRequest{}
+
 // CreateUpdateIamRolePermissionRequest struct for CreateUpdateIamRolePermissionRequest
 type CreateUpdateIamRolePermissionRequest struct {
-	Conditions NullablePermissionConditions `json:"conditions,omitempty"`
+	Conditions           NullablePermissionConditions `json:"conditions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewCreateUpdateIamRolePermissionRequestWithDefaults() *CreateUpdateIamRoleP
 
 // GetConditions returns the Conditions field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateUpdateIamRolePermissionRequest) GetConditions() PermissionConditions {
-	if o == nil || o.Conditions.Get() == nil {
+	if o == nil || IsNil(o.Conditions.Get()) {
 		var ret PermissionConditions
 		return ret
 	}
@@ -84,6 +87,7 @@ func (o *CreateUpdateIamRolePermissionRequest) HasConditions() bool {
 func (o *CreateUpdateIamRolePermissionRequest) SetConditions(v PermissionConditions) {
 	o.Conditions.Set(&v)
 }
+
 // SetConditionsNil sets the value for Conditions to be an explicit nil
 func (o *CreateUpdateIamRolePermissionRequest) SetConditionsNil() {
 	o.Conditions.Set(nil)
@@ -95,6 +99,14 @@ func (o *CreateUpdateIamRolePermissionRequest) UnsetConditions() {
 }
 
 func (o CreateUpdateIamRolePermissionRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CreateUpdateIamRolePermissionRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Conditions.IsSet() {
 		toSerialize["conditions"] = o.Conditions.Get()
@@ -104,27 +116,25 @@ func (o CreateUpdateIamRolePermissionRequest) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CreateUpdateIamRolePermissionRequest) UnmarshalJSON(bytes []byte) (err error) {
+func (o *CreateUpdateIamRolePermissionRequest) UnmarshalJSON(data []byte) (err error) {
 	varCreateUpdateIamRolePermissionRequest := _CreateUpdateIamRolePermissionRequest{}
 
-	err = json.Unmarshal(bytes, &varCreateUpdateIamRolePermissionRequest)
-	if err == nil {
-		*o = CreateUpdateIamRolePermissionRequest(varCreateUpdateIamRolePermissionRequest)
-	} else {
+	err = json.Unmarshal(data, &varCreateUpdateIamRolePermissionRequest)
+
+	if err != nil {
 		return err
 	}
 
+	*o = CreateUpdateIamRolePermissionRequest(varCreateUpdateIamRolePermissionRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "conditions")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -165,4 +175,3 @@ func (v *NullableCreateUpdateIamRolePermissionRequest) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

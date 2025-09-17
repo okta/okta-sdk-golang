@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,14 +28,17 @@ import (
 	"time"
 )
 
+// checks if the BaseContextUser type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BaseContextUser{}
+
 // BaseContextUser Identifies the Okta user that the token was generated to authenticate and provides details of their Okta user profile
 type BaseContextUser struct {
 	// The unique identifier for the user
 	Id *string `json:"id,omitempty"`
 	// The timestamp when the user's password was last updated
-	PasswordChanged *time.Time `json:"passwordChanged,omitempty"`
-	Profile *BaseContextUserProfile `json:"profile,omitempty"`
-	Links *BaseContextUserLinks `json:"_links,omitempty"`
+	PasswordChanged      *time.Time              `json:"passwordChanged,omitempty"`
+	Profile              *BaseContextUserProfile `json:"profile,omitempty"`
+	Links                *BaseContextUserLinks   `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +63,7 @@ func NewBaseContextUserWithDefaults() *BaseContextUser {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *BaseContextUser) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *BaseContextUser) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseContextUser) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -78,7 +81,7 @@ func (o *BaseContextUser) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *BaseContextUser) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -92,7 +95,7 @@ func (o *BaseContextUser) SetId(v string) {
 
 // GetPasswordChanged returns the PasswordChanged field value if set, zero value otherwise.
 func (o *BaseContextUser) GetPasswordChanged() time.Time {
-	if o == nil || o.PasswordChanged == nil {
+	if o == nil || IsNil(o.PasswordChanged) {
 		var ret time.Time
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *BaseContextUser) GetPasswordChanged() time.Time {
 // GetPasswordChangedOk returns a tuple with the PasswordChanged field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseContextUser) GetPasswordChangedOk() (*time.Time, bool) {
-	if o == nil || o.PasswordChanged == nil {
+	if o == nil || IsNil(o.PasswordChanged) {
 		return nil, false
 	}
 	return o.PasswordChanged, true
@@ -110,7 +113,7 @@ func (o *BaseContextUser) GetPasswordChangedOk() (*time.Time, bool) {
 
 // HasPasswordChanged returns a boolean if a field has been set.
 func (o *BaseContextUser) HasPasswordChanged() bool {
-	if o != nil && o.PasswordChanged != nil {
+	if o != nil && !IsNil(o.PasswordChanged) {
 		return true
 	}
 
@@ -124,7 +127,7 @@ func (o *BaseContextUser) SetPasswordChanged(v time.Time) {
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *BaseContextUser) GetProfile() BaseContextUserProfile {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret BaseContextUserProfile
 		return ret
 	}
@@ -134,7 +137,7 @@ func (o *BaseContextUser) GetProfile() BaseContextUserProfile {
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseContextUser) GetProfileOk() (*BaseContextUserProfile, bool) {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		return nil, false
 	}
 	return o.Profile, true
@@ -142,7 +145,7 @@ func (o *BaseContextUser) GetProfileOk() (*BaseContextUserProfile, bool) {
 
 // HasProfile returns a boolean if a field has been set.
 func (o *BaseContextUser) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -156,7 +159,7 @@ func (o *BaseContextUser) SetProfile(v BaseContextUserProfile) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *BaseContextUser) GetLinks() BaseContextUserLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret BaseContextUserLinks
 		return ret
 	}
@@ -166,7 +169,7 @@ func (o *BaseContextUser) GetLinks() BaseContextUserLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseContextUser) GetLinksOk() (*BaseContextUserLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -174,7 +177,7 @@ func (o *BaseContextUser) GetLinksOk() (*BaseContextUserLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *BaseContextUser) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -187,17 +190,25 @@ func (o *BaseContextUser) SetLinks(v BaseContextUserLinks) {
 }
 
 func (o BaseContextUser) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BaseContextUser) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.PasswordChanged != nil {
+	if !IsNil(o.PasswordChanged) {
 		toSerialize["passwordChanged"] = o.PasswordChanged
 	}
-	if o.Profile != nil {
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -205,30 +216,28 @@ func (o BaseContextUser) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *BaseContextUser) UnmarshalJSON(bytes []byte) (err error) {
+func (o *BaseContextUser) UnmarshalJSON(data []byte) (err error) {
 	varBaseContextUser := _BaseContextUser{}
 
-	err = json.Unmarshal(bytes, &varBaseContextUser)
-	if err == nil {
-		*o = BaseContextUser(varBaseContextUser)
-	} else {
+	err = json.Unmarshal(data, &varBaseContextUser)
+
+	if err != nil {
 		return err
 	}
 
+	*o = BaseContextUser(varBaseContextUser)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "passwordChanged")
 		delete(additionalProperties, "profile")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -269,4 +278,3 @@ func (v *NullableBaseContextUser) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

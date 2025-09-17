@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the LogAuthenticationContext type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LogAuthenticationContext{}
+
 // LogAuthenticationContext All authentication relies on validating one or more credentials that prove the authenticity of the actor's identity. Credentials are sometimes provided by the actor, as is the case with passwords, and at other times provided by a third party, and validated by the authentication provider.  The authenticationContext contains metadata about how the actor is authenticated. For example, an authenticationContext for an event, where a user authenticates with Integrated Windows Authentication (IWA), looks like the following: ``` {     \"authenticationProvider\": \"ACTIVE_DIRECTORY\",     \"authenticationStep\": 0,     \"credentialProvider\": null,     \"credentialType\": \"IWA\",     \"externalSessionId\": \"102N1EKyPFERROGvK9wizMAPQ\",     \"interface\": null,     \"issuer\": null } ``` In this case, the user enters an IWA credential to authenticate against an Active Directory instance. All of the user's future-generated events in this sign-in session are going to share the same `externalSessionId`.  Among other operations, this response object can be used to scan for suspicious sign-in activity or perform analytics on user authentication habits (for example, how often authentication scheme X is used versus authentication scheme Y).
 type LogAuthenticationContext struct {
 	// The system that proves the identity of an actor using the credentials provided to it
@@ -40,8 +43,8 @@ type LogAuthenticationContext struct {
 	// A proxy for the actor's [session ID](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html)
 	ExternalSessionId *string `json:"externalSessionId,omitempty"`
 	// The third-party user interface that the actor authenticates through, if any.
-	Interface *string `json:"interface,omitempty"`
-	Issuer *LogIssuer `json:"issuer,omitempty"`
+	Interface            *string    `json:"interface,omitempty"`
+	Issuer               *LogIssuer `json:"issuer,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -66,7 +69,7 @@ func NewLogAuthenticationContextWithDefaults() *LogAuthenticationContext {
 
 // GetAuthenticationProvider returns the AuthenticationProvider field value if set, zero value otherwise.
 func (o *LogAuthenticationContext) GetAuthenticationProvider() string {
-	if o == nil || o.AuthenticationProvider == nil {
+	if o == nil || IsNil(o.AuthenticationProvider) {
 		var ret string
 		return ret
 	}
@@ -76,7 +79,7 @@ func (o *LogAuthenticationContext) GetAuthenticationProvider() string {
 // GetAuthenticationProviderOk returns a tuple with the AuthenticationProvider field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogAuthenticationContext) GetAuthenticationProviderOk() (*string, bool) {
-	if o == nil || o.AuthenticationProvider == nil {
+	if o == nil || IsNil(o.AuthenticationProvider) {
 		return nil, false
 	}
 	return o.AuthenticationProvider, true
@@ -84,7 +87,7 @@ func (o *LogAuthenticationContext) GetAuthenticationProviderOk() (*string, bool)
 
 // HasAuthenticationProvider returns a boolean if a field has been set.
 func (o *LogAuthenticationContext) HasAuthenticationProvider() bool {
-	if o != nil && o.AuthenticationProvider != nil {
+	if o != nil && !IsNil(o.AuthenticationProvider) {
 		return true
 	}
 
@@ -98,7 +101,7 @@ func (o *LogAuthenticationContext) SetAuthenticationProvider(v string) {
 
 // GetAuthenticationStep returns the AuthenticationStep field value if set, zero value otherwise.
 func (o *LogAuthenticationContext) GetAuthenticationStep() int32 {
-	if o == nil || o.AuthenticationStep == nil {
+	if o == nil || IsNil(o.AuthenticationStep) {
 		var ret int32
 		return ret
 	}
@@ -108,7 +111,7 @@ func (o *LogAuthenticationContext) GetAuthenticationStep() int32 {
 // GetAuthenticationStepOk returns a tuple with the AuthenticationStep field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogAuthenticationContext) GetAuthenticationStepOk() (*int32, bool) {
-	if o == nil || o.AuthenticationStep == nil {
+	if o == nil || IsNil(o.AuthenticationStep) {
 		return nil, false
 	}
 	return o.AuthenticationStep, true
@@ -116,7 +119,7 @@ func (o *LogAuthenticationContext) GetAuthenticationStepOk() (*int32, bool) {
 
 // HasAuthenticationStep returns a boolean if a field has been set.
 func (o *LogAuthenticationContext) HasAuthenticationStep() bool {
-	if o != nil && o.AuthenticationStep != nil {
+	if o != nil && !IsNil(o.AuthenticationStep) {
 		return true
 	}
 
@@ -130,7 +133,7 @@ func (o *LogAuthenticationContext) SetAuthenticationStep(v int32) {
 
 // GetCredentialProvider returns the CredentialProvider field value if set, zero value otherwise.
 func (o *LogAuthenticationContext) GetCredentialProvider() string {
-	if o == nil || o.CredentialProvider == nil {
+	if o == nil || IsNil(o.CredentialProvider) {
 		var ret string
 		return ret
 	}
@@ -140,7 +143,7 @@ func (o *LogAuthenticationContext) GetCredentialProvider() string {
 // GetCredentialProviderOk returns a tuple with the CredentialProvider field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogAuthenticationContext) GetCredentialProviderOk() (*string, bool) {
-	if o == nil || o.CredentialProvider == nil {
+	if o == nil || IsNil(o.CredentialProvider) {
 		return nil, false
 	}
 	return o.CredentialProvider, true
@@ -148,7 +151,7 @@ func (o *LogAuthenticationContext) GetCredentialProviderOk() (*string, bool) {
 
 // HasCredentialProvider returns a boolean if a field has been set.
 func (o *LogAuthenticationContext) HasCredentialProvider() bool {
-	if o != nil && o.CredentialProvider != nil {
+	if o != nil && !IsNil(o.CredentialProvider) {
 		return true
 	}
 
@@ -162,7 +165,7 @@ func (o *LogAuthenticationContext) SetCredentialProvider(v string) {
 
 // GetCredentialType returns the CredentialType field value if set, zero value otherwise.
 func (o *LogAuthenticationContext) GetCredentialType() string {
-	if o == nil || o.CredentialType == nil {
+	if o == nil || IsNil(o.CredentialType) {
 		var ret string
 		return ret
 	}
@@ -172,7 +175,7 @@ func (o *LogAuthenticationContext) GetCredentialType() string {
 // GetCredentialTypeOk returns a tuple with the CredentialType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogAuthenticationContext) GetCredentialTypeOk() (*string, bool) {
-	if o == nil || o.CredentialType == nil {
+	if o == nil || IsNil(o.CredentialType) {
 		return nil, false
 	}
 	return o.CredentialType, true
@@ -180,7 +183,7 @@ func (o *LogAuthenticationContext) GetCredentialTypeOk() (*string, bool) {
 
 // HasCredentialType returns a boolean if a field has been set.
 func (o *LogAuthenticationContext) HasCredentialType() bool {
-	if o != nil && o.CredentialType != nil {
+	if o != nil && !IsNil(o.CredentialType) {
 		return true
 	}
 
@@ -194,7 +197,7 @@ func (o *LogAuthenticationContext) SetCredentialType(v string) {
 
 // GetExternalSessionId returns the ExternalSessionId field value if set, zero value otherwise.
 func (o *LogAuthenticationContext) GetExternalSessionId() string {
-	if o == nil || o.ExternalSessionId == nil {
+	if o == nil || IsNil(o.ExternalSessionId) {
 		var ret string
 		return ret
 	}
@@ -204,7 +207,7 @@ func (o *LogAuthenticationContext) GetExternalSessionId() string {
 // GetExternalSessionIdOk returns a tuple with the ExternalSessionId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogAuthenticationContext) GetExternalSessionIdOk() (*string, bool) {
-	if o == nil || o.ExternalSessionId == nil {
+	if o == nil || IsNil(o.ExternalSessionId) {
 		return nil, false
 	}
 	return o.ExternalSessionId, true
@@ -212,7 +215,7 @@ func (o *LogAuthenticationContext) GetExternalSessionIdOk() (*string, bool) {
 
 // HasExternalSessionId returns a boolean if a field has been set.
 func (o *LogAuthenticationContext) HasExternalSessionId() bool {
-	if o != nil && o.ExternalSessionId != nil {
+	if o != nil && !IsNil(o.ExternalSessionId) {
 		return true
 	}
 
@@ -226,7 +229,7 @@ func (o *LogAuthenticationContext) SetExternalSessionId(v string) {
 
 // GetInterface returns the Interface field value if set, zero value otherwise.
 func (o *LogAuthenticationContext) GetInterface() string {
-	if o == nil || o.Interface == nil {
+	if o == nil || IsNil(o.Interface) {
 		var ret string
 		return ret
 	}
@@ -236,7 +239,7 @@ func (o *LogAuthenticationContext) GetInterface() string {
 // GetInterfaceOk returns a tuple with the Interface field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogAuthenticationContext) GetInterfaceOk() (*string, bool) {
-	if o == nil || o.Interface == nil {
+	if o == nil || IsNil(o.Interface) {
 		return nil, false
 	}
 	return o.Interface, true
@@ -244,7 +247,7 @@ func (o *LogAuthenticationContext) GetInterfaceOk() (*string, bool) {
 
 // HasInterface returns a boolean if a field has been set.
 func (o *LogAuthenticationContext) HasInterface() bool {
-	if o != nil && o.Interface != nil {
+	if o != nil && !IsNil(o.Interface) {
 		return true
 	}
 
@@ -258,7 +261,7 @@ func (o *LogAuthenticationContext) SetInterface(v string) {
 
 // GetIssuer returns the Issuer field value if set, zero value otherwise.
 func (o *LogAuthenticationContext) GetIssuer() LogIssuer {
-	if o == nil || o.Issuer == nil {
+	if o == nil || IsNil(o.Issuer) {
 		var ret LogIssuer
 		return ret
 	}
@@ -268,7 +271,7 @@ func (o *LogAuthenticationContext) GetIssuer() LogIssuer {
 // GetIssuerOk returns a tuple with the Issuer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogAuthenticationContext) GetIssuerOk() (*LogIssuer, bool) {
-	if o == nil || o.Issuer == nil {
+	if o == nil || IsNil(o.Issuer) {
 		return nil, false
 	}
 	return o.Issuer, true
@@ -276,7 +279,7 @@ func (o *LogAuthenticationContext) GetIssuerOk() (*LogIssuer, bool) {
 
 // HasIssuer returns a boolean if a field has been set.
 func (o *LogAuthenticationContext) HasIssuer() bool {
-	if o != nil && o.Issuer != nil {
+	if o != nil && !IsNil(o.Issuer) {
 		return true
 	}
 
@@ -289,26 +292,34 @@ func (o *LogAuthenticationContext) SetIssuer(v LogIssuer) {
 }
 
 func (o LogAuthenticationContext) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LogAuthenticationContext) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AuthenticationProvider != nil {
+	if !IsNil(o.AuthenticationProvider) {
 		toSerialize["authenticationProvider"] = o.AuthenticationProvider
 	}
-	if o.AuthenticationStep != nil {
+	if !IsNil(o.AuthenticationStep) {
 		toSerialize["authenticationStep"] = o.AuthenticationStep
 	}
-	if o.CredentialProvider != nil {
+	if !IsNil(o.CredentialProvider) {
 		toSerialize["credentialProvider"] = o.CredentialProvider
 	}
-	if o.CredentialType != nil {
+	if !IsNil(o.CredentialType) {
 		toSerialize["credentialType"] = o.CredentialType
 	}
-	if o.ExternalSessionId != nil {
+	if !IsNil(o.ExternalSessionId) {
 		toSerialize["externalSessionId"] = o.ExternalSessionId
 	}
-	if o.Interface != nil {
+	if !IsNil(o.Interface) {
 		toSerialize["interface"] = o.Interface
 	}
-	if o.Issuer != nil {
+	if !IsNil(o.Issuer) {
 		toSerialize["issuer"] = o.Issuer
 	}
 
@@ -316,23 +327,23 @@ func (o LogAuthenticationContext) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LogAuthenticationContext) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LogAuthenticationContext) UnmarshalJSON(data []byte) (err error) {
 	varLogAuthenticationContext := _LogAuthenticationContext{}
 
-	err = json.Unmarshal(bytes, &varLogAuthenticationContext)
-	if err == nil {
-		*o = LogAuthenticationContext(varLogAuthenticationContext)
-	} else {
+	err = json.Unmarshal(data, &varLogAuthenticationContext)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LogAuthenticationContext(varLogAuthenticationContext)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "authenticationProvider")
 		delete(additionalProperties, "authenticationStep")
 		delete(additionalProperties, "credentialProvider")
@@ -341,8 +352,6 @@ func (o *LogAuthenticationContext) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "interface")
 		delete(additionalProperties, "issuer")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -383,4 +392,3 @@ func (v *NullableLogAuthenticationContext) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

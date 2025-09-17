@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,16 +28,14 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
 // ExecuteInlineHook200Response - struct for ExecuteInlineHook200Response
 type ExecuteInlineHook200Response struct {
-	PasswordImportResponse *PasswordImportResponse
+	PasswordImportResponse         *PasswordImportResponse
 	RegistrationInlineHookResponse *RegistrationInlineHookResponse
-	SAMLHookResponse *SAMLHookResponse
-	TelephonyResponse *TelephonyResponse
-	TokenHookResponse *TokenHookResponse
-	UserImportResponse *UserImportResponse
+	SAMLHookResponse               *SAMLHookResponse
+	TelephonyResponse              *TelephonyResponse
+	TokenHookResponse              *TokenHookResponse
+	UserImportResponse             *UserImportResponse
 }
 
 // PasswordImportResponseAsExecuteInlineHook200Response is a convenience function that returns PasswordImportResponse wrapped in ExecuteInlineHook200Response
@@ -82,104 +80,103 @@ func UserImportResponseAsExecuteInlineHook200Response(v *UserImportResponse) Exe
 	}
 }
 
-
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *ExecuteInlineHook200Response) UnmarshalJSON(data []byte) error {
 	var err error
-        match := 0
-        // try to unmarshal data into PasswordImportResponse
-        err = json.Unmarshal(data, &dst.PasswordImportResponse)
-        if err == nil {
-                jsonPasswordImportResponse, _ := json.Marshal(dst.PasswordImportResponse)
-                if string(jsonPasswordImportResponse) == "{}" { // empty struct
-                        dst.PasswordImportResponse = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.PasswordImportResponse = nil
-        }
+	match := 0
+	// try to unmarshal data into PasswordImportResponse
+	err = json.Unmarshal(data, &dst.PasswordImportResponse)
+	if err == nil {
+		jsonPasswordImportResponse, _ := json.Marshal(dst.PasswordImportResponse)
+		if string(jsonPasswordImportResponse) == "{}" { // empty struct
+			dst.PasswordImportResponse = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.PasswordImportResponse = nil
+	}
 
-        // try to unmarshal data into RegistrationInlineHookResponse
-        err = json.Unmarshal(data, &dst.RegistrationInlineHookResponse)
-        if err == nil {
-                jsonRegistrationInlineHookResponse, _ := json.Marshal(dst.RegistrationInlineHookResponse)
-                if string(jsonRegistrationInlineHookResponse) == "{}" { // empty struct
-                        dst.RegistrationInlineHookResponse = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.RegistrationInlineHookResponse = nil
-        }
+	// try to unmarshal data into RegistrationInlineHookResponse
+	err = json.Unmarshal(data, &dst.RegistrationInlineHookResponse)
+	if err == nil {
+		jsonRegistrationInlineHookResponse, _ := json.Marshal(dst.RegistrationInlineHookResponse)
+		if string(jsonRegistrationInlineHookResponse) == "{}" { // empty struct
+			dst.RegistrationInlineHookResponse = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.RegistrationInlineHookResponse = nil
+	}
 
-        // try to unmarshal data into SAMLHookResponse
-        err = json.Unmarshal(data, &dst.SAMLHookResponse)
-        if err == nil {
-                jsonSAMLHookResponse, _ := json.Marshal(dst.SAMLHookResponse)
-                if string(jsonSAMLHookResponse) == "{}" { // empty struct
-                        dst.SAMLHookResponse = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.SAMLHookResponse = nil
-        }
+	// try to unmarshal data into SAMLHookResponse
+	err = json.Unmarshal(data, &dst.SAMLHookResponse)
+	if err == nil {
+		jsonSAMLHookResponse, _ := json.Marshal(dst.SAMLHookResponse)
+		if string(jsonSAMLHookResponse) == "{}" { // empty struct
+			dst.SAMLHookResponse = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.SAMLHookResponse = nil
+	}
 
-        // try to unmarshal data into TelephonyResponse
-        err = json.Unmarshal(data, &dst.TelephonyResponse)
-        if err == nil {
-                jsonTelephonyResponse, _ := json.Marshal(dst.TelephonyResponse)
-                if string(jsonTelephonyResponse) == "{}" { // empty struct
-                        dst.TelephonyResponse = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.TelephonyResponse = nil
-        }
+	// try to unmarshal data into TelephonyResponse
+	err = json.Unmarshal(data, &dst.TelephonyResponse)
+	if err == nil {
+		jsonTelephonyResponse, _ := json.Marshal(dst.TelephonyResponse)
+		if string(jsonTelephonyResponse) == "{}" { // empty struct
+			dst.TelephonyResponse = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.TelephonyResponse = nil
+	}
 
-        // try to unmarshal data into TokenHookResponse
-        err = json.Unmarshal(data, &dst.TokenHookResponse)
-        if err == nil {
-                jsonTokenHookResponse, _ := json.Marshal(dst.TokenHookResponse)
-                if string(jsonTokenHookResponse) == "{}" { // empty struct
-                        dst.TokenHookResponse = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.TokenHookResponse = nil
-        }
+	// try to unmarshal data into TokenHookResponse
+	err = json.Unmarshal(data, &dst.TokenHookResponse)
+	if err == nil {
+		jsonTokenHookResponse, _ := json.Marshal(dst.TokenHookResponse)
+		if string(jsonTokenHookResponse) == "{}" { // empty struct
+			dst.TokenHookResponse = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.TokenHookResponse = nil
+	}
 
-        // try to unmarshal data into UserImportResponse
-        err = json.Unmarshal(data, &dst.UserImportResponse)
-        if err == nil {
-                jsonUserImportResponse, _ := json.Marshal(dst.UserImportResponse)
-                if string(jsonUserImportResponse) == "{}" { // empty struct
-                        dst.UserImportResponse = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.UserImportResponse = nil
-        }
+	// try to unmarshal data into UserImportResponse
+	err = json.Unmarshal(data, &dst.UserImportResponse)
+	if err == nil {
+		jsonUserImportResponse, _ := json.Marshal(dst.UserImportResponse)
+		if string(jsonUserImportResponse) == "{}" { // empty struct
+			dst.UserImportResponse = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.UserImportResponse = nil
+	}
 
-        if match > 1 { // more than 1 match
-                // reset to nil
-                dst.PasswordImportResponse = nil
-                dst.RegistrationInlineHookResponse = nil
-                dst.SAMLHookResponse = nil
-                dst.TelephonyResponse = nil
-                dst.TokenHookResponse = nil
-                dst.UserImportResponse = nil
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.PasswordImportResponse = nil
+		dst.RegistrationInlineHookResponse = nil
+		dst.SAMLHookResponse = nil
+		dst.TelephonyResponse = nil
+		dst.TokenHookResponse = nil
+		dst.UserImportResponse = nil
 
-                return fmt.Errorf("Data matches more than one schema in oneOf(ExecuteInlineHook200Response)")
-        } else if match == 1 {
-                return nil // exactly one match
-        } else { // no match
-                return fmt.Errorf("Data failed to match schemas in oneOf(ExecuteInlineHook200Response)")
-        }
+		return fmt.Errorf("data matches more than one schema in oneOf(ExecuteInlineHook200Response)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("data failed to match schemas in oneOf(ExecuteInlineHook200Response)")
+	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -212,7 +209,7 @@ func (src ExecuteInlineHook200Response) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *ExecuteInlineHook200Response) GetActualInstance() (interface{}) {
+func (obj *ExecuteInlineHook200Response) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -238,6 +235,36 @@ func (obj *ExecuteInlineHook200Response) GetActualInstance() (interface{}) {
 
 	if obj.UserImportResponse != nil {
 		return obj.UserImportResponse
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj ExecuteInlineHook200Response) GetActualInstanceValue() interface{} {
+	if obj.PasswordImportResponse != nil {
+		return *obj.PasswordImportResponse
+	}
+
+	if obj.RegistrationInlineHookResponse != nil {
+		return *obj.RegistrationInlineHookResponse
+	}
+
+	if obj.SAMLHookResponse != nil {
+		return *obj.SAMLHookResponse
+	}
+
+	if obj.TelephonyResponse != nil {
+		return *obj.TelephonyResponse
+	}
+
+	if obj.TokenHookResponse != nil {
+		return *obj.TokenHookResponse
+	}
+
+	if obj.UserImportResponse != nil {
+		return *obj.UserImportResponse
 	}
 
 	// all schemas are nil
@@ -279,5 +306,3 @@ func (v *NullableExecuteInlineHook200Response) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

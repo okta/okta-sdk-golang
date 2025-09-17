@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the CSRLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CSRLinks{}
+
 // CSRLinks Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available for the current status of a CSR object using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification. This object is used for dynamic discovery of related resources and lifecycle operations.
 type CSRLinks struct {
-	Publish *HrefCsrPublishLink `json:"publish,omitempty"`
-	Self *HrefCsrSelfLink `json:"self,omitempty"`
+	Publish              *HrefCsrPublishLink `json:"publish,omitempty"`
+	Self                 *HrefCsrSelfLink    `json:"self,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewCSRLinksWithDefaults() *CSRLinks {
 
 // GetPublish returns the Publish field value if set, zero value otherwise.
 func (o *CSRLinks) GetPublish() HrefCsrPublishLink {
-	if o == nil || o.Publish == nil {
+	if o == nil || IsNil(o.Publish) {
 		var ret HrefCsrPublishLink
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *CSRLinks) GetPublish() HrefCsrPublishLink {
 // GetPublishOk returns a tuple with the Publish field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CSRLinks) GetPublishOk() (*HrefCsrPublishLink, bool) {
-	if o == nil || o.Publish == nil {
+	if o == nil || IsNil(o.Publish) {
 		return nil, false
 	}
 	return o.Publish, true
@@ -73,7 +76,7 @@ func (o *CSRLinks) GetPublishOk() (*HrefCsrPublishLink, bool) {
 
 // HasPublish returns a boolean if a field has been set.
 func (o *CSRLinks) HasPublish() bool {
-	if o != nil && o.Publish != nil {
+	if o != nil && !IsNil(o.Publish) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *CSRLinks) SetPublish(v HrefCsrPublishLink) {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *CSRLinks) GetSelf() HrefCsrSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefCsrSelfLink
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *CSRLinks) GetSelf() HrefCsrSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CSRLinks) GetSelfOk() (*HrefCsrSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -105,7 +108,7 @@ func (o *CSRLinks) GetSelfOk() (*HrefCsrSelfLink, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *CSRLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *CSRLinks) SetSelf(v HrefCsrSelfLink) {
 }
 
 func (o CSRLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CSRLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Publish != nil {
+	if !IsNil(o.Publish) {
 		toSerialize["publish"] = o.Publish
 	}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
 
@@ -130,28 +141,26 @@ func (o CSRLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CSRLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *CSRLinks) UnmarshalJSON(data []byte) (err error) {
 	varCSRLinks := _CSRLinks{}
 
-	err = json.Unmarshal(bytes, &varCSRLinks)
-	if err == nil {
-		*o = CSRLinks(varCSRLinks)
-	} else {
+	err = json.Unmarshal(data, &varCSRLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = CSRLinks(varCSRLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "publish")
 		delete(additionalProperties, "self")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableCSRLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

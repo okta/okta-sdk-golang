@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,26 +27,29 @@ import (
 	"encoding/json"
 )
 
+// checks if the LogDevice type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LogDevice{}
+
 // LogDevice The entity that describes a device enrolled with passwordless authentication using Okta Verify.
 type LogDevice struct {
 	// The integration platform or software used with the device
-	DeviceIntegrator map[string]interface{} `json:"device_integrator,omitempty"`
-	DiskEncryptionType *string `json:"disk_encryption_type,omitempty"`
+	DeviceIntegrator   map[string]interface{} `json:"device_integrator,omitempty"`
+	DiskEncryptionType *string                `json:"disk_encryption_type,omitempty"`
 	// ID of the device
 	Id *string `json:"id,omitempty"`
 	// If the device has removed software restrictions
 	Jailbreak *bool `json:"jailbreak,omitempty"`
 	// Indicates if the device is configured for device management and is registered with Okta
-	Managed *bool `json:"managed,omitempty"`
-	Name *string `json:"name,omitempty"`
+	Managed    *bool   `json:"managed,omitempty"`
+	Name       *string `json:"name,omitempty"`
 	OsPlatform *string `json:"os_platform,omitempty"`
-	OsVersion *string `json:"os_version,omitempty"`
+	OsVersion  *string `json:"os_version,omitempty"`
 	// Indicates if the device is registered with an Okta org and is bound to an Okta Verify instance on the device
-	Registered *bool `json:"registered,omitempty"`
+	Registered     *bool   `json:"registered,omitempty"`
 	ScreenLockType *string `json:"screen_lock_type,omitempty"`
 	// The availability of hardware security on the device
 	SecureHardwarePresent *bool `json:"secure_hardware_present,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties  map[string]interface{}
 }
 
 type _LogDevice LogDevice
@@ -70,7 +73,7 @@ func NewLogDeviceWithDefaults() *LogDevice {
 
 // GetDeviceIntegrator returns the DeviceIntegrator field value if set, zero value otherwise.
 func (o *LogDevice) GetDeviceIntegrator() map[string]interface{} {
-	if o == nil || o.DeviceIntegrator == nil {
+	if o == nil || IsNil(o.DeviceIntegrator) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -80,15 +83,15 @@ func (o *LogDevice) GetDeviceIntegrator() map[string]interface{} {
 // GetDeviceIntegratorOk returns a tuple with the DeviceIntegrator field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogDevice) GetDeviceIntegratorOk() (map[string]interface{}, bool) {
-	if o == nil || o.DeviceIntegrator == nil {
-		return nil, false
+	if o == nil || IsNil(o.DeviceIntegrator) {
+		return map[string]interface{}{}, false
 	}
 	return o.DeviceIntegrator, true
 }
 
 // HasDeviceIntegrator returns a boolean if a field has been set.
 func (o *LogDevice) HasDeviceIntegrator() bool {
-	if o != nil && o.DeviceIntegrator != nil {
+	if o != nil && !IsNil(o.DeviceIntegrator) {
 		return true
 	}
 
@@ -102,7 +105,7 @@ func (o *LogDevice) SetDeviceIntegrator(v map[string]interface{}) {
 
 // GetDiskEncryptionType returns the DiskEncryptionType field value if set, zero value otherwise.
 func (o *LogDevice) GetDiskEncryptionType() string {
-	if o == nil || o.DiskEncryptionType == nil {
+	if o == nil || IsNil(o.DiskEncryptionType) {
 		var ret string
 		return ret
 	}
@@ -112,7 +115,7 @@ func (o *LogDevice) GetDiskEncryptionType() string {
 // GetDiskEncryptionTypeOk returns a tuple with the DiskEncryptionType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogDevice) GetDiskEncryptionTypeOk() (*string, bool) {
-	if o == nil || o.DiskEncryptionType == nil {
+	if o == nil || IsNil(o.DiskEncryptionType) {
 		return nil, false
 	}
 	return o.DiskEncryptionType, true
@@ -120,7 +123,7 @@ func (o *LogDevice) GetDiskEncryptionTypeOk() (*string, bool) {
 
 // HasDiskEncryptionType returns a boolean if a field has been set.
 func (o *LogDevice) HasDiskEncryptionType() bool {
-	if o != nil && o.DiskEncryptionType != nil {
+	if o != nil && !IsNil(o.DiskEncryptionType) {
 		return true
 	}
 
@@ -134,7 +137,7 @@ func (o *LogDevice) SetDiskEncryptionType(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *LogDevice) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -144,7 +147,7 @@ func (o *LogDevice) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogDevice) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -152,7 +155,7 @@ func (o *LogDevice) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *LogDevice) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -166,7 +169,7 @@ func (o *LogDevice) SetId(v string) {
 
 // GetJailbreak returns the Jailbreak field value if set, zero value otherwise.
 func (o *LogDevice) GetJailbreak() bool {
-	if o == nil || o.Jailbreak == nil {
+	if o == nil || IsNil(o.Jailbreak) {
 		var ret bool
 		return ret
 	}
@@ -176,7 +179,7 @@ func (o *LogDevice) GetJailbreak() bool {
 // GetJailbreakOk returns a tuple with the Jailbreak field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogDevice) GetJailbreakOk() (*bool, bool) {
-	if o == nil || o.Jailbreak == nil {
+	if o == nil || IsNil(o.Jailbreak) {
 		return nil, false
 	}
 	return o.Jailbreak, true
@@ -184,7 +187,7 @@ func (o *LogDevice) GetJailbreakOk() (*bool, bool) {
 
 // HasJailbreak returns a boolean if a field has been set.
 func (o *LogDevice) HasJailbreak() bool {
-	if o != nil && o.Jailbreak != nil {
+	if o != nil && !IsNil(o.Jailbreak) {
 		return true
 	}
 
@@ -198,7 +201,7 @@ func (o *LogDevice) SetJailbreak(v bool) {
 
 // GetManaged returns the Managed field value if set, zero value otherwise.
 func (o *LogDevice) GetManaged() bool {
-	if o == nil || o.Managed == nil {
+	if o == nil || IsNil(o.Managed) {
 		var ret bool
 		return ret
 	}
@@ -208,7 +211,7 @@ func (o *LogDevice) GetManaged() bool {
 // GetManagedOk returns a tuple with the Managed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogDevice) GetManagedOk() (*bool, bool) {
-	if o == nil || o.Managed == nil {
+	if o == nil || IsNil(o.Managed) {
 		return nil, false
 	}
 	return o.Managed, true
@@ -216,7 +219,7 @@ func (o *LogDevice) GetManagedOk() (*bool, bool) {
 
 // HasManaged returns a boolean if a field has been set.
 func (o *LogDevice) HasManaged() bool {
-	if o != nil && o.Managed != nil {
+	if o != nil && !IsNil(o.Managed) {
 		return true
 	}
 
@@ -230,7 +233,7 @@ func (o *LogDevice) SetManaged(v bool) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *LogDevice) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -240,7 +243,7 @@ func (o *LogDevice) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogDevice) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -248,7 +251,7 @@ func (o *LogDevice) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *LogDevice) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -262,7 +265,7 @@ func (o *LogDevice) SetName(v string) {
 
 // GetOsPlatform returns the OsPlatform field value if set, zero value otherwise.
 func (o *LogDevice) GetOsPlatform() string {
-	if o == nil || o.OsPlatform == nil {
+	if o == nil || IsNil(o.OsPlatform) {
 		var ret string
 		return ret
 	}
@@ -272,7 +275,7 @@ func (o *LogDevice) GetOsPlatform() string {
 // GetOsPlatformOk returns a tuple with the OsPlatform field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogDevice) GetOsPlatformOk() (*string, bool) {
-	if o == nil || o.OsPlatform == nil {
+	if o == nil || IsNil(o.OsPlatform) {
 		return nil, false
 	}
 	return o.OsPlatform, true
@@ -280,7 +283,7 @@ func (o *LogDevice) GetOsPlatformOk() (*string, bool) {
 
 // HasOsPlatform returns a boolean if a field has been set.
 func (o *LogDevice) HasOsPlatform() bool {
-	if o != nil && o.OsPlatform != nil {
+	if o != nil && !IsNil(o.OsPlatform) {
 		return true
 	}
 
@@ -294,7 +297,7 @@ func (o *LogDevice) SetOsPlatform(v string) {
 
 // GetOsVersion returns the OsVersion field value if set, zero value otherwise.
 func (o *LogDevice) GetOsVersion() string {
-	if o == nil || o.OsVersion == nil {
+	if o == nil || IsNil(o.OsVersion) {
 		var ret string
 		return ret
 	}
@@ -304,7 +307,7 @@ func (o *LogDevice) GetOsVersion() string {
 // GetOsVersionOk returns a tuple with the OsVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogDevice) GetOsVersionOk() (*string, bool) {
-	if o == nil || o.OsVersion == nil {
+	if o == nil || IsNil(o.OsVersion) {
 		return nil, false
 	}
 	return o.OsVersion, true
@@ -312,7 +315,7 @@ func (o *LogDevice) GetOsVersionOk() (*string, bool) {
 
 // HasOsVersion returns a boolean if a field has been set.
 func (o *LogDevice) HasOsVersion() bool {
-	if o != nil && o.OsVersion != nil {
+	if o != nil && !IsNil(o.OsVersion) {
 		return true
 	}
 
@@ -326,7 +329,7 @@ func (o *LogDevice) SetOsVersion(v string) {
 
 // GetRegistered returns the Registered field value if set, zero value otherwise.
 func (o *LogDevice) GetRegistered() bool {
-	if o == nil || o.Registered == nil {
+	if o == nil || IsNil(o.Registered) {
 		var ret bool
 		return ret
 	}
@@ -336,7 +339,7 @@ func (o *LogDevice) GetRegistered() bool {
 // GetRegisteredOk returns a tuple with the Registered field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogDevice) GetRegisteredOk() (*bool, bool) {
-	if o == nil || o.Registered == nil {
+	if o == nil || IsNil(o.Registered) {
 		return nil, false
 	}
 	return o.Registered, true
@@ -344,7 +347,7 @@ func (o *LogDevice) GetRegisteredOk() (*bool, bool) {
 
 // HasRegistered returns a boolean if a field has been set.
 func (o *LogDevice) HasRegistered() bool {
-	if o != nil && o.Registered != nil {
+	if o != nil && !IsNil(o.Registered) {
 		return true
 	}
 
@@ -358,7 +361,7 @@ func (o *LogDevice) SetRegistered(v bool) {
 
 // GetScreenLockType returns the ScreenLockType field value if set, zero value otherwise.
 func (o *LogDevice) GetScreenLockType() string {
-	if o == nil || o.ScreenLockType == nil {
+	if o == nil || IsNil(o.ScreenLockType) {
 		var ret string
 		return ret
 	}
@@ -368,7 +371,7 @@ func (o *LogDevice) GetScreenLockType() string {
 // GetScreenLockTypeOk returns a tuple with the ScreenLockType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogDevice) GetScreenLockTypeOk() (*string, bool) {
-	if o == nil || o.ScreenLockType == nil {
+	if o == nil || IsNil(o.ScreenLockType) {
 		return nil, false
 	}
 	return o.ScreenLockType, true
@@ -376,7 +379,7 @@ func (o *LogDevice) GetScreenLockTypeOk() (*string, bool) {
 
 // HasScreenLockType returns a boolean if a field has been set.
 func (o *LogDevice) HasScreenLockType() bool {
-	if o != nil && o.ScreenLockType != nil {
+	if o != nil && !IsNil(o.ScreenLockType) {
 		return true
 	}
 
@@ -390,7 +393,7 @@ func (o *LogDevice) SetScreenLockType(v string) {
 
 // GetSecureHardwarePresent returns the SecureHardwarePresent field value if set, zero value otherwise.
 func (o *LogDevice) GetSecureHardwarePresent() bool {
-	if o == nil || o.SecureHardwarePresent == nil {
+	if o == nil || IsNil(o.SecureHardwarePresent) {
 		var ret bool
 		return ret
 	}
@@ -400,7 +403,7 @@ func (o *LogDevice) GetSecureHardwarePresent() bool {
 // GetSecureHardwarePresentOk returns a tuple with the SecureHardwarePresent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogDevice) GetSecureHardwarePresentOk() (*bool, bool) {
-	if o == nil || o.SecureHardwarePresent == nil {
+	if o == nil || IsNil(o.SecureHardwarePresent) {
 		return nil, false
 	}
 	return o.SecureHardwarePresent, true
@@ -408,7 +411,7 @@ func (o *LogDevice) GetSecureHardwarePresentOk() (*bool, bool) {
 
 // HasSecureHardwarePresent returns a boolean if a field has been set.
 func (o *LogDevice) HasSecureHardwarePresent() bool {
-	if o != nil && o.SecureHardwarePresent != nil {
+	if o != nil && !IsNil(o.SecureHardwarePresent) {
 		return true
 	}
 
@@ -421,38 +424,46 @@ func (o *LogDevice) SetSecureHardwarePresent(v bool) {
 }
 
 func (o LogDevice) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LogDevice) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.DeviceIntegrator != nil {
+	if !IsNil(o.DeviceIntegrator) {
 		toSerialize["device_integrator"] = o.DeviceIntegrator
 	}
-	if o.DiskEncryptionType != nil {
+	if !IsNil(o.DiskEncryptionType) {
 		toSerialize["disk_encryption_type"] = o.DiskEncryptionType
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Jailbreak != nil {
+	if !IsNil(o.Jailbreak) {
 		toSerialize["jailbreak"] = o.Jailbreak
 	}
-	if o.Managed != nil {
+	if !IsNil(o.Managed) {
 		toSerialize["managed"] = o.Managed
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.OsPlatform != nil {
+	if !IsNil(o.OsPlatform) {
 		toSerialize["os_platform"] = o.OsPlatform
 	}
-	if o.OsVersion != nil {
+	if !IsNil(o.OsVersion) {
 		toSerialize["os_version"] = o.OsVersion
 	}
-	if o.Registered != nil {
+	if !IsNil(o.Registered) {
 		toSerialize["registered"] = o.Registered
 	}
-	if o.ScreenLockType != nil {
+	if !IsNil(o.ScreenLockType) {
 		toSerialize["screen_lock_type"] = o.ScreenLockType
 	}
-	if o.SecureHardwarePresent != nil {
+	if !IsNil(o.SecureHardwarePresent) {
 		toSerialize["secure_hardware_present"] = o.SecureHardwarePresent
 	}
 
@@ -460,23 +471,23 @@ func (o LogDevice) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LogDevice) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LogDevice) UnmarshalJSON(data []byte) (err error) {
 	varLogDevice := _LogDevice{}
 
-	err = json.Unmarshal(bytes, &varLogDevice)
-	if err == nil {
-		*o = LogDevice(varLogDevice)
-	} else {
+	err = json.Unmarshal(data, &varLogDevice)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LogDevice(varLogDevice)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "device_integrator")
 		delete(additionalProperties, "disk_encryption_type")
 		delete(additionalProperties, "id")
@@ -489,8 +500,6 @@ func (o *LogDevice) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "screen_lock_type")
 		delete(additionalProperties, "secure_hardware_present")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -531,4 +540,3 @@ func (v *NullableLogDevice) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

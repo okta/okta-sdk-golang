@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserRiskRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserRiskRequest{}
+
 // UserRiskRequest struct for UserRiskRequest
 type UserRiskRequest struct {
 	// The risk level associated with the user
-	RiskLevel *string `json:"riskLevel,omitempty"`
+	RiskLevel            *string `json:"riskLevel,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewUserRiskRequestWithDefaults() *UserRiskRequest {
 
 // GetRiskLevel returns the RiskLevel field value if set, zero value otherwise.
 func (o *UserRiskRequest) GetRiskLevel() string {
-	if o == nil || o.RiskLevel == nil {
+	if o == nil || IsNil(o.RiskLevel) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *UserRiskRequest) GetRiskLevel() string {
 // GetRiskLevelOk returns a tuple with the RiskLevel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserRiskRequest) GetRiskLevelOk() (*string, bool) {
-	if o == nil || o.RiskLevel == nil {
+	if o == nil || IsNil(o.RiskLevel) {
 		return nil, false
 	}
 	return o.RiskLevel, true
@@ -73,7 +76,7 @@ func (o *UserRiskRequest) GetRiskLevelOk() (*string, bool) {
 
 // HasRiskLevel returns a boolean if a field has been set.
 func (o *UserRiskRequest) HasRiskLevel() bool {
-	if o != nil && o.RiskLevel != nil {
+	if o != nil && !IsNil(o.RiskLevel) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *UserRiskRequest) SetRiskLevel(v string) {
 }
 
 func (o UserRiskRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserRiskRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.RiskLevel != nil {
+	if !IsNil(o.RiskLevel) {
 		toSerialize["riskLevel"] = o.RiskLevel
 	}
 
@@ -95,27 +106,25 @@ func (o UserRiskRequest) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserRiskRequest) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserRiskRequest) UnmarshalJSON(data []byte) (err error) {
 	varUserRiskRequest := _UserRiskRequest{}
 
-	err = json.Unmarshal(bytes, &varUserRiskRequest)
-	if err == nil {
-		*o = UserRiskRequest(varUserRiskRequest)
-	} else {
+	err = json.Unmarshal(data, &varUserRiskRequest)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserRiskRequest(varUserRiskRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "riskLevel")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableUserRiskRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

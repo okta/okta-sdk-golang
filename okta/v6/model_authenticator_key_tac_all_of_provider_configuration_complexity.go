@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthenticatorKeyTacAllOfProviderConfigurationComplexity type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorKeyTacAllOfProviderConfigurationComplexity{}
+
 // AuthenticatorKeyTacAllOfProviderConfigurationComplexity Define the complexity of the TAC
 type AuthenticatorKeyTacAllOfProviderConfigurationComplexity struct {
 	// Use numbers in the TAC. `numbers` is always `true` for the TAC authenticator.
@@ -34,7 +37,7 @@ type AuthenticatorKeyTacAllOfProviderConfigurationComplexity struct {
 	// Use letters in the TAC
 	Letters *bool `json:"letters,omitempty"`
 	// Use special characters in the TAC
-	SpecialCharacters *bool `json:"specialCharacters,omitempty"`
+	SpecialCharacters    *bool `json:"specialCharacters,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewAuthenticatorKeyTacAllOfProviderConfigurationComplexityWithDefaults() *A
 
 // GetNumbers returns the Numbers field value if set, zero value otherwise.
 func (o *AuthenticatorKeyTacAllOfProviderConfigurationComplexity) GetNumbers() bool {
-	if o == nil || o.Numbers == nil {
+	if o == nil || IsNil(o.Numbers) {
 		var ret bool
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *AuthenticatorKeyTacAllOfProviderConfigurationComplexity) GetNumbers() b
 // GetNumbersOk returns a tuple with the Numbers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorKeyTacAllOfProviderConfigurationComplexity) GetNumbersOk() (*bool, bool) {
-	if o == nil || o.Numbers == nil {
+	if o == nil || IsNil(o.Numbers) {
 		return nil, false
 	}
 	return o.Numbers, true
@@ -77,7 +80,7 @@ func (o *AuthenticatorKeyTacAllOfProviderConfigurationComplexity) GetNumbersOk()
 
 // HasNumbers returns a boolean if a field has been set.
 func (o *AuthenticatorKeyTacAllOfProviderConfigurationComplexity) HasNumbers() bool {
-	if o != nil && o.Numbers != nil {
+	if o != nil && !IsNil(o.Numbers) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *AuthenticatorKeyTacAllOfProviderConfigurationComplexity) SetNumbers(v b
 
 // GetLetters returns the Letters field value if set, zero value otherwise.
 func (o *AuthenticatorKeyTacAllOfProviderConfigurationComplexity) GetLetters() bool {
-	if o == nil || o.Letters == nil {
+	if o == nil || IsNil(o.Letters) {
 		var ret bool
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *AuthenticatorKeyTacAllOfProviderConfigurationComplexity) GetLetters() b
 // GetLettersOk returns a tuple with the Letters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorKeyTacAllOfProviderConfigurationComplexity) GetLettersOk() (*bool, bool) {
-	if o == nil || o.Letters == nil {
+	if o == nil || IsNil(o.Letters) {
 		return nil, false
 	}
 	return o.Letters, true
@@ -109,7 +112,7 @@ func (o *AuthenticatorKeyTacAllOfProviderConfigurationComplexity) GetLettersOk()
 
 // HasLetters returns a boolean if a field has been set.
 func (o *AuthenticatorKeyTacAllOfProviderConfigurationComplexity) HasLetters() bool {
-	if o != nil && o.Letters != nil {
+	if o != nil && !IsNil(o.Letters) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *AuthenticatorKeyTacAllOfProviderConfigurationComplexity) SetLetters(v b
 
 // GetSpecialCharacters returns the SpecialCharacters field value if set, zero value otherwise.
 func (o *AuthenticatorKeyTacAllOfProviderConfigurationComplexity) GetSpecialCharacters() bool {
-	if o == nil || o.SpecialCharacters == nil {
+	if o == nil || IsNil(o.SpecialCharacters) {
 		var ret bool
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *AuthenticatorKeyTacAllOfProviderConfigurationComplexity) GetSpecialChar
 // GetSpecialCharactersOk returns a tuple with the SpecialCharacters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorKeyTacAllOfProviderConfigurationComplexity) GetSpecialCharactersOk() (*bool, bool) {
-	if o == nil || o.SpecialCharacters == nil {
+	if o == nil || IsNil(o.SpecialCharacters) {
 		return nil, false
 	}
 	return o.SpecialCharacters, true
@@ -141,7 +144,7 @@ func (o *AuthenticatorKeyTacAllOfProviderConfigurationComplexity) GetSpecialChar
 
 // HasSpecialCharacters returns a boolean if a field has been set.
 func (o *AuthenticatorKeyTacAllOfProviderConfigurationComplexity) HasSpecialCharacters() bool {
-	if o != nil && o.SpecialCharacters != nil {
+	if o != nil && !IsNil(o.SpecialCharacters) {
 		return true
 	}
 
@@ -154,14 +157,22 @@ func (o *AuthenticatorKeyTacAllOfProviderConfigurationComplexity) SetSpecialChar
 }
 
 func (o AuthenticatorKeyTacAllOfProviderConfigurationComplexity) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorKeyTacAllOfProviderConfigurationComplexity) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Numbers != nil {
+	if !IsNil(o.Numbers) {
 		toSerialize["numbers"] = o.Numbers
 	}
-	if o.Letters != nil {
+	if !IsNil(o.Letters) {
 		toSerialize["letters"] = o.Letters
 	}
-	if o.SpecialCharacters != nil {
+	if !IsNil(o.SpecialCharacters) {
 		toSerialize["specialCharacters"] = o.SpecialCharacters
 	}
 
@@ -169,29 +180,27 @@ func (o AuthenticatorKeyTacAllOfProviderConfigurationComplexity) MarshalJSON() (
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorKeyTacAllOfProviderConfigurationComplexity) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorKeyTacAllOfProviderConfigurationComplexity) UnmarshalJSON(data []byte) (err error) {
 	varAuthenticatorKeyTacAllOfProviderConfigurationComplexity := _AuthenticatorKeyTacAllOfProviderConfigurationComplexity{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorKeyTacAllOfProviderConfigurationComplexity)
-	if err == nil {
-		*o = AuthenticatorKeyTacAllOfProviderConfigurationComplexity(varAuthenticatorKeyTacAllOfProviderConfigurationComplexity)
-	} else {
+	err = json.Unmarshal(data, &varAuthenticatorKeyTacAllOfProviderConfigurationComplexity)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthenticatorKeyTacAllOfProviderConfigurationComplexity(varAuthenticatorKeyTacAllOfProviderConfigurationComplexity)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "numbers")
 		delete(additionalProperties, "letters")
 		delete(additionalProperties, "specialCharacters")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -232,4 +241,3 @@ func (v *NullableAuthenticatorKeyTacAllOfProviderConfigurationComplexity) Unmars
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

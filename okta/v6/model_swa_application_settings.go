@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SwaApplicationSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SwaApplicationSettings{}
+
 // SwaApplicationSettings struct for SwaApplicationSettings
 type SwaApplicationSettings struct {
 	// The Governance Engine opt-in status for the app
@@ -36,10 +39,10 @@ type SwaApplicationSettings struct {
 	// Controls whether Okta automatically assigns users to the app based on the user's role or group membership.
 	ImplicitAssignment *bool `json:"implicitAssignment,omitempty"`
 	// Identifier of an inline hook. Inline hooks are outbound calls from Okta to your own custom code, triggered at specific points in Okta process flows. They allow you to integrate custom functionality into those flows. See [Inline hooks](/openapi/okta-management/management/tag/InlineHook/).
-	InlineHookId *string `json:"inlineHookId,omitempty"`
-	Notes *ApplicationSettingsNotes `json:"notes,omitempty"`
-	Notifications *ApplicationSettingsNotifications `json:"notifications,omitempty"`
-	App *SwaApplicationSettingsApplication `json:"app,omitempty"`
+	InlineHookId         *string                            `json:"inlineHookId,omitempty"`
+	Notes                *ApplicationSettingsNotes          `json:"notes,omitempty"`
+	Notifications        *ApplicationSettingsNotifications  `json:"notifications,omitempty"`
+	App                  *SwaApplicationSettingsApplication `json:"app,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -64,7 +67,7 @@ func NewSwaApplicationSettingsWithDefaults() *SwaApplicationSettings {
 
 // GetEmOptInStatus returns the EmOptInStatus field value if set, zero value otherwise.
 func (o *SwaApplicationSettings) GetEmOptInStatus() string {
-	if o == nil || o.EmOptInStatus == nil {
+	if o == nil || IsNil(o.EmOptInStatus) {
 		var ret string
 		return ret
 	}
@@ -74,7 +77,7 @@ func (o *SwaApplicationSettings) GetEmOptInStatus() string {
 // GetEmOptInStatusOk returns a tuple with the EmOptInStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SwaApplicationSettings) GetEmOptInStatusOk() (*string, bool) {
-	if o == nil || o.EmOptInStatus == nil {
+	if o == nil || IsNil(o.EmOptInStatus) {
 		return nil, false
 	}
 	return o.EmOptInStatus, true
@@ -82,7 +85,7 @@ func (o *SwaApplicationSettings) GetEmOptInStatusOk() (*string, bool) {
 
 // HasEmOptInStatus returns a boolean if a field has been set.
 func (o *SwaApplicationSettings) HasEmOptInStatus() bool {
-	if o != nil && o.EmOptInStatus != nil {
+	if o != nil && !IsNil(o.EmOptInStatus) {
 		return true
 	}
 
@@ -96,7 +99,7 @@ func (o *SwaApplicationSettings) SetEmOptInStatus(v string) {
 
 // GetIdentityStoreId returns the IdentityStoreId field value if set, zero value otherwise.
 func (o *SwaApplicationSettings) GetIdentityStoreId() string {
-	if o == nil || o.IdentityStoreId == nil {
+	if o == nil || IsNil(o.IdentityStoreId) {
 		var ret string
 		return ret
 	}
@@ -106,7 +109,7 @@ func (o *SwaApplicationSettings) GetIdentityStoreId() string {
 // GetIdentityStoreIdOk returns a tuple with the IdentityStoreId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SwaApplicationSettings) GetIdentityStoreIdOk() (*string, bool) {
-	if o == nil || o.IdentityStoreId == nil {
+	if o == nil || IsNil(o.IdentityStoreId) {
 		return nil, false
 	}
 	return o.IdentityStoreId, true
@@ -114,7 +117,7 @@ func (o *SwaApplicationSettings) GetIdentityStoreIdOk() (*string, bool) {
 
 // HasIdentityStoreId returns a boolean if a field has been set.
 func (o *SwaApplicationSettings) HasIdentityStoreId() bool {
-	if o != nil && o.IdentityStoreId != nil {
+	if o != nil && !IsNil(o.IdentityStoreId) {
 		return true
 	}
 
@@ -128,7 +131,7 @@ func (o *SwaApplicationSettings) SetIdentityStoreId(v string) {
 
 // GetImplicitAssignment returns the ImplicitAssignment field value if set, zero value otherwise.
 func (o *SwaApplicationSettings) GetImplicitAssignment() bool {
-	if o == nil || o.ImplicitAssignment == nil {
+	if o == nil || IsNil(o.ImplicitAssignment) {
 		var ret bool
 		return ret
 	}
@@ -138,7 +141,7 @@ func (o *SwaApplicationSettings) GetImplicitAssignment() bool {
 // GetImplicitAssignmentOk returns a tuple with the ImplicitAssignment field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SwaApplicationSettings) GetImplicitAssignmentOk() (*bool, bool) {
-	if o == nil || o.ImplicitAssignment == nil {
+	if o == nil || IsNil(o.ImplicitAssignment) {
 		return nil, false
 	}
 	return o.ImplicitAssignment, true
@@ -146,7 +149,7 @@ func (o *SwaApplicationSettings) GetImplicitAssignmentOk() (*bool, bool) {
 
 // HasImplicitAssignment returns a boolean if a field has been set.
 func (o *SwaApplicationSettings) HasImplicitAssignment() bool {
-	if o != nil && o.ImplicitAssignment != nil {
+	if o != nil && !IsNil(o.ImplicitAssignment) {
 		return true
 	}
 
@@ -160,7 +163,7 @@ func (o *SwaApplicationSettings) SetImplicitAssignment(v bool) {
 
 // GetInlineHookId returns the InlineHookId field value if set, zero value otherwise.
 func (o *SwaApplicationSettings) GetInlineHookId() string {
-	if o == nil || o.InlineHookId == nil {
+	if o == nil || IsNil(o.InlineHookId) {
 		var ret string
 		return ret
 	}
@@ -170,7 +173,7 @@ func (o *SwaApplicationSettings) GetInlineHookId() string {
 // GetInlineHookIdOk returns a tuple with the InlineHookId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SwaApplicationSettings) GetInlineHookIdOk() (*string, bool) {
-	if o == nil || o.InlineHookId == nil {
+	if o == nil || IsNil(o.InlineHookId) {
 		return nil, false
 	}
 	return o.InlineHookId, true
@@ -178,7 +181,7 @@ func (o *SwaApplicationSettings) GetInlineHookIdOk() (*string, bool) {
 
 // HasInlineHookId returns a boolean if a field has been set.
 func (o *SwaApplicationSettings) HasInlineHookId() bool {
-	if o != nil && o.InlineHookId != nil {
+	if o != nil && !IsNil(o.InlineHookId) {
 		return true
 	}
 
@@ -192,7 +195,7 @@ func (o *SwaApplicationSettings) SetInlineHookId(v string) {
 
 // GetNotes returns the Notes field value if set, zero value otherwise.
 func (o *SwaApplicationSettings) GetNotes() ApplicationSettingsNotes {
-	if o == nil || o.Notes == nil {
+	if o == nil || IsNil(o.Notes) {
 		var ret ApplicationSettingsNotes
 		return ret
 	}
@@ -202,7 +205,7 @@ func (o *SwaApplicationSettings) GetNotes() ApplicationSettingsNotes {
 // GetNotesOk returns a tuple with the Notes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SwaApplicationSettings) GetNotesOk() (*ApplicationSettingsNotes, bool) {
-	if o == nil || o.Notes == nil {
+	if o == nil || IsNil(o.Notes) {
 		return nil, false
 	}
 	return o.Notes, true
@@ -210,7 +213,7 @@ func (o *SwaApplicationSettings) GetNotesOk() (*ApplicationSettingsNotes, bool) 
 
 // HasNotes returns a boolean if a field has been set.
 func (o *SwaApplicationSettings) HasNotes() bool {
-	if o != nil && o.Notes != nil {
+	if o != nil && !IsNil(o.Notes) {
 		return true
 	}
 
@@ -224,7 +227,7 @@ func (o *SwaApplicationSettings) SetNotes(v ApplicationSettingsNotes) {
 
 // GetNotifications returns the Notifications field value if set, zero value otherwise.
 func (o *SwaApplicationSettings) GetNotifications() ApplicationSettingsNotifications {
-	if o == nil || o.Notifications == nil {
+	if o == nil || IsNil(o.Notifications) {
 		var ret ApplicationSettingsNotifications
 		return ret
 	}
@@ -234,7 +237,7 @@ func (o *SwaApplicationSettings) GetNotifications() ApplicationSettingsNotificat
 // GetNotificationsOk returns a tuple with the Notifications field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SwaApplicationSettings) GetNotificationsOk() (*ApplicationSettingsNotifications, bool) {
-	if o == nil || o.Notifications == nil {
+	if o == nil || IsNil(o.Notifications) {
 		return nil, false
 	}
 	return o.Notifications, true
@@ -242,7 +245,7 @@ func (o *SwaApplicationSettings) GetNotificationsOk() (*ApplicationSettingsNotif
 
 // HasNotifications returns a boolean if a field has been set.
 func (o *SwaApplicationSettings) HasNotifications() bool {
-	if o != nil && o.Notifications != nil {
+	if o != nil && !IsNil(o.Notifications) {
 		return true
 	}
 
@@ -256,7 +259,7 @@ func (o *SwaApplicationSettings) SetNotifications(v ApplicationSettingsNotificat
 
 // GetApp returns the App field value if set, zero value otherwise.
 func (o *SwaApplicationSettings) GetApp() SwaApplicationSettingsApplication {
-	if o == nil || o.App == nil {
+	if o == nil || IsNil(o.App) {
 		var ret SwaApplicationSettingsApplication
 		return ret
 	}
@@ -266,7 +269,7 @@ func (o *SwaApplicationSettings) GetApp() SwaApplicationSettingsApplication {
 // GetAppOk returns a tuple with the App field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SwaApplicationSettings) GetAppOk() (*SwaApplicationSettingsApplication, bool) {
-	if o == nil || o.App == nil {
+	if o == nil || IsNil(o.App) {
 		return nil, false
 	}
 	return o.App, true
@@ -274,7 +277,7 @@ func (o *SwaApplicationSettings) GetAppOk() (*SwaApplicationSettingsApplication,
 
 // HasApp returns a boolean if a field has been set.
 func (o *SwaApplicationSettings) HasApp() bool {
-	if o != nil && o.App != nil {
+	if o != nil && !IsNil(o.App) {
 		return true
 	}
 
@@ -287,26 +290,34 @@ func (o *SwaApplicationSettings) SetApp(v SwaApplicationSettingsApplication) {
 }
 
 func (o SwaApplicationSettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SwaApplicationSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.EmOptInStatus != nil {
+	if !IsNil(o.EmOptInStatus) {
 		toSerialize["emOptInStatus"] = o.EmOptInStatus
 	}
-	if o.IdentityStoreId != nil {
+	if !IsNil(o.IdentityStoreId) {
 		toSerialize["identityStoreId"] = o.IdentityStoreId
 	}
-	if o.ImplicitAssignment != nil {
+	if !IsNil(o.ImplicitAssignment) {
 		toSerialize["implicitAssignment"] = o.ImplicitAssignment
 	}
-	if o.InlineHookId != nil {
+	if !IsNil(o.InlineHookId) {
 		toSerialize["inlineHookId"] = o.InlineHookId
 	}
-	if o.Notes != nil {
+	if !IsNil(o.Notes) {
 		toSerialize["notes"] = o.Notes
 	}
-	if o.Notifications != nil {
+	if !IsNil(o.Notifications) {
 		toSerialize["notifications"] = o.Notifications
 	}
-	if o.App != nil {
+	if !IsNil(o.App) {
 		toSerialize["app"] = o.App
 	}
 
@@ -314,23 +325,23 @@ func (o SwaApplicationSettings) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SwaApplicationSettings) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SwaApplicationSettings) UnmarshalJSON(data []byte) (err error) {
 	varSwaApplicationSettings := _SwaApplicationSettings{}
 
-	err = json.Unmarshal(bytes, &varSwaApplicationSettings)
-	if err == nil {
-		*o = SwaApplicationSettings(varSwaApplicationSettings)
-	} else {
+	err = json.Unmarshal(data, &varSwaApplicationSettings)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SwaApplicationSettings(varSwaApplicationSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "emOptInStatus")
 		delete(additionalProperties, "identityStoreId")
 		delete(additionalProperties, "implicitAssignment")
@@ -339,8 +350,6 @@ func (o *SwaApplicationSettings) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "notifications")
 		delete(additionalProperties, "app")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -381,4 +390,3 @@ func (v *NullableSwaApplicationSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

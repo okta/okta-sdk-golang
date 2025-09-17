@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"time"
 )
 
+// checks if the IdPKeyCredential type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IdPKeyCredential{}
+
 // IdPKeyCredential A [JSON Web Key](https://tools.ietf.org/html/rfc7517) for a signature or encryption credential for an IdP
 type IdPKeyCredential struct {
 	// Timestamp when the object was created
@@ -49,7 +52,7 @@ type IdPKeyCredential struct {
 	// Base64-encoded X.509 certificate chain with DER encoding
 	X5c []string `json:"x5c,omitempty"`
 	// Base64url-encoded SHA-256 thumbprint of the DER encoding of an X.509 certificate
-	X5tS256 *string `json:"x5t#S256,omitempty"`
+	X5tS256              *string `json:"x5t#S256,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -74,7 +77,7 @@ func NewIdPKeyCredentialWithDefaults() *IdPKeyCredential {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *IdPKeyCredential) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *IdPKeyCredential) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdPKeyCredential) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -92,7 +95,7 @@ func (o *IdPKeyCredential) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *IdPKeyCredential) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *IdPKeyCredential) SetCreated(v time.Time) {
 
 // GetE returns the E field value if set, zero value otherwise.
 func (o *IdPKeyCredential) GetE() string {
-	if o == nil || o.E == nil {
+	if o == nil || IsNil(o.E) {
 		var ret string
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *IdPKeyCredential) GetE() string {
 // GetEOk returns a tuple with the E field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdPKeyCredential) GetEOk() (*string, bool) {
-	if o == nil || o.E == nil {
+	if o == nil || IsNil(o.E) {
 		return nil, false
 	}
 	return o.E, true
@@ -124,7 +127,7 @@ func (o *IdPKeyCredential) GetEOk() (*string, bool) {
 
 // HasE returns a boolean if a field has been set.
 func (o *IdPKeyCredential) HasE() bool {
-	if o != nil && o.E != nil {
+	if o != nil && !IsNil(o.E) {
 		return true
 	}
 
@@ -138,7 +141,7 @@ func (o *IdPKeyCredential) SetE(v string) {
 
 // GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
 func (o *IdPKeyCredential) GetExpiresAt() time.Time {
-	if o == nil || o.ExpiresAt == nil {
+	if o == nil || IsNil(o.ExpiresAt) {
 		var ret time.Time
 		return ret
 	}
@@ -148,7 +151,7 @@ func (o *IdPKeyCredential) GetExpiresAt() time.Time {
 // GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdPKeyCredential) GetExpiresAtOk() (*time.Time, bool) {
-	if o == nil || o.ExpiresAt == nil {
+	if o == nil || IsNil(o.ExpiresAt) {
 		return nil, false
 	}
 	return o.ExpiresAt, true
@@ -156,7 +159,7 @@ func (o *IdPKeyCredential) GetExpiresAtOk() (*time.Time, bool) {
 
 // HasExpiresAt returns a boolean if a field has been set.
 func (o *IdPKeyCredential) HasExpiresAt() bool {
-	if o != nil && o.ExpiresAt != nil {
+	if o != nil && !IsNil(o.ExpiresAt) {
 		return true
 	}
 
@@ -170,7 +173,7 @@ func (o *IdPKeyCredential) SetExpiresAt(v time.Time) {
 
 // GetKid returns the Kid field value if set, zero value otherwise.
 func (o *IdPKeyCredential) GetKid() string {
-	if o == nil || o.Kid == nil {
+	if o == nil || IsNil(o.Kid) {
 		var ret string
 		return ret
 	}
@@ -180,7 +183,7 @@ func (o *IdPKeyCredential) GetKid() string {
 // GetKidOk returns a tuple with the Kid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdPKeyCredential) GetKidOk() (*string, bool) {
-	if o == nil || o.Kid == nil {
+	if o == nil || IsNil(o.Kid) {
 		return nil, false
 	}
 	return o.Kid, true
@@ -188,7 +191,7 @@ func (o *IdPKeyCredential) GetKidOk() (*string, bool) {
 
 // HasKid returns a boolean if a field has been set.
 func (o *IdPKeyCredential) HasKid() bool {
-	if o != nil && o.Kid != nil {
+	if o != nil && !IsNil(o.Kid) {
 		return true
 	}
 
@@ -202,7 +205,7 @@ func (o *IdPKeyCredential) SetKid(v string) {
 
 // GetKty returns the Kty field value if set, zero value otherwise.
 func (o *IdPKeyCredential) GetKty() string {
-	if o == nil || o.Kty == nil {
+	if o == nil || IsNil(o.Kty) {
 		var ret string
 		return ret
 	}
@@ -212,7 +215,7 @@ func (o *IdPKeyCredential) GetKty() string {
 // GetKtyOk returns a tuple with the Kty field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdPKeyCredential) GetKtyOk() (*string, bool) {
-	if o == nil || o.Kty == nil {
+	if o == nil || IsNil(o.Kty) {
 		return nil, false
 	}
 	return o.Kty, true
@@ -220,7 +223,7 @@ func (o *IdPKeyCredential) GetKtyOk() (*string, bool) {
 
 // HasKty returns a boolean if a field has been set.
 func (o *IdPKeyCredential) HasKty() bool {
-	if o != nil && o.Kty != nil {
+	if o != nil && !IsNil(o.Kty) {
 		return true
 	}
 
@@ -234,7 +237,7 @@ func (o *IdPKeyCredential) SetKty(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *IdPKeyCredential) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -244,7 +247,7 @@ func (o *IdPKeyCredential) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdPKeyCredential) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -252,7 +255,7 @@ func (o *IdPKeyCredential) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *IdPKeyCredential) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -266,7 +269,7 @@ func (o *IdPKeyCredential) SetLastUpdated(v time.Time) {
 
 // GetN returns the N field value if set, zero value otherwise.
 func (o *IdPKeyCredential) GetN() string {
-	if o == nil || o.N == nil {
+	if o == nil || IsNil(o.N) {
 		var ret string
 		return ret
 	}
@@ -276,7 +279,7 @@ func (o *IdPKeyCredential) GetN() string {
 // GetNOk returns a tuple with the N field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdPKeyCredential) GetNOk() (*string, bool) {
-	if o == nil || o.N == nil {
+	if o == nil || IsNil(o.N) {
 		return nil, false
 	}
 	return o.N, true
@@ -284,7 +287,7 @@ func (o *IdPKeyCredential) GetNOk() (*string, bool) {
 
 // HasN returns a boolean if a field has been set.
 func (o *IdPKeyCredential) HasN() bool {
-	if o != nil && o.N != nil {
+	if o != nil && !IsNil(o.N) {
 		return true
 	}
 
@@ -298,7 +301,7 @@ func (o *IdPKeyCredential) SetN(v string) {
 
 // GetUse returns the Use field value if set, zero value otherwise.
 func (o *IdPKeyCredential) GetUse() string {
-	if o == nil || o.Use == nil {
+	if o == nil || IsNil(o.Use) {
 		var ret string
 		return ret
 	}
@@ -308,7 +311,7 @@ func (o *IdPKeyCredential) GetUse() string {
 // GetUseOk returns a tuple with the Use field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdPKeyCredential) GetUseOk() (*string, bool) {
-	if o == nil || o.Use == nil {
+	if o == nil || IsNil(o.Use) {
 		return nil, false
 	}
 	return o.Use, true
@@ -316,7 +319,7 @@ func (o *IdPKeyCredential) GetUseOk() (*string, bool) {
 
 // HasUse returns a boolean if a field has been set.
 func (o *IdPKeyCredential) HasUse() bool {
-	if o != nil && o.Use != nil {
+	if o != nil && !IsNil(o.Use) {
 		return true
 	}
 
@@ -330,7 +333,7 @@ func (o *IdPKeyCredential) SetUse(v string) {
 
 // GetX5c returns the X5c field value if set, zero value otherwise.
 func (o *IdPKeyCredential) GetX5c() []string {
-	if o == nil || o.X5c == nil {
+	if o == nil || IsNil(o.X5c) {
 		var ret []string
 		return ret
 	}
@@ -340,7 +343,7 @@ func (o *IdPKeyCredential) GetX5c() []string {
 // GetX5cOk returns a tuple with the X5c field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdPKeyCredential) GetX5cOk() ([]string, bool) {
-	if o == nil || o.X5c == nil {
+	if o == nil || IsNil(o.X5c) {
 		return nil, false
 	}
 	return o.X5c, true
@@ -348,7 +351,7 @@ func (o *IdPKeyCredential) GetX5cOk() ([]string, bool) {
 
 // HasX5c returns a boolean if a field has been set.
 func (o *IdPKeyCredential) HasX5c() bool {
-	if o != nil && o.X5c != nil {
+	if o != nil && !IsNil(o.X5c) {
 		return true
 	}
 
@@ -362,7 +365,7 @@ func (o *IdPKeyCredential) SetX5c(v []string) {
 
 // GetX5tS256 returns the X5tS256 field value if set, zero value otherwise.
 func (o *IdPKeyCredential) GetX5tS256() string {
-	if o == nil || o.X5tS256 == nil {
+	if o == nil || IsNil(o.X5tS256) {
 		var ret string
 		return ret
 	}
@@ -372,7 +375,7 @@ func (o *IdPKeyCredential) GetX5tS256() string {
 // GetX5tS256Ok returns a tuple with the X5tS256 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdPKeyCredential) GetX5tS256Ok() (*string, bool) {
-	if o == nil || o.X5tS256 == nil {
+	if o == nil || IsNil(o.X5tS256) {
 		return nil, false
 	}
 	return o.X5tS256, true
@@ -380,7 +383,7 @@ func (o *IdPKeyCredential) GetX5tS256Ok() (*string, bool) {
 
 // HasX5tS256 returns a boolean if a field has been set.
 func (o *IdPKeyCredential) HasX5tS256() bool {
-	if o != nil && o.X5tS256 != nil {
+	if o != nil && !IsNil(o.X5tS256) {
 		return true
 	}
 
@@ -393,35 +396,43 @@ func (o *IdPKeyCredential) SetX5tS256(v string) {
 }
 
 func (o IdPKeyCredential) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IdPKeyCredential) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.E != nil {
+	if !IsNil(o.E) {
 		toSerialize["e"] = o.E
 	}
-	if o.ExpiresAt != nil {
+	if !IsNil(o.ExpiresAt) {
 		toSerialize["expiresAt"] = o.ExpiresAt
 	}
-	if o.Kid != nil {
+	if !IsNil(o.Kid) {
 		toSerialize["kid"] = o.Kid
 	}
-	if o.Kty != nil {
+	if !IsNil(o.Kty) {
 		toSerialize["kty"] = o.Kty
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.N != nil {
+	if !IsNil(o.N) {
 		toSerialize["n"] = o.N
 	}
-	if o.Use != nil {
+	if !IsNil(o.Use) {
 		toSerialize["use"] = o.Use
 	}
-	if o.X5c != nil {
+	if !IsNil(o.X5c) {
 		toSerialize["x5c"] = o.X5c
 	}
-	if o.X5tS256 != nil {
+	if !IsNil(o.X5tS256) {
 		toSerialize["x5t#S256"] = o.X5tS256
 	}
 
@@ -429,23 +440,23 @@ func (o IdPKeyCredential) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *IdPKeyCredential) UnmarshalJSON(bytes []byte) (err error) {
+func (o *IdPKeyCredential) UnmarshalJSON(data []byte) (err error) {
 	varIdPKeyCredential := _IdPKeyCredential{}
 
-	err = json.Unmarshal(bytes, &varIdPKeyCredential)
-	if err == nil {
-		*o = IdPKeyCredential(varIdPKeyCredential)
-	} else {
+	err = json.Unmarshal(data, &varIdPKeyCredential)
+
+	if err != nil {
 		return err
 	}
 
+	*o = IdPKeyCredential(varIdPKeyCredential)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "e")
 		delete(additionalProperties, "expiresAt")
@@ -457,8 +468,6 @@ func (o *IdPKeyCredential) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "x5c")
 		delete(additionalProperties, "x5t#S256")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -499,4 +508,3 @@ func (v *NullableIdPKeyCredential) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

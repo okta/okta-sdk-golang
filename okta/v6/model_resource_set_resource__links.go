@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ResourceSetResourceLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceSetResourceLinks{}
+
 // ResourceSetResourceLinks Related discoverable resources
 type ResourceSetResourceLinks struct {
 	// The REST API URL of the related resource
@@ -36,7 +39,7 @@ type ResourceSetResourceLinks struct {
 	// If applicable, the REST API URL of the related groups resource
 	Groups *HrefObject `json:"groups,omitempty"`
 	// If applicable, the REST API URL of the related users resource
-	Users *HrefObject `json:"users,omitempty"`
+	Users                *HrefObject `json:"users,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewResourceSetResourceLinksWithDefaults() *ResourceSetResourceLinks {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *ResourceSetResourceLinks) GetSelf() HrefObject {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObject
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *ResourceSetResourceLinks) GetSelf() HrefObject {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSetResourceLinks) GetSelfOk() (*HrefObject, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -79,7 +82,7 @@ func (o *ResourceSetResourceLinks) GetSelfOk() (*HrefObject, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *ResourceSetResourceLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *ResourceSetResourceLinks) SetSelf(v HrefObject) {
 
 // GetResource returns the Resource field value if set, zero value otherwise.
 func (o *ResourceSetResourceLinks) GetResource() HrefObject {
-	if o == nil || o.Resource == nil {
+	if o == nil || IsNil(o.Resource) {
 		var ret HrefObject
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *ResourceSetResourceLinks) GetResource() HrefObject {
 // GetResourceOk returns a tuple with the Resource field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSetResourceLinks) GetResourceOk() (*HrefObject, bool) {
-	if o == nil || o.Resource == nil {
+	if o == nil || IsNil(o.Resource) {
 		return nil, false
 	}
 	return o.Resource, true
@@ -111,7 +114,7 @@ func (o *ResourceSetResourceLinks) GetResourceOk() (*HrefObject, bool) {
 
 // HasResource returns a boolean if a field has been set.
 func (o *ResourceSetResourceLinks) HasResource() bool {
-	if o != nil && o.Resource != nil {
+	if o != nil && !IsNil(o.Resource) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *ResourceSetResourceLinks) SetResource(v HrefObject) {
 
 // GetGroups returns the Groups field value if set, zero value otherwise.
 func (o *ResourceSetResourceLinks) GetGroups() HrefObject {
-	if o == nil || o.Groups == nil {
+	if o == nil || IsNil(o.Groups) {
 		var ret HrefObject
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *ResourceSetResourceLinks) GetGroups() HrefObject {
 // GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSetResourceLinks) GetGroupsOk() (*HrefObject, bool) {
-	if o == nil || o.Groups == nil {
+	if o == nil || IsNil(o.Groups) {
 		return nil, false
 	}
 	return o.Groups, true
@@ -143,7 +146,7 @@ func (o *ResourceSetResourceLinks) GetGroupsOk() (*HrefObject, bool) {
 
 // HasGroups returns a boolean if a field has been set.
 func (o *ResourceSetResourceLinks) HasGroups() bool {
-	if o != nil && o.Groups != nil {
+	if o != nil && !IsNil(o.Groups) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *ResourceSetResourceLinks) SetGroups(v HrefObject) {
 
 // GetUsers returns the Users field value if set, zero value otherwise.
 func (o *ResourceSetResourceLinks) GetUsers() HrefObject {
-	if o == nil || o.Users == nil {
+	if o == nil || IsNil(o.Users) {
 		var ret HrefObject
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *ResourceSetResourceLinks) GetUsers() HrefObject {
 // GetUsersOk returns a tuple with the Users field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSetResourceLinks) GetUsersOk() (*HrefObject, bool) {
-	if o == nil || o.Users == nil {
+	if o == nil || IsNil(o.Users) {
 		return nil, false
 	}
 	return o.Users, true
@@ -175,7 +178,7 @@ func (o *ResourceSetResourceLinks) GetUsersOk() (*HrefObject, bool) {
 
 // HasUsers returns a boolean if a field has been set.
 func (o *ResourceSetResourceLinks) HasUsers() bool {
-	if o != nil && o.Users != nil {
+	if o != nil && !IsNil(o.Users) {
 		return true
 	}
 
@@ -188,17 +191,25 @@ func (o *ResourceSetResourceLinks) SetUsers(v HrefObject) {
 }
 
 func (o ResourceSetResourceLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ResourceSetResourceLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.Resource != nil {
+	if !IsNil(o.Resource) {
 		toSerialize["resource"] = o.Resource
 	}
-	if o.Groups != nil {
+	if !IsNil(o.Groups) {
 		toSerialize["groups"] = o.Groups
 	}
-	if o.Users != nil {
+	if !IsNil(o.Users) {
 		toSerialize["users"] = o.Users
 	}
 
@@ -206,30 +217,28 @@ func (o ResourceSetResourceLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResourceSetResourceLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ResourceSetResourceLinks) UnmarshalJSON(data []byte) (err error) {
 	varResourceSetResourceLinks := _ResourceSetResourceLinks{}
 
-	err = json.Unmarshal(bytes, &varResourceSetResourceLinks)
-	if err == nil {
-		*o = ResourceSetResourceLinks(varResourceSetResourceLinks)
-	} else {
+	err = json.Unmarshal(data, &varResourceSetResourceLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ResourceSetResourceLinks(varResourceSetResourceLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "resource")
 		delete(additionalProperties, "groups")
 		delete(additionalProperties, "users")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -270,4 +279,3 @@ func (v *NullableResourceSetResourceLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

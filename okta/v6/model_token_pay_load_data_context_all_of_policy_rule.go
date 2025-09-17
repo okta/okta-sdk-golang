@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the TokenPayLoadDataContextAllOfPolicyRule type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TokenPayLoadDataContextAllOfPolicyRule{}
+
 // TokenPayLoadDataContextAllOfPolicyRule The authorization server policy rule used to mint the token
 type TokenPayLoadDataContextAllOfPolicyRule struct {
 	// The unique identifier for the policy rule
-	Id *string `json:"id,omitempty"`
+	Id                   *string `json:"id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewTokenPayLoadDataContextAllOfPolicyRuleWithDefaults() *TokenPayLoadDataCo
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *TokenPayLoadDataContextAllOfPolicyRule) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *TokenPayLoadDataContextAllOfPolicyRule) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenPayLoadDataContextAllOfPolicyRule) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -73,7 +76,7 @@ func (o *TokenPayLoadDataContextAllOfPolicyRule) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *TokenPayLoadDataContextAllOfPolicyRule) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *TokenPayLoadDataContextAllOfPolicyRule) SetId(v string) {
 }
 
 func (o TokenPayLoadDataContextAllOfPolicyRule) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TokenPayLoadDataContextAllOfPolicyRule) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
 
@@ -95,27 +106,25 @@ func (o TokenPayLoadDataContextAllOfPolicyRule) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *TokenPayLoadDataContextAllOfPolicyRule) UnmarshalJSON(bytes []byte) (err error) {
+func (o *TokenPayLoadDataContextAllOfPolicyRule) UnmarshalJSON(data []byte) (err error) {
 	varTokenPayLoadDataContextAllOfPolicyRule := _TokenPayLoadDataContextAllOfPolicyRule{}
 
-	err = json.Unmarshal(bytes, &varTokenPayLoadDataContextAllOfPolicyRule)
-	if err == nil {
-		*o = TokenPayLoadDataContextAllOfPolicyRule(varTokenPayLoadDataContextAllOfPolicyRule)
-	} else {
+	err = json.Unmarshal(data, &varTokenPayLoadDataContextAllOfPolicyRule)
+
+	if err != nil {
 		return err
 	}
 
+	*o = TokenPayLoadDataContextAllOfPolicyRule(varTokenPayLoadDataContextAllOfPolicyRule)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableTokenPayLoadDataContextAllOfPolicyRule) UnmarshalJSON(src []byt
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

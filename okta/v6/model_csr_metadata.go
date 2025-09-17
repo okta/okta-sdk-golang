@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the CsrMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CsrMetadata{}
+
 // CsrMetadata struct for CsrMetadata
 type CsrMetadata struct {
-	Subject *CsrMetadataSubject `json:"subject,omitempty"`
-	SubjectAltNames *CsrMetadataSubjectAltNames `json:"subjectAltNames,omitempty"`
+	Subject              *CsrMetadataSubject         `json:"subject,omitempty"`
+	SubjectAltNames      *CsrMetadataSubjectAltNames `json:"subjectAltNames,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewCsrMetadataWithDefaults() *CsrMetadata {
 
 // GetSubject returns the Subject field value if set, zero value otherwise.
 func (o *CsrMetadata) GetSubject() CsrMetadataSubject {
-	if o == nil || o.Subject == nil {
+	if o == nil || IsNil(o.Subject) {
 		var ret CsrMetadataSubject
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *CsrMetadata) GetSubject() CsrMetadataSubject {
 // GetSubjectOk returns a tuple with the Subject field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CsrMetadata) GetSubjectOk() (*CsrMetadataSubject, bool) {
-	if o == nil || o.Subject == nil {
+	if o == nil || IsNil(o.Subject) {
 		return nil, false
 	}
 	return o.Subject, true
@@ -73,7 +76,7 @@ func (o *CsrMetadata) GetSubjectOk() (*CsrMetadataSubject, bool) {
 
 // HasSubject returns a boolean if a field has been set.
 func (o *CsrMetadata) HasSubject() bool {
-	if o != nil && o.Subject != nil {
+	if o != nil && !IsNil(o.Subject) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *CsrMetadata) SetSubject(v CsrMetadataSubject) {
 
 // GetSubjectAltNames returns the SubjectAltNames field value if set, zero value otherwise.
 func (o *CsrMetadata) GetSubjectAltNames() CsrMetadataSubjectAltNames {
-	if o == nil || o.SubjectAltNames == nil {
+	if o == nil || IsNil(o.SubjectAltNames) {
 		var ret CsrMetadataSubjectAltNames
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *CsrMetadata) GetSubjectAltNames() CsrMetadataSubjectAltNames {
 // GetSubjectAltNamesOk returns a tuple with the SubjectAltNames field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CsrMetadata) GetSubjectAltNamesOk() (*CsrMetadataSubjectAltNames, bool) {
-	if o == nil || o.SubjectAltNames == nil {
+	if o == nil || IsNil(o.SubjectAltNames) {
 		return nil, false
 	}
 	return o.SubjectAltNames, true
@@ -105,7 +108,7 @@ func (o *CsrMetadata) GetSubjectAltNamesOk() (*CsrMetadataSubjectAltNames, bool)
 
 // HasSubjectAltNames returns a boolean if a field has been set.
 func (o *CsrMetadata) HasSubjectAltNames() bool {
-	if o != nil && o.SubjectAltNames != nil {
+	if o != nil && !IsNil(o.SubjectAltNames) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *CsrMetadata) SetSubjectAltNames(v CsrMetadataSubjectAltNames) {
 }
 
 func (o CsrMetadata) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CsrMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Subject != nil {
+	if !IsNil(o.Subject) {
 		toSerialize["subject"] = o.Subject
 	}
-	if o.SubjectAltNames != nil {
+	if !IsNil(o.SubjectAltNames) {
 		toSerialize["subjectAltNames"] = o.SubjectAltNames
 	}
 
@@ -130,28 +141,26 @@ func (o CsrMetadata) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CsrMetadata) UnmarshalJSON(bytes []byte) (err error) {
+func (o *CsrMetadata) UnmarshalJSON(data []byte) (err error) {
 	varCsrMetadata := _CsrMetadata{}
 
-	err = json.Unmarshal(bytes, &varCsrMetadata)
-	if err == nil {
-		*o = CsrMetadata(varCsrMetadata)
-	} else {
+	err = json.Unmarshal(data, &varCsrMetadata)
+
+	if err != nil {
 		return err
 	}
 
+	*o = CsrMetadata(varCsrMetadata)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "subject")
 		delete(additionalProperties, "subjectAltNames")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableCsrMetadata) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

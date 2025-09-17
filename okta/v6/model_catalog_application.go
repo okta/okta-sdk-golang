@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"time"
 )
 
+// checks if the CatalogApplication type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CatalogApplication{}
+
 // CatalogApplication An app in the OIN catalog
 type CatalogApplication struct {
 	// Category for the app in the OIN catalog
@@ -51,8 +54,8 @@ type CatalogApplication struct {
 	// OIN verification status of the catalog app
 	VerificationStatus *string `json:"verificationStatus,omitempty"`
 	// Website of the OIN catalog app
-	Website *string `json:"website,omitempty"`
-	Links *CatalogApplicationLinks `json:"_links,omitempty"`
+	Website              *string                  `json:"website,omitempty"`
+	Links                *CatalogApplicationLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -77,7 +80,7 @@ func NewCatalogApplicationWithDefaults() *CatalogApplication {
 
 // GetCategory returns the Category field value if set, zero value otherwise.
 func (o *CatalogApplication) GetCategory() string {
-	if o == nil || o.Category == nil {
+	if o == nil || IsNil(o.Category) {
 		var ret string
 		return ret
 	}
@@ -87,7 +90,7 @@ func (o *CatalogApplication) GetCategory() string {
 // GetCategoryOk returns a tuple with the Category field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CatalogApplication) GetCategoryOk() (*string, bool) {
-	if o == nil || o.Category == nil {
+	if o == nil || IsNil(o.Category) {
 		return nil, false
 	}
 	return o.Category, true
@@ -95,7 +98,7 @@ func (o *CatalogApplication) GetCategoryOk() (*string, bool) {
 
 // HasCategory returns a boolean if a field has been set.
 func (o *CatalogApplication) HasCategory() bool {
-	if o != nil && o.Category != nil {
+	if o != nil && !IsNil(o.Category) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *CatalogApplication) SetCategory(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *CatalogApplication) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -119,7 +122,7 @@ func (o *CatalogApplication) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CatalogApplication) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -127,7 +130,7 @@ func (o *CatalogApplication) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *CatalogApplication) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -141,7 +144,7 @@ func (o *CatalogApplication) SetDescription(v string) {
 
 // GetDisplayName returns the DisplayName field value if set, zero value otherwise.
 func (o *CatalogApplication) GetDisplayName() string {
-	if o == nil || o.DisplayName == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		var ret string
 		return ret
 	}
@@ -151,7 +154,7 @@ func (o *CatalogApplication) GetDisplayName() string {
 // GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CatalogApplication) GetDisplayNameOk() (*string, bool) {
-	if o == nil || o.DisplayName == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		return nil, false
 	}
 	return o.DisplayName, true
@@ -159,7 +162,7 @@ func (o *CatalogApplication) GetDisplayNameOk() (*string, bool) {
 
 // HasDisplayName returns a boolean if a field has been set.
 func (o *CatalogApplication) HasDisplayName() bool {
-	if o != nil && o.DisplayName != nil {
+	if o != nil && !IsNil(o.DisplayName) {
 		return true
 	}
 
@@ -173,7 +176,7 @@ func (o *CatalogApplication) SetDisplayName(v string) {
 
 // GetFeatures returns the Features field value if set, zero value otherwise.
 func (o *CatalogApplication) GetFeatures() []string {
-	if o == nil || o.Features == nil {
+	if o == nil || IsNil(o.Features) {
 		var ret []string
 		return ret
 	}
@@ -183,7 +186,7 @@ func (o *CatalogApplication) GetFeatures() []string {
 // GetFeaturesOk returns a tuple with the Features field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CatalogApplication) GetFeaturesOk() ([]string, bool) {
-	if o == nil || o.Features == nil {
+	if o == nil || IsNil(o.Features) {
 		return nil, false
 	}
 	return o.Features, true
@@ -191,7 +194,7 @@ func (o *CatalogApplication) GetFeaturesOk() ([]string, bool) {
 
 // HasFeatures returns a boolean if a field has been set.
 func (o *CatalogApplication) HasFeatures() bool {
-	if o != nil && o.Features != nil {
+	if o != nil && !IsNil(o.Features) {
 		return true
 	}
 
@@ -205,7 +208,7 @@ func (o *CatalogApplication) SetFeatures(v []string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *CatalogApplication) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -215,7 +218,7 @@ func (o *CatalogApplication) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CatalogApplication) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -223,7 +226,7 @@ func (o *CatalogApplication) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *CatalogApplication) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -237,7 +240,7 @@ func (o *CatalogApplication) SetId(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *CatalogApplication) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -247,7 +250,7 @@ func (o *CatalogApplication) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CatalogApplication) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -255,7 +258,7 @@ func (o *CatalogApplication) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *CatalogApplication) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -269,7 +272,7 @@ func (o *CatalogApplication) SetLastUpdated(v time.Time) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *CatalogApplication) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -279,7 +282,7 @@ func (o *CatalogApplication) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CatalogApplication) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -287,7 +290,7 @@ func (o *CatalogApplication) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *CatalogApplication) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -301,7 +304,7 @@ func (o *CatalogApplication) SetName(v string) {
 
 // GetSignOnModes returns the SignOnModes field value if set, zero value otherwise.
 func (o *CatalogApplication) GetSignOnModes() []string {
-	if o == nil || o.SignOnModes == nil {
+	if o == nil || IsNil(o.SignOnModes) {
 		var ret []string
 		return ret
 	}
@@ -311,7 +314,7 @@ func (o *CatalogApplication) GetSignOnModes() []string {
 // GetSignOnModesOk returns a tuple with the SignOnModes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CatalogApplication) GetSignOnModesOk() ([]string, bool) {
-	if o == nil || o.SignOnModes == nil {
+	if o == nil || IsNil(o.SignOnModes) {
 		return nil, false
 	}
 	return o.SignOnModes, true
@@ -319,7 +322,7 @@ func (o *CatalogApplication) GetSignOnModesOk() ([]string, bool) {
 
 // HasSignOnModes returns a boolean if a field has been set.
 func (o *CatalogApplication) HasSignOnModes() bool {
-	if o != nil && o.SignOnModes != nil {
+	if o != nil && !IsNil(o.SignOnModes) {
 		return true
 	}
 
@@ -333,7 +336,7 @@ func (o *CatalogApplication) SetSignOnModes(v []string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *CatalogApplication) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -343,7 +346,7 @@ func (o *CatalogApplication) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CatalogApplication) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -351,7 +354,7 @@ func (o *CatalogApplication) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *CatalogApplication) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -365,7 +368,7 @@ func (o *CatalogApplication) SetStatus(v string) {
 
 // GetVerificationStatus returns the VerificationStatus field value if set, zero value otherwise.
 func (o *CatalogApplication) GetVerificationStatus() string {
-	if o == nil || o.VerificationStatus == nil {
+	if o == nil || IsNil(o.VerificationStatus) {
 		var ret string
 		return ret
 	}
@@ -375,7 +378,7 @@ func (o *CatalogApplication) GetVerificationStatus() string {
 // GetVerificationStatusOk returns a tuple with the VerificationStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CatalogApplication) GetVerificationStatusOk() (*string, bool) {
-	if o == nil || o.VerificationStatus == nil {
+	if o == nil || IsNil(o.VerificationStatus) {
 		return nil, false
 	}
 	return o.VerificationStatus, true
@@ -383,7 +386,7 @@ func (o *CatalogApplication) GetVerificationStatusOk() (*string, bool) {
 
 // HasVerificationStatus returns a boolean if a field has been set.
 func (o *CatalogApplication) HasVerificationStatus() bool {
-	if o != nil && o.VerificationStatus != nil {
+	if o != nil && !IsNil(o.VerificationStatus) {
 		return true
 	}
 
@@ -397,7 +400,7 @@ func (o *CatalogApplication) SetVerificationStatus(v string) {
 
 // GetWebsite returns the Website field value if set, zero value otherwise.
 func (o *CatalogApplication) GetWebsite() string {
-	if o == nil || o.Website == nil {
+	if o == nil || IsNil(o.Website) {
 		var ret string
 		return ret
 	}
@@ -407,7 +410,7 @@ func (o *CatalogApplication) GetWebsite() string {
 // GetWebsiteOk returns a tuple with the Website field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CatalogApplication) GetWebsiteOk() (*string, bool) {
-	if o == nil || o.Website == nil {
+	if o == nil || IsNil(o.Website) {
 		return nil, false
 	}
 	return o.Website, true
@@ -415,7 +418,7 @@ func (o *CatalogApplication) GetWebsiteOk() (*string, bool) {
 
 // HasWebsite returns a boolean if a field has been set.
 func (o *CatalogApplication) HasWebsite() bool {
-	if o != nil && o.Website != nil {
+	if o != nil && !IsNil(o.Website) {
 		return true
 	}
 
@@ -429,7 +432,7 @@ func (o *CatalogApplication) SetWebsite(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *CatalogApplication) GetLinks() CatalogApplicationLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret CatalogApplicationLinks
 		return ret
 	}
@@ -439,7 +442,7 @@ func (o *CatalogApplication) GetLinks() CatalogApplicationLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CatalogApplication) GetLinksOk() (*CatalogApplicationLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -447,7 +450,7 @@ func (o *CatalogApplication) GetLinksOk() (*CatalogApplicationLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *CatalogApplication) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -460,41 +463,49 @@ func (o *CatalogApplication) SetLinks(v CatalogApplicationLinks) {
 }
 
 func (o CatalogApplication) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CatalogApplication) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Category != nil {
+	if !IsNil(o.Category) {
 		toSerialize["category"] = o.Category
 	}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.DisplayName != nil {
+	if !IsNil(o.DisplayName) {
 		toSerialize["displayName"] = o.DisplayName
 	}
-	if o.Features != nil {
+	if !IsNil(o.Features) {
 		toSerialize["features"] = o.Features
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.SignOnModes != nil {
+	if !IsNil(o.SignOnModes) {
 		toSerialize["signOnModes"] = o.SignOnModes
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.VerificationStatus != nil {
+	if !IsNil(o.VerificationStatus) {
 		toSerialize["verificationStatus"] = o.VerificationStatus
 	}
-	if o.Website != nil {
+	if !IsNil(o.Website) {
 		toSerialize["website"] = o.Website
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -502,23 +513,23 @@ func (o CatalogApplication) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CatalogApplication) UnmarshalJSON(bytes []byte) (err error) {
+func (o *CatalogApplication) UnmarshalJSON(data []byte) (err error) {
 	varCatalogApplication := _CatalogApplication{}
 
-	err = json.Unmarshal(bytes, &varCatalogApplication)
-	if err == nil {
-		*o = CatalogApplication(varCatalogApplication)
-	} else {
+	err = json.Unmarshal(data, &varCatalogApplication)
+
+	if err != nil {
 		return err
 	}
 
+	*o = CatalogApplication(varCatalogApplication)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "category")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "displayName")
@@ -532,8 +543,6 @@ func (o *CatalogApplication) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "website")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -574,4 +583,3 @@ func (v *NullableCatalogApplication) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

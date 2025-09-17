@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"time"
 )
 
+// checks if the WebAuthnPreregistrationFactor type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WebAuthnPreregistrationFactor{}
+
 // WebAuthnPreregistrationFactor User factor variant used for WebAuthn preregistration factors
 type WebAuthnPreregistrationFactor struct {
 	// Timestamp indicating when the factor was enrolled
@@ -39,13 +42,13 @@ type WebAuthnPreregistrationFactor struct {
 	// Timestamp indicating when the factor was last updated
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	// Specific attributes related to the factor
-	Profile map[string]interface{} `json:"profile,omitempty"`
-	Provider *string `json:"provider,omitempty"`
+	Profile  map[string]interface{} `json:"profile,omitempty"`
+	Provider *string                `json:"provider,omitempty"`
 	// Status of the factor
 	Status *string `json:"status,omitempty"`
 	// Name of the factor vendor. This is usually the same as the provider.
-	VendorName *string `json:"vendorName,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	VendorName           *string    `json:"vendorName,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -70,7 +73,7 @@ func NewWebAuthnPreregistrationFactorWithDefaults() *WebAuthnPreregistrationFact
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *WebAuthnPreregistrationFactor) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -80,7 +83,7 @@ func (o *WebAuthnPreregistrationFactor) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WebAuthnPreregistrationFactor) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -88,7 +91,7 @@ func (o *WebAuthnPreregistrationFactor) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *WebAuthnPreregistrationFactor) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -102,7 +105,7 @@ func (o *WebAuthnPreregistrationFactor) SetCreated(v time.Time) {
 
 // GetFactorType returns the FactorType field value if set, zero value otherwise.
 func (o *WebAuthnPreregistrationFactor) GetFactorType() string {
-	if o == nil || o.FactorType == nil {
+	if o == nil || IsNil(o.FactorType) {
 		var ret string
 		return ret
 	}
@@ -112,7 +115,7 @@ func (o *WebAuthnPreregistrationFactor) GetFactorType() string {
 // GetFactorTypeOk returns a tuple with the FactorType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WebAuthnPreregistrationFactor) GetFactorTypeOk() (*string, bool) {
-	if o == nil || o.FactorType == nil {
+	if o == nil || IsNil(o.FactorType) {
 		return nil, false
 	}
 	return o.FactorType, true
@@ -120,7 +123,7 @@ func (o *WebAuthnPreregistrationFactor) GetFactorTypeOk() (*string, bool) {
 
 // HasFactorType returns a boolean if a field has been set.
 func (o *WebAuthnPreregistrationFactor) HasFactorType() bool {
-	if o != nil && o.FactorType != nil {
+	if o != nil && !IsNil(o.FactorType) {
 		return true
 	}
 
@@ -134,7 +137,7 @@ func (o *WebAuthnPreregistrationFactor) SetFactorType(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *WebAuthnPreregistrationFactor) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -144,7 +147,7 @@ func (o *WebAuthnPreregistrationFactor) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WebAuthnPreregistrationFactor) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -152,7 +155,7 @@ func (o *WebAuthnPreregistrationFactor) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *WebAuthnPreregistrationFactor) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -166,7 +169,7 @@ func (o *WebAuthnPreregistrationFactor) SetId(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *WebAuthnPreregistrationFactor) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -176,7 +179,7 @@ func (o *WebAuthnPreregistrationFactor) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WebAuthnPreregistrationFactor) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -184,7 +187,7 @@ func (o *WebAuthnPreregistrationFactor) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *WebAuthnPreregistrationFactor) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -198,7 +201,7 @@ func (o *WebAuthnPreregistrationFactor) SetLastUpdated(v time.Time) {
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *WebAuthnPreregistrationFactor) GetProfile() map[string]interface{} {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -208,15 +211,15 @@ func (o *WebAuthnPreregistrationFactor) GetProfile() map[string]interface{} {
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WebAuthnPreregistrationFactor) GetProfileOk() (map[string]interface{}, bool) {
-	if o == nil || o.Profile == nil {
-		return nil, false
+	if o == nil || IsNil(o.Profile) {
+		return map[string]interface{}{}, false
 	}
 	return o.Profile, true
 }
 
 // HasProfile returns a boolean if a field has been set.
 func (o *WebAuthnPreregistrationFactor) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -230,7 +233,7 @@ func (o *WebAuthnPreregistrationFactor) SetProfile(v map[string]interface{}) {
 
 // GetProvider returns the Provider field value if set, zero value otherwise.
 func (o *WebAuthnPreregistrationFactor) GetProvider() string {
-	if o == nil || o.Provider == nil {
+	if o == nil || IsNil(o.Provider) {
 		var ret string
 		return ret
 	}
@@ -240,7 +243,7 @@ func (o *WebAuthnPreregistrationFactor) GetProvider() string {
 // GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WebAuthnPreregistrationFactor) GetProviderOk() (*string, bool) {
-	if o == nil || o.Provider == nil {
+	if o == nil || IsNil(o.Provider) {
 		return nil, false
 	}
 	return o.Provider, true
@@ -248,7 +251,7 @@ func (o *WebAuthnPreregistrationFactor) GetProviderOk() (*string, bool) {
 
 // HasProvider returns a boolean if a field has been set.
 func (o *WebAuthnPreregistrationFactor) HasProvider() bool {
-	if o != nil && o.Provider != nil {
+	if o != nil && !IsNil(o.Provider) {
 		return true
 	}
 
@@ -262,7 +265,7 @@ func (o *WebAuthnPreregistrationFactor) SetProvider(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *WebAuthnPreregistrationFactor) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -272,7 +275,7 @@ func (o *WebAuthnPreregistrationFactor) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WebAuthnPreregistrationFactor) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -280,7 +283,7 @@ func (o *WebAuthnPreregistrationFactor) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *WebAuthnPreregistrationFactor) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -294,7 +297,7 @@ func (o *WebAuthnPreregistrationFactor) SetStatus(v string) {
 
 // GetVendorName returns the VendorName field value if set, zero value otherwise.
 func (o *WebAuthnPreregistrationFactor) GetVendorName() string {
-	if o == nil || o.VendorName == nil {
+	if o == nil || IsNil(o.VendorName) {
 		var ret string
 		return ret
 	}
@@ -304,7 +307,7 @@ func (o *WebAuthnPreregistrationFactor) GetVendorName() string {
 // GetVendorNameOk returns a tuple with the VendorName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WebAuthnPreregistrationFactor) GetVendorNameOk() (*string, bool) {
-	if o == nil || o.VendorName == nil {
+	if o == nil || IsNil(o.VendorName) {
 		return nil, false
 	}
 	return o.VendorName, true
@@ -312,7 +315,7 @@ func (o *WebAuthnPreregistrationFactor) GetVendorNameOk() (*string, bool) {
 
 // HasVendorName returns a boolean if a field has been set.
 func (o *WebAuthnPreregistrationFactor) HasVendorName() bool {
-	if o != nil && o.VendorName != nil {
+	if o != nil && !IsNil(o.VendorName) {
 		return true
 	}
 
@@ -326,7 +329,7 @@ func (o *WebAuthnPreregistrationFactor) SetVendorName(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *WebAuthnPreregistrationFactor) GetLinks() LinksSelf {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksSelf
 		return ret
 	}
@@ -336,7 +339,7 @@ func (o *WebAuthnPreregistrationFactor) GetLinks() LinksSelf {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WebAuthnPreregistrationFactor) GetLinksOk() (*LinksSelf, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -344,7 +347,7 @@ func (o *WebAuthnPreregistrationFactor) GetLinksOk() (*LinksSelf, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *WebAuthnPreregistrationFactor) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -357,32 +360,40 @@ func (o *WebAuthnPreregistrationFactor) SetLinks(v LinksSelf) {
 }
 
 func (o WebAuthnPreregistrationFactor) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o WebAuthnPreregistrationFactor) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.FactorType != nil {
+	if !IsNil(o.FactorType) {
 		toSerialize["factorType"] = o.FactorType
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Profile != nil {
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
-	if o.Provider != nil {
+	if !IsNil(o.Provider) {
 		toSerialize["provider"] = o.Provider
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.VendorName != nil {
+	if !IsNil(o.VendorName) {
 		toSerialize["vendorName"] = o.VendorName
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -390,23 +401,23 @@ func (o WebAuthnPreregistrationFactor) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *WebAuthnPreregistrationFactor) UnmarshalJSON(bytes []byte) (err error) {
+func (o *WebAuthnPreregistrationFactor) UnmarshalJSON(data []byte) (err error) {
 	varWebAuthnPreregistrationFactor := _WebAuthnPreregistrationFactor{}
 
-	err = json.Unmarshal(bytes, &varWebAuthnPreregistrationFactor)
-	if err == nil {
-		*o = WebAuthnPreregistrationFactor(varWebAuthnPreregistrationFactor)
-	} else {
+	err = json.Unmarshal(data, &varWebAuthnPreregistrationFactor)
+
+	if err != nil {
 		return err
 	}
 
+	*o = WebAuthnPreregistrationFactor(varWebAuthnPreregistrationFactor)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "factorType")
 		delete(additionalProperties, "id")
@@ -417,8 +428,6 @@ func (o *WebAuthnPreregistrationFactor) UnmarshalJSON(bytes []byte) (err error) 
 		delete(additionalProperties, "vendorName")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -459,4 +468,3 @@ func (v *NullableWebAuthnPreregistrationFactor) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

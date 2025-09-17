@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,10 +28,13 @@ import (
 	"fmt"
 )
 
+// checks if the Org2OrgProvisioningOAuthSigningSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Org2OrgProvisioningOAuthSigningSettings{}
+
 // Org2OrgProvisioningOAuthSigningSettings Only used for the Okta Org2Org (`okta_org2org`) app.  The signing key rotation setting.
 type Org2OrgProvisioningOAuthSigningSettings struct {
 	// The signing key rotation setting for the provisioning connection
-	RotationMode string `json:"rotationMode"`
+	RotationMode         string `json:"rotationMode"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -80,36 +83,61 @@ func (o *Org2OrgProvisioningOAuthSigningSettings) SetRotationMode(v string) {
 }
 
 func (o Org2OrgProvisioningOAuthSigningSettings) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["rotationMode"] = o.RotationMode
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Org2OrgProvisioningOAuthSigningSettings) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["rotationMode"] = o.RotationMode
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Org2OrgProvisioningOAuthSigningSettings) UnmarshalJSON(bytes []byte) (err error) {
-	varOrg2OrgProvisioningOAuthSigningSettings := _Org2OrgProvisioningOAuthSigningSettings{}
+func (o *Org2OrgProvisioningOAuthSigningSettings) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"rotationMode",
+	}
 
-	err = json.Unmarshal(bytes, &varOrg2OrgProvisioningOAuthSigningSettings)
-	if err == nil {
-		*o = Org2OrgProvisioningOAuthSigningSettings(varOrg2OrgProvisioningOAuthSigningSettings)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varOrg2OrgProvisioningOAuthSigningSettings := _Org2OrgProvisioningOAuthSigningSettings{}
+
+	err = json.Unmarshal(data, &varOrg2OrgProvisioningOAuthSigningSettings)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Org2OrgProvisioningOAuthSigningSettings(varOrg2OrgProvisioningOAuthSigningSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "rotationMode")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -150,4 +178,3 @@ func (v *NullableOrg2OrgProvisioningOAuthSigningSettings) UnmarshalJSON(src []by
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

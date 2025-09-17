@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the LinksCustomRoleResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LinksCustomRoleResponse{}
+
 // LinksCustomRoleResponse Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification. This object is used for dynamic discovery of related resources.
 type LinksCustomRoleResponse struct {
-	Assignee *HrefObjectAssigneeLink `json:"assignee,omitempty"`
-	Member *HrefObjectMemberLink `json:"member,omitempty"`
-	Permissions *HrefObjectPermissionsLink `json:"permissions,omitempty"`
-	ResourceSet *HrefObjectResourceSetLink `json:"resource-set,omitempty"`
-	Role *HrefObjectRoleLink `json:"role,omitempty"`
+	Assignee             *HrefObjectAssigneeLink    `json:"assignee,omitempty"`
+	Member               *HrefObjectMemberLink      `json:"member,omitempty"`
+	Permissions          *HrefObjectPermissionsLink `json:"permissions,omitempty"`
+	ResourceSet          *HrefObjectResourceSetLink `json:"resource-set,omitempty"`
+	Role                 *HrefObjectRoleLink        `json:"role,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewLinksCustomRoleResponseWithDefaults() *LinksCustomRoleResponse {
 
 // GetAssignee returns the Assignee field value if set, zero value otherwise.
 func (o *LinksCustomRoleResponse) GetAssignee() HrefObjectAssigneeLink {
-	if o == nil || o.Assignee == nil {
+	if o == nil || IsNil(o.Assignee) {
 		var ret HrefObjectAssigneeLink
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *LinksCustomRoleResponse) GetAssignee() HrefObjectAssigneeLink {
 // GetAssigneeOk returns a tuple with the Assignee field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksCustomRoleResponse) GetAssigneeOk() (*HrefObjectAssigneeLink, bool) {
-	if o == nil || o.Assignee == nil {
+	if o == nil || IsNil(o.Assignee) {
 		return nil, false
 	}
 	return o.Assignee, true
@@ -76,7 +79,7 @@ func (o *LinksCustomRoleResponse) GetAssigneeOk() (*HrefObjectAssigneeLink, bool
 
 // HasAssignee returns a boolean if a field has been set.
 func (o *LinksCustomRoleResponse) HasAssignee() bool {
-	if o != nil && o.Assignee != nil {
+	if o != nil && !IsNil(o.Assignee) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *LinksCustomRoleResponse) SetAssignee(v HrefObjectAssigneeLink) {
 
 // GetMember returns the Member field value if set, zero value otherwise.
 func (o *LinksCustomRoleResponse) GetMember() HrefObjectMemberLink {
-	if o == nil || o.Member == nil {
+	if o == nil || IsNil(o.Member) {
 		var ret HrefObjectMemberLink
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *LinksCustomRoleResponse) GetMember() HrefObjectMemberLink {
 // GetMemberOk returns a tuple with the Member field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksCustomRoleResponse) GetMemberOk() (*HrefObjectMemberLink, bool) {
-	if o == nil || o.Member == nil {
+	if o == nil || IsNil(o.Member) {
 		return nil, false
 	}
 	return o.Member, true
@@ -108,7 +111,7 @@ func (o *LinksCustomRoleResponse) GetMemberOk() (*HrefObjectMemberLink, bool) {
 
 // HasMember returns a boolean if a field has been set.
 func (o *LinksCustomRoleResponse) HasMember() bool {
-	if o != nil && o.Member != nil {
+	if o != nil && !IsNil(o.Member) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *LinksCustomRoleResponse) SetMember(v HrefObjectMemberLink) {
 
 // GetPermissions returns the Permissions field value if set, zero value otherwise.
 func (o *LinksCustomRoleResponse) GetPermissions() HrefObjectPermissionsLink {
-	if o == nil || o.Permissions == nil {
+	if o == nil || IsNil(o.Permissions) {
 		var ret HrefObjectPermissionsLink
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *LinksCustomRoleResponse) GetPermissions() HrefObjectPermissionsLink {
 // GetPermissionsOk returns a tuple with the Permissions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksCustomRoleResponse) GetPermissionsOk() (*HrefObjectPermissionsLink, bool) {
-	if o == nil || o.Permissions == nil {
+	if o == nil || IsNil(o.Permissions) {
 		return nil, false
 	}
 	return o.Permissions, true
@@ -140,7 +143,7 @@ func (o *LinksCustomRoleResponse) GetPermissionsOk() (*HrefObjectPermissionsLink
 
 // HasPermissions returns a boolean if a field has been set.
 func (o *LinksCustomRoleResponse) HasPermissions() bool {
-	if o != nil && o.Permissions != nil {
+	if o != nil && !IsNil(o.Permissions) {
 		return true
 	}
 
@@ -154,7 +157,7 @@ func (o *LinksCustomRoleResponse) SetPermissions(v HrefObjectPermissionsLink) {
 
 // GetResourceSet returns the ResourceSet field value if set, zero value otherwise.
 func (o *LinksCustomRoleResponse) GetResourceSet() HrefObjectResourceSetLink {
-	if o == nil || o.ResourceSet == nil {
+	if o == nil || IsNil(o.ResourceSet) {
 		var ret HrefObjectResourceSetLink
 		return ret
 	}
@@ -164,7 +167,7 @@ func (o *LinksCustomRoleResponse) GetResourceSet() HrefObjectResourceSetLink {
 // GetResourceSetOk returns a tuple with the ResourceSet field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksCustomRoleResponse) GetResourceSetOk() (*HrefObjectResourceSetLink, bool) {
-	if o == nil || o.ResourceSet == nil {
+	if o == nil || IsNil(o.ResourceSet) {
 		return nil, false
 	}
 	return o.ResourceSet, true
@@ -172,7 +175,7 @@ func (o *LinksCustomRoleResponse) GetResourceSetOk() (*HrefObjectResourceSetLink
 
 // HasResourceSet returns a boolean if a field has been set.
 func (o *LinksCustomRoleResponse) HasResourceSet() bool {
-	if o != nil && o.ResourceSet != nil {
+	if o != nil && !IsNil(o.ResourceSet) {
 		return true
 	}
 
@@ -186,7 +189,7 @@ func (o *LinksCustomRoleResponse) SetResourceSet(v HrefObjectResourceSetLink) {
 
 // GetRole returns the Role field value if set, zero value otherwise.
 func (o *LinksCustomRoleResponse) GetRole() HrefObjectRoleLink {
-	if o == nil || o.Role == nil {
+	if o == nil || IsNil(o.Role) {
 		var ret HrefObjectRoleLink
 		return ret
 	}
@@ -196,7 +199,7 @@ func (o *LinksCustomRoleResponse) GetRole() HrefObjectRoleLink {
 // GetRoleOk returns a tuple with the Role field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksCustomRoleResponse) GetRoleOk() (*HrefObjectRoleLink, bool) {
-	if o == nil || o.Role == nil {
+	if o == nil || IsNil(o.Role) {
 		return nil, false
 	}
 	return o.Role, true
@@ -204,7 +207,7 @@ func (o *LinksCustomRoleResponse) GetRoleOk() (*HrefObjectRoleLink, bool) {
 
 // HasRole returns a boolean if a field has been set.
 func (o *LinksCustomRoleResponse) HasRole() bool {
-	if o != nil && o.Role != nil {
+	if o != nil && !IsNil(o.Role) {
 		return true
 	}
 
@@ -217,20 +220,28 @@ func (o *LinksCustomRoleResponse) SetRole(v HrefObjectRoleLink) {
 }
 
 func (o LinksCustomRoleResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LinksCustomRoleResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Assignee != nil {
+	if !IsNil(o.Assignee) {
 		toSerialize["assignee"] = o.Assignee
 	}
-	if o.Member != nil {
+	if !IsNil(o.Member) {
 		toSerialize["member"] = o.Member
 	}
-	if o.Permissions != nil {
+	if !IsNil(o.Permissions) {
 		toSerialize["permissions"] = o.Permissions
 	}
-	if o.ResourceSet != nil {
+	if !IsNil(o.ResourceSet) {
 		toSerialize["resource-set"] = o.ResourceSet
 	}
-	if o.Role != nil {
+	if !IsNil(o.Role) {
 		toSerialize["role"] = o.Role
 	}
 
@@ -238,31 +249,29 @@ func (o LinksCustomRoleResponse) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LinksCustomRoleResponse) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LinksCustomRoleResponse) UnmarshalJSON(data []byte) (err error) {
 	varLinksCustomRoleResponse := _LinksCustomRoleResponse{}
 
-	err = json.Unmarshal(bytes, &varLinksCustomRoleResponse)
-	if err == nil {
-		*o = LinksCustomRoleResponse(varLinksCustomRoleResponse)
-	} else {
+	err = json.Unmarshal(data, &varLinksCustomRoleResponse)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LinksCustomRoleResponse(varLinksCustomRoleResponse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "assignee")
 		delete(additionalProperties, "member")
 		delete(additionalProperties, "permissions")
 		delete(additionalProperties, "resource-set")
 		delete(additionalProperties, "role")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -303,4 +312,3 @@ func (v *NullableLinksCustomRoleResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

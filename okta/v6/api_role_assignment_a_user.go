@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,30 +26,29 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type RoleAssignmentAUserAPI interface {
 
 	/*
-	AssignRoleToUser Assign a user role
+			AssignRoleToUser Assign a user role
 
-	Assigns a [standard role](/openapi/okta-management/guides/roles/#standard-roles) to a user.
+			Assigns a [standard role](/openapi/okta-management/guides/roles/#standard-roles) to a user.
 
-You can also assign a custom role to a user, but the preferred method to assign a custom role to a user is to create a binding between the custom role, the resource set, and the user. See [Create a role resource set binding](/openapi/okta-management/management/tag/RoleDResourceSetBinding/#tag/RoleDResourceSetBinding/operation/createResourceSetBinding).
+		You can also assign a custom role to a user, but the preferred method to assign a custom role to a user is to create a binding between the custom role, the resource set, and the user. See [Create a role resource set binding](/openapi/okta-management/management/tag/RoleDResourceSetBinding/#tag/RoleDResourceSetBinding/operation/createResourceSetBinding).
 
-> **Notes:**
-> * The request payload is different for standard and custom role assignments.
-> * For IAM-based standard role assignments, use the request payload for standard roles. However, the response payload for IAM-based role assignments is similar to the custom role's assignment response.
+		> **Notes:**
+		> * The request payload is different for standard and custom role assignments.
+		> * For IAM-based standard role assignments, use the request payload for standard roles. However, the response payload for IAM-based role assignments is similar to the custom role's assignment response.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiAssignRoleToUserRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param userId ID of an existing Okta user
+			@return ApiAssignRoleToUserRequest
 	*/
 	AssignRoleToUser(ctx context.Context, userId string) ApiAssignRoleToUserRequest
 
@@ -58,15 +57,15 @@ You can also assign a custom role to a user, but the preferred method to assign 
 	AssignRoleToUserExecute(r ApiAssignRoleToUserRequest) (*AssignRoleToUser201Response, *APIResponse, error)
 
 	/*
-	GetRoleAssignmentGovernanceGrant Retrieve a user role governance source
+		GetRoleAssignmentGovernanceGrant Retrieve a user role governance source
 
-	Retrieves a governance source (identified by `grantId`) for a role (identified by `roleAssignmentId`) that's assigned to a user (identified by `userId`)
+		Retrieves a governance source (identified by `grantId`) for a role (identified by `roleAssignmentId`) that's assigned to a user (identified by `userId`)
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param roleAssignmentId The `id` of the role assignment
-	@param grantId Grant ID
-	@return ApiGetRoleAssignmentGovernanceGrantRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param roleAssignmentId The `id` of the role assignment
+		@param grantId Grant ID
+		@return ApiGetRoleAssignmentGovernanceGrantRequest
 	*/
 	GetRoleAssignmentGovernanceGrant(ctx context.Context, userId string, roleAssignmentId string, grantId string) ApiGetRoleAssignmentGovernanceGrantRequest
 
@@ -75,15 +74,15 @@ You can also assign a custom role to a user, but the preferred method to assign 
 	GetRoleAssignmentGovernanceGrantExecute(r ApiGetRoleAssignmentGovernanceGrantRequest) (*RoleGovernanceSource, *APIResponse, error)
 
 	/*
-	GetRoleAssignmentGovernanceGrantResources Retrieve the user role governance source resources
+		GetRoleAssignmentGovernanceGrantResources Retrieve the user role governance source resources
 
-	Retrieves the resources of a governance source (identified by `grantId`) for a role (identified by `roleAssignmentId`) that's assigned to a user (identified by `userId`)
+		Retrieves the resources of a governance source (identified by `grantId`) for a role (identified by `roleAssignmentId`) that's assigned to a user (identified by `userId`)
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param roleAssignmentId The `id` of the role assignment
-	@param grantId Grant ID
-	@return ApiGetRoleAssignmentGovernanceGrantResourcesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param roleAssignmentId The `id` of the role assignment
+		@param grantId Grant ID
+		@return ApiGetRoleAssignmentGovernanceGrantResourcesRequest
 	*/
 	GetRoleAssignmentGovernanceGrantResources(ctx context.Context, userId string, roleAssignmentId string, grantId string) ApiGetRoleAssignmentGovernanceGrantResourcesRequest
 
@@ -92,14 +91,14 @@ You can also assign a custom role to a user, but the preferred method to assign 
 	GetRoleAssignmentGovernanceGrantResourcesExecute(r ApiGetRoleAssignmentGovernanceGrantResourcesRequest) (*RoleGovernanceResources, *APIResponse, error)
 
 	/*
-	GetUserAssignedRole Retrieve a user role assignment
+		GetUserAssignedRole Retrieve a user role assignment
 
-	Retrieves a role assigned to a user (identified by `userId`). The `roleAssignmentId` parameter is the unique identifier for either a standard role assignment object or a custom role resource set binding object.
+		Retrieves a role assigned to a user (identified by `userId`). The `roleAssignmentId` parameter is the unique identifier for either a standard role assignment object or a custom role resource set binding object.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param roleAssignmentId The `id` of the role assignment
-	@return ApiGetUserAssignedRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param roleAssignmentId The `id` of the role assignment
+		@return ApiGetUserAssignedRoleRequest
 	*/
 	GetUserAssignedRole(ctx context.Context, userId string, roleAssignmentId string) ApiGetUserAssignedRoleRequest
 
@@ -108,14 +107,14 @@ You can also assign a custom role to a user, but the preferred method to assign 
 	GetUserAssignedRoleExecute(r ApiGetUserAssignedRoleRequest) (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error)
 
 	/*
-	GetUserAssignedRoleGovernance Retrieve all user role governance sources
+		GetUserAssignedRoleGovernance Retrieve all user role governance sources
 
-	Retrieves the governance sources of a role (identified by `roleAssignmentId`) that's assigned to a user (identified by `userId`)
+		Retrieves the governance sources of a role (identified by `roleAssignmentId`) that's assigned to a user (identified by `userId`)
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param roleAssignmentId The `id` of the role assignment
-	@return ApiGetUserAssignedRoleGovernanceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param roleAssignmentId The `id` of the role assignment
+		@return ApiGetUserAssignedRoleGovernanceRequest
 	*/
 	GetUserAssignedRoleGovernance(ctx context.Context, userId string, roleAssignmentId string) ApiGetUserAssignedRoleGovernanceRequest
 
@@ -124,13 +123,13 @@ You can also assign a custom role to a user, but the preferred method to assign 
 	GetUserAssignedRoleGovernanceExecute(r ApiGetUserAssignedRoleGovernanceRequest) (*RoleGovernance, *APIResponse, error)
 
 	/*
-	ListAssignedRolesForUser List all user role assignments
+		ListAssignedRolesForUser List all user role assignments
 
-	Lists all roles assigned to a user (identified by `userId`)
+		Lists all roles assigned to a user (identified by `userId`)
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiListAssignedRolesForUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiListAssignedRolesForUserRequest
 	*/
 	ListAssignedRolesForUser(ctx context.Context, userId string) ApiListAssignedRolesForUserRequest
 
@@ -139,12 +138,12 @@ You can also assign a custom role to a user, but the preferred method to assign 
 	ListAssignedRolesForUserExecute(r ApiListAssignedRolesForUserRequest) ([]ListGroupAssignedRoles200ResponseInner, *APIResponse, error)
 
 	/*
-	ListUsersWithRoleAssignments List all users with role assignments
+		ListUsersWithRoleAssignments List all users with role assignments
 
-	Lists all users with role assignments
+		Lists all users with role assignments
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListUsersWithRoleAssignmentsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListUsersWithRoleAssignmentsRequest
 	*/
 	ListUsersWithRoleAssignments(ctx context.Context) ApiListUsersWithRoleAssignmentsRequest
 
@@ -153,14 +152,14 @@ You can also assign a custom role to a user, but the preferred method to assign 
 	ListUsersWithRoleAssignmentsExecute(r ApiListUsersWithRoleAssignmentsRequest) (*RoleAssignedUsers, *APIResponse, error)
 
 	/*
-	UnassignRoleFromUser Unassign a user role
+		UnassignRoleFromUser Unassign a user role
 
-	Unassigns a role assignment (identified by `roleAssignmentId`) from a user (identified by `userId`)
+		Unassigns a role assignment (identified by `roleAssignmentId`) from a user (identified by `userId`)
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param roleAssignmentId The `id` of the role assignment
-	@return ApiUnassignRoleFromUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param roleAssignmentId The `id` of the role assignment
+		@return ApiUnassignRoleFromUserRequest
 	*/
 	UnassignRoleFromUser(ctx context.Context, userId string, roleAssignmentId string) ApiUnassignRoleFromUserRequest
 
@@ -172,12 +171,12 @@ You can also assign a custom role to a user, but the preferred method to assign 
 type RoleAssignmentAUserAPIService service
 
 type ApiAssignRoleToUserRequest struct {
-	ctx context.Context
-	ApiService RoleAssignmentAUserAPI
-	userId string
-	assignRoleRequest *AssignRoleToUserRequest
+	ctx                  context.Context
+	ApiService           RoleAssignmentAUserAPI
+	userId               string
+	assignRoleRequest    *AssignRoleToUserRequest
 	disableNotifications *bool
-	retryCount int32
+	retryCount           int32
 }
 
 func (r ApiAssignRoleToUserRequest) AssignRoleRequest(assignRoleRequest AssignRoleToUserRequest) ApiAssignRoleToUserRequest {
@@ -206,21 +205,22 @@ You can also assign a custom role to a user, but the preferred method to assign 
 > * The request payload is different for standard and custom role assignments.
 > * For IAM-based standard role assignments, use the request payload for standard roles. However, the response payload for IAM-based role assignments is similar to the custom role's assignment response.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiAssignRoleToUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiAssignRoleToUserRequest
 */
 func (a *RoleAssignmentAUserAPIService) AssignRoleToUser(ctx context.Context, userId string) ApiAssignRoleToUserRequest {
 	return ApiAssignRoleToUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return AssignRoleToUser201Response
+//
+//	@return AssignRoleToUser201Response
 func (a *RoleAssignmentAUserAPIService) AssignRoleToUserExecute(r ApiAssignRoleToUserRequest) (*AssignRoleToUser201Response, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -229,7 +229,7 @@ func (a *RoleAssignmentAUserAPIService) AssignRoleToUserExecute(r ApiAssignRoleT
 		localVarReturnValue  *AssignRoleToUser201Response
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -298,9 +298,9 @@ func (a *RoleAssignmentAUserAPIService) AssignRoleToUserExecute(r ApiAssignRoleT
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -370,18 +370,18 @@ func (a *RoleAssignmentAUserAPIService) AssignRoleToUserExecute(r ApiAssignRoleT
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetRoleAssignmentGovernanceGrantRequest struct {
-	ctx context.Context
-	ApiService RoleAssignmentAUserAPI
-	userId string
+	ctx              context.Context
+	ApiService       RoleAssignmentAUserAPI
+	userId           string
 	roleAssignmentId string
-	grantId string
-	retryCount int32
+	grantId          string
+	retryCount       int32
 }
 
 func (r ApiGetRoleAssignmentGovernanceGrantRequest) Execute() (*RoleGovernanceSource, *APIResponse, error) {
@@ -393,25 +393,26 @@ GetRoleAssignmentGovernanceGrant Retrieve a user role governance source
 
 Retrieves a governance source (identified by `grantId`) for a role (identified by `roleAssignmentId`) that's assigned to a user (identified by `userId`)
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param roleAssignmentId The `id` of the role assignment
- @param grantId Grant ID
- @return ApiGetRoleAssignmentGovernanceGrantRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param roleAssignmentId The `id` of the role assignment
+	@param grantId Grant ID
+	@return ApiGetRoleAssignmentGovernanceGrantRequest
 */
 func (a *RoleAssignmentAUserAPIService) GetRoleAssignmentGovernanceGrant(ctx context.Context, userId string, roleAssignmentId string, grantId string) ApiGetRoleAssignmentGovernanceGrantRequest {
 	return ApiGetRoleAssignmentGovernanceGrantRequest{
-		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ApiService:       a,
+		ctx:              ctx,
+		userId:           userId,
 		roleAssignmentId: roleAssignmentId,
-		grantId: grantId,
-		retryCount: 0,
+		grantId:          grantId,
+		retryCount:       0,
 	}
 }
 
 // Execute executes the request
-//  @return RoleGovernanceSource
+//
+//	@return RoleGovernanceSource
 func (a *RoleAssignmentAUserAPIService) GetRoleAssignmentGovernanceGrantExecute(r ApiGetRoleAssignmentGovernanceGrantRequest) (*RoleGovernanceSource, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -420,7 +421,7 @@ func (a *RoleAssignmentAUserAPIService) GetRoleAssignmentGovernanceGrantExecute(
 		localVarReturnValue  *RoleGovernanceSource
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -483,9 +484,9 @@ func (a *RoleAssignmentAUserAPIService) GetRoleAssignmentGovernanceGrantExecute(
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -543,18 +544,18 @@ func (a *RoleAssignmentAUserAPIService) GetRoleAssignmentGovernanceGrantExecute(
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetRoleAssignmentGovernanceGrantResourcesRequest struct {
-	ctx context.Context
-	ApiService RoleAssignmentAUserAPI
-	userId string
+	ctx              context.Context
+	ApiService       RoleAssignmentAUserAPI
+	userId           string
 	roleAssignmentId string
-	grantId string
-	retryCount int32
+	grantId          string
+	retryCount       int32
 }
 
 func (r ApiGetRoleAssignmentGovernanceGrantResourcesRequest) Execute() (*RoleGovernanceResources, *APIResponse, error) {
@@ -566,25 +567,26 @@ GetRoleAssignmentGovernanceGrantResources Retrieve the user role governance sour
 
 Retrieves the resources of a governance source (identified by `grantId`) for a role (identified by `roleAssignmentId`) that's assigned to a user (identified by `userId`)
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param roleAssignmentId The `id` of the role assignment
- @param grantId Grant ID
- @return ApiGetRoleAssignmentGovernanceGrantResourcesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param roleAssignmentId The `id` of the role assignment
+	@param grantId Grant ID
+	@return ApiGetRoleAssignmentGovernanceGrantResourcesRequest
 */
 func (a *RoleAssignmentAUserAPIService) GetRoleAssignmentGovernanceGrantResources(ctx context.Context, userId string, roleAssignmentId string, grantId string) ApiGetRoleAssignmentGovernanceGrantResourcesRequest {
 	return ApiGetRoleAssignmentGovernanceGrantResourcesRequest{
-		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ApiService:       a,
+		ctx:              ctx,
+		userId:           userId,
 		roleAssignmentId: roleAssignmentId,
-		grantId: grantId,
-		retryCount: 0,
+		grantId:          grantId,
+		retryCount:       0,
 	}
 }
 
 // Execute executes the request
-//  @return RoleGovernanceResources
+//
+//	@return RoleGovernanceResources
 func (a *RoleAssignmentAUserAPIService) GetRoleAssignmentGovernanceGrantResourcesExecute(r ApiGetRoleAssignmentGovernanceGrantResourcesRequest) (*RoleGovernanceResources, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -593,7 +595,7 @@ func (a *RoleAssignmentAUserAPIService) GetRoleAssignmentGovernanceGrantResource
 		localVarReturnValue  *RoleGovernanceResources
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -656,9 +658,9 @@ func (a *RoleAssignmentAUserAPIService) GetRoleAssignmentGovernanceGrantResource
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -716,17 +718,17 @@ func (a *RoleAssignmentAUserAPIService) GetRoleAssignmentGovernanceGrantResource
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetUserAssignedRoleRequest struct {
-	ctx context.Context
-	ApiService RoleAssignmentAUserAPI
-	userId string
+	ctx              context.Context
+	ApiService       RoleAssignmentAUserAPI
+	userId           string
 	roleAssignmentId string
-	retryCount int32
+	retryCount       int32
 }
 
 func (r ApiGetUserAssignedRoleRequest) Execute() (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error) {
@@ -738,23 +740,24 @@ GetUserAssignedRole Retrieve a user role assignment
 
 Retrieves a role assigned to a user (identified by `userId`). The `roleAssignmentId` parameter is the unique identifier for either a standard role assignment object or a custom role resource set binding object.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param roleAssignmentId The `id` of the role assignment
- @return ApiGetUserAssignedRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param roleAssignmentId The `id` of the role assignment
+	@return ApiGetUserAssignedRoleRequest
 */
 func (a *RoleAssignmentAUserAPIService) GetUserAssignedRole(ctx context.Context, userId string, roleAssignmentId string) ApiGetUserAssignedRoleRequest {
 	return ApiGetUserAssignedRoleRequest{
-		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ApiService:       a,
+		ctx:              ctx,
+		userId:           userId,
 		roleAssignmentId: roleAssignmentId,
-		retryCount: 0,
+		retryCount:       0,
 	}
 }
 
 // Execute executes the request
-//  @return ListGroupAssignedRoles200ResponseInner
+//
+//	@return ListGroupAssignedRoles200ResponseInner
 func (a *RoleAssignmentAUserAPIService) GetUserAssignedRoleExecute(r ApiGetUserAssignedRoleRequest) (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -763,7 +766,7 @@ func (a *RoleAssignmentAUserAPIService) GetUserAssignedRoleExecute(r ApiGetUserA
 		localVarReturnValue  *ListGroupAssignedRoles200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -825,9 +828,9 @@ func (a *RoleAssignmentAUserAPIService) GetUserAssignedRoleExecute(r ApiGetUserA
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -885,17 +888,17 @@ func (a *RoleAssignmentAUserAPIService) GetUserAssignedRoleExecute(r ApiGetUserA
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetUserAssignedRoleGovernanceRequest struct {
-	ctx context.Context
-	ApiService RoleAssignmentAUserAPI
-	userId string
+	ctx              context.Context
+	ApiService       RoleAssignmentAUserAPI
+	userId           string
 	roleAssignmentId string
-	retryCount int32
+	retryCount       int32
 }
 
 func (r ApiGetUserAssignedRoleGovernanceRequest) Execute() (*RoleGovernance, *APIResponse, error) {
@@ -907,23 +910,24 @@ GetUserAssignedRoleGovernance Retrieve all user role governance sources
 
 Retrieves the governance sources of a role (identified by `roleAssignmentId`) that's assigned to a user (identified by `userId`)
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param roleAssignmentId The `id` of the role assignment
- @return ApiGetUserAssignedRoleGovernanceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param roleAssignmentId The `id` of the role assignment
+	@return ApiGetUserAssignedRoleGovernanceRequest
 */
 func (a *RoleAssignmentAUserAPIService) GetUserAssignedRoleGovernance(ctx context.Context, userId string, roleAssignmentId string) ApiGetUserAssignedRoleGovernanceRequest {
 	return ApiGetUserAssignedRoleGovernanceRequest{
-		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ApiService:       a,
+		ctx:              ctx,
+		userId:           userId,
 		roleAssignmentId: roleAssignmentId,
-		retryCount: 0,
+		retryCount:       0,
 	}
 }
 
 // Execute executes the request
-//  @return RoleGovernance
+//
+//	@return RoleGovernance
 func (a *RoleAssignmentAUserAPIService) GetUserAssignedRoleGovernanceExecute(r ApiGetUserAssignedRoleGovernanceRequest) (*RoleGovernance, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -932,7 +936,7 @@ func (a *RoleAssignmentAUserAPIService) GetUserAssignedRoleGovernanceExecute(r A
 		localVarReturnValue  *RoleGovernance
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -994,9 +998,9 @@ func (a *RoleAssignmentAUserAPIService) GetUserAssignedRoleGovernanceExecute(r A
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1054,16 +1058,16 @@ func (a *RoleAssignmentAUserAPIService) GetUserAssignedRoleGovernanceExecute(r A
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListAssignedRolesForUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleAssignmentAUserAPI
-	userId string
-	expand *string
+	userId     string
+	expand     *string
 	retryCount int32
 }
 
@@ -1082,21 +1086,22 @@ ListAssignedRolesForUser List all user role assignments
 
 Lists all roles assigned to a user (identified by `userId`)
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiListAssignedRolesForUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiListAssignedRolesForUserRequest
 */
 func (a *RoleAssignmentAUserAPIService) ListAssignedRolesForUser(ctx context.Context, userId string) ApiListAssignedRolesForUserRequest {
 	return ApiListAssignedRolesForUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []ListGroupAssignedRoles200ResponseInner
+//
+//	@return []ListGroupAssignedRoles200ResponseInner
 func (a *RoleAssignmentAUserAPIService) ListAssignedRolesForUserExecute(r ApiListAssignedRolesForUserRequest) ([]ListGroupAssignedRoles200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1105,7 +1110,7 @@ func (a *RoleAssignmentAUserAPIService) ListAssignedRolesForUserExecute(r ApiLis
 		localVarReturnValue  []ListGroupAssignedRoles200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1169,9 +1174,9 @@ func (a *RoleAssignmentAUserAPIService) ListAssignedRolesForUserExecute(r ApiLis
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1229,16 +1234,16 @@ func (a *RoleAssignmentAUserAPIService) ListAssignedRolesForUserExecute(r ApiLis
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListUsersWithRoleAssignmentsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleAssignmentAUserAPI
-	after *string
-	limit *int32
+	after      *string
+	limit      *int32
 	retryCount int32
 }
 
@@ -1263,19 +1268,20 @@ ListUsersWithRoleAssignments List all users with role assignments
 
 Lists all users with role assignments
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListUsersWithRoleAssignmentsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListUsersWithRoleAssignmentsRequest
 */
 func (a *RoleAssignmentAUserAPIService) ListUsersWithRoleAssignments(ctx context.Context) ApiListUsersWithRoleAssignmentsRequest {
 	return ApiListUsersWithRoleAssignmentsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return RoleAssignedUsers
+//
+//	@return RoleAssignedUsers
 func (a *RoleAssignmentAUserAPIService) ListUsersWithRoleAssignmentsExecute(r ApiListUsersWithRoleAssignmentsRequest) (*RoleAssignedUsers, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1284,7 +1290,7 @@ func (a *RoleAssignmentAUserAPIService) ListUsersWithRoleAssignmentsExecute(r Ap
 		localVarReturnValue  *RoleAssignedUsers
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1350,9 +1356,9 @@ func (a *RoleAssignmentAUserAPIService) ListUsersWithRoleAssignmentsExecute(r Ap
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1398,17 +1404,17 @@ func (a *RoleAssignmentAUserAPIService) ListUsersWithRoleAssignmentsExecute(r Ap
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUnassignRoleFromUserRequest struct {
-	ctx context.Context
-	ApiService RoleAssignmentAUserAPI
-	userId string
+	ctx              context.Context
+	ApiService       RoleAssignmentAUserAPI
+	userId           string
 	roleAssignmentId string
-	retryCount int32
+	retryCount       int32
 }
 
 func (r ApiUnassignRoleFromUserRequest) Execute() (*APIResponse, error) {
@@ -1420,18 +1426,18 @@ UnassignRoleFromUser Unassign a user role
 
 Unassigns a role assignment (identified by `roleAssignmentId`) from a user (identified by `userId`)
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param roleAssignmentId The `id` of the role assignment
- @return ApiUnassignRoleFromUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param roleAssignmentId The `id` of the role assignment
+	@return ApiUnassignRoleFromUserRequest
 */
 func (a *RoleAssignmentAUserAPIService) UnassignRoleFromUser(ctx context.Context, userId string, roleAssignmentId string) ApiUnassignRoleFromUserRequest {
 	return ApiUnassignRoleFromUserRequest{
-		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ApiService:       a,
+		ctx:              ctx,
+		userId:           userId,
 		roleAssignmentId: roleAssignmentId,
-		retryCount: 0,
+		retryCount:       0,
 	}
 }
 
@@ -1443,7 +1449,7 @@ func (a *RoleAssignmentAUserAPIService) UnassignRoleFromUserExecute(r ApiUnassig
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1505,9 +1511,9 @@ func (a *RoleAssignmentAUserAPIService) UnassignRoleFromUserExecute(r ApiUnassig
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err

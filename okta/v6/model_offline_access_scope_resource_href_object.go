@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the OfflineAccessScopeResourceHrefObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OfflineAccessScopeResourceHrefObject{}
+
 // OfflineAccessScopeResourceHrefObject struct for OfflineAccessScopeResourceHrefObject
 type OfflineAccessScopeResourceHrefObject struct {
 	// Link URI
 	Href *string `json:"href,omitempty"`
 	// Link name
-	Title *string `json:"title,omitempty"`
+	Title                *string `json:"title,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewOfflineAccessScopeResourceHrefObjectWithDefaults() *OfflineAccessScopeRe
 
 // GetHref returns the Href field value if set, zero value otherwise.
 func (o *OfflineAccessScopeResourceHrefObject) GetHref() string {
-	if o == nil || o.Href == nil {
+	if o == nil || IsNil(o.Href) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *OfflineAccessScopeResourceHrefObject) GetHref() string {
 // GetHrefOk returns a tuple with the Href field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OfflineAccessScopeResourceHrefObject) GetHrefOk() (*string, bool) {
-	if o == nil || o.Href == nil {
+	if o == nil || IsNil(o.Href) {
 		return nil, false
 	}
 	return o.Href, true
@@ -75,7 +78,7 @@ func (o *OfflineAccessScopeResourceHrefObject) GetHrefOk() (*string, bool) {
 
 // HasHref returns a boolean if a field has been set.
 func (o *OfflineAccessScopeResourceHrefObject) HasHref() bool {
-	if o != nil && o.Href != nil {
+	if o != nil && !IsNil(o.Href) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *OfflineAccessScopeResourceHrefObject) SetHref(v string) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *OfflineAccessScopeResourceHrefObject) GetTitle() string {
-	if o == nil || o.Title == nil {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *OfflineAccessScopeResourceHrefObject) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OfflineAccessScopeResourceHrefObject) GetTitleOk() (*string, bool) {
-	if o == nil || o.Title == nil {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -107,7 +110,7 @@ func (o *OfflineAccessScopeResourceHrefObject) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *OfflineAccessScopeResourceHrefObject) HasTitle() bool {
-	if o != nil && o.Title != nil {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *OfflineAccessScopeResourceHrefObject) SetTitle(v string) {
 }
 
 func (o OfflineAccessScopeResourceHrefObject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OfflineAccessScopeResourceHrefObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Href != nil {
+	if !IsNil(o.Href) {
 		toSerialize["href"] = o.Href
 	}
-	if o.Title != nil {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
 
@@ -132,28 +143,26 @@ func (o OfflineAccessScopeResourceHrefObject) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OfflineAccessScopeResourceHrefObject) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OfflineAccessScopeResourceHrefObject) UnmarshalJSON(data []byte) (err error) {
 	varOfflineAccessScopeResourceHrefObject := _OfflineAccessScopeResourceHrefObject{}
 
-	err = json.Unmarshal(bytes, &varOfflineAccessScopeResourceHrefObject)
-	if err == nil {
-		*o = OfflineAccessScopeResourceHrefObject(varOfflineAccessScopeResourceHrefObject)
-	} else {
+	err = json.Unmarshal(data, &varOfflineAccessScopeResourceHrefObject)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OfflineAccessScopeResourceHrefObject(varOfflineAccessScopeResourceHrefObject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "href")
 		delete(additionalProperties, "title")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableOfflineAccessScopeResourceHrefObject) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the KeepMeSignedIn type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &KeepMeSignedIn{}
+
 // KeepMeSignedIn <x-lifecycle-container><x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>Controls how often the post-authentication prompt is presented to users
 type KeepMeSignedIn struct {
 	// Whether the post-authentication [Keep Me Signed In (KMSI)](https://help.okta.com/oie/en-us/content/topics/security/stay-signed-in.htm) flow is allowed
 	PostAuth *string `json:"postAuth,omitempty"`
 	// A time duration specified as an [ISO 8601 duration](https://en.wikipedia.org/wiki/ISO_8601#Durations).
 	PostAuthPromptFrequency *string `json:"postAuthPromptFrequency,omitempty" validate:"regexp=^P(?:$)(\\\\d+Y)?(\\\\d+M)?(\\\\d+W)?(\\\\d+D)?(T(?:\\\\d)(\\\\d+H)?(\\\\d+M)?(\\\\d+S)?)?$"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties    map[string]interface{}
 }
 
 type _KeepMeSignedIn KeepMeSignedIn
@@ -57,7 +60,7 @@ func NewKeepMeSignedInWithDefaults() *KeepMeSignedIn {
 
 // GetPostAuth returns the PostAuth field value if set, zero value otherwise.
 func (o *KeepMeSignedIn) GetPostAuth() string {
-	if o == nil || o.PostAuth == nil {
+	if o == nil || IsNil(o.PostAuth) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *KeepMeSignedIn) GetPostAuth() string {
 // GetPostAuthOk returns a tuple with the PostAuth field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KeepMeSignedIn) GetPostAuthOk() (*string, bool) {
-	if o == nil || o.PostAuth == nil {
+	if o == nil || IsNil(o.PostAuth) {
 		return nil, false
 	}
 	return o.PostAuth, true
@@ -75,7 +78,7 @@ func (o *KeepMeSignedIn) GetPostAuthOk() (*string, bool) {
 
 // HasPostAuth returns a boolean if a field has been set.
 func (o *KeepMeSignedIn) HasPostAuth() bool {
-	if o != nil && o.PostAuth != nil {
+	if o != nil && !IsNil(o.PostAuth) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *KeepMeSignedIn) SetPostAuth(v string) {
 
 // GetPostAuthPromptFrequency returns the PostAuthPromptFrequency field value if set, zero value otherwise.
 func (o *KeepMeSignedIn) GetPostAuthPromptFrequency() string {
-	if o == nil || o.PostAuthPromptFrequency == nil {
+	if o == nil || IsNil(o.PostAuthPromptFrequency) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *KeepMeSignedIn) GetPostAuthPromptFrequency() string {
 // GetPostAuthPromptFrequencyOk returns a tuple with the PostAuthPromptFrequency field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KeepMeSignedIn) GetPostAuthPromptFrequencyOk() (*string, bool) {
-	if o == nil || o.PostAuthPromptFrequency == nil {
+	if o == nil || IsNil(o.PostAuthPromptFrequency) {
 		return nil, false
 	}
 	return o.PostAuthPromptFrequency, true
@@ -107,7 +110,7 @@ func (o *KeepMeSignedIn) GetPostAuthPromptFrequencyOk() (*string, bool) {
 
 // HasPostAuthPromptFrequency returns a boolean if a field has been set.
 func (o *KeepMeSignedIn) HasPostAuthPromptFrequency() bool {
-	if o != nil && o.PostAuthPromptFrequency != nil {
+	if o != nil && !IsNil(o.PostAuthPromptFrequency) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *KeepMeSignedIn) SetPostAuthPromptFrequency(v string) {
 }
 
 func (o KeepMeSignedIn) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o KeepMeSignedIn) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.PostAuth != nil {
+	if !IsNil(o.PostAuth) {
 		toSerialize["postAuth"] = o.PostAuth
 	}
-	if o.PostAuthPromptFrequency != nil {
+	if !IsNil(o.PostAuthPromptFrequency) {
 		toSerialize["postAuthPromptFrequency"] = o.PostAuthPromptFrequency
 	}
 
@@ -132,28 +143,26 @@ func (o KeepMeSignedIn) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *KeepMeSignedIn) UnmarshalJSON(bytes []byte) (err error) {
+func (o *KeepMeSignedIn) UnmarshalJSON(data []byte) (err error) {
 	varKeepMeSignedIn := _KeepMeSignedIn{}
 
-	err = json.Unmarshal(bytes, &varKeepMeSignedIn)
-	if err == nil {
-		*o = KeepMeSignedIn(varKeepMeSignedIn)
-	} else {
+	err = json.Unmarshal(data, &varKeepMeSignedIn)
+
+	if err != nil {
 		return err
 	}
 
+	*o = KeepMeSignedIn(varKeepMeSignedIn)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "postAuth")
 		delete(additionalProperties, "postAuthPromptFrequency")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableKeepMeSignedIn) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

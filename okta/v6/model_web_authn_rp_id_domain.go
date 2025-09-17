@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the WebAuthnRpIdDomain type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WebAuthnRpIdDomain{}
+
 // WebAuthnRpIdDomain The RP domain object for the WebAuthn configuration
 type WebAuthnRpIdDomain struct {
 	DnsRecord *DNSRecord `json:"dnsRecord,omitempty"`
 	// The [RP ID](https://www.w3.org/TR/webauthn/#relying-party-identifier) domain value to be used for all WebAuthn operations.  If it isn't specified, the `domain` object isn't included in the request, and the domain value defaults to the domain of the current page (the domain of your org or a custom domain, for example).  > **Note:** If you don't use a custom RP ID (the default behavior), the domain value defaults to the end user's current page. The domain value defaults to the full domain name of the page that the end user is on when they're attempting the WebAuthn credential operation (enrollment or verification).
 	Name *string `json:"name,omitempty"`
 	// Indicates the validation status of the domain
-	ValidationStatus *string `json:"validationStatus,omitempty"`
+	ValidationStatus     *string `json:"validationStatus,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewWebAuthnRpIdDomainWithDefaults() *WebAuthnRpIdDomain {
 
 // GetDnsRecord returns the DnsRecord field value if set, zero value otherwise.
 func (o *WebAuthnRpIdDomain) GetDnsRecord() DNSRecord {
-	if o == nil || o.DnsRecord == nil {
+	if o == nil || IsNil(o.DnsRecord) {
 		var ret DNSRecord
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *WebAuthnRpIdDomain) GetDnsRecord() DNSRecord {
 // GetDnsRecordOk returns a tuple with the DnsRecord field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WebAuthnRpIdDomain) GetDnsRecordOk() (*DNSRecord, bool) {
-	if o == nil || o.DnsRecord == nil {
+	if o == nil || IsNil(o.DnsRecord) {
 		return nil, false
 	}
 	return o.DnsRecord, true
@@ -76,7 +79,7 @@ func (o *WebAuthnRpIdDomain) GetDnsRecordOk() (*DNSRecord, bool) {
 
 // HasDnsRecord returns a boolean if a field has been set.
 func (o *WebAuthnRpIdDomain) HasDnsRecord() bool {
-	if o != nil && o.DnsRecord != nil {
+	if o != nil && !IsNil(o.DnsRecord) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *WebAuthnRpIdDomain) SetDnsRecord(v DNSRecord) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *WebAuthnRpIdDomain) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *WebAuthnRpIdDomain) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WebAuthnRpIdDomain) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -108,7 +111,7 @@ func (o *WebAuthnRpIdDomain) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *WebAuthnRpIdDomain) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *WebAuthnRpIdDomain) SetName(v string) {
 
 // GetValidationStatus returns the ValidationStatus field value if set, zero value otherwise.
 func (o *WebAuthnRpIdDomain) GetValidationStatus() string {
-	if o == nil || o.ValidationStatus == nil {
+	if o == nil || IsNil(o.ValidationStatus) {
 		var ret string
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *WebAuthnRpIdDomain) GetValidationStatus() string {
 // GetValidationStatusOk returns a tuple with the ValidationStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WebAuthnRpIdDomain) GetValidationStatusOk() (*string, bool) {
-	if o == nil || o.ValidationStatus == nil {
+	if o == nil || IsNil(o.ValidationStatus) {
 		return nil, false
 	}
 	return o.ValidationStatus, true
@@ -140,7 +143,7 @@ func (o *WebAuthnRpIdDomain) GetValidationStatusOk() (*string, bool) {
 
 // HasValidationStatus returns a boolean if a field has been set.
 func (o *WebAuthnRpIdDomain) HasValidationStatus() bool {
-	if o != nil && o.ValidationStatus != nil {
+	if o != nil && !IsNil(o.ValidationStatus) {
 		return true
 	}
 
@@ -153,14 +156,22 @@ func (o *WebAuthnRpIdDomain) SetValidationStatus(v string) {
 }
 
 func (o WebAuthnRpIdDomain) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o WebAuthnRpIdDomain) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.DnsRecord != nil {
+	if !IsNil(o.DnsRecord) {
 		toSerialize["dnsRecord"] = o.DnsRecord
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.ValidationStatus != nil {
+	if !IsNil(o.ValidationStatus) {
 		toSerialize["validationStatus"] = o.ValidationStatus
 	}
 
@@ -168,29 +179,27 @@ func (o WebAuthnRpIdDomain) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *WebAuthnRpIdDomain) UnmarshalJSON(bytes []byte) (err error) {
+func (o *WebAuthnRpIdDomain) UnmarshalJSON(data []byte) (err error) {
 	varWebAuthnRpIdDomain := _WebAuthnRpIdDomain{}
 
-	err = json.Unmarshal(bytes, &varWebAuthnRpIdDomain)
-	if err == nil {
-		*o = WebAuthnRpIdDomain(varWebAuthnRpIdDomain)
-	} else {
+	err = json.Unmarshal(data, &varWebAuthnRpIdDomain)
+
+	if err != nil {
 		return err
 	}
 
+	*o = WebAuthnRpIdDomain(varWebAuthnRpIdDomain)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "dnsRecord")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "validationStatus")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -231,4 +240,3 @@ func (v *NullableWebAuthnRpIdDomain) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

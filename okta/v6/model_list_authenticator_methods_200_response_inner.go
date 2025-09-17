@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,17 +28,15 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
 // ListAuthenticatorMethods200ResponseInner - struct for ListAuthenticatorMethods200ResponseInner
 type ListAuthenticatorMethods200ResponseInner struct {
-	AuthenticatorMethodOtp *AuthenticatorMethodOtp
-	AuthenticatorMethodPush *AuthenticatorMethodPush
-	AuthenticatorMethodSignedNonce *AuthenticatorMethodSignedNonce
-	AuthenticatorMethodSimple *AuthenticatorMethodSimple
-	AuthenticatorMethodTac *AuthenticatorMethodTac
-	AuthenticatorMethodTotp *AuthenticatorMethodTotp
-	AuthenticatorMethodWebAuthn *AuthenticatorMethodWebAuthn
+	AuthenticatorMethodOtp                      *AuthenticatorMethodOtp
+	AuthenticatorMethodPush                     *AuthenticatorMethodPush
+	AuthenticatorMethodSignedNonce              *AuthenticatorMethodSignedNonce
+	AuthenticatorMethodSimple                   *AuthenticatorMethodSimple
+	AuthenticatorMethodTac                      *AuthenticatorMethodTac
+	AuthenticatorMethodTotp                     *AuthenticatorMethodTotp
+	AuthenticatorMethodWebAuthn                 *AuthenticatorMethodWebAuthn
 	AuthenticatorMethodWithVerifiableProperties *AuthenticatorMethodWithVerifiableProperties
 }
 
@@ -98,15 +96,14 @@ func AuthenticatorMethodWithVerifiablePropertiesAsListAuthenticatorMethods200Res
 	}
 }
 
-
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	// check if the discriminator value is 'cert'
@@ -117,7 +114,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 			return nil // data stored in dst.AuthenticatorMethodWithVerifiableProperties, return on the first match
 		} else {
 			dst.AuthenticatorMethodWithVerifiableProperties = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodWithVerifiableProperties: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodWithVerifiableProperties: %s", err.Error())
 		}
 	}
 
@@ -129,7 +126,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 			return nil // data stored in dst.AuthenticatorMethodWithVerifiableProperties, return on the first match
 		} else {
 			dst.AuthenticatorMethodWithVerifiableProperties = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodWithVerifiableProperties: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodWithVerifiableProperties: %s", err.Error())
 		}
 	}
 
@@ -141,7 +138,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 			return nil // data stored in dst.AuthenticatorMethodSimple, return on the first match
 		} else {
 			dst.AuthenticatorMethodSimple = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodSimple: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodSimple: %s", err.Error())
 		}
 	}
 
@@ -153,7 +150,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 			return nil // data stored in dst.AuthenticatorMethodWithVerifiableProperties, return on the first match
 		} else {
 			dst.AuthenticatorMethodWithVerifiableProperties = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodWithVerifiableProperties: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodWithVerifiableProperties: %s", err.Error())
 		}
 	}
 
@@ -165,7 +162,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 			return nil // data stored in dst.AuthenticatorMethodOtp, return on the first match
 		} else {
 			dst.AuthenticatorMethodOtp = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodOtp: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodOtp: %s", err.Error())
 		}
 	}
 
@@ -177,7 +174,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 			return nil // data stored in dst.AuthenticatorMethodSimple, return on the first match
 		} else {
 			dst.AuthenticatorMethodSimple = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodSimple: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodSimple: %s", err.Error())
 		}
 	}
 
@@ -189,7 +186,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 			return nil // data stored in dst.AuthenticatorMethodPush, return on the first match
 		} else {
 			dst.AuthenticatorMethodPush = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodPush: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodPush: %s", err.Error())
 		}
 	}
 
@@ -201,7 +198,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 			return nil // data stored in dst.AuthenticatorMethodSimple, return on the first match
 		} else {
 			dst.AuthenticatorMethodSimple = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodSimple: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodSimple: %s", err.Error())
 		}
 	}
 
@@ -213,7 +210,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 			return nil // data stored in dst.AuthenticatorMethodSignedNonce, return on the first match
 		} else {
 			dst.AuthenticatorMethodSignedNonce = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodSignedNonce: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodSignedNonce: %s", err.Error())
 		}
 	}
 
@@ -225,7 +222,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 			return nil // data stored in dst.AuthenticatorMethodSimple, return on the first match
 		} else {
 			dst.AuthenticatorMethodSimple = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodSimple: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodSimple: %s", err.Error())
 		}
 	}
 
@@ -237,7 +234,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 			return nil // data stored in dst.AuthenticatorMethodTac, return on the first match
 		} else {
 			dst.AuthenticatorMethodTac = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodTac: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodTac: %s", err.Error())
 		}
 	}
 
@@ -249,7 +246,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 			return nil // data stored in dst.AuthenticatorMethodTotp, return on the first match
 		} else {
 			dst.AuthenticatorMethodTotp = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodTotp: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodTotp: %s", err.Error())
 		}
 	}
 
@@ -261,7 +258,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 			return nil // data stored in dst.AuthenticatorMethodSimple, return on the first match
 		} else {
 			dst.AuthenticatorMethodSimple = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodSimple: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodSimple: %s", err.Error())
 		}
 	}
 
@@ -273,7 +270,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 			return nil // data stored in dst.AuthenticatorMethodWebAuthn, return on the first match
 		} else {
 			dst.AuthenticatorMethodWebAuthn = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodWebAuthn: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodWebAuthn: %s", err.Error())
 		}
 	}
 
@@ -285,7 +282,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 			return nil // data stored in dst.AuthenticatorMethodOtp, return on the first match
 		} else {
 			dst.AuthenticatorMethodOtp = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodOtp: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodOtp: %s", err.Error())
 		}
 	}
 
@@ -297,7 +294,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 			return nil // data stored in dst.AuthenticatorMethodPush, return on the first match
 		} else {
 			dst.AuthenticatorMethodPush = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodPush: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodPush: %s", err.Error())
 		}
 	}
 
@@ -309,7 +306,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 			return nil // data stored in dst.AuthenticatorMethodSignedNonce, return on the first match
 		} else {
 			dst.AuthenticatorMethodSignedNonce = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodSignedNonce: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodSignedNonce: %s", err.Error())
 		}
 	}
 
@@ -321,7 +318,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 			return nil // data stored in dst.AuthenticatorMethodSimple, return on the first match
 		} else {
 			dst.AuthenticatorMethodSimple = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodSimple: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodSimple: %s", err.Error())
 		}
 	}
 
@@ -333,7 +330,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 			return nil // data stored in dst.AuthenticatorMethodTac, return on the first match
 		} else {
 			dst.AuthenticatorMethodTac = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodTac: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodTac: %s", err.Error())
 		}
 	}
 
@@ -345,7 +342,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 			return nil // data stored in dst.AuthenticatorMethodTotp, return on the first match
 		} else {
 			dst.AuthenticatorMethodTotp = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodTotp: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodTotp: %s", err.Error())
 		}
 	}
 
@@ -357,7 +354,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 			return nil // data stored in dst.AuthenticatorMethodWebAuthn, return on the first match
 		} else {
 			dst.AuthenticatorMethodWebAuthn = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodWebAuthn: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodWebAuthn: %s", err.Error())
 		}
 	}
 
@@ -369,7 +366,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 			return nil // data stored in dst.AuthenticatorMethodWithVerifiableProperties, return on the first match
 		} else {
 			dst.AuthenticatorMethodWithVerifiableProperties = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodWithVerifiableProperties: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodWithVerifiableProperties: %s", err.Error())
 		}
 	}
 
@@ -414,7 +411,7 @@ func (src ListAuthenticatorMethods200ResponseInner) MarshalJSON() ([]byte, error
 }
 
 // Get the actual instance
-func (obj *ListAuthenticatorMethods200ResponseInner) GetActualInstance() (interface{}) {
+func (obj *ListAuthenticatorMethods200ResponseInner) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -448,6 +445,44 @@ func (obj *ListAuthenticatorMethods200ResponseInner) GetActualInstance() (interf
 
 	if obj.AuthenticatorMethodWithVerifiableProperties != nil {
 		return obj.AuthenticatorMethodWithVerifiableProperties
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj ListAuthenticatorMethods200ResponseInner) GetActualInstanceValue() interface{} {
+	if obj.AuthenticatorMethodOtp != nil {
+		return *obj.AuthenticatorMethodOtp
+	}
+
+	if obj.AuthenticatorMethodPush != nil {
+		return *obj.AuthenticatorMethodPush
+	}
+
+	if obj.AuthenticatorMethodSignedNonce != nil {
+		return *obj.AuthenticatorMethodSignedNonce
+	}
+
+	if obj.AuthenticatorMethodSimple != nil {
+		return *obj.AuthenticatorMethodSimple
+	}
+
+	if obj.AuthenticatorMethodTac != nil {
+		return *obj.AuthenticatorMethodTac
+	}
+
+	if obj.AuthenticatorMethodTotp != nil {
+		return *obj.AuthenticatorMethodTotp
+	}
+
+	if obj.AuthenticatorMethodWebAuthn != nil {
+		return *obj.AuthenticatorMethodWebAuthn
+	}
+
+	if obj.AuthenticatorMethodWithVerifiableProperties != nil {
+		return *obj.AuthenticatorMethodWithVerifiableProperties
 	}
 
 	// all schemas are nil
@@ -489,5 +524,3 @@ func (v *NullableListAuthenticatorMethods200ResponseInner) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

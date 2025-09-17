@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,42 +26,41 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type UserLifecycleAPI interface {
 
 	/*
-	ActivateUser Activate a user
+			ActivateUser Activate a user
 
-	Activates a user.
+			Activates a user.
 
-Perform this operation only on users with a `STAGED` or `DEPROVISIONED` status. Activation of a user is an asynchronous operation.
-* The user has the `transitioningToStatus` property with an `ACTIVE` value during activation. This indicates that the user hasn't completed the asynchronous operation.
-* The user has an `ACTIVE` status when the activation process completes.
+		Perform this operation only on users with a `STAGED` or `DEPROVISIONED` status. Activation of a user is an asynchronous operation.
+		* The user has the `transitioningToStatus` property with an `ACTIVE` value during activation. This indicates that the user hasn't completed the asynchronous operation.
+		* The user has an `ACTIVE` status when the activation process completes.
 
-Users who don't have a password must complete the welcome flow by visiting the activation link to complete the transition to `ACTIVE` status.
+		Users who don't have a password must complete the welcome flow by visiting the activation link to complete the transition to `ACTIVE` status.
 
-> **Note:** If you want to send a branded user activation email, change the subdomain of your request to the custom domain that's associated with the brand.
-> For example, change `subdomain.okta.com` to `custom.domain.one`. See [Multibrand and custom domains](https://developer.okta.com/docs/concepts/brands/#multibrand-and-custom-domains).
+		> **Note:** If you want to send a branded user activation email, change the subdomain of your request to the custom domain that's associated with the brand.
+		> For example, change `subdomain.okta.com` to `custom.domain.one`. See [Multibrand and custom domains](https://developer.okta.com/docs/concepts/brands/#multibrand-and-custom-domains).
 
-> **Note:** If you have optional password enabled, visiting the activation link is optional for users who aren't required to enroll a password.
-> See [Create user with optional password](/openapi/okta-management/management/tag/User/#create-user-with-optional-password).
+		> **Note:** If you have optional password enabled, visiting the activation link is optional for users who aren't required to enroll a password.
+		> See [Create user with optional password](/openapi/okta-management/management/tag/User/#create-user-with-optional-password).
 
-> **Legal disclaimer**
-> After a user is added to the Okta directory, they receive an activation email. As part of signing up for this service,
-> you agreed not to use Okta's service/product to spam and/or send unsolicited messages.
-> Please refrain from adding unrelated accounts to the directory as Okta is not responsible for, and disclaims any and all
-> liability associated with, the activation email's content. You, and you alone, bear responsibility for the emails sent to any recipients.
+		> **Legal disclaimer**
+		> After a user is added to the Okta directory, they receive an activation email. As part of signing up for this service,
+		> you agreed not to use Okta's service/product to spam and/or send unsolicited messages.
+		> Please refrain from adding unrelated accounts to the directory as Okta is not responsible for, and disclaims any and all
+		> liability associated with, the activation email's content. You, and you alone, bear responsibility for the emails sent to any recipients.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
-	@return ApiActivateUserRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+			@return ApiActivateUserRequest
 	*/
 	ActivateUser(ctx context.Context, id string) ApiActivateUserRequest
 
@@ -70,22 +69,22 @@ Users who don't have a password must complete the welcome flow by visiting the a
 	ActivateUserExecute(r ApiActivateUserRequest) (*UserActivationToken, *APIResponse, error)
 
 	/*
-	DeactivateUser Deactivate a user
+			DeactivateUser Deactivate a user
 
-	Deactivates a user.
+			Deactivates a user.
 
-Perform this operation only on users that do not have a `DEPROVISIONED` status.
-* The user's `transitioningToStatus` property is `DEPROVISIONED` during deactivation to indicate that the user hasn't completed the asynchronous operation.
-* The user's status is `DEPROVISIONED` when the deactivation process is complete.
+		Perform this operation only on users that do not have a `DEPROVISIONED` status.
+		* The user's `transitioningToStatus` property is `DEPROVISIONED` during deactivation to indicate that the user hasn't completed the asynchronous operation.
+		* The user's status is `DEPROVISIONED` when the deactivation process is complete.
 
-> **Important:** Deactivating a user is a **destructive** operation. The user is deprovisioned from all assigned apps, which might destroy their data such as email or files.
-**This action cannot be recovered!**
+		> **Important:** Deactivating a user is a **destructive** operation. The user is deprovisioned from all assigned apps, which might destroy their data such as email or files.
+		**This action cannot be recovered!**
 
-You can also perform user deactivation asynchronously. To invoke asynchronous user deactivation, pass an HTTP header `Prefer: respond-async` with the request.
+		You can also perform user deactivation asynchronously. To invoke asynchronous user deactivation, pass an HTTP header `Prefer: respond-async` with the request.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
-	@return ApiDeactivateUserRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+			@return ApiDeactivateUserRequest
 	*/
 	DeactivateUser(ctx context.Context, id string) ApiDeactivateUserRequest
 
@@ -93,20 +92,20 @@ You can also perform user deactivation asynchronously. To invoke asynchronous us
 	DeactivateUserExecute(r ApiDeactivateUserRequest) (*APIResponse, error)
 
 	/*
-	ReactivateUser Reactivate a user
+			ReactivateUser Reactivate a user
 
-	Reactivates a user.
+			Reactivates a user.
 
-Perform this operation only on users with a `PROVISIONED` or `RECOVERY` [status](/openapi/okta-management/management/tag/User/#tag/User/operation/listUsers!c=200&path=status&t=response).
-This operation restarts the activation workflow if for some reason the user activation wasn't completed when using the `activationToken` from [Activate User](/openapi/okta-management/management/tag/UserLifecycle/#tag/UserLifecycle/operation/activateUser).
+		Perform this operation only on users with a `PROVISIONED` or `RECOVERY` [status](/openapi/okta-management/management/tag/User/#tag/User/operation/listUsers!c=200&path=status&t=response).
+		This operation restarts the activation workflow if for some reason the user activation wasn't completed when using the `activationToken` from [Activate User](/openapi/okta-management/management/tag/UserLifecycle/#tag/UserLifecycle/operation/activateUser).
 
-Users that don't have a password must complete the flow by completing the [Reset password](/openapi/okta-management/management/tag/UserCred/#tag/UserCred/operation/resetPassword) flow and MFA enrollment steps to transition the user to `ACTIVE` status.
+		Users that don't have a password must complete the flow by completing the [Reset password](/openapi/okta-management/management/tag/UserCred/#tag/UserCred/operation/resetPassword) flow and MFA enrollment steps to transition the user to `ACTIVE` status.
 
-If `sendEmail` is `false`, returns an activation link for the user to set up their account. The activation token can be used to create a custom activation link.
+		If `sendEmail` is `false`, returns an activation link for the user to set up their account. The activation token can be used to create a custom activation link.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
-	@return ApiReactivateUserRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+			@return ApiReactivateUserRequest
 	*/
 	ReactivateUser(ctx context.Context, id string) ApiReactivateUserRequest
 
@@ -115,13 +114,13 @@ If `sendEmail` is `false`, returns an activation link for the user to set up the
 	ReactivateUserExecute(r ApiReactivateUserRequest) (*UserActivationToken, *APIResponse, error)
 
 	/*
-	ResetFactors Reset the factors
+		ResetFactors Reset the factors
 
-	Resets all factors for the specified user. All MFA factor enrollments return to the unenrolled state. The user's status remains `ACTIVE`. This link is present only if the user is currently enrolled in one or more MFA factors.
+		Resets all factors for the specified user. All MFA factor enrollments return to the unenrolled state. The user's status remains `ACTIVE`. This link is present only if the user is currently enrolled in one or more MFA factors.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
-	@return ApiResetFactorsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+		@return ApiResetFactorsRequest
 	*/
 	ResetFactors(ctx context.Context, id string) ApiResetFactorsRequest
 
@@ -129,15 +128,15 @@ If `sendEmail` is `false`, returns an activation link for the user to set up the
 	ResetFactorsExecute(r ApiResetFactorsRequest) (*APIResponse, error)
 
 	/*
-	SuspendUser Suspend a user
+			SuspendUser Suspend a user
 
-	Suspends a user. Perform this operation only on users with an `ACTIVE` status. The user has a `SUSPENDED` status when the process completes.
+			Suspends a user. Perform this operation only on users with an `ACTIVE` status. The user has a `SUSPENDED` status when the process completes.
 
-Suspended users can't sign in to Okta. They can only be unsuspended or deactivated. Their group and app assignments are retained.
+		Suspended users can't sign in to Okta. They can only be unsuspended or deactivated. Their group and app assignments are retained.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
-	@return ApiSuspendUserRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+			@return ApiSuspendUserRequest
 	*/
 	SuspendUser(ctx context.Context, id string) ApiSuspendUserRequest
 
@@ -145,14 +144,14 @@ Suspended users can't sign in to Okta. They can only be unsuspended or deactivat
 	SuspendUserExecute(r ApiSuspendUserRequest) (*APIResponse, error)
 
 	/*
-	UnlockUser Unlock a user
+			UnlockUser Unlock a user
 
-	Unlocks a user with a `LOCKED_OUT` status or unlocks a user with an `ACTIVE` status that's blocked from unknown devices. Unlocked users have an `ACTIVE` status and can sign in with their current password.
-> **Note:** This operation works with Okta-sourced users. It doesn't support directory-sourced accounts such as Active Directory.
+			Unlocks a user with a `LOCKED_OUT` status or unlocks a user with an `ACTIVE` status that's blocked from unknown devices. Unlocked users have an `ACTIVE` status and can sign in with their current password.
+		> **Note:** This operation works with Okta-sourced users. It doesn't support directory-sourced accounts such as Active Directory.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
-	@return ApiUnlockUserRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+			@return ApiUnlockUserRequest
 	*/
 	UnlockUser(ctx context.Context, id string) ApiUnlockUserRequest
 
@@ -160,13 +159,13 @@ Suspended users can't sign in to Okta. They can only be unsuspended or deactivat
 	UnlockUserExecute(r ApiUnlockUserRequest) (*APIResponse, error)
 
 	/*
-	UnsuspendUser Unsuspend a user
+		UnsuspendUser Unsuspend a user
 
-	Unsuspends a user and returns them to the `ACTIVE` state. This operation can only be performed on users that have a `SUSPENDED` status.
+		Unsuspends a user and returns them to the `ACTIVE` state. This operation can only be performed on users that have a `SUSPENDED` status.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
-	@return ApiUnsuspendUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+		@return ApiUnsuspendUserRequest
 	*/
 	UnsuspendUser(ctx context.Context, id string) ApiUnsuspendUserRequest
 
@@ -178,10 +177,10 @@ Suspended users can't sign in to Okta. They can only be unsuspended or deactivat
 type UserLifecycleAPIService service
 
 type ApiActivateUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserLifecycleAPI
-	id string
-	sendEmail *bool
+	id         string
+	sendEmail  *bool
 	retryCount int32
 }
 
@@ -218,21 +217,22 @@ Users who don't have a password must complete the welcome flow by visiting the a
 > Please refrain from adding unrelated accounts to the directory as Okta is not responsible for, and disclaims any and all
 > liability associated with, the activation email's content. You, and you alone, bear responsibility for the emails sent to any recipients.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
- @return ApiActivateUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+	@return ApiActivateUserRequest
 */
 func (a *UserLifecycleAPIService) ActivateUser(ctx context.Context, id string) ApiActivateUserRequest {
 	return ApiActivateUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserActivationToken
+//
+//	@return UserActivationToken
 func (a *UserLifecycleAPIService) ActivateUserExecute(r ApiActivateUserRequest) (*UserActivationToken, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -241,7 +241,7 @@ func (a *UserLifecycleAPIService) ActivateUserExecute(r ApiActivateUserRequest) 
 		localVarReturnValue  *UserActivationToken
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -305,9 +305,9 @@ func (a *UserLifecycleAPIService) ActivateUserExecute(r ApiActivateUserRequest) 
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -365,17 +365,17 @@ func (a *UserLifecycleAPIService) ActivateUserExecute(r ApiActivateUserRequest) 
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeactivateUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserLifecycleAPI
-	id string
-	sendEmail *bool
-	prefer *string
+	id         string
+	sendEmail  *bool
+	prefer     *string
 	retryCount int32
 }
 
@@ -409,15 +409,15 @@ Perform this operation only on users that do not have a `DEPROVISIONED` status.
 
 You can also perform user deactivation asynchronously. To invoke asynchronous user deactivation, pass an HTTP header `Prefer: respond-async` with the request.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
- @return ApiDeactivateUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+	@return ApiDeactivateUserRequest
 */
 func (a *UserLifecycleAPIService) DeactivateUser(ctx context.Context, id string) ApiDeactivateUserRequest {
 	return ApiDeactivateUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
@@ -430,7 +430,7 @@ func (a *UserLifecycleAPIService) DeactivateUserExecute(r ApiDeactivateUserReque
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -497,9 +497,9 @@ func (a *UserLifecycleAPIService) DeactivateUserExecute(r ApiDeactivateUserReque
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -553,10 +553,10 @@ func (a *UserLifecycleAPIService) DeactivateUserExecute(r ApiDeactivateUserReque
 }
 
 type ApiReactivateUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserLifecycleAPI
-	id string
-	sendEmail *bool
+	id         string
+	sendEmail  *bool
 	retryCount int32
 }
 
@@ -582,21 +582,22 @@ Users that don't have a password must complete the flow by completing the [Reset
 
 If `sendEmail` is `false`, returns an activation link for the user to set up their account. The activation token can be used to create a custom activation link.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
- @return ApiReactivateUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+	@return ApiReactivateUserRequest
 */
 func (a *UserLifecycleAPIService) ReactivateUser(ctx context.Context, id string) ApiReactivateUserRequest {
 	return ApiReactivateUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserActivationToken
+//
+//	@return UserActivationToken
 func (a *UserLifecycleAPIService) ReactivateUserExecute(r ApiReactivateUserRequest) (*UserActivationToken, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -605,7 +606,7 @@ func (a *UserLifecycleAPIService) ReactivateUserExecute(r ApiReactivateUserReque
 		localVarReturnValue  *UserActivationToken
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -669,9 +670,9 @@ func (a *UserLifecycleAPIService) ReactivateUserExecute(r ApiReactivateUserReque
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -729,15 +730,15 @@ func (a *UserLifecycleAPIService) ReactivateUserExecute(r ApiReactivateUserReque
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiResetFactorsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserLifecycleAPI
-	id string
+	id         string
 	retryCount int32
 }
 
@@ -750,15 +751,15 @@ ResetFactors Reset the factors
 
 Resets all factors for the specified user. All MFA factor enrollments return to the unenrolled state. The user's status remains `ACTIVE`. This link is present only if the user is currently enrolled in one or more MFA factors.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
- @return ApiResetFactorsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+	@return ApiResetFactorsRequest
 */
 func (a *UserLifecycleAPIService) ResetFactors(ctx context.Context, id string) ApiResetFactorsRequest {
 	return ApiResetFactorsRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
@@ -771,7 +772,7 @@ func (a *UserLifecycleAPIService) ResetFactorsExecute(r ApiResetFactorsRequest) 
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -832,9 +833,9 @@ func (a *UserLifecycleAPIService) ResetFactorsExecute(r ApiResetFactorsRequest) 
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -888,9 +889,9 @@ func (a *UserLifecycleAPIService) ResetFactorsExecute(r ApiResetFactorsRequest) 
 }
 
 type ApiSuspendUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserLifecycleAPI
-	id string
+	id         string
 	retryCount int32
 }
 
@@ -905,15 +906,15 @@ Suspends a user. Perform this operation only on users with an `ACTIVE` status. T
 
 Suspended users can't sign in to Okta. They can only be unsuspended or deactivated. Their group and app assignments are retained.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
- @return ApiSuspendUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+	@return ApiSuspendUserRequest
 */
 func (a *UserLifecycleAPIService) SuspendUser(ctx context.Context, id string) ApiSuspendUserRequest {
 	return ApiSuspendUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
@@ -926,7 +927,7 @@ func (a *UserLifecycleAPIService) SuspendUserExecute(r ApiSuspendUserRequest) (*
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -987,9 +988,9 @@ func (a *UserLifecycleAPIService) SuspendUserExecute(r ApiSuspendUserRequest) (*
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -1055,9 +1056,9 @@ func (a *UserLifecycleAPIService) SuspendUserExecute(r ApiSuspendUserRequest) (*
 }
 
 type ApiUnlockUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserLifecycleAPI
-	id string
+	id         string
 	retryCount int32
 }
 
@@ -1071,15 +1072,15 @@ UnlockUser Unlock a user
 Unlocks a user with a `LOCKED_OUT` status or unlocks a user with an `ACTIVE` status that's blocked from unknown devices. Unlocked users have an `ACTIVE` status and can sign in with their current password.
 > **Note:** This operation works with Okta-sourced users. It doesn't support directory-sourced accounts such as Active Directory.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
- @return ApiUnlockUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+	@return ApiUnlockUserRequest
 */
 func (a *UserLifecycleAPIService) UnlockUser(ctx context.Context, id string) ApiUnlockUserRequest {
 	return ApiUnlockUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
@@ -1092,7 +1093,7 @@ func (a *UserLifecycleAPIService) UnlockUserExecute(r ApiUnlockUserRequest) (*AP
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1153,9 +1154,9 @@ func (a *UserLifecycleAPIService) UnlockUserExecute(r ApiUnlockUserRequest) (*AP
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -1209,9 +1210,9 @@ func (a *UserLifecycleAPIService) UnlockUserExecute(r ApiUnlockUserRequest) (*AP
 }
 
 type ApiUnsuspendUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserLifecycleAPI
-	id string
+	id         string
 	retryCount int32
 }
 
@@ -1224,15 +1225,15 @@ UnsuspendUser Unsuspend a user
 
 Unsuspends a user and returns them to the `ACTIVE` state. This operation can only be performed on users that have a `SUSPENDED` status.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
- @return ApiUnsuspendUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+	@return ApiUnsuspendUserRequest
 */
 func (a *UserLifecycleAPIService) UnsuspendUser(ctx context.Context, id string) ApiUnsuspendUserRequest {
 	return ApiUnsuspendUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
@@ -1245,7 +1246,7 @@ func (a *UserLifecycleAPIService) UnsuspendUserExecute(r ApiUnsuspendUserRequest
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1306,9 +1307,9 @@ func (a *UserLifecycleAPIService) UnsuspendUserExecute(r ApiUnsuspendUserRequest
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err

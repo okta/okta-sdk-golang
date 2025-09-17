@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SamlAttributeStatementGroup type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SamlAttributeStatementGroup{}
+
 // SamlAttributeStatementGroup `GROUP` attribute statements
 type SamlAttributeStatementGroup struct {
 	// The operation to filter groups based on `filterValue`
@@ -38,7 +41,7 @@ type SamlAttributeStatementGroup struct {
 	// The name format of the group attribute. Supported values:
 	Namespace *string `json:"namespace,omitempty"`
 	// The type of attribute statements object
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -63,7 +66,7 @@ func NewSamlAttributeStatementGroupWithDefaults() *SamlAttributeStatementGroup {
 
 // GetFilterType returns the FilterType field value if set, zero value otherwise.
 func (o *SamlAttributeStatementGroup) GetFilterType() string {
-	if o == nil || o.FilterType == nil {
+	if o == nil || IsNil(o.FilterType) {
 		var ret string
 		return ret
 	}
@@ -73,7 +76,7 @@ func (o *SamlAttributeStatementGroup) GetFilterType() string {
 // GetFilterTypeOk returns a tuple with the FilterType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlAttributeStatementGroup) GetFilterTypeOk() (*string, bool) {
-	if o == nil || o.FilterType == nil {
+	if o == nil || IsNil(o.FilterType) {
 		return nil, false
 	}
 	return o.FilterType, true
@@ -81,7 +84,7 @@ func (o *SamlAttributeStatementGroup) GetFilterTypeOk() (*string, bool) {
 
 // HasFilterType returns a boolean if a field has been set.
 func (o *SamlAttributeStatementGroup) HasFilterType() bool {
-	if o != nil && o.FilterType != nil {
+	if o != nil && !IsNil(o.FilterType) {
 		return true
 	}
 
@@ -95,7 +98,7 @@ func (o *SamlAttributeStatementGroup) SetFilterType(v string) {
 
 // GetFilterValue returns the FilterValue field value if set, zero value otherwise.
 func (o *SamlAttributeStatementGroup) GetFilterValue() string {
-	if o == nil || o.FilterValue == nil {
+	if o == nil || IsNil(o.FilterValue) {
 		var ret string
 		return ret
 	}
@@ -105,7 +108,7 @@ func (o *SamlAttributeStatementGroup) GetFilterValue() string {
 // GetFilterValueOk returns a tuple with the FilterValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlAttributeStatementGroup) GetFilterValueOk() (*string, bool) {
-	if o == nil || o.FilterValue == nil {
+	if o == nil || IsNil(o.FilterValue) {
 		return nil, false
 	}
 	return o.FilterValue, true
@@ -113,7 +116,7 @@ func (o *SamlAttributeStatementGroup) GetFilterValueOk() (*string, bool) {
 
 // HasFilterValue returns a boolean if a field has been set.
 func (o *SamlAttributeStatementGroup) HasFilterValue() bool {
-	if o != nil && o.FilterValue != nil {
+	if o != nil && !IsNil(o.FilterValue) {
 		return true
 	}
 
@@ -127,7 +130,7 @@ func (o *SamlAttributeStatementGroup) SetFilterValue(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *SamlAttributeStatementGroup) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -137,7 +140,7 @@ func (o *SamlAttributeStatementGroup) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlAttributeStatementGroup) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -145,7 +148,7 @@ func (o *SamlAttributeStatementGroup) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *SamlAttributeStatementGroup) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -159,7 +162,7 @@ func (o *SamlAttributeStatementGroup) SetName(v string) {
 
 // GetNamespace returns the Namespace field value if set, zero value otherwise.
 func (o *SamlAttributeStatementGroup) GetNamespace() string {
-	if o == nil || o.Namespace == nil {
+	if o == nil || IsNil(o.Namespace) {
 		var ret string
 		return ret
 	}
@@ -169,7 +172,7 @@ func (o *SamlAttributeStatementGroup) GetNamespace() string {
 // GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlAttributeStatementGroup) GetNamespaceOk() (*string, bool) {
-	if o == nil || o.Namespace == nil {
+	if o == nil || IsNil(o.Namespace) {
 		return nil, false
 	}
 	return o.Namespace, true
@@ -177,7 +180,7 @@ func (o *SamlAttributeStatementGroup) GetNamespaceOk() (*string, bool) {
 
 // HasNamespace returns a boolean if a field has been set.
 func (o *SamlAttributeStatementGroup) HasNamespace() bool {
-	if o != nil && o.Namespace != nil {
+	if o != nil && !IsNil(o.Namespace) {
 		return true
 	}
 
@@ -191,7 +194,7 @@ func (o *SamlAttributeStatementGroup) SetNamespace(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *SamlAttributeStatementGroup) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -201,7 +204,7 @@ func (o *SamlAttributeStatementGroup) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlAttributeStatementGroup) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -209,7 +212,7 @@ func (o *SamlAttributeStatementGroup) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *SamlAttributeStatementGroup) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -222,20 +225,28 @@ func (o *SamlAttributeStatementGroup) SetType(v string) {
 }
 
 func (o SamlAttributeStatementGroup) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SamlAttributeStatementGroup) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.FilterType != nil {
+	if !IsNil(o.FilterType) {
 		toSerialize["filterType"] = o.FilterType
 	}
-	if o.FilterValue != nil {
+	if !IsNil(o.FilterValue) {
 		toSerialize["filterValue"] = o.FilterValue
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Namespace != nil {
+	if !IsNil(o.Namespace) {
 		toSerialize["namespace"] = o.Namespace
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -243,31 +254,29 @@ func (o SamlAttributeStatementGroup) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SamlAttributeStatementGroup) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SamlAttributeStatementGroup) UnmarshalJSON(data []byte) (err error) {
 	varSamlAttributeStatementGroup := _SamlAttributeStatementGroup{}
 
-	err = json.Unmarshal(bytes, &varSamlAttributeStatementGroup)
-	if err == nil {
-		*o = SamlAttributeStatementGroup(varSamlAttributeStatementGroup)
-	} else {
+	err = json.Unmarshal(data, &varSamlAttributeStatementGroup)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SamlAttributeStatementGroup(varSamlAttributeStatementGroup)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "filterType")
 		delete(additionalProperties, "filterValue")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "namespace")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -308,4 +317,3 @@ func (v *NullableSamlAttributeStatementGroup) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

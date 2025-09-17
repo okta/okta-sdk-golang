@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the BulkGroupMembershipsDeleteRequestBody type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BulkGroupMembershipsDeleteRequestBody{}
+
 // BulkGroupMembershipsDeleteRequestBody struct for BulkGroupMembershipsDeleteRequestBody
 type BulkGroupMembershipsDeleteRequestBody struct {
 	// Array of group memberships that need to be deleted in Okta
-	Memberships []IdentitySourceGroupMembershipsDeleteProfileInner `json:"memberships,omitempty"`
+	Memberships          []IdentitySourceGroupMembershipsDeleteProfileInner `json:"memberships,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewBulkGroupMembershipsDeleteRequestBodyWithDefaults() *BulkGroupMembership
 
 // GetMemberships returns the Memberships field value if set, zero value otherwise.
 func (o *BulkGroupMembershipsDeleteRequestBody) GetMemberships() []IdentitySourceGroupMembershipsDeleteProfileInner {
-	if o == nil || o.Memberships == nil {
+	if o == nil || IsNil(o.Memberships) {
 		var ret []IdentitySourceGroupMembershipsDeleteProfileInner
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *BulkGroupMembershipsDeleteRequestBody) GetMemberships() []IdentitySourc
 // GetMembershipsOk returns a tuple with the Memberships field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BulkGroupMembershipsDeleteRequestBody) GetMembershipsOk() ([]IdentitySourceGroupMembershipsDeleteProfileInner, bool) {
-	if o == nil || o.Memberships == nil {
+	if o == nil || IsNil(o.Memberships) {
 		return nil, false
 	}
 	return o.Memberships, true
@@ -73,7 +76,7 @@ func (o *BulkGroupMembershipsDeleteRequestBody) GetMembershipsOk() ([]IdentitySo
 
 // HasMemberships returns a boolean if a field has been set.
 func (o *BulkGroupMembershipsDeleteRequestBody) HasMemberships() bool {
-	if o != nil && o.Memberships != nil {
+	if o != nil && !IsNil(o.Memberships) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *BulkGroupMembershipsDeleteRequestBody) SetMemberships(v []IdentitySourc
 }
 
 func (o BulkGroupMembershipsDeleteRequestBody) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BulkGroupMembershipsDeleteRequestBody) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Memberships != nil {
+	if !IsNil(o.Memberships) {
 		toSerialize["memberships"] = o.Memberships
 	}
 
@@ -95,27 +106,25 @@ func (o BulkGroupMembershipsDeleteRequestBody) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *BulkGroupMembershipsDeleteRequestBody) UnmarshalJSON(bytes []byte) (err error) {
+func (o *BulkGroupMembershipsDeleteRequestBody) UnmarshalJSON(data []byte) (err error) {
 	varBulkGroupMembershipsDeleteRequestBody := _BulkGroupMembershipsDeleteRequestBody{}
 
-	err = json.Unmarshal(bytes, &varBulkGroupMembershipsDeleteRequestBody)
-	if err == nil {
-		*o = BulkGroupMembershipsDeleteRequestBody(varBulkGroupMembershipsDeleteRequestBody)
-	} else {
+	err = json.Unmarshal(data, &varBulkGroupMembershipsDeleteRequestBody)
+
+	if err != nil {
 		return err
 	}
 
+	*o = BulkGroupMembershipsDeleteRequestBody(varBulkGroupMembershipsDeleteRequestBody)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "memberships")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableBulkGroupMembershipsDeleteRequestBody) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the SAMLHookResponseError type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SAMLHookResponseError{}
+
 // SAMLHookResponseError An object to return an error. Returning an error causes Okta to record a failure event in the Okta System Log. The string supplied in the `errorSummary` property is recorded in the System Log event. > **Note:** If the error object doesn't include the defined `errorSummary` property, the following common default message is returned to the end user: `The callback service returned an error`.  > **Note:** If a response to a SAML inline hook request isn't received from your external service within three seconds, a timeout occurs. In this scenario, the Okta SAML inline hook process continues, and the user is created.
 type SAMLHookResponseError struct {
 	// A human-readable summary of the error
-	ErrorSummary *string `json:"errorSummary,omitempty"`
+	ErrorSummary         *string `json:"errorSummary,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewSAMLHookResponseErrorWithDefaults() *SAMLHookResponseError {
 
 // GetErrorSummary returns the ErrorSummary field value if set, zero value otherwise.
 func (o *SAMLHookResponseError) GetErrorSummary() string {
-	if o == nil || o.ErrorSummary == nil {
+	if o == nil || IsNil(o.ErrorSummary) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *SAMLHookResponseError) GetErrorSummary() string {
 // GetErrorSummaryOk returns a tuple with the ErrorSummary field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLHookResponseError) GetErrorSummaryOk() (*string, bool) {
-	if o == nil || o.ErrorSummary == nil {
+	if o == nil || IsNil(o.ErrorSummary) {
 		return nil, false
 	}
 	return o.ErrorSummary, true
@@ -73,7 +76,7 @@ func (o *SAMLHookResponseError) GetErrorSummaryOk() (*string, bool) {
 
 // HasErrorSummary returns a boolean if a field has been set.
 func (o *SAMLHookResponseError) HasErrorSummary() bool {
-	if o != nil && o.ErrorSummary != nil {
+	if o != nil && !IsNil(o.ErrorSummary) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *SAMLHookResponseError) SetErrorSummary(v string) {
 }
 
 func (o SAMLHookResponseError) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SAMLHookResponseError) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ErrorSummary != nil {
+	if !IsNil(o.ErrorSummary) {
 		toSerialize["errorSummary"] = o.ErrorSummary
 	}
 
@@ -95,27 +106,25 @@ func (o SAMLHookResponseError) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SAMLHookResponseError) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SAMLHookResponseError) UnmarshalJSON(data []byte) (err error) {
 	varSAMLHookResponseError := _SAMLHookResponseError{}
 
-	err = json.Unmarshal(bytes, &varSAMLHookResponseError)
-	if err == nil {
-		*o = SAMLHookResponseError(varSAMLHookResponseError)
-	} else {
+	err = json.Unmarshal(data, &varSAMLHookResponseError)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SAMLHookResponseError(varSAMLHookResponseError)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "errorSummary")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableSAMLHookResponseError) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

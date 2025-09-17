@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the InlineHookOAuthClientSecretConfigCreate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InlineHookOAuthClientSecretConfigCreate{}
+
 // InlineHookOAuthClientSecretConfigCreate struct for InlineHookOAuthClientSecretConfigCreate
 type InlineHookOAuthClientSecretConfigCreate struct {
 	// A private value provided by the service used to authenticate the identity of the app to the service
 	ClientSecret *string `json:"clientSecret,omitempty"`
 	// The method of the Okta inline hook request. Only accepts `POST`.
-	Method *string `json:"method,omitempty"`
+	Method   *string `json:"method,omitempty"`
 	AuthType *string `json:"authType,omitempty"`
 	// A publicly exposed string provided by the service that's used to identify the OAuth app and build authorization URLs
 	ClientId *string `json:"clientId,omitempty"`
@@ -43,7 +46,7 @@ type InlineHookOAuthClientSecretConfigCreate struct {
 	// An optional list of key/value pairs for headers that you can send with the request to the external service
 	Headers []InlineHookChannelConfigHeaders `json:"headers,omitempty"`
 	// The external service endpoint that executes the inline hook handler. It must begin with `https://` and be reachable by Okta. No white space is allowed in the URI.
-	Uri *string `json:"uri,omitempty"`
+	Uri                  *string `json:"uri,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -68,7 +71,7 @@ func NewInlineHookOAuthClientSecretConfigCreateWithDefaults() *InlineHookOAuthCl
 
 // GetClientSecret returns the ClientSecret field value if set, zero value otherwise.
 func (o *InlineHookOAuthClientSecretConfigCreate) GetClientSecret() string {
-	if o == nil || o.ClientSecret == nil {
+	if o == nil || IsNil(o.ClientSecret) {
 		var ret string
 		return ret
 	}
@@ -78,7 +81,7 @@ func (o *InlineHookOAuthClientSecretConfigCreate) GetClientSecret() string {
 // GetClientSecretOk returns a tuple with the ClientSecret field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookOAuthClientSecretConfigCreate) GetClientSecretOk() (*string, bool) {
-	if o == nil || o.ClientSecret == nil {
+	if o == nil || IsNil(o.ClientSecret) {
 		return nil, false
 	}
 	return o.ClientSecret, true
@@ -86,7 +89,7 @@ func (o *InlineHookOAuthClientSecretConfigCreate) GetClientSecretOk() (*string, 
 
 // HasClientSecret returns a boolean if a field has been set.
 func (o *InlineHookOAuthClientSecretConfigCreate) HasClientSecret() bool {
-	if o != nil && o.ClientSecret != nil {
+	if o != nil && !IsNil(o.ClientSecret) {
 		return true
 	}
 
@@ -100,7 +103,7 @@ func (o *InlineHookOAuthClientSecretConfigCreate) SetClientSecret(v string) {
 
 // GetMethod returns the Method field value if set, zero value otherwise.
 func (o *InlineHookOAuthClientSecretConfigCreate) GetMethod() string {
-	if o == nil || o.Method == nil {
+	if o == nil || IsNil(o.Method) {
 		var ret string
 		return ret
 	}
@@ -110,7 +113,7 @@ func (o *InlineHookOAuthClientSecretConfigCreate) GetMethod() string {
 // GetMethodOk returns a tuple with the Method field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookOAuthClientSecretConfigCreate) GetMethodOk() (*string, bool) {
-	if o == nil || o.Method == nil {
+	if o == nil || IsNil(o.Method) {
 		return nil, false
 	}
 	return o.Method, true
@@ -118,7 +121,7 @@ func (o *InlineHookOAuthClientSecretConfigCreate) GetMethodOk() (*string, bool) 
 
 // HasMethod returns a boolean if a field has been set.
 func (o *InlineHookOAuthClientSecretConfigCreate) HasMethod() bool {
-	if o != nil && o.Method != nil {
+	if o != nil && !IsNil(o.Method) {
 		return true
 	}
 
@@ -132,7 +135,7 @@ func (o *InlineHookOAuthClientSecretConfigCreate) SetMethod(v string) {
 
 // GetAuthType returns the AuthType field value if set, zero value otherwise.
 func (o *InlineHookOAuthClientSecretConfigCreate) GetAuthType() string {
-	if o == nil || o.AuthType == nil {
+	if o == nil || IsNil(o.AuthType) {
 		var ret string
 		return ret
 	}
@@ -142,7 +145,7 @@ func (o *InlineHookOAuthClientSecretConfigCreate) GetAuthType() string {
 // GetAuthTypeOk returns a tuple with the AuthType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookOAuthClientSecretConfigCreate) GetAuthTypeOk() (*string, bool) {
-	if o == nil || o.AuthType == nil {
+	if o == nil || IsNil(o.AuthType) {
 		return nil, false
 	}
 	return o.AuthType, true
@@ -150,7 +153,7 @@ func (o *InlineHookOAuthClientSecretConfigCreate) GetAuthTypeOk() (*string, bool
 
 // HasAuthType returns a boolean if a field has been set.
 func (o *InlineHookOAuthClientSecretConfigCreate) HasAuthType() bool {
-	if o != nil && o.AuthType != nil {
+	if o != nil && !IsNil(o.AuthType) {
 		return true
 	}
 
@@ -164,7 +167,7 @@ func (o *InlineHookOAuthClientSecretConfigCreate) SetAuthType(v string) {
 
 // GetClientId returns the ClientId field value if set, zero value otherwise.
 func (o *InlineHookOAuthClientSecretConfigCreate) GetClientId() string {
-	if o == nil || o.ClientId == nil {
+	if o == nil || IsNil(o.ClientId) {
 		var ret string
 		return ret
 	}
@@ -174,7 +177,7 @@ func (o *InlineHookOAuthClientSecretConfigCreate) GetClientId() string {
 // GetClientIdOk returns a tuple with the ClientId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookOAuthClientSecretConfigCreate) GetClientIdOk() (*string, bool) {
-	if o == nil || o.ClientId == nil {
+	if o == nil || IsNil(o.ClientId) {
 		return nil, false
 	}
 	return o.ClientId, true
@@ -182,7 +185,7 @@ func (o *InlineHookOAuthClientSecretConfigCreate) GetClientIdOk() (*string, bool
 
 // HasClientId returns a boolean if a field has been set.
 func (o *InlineHookOAuthClientSecretConfigCreate) HasClientId() bool {
-	if o != nil && o.ClientId != nil {
+	if o != nil && !IsNil(o.ClientId) {
 		return true
 	}
 
@@ -196,7 +199,7 @@ func (o *InlineHookOAuthClientSecretConfigCreate) SetClientId(v string) {
 
 // GetScope returns the Scope field value if set, zero value otherwise.
 func (o *InlineHookOAuthClientSecretConfigCreate) GetScope() string {
-	if o == nil || o.Scope == nil {
+	if o == nil || IsNil(o.Scope) {
 		var ret string
 		return ret
 	}
@@ -206,7 +209,7 @@ func (o *InlineHookOAuthClientSecretConfigCreate) GetScope() string {
 // GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookOAuthClientSecretConfigCreate) GetScopeOk() (*string, bool) {
-	if o == nil || o.Scope == nil {
+	if o == nil || IsNil(o.Scope) {
 		return nil, false
 	}
 	return o.Scope, true
@@ -214,7 +217,7 @@ func (o *InlineHookOAuthClientSecretConfigCreate) GetScopeOk() (*string, bool) {
 
 // HasScope returns a boolean if a field has been set.
 func (o *InlineHookOAuthClientSecretConfigCreate) HasScope() bool {
-	if o != nil && o.Scope != nil {
+	if o != nil && !IsNil(o.Scope) {
 		return true
 	}
 
@@ -228,7 +231,7 @@ func (o *InlineHookOAuthClientSecretConfigCreate) SetScope(v string) {
 
 // GetTokenUrl returns the TokenUrl field value if set, zero value otherwise.
 func (o *InlineHookOAuthClientSecretConfigCreate) GetTokenUrl() string {
-	if o == nil || o.TokenUrl == nil {
+	if o == nil || IsNil(o.TokenUrl) {
 		var ret string
 		return ret
 	}
@@ -238,7 +241,7 @@ func (o *InlineHookOAuthClientSecretConfigCreate) GetTokenUrl() string {
 // GetTokenUrlOk returns a tuple with the TokenUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookOAuthClientSecretConfigCreate) GetTokenUrlOk() (*string, bool) {
-	if o == nil || o.TokenUrl == nil {
+	if o == nil || IsNil(o.TokenUrl) {
 		return nil, false
 	}
 	return o.TokenUrl, true
@@ -246,7 +249,7 @@ func (o *InlineHookOAuthClientSecretConfigCreate) GetTokenUrlOk() (*string, bool
 
 // HasTokenUrl returns a boolean if a field has been set.
 func (o *InlineHookOAuthClientSecretConfigCreate) HasTokenUrl() bool {
-	if o != nil && o.TokenUrl != nil {
+	if o != nil && !IsNil(o.TokenUrl) {
 		return true
 	}
 
@@ -260,7 +263,7 @@ func (o *InlineHookOAuthClientSecretConfigCreate) SetTokenUrl(v string) {
 
 // GetHeaders returns the Headers field value if set, zero value otherwise.
 func (o *InlineHookOAuthClientSecretConfigCreate) GetHeaders() []InlineHookChannelConfigHeaders {
-	if o == nil || o.Headers == nil {
+	if o == nil || IsNil(o.Headers) {
 		var ret []InlineHookChannelConfigHeaders
 		return ret
 	}
@@ -270,7 +273,7 @@ func (o *InlineHookOAuthClientSecretConfigCreate) GetHeaders() []InlineHookChann
 // GetHeadersOk returns a tuple with the Headers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookOAuthClientSecretConfigCreate) GetHeadersOk() ([]InlineHookChannelConfigHeaders, bool) {
-	if o == nil || o.Headers == nil {
+	if o == nil || IsNil(o.Headers) {
 		return nil, false
 	}
 	return o.Headers, true
@@ -278,7 +281,7 @@ func (o *InlineHookOAuthClientSecretConfigCreate) GetHeadersOk() ([]InlineHookCh
 
 // HasHeaders returns a boolean if a field has been set.
 func (o *InlineHookOAuthClientSecretConfigCreate) HasHeaders() bool {
-	if o != nil && o.Headers != nil {
+	if o != nil && !IsNil(o.Headers) {
 		return true
 	}
 
@@ -292,7 +295,7 @@ func (o *InlineHookOAuthClientSecretConfigCreate) SetHeaders(v []InlineHookChann
 
 // GetUri returns the Uri field value if set, zero value otherwise.
 func (o *InlineHookOAuthClientSecretConfigCreate) GetUri() string {
-	if o == nil || o.Uri == nil {
+	if o == nil || IsNil(o.Uri) {
 		var ret string
 		return ret
 	}
@@ -302,7 +305,7 @@ func (o *InlineHookOAuthClientSecretConfigCreate) GetUri() string {
 // GetUriOk returns a tuple with the Uri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookOAuthClientSecretConfigCreate) GetUriOk() (*string, bool) {
-	if o == nil || o.Uri == nil {
+	if o == nil || IsNil(o.Uri) {
 		return nil, false
 	}
 	return o.Uri, true
@@ -310,7 +313,7 @@ func (o *InlineHookOAuthClientSecretConfigCreate) GetUriOk() (*string, bool) {
 
 // HasUri returns a boolean if a field has been set.
 func (o *InlineHookOAuthClientSecretConfigCreate) HasUri() bool {
-	if o != nil && o.Uri != nil {
+	if o != nil && !IsNil(o.Uri) {
 		return true
 	}
 
@@ -323,29 +326,37 @@ func (o *InlineHookOAuthClientSecretConfigCreate) SetUri(v string) {
 }
 
 func (o InlineHookOAuthClientSecretConfigCreate) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o InlineHookOAuthClientSecretConfigCreate) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ClientSecret != nil {
+	if !IsNil(o.ClientSecret) {
 		toSerialize["clientSecret"] = o.ClientSecret
 	}
-	if o.Method != nil {
+	if !IsNil(o.Method) {
 		toSerialize["method"] = o.Method
 	}
-	if o.AuthType != nil {
+	if !IsNil(o.AuthType) {
 		toSerialize["authType"] = o.AuthType
 	}
-	if o.ClientId != nil {
+	if !IsNil(o.ClientId) {
 		toSerialize["clientId"] = o.ClientId
 	}
-	if o.Scope != nil {
+	if !IsNil(o.Scope) {
 		toSerialize["scope"] = o.Scope
 	}
-	if o.TokenUrl != nil {
+	if !IsNil(o.TokenUrl) {
 		toSerialize["tokenUrl"] = o.TokenUrl
 	}
-	if o.Headers != nil {
+	if !IsNil(o.Headers) {
 		toSerialize["headers"] = o.Headers
 	}
-	if o.Uri != nil {
+	if !IsNil(o.Uri) {
 		toSerialize["uri"] = o.Uri
 	}
 
@@ -353,23 +364,23 @@ func (o InlineHookOAuthClientSecretConfigCreate) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *InlineHookOAuthClientSecretConfigCreate) UnmarshalJSON(bytes []byte) (err error) {
+func (o *InlineHookOAuthClientSecretConfigCreate) UnmarshalJSON(data []byte) (err error) {
 	varInlineHookOAuthClientSecretConfigCreate := _InlineHookOAuthClientSecretConfigCreate{}
 
-	err = json.Unmarshal(bytes, &varInlineHookOAuthClientSecretConfigCreate)
-	if err == nil {
-		*o = InlineHookOAuthClientSecretConfigCreate(varInlineHookOAuthClientSecretConfigCreate)
-	} else {
+	err = json.Unmarshal(data, &varInlineHookOAuthClientSecretConfigCreate)
+
+	if err != nil {
 		return err
 	}
 
+	*o = InlineHookOAuthClientSecretConfigCreate(varInlineHookOAuthClientSecretConfigCreate)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "clientSecret")
 		delete(additionalProperties, "method")
 		delete(additionalProperties, "authType")
@@ -379,8 +390,6 @@ func (o *InlineHookOAuthClientSecretConfigCreate) UnmarshalJSON(bytes []byte) (e
 		delete(additionalProperties, "headers")
 		delete(additionalProperties, "uri")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -421,4 +430,3 @@ func (v *NullableInlineHookOAuthClientSecretConfigCreate) UnmarshalJSON(src []by
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

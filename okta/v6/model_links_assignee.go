@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the LinksAssignee type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LinksAssignee{}
+
 // LinksAssignee Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification.
 type LinksAssignee struct {
-	Assignee *HrefObjectAssigneeLink `json:"assignee,omitempty"`
+	Assignee             *HrefObjectAssigneeLink `json:"assignee,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewLinksAssigneeWithDefaults() *LinksAssignee {
 
 // GetAssignee returns the Assignee field value if set, zero value otherwise.
 func (o *LinksAssignee) GetAssignee() HrefObjectAssigneeLink {
-	if o == nil || o.Assignee == nil {
+	if o == nil || IsNil(o.Assignee) {
 		var ret HrefObjectAssigneeLink
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *LinksAssignee) GetAssignee() HrefObjectAssigneeLink {
 // GetAssigneeOk returns a tuple with the Assignee field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksAssignee) GetAssigneeOk() (*HrefObjectAssigneeLink, bool) {
-	if o == nil || o.Assignee == nil {
+	if o == nil || IsNil(o.Assignee) {
 		return nil, false
 	}
 	return o.Assignee, true
@@ -72,7 +75,7 @@ func (o *LinksAssignee) GetAssigneeOk() (*HrefObjectAssigneeLink, bool) {
 
 // HasAssignee returns a boolean if a field has been set.
 func (o *LinksAssignee) HasAssignee() bool {
-	if o != nil && o.Assignee != nil {
+	if o != nil && !IsNil(o.Assignee) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *LinksAssignee) SetAssignee(v HrefObjectAssigneeLink) {
 }
 
 func (o LinksAssignee) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LinksAssignee) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Assignee != nil {
+	if !IsNil(o.Assignee) {
 		toSerialize["assignee"] = o.Assignee
 	}
 
@@ -94,27 +105,25 @@ func (o LinksAssignee) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LinksAssignee) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LinksAssignee) UnmarshalJSON(data []byte) (err error) {
 	varLinksAssignee := _LinksAssignee{}
 
-	err = json.Unmarshal(bytes, &varLinksAssignee)
-	if err == nil {
-		*o = LinksAssignee(varLinksAssignee)
-	} else {
+	err = json.Unmarshal(data, &varLinksAssignee)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LinksAssignee(varLinksAssignee)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "assignee")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableLinksAssignee) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

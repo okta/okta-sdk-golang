@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the EnhancedDynamicNetworkZoneAllOfIpServiceCategories type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EnhancedDynamicNetworkZoneAllOfIpServiceCategories{}
+
 // EnhancedDynamicNetworkZoneAllOfIpServiceCategories IP services, such as a proxy or VPN, to include or exclude for an Enhanced Dynamic Network Zone
 type EnhancedDynamicNetworkZoneAllOfIpServiceCategories struct {
 	// IP services to include for an Enhanced Dynamic Network Zone
 	Include []string `json:"include,omitempty"`
 	// IP services to exclude for an Enhanced Dynamic Network Zone
-	Exclude []string `json:"exclude,omitempty"`
+	Exclude              []string `json:"exclude,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewEnhancedDynamicNetworkZoneAllOfIpServiceCategoriesWithDefaults() *Enhanc
 
 // GetInclude returns the Include field value if set, zero value otherwise.
 func (o *EnhancedDynamicNetworkZoneAllOfIpServiceCategories) GetInclude() []string {
-	if o == nil || o.Include == nil {
+	if o == nil || IsNil(o.Include) {
 		var ret []string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *EnhancedDynamicNetworkZoneAllOfIpServiceCategories) GetInclude() []stri
 // GetIncludeOk returns a tuple with the Include field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnhancedDynamicNetworkZoneAllOfIpServiceCategories) GetIncludeOk() ([]string, bool) {
-	if o == nil || o.Include == nil {
+	if o == nil || IsNil(o.Include) {
 		return nil, false
 	}
 	return o.Include, true
@@ -75,7 +78,7 @@ func (o *EnhancedDynamicNetworkZoneAllOfIpServiceCategories) GetIncludeOk() ([]s
 
 // HasInclude returns a boolean if a field has been set.
 func (o *EnhancedDynamicNetworkZoneAllOfIpServiceCategories) HasInclude() bool {
-	if o != nil && o.Include != nil {
+	if o != nil && !IsNil(o.Include) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *EnhancedDynamicNetworkZoneAllOfIpServiceCategories) SetInclude(v []stri
 
 // GetExclude returns the Exclude field value if set, zero value otherwise.
 func (o *EnhancedDynamicNetworkZoneAllOfIpServiceCategories) GetExclude() []string {
-	if o == nil || o.Exclude == nil {
+	if o == nil || IsNil(o.Exclude) {
 		var ret []string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *EnhancedDynamicNetworkZoneAllOfIpServiceCategories) GetExclude() []stri
 // GetExcludeOk returns a tuple with the Exclude field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnhancedDynamicNetworkZoneAllOfIpServiceCategories) GetExcludeOk() ([]string, bool) {
-	if o == nil || o.Exclude == nil {
+	if o == nil || IsNil(o.Exclude) {
 		return nil, false
 	}
 	return o.Exclude, true
@@ -107,7 +110,7 @@ func (o *EnhancedDynamicNetworkZoneAllOfIpServiceCategories) GetExcludeOk() ([]s
 
 // HasExclude returns a boolean if a field has been set.
 func (o *EnhancedDynamicNetworkZoneAllOfIpServiceCategories) HasExclude() bool {
-	if o != nil && o.Exclude != nil {
+	if o != nil && !IsNil(o.Exclude) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *EnhancedDynamicNetworkZoneAllOfIpServiceCategories) SetExclude(v []stri
 }
 
 func (o EnhancedDynamicNetworkZoneAllOfIpServiceCategories) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EnhancedDynamicNetworkZoneAllOfIpServiceCategories) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Include != nil {
+	if !IsNil(o.Include) {
 		toSerialize["include"] = o.Include
 	}
-	if o.Exclude != nil {
+	if !IsNil(o.Exclude) {
 		toSerialize["exclude"] = o.Exclude
 	}
 
@@ -132,28 +143,26 @@ func (o EnhancedDynamicNetworkZoneAllOfIpServiceCategories) MarshalJSON() ([]byt
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EnhancedDynamicNetworkZoneAllOfIpServiceCategories) UnmarshalJSON(bytes []byte) (err error) {
+func (o *EnhancedDynamicNetworkZoneAllOfIpServiceCategories) UnmarshalJSON(data []byte) (err error) {
 	varEnhancedDynamicNetworkZoneAllOfIpServiceCategories := _EnhancedDynamicNetworkZoneAllOfIpServiceCategories{}
 
-	err = json.Unmarshal(bytes, &varEnhancedDynamicNetworkZoneAllOfIpServiceCategories)
-	if err == nil {
-		*o = EnhancedDynamicNetworkZoneAllOfIpServiceCategories(varEnhancedDynamicNetworkZoneAllOfIpServiceCategories)
-	} else {
+	err = json.Unmarshal(data, &varEnhancedDynamicNetworkZoneAllOfIpServiceCategories)
+
+	if err != nil {
 		return err
 	}
 
+	*o = EnhancedDynamicNetworkZoneAllOfIpServiceCategories(varEnhancedDynamicNetworkZoneAllOfIpServiceCategories)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "include")
 		delete(additionalProperties, "exclude")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableEnhancedDynamicNetworkZoneAllOfIpServiceCategories) UnmarshalJS
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

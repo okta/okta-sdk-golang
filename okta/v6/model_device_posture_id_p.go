@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the DevicePostureIdP type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DevicePostureIdP{}
+
 // DevicePostureIdP <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Device Posture IdP provider
 type DevicePostureIdP struct {
 	// Indicates whether the device is compliant according to the custom IDP
 	Compliant *bool `json:"compliant,omitempty"`
 	// Indicates whether the device is managed according to the custom IDP
-	Managed *bool `json:"managed,omitempty"`
+	Managed              *bool `json:"managed,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewDevicePostureIdPWithDefaults() *DevicePostureIdP {
 
 // GetCompliant returns the Compliant field value if set, zero value otherwise.
 func (o *DevicePostureIdP) GetCompliant() bool {
-	if o == nil || o.Compliant == nil {
+	if o == nil || IsNil(o.Compliant) {
 		var ret bool
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *DevicePostureIdP) GetCompliant() bool {
 // GetCompliantOk returns a tuple with the Compliant field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DevicePostureIdP) GetCompliantOk() (*bool, bool) {
-	if o == nil || o.Compliant == nil {
+	if o == nil || IsNil(o.Compliant) {
 		return nil, false
 	}
 	return o.Compliant, true
@@ -75,7 +78,7 @@ func (o *DevicePostureIdP) GetCompliantOk() (*bool, bool) {
 
 // HasCompliant returns a boolean if a field has been set.
 func (o *DevicePostureIdP) HasCompliant() bool {
-	if o != nil && o.Compliant != nil {
+	if o != nil && !IsNil(o.Compliant) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *DevicePostureIdP) SetCompliant(v bool) {
 
 // GetManaged returns the Managed field value if set, zero value otherwise.
 func (o *DevicePostureIdP) GetManaged() bool {
-	if o == nil || o.Managed == nil {
+	if o == nil || IsNil(o.Managed) {
 		var ret bool
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *DevicePostureIdP) GetManaged() bool {
 // GetManagedOk returns a tuple with the Managed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DevicePostureIdP) GetManagedOk() (*bool, bool) {
-	if o == nil || o.Managed == nil {
+	if o == nil || IsNil(o.Managed) {
 		return nil, false
 	}
 	return o.Managed, true
@@ -107,7 +110,7 @@ func (o *DevicePostureIdP) GetManagedOk() (*bool, bool) {
 
 // HasManaged returns a boolean if a field has been set.
 func (o *DevicePostureIdP) HasManaged() bool {
-	if o != nil && o.Managed != nil {
+	if o != nil && !IsNil(o.Managed) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *DevicePostureIdP) SetManaged(v bool) {
 }
 
 func (o DevicePostureIdP) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DevicePostureIdP) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Compliant != nil {
+	if !IsNil(o.Compliant) {
 		toSerialize["compliant"] = o.Compliant
 	}
-	if o.Managed != nil {
+	if !IsNil(o.Managed) {
 		toSerialize["managed"] = o.Managed
 	}
 
@@ -132,28 +143,26 @@ func (o DevicePostureIdP) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DevicePostureIdP) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DevicePostureIdP) UnmarshalJSON(data []byte) (err error) {
 	varDevicePostureIdP := _DevicePostureIdP{}
 
-	err = json.Unmarshal(bytes, &varDevicePostureIdP)
-	if err == nil {
-		*o = DevicePostureIdP(varDevicePostureIdP)
-	} else {
+	err = json.Unmarshal(data, &varDevicePostureIdP)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DevicePostureIdP(varDevicePostureIdP)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "compliant")
 		delete(additionalProperties, "managed")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableDevicePostureIdP) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

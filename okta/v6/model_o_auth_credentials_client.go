@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the OAuthCredentialsClient type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OAuthCredentialsClient{}
+
 // OAuthCredentialsClient OAuth 2.0 and OpenID Connect Client object > **Note:** You must complete client registration with the IdP Authorization Server for your Okta IdP instance to obtain client credentials.
 type OAuthCredentialsClient struct {
 	// The [Unique identifier](https://tools.ietf.org/html/rfc6749#section-2.2) issued by the AS for the Okta IdP instance
@@ -37,7 +40,7 @@ type OAuthCredentialsClient struct {
 	PkceRequired *bool `json:"pkce_required,omitempty"`
 	// Client authentication methods supported by the token endpoint
 	TokenEndpointAuthMethod *string `json:"token_endpoint_auth_method,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties    map[string]interface{}
 }
 
 type _OAuthCredentialsClient OAuthCredentialsClient
@@ -61,7 +64,7 @@ func NewOAuthCredentialsClientWithDefaults() *OAuthCredentialsClient {
 
 // GetClientId returns the ClientId field value if set, zero value otherwise.
 func (o *OAuthCredentialsClient) GetClientId() string {
-	if o == nil || o.ClientId == nil {
+	if o == nil || IsNil(o.ClientId) {
 		var ret string
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *OAuthCredentialsClient) GetClientId() string {
 // GetClientIdOk returns a tuple with the ClientId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthCredentialsClient) GetClientIdOk() (*string, bool) {
-	if o == nil || o.ClientId == nil {
+	if o == nil || IsNil(o.ClientId) {
 		return nil, false
 	}
 	return o.ClientId, true
@@ -79,7 +82,7 @@ func (o *OAuthCredentialsClient) GetClientIdOk() (*string, bool) {
 
 // HasClientId returns a boolean if a field has been set.
 func (o *OAuthCredentialsClient) HasClientId() bool {
-	if o != nil && o.ClientId != nil {
+	if o != nil && !IsNil(o.ClientId) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *OAuthCredentialsClient) SetClientId(v string) {
 
 // GetClientSecret returns the ClientSecret field value if set, zero value otherwise.
 func (o *OAuthCredentialsClient) GetClientSecret() string {
-	if o == nil || o.ClientSecret == nil {
+	if o == nil || IsNil(o.ClientSecret) {
 		var ret string
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *OAuthCredentialsClient) GetClientSecret() string {
 // GetClientSecretOk returns a tuple with the ClientSecret field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthCredentialsClient) GetClientSecretOk() (*string, bool) {
-	if o == nil || o.ClientSecret == nil {
+	if o == nil || IsNil(o.ClientSecret) {
 		return nil, false
 	}
 	return o.ClientSecret, true
@@ -111,7 +114,7 @@ func (o *OAuthCredentialsClient) GetClientSecretOk() (*string, bool) {
 
 // HasClientSecret returns a boolean if a field has been set.
 func (o *OAuthCredentialsClient) HasClientSecret() bool {
-	if o != nil && o.ClientSecret != nil {
+	if o != nil && !IsNil(o.ClientSecret) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *OAuthCredentialsClient) SetClientSecret(v string) {
 
 // GetPkceRequired returns the PkceRequired field value if set, zero value otherwise.
 func (o *OAuthCredentialsClient) GetPkceRequired() bool {
-	if o == nil || o.PkceRequired == nil {
+	if o == nil || IsNil(o.PkceRequired) {
 		var ret bool
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *OAuthCredentialsClient) GetPkceRequired() bool {
 // GetPkceRequiredOk returns a tuple with the PkceRequired field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthCredentialsClient) GetPkceRequiredOk() (*bool, bool) {
-	if o == nil || o.PkceRequired == nil {
+	if o == nil || IsNil(o.PkceRequired) {
 		return nil, false
 	}
 	return o.PkceRequired, true
@@ -143,7 +146,7 @@ func (o *OAuthCredentialsClient) GetPkceRequiredOk() (*bool, bool) {
 
 // HasPkceRequired returns a boolean if a field has been set.
 func (o *OAuthCredentialsClient) HasPkceRequired() bool {
-	if o != nil && o.PkceRequired != nil {
+	if o != nil && !IsNil(o.PkceRequired) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *OAuthCredentialsClient) SetPkceRequired(v bool) {
 
 // GetTokenEndpointAuthMethod returns the TokenEndpointAuthMethod field value if set, zero value otherwise.
 func (o *OAuthCredentialsClient) GetTokenEndpointAuthMethod() string {
-	if o == nil || o.TokenEndpointAuthMethod == nil {
+	if o == nil || IsNil(o.TokenEndpointAuthMethod) {
 		var ret string
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *OAuthCredentialsClient) GetTokenEndpointAuthMethod() string {
 // GetTokenEndpointAuthMethodOk returns a tuple with the TokenEndpointAuthMethod field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthCredentialsClient) GetTokenEndpointAuthMethodOk() (*string, bool) {
-	if o == nil || o.TokenEndpointAuthMethod == nil {
+	if o == nil || IsNil(o.TokenEndpointAuthMethod) {
 		return nil, false
 	}
 	return o.TokenEndpointAuthMethod, true
@@ -175,7 +178,7 @@ func (o *OAuthCredentialsClient) GetTokenEndpointAuthMethodOk() (*string, bool) 
 
 // HasTokenEndpointAuthMethod returns a boolean if a field has been set.
 func (o *OAuthCredentialsClient) HasTokenEndpointAuthMethod() bool {
-	if o != nil && o.TokenEndpointAuthMethod != nil {
+	if o != nil && !IsNil(o.TokenEndpointAuthMethod) {
 		return true
 	}
 
@@ -188,17 +191,25 @@ func (o *OAuthCredentialsClient) SetTokenEndpointAuthMethod(v string) {
 }
 
 func (o OAuthCredentialsClient) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OAuthCredentialsClient) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ClientId != nil {
+	if !IsNil(o.ClientId) {
 		toSerialize["client_id"] = o.ClientId
 	}
-	if o.ClientSecret != nil {
+	if !IsNil(o.ClientSecret) {
 		toSerialize["client_secret"] = o.ClientSecret
 	}
-	if o.PkceRequired != nil {
+	if !IsNil(o.PkceRequired) {
 		toSerialize["pkce_required"] = o.PkceRequired
 	}
-	if o.TokenEndpointAuthMethod != nil {
+	if !IsNil(o.TokenEndpointAuthMethod) {
 		toSerialize["token_endpoint_auth_method"] = o.TokenEndpointAuthMethod
 	}
 
@@ -206,30 +217,28 @@ func (o OAuthCredentialsClient) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OAuthCredentialsClient) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OAuthCredentialsClient) UnmarshalJSON(data []byte) (err error) {
 	varOAuthCredentialsClient := _OAuthCredentialsClient{}
 
-	err = json.Unmarshal(bytes, &varOAuthCredentialsClient)
-	if err == nil {
-		*o = OAuthCredentialsClient(varOAuthCredentialsClient)
-	} else {
+	err = json.Unmarshal(data, &varOAuthCredentialsClient)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OAuthCredentialsClient(varOAuthCredentialsClient)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "client_id")
 		delete(additionalProperties, "client_secret")
 		delete(additionalProperties, "pkce_required")
 		delete(additionalProperties, "token_endpoint_auth_method")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -270,4 +279,3 @@ func (v *NullableOAuthCredentialsClient) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

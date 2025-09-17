@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,12 +28,15 @@ import (
 	"fmt"
 )
 
+// checks if the LogStreamSettingsSplunkPut type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LogStreamSettingsSplunkPut{}
+
 // LogStreamSettingsSplunkPut Specifies the configuration for the `splunk_cloud_logstreaming` log stream type.
 type LogStreamSettingsSplunkPut struct {
 	// Edition of the Splunk Cloud instance
 	Edition string `json:"edition"`
 	// The domain name for your Splunk Cloud instance. Don't include `http` or `https` in the string. For example: `acme.splunkcloud.com`
-	Host string `json:"host"`
+	Host                 string `json:"host"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,40 +110,64 @@ func (o *LogStreamSettingsSplunkPut) SetHost(v string) {
 }
 
 func (o LogStreamSettingsSplunkPut) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LogStreamSettingsSplunkPut) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["edition"] = o.Edition
-	}
-	if true {
-		toSerialize["host"] = o.Host
-	}
+	toSerialize["edition"] = o.Edition
+	toSerialize["host"] = o.Host
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LogStreamSettingsSplunkPut) UnmarshalJSON(bytes []byte) (err error) {
-	varLogStreamSettingsSplunkPut := _LogStreamSettingsSplunkPut{}
+func (o *LogStreamSettingsSplunkPut) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"edition",
+		"host",
+	}
 
-	err = json.Unmarshal(bytes, &varLogStreamSettingsSplunkPut)
-	if err == nil {
-		*o = LogStreamSettingsSplunkPut(varLogStreamSettingsSplunkPut)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varLogStreamSettingsSplunkPut := _LogStreamSettingsSplunkPut{}
+
+	err = json.Unmarshal(data, &varLogStreamSettingsSplunkPut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LogStreamSettingsSplunkPut(varLogStreamSettingsSplunkPut)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "edition")
 		delete(additionalProperties, "host")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -181,4 +208,3 @@ func (v *NullableLogStreamSettingsSplunkPut) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

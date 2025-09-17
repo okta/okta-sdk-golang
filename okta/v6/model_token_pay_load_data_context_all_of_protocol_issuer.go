@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the TokenPayLoadDataContextAllOfProtocolIssuer type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TokenPayLoadDataContextAllOfProtocolIssuer{}
+
 // TokenPayLoadDataContextAllOfProtocolIssuer The authorization server's issuer identifier
 type TokenPayLoadDataContextAllOfProtocolIssuer struct {
 	// The authorization server's issuer identifier
-	Uri *string `json:"uri,omitempty"`
+	Uri                  *string `json:"uri,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewTokenPayLoadDataContextAllOfProtocolIssuerWithDefaults() *TokenPayLoadDa
 
 // GetUri returns the Uri field value if set, zero value otherwise.
 func (o *TokenPayLoadDataContextAllOfProtocolIssuer) GetUri() string {
-	if o == nil || o.Uri == nil {
+	if o == nil || IsNil(o.Uri) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *TokenPayLoadDataContextAllOfProtocolIssuer) GetUri() string {
 // GetUriOk returns a tuple with the Uri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenPayLoadDataContextAllOfProtocolIssuer) GetUriOk() (*string, bool) {
-	if o == nil || o.Uri == nil {
+	if o == nil || IsNil(o.Uri) {
 		return nil, false
 	}
 	return o.Uri, true
@@ -73,7 +76,7 @@ func (o *TokenPayLoadDataContextAllOfProtocolIssuer) GetUriOk() (*string, bool) 
 
 // HasUri returns a boolean if a field has been set.
 func (o *TokenPayLoadDataContextAllOfProtocolIssuer) HasUri() bool {
-	if o != nil && o.Uri != nil {
+	if o != nil && !IsNil(o.Uri) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *TokenPayLoadDataContextAllOfProtocolIssuer) SetUri(v string) {
 }
 
 func (o TokenPayLoadDataContextAllOfProtocolIssuer) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TokenPayLoadDataContextAllOfProtocolIssuer) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Uri != nil {
+	if !IsNil(o.Uri) {
 		toSerialize["uri"] = o.Uri
 	}
 
@@ -95,27 +106,25 @@ func (o TokenPayLoadDataContextAllOfProtocolIssuer) MarshalJSON() ([]byte, error
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *TokenPayLoadDataContextAllOfProtocolIssuer) UnmarshalJSON(bytes []byte) (err error) {
+func (o *TokenPayLoadDataContextAllOfProtocolIssuer) UnmarshalJSON(data []byte) (err error) {
 	varTokenPayLoadDataContextAllOfProtocolIssuer := _TokenPayLoadDataContextAllOfProtocolIssuer{}
 
-	err = json.Unmarshal(bytes, &varTokenPayLoadDataContextAllOfProtocolIssuer)
-	if err == nil {
-		*o = TokenPayLoadDataContextAllOfProtocolIssuer(varTokenPayLoadDataContextAllOfProtocolIssuer)
-	} else {
+	err = json.Unmarshal(data, &varTokenPayLoadDataContextAllOfProtocolIssuer)
+
+	if err != nil {
 		return err
 	}
 
+	*o = TokenPayLoadDataContextAllOfProtocolIssuer(varTokenPayLoadDataContextAllOfProtocolIssuer)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "uri")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableTokenPayLoadDataContextAllOfProtocolIssuer) UnmarshalJSON(src [
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

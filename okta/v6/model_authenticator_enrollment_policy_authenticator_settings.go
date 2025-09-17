@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthenticatorEnrollmentPolicyAuthenticatorSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorEnrollmentPolicyAuthenticatorSettings{}
+
 // AuthenticatorEnrollmentPolicyAuthenticatorSettings struct for AuthenticatorEnrollmentPolicyAuthenticatorSettings
 type AuthenticatorEnrollmentPolicyAuthenticatorSettings struct {
 	Constraints NullableAuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints `json:"constraints,omitempty"`
-	Enroll *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll `json:"enroll,omitempty"`
+	Enroll      *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll             `json:"enroll,omitempty"`
 	// A label that identifies the authenticator
-	Key *string `json:"key,omitempty"`
+	Key                  *string `json:"key,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewAuthenticatorEnrollmentPolicyAuthenticatorSettingsWithDefaults() *Authen
 
 // GetConstraints returns the Constraints field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) GetConstraints() AuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints {
-	if o == nil || o.Constraints.Get() == nil {
+	if o == nil || IsNil(o.Constraints.Get()) {
 		var ret AuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints
 		return ret
 	}
@@ -87,6 +90,7 @@ func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) HasConstraints() bo
 func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) SetConstraints(v AuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints) {
 	o.Constraints.Set(&v)
 }
+
 // SetConstraintsNil sets the value for Constraints to be an explicit nil
 func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) SetConstraintsNil() {
 	o.Constraints.Set(nil)
@@ -99,7 +103,7 @@ func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) UnsetConstraints() 
 
 // GetEnroll returns the Enroll field value if set, zero value otherwise.
 func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) GetEnroll() AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll {
-	if o == nil || o.Enroll == nil {
+	if o == nil || IsNil(o.Enroll) {
 		var ret AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll
 		return ret
 	}
@@ -109,7 +113,7 @@ func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) GetEnroll() Authent
 // GetEnrollOk returns a tuple with the Enroll field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) GetEnrollOk() (*AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll, bool) {
-	if o == nil || o.Enroll == nil {
+	if o == nil || IsNil(o.Enroll) {
 		return nil, false
 	}
 	return o.Enroll, true
@@ -117,7 +121,7 @@ func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) GetEnrollOk() (*Aut
 
 // HasEnroll returns a boolean if a field has been set.
 func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) HasEnroll() bool {
-	if o != nil && o.Enroll != nil {
+	if o != nil && !IsNil(o.Enroll) {
 		return true
 	}
 
@@ -131,7 +135,7 @@ func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) SetEnroll(v Authent
 
 // GetKey returns the Key field value if set, zero value otherwise.
 func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) GetKey() string {
-	if o == nil || o.Key == nil {
+	if o == nil || IsNil(o.Key) {
 		var ret string
 		return ret
 	}
@@ -141,7 +145,7 @@ func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) GetKey() string {
 // GetKeyOk returns a tuple with the Key field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) GetKeyOk() (*string, bool) {
-	if o == nil || o.Key == nil {
+	if o == nil || IsNil(o.Key) {
 		return nil, false
 	}
 	return o.Key, true
@@ -149,7 +153,7 @@ func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) GetKeyOk() (*string
 
 // HasKey returns a boolean if a field has been set.
 func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) HasKey() bool {
-	if o != nil && o.Key != nil {
+	if o != nil && !IsNil(o.Key) {
 		return true
 	}
 
@@ -162,14 +166,22 @@ func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) SetKey(v string) {
 }
 
 func (o AuthenticatorEnrollmentPolicyAuthenticatorSettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorEnrollmentPolicyAuthenticatorSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Constraints.IsSet() {
 		toSerialize["constraints"] = o.Constraints.Get()
 	}
-	if o.Enroll != nil {
+	if !IsNil(o.Enroll) {
 		toSerialize["enroll"] = o.Enroll
 	}
-	if o.Key != nil {
+	if !IsNil(o.Key) {
 		toSerialize["key"] = o.Key
 	}
 
@@ -177,29 +189,27 @@ func (o AuthenticatorEnrollmentPolicyAuthenticatorSettings) MarshalJSON() ([]byt
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) UnmarshalJSON(data []byte) (err error) {
 	varAuthenticatorEnrollmentPolicyAuthenticatorSettings := _AuthenticatorEnrollmentPolicyAuthenticatorSettings{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorEnrollmentPolicyAuthenticatorSettings)
-	if err == nil {
-		*o = AuthenticatorEnrollmentPolicyAuthenticatorSettings(varAuthenticatorEnrollmentPolicyAuthenticatorSettings)
-	} else {
+	err = json.Unmarshal(data, &varAuthenticatorEnrollmentPolicyAuthenticatorSettings)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthenticatorEnrollmentPolicyAuthenticatorSettings(varAuthenticatorEnrollmentPolicyAuthenticatorSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "constraints")
 		delete(additionalProperties, "enroll")
 		delete(additionalProperties, "key")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -240,4 +250,3 @@ func (v *NullableAuthenticatorEnrollmentPolicyAuthenticatorSettings) UnmarshalJS
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

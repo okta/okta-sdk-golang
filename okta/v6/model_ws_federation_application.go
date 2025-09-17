@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -30,13 +30,16 @@ import (
 	"strings"
 )
 
+// checks if the WsFederationApplication type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WsFederationApplication{}
+
 // WsFederationApplication struct for WsFederationApplication
 type WsFederationApplication struct {
 	Application
 	Credentials *ApplicationCredentials `json:"credentials,omitempty"`
 	// `template_wsfed` is the key name for a WS-Federated app instance with a SAML 2.0 token
-	Name string `json:"name"`
-	Settings WsFederationApplicationSettings `json:"settings"`
+	Name                 string                          `json:"name"`
+	Settings             WsFederationApplicationSettings `json:"settings"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -65,7 +68,7 @@ func NewWsFederationApplicationWithDefaults() *WsFederationApplication {
 
 // GetCredentials returns the Credentials field value if set, zero value otherwise.
 func (o *WsFederationApplication) GetCredentials() ApplicationCredentials {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		var ret ApplicationCredentials
 		return ret
 	}
@@ -75,7 +78,7 @@ func (o *WsFederationApplication) GetCredentials() ApplicationCredentials {
 // GetCredentialsOk returns a tuple with the Credentials field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WsFederationApplication) GetCredentialsOk() (*ApplicationCredentials, bool) {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		return nil, false
 	}
 	return o.Credentials, true
@@ -83,7 +86,7 @@ func (o *WsFederationApplication) GetCredentialsOk() (*ApplicationCredentials, b
 
 // HasCredentials returns a boolean if a field has been set.
 func (o *WsFederationApplication) HasCredentials() bool {
-	if o != nil && o.Credentials != nil {
+	if o != nil && !IsNil(o.Credentials) {
 		return true
 	}
 
@@ -144,43 +147,71 @@ func (o *WsFederationApplication) SetSettings(v WsFederationApplicationSettings)
 }
 
 func (o WsFederationApplication) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o WsFederationApplication) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedApplication, errApplication := json.Marshal(o.Application)
 	if errApplication != nil {
-		return []byte{}, errApplication
+		return map[string]interface{}{}, errApplication
 	}
 	errApplication = json.Unmarshal([]byte(serializedApplication), &toSerialize)
 	if errApplication != nil {
-		return []byte{}, errApplication
+		return map[string]interface{}{}, errApplication
 	}
-	if o.Credentials != nil {
+	if !IsNil(o.Credentials) {
 		toSerialize["credentials"] = o.Credentials
 	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["settings"] = o.Settings
-	}
+	toSerialize["name"] = o.Name
+	toSerialize["settings"] = o.Settings
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *WsFederationApplication) UnmarshalJSON(bytes []byte) (err error) {
+func (o *WsFederationApplication) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"settings",
+		"label",
+		"signOnMode",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	type WsFederationApplicationWithoutEmbeddedStruct struct {
 		Credentials *ApplicationCredentials `json:"credentials,omitempty"`
 		// `template_wsfed` is the key name for a WS-Federated app instance with a SAML 2.0 token
-		Name string `json:"name"`
+		Name     string                          `json:"name"`
 		Settings WsFederationApplicationSettings `json:"settings"`
 	}
 
 	varWsFederationApplicationWithoutEmbeddedStruct := WsFederationApplicationWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varWsFederationApplicationWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varWsFederationApplicationWithoutEmbeddedStruct)
 	if err == nil {
 		varWsFederationApplication := _WsFederationApplication{}
 		varWsFederationApplication.Credentials = varWsFederationApplicationWithoutEmbeddedStruct.Credentials
@@ -193,7 +224,7 @@ func (o *WsFederationApplication) UnmarshalJSON(bytes []byte) (err error) {
 
 	varWsFederationApplication := _WsFederationApplication{}
 
-	err = json.Unmarshal(bytes, &varWsFederationApplication)
+	err = json.Unmarshal(data, &varWsFederationApplication)
 	if err == nil {
 		o.Application = varWsFederationApplication.Application
 	} else {
@@ -202,8 +233,7 @@ func (o *WsFederationApplication) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "credentials")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "settings")
@@ -227,8 +257,6 @@ func (o *WsFederationApplication) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -269,4 +297,3 @@ func (v *NullableWsFederationApplication) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserFactorVerifyResponseWaitingEmbedded type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserFactorVerifyResponseWaitingEmbedded{}
+
 // UserFactorVerifyResponseWaitingEmbedded struct for UserFactorVerifyResponseWaitingEmbedded
 type UserFactorVerifyResponseWaitingEmbedded struct {
-	Challenge NullableNumberFactorChallengeEmbeddedLinksChallenge `json:"challenge,omitempty"`
+	Challenge            NullableNumberFactorChallengeEmbeddedLinksChallenge `json:"challenge,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewUserFactorVerifyResponseWaitingEmbeddedWithDefaults() *UserFactorVerifyR
 
 // GetChallenge returns the Challenge field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserFactorVerifyResponseWaitingEmbedded) GetChallenge() NumberFactorChallengeEmbeddedLinksChallenge {
-	if o == nil || o.Challenge.Get() == nil {
+	if o == nil || IsNil(o.Challenge.Get()) {
 		var ret NumberFactorChallengeEmbeddedLinksChallenge
 		return ret
 	}
@@ -84,6 +87,7 @@ func (o *UserFactorVerifyResponseWaitingEmbedded) HasChallenge() bool {
 func (o *UserFactorVerifyResponseWaitingEmbedded) SetChallenge(v NumberFactorChallengeEmbeddedLinksChallenge) {
 	o.Challenge.Set(&v)
 }
+
 // SetChallengeNil sets the value for Challenge to be an explicit nil
 func (o *UserFactorVerifyResponseWaitingEmbedded) SetChallengeNil() {
 	o.Challenge.Set(nil)
@@ -95,6 +99,14 @@ func (o *UserFactorVerifyResponseWaitingEmbedded) UnsetChallenge() {
 }
 
 func (o UserFactorVerifyResponseWaitingEmbedded) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserFactorVerifyResponseWaitingEmbedded) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Challenge.IsSet() {
 		toSerialize["challenge"] = o.Challenge.Get()
@@ -104,27 +116,25 @@ func (o UserFactorVerifyResponseWaitingEmbedded) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserFactorVerifyResponseWaitingEmbedded) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserFactorVerifyResponseWaitingEmbedded) UnmarshalJSON(data []byte) (err error) {
 	varUserFactorVerifyResponseWaitingEmbedded := _UserFactorVerifyResponseWaitingEmbedded{}
 
-	err = json.Unmarshal(bytes, &varUserFactorVerifyResponseWaitingEmbedded)
-	if err == nil {
-		*o = UserFactorVerifyResponseWaitingEmbedded(varUserFactorVerifyResponseWaitingEmbedded)
-	} else {
+	err = json.Unmarshal(data, &varUserFactorVerifyResponseWaitingEmbedded)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserFactorVerifyResponseWaitingEmbedded(varUserFactorVerifyResponseWaitingEmbedded)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "challenge")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -165,4 +175,3 @@ func (v *NullableUserFactorVerifyResponseWaitingEmbedded) UnmarshalJSON(src []by
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,14 +27,17 @@ import (
 	"encoding/json"
 )
 
+// checks if the GovernanceBundle type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GovernanceBundle{}
+
 // GovernanceBundle struct for GovernanceBundle
 type GovernanceBundle struct {
-	Description *string `json:"description,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Orn *string `json:"orn,omitempty"`
-	Status *string `json:"status,omitempty"`
-	Links *GovernanceBundleLinks `json:"_links,omitempty"`
+	Description          *string                `json:"description,omitempty"`
+	Id                   *string                `json:"id,omitempty"`
+	Name                 *string                `json:"name,omitempty"`
+	Orn                  *string                `json:"orn,omitempty"`
+	Status               *string                `json:"status,omitempty"`
+	Links                *GovernanceBundleLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewGovernanceBundleWithDefaults() *GovernanceBundle {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *GovernanceBundle) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *GovernanceBundle) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GovernanceBundle) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -77,7 +80,7 @@ func (o *GovernanceBundle) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *GovernanceBundle) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *GovernanceBundle) SetDescription(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *GovernanceBundle) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *GovernanceBundle) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GovernanceBundle) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -109,7 +112,7 @@ func (o *GovernanceBundle) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *GovernanceBundle) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *GovernanceBundle) SetId(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *GovernanceBundle) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *GovernanceBundle) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GovernanceBundle) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -141,7 +144,7 @@ func (o *GovernanceBundle) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *GovernanceBundle) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -155,7 +158,7 @@ func (o *GovernanceBundle) SetName(v string) {
 
 // GetOrn returns the Orn field value if set, zero value otherwise.
 func (o *GovernanceBundle) GetOrn() string {
-	if o == nil || o.Orn == nil {
+	if o == nil || IsNil(o.Orn) {
 		var ret string
 		return ret
 	}
@@ -165,7 +168,7 @@ func (o *GovernanceBundle) GetOrn() string {
 // GetOrnOk returns a tuple with the Orn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GovernanceBundle) GetOrnOk() (*string, bool) {
-	if o == nil || o.Orn == nil {
+	if o == nil || IsNil(o.Orn) {
 		return nil, false
 	}
 	return o.Orn, true
@@ -173,7 +176,7 @@ func (o *GovernanceBundle) GetOrnOk() (*string, bool) {
 
 // HasOrn returns a boolean if a field has been set.
 func (o *GovernanceBundle) HasOrn() bool {
-	if o != nil && o.Orn != nil {
+	if o != nil && !IsNil(o.Orn) {
 		return true
 	}
 
@@ -187,7 +190,7 @@ func (o *GovernanceBundle) SetOrn(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *GovernanceBundle) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -197,7 +200,7 @@ func (o *GovernanceBundle) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GovernanceBundle) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -205,7 +208,7 @@ func (o *GovernanceBundle) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *GovernanceBundle) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -219,7 +222,7 @@ func (o *GovernanceBundle) SetStatus(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *GovernanceBundle) GetLinks() GovernanceBundleLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret GovernanceBundleLinks
 		return ret
 	}
@@ -229,7 +232,7 @@ func (o *GovernanceBundle) GetLinks() GovernanceBundleLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GovernanceBundle) GetLinksOk() (*GovernanceBundleLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -237,7 +240,7 @@ func (o *GovernanceBundle) GetLinksOk() (*GovernanceBundleLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *GovernanceBundle) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -250,23 +253,31 @@ func (o *GovernanceBundle) SetLinks(v GovernanceBundleLinks) {
 }
 
 func (o GovernanceBundle) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o GovernanceBundle) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Orn != nil {
+	if !IsNil(o.Orn) {
 		toSerialize["orn"] = o.Orn
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -274,23 +285,23 @@ func (o GovernanceBundle) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *GovernanceBundle) UnmarshalJSON(bytes []byte) (err error) {
+func (o *GovernanceBundle) UnmarshalJSON(data []byte) (err error) {
 	varGovernanceBundle := _GovernanceBundle{}
 
-	err = json.Unmarshal(bytes, &varGovernanceBundle)
-	if err == nil {
-		*o = GovernanceBundle(varGovernanceBundle)
-	} else {
+	err = json.Unmarshal(data, &varGovernanceBundle)
+
+	if err != nil {
 		return err
 	}
 
+	*o = GovernanceBundle(varGovernanceBundle)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
@@ -298,8 +309,6 @@ func (o *GovernanceBundle) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -340,4 +349,3 @@ func (v *NullableGovernanceBundle) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

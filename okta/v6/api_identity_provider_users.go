@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,25 +26,24 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type IdentityProviderUsersAPI interface {
 
 	/*
-	GetIdentityProviderApplicationUser Retrieve a user for IdP
+		GetIdentityProviderApplicationUser Retrieve a user for IdP
 
-	Retrieves a linked identity provider (IdP) user by ID
+		Retrieves a linked identity provider (IdP) user by ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@param userId ID of an existing Okta user
-	@return ApiGetIdentityProviderApplicationUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpId `id` of IdP
+		@param userId ID of an existing Okta user
+		@return ApiGetIdentityProviderApplicationUserRequest
 	*/
 	GetIdentityProviderApplicationUser(ctx context.Context, idpId string, userId string) ApiGetIdentityProviderApplicationUserRequest
 
@@ -53,17 +52,17 @@ type IdentityProviderUsersAPI interface {
 	GetIdentityProviderApplicationUserExecute(r ApiGetIdentityProviderApplicationUserRequest) (*IdentityProviderApplicationUser, *APIResponse, error)
 
 	/*
-	LinkUserToIdentityProvider Link a user to IdP
+			LinkUserToIdentityProvider Link a user to IdP
 
-	Links an Okta user to an existing SAML or social identity provider (IdP).
+			Links an Okta user to an existing SAML or social identity provider (IdP).
 
-The SAML IdP must have `honorPersistentNameId` set to `true` to use this API.
-The [Name Identifier Format](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/replaceIdentityProvider!path=protocol/0/settings&t=request) of the incoming assertion must be `urn:oasis:names:tc:SAML:2.0:nameid-format:persistent`.
+		The SAML IdP must have `honorPersistentNameId` set to `true` to use this API.
+		The [Name Identifier Format](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/replaceIdentityProvider!path=protocol/0/settings&t=request) of the incoming assertion must be `urn:oasis:names:tc:SAML:2.0:nameid-format:persistent`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@param userId ID of an existing Okta user
-	@return ApiLinkUserToIdentityProviderRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param idpId `id` of IdP
+			@param userId ID of an existing Okta user
+			@return ApiLinkUserToIdentityProviderRequest
 	*/
 	LinkUserToIdentityProvider(ctx context.Context, idpId string, userId string) ApiLinkUserToIdentityProviderRequest
 
@@ -72,13 +71,13 @@ The [Name Identifier Format](https://developer.okta.com/docs/api/openapi/okta-ma
 	LinkUserToIdentityProviderExecute(r ApiLinkUserToIdentityProviderRequest) (*IdentityProviderApplicationUser, *APIResponse, error)
 
 	/*
-	ListIdentityProviderApplicationUsers List all users for IdP
+		ListIdentityProviderApplicationUsers List all users for IdP
 
-	Lists all the users linked to an identity provider (IdP)
+		Lists all the users linked to an identity provider (IdP)
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@return ApiListIdentityProviderApplicationUsersRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpId `id` of IdP
+		@return ApiListIdentityProviderApplicationUsersRequest
 	*/
 	ListIdentityProviderApplicationUsers(ctx context.Context, idpId string) ApiListIdentityProviderApplicationUsersRequest
 
@@ -87,16 +86,16 @@ The [Name Identifier Format](https://developer.okta.com/docs/api/openapi/okta-ma
 	ListIdentityProviderApplicationUsersExecute(r ApiListIdentityProviderApplicationUsersRequest) ([]IdentityProviderApplicationUser, *APIResponse, error)
 
 	/*
-	ListSocialAuthTokens List all tokens from OIDC IdP
+			ListSocialAuthTokens List all tokens from OIDC IdP
 
-	Lists the tokens minted by the social authentication provider when the user authenticates with Okta via Social Auth.
+			Lists the tokens minted by the social authentication provider when the user authenticates with Okta via Social Auth.
 
-Okta doesn't import all the user information from a social provider. If the app needs information that isn't imported, it can get the user token from this endpoint. Then the app can make an API call to the social provider with the token to request the additional information.
+		Okta doesn't import all the user information from a social provider. If the app needs information that isn't imported, it can get the user token from this endpoint. Then the app can make an API call to the social provider with the token to request the additional information.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@param userId ID of an existing Okta user
-	@return ApiListSocialAuthTokensRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param idpId `id` of IdP
+			@param userId ID of an existing Okta user
+			@return ApiListSocialAuthTokensRequest
 	*/
 	ListSocialAuthTokens(ctx context.Context, idpId string, userId string) ApiListSocialAuthTokensRequest
 
@@ -105,13 +104,13 @@ Okta doesn't import all the user information from a social provider. If the app 
 	ListSocialAuthTokensExecute(r ApiListSocialAuthTokensRequest) ([]SocialAuthToken, *APIResponse, error)
 
 	/*
-	ListUserIdentityProviders List all IdPs for user
+		ListUserIdentityProviders List all IdPs for user
 
-	Lists the identity providers (IdPs) associated with the user
+		Lists the identity providers (IdPs) associated with the user
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
-	@return ApiListUserIdentityProvidersRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+		@return ApiListUserIdentityProvidersRequest
 	*/
 	ListUserIdentityProviders(ctx context.Context, id string) ApiListUserIdentityProvidersRequest
 
@@ -120,14 +119,14 @@ Okta doesn't import all the user information from a social provider. If the app 
 	ListUserIdentityProvidersExecute(r ApiListUserIdentityProvidersRequest) ([]IdentityProvider, *APIResponse, error)
 
 	/*
-	UnlinkUserFromIdentityProvider Unlink a user from IdP
+		UnlinkUserFromIdentityProvider Unlink a user from IdP
 
-	Unlinks the Okta user and the identity provider (IdP) user. The next time the user federates into Okta through this IdP, they have to re-link their account according to the account link policy.
+		Unlinks the Okta user and the identity provider (IdP) user. The next time the user federates into Okta through this IdP, they have to re-link their account according to the account link policy.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@param userId ID of an existing Okta user
-	@return ApiUnlinkUserFromIdentityProviderRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpId `id` of IdP
+		@param userId ID of an existing Okta user
+		@return ApiUnlinkUserFromIdentityProviderRequest
 	*/
 	UnlinkUserFromIdentityProvider(ctx context.Context, idpId string, userId string) ApiUnlinkUserFromIdentityProviderRequest
 
@@ -139,10 +138,10 @@ Okta doesn't import all the user information from a social provider. If the app 
 type IdentityProviderUsersAPIService service
 
 type ApiGetIdentityProviderApplicationUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderUsersAPI
-	idpId string
-	userId string
+	idpId      string
+	userId     string
 	retryCount int32
 }
 
@@ -155,23 +154,24 @@ GetIdentityProviderApplicationUser Retrieve a user for IdP
 
 Retrieves a linked identity provider (IdP) user by ID
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param idpId `id` of IdP
- @param userId ID of an existing Okta user
- @return ApiGetIdentityProviderApplicationUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param idpId `id` of IdP
+	@param userId ID of an existing Okta user
+	@return ApiGetIdentityProviderApplicationUserRequest
 */
 func (a *IdentityProviderUsersAPIService) GetIdentityProviderApplicationUser(ctx context.Context, idpId string, userId string) ApiGetIdentityProviderApplicationUserRequest {
 	return ApiGetIdentityProviderApplicationUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
-		userId: userId,
+		ctx:        ctx,
+		idpId:      idpId,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return IdentityProviderApplicationUser
+//
+//	@return IdentityProviderApplicationUser
 func (a *IdentityProviderUsersAPIService) GetIdentityProviderApplicationUserExecute(r ApiGetIdentityProviderApplicationUserRequest) (*IdentityProviderApplicationUser, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -180,7 +180,7 @@ func (a *IdentityProviderUsersAPIService) GetIdentityProviderApplicationUserExec
 		localVarReturnValue  *IdentityProviderApplicationUser
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -242,9 +242,9 @@ func (a *IdentityProviderUsersAPIService) GetIdentityProviderApplicationUserExec
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -302,18 +302,18 @@ func (a *IdentityProviderUsersAPIService) GetIdentityProviderApplicationUserExec
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiLinkUserToIdentityProviderRequest struct {
-	ctx context.Context
-	ApiService IdentityProviderUsersAPI
-	idpId string
-	userId string
+	ctx                             context.Context
+	ApiService                      IdentityProviderUsersAPI
+	idpId                           string
+	userId                          string
 	userIdentityProviderLinkRequest *UserIdentityProviderLinkRequest
-	retryCount int32
+	retryCount                      int32
 }
 
 func (r ApiLinkUserToIdentityProviderRequest) UserIdentityProviderLinkRequest(userIdentityProviderLinkRequest UserIdentityProviderLinkRequest) ApiLinkUserToIdentityProviderRequest {
@@ -333,23 +333,24 @@ Links an Okta user to an existing SAML or social identity provider (IdP).
 The SAML IdP must have `honorPersistentNameId` set to `true` to use this API.
 The [Name Identifier Format](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/replaceIdentityProvider!path=protocol/0/settings&t=request) of the incoming assertion must be `urn:oasis:names:tc:SAML:2.0:nameid-format:persistent`.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param idpId `id` of IdP
- @param userId ID of an existing Okta user
- @return ApiLinkUserToIdentityProviderRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param idpId `id` of IdP
+	@param userId ID of an existing Okta user
+	@return ApiLinkUserToIdentityProviderRequest
 */
 func (a *IdentityProviderUsersAPIService) LinkUserToIdentityProvider(ctx context.Context, idpId string, userId string) ApiLinkUserToIdentityProviderRequest {
 	return ApiLinkUserToIdentityProviderRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
-		userId: userId,
+		ctx:        ctx,
+		idpId:      idpId,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return IdentityProviderApplicationUser
+//
+//	@return IdentityProviderApplicationUser
 func (a *IdentityProviderUsersAPIService) LinkUserToIdentityProviderExecute(r ApiLinkUserToIdentityProviderRequest) (*IdentityProviderApplicationUser, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -358,7 +359,7 @@ func (a *IdentityProviderUsersAPIService) LinkUserToIdentityProviderExecute(r Ap
 		localVarReturnValue  *IdentityProviderApplicationUser
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -425,9 +426,9 @@ func (a *IdentityProviderUsersAPIService) LinkUserToIdentityProviderExecute(r Ap
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -497,19 +498,19 @@ func (a *IdentityProviderUsersAPIService) LinkUserToIdentityProviderExecute(r Ap
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListIdentityProviderApplicationUsersRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderUsersAPI
-	idpId string
-	q *string
-	after *string
-	limit *int32
-	expand *string
+	idpId      string
+	q          *string
+	after      *string
+	limit      *int32
+	expand     *string
 	retryCount int32
 }
 
@@ -546,21 +547,22 @@ ListIdentityProviderApplicationUsers List all users for IdP
 
 Lists all the users linked to an identity provider (IdP)
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param idpId `id` of IdP
- @return ApiListIdentityProviderApplicationUsersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param idpId `id` of IdP
+	@return ApiListIdentityProviderApplicationUsersRequest
 */
 func (a *IdentityProviderUsersAPIService) ListIdentityProviderApplicationUsers(ctx context.Context, idpId string) ApiListIdentityProviderApplicationUsersRequest {
 	return ApiListIdentityProviderApplicationUsersRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
+		ctx:        ctx,
+		idpId:      idpId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []IdentityProviderApplicationUser
+//
+//	@return []IdentityProviderApplicationUser
 func (a *IdentityProviderUsersAPIService) ListIdentityProviderApplicationUsersExecute(r ApiListIdentityProviderApplicationUsersRequest) ([]IdentityProviderApplicationUser, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -569,7 +571,7 @@ func (a *IdentityProviderUsersAPIService) ListIdentityProviderApplicationUsersEx
 		localVarReturnValue  []IdentityProviderApplicationUser
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -642,9 +644,9 @@ func (a *IdentityProviderUsersAPIService) ListIdentityProviderApplicationUsersEx
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -702,16 +704,16 @@ func (a *IdentityProviderUsersAPIService) ListIdentityProviderApplicationUsersEx
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListSocialAuthTokensRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderUsersAPI
-	idpId string
-	userId string
+	idpId      string
+	userId     string
 	retryCount int32
 }
 
@@ -726,23 +728,24 @@ Lists the tokens minted by the social authentication provider when the user auth
 
 Okta doesn't import all the user information from a social provider. If the app needs information that isn't imported, it can get the user token from this endpoint. Then the app can make an API call to the social provider with the token to request the additional information.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param idpId `id` of IdP
- @param userId ID of an existing Okta user
- @return ApiListSocialAuthTokensRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param idpId `id` of IdP
+	@param userId ID of an existing Okta user
+	@return ApiListSocialAuthTokensRequest
 */
 func (a *IdentityProviderUsersAPIService) ListSocialAuthTokens(ctx context.Context, idpId string, userId string) ApiListSocialAuthTokensRequest {
 	return ApiListSocialAuthTokensRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
-		userId: userId,
+		ctx:        ctx,
+		idpId:      idpId,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []SocialAuthToken
+//
+//	@return []SocialAuthToken
 func (a *IdentityProviderUsersAPIService) ListSocialAuthTokensExecute(r ApiListSocialAuthTokensRequest) ([]SocialAuthToken, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -751,7 +754,7 @@ func (a *IdentityProviderUsersAPIService) ListSocialAuthTokensExecute(r ApiListS
 		localVarReturnValue  []SocialAuthToken
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -813,9 +816,9 @@ func (a *IdentityProviderUsersAPIService) ListSocialAuthTokensExecute(r ApiListS
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -873,15 +876,15 @@ func (a *IdentityProviderUsersAPIService) ListSocialAuthTokensExecute(r ApiListS
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListUserIdentityProvidersRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderUsersAPI
-	id string
+	id         string
 	retryCount int32
 }
 
@@ -894,21 +897,22 @@ ListUserIdentityProviders List all IdPs for user
 
 Lists the identity providers (IdPs) associated with the user
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
- @return ApiListUserIdentityProvidersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+	@return ApiListUserIdentityProvidersRequest
 */
 func (a *IdentityProviderUsersAPIService) ListUserIdentityProviders(ctx context.Context, id string) ApiListUserIdentityProvidersRequest {
 	return ApiListUserIdentityProvidersRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []IdentityProvider
+//
+//	@return []IdentityProvider
 func (a *IdentityProviderUsersAPIService) ListUserIdentityProvidersExecute(r ApiListUserIdentityProvidersRequest) ([]IdentityProvider, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -917,7 +921,7 @@ func (a *IdentityProviderUsersAPIService) ListUserIdentityProvidersExecute(r Api
 		localVarReturnValue  []IdentityProvider
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -978,9 +982,9 @@ func (a *IdentityProviderUsersAPIService) ListUserIdentityProvidersExecute(r Api
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1038,16 +1042,16 @@ func (a *IdentityProviderUsersAPIService) ListUserIdentityProvidersExecute(r Api
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUnlinkUserFromIdentityProviderRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderUsersAPI
-	idpId string
-	userId string
+	idpId      string
+	userId     string
 	retryCount int32
 }
 
@@ -1060,17 +1064,17 @@ UnlinkUserFromIdentityProvider Unlink a user from IdP
 
 Unlinks the Okta user and the identity provider (IdP) user. The next time the user federates into Okta through this IdP, they have to re-link their account according to the account link policy.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param idpId `id` of IdP
- @param userId ID of an existing Okta user
- @return ApiUnlinkUserFromIdentityProviderRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param idpId `id` of IdP
+	@param userId ID of an existing Okta user
+	@return ApiUnlinkUserFromIdentityProviderRequest
 */
 func (a *IdentityProviderUsersAPIService) UnlinkUserFromIdentityProvider(ctx context.Context, idpId string, userId string) ApiUnlinkUserFromIdentityProviderRequest {
 	return ApiUnlinkUserFromIdentityProviderRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
-		userId: userId,
+		ctx:        ctx,
+		idpId:      idpId,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -1083,7 +1087,7 @@ func (a *IdentityProviderUsersAPIService) UnlinkUserFromIdentityProviderExecute(
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1145,9 +1149,9 @@ func (a *IdentityProviderUsersAPIService) UnlinkUserFromIdentityProviderExecute(
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err

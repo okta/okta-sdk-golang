@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the WellKnownOrgMetadataLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WellKnownOrgMetadataLinks{}
+
 // WellKnownOrgMetadataLinks Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available for this object using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification
 type WellKnownOrgMetadataLinks struct {
 	// Link to the custom domain org URL
 	Alternate *HrefObject `json:"alternate,omitempty"`
 	// Link to the org URL
-	Organization *HrefObject `json:"organization,omitempty"`
+	Organization         *HrefObject `json:"organization,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewWellKnownOrgMetadataLinksWithDefaults() *WellKnownOrgMetadataLinks {
 
 // GetAlternate returns the Alternate field value if set, zero value otherwise.
 func (o *WellKnownOrgMetadataLinks) GetAlternate() HrefObject {
-	if o == nil || o.Alternate == nil {
+	if o == nil || IsNil(o.Alternate) {
 		var ret HrefObject
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *WellKnownOrgMetadataLinks) GetAlternate() HrefObject {
 // GetAlternateOk returns a tuple with the Alternate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownOrgMetadataLinks) GetAlternateOk() (*HrefObject, bool) {
-	if o == nil || o.Alternate == nil {
+	if o == nil || IsNil(o.Alternate) {
 		return nil, false
 	}
 	return o.Alternate, true
@@ -75,7 +78,7 @@ func (o *WellKnownOrgMetadataLinks) GetAlternateOk() (*HrefObject, bool) {
 
 // HasAlternate returns a boolean if a field has been set.
 func (o *WellKnownOrgMetadataLinks) HasAlternate() bool {
-	if o != nil && o.Alternate != nil {
+	if o != nil && !IsNil(o.Alternate) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *WellKnownOrgMetadataLinks) SetAlternate(v HrefObject) {
 
 // GetOrganization returns the Organization field value if set, zero value otherwise.
 func (o *WellKnownOrgMetadataLinks) GetOrganization() HrefObject {
-	if o == nil || o.Organization == nil {
+	if o == nil || IsNil(o.Organization) {
 		var ret HrefObject
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *WellKnownOrgMetadataLinks) GetOrganization() HrefObject {
 // GetOrganizationOk returns a tuple with the Organization field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownOrgMetadataLinks) GetOrganizationOk() (*HrefObject, bool) {
-	if o == nil || o.Organization == nil {
+	if o == nil || IsNil(o.Organization) {
 		return nil, false
 	}
 	return o.Organization, true
@@ -107,7 +110,7 @@ func (o *WellKnownOrgMetadataLinks) GetOrganizationOk() (*HrefObject, bool) {
 
 // HasOrganization returns a boolean if a field has been set.
 func (o *WellKnownOrgMetadataLinks) HasOrganization() bool {
-	if o != nil && o.Organization != nil {
+	if o != nil && !IsNil(o.Organization) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *WellKnownOrgMetadataLinks) SetOrganization(v HrefObject) {
 }
 
 func (o WellKnownOrgMetadataLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o WellKnownOrgMetadataLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Alternate != nil {
+	if !IsNil(o.Alternate) {
 		toSerialize["alternate"] = o.Alternate
 	}
-	if o.Organization != nil {
+	if !IsNil(o.Organization) {
 		toSerialize["organization"] = o.Organization
 	}
 
@@ -132,28 +143,26 @@ func (o WellKnownOrgMetadataLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *WellKnownOrgMetadataLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *WellKnownOrgMetadataLinks) UnmarshalJSON(data []byte) (err error) {
 	varWellKnownOrgMetadataLinks := _WellKnownOrgMetadataLinks{}
 
-	err = json.Unmarshal(bytes, &varWellKnownOrgMetadataLinks)
-	if err == nil {
-		*o = WellKnownOrgMetadataLinks(varWellKnownOrgMetadataLinks)
-	} else {
+	err = json.Unmarshal(data, &varWellKnownOrgMetadataLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = WellKnownOrgMetadataLinks(varWellKnownOrgMetadataLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "alternate")
 		delete(additionalProperties, "organization")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableWellKnownOrgMetadataLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

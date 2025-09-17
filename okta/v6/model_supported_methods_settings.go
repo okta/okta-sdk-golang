@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SupportedMethodsSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SupportedMethodsSettings{}
+
 // SupportedMethodsSettings struct for SupportedMethodsSettings
 type SupportedMethodsSettings struct {
 	// Indicates whether you must use a hardware key store
@@ -34,7 +37,7 @@ type SupportedMethodsSettings struct {
 	// The encryption algorithm for this authenticator method
 	Algorithms []string `json:"algorithms,omitempty"`
 	// The transaction type for this authenticator method
-	TransactionTypes []string `json:"transactionTypes,omitempty"`
+	TransactionTypes     []string `json:"transactionTypes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewSupportedMethodsSettingsWithDefaults() *SupportedMethodsSettings {
 
 // GetKeyProtection returns the KeyProtection field value if set, zero value otherwise.
 func (o *SupportedMethodsSettings) GetKeyProtection() string {
-	if o == nil || o.KeyProtection == nil {
+	if o == nil || IsNil(o.KeyProtection) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *SupportedMethodsSettings) GetKeyProtection() string {
 // GetKeyProtectionOk returns a tuple with the KeyProtection field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SupportedMethodsSettings) GetKeyProtectionOk() (*string, bool) {
-	if o == nil || o.KeyProtection == nil {
+	if o == nil || IsNil(o.KeyProtection) {
 		return nil, false
 	}
 	return o.KeyProtection, true
@@ -77,7 +80,7 @@ func (o *SupportedMethodsSettings) GetKeyProtectionOk() (*string, bool) {
 
 // HasKeyProtection returns a boolean if a field has been set.
 func (o *SupportedMethodsSettings) HasKeyProtection() bool {
-	if o != nil && o.KeyProtection != nil {
+	if o != nil && !IsNil(o.KeyProtection) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *SupportedMethodsSettings) SetKeyProtection(v string) {
 
 // GetAlgorithms returns the Algorithms field value if set, zero value otherwise.
 func (o *SupportedMethodsSettings) GetAlgorithms() []string {
-	if o == nil || o.Algorithms == nil {
+	if o == nil || IsNil(o.Algorithms) {
 		var ret []string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *SupportedMethodsSettings) GetAlgorithms() []string {
 // GetAlgorithmsOk returns a tuple with the Algorithms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SupportedMethodsSettings) GetAlgorithmsOk() ([]string, bool) {
-	if o == nil || o.Algorithms == nil {
+	if o == nil || IsNil(o.Algorithms) {
 		return nil, false
 	}
 	return o.Algorithms, true
@@ -109,7 +112,7 @@ func (o *SupportedMethodsSettings) GetAlgorithmsOk() ([]string, bool) {
 
 // HasAlgorithms returns a boolean if a field has been set.
 func (o *SupportedMethodsSettings) HasAlgorithms() bool {
-	if o != nil && o.Algorithms != nil {
+	if o != nil && !IsNil(o.Algorithms) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *SupportedMethodsSettings) SetAlgorithms(v []string) {
 
 // GetTransactionTypes returns the TransactionTypes field value if set, zero value otherwise.
 func (o *SupportedMethodsSettings) GetTransactionTypes() []string {
-	if o == nil || o.TransactionTypes == nil {
+	if o == nil || IsNil(o.TransactionTypes) {
 		var ret []string
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *SupportedMethodsSettings) GetTransactionTypes() []string {
 // GetTransactionTypesOk returns a tuple with the TransactionTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SupportedMethodsSettings) GetTransactionTypesOk() ([]string, bool) {
-	if o == nil || o.TransactionTypes == nil {
+	if o == nil || IsNil(o.TransactionTypes) {
 		return nil, false
 	}
 	return o.TransactionTypes, true
@@ -141,7 +144,7 @@ func (o *SupportedMethodsSettings) GetTransactionTypesOk() ([]string, bool) {
 
 // HasTransactionTypes returns a boolean if a field has been set.
 func (o *SupportedMethodsSettings) HasTransactionTypes() bool {
-	if o != nil && o.TransactionTypes != nil {
+	if o != nil && !IsNil(o.TransactionTypes) {
 		return true
 	}
 
@@ -154,14 +157,22 @@ func (o *SupportedMethodsSettings) SetTransactionTypes(v []string) {
 }
 
 func (o SupportedMethodsSettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SupportedMethodsSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.KeyProtection != nil {
+	if !IsNil(o.KeyProtection) {
 		toSerialize["keyProtection"] = o.KeyProtection
 	}
-	if o.Algorithms != nil {
+	if !IsNil(o.Algorithms) {
 		toSerialize["algorithms"] = o.Algorithms
 	}
-	if o.TransactionTypes != nil {
+	if !IsNil(o.TransactionTypes) {
 		toSerialize["transactionTypes"] = o.TransactionTypes
 	}
 
@@ -169,29 +180,27 @@ func (o SupportedMethodsSettings) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SupportedMethodsSettings) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SupportedMethodsSettings) UnmarshalJSON(data []byte) (err error) {
 	varSupportedMethodsSettings := _SupportedMethodsSettings{}
 
-	err = json.Unmarshal(bytes, &varSupportedMethodsSettings)
-	if err == nil {
-		*o = SupportedMethodsSettings(varSupportedMethodsSettings)
-	} else {
+	err = json.Unmarshal(data, &varSupportedMethodsSettings)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SupportedMethodsSettings(varSupportedMethodsSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "keyProtection")
 		delete(additionalProperties, "algorithms")
 		delete(additionalProperties, "transactionTypes")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -232,4 +241,3 @@ func (v *NullableSupportedMethodsSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

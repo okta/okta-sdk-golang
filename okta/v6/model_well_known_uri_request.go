@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,10 +28,13 @@ import (
 	"fmt"
 )
 
+// checks if the WellKnownURIRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WellKnownURIRequest{}
+
 // WellKnownURIRequest struct for WellKnownURIRequest
 type WellKnownURIRequest struct {
 	// The well-known URI content in JSON object format
-	Representation map[string]interface{} `json:"representation"`
+	Representation       map[string]interface{} `json:"representation"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -69,7 +72,7 @@ func (o *WellKnownURIRequest) GetRepresentation() map[string]interface{} {
 // and a boolean to check if the value has been set.
 func (o *WellKnownURIRequest) GetRepresentationOk() (map[string]interface{}, bool) {
 	if o == nil {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
 	return o.Representation, true
 }
@@ -80,36 +83,61 @@ func (o *WellKnownURIRequest) SetRepresentation(v map[string]interface{}) {
 }
 
 func (o WellKnownURIRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["representation"] = o.Representation
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
+	return json.Marshal(toSerialize)
+}
+
+func (o WellKnownURIRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["representation"] = o.Representation
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *WellKnownURIRequest) UnmarshalJSON(bytes []byte) (err error) {
-	varWellKnownURIRequest := _WellKnownURIRequest{}
+func (o *WellKnownURIRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"representation",
+	}
 
-	err = json.Unmarshal(bytes, &varWellKnownURIRequest)
-	if err == nil {
-		*o = WellKnownURIRequest(varWellKnownURIRequest)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varWellKnownURIRequest := _WellKnownURIRequest{}
+
+	err = json.Unmarshal(data, &varWellKnownURIRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = WellKnownURIRequest(varWellKnownURIRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "representation")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -150,4 +178,3 @@ func (v *NullableWellKnownURIRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

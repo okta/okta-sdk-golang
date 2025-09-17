@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -30,11 +30,14 @@ import (
 	"strings"
 )
 
+// checks if the PasswordPolicy type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordPolicy{}
+
 // PasswordPolicy struct for PasswordPolicy
 type PasswordPolicy struct {
 	Policy
-	Conditions *PasswordPolicyConditions `json:"conditions,omitempty"`
-	Settings *PasswordPolicySettings `json:"settings,omitempty"`
+	Conditions           *PasswordPolicyConditions `json:"conditions,omitempty"`
+	Settings             *PasswordPolicySettings   `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -63,7 +66,7 @@ func NewPasswordPolicyWithDefaults() *PasswordPolicy {
 
 // GetConditions returns the Conditions field value if set, zero value otherwise.
 func (o *PasswordPolicy) GetConditions() PasswordPolicyConditions {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		var ret PasswordPolicyConditions
 		return ret
 	}
@@ -73,7 +76,7 @@ func (o *PasswordPolicy) GetConditions() PasswordPolicyConditions {
 // GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicy) GetConditionsOk() (*PasswordPolicyConditions, bool) {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		return nil, false
 	}
 	return o.Conditions, true
@@ -81,7 +84,7 @@ func (o *PasswordPolicy) GetConditionsOk() (*PasswordPolicyConditions, bool) {
 
 // HasConditions returns a boolean if a field has been set.
 func (o *PasswordPolicy) HasConditions() bool {
-	if o != nil && o.Conditions != nil {
+	if o != nil && !IsNil(o.Conditions) {
 		return true
 	}
 
@@ -95,7 +98,7 @@ func (o *PasswordPolicy) SetConditions(v PasswordPolicyConditions) {
 
 // GetSettings returns the Settings field value if set, zero value otherwise.
 func (o *PasswordPolicy) GetSettings() PasswordPolicySettings {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		var ret PasswordPolicySettings
 		return ret
 	}
@@ -105,7 +108,7 @@ func (o *PasswordPolicy) GetSettings() PasswordPolicySettings {
 // GetSettingsOk returns a tuple with the Settings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicy) GetSettingsOk() (*PasswordPolicySettings, bool) {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		return nil, false
 	}
 	return o.Settings, true
@@ -113,7 +116,7 @@ func (o *PasswordPolicy) GetSettingsOk() (*PasswordPolicySettings, bool) {
 
 // HasSettings returns a boolean if a field has been set.
 func (o *PasswordPolicy) HasSettings() bool {
-	if o != nil && o.Settings != nil {
+	if o != nil && !IsNil(o.Settings) {
 		return true
 	}
 
@@ -126,19 +129,27 @@ func (o *PasswordPolicy) SetSettings(v PasswordPolicySettings) {
 }
 
 func (o PasswordPolicy) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordPolicy) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedPolicy, errPolicy := json.Marshal(o.Policy)
 	if errPolicy != nil {
-		return []byte{}, errPolicy
+		return map[string]interface{}{}, errPolicy
 	}
 	errPolicy = json.Unmarshal([]byte(serializedPolicy), &toSerialize)
 	if errPolicy != nil {
-		return []byte{}, errPolicy
+		return map[string]interface{}{}, errPolicy
 	}
-	if o.Conditions != nil {
+	if !IsNil(o.Conditions) {
 		toSerialize["conditions"] = o.Conditions
 	}
-	if o.Settings != nil {
+	if !IsNil(o.Settings) {
 		toSerialize["settings"] = o.Settings
 	}
 
@@ -146,18 +157,40 @@ func (o PasswordPolicy) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordPolicy) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordPolicy) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	type PasswordPolicyWithoutEmbeddedStruct struct {
 		Conditions *PasswordPolicyConditions `json:"conditions,omitempty"`
-		Settings *PasswordPolicySettings `json:"settings,omitempty"`
+		Settings   *PasswordPolicySettings   `json:"settings,omitempty"`
 	}
 
 	varPasswordPolicyWithoutEmbeddedStruct := PasswordPolicyWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varPasswordPolicyWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varPasswordPolicyWithoutEmbeddedStruct)
 	if err == nil {
 		varPasswordPolicy := _PasswordPolicy{}
 		varPasswordPolicy.Conditions = varPasswordPolicyWithoutEmbeddedStruct.Conditions
@@ -169,7 +202,7 @@ func (o *PasswordPolicy) UnmarshalJSON(bytes []byte) (err error) {
 
 	varPasswordPolicy := _PasswordPolicy{}
 
-	err = json.Unmarshal(bytes, &varPasswordPolicy)
+	err = json.Unmarshal(data, &varPasswordPolicy)
 	if err == nil {
 		o.Policy = varPasswordPolicy.Policy
 	} else {
@@ -178,8 +211,7 @@ func (o *PasswordPolicy) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "conditions")
 		delete(additionalProperties, "settings")
 
@@ -202,8 +234,6 @@ func (o *PasswordPolicy) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -244,4 +274,3 @@ func (v *NullablePasswordPolicy) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

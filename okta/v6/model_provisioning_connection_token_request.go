@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,11 +28,14 @@ import (
 	"fmt"
 )
 
+// checks if the ProvisioningConnectionTokenRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ProvisioningConnectionTokenRequest{}
+
 // ProvisioningConnectionTokenRequest struct for ProvisioningConnectionTokenRequest
 type ProvisioningConnectionTokenRequest struct {
 	// Only used for the Zscaler 2.0 (`zscalerbyz`) app. The base URL for the Zscaler 2.0 target app, which also contains the Zscaler ID.
-	BaseUrl *string `json:"baseUrl,omitempty"`
-	Profile ProvisioningConnectionTokenRequestProfile `json:"profile"`
+	BaseUrl              *string                                   `json:"baseUrl,omitempty"`
+	Profile              ProvisioningConnectionTokenRequestProfile `json:"profile"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewProvisioningConnectionTokenRequestWithDefaults() *ProvisioningConnection
 
 // GetBaseUrl returns the BaseUrl field value if set, zero value otherwise.
 func (o *ProvisioningConnectionTokenRequest) GetBaseUrl() string {
-	if o == nil || o.BaseUrl == nil {
+	if o == nil || IsNil(o.BaseUrl) {
 		var ret string
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *ProvisioningConnectionTokenRequest) GetBaseUrl() string {
 // GetBaseUrlOk returns a tuple with the BaseUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProvisioningConnectionTokenRequest) GetBaseUrlOk() (*string, bool) {
-	if o == nil || o.BaseUrl == nil {
+	if o == nil || IsNil(o.BaseUrl) {
 		return nil, false
 	}
 	return o.BaseUrl, true
@@ -76,7 +79,7 @@ func (o *ProvisioningConnectionTokenRequest) GetBaseUrlOk() (*string, bool) {
 
 // HasBaseUrl returns a boolean if a field has been set.
 func (o *ProvisioningConnectionTokenRequest) HasBaseUrl() bool {
-	if o != nil && o.BaseUrl != nil {
+	if o != nil && !IsNil(o.BaseUrl) {
 		return true
 	}
 
@@ -113,40 +116,65 @@ func (o *ProvisioningConnectionTokenRequest) SetProfile(v ProvisioningConnection
 }
 
 func (o ProvisioningConnectionTokenRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ProvisioningConnectionTokenRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.BaseUrl != nil {
+	if !IsNil(o.BaseUrl) {
 		toSerialize["baseUrl"] = o.BaseUrl
 	}
-	if true {
-		toSerialize["profile"] = o.Profile
-	}
+	toSerialize["profile"] = o.Profile
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ProvisioningConnectionTokenRequest) UnmarshalJSON(bytes []byte) (err error) {
-	varProvisioningConnectionTokenRequest := _ProvisioningConnectionTokenRequest{}
+func (o *ProvisioningConnectionTokenRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"profile",
+	}
 
-	err = json.Unmarshal(bytes, &varProvisioningConnectionTokenRequest)
-	if err == nil {
-		*o = ProvisioningConnectionTokenRequest(varProvisioningConnectionTokenRequest)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varProvisioningConnectionTokenRequest := _ProvisioningConnectionTokenRequest{}
+
+	err = json.Unmarshal(data, &varProvisioningConnectionTokenRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ProvisioningConnectionTokenRequest(varProvisioningConnectionTokenRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "baseUrl")
 		delete(additionalProperties, "profile")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -187,4 +215,3 @@ func (v *NullableProvisioningConnectionTokenRequest) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the SamlEndpoints type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SamlEndpoints{}
+
 // SamlEndpoints SAML 2.0 HTTP binding settings for IdP and SP (Okta)
 type SamlEndpoints struct {
-	Acs *SamlAcsEndpoint `json:"acs,omitempty"`
-	Slo *SamlSloEndpoint `json:"slo,omitempty"`
-	Sso *SamlSsoEndpoint `json:"sso,omitempty"`
+	Acs                  *SamlAcsEndpoint `json:"acs,omitempty"`
+	Slo                  *SamlSloEndpoint `json:"slo,omitempty"`
+	Sso                  *SamlSsoEndpoint `json:"sso,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewSamlEndpointsWithDefaults() *SamlEndpoints {
 
 // GetAcs returns the Acs field value if set, zero value otherwise.
 func (o *SamlEndpoints) GetAcs() SamlAcsEndpoint {
-	if o == nil || o.Acs == nil {
+	if o == nil || IsNil(o.Acs) {
 		var ret SamlAcsEndpoint
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *SamlEndpoints) GetAcs() SamlAcsEndpoint {
 // GetAcsOk returns a tuple with the Acs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlEndpoints) GetAcsOk() (*SamlAcsEndpoint, bool) {
-	if o == nil || o.Acs == nil {
+	if o == nil || IsNil(o.Acs) {
 		return nil, false
 	}
 	return o.Acs, true
@@ -74,7 +77,7 @@ func (o *SamlEndpoints) GetAcsOk() (*SamlAcsEndpoint, bool) {
 
 // HasAcs returns a boolean if a field has been set.
 func (o *SamlEndpoints) HasAcs() bool {
-	if o != nil && o.Acs != nil {
+	if o != nil && !IsNil(o.Acs) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *SamlEndpoints) SetAcs(v SamlAcsEndpoint) {
 
 // GetSlo returns the Slo field value if set, zero value otherwise.
 func (o *SamlEndpoints) GetSlo() SamlSloEndpoint {
-	if o == nil || o.Slo == nil {
+	if o == nil || IsNil(o.Slo) {
 		var ret SamlSloEndpoint
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *SamlEndpoints) GetSlo() SamlSloEndpoint {
 // GetSloOk returns a tuple with the Slo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlEndpoints) GetSloOk() (*SamlSloEndpoint, bool) {
-	if o == nil || o.Slo == nil {
+	if o == nil || IsNil(o.Slo) {
 		return nil, false
 	}
 	return o.Slo, true
@@ -106,7 +109,7 @@ func (o *SamlEndpoints) GetSloOk() (*SamlSloEndpoint, bool) {
 
 // HasSlo returns a boolean if a field has been set.
 func (o *SamlEndpoints) HasSlo() bool {
-	if o != nil && o.Slo != nil {
+	if o != nil && !IsNil(o.Slo) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *SamlEndpoints) SetSlo(v SamlSloEndpoint) {
 
 // GetSso returns the Sso field value if set, zero value otherwise.
 func (o *SamlEndpoints) GetSso() SamlSsoEndpoint {
-	if o == nil || o.Sso == nil {
+	if o == nil || IsNil(o.Sso) {
 		var ret SamlSsoEndpoint
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *SamlEndpoints) GetSso() SamlSsoEndpoint {
 // GetSsoOk returns a tuple with the Sso field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlEndpoints) GetSsoOk() (*SamlSsoEndpoint, bool) {
-	if o == nil || o.Sso == nil {
+	if o == nil || IsNil(o.Sso) {
 		return nil, false
 	}
 	return o.Sso, true
@@ -138,7 +141,7 @@ func (o *SamlEndpoints) GetSsoOk() (*SamlSsoEndpoint, bool) {
 
 // HasSso returns a boolean if a field has been set.
 func (o *SamlEndpoints) HasSso() bool {
-	if o != nil && o.Sso != nil {
+	if o != nil && !IsNil(o.Sso) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *SamlEndpoints) SetSso(v SamlSsoEndpoint) {
 }
 
 func (o SamlEndpoints) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SamlEndpoints) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Acs != nil {
+	if !IsNil(o.Acs) {
 		toSerialize["acs"] = o.Acs
 	}
-	if o.Slo != nil {
+	if !IsNil(o.Slo) {
 		toSerialize["slo"] = o.Slo
 	}
-	if o.Sso != nil {
+	if !IsNil(o.Sso) {
 		toSerialize["sso"] = o.Sso
 	}
 
@@ -166,29 +177,27 @@ func (o SamlEndpoints) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SamlEndpoints) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SamlEndpoints) UnmarshalJSON(data []byte) (err error) {
 	varSamlEndpoints := _SamlEndpoints{}
 
-	err = json.Unmarshal(bytes, &varSamlEndpoints)
-	if err == nil {
-		*o = SamlEndpoints(varSamlEndpoints)
-	} else {
+	err = json.Unmarshal(data, &varSamlEndpoints)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SamlEndpoints(varSamlEndpoints)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "acs")
 		delete(additionalProperties, "slo")
 		delete(additionalProperties, "sso")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullableSamlEndpoints) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

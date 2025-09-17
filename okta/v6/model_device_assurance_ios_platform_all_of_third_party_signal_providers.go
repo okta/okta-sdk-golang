@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the DeviceAssuranceIOSPlatformAllOfThirdPartySignalProviders type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeviceAssuranceIOSPlatformAllOfThirdPartySignalProviders{}
+
 // DeviceAssuranceIOSPlatformAllOfThirdPartySignalProviders Settings for third-party signal providers (based on the `IOS` platform)
 type DeviceAssuranceIOSPlatformAllOfThirdPartySignalProviders struct {
-	DevicePostureIdP *DevicePostureIdP `json:"devicePostureIdP,omitempty"`
+	DevicePostureIdP     *DevicePostureIdP `json:"devicePostureIdP,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewDeviceAssuranceIOSPlatformAllOfThirdPartySignalProvidersWithDefaults() *
 
 // GetDevicePostureIdP returns the DevicePostureIdP field value if set, zero value otherwise.
 func (o *DeviceAssuranceIOSPlatformAllOfThirdPartySignalProviders) GetDevicePostureIdP() DevicePostureIdP {
-	if o == nil || o.DevicePostureIdP == nil {
+	if o == nil || IsNil(o.DevicePostureIdP) {
 		var ret DevicePostureIdP
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *DeviceAssuranceIOSPlatformAllOfThirdPartySignalProviders) GetDevicePost
 // GetDevicePostureIdPOk returns a tuple with the DevicePostureIdP field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceAssuranceIOSPlatformAllOfThirdPartySignalProviders) GetDevicePostureIdPOk() (*DevicePostureIdP, bool) {
-	if o == nil || o.DevicePostureIdP == nil {
+	if o == nil || IsNil(o.DevicePostureIdP) {
 		return nil, false
 	}
 	return o.DevicePostureIdP, true
@@ -72,7 +75,7 @@ func (o *DeviceAssuranceIOSPlatformAllOfThirdPartySignalProviders) GetDevicePost
 
 // HasDevicePostureIdP returns a boolean if a field has been set.
 func (o *DeviceAssuranceIOSPlatformAllOfThirdPartySignalProviders) HasDevicePostureIdP() bool {
-	if o != nil && o.DevicePostureIdP != nil {
+	if o != nil && !IsNil(o.DevicePostureIdP) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *DeviceAssuranceIOSPlatformAllOfThirdPartySignalProviders) SetDevicePost
 }
 
 func (o DeviceAssuranceIOSPlatformAllOfThirdPartySignalProviders) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DeviceAssuranceIOSPlatformAllOfThirdPartySignalProviders) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.DevicePostureIdP != nil {
+	if !IsNil(o.DevicePostureIdP) {
 		toSerialize["devicePostureIdP"] = o.DevicePostureIdP
 	}
 
@@ -94,27 +105,25 @@ func (o DeviceAssuranceIOSPlatformAllOfThirdPartySignalProviders) MarshalJSON() 
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DeviceAssuranceIOSPlatformAllOfThirdPartySignalProviders) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DeviceAssuranceIOSPlatformAllOfThirdPartySignalProviders) UnmarshalJSON(data []byte) (err error) {
 	varDeviceAssuranceIOSPlatformAllOfThirdPartySignalProviders := _DeviceAssuranceIOSPlatformAllOfThirdPartySignalProviders{}
 
-	err = json.Unmarshal(bytes, &varDeviceAssuranceIOSPlatformAllOfThirdPartySignalProviders)
-	if err == nil {
-		*o = DeviceAssuranceIOSPlatformAllOfThirdPartySignalProviders(varDeviceAssuranceIOSPlatformAllOfThirdPartySignalProviders)
-	} else {
+	err = json.Unmarshal(data, &varDeviceAssuranceIOSPlatformAllOfThirdPartySignalProviders)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DeviceAssuranceIOSPlatformAllOfThirdPartySignalProviders(varDeviceAssuranceIOSPlatformAllOfThirdPartySignalProviders)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "devicePostureIdP")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableDeviceAssuranceIOSPlatformAllOfThirdPartySignalProviders) Unmar
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

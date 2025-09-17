@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,15 +27,18 @@ import (
 	"encoding/json"
 )
 
-// ApplicationFeature The Feature object is used to configure app feature settings. 
+// checks if the ApplicationFeature type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApplicationFeature{}
+
+// ApplicationFeature The Feature object is used to configure app feature settings.
 type ApplicationFeature struct {
 	// Description of the feature
 	Description *string `json:"description,omitempty"`
-	// Key name of the feature  | Feature name | Description   | | --------- | ------------- | | USER_PROVISIONING  | User profiles are pushed from Okta to the third-party app. Represents the **To App** provisioning feature setting in the Admin Console. | | INBOUND_PROVISIONING | User profiles are imported from the third-party app into Okta. This feature represents the **To Okta** provisioning feature setting in the Admin Console. |  Select the feature: 
+	// Key name of the feature  | Feature name | Description   | | --------- | ------------- | | USER_PROVISIONING  | User profiles are pushed from Okta to the third-party app. Represents the **To App** provisioning feature setting in the Admin Console. | | INBOUND_PROVISIONING | User profiles are imported from the third-party app into Okta. This feature represents the **To Okta** provisioning feature setting in the Admin Console. |  Select the feature:
 	Name *string `json:"name,omitempty"`
 	// Setting status
-	Status *string `json:"status,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	Status               *string    `json:"status,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +63,7 @@ func NewApplicationFeatureWithDefaults() *ApplicationFeature {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *ApplicationFeature) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *ApplicationFeature) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationFeature) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -78,7 +81,7 @@ func (o *ApplicationFeature) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *ApplicationFeature) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -92,7 +95,7 @@ func (o *ApplicationFeature) SetDescription(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *ApplicationFeature) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *ApplicationFeature) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationFeature) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -110,7 +113,7 @@ func (o *ApplicationFeature) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *ApplicationFeature) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -124,7 +127,7 @@ func (o *ApplicationFeature) SetName(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *ApplicationFeature) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -134,7 +137,7 @@ func (o *ApplicationFeature) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationFeature) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -142,7 +145,7 @@ func (o *ApplicationFeature) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *ApplicationFeature) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -156,7 +159,7 @@ func (o *ApplicationFeature) SetStatus(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *ApplicationFeature) GetLinks() LinksSelf {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksSelf
 		return ret
 	}
@@ -166,7 +169,7 @@ func (o *ApplicationFeature) GetLinks() LinksSelf {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationFeature) GetLinksOk() (*LinksSelf, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -174,7 +177,7 @@ func (o *ApplicationFeature) GetLinksOk() (*LinksSelf, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *ApplicationFeature) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -187,17 +190,25 @@ func (o *ApplicationFeature) SetLinks(v LinksSelf) {
 }
 
 func (o ApplicationFeature) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApplicationFeature) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -205,30 +216,28 @@ func (o ApplicationFeature) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ApplicationFeature) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ApplicationFeature) UnmarshalJSON(data []byte) (err error) {
 	varApplicationFeature := _ApplicationFeature{}
 
-	err = json.Unmarshal(bytes, &varApplicationFeature)
-	if err == nil {
-		*o = ApplicationFeature(varApplicationFeature)
-	} else {
+	err = json.Unmarshal(data, &varApplicationFeature)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ApplicationFeature(varApplicationFeature)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -269,4 +278,3 @@ func (v *NullableApplicationFeature) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

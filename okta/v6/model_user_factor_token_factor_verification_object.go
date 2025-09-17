@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserFactorTokenFactorVerificationObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserFactorTokenFactorVerificationObject{}
+
 // UserFactorTokenFactorVerificationObject struct for UserFactorTokenFactorVerificationObject
 type UserFactorTokenFactorVerificationObject struct {
 	// OTP for the next time window
 	NextPassCode *string `json:"nextPassCode,omitempty"`
 	// OTP for the current time window
-	PassCode *string `json:"passCode,omitempty"`
+	PassCode             *string `json:"passCode,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewUserFactorTokenFactorVerificationObjectWithDefaults() *UserFactorTokenFa
 
 // GetNextPassCode returns the NextPassCode field value if set, zero value otherwise.
 func (o *UserFactorTokenFactorVerificationObject) GetNextPassCode() string {
-	if o == nil || o.NextPassCode == nil {
+	if o == nil || IsNil(o.NextPassCode) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *UserFactorTokenFactorVerificationObject) GetNextPassCode() string {
 // GetNextPassCodeOk returns a tuple with the NextPassCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorTokenFactorVerificationObject) GetNextPassCodeOk() (*string, bool) {
-	if o == nil || o.NextPassCode == nil {
+	if o == nil || IsNil(o.NextPassCode) {
 		return nil, false
 	}
 	return o.NextPassCode, true
@@ -75,7 +78,7 @@ func (o *UserFactorTokenFactorVerificationObject) GetNextPassCodeOk() (*string, 
 
 // HasNextPassCode returns a boolean if a field has been set.
 func (o *UserFactorTokenFactorVerificationObject) HasNextPassCode() bool {
-	if o != nil && o.NextPassCode != nil {
+	if o != nil && !IsNil(o.NextPassCode) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *UserFactorTokenFactorVerificationObject) SetNextPassCode(v string) {
 
 // GetPassCode returns the PassCode field value if set, zero value otherwise.
 func (o *UserFactorTokenFactorVerificationObject) GetPassCode() string {
-	if o == nil || o.PassCode == nil {
+	if o == nil || IsNil(o.PassCode) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *UserFactorTokenFactorVerificationObject) GetPassCode() string {
 // GetPassCodeOk returns a tuple with the PassCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorTokenFactorVerificationObject) GetPassCodeOk() (*string, bool) {
-	if o == nil || o.PassCode == nil {
+	if o == nil || IsNil(o.PassCode) {
 		return nil, false
 	}
 	return o.PassCode, true
@@ -107,7 +110,7 @@ func (o *UserFactorTokenFactorVerificationObject) GetPassCodeOk() (*string, bool
 
 // HasPassCode returns a boolean if a field has been set.
 func (o *UserFactorTokenFactorVerificationObject) HasPassCode() bool {
-	if o != nil && o.PassCode != nil {
+	if o != nil && !IsNil(o.PassCode) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *UserFactorTokenFactorVerificationObject) SetPassCode(v string) {
 }
 
 func (o UserFactorTokenFactorVerificationObject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserFactorTokenFactorVerificationObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.NextPassCode != nil {
+	if !IsNil(o.NextPassCode) {
 		toSerialize["nextPassCode"] = o.NextPassCode
 	}
-	if o.PassCode != nil {
+	if !IsNil(o.PassCode) {
 		toSerialize["passCode"] = o.PassCode
 	}
 
@@ -132,28 +143,26 @@ func (o UserFactorTokenFactorVerificationObject) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserFactorTokenFactorVerificationObject) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserFactorTokenFactorVerificationObject) UnmarshalJSON(data []byte) (err error) {
 	varUserFactorTokenFactorVerificationObject := _UserFactorTokenFactorVerificationObject{}
 
-	err = json.Unmarshal(bytes, &varUserFactorTokenFactorVerificationObject)
-	if err == nil {
-		*o = UserFactorTokenFactorVerificationObject(varUserFactorTokenFactorVerificationObject)
-	} else {
+	err = json.Unmarshal(data, &varUserFactorTokenFactorVerificationObject)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserFactorTokenFactorVerificationObject(varUserFactorTokenFactorVerificationObject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "nextPassCode")
 		delete(additionalProperties, "passCode")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableUserFactorTokenFactorVerificationObject) UnmarshalJSON(src []by
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

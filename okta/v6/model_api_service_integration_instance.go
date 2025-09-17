@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the APIServiceIntegrationInstance type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &APIServiceIntegrationInstance{}
+
 // APIServiceIntegrationInstance struct for APIServiceIntegrationInstance
 type APIServiceIntegrationInstance struct {
 	// The URL to the API service integration configuration guide
@@ -44,8 +47,8 @@ type APIServiceIntegrationInstance struct {
 	// App instance properties
 	Properties *map[string]AppPropertiesValue `json:"properties,omitempty"`
 	// The type of the API service integration. This string is an underscore-concatenated, lowercased API service integration name. For example, `my_api_log_integration`.
-	Type *string `json:"type,omitempty"`
-	Links *APIServiceIntegrationLinks `json:"_links,omitempty"`
+	Type                 *string                     `json:"type,omitempty"`
+	Links                *APIServiceIntegrationLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -70,7 +73,7 @@ func NewAPIServiceIntegrationInstanceWithDefaults() *APIServiceIntegrationInstan
 
 // GetConfigGuideUrl returns the ConfigGuideUrl field value if set, zero value otherwise.
 func (o *APIServiceIntegrationInstance) GetConfigGuideUrl() string {
-	if o == nil || o.ConfigGuideUrl == nil {
+	if o == nil || IsNil(o.ConfigGuideUrl) {
 		var ret string
 		return ret
 	}
@@ -80,7 +83,7 @@ func (o *APIServiceIntegrationInstance) GetConfigGuideUrl() string {
 // GetConfigGuideUrlOk returns a tuple with the ConfigGuideUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *APIServiceIntegrationInstance) GetConfigGuideUrlOk() (*string, bool) {
-	if o == nil || o.ConfigGuideUrl == nil {
+	if o == nil || IsNil(o.ConfigGuideUrl) {
 		return nil, false
 	}
 	return o.ConfigGuideUrl, true
@@ -88,7 +91,7 @@ func (o *APIServiceIntegrationInstance) GetConfigGuideUrlOk() (*string, bool) {
 
 // HasConfigGuideUrl returns a boolean if a field has been set.
 func (o *APIServiceIntegrationInstance) HasConfigGuideUrl() bool {
-	if o != nil && o.ConfigGuideUrl != nil {
+	if o != nil && !IsNil(o.ConfigGuideUrl) {
 		return true
 	}
 
@@ -102,7 +105,7 @@ func (o *APIServiceIntegrationInstance) SetConfigGuideUrl(v string) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *APIServiceIntegrationInstance) GetCreatedAt() string {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret string
 		return ret
 	}
@@ -112,7 +115,7 @@ func (o *APIServiceIntegrationInstance) GetCreatedAt() string {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *APIServiceIntegrationInstance) GetCreatedAtOk() (*string, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -120,7 +123,7 @@ func (o *APIServiceIntegrationInstance) GetCreatedAtOk() (*string, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *APIServiceIntegrationInstance) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -134,7 +137,7 @@ func (o *APIServiceIntegrationInstance) SetCreatedAt(v string) {
 
 // GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
 func (o *APIServiceIntegrationInstance) GetCreatedBy() string {
-	if o == nil || o.CreatedBy == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		var ret string
 		return ret
 	}
@@ -144,7 +147,7 @@ func (o *APIServiceIntegrationInstance) GetCreatedBy() string {
 // GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *APIServiceIntegrationInstance) GetCreatedByOk() (*string, bool) {
-	if o == nil || o.CreatedBy == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		return nil, false
 	}
 	return o.CreatedBy, true
@@ -152,7 +155,7 @@ func (o *APIServiceIntegrationInstance) GetCreatedByOk() (*string, bool) {
 
 // HasCreatedBy returns a boolean if a field has been set.
 func (o *APIServiceIntegrationInstance) HasCreatedBy() bool {
-	if o != nil && o.CreatedBy != nil {
+	if o != nil && !IsNil(o.CreatedBy) {
 		return true
 	}
 
@@ -166,7 +169,7 @@ func (o *APIServiceIntegrationInstance) SetCreatedBy(v string) {
 
 // GetGrantedScopes returns the GrantedScopes field value if set, zero value otherwise.
 func (o *APIServiceIntegrationInstance) GetGrantedScopes() []string {
-	if o == nil || o.GrantedScopes == nil {
+	if o == nil || IsNil(o.GrantedScopes) {
 		var ret []string
 		return ret
 	}
@@ -176,7 +179,7 @@ func (o *APIServiceIntegrationInstance) GetGrantedScopes() []string {
 // GetGrantedScopesOk returns a tuple with the GrantedScopes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *APIServiceIntegrationInstance) GetGrantedScopesOk() ([]string, bool) {
-	if o == nil || o.GrantedScopes == nil {
+	if o == nil || IsNil(o.GrantedScopes) {
 		return nil, false
 	}
 	return o.GrantedScopes, true
@@ -184,7 +187,7 @@ func (o *APIServiceIntegrationInstance) GetGrantedScopesOk() ([]string, bool) {
 
 // HasGrantedScopes returns a boolean if a field has been set.
 func (o *APIServiceIntegrationInstance) HasGrantedScopes() bool {
-	if o != nil && o.GrantedScopes != nil {
+	if o != nil && !IsNil(o.GrantedScopes) {
 		return true
 	}
 
@@ -198,7 +201,7 @@ func (o *APIServiceIntegrationInstance) SetGrantedScopes(v []string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *APIServiceIntegrationInstance) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -208,7 +211,7 @@ func (o *APIServiceIntegrationInstance) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *APIServiceIntegrationInstance) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -216,7 +219,7 @@ func (o *APIServiceIntegrationInstance) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *APIServiceIntegrationInstance) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -230,7 +233,7 @@ func (o *APIServiceIntegrationInstance) SetId(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *APIServiceIntegrationInstance) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -240,7 +243,7 @@ func (o *APIServiceIntegrationInstance) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *APIServiceIntegrationInstance) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -248,7 +251,7 @@ func (o *APIServiceIntegrationInstance) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *APIServiceIntegrationInstance) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -262,7 +265,7 @@ func (o *APIServiceIntegrationInstance) SetName(v string) {
 
 // GetProperties returns the Properties field value if set, zero value otherwise.
 func (o *APIServiceIntegrationInstance) GetProperties() map[string]AppPropertiesValue {
-	if o == nil || o.Properties == nil {
+	if o == nil || IsNil(o.Properties) {
 		var ret map[string]AppPropertiesValue
 		return ret
 	}
@@ -272,7 +275,7 @@ func (o *APIServiceIntegrationInstance) GetProperties() map[string]AppProperties
 // GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *APIServiceIntegrationInstance) GetPropertiesOk() (*map[string]AppPropertiesValue, bool) {
-	if o == nil || o.Properties == nil {
+	if o == nil || IsNil(o.Properties) {
 		return nil, false
 	}
 	return o.Properties, true
@@ -280,7 +283,7 @@ func (o *APIServiceIntegrationInstance) GetPropertiesOk() (*map[string]AppProper
 
 // HasProperties returns a boolean if a field has been set.
 func (o *APIServiceIntegrationInstance) HasProperties() bool {
-	if o != nil && o.Properties != nil {
+	if o != nil && !IsNil(o.Properties) {
 		return true
 	}
 
@@ -294,7 +297,7 @@ func (o *APIServiceIntegrationInstance) SetProperties(v map[string]AppProperties
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *APIServiceIntegrationInstance) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -304,7 +307,7 @@ func (o *APIServiceIntegrationInstance) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *APIServiceIntegrationInstance) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -312,7 +315,7 @@ func (o *APIServiceIntegrationInstance) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *APIServiceIntegrationInstance) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -326,7 +329,7 @@ func (o *APIServiceIntegrationInstance) SetType(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *APIServiceIntegrationInstance) GetLinks() APIServiceIntegrationLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret APIServiceIntegrationLinks
 		return ret
 	}
@@ -336,7 +339,7 @@ func (o *APIServiceIntegrationInstance) GetLinks() APIServiceIntegrationLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *APIServiceIntegrationInstance) GetLinksOk() (*APIServiceIntegrationLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -344,7 +347,7 @@ func (o *APIServiceIntegrationInstance) GetLinksOk() (*APIServiceIntegrationLink
 
 // HasLinks returns a boolean if a field has been set.
 func (o *APIServiceIntegrationInstance) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -357,32 +360,40 @@ func (o *APIServiceIntegrationInstance) SetLinks(v APIServiceIntegrationLinks) {
 }
 
 func (o APIServiceIntegrationInstance) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o APIServiceIntegrationInstance) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ConfigGuideUrl != nil {
+	if !IsNil(o.ConfigGuideUrl) {
 		toSerialize["configGuideUrl"] = o.ConfigGuideUrl
 	}
-	if o.CreatedAt != nil {
+	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
 	}
-	if o.CreatedBy != nil {
+	if !IsNil(o.CreatedBy) {
 		toSerialize["createdBy"] = o.CreatedBy
 	}
-	if o.GrantedScopes != nil {
+	if !IsNil(o.GrantedScopes) {
 		toSerialize["grantedScopes"] = o.GrantedScopes
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Properties != nil {
+	if !IsNil(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -390,23 +401,23 @@ func (o APIServiceIntegrationInstance) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *APIServiceIntegrationInstance) UnmarshalJSON(bytes []byte) (err error) {
+func (o *APIServiceIntegrationInstance) UnmarshalJSON(data []byte) (err error) {
 	varAPIServiceIntegrationInstance := _APIServiceIntegrationInstance{}
 
-	err = json.Unmarshal(bytes, &varAPIServiceIntegrationInstance)
-	if err == nil {
-		*o = APIServiceIntegrationInstance(varAPIServiceIntegrationInstance)
-	} else {
+	err = json.Unmarshal(data, &varAPIServiceIntegrationInstance)
+
+	if err != nil {
 		return err
 	}
 
+	*o = APIServiceIntegrationInstance(varAPIServiceIntegrationInstance)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "configGuideUrl")
 		delete(additionalProperties, "createdAt")
 		delete(additionalProperties, "createdBy")
@@ -417,8 +428,6 @@ func (o *APIServiceIntegrationInstance) UnmarshalJSON(bytes []byte) (err error) 
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -459,4 +468,3 @@ func (v *NullableAPIServiceIntegrationInstance) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

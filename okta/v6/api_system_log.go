@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,29 +26,28 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"time"
 )
 
-
 type SystemLogAPI interface {
 
 	/*
-	ListLogEvents List all System Log events
+			ListLogEvents List all System Log events
 
-	Lists all System Log events
+			Lists all System Log events
 
-See [System Log query](https://developer.okta.com/docs/reference/system-log-query/) for further details and examples, and [System Log filters and search](https://help.okta.com/okta_help.htm?type=oie&id=csh-syslog-filters) for common use cases.
+		See [System Log query](https://developer.okta.com/docs/reference/system-log-query/) for further details and examples, and [System Log filters and search](https://help.okta.com/okta_help.htm?type=oie&id=csh-syslog-filters) for common use cases.
 
-By default, 100 System Log events are returned. If there are more events, see the [header link](https://developer.okta.com/docs/api/#link-header) for the `next` link,
-or increase the number of returned objects using the `limit` parameter.
+		By default, 100 System Log events are returned. If there are more events, see the [header link](https://developer.okta.com/docs/api/#link-header) for the `next` link,
+		or increase the number of returned objects using the `limit` parameter.
 
->**Note:** The value of the `clientSecret` property in the System Log is secured by a hashing function, and isn't the value used during authentication.
+		>**Note:** The value of the `clientSecret` property in the System Log is secured by a hashing function, and isn't the value used during authentication.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListLogEventsRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiListLogEventsRequest
 	*/
 	ListLogEvents(ctx context.Context) ApiListLogEventsRequest
 
@@ -61,15 +60,15 @@ or increase the number of returned objects using the `limit` parameter.
 type SystemLogAPIService service
 
 type ApiListLogEventsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SystemLogAPI
-	since *string
-	until *string
-	after *string
-	filter *string
-	q *string
-	limit *int32
-	sortOrder *string
+	since      *string
+	until      *string
+	after      *string
+	filter     *string
+	q          *string
+	limit      *int32
+	sortOrder  *string
 	retryCount int32
 }
 
@@ -122,7 +121,7 @@ func (r ApiListLogEventsRequest) Execute() ([]LogEvent, *APIResponse, error) {
 /*
 ListLogEvents List all System Log events
 
-Lists all System Log events
+# Lists all System Log events
 
 See [System Log query](https://developer.okta.com/docs/reference/system-log-query/) for further details and examples, and [System Log filters and search](https://help.okta.com/okta_help.htm?type=oie&id=csh-syslog-filters) for common use cases.
 
@@ -131,19 +130,20 @@ or increase the number of returned objects using the `limit` parameter.
 
 >**Note:** The value of the `clientSecret` property in the System Log is secured by a hashing function, and isn't the value used during authentication.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListLogEventsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListLogEventsRequest
 */
 func (a *SystemLogAPIService) ListLogEvents(ctx context.Context) ApiListLogEventsRequest {
 	return ApiListLogEventsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []LogEvent
+//
+//	@return []LogEvent
 func (a *SystemLogAPIService) ListLogEventsExecute(r ApiListLogEventsRequest) ([]LogEvent, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -152,7 +152,7 @@ func (a *SystemLogAPIService) ListLogEventsExecute(r ApiListLogEventsRequest) ([
 		localVarReturnValue  []LogEvent
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -233,9 +233,9 @@ func (a *SystemLogAPIService) ListLogEventsExecute(r ApiListLogEventsRequest) ([
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -293,7 +293,7 @@ func (a *SystemLogAPIService) ListLogEventsExecute(r ApiListLogEventsRequest) ([
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

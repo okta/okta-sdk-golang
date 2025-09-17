@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,12 +28,10 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
 // AddJwkRequest - struct for AddJwkRequest
 type AddJwkRequest struct {
 	OAuth2ClientJsonEncryptionKeyRequest *OAuth2ClientJsonEncryptionKeyRequest
-	OAuth2ClientJsonSigningKeyRequest *OAuth2ClientJsonSigningKeyRequest
+	OAuth2ClientJsonSigningKeyRequest    *OAuth2ClientJsonSigningKeyRequest
 }
 
 // OAuth2ClientJsonEncryptionKeyRequestAsAddJwkRequest is a convenience function that returns OAuth2ClientJsonEncryptionKeyRequest wrapped in AddJwkRequest
@@ -50,48 +48,47 @@ func OAuth2ClientJsonSigningKeyRequestAsAddJwkRequest(v *OAuth2ClientJsonSigning
 	}
 }
 
-
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *AddJwkRequest) UnmarshalJSON(data []byte) error {
 	var err error
-        match := 0
-        // try to unmarshal data into OAuth2ClientJsonEncryptionKeyRequest
-        err = json.Unmarshal(data, &dst.OAuth2ClientJsonEncryptionKeyRequest)
-        if err == nil {
-                jsonOAuth2ClientJsonEncryptionKeyRequest, _ := json.Marshal(dst.OAuth2ClientJsonEncryptionKeyRequest)
-                if string(jsonOAuth2ClientJsonEncryptionKeyRequest) == "{}" { // empty struct
-                        dst.OAuth2ClientJsonEncryptionKeyRequest = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.OAuth2ClientJsonEncryptionKeyRequest = nil
-        }
+	match := 0
+	// try to unmarshal data into OAuth2ClientJsonEncryptionKeyRequest
+	err = json.Unmarshal(data, &dst.OAuth2ClientJsonEncryptionKeyRequest)
+	if err == nil {
+		jsonOAuth2ClientJsonEncryptionKeyRequest, _ := json.Marshal(dst.OAuth2ClientJsonEncryptionKeyRequest)
+		if string(jsonOAuth2ClientJsonEncryptionKeyRequest) == "{}" { // empty struct
+			dst.OAuth2ClientJsonEncryptionKeyRequest = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.OAuth2ClientJsonEncryptionKeyRequest = nil
+	}
 
-        // try to unmarshal data into OAuth2ClientJsonSigningKeyRequest
-        err = json.Unmarshal(data, &dst.OAuth2ClientJsonSigningKeyRequest)
-        if err == nil {
-                jsonOAuth2ClientJsonSigningKeyRequest, _ := json.Marshal(dst.OAuth2ClientJsonSigningKeyRequest)
-                if string(jsonOAuth2ClientJsonSigningKeyRequest) == "{}" { // empty struct
-                        dst.OAuth2ClientJsonSigningKeyRequest = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.OAuth2ClientJsonSigningKeyRequest = nil
-        }
+	// try to unmarshal data into OAuth2ClientJsonSigningKeyRequest
+	err = json.Unmarshal(data, &dst.OAuth2ClientJsonSigningKeyRequest)
+	if err == nil {
+		jsonOAuth2ClientJsonSigningKeyRequest, _ := json.Marshal(dst.OAuth2ClientJsonSigningKeyRequest)
+		if string(jsonOAuth2ClientJsonSigningKeyRequest) == "{}" { // empty struct
+			dst.OAuth2ClientJsonSigningKeyRequest = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.OAuth2ClientJsonSigningKeyRequest = nil
+	}
 
-        if match > 1 { // more than 1 match
-                // reset to nil
-                dst.OAuth2ClientJsonEncryptionKeyRequest = nil
-                dst.OAuth2ClientJsonSigningKeyRequest = nil
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.OAuth2ClientJsonEncryptionKeyRequest = nil
+		dst.OAuth2ClientJsonSigningKeyRequest = nil
 
-                return fmt.Errorf("Data matches more than one schema in oneOf(AddJwkRequest)")
-        } else if match == 1 {
-                return nil // exactly one match
-        } else { // no match
-                return fmt.Errorf("Data failed to match schemas in oneOf(AddJwkRequest)")
-        }
+		return fmt.Errorf("data matches more than one schema in oneOf(AddJwkRequest)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("data failed to match schemas in oneOf(AddJwkRequest)")
+	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -108,7 +105,7 @@ func (src AddJwkRequest) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *AddJwkRequest) GetActualInstance() (interface{}) {
+func (obj *AddJwkRequest) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -118,6 +115,20 @@ func (obj *AddJwkRequest) GetActualInstance() (interface{}) {
 
 	if obj.OAuth2ClientJsonSigningKeyRequest != nil {
 		return obj.OAuth2ClientJsonSigningKeyRequest
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj AddJwkRequest) GetActualInstanceValue() interface{} {
+	if obj.OAuth2ClientJsonEncryptionKeyRequest != nil {
+		return *obj.OAuth2ClientJsonEncryptionKeyRequest
+	}
+
+	if obj.OAuth2ClientJsonSigningKeyRequest != nil {
+		return *obj.OAuth2ClientJsonSigningKeyRequest
 	}
 
 	// all schemas are nil
@@ -159,5 +170,3 @@ func (v *NullableAddJwkRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

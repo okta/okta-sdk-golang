@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the NumberFactorChallengeEmbeddedLinksChallenge type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NumberFactorChallengeEmbeddedLinksChallenge{}
+
 // NumberFactorChallengeEmbeddedLinksChallenge Number matching challenge for a `push` factor
 type NumberFactorChallengeEmbeddedLinksChallenge struct {
 	// The correct answer for a `push` factor that uses a number matching challenge
-	CorrectAnswer *int32 `json:"correctAnswer,omitempty"`
+	CorrectAnswer        *int32 `json:"correctAnswer,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewNumberFactorChallengeEmbeddedLinksChallengeWithDefaults() *NumberFactorC
 
 // GetCorrectAnswer returns the CorrectAnswer field value if set, zero value otherwise.
 func (o *NumberFactorChallengeEmbeddedLinksChallenge) GetCorrectAnswer() int32 {
-	if o == nil || o.CorrectAnswer == nil {
+	if o == nil || IsNil(o.CorrectAnswer) {
 		var ret int32
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *NumberFactorChallengeEmbeddedLinksChallenge) GetCorrectAnswer() int32 {
 // GetCorrectAnswerOk returns a tuple with the CorrectAnswer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NumberFactorChallengeEmbeddedLinksChallenge) GetCorrectAnswerOk() (*int32, bool) {
-	if o == nil || o.CorrectAnswer == nil {
+	if o == nil || IsNil(o.CorrectAnswer) {
 		return nil, false
 	}
 	return o.CorrectAnswer, true
@@ -73,7 +76,7 @@ func (o *NumberFactorChallengeEmbeddedLinksChallenge) GetCorrectAnswerOk() (*int
 
 // HasCorrectAnswer returns a boolean if a field has been set.
 func (o *NumberFactorChallengeEmbeddedLinksChallenge) HasCorrectAnswer() bool {
-	if o != nil && o.CorrectAnswer != nil {
+	if o != nil && !IsNil(o.CorrectAnswer) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *NumberFactorChallengeEmbeddedLinksChallenge) SetCorrectAnswer(v int32) 
 }
 
 func (o NumberFactorChallengeEmbeddedLinksChallenge) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o NumberFactorChallengeEmbeddedLinksChallenge) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.CorrectAnswer != nil {
+	if !IsNil(o.CorrectAnswer) {
 		toSerialize["correctAnswer"] = o.CorrectAnswer
 	}
 
@@ -95,27 +106,25 @@ func (o NumberFactorChallengeEmbeddedLinksChallenge) MarshalJSON() ([]byte, erro
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *NumberFactorChallengeEmbeddedLinksChallenge) UnmarshalJSON(bytes []byte) (err error) {
+func (o *NumberFactorChallengeEmbeddedLinksChallenge) UnmarshalJSON(data []byte) (err error) {
 	varNumberFactorChallengeEmbeddedLinksChallenge := _NumberFactorChallengeEmbeddedLinksChallenge{}
 
-	err = json.Unmarshal(bytes, &varNumberFactorChallengeEmbeddedLinksChallenge)
-	if err == nil {
-		*o = NumberFactorChallengeEmbeddedLinksChallenge(varNumberFactorChallengeEmbeddedLinksChallenge)
-	} else {
+	err = json.Unmarshal(data, &varNumberFactorChallengeEmbeddedLinksChallenge)
+
+	if err != nil {
 		return err
 	}
 
+	*o = NumberFactorChallengeEmbeddedLinksChallenge(varNumberFactorChallengeEmbeddedLinksChallenge)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "correctAnswer")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableNumberFactorChallengeEmbeddedLinksChallenge) UnmarshalJSON(src 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

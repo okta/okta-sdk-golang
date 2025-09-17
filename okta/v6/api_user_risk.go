@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,24 +26,23 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type UserRiskAPI interface {
 
 	/*
-	GetUserRisk Retrieve the user's risk
+		GetUserRisk Retrieve the user's risk
 
-	Retrieves the user risk object for a user ID
+		Retrieves the user risk object for a user ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiGetUserRiskRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiGetUserRiskRequest
 	*/
 	GetUserRisk(ctx context.Context, userId string) ApiGetUserRiskRequest
 
@@ -52,13 +51,13 @@ type UserRiskAPI interface {
 	GetUserRiskExecute(r ApiGetUserRiskRequest) (*GetUserRisk200Response, *APIResponse, error)
 
 	/*
-	UpsertUserRisk Upsert the user's risk
+		UpsertUserRisk Upsert the user's risk
 
-	Upserts (creates or updates) the user risk object for a user ID
+		Upserts (creates or updates) the user risk object for a user ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiUpsertUserRiskRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiUpsertUserRiskRequest
 	*/
 	UpsertUserRisk(ctx context.Context, userId string) ApiUpsertUserRiskRequest
 
@@ -71,9 +70,9 @@ type UserRiskAPI interface {
 type UserRiskAPIService service
 
 type ApiGetUserRiskRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserRiskAPI
-	userId string
+	userId     string
 	retryCount int32
 }
 
@@ -86,21 +85,22 @@ GetUserRisk Retrieve the user's risk
 
 Retrieves the user risk object for a user ID
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiGetUserRiskRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiGetUserRiskRequest
 */
 func (a *UserRiskAPIService) GetUserRisk(ctx context.Context, userId string) ApiGetUserRiskRequest {
 	return ApiGetUserRiskRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return GetUserRisk200Response
+//
+//	@return GetUserRisk200Response
 func (a *UserRiskAPIService) GetUserRiskExecute(r ApiGetUserRiskRequest) (*GetUserRisk200Response, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -109,7 +109,7 @@ func (a *UserRiskAPIService) GetUserRiskExecute(r ApiGetUserRiskRequest) (*GetUs
 		localVarReturnValue  *GetUserRisk200Response
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -170,9 +170,9 @@ func (a *UserRiskAPIService) GetUserRiskExecute(r ApiGetUserRiskRequest) (*GetUs
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -230,17 +230,17 @@ func (a *UserRiskAPIService) GetUserRiskExecute(r ApiGetUserRiskRequest) (*GetUs
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpsertUserRiskRequest struct {
-	ctx context.Context
-	ApiService UserRiskAPI
-	userId string
+	ctx             context.Context
+	ApiService      UserRiskAPI
+	userId          string
 	userRiskRequest *UserRiskRequest
-	retryCount int32
+	retryCount      int32
 }
 
 func (r ApiUpsertUserRiskRequest) UserRiskRequest(userRiskRequest UserRiskRequest) ApiUpsertUserRiskRequest {
@@ -257,21 +257,22 @@ UpsertUserRisk Upsert the user's risk
 
 Upserts (creates or updates) the user risk object for a user ID
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiUpsertUserRiskRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiUpsertUserRiskRequest
 */
 func (a *UserRiskAPIService) UpsertUserRisk(ctx context.Context, userId string) ApiUpsertUserRiskRequest {
 	return ApiUpsertUserRiskRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserRiskPutResponse
+//
+//	@return UserRiskPutResponse
 func (a *UserRiskAPIService) UpsertUserRiskExecute(r ApiUpsertUserRiskRequest) (*UserRiskPutResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -280,7 +281,7 @@ func (a *UserRiskAPIService) UpsertUserRiskExecute(r ApiUpsertUserRiskRequest) (
 		localVarReturnValue  *UserRiskPutResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -346,9 +347,9 @@ func (a *UserRiskAPIService) UpsertUserRiskExecute(r ApiUpsertUserRiskRequest) (
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -418,7 +419,7 @@ func (a *UserRiskAPIService) UpsertUserRiskExecute(r ApiUpsertUserRiskRequest) (
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the SamlSpCertificate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SamlSpCertificate{}
+
 // SamlSpCertificate The certificate that Okta uses to validate Single Logout (SLO) requests and responses
 type SamlSpCertificate struct {
 	// A list that contains exactly one x509 encoded certificate
-	X5c []string `json:"x5c,omitempty"`
+	X5c                  []string `json:"x5c,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewSamlSpCertificateWithDefaults() *SamlSpCertificate {
 
 // GetX5c returns the X5c field value if set, zero value otherwise.
 func (o *SamlSpCertificate) GetX5c() []string {
-	if o == nil || o.X5c == nil {
+	if o == nil || IsNil(o.X5c) {
 		var ret []string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *SamlSpCertificate) GetX5c() []string {
 // GetX5cOk returns a tuple with the X5c field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlSpCertificate) GetX5cOk() ([]string, bool) {
-	if o == nil || o.X5c == nil {
+	if o == nil || IsNil(o.X5c) {
 		return nil, false
 	}
 	return o.X5c, true
@@ -73,7 +76,7 @@ func (o *SamlSpCertificate) GetX5cOk() ([]string, bool) {
 
 // HasX5c returns a boolean if a field has been set.
 func (o *SamlSpCertificate) HasX5c() bool {
-	if o != nil && o.X5c != nil {
+	if o != nil && !IsNil(o.X5c) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *SamlSpCertificate) SetX5c(v []string) {
 }
 
 func (o SamlSpCertificate) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SamlSpCertificate) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.X5c != nil {
+	if !IsNil(o.X5c) {
 		toSerialize["x5c"] = o.X5c
 	}
 
@@ -95,27 +106,25 @@ func (o SamlSpCertificate) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SamlSpCertificate) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SamlSpCertificate) UnmarshalJSON(data []byte) (err error) {
 	varSamlSpCertificate := _SamlSpCertificate{}
 
-	err = json.Unmarshal(bytes, &varSamlSpCertificate)
-	if err == nil {
-		*o = SamlSpCertificate(varSamlSpCertificate)
-	} else {
+	err = json.Unmarshal(data, &varSamlSpCertificate)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SamlSpCertificate(varSamlSpCertificate)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "x5c")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableSamlSpCertificate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

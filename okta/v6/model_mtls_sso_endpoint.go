@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the MtlsSsoEndpoint type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MtlsSsoEndpoint{}
+
 // MtlsSsoEndpoint The Single Sign-On (SSO) endpoint is the IdP's `SingleSignOnService` endpoint
 type MtlsSsoEndpoint struct {
-	Url *string `json:"url,omitempty"`
+	Url                  *string `json:"url,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewMtlsSsoEndpointWithDefaults() *MtlsSsoEndpoint {
 
 // GetUrl returns the Url field value if set, zero value otherwise.
 func (o *MtlsSsoEndpoint) GetUrl() string {
-	if o == nil || o.Url == nil {
+	if o == nil || IsNil(o.Url) {
 		var ret string
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *MtlsSsoEndpoint) GetUrl() string {
 // GetUrlOk returns a tuple with the Url field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MtlsSsoEndpoint) GetUrlOk() (*string, bool) {
-	if o == nil || o.Url == nil {
+	if o == nil || IsNil(o.Url) {
 		return nil, false
 	}
 	return o.Url, true
@@ -72,7 +75,7 @@ func (o *MtlsSsoEndpoint) GetUrlOk() (*string, bool) {
 
 // HasUrl returns a boolean if a field has been set.
 func (o *MtlsSsoEndpoint) HasUrl() bool {
-	if o != nil && o.Url != nil {
+	if o != nil && !IsNil(o.Url) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *MtlsSsoEndpoint) SetUrl(v string) {
 }
 
 func (o MtlsSsoEndpoint) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o MtlsSsoEndpoint) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Url != nil {
+	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
 	}
 
@@ -94,27 +105,25 @@ func (o MtlsSsoEndpoint) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *MtlsSsoEndpoint) UnmarshalJSON(bytes []byte) (err error) {
+func (o *MtlsSsoEndpoint) UnmarshalJSON(data []byte) (err error) {
 	varMtlsSsoEndpoint := _MtlsSsoEndpoint{}
 
-	err = json.Unmarshal(bytes, &varMtlsSsoEndpoint)
-	if err == nil {
-		*o = MtlsSsoEndpoint(varMtlsSsoEndpoint)
-	} else {
+	err = json.Unmarshal(data, &varMtlsSsoEndpoint)
+
+	if err != nil {
 		return err
 	}
 
+	*o = MtlsSsoEndpoint(varMtlsSsoEndpoint)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "url")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableMtlsSsoEndpoint) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

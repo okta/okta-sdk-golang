@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the BulkGroupUpsertRequestBody type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BulkGroupUpsertRequestBody{}
+
 // BulkGroupUpsertRequestBody struct for BulkGroupUpsertRequestBody
 type BulkGroupUpsertRequestBody struct {
 	// Array of group profiles that needs to be inserted or updated in Okta
-	Profiles []BulkGroupUpsertRequestBodyProfilesInner `json:"profiles,omitempty"`
+	Profiles             []BulkGroupUpsertRequestBodyProfilesInner `json:"profiles,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewBulkGroupUpsertRequestBodyWithDefaults() *BulkGroupUpsertRequestBody {
 
 // GetProfiles returns the Profiles field value if set, zero value otherwise.
 func (o *BulkGroupUpsertRequestBody) GetProfiles() []BulkGroupUpsertRequestBodyProfilesInner {
-	if o == nil || o.Profiles == nil {
+	if o == nil || IsNil(o.Profiles) {
 		var ret []BulkGroupUpsertRequestBodyProfilesInner
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *BulkGroupUpsertRequestBody) GetProfiles() []BulkGroupUpsertRequestBodyP
 // GetProfilesOk returns a tuple with the Profiles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BulkGroupUpsertRequestBody) GetProfilesOk() ([]BulkGroupUpsertRequestBodyProfilesInner, bool) {
-	if o == nil || o.Profiles == nil {
+	if o == nil || IsNil(o.Profiles) {
 		return nil, false
 	}
 	return o.Profiles, true
@@ -73,7 +76,7 @@ func (o *BulkGroupUpsertRequestBody) GetProfilesOk() ([]BulkGroupUpsertRequestBo
 
 // HasProfiles returns a boolean if a field has been set.
 func (o *BulkGroupUpsertRequestBody) HasProfiles() bool {
-	if o != nil && o.Profiles != nil {
+	if o != nil && !IsNil(o.Profiles) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *BulkGroupUpsertRequestBody) SetProfiles(v []BulkGroupUpsertRequestBodyP
 }
 
 func (o BulkGroupUpsertRequestBody) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BulkGroupUpsertRequestBody) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Profiles != nil {
+	if !IsNil(o.Profiles) {
 		toSerialize["profiles"] = o.Profiles
 	}
 
@@ -95,27 +106,25 @@ func (o BulkGroupUpsertRequestBody) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *BulkGroupUpsertRequestBody) UnmarshalJSON(bytes []byte) (err error) {
+func (o *BulkGroupUpsertRequestBody) UnmarshalJSON(data []byte) (err error) {
 	varBulkGroupUpsertRequestBody := _BulkGroupUpsertRequestBody{}
 
-	err = json.Unmarshal(bytes, &varBulkGroupUpsertRequestBody)
-	if err == nil {
-		*o = BulkGroupUpsertRequestBody(varBulkGroupUpsertRequestBody)
-	} else {
+	err = json.Unmarshal(data, &varBulkGroupUpsertRequestBody)
+
+	if err != nil {
 		return err
 	}
 
+	*o = BulkGroupUpsertRequestBody(varBulkGroupUpsertRequestBody)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "profiles")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableBulkGroupUpsertRequestBody) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserRiskGetResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserRiskGetResponse{}
+
 // UserRiskGetResponse struct for UserRiskGetResponse
 type UserRiskGetResponse struct {
 	// The risk level associated with the user
-	RiskLevel *string `json:"riskLevel,omitempty"`
-	Links *UserRiskGetResponseLinks `json:"_links,omitempty"`
+	RiskLevel            *string                   `json:"riskLevel,omitempty"`
+	Links                *UserRiskGetResponseLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewUserRiskGetResponseWithDefaults() *UserRiskGetResponse {
 
 // GetRiskLevel returns the RiskLevel field value if set, zero value otherwise.
 func (o *UserRiskGetResponse) GetRiskLevel() string {
-	if o == nil || o.RiskLevel == nil {
+	if o == nil || IsNil(o.RiskLevel) {
 		var ret string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *UserRiskGetResponse) GetRiskLevel() string {
 // GetRiskLevelOk returns a tuple with the RiskLevel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserRiskGetResponse) GetRiskLevelOk() (*string, bool) {
-	if o == nil || o.RiskLevel == nil {
+	if o == nil || IsNil(o.RiskLevel) {
 		return nil, false
 	}
 	return o.RiskLevel, true
@@ -74,7 +77,7 @@ func (o *UserRiskGetResponse) GetRiskLevelOk() (*string, bool) {
 
 // HasRiskLevel returns a boolean if a field has been set.
 func (o *UserRiskGetResponse) HasRiskLevel() bool {
-	if o != nil && o.RiskLevel != nil {
+	if o != nil && !IsNil(o.RiskLevel) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *UserRiskGetResponse) SetRiskLevel(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *UserRiskGetResponse) GetLinks() UserRiskGetResponseLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret UserRiskGetResponseLinks
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *UserRiskGetResponse) GetLinks() UserRiskGetResponseLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserRiskGetResponse) GetLinksOk() (*UserRiskGetResponseLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -106,7 +109,7 @@ func (o *UserRiskGetResponse) GetLinksOk() (*UserRiskGetResponseLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *UserRiskGetResponse) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *UserRiskGetResponse) SetLinks(v UserRiskGetResponseLinks) {
 }
 
 func (o UserRiskGetResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserRiskGetResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.RiskLevel != nil {
+	if !IsNil(o.RiskLevel) {
 		toSerialize["riskLevel"] = o.RiskLevel
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -131,28 +142,26 @@ func (o UserRiskGetResponse) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserRiskGetResponse) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserRiskGetResponse) UnmarshalJSON(data []byte) (err error) {
 	varUserRiskGetResponse := _UserRiskGetResponse{}
 
-	err = json.Unmarshal(bytes, &varUserRiskGetResponse)
-	if err == nil {
-		*o = UserRiskGetResponse(varUserRiskGetResponse)
-	} else {
+	err = json.Unmarshal(data, &varUserRiskGetResponse)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserRiskGetResponse(varUserRiskGetResponse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "riskLevel")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableUserRiskGetResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

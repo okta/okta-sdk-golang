@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,9 +25,12 @@ package okta
 
 import (
 	"encoding/json"
-	"time"
 	"fmt"
+	"time"
 )
+
+// checks if the AppServiceAccount type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AppServiceAccount{}
 
 // AppServiceAccount struct for AppServiceAccount
 type AppServiceAccount struct {
@@ -58,7 +61,7 @@ type AppServiceAccount struct {
 	// Describes the detailed status of an app service account
 	StatusDetail *string `json:"statusDetail,omitempty"`
 	// The username that serves as the direct link to your managed app account. Ensure that this value precisely matches the identifier of the target app account.
-	Username string `json:"username"`
+	Username             string `json:"username"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -86,7 +89,7 @@ func NewAppServiceAccountWithDefaults() *AppServiceAccount {
 
 // GetContainerGlobalName returns the ContainerGlobalName field value if set, zero value otherwise.
 func (o *AppServiceAccount) GetContainerGlobalName() string {
-	if o == nil || o.ContainerGlobalName == nil {
+	if o == nil || IsNil(o.ContainerGlobalName) {
 		var ret string
 		return ret
 	}
@@ -96,7 +99,7 @@ func (o *AppServiceAccount) GetContainerGlobalName() string {
 // GetContainerGlobalNameOk returns a tuple with the ContainerGlobalName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppServiceAccount) GetContainerGlobalNameOk() (*string, bool) {
-	if o == nil || o.ContainerGlobalName == nil {
+	if o == nil || IsNil(o.ContainerGlobalName) {
 		return nil, false
 	}
 	return o.ContainerGlobalName, true
@@ -104,7 +107,7 @@ func (o *AppServiceAccount) GetContainerGlobalNameOk() (*string, bool) {
 
 // HasContainerGlobalName returns a boolean if a field has been set.
 func (o *AppServiceAccount) HasContainerGlobalName() bool {
-	if o != nil && o.ContainerGlobalName != nil {
+	if o != nil && !IsNil(o.ContainerGlobalName) {
 		return true
 	}
 
@@ -118,7 +121,7 @@ func (o *AppServiceAccount) SetContainerGlobalName(v string) {
 
 // GetContainerInstanceName returns the ContainerInstanceName field value if set, zero value otherwise.
 func (o *AppServiceAccount) GetContainerInstanceName() string {
-	if o == nil || o.ContainerInstanceName == nil {
+	if o == nil || IsNil(o.ContainerInstanceName) {
 		var ret string
 		return ret
 	}
@@ -128,7 +131,7 @@ func (o *AppServiceAccount) GetContainerInstanceName() string {
 // GetContainerInstanceNameOk returns a tuple with the ContainerInstanceName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppServiceAccount) GetContainerInstanceNameOk() (*string, bool) {
-	if o == nil || o.ContainerInstanceName == nil {
+	if o == nil || IsNil(o.ContainerInstanceName) {
 		return nil, false
 	}
 	return o.ContainerInstanceName, true
@@ -136,7 +139,7 @@ func (o *AppServiceAccount) GetContainerInstanceNameOk() (*string, bool) {
 
 // HasContainerInstanceName returns a boolean if a field has been set.
 func (o *AppServiceAccount) HasContainerInstanceName() bool {
-	if o != nil && o.ContainerInstanceName != nil {
+	if o != nil && !IsNil(o.ContainerInstanceName) {
 		return true
 	}
 
@@ -174,7 +177,7 @@ func (o *AppServiceAccount) SetContainerOrn(v string) {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *AppServiceAccount) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -184,7 +187,7 @@ func (o *AppServiceAccount) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppServiceAccount) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -192,7 +195,7 @@ func (o *AppServiceAccount) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *AppServiceAccount) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -206,7 +209,7 @@ func (o *AppServiceAccount) SetCreated(v time.Time) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *AppServiceAccount) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -216,7 +219,7 @@ func (o *AppServiceAccount) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppServiceAccount) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -224,7 +227,7 @@ func (o *AppServiceAccount) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *AppServiceAccount) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -238,7 +241,7 @@ func (o *AppServiceAccount) SetDescription(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *AppServiceAccount) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -248,7 +251,7 @@ func (o *AppServiceAccount) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppServiceAccount) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -256,7 +259,7 @@ func (o *AppServiceAccount) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *AppServiceAccount) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -270,7 +273,7 @@ func (o *AppServiceAccount) SetId(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *AppServiceAccount) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -280,7 +283,7 @@ func (o *AppServiceAccount) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppServiceAccount) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -288,7 +291,7 @@ func (o *AppServiceAccount) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *AppServiceAccount) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -326,7 +329,7 @@ func (o *AppServiceAccount) SetName(v string) {
 
 // GetOwnerGroupIds returns the OwnerGroupIds field value if set, zero value otherwise.
 func (o *AppServiceAccount) GetOwnerGroupIds() []string {
-	if o == nil || o.OwnerGroupIds == nil {
+	if o == nil || IsNil(o.OwnerGroupIds) {
 		var ret []string
 		return ret
 	}
@@ -336,7 +339,7 @@ func (o *AppServiceAccount) GetOwnerGroupIds() []string {
 // GetOwnerGroupIdsOk returns a tuple with the OwnerGroupIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppServiceAccount) GetOwnerGroupIdsOk() ([]string, bool) {
-	if o == nil || o.OwnerGroupIds == nil {
+	if o == nil || IsNil(o.OwnerGroupIds) {
 		return nil, false
 	}
 	return o.OwnerGroupIds, true
@@ -344,7 +347,7 @@ func (o *AppServiceAccount) GetOwnerGroupIdsOk() ([]string, bool) {
 
 // HasOwnerGroupIds returns a boolean if a field has been set.
 func (o *AppServiceAccount) HasOwnerGroupIds() bool {
-	if o != nil && o.OwnerGroupIds != nil {
+	if o != nil && !IsNil(o.OwnerGroupIds) {
 		return true
 	}
 
@@ -358,7 +361,7 @@ func (o *AppServiceAccount) SetOwnerGroupIds(v []string) {
 
 // GetOwnerUserIds returns the OwnerUserIds field value if set, zero value otherwise.
 func (o *AppServiceAccount) GetOwnerUserIds() []string {
-	if o == nil || o.OwnerUserIds == nil {
+	if o == nil || IsNil(o.OwnerUserIds) {
 		var ret []string
 		return ret
 	}
@@ -368,7 +371,7 @@ func (o *AppServiceAccount) GetOwnerUserIds() []string {
 // GetOwnerUserIdsOk returns a tuple with the OwnerUserIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppServiceAccount) GetOwnerUserIdsOk() ([]string, bool) {
-	if o == nil || o.OwnerUserIds == nil {
+	if o == nil || IsNil(o.OwnerUserIds) {
 		return nil, false
 	}
 	return o.OwnerUserIds, true
@@ -376,7 +379,7 @@ func (o *AppServiceAccount) GetOwnerUserIdsOk() ([]string, bool) {
 
 // HasOwnerUserIds returns a boolean if a field has been set.
 func (o *AppServiceAccount) HasOwnerUserIds() bool {
-	if o != nil && o.OwnerUserIds != nil {
+	if o != nil && !IsNil(o.OwnerUserIds) {
 		return true
 	}
 
@@ -390,7 +393,7 @@ func (o *AppServiceAccount) SetOwnerUserIds(v []string) {
 
 // GetPassword returns the Password field value if set, zero value otherwise.
 func (o *AppServiceAccount) GetPassword() string {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		var ret string
 		return ret
 	}
@@ -400,7 +403,7 @@ func (o *AppServiceAccount) GetPassword() string {
 // GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppServiceAccount) GetPasswordOk() (*string, bool) {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		return nil, false
 	}
 	return o.Password, true
@@ -408,7 +411,7 @@ func (o *AppServiceAccount) GetPasswordOk() (*string, bool) {
 
 // HasPassword returns a boolean if a field has been set.
 func (o *AppServiceAccount) HasPassword() bool {
-	if o != nil && o.Password != nil {
+	if o != nil && !IsNil(o.Password) {
 		return true
 	}
 
@@ -422,7 +425,7 @@ func (o *AppServiceAccount) SetPassword(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *AppServiceAccount) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -432,7 +435,7 @@ func (o *AppServiceAccount) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppServiceAccount) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -440,7 +443,7 @@ func (o *AppServiceAccount) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *AppServiceAccount) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -454,7 +457,7 @@ func (o *AppServiceAccount) SetStatus(v string) {
 
 // GetStatusDetail returns the StatusDetail field value if set, zero value otherwise.
 func (o *AppServiceAccount) GetStatusDetail() string {
-	if o == nil || o.StatusDetail == nil {
+	if o == nil || IsNil(o.StatusDetail) {
 		var ret string
 		return ret
 	}
@@ -464,7 +467,7 @@ func (o *AppServiceAccount) GetStatusDetail() string {
 // GetStatusDetailOk returns a tuple with the StatusDetail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppServiceAccount) GetStatusDetailOk() (*string, bool) {
-	if o == nil || o.StatusDetail == nil {
+	if o == nil || IsNil(o.StatusDetail) {
 		return nil, false
 	}
 	return o.StatusDetail, true
@@ -472,7 +475,7 @@ func (o *AppServiceAccount) GetStatusDetailOk() (*string, bool) {
 
 // HasStatusDetail returns a boolean if a field has been set.
 func (o *AppServiceAccount) HasStatusDetail() bool {
-	if o != nil && o.StatusDetail != nil {
+	if o != nil && !IsNil(o.StatusDetail) {
 		return true
 	}
 
@@ -509,71 +512,96 @@ func (o *AppServiceAccount) SetUsername(v string) {
 }
 
 func (o AppServiceAccount) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AppServiceAccount) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ContainerGlobalName != nil {
+	if !IsNil(o.ContainerGlobalName) {
 		toSerialize["containerGlobalName"] = o.ContainerGlobalName
 	}
-	if o.ContainerInstanceName != nil {
+	if !IsNil(o.ContainerInstanceName) {
 		toSerialize["containerInstanceName"] = o.ContainerInstanceName
 	}
-	if true {
-		toSerialize["containerOrn"] = o.ContainerOrn
-	}
-	if o.Created != nil {
+	toSerialize["containerOrn"] = o.ContainerOrn
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.OwnerGroupIds != nil {
+	toSerialize["name"] = o.Name
+	if !IsNil(o.OwnerGroupIds) {
 		toSerialize["ownerGroupIds"] = o.OwnerGroupIds
 	}
-	if o.OwnerUserIds != nil {
+	if !IsNil(o.OwnerUserIds) {
 		toSerialize["ownerUserIds"] = o.OwnerUserIds
 	}
-	if o.Password != nil {
+	if !IsNil(o.Password) {
 		toSerialize["password"] = o.Password
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.StatusDetail != nil {
+	if !IsNil(o.StatusDetail) {
 		toSerialize["statusDetail"] = o.StatusDetail
 	}
-	if true {
-		toSerialize["username"] = o.Username
-	}
+	toSerialize["username"] = o.Username
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AppServiceAccount) UnmarshalJSON(bytes []byte) (err error) {
-	varAppServiceAccount := _AppServiceAccount{}
+func (o *AppServiceAccount) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"containerOrn",
+		"name",
+		"username",
+	}
 
-	err = json.Unmarshal(bytes, &varAppServiceAccount)
-	if err == nil {
-		*o = AppServiceAccount(varAppServiceAccount)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAppServiceAccount := _AppServiceAccount{}
+
+	err = json.Unmarshal(data, &varAppServiceAccount)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AppServiceAccount(varAppServiceAccount)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "containerGlobalName")
 		delete(additionalProperties, "containerInstanceName")
 		delete(additionalProperties, "containerOrn")
@@ -589,8 +617,6 @@ func (o *AppServiceAccount) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "statusDetail")
 		delete(additionalProperties, "username")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -631,4 +657,3 @@ func (v *NullableAppServiceAccount) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

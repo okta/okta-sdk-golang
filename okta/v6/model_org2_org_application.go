@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,21 +28,24 @@ import (
 	"fmt"
 )
 
-// Org2OrgApplication Schema for the Okta Org2Org app (key name: `okta_org2org`)  To create an Org2Org app, use the [Create an Application](/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication) request with the following parameters in the request body. > **Notes:** > * The Okta Org2Org (`okta_org2org`) app isn't available in Okta Integrator Free Plan orgs. If you need to test this feature in your Integrator Free Plan org, contact your Okta account team. > * The Okta Org2Org app supports `SAML_2_0` and `AUTO_LOGIN` sign-on modes. 
+// checks if the Org2OrgApplication type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Org2OrgApplication{}
+
+// Org2OrgApplication Schema for the Okta Org2Org app (key name: `okta_org2org`)  To create an Org2Org app, use the [Create an Application](/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication) request with the following parameters in the request body. > **Notes:** > * The Okta Org2Org (`okta_org2org`) app isn't available in Okta Integrator Free Plan orgs. If you need to test this feature in your Integrator Free Plan org, contact your Okta account team. > * The Okta Org2Org app supports `SAML_2_0` and `AUTO_LOGIN` sign-on modes.
 type Org2OrgApplication struct {
-	Accessibility *ApplicationAccessibility `json:"accessibility,omitempty"`
-	Credentials *SchemeApplicationCredentials `json:"credentials,omitempty"`
+	Accessibility *ApplicationAccessibility     `json:"accessibility,omitempty"`
+	Credentials   *SchemeApplicationCredentials `json:"credentials,omitempty"`
 	// User-defined display name for app
-	Label string `json:"label"`
+	Label     string                `json:"label"`
 	Licensing *ApplicationLicensing `json:"licensing,omitempty"`
-	Name string `json:"name"`
+	Name      string                `json:"name"`
 	// Contains any valid JSON schema for specifying properties that can be referenced from a request (only available to OAuth 2.0 client apps)
-	Profile map[string]map[string]interface{} `json:"profile,omitempty"`
-	SignOnMode *string `json:"signOnMode,omitempty"`
+	Profile    map[string]map[string]interface{} `json:"profile,omitempty"`
+	SignOnMode *string                           `json:"signOnMode,omitempty"`
 	// App instance status
-	Status *string `json:"status,omitempty"`
-	Visibility *ApplicationVisibility `json:"visibility,omitempty"`
-	Settings Org2OrgApplicationSettings `json:"settings"`
+	Status               *string                    `json:"status,omitempty"`
+	Visibility           *ApplicationVisibility     `json:"visibility,omitempty"`
+	Settings             Org2OrgApplicationSettings `json:"settings"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -74,7 +77,7 @@ func NewOrg2OrgApplicationWithDefaults() *Org2OrgApplication {
 
 // GetAccessibility returns the Accessibility field value if set, zero value otherwise.
 func (o *Org2OrgApplication) GetAccessibility() ApplicationAccessibility {
-	if o == nil || o.Accessibility == nil {
+	if o == nil || IsNil(o.Accessibility) {
 		var ret ApplicationAccessibility
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *Org2OrgApplication) GetAccessibility() ApplicationAccessibility {
 // GetAccessibilityOk returns a tuple with the Accessibility field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Org2OrgApplication) GetAccessibilityOk() (*ApplicationAccessibility, bool) {
-	if o == nil || o.Accessibility == nil {
+	if o == nil || IsNil(o.Accessibility) {
 		return nil, false
 	}
 	return o.Accessibility, true
@@ -92,7 +95,7 @@ func (o *Org2OrgApplication) GetAccessibilityOk() (*ApplicationAccessibility, bo
 
 // HasAccessibility returns a boolean if a field has been set.
 func (o *Org2OrgApplication) HasAccessibility() bool {
-	if o != nil && o.Accessibility != nil {
+	if o != nil && !IsNil(o.Accessibility) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *Org2OrgApplication) SetAccessibility(v ApplicationAccessibility) {
 
 // GetCredentials returns the Credentials field value if set, zero value otherwise.
 func (o *Org2OrgApplication) GetCredentials() SchemeApplicationCredentials {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		var ret SchemeApplicationCredentials
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *Org2OrgApplication) GetCredentials() SchemeApplicationCredentials {
 // GetCredentialsOk returns a tuple with the Credentials field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Org2OrgApplication) GetCredentialsOk() (*SchemeApplicationCredentials, bool) {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		return nil, false
 	}
 	return o.Credentials, true
@@ -124,7 +127,7 @@ func (o *Org2OrgApplication) GetCredentialsOk() (*SchemeApplicationCredentials, 
 
 // HasCredentials returns a boolean if a field has been set.
 func (o *Org2OrgApplication) HasCredentials() bool {
-	if o != nil && o.Credentials != nil {
+	if o != nil && !IsNil(o.Credentials) {
 		return true
 	}
 
@@ -162,7 +165,7 @@ func (o *Org2OrgApplication) SetLabel(v string) {
 
 // GetLicensing returns the Licensing field value if set, zero value otherwise.
 func (o *Org2OrgApplication) GetLicensing() ApplicationLicensing {
-	if o == nil || o.Licensing == nil {
+	if o == nil || IsNil(o.Licensing) {
 		var ret ApplicationLicensing
 		return ret
 	}
@@ -172,7 +175,7 @@ func (o *Org2OrgApplication) GetLicensing() ApplicationLicensing {
 // GetLicensingOk returns a tuple with the Licensing field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Org2OrgApplication) GetLicensingOk() (*ApplicationLicensing, bool) {
-	if o == nil || o.Licensing == nil {
+	if o == nil || IsNil(o.Licensing) {
 		return nil, false
 	}
 	return o.Licensing, true
@@ -180,7 +183,7 @@ func (o *Org2OrgApplication) GetLicensingOk() (*ApplicationLicensing, bool) {
 
 // HasLicensing returns a boolean if a field has been set.
 func (o *Org2OrgApplication) HasLicensing() bool {
-	if o != nil && o.Licensing != nil {
+	if o != nil && !IsNil(o.Licensing) {
 		return true
 	}
 
@@ -218,7 +221,7 @@ func (o *Org2OrgApplication) SetName(v string) {
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *Org2OrgApplication) GetProfile() map[string]map[string]interface{} {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
@@ -228,15 +231,15 @@ func (o *Org2OrgApplication) GetProfile() map[string]map[string]interface{} {
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Org2OrgApplication) GetProfileOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || o.Profile == nil {
-		return nil, false
+	if o == nil || IsNil(o.Profile) {
+		return map[string]map[string]interface{}{}, false
 	}
 	return o.Profile, true
 }
 
 // HasProfile returns a boolean if a field has been set.
 func (o *Org2OrgApplication) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -250,7 +253,7 @@ func (o *Org2OrgApplication) SetProfile(v map[string]map[string]interface{}) {
 
 // GetSignOnMode returns the SignOnMode field value if set, zero value otherwise.
 func (o *Org2OrgApplication) GetSignOnMode() string {
-	if o == nil || o.SignOnMode == nil {
+	if o == nil || IsNil(o.SignOnMode) {
 		var ret string
 		return ret
 	}
@@ -260,7 +263,7 @@ func (o *Org2OrgApplication) GetSignOnMode() string {
 // GetSignOnModeOk returns a tuple with the SignOnMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Org2OrgApplication) GetSignOnModeOk() (*string, bool) {
-	if o == nil || o.SignOnMode == nil {
+	if o == nil || IsNil(o.SignOnMode) {
 		return nil, false
 	}
 	return o.SignOnMode, true
@@ -268,7 +271,7 @@ func (o *Org2OrgApplication) GetSignOnModeOk() (*string, bool) {
 
 // HasSignOnMode returns a boolean if a field has been set.
 func (o *Org2OrgApplication) HasSignOnMode() bool {
-	if o != nil && o.SignOnMode != nil {
+	if o != nil && !IsNil(o.SignOnMode) {
 		return true
 	}
 
@@ -282,7 +285,7 @@ func (o *Org2OrgApplication) SetSignOnMode(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *Org2OrgApplication) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -292,7 +295,7 @@ func (o *Org2OrgApplication) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Org2OrgApplication) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -300,7 +303,7 @@ func (o *Org2OrgApplication) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *Org2OrgApplication) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -314,7 +317,7 @@ func (o *Org2OrgApplication) SetStatus(v string) {
 
 // GetVisibility returns the Visibility field value if set, zero value otherwise.
 func (o *Org2OrgApplication) GetVisibility() ApplicationVisibility {
-	if o == nil || o.Visibility == nil {
+	if o == nil || IsNil(o.Visibility) {
 		var ret ApplicationVisibility
 		return ret
 	}
@@ -324,7 +327,7 @@ func (o *Org2OrgApplication) GetVisibility() ApplicationVisibility {
 // GetVisibilityOk returns a tuple with the Visibility field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Org2OrgApplication) GetVisibilityOk() (*ApplicationVisibility, bool) {
-	if o == nil || o.Visibility == nil {
+	if o == nil || IsNil(o.Visibility) {
 		return nil, false
 	}
 	return o.Visibility, true
@@ -332,7 +335,7 @@ func (o *Org2OrgApplication) GetVisibilityOk() (*ApplicationVisibility, bool) {
 
 // HasVisibility returns a boolean if a field has been set.
 func (o *Org2OrgApplication) HasVisibility() bool {
-	if o != nil && o.Visibility != nil {
+	if o != nil && !IsNil(o.Visibility) {
 		return true
 	}
 
@@ -369,59 +372,84 @@ func (o *Org2OrgApplication) SetSettings(v Org2OrgApplicationSettings) {
 }
 
 func (o Org2OrgApplication) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Org2OrgApplication) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Accessibility != nil {
+	if !IsNil(o.Accessibility) {
 		toSerialize["accessibility"] = o.Accessibility
 	}
-	if o.Credentials != nil {
+	if !IsNil(o.Credentials) {
 		toSerialize["credentials"] = o.Credentials
 	}
-	if true {
-		toSerialize["label"] = o.Label
-	}
-	if o.Licensing != nil {
+	toSerialize["label"] = o.Label
+	if !IsNil(o.Licensing) {
 		toSerialize["licensing"] = o.Licensing
 	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Profile != nil {
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
-	if o.SignOnMode != nil {
+	if !IsNil(o.SignOnMode) {
 		toSerialize["signOnMode"] = o.SignOnMode
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Visibility != nil {
+	if !IsNil(o.Visibility) {
 		toSerialize["visibility"] = o.Visibility
 	}
-	if true {
-		toSerialize["settings"] = o.Settings
-	}
+	toSerialize["settings"] = o.Settings
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Org2OrgApplication) UnmarshalJSON(bytes []byte) (err error) {
-	varOrg2OrgApplication := _Org2OrgApplication{}
+func (o *Org2OrgApplication) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"label",
+		"name",
+		"settings",
+	}
 
-	err = json.Unmarshal(bytes, &varOrg2OrgApplication)
-	if err == nil {
-		*o = Org2OrgApplication(varOrg2OrgApplication)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varOrg2OrgApplication := _Org2OrgApplication{}
+
+	err = json.Unmarshal(data, &varOrg2OrgApplication)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Org2OrgApplication(varOrg2OrgApplication)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "accessibility")
 		delete(additionalProperties, "credentials")
 		delete(additionalProperties, "label")
@@ -433,8 +461,6 @@ func (o *Org2OrgApplication) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "visibility")
 		delete(additionalProperties, "settings")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -475,4 +501,3 @@ func (v *NullableOrg2OrgApplication) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

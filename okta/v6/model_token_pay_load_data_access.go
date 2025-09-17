@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the TokenPayLoadDataAccess type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TokenPayLoadDataAccess{}
+
 // TokenPayLoadDataAccess Provides information on the properties of the access token that Okta has generated, including the existing claims that it contains
 type TokenPayLoadDataAccess struct {
 	// Claims included in the token. Consists of name-value pairs for each included claim. For descriptions of the claims that you can include, see the Okta [OpenID Connect and OAuth 2.0 API reference](/openapi/okta-oauth/guides/overview/#claims).
 	Claims map[string]interface{} `json:"claims,omitempty"`
-	Token *BaseTokenToken `json:"token,omitempty"`
+	Token  *BaseTokenToken        `json:"token,omitempty"`
 	// The scopes contained in the token. For descriptions of the scopes that you can include, see the Okta [OpenID Connect and OAuth 2.0 API reference](/openapi/okta-oauth/guides/overview/#scopes).
-	Scopes map[string]interface{} `json:"scopes,omitempty"`
+	Scopes               map[string]interface{} `json:"scopes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewTokenPayLoadDataAccessWithDefaults() *TokenPayLoadDataAccess {
 
 // GetClaims returns the Claims field value if set, zero value otherwise.
 func (o *TokenPayLoadDataAccess) GetClaims() map[string]interface{} {
-	if o == nil || o.Claims == nil {
+	if o == nil || IsNil(o.Claims) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -68,15 +71,15 @@ func (o *TokenPayLoadDataAccess) GetClaims() map[string]interface{} {
 // GetClaimsOk returns a tuple with the Claims field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenPayLoadDataAccess) GetClaimsOk() (map[string]interface{}, bool) {
-	if o == nil || o.Claims == nil {
-		return nil, false
+	if o == nil || IsNil(o.Claims) {
+		return map[string]interface{}{}, false
 	}
 	return o.Claims, true
 }
 
 // HasClaims returns a boolean if a field has been set.
 func (o *TokenPayLoadDataAccess) HasClaims() bool {
-	if o != nil && o.Claims != nil {
+	if o != nil && !IsNil(o.Claims) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *TokenPayLoadDataAccess) SetClaims(v map[string]interface{}) {
 
 // GetToken returns the Token field value if set, zero value otherwise.
 func (o *TokenPayLoadDataAccess) GetToken() BaseTokenToken {
-	if o == nil || o.Token == nil {
+	if o == nil || IsNil(o.Token) {
 		var ret BaseTokenToken
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *TokenPayLoadDataAccess) GetToken() BaseTokenToken {
 // GetTokenOk returns a tuple with the Token field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenPayLoadDataAccess) GetTokenOk() (*BaseTokenToken, bool) {
-	if o == nil || o.Token == nil {
+	if o == nil || IsNil(o.Token) {
 		return nil, false
 	}
 	return o.Token, true
@@ -108,7 +111,7 @@ func (o *TokenPayLoadDataAccess) GetTokenOk() (*BaseTokenToken, bool) {
 
 // HasToken returns a boolean if a field has been set.
 func (o *TokenPayLoadDataAccess) HasToken() bool {
-	if o != nil && o.Token != nil {
+	if o != nil && !IsNil(o.Token) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *TokenPayLoadDataAccess) SetToken(v BaseTokenToken) {
 
 // GetScopes returns the Scopes field value if set, zero value otherwise.
 func (o *TokenPayLoadDataAccess) GetScopes() map[string]interface{} {
-	if o == nil || o.Scopes == nil {
+	if o == nil || IsNil(o.Scopes) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -132,15 +135,15 @@ func (o *TokenPayLoadDataAccess) GetScopes() map[string]interface{} {
 // GetScopesOk returns a tuple with the Scopes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenPayLoadDataAccess) GetScopesOk() (map[string]interface{}, bool) {
-	if o == nil || o.Scopes == nil {
-		return nil, false
+	if o == nil || IsNil(o.Scopes) {
+		return map[string]interface{}{}, false
 	}
 	return o.Scopes, true
 }
 
 // HasScopes returns a boolean if a field has been set.
 func (o *TokenPayLoadDataAccess) HasScopes() bool {
-	if o != nil && o.Scopes != nil {
+	if o != nil && !IsNil(o.Scopes) {
 		return true
 	}
 
@@ -153,14 +156,22 @@ func (o *TokenPayLoadDataAccess) SetScopes(v map[string]interface{}) {
 }
 
 func (o TokenPayLoadDataAccess) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TokenPayLoadDataAccess) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Claims != nil {
+	if !IsNil(o.Claims) {
 		toSerialize["claims"] = o.Claims
 	}
-	if o.Token != nil {
+	if !IsNil(o.Token) {
 		toSerialize["token"] = o.Token
 	}
-	if o.Scopes != nil {
+	if !IsNil(o.Scopes) {
 		toSerialize["scopes"] = o.Scopes
 	}
 
@@ -168,29 +179,27 @@ func (o TokenPayLoadDataAccess) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *TokenPayLoadDataAccess) UnmarshalJSON(bytes []byte) (err error) {
+func (o *TokenPayLoadDataAccess) UnmarshalJSON(data []byte) (err error) {
 	varTokenPayLoadDataAccess := _TokenPayLoadDataAccess{}
 
-	err = json.Unmarshal(bytes, &varTokenPayLoadDataAccess)
-	if err == nil {
-		*o = TokenPayLoadDataAccess(varTokenPayLoadDataAccess)
-	} else {
+	err = json.Unmarshal(data, &varTokenPayLoadDataAccess)
+
+	if err != nil {
 		return err
 	}
 
+	*o = TokenPayLoadDataAccess(varTokenPayLoadDataAccess)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "claims")
 		delete(additionalProperties, "token")
 		delete(additionalProperties, "scopes")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -231,4 +240,3 @@ func (v *NullableTokenPayLoadDataAccess) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

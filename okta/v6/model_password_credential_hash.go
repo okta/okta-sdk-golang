@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PasswordCredentialHash type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordCredentialHash{}
+
 // PasswordCredentialHash Specifies a hashed password to import into Okta. This allows an existing password to be imported into Okta directly from some other store. Okta supports the BCRYPT, SHA-512, SHA-256, SHA-1, MD5, and PBKDF2 hash functions for password import.  A hashed password may be specified in a password object when creating or updating a user, but not for other operations.  See the [Create user with imported hashed password](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/User/#create-user-with-imported-hashed-password) description. When you update a user with a hashed password, the user must be in the `STAGED` status.
 type PasswordCredentialHash struct {
 	// The algorithm used to generate the hash using the password (and salt, when applicable).
@@ -44,7 +47,7 @@ type PasswordCredentialHash struct {
 	// For SHA-512, SHA-256, SHA-1, MD5, and PBKDF2, this is the actual base64-encoded hash of the password (and salt, if used). This is the Base64-encoded `value` of the SHA-512/SHA-256/SHA-1/MD5/PBKDF2 digest that was computed by either pre-fixing or post-fixing the `salt` to the `password`, depending on the `saltOrder`. If a `salt` was not used in the `source` system, then this should just be the Base64-encoded `value` of the password's SHA-512/SHA-256/SHA-1/MD5/PBKDF2 digest. For BCRYPT, this is the actual Radix-64 encoded hashed password.
 	Value *string `json:"value,omitempty"`
 	// Governs the strength of the hash and the time required to compute it. Only required for BCRYPT algorithm.
-	WorkFactor *int32 `json:"workFactor,omitempty"`
+	WorkFactor           *int32 `json:"workFactor,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -69,7 +72,7 @@ func NewPasswordCredentialHashWithDefaults() *PasswordCredentialHash {
 
 // GetAlgorithm returns the Algorithm field value if set, zero value otherwise.
 func (o *PasswordCredentialHash) GetAlgorithm() string {
-	if o == nil || o.Algorithm == nil {
+	if o == nil || IsNil(o.Algorithm) {
 		var ret string
 		return ret
 	}
@@ -79,7 +82,7 @@ func (o *PasswordCredentialHash) GetAlgorithm() string {
 // GetAlgorithmOk returns a tuple with the Algorithm field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordCredentialHash) GetAlgorithmOk() (*string, bool) {
-	if o == nil || o.Algorithm == nil {
+	if o == nil || IsNil(o.Algorithm) {
 		return nil, false
 	}
 	return o.Algorithm, true
@@ -87,7 +90,7 @@ func (o *PasswordCredentialHash) GetAlgorithmOk() (*string, bool) {
 
 // HasAlgorithm returns a boolean if a field has been set.
 func (o *PasswordCredentialHash) HasAlgorithm() bool {
-	if o != nil && o.Algorithm != nil {
+	if o != nil && !IsNil(o.Algorithm) {
 		return true
 	}
 
@@ -101,7 +104,7 @@ func (o *PasswordCredentialHash) SetAlgorithm(v string) {
 
 // GetDigestAlgorithm returns the DigestAlgorithm field value if set, zero value otherwise.
 func (o *PasswordCredentialHash) GetDigestAlgorithm() string {
-	if o == nil || o.DigestAlgorithm == nil {
+	if o == nil || IsNil(o.DigestAlgorithm) {
 		var ret string
 		return ret
 	}
@@ -111,7 +114,7 @@ func (o *PasswordCredentialHash) GetDigestAlgorithm() string {
 // GetDigestAlgorithmOk returns a tuple with the DigestAlgorithm field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordCredentialHash) GetDigestAlgorithmOk() (*string, bool) {
-	if o == nil || o.DigestAlgorithm == nil {
+	if o == nil || IsNil(o.DigestAlgorithm) {
 		return nil, false
 	}
 	return o.DigestAlgorithm, true
@@ -119,7 +122,7 @@ func (o *PasswordCredentialHash) GetDigestAlgorithmOk() (*string, bool) {
 
 // HasDigestAlgorithm returns a boolean if a field has been set.
 func (o *PasswordCredentialHash) HasDigestAlgorithm() bool {
-	if o != nil && o.DigestAlgorithm != nil {
+	if o != nil && !IsNil(o.DigestAlgorithm) {
 		return true
 	}
 
@@ -133,7 +136,7 @@ func (o *PasswordCredentialHash) SetDigestAlgorithm(v string) {
 
 // GetIterationCount returns the IterationCount field value if set, zero value otherwise.
 func (o *PasswordCredentialHash) GetIterationCount() int32 {
-	if o == nil || o.IterationCount == nil {
+	if o == nil || IsNil(o.IterationCount) {
 		var ret int32
 		return ret
 	}
@@ -143,7 +146,7 @@ func (o *PasswordCredentialHash) GetIterationCount() int32 {
 // GetIterationCountOk returns a tuple with the IterationCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordCredentialHash) GetIterationCountOk() (*int32, bool) {
-	if o == nil || o.IterationCount == nil {
+	if o == nil || IsNil(o.IterationCount) {
 		return nil, false
 	}
 	return o.IterationCount, true
@@ -151,7 +154,7 @@ func (o *PasswordCredentialHash) GetIterationCountOk() (*int32, bool) {
 
 // HasIterationCount returns a boolean if a field has been set.
 func (o *PasswordCredentialHash) HasIterationCount() bool {
-	if o != nil && o.IterationCount != nil {
+	if o != nil && !IsNil(o.IterationCount) {
 		return true
 	}
 
@@ -165,7 +168,7 @@ func (o *PasswordCredentialHash) SetIterationCount(v int32) {
 
 // GetKeySize returns the KeySize field value if set, zero value otherwise.
 func (o *PasswordCredentialHash) GetKeySize() int32 {
-	if o == nil || o.KeySize == nil {
+	if o == nil || IsNil(o.KeySize) {
 		var ret int32
 		return ret
 	}
@@ -175,7 +178,7 @@ func (o *PasswordCredentialHash) GetKeySize() int32 {
 // GetKeySizeOk returns a tuple with the KeySize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordCredentialHash) GetKeySizeOk() (*int32, bool) {
-	if o == nil || o.KeySize == nil {
+	if o == nil || IsNil(o.KeySize) {
 		return nil, false
 	}
 	return o.KeySize, true
@@ -183,7 +186,7 @@ func (o *PasswordCredentialHash) GetKeySizeOk() (*int32, bool) {
 
 // HasKeySize returns a boolean if a field has been set.
 func (o *PasswordCredentialHash) HasKeySize() bool {
-	if o != nil && o.KeySize != nil {
+	if o != nil && !IsNil(o.KeySize) {
 		return true
 	}
 
@@ -197,7 +200,7 @@ func (o *PasswordCredentialHash) SetKeySize(v int32) {
 
 // GetSalt returns the Salt field value if set, zero value otherwise.
 func (o *PasswordCredentialHash) GetSalt() string {
-	if o == nil || o.Salt == nil {
+	if o == nil || IsNil(o.Salt) {
 		var ret string
 		return ret
 	}
@@ -207,7 +210,7 @@ func (o *PasswordCredentialHash) GetSalt() string {
 // GetSaltOk returns a tuple with the Salt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordCredentialHash) GetSaltOk() (*string, bool) {
-	if o == nil || o.Salt == nil {
+	if o == nil || IsNil(o.Salt) {
 		return nil, false
 	}
 	return o.Salt, true
@@ -215,7 +218,7 @@ func (o *PasswordCredentialHash) GetSaltOk() (*string, bool) {
 
 // HasSalt returns a boolean if a field has been set.
 func (o *PasswordCredentialHash) HasSalt() bool {
-	if o != nil && o.Salt != nil {
+	if o != nil && !IsNil(o.Salt) {
 		return true
 	}
 
@@ -229,7 +232,7 @@ func (o *PasswordCredentialHash) SetSalt(v string) {
 
 // GetSaltOrder returns the SaltOrder field value if set, zero value otherwise.
 func (o *PasswordCredentialHash) GetSaltOrder() string {
-	if o == nil || o.SaltOrder == nil {
+	if o == nil || IsNil(o.SaltOrder) {
 		var ret string
 		return ret
 	}
@@ -239,7 +242,7 @@ func (o *PasswordCredentialHash) GetSaltOrder() string {
 // GetSaltOrderOk returns a tuple with the SaltOrder field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordCredentialHash) GetSaltOrderOk() (*string, bool) {
-	if o == nil || o.SaltOrder == nil {
+	if o == nil || IsNil(o.SaltOrder) {
 		return nil, false
 	}
 	return o.SaltOrder, true
@@ -247,7 +250,7 @@ func (o *PasswordCredentialHash) GetSaltOrderOk() (*string, bool) {
 
 // HasSaltOrder returns a boolean if a field has been set.
 func (o *PasswordCredentialHash) HasSaltOrder() bool {
-	if o != nil && o.SaltOrder != nil {
+	if o != nil && !IsNil(o.SaltOrder) {
 		return true
 	}
 
@@ -261,7 +264,7 @@ func (o *PasswordCredentialHash) SetSaltOrder(v string) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *PasswordCredentialHash) GetValue() string {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret string
 		return ret
 	}
@@ -271,7 +274,7 @@ func (o *PasswordCredentialHash) GetValue() string {
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordCredentialHash) GetValueOk() (*string, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -279,7 +282,7 @@ func (o *PasswordCredentialHash) GetValueOk() (*string, bool) {
 
 // HasValue returns a boolean if a field has been set.
 func (o *PasswordCredentialHash) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -293,7 +296,7 @@ func (o *PasswordCredentialHash) SetValue(v string) {
 
 // GetWorkFactor returns the WorkFactor field value if set, zero value otherwise.
 func (o *PasswordCredentialHash) GetWorkFactor() int32 {
-	if o == nil || o.WorkFactor == nil {
+	if o == nil || IsNil(o.WorkFactor) {
 		var ret int32
 		return ret
 	}
@@ -303,7 +306,7 @@ func (o *PasswordCredentialHash) GetWorkFactor() int32 {
 // GetWorkFactorOk returns a tuple with the WorkFactor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordCredentialHash) GetWorkFactorOk() (*int32, bool) {
-	if o == nil || o.WorkFactor == nil {
+	if o == nil || IsNil(o.WorkFactor) {
 		return nil, false
 	}
 	return o.WorkFactor, true
@@ -311,7 +314,7 @@ func (o *PasswordCredentialHash) GetWorkFactorOk() (*int32, bool) {
 
 // HasWorkFactor returns a boolean if a field has been set.
 func (o *PasswordCredentialHash) HasWorkFactor() bool {
-	if o != nil && o.WorkFactor != nil {
+	if o != nil && !IsNil(o.WorkFactor) {
 		return true
 	}
 
@@ -324,29 +327,37 @@ func (o *PasswordCredentialHash) SetWorkFactor(v int32) {
 }
 
 func (o PasswordCredentialHash) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordCredentialHash) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Algorithm != nil {
+	if !IsNil(o.Algorithm) {
 		toSerialize["algorithm"] = o.Algorithm
 	}
-	if o.DigestAlgorithm != nil {
+	if !IsNil(o.DigestAlgorithm) {
 		toSerialize["digestAlgorithm"] = o.DigestAlgorithm
 	}
-	if o.IterationCount != nil {
+	if !IsNil(o.IterationCount) {
 		toSerialize["iterationCount"] = o.IterationCount
 	}
-	if o.KeySize != nil {
+	if !IsNil(o.KeySize) {
 		toSerialize["keySize"] = o.KeySize
 	}
-	if o.Salt != nil {
+	if !IsNil(o.Salt) {
 		toSerialize["salt"] = o.Salt
 	}
-	if o.SaltOrder != nil {
+	if !IsNil(o.SaltOrder) {
 		toSerialize["saltOrder"] = o.SaltOrder
 	}
-	if o.Value != nil {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
-	if o.WorkFactor != nil {
+	if !IsNil(o.WorkFactor) {
 		toSerialize["workFactor"] = o.WorkFactor
 	}
 
@@ -354,23 +365,23 @@ func (o PasswordCredentialHash) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordCredentialHash) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordCredentialHash) UnmarshalJSON(data []byte) (err error) {
 	varPasswordCredentialHash := _PasswordCredentialHash{}
 
-	err = json.Unmarshal(bytes, &varPasswordCredentialHash)
-	if err == nil {
-		*o = PasswordCredentialHash(varPasswordCredentialHash)
-	} else {
+	err = json.Unmarshal(data, &varPasswordCredentialHash)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PasswordCredentialHash(varPasswordCredentialHash)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "algorithm")
 		delete(additionalProperties, "digestAlgorithm")
 		delete(additionalProperties, "iterationCount")
@@ -380,8 +391,6 @@ func (o *PasswordCredentialHash) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "value")
 		delete(additionalProperties, "workFactor")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -422,4 +431,3 @@ func (v *NullablePasswordCredentialHash) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

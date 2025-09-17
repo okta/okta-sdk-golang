@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the LinksSelfForRoleAssignment type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LinksSelfForRoleAssignment{}
+
 // LinksSelfForRoleAssignment Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification. This object is used for dynamic discovery of related resources.
 type LinksSelfForRoleAssignment struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
+	Self                 *HrefObjectSelfLink `json:"self,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewLinksSelfForRoleAssignmentWithDefaults() *LinksSelfForRoleAssignment {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *LinksSelfForRoleAssignment) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *LinksSelfForRoleAssignment) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksSelfForRoleAssignment) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -72,7 +75,7 @@ func (o *LinksSelfForRoleAssignment) GetSelfOk() (*HrefObjectSelfLink, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *LinksSelfForRoleAssignment) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *LinksSelfForRoleAssignment) SetSelf(v HrefObjectSelfLink) {
 }
 
 func (o LinksSelfForRoleAssignment) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LinksSelfForRoleAssignment) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
 
@@ -94,27 +105,25 @@ func (o LinksSelfForRoleAssignment) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LinksSelfForRoleAssignment) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LinksSelfForRoleAssignment) UnmarshalJSON(data []byte) (err error) {
 	varLinksSelfForRoleAssignment := _LinksSelfForRoleAssignment{}
 
-	err = json.Unmarshal(bytes, &varLinksSelfForRoleAssignment)
-	if err == nil {
-		*o = LinksSelfForRoleAssignment(varLinksSelfForRoleAssignment)
-	} else {
+	err = json.Unmarshal(data, &varLinksSelfForRoleAssignment)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LinksSelfForRoleAssignment(varLinksSelfForRoleAssignment)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableLinksSelfForRoleAssignment) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

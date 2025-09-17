@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,11 +28,14 @@ import (
 	"fmt"
 )
 
+// checks if the AuthenticatorEnrollmentCreateRequestTac type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorEnrollmentCreateRequestTac{}
+
 // AuthenticatorEnrollmentCreateRequestTac struct for AuthenticatorEnrollmentCreateRequestTac
 type AuthenticatorEnrollmentCreateRequestTac struct {
 	// Unique identifier of the TAC authenticator
-	AuthenticatorId string `json:"authenticatorId"`
-	Profile *AuthenticatorProfileTacRequest `json:"profile,omitempty"`
+	AuthenticatorId      string                          `json:"authenticatorId"`
+	Profile              *AuthenticatorProfileTacRequest `json:"profile,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -82,7 +85,7 @@ func (o *AuthenticatorEnrollmentCreateRequestTac) SetAuthenticatorId(v string) {
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *AuthenticatorEnrollmentCreateRequestTac) GetProfile() AuthenticatorProfileTacRequest {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret AuthenticatorProfileTacRequest
 		return ret
 	}
@@ -92,7 +95,7 @@ func (o *AuthenticatorEnrollmentCreateRequestTac) GetProfile() AuthenticatorProf
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorEnrollmentCreateRequestTac) GetProfileOk() (*AuthenticatorProfileTacRequest, bool) {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		return nil, false
 	}
 	return o.Profile, true
@@ -100,7 +103,7 @@ func (o *AuthenticatorEnrollmentCreateRequestTac) GetProfileOk() (*Authenticator
 
 // HasProfile returns a boolean if a field has been set.
 func (o *AuthenticatorEnrollmentCreateRequestTac) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -113,11 +116,17 @@ func (o *AuthenticatorEnrollmentCreateRequestTac) SetProfile(v AuthenticatorProf
 }
 
 func (o AuthenticatorEnrollmentCreateRequestTac) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["authenticatorId"] = o.AuthenticatorId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Profile != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorEnrollmentCreateRequestTac) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["authenticatorId"] = o.AuthenticatorId
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
 
@@ -125,28 +134,47 @@ func (o AuthenticatorEnrollmentCreateRequestTac) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorEnrollmentCreateRequestTac) UnmarshalJSON(bytes []byte) (err error) {
-	varAuthenticatorEnrollmentCreateRequestTac := _AuthenticatorEnrollmentCreateRequestTac{}
+func (o *AuthenticatorEnrollmentCreateRequestTac) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"authenticatorId",
+	}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorEnrollmentCreateRequestTac)
-	if err == nil {
-		*o = AuthenticatorEnrollmentCreateRequestTac(varAuthenticatorEnrollmentCreateRequestTac)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAuthenticatorEnrollmentCreateRequestTac := _AuthenticatorEnrollmentCreateRequestTac{}
+
+	err = json.Unmarshal(data, &varAuthenticatorEnrollmentCreateRequestTac)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AuthenticatorEnrollmentCreateRequestTac(varAuthenticatorEnrollmentCreateRequestTac)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "authenticatorId")
 		delete(additionalProperties, "profile")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -187,4 +215,3 @@ func (v *NullableAuthenticatorEnrollmentCreateRequestTac) UnmarshalJSON(src []by
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

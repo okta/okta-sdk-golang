@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the RegistrationInlineHookPPDataAllOfData type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RegistrationInlineHookPPDataAllOfData{}
+
 // RegistrationInlineHookPPDataAllOfData struct for RegistrationInlineHookPPDataAllOfData
 type RegistrationInlineHookPPDataAllOfData struct {
 	Context *RegistrationInlineHookPPDataAllOfDataContext `json:"context,omitempty"`
 	// The default action the system takes. Set to `ALLOW`. `DENY` is never sent to your external service
 	Action *string `json:"action,omitempty"`
 	// Name-value pairs for each new attribute supplied by the user in the Progressive Profile form
-	UserProfileUpdate map[string]interface{} `json:"userProfileUpdate,omitempty"`
+	UserProfileUpdate    map[string]interface{} `json:"userProfileUpdate,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewRegistrationInlineHookPPDataAllOfDataWithDefaults() *RegistrationInlineH
 
 // GetContext returns the Context field value if set, zero value otherwise.
 func (o *RegistrationInlineHookPPDataAllOfData) GetContext() RegistrationInlineHookPPDataAllOfDataContext {
-	if o == nil || o.Context == nil {
+	if o == nil || IsNil(o.Context) {
 		var ret RegistrationInlineHookPPDataAllOfDataContext
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *RegistrationInlineHookPPDataAllOfData) GetContext() RegistrationInlineH
 // GetContextOk returns a tuple with the Context field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationInlineHookPPDataAllOfData) GetContextOk() (*RegistrationInlineHookPPDataAllOfDataContext, bool) {
-	if o == nil || o.Context == nil {
+	if o == nil || IsNil(o.Context) {
 		return nil, false
 	}
 	return o.Context, true
@@ -76,7 +79,7 @@ func (o *RegistrationInlineHookPPDataAllOfData) GetContextOk() (*RegistrationInl
 
 // HasContext returns a boolean if a field has been set.
 func (o *RegistrationInlineHookPPDataAllOfData) HasContext() bool {
-	if o != nil && o.Context != nil {
+	if o != nil && !IsNil(o.Context) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *RegistrationInlineHookPPDataAllOfData) SetContext(v RegistrationInlineH
 
 // GetAction returns the Action field value if set, zero value otherwise.
 func (o *RegistrationInlineHookPPDataAllOfData) GetAction() string {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		var ret string
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *RegistrationInlineHookPPDataAllOfData) GetAction() string {
 // GetActionOk returns a tuple with the Action field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationInlineHookPPDataAllOfData) GetActionOk() (*string, bool) {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		return nil, false
 	}
 	return o.Action, true
@@ -108,7 +111,7 @@ func (o *RegistrationInlineHookPPDataAllOfData) GetActionOk() (*string, bool) {
 
 // HasAction returns a boolean if a field has been set.
 func (o *RegistrationInlineHookPPDataAllOfData) HasAction() bool {
-	if o != nil && o.Action != nil {
+	if o != nil && !IsNil(o.Action) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *RegistrationInlineHookPPDataAllOfData) SetAction(v string) {
 
 // GetUserProfileUpdate returns the UserProfileUpdate field value if set, zero value otherwise.
 func (o *RegistrationInlineHookPPDataAllOfData) GetUserProfileUpdate() map[string]interface{} {
-	if o == nil || o.UserProfileUpdate == nil {
+	if o == nil || IsNil(o.UserProfileUpdate) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -132,15 +135,15 @@ func (o *RegistrationInlineHookPPDataAllOfData) GetUserProfileUpdate() map[strin
 // GetUserProfileUpdateOk returns a tuple with the UserProfileUpdate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationInlineHookPPDataAllOfData) GetUserProfileUpdateOk() (map[string]interface{}, bool) {
-	if o == nil || o.UserProfileUpdate == nil {
-		return nil, false
+	if o == nil || IsNil(o.UserProfileUpdate) {
+		return map[string]interface{}{}, false
 	}
 	return o.UserProfileUpdate, true
 }
 
 // HasUserProfileUpdate returns a boolean if a field has been set.
 func (o *RegistrationInlineHookPPDataAllOfData) HasUserProfileUpdate() bool {
-	if o != nil && o.UserProfileUpdate != nil {
+	if o != nil && !IsNil(o.UserProfileUpdate) {
 		return true
 	}
 
@@ -153,14 +156,22 @@ func (o *RegistrationInlineHookPPDataAllOfData) SetUserProfileUpdate(v map[strin
 }
 
 func (o RegistrationInlineHookPPDataAllOfData) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RegistrationInlineHookPPDataAllOfData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Context != nil {
+	if !IsNil(o.Context) {
 		toSerialize["context"] = o.Context
 	}
-	if o.Action != nil {
+	if !IsNil(o.Action) {
 		toSerialize["action"] = o.Action
 	}
-	if o.UserProfileUpdate != nil {
+	if !IsNil(o.UserProfileUpdate) {
 		toSerialize["userProfileUpdate"] = o.UserProfileUpdate
 	}
 
@@ -168,29 +179,27 @@ func (o RegistrationInlineHookPPDataAllOfData) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RegistrationInlineHookPPDataAllOfData) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RegistrationInlineHookPPDataAllOfData) UnmarshalJSON(data []byte) (err error) {
 	varRegistrationInlineHookPPDataAllOfData := _RegistrationInlineHookPPDataAllOfData{}
 
-	err = json.Unmarshal(bytes, &varRegistrationInlineHookPPDataAllOfData)
-	if err == nil {
-		*o = RegistrationInlineHookPPDataAllOfData(varRegistrationInlineHookPPDataAllOfData)
-	} else {
+	err = json.Unmarshal(data, &varRegistrationInlineHookPPDataAllOfData)
+
+	if err != nil {
 		return err
 	}
 
+	*o = RegistrationInlineHookPPDataAllOfData(varRegistrationInlineHookPPDataAllOfData)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "context")
 		delete(additionalProperties, "action")
 		delete(additionalProperties, "userProfileUpdate")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -231,4 +240,3 @@ func (v *NullableRegistrationInlineHookPPDataAllOfData) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

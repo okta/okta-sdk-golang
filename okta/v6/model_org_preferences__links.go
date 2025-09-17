@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the OrgPreferencesLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrgPreferencesLinks{}
+
 // OrgPreferencesLinks Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available for this object using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification
 type OrgPreferencesLinks struct {
 	// Link to hide the footer in the End-User Dashboard
 	HideEndUserFooter *HrefObject `json:"hideEndUserFooter,omitempty"`
 	// Link to show the footer on the End-User Dashboard
-	ShowEndUserFooter *HrefObject `json:"showEndUserFooter,omitempty"`
+	ShowEndUserFooter    *HrefObject `json:"showEndUserFooter,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewOrgPreferencesLinksWithDefaults() *OrgPreferencesLinks {
 
 // GetHideEndUserFooter returns the HideEndUserFooter field value if set, zero value otherwise.
 func (o *OrgPreferencesLinks) GetHideEndUserFooter() HrefObject {
-	if o == nil || o.HideEndUserFooter == nil {
+	if o == nil || IsNil(o.HideEndUserFooter) {
 		var ret HrefObject
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *OrgPreferencesLinks) GetHideEndUserFooter() HrefObject {
 // GetHideEndUserFooterOk returns a tuple with the HideEndUserFooter field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgPreferencesLinks) GetHideEndUserFooterOk() (*HrefObject, bool) {
-	if o == nil || o.HideEndUserFooter == nil {
+	if o == nil || IsNil(o.HideEndUserFooter) {
 		return nil, false
 	}
 	return o.HideEndUserFooter, true
@@ -75,7 +78,7 @@ func (o *OrgPreferencesLinks) GetHideEndUserFooterOk() (*HrefObject, bool) {
 
 // HasHideEndUserFooter returns a boolean if a field has been set.
 func (o *OrgPreferencesLinks) HasHideEndUserFooter() bool {
-	if o != nil && o.HideEndUserFooter != nil {
+	if o != nil && !IsNil(o.HideEndUserFooter) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *OrgPreferencesLinks) SetHideEndUserFooter(v HrefObject) {
 
 // GetShowEndUserFooter returns the ShowEndUserFooter field value if set, zero value otherwise.
 func (o *OrgPreferencesLinks) GetShowEndUserFooter() HrefObject {
-	if o == nil || o.ShowEndUserFooter == nil {
+	if o == nil || IsNil(o.ShowEndUserFooter) {
 		var ret HrefObject
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *OrgPreferencesLinks) GetShowEndUserFooter() HrefObject {
 // GetShowEndUserFooterOk returns a tuple with the ShowEndUserFooter field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgPreferencesLinks) GetShowEndUserFooterOk() (*HrefObject, bool) {
-	if o == nil || o.ShowEndUserFooter == nil {
+	if o == nil || IsNil(o.ShowEndUserFooter) {
 		return nil, false
 	}
 	return o.ShowEndUserFooter, true
@@ -107,7 +110,7 @@ func (o *OrgPreferencesLinks) GetShowEndUserFooterOk() (*HrefObject, bool) {
 
 // HasShowEndUserFooter returns a boolean if a field has been set.
 func (o *OrgPreferencesLinks) HasShowEndUserFooter() bool {
-	if o != nil && o.ShowEndUserFooter != nil {
+	if o != nil && !IsNil(o.ShowEndUserFooter) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *OrgPreferencesLinks) SetShowEndUserFooter(v HrefObject) {
 }
 
 func (o OrgPreferencesLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OrgPreferencesLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.HideEndUserFooter != nil {
+	if !IsNil(o.HideEndUserFooter) {
 		toSerialize["hideEndUserFooter"] = o.HideEndUserFooter
 	}
-	if o.ShowEndUserFooter != nil {
+	if !IsNil(o.ShowEndUserFooter) {
 		toSerialize["showEndUserFooter"] = o.ShowEndUserFooter
 	}
 
@@ -132,28 +143,26 @@ func (o OrgPreferencesLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OrgPreferencesLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OrgPreferencesLinks) UnmarshalJSON(data []byte) (err error) {
 	varOrgPreferencesLinks := _OrgPreferencesLinks{}
 
-	err = json.Unmarshal(bytes, &varOrgPreferencesLinks)
-	if err == nil {
-		*o = OrgPreferencesLinks(varOrgPreferencesLinks)
-	} else {
+	err = json.Unmarshal(data, &varOrgPreferencesLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OrgPreferencesLinks(varOrgPreferencesLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "hideEndUserFooter")
 		delete(additionalProperties, "showEndUserFooter")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableOrgPreferencesLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

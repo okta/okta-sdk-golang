@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the GovernanceBundleCreateRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GovernanceBundleCreateRequest{}
+
 // GovernanceBundleCreateRequest struct for GovernanceBundleCreateRequest
 type GovernanceBundleCreateRequest struct {
-	Description *string `json:"description,omitempty"`
-	Entitlements []IAMBundleEntitlement `json:"entitlements,omitempty"`
-	Name *string `json:"name,omitempty"`
+	Description          *string                `json:"description,omitempty"`
+	Entitlements         []IAMBundleEntitlement `json:"entitlements,omitempty"`
+	Name                 *string                `json:"name,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewGovernanceBundleCreateRequestWithDefaults() *GovernanceBundleCreateReque
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *GovernanceBundleCreateRequest) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *GovernanceBundleCreateRequest) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GovernanceBundleCreateRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -74,7 +77,7 @@ func (o *GovernanceBundleCreateRequest) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *GovernanceBundleCreateRequest) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *GovernanceBundleCreateRequest) SetDescription(v string) {
 
 // GetEntitlements returns the Entitlements field value if set, zero value otherwise.
 func (o *GovernanceBundleCreateRequest) GetEntitlements() []IAMBundleEntitlement {
-	if o == nil || o.Entitlements == nil {
+	if o == nil || IsNil(o.Entitlements) {
 		var ret []IAMBundleEntitlement
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *GovernanceBundleCreateRequest) GetEntitlements() []IAMBundleEntitlement
 // GetEntitlementsOk returns a tuple with the Entitlements field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GovernanceBundleCreateRequest) GetEntitlementsOk() ([]IAMBundleEntitlement, bool) {
-	if o == nil || o.Entitlements == nil {
+	if o == nil || IsNil(o.Entitlements) {
 		return nil, false
 	}
 	return o.Entitlements, true
@@ -106,7 +109,7 @@ func (o *GovernanceBundleCreateRequest) GetEntitlementsOk() ([]IAMBundleEntitlem
 
 // HasEntitlements returns a boolean if a field has been set.
 func (o *GovernanceBundleCreateRequest) HasEntitlements() bool {
-	if o != nil && o.Entitlements != nil {
+	if o != nil && !IsNil(o.Entitlements) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *GovernanceBundleCreateRequest) SetEntitlements(v []IAMBundleEntitlement
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *GovernanceBundleCreateRequest) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *GovernanceBundleCreateRequest) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GovernanceBundleCreateRequest) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -138,7 +141,7 @@ func (o *GovernanceBundleCreateRequest) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *GovernanceBundleCreateRequest) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *GovernanceBundleCreateRequest) SetName(v string) {
 }
 
 func (o GovernanceBundleCreateRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o GovernanceBundleCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.Entitlements != nil {
+	if !IsNil(o.Entitlements) {
 		toSerialize["entitlements"] = o.Entitlements
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
 
@@ -166,29 +177,27 @@ func (o GovernanceBundleCreateRequest) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *GovernanceBundleCreateRequest) UnmarshalJSON(bytes []byte) (err error) {
+func (o *GovernanceBundleCreateRequest) UnmarshalJSON(data []byte) (err error) {
 	varGovernanceBundleCreateRequest := _GovernanceBundleCreateRequest{}
 
-	err = json.Unmarshal(bytes, &varGovernanceBundleCreateRequest)
-	if err == nil {
-		*o = GovernanceBundleCreateRequest(varGovernanceBundleCreateRequest)
-	} else {
+	err = json.Unmarshal(data, &varGovernanceBundleCreateRequest)
+
+	if err != nil {
 		return err
 	}
 
+	*o = GovernanceBundleCreateRequest(varGovernanceBundleCreateRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "entitlements")
 		delete(additionalProperties, "name")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullableGovernanceBundleCreateRequest) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

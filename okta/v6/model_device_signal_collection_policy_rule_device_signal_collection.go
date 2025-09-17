@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the DeviceSignalCollectionPolicyRuleDeviceSignalCollection type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeviceSignalCollectionPolicyRuleDeviceSignalCollection{}
+
 // DeviceSignalCollectionPolicyRuleDeviceSignalCollection Specifies how device context is collected when a user attempts to sign in
 type DeviceSignalCollectionPolicyRuleDeviceSignalCollection struct {
 	// Contains the device context provider configuration
 	DeviceContextProviders []DeviceContextProvider `json:"deviceContextProviders,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties   map[string]interface{}
 }
 
 type _DeviceSignalCollectionPolicyRuleDeviceSignalCollection DeviceSignalCollectionPolicyRuleDeviceSignalCollection
@@ -55,7 +58,7 @@ func NewDeviceSignalCollectionPolicyRuleDeviceSignalCollectionWithDefaults() *De
 
 // GetDeviceContextProviders returns the DeviceContextProviders field value if set, zero value otherwise.
 func (o *DeviceSignalCollectionPolicyRuleDeviceSignalCollection) GetDeviceContextProviders() []DeviceContextProvider {
-	if o == nil || o.DeviceContextProviders == nil {
+	if o == nil || IsNil(o.DeviceContextProviders) {
 		var ret []DeviceContextProvider
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *DeviceSignalCollectionPolicyRuleDeviceSignalCollection) GetDeviceContex
 // GetDeviceContextProvidersOk returns a tuple with the DeviceContextProviders field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceSignalCollectionPolicyRuleDeviceSignalCollection) GetDeviceContextProvidersOk() ([]DeviceContextProvider, bool) {
-	if o == nil || o.DeviceContextProviders == nil {
+	if o == nil || IsNil(o.DeviceContextProviders) {
 		return nil, false
 	}
 	return o.DeviceContextProviders, true
@@ -73,7 +76,7 @@ func (o *DeviceSignalCollectionPolicyRuleDeviceSignalCollection) GetDeviceContex
 
 // HasDeviceContextProviders returns a boolean if a field has been set.
 func (o *DeviceSignalCollectionPolicyRuleDeviceSignalCollection) HasDeviceContextProviders() bool {
-	if o != nil && o.DeviceContextProviders != nil {
+	if o != nil && !IsNil(o.DeviceContextProviders) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *DeviceSignalCollectionPolicyRuleDeviceSignalCollection) SetDeviceContex
 }
 
 func (o DeviceSignalCollectionPolicyRuleDeviceSignalCollection) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DeviceSignalCollectionPolicyRuleDeviceSignalCollection) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.DeviceContextProviders != nil {
+	if !IsNil(o.DeviceContextProviders) {
 		toSerialize["deviceContextProviders"] = o.DeviceContextProviders
 	}
 
@@ -95,27 +106,25 @@ func (o DeviceSignalCollectionPolicyRuleDeviceSignalCollection) MarshalJSON() ([
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DeviceSignalCollectionPolicyRuleDeviceSignalCollection) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DeviceSignalCollectionPolicyRuleDeviceSignalCollection) UnmarshalJSON(data []byte) (err error) {
 	varDeviceSignalCollectionPolicyRuleDeviceSignalCollection := _DeviceSignalCollectionPolicyRuleDeviceSignalCollection{}
 
-	err = json.Unmarshal(bytes, &varDeviceSignalCollectionPolicyRuleDeviceSignalCollection)
-	if err == nil {
-		*o = DeviceSignalCollectionPolicyRuleDeviceSignalCollection(varDeviceSignalCollectionPolicyRuleDeviceSignalCollection)
-	} else {
+	err = json.Unmarshal(data, &varDeviceSignalCollectionPolicyRuleDeviceSignalCollection)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DeviceSignalCollectionPolicyRuleDeviceSignalCollection(varDeviceSignalCollectionPolicyRuleDeviceSignalCollection)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "deviceContextProviders")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableDeviceSignalCollectionPolicyRuleDeviceSignalCollection) Unmarsh
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

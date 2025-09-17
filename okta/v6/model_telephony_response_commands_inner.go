@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the TelephonyResponseCommandsInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TelephonyResponseCommandsInner{}
+
 // TelephonyResponseCommandsInner struct for TelephonyResponseCommandsInner
 type TelephonyResponseCommandsInner struct {
 	// The location where you specify the command. For the telephony inline hook, there's only one command, `com.okta.telephony.action`.
 	Type *string `json:"type,omitempty"`
 	// The status of the telephony operation along with optional additional information about the provider, transaction ID and any other transaction metadata.
-	Value []TelephonyResponseCommandsInnerValueInner `json:"value,omitempty"`
+	Value                []TelephonyResponseCommandsInnerValueInner `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewTelephonyResponseCommandsInnerWithDefaults() *TelephonyResponseCommandsI
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *TelephonyResponseCommandsInner) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *TelephonyResponseCommandsInner) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TelephonyResponseCommandsInner) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -75,7 +78,7 @@ func (o *TelephonyResponseCommandsInner) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *TelephonyResponseCommandsInner) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *TelephonyResponseCommandsInner) SetType(v string) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *TelephonyResponseCommandsInner) GetValue() []TelephonyResponseCommandsInnerValueInner {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret []TelephonyResponseCommandsInnerValueInner
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *TelephonyResponseCommandsInner) GetValue() []TelephonyResponseCommandsI
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TelephonyResponseCommandsInner) GetValueOk() ([]TelephonyResponseCommandsInnerValueInner, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -107,7 +110,7 @@ func (o *TelephonyResponseCommandsInner) GetValueOk() ([]TelephonyResponseComman
 
 // HasValue returns a boolean if a field has been set.
 func (o *TelephonyResponseCommandsInner) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *TelephonyResponseCommandsInner) SetValue(v []TelephonyResponseCommandsI
 }
 
 func (o TelephonyResponseCommandsInner) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TelephonyResponseCommandsInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Value != nil {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
 
@@ -132,28 +143,26 @@ func (o TelephonyResponseCommandsInner) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *TelephonyResponseCommandsInner) UnmarshalJSON(bytes []byte) (err error) {
+func (o *TelephonyResponseCommandsInner) UnmarshalJSON(data []byte) (err error) {
 	varTelephonyResponseCommandsInner := _TelephonyResponseCommandsInner{}
 
-	err = json.Unmarshal(bytes, &varTelephonyResponseCommandsInner)
-	if err == nil {
-		*o = TelephonyResponseCommandsInner(varTelephonyResponseCommandsInner)
-	} else {
+	err = json.Unmarshal(data, &varTelephonyResponseCommandsInner)
+
+	if err != nil {
 		return err
 	}
 
+	*o = TelephonyResponseCommandsInner(varTelephonyResponseCommandsInner)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "value")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableTelephonyResponseCommandsInner) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

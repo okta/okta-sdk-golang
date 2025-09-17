@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,31 +26,30 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type RoleBTargetBGroupAPI interface {
 
 	/*
-	AssignAppInstanceTargetToAppAdminRoleForGroup Assign a group role app instance target
+			AssignAppInstanceTargetToAppAdminRoleForGroup Assign a group role app instance target
 
-	Assigns an app instance target to an `APP_ADMIN` role assignment to a group. When you assign the first OIN app or app instance target, you reduce the scope of the role assignment.
-The role no longer applies to all app targets, but applies only to the specified target.
+			Assigns an app instance target to an `APP_ADMIN` role assignment to a group. When you assign the first OIN app or app instance target, you reduce the scope of the role assignment.
+		The role no longer applies to all app targets, but applies only to the specified target.
 
-> **Note:** You can target a mixture of both OIN app and app instance targets, but you can't assign permissions to manage all instances of an OIN app and then assign a subset of permissions to the same app.
-> For example, you can't specify that an admin has access to manage all instances of the Salesforce app and then also manage specific configurations of the Salesforce app.
+		> **Note:** You can target a mixture of both OIN app and app instance targets, but you can't assign permissions to manage all instances of an OIN app and then assign a subset of permissions to the same app.
+		> For example, you can't specify that an admin has access to manage all instances of the Salesforce app and then also manage specific configurations of the Salesforce app.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleAssignmentId The `id` of the role assignment
-	@param appName Name of the app definition (the OIN catalog app key name)
-	@param appId Application ID
-	@return ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param groupId The `id` of the group
+			@param roleAssignmentId The `id` of the role assignment
+			@param appName Name of the app definition (the OIN catalog app key name)
+			@param appId Application ID
+			@return ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest
 	*/
 	AssignAppInstanceTargetToAppAdminRoleForGroup(ctx context.Context, groupId string, roleAssignmentId string, appName string, appId string) ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest
 
@@ -58,15 +57,15 @@ The role no longer applies to all app targets, but applies only to the specified
 	AssignAppInstanceTargetToAppAdminRoleForGroupExecute(r ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest) (*APIResponse, error)
 
 	/*
-	AssignAppTargetToAdminRoleForGroup Assign a group role app target
+		AssignAppTargetToAdminRoleForGroup Assign a group role app target
 
-	Assigns an OIN app target to an `APP_ADMIN` role assignment to a group. When you assign the first OIN app target, you reduce the scope of the role assignment. The role no longer applies to all app targets, but applies only to the specified target. An OIN app target that's assigned to the role overrides any existing instance targets of the OIN app. For example, if a user is assigned to administer a specific Facebook instance, a successful request to add an OIN app with `facebook` for `appName` makes that user the administrator for all Facebook instances.
+		Assigns an OIN app target to an `APP_ADMIN` role assignment to a group. When you assign the first OIN app target, you reduce the scope of the role assignment. The role no longer applies to all app targets, but applies only to the specified target. An OIN app target that's assigned to the role overrides any existing instance targets of the OIN app. For example, if a user is assigned to administer a specific Facebook instance, a successful request to add an OIN app with `facebook` for `appName` makes that user the administrator for all Facebook instances.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleAssignmentId The `id` of the role assignment
-	@param appName Name of the app definition (the OIN catalog app key name)
-	@return ApiAssignAppTargetToAdminRoleForGroupRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@param roleAssignmentId The `id` of the role assignment
+		@param appName Name of the app definition (the OIN catalog app key name)
+		@return ApiAssignAppTargetToAdminRoleForGroupRequest
 	*/
 	AssignAppTargetToAdminRoleForGroup(ctx context.Context, groupId string, roleAssignmentId string, appName string) ApiAssignAppTargetToAdminRoleForGroupRequest
 
@@ -74,16 +73,16 @@ The role no longer applies to all app targets, but applies only to the specified
 	AssignAppTargetToAdminRoleForGroupExecute(r ApiAssignAppTargetToAdminRoleForGroupRequest) (*APIResponse, error)
 
 	/*
-	AssignGroupTargetToGroupAdminRole Assign a group role group target
+			AssignGroupTargetToGroupAdminRole Assign a group role group target
 
-	Assigns a group target to a [`USER_ADMIN`](/openapi/okta-management/guides/roles/#standard-roles), `HELP_DESK_ADMIN`, or `GROUP_MEMBERSHIP_ADMIN` role assignment to a group.
-When you assign the first group target, you reduce the scope of the role assignment. The role no longer applies to all targets but applies only to the specified target.
+			Assigns a group target to a [`USER_ADMIN`](/openapi/okta-management/guides/roles/#standard-roles), `HELP_DESK_ADMIN`, or `GROUP_MEMBERSHIP_ADMIN` role assignment to a group.
+		When you assign the first group target, you reduce the scope of the role assignment. The role no longer applies to all targets but applies only to the specified target.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleAssignmentId The `id` of the role assignment
-	@param targetGroupId
-	@return ApiAssignGroupTargetToGroupAdminRoleRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param groupId The `id` of the group
+			@param roleAssignmentId The `id` of the role assignment
+			@param targetGroupId
+			@return ApiAssignGroupTargetToGroupAdminRoleRequest
 	*/
 	AssignGroupTargetToGroupAdminRole(ctx context.Context, groupId string, roleAssignmentId string, targetGroupId string) ApiAssignGroupTargetToGroupAdminRoleRequest
 
@@ -91,14 +90,14 @@ When you assign the first group target, you reduce the scope of the role assignm
 	AssignGroupTargetToGroupAdminRoleExecute(r ApiAssignGroupTargetToGroupAdminRoleRequest) (*APIResponse, error)
 
 	/*
-	ListApplicationTargetsForApplicationAdministratorRoleForGroup List all group role app targets
+		ListApplicationTargetsForApplicationAdministratorRoleForGroup List all group role app targets
 
-	Lists all app targets for an `APP_ADMIN` role assignment to a group. The response includes a list of OIN-cataloged apps or app instances. The response payload for an app instance contains the `id` property, but an OIN-cataloged app doesn't.
+		Lists all app targets for an `APP_ADMIN` role assignment to a group. The response includes a list of OIN-cataloged apps or app instances. The response payload for an app instance contains the `id` property, but an OIN-cataloged app doesn't.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleAssignmentId The `id` of the role assignment
-	@return ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@param roleAssignmentId The `id` of the role assignment
+		@return ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest
 	*/
 	ListApplicationTargetsForApplicationAdministratorRoleForGroup(ctx context.Context, groupId string, roleAssignmentId string) ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest
 
@@ -107,15 +106,15 @@ When you assign the first group target, you reduce the scope of the role assignm
 	ListApplicationTargetsForApplicationAdministratorRoleForGroupExecute(r ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest) ([]CatalogApplication, *APIResponse, error)
 
 	/*
-	ListGroupTargetsForGroupRole List all group role group targets
+			ListGroupTargetsForGroupRole List all group role group targets
 
-	Lists all group targets for a [`USER_ADMIN`](/openapi/okta-management/guides/roles/#standard-roles), `HELP_DESK_ADMIN`, or `GROUP_MEMBERSHIP_ADMIN` role assignment to a group.
-If the role isn't scoped to specific group targets, Okta returns an empty array `[]`.
+			Lists all group targets for a [`USER_ADMIN`](/openapi/okta-management/guides/roles/#standard-roles), `HELP_DESK_ADMIN`, or `GROUP_MEMBERSHIP_ADMIN` role assignment to a group.
+		If the role isn't scoped to specific group targets, Okta returns an empty array `[]`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleAssignmentId The `id` of the role assignment
-	@return ApiListGroupTargetsForGroupRoleRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param groupId The `id` of the group
+			@param roleAssignmentId The `id` of the role assignment
+			@return ApiListGroupTargetsForGroupRoleRequest
 	*/
 	ListGroupTargetsForGroupRole(ctx context.Context, groupId string, roleAssignmentId string) ApiListGroupTargetsForGroupRoleRequest
 
@@ -124,19 +123,19 @@ If the role isn't scoped to specific group targets, Okta returns an empty array 
 	ListGroupTargetsForGroupRoleExecute(r ApiListGroupTargetsForGroupRoleRequest) ([]Group, *APIResponse, error)
 
 	/*
-	UnassignAppInstanceTargetToAppAdminRoleForGroup Unassign a group role app instance target
+			UnassignAppInstanceTargetToAppAdminRoleForGroup Unassign a group role app instance target
 
-	Unassigns an app instance target from an `APP_ADMIN` role assignment to a group
+			Unassigns an app instance target from an `APP_ADMIN` role assignment to a group
 
-> **Note:** You can't remove the last app instance target from a role assignment.
-> If you need a role assignment that applies to all apps, delete the `APP_ADMIN` role assignment with the target and create another one. See [Unassign a group role](/openapi/okta-management/management/tag/RoleAssignmentBGroup/#tag/RoleAssignmentBGroup/operation/unassignRoleFromGroup).
+		> **Note:** You can't remove the last app instance target from a role assignment.
+		> If you need a role assignment that applies to all apps, delete the `APP_ADMIN` role assignment with the target and create another one. See [Unassign a group role](/openapi/okta-management/management/tag/RoleAssignmentBGroup/#tag/RoleAssignmentBGroup/operation/unassignRoleFromGroup).
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleAssignmentId The `id` of the role assignment
-	@param appName Name of the app definition (the OIN catalog app key name)
-	@param appId Application ID
-	@return ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param groupId The `id` of the group
+			@param roleAssignmentId The `id` of the role assignment
+			@param appName Name of the app definition (the OIN catalog app key name)
+			@param appId Application ID
+			@return ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest
 	*/
 	UnassignAppInstanceTargetToAppAdminRoleForGroup(ctx context.Context, groupId string, roleAssignmentId string, appName string, appId string) ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest
 
@@ -144,19 +143,19 @@ If the role isn't scoped to specific group targets, Okta returns an empty array 
 	UnassignAppInstanceTargetToAppAdminRoleForGroupExecute(r ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest) (*APIResponse, error)
 
 	/*
-	UnassignAppTargetToAdminRoleForGroup Unassign a group role app target
+			UnassignAppTargetToAdminRoleForGroup Unassign a group role app target
 
-	Unassigns an OIN app target from an `APP_ADMIN` role assignment to a group
+			Unassigns an OIN app target from an `APP_ADMIN` role assignment to a group
 
-> **Note:** You can't remove the last app target from a role assignment.
-> If you need a role assignment that applies to all apps, delete the `APP_ADMIN` role assignment with the target and create another one. See [Unassign a group role](/openapi/okta-management/management/tag/RoleAssignmentBGroup/#tag/RoleAssignmentBGroup/operation/unassignRoleFromGroup).
+		> **Note:** You can't remove the last app target from a role assignment.
+		> If you need a role assignment that applies to all apps, delete the `APP_ADMIN` role assignment with the target and create another one. See [Unassign a group role](/openapi/okta-management/management/tag/RoleAssignmentBGroup/#tag/RoleAssignmentBGroup/operation/unassignRoleFromGroup).
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleAssignmentId The `id` of the role assignment
-	@param appName Name of the app definition (the OIN catalog app key name)
-	@return ApiUnassignAppTargetToAdminRoleForGroupRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param groupId The `id` of the group
+			@param roleAssignmentId The `id` of the role assignment
+			@param appName Name of the app definition (the OIN catalog app key name)
+			@return ApiUnassignAppTargetToAdminRoleForGroupRequest
 	*/
 	UnassignAppTargetToAdminRoleForGroup(ctx context.Context, groupId string, roleAssignmentId string, appName string) ApiUnassignAppTargetToAdminRoleForGroupRequest
 
@@ -164,15 +163,15 @@ If the role isn't scoped to specific group targets, Okta returns an empty array 
 	UnassignAppTargetToAdminRoleForGroupExecute(r ApiUnassignAppTargetToAdminRoleForGroupRequest) (*APIResponse, error)
 
 	/*
-	UnassignGroupTargetFromGroupAdminRole Unassign a group role group target
+		UnassignGroupTargetFromGroupAdminRole Unassign a group role group target
 
-	Unassigns a group target from a [`USER_ADMIN`](/openapi/okta-management/guides/roles/#standard-roles), `HELP_DESK_ADMIN`, or `GROUP_MEMBERSHIP_ADMIN` role assignment to a group.
+		Unassigns a group target from a [`USER_ADMIN`](/openapi/okta-management/guides/roles/#standard-roles), `HELP_DESK_ADMIN`, or `GROUP_MEMBERSHIP_ADMIN` role assignment to a group.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleAssignmentId The `id` of the role assignment
-	@param targetGroupId
-	@return ApiUnassignGroupTargetFromGroupAdminRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@param roleAssignmentId The `id` of the role assignment
+		@param targetGroupId
+		@return ApiUnassignGroupTargetFromGroupAdminRoleRequest
 	*/
 	UnassignGroupTargetFromGroupAdminRole(ctx context.Context, groupId string, roleAssignmentId string, targetGroupId string) ApiUnassignGroupTargetFromGroupAdminRoleRequest
 
@@ -184,13 +183,13 @@ If the role isn't scoped to specific group targets, Okta returns an empty array 
 type RoleBTargetBGroupAPIService service
 
 type ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest struct {
-	ctx context.Context
-	ApiService RoleBTargetBGroupAPI
-	groupId string
+	ctx              context.Context
+	ApiService       RoleBTargetBGroupAPI
+	groupId          string
 	roleAssignmentId string
-	appName string
-	appId string
-	retryCount int32
+	appName          string
+	appId            string
+	retryCount       int32
 }
 
 func (r ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest) Execute() (*APIResponse, error) {
@@ -206,22 +205,22 @@ The role no longer applies to all app targets, but applies only to the specified
 > **Note:** You can target a mixture of both OIN app and app instance targets, but you can't assign permissions to manage all instances of an OIN app and then assign a subset of permissions to the same app.
 > For example, you can't specify that an admin has access to manage all instances of the Salesforce app and then also manage specific configurations of the Salesforce app.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId The `id` of the group
- @param roleAssignmentId The `id` of the role assignment
- @param appName Name of the app definition (the OIN catalog app key name)
- @param appId Application ID
- @return ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@param roleAssignmentId The `id` of the role assignment
+	@param appName Name of the app definition (the OIN catalog app key name)
+	@param appId Application ID
+	@return ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest
 */
 func (a *RoleBTargetBGroupAPIService) AssignAppInstanceTargetToAppAdminRoleForGroup(ctx context.Context, groupId string, roleAssignmentId string, appName string, appId string) ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest {
 	return ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest{
-		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ApiService:       a,
+		ctx:              ctx,
+		groupId:          groupId,
 		roleAssignmentId: roleAssignmentId,
-		appName: appName,
-		appId: appId,
-		retryCount: 0,
+		appName:          appName,
+		appId:            appId,
+		retryCount:       0,
 	}
 }
 
@@ -233,7 +232,7 @@ func (a *RoleBTargetBGroupAPIService) AssignAppInstanceTargetToAppAdminRoleForGr
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -297,9 +296,9 @@ func (a *RoleBTargetBGroupAPIService) AssignAppInstanceTargetToAppAdminRoleForGr
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -353,12 +352,12 @@ func (a *RoleBTargetBGroupAPIService) AssignAppInstanceTargetToAppAdminRoleForGr
 }
 
 type ApiAssignAppTargetToAdminRoleForGroupRequest struct {
-	ctx context.Context
-	ApiService RoleBTargetBGroupAPI
-	groupId string
+	ctx              context.Context
+	ApiService       RoleBTargetBGroupAPI
+	groupId          string
 	roleAssignmentId string
-	appName string
-	retryCount int32
+	appName          string
+	retryCount       int32
 }
 
 func (r ApiAssignAppTargetToAdminRoleForGroupRequest) Execute() (*APIResponse, error) {
@@ -370,20 +369,20 @@ AssignAppTargetToAdminRoleForGroup Assign a group role app target
 
 Assigns an OIN app target to an `APP_ADMIN` role assignment to a group. When you assign the first OIN app target, you reduce the scope of the role assignment. The role no longer applies to all app targets, but applies only to the specified target. An OIN app target that's assigned to the role overrides any existing instance targets of the OIN app. For example, if a user is assigned to administer a specific Facebook instance, a successful request to add an OIN app with `facebook` for `appName` makes that user the administrator for all Facebook instances.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId The `id` of the group
- @param roleAssignmentId The `id` of the role assignment
- @param appName Name of the app definition (the OIN catalog app key name)
- @return ApiAssignAppTargetToAdminRoleForGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@param roleAssignmentId The `id` of the role assignment
+	@param appName Name of the app definition (the OIN catalog app key name)
+	@return ApiAssignAppTargetToAdminRoleForGroupRequest
 */
 func (a *RoleBTargetBGroupAPIService) AssignAppTargetToAdminRoleForGroup(ctx context.Context, groupId string, roleAssignmentId string, appName string) ApiAssignAppTargetToAdminRoleForGroupRequest {
 	return ApiAssignAppTargetToAdminRoleForGroupRequest{
-		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ApiService:       a,
+		ctx:              ctx,
+		groupId:          groupId,
 		roleAssignmentId: roleAssignmentId,
-		appName: appName,
-		retryCount: 0,
+		appName:          appName,
+		retryCount:       0,
 	}
 }
 
@@ -395,7 +394,7 @@ func (a *RoleBTargetBGroupAPIService) AssignAppTargetToAdminRoleForGroupExecute(
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -458,9 +457,9 @@ func (a *RoleBTargetBGroupAPIService) AssignAppTargetToAdminRoleForGroupExecute(
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -514,12 +513,12 @@ func (a *RoleBTargetBGroupAPIService) AssignAppTargetToAdminRoleForGroupExecute(
 }
 
 type ApiAssignGroupTargetToGroupAdminRoleRequest struct {
-	ctx context.Context
-	ApiService RoleBTargetBGroupAPI
-	groupId string
+	ctx              context.Context
+	ApiService       RoleBTargetBGroupAPI
+	groupId          string
 	roleAssignmentId string
-	targetGroupId string
-	retryCount int32
+	targetGroupId    string
+	retryCount       int32
 }
 
 func (r ApiAssignGroupTargetToGroupAdminRoleRequest) Execute() (*APIResponse, error) {
@@ -532,20 +531,20 @@ AssignGroupTargetToGroupAdminRole Assign a group role group target
 Assigns a group target to a [`USER_ADMIN`](/openapi/okta-management/guides/roles/#standard-roles), `HELP_DESK_ADMIN`, or `GROUP_MEMBERSHIP_ADMIN` role assignment to a group.
 When you assign the first group target, you reduce the scope of the role assignment. The role no longer applies to all targets but applies only to the specified target.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId The `id` of the group
- @param roleAssignmentId The `id` of the role assignment
- @param targetGroupId
- @return ApiAssignGroupTargetToGroupAdminRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@param roleAssignmentId The `id` of the role assignment
+	@param targetGroupId
+	@return ApiAssignGroupTargetToGroupAdminRoleRequest
 */
 func (a *RoleBTargetBGroupAPIService) AssignGroupTargetToGroupAdminRole(ctx context.Context, groupId string, roleAssignmentId string, targetGroupId string) ApiAssignGroupTargetToGroupAdminRoleRequest {
 	return ApiAssignGroupTargetToGroupAdminRoleRequest{
-		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ApiService:       a,
+		ctx:              ctx,
+		groupId:          groupId,
 		roleAssignmentId: roleAssignmentId,
-		targetGroupId: targetGroupId,
-		retryCount: 0,
+		targetGroupId:    targetGroupId,
+		retryCount:       0,
 	}
 }
 
@@ -557,7 +556,7 @@ func (a *RoleBTargetBGroupAPIService) AssignGroupTargetToGroupAdminRoleExecute(r
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -620,9 +619,9 @@ func (a *RoleBTargetBGroupAPIService) AssignGroupTargetToGroupAdminRoleExecute(r
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -676,13 +675,13 @@ func (a *RoleBTargetBGroupAPIService) AssignGroupTargetToGroupAdminRoleExecute(r
 }
 
 type ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest struct {
-	ctx context.Context
-	ApiService RoleBTargetBGroupAPI
-	groupId string
+	ctx              context.Context
+	ApiService       RoleBTargetBGroupAPI
+	groupId          string
 	roleAssignmentId string
-	after *string
-	limit *int32
-	retryCount int32
+	after            *string
+	limit            *int32
+	retryCount       int32
 }
 
 // The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination).
@@ -706,23 +705,24 @@ ListApplicationTargetsForApplicationAdministratorRoleForGroup List all group rol
 
 Lists all app targets for an `APP_ADMIN` role assignment to a group. The response includes a list of OIN-cataloged apps or app instances. The response payload for an app instance contains the `id` property, but an OIN-cataloged app doesn't.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId The `id` of the group
- @param roleAssignmentId The `id` of the role assignment
- @return ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@param roleAssignmentId The `id` of the role assignment
+	@return ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest
 */
 func (a *RoleBTargetBGroupAPIService) ListApplicationTargetsForApplicationAdministratorRoleForGroup(ctx context.Context, groupId string, roleAssignmentId string) ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest {
 	return ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest{
-		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ApiService:       a,
+		ctx:              ctx,
+		groupId:          groupId,
 		roleAssignmentId: roleAssignmentId,
-		retryCount: 0,
+		retryCount:       0,
 	}
 }
 
 // Execute executes the request
-//  @return []CatalogApplication
+//
+//	@return []CatalogApplication
 func (a *RoleBTargetBGroupAPIService) ListApplicationTargetsForApplicationAdministratorRoleForGroupExecute(r ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest) ([]CatalogApplication, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -731,7 +731,7 @@ func (a *RoleBTargetBGroupAPIService) ListApplicationTargetsForApplicationAdmini
 		localVarReturnValue  []CatalogApplication
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -799,9 +799,9 @@ func (a *RoleBTargetBGroupAPIService) ListApplicationTargetsForApplicationAdmini
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -859,19 +859,19 @@ func (a *RoleBTargetBGroupAPIService) ListApplicationTargetsForApplicationAdmini
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListGroupTargetsForGroupRoleRequest struct {
-	ctx context.Context
-	ApiService RoleBTargetBGroupAPI
-	groupId string
+	ctx              context.Context
+	ApiService       RoleBTargetBGroupAPI
+	groupId          string
 	roleAssignmentId string
-	after *string
-	limit *int32
-	retryCount int32
+	after            *string
+	limit            *int32
+	retryCount       int32
 }
 
 // The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination).
@@ -896,23 +896,24 @@ ListGroupTargetsForGroupRole List all group role group targets
 Lists all group targets for a [`USER_ADMIN`](/openapi/okta-management/guides/roles/#standard-roles), `HELP_DESK_ADMIN`, or `GROUP_MEMBERSHIP_ADMIN` role assignment to a group.
 If the role isn't scoped to specific group targets, Okta returns an empty array `[]`.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId The `id` of the group
- @param roleAssignmentId The `id` of the role assignment
- @return ApiListGroupTargetsForGroupRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@param roleAssignmentId The `id` of the role assignment
+	@return ApiListGroupTargetsForGroupRoleRequest
 */
 func (a *RoleBTargetBGroupAPIService) ListGroupTargetsForGroupRole(ctx context.Context, groupId string, roleAssignmentId string) ApiListGroupTargetsForGroupRoleRequest {
 	return ApiListGroupTargetsForGroupRoleRequest{
-		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ApiService:       a,
+		ctx:              ctx,
+		groupId:          groupId,
 		roleAssignmentId: roleAssignmentId,
-		retryCount: 0,
+		retryCount:       0,
 	}
 }
 
 // Execute executes the request
-//  @return []Group
+//
+//	@return []Group
 func (a *RoleBTargetBGroupAPIService) ListGroupTargetsForGroupRoleExecute(r ApiListGroupTargetsForGroupRoleRequest) ([]Group, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -921,7 +922,7 @@ func (a *RoleBTargetBGroupAPIService) ListGroupTargetsForGroupRoleExecute(r ApiL
 		localVarReturnValue  []Group
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -989,9 +990,9 @@ func (a *RoleBTargetBGroupAPIService) ListGroupTargetsForGroupRoleExecute(r ApiL
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1049,19 +1050,19 @@ func (a *RoleBTargetBGroupAPIService) ListGroupTargetsForGroupRoleExecute(r ApiL
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest struct {
-	ctx context.Context
-	ApiService RoleBTargetBGroupAPI
-	groupId string
+	ctx              context.Context
+	ApiService       RoleBTargetBGroupAPI
+	groupId          string
 	roleAssignmentId string
-	appName string
-	appId string
-	retryCount int32
+	appName          string
+	appId            string
+	retryCount       int32
 }
 
 func (r ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest) Execute() (*APIResponse, error) {
@@ -1076,22 +1077,22 @@ Unassigns an app instance target from an `APP_ADMIN` role assignment to a group
 > **Note:** You can't remove the last app instance target from a role assignment.
 > If you need a role assignment that applies to all apps, delete the `APP_ADMIN` role assignment with the target and create another one. See [Unassign a group role](/openapi/okta-management/management/tag/RoleAssignmentBGroup/#tag/RoleAssignmentBGroup/operation/unassignRoleFromGroup).
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId The `id` of the group
- @param roleAssignmentId The `id` of the role assignment
- @param appName Name of the app definition (the OIN catalog app key name)
- @param appId Application ID
- @return ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@param roleAssignmentId The `id` of the role assignment
+	@param appName Name of the app definition (the OIN catalog app key name)
+	@param appId Application ID
+	@return ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest
 */
 func (a *RoleBTargetBGroupAPIService) UnassignAppInstanceTargetToAppAdminRoleForGroup(ctx context.Context, groupId string, roleAssignmentId string, appName string, appId string) ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest {
 	return ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest{
-		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ApiService:       a,
+		ctx:              ctx,
+		groupId:          groupId,
 		roleAssignmentId: roleAssignmentId,
-		appName: appName,
-		appId: appId,
-		retryCount: 0,
+		appName:          appName,
+		appId:            appId,
+		retryCount:       0,
 	}
 }
 
@@ -1103,7 +1104,7 @@ func (a *RoleBTargetBGroupAPIService) UnassignAppInstanceTargetToAppAdminRoleFor
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1167,9 +1168,9 @@ func (a *RoleBTargetBGroupAPIService) UnassignAppInstanceTargetToAppAdminRoleFor
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -1223,12 +1224,12 @@ func (a *RoleBTargetBGroupAPIService) UnassignAppInstanceTargetToAppAdminRoleFor
 }
 
 type ApiUnassignAppTargetToAdminRoleForGroupRequest struct {
-	ctx context.Context
-	ApiService RoleBTargetBGroupAPI
-	groupId string
+	ctx              context.Context
+	ApiService       RoleBTargetBGroupAPI
+	groupId          string
 	roleAssignmentId string
-	appName string
-	retryCount int32
+	appName          string
+	retryCount       int32
 }
 
 func (r ApiUnassignAppTargetToAdminRoleForGroupRequest) Execute() (*APIResponse, error) {
@@ -1243,21 +1244,20 @@ Unassigns an OIN app target from an `APP_ADMIN` role assignment to a group
 > **Note:** You can't remove the last app target from a role assignment.
 > If you need a role assignment that applies to all apps, delete the `APP_ADMIN` role assignment with the target and create another one. See [Unassign a group role](/openapi/okta-management/management/tag/RoleAssignmentBGroup/#tag/RoleAssignmentBGroup/operation/unassignRoleFromGroup).
 
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId The `id` of the group
- @param roleAssignmentId The `id` of the role assignment
- @param appName Name of the app definition (the OIN catalog app key name)
- @return ApiUnassignAppTargetToAdminRoleForGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@param roleAssignmentId The `id` of the role assignment
+	@param appName Name of the app definition (the OIN catalog app key name)
+	@return ApiUnassignAppTargetToAdminRoleForGroupRequest
 */
 func (a *RoleBTargetBGroupAPIService) UnassignAppTargetToAdminRoleForGroup(ctx context.Context, groupId string, roleAssignmentId string, appName string) ApiUnassignAppTargetToAdminRoleForGroupRequest {
 	return ApiUnassignAppTargetToAdminRoleForGroupRequest{
-		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ApiService:       a,
+		ctx:              ctx,
+		groupId:          groupId,
 		roleAssignmentId: roleAssignmentId,
-		appName: appName,
-		retryCount: 0,
+		appName:          appName,
+		retryCount:       0,
 	}
 }
 
@@ -1269,7 +1269,7 @@ func (a *RoleBTargetBGroupAPIService) UnassignAppTargetToAdminRoleForGroupExecut
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1332,9 +1332,9 @@ func (a *RoleBTargetBGroupAPIService) UnassignAppTargetToAdminRoleForGroupExecut
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -1388,12 +1388,12 @@ func (a *RoleBTargetBGroupAPIService) UnassignAppTargetToAdminRoleForGroupExecut
 }
 
 type ApiUnassignGroupTargetFromGroupAdminRoleRequest struct {
-	ctx context.Context
-	ApiService RoleBTargetBGroupAPI
-	groupId string
+	ctx              context.Context
+	ApiService       RoleBTargetBGroupAPI
+	groupId          string
 	roleAssignmentId string
-	targetGroupId string
-	retryCount int32
+	targetGroupId    string
+	retryCount       int32
 }
 
 func (r ApiUnassignGroupTargetFromGroupAdminRoleRequest) Execute() (*APIResponse, error) {
@@ -1405,20 +1405,20 @@ UnassignGroupTargetFromGroupAdminRole Unassign a group role group target
 
 Unassigns a group target from a [`USER_ADMIN`](/openapi/okta-management/guides/roles/#standard-roles), `HELP_DESK_ADMIN`, or `GROUP_MEMBERSHIP_ADMIN` role assignment to a group.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId The `id` of the group
- @param roleAssignmentId The `id` of the role assignment
- @param targetGroupId
- @return ApiUnassignGroupTargetFromGroupAdminRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@param roleAssignmentId The `id` of the role assignment
+	@param targetGroupId
+	@return ApiUnassignGroupTargetFromGroupAdminRoleRequest
 */
 func (a *RoleBTargetBGroupAPIService) UnassignGroupTargetFromGroupAdminRole(ctx context.Context, groupId string, roleAssignmentId string, targetGroupId string) ApiUnassignGroupTargetFromGroupAdminRoleRequest {
 	return ApiUnassignGroupTargetFromGroupAdminRoleRequest{
-		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ApiService:       a,
+		ctx:              ctx,
+		groupId:          groupId,
 		roleAssignmentId: roleAssignmentId,
-		targetGroupId: targetGroupId,
-		retryCount: 0,
+		targetGroupId:    targetGroupId,
+		retryCount:       0,
 	}
 }
 
@@ -1430,7 +1430,7 @@ func (a *RoleBTargetBGroupAPIService) UnassignGroupTargetFromGroupAdminRoleExecu
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1493,9 +1493,9 @@ func (a *RoleBTargetBGroupAPIService) UnassignGroupTargetFromGroupAdminRoleExecu
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err

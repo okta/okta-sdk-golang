@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,12 +28,15 @@ import (
 	"time"
 )
 
+// checks if the UserFactorActivatePush type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserFactorActivatePush{}
+
 // UserFactorActivatePush Activation requests have a short lifetime and expire if the activation isn't completed before the indicated timestamp. If the activation expires, use the returned `activate` link to restart the process.
 type UserFactorActivatePush struct {
 	// Timestamp when the factor verification attempt expires
 	ExpiresAt *time.Time `json:"expiresAt,omitempty"`
 	// Result of a factor activation
-	FactorResult *string `json:"factorResult,omitempty"`
+	FactorResult         *string `json:"factorResult,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewUserFactorActivatePushWithDefaults() *UserFactorActivatePush {
 
 // GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
 func (o *UserFactorActivatePush) GetExpiresAt() time.Time {
-	if o == nil || o.ExpiresAt == nil {
+	if o == nil || IsNil(o.ExpiresAt) {
 		var ret time.Time
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *UserFactorActivatePush) GetExpiresAt() time.Time {
 // GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorActivatePush) GetExpiresAtOk() (*time.Time, bool) {
-	if o == nil || o.ExpiresAt == nil {
+	if o == nil || IsNil(o.ExpiresAt) {
 		return nil, false
 	}
 	return o.ExpiresAt, true
@@ -76,7 +79,7 @@ func (o *UserFactorActivatePush) GetExpiresAtOk() (*time.Time, bool) {
 
 // HasExpiresAt returns a boolean if a field has been set.
 func (o *UserFactorActivatePush) HasExpiresAt() bool {
-	if o != nil && o.ExpiresAt != nil {
+	if o != nil && !IsNil(o.ExpiresAt) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *UserFactorActivatePush) SetExpiresAt(v time.Time) {
 
 // GetFactorResult returns the FactorResult field value if set, zero value otherwise.
 func (o *UserFactorActivatePush) GetFactorResult() string {
-	if o == nil || o.FactorResult == nil {
+	if o == nil || IsNil(o.FactorResult) {
 		var ret string
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *UserFactorActivatePush) GetFactorResult() string {
 // GetFactorResultOk returns a tuple with the FactorResult field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorActivatePush) GetFactorResultOk() (*string, bool) {
-	if o == nil || o.FactorResult == nil {
+	if o == nil || IsNil(o.FactorResult) {
 		return nil, false
 	}
 	return o.FactorResult, true
@@ -108,7 +111,7 @@ func (o *UserFactorActivatePush) GetFactorResultOk() (*string, bool) {
 
 // HasFactorResult returns a boolean if a field has been set.
 func (o *UserFactorActivatePush) HasFactorResult() bool {
-	if o != nil && o.FactorResult != nil {
+	if o != nil && !IsNil(o.FactorResult) {
 		return true
 	}
 
@@ -121,11 +124,19 @@ func (o *UserFactorActivatePush) SetFactorResult(v string) {
 }
 
 func (o UserFactorActivatePush) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserFactorActivatePush) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ExpiresAt != nil {
+	if !IsNil(o.ExpiresAt) {
 		toSerialize["expiresAt"] = o.ExpiresAt
 	}
-	if o.FactorResult != nil {
+	if !IsNil(o.FactorResult) {
 		toSerialize["factorResult"] = o.FactorResult
 	}
 
@@ -133,28 +144,26 @@ func (o UserFactorActivatePush) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserFactorActivatePush) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserFactorActivatePush) UnmarshalJSON(data []byte) (err error) {
 	varUserFactorActivatePush := _UserFactorActivatePush{}
 
-	err = json.Unmarshal(bytes, &varUserFactorActivatePush)
-	if err == nil {
-		*o = UserFactorActivatePush(varUserFactorActivatePush)
-	} else {
+	err = json.Unmarshal(data, &varUserFactorActivatePush)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserFactorActivatePush(varUserFactorActivatePush)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "expiresAt")
 		delete(additionalProperties, "factorResult")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -195,4 +204,3 @@ func (v *NullableUserFactorActivatePush) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

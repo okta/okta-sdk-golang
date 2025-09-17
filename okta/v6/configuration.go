@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,7 +27,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"os"
@@ -103,9 +102,9 @@ type ServerVariable struct {
 
 // ServerConfiguration stores the information about a server
 type ServerConfiguration struct {
-	URL string
+	URL         string
 	Description string
-	Variables map[string]ServerVariable
+	Variables   map[string]ServerVariable
 }
 
 // ServerConfigurations stores multiple ServerConfiguration items
@@ -121,9 +120,9 @@ type Configuration struct {
 	Servers          ServerConfigurations
 	OperationServers map[string]ServerConfigurations
 	HTTPClient       *http.Client
-    UserAgentExtra   string
-	Context			 context.Context
-    Okta struct {
+	UserAgentExtra   string
+	Context          context.Context
+	Okta             struct {
 		Client struct {
 			Cache struct {
 				Enabled    bool  `yaml:"enabled" envconfig:"OKTA_CLIENT_CACHE_ENABLED"`
@@ -151,7 +150,7 @@ type Configuration struct {
 			Scopes            []string `yaml:"scopes" envconfig:"OKTA_CLIENT_SCOPES"`
 			PrivateKey        string   `yaml:"privateKey" envconfig:"OKTA_CLIENT_PRIVATEKEY"`
 			PrivateKeyId      string   `yaml:"privateKeyId" envconfig:"OKTA_CLIENT_PRIVATEKEYID"`
-			JWK        		  string   `yaml:"jwk" envconfig:"OKTA_CLIENT_JWK"`
+			JWK               string   `yaml:"jwk" envconfig:"OKTA_CLIENT_JWK"`
 			EncryptionType    string   `yaml:"encryptionType" envconfig:"OKTA_CLIENT_ENCRYPTION_TYPE"`
 		} `yaml:"client"`
 		Testing struct {
@@ -165,29 +164,28 @@ type Configuration struct {
 // NewConfiguration returns a new Configuration object
 func NewConfiguration(conf ...ConfigSetter) (*Configuration, error) {
 	cfg := &Configuration{
-		DefaultHeader:    make(map[string]string),
-		UserAgent:        fmt.Sprintf("okta-sdk-golang/%s golang/%s %s/%s", "6.0.0", runtime.Version(), runtime.GOOS, runtime.GOARCH),
-		Debug:            false,
-		Servers:          ServerConfigurations{
+		DefaultHeader: make(map[string]string),
+		UserAgent:     fmt.Sprintf("okta-sdk-golang/%s golang/%s %s/%s", "6.0.0", runtime.Version(), runtime.GOOS, runtime.GOARCH),
+		Debug:         false,
+		Servers: ServerConfigurations{
 			{
-				URL: "https://{yourOktaDomain}",
+				URL:         "https://{yourOktaDomain}",
 				Description: "No description provided",
 				Variables: map[string]ServerVariable{
-					"yourOktaDomain": ServerVariable{
-						Description: "The domain of your organization. This can be a provided subdomain of an official okta domain (okta.com, oktapreview.com, etc) or one of your configured custom domains.",
+					"yourOktaDomain": {
+						Description:  "The domain of your organization. This can be a provided subdomain of an official okta domain (okta.com, oktapreview.com, etc) or one of your configured custom domains.",
 						DefaultValue: "subdomain.okta.com",
 					},
 				},
 			},
 		},
-		OperationServers: map[string]ServerConfigurations{
-		},
+		OperationServers: map[string]ServerConfigurations{},
 	}
 
-    cfg.Okta.Testing.DisableHttpsCheck = false
+	cfg.Okta.Testing.DisableHttpsCheck = false
 	cfg.Okta.Client.AuthorizationMode = "SSWS"
 
-    cfg = readConfigFromSystem(*cfg)
+	cfg = readConfigFromSystem(*cfg)
 	cfg = readConfigFromApplication(*cfg)
 	cfg = readConfigFromEnvironment(*cfg)
 
@@ -199,7 +197,7 @@ func NewConfiguration(conf ...ConfigSetter) (*Configuration, error) {
 	if err != nil {
 		return nil, err
 	}
-    cfg.Host = purl.Hostname()
+	cfg.Host = purl.Hostname()
 	cfg.Scheme = purl.Scheme
 
 	if cfg.UserAgentExtra != "" {
@@ -223,7 +221,7 @@ func NewConfiguration(conf ...ConfigSetter) (*Configuration, error) {
 }
 
 func readConfigFromFile(location string, c Configuration) (*Configuration, error) {
-	yamlConfig, err := ioutil.ReadFile(location)
+	yamlConfig, err := os.ReadFile(location)
 	if err != nil {
 		return nil, err
 	}
@@ -526,7 +524,7 @@ func WithEncryptionType(etype string) ConfigSetter {
 func WithPrivateKey(privateKey string) ConfigSetter {
 	return func(c *Configuration) {
 		if fileExists(privateKey) {
-			content, err := ioutil.ReadFile(privateKey)
+			content, err := os.ReadFile(privateKey)
 			if err != nil {
 				fmt.Printf("failed to read from provided private key file path: %v", err)
 			}
@@ -566,4 +564,3 @@ func WithRateLimitPrevent(enable bool) ConfigSetter {
 		c.Okta.Client.RateLimit.Enable = enable
 	}
 }
-

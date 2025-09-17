@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the WellKnownURIsRootEmbeddedAssetlinksJson type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WellKnownURIsRootEmbeddedAssetlinksJson{}
+
 // WellKnownURIsRootEmbeddedAssetlinksJson Contains the customized well-known URI content and links
 type WellKnownURIsRootEmbeddedAssetlinksJson struct {
-	Customized *WellKnownURIArrayResponse `json:"customized,omitempty"`
+	Customized           *WellKnownURIArrayResponse `json:"customized,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewWellKnownURIsRootEmbeddedAssetlinksJsonWithDefaults() *WellKnownURIsRoot
 
 // GetCustomized returns the Customized field value if set, zero value otherwise.
 func (o *WellKnownURIsRootEmbeddedAssetlinksJson) GetCustomized() WellKnownURIArrayResponse {
-	if o == nil || o.Customized == nil {
+	if o == nil || IsNil(o.Customized) {
 		var ret WellKnownURIArrayResponse
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *WellKnownURIsRootEmbeddedAssetlinksJson) GetCustomized() WellKnownURIAr
 // GetCustomizedOk returns a tuple with the Customized field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownURIsRootEmbeddedAssetlinksJson) GetCustomizedOk() (*WellKnownURIArrayResponse, bool) {
-	if o == nil || o.Customized == nil {
+	if o == nil || IsNil(o.Customized) {
 		return nil, false
 	}
 	return o.Customized, true
@@ -72,7 +75,7 @@ func (o *WellKnownURIsRootEmbeddedAssetlinksJson) GetCustomizedOk() (*WellKnownU
 
 // HasCustomized returns a boolean if a field has been set.
 func (o *WellKnownURIsRootEmbeddedAssetlinksJson) HasCustomized() bool {
-	if o != nil && o.Customized != nil {
+	if o != nil && !IsNil(o.Customized) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *WellKnownURIsRootEmbeddedAssetlinksJson) SetCustomized(v WellKnownURIAr
 }
 
 func (o WellKnownURIsRootEmbeddedAssetlinksJson) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o WellKnownURIsRootEmbeddedAssetlinksJson) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Customized != nil {
+	if !IsNil(o.Customized) {
 		toSerialize["customized"] = o.Customized
 	}
 
@@ -94,27 +105,25 @@ func (o WellKnownURIsRootEmbeddedAssetlinksJson) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *WellKnownURIsRootEmbeddedAssetlinksJson) UnmarshalJSON(bytes []byte) (err error) {
+func (o *WellKnownURIsRootEmbeddedAssetlinksJson) UnmarshalJSON(data []byte) (err error) {
 	varWellKnownURIsRootEmbeddedAssetlinksJson := _WellKnownURIsRootEmbeddedAssetlinksJson{}
 
-	err = json.Unmarshal(bytes, &varWellKnownURIsRootEmbeddedAssetlinksJson)
-	if err == nil {
-		*o = WellKnownURIsRootEmbeddedAssetlinksJson(varWellKnownURIsRootEmbeddedAssetlinksJson)
-	} else {
+	err = json.Unmarshal(data, &varWellKnownURIsRootEmbeddedAssetlinksJson)
+
+	if err != nil {
 		return err
 	}
 
+	*o = WellKnownURIsRootEmbeddedAssetlinksJson(varWellKnownURIsRootEmbeddedAssetlinksJson)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "customized")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableWellKnownURIsRootEmbeddedAssetlinksJson) UnmarshalJSON(src []by
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

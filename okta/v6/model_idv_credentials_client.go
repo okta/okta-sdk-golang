@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,12 +28,15 @@ import (
 	"fmt"
 )
 
+// checks if the IDVCredentialsClient type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IDVCredentialsClient{}
+
 // IDVCredentialsClient <x-lifecycle-container><x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>Client credentials for `IDV_CLEAR` and `IDV_INCODE` IdP types
 type IDVCredentialsClient struct {
 	// The client ID that you generate in your IDV
 	ClientId string `json:"client_id"`
 	// The client secret that you generate in your IDV
-	ClientSecret string `json:"client_secret"`
+	ClientSecret         string `json:"client_secret"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,40 +110,64 @@ func (o *IDVCredentialsClient) SetClientSecret(v string) {
 }
 
 func (o IDVCredentialsClient) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IDVCredentialsClient) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["client_id"] = o.ClientId
-	}
-	if true {
-		toSerialize["client_secret"] = o.ClientSecret
-	}
+	toSerialize["client_id"] = o.ClientId
+	toSerialize["client_secret"] = o.ClientSecret
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *IDVCredentialsClient) UnmarshalJSON(bytes []byte) (err error) {
-	varIDVCredentialsClient := _IDVCredentialsClient{}
+func (o *IDVCredentialsClient) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"client_id",
+		"client_secret",
+	}
 
-	err = json.Unmarshal(bytes, &varIDVCredentialsClient)
-	if err == nil {
-		*o = IDVCredentialsClient(varIDVCredentialsClient)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varIDVCredentialsClient := _IDVCredentialsClient{}
+
+	err = json.Unmarshal(data, &varIDVCredentialsClient)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IDVCredentialsClient(varIDVCredentialsClient)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "client_id")
 		delete(additionalProperties, "client_secret")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -181,4 +208,3 @@ func (v *NullableIDVCredentialsClient) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the PrivilegedResourceUpdateRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PrivilegedResourceUpdateRequest{}
+
 // PrivilegedResourceUpdateRequest Update request for a privileged resource
 type PrivilegedResourceUpdateRequest struct {
 	// Specific profile properties for the privileged resource
 	Profile map[string]interface{} `json:"profile,omitempty"`
 	// The username associated with the privileged resource
-	UserName *string `json:"userName,omitempty"`
+	UserName             *string `json:"userName,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewPrivilegedResourceUpdateRequestWithDefaults() *PrivilegedResourceUpdateR
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *PrivilegedResourceUpdateRequest) GetProfile() map[string]interface{} {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -67,15 +70,15 @@ func (o *PrivilegedResourceUpdateRequest) GetProfile() map[string]interface{} {
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrivilegedResourceUpdateRequest) GetProfileOk() (map[string]interface{}, bool) {
-	if o == nil || o.Profile == nil {
-		return nil, false
+	if o == nil || IsNil(o.Profile) {
+		return map[string]interface{}{}, false
 	}
 	return o.Profile, true
 }
 
 // HasProfile returns a boolean if a field has been set.
 func (o *PrivilegedResourceUpdateRequest) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *PrivilegedResourceUpdateRequest) SetProfile(v map[string]interface{}) {
 
 // GetUserName returns the UserName field value if set, zero value otherwise.
 func (o *PrivilegedResourceUpdateRequest) GetUserName() string {
-	if o == nil || o.UserName == nil {
+	if o == nil || IsNil(o.UserName) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *PrivilegedResourceUpdateRequest) GetUserName() string {
 // GetUserNameOk returns a tuple with the UserName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrivilegedResourceUpdateRequest) GetUserNameOk() (*string, bool) {
-	if o == nil || o.UserName == nil {
+	if o == nil || IsNil(o.UserName) {
 		return nil, false
 	}
 	return o.UserName, true
@@ -107,7 +110,7 @@ func (o *PrivilegedResourceUpdateRequest) GetUserNameOk() (*string, bool) {
 
 // HasUserName returns a boolean if a field has been set.
 func (o *PrivilegedResourceUpdateRequest) HasUserName() bool {
-	if o != nil && o.UserName != nil {
+	if o != nil && !IsNil(o.UserName) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *PrivilegedResourceUpdateRequest) SetUserName(v string) {
 }
 
 func (o PrivilegedResourceUpdateRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PrivilegedResourceUpdateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Profile != nil {
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
-	if o.UserName != nil {
+	if !IsNil(o.UserName) {
 		toSerialize["userName"] = o.UserName
 	}
 
@@ -132,28 +143,26 @@ func (o PrivilegedResourceUpdateRequest) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PrivilegedResourceUpdateRequest) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PrivilegedResourceUpdateRequest) UnmarshalJSON(data []byte) (err error) {
 	varPrivilegedResourceUpdateRequest := _PrivilegedResourceUpdateRequest{}
 
-	err = json.Unmarshal(bytes, &varPrivilegedResourceUpdateRequest)
-	if err == nil {
-		*o = PrivilegedResourceUpdateRequest(varPrivilegedResourceUpdateRequest)
-	} else {
+	err = json.Unmarshal(data, &varPrivilegedResourceUpdateRequest)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PrivilegedResourceUpdateRequest(varPrivilegedResourceUpdateRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "profile")
 		delete(additionalProperties, "userName")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullablePrivilegedResourceUpdateRequest) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

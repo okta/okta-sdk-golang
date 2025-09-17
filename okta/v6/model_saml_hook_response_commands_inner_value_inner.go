@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the SAMLHookResponseCommandsInnerValueInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SAMLHookResponseCommandsInnerValueInner{}
+
 // SAMLHookResponseCommandsInnerValueInner struct for SAMLHookResponseCommandsInnerValueInner
 type SAMLHookResponseCommandsInnerValueInner struct {
 	// The name of one of the supported ops: `add`:  Add a new claim to the assertion `replace`: Modify any element of the assertion  > **Note:** If a response to the SAML assertion inline hook request isn't received from your external service within three seconds, a timeout occurs. In this scenario, the Okta process flow continues with the original SAML assertion returned.
 	Op *string `json:"op,omitempty"`
 	// Location, within the assertion, to apply the operation
-	Path *string `json:"path,omitempty"`
-	Value *SAMLHookResponseCommandsInnerValueInnerValue `json:"value,omitempty"`
+	Path                 *string                                       `json:"path,omitempty"`
+	Value                *SAMLHookResponseCommandsInnerValueInnerValue `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewSAMLHookResponseCommandsInnerValueInnerWithDefaults() *SAMLHookResponseC
 
 // GetOp returns the Op field value if set, zero value otherwise.
 func (o *SAMLHookResponseCommandsInnerValueInner) GetOp() string {
-	if o == nil || o.Op == nil {
+	if o == nil || IsNil(o.Op) {
 		var ret string
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *SAMLHookResponseCommandsInnerValueInner) GetOp() string {
 // GetOpOk returns a tuple with the Op field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLHookResponseCommandsInnerValueInner) GetOpOk() (*string, bool) {
-	if o == nil || o.Op == nil {
+	if o == nil || IsNil(o.Op) {
 		return nil, false
 	}
 	return o.Op, true
@@ -76,7 +79,7 @@ func (o *SAMLHookResponseCommandsInnerValueInner) GetOpOk() (*string, bool) {
 
 // HasOp returns a boolean if a field has been set.
 func (o *SAMLHookResponseCommandsInnerValueInner) HasOp() bool {
-	if o != nil && o.Op != nil {
+	if o != nil && !IsNil(o.Op) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *SAMLHookResponseCommandsInnerValueInner) SetOp(v string) {
 
 // GetPath returns the Path field value if set, zero value otherwise.
 func (o *SAMLHookResponseCommandsInnerValueInner) GetPath() string {
-	if o == nil || o.Path == nil {
+	if o == nil || IsNil(o.Path) {
 		var ret string
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *SAMLHookResponseCommandsInnerValueInner) GetPath() string {
 // GetPathOk returns a tuple with the Path field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLHookResponseCommandsInnerValueInner) GetPathOk() (*string, bool) {
-	if o == nil || o.Path == nil {
+	if o == nil || IsNil(o.Path) {
 		return nil, false
 	}
 	return o.Path, true
@@ -108,7 +111,7 @@ func (o *SAMLHookResponseCommandsInnerValueInner) GetPathOk() (*string, bool) {
 
 // HasPath returns a boolean if a field has been set.
 func (o *SAMLHookResponseCommandsInnerValueInner) HasPath() bool {
-	if o != nil && o.Path != nil {
+	if o != nil && !IsNil(o.Path) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *SAMLHookResponseCommandsInnerValueInner) SetPath(v string) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *SAMLHookResponseCommandsInnerValueInner) GetValue() SAMLHookResponseCommandsInnerValueInnerValue {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret SAMLHookResponseCommandsInnerValueInnerValue
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *SAMLHookResponseCommandsInnerValueInner) GetValue() SAMLHookResponseCom
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLHookResponseCommandsInnerValueInner) GetValueOk() (*SAMLHookResponseCommandsInnerValueInnerValue, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -140,7 +143,7 @@ func (o *SAMLHookResponseCommandsInnerValueInner) GetValueOk() (*SAMLHookRespons
 
 // HasValue returns a boolean if a field has been set.
 func (o *SAMLHookResponseCommandsInnerValueInner) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -153,14 +156,22 @@ func (o *SAMLHookResponseCommandsInnerValueInner) SetValue(v SAMLHookResponseCom
 }
 
 func (o SAMLHookResponseCommandsInnerValueInner) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SAMLHookResponseCommandsInnerValueInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Op != nil {
+	if !IsNil(o.Op) {
 		toSerialize["op"] = o.Op
 	}
-	if o.Path != nil {
+	if !IsNil(o.Path) {
 		toSerialize["path"] = o.Path
 	}
-	if o.Value != nil {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
 
@@ -168,29 +179,27 @@ func (o SAMLHookResponseCommandsInnerValueInner) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SAMLHookResponseCommandsInnerValueInner) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SAMLHookResponseCommandsInnerValueInner) UnmarshalJSON(data []byte) (err error) {
 	varSAMLHookResponseCommandsInnerValueInner := _SAMLHookResponseCommandsInnerValueInner{}
 
-	err = json.Unmarshal(bytes, &varSAMLHookResponseCommandsInnerValueInner)
-	if err == nil {
-		*o = SAMLHookResponseCommandsInnerValueInner(varSAMLHookResponseCommandsInnerValueInner)
-	} else {
+	err = json.Unmarshal(data, &varSAMLHookResponseCommandsInnerValueInner)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SAMLHookResponseCommandsInnerValueInner(varSAMLHookResponseCommandsInnerValueInner)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "op")
 		delete(additionalProperties, "path")
 		delete(additionalProperties, "value")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -231,4 +240,3 @@ func (v *NullableSAMLHookResponseCommandsInnerValueInner) UnmarshalJSON(src []by
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

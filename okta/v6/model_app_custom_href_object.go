@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"fmt"
 )
 
+// checks if the AppCustomHrefObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AppCustomHrefObject{}
+
 // AppCustomHrefObject struct for AppCustomHrefObject
 type AppCustomHrefObject struct {
 	Hints *AppCustomHrefObjectHints `json:"hints,omitempty"`
@@ -36,7 +39,7 @@ type AppCustomHrefObject struct {
 	// Link name
 	Title *string `json:"title,omitempty"`
 	// The media type of the link. If omitted, it is implicitly `application/json`.
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -62,7 +65,7 @@ func NewAppCustomHrefObjectWithDefaults() *AppCustomHrefObject {
 
 // GetHints returns the Hints field value if set, zero value otherwise.
 func (o *AppCustomHrefObject) GetHints() AppCustomHrefObjectHints {
-	if o == nil || o.Hints == nil {
+	if o == nil || IsNil(o.Hints) {
 		var ret AppCustomHrefObjectHints
 		return ret
 	}
@@ -72,7 +75,7 @@ func (o *AppCustomHrefObject) GetHints() AppCustomHrefObjectHints {
 // GetHintsOk returns a tuple with the Hints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppCustomHrefObject) GetHintsOk() (*AppCustomHrefObjectHints, bool) {
-	if o == nil || o.Hints == nil {
+	if o == nil || IsNil(o.Hints) {
 		return nil, false
 	}
 	return o.Hints, true
@@ -80,7 +83,7 @@ func (o *AppCustomHrefObject) GetHintsOk() (*AppCustomHrefObjectHints, bool) {
 
 // HasHints returns a boolean if a field has been set.
 func (o *AppCustomHrefObject) HasHints() bool {
-	if o != nil && o.Hints != nil {
+	if o != nil && !IsNil(o.Hints) {
 		return true
 	}
 
@@ -118,7 +121,7 @@ func (o *AppCustomHrefObject) SetHref(v string) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *AppCustomHrefObject) GetTitle() string {
-	if o == nil || o.Title == nil {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -128,7 +131,7 @@ func (o *AppCustomHrefObject) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppCustomHrefObject) GetTitleOk() (*string, bool) {
-	if o == nil || o.Title == nil {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -136,7 +139,7 @@ func (o *AppCustomHrefObject) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *AppCustomHrefObject) HasTitle() bool {
-	if o != nil && o.Title != nil {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -150,7 +153,7 @@ func (o *AppCustomHrefObject) SetTitle(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *AppCustomHrefObject) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -160,7 +163,7 @@ func (o *AppCustomHrefObject) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppCustomHrefObject) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -168,7 +171,7 @@ func (o *AppCustomHrefObject) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *AppCustomHrefObject) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -181,17 +184,23 @@ func (o *AppCustomHrefObject) SetType(v string) {
 }
 
 func (o AppCustomHrefObject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AppCustomHrefObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Hints != nil {
+	if !IsNil(o.Hints) {
 		toSerialize["hints"] = o.Hints
 	}
-	if true {
-		toSerialize["href"] = o.Href
-	}
-	if o.Title != nil {
+	toSerialize["href"] = o.Href
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -199,30 +208,49 @@ func (o AppCustomHrefObject) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AppCustomHrefObject) UnmarshalJSON(bytes []byte) (err error) {
-	varAppCustomHrefObject := _AppCustomHrefObject{}
+func (o *AppCustomHrefObject) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"href",
+	}
 
-	err = json.Unmarshal(bytes, &varAppCustomHrefObject)
-	if err == nil {
-		*o = AppCustomHrefObject(varAppCustomHrefObject)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAppCustomHrefObject := _AppCustomHrefObject{}
+
+	err = json.Unmarshal(data, &varAppCustomHrefObject)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AppCustomHrefObject(varAppCustomHrefObject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "hints")
 		delete(additionalProperties, "href")
 		delete(additionalProperties, "title")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -263,4 +291,3 @@ func (v *NullableAppCustomHrefObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

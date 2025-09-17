@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"fmt"
 )
 
+// checks if the DeviceContextProvider type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeviceContextProvider{}
+
 // DeviceContextProvider struct for DeviceContextProvider
 type DeviceContextProvider struct {
 	// Unique identifier for the device context provider
@@ -35,7 +38,7 @@ type DeviceContextProvider struct {
 	// Identifies the type of device context provider
 	Key string `json:"key"`
 	// Whether or not the device context provider is used to identify the user. `IGNORE` prevents the device context provider from being used to authenticate the user. Identification of the device and device context collection happens regardless of this setting.
-	UserIdentification *string `json:"userIdentification,omitempty"`
+	UserIdentification   *string `json:"userIdentification,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewDeviceContextProviderWithDefaults() *DeviceContextProvider {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *DeviceContextProvider) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *DeviceContextProvider) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceContextProvider) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -79,7 +82,7 @@ func (o *DeviceContextProvider) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *DeviceContextProvider) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -117,7 +120,7 @@ func (o *DeviceContextProvider) SetKey(v string) {
 
 // GetUserIdentification returns the UserIdentification field value if set, zero value otherwise.
 func (o *DeviceContextProvider) GetUserIdentification() string {
-	if o == nil || o.UserIdentification == nil {
+	if o == nil || IsNil(o.UserIdentification) {
 		var ret string
 		return ret
 	}
@@ -127,7 +130,7 @@ func (o *DeviceContextProvider) GetUserIdentification() string {
 // GetUserIdentificationOk returns a tuple with the UserIdentification field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceContextProvider) GetUserIdentificationOk() (*string, bool) {
-	if o == nil || o.UserIdentification == nil {
+	if o == nil || IsNil(o.UserIdentification) {
 		return nil, false
 	}
 	return o.UserIdentification, true
@@ -135,7 +138,7 @@ func (o *DeviceContextProvider) GetUserIdentificationOk() (*string, bool) {
 
 // HasUserIdentification returns a boolean if a field has been set.
 func (o *DeviceContextProvider) HasUserIdentification() bool {
-	if o != nil && o.UserIdentification != nil {
+	if o != nil && !IsNil(o.UserIdentification) {
 		return true
 	}
 
@@ -148,14 +151,20 @@ func (o *DeviceContextProvider) SetUserIdentification(v string) {
 }
 
 func (o DeviceContextProvider) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DeviceContextProvider) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if true {
-		toSerialize["key"] = o.Key
-	}
-	if o.UserIdentification != nil {
+	toSerialize["key"] = o.Key
+	if !IsNil(o.UserIdentification) {
 		toSerialize["userIdentification"] = o.UserIdentification
 	}
 
@@ -163,29 +172,48 @@ func (o DeviceContextProvider) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DeviceContextProvider) UnmarshalJSON(bytes []byte) (err error) {
-	varDeviceContextProvider := _DeviceContextProvider{}
+func (o *DeviceContextProvider) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"key",
+	}
 
-	err = json.Unmarshal(bytes, &varDeviceContextProvider)
-	if err == nil {
-		*o = DeviceContextProvider(varDeviceContextProvider)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varDeviceContextProvider := _DeviceContextProvider{}
+
+	err = json.Unmarshal(data, &varDeviceContextProvider)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DeviceContextProvider(varDeviceContextProvider)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "key")
 		delete(additionalProperties, "userIdentification")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -226,4 +254,3 @@ func (v *NullableDeviceContextProvider) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

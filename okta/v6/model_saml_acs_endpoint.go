@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the SamlAcsEndpoint type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SamlAcsEndpoint{}
+
 // SamlAcsEndpoint Okta's `SPSSODescriptor` endpoint where the IdP sends a `<SAMLResponse>` message
 type SamlAcsEndpoint struct {
 	Binding *string `json:"binding,omitempty"`
 	// Determines whether to publish an instance-specific (trust) or organization (shared) ACS endpoint in the SAML metadata
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +63,7 @@ func NewSamlAcsEndpointWithDefaults() *SamlAcsEndpoint {
 
 // GetBinding returns the Binding field value if set, zero value otherwise.
 func (o *SamlAcsEndpoint) GetBinding() string {
-	if o == nil || o.Binding == nil {
+	if o == nil || IsNil(o.Binding) {
 		var ret string
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *SamlAcsEndpoint) GetBinding() string {
 // GetBindingOk returns a tuple with the Binding field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlAcsEndpoint) GetBindingOk() (*string, bool) {
-	if o == nil || o.Binding == nil {
+	if o == nil || IsNil(o.Binding) {
 		return nil, false
 	}
 	return o.Binding, true
@@ -78,7 +81,7 @@ func (o *SamlAcsEndpoint) GetBindingOk() (*string, bool) {
 
 // HasBinding returns a boolean if a field has been set.
 func (o *SamlAcsEndpoint) HasBinding() bool {
-	if o != nil && o.Binding != nil {
+	if o != nil && !IsNil(o.Binding) {
 		return true
 	}
 
@@ -92,7 +95,7 @@ func (o *SamlAcsEndpoint) SetBinding(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *SamlAcsEndpoint) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *SamlAcsEndpoint) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlAcsEndpoint) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -110,7 +113,7 @@ func (o *SamlAcsEndpoint) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *SamlAcsEndpoint) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -123,11 +126,19 @@ func (o *SamlAcsEndpoint) SetType(v string) {
 }
 
 func (o SamlAcsEndpoint) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SamlAcsEndpoint) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Binding != nil {
+	if !IsNil(o.Binding) {
 		toSerialize["binding"] = o.Binding
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -135,28 +146,26 @@ func (o SamlAcsEndpoint) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SamlAcsEndpoint) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SamlAcsEndpoint) UnmarshalJSON(data []byte) (err error) {
 	varSamlAcsEndpoint := _SamlAcsEndpoint{}
 
-	err = json.Unmarshal(bytes, &varSamlAcsEndpoint)
-	if err == nil {
-		*o = SamlAcsEndpoint(varSamlAcsEndpoint)
-	} else {
+	err = json.Unmarshal(data, &varSamlAcsEndpoint)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SamlAcsEndpoint(varSamlAcsEndpoint)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "binding")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -197,4 +206,3 @@ func (v *NullableSamlAcsEndpoint) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

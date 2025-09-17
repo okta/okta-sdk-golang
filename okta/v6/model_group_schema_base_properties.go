@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the GroupSchemaBaseProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GroupSchemaBaseProperties{}
+
 // GroupSchemaBaseProperties All Okta-defined profile properties are defined in a profile subschema with the resolution scope `#base`. These properties can't be removed or edited, regardless of any attempt to do so.
 type GroupSchemaBaseProperties struct {
 	// Human readable description of the group
 	Description *GroupSchemaAttribute `json:"description,omitempty"`
 	// Unique identifier for the group
-	Name *GroupSchemaAttribute `json:"name,omitempty"`
+	Name                 *GroupSchemaAttribute `json:"name,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewGroupSchemaBasePropertiesWithDefaults() *GroupSchemaBaseProperties {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *GroupSchemaBaseProperties) GetDescription() GroupSchemaAttribute {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret GroupSchemaAttribute
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *GroupSchemaBaseProperties) GetDescription() GroupSchemaAttribute {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupSchemaBaseProperties) GetDescriptionOk() (*GroupSchemaAttribute, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -75,7 +78,7 @@ func (o *GroupSchemaBaseProperties) GetDescriptionOk() (*GroupSchemaAttribute, b
 
 // HasDescription returns a boolean if a field has been set.
 func (o *GroupSchemaBaseProperties) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *GroupSchemaBaseProperties) SetDescription(v GroupSchemaAttribute) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *GroupSchemaBaseProperties) GetName() GroupSchemaAttribute {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret GroupSchemaAttribute
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *GroupSchemaBaseProperties) GetName() GroupSchemaAttribute {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupSchemaBaseProperties) GetNameOk() (*GroupSchemaAttribute, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -107,7 +110,7 @@ func (o *GroupSchemaBaseProperties) GetNameOk() (*GroupSchemaAttribute, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *GroupSchemaBaseProperties) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *GroupSchemaBaseProperties) SetName(v GroupSchemaAttribute) {
 }
 
 func (o GroupSchemaBaseProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o GroupSchemaBaseProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
 
@@ -132,28 +143,26 @@ func (o GroupSchemaBaseProperties) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *GroupSchemaBaseProperties) UnmarshalJSON(bytes []byte) (err error) {
+func (o *GroupSchemaBaseProperties) UnmarshalJSON(data []byte) (err error) {
 	varGroupSchemaBaseProperties := _GroupSchemaBaseProperties{}
 
-	err = json.Unmarshal(bytes, &varGroupSchemaBaseProperties)
-	if err == nil {
-		*o = GroupSchemaBaseProperties(varGroupSchemaBaseProperties)
-	} else {
+	err = json.Unmarshal(data, &varGroupSchemaBaseProperties)
+
+	if err != nil {
 		return err
 	}
 
+	*o = GroupSchemaBaseProperties(varGroupSchemaBaseProperties)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "name")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableGroupSchemaBaseProperties) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

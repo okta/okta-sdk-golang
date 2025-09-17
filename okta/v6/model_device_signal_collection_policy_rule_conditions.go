@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the DeviceSignalCollectionPolicyRuleConditions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeviceSignalCollectionPolicyRuleConditions{}
+
 // DeviceSignalCollectionPolicyRuleConditions <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Specifies conditions that must be met during policy evaluation to apply the rule. All policy conditions, as well as conditions for at least one rule must be met to apply the settings specified in the policy and the associated rule.
 type DeviceSignalCollectionPolicyRuleConditions struct {
-	Network *PolicyNetworkCondition `json:"network,omitempty"`
-	Platform *PlatformPolicyRuleCondition `json:"platform,omitempty"`
+	Network              *PolicyNetworkCondition      `json:"network,omitempty"`
+	Platform             *PlatformPolicyRuleCondition `json:"platform,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewDeviceSignalCollectionPolicyRuleConditionsWithDefaults() *DeviceSignalCo
 
 // GetNetwork returns the Network field value if set, zero value otherwise.
 func (o *DeviceSignalCollectionPolicyRuleConditions) GetNetwork() PolicyNetworkCondition {
-	if o == nil || o.Network == nil {
+	if o == nil || IsNil(o.Network) {
 		var ret PolicyNetworkCondition
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *DeviceSignalCollectionPolicyRuleConditions) GetNetwork() PolicyNetworkC
 // GetNetworkOk returns a tuple with the Network field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceSignalCollectionPolicyRuleConditions) GetNetworkOk() (*PolicyNetworkCondition, bool) {
-	if o == nil || o.Network == nil {
+	if o == nil || IsNil(o.Network) {
 		return nil, false
 	}
 	return o.Network, true
@@ -73,7 +76,7 @@ func (o *DeviceSignalCollectionPolicyRuleConditions) GetNetworkOk() (*PolicyNetw
 
 // HasNetwork returns a boolean if a field has been set.
 func (o *DeviceSignalCollectionPolicyRuleConditions) HasNetwork() bool {
-	if o != nil && o.Network != nil {
+	if o != nil && !IsNil(o.Network) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *DeviceSignalCollectionPolicyRuleConditions) SetNetwork(v PolicyNetworkC
 
 // GetPlatform returns the Platform field value if set, zero value otherwise.
 func (o *DeviceSignalCollectionPolicyRuleConditions) GetPlatform() PlatformPolicyRuleCondition {
-	if o == nil || o.Platform == nil {
+	if o == nil || IsNil(o.Platform) {
 		var ret PlatformPolicyRuleCondition
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *DeviceSignalCollectionPolicyRuleConditions) GetPlatform() PlatformPolic
 // GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceSignalCollectionPolicyRuleConditions) GetPlatformOk() (*PlatformPolicyRuleCondition, bool) {
-	if o == nil || o.Platform == nil {
+	if o == nil || IsNil(o.Platform) {
 		return nil, false
 	}
 	return o.Platform, true
@@ -105,7 +108,7 @@ func (o *DeviceSignalCollectionPolicyRuleConditions) GetPlatformOk() (*PlatformP
 
 // HasPlatform returns a boolean if a field has been set.
 func (o *DeviceSignalCollectionPolicyRuleConditions) HasPlatform() bool {
-	if o != nil && o.Platform != nil {
+	if o != nil && !IsNil(o.Platform) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *DeviceSignalCollectionPolicyRuleConditions) SetPlatform(v PlatformPolic
 }
 
 func (o DeviceSignalCollectionPolicyRuleConditions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DeviceSignalCollectionPolicyRuleConditions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Network != nil {
+	if !IsNil(o.Network) {
 		toSerialize["network"] = o.Network
 	}
-	if o.Platform != nil {
+	if !IsNil(o.Platform) {
 		toSerialize["platform"] = o.Platform
 	}
 
@@ -130,28 +141,26 @@ func (o DeviceSignalCollectionPolicyRuleConditions) MarshalJSON() ([]byte, error
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DeviceSignalCollectionPolicyRuleConditions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DeviceSignalCollectionPolicyRuleConditions) UnmarshalJSON(data []byte) (err error) {
 	varDeviceSignalCollectionPolicyRuleConditions := _DeviceSignalCollectionPolicyRuleConditions{}
 
-	err = json.Unmarshal(bytes, &varDeviceSignalCollectionPolicyRuleConditions)
-	if err == nil {
-		*o = DeviceSignalCollectionPolicyRuleConditions(varDeviceSignalCollectionPolicyRuleConditions)
-	} else {
+	err = json.Unmarshal(data, &varDeviceSignalCollectionPolicyRuleConditions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DeviceSignalCollectionPolicyRuleConditions(varDeviceSignalCollectionPolicyRuleConditions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "network")
 		delete(additionalProperties, "platform")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableDeviceSignalCollectionPolicyRuleConditions) UnmarshalJSON(src [
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

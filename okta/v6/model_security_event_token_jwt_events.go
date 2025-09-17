@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the SecurityEventTokenJwtEvents type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SecurityEventTokenJwtEvents{}
+
 // SecurityEventTokenJwtEvents A non-empty set of events. Expected size is 1 for each SET
 type SecurityEventTokenJwtEvents struct {
 	HttpsSchemasOpenidNetSeceventCaepEventTypeCredentialChange *CaepCredentialChangeEvent `json:"https://schemas.openid.net/secevent/caep/event-type/credential-change,omitempty"`
-	HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked *CaepSessionRevokedEvent `json:"https://schemas.openid.net/secevent/caep/event-type/session-revoked,omitempty"`
-	AdditionalProperties map[string]interface{}
+	HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked   *CaepSessionRevokedEvent   `json:"https://schemas.openid.net/secevent/caep/event-type/session-revoked,omitempty"`
+	AdditionalProperties                                       map[string]interface{}
 }
 
 type _SecurityEventTokenJwtEvents SecurityEventTokenJwtEvents
@@ -55,7 +58,7 @@ func NewSecurityEventTokenJwtEventsWithDefaults() *SecurityEventTokenJwtEvents {
 
 // GetHttpsSchemasOpenidNetSeceventCaepEventTypeCredentialChange returns the HttpsSchemasOpenidNetSeceventCaepEventTypeCredentialChange field value if set, zero value otherwise.
 func (o *SecurityEventTokenJwtEvents) GetHttpsSchemasOpenidNetSeceventCaepEventTypeCredentialChange() CaepCredentialChangeEvent {
-	if o == nil || o.HttpsSchemasOpenidNetSeceventCaepEventTypeCredentialChange == nil {
+	if o == nil || IsNil(o.HttpsSchemasOpenidNetSeceventCaepEventTypeCredentialChange) {
 		var ret CaepCredentialChangeEvent
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *SecurityEventTokenJwtEvents) GetHttpsSchemasOpenidNetSeceventCaepEventT
 // GetHttpsSchemasOpenidNetSeceventCaepEventTypeCredentialChangeOk returns a tuple with the HttpsSchemasOpenidNetSeceventCaepEventTypeCredentialChange field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityEventTokenJwtEvents) GetHttpsSchemasOpenidNetSeceventCaepEventTypeCredentialChangeOk() (*CaepCredentialChangeEvent, bool) {
-	if o == nil || o.HttpsSchemasOpenidNetSeceventCaepEventTypeCredentialChange == nil {
+	if o == nil || IsNil(o.HttpsSchemasOpenidNetSeceventCaepEventTypeCredentialChange) {
 		return nil, false
 	}
 	return o.HttpsSchemasOpenidNetSeceventCaepEventTypeCredentialChange, true
@@ -73,7 +76,7 @@ func (o *SecurityEventTokenJwtEvents) GetHttpsSchemasOpenidNetSeceventCaepEventT
 
 // HasHttpsSchemasOpenidNetSeceventCaepEventTypeCredentialChange returns a boolean if a field has been set.
 func (o *SecurityEventTokenJwtEvents) HasHttpsSchemasOpenidNetSeceventCaepEventTypeCredentialChange() bool {
-	if o != nil && o.HttpsSchemasOpenidNetSeceventCaepEventTypeCredentialChange != nil {
+	if o != nil && !IsNil(o.HttpsSchemasOpenidNetSeceventCaepEventTypeCredentialChange) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *SecurityEventTokenJwtEvents) SetHttpsSchemasOpenidNetSeceventCaepEventT
 
 // GetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked returns the HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked field value if set, zero value otherwise.
 func (o *SecurityEventTokenJwtEvents) GetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked() CaepSessionRevokedEvent {
-	if o == nil || o.HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked == nil {
+	if o == nil || IsNil(o.HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked) {
 		var ret CaepSessionRevokedEvent
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *SecurityEventTokenJwtEvents) GetHttpsSchemasOpenidNetSeceventCaepEventT
 // GetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevokedOk returns a tuple with the HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityEventTokenJwtEvents) GetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevokedOk() (*CaepSessionRevokedEvent, bool) {
-	if o == nil || o.HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked == nil {
+	if o == nil || IsNil(o.HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked) {
 		return nil, false
 	}
 	return o.HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked, true
@@ -105,7 +108,7 @@ func (o *SecurityEventTokenJwtEvents) GetHttpsSchemasOpenidNetSeceventCaepEventT
 
 // HasHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked returns a boolean if a field has been set.
 func (o *SecurityEventTokenJwtEvents) HasHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked() bool {
-	if o != nil && o.HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked != nil {
+	if o != nil && !IsNil(o.HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *SecurityEventTokenJwtEvents) SetHttpsSchemasOpenidNetSeceventCaepEventT
 }
 
 func (o SecurityEventTokenJwtEvents) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SecurityEventTokenJwtEvents) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.HttpsSchemasOpenidNetSeceventCaepEventTypeCredentialChange != nil {
+	if !IsNil(o.HttpsSchemasOpenidNetSeceventCaepEventTypeCredentialChange) {
 		toSerialize["https://schemas.openid.net/secevent/caep/event-type/credential-change"] = o.HttpsSchemasOpenidNetSeceventCaepEventTypeCredentialChange
 	}
-	if o.HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked != nil {
+	if !IsNil(o.HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked) {
 		toSerialize["https://schemas.openid.net/secevent/caep/event-type/session-revoked"] = o.HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked
 	}
 
@@ -130,28 +141,26 @@ func (o SecurityEventTokenJwtEvents) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SecurityEventTokenJwtEvents) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SecurityEventTokenJwtEvents) UnmarshalJSON(data []byte) (err error) {
 	varSecurityEventTokenJwtEvents := _SecurityEventTokenJwtEvents{}
 
-	err = json.Unmarshal(bytes, &varSecurityEventTokenJwtEvents)
-	if err == nil {
-		*o = SecurityEventTokenJwtEvents(varSecurityEventTokenJwtEvents)
-	} else {
+	err = json.Unmarshal(data, &varSecurityEventTokenJwtEvents)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SecurityEventTokenJwtEvents(varSecurityEventTokenJwtEvents)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "https://schemas.openid.net/secevent/caep/event-type/credential-change")
 		delete(additionalProperties, "https://schemas.openid.net/secevent/caep/event-type/session-revoked")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableSecurityEventTokenJwtEvents) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package okta
 import (
 	"encoding/json"
 )
+
+// checks if the SignInPageAllOfWidgetCustomizations type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SignInPageAllOfWidgetCustomizations{}
 
 // SignInPageAllOfWidgetCustomizations struct for SignInPageAllOfWidgetCustomizations
 type SignInPageAllOfWidgetCustomizations struct {
@@ -70,11 +73,11 @@ type SignInPageAllOfWidgetCustomizations struct {
 	// The label for the username field in the classic recovery flow
 	ClassicRecoveryFlowEmailOrUsernameLabel *string `json:"classicRecoveryFlowEmailOrUsernameLabel,omitempty"`
 	// The generation of the Sign-in Widget
-	WidgetGeneration *string `json:"widgetGeneration,omitempty"`
+	WidgetGeneration             *string                       `json:"widgetGeneration,omitempty"`
 	PostAuthKeepMeSignedInPrompt *PostAuthKeepMeSignedInPrompt `json:"postAuthKeepMeSignedInPrompt,omitempty"`
 	// The title of the footer link on the sign-in page. Only applicable for Classic Engine orgs.
 	ClassicFooterHelpTitle *string `json:"classicFooterHelpTitle,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties   map[string]interface{}
 }
 
 type _SignInPageAllOfWidgetCustomizations SignInPageAllOfWidgetCustomizations
@@ -98,7 +101,7 @@ func NewSignInPageAllOfWidgetCustomizationsWithDefaults() *SignInPageAllOfWidget
 
 // GetSignInLabel returns the SignInLabel field value if set, zero value otherwise.
 func (o *SignInPageAllOfWidgetCustomizations) GetSignInLabel() string {
-	if o == nil || o.SignInLabel == nil {
+	if o == nil || IsNil(o.SignInLabel) {
 		var ret string
 		return ret
 	}
@@ -108,7 +111,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetSignInLabel() string {
 // GetSignInLabelOk returns a tuple with the SignInLabel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SignInPageAllOfWidgetCustomizations) GetSignInLabelOk() (*string, bool) {
-	if o == nil || o.SignInLabel == nil {
+	if o == nil || IsNil(o.SignInLabel) {
 		return nil, false
 	}
 	return o.SignInLabel, true
@@ -116,7 +119,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetSignInLabelOk() (*string, bool)
 
 // HasSignInLabel returns a boolean if a field has been set.
 func (o *SignInPageAllOfWidgetCustomizations) HasSignInLabel() bool {
-	if o != nil && o.SignInLabel != nil {
+	if o != nil && !IsNil(o.SignInLabel) {
 		return true
 	}
 
@@ -130,7 +133,7 @@ func (o *SignInPageAllOfWidgetCustomizations) SetSignInLabel(v string) {
 
 // GetUsernameLabel returns the UsernameLabel field value if set, zero value otherwise.
 func (o *SignInPageAllOfWidgetCustomizations) GetUsernameLabel() string {
-	if o == nil || o.UsernameLabel == nil {
+	if o == nil || IsNil(o.UsernameLabel) {
 		var ret string
 		return ret
 	}
@@ -140,7 +143,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetUsernameLabel() string {
 // GetUsernameLabelOk returns a tuple with the UsernameLabel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SignInPageAllOfWidgetCustomizations) GetUsernameLabelOk() (*string, bool) {
-	if o == nil || o.UsernameLabel == nil {
+	if o == nil || IsNil(o.UsernameLabel) {
 		return nil, false
 	}
 	return o.UsernameLabel, true
@@ -148,7 +151,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetUsernameLabelOk() (*string, boo
 
 // HasUsernameLabel returns a boolean if a field has been set.
 func (o *SignInPageAllOfWidgetCustomizations) HasUsernameLabel() bool {
-	if o != nil && o.UsernameLabel != nil {
+	if o != nil && !IsNil(o.UsernameLabel) {
 		return true
 	}
 
@@ -162,7 +165,7 @@ func (o *SignInPageAllOfWidgetCustomizations) SetUsernameLabel(v string) {
 
 // GetUsernameInfoTip returns the UsernameInfoTip field value if set, zero value otherwise.
 func (o *SignInPageAllOfWidgetCustomizations) GetUsernameInfoTip() string {
-	if o == nil || o.UsernameInfoTip == nil {
+	if o == nil || IsNil(o.UsernameInfoTip) {
 		var ret string
 		return ret
 	}
@@ -172,7 +175,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetUsernameInfoTip() string {
 // GetUsernameInfoTipOk returns a tuple with the UsernameInfoTip field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SignInPageAllOfWidgetCustomizations) GetUsernameInfoTipOk() (*string, bool) {
-	if o == nil || o.UsernameInfoTip == nil {
+	if o == nil || IsNil(o.UsernameInfoTip) {
 		return nil, false
 	}
 	return o.UsernameInfoTip, true
@@ -180,7 +183,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetUsernameInfoTipOk() (*string, b
 
 // HasUsernameInfoTip returns a boolean if a field has been set.
 func (o *SignInPageAllOfWidgetCustomizations) HasUsernameInfoTip() bool {
-	if o != nil && o.UsernameInfoTip != nil {
+	if o != nil && !IsNil(o.UsernameInfoTip) {
 		return true
 	}
 
@@ -194,7 +197,7 @@ func (o *SignInPageAllOfWidgetCustomizations) SetUsernameInfoTip(v string) {
 
 // GetPasswordLabel returns the PasswordLabel field value if set, zero value otherwise.
 func (o *SignInPageAllOfWidgetCustomizations) GetPasswordLabel() string {
-	if o == nil || o.PasswordLabel == nil {
+	if o == nil || IsNil(o.PasswordLabel) {
 		var ret string
 		return ret
 	}
@@ -204,7 +207,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetPasswordLabel() string {
 // GetPasswordLabelOk returns a tuple with the PasswordLabel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SignInPageAllOfWidgetCustomizations) GetPasswordLabelOk() (*string, bool) {
-	if o == nil || o.PasswordLabel == nil {
+	if o == nil || IsNil(o.PasswordLabel) {
 		return nil, false
 	}
 	return o.PasswordLabel, true
@@ -212,7 +215,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetPasswordLabelOk() (*string, boo
 
 // HasPasswordLabel returns a boolean if a field has been set.
 func (o *SignInPageAllOfWidgetCustomizations) HasPasswordLabel() bool {
-	if o != nil && o.PasswordLabel != nil {
+	if o != nil && !IsNil(o.PasswordLabel) {
 		return true
 	}
 
@@ -226,7 +229,7 @@ func (o *SignInPageAllOfWidgetCustomizations) SetPasswordLabel(v string) {
 
 // GetPasswordInfoTip returns the PasswordInfoTip field value if set, zero value otherwise.
 func (o *SignInPageAllOfWidgetCustomizations) GetPasswordInfoTip() string {
-	if o == nil || o.PasswordInfoTip == nil {
+	if o == nil || IsNil(o.PasswordInfoTip) {
 		var ret string
 		return ret
 	}
@@ -236,7 +239,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetPasswordInfoTip() string {
 // GetPasswordInfoTipOk returns a tuple with the PasswordInfoTip field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SignInPageAllOfWidgetCustomizations) GetPasswordInfoTipOk() (*string, bool) {
-	if o == nil || o.PasswordInfoTip == nil {
+	if o == nil || IsNil(o.PasswordInfoTip) {
 		return nil, false
 	}
 	return o.PasswordInfoTip, true
@@ -244,7 +247,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetPasswordInfoTipOk() (*string, b
 
 // HasPasswordInfoTip returns a boolean if a field has been set.
 func (o *SignInPageAllOfWidgetCustomizations) HasPasswordInfoTip() bool {
-	if o != nil && o.PasswordInfoTip != nil {
+	if o != nil && !IsNil(o.PasswordInfoTip) {
 		return true
 	}
 
@@ -258,7 +261,7 @@ func (o *SignInPageAllOfWidgetCustomizations) SetPasswordInfoTip(v string) {
 
 // GetShowPasswordVisibilityToggle returns the ShowPasswordVisibilityToggle field value if set, zero value otherwise.
 func (o *SignInPageAllOfWidgetCustomizations) GetShowPasswordVisibilityToggle() bool {
-	if o == nil || o.ShowPasswordVisibilityToggle == nil {
+	if o == nil || IsNil(o.ShowPasswordVisibilityToggle) {
 		var ret bool
 		return ret
 	}
@@ -268,7 +271,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetShowPasswordVisibilityToggle() 
 // GetShowPasswordVisibilityToggleOk returns a tuple with the ShowPasswordVisibilityToggle field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SignInPageAllOfWidgetCustomizations) GetShowPasswordVisibilityToggleOk() (*bool, bool) {
-	if o == nil || o.ShowPasswordVisibilityToggle == nil {
+	if o == nil || IsNil(o.ShowPasswordVisibilityToggle) {
 		return nil, false
 	}
 	return o.ShowPasswordVisibilityToggle, true
@@ -276,7 +279,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetShowPasswordVisibilityToggleOk(
 
 // HasShowPasswordVisibilityToggle returns a boolean if a field has been set.
 func (o *SignInPageAllOfWidgetCustomizations) HasShowPasswordVisibilityToggle() bool {
-	if o != nil && o.ShowPasswordVisibilityToggle != nil {
+	if o != nil && !IsNil(o.ShowPasswordVisibilityToggle) {
 		return true
 	}
 
@@ -290,7 +293,7 @@ func (o *SignInPageAllOfWidgetCustomizations) SetShowPasswordVisibilityToggle(v 
 
 // GetShowUserIdentifier returns the ShowUserIdentifier field value if set, zero value otherwise.
 func (o *SignInPageAllOfWidgetCustomizations) GetShowUserIdentifier() bool {
-	if o == nil || o.ShowUserIdentifier == nil {
+	if o == nil || IsNil(o.ShowUserIdentifier) {
 		var ret bool
 		return ret
 	}
@@ -300,7 +303,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetShowUserIdentifier() bool {
 // GetShowUserIdentifierOk returns a tuple with the ShowUserIdentifier field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SignInPageAllOfWidgetCustomizations) GetShowUserIdentifierOk() (*bool, bool) {
-	if o == nil || o.ShowUserIdentifier == nil {
+	if o == nil || IsNil(o.ShowUserIdentifier) {
 		return nil, false
 	}
 	return o.ShowUserIdentifier, true
@@ -308,7 +311,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetShowUserIdentifierOk() (*bool, 
 
 // HasShowUserIdentifier returns a boolean if a field has been set.
 func (o *SignInPageAllOfWidgetCustomizations) HasShowUserIdentifier() bool {
-	if o != nil && o.ShowUserIdentifier != nil {
+	if o != nil && !IsNil(o.ShowUserIdentifier) {
 		return true
 	}
 
@@ -322,7 +325,7 @@ func (o *SignInPageAllOfWidgetCustomizations) SetShowUserIdentifier(v bool) {
 
 // GetForgotPasswordLabel returns the ForgotPasswordLabel field value if set, zero value otherwise.
 func (o *SignInPageAllOfWidgetCustomizations) GetForgotPasswordLabel() string {
-	if o == nil || o.ForgotPasswordLabel == nil {
+	if o == nil || IsNil(o.ForgotPasswordLabel) {
 		var ret string
 		return ret
 	}
@@ -332,7 +335,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetForgotPasswordLabel() string {
 // GetForgotPasswordLabelOk returns a tuple with the ForgotPasswordLabel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SignInPageAllOfWidgetCustomizations) GetForgotPasswordLabelOk() (*string, bool) {
-	if o == nil || o.ForgotPasswordLabel == nil {
+	if o == nil || IsNil(o.ForgotPasswordLabel) {
 		return nil, false
 	}
 	return o.ForgotPasswordLabel, true
@@ -340,7 +343,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetForgotPasswordLabelOk() (*strin
 
 // HasForgotPasswordLabel returns a boolean if a field has been set.
 func (o *SignInPageAllOfWidgetCustomizations) HasForgotPasswordLabel() bool {
-	if o != nil && o.ForgotPasswordLabel != nil {
+	if o != nil && !IsNil(o.ForgotPasswordLabel) {
 		return true
 	}
 
@@ -354,7 +357,7 @@ func (o *SignInPageAllOfWidgetCustomizations) SetForgotPasswordLabel(v string) {
 
 // GetForgotPasswordUrl returns the ForgotPasswordUrl field value if set, zero value otherwise.
 func (o *SignInPageAllOfWidgetCustomizations) GetForgotPasswordUrl() string {
-	if o == nil || o.ForgotPasswordUrl == nil {
+	if o == nil || IsNil(o.ForgotPasswordUrl) {
 		var ret string
 		return ret
 	}
@@ -364,7 +367,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetForgotPasswordUrl() string {
 // GetForgotPasswordUrlOk returns a tuple with the ForgotPasswordUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SignInPageAllOfWidgetCustomizations) GetForgotPasswordUrlOk() (*string, bool) {
-	if o == nil || o.ForgotPasswordUrl == nil {
+	if o == nil || IsNil(o.ForgotPasswordUrl) {
 		return nil, false
 	}
 	return o.ForgotPasswordUrl, true
@@ -372,7 +375,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetForgotPasswordUrlOk() (*string,
 
 // HasForgotPasswordUrl returns a boolean if a field has been set.
 func (o *SignInPageAllOfWidgetCustomizations) HasForgotPasswordUrl() bool {
-	if o != nil && o.ForgotPasswordUrl != nil {
+	if o != nil && !IsNil(o.ForgotPasswordUrl) {
 		return true
 	}
 
@@ -386,7 +389,7 @@ func (o *SignInPageAllOfWidgetCustomizations) SetForgotPasswordUrl(v string) {
 
 // GetUnlockAccountLabel returns the UnlockAccountLabel field value if set, zero value otherwise.
 func (o *SignInPageAllOfWidgetCustomizations) GetUnlockAccountLabel() string {
-	if o == nil || o.UnlockAccountLabel == nil {
+	if o == nil || IsNil(o.UnlockAccountLabel) {
 		var ret string
 		return ret
 	}
@@ -396,7 +399,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetUnlockAccountLabel() string {
 // GetUnlockAccountLabelOk returns a tuple with the UnlockAccountLabel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SignInPageAllOfWidgetCustomizations) GetUnlockAccountLabelOk() (*string, bool) {
-	if o == nil || o.UnlockAccountLabel == nil {
+	if o == nil || IsNil(o.UnlockAccountLabel) {
 		return nil, false
 	}
 	return o.UnlockAccountLabel, true
@@ -404,7 +407,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetUnlockAccountLabelOk() (*string
 
 // HasUnlockAccountLabel returns a boolean if a field has been set.
 func (o *SignInPageAllOfWidgetCustomizations) HasUnlockAccountLabel() bool {
-	if o != nil && o.UnlockAccountLabel != nil {
+	if o != nil && !IsNil(o.UnlockAccountLabel) {
 		return true
 	}
 
@@ -418,7 +421,7 @@ func (o *SignInPageAllOfWidgetCustomizations) SetUnlockAccountLabel(v string) {
 
 // GetUnlockAccountUrl returns the UnlockAccountUrl field value if set, zero value otherwise.
 func (o *SignInPageAllOfWidgetCustomizations) GetUnlockAccountUrl() string {
-	if o == nil || o.UnlockAccountUrl == nil {
+	if o == nil || IsNil(o.UnlockAccountUrl) {
 		var ret string
 		return ret
 	}
@@ -428,7 +431,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetUnlockAccountUrl() string {
 // GetUnlockAccountUrlOk returns a tuple with the UnlockAccountUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SignInPageAllOfWidgetCustomizations) GetUnlockAccountUrlOk() (*string, bool) {
-	if o == nil || o.UnlockAccountUrl == nil {
+	if o == nil || IsNil(o.UnlockAccountUrl) {
 		return nil, false
 	}
 	return o.UnlockAccountUrl, true
@@ -436,7 +439,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetUnlockAccountUrlOk() (*string, 
 
 // HasUnlockAccountUrl returns a boolean if a field has been set.
 func (o *SignInPageAllOfWidgetCustomizations) HasUnlockAccountUrl() bool {
-	if o != nil && o.UnlockAccountUrl != nil {
+	if o != nil && !IsNil(o.UnlockAccountUrl) {
 		return true
 	}
 
@@ -450,7 +453,7 @@ func (o *SignInPageAllOfWidgetCustomizations) SetUnlockAccountUrl(v string) {
 
 // GetHelpLabel returns the HelpLabel field value if set, zero value otherwise.
 func (o *SignInPageAllOfWidgetCustomizations) GetHelpLabel() string {
-	if o == nil || o.HelpLabel == nil {
+	if o == nil || IsNil(o.HelpLabel) {
 		var ret string
 		return ret
 	}
@@ -460,7 +463,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetHelpLabel() string {
 // GetHelpLabelOk returns a tuple with the HelpLabel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SignInPageAllOfWidgetCustomizations) GetHelpLabelOk() (*string, bool) {
-	if o == nil || o.HelpLabel == nil {
+	if o == nil || IsNil(o.HelpLabel) {
 		return nil, false
 	}
 	return o.HelpLabel, true
@@ -468,7 +471,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetHelpLabelOk() (*string, bool) {
 
 // HasHelpLabel returns a boolean if a field has been set.
 func (o *SignInPageAllOfWidgetCustomizations) HasHelpLabel() bool {
-	if o != nil && o.HelpLabel != nil {
+	if o != nil && !IsNil(o.HelpLabel) {
 		return true
 	}
 
@@ -482,7 +485,7 @@ func (o *SignInPageAllOfWidgetCustomizations) SetHelpLabel(v string) {
 
 // GetHelpUrl returns the HelpUrl field value if set, zero value otherwise.
 func (o *SignInPageAllOfWidgetCustomizations) GetHelpUrl() string {
-	if o == nil || o.HelpUrl == nil {
+	if o == nil || IsNil(o.HelpUrl) {
 		var ret string
 		return ret
 	}
@@ -492,7 +495,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetHelpUrl() string {
 // GetHelpUrlOk returns a tuple with the HelpUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SignInPageAllOfWidgetCustomizations) GetHelpUrlOk() (*string, bool) {
-	if o == nil || o.HelpUrl == nil {
+	if o == nil || IsNil(o.HelpUrl) {
 		return nil, false
 	}
 	return o.HelpUrl, true
@@ -500,7 +503,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetHelpUrlOk() (*string, bool) {
 
 // HasHelpUrl returns a boolean if a field has been set.
 func (o *SignInPageAllOfWidgetCustomizations) HasHelpUrl() bool {
-	if o != nil && o.HelpUrl != nil {
+	if o != nil && !IsNil(o.HelpUrl) {
 		return true
 	}
 
@@ -514,7 +517,7 @@ func (o *SignInPageAllOfWidgetCustomizations) SetHelpUrl(v string) {
 
 // GetCustomLink1Label returns the CustomLink1Label field value if set, zero value otherwise.
 func (o *SignInPageAllOfWidgetCustomizations) GetCustomLink1Label() string {
-	if o == nil || o.CustomLink1Label == nil {
+	if o == nil || IsNil(o.CustomLink1Label) {
 		var ret string
 		return ret
 	}
@@ -524,7 +527,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetCustomLink1Label() string {
 // GetCustomLink1LabelOk returns a tuple with the CustomLink1Label field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SignInPageAllOfWidgetCustomizations) GetCustomLink1LabelOk() (*string, bool) {
-	if o == nil || o.CustomLink1Label == nil {
+	if o == nil || IsNil(o.CustomLink1Label) {
 		return nil, false
 	}
 	return o.CustomLink1Label, true
@@ -532,7 +535,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetCustomLink1LabelOk() (*string, 
 
 // HasCustomLink1Label returns a boolean if a field has been set.
 func (o *SignInPageAllOfWidgetCustomizations) HasCustomLink1Label() bool {
-	if o != nil && o.CustomLink1Label != nil {
+	if o != nil && !IsNil(o.CustomLink1Label) {
 		return true
 	}
 
@@ -546,7 +549,7 @@ func (o *SignInPageAllOfWidgetCustomizations) SetCustomLink1Label(v string) {
 
 // GetCustomLink1Url returns the CustomLink1Url field value if set, zero value otherwise.
 func (o *SignInPageAllOfWidgetCustomizations) GetCustomLink1Url() string {
-	if o == nil || o.CustomLink1Url == nil {
+	if o == nil || IsNil(o.CustomLink1Url) {
 		var ret string
 		return ret
 	}
@@ -556,7 +559,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetCustomLink1Url() string {
 // GetCustomLink1UrlOk returns a tuple with the CustomLink1Url field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SignInPageAllOfWidgetCustomizations) GetCustomLink1UrlOk() (*string, bool) {
-	if o == nil || o.CustomLink1Url == nil {
+	if o == nil || IsNil(o.CustomLink1Url) {
 		return nil, false
 	}
 	return o.CustomLink1Url, true
@@ -564,7 +567,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetCustomLink1UrlOk() (*string, bo
 
 // HasCustomLink1Url returns a boolean if a field has been set.
 func (o *SignInPageAllOfWidgetCustomizations) HasCustomLink1Url() bool {
-	if o != nil && o.CustomLink1Url != nil {
+	if o != nil && !IsNil(o.CustomLink1Url) {
 		return true
 	}
 
@@ -578,7 +581,7 @@ func (o *SignInPageAllOfWidgetCustomizations) SetCustomLink1Url(v string) {
 
 // GetCustomLink2Label returns the CustomLink2Label field value if set, zero value otherwise.
 func (o *SignInPageAllOfWidgetCustomizations) GetCustomLink2Label() string {
-	if o == nil || o.CustomLink2Label == nil {
+	if o == nil || IsNil(o.CustomLink2Label) {
 		var ret string
 		return ret
 	}
@@ -588,7 +591,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetCustomLink2Label() string {
 // GetCustomLink2LabelOk returns a tuple with the CustomLink2Label field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SignInPageAllOfWidgetCustomizations) GetCustomLink2LabelOk() (*string, bool) {
-	if o == nil || o.CustomLink2Label == nil {
+	if o == nil || IsNil(o.CustomLink2Label) {
 		return nil, false
 	}
 	return o.CustomLink2Label, true
@@ -596,7 +599,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetCustomLink2LabelOk() (*string, 
 
 // HasCustomLink2Label returns a boolean if a field has been set.
 func (o *SignInPageAllOfWidgetCustomizations) HasCustomLink2Label() bool {
-	if o != nil && o.CustomLink2Label != nil {
+	if o != nil && !IsNil(o.CustomLink2Label) {
 		return true
 	}
 
@@ -610,7 +613,7 @@ func (o *SignInPageAllOfWidgetCustomizations) SetCustomLink2Label(v string) {
 
 // GetCustomLink2Url returns the CustomLink2Url field value if set, zero value otherwise.
 func (o *SignInPageAllOfWidgetCustomizations) GetCustomLink2Url() string {
-	if o == nil || o.CustomLink2Url == nil {
+	if o == nil || IsNil(o.CustomLink2Url) {
 		var ret string
 		return ret
 	}
@@ -620,7 +623,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetCustomLink2Url() string {
 // GetCustomLink2UrlOk returns a tuple with the CustomLink2Url field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SignInPageAllOfWidgetCustomizations) GetCustomLink2UrlOk() (*string, bool) {
-	if o == nil || o.CustomLink2Url == nil {
+	if o == nil || IsNil(o.CustomLink2Url) {
 		return nil, false
 	}
 	return o.CustomLink2Url, true
@@ -628,7 +631,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetCustomLink2UrlOk() (*string, bo
 
 // HasCustomLink2Url returns a boolean if a field has been set.
 func (o *SignInPageAllOfWidgetCustomizations) HasCustomLink2Url() bool {
-	if o != nil && o.CustomLink2Url != nil {
+	if o != nil && !IsNil(o.CustomLink2Url) {
 		return true
 	}
 
@@ -642,7 +645,7 @@ func (o *SignInPageAllOfWidgetCustomizations) SetCustomLink2Url(v string) {
 
 // GetAuthenticatorPageCustomLinkLabel returns the AuthenticatorPageCustomLinkLabel field value if set, zero value otherwise.
 func (o *SignInPageAllOfWidgetCustomizations) GetAuthenticatorPageCustomLinkLabel() string {
-	if o == nil || o.AuthenticatorPageCustomLinkLabel == nil {
+	if o == nil || IsNil(o.AuthenticatorPageCustomLinkLabel) {
 		var ret string
 		return ret
 	}
@@ -652,7 +655,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetAuthenticatorPageCustomLinkLabe
 // GetAuthenticatorPageCustomLinkLabelOk returns a tuple with the AuthenticatorPageCustomLinkLabel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SignInPageAllOfWidgetCustomizations) GetAuthenticatorPageCustomLinkLabelOk() (*string, bool) {
-	if o == nil || o.AuthenticatorPageCustomLinkLabel == nil {
+	if o == nil || IsNil(o.AuthenticatorPageCustomLinkLabel) {
 		return nil, false
 	}
 	return o.AuthenticatorPageCustomLinkLabel, true
@@ -660,7 +663,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetAuthenticatorPageCustomLinkLabe
 
 // HasAuthenticatorPageCustomLinkLabel returns a boolean if a field has been set.
 func (o *SignInPageAllOfWidgetCustomizations) HasAuthenticatorPageCustomLinkLabel() bool {
-	if o != nil && o.AuthenticatorPageCustomLinkLabel != nil {
+	if o != nil && !IsNil(o.AuthenticatorPageCustomLinkLabel) {
 		return true
 	}
 
@@ -674,7 +677,7 @@ func (o *SignInPageAllOfWidgetCustomizations) SetAuthenticatorPageCustomLinkLabe
 
 // GetAuthenticatorPageCustomLinkUrl returns the AuthenticatorPageCustomLinkUrl field value if set, zero value otherwise.
 func (o *SignInPageAllOfWidgetCustomizations) GetAuthenticatorPageCustomLinkUrl() string {
-	if o == nil || o.AuthenticatorPageCustomLinkUrl == nil {
+	if o == nil || IsNil(o.AuthenticatorPageCustomLinkUrl) {
 		var ret string
 		return ret
 	}
@@ -684,7 +687,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetAuthenticatorPageCustomLinkUrl(
 // GetAuthenticatorPageCustomLinkUrlOk returns a tuple with the AuthenticatorPageCustomLinkUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SignInPageAllOfWidgetCustomizations) GetAuthenticatorPageCustomLinkUrlOk() (*string, bool) {
-	if o == nil || o.AuthenticatorPageCustomLinkUrl == nil {
+	if o == nil || IsNil(o.AuthenticatorPageCustomLinkUrl) {
 		return nil, false
 	}
 	return o.AuthenticatorPageCustomLinkUrl, true
@@ -692,7 +695,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetAuthenticatorPageCustomLinkUrlO
 
 // HasAuthenticatorPageCustomLinkUrl returns a boolean if a field has been set.
 func (o *SignInPageAllOfWidgetCustomizations) HasAuthenticatorPageCustomLinkUrl() bool {
-	if o != nil && o.AuthenticatorPageCustomLinkUrl != nil {
+	if o != nil && !IsNil(o.AuthenticatorPageCustomLinkUrl) {
 		return true
 	}
 
@@ -706,7 +709,7 @@ func (o *SignInPageAllOfWidgetCustomizations) SetAuthenticatorPageCustomLinkUrl(
 
 // GetClassicRecoveryFlowEmailOrUsernameLabel returns the ClassicRecoveryFlowEmailOrUsernameLabel field value if set, zero value otherwise.
 func (o *SignInPageAllOfWidgetCustomizations) GetClassicRecoveryFlowEmailOrUsernameLabel() string {
-	if o == nil || o.ClassicRecoveryFlowEmailOrUsernameLabel == nil {
+	if o == nil || IsNil(o.ClassicRecoveryFlowEmailOrUsernameLabel) {
 		var ret string
 		return ret
 	}
@@ -716,7 +719,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetClassicRecoveryFlowEmailOrUsern
 // GetClassicRecoveryFlowEmailOrUsernameLabelOk returns a tuple with the ClassicRecoveryFlowEmailOrUsernameLabel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SignInPageAllOfWidgetCustomizations) GetClassicRecoveryFlowEmailOrUsernameLabelOk() (*string, bool) {
-	if o == nil || o.ClassicRecoveryFlowEmailOrUsernameLabel == nil {
+	if o == nil || IsNil(o.ClassicRecoveryFlowEmailOrUsernameLabel) {
 		return nil, false
 	}
 	return o.ClassicRecoveryFlowEmailOrUsernameLabel, true
@@ -724,7 +727,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetClassicRecoveryFlowEmailOrUsern
 
 // HasClassicRecoveryFlowEmailOrUsernameLabel returns a boolean if a field has been set.
 func (o *SignInPageAllOfWidgetCustomizations) HasClassicRecoveryFlowEmailOrUsernameLabel() bool {
-	if o != nil && o.ClassicRecoveryFlowEmailOrUsernameLabel != nil {
+	if o != nil && !IsNil(o.ClassicRecoveryFlowEmailOrUsernameLabel) {
 		return true
 	}
 
@@ -738,7 +741,7 @@ func (o *SignInPageAllOfWidgetCustomizations) SetClassicRecoveryFlowEmailOrUsern
 
 // GetWidgetGeneration returns the WidgetGeneration field value if set, zero value otherwise.
 func (o *SignInPageAllOfWidgetCustomizations) GetWidgetGeneration() string {
-	if o == nil || o.WidgetGeneration == nil {
+	if o == nil || IsNil(o.WidgetGeneration) {
 		var ret string
 		return ret
 	}
@@ -748,7 +751,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetWidgetGeneration() string {
 // GetWidgetGenerationOk returns a tuple with the WidgetGeneration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SignInPageAllOfWidgetCustomizations) GetWidgetGenerationOk() (*string, bool) {
-	if o == nil || o.WidgetGeneration == nil {
+	if o == nil || IsNil(o.WidgetGeneration) {
 		return nil, false
 	}
 	return o.WidgetGeneration, true
@@ -756,7 +759,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetWidgetGenerationOk() (*string, 
 
 // HasWidgetGeneration returns a boolean if a field has been set.
 func (o *SignInPageAllOfWidgetCustomizations) HasWidgetGeneration() bool {
-	if o != nil && o.WidgetGeneration != nil {
+	if o != nil && !IsNil(o.WidgetGeneration) {
 		return true
 	}
 
@@ -770,7 +773,7 @@ func (o *SignInPageAllOfWidgetCustomizations) SetWidgetGeneration(v string) {
 
 // GetPostAuthKeepMeSignedInPrompt returns the PostAuthKeepMeSignedInPrompt field value if set, zero value otherwise.
 func (o *SignInPageAllOfWidgetCustomizations) GetPostAuthKeepMeSignedInPrompt() PostAuthKeepMeSignedInPrompt {
-	if o == nil || o.PostAuthKeepMeSignedInPrompt == nil {
+	if o == nil || IsNil(o.PostAuthKeepMeSignedInPrompt) {
 		var ret PostAuthKeepMeSignedInPrompt
 		return ret
 	}
@@ -780,7 +783,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetPostAuthKeepMeSignedInPrompt() 
 // GetPostAuthKeepMeSignedInPromptOk returns a tuple with the PostAuthKeepMeSignedInPrompt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SignInPageAllOfWidgetCustomizations) GetPostAuthKeepMeSignedInPromptOk() (*PostAuthKeepMeSignedInPrompt, bool) {
-	if o == nil || o.PostAuthKeepMeSignedInPrompt == nil {
+	if o == nil || IsNil(o.PostAuthKeepMeSignedInPrompt) {
 		return nil, false
 	}
 	return o.PostAuthKeepMeSignedInPrompt, true
@@ -788,7 +791,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetPostAuthKeepMeSignedInPromptOk(
 
 // HasPostAuthKeepMeSignedInPrompt returns a boolean if a field has been set.
 func (o *SignInPageAllOfWidgetCustomizations) HasPostAuthKeepMeSignedInPrompt() bool {
-	if o != nil && o.PostAuthKeepMeSignedInPrompt != nil {
+	if o != nil && !IsNil(o.PostAuthKeepMeSignedInPrompt) {
 		return true
 	}
 
@@ -802,7 +805,7 @@ func (o *SignInPageAllOfWidgetCustomizations) SetPostAuthKeepMeSignedInPrompt(v 
 
 // GetClassicFooterHelpTitle returns the ClassicFooterHelpTitle field value if set, zero value otherwise.
 func (o *SignInPageAllOfWidgetCustomizations) GetClassicFooterHelpTitle() string {
-	if o == nil || o.ClassicFooterHelpTitle == nil {
+	if o == nil || IsNil(o.ClassicFooterHelpTitle) {
 		var ret string
 		return ret
 	}
@@ -812,7 +815,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetClassicFooterHelpTitle() string
 // GetClassicFooterHelpTitleOk returns a tuple with the ClassicFooterHelpTitle field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SignInPageAllOfWidgetCustomizations) GetClassicFooterHelpTitleOk() (*string, bool) {
-	if o == nil || o.ClassicFooterHelpTitle == nil {
+	if o == nil || IsNil(o.ClassicFooterHelpTitle) {
 		return nil, false
 	}
 	return o.ClassicFooterHelpTitle, true
@@ -820,7 +823,7 @@ func (o *SignInPageAllOfWidgetCustomizations) GetClassicFooterHelpTitleOk() (*st
 
 // HasClassicFooterHelpTitle returns a boolean if a field has been set.
 func (o *SignInPageAllOfWidgetCustomizations) HasClassicFooterHelpTitle() bool {
-	if o != nil && o.ClassicFooterHelpTitle != nil {
+	if o != nil && !IsNil(o.ClassicFooterHelpTitle) {
 		return true
 	}
 
@@ -833,74 +836,82 @@ func (o *SignInPageAllOfWidgetCustomizations) SetClassicFooterHelpTitle(v string
 }
 
 func (o SignInPageAllOfWidgetCustomizations) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SignInPageAllOfWidgetCustomizations) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.SignInLabel != nil {
+	if !IsNil(o.SignInLabel) {
 		toSerialize["signInLabel"] = o.SignInLabel
 	}
-	if o.UsernameLabel != nil {
+	if !IsNil(o.UsernameLabel) {
 		toSerialize["usernameLabel"] = o.UsernameLabel
 	}
-	if o.UsernameInfoTip != nil {
+	if !IsNil(o.UsernameInfoTip) {
 		toSerialize["usernameInfoTip"] = o.UsernameInfoTip
 	}
-	if o.PasswordLabel != nil {
+	if !IsNil(o.PasswordLabel) {
 		toSerialize["passwordLabel"] = o.PasswordLabel
 	}
-	if o.PasswordInfoTip != nil {
+	if !IsNil(o.PasswordInfoTip) {
 		toSerialize["passwordInfoTip"] = o.PasswordInfoTip
 	}
-	if o.ShowPasswordVisibilityToggle != nil {
+	if !IsNil(o.ShowPasswordVisibilityToggle) {
 		toSerialize["showPasswordVisibilityToggle"] = o.ShowPasswordVisibilityToggle
 	}
-	if o.ShowUserIdentifier != nil {
+	if !IsNil(o.ShowUserIdentifier) {
 		toSerialize["showUserIdentifier"] = o.ShowUserIdentifier
 	}
-	if o.ForgotPasswordLabel != nil {
+	if !IsNil(o.ForgotPasswordLabel) {
 		toSerialize["forgotPasswordLabel"] = o.ForgotPasswordLabel
 	}
-	if o.ForgotPasswordUrl != nil {
+	if !IsNil(o.ForgotPasswordUrl) {
 		toSerialize["forgotPasswordUrl"] = o.ForgotPasswordUrl
 	}
-	if o.UnlockAccountLabel != nil {
+	if !IsNil(o.UnlockAccountLabel) {
 		toSerialize["unlockAccountLabel"] = o.UnlockAccountLabel
 	}
-	if o.UnlockAccountUrl != nil {
+	if !IsNil(o.UnlockAccountUrl) {
 		toSerialize["unlockAccountUrl"] = o.UnlockAccountUrl
 	}
-	if o.HelpLabel != nil {
+	if !IsNil(o.HelpLabel) {
 		toSerialize["helpLabel"] = o.HelpLabel
 	}
-	if o.HelpUrl != nil {
+	if !IsNil(o.HelpUrl) {
 		toSerialize["helpUrl"] = o.HelpUrl
 	}
-	if o.CustomLink1Label != nil {
+	if !IsNil(o.CustomLink1Label) {
 		toSerialize["customLink1Label"] = o.CustomLink1Label
 	}
-	if o.CustomLink1Url != nil {
+	if !IsNil(o.CustomLink1Url) {
 		toSerialize["customLink1Url"] = o.CustomLink1Url
 	}
-	if o.CustomLink2Label != nil {
+	if !IsNil(o.CustomLink2Label) {
 		toSerialize["customLink2Label"] = o.CustomLink2Label
 	}
-	if o.CustomLink2Url != nil {
+	if !IsNil(o.CustomLink2Url) {
 		toSerialize["customLink2Url"] = o.CustomLink2Url
 	}
-	if o.AuthenticatorPageCustomLinkLabel != nil {
+	if !IsNil(o.AuthenticatorPageCustomLinkLabel) {
 		toSerialize["authenticatorPageCustomLinkLabel"] = o.AuthenticatorPageCustomLinkLabel
 	}
-	if o.AuthenticatorPageCustomLinkUrl != nil {
+	if !IsNil(o.AuthenticatorPageCustomLinkUrl) {
 		toSerialize["authenticatorPageCustomLinkUrl"] = o.AuthenticatorPageCustomLinkUrl
 	}
-	if o.ClassicRecoveryFlowEmailOrUsernameLabel != nil {
+	if !IsNil(o.ClassicRecoveryFlowEmailOrUsernameLabel) {
 		toSerialize["classicRecoveryFlowEmailOrUsernameLabel"] = o.ClassicRecoveryFlowEmailOrUsernameLabel
 	}
-	if o.WidgetGeneration != nil {
+	if !IsNil(o.WidgetGeneration) {
 		toSerialize["widgetGeneration"] = o.WidgetGeneration
 	}
-	if o.PostAuthKeepMeSignedInPrompt != nil {
+	if !IsNil(o.PostAuthKeepMeSignedInPrompt) {
 		toSerialize["postAuthKeepMeSignedInPrompt"] = o.PostAuthKeepMeSignedInPrompt
 	}
-	if o.ClassicFooterHelpTitle != nil {
+	if !IsNil(o.ClassicFooterHelpTitle) {
 		toSerialize["classicFooterHelpTitle"] = o.ClassicFooterHelpTitle
 	}
 
@@ -908,23 +919,23 @@ func (o SignInPageAllOfWidgetCustomizations) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SignInPageAllOfWidgetCustomizations) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SignInPageAllOfWidgetCustomizations) UnmarshalJSON(data []byte) (err error) {
 	varSignInPageAllOfWidgetCustomizations := _SignInPageAllOfWidgetCustomizations{}
 
-	err = json.Unmarshal(bytes, &varSignInPageAllOfWidgetCustomizations)
-	if err == nil {
-		*o = SignInPageAllOfWidgetCustomizations(varSignInPageAllOfWidgetCustomizations)
-	} else {
+	err = json.Unmarshal(data, &varSignInPageAllOfWidgetCustomizations)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SignInPageAllOfWidgetCustomizations(varSignInPageAllOfWidgetCustomizations)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "signInLabel")
 		delete(additionalProperties, "usernameLabel")
 		delete(additionalProperties, "usernameInfoTip")
@@ -949,8 +960,6 @@ func (o *SignInPageAllOfWidgetCustomizations) UnmarshalJSON(bytes []byte) (err e
 		delete(additionalProperties, "postAuthKeepMeSignedInPrompt")
 		delete(additionalProperties, "classicFooterHelpTitle")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -991,4 +1000,3 @@ func (v *NullableSignInPageAllOfWidgetCustomizations) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

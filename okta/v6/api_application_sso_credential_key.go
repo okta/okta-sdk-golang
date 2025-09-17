@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,29 +26,28 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
-	"strings"
 	"os"
+	"strings"
+	"time"
 )
-
 
 type ApplicationSSOCredentialKeyAPI interface {
 
 	/*
-	CloneApplicationKey Clone a key credential
+			CloneApplicationKey Clone a key credential
 
-	Clones an X.509 certificate for an Application Key Credential from a source app to a target app.
+			Clones an X.509 certificate for an Application Key Credential from a source app to a target app.
 
-For step-by-step instructions to clone a credential, see [Share application key credentials for IdPs across apps](https://developer.okta.com/docs/guides/sharing-cert/main/).
-> **Note:** Sharing certificates isn't a recommended security practice.
+		For step-by-step instructions to clone a credential, see [Share application key credentials for IdPs across apps](https://developer.okta.com/docs/guides/sharing-cert/main/).
+		> **Note:** Sharing certificates isn't a recommended security practice.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param keyId ID of the Key Credential for the application
-	@return ApiCloneApplicationKeyRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appId Application ID
+			@param keyId ID of the Key Credential for the application
+			@return ApiCloneApplicationKeyRequest
 	*/
 	CloneApplicationKey(ctx context.Context, appId string, keyId string) ApiCloneApplicationKeyRequest
 
@@ -57,14 +56,14 @@ For step-by-step instructions to clone a credential, see [Share application key 
 	CloneApplicationKeyExecute(r ApiCloneApplicationKeyRequest) (*JsonWebKey, *APIResponse, error)
 
 	/*
-	GenerateApplicationKey Generate a key credential
+			GenerateApplicationKey Generate a key credential
 
-	Generates a new X.509 certificate for an app key credential
-> **Note:** To update an Application with the newly generated key credential, use the [Replace an Application](/openapi/okta-management/management/tag/Application/#tag/Application/operation/replaceApplication) request with the new [credentials.signing.kid](/openapi/okta-management/management/tag/Application/#tag/Application/operation/replaceApplication!path=4/credentials/signing/kid&t=request) value in the request body. You can provide just the [Signing Credential object](/openapi/okta-management/management/tag/Application/#tag/Application/operation/replaceApplication!path=4/credentials/signing&t=request) instead of the entire [Application Credential object](/openapi/okta-management/management/tag/Application/#tag/Application/operation/replaceApplication!path=4/credentials&t=request).
+			Generates a new X.509 certificate for an app key credential
+		> **Note:** To update an Application with the newly generated key credential, use the [Replace an Application](/openapi/okta-management/management/tag/Application/#tag/Application/operation/replaceApplication) request with the new [credentials.signing.kid](/openapi/okta-management/management/tag/Application/#tag/Application/operation/replaceApplication!path=4/credentials/signing/kid&t=request) value in the request body. You can provide just the [Signing Credential object](/openapi/okta-management/management/tag/Application/#tag/Application/operation/replaceApplication!path=4/credentials/signing&t=request) instead of the entire [Application Credential object](/openapi/okta-management/management/tag/Application/#tag/Application/operation/replaceApplication!path=4/credentials&t=request).
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiGenerateApplicationKeyRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appId Application ID
+			@return ApiGenerateApplicationKeyRequest
 	*/
 	GenerateApplicationKey(ctx context.Context, appId string) ApiGenerateApplicationKeyRequest
 
@@ -73,16 +72,16 @@ For step-by-step instructions to clone a credential, see [Share application key 
 	GenerateApplicationKeyExecute(r ApiGenerateApplicationKeyRequest) (*JsonWebKey, *APIResponse, error)
 
 	/*
-	GenerateCsrForApplication Generate a certificate signing request
+			GenerateCsrForApplication Generate a certificate signing request
 
-	Generates a new key pair and returns the Certificate Signing Request(CSR) for it. The information in a CSR is used by the Certificate Authority (CA) to verify and create your certificate. It also contains the public key that is included in your certificate.
+			Generates a new key pair and returns the Certificate Signing Request(CSR) for it. The information in a CSR is used by the Certificate Authority (CA) to verify and create your certificate. It also contains the public key that is included in your certificate.
 
-Returns CSR in `pkcs#10` format if the `Accept` media type is `application/pkcs10` or a CSR object if the `Accept` media type is `application/json`.
-> **Note:** The key pair isn't listed in the Key Credentials for the app until it's published.
+		Returns CSR in `pkcs#10` format if the `Accept` media type is `application/pkcs10` or a CSR object if the `Accept` media type is `application/json`.
+		> **Note:** The key pair isn't listed in the Key Credentials for the app until it's published.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiGenerateCsrForApplicationRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appId Application ID
+			@return ApiGenerateCsrForApplicationRequest
 	*/
 	GenerateCsrForApplication(ctx context.Context, appId string) ApiGenerateCsrForApplicationRequest
 
@@ -91,14 +90,14 @@ Returns CSR in `pkcs#10` format if the `Accept` media type is `application/pkcs1
 	GenerateCsrForApplicationExecute(r ApiGenerateCsrForApplicationRequest) (string, *APIResponse, error)
 
 	/*
-	GetApplicationKey Retrieve a key credential
+		GetApplicationKey Retrieve a key credential
 
-	Retrieves a specific Application Key Credential by `kid`
+		Retrieves a specific Application Key Credential by `kid`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param keyId ID of the Key Credential for the application
-	@return ApiGetApplicationKeyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param keyId ID of the Key Credential for the application
+		@return ApiGetApplicationKeyRequest
 	*/
 	GetApplicationKey(ctx context.Context, appId string, keyId string) ApiGetApplicationKeyRequest
 
@@ -107,16 +106,16 @@ Returns CSR in `pkcs#10` format if the `Accept` media type is `application/pkcs1
 	GetApplicationKeyExecute(r ApiGetApplicationKeyRequest) (*JsonWebKey, *APIResponse, error)
 
 	/*
-	GetCsrForApplication Retrieve a certificate signing request
+			GetCsrForApplication Retrieve a certificate signing request
 
-	Retrieves a Certificate Signing Request (CSR) for the app by `csrId`.
+			Retrieves a Certificate Signing Request (CSR) for the app by `csrId`.
 
-Returns a Base64-encoded CSR in DER format if the `Accept` media type is `application/pkcs10` or a CSR object if the `Accept` media type is `application/json`.
+		Returns a Base64-encoded CSR in DER format if the `Accept` media type is `application/pkcs10` or a CSR object if the `Accept` media type is `application/json`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param csrId `id` of the CSR
-	@return ApiGetCsrForApplicationRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appId Application ID
+			@param csrId `id` of the CSR
+			@return ApiGetCsrForApplicationRequest
 	*/
 	GetCsrForApplication(ctx context.Context, appId string, csrId string) ApiGetCsrForApplicationRequest
 
@@ -125,13 +124,13 @@ Returns a Base64-encoded CSR in DER format if the `Accept` media type is `applic
 	GetCsrForApplicationExecute(r ApiGetCsrForApplicationRequest) (*Csr, *APIResponse, error)
 
 	/*
-	ListApplicationKeys List all key credentials
+		ListApplicationKeys List all key credentials
 
-	Lists all key credentials for an app
+		Lists all key credentials for an app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiListApplicationKeysRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiListApplicationKeysRequest
 	*/
 	ListApplicationKeys(ctx context.Context, appId string) ApiListApplicationKeysRequest
 
@@ -140,13 +139,13 @@ Returns a Base64-encoded CSR in DER format if the `Accept` media type is `applic
 	ListApplicationKeysExecute(r ApiListApplicationKeysRequest) ([]JsonWebKey, *APIResponse, error)
 
 	/*
-	ListCsrsForApplication List all certificate signing requests
+		ListCsrsForApplication List all certificate signing requests
 
-	Lists all Certificate Signing Requests for an application
+		Lists all Certificate Signing Requests for an application
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiListCsrsForApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiListCsrsForApplicationRequest
 	*/
 	ListCsrsForApplication(ctx context.Context, appId string) ApiListCsrsForApplicationRequest
 
@@ -155,15 +154,15 @@ Returns a Base64-encoded CSR in DER format if the `Accept` media type is `applic
 	ListCsrsForApplicationExecute(r ApiListCsrsForApplicationRequest) ([]Csr, *APIResponse, error)
 
 	/*
-	PublishCsrFromApplication Publish a certificate signing request
+			PublishCsrFromApplication Publish a certificate signing request
 
-	Publishes a Certificate Signing Request (CSR) for the app with a signed X.509 certificate and adds it into the Application Key Credentials.
-> **Note:** Publishing a certificate completes the lifecycle of the CSR and it's no longer accessible.
+			Publishes a Certificate Signing Request (CSR) for the app with a signed X.509 certificate and adds it into the Application Key Credentials.
+		> **Note:** Publishing a certificate completes the lifecycle of the CSR and it's no longer accessible.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param csrId `id` of the CSR
-	@return ApiPublishCsrFromApplicationRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appId Application ID
+			@param csrId `id` of the CSR
+			@return ApiPublishCsrFromApplicationRequest
 	*/
 	PublishCsrFromApplication(ctx context.Context, appId string, csrId string) ApiPublishCsrFromApplicationRequest
 
@@ -172,14 +171,14 @@ Returns a Base64-encoded CSR in DER format if the `Accept` media type is `applic
 	PublishCsrFromApplicationExecute(r ApiPublishCsrFromApplicationRequest) (*JsonWebKey, *APIResponse, error)
 
 	/*
-	RevokeCsrFromApplication Revoke a certificate signing request
+		RevokeCsrFromApplication Revoke a certificate signing request
 
-	Revokes a Certificate Signing Request and deletes the key pair from the app
+		Revokes a Certificate Signing Request and deletes the key pair from the app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param csrId `id` of the CSR
-	@return ApiRevokeCsrFromApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param csrId `id` of the CSR
+		@return ApiRevokeCsrFromApplicationRequest
 	*/
 	RevokeCsrFromApplication(ctx context.Context, appId string, csrId string) ApiRevokeCsrFromApplicationRequest
 
@@ -191,11 +190,11 @@ Returns a Base64-encoded CSR in DER format if the `Accept` media type is `applic
 type ApplicationSSOCredentialKeyAPIService service
 
 type ApiCloneApplicationKeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationSSOCredentialKeyAPI
-	appId string
-	keyId string
-	targetAid *string
+	appId      string
+	keyId      string
+	targetAid  *string
 	retryCount int32
 }
 
@@ -217,23 +216,24 @@ Clones an X.509 certificate for an Application Key Credential from a source app 
 For step-by-step instructions to clone a credential, see [Share application key credentials for IdPs across apps](https://developer.okta.com/docs/guides/sharing-cert/main/).
 > **Note:** Sharing certificates isn't a recommended security practice.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param keyId ID of the Key Credential for the application
- @return ApiCloneApplicationKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param keyId ID of the Key Credential for the application
+	@return ApiCloneApplicationKeyRequest
 */
 func (a *ApplicationSSOCredentialKeyAPIService) CloneApplicationKey(ctx context.Context, appId string, keyId string) ApiCloneApplicationKeyRequest {
 	return ApiCloneApplicationKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		keyId: keyId,
+		ctx:        ctx,
+		appId:      appId,
+		keyId:      keyId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return JsonWebKey
+//
+//	@return JsonWebKey
 func (a *ApplicationSSOCredentialKeyAPIService) CloneApplicationKeyExecute(r ApiCloneApplicationKeyRequest) (*JsonWebKey, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -242,7 +242,7 @@ func (a *ApplicationSSOCredentialKeyAPIService) CloneApplicationKeyExecute(r Api
 		localVarReturnValue  *JsonWebKey
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -308,9 +308,9 @@ func (a *ApplicationSSOCredentialKeyAPIService) CloneApplicationKeyExecute(r Api
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -380,17 +380,17 @@ func (a *ApplicationSSOCredentialKeyAPIService) CloneApplicationKeyExecute(r Api
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGenerateApplicationKeyRequest struct {
-	ctx context.Context
-	ApiService ApplicationSSOCredentialKeyAPI
-	appId string
+	ctx           context.Context
+	ApiService    ApplicationSSOCredentialKeyAPI
+	appId         string
 	validityYears *int32
-	retryCount int32
+	retryCount    int32
 }
 
 // Expiry years of the Application Key Credential
@@ -409,21 +409,22 @@ GenerateApplicationKey Generate a key credential
 Generates a new X.509 certificate for an app key credential
 > **Note:** To update an Application with the newly generated key credential, use the [Replace an Application](/openapi/okta-management/management/tag/Application/#tag/Application/operation/replaceApplication) request with the new [credentials.signing.kid](/openapi/okta-management/management/tag/Application/#tag/Application/operation/replaceApplication!path=4/credentials/signing/kid&t=request) value in the request body. You can provide just the [Signing Credential object](/openapi/okta-management/management/tag/Application/#tag/Application/operation/replaceApplication!path=4/credentials/signing&t=request) instead of the entire [Application Credential object](/openapi/okta-management/management/tag/Application/#tag/Application/operation/replaceApplication!path=4/credentials&t=request).
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiGenerateApplicationKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiGenerateApplicationKeyRequest
 */
 func (a *ApplicationSSOCredentialKeyAPIService) GenerateApplicationKey(ctx context.Context, appId string) ApiGenerateApplicationKeyRequest {
 	return ApiGenerateApplicationKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return JsonWebKey
+//
+//	@return JsonWebKey
 func (a *ApplicationSSOCredentialKeyAPIService) GenerateApplicationKeyExecute(r ApiGenerateApplicationKeyRequest) (*JsonWebKey, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -432,7 +433,7 @@ func (a *ApplicationSSOCredentialKeyAPIService) GenerateApplicationKeyExecute(r 
 		localVarReturnValue  *JsonWebKey
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -497,9 +498,9 @@ func (a *ApplicationSSOCredentialKeyAPIService) GenerateApplicationKeyExecute(r 
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -569,16 +570,16 @@ func (a *ApplicationSSOCredentialKeyAPIService) GenerateApplicationKeyExecute(r 
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGenerateCsrForApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationSSOCredentialKeyAPI
-	appId string
-	metadata *CsrMetadata
+	appId      string
+	metadata   *CsrMetadata
 	retryCount int32
 }
 
@@ -599,21 +600,22 @@ Generates a new key pair and returns the Certificate Signing Request(CSR) for it
 Returns CSR in `pkcs#10` format if the `Accept` media type is `application/pkcs10` or a CSR object if the `Accept` media type is `application/json`.
 > **Note:** The key pair isn't listed in the Key Credentials for the app until it's published.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiGenerateCsrForApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiGenerateCsrForApplicationRequest
 */
 func (a *ApplicationSSOCredentialKeyAPIService) GenerateCsrForApplication(ctx context.Context, appId string) ApiGenerateCsrForApplicationRequest {
 	return ApiGenerateCsrForApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return string
+//
+//	@return string
 func (a *ApplicationSSOCredentialKeyAPIService) GenerateCsrForApplicationExecute(r ApiGenerateCsrForApplicationRequest) (string, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -622,7 +624,7 @@ func (a *ApplicationSSOCredentialKeyAPIService) GenerateCsrForApplicationExecute
 		localVarReturnValue  string
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -688,9 +690,9 @@ func (a *ApplicationSSOCredentialKeyAPIService) GenerateCsrForApplicationExecute
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -760,16 +762,16 @@ func (a *ApplicationSSOCredentialKeyAPIService) GenerateCsrForApplicationExecute
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetApplicationKeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationSSOCredentialKeyAPI
-	appId string
-	keyId string
+	appId      string
+	keyId      string
 	retryCount int32
 }
 
@@ -782,23 +784,24 @@ GetApplicationKey Retrieve a key credential
 
 Retrieves a specific Application Key Credential by `kid`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param keyId ID of the Key Credential for the application
- @return ApiGetApplicationKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param keyId ID of the Key Credential for the application
+	@return ApiGetApplicationKeyRequest
 */
 func (a *ApplicationSSOCredentialKeyAPIService) GetApplicationKey(ctx context.Context, appId string, keyId string) ApiGetApplicationKeyRequest {
 	return ApiGetApplicationKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		keyId: keyId,
+		ctx:        ctx,
+		appId:      appId,
+		keyId:      keyId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return JsonWebKey
+//
+//	@return JsonWebKey
 func (a *ApplicationSSOCredentialKeyAPIService) GetApplicationKeyExecute(r ApiGetApplicationKeyRequest) (*JsonWebKey, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -807,7 +810,7 @@ func (a *ApplicationSSOCredentialKeyAPIService) GetApplicationKeyExecute(r ApiGe
 		localVarReturnValue  *JsonWebKey
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -869,9 +872,9 @@ func (a *ApplicationSSOCredentialKeyAPIService) GetApplicationKeyExecute(r ApiGe
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -929,16 +932,16 @@ func (a *ApplicationSSOCredentialKeyAPIService) GetApplicationKeyExecute(r ApiGe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetCsrForApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationSSOCredentialKeyAPI
-	appId string
-	csrId string
+	appId      string
+	csrId      string
 	retryCount int32
 }
 
@@ -953,23 +956,24 @@ Retrieves a Certificate Signing Request (CSR) for the app by `csrId`.
 
 Returns a Base64-encoded CSR in DER format if the `Accept` media type is `application/pkcs10` or a CSR object if the `Accept` media type is `application/json`.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param csrId `id` of the CSR
- @return ApiGetCsrForApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param csrId `id` of the CSR
+	@return ApiGetCsrForApplicationRequest
 */
 func (a *ApplicationSSOCredentialKeyAPIService) GetCsrForApplication(ctx context.Context, appId string, csrId string) ApiGetCsrForApplicationRequest {
 	return ApiGetCsrForApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		csrId: csrId,
+		ctx:        ctx,
+		appId:      appId,
+		csrId:      csrId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return Csr
+//
+//	@return Csr
 func (a *ApplicationSSOCredentialKeyAPIService) GetCsrForApplicationExecute(r ApiGetCsrForApplicationRequest) (*Csr, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -978,7 +982,7 @@ func (a *ApplicationSSOCredentialKeyAPIService) GetCsrForApplicationExecute(r Ap
 		localVarReturnValue  *Csr
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1040,9 +1044,9 @@ func (a *ApplicationSSOCredentialKeyAPIService) GetCsrForApplicationExecute(r Ap
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1100,15 +1104,15 @@ func (a *ApplicationSSOCredentialKeyAPIService) GetCsrForApplicationExecute(r Ap
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListApplicationKeysRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationSSOCredentialKeyAPI
-	appId string
+	appId      string
 	retryCount int32
 }
 
@@ -1121,21 +1125,22 @@ ListApplicationKeys List all key credentials
 
 Lists all key credentials for an app
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiListApplicationKeysRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiListApplicationKeysRequest
 */
 func (a *ApplicationSSOCredentialKeyAPIService) ListApplicationKeys(ctx context.Context, appId string) ApiListApplicationKeysRequest {
 	return ApiListApplicationKeysRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []JsonWebKey
+//
+//	@return []JsonWebKey
 func (a *ApplicationSSOCredentialKeyAPIService) ListApplicationKeysExecute(r ApiListApplicationKeysRequest) ([]JsonWebKey, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1144,7 +1149,7 @@ func (a *ApplicationSSOCredentialKeyAPIService) ListApplicationKeysExecute(r Api
 		localVarReturnValue  []JsonWebKey
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1205,9 +1210,9 @@ func (a *ApplicationSSOCredentialKeyAPIService) ListApplicationKeysExecute(r Api
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1265,15 +1270,15 @@ func (a *ApplicationSSOCredentialKeyAPIService) ListApplicationKeysExecute(r Api
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListCsrsForApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationSSOCredentialKeyAPI
-	appId string
+	appId      string
 	retryCount int32
 }
 
@@ -1286,21 +1291,22 @@ ListCsrsForApplication List all certificate signing requests
 
 Lists all Certificate Signing Requests for an application
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiListCsrsForApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiListCsrsForApplicationRequest
 */
 func (a *ApplicationSSOCredentialKeyAPIService) ListCsrsForApplication(ctx context.Context, appId string) ApiListCsrsForApplicationRequest {
 	return ApiListCsrsForApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []Csr
+//
+//	@return []Csr
 func (a *ApplicationSSOCredentialKeyAPIService) ListCsrsForApplicationExecute(r ApiListCsrsForApplicationRequest) ([]Csr, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1309,7 +1315,7 @@ func (a *ApplicationSSOCredentialKeyAPIService) ListCsrsForApplicationExecute(r 
 		localVarReturnValue  []Csr
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1370,9 +1376,9 @@ func (a *ApplicationSSOCredentialKeyAPIService) ListCsrsForApplicationExecute(r 
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1430,17 +1436,17 @@ func (a *ApplicationSSOCredentialKeyAPIService) ListCsrsForApplicationExecute(r 
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiPublishCsrFromApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationSSOCredentialKeyAPI
-	appId string
-	csrId string
-	body **os.File
+	appId      string
+	csrId      string
+	body       **os.File
 	retryCount int32
 }
 
@@ -1459,23 +1465,24 @@ PublishCsrFromApplication Publish a certificate signing request
 Publishes a Certificate Signing Request (CSR) for the app with a signed X.509 certificate and adds it into the Application Key Credentials.
 > **Note:** Publishing a certificate completes the lifecycle of the CSR and it's no longer accessible.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param csrId `id` of the CSR
- @return ApiPublishCsrFromApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param csrId `id` of the CSR
+	@return ApiPublishCsrFromApplicationRequest
 */
 func (a *ApplicationSSOCredentialKeyAPIService) PublishCsrFromApplication(ctx context.Context, appId string, csrId string) ApiPublishCsrFromApplicationRequest {
 	return ApiPublishCsrFromApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		csrId: csrId,
+		ctx:        ctx,
+		appId:      appId,
+		csrId:      csrId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return JsonWebKey
+//
+//	@return JsonWebKey
 func (a *ApplicationSSOCredentialKeyAPIService) PublishCsrFromApplicationExecute(r ApiPublishCsrFromApplicationRequest) (*JsonWebKey, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1484,7 +1491,7 @@ func (a *ApplicationSSOCredentialKeyAPIService) PublishCsrFromApplicationExecute
 		localVarReturnValue  *JsonWebKey
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1551,9 +1558,9 @@ func (a *ApplicationSSOCredentialKeyAPIService) PublishCsrFromApplicationExecute
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1623,16 +1630,16 @@ func (a *ApplicationSSOCredentialKeyAPIService) PublishCsrFromApplicationExecute
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiRevokeCsrFromApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationSSOCredentialKeyAPI
-	appId string
-	csrId string
+	appId      string
+	csrId      string
 	retryCount int32
 }
 
@@ -1645,17 +1652,17 @@ RevokeCsrFromApplication Revoke a certificate signing request
 
 Revokes a Certificate Signing Request and deletes the key pair from the app
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param csrId `id` of the CSR
- @return ApiRevokeCsrFromApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param csrId `id` of the CSR
+	@return ApiRevokeCsrFromApplicationRequest
 */
 func (a *ApplicationSSOCredentialKeyAPIService) RevokeCsrFromApplication(ctx context.Context, appId string, csrId string) ApiRevokeCsrFromApplicationRequest {
 	return ApiRevokeCsrFromApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		csrId: csrId,
+		ctx:        ctx,
+		appId:      appId,
+		csrId:      csrId,
 		retryCount: 0,
 	}
 }
@@ -1668,7 +1675,7 @@ func (a *ApplicationSSOCredentialKeyAPIService) RevokeCsrFromApplicationExecute(
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1730,9 +1737,9 @@ func (a *ApplicationSSOCredentialKeyAPIService) RevokeCsrFromApplicationExecute(
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err

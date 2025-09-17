@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -29,15 +29,18 @@ import (
 	"strings"
 )
 
+// checks if the DeviceAssuranceMacOSPlatform type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeviceAssuranceMacOSPlatform{}
+
 // DeviceAssuranceMacOSPlatform struct for DeviceAssuranceMacOSPlatform
 type DeviceAssuranceMacOSPlatform struct {
 	DeviceAssurance
-	DiskEncryptionType *DeviceAssuranceMacOSPlatformAllOfDiskEncryptionType `json:"diskEncryptionType,omitempty"`
-	OsVersion *OSVersion `json:"osVersion,omitempty"`
-	ScreenLockType *DeviceAssuranceAndroidPlatformAllOfScreenLockType `json:"screenLockType,omitempty"`
-	SecureHardwarePresent *bool `json:"secureHardwarePresent,omitempty"`
+	DiskEncryptionType        *DeviceAssuranceMacOSPlatformAllOfDiskEncryptionType        `json:"diskEncryptionType,omitempty"`
+	OsVersion                 *OSVersion                                                  `json:"osVersion,omitempty"`
+	ScreenLockType            *DeviceAssuranceAndroidPlatformAllOfScreenLockType          `json:"screenLockType,omitempty"`
+	SecureHardwarePresent     *bool                                                       `json:"secureHardwarePresent,omitempty"`
 	ThirdPartySignalProviders *DeviceAssuranceMacOSPlatformAllOfThirdPartySignalProviders `json:"thirdPartySignalProviders,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties      map[string]interface{}
 }
 
 type _DeviceAssuranceMacOSPlatform DeviceAssuranceMacOSPlatform
@@ -61,7 +64,7 @@ func NewDeviceAssuranceMacOSPlatformWithDefaults() *DeviceAssuranceMacOSPlatform
 
 // GetDiskEncryptionType returns the DiskEncryptionType field value if set, zero value otherwise.
 func (o *DeviceAssuranceMacOSPlatform) GetDiskEncryptionType() DeviceAssuranceMacOSPlatformAllOfDiskEncryptionType {
-	if o == nil || o.DiskEncryptionType == nil {
+	if o == nil || IsNil(o.DiskEncryptionType) {
 		var ret DeviceAssuranceMacOSPlatformAllOfDiskEncryptionType
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *DeviceAssuranceMacOSPlatform) GetDiskEncryptionType() DeviceAssuranceMa
 // GetDiskEncryptionTypeOk returns a tuple with the DiskEncryptionType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceAssuranceMacOSPlatform) GetDiskEncryptionTypeOk() (*DeviceAssuranceMacOSPlatformAllOfDiskEncryptionType, bool) {
-	if o == nil || o.DiskEncryptionType == nil {
+	if o == nil || IsNil(o.DiskEncryptionType) {
 		return nil, false
 	}
 	return o.DiskEncryptionType, true
@@ -79,7 +82,7 @@ func (o *DeviceAssuranceMacOSPlatform) GetDiskEncryptionTypeOk() (*DeviceAssuran
 
 // HasDiskEncryptionType returns a boolean if a field has been set.
 func (o *DeviceAssuranceMacOSPlatform) HasDiskEncryptionType() bool {
-	if o != nil && o.DiskEncryptionType != nil {
+	if o != nil && !IsNil(o.DiskEncryptionType) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *DeviceAssuranceMacOSPlatform) SetDiskEncryptionType(v DeviceAssuranceMa
 
 // GetOsVersion returns the OsVersion field value if set, zero value otherwise.
 func (o *DeviceAssuranceMacOSPlatform) GetOsVersion() OSVersion {
-	if o == nil || o.OsVersion == nil {
+	if o == nil || IsNil(o.OsVersion) {
 		var ret OSVersion
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *DeviceAssuranceMacOSPlatform) GetOsVersion() OSVersion {
 // GetOsVersionOk returns a tuple with the OsVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceAssuranceMacOSPlatform) GetOsVersionOk() (*OSVersion, bool) {
-	if o == nil || o.OsVersion == nil {
+	if o == nil || IsNil(o.OsVersion) {
 		return nil, false
 	}
 	return o.OsVersion, true
@@ -111,7 +114,7 @@ func (o *DeviceAssuranceMacOSPlatform) GetOsVersionOk() (*OSVersion, bool) {
 
 // HasOsVersion returns a boolean if a field has been set.
 func (o *DeviceAssuranceMacOSPlatform) HasOsVersion() bool {
-	if o != nil && o.OsVersion != nil {
+	if o != nil && !IsNil(o.OsVersion) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *DeviceAssuranceMacOSPlatform) SetOsVersion(v OSVersion) {
 
 // GetScreenLockType returns the ScreenLockType field value if set, zero value otherwise.
 func (o *DeviceAssuranceMacOSPlatform) GetScreenLockType() DeviceAssuranceAndroidPlatformAllOfScreenLockType {
-	if o == nil || o.ScreenLockType == nil {
+	if o == nil || IsNil(o.ScreenLockType) {
 		var ret DeviceAssuranceAndroidPlatformAllOfScreenLockType
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *DeviceAssuranceMacOSPlatform) GetScreenLockType() DeviceAssuranceAndroi
 // GetScreenLockTypeOk returns a tuple with the ScreenLockType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceAssuranceMacOSPlatform) GetScreenLockTypeOk() (*DeviceAssuranceAndroidPlatformAllOfScreenLockType, bool) {
-	if o == nil || o.ScreenLockType == nil {
+	if o == nil || IsNil(o.ScreenLockType) {
 		return nil, false
 	}
 	return o.ScreenLockType, true
@@ -143,7 +146,7 @@ func (o *DeviceAssuranceMacOSPlatform) GetScreenLockTypeOk() (*DeviceAssuranceAn
 
 // HasScreenLockType returns a boolean if a field has been set.
 func (o *DeviceAssuranceMacOSPlatform) HasScreenLockType() bool {
-	if o != nil && o.ScreenLockType != nil {
+	if o != nil && !IsNil(o.ScreenLockType) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *DeviceAssuranceMacOSPlatform) SetScreenLockType(v DeviceAssuranceAndroi
 
 // GetSecureHardwarePresent returns the SecureHardwarePresent field value if set, zero value otherwise.
 func (o *DeviceAssuranceMacOSPlatform) GetSecureHardwarePresent() bool {
-	if o == nil || o.SecureHardwarePresent == nil {
+	if o == nil || IsNil(o.SecureHardwarePresent) {
 		var ret bool
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *DeviceAssuranceMacOSPlatform) GetSecureHardwarePresent() bool {
 // GetSecureHardwarePresentOk returns a tuple with the SecureHardwarePresent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceAssuranceMacOSPlatform) GetSecureHardwarePresentOk() (*bool, bool) {
-	if o == nil || o.SecureHardwarePresent == nil {
+	if o == nil || IsNil(o.SecureHardwarePresent) {
 		return nil, false
 	}
 	return o.SecureHardwarePresent, true
@@ -175,7 +178,7 @@ func (o *DeviceAssuranceMacOSPlatform) GetSecureHardwarePresentOk() (*bool, bool
 
 // HasSecureHardwarePresent returns a boolean if a field has been set.
 func (o *DeviceAssuranceMacOSPlatform) HasSecureHardwarePresent() bool {
-	if o != nil && o.SecureHardwarePresent != nil {
+	if o != nil && !IsNil(o.SecureHardwarePresent) {
 		return true
 	}
 
@@ -189,7 +192,7 @@ func (o *DeviceAssuranceMacOSPlatform) SetSecureHardwarePresent(v bool) {
 
 // GetThirdPartySignalProviders returns the ThirdPartySignalProviders field value if set, zero value otherwise.
 func (o *DeviceAssuranceMacOSPlatform) GetThirdPartySignalProviders() DeviceAssuranceMacOSPlatformAllOfThirdPartySignalProviders {
-	if o == nil || o.ThirdPartySignalProviders == nil {
+	if o == nil || IsNil(o.ThirdPartySignalProviders) {
 		var ret DeviceAssuranceMacOSPlatformAllOfThirdPartySignalProviders
 		return ret
 	}
@@ -199,7 +202,7 @@ func (o *DeviceAssuranceMacOSPlatform) GetThirdPartySignalProviders() DeviceAssu
 // GetThirdPartySignalProvidersOk returns a tuple with the ThirdPartySignalProviders field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceAssuranceMacOSPlatform) GetThirdPartySignalProvidersOk() (*DeviceAssuranceMacOSPlatformAllOfThirdPartySignalProviders, bool) {
-	if o == nil || o.ThirdPartySignalProviders == nil {
+	if o == nil || IsNil(o.ThirdPartySignalProviders) {
 		return nil, false
 	}
 	return o.ThirdPartySignalProviders, true
@@ -207,7 +210,7 @@ func (o *DeviceAssuranceMacOSPlatform) GetThirdPartySignalProvidersOk() (*Device
 
 // HasThirdPartySignalProviders returns a boolean if a field has been set.
 func (o *DeviceAssuranceMacOSPlatform) HasThirdPartySignalProviders() bool {
-	if o != nil && o.ThirdPartySignalProviders != nil {
+	if o != nil && !IsNil(o.ThirdPartySignalProviders) {
 		return true
 	}
 
@@ -220,28 +223,36 @@ func (o *DeviceAssuranceMacOSPlatform) SetThirdPartySignalProviders(v DeviceAssu
 }
 
 func (o DeviceAssuranceMacOSPlatform) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DeviceAssuranceMacOSPlatform) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedDeviceAssurance, errDeviceAssurance := json.Marshal(o.DeviceAssurance)
 	if errDeviceAssurance != nil {
-		return []byte{}, errDeviceAssurance
+		return map[string]interface{}{}, errDeviceAssurance
 	}
 	errDeviceAssurance = json.Unmarshal([]byte(serializedDeviceAssurance), &toSerialize)
 	if errDeviceAssurance != nil {
-		return []byte{}, errDeviceAssurance
+		return map[string]interface{}{}, errDeviceAssurance
 	}
-	if o.DiskEncryptionType != nil {
+	if !IsNil(o.DiskEncryptionType) {
 		toSerialize["diskEncryptionType"] = o.DiskEncryptionType
 	}
-	if o.OsVersion != nil {
+	if !IsNil(o.OsVersion) {
 		toSerialize["osVersion"] = o.OsVersion
 	}
-	if o.ScreenLockType != nil {
+	if !IsNil(o.ScreenLockType) {
 		toSerialize["screenLockType"] = o.ScreenLockType
 	}
-	if o.SecureHardwarePresent != nil {
+	if !IsNil(o.SecureHardwarePresent) {
 		toSerialize["secureHardwarePresent"] = o.SecureHardwarePresent
 	}
-	if o.ThirdPartySignalProviders != nil {
+	if !IsNil(o.ThirdPartySignalProviders) {
 		toSerialize["thirdPartySignalProviders"] = o.ThirdPartySignalProviders
 	}
 
@@ -249,21 +260,21 @@ func (o DeviceAssuranceMacOSPlatform) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DeviceAssuranceMacOSPlatform) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DeviceAssuranceMacOSPlatform) UnmarshalJSON(data []byte) (err error) {
 	type DeviceAssuranceMacOSPlatformWithoutEmbeddedStruct struct {
-		DiskEncryptionType *DeviceAssuranceMacOSPlatformAllOfDiskEncryptionType `json:"diskEncryptionType,omitempty"`
-		OsVersion *OSVersion `json:"osVersion,omitempty"`
-		ScreenLockType *DeviceAssuranceAndroidPlatformAllOfScreenLockType `json:"screenLockType,omitempty"`
-		SecureHardwarePresent *bool `json:"secureHardwarePresent,omitempty"`
+		DiskEncryptionType        *DeviceAssuranceMacOSPlatformAllOfDiskEncryptionType        `json:"diskEncryptionType,omitempty"`
+		OsVersion                 *OSVersion                                                  `json:"osVersion,omitempty"`
+		ScreenLockType            *DeviceAssuranceAndroidPlatformAllOfScreenLockType          `json:"screenLockType,omitempty"`
+		SecureHardwarePresent     *bool                                                       `json:"secureHardwarePresent,omitempty"`
 		ThirdPartySignalProviders *DeviceAssuranceMacOSPlatformAllOfThirdPartySignalProviders `json:"thirdPartySignalProviders,omitempty"`
 	}
 
 	varDeviceAssuranceMacOSPlatformWithoutEmbeddedStruct := DeviceAssuranceMacOSPlatformWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varDeviceAssuranceMacOSPlatformWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varDeviceAssuranceMacOSPlatformWithoutEmbeddedStruct)
 	if err == nil {
 		varDeviceAssuranceMacOSPlatform := _DeviceAssuranceMacOSPlatform{}
 		varDeviceAssuranceMacOSPlatform.DiskEncryptionType = varDeviceAssuranceMacOSPlatformWithoutEmbeddedStruct.DiskEncryptionType
@@ -278,7 +289,7 @@ func (o *DeviceAssuranceMacOSPlatform) UnmarshalJSON(bytes []byte) (err error) {
 
 	varDeviceAssuranceMacOSPlatform := _DeviceAssuranceMacOSPlatform{}
 
-	err = json.Unmarshal(bytes, &varDeviceAssuranceMacOSPlatform)
+	err = json.Unmarshal(data, &varDeviceAssuranceMacOSPlatform)
 	if err == nil {
 		o.DeviceAssurance = varDeviceAssuranceMacOSPlatform.DeviceAssurance
 	} else {
@@ -287,8 +298,7 @@ func (o *DeviceAssuranceMacOSPlatform) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "diskEncryptionType")
 		delete(additionalProperties, "osVersion")
 		delete(additionalProperties, "screenLockType")
@@ -314,8 +324,6 @@ func (o *DeviceAssuranceMacOSPlatform) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -356,4 +364,3 @@ func (v *NullableDeviceAssuranceMacOSPlatform) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

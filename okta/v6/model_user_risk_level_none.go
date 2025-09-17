@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"reflect"
 	"strings"
 )
+
+// checks if the UserRiskLevelNone type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserRiskLevelNone{}
 
 // UserRiskLevelNone struct for UserRiskLevelNone
 type UserRiskLevelNone struct {
@@ -55,30 +58,38 @@ func NewUserRiskLevelNoneWithDefaults() *UserRiskLevelNone {
 }
 
 func (o UserRiskLevelNone) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserRiskLevelNone) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedUserRiskGetResponse, errUserRiskGetResponse := json.Marshal(o.UserRiskGetResponse)
 	if errUserRiskGetResponse != nil {
-		return []byte{}, errUserRiskGetResponse
+		return map[string]interface{}{}, errUserRiskGetResponse
 	}
 	errUserRiskGetResponse = json.Unmarshal([]byte(serializedUserRiskGetResponse), &toSerialize)
 	if errUserRiskGetResponse != nil {
-		return []byte{}, errUserRiskGetResponse
+		return map[string]interface{}{}, errUserRiskGetResponse
 	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserRiskLevelNone) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserRiskLevelNone) UnmarshalJSON(data []byte) (err error) {
 	type UserRiskLevelNoneWithoutEmbeddedStruct struct {
 	}
 
 	varUserRiskLevelNoneWithoutEmbeddedStruct := UserRiskLevelNoneWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varUserRiskLevelNoneWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varUserRiskLevelNoneWithoutEmbeddedStruct)
 	if err == nil {
 		varUserRiskLevelNone := _UserRiskLevelNone{}
 		*o = UserRiskLevelNone(varUserRiskLevelNone)
@@ -88,7 +99,7 @@ func (o *UserRiskLevelNone) UnmarshalJSON(bytes []byte) (err error) {
 
 	varUserRiskLevelNone := _UserRiskLevelNone{}
 
-	err = json.Unmarshal(bytes, &varUserRiskLevelNone)
+	err = json.Unmarshal(data, &varUserRiskLevelNone)
 	if err == nil {
 		o.UserRiskGetResponse = varUserRiskLevelNone.UserRiskGetResponse
 	} else {
@@ -97,8 +108,7 @@ func (o *UserRiskLevelNone) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 
 		// remove fields from embedded structs
 		reflectUserRiskGetResponse := reflect.ValueOf(o.UserRiskGetResponse)
@@ -119,8 +129,6 @@ func (o *UserRiskLevelNone) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -161,4 +169,3 @@ func (v *NullableUserRiskLevelNone) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

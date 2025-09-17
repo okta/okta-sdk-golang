@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the Permissions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Permissions{}
+
 // Permissions Permissions assigned to the role
 type Permissions struct {
 	// Array of permissions assigned to the role. See [Permissions](/openapi/okta-management/guides/permissions).
-	Permissions []Permission `json:"permissions,omitempty"`
+	Permissions          []Permission `json:"permissions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewPermissionsWithDefaults() *Permissions {
 
 // GetPermissions returns the Permissions field value if set, zero value otherwise.
 func (o *Permissions) GetPermissions() []Permission {
-	if o == nil || o.Permissions == nil {
+	if o == nil || IsNil(o.Permissions) {
 		var ret []Permission
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *Permissions) GetPermissions() []Permission {
 // GetPermissionsOk returns a tuple with the Permissions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Permissions) GetPermissionsOk() ([]Permission, bool) {
-	if o == nil || o.Permissions == nil {
+	if o == nil || IsNil(o.Permissions) {
 		return nil, false
 	}
 	return o.Permissions, true
@@ -73,7 +76,7 @@ func (o *Permissions) GetPermissionsOk() ([]Permission, bool) {
 
 // HasPermissions returns a boolean if a field has been set.
 func (o *Permissions) HasPermissions() bool {
-	if o != nil && o.Permissions != nil {
+	if o != nil && !IsNil(o.Permissions) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *Permissions) SetPermissions(v []Permission) {
 }
 
 func (o Permissions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Permissions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Permissions != nil {
+	if !IsNil(o.Permissions) {
 		toSerialize["permissions"] = o.Permissions
 	}
 
@@ -95,27 +106,25 @@ func (o Permissions) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Permissions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *Permissions) UnmarshalJSON(data []byte) (err error) {
 	varPermissions := _Permissions{}
 
-	err = json.Unmarshal(bytes, &varPermissions)
-	if err == nil {
-		*o = Permissions(varPermissions)
-	} else {
+	err = json.Unmarshal(data, &varPermissions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = Permissions(varPermissions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "permissions")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullablePermissions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

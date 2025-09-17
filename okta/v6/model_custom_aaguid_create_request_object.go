@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,14 +27,17 @@ import (
 	"encoding/json"
 )
 
+// checks if the CustomAAGUIDCreateRequestObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CustomAAGUIDCreateRequestObject{}
+
 // CustomAAGUIDCreateRequestObject struct for CustomAAGUIDCreateRequestObject
 type CustomAAGUIDCreateRequestObject struct {
 	// An Authenticator Attestation Global Unique Identifier (AAGUID) is a 128-bit identifier indicating the model.
 	Aaguid *string `json:"aaguid,omitempty"`
 	// Contains the certificate and information about it
-	AttestationRootCertificates []AttestationRootCertificatesRequestInner `json:"attestationRootCertificates,omitempty"`
-	AuthenticatorCharacteristics *AAGUIDAuthenticatorCharacteristics `json:"authenticatorCharacteristics,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AttestationRootCertificates  []AttestationRootCertificatesRequestInner `json:"attestationRootCertificates,omitempty"`
+	AuthenticatorCharacteristics *AAGUIDAuthenticatorCharacteristics       `json:"authenticatorCharacteristics,omitempty"`
+	AdditionalProperties         map[string]interface{}
 }
 
 type _CustomAAGUIDCreateRequestObject CustomAAGUIDCreateRequestObject
@@ -58,7 +61,7 @@ func NewCustomAAGUIDCreateRequestObjectWithDefaults() *CustomAAGUIDCreateRequest
 
 // GetAaguid returns the Aaguid field value if set, zero value otherwise.
 func (o *CustomAAGUIDCreateRequestObject) GetAaguid() string {
-	if o == nil || o.Aaguid == nil {
+	if o == nil || IsNil(o.Aaguid) {
 		var ret string
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *CustomAAGUIDCreateRequestObject) GetAaguid() string {
 // GetAaguidOk returns a tuple with the Aaguid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CustomAAGUIDCreateRequestObject) GetAaguidOk() (*string, bool) {
-	if o == nil || o.Aaguid == nil {
+	if o == nil || IsNil(o.Aaguid) {
 		return nil, false
 	}
 	return o.Aaguid, true
@@ -76,7 +79,7 @@ func (o *CustomAAGUIDCreateRequestObject) GetAaguidOk() (*string, bool) {
 
 // HasAaguid returns a boolean if a field has been set.
 func (o *CustomAAGUIDCreateRequestObject) HasAaguid() bool {
-	if o != nil && o.Aaguid != nil {
+	if o != nil && !IsNil(o.Aaguid) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *CustomAAGUIDCreateRequestObject) SetAaguid(v string) {
 
 // GetAttestationRootCertificates returns the AttestationRootCertificates field value if set, zero value otherwise.
 func (o *CustomAAGUIDCreateRequestObject) GetAttestationRootCertificates() []AttestationRootCertificatesRequestInner {
-	if o == nil || o.AttestationRootCertificates == nil {
+	if o == nil || IsNil(o.AttestationRootCertificates) {
 		var ret []AttestationRootCertificatesRequestInner
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *CustomAAGUIDCreateRequestObject) GetAttestationRootCertificates() []Att
 // GetAttestationRootCertificatesOk returns a tuple with the AttestationRootCertificates field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CustomAAGUIDCreateRequestObject) GetAttestationRootCertificatesOk() ([]AttestationRootCertificatesRequestInner, bool) {
-	if o == nil || o.AttestationRootCertificates == nil {
+	if o == nil || IsNil(o.AttestationRootCertificates) {
 		return nil, false
 	}
 	return o.AttestationRootCertificates, true
@@ -108,7 +111,7 @@ func (o *CustomAAGUIDCreateRequestObject) GetAttestationRootCertificatesOk() ([]
 
 // HasAttestationRootCertificates returns a boolean if a field has been set.
 func (o *CustomAAGUIDCreateRequestObject) HasAttestationRootCertificates() bool {
-	if o != nil && o.AttestationRootCertificates != nil {
+	if o != nil && !IsNil(o.AttestationRootCertificates) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *CustomAAGUIDCreateRequestObject) SetAttestationRootCertificates(v []Att
 
 // GetAuthenticatorCharacteristics returns the AuthenticatorCharacteristics field value if set, zero value otherwise.
 func (o *CustomAAGUIDCreateRequestObject) GetAuthenticatorCharacteristics() AAGUIDAuthenticatorCharacteristics {
-	if o == nil || o.AuthenticatorCharacteristics == nil {
+	if o == nil || IsNil(o.AuthenticatorCharacteristics) {
 		var ret AAGUIDAuthenticatorCharacteristics
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *CustomAAGUIDCreateRequestObject) GetAuthenticatorCharacteristics() AAGU
 // GetAuthenticatorCharacteristicsOk returns a tuple with the AuthenticatorCharacteristics field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CustomAAGUIDCreateRequestObject) GetAuthenticatorCharacteristicsOk() (*AAGUIDAuthenticatorCharacteristics, bool) {
-	if o == nil || o.AuthenticatorCharacteristics == nil {
+	if o == nil || IsNil(o.AuthenticatorCharacteristics) {
 		return nil, false
 	}
 	return o.AuthenticatorCharacteristics, true
@@ -140,7 +143,7 @@ func (o *CustomAAGUIDCreateRequestObject) GetAuthenticatorCharacteristicsOk() (*
 
 // HasAuthenticatorCharacteristics returns a boolean if a field has been set.
 func (o *CustomAAGUIDCreateRequestObject) HasAuthenticatorCharacteristics() bool {
-	if o != nil && o.AuthenticatorCharacteristics != nil {
+	if o != nil && !IsNil(o.AuthenticatorCharacteristics) {
 		return true
 	}
 
@@ -153,14 +156,22 @@ func (o *CustomAAGUIDCreateRequestObject) SetAuthenticatorCharacteristics(v AAGU
 }
 
 func (o CustomAAGUIDCreateRequestObject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CustomAAGUIDCreateRequestObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Aaguid != nil {
+	if !IsNil(o.Aaguid) {
 		toSerialize["aaguid"] = o.Aaguid
 	}
-	if o.AttestationRootCertificates != nil {
+	if !IsNil(o.AttestationRootCertificates) {
 		toSerialize["attestationRootCertificates"] = o.AttestationRootCertificates
 	}
-	if o.AuthenticatorCharacteristics != nil {
+	if !IsNil(o.AuthenticatorCharacteristics) {
 		toSerialize["authenticatorCharacteristics"] = o.AuthenticatorCharacteristics
 	}
 
@@ -168,29 +179,27 @@ func (o CustomAAGUIDCreateRequestObject) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CustomAAGUIDCreateRequestObject) UnmarshalJSON(bytes []byte) (err error) {
+func (o *CustomAAGUIDCreateRequestObject) UnmarshalJSON(data []byte) (err error) {
 	varCustomAAGUIDCreateRequestObject := _CustomAAGUIDCreateRequestObject{}
 
-	err = json.Unmarshal(bytes, &varCustomAAGUIDCreateRequestObject)
-	if err == nil {
-		*o = CustomAAGUIDCreateRequestObject(varCustomAAGUIDCreateRequestObject)
-	} else {
+	err = json.Unmarshal(data, &varCustomAAGUIDCreateRequestObject)
+
+	if err != nil {
 		return err
 	}
 
+	*o = CustomAAGUIDCreateRequestObject(varCustomAAGUIDCreateRequestObject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "aaguid")
 		delete(additionalProperties, "attestationRootCertificates")
 		delete(additionalProperties, "authenticatorCharacteristics")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -231,4 +240,3 @@ func (v *NullableCustomAAGUIDCreateRequestObject) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

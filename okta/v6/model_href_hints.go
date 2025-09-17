@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the HrefHints type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &HrefHints{}
+
 // HrefHints Describes allowed HTTP verbs for the `href`
 type HrefHints struct {
-	Allow []string `json:"allow,omitempty"`
+	Allow                []string `json:"allow,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewHrefHintsWithDefaults() *HrefHints {
 
 // GetAllow returns the Allow field value if set, zero value otherwise.
 func (o *HrefHints) GetAllow() []string {
-	if o == nil || o.Allow == nil {
+	if o == nil || IsNil(o.Allow) {
 		var ret []string
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *HrefHints) GetAllow() []string {
 // GetAllowOk returns a tuple with the Allow field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HrefHints) GetAllowOk() ([]string, bool) {
-	if o == nil || o.Allow == nil {
+	if o == nil || IsNil(o.Allow) {
 		return nil, false
 	}
 	return o.Allow, true
@@ -72,7 +75,7 @@ func (o *HrefHints) GetAllowOk() ([]string, bool) {
 
 // HasAllow returns a boolean if a field has been set.
 func (o *HrefHints) HasAllow() bool {
-	if o != nil && o.Allow != nil {
+	if o != nil && !IsNil(o.Allow) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *HrefHints) SetAllow(v []string) {
 }
 
 func (o HrefHints) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o HrefHints) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Allow != nil {
+	if !IsNil(o.Allow) {
 		toSerialize["allow"] = o.Allow
 	}
 
@@ -94,27 +105,25 @@ func (o HrefHints) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *HrefHints) UnmarshalJSON(bytes []byte) (err error) {
+func (o *HrefHints) UnmarshalJSON(data []byte) (err error) {
 	varHrefHints := _HrefHints{}
 
-	err = json.Unmarshal(bytes, &varHrefHints)
-	if err == nil {
-		*o = HrefHints(varHrefHints)
-	} else {
+	err = json.Unmarshal(data, &varHrefHints)
+
+	if err != nil {
 		return err
 	}
 
+	*o = HrefHints(varHrefHints)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "allow")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableHrefHints) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

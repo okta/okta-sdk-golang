@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,21 +27,24 @@ import (
 	"encoding/json"
 )
 
+// checks if the OktaSignOnPolicyRuleSignonActions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OktaSignOnPolicyRuleSignonActions{}
+
 // OktaSignOnPolicyRuleSignonActions Specifies settings for the policy rule
 type OktaSignOnPolicyRuleSignonActions struct {
 	// Indicates if a user is allowed to sign in
 	Access *string `json:"access,omitempty"`
-	// Interval of time that must elapse before the user is challenged for MFA, if the factor prompt mode is set to `SESSION`  > **Note:** Required only if `requireFactor` is `true`. 
+	// Interval of time that must elapse before the user is challenged for MFA, if the factor prompt mode is set to `SESSION`  > **Note:** Required only if `requireFactor` is `true`.
 	FactorLifetime *int32 `json:"factorLifetime,omitempty"`
-	// Indicates if the User should be challenged for a second factor (MFA) based on the device being used, a Factor session lifetime, or on every sign-in attempt  > **Note:** Required only if `requireFactor` is set to `true`. 
+	// Indicates if the User should be challenged for a second factor (MFA) based on the device being used, a Factor session lifetime, or on every sign-in attempt  > **Note:** Required only if `requireFactor` is set to `true`.
 	FactorPromptMode *string `json:"factorPromptMode,omitempty"`
 	// <x-lifecycle class=\"oie\"></x-lifecycle> Indicates the primary factor used to establish a session for the org. Supported values: `PASSWORD_IDP_ANY_FACTOR` (users can use any factor required by the app authentication policy to establish a session), `PASSWORD_IDP` (users must always use a password to establish a session).  > **Note:** Required only if `access` is set to `ALLOW`.
 	PrimaryFactor *string `json:"primaryFactor,omitempty"`
 	// Indicates if Okta should automatically remember the device
 	RememberDeviceByDefault *bool `json:"rememberDeviceByDefault,omitempty"`
 	// Indicates if multifactor authentication is required
-	RequireFactor *bool `json:"requireFactor,omitempty"`
-	Session *OktaSignOnPolicyRuleSignonSessionActions `json:"session,omitempty"`
+	RequireFactor        *bool                                     `json:"requireFactor,omitempty"`
+	Session              *OktaSignOnPolicyRuleSignonSessionActions `json:"session,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -74,7 +77,7 @@ func NewOktaSignOnPolicyRuleSignonActionsWithDefaults() *OktaSignOnPolicyRuleSig
 
 // GetAccess returns the Access field value if set, zero value otherwise.
 func (o *OktaSignOnPolicyRuleSignonActions) GetAccess() string {
-	if o == nil || o.Access == nil {
+	if o == nil || IsNil(o.Access) {
 		var ret string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *OktaSignOnPolicyRuleSignonActions) GetAccess() string {
 // GetAccessOk returns a tuple with the Access field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaSignOnPolicyRuleSignonActions) GetAccessOk() (*string, bool) {
-	if o == nil || o.Access == nil {
+	if o == nil || IsNil(o.Access) {
 		return nil, false
 	}
 	return o.Access, true
@@ -92,7 +95,7 @@ func (o *OktaSignOnPolicyRuleSignonActions) GetAccessOk() (*string, bool) {
 
 // HasAccess returns a boolean if a field has been set.
 func (o *OktaSignOnPolicyRuleSignonActions) HasAccess() bool {
-	if o != nil && o.Access != nil {
+	if o != nil && !IsNil(o.Access) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *OktaSignOnPolicyRuleSignonActions) SetAccess(v string) {
 
 // GetFactorLifetime returns the FactorLifetime field value if set, zero value otherwise.
 func (o *OktaSignOnPolicyRuleSignonActions) GetFactorLifetime() int32 {
-	if o == nil || o.FactorLifetime == nil {
+	if o == nil || IsNil(o.FactorLifetime) {
 		var ret int32
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *OktaSignOnPolicyRuleSignonActions) GetFactorLifetime() int32 {
 // GetFactorLifetimeOk returns a tuple with the FactorLifetime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaSignOnPolicyRuleSignonActions) GetFactorLifetimeOk() (*int32, bool) {
-	if o == nil || o.FactorLifetime == nil {
+	if o == nil || IsNil(o.FactorLifetime) {
 		return nil, false
 	}
 	return o.FactorLifetime, true
@@ -124,7 +127,7 @@ func (o *OktaSignOnPolicyRuleSignonActions) GetFactorLifetimeOk() (*int32, bool)
 
 // HasFactorLifetime returns a boolean if a field has been set.
 func (o *OktaSignOnPolicyRuleSignonActions) HasFactorLifetime() bool {
-	if o != nil && o.FactorLifetime != nil {
+	if o != nil && !IsNil(o.FactorLifetime) {
 		return true
 	}
 
@@ -138,7 +141,7 @@ func (o *OktaSignOnPolicyRuleSignonActions) SetFactorLifetime(v int32) {
 
 // GetFactorPromptMode returns the FactorPromptMode field value if set, zero value otherwise.
 func (o *OktaSignOnPolicyRuleSignonActions) GetFactorPromptMode() string {
-	if o == nil || o.FactorPromptMode == nil {
+	if o == nil || IsNil(o.FactorPromptMode) {
 		var ret string
 		return ret
 	}
@@ -148,7 +151,7 @@ func (o *OktaSignOnPolicyRuleSignonActions) GetFactorPromptMode() string {
 // GetFactorPromptModeOk returns a tuple with the FactorPromptMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaSignOnPolicyRuleSignonActions) GetFactorPromptModeOk() (*string, bool) {
-	if o == nil || o.FactorPromptMode == nil {
+	if o == nil || IsNil(o.FactorPromptMode) {
 		return nil, false
 	}
 	return o.FactorPromptMode, true
@@ -156,7 +159,7 @@ func (o *OktaSignOnPolicyRuleSignonActions) GetFactorPromptModeOk() (*string, bo
 
 // HasFactorPromptMode returns a boolean if a field has been set.
 func (o *OktaSignOnPolicyRuleSignonActions) HasFactorPromptMode() bool {
-	if o != nil && o.FactorPromptMode != nil {
+	if o != nil && !IsNil(o.FactorPromptMode) {
 		return true
 	}
 
@@ -170,7 +173,7 @@ func (o *OktaSignOnPolicyRuleSignonActions) SetFactorPromptMode(v string) {
 
 // GetPrimaryFactor returns the PrimaryFactor field value if set, zero value otherwise.
 func (o *OktaSignOnPolicyRuleSignonActions) GetPrimaryFactor() string {
-	if o == nil || o.PrimaryFactor == nil {
+	if o == nil || IsNil(o.PrimaryFactor) {
 		var ret string
 		return ret
 	}
@@ -180,7 +183,7 @@ func (o *OktaSignOnPolicyRuleSignonActions) GetPrimaryFactor() string {
 // GetPrimaryFactorOk returns a tuple with the PrimaryFactor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaSignOnPolicyRuleSignonActions) GetPrimaryFactorOk() (*string, bool) {
-	if o == nil || o.PrimaryFactor == nil {
+	if o == nil || IsNil(o.PrimaryFactor) {
 		return nil, false
 	}
 	return o.PrimaryFactor, true
@@ -188,7 +191,7 @@ func (o *OktaSignOnPolicyRuleSignonActions) GetPrimaryFactorOk() (*string, bool)
 
 // HasPrimaryFactor returns a boolean if a field has been set.
 func (o *OktaSignOnPolicyRuleSignonActions) HasPrimaryFactor() bool {
-	if o != nil && o.PrimaryFactor != nil {
+	if o != nil && !IsNil(o.PrimaryFactor) {
 		return true
 	}
 
@@ -202,7 +205,7 @@ func (o *OktaSignOnPolicyRuleSignonActions) SetPrimaryFactor(v string) {
 
 // GetRememberDeviceByDefault returns the RememberDeviceByDefault field value if set, zero value otherwise.
 func (o *OktaSignOnPolicyRuleSignonActions) GetRememberDeviceByDefault() bool {
-	if o == nil || o.RememberDeviceByDefault == nil {
+	if o == nil || IsNil(o.RememberDeviceByDefault) {
 		var ret bool
 		return ret
 	}
@@ -212,7 +215,7 @@ func (o *OktaSignOnPolicyRuleSignonActions) GetRememberDeviceByDefault() bool {
 // GetRememberDeviceByDefaultOk returns a tuple with the RememberDeviceByDefault field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaSignOnPolicyRuleSignonActions) GetRememberDeviceByDefaultOk() (*bool, bool) {
-	if o == nil || o.RememberDeviceByDefault == nil {
+	if o == nil || IsNil(o.RememberDeviceByDefault) {
 		return nil, false
 	}
 	return o.RememberDeviceByDefault, true
@@ -220,7 +223,7 @@ func (o *OktaSignOnPolicyRuleSignonActions) GetRememberDeviceByDefaultOk() (*boo
 
 // HasRememberDeviceByDefault returns a boolean if a field has been set.
 func (o *OktaSignOnPolicyRuleSignonActions) HasRememberDeviceByDefault() bool {
-	if o != nil && o.RememberDeviceByDefault != nil {
+	if o != nil && !IsNil(o.RememberDeviceByDefault) {
 		return true
 	}
 
@@ -234,7 +237,7 @@ func (o *OktaSignOnPolicyRuleSignonActions) SetRememberDeviceByDefault(v bool) {
 
 // GetRequireFactor returns the RequireFactor field value if set, zero value otherwise.
 func (o *OktaSignOnPolicyRuleSignonActions) GetRequireFactor() bool {
-	if o == nil || o.RequireFactor == nil {
+	if o == nil || IsNil(o.RequireFactor) {
 		var ret bool
 		return ret
 	}
@@ -244,7 +247,7 @@ func (o *OktaSignOnPolicyRuleSignonActions) GetRequireFactor() bool {
 // GetRequireFactorOk returns a tuple with the RequireFactor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaSignOnPolicyRuleSignonActions) GetRequireFactorOk() (*bool, bool) {
-	if o == nil || o.RequireFactor == nil {
+	if o == nil || IsNil(o.RequireFactor) {
 		return nil, false
 	}
 	return o.RequireFactor, true
@@ -252,7 +255,7 @@ func (o *OktaSignOnPolicyRuleSignonActions) GetRequireFactorOk() (*bool, bool) {
 
 // HasRequireFactor returns a boolean if a field has been set.
 func (o *OktaSignOnPolicyRuleSignonActions) HasRequireFactor() bool {
-	if o != nil && o.RequireFactor != nil {
+	if o != nil && !IsNil(o.RequireFactor) {
 		return true
 	}
 
@@ -266,7 +269,7 @@ func (o *OktaSignOnPolicyRuleSignonActions) SetRequireFactor(v bool) {
 
 // GetSession returns the Session field value if set, zero value otherwise.
 func (o *OktaSignOnPolicyRuleSignonActions) GetSession() OktaSignOnPolicyRuleSignonSessionActions {
-	if o == nil || o.Session == nil {
+	if o == nil || IsNil(o.Session) {
 		var ret OktaSignOnPolicyRuleSignonSessionActions
 		return ret
 	}
@@ -276,7 +279,7 @@ func (o *OktaSignOnPolicyRuleSignonActions) GetSession() OktaSignOnPolicyRuleSig
 // GetSessionOk returns a tuple with the Session field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaSignOnPolicyRuleSignonActions) GetSessionOk() (*OktaSignOnPolicyRuleSignonSessionActions, bool) {
-	if o == nil || o.Session == nil {
+	if o == nil || IsNil(o.Session) {
 		return nil, false
 	}
 	return o.Session, true
@@ -284,7 +287,7 @@ func (o *OktaSignOnPolicyRuleSignonActions) GetSessionOk() (*OktaSignOnPolicyRul
 
 // HasSession returns a boolean if a field has been set.
 func (o *OktaSignOnPolicyRuleSignonActions) HasSession() bool {
-	if o != nil && o.Session != nil {
+	if o != nil && !IsNil(o.Session) {
 		return true
 	}
 
@@ -297,26 +300,34 @@ func (o *OktaSignOnPolicyRuleSignonActions) SetSession(v OktaSignOnPolicyRuleSig
 }
 
 func (o OktaSignOnPolicyRuleSignonActions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OktaSignOnPolicyRuleSignonActions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Access != nil {
+	if !IsNil(o.Access) {
 		toSerialize["access"] = o.Access
 	}
-	if o.FactorLifetime != nil {
+	if !IsNil(o.FactorLifetime) {
 		toSerialize["factorLifetime"] = o.FactorLifetime
 	}
-	if o.FactorPromptMode != nil {
+	if !IsNil(o.FactorPromptMode) {
 		toSerialize["factorPromptMode"] = o.FactorPromptMode
 	}
-	if o.PrimaryFactor != nil {
+	if !IsNil(o.PrimaryFactor) {
 		toSerialize["primaryFactor"] = o.PrimaryFactor
 	}
-	if o.RememberDeviceByDefault != nil {
+	if !IsNil(o.RememberDeviceByDefault) {
 		toSerialize["rememberDeviceByDefault"] = o.RememberDeviceByDefault
 	}
-	if o.RequireFactor != nil {
+	if !IsNil(o.RequireFactor) {
 		toSerialize["requireFactor"] = o.RequireFactor
 	}
-	if o.Session != nil {
+	if !IsNil(o.Session) {
 		toSerialize["session"] = o.Session
 	}
 
@@ -324,23 +335,23 @@ func (o OktaSignOnPolicyRuleSignonActions) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OktaSignOnPolicyRuleSignonActions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OktaSignOnPolicyRuleSignonActions) UnmarshalJSON(data []byte) (err error) {
 	varOktaSignOnPolicyRuleSignonActions := _OktaSignOnPolicyRuleSignonActions{}
 
-	err = json.Unmarshal(bytes, &varOktaSignOnPolicyRuleSignonActions)
-	if err == nil {
-		*o = OktaSignOnPolicyRuleSignonActions(varOktaSignOnPolicyRuleSignonActions)
-	} else {
+	err = json.Unmarshal(data, &varOktaSignOnPolicyRuleSignonActions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OktaSignOnPolicyRuleSignonActions(varOktaSignOnPolicyRuleSignonActions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "access")
 		delete(additionalProperties, "factorLifetime")
 		delete(additionalProperties, "factorPromptMode")
@@ -349,8 +360,6 @@ func (o *OktaSignOnPolicyRuleSignonActions) UnmarshalJSON(bytes []byte) (err err
 		delete(additionalProperties, "requireFactor")
 		delete(additionalProperties, "session")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -391,4 +400,3 @@ func (v *NullableOktaSignOnPolicyRuleSignonActions) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

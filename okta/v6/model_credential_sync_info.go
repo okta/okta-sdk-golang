@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"time"
 )
 
+// checks if the CredentialSyncInfo type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CredentialSyncInfo{}
+
 // CredentialSyncInfo struct for CredentialSyncInfo
 type CredentialSyncInfo struct {
 	// The error code for the type of error
@@ -39,7 +42,7 @@ type CredentialSyncInfo struct {
 	// Current credential sync status of the privileged resource
 	SyncState *string `json:"syncState,omitempty"`
 	// Timestamp when the credential was changed
-	SyncTime *time.Time `json:"syncTime,omitempty"`
+	SyncTime             *time.Time `json:"syncTime,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -64,7 +67,7 @@ func NewCredentialSyncInfoWithDefaults() *CredentialSyncInfo {
 
 // GetErrorCode returns the ErrorCode field value if set, zero value otherwise.
 func (o *CredentialSyncInfo) GetErrorCode() string {
-	if o == nil || o.ErrorCode == nil {
+	if o == nil || IsNil(o.ErrorCode) {
 		var ret string
 		return ret
 	}
@@ -74,7 +77,7 @@ func (o *CredentialSyncInfo) GetErrorCode() string {
 // GetErrorCodeOk returns a tuple with the ErrorCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CredentialSyncInfo) GetErrorCodeOk() (*string, bool) {
-	if o == nil || o.ErrorCode == nil {
+	if o == nil || IsNil(o.ErrorCode) {
 		return nil, false
 	}
 	return o.ErrorCode, true
@@ -82,7 +85,7 @@ func (o *CredentialSyncInfo) GetErrorCodeOk() (*string, bool) {
 
 // HasErrorCode returns a boolean if a field has been set.
 func (o *CredentialSyncInfo) HasErrorCode() bool {
-	if o != nil && o.ErrorCode != nil {
+	if o != nil && !IsNil(o.ErrorCode) {
 		return true
 	}
 
@@ -96,7 +99,7 @@ func (o *CredentialSyncInfo) SetErrorCode(v string) {
 
 // GetErrorReason returns the ErrorReason field value if set, zero value otherwise.
 func (o *CredentialSyncInfo) GetErrorReason() string {
-	if o == nil || o.ErrorReason == nil {
+	if o == nil || IsNil(o.ErrorReason) {
 		var ret string
 		return ret
 	}
@@ -106,7 +109,7 @@ func (o *CredentialSyncInfo) GetErrorReason() string {
 // GetErrorReasonOk returns a tuple with the ErrorReason field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CredentialSyncInfo) GetErrorReasonOk() (*string, bool) {
-	if o == nil || o.ErrorReason == nil {
+	if o == nil || IsNil(o.ErrorReason) {
 		return nil, false
 	}
 	return o.ErrorReason, true
@@ -114,7 +117,7 @@ func (o *CredentialSyncInfo) GetErrorReasonOk() (*string, bool) {
 
 // HasErrorReason returns a boolean if a field has been set.
 func (o *CredentialSyncInfo) HasErrorReason() bool {
-	if o != nil && o.ErrorReason != nil {
+	if o != nil && !IsNil(o.ErrorReason) {
 		return true
 	}
 
@@ -128,7 +131,7 @@ func (o *CredentialSyncInfo) SetErrorReason(v string) {
 
 // GetSecretVersionId returns the SecretVersionId field value if set, zero value otherwise.
 func (o *CredentialSyncInfo) GetSecretVersionId() string {
-	if o == nil || o.SecretVersionId == nil {
+	if o == nil || IsNil(o.SecretVersionId) {
 		var ret string
 		return ret
 	}
@@ -138,7 +141,7 @@ func (o *CredentialSyncInfo) GetSecretVersionId() string {
 // GetSecretVersionIdOk returns a tuple with the SecretVersionId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CredentialSyncInfo) GetSecretVersionIdOk() (*string, bool) {
-	if o == nil || o.SecretVersionId == nil {
+	if o == nil || IsNil(o.SecretVersionId) {
 		return nil, false
 	}
 	return o.SecretVersionId, true
@@ -146,7 +149,7 @@ func (o *CredentialSyncInfo) GetSecretVersionIdOk() (*string, bool) {
 
 // HasSecretVersionId returns a boolean if a field has been set.
 func (o *CredentialSyncInfo) HasSecretVersionId() bool {
-	if o != nil && o.SecretVersionId != nil {
+	if o != nil && !IsNil(o.SecretVersionId) {
 		return true
 	}
 
@@ -160,7 +163,7 @@ func (o *CredentialSyncInfo) SetSecretVersionId(v string) {
 
 // GetSyncState returns the SyncState field value if set, zero value otherwise.
 func (o *CredentialSyncInfo) GetSyncState() string {
-	if o == nil || o.SyncState == nil {
+	if o == nil || IsNil(o.SyncState) {
 		var ret string
 		return ret
 	}
@@ -170,7 +173,7 @@ func (o *CredentialSyncInfo) GetSyncState() string {
 // GetSyncStateOk returns a tuple with the SyncState field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CredentialSyncInfo) GetSyncStateOk() (*string, bool) {
-	if o == nil || o.SyncState == nil {
+	if o == nil || IsNil(o.SyncState) {
 		return nil, false
 	}
 	return o.SyncState, true
@@ -178,7 +181,7 @@ func (o *CredentialSyncInfo) GetSyncStateOk() (*string, bool) {
 
 // HasSyncState returns a boolean if a field has been set.
 func (o *CredentialSyncInfo) HasSyncState() bool {
-	if o != nil && o.SyncState != nil {
+	if o != nil && !IsNil(o.SyncState) {
 		return true
 	}
 
@@ -192,7 +195,7 @@ func (o *CredentialSyncInfo) SetSyncState(v string) {
 
 // GetSyncTime returns the SyncTime field value if set, zero value otherwise.
 func (o *CredentialSyncInfo) GetSyncTime() time.Time {
-	if o == nil || o.SyncTime == nil {
+	if o == nil || IsNil(o.SyncTime) {
 		var ret time.Time
 		return ret
 	}
@@ -202,7 +205,7 @@ func (o *CredentialSyncInfo) GetSyncTime() time.Time {
 // GetSyncTimeOk returns a tuple with the SyncTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CredentialSyncInfo) GetSyncTimeOk() (*time.Time, bool) {
-	if o == nil || o.SyncTime == nil {
+	if o == nil || IsNil(o.SyncTime) {
 		return nil, false
 	}
 	return o.SyncTime, true
@@ -210,7 +213,7 @@ func (o *CredentialSyncInfo) GetSyncTimeOk() (*time.Time, bool) {
 
 // HasSyncTime returns a boolean if a field has been set.
 func (o *CredentialSyncInfo) HasSyncTime() bool {
-	if o != nil && o.SyncTime != nil {
+	if o != nil && !IsNil(o.SyncTime) {
 		return true
 	}
 
@@ -223,20 +226,28 @@ func (o *CredentialSyncInfo) SetSyncTime(v time.Time) {
 }
 
 func (o CredentialSyncInfo) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CredentialSyncInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ErrorCode != nil {
+	if !IsNil(o.ErrorCode) {
 		toSerialize["errorCode"] = o.ErrorCode
 	}
-	if o.ErrorReason != nil {
+	if !IsNil(o.ErrorReason) {
 		toSerialize["errorReason"] = o.ErrorReason
 	}
-	if o.SecretVersionId != nil {
+	if !IsNil(o.SecretVersionId) {
 		toSerialize["secretVersionId"] = o.SecretVersionId
 	}
-	if o.SyncState != nil {
+	if !IsNil(o.SyncState) {
 		toSerialize["syncState"] = o.SyncState
 	}
-	if o.SyncTime != nil {
+	if !IsNil(o.SyncTime) {
 		toSerialize["syncTime"] = o.SyncTime
 	}
 
@@ -244,31 +255,29 @@ func (o CredentialSyncInfo) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CredentialSyncInfo) UnmarshalJSON(bytes []byte) (err error) {
+func (o *CredentialSyncInfo) UnmarshalJSON(data []byte) (err error) {
 	varCredentialSyncInfo := _CredentialSyncInfo{}
 
-	err = json.Unmarshal(bytes, &varCredentialSyncInfo)
-	if err == nil {
-		*o = CredentialSyncInfo(varCredentialSyncInfo)
-	} else {
+	err = json.Unmarshal(data, &varCredentialSyncInfo)
+
+	if err != nil {
 		return err
 	}
 
+	*o = CredentialSyncInfo(varCredentialSyncInfo)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "errorCode")
 		delete(additionalProperties, "errorReason")
 		delete(additionalProperties, "secretVersionId")
 		delete(additionalProperties, "syncState")
 		delete(additionalProperties, "syncTime")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -309,4 +318,3 @@ func (v *NullableCredentialSyncInfo) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

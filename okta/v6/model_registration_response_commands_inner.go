@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the RegistrationResponseCommandsInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RegistrationResponseCommandsInner{}
+
 // RegistrationResponseCommandsInner struct for RegistrationResponseCommandsInner
 type RegistrationResponseCommandsInner struct {
 	// The location where you specify the command. To set attributes in the user's Okta profile, supply a `type` property set to `com.okta.user.profile.update`, together with a `value` property set to a list of key-value pairs corresponding to the Okta user profile attributes you want to set. The attributes must already exist in your user profile schema.  To explicitly allow or deny registration to the user, supply a type property set to `com.okta.action.update`, together with a value property set to `{\"registration\": \"ALLOW\"}` or `{\"registration\": \"DENY\"}`. The default is to allow registration.  In Okta Identity Engine, to set attributes in the user's profile, supply a `type` property set to `com.okta.user.progressive.profile.update`, together with a `value` property set to a list of key-value pairs corresponding to the Progressive Enrollment attributes that you want to set. See [Registration inline hook - Send response](https://developer.okta.com/docs/guides/registration-inline-hook/nodejs/main/#send-response).  Commands are applied in the order that they appear in the array. Within a single `com.okta.user.profile.update` or `com.okta.user.progressive.profile.update command`, attributes are updated in the order that they appear in the `value` object.  You can never use a command to update the user's password, but you are allowed to set the values of attributes other than password that are designated sensitive in your Okta user schema. However, the values of those sensitive attributes, if included as fields in the Profile Enrollment form, aren't included in the `data.userProfile` object sent to your external service by Okta. See [data.userProfile](/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/create-registration-hook!path=0/data/userProfile&t=request).
 	Type *string `json:"type,omitempty"`
 	// The `value` object is the parameter to pass to the command.  For `com.okta.user.profile.update` commands, `value` should be an object containing one or more name-value pairs for the attributes you wish to update.  For `com.okta.action.update` commands, the value should be an object containing the attribute `action` set to a value of either `ALLOW` or `DENY`, indicating whether the registration should be permitted or not.  Registrations are allowed by default, so setting a value of `ALLOW` for the action field is valid but superfluous.
-	Value map[string]interface{} `json:"value,omitempty"`
+	Value                map[string]interface{} `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewRegistrationResponseCommandsInnerWithDefaults() *RegistrationResponseCom
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *RegistrationResponseCommandsInner) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *RegistrationResponseCommandsInner) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationResponseCommandsInner) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -75,7 +78,7 @@ func (o *RegistrationResponseCommandsInner) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *RegistrationResponseCommandsInner) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *RegistrationResponseCommandsInner) SetType(v string) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *RegistrationResponseCommandsInner) GetValue() map[string]interface{} {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -99,15 +102,15 @@ func (o *RegistrationResponseCommandsInner) GetValue() map[string]interface{} {
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationResponseCommandsInner) GetValueOk() (map[string]interface{}, bool) {
-	if o == nil || o.Value == nil {
-		return nil, false
+	if o == nil || IsNil(o.Value) {
+		return map[string]interface{}{}, false
 	}
 	return o.Value, true
 }
 
 // HasValue returns a boolean if a field has been set.
 func (o *RegistrationResponseCommandsInner) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *RegistrationResponseCommandsInner) SetValue(v map[string]interface{}) {
 }
 
 func (o RegistrationResponseCommandsInner) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RegistrationResponseCommandsInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Value != nil {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
 
@@ -132,28 +143,26 @@ func (o RegistrationResponseCommandsInner) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RegistrationResponseCommandsInner) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RegistrationResponseCommandsInner) UnmarshalJSON(data []byte) (err error) {
 	varRegistrationResponseCommandsInner := _RegistrationResponseCommandsInner{}
 
-	err = json.Unmarshal(bytes, &varRegistrationResponseCommandsInner)
-	if err == nil {
-		*o = RegistrationResponseCommandsInner(varRegistrationResponseCommandsInner)
-	} else {
+	err = json.Unmarshal(data, &varRegistrationResponseCommandsInner)
+
+	if err != nil {
 		return err
 	}
 
+	*o = RegistrationResponseCommandsInner(varRegistrationResponseCommandsInner)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "value")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableRegistrationResponseCommandsInner) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

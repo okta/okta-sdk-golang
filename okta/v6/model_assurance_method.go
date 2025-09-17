@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -29,16 +29,19 @@ import (
 	"strings"
 )
 
+// checks if the AssuranceMethod type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AssuranceMethod{}
+
 // AssuranceMethod struct for AssuranceMethod
 type AssuranceMethod struct {
 	VerificationMethod
 	// Specifies constraints for the authenticator. Constraints are logically evaluated such that only one constraint object needs to be satisfied. But, within a constraint object, each constraint property must be satisfied.
 	Constraints []AccessPolicyConstraints `json:"constraints,omitempty"`
-	FactorMode *string `json:"factorMode,omitempty"`
+	FactorMode  *string                   `json:"factorMode,omitempty"`
 	// The inactivity duration after which the user must re-authenticate. Use the ISO 8601 period format (for example, PT2H).
 	InactivityPeriod *string `json:"inactivityPeriod,omitempty"`
 	// The duration after which the user must re-authenticate, regardless of user activity. Keep in mind that the re-authentication intervals for constraints take precedent over this value. Use the ISO 8601 period format for recurring time intervals (for example, PT2H, PT0S, PT43800H, and so on).
-	ReauthenticateIn *string `json:"reauthenticateIn,omitempty"`
+	ReauthenticateIn     *string `json:"reauthenticateIn,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -63,7 +66,7 @@ func NewAssuranceMethodWithDefaults() *AssuranceMethod {
 
 // GetConstraints returns the Constraints field value if set, zero value otherwise.
 func (o *AssuranceMethod) GetConstraints() []AccessPolicyConstraints {
-	if o == nil || o.Constraints == nil {
+	if o == nil || IsNil(o.Constraints) {
 		var ret []AccessPolicyConstraints
 		return ret
 	}
@@ -73,7 +76,7 @@ func (o *AssuranceMethod) GetConstraints() []AccessPolicyConstraints {
 // GetConstraintsOk returns a tuple with the Constraints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssuranceMethod) GetConstraintsOk() ([]AccessPolicyConstraints, bool) {
-	if o == nil || o.Constraints == nil {
+	if o == nil || IsNil(o.Constraints) {
 		return nil, false
 	}
 	return o.Constraints, true
@@ -81,7 +84,7 @@ func (o *AssuranceMethod) GetConstraintsOk() ([]AccessPolicyConstraints, bool) {
 
 // HasConstraints returns a boolean if a field has been set.
 func (o *AssuranceMethod) HasConstraints() bool {
-	if o != nil && o.Constraints != nil {
+	if o != nil && !IsNil(o.Constraints) {
 		return true
 	}
 
@@ -95,7 +98,7 @@ func (o *AssuranceMethod) SetConstraints(v []AccessPolicyConstraints) {
 
 // GetFactorMode returns the FactorMode field value if set, zero value otherwise.
 func (o *AssuranceMethod) GetFactorMode() string {
-	if o == nil || o.FactorMode == nil {
+	if o == nil || IsNil(o.FactorMode) {
 		var ret string
 		return ret
 	}
@@ -105,7 +108,7 @@ func (o *AssuranceMethod) GetFactorMode() string {
 // GetFactorModeOk returns a tuple with the FactorMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssuranceMethod) GetFactorModeOk() (*string, bool) {
-	if o == nil || o.FactorMode == nil {
+	if o == nil || IsNil(o.FactorMode) {
 		return nil, false
 	}
 	return o.FactorMode, true
@@ -113,7 +116,7 @@ func (o *AssuranceMethod) GetFactorModeOk() (*string, bool) {
 
 // HasFactorMode returns a boolean if a field has been set.
 func (o *AssuranceMethod) HasFactorMode() bool {
-	if o != nil && o.FactorMode != nil {
+	if o != nil && !IsNil(o.FactorMode) {
 		return true
 	}
 
@@ -127,7 +130,7 @@ func (o *AssuranceMethod) SetFactorMode(v string) {
 
 // GetInactivityPeriod returns the InactivityPeriod field value if set, zero value otherwise.
 func (o *AssuranceMethod) GetInactivityPeriod() string {
-	if o == nil || o.InactivityPeriod == nil {
+	if o == nil || IsNil(o.InactivityPeriod) {
 		var ret string
 		return ret
 	}
@@ -137,7 +140,7 @@ func (o *AssuranceMethod) GetInactivityPeriod() string {
 // GetInactivityPeriodOk returns a tuple with the InactivityPeriod field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssuranceMethod) GetInactivityPeriodOk() (*string, bool) {
-	if o == nil || o.InactivityPeriod == nil {
+	if o == nil || IsNil(o.InactivityPeriod) {
 		return nil, false
 	}
 	return o.InactivityPeriod, true
@@ -145,7 +148,7 @@ func (o *AssuranceMethod) GetInactivityPeriodOk() (*string, bool) {
 
 // HasInactivityPeriod returns a boolean if a field has been set.
 func (o *AssuranceMethod) HasInactivityPeriod() bool {
-	if o != nil && o.InactivityPeriod != nil {
+	if o != nil && !IsNil(o.InactivityPeriod) {
 		return true
 	}
 
@@ -159,7 +162,7 @@ func (o *AssuranceMethod) SetInactivityPeriod(v string) {
 
 // GetReauthenticateIn returns the ReauthenticateIn field value if set, zero value otherwise.
 func (o *AssuranceMethod) GetReauthenticateIn() string {
-	if o == nil || o.ReauthenticateIn == nil {
+	if o == nil || IsNil(o.ReauthenticateIn) {
 		var ret string
 		return ret
 	}
@@ -169,7 +172,7 @@ func (o *AssuranceMethod) GetReauthenticateIn() string {
 // GetReauthenticateInOk returns a tuple with the ReauthenticateIn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssuranceMethod) GetReauthenticateInOk() (*string, bool) {
-	if o == nil || o.ReauthenticateIn == nil {
+	if o == nil || IsNil(o.ReauthenticateIn) {
 		return nil, false
 	}
 	return o.ReauthenticateIn, true
@@ -177,7 +180,7 @@ func (o *AssuranceMethod) GetReauthenticateInOk() (*string, bool) {
 
 // HasReauthenticateIn returns a boolean if a field has been set.
 func (o *AssuranceMethod) HasReauthenticateIn() bool {
-	if o != nil && o.ReauthenticateIn != nil {
+	if o != nil && !IsNil(o.ReauthenticateIn) {
 		return true
 	}
 
@@ -190,25 +193,33 @@ func (o *AssuranceMethod) SetReauthenticateIn(v string) {
 }
 
 func (o AssuranceMethod) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AssuranceMethod) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedVerificationMethod, errVerificationMethod := json.Marshal(o.VerificationMethod)
 	if errVerificationMethod != nil {
-		return []byte{}, errVerificationMethod
+		return map[string]interface{}{}, errVerificationMethod
 	}
 	errVerificationMethod = json.Unmarshal([]byte(serializedVerificationMethod), &toSerialize)
 	if errVerificationMethod != nil {
-		return []byte{}, errVerificationMethod
+		return map[string]interface{}{}, errVerificationMethod
 	}
-	if o.Constraints != nil {
+	if !IsNil(o.Constraints) {
 		toSerialize["constraints"] = o.Constraints
 	}
-	if o.FactorMode != nil {
+	if !IsNil(o.FactorMode) {
 		toSerialize["factorMode"] = o.FactorMode
 	}
-	if o.InactivityPeriod != nil {
+	if !IsNil(o.InactivityPeriod) {
 		toSerialize["inactivityPeriod"] = o.InactivityPeriod
 	}
-	if o.ReauthenticateIn != nil {
+	if !IsNil(o.ReauthenticateIn) {
 		toSerialize["reauthenticateIn"] = o.ReauthenticateIn
 	}
 
@@ -216,14 +227,14 @@ func (o AssuranceMethod) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AssuranceMethod) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AssuranceMethod) UnmarshalJSON(data []byte) (err error) {
 	type AssuranceMethodWithoutEmbeddedStruct struct {
 		// Specifies constraints for the authenticator. Constraints are logically evaluated such that only one constraint object needs to be satisfied. But, within a constraint object, each constraint property must be satisfied.
 		Constraints []AccessPolicyConstraints `json:"constraints,omitempty"`
-		FactorMode *string `json:"factorMode,omitempty"`
+		FactorMode  *string                   `json:"factorMode,omitempty"`
 		// The inactivity duration after which the user must re-authenticate. Use the ISO 8601 period format (for example, PT2H).
 		InactivityPeriod *string `json:"inactivityPeriod,omitempty"`
 		// The duration after which the user must re-authenticate, regardless of user activity. Keep in mind that the re-authentication intervals for constraints take precedent over this value. Use the ISO 8601 period format for recurring time intervals (for example, PT2H, PT0S, PT43800H, and so on).
@@ -232,7 +243,7 @@ func (o *AssuranceMethod) UnmarshalJSON(bytes []byte) (err error) {
 
 	varAssuranceMethodWithoutEmbeddedStruct := AssuranceMethodWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varAssuranceMethodWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varAssuranceMethodWithoutEmbeddedStruct)
 	if err == nil {
 		varAssuranceMethod := _AssuranceMethod{}
 		varAssuranceMethod.Constraints = varAssuranceMethodWithoutEmbeddedStruct.Constraints
@@ -246,7 +257,7 @@ func (o *AssuranceMethod) UnmarshalJSON(bytes []byte) (err error) {
 
 	varAssuranceMethod := _AssuranceMethod{}
 
-	err = json.Unmarshal(bytes, &varAssuranceMethod)
+	err = json.Unmarshal(data, &varAssuranceMethod)
 	if err == nil {
 		o.VerificationMethod = varAssuranceMethod.VerificationMethod
 	} else {
@@ -255,8 +266,7 @@ func (o *AssuranceMethod) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "constraints")
 		delete(additionalProperties, "factorMode")
 		delete(additionalProperties, "inactivityPeriod")
@@ -281,8 +291,6 @@ func (o *AssuranceMethod) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -323,4 +331,3 @@ func (v *NullableAssuranceMethod) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

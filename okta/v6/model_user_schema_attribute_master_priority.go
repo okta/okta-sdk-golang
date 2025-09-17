@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserSchemaAttributeMasterPriority type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserSchemaAttributeMasterPriority{}
+
 // UserSchemaAttributeMasterPriority struct for UserSchemaAttributeMasterPriority
 type UserSchemaAttributeMasterPriority struct {
-	Type *string `json:"type,omitempty"`
-	Value *string `json:"value,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	Value                *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewUserSchemaAttributeMasterPriorityWithDefaults() *UserSchemaAttributeMast
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *UserSchemaAttributeMasterPriority) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *UserSchemaAttributeMasterPriority) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaAttributeMasterPriority) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -73,7 +76,7 @@ func (o *UserSchemaAttributeMasterPriority) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *UserSchemaAttributeMasterPriority) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *UserSchemaAttributeMasterPriority) SetType(v string) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *UserSchemaAttributeMasterPriority) GetValue() string {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret string
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *UserSchemaAttributeMasterPriority) GetValue() string {
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaAttributeMasterPriority) GetValueOk() (*string, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -105,7 +108,7 @@ func (o *UserSchemaAttributeMasterPriority) GetValueOk() (*string, bool) {
 
 // HasValue returns a boolean if a field has been set.
 func (o *UserSchemaAttributeMasterPriority) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *UserSchemaAttributeMasterPriority) SetValue(v string) {
 }
 
 func (o UserSchemaAttributeMasterPriority) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserSchemaAttributeMasterPriority) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Value != nil {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
 
@@ -130,28 +141,26 @@ func (o UserSchemaAttributeMasterPriority) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserSchemaAttributeMasterPriority) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserSchemaAttributeMasterPriority) UnmarshalJSON(data []byte) (err error) {
 	varUserSchemaAttributeMasterPriority := _UserSchemaAttributeMasterPriority{}
 
-	err = json.Unmarshal(bytes, &varUserSchemaAttributeMasterPriority)
-	if err == nil {
-		*o = UserSchemaAttributeMasterPriority(varUserSchemaAttributeMasterPriority)
-	} else {
+	err = json.Unmarshal(data, &varUserSchemaAttributeMasterPriority)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserSchemaAttributeMasterPriority(varUserSchemaAttributeMasterPriority)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "value")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableUserSchemaAttributeMasterPriority) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

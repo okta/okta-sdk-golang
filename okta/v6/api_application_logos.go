@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,32 +26,31 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
-	"strings"
 	"os"
+	"strings"
+	"time"
 )
-
 
 type ApplicationLogosAPI interface {
 
 	/*
-	UploadApplicationLogo Upload an application logo
+			UploadApplicationLogo Upload an application logo
 
-	Uploads a logo for the app instance.
-If the app already has a logo, this operation replaces the previous logo.
+			Uploads a logo for the app instance.
+		If the app already has a logo, this operation replaces the previous logo.
 
-The logo is visible in the Admin Console as an icon for your app instance.
-If you have one `appLink` object configured, this logo also appears in the End-User Dashboard as an icon for your app.
-> **Note:** If you have multiple `appLink` objects, use the Admin Console to add logos for each app link.
-> You can't use the API to add logos for multiple app links.
+		The logo is visible in the Admin Console as an icon for your app instance.
+		If you have one `appLink` object configured, this logo also appears in the End-User Dashboard as an icon for your app.
+		> **Note:** If you have multiple `appLink` objects, use the Admin Console to add logos for each app link.
+		> You can't use the API to add logos for multiple app links.
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiUploadApplicationLogoRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appId Application ID
+			@return ApiUploadApplicationLogoRequest
 	*/
 	UploadApplicationLogo(ctx context.Context, appId string) ApiUploadApplicationLogoRequest
 
@@ -63,14 +62,14 @@ If you have one `appLink` object configured, this logo also appears in the End-U
 type ApplicationLogosAPIService service
 
 type ApiUploadApplicationLogoRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationLogosAPI
-	appId string
-	file **os.File
+	appId      string
+	file       **os.File
 	retryCount int32
 }
 
-// The image file containing the logo.  The file must be in PNG, JPG, SVG, or GIF format, and less than one MB in size. For best results, use an image with a transparent background and a square dimension of 200 x 200 pixels to prevent upscaling.  &gt; **Notes:** &gt; * Only SVG files encoded in UTF-8 are supported. For example, &#x60;&lt;xml version&#x3D;\\\&quot;1.0\\\&quot; encoding&#x3D;\\\&quot;UTF-8\\\&quot;&gt;&#x60; is a valid SVG file declaration. &gt; * &#x60;multipart/form-data&#x60; isn&#39;t supported for Python. Remove the &#x60;\\\&quot;Content-Type\\\&quot;: \\\&quot;multipart/form-data\\\&quot;&#x60; line if you use the Python request sample code. 
+// The image file containing the logo.  The file must be in PNG, JPG, SVG, or GIF format, and less than one MB in size. For best results, use an image with a transparent background and a square dimension of 200 x 200 pixels to prevent upscaling.  &gt; **Notes:** &gt; * Only SVG files encoded in UTF-8 are supported. For example, &#x60;&lt;xml version&#x3D;\\\&quot;1.0\\\&quot; encoding&#x3D;\\\&quot;UTF-8\\\&quot;&gt;&#x60; is a valid SVG file declaration. &gt; * &#x60;multipart/form-data&#x60; isn&#39;t supported for Python. Remove the &#x60;\\\&quot;Content-Type\\\&quot;: \\\&quot;multipart/form-data\\\&quot;&#x60; line if you use the Python request sample code.
 func (r ApiUploadApplicationLogoRequest) File(file *os.File) ApiUploadApplicationLogoRequest {
 	r.file = &file
 	return r
@@ -91,16 +90,15 @@ If you have one `appLink` object configured, this logo also appears in the End-U
 > **Note:** If you have multiple `appLink` objects, use the Admin Console to add logos for each app link.
 > You can't use the API to add logos for multiple app links.
 
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiUploadApplicationLogoRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiUploadApplicationLogoRequest
 */
 func (a *ApplicationLogosAPIService) UploadApplicationLogo(ctx context.Context, appId string) ApiUploadApplicationLogoRequest {
 	return ApiUploadApplicationLogoRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -113,7 +111,7 @@ func (a *ApplicationLogosAPIService) UploadApplicationLogoExecute(r ApiUploadApp
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -154,14 +152,14 @@ func (a *ApplicationLogosAPIService) UploadApplicationLogoExecute(r ApiUploadApp
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	var fileLocalVarFormFileName string
-	var fileLocalVarFileName     string
-	var fileLocalVarFileBytes    []byte
+	var fileLocalVarFileName string
+	var fileLocalVarFileBytes []byte
 
 	fileLocalVarFormFileName = "file"
 
 	fileLocalVarFile := *r.file
 	if fileLocalVarFile != nil {
-		fbs, _ := ioutil.ReadAll(fileLocalVarFile)
+		fbs, _ := io.ReadAll(fileLocalVarFile)
 		fileLocalVarFileBytes = fbs
 		fileLocalVarFileName = fileLocalVarFile.Name()
 		fileLocalVarFile.Close()
@@ -191,9 +189,9 @@ func (a *ApplicationLogosAPIService) UploadApplicationLogoExecute(r ApiUploadApp
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err

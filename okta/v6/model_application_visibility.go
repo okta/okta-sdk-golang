@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ApplicationVisibility type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApplicationVisibility{}
+
 // ApplicationVisibility Specifies visibility settings for the app
 type ApplicationVisibility struct {
 	// Links or icons that appear on the End-User Dashboard if they're set to `true`.
@@ -34,8 +37,8 @@ type ApplicationVisibility struct {
 	// Automatically signs in to the app when user signs into Okta
 	AutoLaunch *bool `json:"autoLaunch,omitempty"`
 	// Automatically sign in when user lands on the sign-in page
-	AutoSubmitToolbar *bool `json:"autoSubmitToolbar,omitempty"`
-	Hide *ApplicationVisibilityHide `json:"hide,omitempty"`
+	AutoSubmitToolbar    *bool                      `json:"autoSubmitToolbar,omitempty"`
+	Hide                 *ApplicationVisibilityHide `json:"hide,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +63,7 @@ func NewApplicationVisibilityWithDefaults() *ApplicationVisibility {
 
 // GetAppLinks returns the AppLinks field value if set, zero value otherwise.
 func (o *ApplicationVisibility) GetAppLinks() map[string]bool {
-	if o == nil || o.AppLinks == nil {
+	if o == nil || IsNil(o.AppLinks) {
 		var ret map[string]bool
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *ApplicationVisibility) GetAppLinks() map[string]bool {
 // GetAppLinksOk returns a tuple with the AppLinks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationVisibility) GetAppLinksOk() (*map[string]bool, bool) {
-	if o == nil || o.AppLinks == nil {
+	if o == nil || IsNil(o.AppLinks) {
 		return nil, false
 	}
 	return o.AppLinks, true
@@ -78,7 +81,7 @@ func (o *ApplicationVisibility) GetAppLinksOk() (*map[string]bool, bool) {
 
 // HasAppLinks returns a boolean if a field has been set.
 func (o *ApplicationVisibility) HasAppLinks() bool {
-	if o != nil && o.AppLinks != nil {
+	if o != nil && !IsNil(o.AppLinks) {
 		return true
 	}
 
@@ -92,7 +95,7 @@ func (o *ApplicationVisibility) SetAppLinks(v map[string]bool) {
 
 // GetAutoLaunch returns the AutoLaunch field value if set, zero value otherwise.
 func (o *ApplicationVisibility) GetAutoLaunch() bool {
-	if o == nil || o.AutoLaunch == nil {
+	if o == nil || IsNil(o.AutoLaunch) {
 		var ret bool
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *ApplicationVisibility) GetAutoLaunch() bool {
 // GetAutoLaunchOk returns a tuple with the AutoLaunch field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationVisibility) GetAutoLaunchOk() (*bool, bool) {
-	if o == nil || o.AutoLaunch == nil {
+	if o == nil || IsNil(o.AutoLaunch) {
 		return nil, false
 	}
 	return o.AutoLaunch, true
@@ -110,7 +113,7 @@ func (o *ApplicationVisibility) GetAutoLaunchOk() (*bool, bool) {
 
 // HasAutoLaunch returns a boolean if a field has been set.
 func (o *ApplicationVisibility) HasAutoLaunch() bool {
-	if o != nil && o.AutoLaunch != nil {
+	if o != nil && !IsNil(o.AutoLaunch) {
 		return true
 	}
 
@@ -124,7 +127,7 @@ func (o *ApplicationVisibility) SetAutoLaunch(v bool) {
 
 // GetAutoSubmitToolbar returns the AutoSubmitToolbar field value if set, zero value otherwise.
 func (o *ApplicationVisibility) GetAutoSubmitToolbar() bool {
-	if o == nil || o.AutoSubmitToolbar == nil {
+	if o == nil || IsNil(o.AutoSubmitToolbar) {
 		var ret bool
 		return ret
 	}
@@ -134,7 +137,7 @@ func (o *ApplicationVisibility) GetAutoSubmitToolbar() bool {
 // GetAutoSubmitToolbarOk returns a tuple with the AutoSubmitToolbar field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationVisibility) GetAutoSubmitToolbarOk() (*bool, bool) {
-	if o == nil || o.AutoSubmitToolbar == nil {
+	if o == nil || IsNil(o.AutoSubmitToolbar) {
 		return nil, false
 	}
 	return o.AutoSubmitToolbar, true
@@ -142,7 +145,7 @@ func (o *ApplicationVisibility) GetAutoSubmitToolbarOk() (*bool, bool) {
 
 // HasAutoSubmitToolbar returns a boolean if a field has been set.
 func (o *ApplicationVisibility) HasAutoSubmitToolbar() bool {
-	if o != nil && o.AutoSubmitToolbar != nil {
+	if o != nil && !IsNil(o.AutoSubmitToolbar) {
 		return true
 	}
 
@@ -156,7 +159,7 @@ func (o *ApplicationVisibility) SetAutoSubmitToolbar(v bool) {
 
 // GetHide returns the Hide field value if set, zero value otherwise.
 func (o *ApplicationVisibility) GetHide() ApplicationVisibilityHide {
-	if o == nil || o.Hide == nil {
+	if o == nil || IsNil(o.Hide) {
 		var ret ApplicationVisibilityHide
 		return ret
 	}
@@ -166,7 +169,7 @@ func (o *ApplicationVisibility) GetHide() ApplicationVisibilityHide {
 // GetHideOk returns a tuple with the Hide field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationVisibility) GetHideOk() (*ApplicationVisibilityHide, bool) {
-	if o == nil || o.Hide == nil {
+	if o == nil || IsNil(o.Hide) {
 		return nil, false
 	}
 	return o.Hide, true
@@ -174,7 +177,7 @@ func (o *ApplicationVisibility) GetHideOk() (*ApplicationVisibilityHide, bool) {
 
 // HasHide returns a boolean if a field has been set.
 func (o *ApplicationVisibility) HasHide() bool {
-	if o != nil && o.Hide != nil {
+	if o != nil && !IsNil(o.Hide) {
 		return true
 	}
 
@@ -187,17 +190,25 @@ func (o *ApplicationVisibility) SetHide(v ApplicationVisibilityHide) {
 }
 
 func (o ApplicationVisibility) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApplicationVisibility) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AppLinks != nil {
+	if !IsNil(o.AppLinks) {
 		toSerialize["appLinks"] = o.AppLinks
 	}
-	if o.AutoLaunch != nil {
+	if !IsNil(o.AutoLaunch) {
 		toSerialize["autoLaunch"] = o.AutoLaunch
 	}
-	if o.AutoSubmitToolbar != nil {
+	if !IsNil(o.AutoSubmitToolbar) {
 		toSerialize["autoSubmitToolbar"] = o.AutoSubmitToolbar
 	}
-	if o.Hide != nil {
+	if !IsNil(o.Hide) {
 		toSerialize["hide"] = o.Hide
 	}
 
@@ -205,30 +216,28 @@ func (o ApplicationVisibility) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ApplicationVisibility) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ApplicationVisibility) UnmarshalJSON(data []byte) (err error) {
 	varApplicationVisibility := _ApplicationVisibility{}
 
-	err = json.Unmarshal(bytes, &varApplicationVisibility)
-	if err == nil {
-		*o = ApplicationVisibility(varApplicationVisibility)
-	} else {
+	err = json.Unmarshal(data, &varApplicationVisibility)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ApplicationVisibility(varApplicationVisibility)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "appLinks")
 		delete(additionalProperties, "autoLaunch")
 		delete(additionalProperties, "autoSubmitToolbar")
 		delete(additionalProperties, "hide")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -269,4 +278,3 @@ func (v *NullableApplicationVisibility) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

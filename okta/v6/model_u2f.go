@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the U2f type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &U2f{}
+
 // U2f Activates a `u2f` factor with the specified client and registration information from the U2F token
 type U2f struct {
 	// Base64-encoded client data from the U2F token
 	ClientData *string `json:"clientData,omitempty"`
 	// Base64-encoded registration data from the U2F token
-	RegistrationData *string `json:"registrationData,omitempty"`
+	RegistrationData     *string `json:"registrationData,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewU2fWithDefaults() *U2f {
 
 // GetClientData returns the ClientData field value if set, zero value otherwise.
 func (o *U2f) GetClientData() string {
-	if o == nil || o.ClientData == nil {
+	if o == nil || IsNil(o.ClientData) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *U2f) GetClientData() string {
 // GetClientDataOk returns a tuple with the ClientData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *U2f) GetClientDataOk() (*string, bool) {
-	if o == nil || o.ClientData == nil {
+	if o == nil || IsNil(o.ClientData) {
 		return nil, false
 	}
 	return o.ClientData, true
@@ -75,7 +78,7 @@ func (o *U2f) GetClientDataOk() (*string, bool) {
 
 // HasClientData returns a boolean if a field has been set.
 func (o *U2f) HasClientData() bool {
-	if o != nil && o.ClientData != nil {
+	if o != nil && !IsNil(o.ClientData) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *U2f) SetClientData(v string) {
 
 // GetRegistrationData returns the RegistrationData field value if set, zero value otherwise.
 func (o *U2f) GetRegistrationData() string {
-	if o == nil || o.RegistrationData == nil {
+	if o == nil || IsNil(o.RegistrationData) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *U2f) GetRegistrationData() string {
 // GetRegistrationDataOk returns a tuple with the RegistrationData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *U2f) GetRegistrationDataOk() (*string, bool) {
-	if o == nil || o.RegistrationData == nil {
+	if o == nil || IsNil(o.RegistrationData) {
 		return nil, false
 	}
 	return o.RegistrationData, true
@@ -107,7 +110,7 @@ func (o *U2f) GetRegistrationDataOk() (*string, bool) {
 
 // HasRegistrationData returns a boolean if a field has been set.
 func (o *U2f) HasRegistrationData() bool {
-	if o != nil && o.RegistrationData != nil {
+	if o != nil && !IsNil(o.RegistrationData) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *U2f) SetRegistrationData(v string) {
 }
 
 func (o U2f) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o U2f) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ClientData != nil {
+	if !IsNil(o.ClientData) {
 		toSerialize["clientData"] = o.ClientData
 	}
-	if o.RegistrationData != nil {
+	if !IsNil(o.RegistrationData) {
 		toSerialize["registrationData"] = o.RegistrationData
 	}
 
@@ -132,28 +143,26 @@ func (o U2f) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *U2f) UnmarshalJSON(bytes []byte) (err error) {
+func (o *U2f) UnmarshalJSON(data []byte) (err error) {
 	varU2f := _U2f{}
 
-	err = json.Unmarshal(bytes, &varU2f)
-	if err == nil {
-		*o = U2f(varU2f)
-	} else {
+	err = json.Unmarshal(data, &varU2f)
+
+	if err != nil {
 		return err
 	}
 
+	*o = U2f(varU2f)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "clientData")
 		delete(additionalProperties, "registrationData")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableU2f) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

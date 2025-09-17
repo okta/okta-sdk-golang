@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the PasswordPolicyRecoveryQuestionComplexity type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordPolicyRecoveryQuestionComplexity{}
+
 // PasswordPolicyRecoveryQuestionComplexity struct for PasswordPolicyRecoveryQuestionComplexity
 type PasswordPolicyRecoveryQuestionComplexity struct {
 	// Minimum length of the password recovery question answer
-	MinLength *int32 `json:"minLength,omitempty"`
+	MinLength            *int32 `json:"minLength,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewPasswordPolicyRecoveryQuestionComplexityWithDefaults() *PasswordPolicyRe
 
 // GetMinLength returns the MinLength field value if set, zero value otherwise.
 func (o *PasswordPolicyRecoveryQuestionComplexity) GetMinLength() int32 {
-	if o == nil || o.MinLength == nil {
+	if o == nil || IsNil(o.MinLength) {
 		var ret int32
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *PasswordPolicyRecoveryQuestionComplexity) GetMinLength() int32 {
 // GetMinLengthOk returns a tuple with the MinLength field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyRecoveryQuestionComplexity) GetMinLengthOk() (*int32, bool) {
-	if o == nil || o.MinLength == nil {
+	if o == nil || IsNil(o.MinLength) {
 		return nil, false
 	}
 	return o.MinLength, true
@@ -73,7 +76,7 @@ func (o *PasswordPolicyRecoveryQuestionComplexity) GetMinLengthOk() (*int32, boo
 
 // HasMinLength returns a boolean if a field has been set.
 func (o *PasswordPolicyRecoveryQuestionComplexity) HasMinLength() bool {
-	if o != nil && o.MinLength != nil {
+	if o != nil && !IsNil(o.MinLength) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *PasswordPolicyRecoveryQuestionComplexity) SetMinLength(v int32) {
 }
 
 func (o PasswordPolicyRecoveryQuestionComplexity) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordPolicyRecoveryQuestionComplexity) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.MinLength != nil {
+	if !IsNil(o.MinLength) {
 		toSerialize["minLength"] = o.MinLength
 	}
 
@@ -95,27 +106,25 @@ func (o PasswordPolicyRecoveryQuestionComplexity) MarshalJSON() ([]byte, error) 
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordPolicyRecoveryQuestionComplexity) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordPolicyRecoveryQuestionComplexity) UnmarshalJSON(data []byte) (err error) {
 	varPasswordPolicyRecoveryQuestionComplexity := _PasswordPolicyRecoveryQuestionComplexity{}
 
-	err = json.Unmarshal(bytes, &varPasswordPolicyRecoveryQuestionComplexity)
-	if err == nil {
-		*o = PasswordPolicyRecoveryQuestionComplexity(varPasswordPolicyRecoveryQuestionComplexity)
-	} else {
+	err = json.Unmarshal(data, &varPasswordPolicyRecoveryQuestionComplexity)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PasswordPolicyRecoveryQuestionComplexity(varPasswordPolicyRecoveryQuestionComplexity)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "minLength")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullablePasswordPolicyRecoveryQuestionComplexity) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

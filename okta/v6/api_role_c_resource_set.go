@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,25 +26,24 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type RoleCResourceSetAPI interface {
 
 	/*
-	CreateResourceSet Create a resource set
+			CreateResourceSet Create a resource set
 
-	Creates a new resource set. See [Supported resources](/openapi/okta-management/guides/roles/#supported-resources).
+			Creates a new resource set. See [Supported resources](/openapi/okta-management/guides/roles/#supported-resources).
 
-> **Note:** The maximum number of `resources` allowed in a resource set object is 1000. Resources are identified by either an Okta Resource Name (ORN) or by a REST URL format. See [Okta Resource Name](/openapi/okta-management/guides/roles/#okta-resource-name-orn).
+		> **Note:** The maximum number of `resources` allowed in a resource set object is 1000. Resources are identified by either an Okta Resource Name (ORN) or by a REST URL format. See [Okta Resource Name](/openapi/okta-management/guides/roles/#okta-resource-name-orn).
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateResourceSetRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiCreateResourceSetRequest
 	*/
 	CreateResourceSet(ctx context.Context) ApiCreateResourceSetRequest
 
@@ -53,13 +52,13 @@ type RoleCResourceSetAPI interface {
 	CreateResourceSetExecute(r ApiCreateResourceSetRequest) (*ResourceSet, *APIResponse, error)
 
 	/*
-	DeleteResourceSet Delete a resource set
+		DeleteResourceSet Delete a resource set
 
-	Deletes a resource set by `resourceSetIdOrLabel`
+		Deletes a resource set by `resourceSetIdOrLabel`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetIdOrLabel `id` or `label` of the resource set
-	@return ApiDeleteResourceSetRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetIdOrLabel `id` or `label` of the resource set
+		@return ApiDeleteResourceSetRequest
 	*/
 	DeleteResourceSet(ctx context.Context, resourceSetIdOrLabel string) ApiDeleteResourceSetRequest
 
@@ -67,13 +66,13 @@ type RoleCResourceSetAPI interface {
 	DeleteResourceSetExecute(r ApiDeleteResourceSetRequest) (*APIResponse, error)
 
 	/*
-	GetResourceSet Retrieve a resource set
+		GetResourceSet Retrieve a resource set
 
-	Retrieves a resource set by `resourceSetIdOrLabel`
+		Retrieves a resource set by `resourceSetIdOrLabel`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetIdOrLabel `id` or `label` of the resource set
-	@return ApiGetResourceSetRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetIdOrLabel `id` or `label` of the resource set
+		@return ApiGetResourceSetRequest
 	*/
 	GetResourceSet(ctx context.Context, resourceSetIdOrLabel string) ApiGetResourceSetRequest
 
@@ -82,12 +81,12 @@ type RoleCResourceSetAPI interface {
 	GetResourceSetExecute(r ApiGetResourceSetRequest) (*ResourceSet, *APIResponse, error)
 
 	/*
-	ListResourceSets List all resource sets
+		ListResourceSets List all resource sets
 
-	Lists all resource sets with pagination support
+		Lists all resource sets with pagination support
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListResourceSetsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListResourceSetsRequest
 	*/
 	ListResourceSets(ctx context.Context) ApiListResourceSetsRequest
 
@@ -96,13 +95,13 @@ type RoleCResourceSetAPI interface {
 	ListResourceSetsExecute(r ApiListResourceSetsRequest) (*ResourceSets, *APIResponse, error)
 
 	/*
-	ReplaceResourceSet Replace a resource set
+		ReplaceResourceSet Replace a resource set
 
-	Replaces the label and description of a resource set
+		Replaces the label and description of a resource set
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetIdOrLabel `id` or `label` of the resource set
-	@return ApiReplaceResourceSetRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetIdOrLabel `id` or `label` of the resource set
+		@return ApiReplaceResourceSetRequest
 	*/
 	ReplaceResourceSet(ctx context.Context, resourceSetIdOrLabel string) ApiReplaceResourceSetRequest
 
@@ -115,9 +114,9 @@ type RoleCResourceSetAPI interface {
 type RoleCResourceSetAPIService service
 
 type ApiCreateResourceSetRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleCResourceSetAPI
-	instance *CreateResourceSetRequest
+	instance   *CreateResourceSetRequest
 	retryCount int32
 }
 
@@ -137,19 +136,20 @@ Creates a new resource set. See [Supported resources](/openapi/okta-management/g
 
 > **Note:** The maximum number of `resources` allowed in a resource set object is 1000. Resources are identified by either an Okta Resource Name (ORN) or by a REST URL format. See [Okta Resource Name](/openapi/okta-management/guides/roles/#okta-resource-name-orn).
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateResourceSetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateResourceSetRequest
 */
 func (a *RoleCResourceSetAPIService) CreateResourceSet(ctx context.Context) ApiCreateResourceSetRequest {
 	return ApiCreateResourceSetRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ResourceSet
+//
+//	@return ResourceSet
 func (a *RoleCResourceSetAPIService) CreateResourceSetExecute(r ApiCreateResourceSetRequest) (*ResourceSet, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -158,7 +158,7 @@ func (a *RoleCResourceSetAPIService) CreateResourceSetExecute(r ApiCreateResourc
 		localVarReturnValue  *ResourceSet
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -223,9 +223,9 @@ func (a *RoleCResourceSetAPIService) CreateResourceSetExecute(r ApiCreateResourc
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -283,16 +283,16 @@ func (a *RoleCResourceSetAPIService) CreateResourceSetExecute(r ApiCreateResourc
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteResourceSetRequest struct {
-	ctx context.Context
-	ApiService RoleCResourceSetAPI
+	ctx                  context.Context
+	ApiService           RoleCResourceSetAPI
 	resourceSetIdOrLabel string
-	retryCount int32
+	retryCount           int32
 }
 
 func (r ApiDeleteResourceSetRequest) Execute() (*APIResponse, error) {
@@ -304,16 +304,16 @@ DeleteResourceSet Delete a resource set
 
 Deletes a resource set by `resourceSetIdOrLabel`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param resourceSetIdOrLabel `id` or `label` of the resource set
- @return ApiDeleteResourceSetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param resourceSetIdOrLabel `id` or `label` of the resource set
+	@return ApiDeleteResourceSetRequest
 */
 func (a *RoleCResourceSetAPIService) DeleteResourceSet(ctx context.Context, resourceSetIdOrLabel string) ApiDeleteResourceSetRequest {
 	return ApiDeleteResourceSetRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:           a,
+		ctx:                  ctx,
 		resourceSetIdOrLabel: resourceSetIdOrLabel,
-		retryCount: 0,
+		retryCount:           0,
 	}
 }
 
@@ -325,7 +325,7 @@ func (a *RoleCResourceSetAPIService) DeleteResourceSetExecute(r ApiDeleteResourc
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -386,9 +386,9 @@ func (a *RoleCResourceSetAPIService) DeleteResourceSetExecute(r ApiDeleteResourc
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -442,10 +442,10 @@ func (a *RoleCResourceSetAPIService) DeleteResourceSetExecute(r ApiDeleteResourc
 }
 
 type ApiGetResourceSetRequest struct {
-	ctx context.Context
-	ApiService RoleCResourceSetAPI
+	ctx                  context.Context
+	ApiService           RoleCResourceSetAPI
 	resourceSetIdOrLabel string
-	retryCount int32
+	retryCount           int32
 }
 
 func (r ApiGetResourceSetRequest) Execute() (*ResourceSet, *APIResponse, error) {
@@ -457,21 +457,22 @@ GetResourceSet Retrieve a resource set
 
 Retrieves a resource set by `resourceSetIdOrLabel`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param resourceSetIdOrLabel `id` or `label` of the resource set
- @return ApiGetResourceSetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param resourceSetIdOrLabel `id` or `label` of the resource set
+	@return ApiGetResourceSetRequest
 */
 func (a *RoleCResourceSetAPIService) GetResourceSet(ctx context.Context, resourceSetIdOrLabel string) ApiGetResourceSetRequest {
 	return ApiGetResourceSetRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:           a,
+		ctx:                  ctx,
 		resourceSetIdOrLabel: resourceSetIdOrLabel,
-		retryCount: 0,
+		retryCount:           0,
 	}
 }
 
 // Execute executes the request
-//  @return ResourceSet
+//
+//	@return ResourceSet
 func (a *RoleCResourceSetAPIService) GetResourceSetExecute(r ApiGetResourceSetRequest) (*ResourceSet, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -480,7 +481,7 @@ func (a *RoleCResourceSetAPIService) GetResourceSetExecute(r ApiGetResourceSetRe
 		localVarReturnValue  *ResourceSet
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -541,9 +542,9 @@ func (a *RoleCResourceSetAPIService) GetResourceSetExecute(r ApiGetResourceSetRe
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -601,15 +602,15 @@ func (a *RoleCResourceSetAPIService) GetResourceSetExecute(r ApiGetResourceSetRe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListResourceSetsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleCResourceSetAPI
-	after *string
+	after      *string
 	retryCount int32
 }
 
@@ -628,19 +629,20 @@ ListResourceSets List all resource sets
 
 Lists all resource sets with pagination support
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListResourceSetsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListResourceSetsRequest
 */
 func (a *RoleCResourceSetAPIService) ListResourceSets(ctx context.Context) ApiListResourceSetsRequest {
 	return ApiListResourceSetsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ResourceSets
+//
+//	@return ResourceSets
 func (a *RoleCResourceSetAPIService) ListResourceSetsExecute(r ApiListResourceSetsRequest) (*ResourceSets, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -649,7 +651,7 @@ func (a *RoleCResourceSetAPIService) ListResourceSetsExecute(r ApiListResourceSe
 		localVarReturnValue  *ResourceSets
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -712,9 +714,9 @@ func (a *RoleCResourceSetAPIService) ListResourceSetsExecute(r ApiListResourceSe
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -760,17 +762,17 @@ func (a *RoleCResourceSetAPIService) ListResourceSetsExecute(r ApiListResourceSe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceResourceSetRequest struct {
-	ctx context.Context
-	ApiService RoleCResourceSetAPI
+	ctx                  context.Context
+	ApiService           RoleCResourceSetAPI
 	resourceSetIdOrLabel string
-	instance *ResourceSet
-	retryCount int32
+	instance             *ResourceSet
+	retryCount           int32
 }
 
 func (r ApiReplaceResourceSetRequest) Instance(instance ResourceSet) ApiReplaceResourceSetRequest {
@@ -787,21 +789,22 @@ ReplaceResourceSet Replace a resource set
 
 Replaces the label and description of a resource set
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param resourceSetIdOrLabel `id` or `label` of the resource set
- @return ApiReplaceResourceSetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param resourceSetIdOrLabel `id` or `label` of the resource set
+	@return ApiReplaceResourceSetRequest
 */
 func (a *RoleCResourceSetAPIService) ReplaceResourceSet(ctx context.Context, resourceSetIdOrLabel string) ApiReplaceResourceSetRequest {
 	return ApiReplaceResourceSetRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:           a,
+		ctx:                  ctx,
 		resourceSetIdOrLabel: resourceSetIdOrLabel,
-		retryCount: 0,
+		retryCount:           0,
 	}
 }
 
 // Execute executes the request
-//  @return ResourceSet
+//
+//	@return ResourceSet
 func (a *RoleCResourceSetAPIService) ReplaceResourceSetExecute(r ApiReplaceResourceSetRequest) (*ResourceSet, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -810,7 +813,7 @@ func (a *RoleCResourceSetAPIService) ReplaceResourceSetExecute(r ApiReplaceResou
 		localVarReturnValue  *ResourceSet
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -876,9 +879,9 @@ func (a *RoleCResourceSetAPIService) ReplaceResourceSetExecute(r ApiReplaceResou
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -948,7 +951,7 @@ func (a *RoleCResourceSetAPIService) ReplaceResourceSetExecute(r ApiReplaceResou
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

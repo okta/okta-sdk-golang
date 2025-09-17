@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -29,10 +29,13 @@ import (
 	"strings"
 )
 
+// checks if the AuthenticatorKeySecurityQuestion type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorKeySecurityQuestion{}
+
 // AuthenticatorKeySecurityQuestion struct for AuthenticatorKeySecurityQuestion
 type AuthenticatorKeySecurityQuestion struct {
 	AuthenticatorSimple
-	Settings *AuthenticatorKeyPhoneAllOfSettings `json:"settings,omitempty"`
+	Settings             *AuthenticatorKeyPhoneAllOfSettings `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewAuthenticatorKeySecurityQuestionWithDefaults() *AuthenticatorKeySecurity
 
 // GetSettings returns the Settings field value if set, zero value otherwise.
 func (o *AuthenticatorKeySecurityQuestion) GetSettings() AuthenticatorKeyPhoneAllOfSettings {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		var ret AuthenticatorKeyPhoneAllOfSettings
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *AuthenticatorKeySecurityQuestion) GetSettings() AuthenticatorKeyPhoneAl
 // GetSettingsOk returns a tuple with the Settings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorKeySecurityQuestion) GetSettingsOk() (*AuthenticatorKeyPhoneAllOfSettings, bool) {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		return nil, false
 	}
 	return o.Settings, true
@@ -75,7 +78,7 @@ func (o *AuthenticatorKeySecurityQuestion) GetSettingsOk() (*AuthenticatorKeyPho
 
 // HasSettings returns a boolean if a field has been set.
 func (o *AuthenticatorKeySecurityQuestion) HasSettings() bool {
-	if o != nil && o.Settings != nil {
+	if o != nil && !IsNil(o.Settings) {
 		return true
 	}
 
@@ -88,16 +91,24 @@ func (o *AuthenticatorKeySecurityQuestion) SetSettings(v AuthenticatorKeyPhoneAl
 }
 
 func (o AuthenticatorKeySecurityQuestion) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorKeySecurityQuestion) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedAuthenticatorSimple, errAuthenticatorSimple := json.Marshal(o.AuthenticatorSimple)
 	if errAuthenticatorSimple != nil {
-		return []byte{}, errAuthenticatorSimple
+		return map[string]interface{}{}, errAuthenticatorSimple
 	}
 	errAuthenticatorSimple = json.Unmarshal([]byte(serializedAuthenticatorSimple), &toSerialize)
 	if errAuthenticatorSimple != nil {
-		return []byte{}, errAuthenticatorSimple
+		return map[string]interface{}{}, errAuthenticatorSimple
 	}
-	if o.Settings != nil {
+	if !IsNil(o.Settings) {
 		toSerialize["settings"] = o.Settings
 	}
 
@@ -105,17 +116,17 @@ func (o AuthenticatorKeySecurityQuestion) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorKeySecurityQuestion) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorKeySecurityQuestion) UnmarshalJSON(data []byte) (err error) {
 	type AuthenticatorKeySecurityQuestionWithoutEmbeddedStruct struct {
 		Settings *AuthenticatorKeyPhoneAllOfSettings `json:"settings,omitempty"`
 	}
 
 	varAuthenticatorKeySecurityQuestionWithoutEmbeddedStruct := AuthenticatorKeySecurityQuestionWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorKeySecurityQuestionWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varAuthenticatorKeySecurityQuestionWithoutEmbeddedStruct)
 	if err == nil {
 		varAuthenticatorKeySecurityQuestion := _AuthenticatorKeySecurityQuestion{}
 		varAuthenticatorKeySecurityQuestion.Settings = varAuthenticatorKeySecurityQuestionWithoutEmbeddedStruct.Settings
@@ -126,7 +137,7 @@ func (o *AuthenticatorKeySecurityQuestion) UnmarshalJSON(bytes []byte) (err erro
 
 	varAuthenticatorKeySecurityQuestion := _AuthenticatorKeySecurityQuestion{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorKeySecurityQuestion)
+	err = json.Unmarshal(data, &varAuthenticatorKeySecurityQuestion)
 	if err == nil {
 		o.AuthenticatorSimple = varAuthenticatorKeySecurityQuestion.AuthenticatorSimple
 	} else {
@@ -135,8 +146,7 @@ func (o *AuthenticatorKeySecurityQuestion) UnmarshalJSON(bytes []byte) (err erro
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "settings")
 
 		// remove fields from embedded structs
@@ -158,8 +168,6 @@ func (o *AuthenticatorKeySecurityQuestion) UnmarshalJSON(bytes []byte) (err erro
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -200,4 +208,3 @@ func (v *NullableAuthenticatorKeySecurityQuestion) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

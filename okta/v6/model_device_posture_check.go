@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the DevicePostureCheck type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DevicePostureCheck{}
+
 // DevicePostureCheck struct for DevicePostureCheck
 type DevicePostureCheck struct {
 	// User who created the device posture check
@@ -44,15 +47,15 @@ type DevicePostureCheck struct {
 	// Represents how the device posture check is rendered in device assurance policies
 	MappingType *string `json:"mappingType,omitempty"`
 	// Display name of the device posture check
-	Name *string `json:"name,omitempty"`
+	Name     *string `json:"name,omitempty"`
 	Platform *string `json:"platform,omitempty"`
 	// OSQuery for the device posture check
-	Query *string `json:"query,omitempty"`
+	Query               *string                                 `json:"query,omitempty"`
 	RemediationSettings *DevicePostureChecksRemediationSettings `json:"remediationSettings,omitempty"`
-	Type *string `json:"type,omitempty"`
+	Type                *string                                 `json:"type,omitempty"`
 	// Unique name of the device posture check
-	VariableName *string `json:"variableName,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	VariableName         *string    `json:"variableName,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -77,7 +80,7 @@ func NewDevicePostureCheckWithDefaults() *DevicePostureCheck {
 
 // GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
 func (o *DevicePostureCheck) GetCreatedBy() string {
-	if o == nil || o.CreatedBy == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		var ret string
 		return ret
 	}
@@ -87,7 +90,7 @@ func (o *DevicePostureCheck) GetCreatedBy() string {
 // GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DevicePostureCheck) GetCreatedByOk() (*string, bool) {
-	if o == nil || o.CreatedBy == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		return nil, false
 	}
 	return o.CreatedBy, true
@@ -95,7 +98,7 @@ func (o *DevicePostureCheck) GetCreatedByOk() (*string, bool) {
 
 // HasCreatedBy returns a boolean if a field has been set.
 func (o *DevicePostureCheck) HasCreatedBy() bool {
-	if o != nil && o.CreatedBy != nil {
+	if o != nil && !IsNil(o.CreatedBy) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *DevicePostureCheck) SetCreatedBy(v string) {
 
 // GetCreatedDate returns the CreatedDate field value if set, zero value otherwise.
 func (o *DevicePostureCheck) GetCreatedDate() string {
-	if o == nil || o.CreatedDate == nil {
+	if o == nil || IsNil(o.CreatedDate) {
 		var ret string
 		return ret
 	}
@@ -119,7 +122,7 @@ func (o *DevicePostureCheck) GetCreatedDate() string {
 // GetCreatedDateOk returns a tuple with the CreatedDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DevicePostureCheck) GetCreatedDateOk() (*string, bool) {
-	if o == nil || o.CreatedDate == nil {
+	if o == nil || IsNil(o.CreatedDate) {
 		return nil, false
 	}
 	return o.CreatedDate, true
@@ -127,7 +130,7 @@ func (o *DevicePostureCheck) GetCreatedDateOk() (*string, bool) {
 
 // HasCreatedDate returns a boolean if a field has been set.
 func (o *DevicePostureCheck) HasCreatedDate() bool {
-	if o != nil && o.CreatedDate != nil {
+	if o != nil && !IsNil(o.CreatedDate) {
 		return true
 	}
 
@@ -141,7 +144,7 @@ func (o *DevicePostureCheck) SetCreatedDate(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *DevicePostureCheck) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -151,7 +154,7 @@ func (o *DevicePostureCheck) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DevicePostureCheck) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -159,7 +162,7 @@ func (o *DevicePostureCheck) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *DevicePostureCheck) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -173,7 +176,7 @@ func (o *DevicePostureCheck) SetDescription(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *DevicePostureCheck) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -183,7 +186,7 @@ func (o *DevicePostureCheck) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DevicePostureCheck) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -191,7 +194,7 @@ func (o *DevicePostureCheck) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *DevicePostureCheck) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -205,7 +208,7 @@ func (o *DevicePostureCheck) SetId(v string) {
 
 // GetLastUpdate returns the LastUpdate field value if set, zero value otherwise.
 func (o *DevicePostureCheck) GetLastUpdate() string {
-	if o == nil || o.LastUpdate == nil {
+	if o == nil || IsNil(o.LastUpdate) {
 		var ret string
 		return ret
 	}
@@ -215,7 +218,7 @@ func (o *DevicePostureCheck) GetLastUpdate() string {
 // GetLastUpdateOk returns a tuple with the LastUpdate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DevicePostureCheck) GetLastUpdateOk() (*string, bool) {
-	if o == nil || o.LastUpdate == nil {
+	if o == nil || IsNil(o.LastUpdate) {
 		return nil, false
 	}
 	return o.LastUpdate, true
@@ -223,7 +226,7 @@ func (o *DevicePostureCheck) GetLastUpdateOk() (*string, bool) {
 
 // HasLastUpdate returns a boolean if a field has been set.
 func (o *DevicePostureCheck) HasLastUpdate() bool {
-	if o != nil && o.LastUpdate != nil {
+	if o != nil && !IsNil(o.LastUpdate) {
 		return true
 	}
 
@@ -237,7 +240,7 @@ func (o *DevicePostureCheck) SetLastUpdate(v string) {
 
 // GetLastUpdatedBy returns the LastUpdatedBy field value if set, zero value otherwise.
 func (o *DevicePostureCheck) GetLastUpdatedBy() string {
-	if o == nil || o.LastUpdatedBy == nil {
+	if o == nil || IsNil(o.LastUpdatedBy) {
 		var ret string
 		return ret
 	}
@@ -247,7 +250,7 @@ func (o *DevicePostureCheck) GetLastUpdatedBy() string {
 // GetLastUpdatedByOk returns a tuple with the LastUpdatedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DevicePostureCheck) GetLastUpdatedByOk() (*string, bool) {
-	if o == nil || o.LastUpdatedBy == nil {
+	if o == nil || IsNil(o.LastUpdatedBy) {
 		return nil, false
 	}
 	return o.LastUpdatedBy, true
@@ -255,7 +258,7 @@ func (o *DevicePostureCheck) GetLastUpdatedByOk() (*string, bool) {
 
 // HasLastUpdatedBy returns a boolean if a field has been set.
 func (o *DevicePostureCheck) HasLastUpdatedBy() bool {
-	if o != nil && o.LastUpdatedBy != nil {
+	if o != nil && !IsNil(o.LastUpdatedBy) {
 		return true
 	}
 
@@ -269,7 +272,7 @@ func (o *DevicePostureCheck) SetLastUpdatedBy(v string) {
 
 // GetMappingType returns the MappingType field value if set, zero value otherwise.
 func (o *DevicePostureCheck) GetMappingType() string {
-	if o == nil || o.MappingType == nil {
+	if o == nil || IsNil(o.MappingType) {
 		var ret string
 		return ret
 	}
@@ -279,7 +282,7 @@ func (o *DevicePostureCheck) GetMappingType() string {
 // GetMappingTypeOk returns a tuple with the MappingType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DevicePostureCheck) GetMappingTypeOk() (*string, bool) {
-	if o == nil || o.MappingType == nil {
+	if o == nil || IsNil(o.MappingType) {
 		return nil, false
 	}
 	return o.MappingType, true
@@ -287,7 +290,7 @@ func (o *DevicePostureCheck) GetMappingTypeOk() (*string, bool) {
 
 // HasMappingType returns a boolean if a field has been set.
 func (o *DevicePostureCheck) HasMappingType() bool {
-	if o != nil && o.MappingType != nil {
+	if o != nil && !IsNil(o.MappingType) {
 		return true
 	}
 
@@ -301,7 +304,7 @@ func (o *DevicePostureCheck) SetMappingType(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *DevicePostureCheck) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -311,7 +314,7 @@ func (o *DevicePostureCheck) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DevicePostureCheck) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -319,7 +322,7 @@ func (o *DevicePostureCheck) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *DevicePostureCheck) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -333,7 +336,7 @@ func (o *DevicePostureCheck) SetName(v string) {
 
 // GetPlatform returns the Platform field value if set, zero value otherwise.
 func (o *DevicePostureCheck) GetPlatform() string {
-	if o == nil || o.Platform == nil {
+	if o == nil || IsNil(o.Platform) {
 		var ret string
 		return ret
 	}
@@ -343,7 +346,7 @@ func (o *DevicePostureCheck) GetPlatform() string {
 // GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DevicePostureCheck) GetPlatformOk() (*string, bool) {
-	if o == nil || o.Platform == nil {
+	if o == nil || IsNil(o.Platform) {
 		return nil, false
 	}
 	return o.Platform, true
@@ -351,7 +354,7 @@ func (o *DevicePostureCheck) GetPlatformOk() (*string, bool) {
 
 // HasPlatform returns a boolean if a field has been set.
 func (o *DevicePostureCheck) HasPlatform() bool {
-	if o != nil && o.Platform != nil {
+	if o != nil && !IsNil(o.Platform) {
 		return true
 	}
 
@@ -365,7 +368,7 @@ func (o *DevicePostureCheck) SetPlatform(v string) {
 
 // GetQuery returns the Query field value if set, zero value otherwise.
 func (o *DevicePostureCheck) GetQuery() string {
-	if o == nil || o.Query == nil {
+	if o == nil || IsNil(o.Query) {
 		var ret string
 		return ret
 	}
@@ -375,7 +378,7 @@ func (o *DevicePostureCheck) GetQuery() string {
 // GetQueryOk returns a tuple with the Query field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DevicePostureCheck) GetQueryOk() (*string, bool) {
-	if o == nil || o.Query == nil {
+	if o == nil || IsNil(o.Query) {
 		return nil, false
 	}
 	return o.Query, true
@@ -383,7 +386,7 @@ func (o *DevicePostureCheck) GetQueryOk() (*string, bool) {
 
 // HasQuery returns a boolean if a field has been set.
 func (o *DevicePostureCheck) HasQuery() bool {
-	if o != nil && o.Query != nil {
+	if o != nil && !IsNil(o.Query) {
 		return true
 	}
 
@@ -397,7 +400,7 @@ func (o *DevicePostureCheck) SetQuery(v string) {
 
 // GetRemediationSettings returns the RemediationSettings field value if set, zero value otherwise.
 func (o *DevicePostureCheck) GetRemediationSettings() DevicePostureChecksRemediationSettings {
-	if o == nil || o.RemediationSettings == nil {
+	if o == nil || IsNil(o.RemediationSettings) {
 		var ret DevicePostureChecksRemediationSettings
 		return ret
 	}
@@ -407,7 +410,7 @@ func (o *DevicePostureCheck) GetRemediationSettings() DevicePostureChecksRemedia
 // GetRemediationSettingsOk returns a tuple with the RemediationSettings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DevicePostureCheck) GetRemediationSettingsOk() (*DevicePostureChecksRemediationSettings, bool) {
-	if o == nil || o.RemediationSettings == nil {
+	if o == nil || IsNil(o.RemediationSettings) {
 		return nil, false
 	}
 	return o.RemediationSettings, true
@@ -415,7 +418,7 @@ func (o *DevicePostureCheck) GetRemediationSettingsOk() (*DevicePostureChecksRem
 
 // HasRemediationSettings returns a boolean if a field has been set.
 func (o *DevicePostureCheck) HasRemediationSettings() bool {
-	if o != nil && o.RemediationSettings != nil {
+	if o != nil && !IsNil(o.RemediationSettings) {
 		return true
 	}
 
@@ -429,7 +432,7 @@ func (o *DevicePostureCheck) SetRemediationSettings(v DevicePostureChecksRemedia
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *DevicePostureCheck) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -439,7 +442,7 @@ func (o *DevicePostureCheck) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DevicePostureCheck) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -447,7 +450,7 @@ func (o *DevicePostureCheck) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *DevicePostureCheck) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -461,7 +464,7 @@ func (o *DevicePostureCheck) SetType(v string) {
 
 // GetVariableName returns the VariableName field value if set, zero value otherwise.
 func (o *DevicePostureCheck) GetVariableName() string {
-	if o == nil || o.VariableName == nil {
+	if o == nil || IsNil(o.VariableName) {
 		var ret string
 		return ret
 	}
@@ -471,7 +474,7 @@ func (o *DevicePostureCheck) GetVariableName() string {
 // GetVariableNameOk returns a tuple with the VariableName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DevicePostureCheck) GetVariableNameOk() (*string, bool) {
-	if o == nil || o.VariableName == nil {
+	if o == nil || IsNil(o.VariableName) {
 		return nil, false
 	}
 	return o.VariableName, true
@@ -479,7 +482,7 @@ func (o *DevicePostureCheck) GetVariableNameOk() (*string, bool) {
 
 // HasVariableName returns a boolean if a field has been set.
 func (o *DevicePostureCheck) HasVariableName() bool {
-	if o != nil && o.VariableName != nil {
+	if o != nil && !IsNil(o.VariableName) {
 		return true
 	}
 
@@ -493,7 +496,7 @@ func (o *DevicePostureCheck) SetVariableName(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *DevicePostureCheck) GetLinks() LinksSelf {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksSelf
 		return ret
 	}
@@ -503,7 +506,7 @@ func (o *DevicePostureCheck) GetLinks() LinksSelf {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DevicePostureCheck) GetLinksOk() (*LinksSelf, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -511,7 +514,7 @@ func (o *DevicePostureCheck) GetLinksOk() (*LinksSelf, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *DevicePostureCheck) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -524,47 +527,55 @@ func (o *DevicePostureCheck) SetLinks(v LinksSelf) {
 }
 
 func (o DevicePostureCheck) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DevicePostureCheck) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.CreatedBy != nil {
+	if !IsNil(o.CreatedBy) {
 		toSerialize["createdBy"] = o.CreatedBy
 	}
-	if o.CreatedDate != nil {
+	if !IsNil(o.CreatedDate) {
 		toSerialize["createdDate"] = o.CreatedDate
 	}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdate != nil {
+	if !IsNil(o.LastUpdate) {
 		toSerialize["lastUpdate"] = o.LastUpdate
 	}
-	if o.LastUpdatedBy != nil {
+	if !IsNil(o.LastUpdatedBy) {
 		toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
 	}
-	if o.MappingType != nil {
+	if !IsNil(o.MappingType) {
 		toSerialize["mappingType"] = o.MappingType
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Platform != nil {
+	if !IsNil(o.Platform) {
 		toSerialize["platform"] = o.Platform
 	}
-	if o.Query != nil {
+	if !IsNil(o.Query) {
 		toSerialize["query"] = o.Query
 	}
-	if o.RemediationSettings != nil {
+	if !IsNil(o.RemediationSettings) {
 		toSerialize["remediationSettings"] = o.RemediationSettings
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.VariableName != nil {
+	if !IsNil(o.VariableName) {
 		toSerialize["variableName"] = o.VariableName
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -572,23 +583,23 @@ func (o DevicePostureCheck) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DevicePostureCheck) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DevicePostureCheck) UnmarshalJSON(data []byte) (err error) {
 	varDevicePostureCheck := _DevicePostureCheck{}
 
-	err = json.Unmarshal(bytes, &varDevicePostureCheck)
-	if err == nil {
-		*o = DevicePostureCheck(varDevicePostureCheck)
-	} else {
+	err = json.Unmarshal(data, &varDevicePostureCheck)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DevicePostureCheck(varDevicePostureCheck)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "createdBy")
 		delete(additionalProperties, "createdDate")
 		delete(additionalProperties, "description")
@@ -604,8 +615,6 @@ func (o *DevicePostureCheck) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "variableName")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -646,4 +655,3 @@ func (v *NullableDevicePostureCheck) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

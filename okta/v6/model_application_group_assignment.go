@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"time"
 )
 
+// checks if the ApplicationGroupAssignment type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApplicationGroupAssignment{}
+
 // ApplicationGroupAssignment The Application Group object that defines a group of users' app-specific profile and credentials for an app
 type ApplicationGroupAssignment struct {
 	// ID of the [group](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Group/)
@@ -39,8 +42,8 @@ type ApplicationGroupAssignment struct {
 	// Specifies the profile properties applied to [application users](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/ApplicationUsers/) that are assigned to the app through group membership. Some reference properties are imported from the target app and can't be configured. See [profile](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/User/#tag/User/operation/getUser!c=200&path=profile&t=response).
 	Profile map[string]interface{} `json:"profile,omitempty"`
 	// Embedded resource related to the Application Group using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification. If the `expand=group` query parameter is specified, then the [group](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Group/) object is embedded. If the `expand=metadata` query parameter is specified, then the group assignment metadata is embedded.
-	Embedded map[string]map[string]interface{} `json:"_embedded,omitempty"`
-	Links *ApplicationGroupAssignmentLinks `json:"_links,omitempty"`
+	Embedded             map[string]map[string]interface{} `json:"_embedded,omitempty"`
+	Links                *ApplicationGroupAssignmentLinks  `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -65,7 +68,7 @@ func NewApplicationGroupAssignmentWithDefaults() *ApplicationGroupAssignment {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *ApplicationGroupAssignment) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -75,7 +78,7 @@ func (o *ApplicationGroupAssignment) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationGroupAssignment) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -83,7 +86,7 @@ func (o *ApplicationGroupAssignment) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *ApplicationGroupAssignment) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -97,7 +100,7 @@ func (o *ApplicationGroupAssignment) SetId(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *ApplicationGroupAssignment) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -107,7 +110,7 @@ func (o *ApplicationGroupAssignment) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationGroupAssignment) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -115,7 +118,7 @@ func (o *ApplicationGroupAssignment) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *ApplicationGroupAssignment) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -129,7 +132,7 @@ func (o *ApplicationGroupAssignment) SetLastUpdated(v time.Time) {
 
 // GetPriority returns the Priority field value if set, zero value otherwise.
 func (o *ApplicationGroupAssignment) GetPriority() int32 {
-	if o == nil || o.Priority == nil {
+	if o == nil || IsNil(o.Priority) {
 		var ret int32
 		return ret
 	}
@@ -139,7 +142,7 @@ func (o *ApplicationGroupAssignment) GetPriority() int32 {
 // GetPriorityOk returns a tuple with the Priority field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationGroupAssignment) GetPriorityOk() (*int32, bool) {
-	if o == nil || o.Priority == nil {
+	if o == nil || IsNil(o.Priority) {
 		return nil, false
 	}
 	return o.Priority, true
@@ -147,7 +150,7 @@ func (o *ApplicationGroupAssignment) GetPriorityOk() (*int32, bool) {
 
 // HasPriority returns a boolean if a field has been set.
 func (o *ApplicationGroupAssignment) HasPriority() bool {
-	if o != nil && o.Priority != nil {
+	if o != nil && !IsNil(o.Priority) {
 		return true
 	}
 
@@ -161,7 +164,7 @@ func (o *ApplicationGroupAssignment) SetPriority(v int32) {
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *ApplicationGroupAssignment) GetProfile() map[string]interface{} {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -171,15 +174,15 @@ func (o *ApplicationGroupAssignment) GetProfile() map[string]interface{} {
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationGroupAssignment) GetProfileOk() (map[string]interface{}, bool) {
-	if o == nil || o.Profile == nil {
-		return nil, false
+	if o == nil || IsNil(o.Profile) {
+		return map[string]interface{}{}, false
 	}
 	return o.Profile, true
 }
 
 // HasProfile returns a boolean if a field has been set.
 func (o *ApplicationGroupAssignment) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -193,7 +196,7 @@ func (o *ApplicationGroupAssignment) SetProfile(v map[string]interface{}) {
 
 // GetEmbedded returns the Embedded field value if set, zero value otherwise.
 func (o *ApplicationGroupAssignment) GetEmbedded() map[string]map[string]interface{} {
-	if o == nil || o.Embedded == nil {
+	if o == nil || IsNil(o.Embedded) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
@@ -203,15 +206,15 @@ func (o *ApplicationGroupAssignment) GetEmbedded() map[string]map[string]interfa
 // GetEmbeddedOk returns a tuple with the Embedded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationGroupAssignment) GetEmbeddedOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || o.Embedded == nil {
-		return nil, false
+	if o == nil || IsNil(o.Embedded) {
+		return map[string]map[string]interface{}{}, false
 	}
 	return o.Embedded, true
 }
 
 // HasEmbedded returns a boolean if a field has been set.
 func (o *ApplicationGroupAssignment) HasEmbedded() bool {
-	if o != nil && o.Embedded != nil {
+	if o != nil && !IsNil(o.Embedded) {
 		return true
 	}
 
@@ -225,7 +228,7 @@ func (o *ApplicationGroupAssignment) SetEmbedded(v map[string]map[string]interfa
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *ApplicationGroupAssignment) GetLinks() ApplicationGroupAssignmentLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret ApplicationGroupAssignmentLinks
 		return ret
 	}
@@ -235,7 +238,7 @@ func (o *ApplicationGroupAssignment) GetLinks() ApplicationGroupAssignmentLinks 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationGroupAssignment) GetLinksOk() (*ApplicationGroupAssignmentLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -243,7 +246,7 @@ func (o *ApplicationGroupAssignment) GetLinksOk() (*ApplicationGroupAssignmentLi
 
 // HasLinks returns a boolean if a field has been set.
 func (o *ApplicationGroupAssignment) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -256,23 +259,31 @@ func (o *ApplicationGroupAssignment) SetLinks(v ApplicationGroupAssignmentLinks)
 }
 
 func (o ApplicationGroupAssignment) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApplicationGroupAssignment) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Priority != nil {
+	if !IsNil(o.Priority) {
 		toSerialize["priority"] = o.Priority
 	}
-	if o.Profile != nil {
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
-	if o.Embedded != nil {
+	if !IsNil(o.Embedded) {
 		toSerialize["_embedded"] = o.Embedded
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -280,23 +291,23 @@ func (o ApplicationGroupAssignment) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ApplicationGroupAssignment) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ApplicationGroupAssignment) UnmarshalJSON(data []byte) (err error) {
 	varApplicationGroupAssignment := _ApplicationGroupAssignment{}
 
-	err = json.Unmarshal(bytes, &varApplicationGroupAssignment)
-	if err == nil {
-		*o = ApplicationGroupAssignment(varApplicationGroupAssignment)
-	} else {
+	err = json.Unmarshal(data, &varApplicationGroupAssignment)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ApplicationGroupAssignment(varApplicationGroupAssignment)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "lastUpdated")
 		delete(additionalProperties, "priority")
@@ -304,8 +315,6 @@ func (o *ApplicationGroupAssignment) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "_embedded")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -346,4 +355,3 @@ func (v *NullableApplicationGroupAssignment) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

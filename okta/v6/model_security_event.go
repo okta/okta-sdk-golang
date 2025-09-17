@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,11 +28,14 @@ import (
 	"fmt"
 )
 
+// checks if the SecurityEvent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SecurityEvent{}
+
 // SecurityEvent struct for SecurityEvent
 type SecurityEvent struct {
 	// The time of the event (UNIX timestamp)
-	EventTimestamp int64 `json:"event_timestamp"`
-	Subject SecurityEventSubject `json:"subject"`
+	EventTimestamp       int64                `json:"event_timestamp"`
+	Subject              SecurityEventSubject `json:"subject"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -106,40 +109,64 @@ func (o *SecurityEvent) SetSubject(v SecurityEventSubject) {
 }
 
 func (o SecurityEvent) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SecurityEvent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["event_timestamp"] = o.EventTimestamp
-	}
-	if true {
-		toSerialize["subject"] = o.Subject
-	}
+	toSerialize["event_timestamp"] = o.EventTimestamp
+	toSerialize["subject"] = o.Subject
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SecurityEvent) UnmarshalJSON(bytes []byte) (err error) {
-	varSecurityEvent := _SecurityEvent{}
+func (o *SecurityEvent) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"event_timestamp",
+		"subject",
+	}
 
-	err = json.Unmarshal(bytes, &varSecurityEvent)
-	if err == nil {
-		*o = SecurityEvent(varSecurityEvent)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSecurityEvent := _SecurityEvent{}
+
+	err = json.Unmarshal(data, &varSecurityEvent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SecurityEvent(varSecurityEvent)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "event_timestamp")
 		delete(additionalProperties, "subject")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -180,4 +207,3 @@ func (v *NullableSecurityEvent) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

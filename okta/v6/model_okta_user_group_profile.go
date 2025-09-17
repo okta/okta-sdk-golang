@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the OktaUserGroupProfile type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OktaUserGroupProfile{}
+
 // OktaUserGroupProfile Profile for any group that is not imported from Active Directory. Specifies the standard and custom profile properties for a group.  The `objectClass` for these groups is `okta:user_group`.
 type OktaUserGroupProfile struct {
 	// Description of the group
 	Description *string `json:"description,omitempty"`
 	// Name of the group
-	Name *string `json:"name,omitempty"`
+	Name                 *string `json:"name,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewOktaUserGroupProfileWithDefaults() *OktaUserGroupProfile {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *OktaUserGroupProfile) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *OktaUserGroupProfile) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaUserGroupProfile) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -75,7 +78,7 @@ func (o *OktaUserGroupProfile) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *OktaUserGroupProfile) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *OktaUserGroupProfile) SetDescription(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *OktaUserGroupProfile) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *OktaUserGroupProfile) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaUserGroupProfile) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -107,7 +110,7 @@ func (o *OktaUserGroupProfile) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *OktaUserGroupProfile) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *OktaUserGroupProfile) SetName(v string) {
 }
 
 func (o OktaUserGroupProfile) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OktaUserGroupProfile) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
 
@@ -132,28 +143,26 @@ func (o OktaUserGroupProfile) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OktaUserGroupProfile) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OktaUserGroupProfile) UnmarshalJSON(data []byte) (err error) {
 	varOktaUserGroupProfile := _OktaUserGroupProfile{}
 
-	err = json.Unmarshal(bytes, &varOktaUserGroupProfile)
-	if err == nil {
-		*o = OktaUserGroupProfile(varOktaUserGroupProfile)
-	} else {
+	err = json.Unmarshal(data, &varOktaUserGroupProfile)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OktaUserGroupProfile(varOktaUserGroupProfile)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "name")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableOktaUserGroupProfile) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

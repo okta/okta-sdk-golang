@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the FeatureLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FeatureLinks{}
+
 // FeatureLinks struct for FeatureLinks
 type FeatureLinks struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Dependents *FeatureLinksAllOfDependents `json:"dependents,omitempty"`
-	Dependencies *FeatureLinksAllOfDependencies `json:"dependencies,omitempty"`
+	Self                 *HrefObjectSelfLink            `json:"self,omitempty"`
+	Dependents           *FeatureLinksAllOfDependents   `json:"dependents,omitempty"`
+	Dependencies         *FeatureLinksAllOfDependencies `json:"dependencies,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewFeatureLinksWithDefaults() *FeatureLinks {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *FeatureLinks) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *FeatureLinks) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FeatureLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -74,7 +77,7 @@ func (o *FeatureLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *FeatureLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *FeatureLinks) SetSelf(v HrefObjectSelfLink) {
 
 // GetDependents returns the Dependents field value if set, zero value otherwise.
 func (o *FeatureLinks) GetDependents() FeatureLinksAllOfDependents {
-	if o == nil || o.Dependents == nil {
+	if o == nil || IsNil(o.Dependents) {
 		var ret FeatureLinksAllOfDependents
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *FeatureLinks) GetDependents() FeatureLinksAllOfDependents {
 // GetDependentsOk returns a tuple with the Dependents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FeatureLinks) GetDependentsOk() (*FeatureLinksAllOfDependents, bool) {
-	if o == nil || o.Dependents == nil {
+	if o == nil || IsNil(o.Dependents) {
 		return nil, false
 	}
 	return o.Dependents, true
@@ -106,7 +109,7 @@ func (o *FeatureLinks) GetDependentsOk() (*FeatureLinksAllOfDependents, bool) {
 
 // HasDependents returns a boolean if a field has been set.
 func (o *FeatureLinks) HasDependents() bool {
-	if o != nil && o.Dependents != nil {
+	if o != nil && !IsNil(o.Dependents) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *FeatureLinks) SetDependents(v FeatureLinksAllOfDependents) {
 
 // GetDependencies returns the Dependencies field value if set, zero value otherwise.
 func (o *FeatureLinks) GetDependencies() FeatureLinksAllOfDependencies {
-	if o == nil || o.Dependencies == nil {
+	if o == nil || IsNil(o.Dependencies) {
 		var ret FeatureLinksAllOfDependencies
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *FeatureLinks) GetDependencies() FeatureLinksAllOfDependencies {
 // GetDependenciesOk returns a tuple with the Dependencies field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FeatureLinks) GetDependenciesOk() (*FeatureLinksAllOfDependencies, bool) {
-	if o == nil || o.Dependencies == nil {
+	if o == nil || IsNil(o.Dependencies) {
 		return nil, false
 	}
 	return o.Dependencies, true
@@ -138,7 +141,7 @@ func (o *FeatureLinks) GetDependenciesOk() (*FeatureLinksAllOfDependencies, bool
 
 // HasDependencies returns a boolean if a field has been set.
 func (o *FeatureLinks) HasDependencies() bool {
-	if o != nil && o.Dependencies != nil {
+	if o != nil && !IsNil(o.Dependencies) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *FeatureLinks) SetDependencies(v FeatureLinksAllOfDependencies) {
 }
 
 func (o FeatureLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o FeatureLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.Dependents != nil {
+	if !IsNil(o.Dependents) {
 		toSerialize["dependents"] = o.Dependents
 	}
-	if o.Dependencies != nil {
+	if !IsNil(o.Dependencies) {
 		toSerialize["dependencies"] = o.Dependencies
 	}
 
@@ -166,29 +177,27 @@ func (o FeatureLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *FeatureLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *FeatureLinks) UnmarshalJSON(data []byte) (err error) {
 	varFeatureLinks := _FeatureLinks{}
 
-	err = json.Unmarshal(bytes, &varFeatureLinks)
-	if err == nil {
-		*o = FeatureLinks(varFeatureLinks)
-	} else {
+	err = json.Unmarshal(data, &varFeatureLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = FeatureLinks(varFeatureLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "dependents")
 		delete(additionalProperties, "dependencies")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullableFeatureLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

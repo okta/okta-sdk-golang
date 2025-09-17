@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the PasswordPolicyRecoverySettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordPolicyRecoverySettings{}
+
 // PasswordPolicyRecoverySettings Specifies the password recovery settings for the policy > **Note:** With Identity Engine, you can specify recovery factors inside the password policy rule instead of in the policy settings object. Recovery factors for the rule are defined inside the [`selfServicePasswordReset` action](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Policy/#tag/Policy/operation/createPolicyRule!path=1/actions/selfServicePasswordReset&t=request).
 type PasswordPolicyRecoverySettings struct {
-	Factors *PasswordPolicyRecoveryFactors `json:"factors,omitempty"`
+	Factors              *PasswordPolicyRecoveryFactors `json:"factors,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewPasswordPolicyRecoverySettingsWithDefaults() *PasswordPolicyRecoverySett
 
 // GetFactors returns the Factors field value if set, zero value otherwise.
 func (o *PasswordPolicyRecoverySettings) GetFactors() PasswordPolicyRecoveryFactors {
-	if o == nil || o.Factors == nil {
+	if o == nil || IsNil(o.Factors) {
 		var ret PasswordPolicyRecoveryFactors
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *PasswordPolicyRecoverySettings) GetFactors() PasswordPolicyRecoveryFact
 // GetFactorsOk returns a tuple with the Factors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyRecoverySettings) GetFactorsOk() (*PasswordPolicyRecoveryFactors, bool) {
-	if o == nil || o.Factors == nil {
+	if o == nil || IsNil(o.Factors) {
 		return nil, false
 	}
 	return o.Factors, true
@@ -72,7 +75,7 @@ func (o *PasswordPolicyRecoverySettings) GetFactorsOk() (*PasswordPolicyRecovery
 
 // HasFactors returns a boolean if a field has been set.
 func (o *PasswordPolicyRecoverySettings) HasFactors() bool {
-	if o != nil && o.Factors != nil {
+	if o != nil && !IsNil(o.Factors) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *PasswordPolicyRecoverySettings) SetFactors(v PasswordPolicyRecoveryFact
 }
 
 func (o PasswordPolicyRecoverySettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordPolicyRecoverySettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Factors != nil {
+	if !IsNil(o.Factors) {
 		toSerialize["factors"] = o.Factors
 	}
 
@@ -94,27 +105,25 @@ func (o PasswordPolicyRecoverySettings) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordPolicyRecoverySettings) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordPolicyRecoverySettings) UnmarshalJSON(data []byte) (err error) {
 	varPasswordPolicyRecoverySettings := _PasswordPolicyRecoverySettings{}
 
-	err = json.Unmarshal(bytes, &varPasswordPolicyRecoverySettings)
-	if err == nil {
-		*o = PasswordPolicyRecoverySettings(varPasswordPolicyRecoverySettings)
-	} else {
+	err = json.Unmarshal(data, &varPasswordPolicyRecoverySettings)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PasswordPolicyRecoverySettings(varPasswordPolicyRecoverySettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "factors")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullablePasswordPolicyRecoverySettings) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

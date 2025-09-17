@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,14 +27,17 @@ import (
 	"encoding/json"
 )
 
+// checks if the IdentityProviderApplicationUserLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IdentityProviderApplicationUserLinks{}
+
 // IdentityProviderApplicationUserLinks struct for IdentityProviderApplicationUserLinks
 type IdentityProviderApplicationUserLinks struct {
 	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Next *HrefObject `json:"next,omitempty"`
+	Next *HrefObject         `json:"next,omitempty"`
 	// The IdP instance
 	Idp *HrefObject `json:"idp,omitempty"`
 	// The linked Okta user
-	User *HrefObject `json:"user,omitempty"`
+	User                 *HrefObject `json:"user,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewIdentityProviderApplicationUserLinksWithDefaults() *IdentityProviderAppl
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *IdentityProviderApplicationUserLinks) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *IdentityProviderApplicationUserLinks) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProviderApplicationUserLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -77,7 +80,7 @@ func (o *IdentityProviderApplicationUserLinks) GetSelfOk() (*HrefObjectSelfLink,
 
 // HasSelf returns a boolean if a field has been set.
 func (o *IdentityProviderApplicationUserLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *IdentityProviderApplicationUserLinks) SetSelf(v HrefObjectSelfLink) {
 
 // GetNext returns the Next field value if set, zero value otherwise.
 func (o *IdentityProviderApplicationUserLinks) GetNext() HrefObject {
-	if o == nil || o.Next == nil {
+	if o == nil || IsNil(o.Next) {
 		var ret HrefObject
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *IdentityProviderApplicationUserLinks) GetNext() HrefObject {
 // GetNextOk returns a tuple with the Next field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProviderApplicationUserLinks) GetNextOk() (*HrefObject, bool) {
-	if o == nil || o.Next == nil {
+	if o == nil || IsNil(o.Next) {
 		return nil, false
 	}
 	return o.Next, true
@@ -109,7 +112,7 @@ func (o *IdentityProviderApplicationUserLinks) GetNextOk() (*HrefObject, bool) {
 
 // HasNext returns a boolean if a field has been set.
 func (o *IdentityProviderApplicationUserLinks) HasNext() bool {
-	if o != nil && o.Next != nil {
+	if o != nil && !IsNil(o.Next) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *IdentityProviderApplicationUserLinks) SetNext(v HrefObject) {
 
 // GetIdp returns the Idp field value if set, zero value otherwise.
 func (o *IdentityProviderApplicationUserLinks) GetIdp() HrefObject {
-	if o == nil || o.Idp == nil {
+	if o == nil || IsNil(o.Idp) {
 		var ret HrefObject
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *IdentityProviderApplicationUserLinks) GetIdp() HrefObject {
 // GetIdpOk returns a tuple with the Idp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProviderApplicationUserLinks) GetIdpOk() (*HrefObject, bool) {
-	if o == nil || o.Idp == nil {
+	if o == nil || IsNil(o.Idp) {
 		return nil, false
 	}
 	return o.Idp, true
@@ -141,7 +144,7 @@ func (o *IdentityProviderApplicationUserLinks) GetIdpOk() (*HrefObject, bool) {
 
 // HasIdp returns a boolean if a field has been set.
 func (o *IdentityProviderApplicationUserLinks) HasIdp() bool {
-	if o != nil && o.Idp != nil {
+	if o != nil && !IsNil(o.Idp) {
 		return true
 	}
 
@@ -155,7 +158,7 @@ func (o *IdentityProviderApplicationUserLinks) SetIdp(v HrefObject) {
 
 // GetUser returns the User field value if set, zero value otherwise.
 func (o *IdentityProviderApplicationUserLinks) GetUser() HrefObject {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		var ret HrefObject
 		return ret
 	}
@@ -165,7 +168,7 @@ func (o *IdentityProviderApplicationUserLinks) GetUser() HrefObject {
 // GetUserOk returns a tuple with the User field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProviderApplicationUserLinks) GetUserOk() (*HrefObject, bool) {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		return nil, false
 	}
 	return o.User, true
@@ -173,7 +176,7 @@ func (o *IdentityProviderApplicationUserLinks) GetUserOk() (*HrefObject, bool) {
 
 // HasUser returns a boolean if a field has been set.
 func (o *IdentityProviderApplicationUserLinks) HasUser() bool {
-	if o != nil && o.User != nil {
+	if o != nil && !IsNil(o.User) {
 		return true
 	}
 
@@ -186,17 +189,25 @@ func (o *IdentityProviderApplicationUserLinks) SetUser(v HrefObject) {
 }
 
 func (o IdentityProviderApplicationUserLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IdentityProviderApplicationUserLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.Next != nil {
+	if !IsNil(o.Next) {
 		toSerialize["next"] = o.Next
 	}
-	if o.Idp != nil {
+	if !IsNil(o.Idp) {
 		toSerialize["idp"] = o.Idp
 	}
-	if o.User != nil {
+	if !IsNil(o.User) {
 		toSerialize["user"] = o.User
 	}
 
@@ -204,30 +215,28 @@ func (o IdentityProviderApplicationUserLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *IdentityProviderApplicationUserLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *IdentityProviderApplicationUserLinks) UnmarshalJSON(data []byte) (err error) {
 	varIdentityProviderApplicationUserLinks := _IdentityProviderApplicationUserLinks{}
 
-	err = json.Unmarshal(bytes, &varIdentityProviderApplicationUserLinks)
-	if err == nil {
-		*o = IdentityProviderApplicationUserLinks(varIdentityProviderApplicationUserLinks)
-	} else {
+	err = json.Unmarshal(data, &varIdentityProviderApplicationUserLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = IdentityProviderApplicationUserLinks(varIdentityProviderApplicationUserLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "next")
 		delete(additionalProperties, "idp")
 		delete(additionalProperties, "user")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -268,4 +277,3 @@ func (v *NullableIdentityProviderApplicationUserLinks) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

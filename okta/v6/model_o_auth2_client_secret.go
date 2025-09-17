@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the OAuth2ClientSecret type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OAuth2ClientSecret{}
+
 // OAuth2ClientSecret struct for OAuth2ClientSecret
 type OAuth2ClientSecret struct {
 	// The OAuth 2.0 client secret string
@@ -40,8 +43,8 @@ type OAuth2ClientSecret struct {
 	// OAuth 2.0 client secret string hash
 	SecretHash *string `json:"secret_hash,omitempty"`
 	// Status of the OAuth 2.0 Client Secret
-	Status *string `json:"status,omitempty"`
-	Links *OAuthClientSecretLinks `json:"_links,omitempty"`
+	Status               *string                 `json:"status,omitempty"`
+	Links                *OAuthClientSecretLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -70,7 +73,7 @@ func NewOAuth2ClientSecretWithDefaults() *OAuth2ClientSecret {
 
 // GetClientSecret returns the ClientSecret field value if set, zero value otherwise.
 func (o *OAuth2ClientSecret) GetClientSecret() string {
-	if o == nil || o.ClientSecret == nil {
+	if o == nil || IsNil(o.ClientSecret) {
 		var ret string
 		return ret
 	}
@@ -80,7 +83,7 @@ func (o *OAuth2ClientSecret) GetClientSecret() string {
 // GetClientSecretOk returns a tuple with the ClientSecret field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ClientSecret) GetClientSecretOk() (*string, bool) {
-	if o == nil || o.ClientSecret == nil {
+	if o == nil || IsNil(o.ClientSecret) {
 		return nil, false
 	}
 	return o.ClientSecret, true
@@ -88,7 +91,7 @@ func (o *OAuth2ClientSecret) GetClientSecretOk() (*string, bool) {
 
 // HasClientSecret returns a boolean if a field has been set.
 func (o *OAuth2ClientSecret) HasClientSecret() bool {
-	if o != nil && o.ClientSecret != nil {
+	if o != nil && !IsNil(o.ClientSecret) {
 		return true
 	}
 
@@ -102,7 +105,7 @@ func (o *OAuth2ClientSecret) SetClientSecret(v string) {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *OAuth2ClientSecret) GetCreated() string {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret string
 		return ret
 	}
@@ -112,7 +115,7 @@ func (o *OAuth2ClientSecret) GetCreated() string {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ClientSecret) GetCreatedOk() (*string, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -120,7 +123,7 @@ func (o *OAuth2ClientSecret) GetCreatedOk() (*string, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *OAuth2ClientSecret) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -134,7 +137,7 @@ func (o *OAuth2ClientSecret) SetCreated(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *OAuth2ClientSecret) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -144,7 +147,7 @@ func (o *OAuth2ClientSecret) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ClientSecret) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -152,7 +155,7 @@ func (o *OAuth2ClientSecret) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *OAuth2ClientSecret) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -166,7 +169,7 @@ func (o *OAuth2ClientSecret) SetId(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *OAuth2ClientSecret) GetLastUpdated() string {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret string
 		return ret
 	}
@@ -176,7 +179,7 @@ func (o *OAuth2ClientSecret) GetLastUpdated() string {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ClientSecret) GetLastUpdatedOk() (*string, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -184,7 +187,7 @@ func (o *OAuth2ClientSecret) GetLastUpdatedOk() (*string, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *OAuth2ClientSecret) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -198,7 +201,7 @@ func (o *OAuth2ClientSecret) SetLastUpdated(v string) {
 
 // GetSecretHash returns the SecretHash field value if set, zero value otherwise.
 func (o *OAuth2ClientSecret) GetSecretHash() string {
-	if o == nil || o.SecretHash == nil {
+	if o == nil || IsNil(o.SecretHash) {
 		var ret string
 		return ret
 	}
@@ -208,7 +211,7 @@ func (o *OAuth2ClientSecret) GetSecretHash() string {
 // GetSecretHashOk returns a tuple with the SecretHash field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ClientSecret) GetSecretHashOk() (*string, bool) {
-	if o == nil || o.SecretHash == nil {
+	if o == nil || IsNil(o.SecretHash) {
 		return nil, false
 	}
 	return o.SecretHash, true
@@ -216,7 +219,7 @@ func (o *OAuth2ClientSecret) GetSecretHashOk() (*string, bool) {
 
 // HasSecretHash returns a boolean if a field has been set.
 func (o *OAuth2ClientSecret) HasSecretHash() bool {
-	if o != nil && o.SecretHash != nil {
+	if o != nil && !IsNil(o.SecretHash) {
 		return true
 	}
 
@@ -230,7 +233,7 @@ func (o *OAuth2ClientSecret) SetSecretHash(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *OAuth2ClientSecret) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -240,7 +243,7 @@ func (o *OAuth2ClientSecret) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ClientSecret) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -248,7 +251,7 @@ func (o *OAuth2ClientSecret) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *OAuth2ClientSecret) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -262,7 +265,7 @@ func (o *OAuth2ClientSecret) SetStatus(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *OAuth2ClientSecret) GetLinks() OAuthClientSecretLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret OAuthClientSecretLinks
 		return ret
 	}
@@ -272,7 +275,7 @@ func (o *OAuth2ClientSecret) GetLinks() OAuthClientSecretLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ClientSecret) GetLinksOk() (*OAuthClientSecretLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -280,7 +283,7 @@ func (o *OAuth2ClientSecret) GetLinksOk() (*OAuthClientSecretLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *OAuth2ClientSecret) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -293,26 +296,34 @@ func (o *OAuth2ClientSecret) SetLinks(v OAuthClientSecretLinks) {
 }
 
 func (o OAuth2ClientSecret) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OAuth2ClientSecret) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ClientSecret != nil {
+	if !IsNil(o.ClientSecret) {
 		toSerialize["client_secret"] = o.ClientSecret
 	}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.SecretHash != nil {
+	if !IsNil(o.SecretHash) {
 		toSerialize["secret_hash"] = o.SecretHash
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -320,23 +331,23 @@ func (o OAuth2ClientSecret) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OAuth2ClientSecret) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OAuth2ClientSecret) UnmarshalJSON(data []byte) (err error) {
 	varOAuth2ClientSecret := _OAuth2ClientSecret{}
 
-	err = json.Unmarshal(bytes, &varOAuth2ClientSecret)
-	if err == nil {
-		*o = OAuth2ClientSecret(varOAuth2ClientSecret)
-	} else {
+	err = json.Unmarshal(data, &varOAuth2ClientSecret)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OAuth2ClientSecret(varOAuth2ClientSecret)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "client_secret")
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "id")
@@ -345,8 +356,6 @@ func (o *OAuth2ClientSecret) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -387,4 +396,3 @@ func (v *NullableOAuth2ClientSecret) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"time"
 )
 
+// checks if the WellKnownAppAuthenticatorConfiguration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WellKnownAppAuthenticatorConfiguration{}
+
 // WellKnownAppAuthenticatorConfiguration struct for WellKnownAppAuthenticatorConfiguration
 type WellKnownAppAuthenticatorConfiguration struct {
 	// The authenticator enrollment endpoint
@@ -43,11 +46,11 @@ type WellKnownAppAuthenticatorConfiguration struct {
 	// The authenticator display name
 	Name *string `json:"name,omitempty"`
 	// The `id` of the Okta Org
-	OrgId *string `json:"orgId,omitempty"`
-	Settings *WellKnownAppAuthenticatorConfigurationSettings `json:"settings,omitempty"`
-	SupportedMethods []SupportedMethods `json:"supportedMethods,omitempty"`
+	OrgId            *string                                         `json:"orgId,omitempty"`
+	Settings         *WellKnownAppAuthenticatorConfigurationSettings `json:"settings,omitempty"`
+	SupportedMethods []SupportedMethods                              `json:"supportedMethods,omitempty"`
 	// The type of authenticator
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -72,7 +75,7 @@ func NewWellKnownAppAuthenticatorConfigurationWithDefaults() *WellKnownAppAuthen
 
 // GetAppAuthenticatorEnrollEndpoint returns the AppAuthenticatorEnrollEndpoint field value if set, zero value otherwise.
 func (o *WellKnownAppAuthenticatorConfiguration) GetAppAuthenticatorEnrollEndpoint() string {
-	if o == nil || o.AppAuthenticatorEnrollEndpoint == nil {
+	if o == nil || IsNil(o.AppAuthenticatorEnrollEndpoint) {
 		var ret string
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) GetAppAuthenticatorEnrollEndpoi
 // GetAppAuthenticatorEnrollEndpointOk returns a tuple with the AppAuthenticatorEnrollEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownAppAuthenticatorConfiguration) GetAppAuthenticatorEnrollEndpointOk() (*string, bool) {
-	if o == nil || o.AppAuthenticatorEnrollEndpoint == nil {
+	if o == nil || IsNil(o.AppAuthenticatorEnrollEndpoint) {
 		return nil, false
 	}
 	return o.AppAuthenticatorEnrollEndpoint, true
@@ -90,7 +93,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) GetAppAuthenticatorEnrollEndpoi
 
 // HasAppAuthenticatorEnrollEndpoint returns a boolean if a field has been set.
 func (o *WellKnownAppAuthenticatorConfiguration) HasAppAuthenticatorEnrollEndpoint() bool {
-	if o != nil && o.AppAuthenticatorEnrollEndpoint != nil {
+	if o != nil && !IsNil(o.AppAuthenticatorEnrollEndpoint) {
 		return true
 	}
 
@@ -104,7 +107,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) SetAppAuthenticatorEnrollEndpoi
 
 // GetAuthenticatorId returns the AuthenticatorId field value if set, zero value otherwise.
 func (o *WellKnownAppAuthenticatorConfiguration) GetAuthenticatorId() string {
-	if o == nil || o.AuthenticatorId == nil {
+	if o == nil || IsNil(o.AuthenticatorId) {
 		var ret string
 		return ret
 	}
@@ -114,7 +117,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) GetAuthenticatorId() string {
 // GetAuthenticatorIdOk returns a tuple with the AuthenticatorId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownAppAuthenticatorConfiguration) GetAuthenticatorIdOk() (*string, bool) {
-	if o == nil || o.AuthenticatorId == nil {
+	if o == nil || IsNil(o.AuthenticatorId) {
 		return nil, false
 	}
 	return o.AuthenticatorId, true
@@ -122,7 +125,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) GetAuthenticatorIdOk() (*string
 
 // HasAuthenticatorId returns a boolean if a field has been set.
 func (o *WellKnownAppAuthenticatorConfiguration) HasAuthenticatorId() bool {
-	if o != nil && o.AuthenticatorId != nil {
+	if o != nil && !IsNil(o.AuthenticatorId) {
 		return true
 	}
 
@@ -136,7 +139,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) SetAuthenticatorId(v string) {
 
 // GetCreatedDate returns the CreatedDate field value if set, zero value otherwise.
 func (o *WellKnownAppAuthenticatorConfiguration) GetCreatedDate() time.Time {
-	if o == nil || o.CreatedDate == nil {
+	if o == nil || IsNil(o.CreatedDate) {
 		var ret time.Time
 		return ret
 	}
@@ -146,7 +149,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) GetCreatedDate() time.Time {
 // GetCreatedDateOk returns a tuple with the CreatedDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownAppAuthenticatorConfiguration) GetCreatedDateOk() (*time.Time, bool) {
-	if o == nil || o.CreatedDate == nil {
+	if o == nil || IsNil(o.CreatedDate) {
 		return nil, false
 	}
 	return o.CreatedDate, true
@@ -154,7 +157,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) GetCreatedDateOk() (*time.Time,
 
 // HasCreatedDate returns a boolean if a field has been set.
 func (o *WellKnownAppAuthenticatorConfiguration) HasCreatedDate() bool {
-	if o != nil && o.CreatedDate != nil {
+	if o != nil && !IsNil(o.CreatedDate) {
 		return true
 	}
 
@@ -168,7 +171,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) SetCreatedDate(v time.Time) {
 
 // GetKey returns the Key field value if set, zero value otherwise.
 func (o *WellKnownAppAuthenticatorConfiguration) GetKey() string {
-	if o == nil || o.Key == nil {
+	if o == nil || IsNil(o.Key) {
 		var ret string
 		return ret
 	}
@@ -178,7 +181,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) GetKey() string {
 // GetKeyOk returns a tuple with the Key field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownAppAuthenticatorConfiguration) GetKeyOk() (*string, bool) {
-	if o == nil || o.Key == nil {
+	if o == nil || IsNil(o.Key) {
 		return nil, false
 	}
 	return o.Key, true
@@ -186,7 +189,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) GetKeyOk() (*string, bool) {
 
 // HasKey returns a boolean if a field has been set.
 func (o *WellKnownAppAuthenticatorConfiguration) HasKey() bool {
-	if o != nil && o.Key != nil {
+	if o != nil && !IsNil(o.Key) {
 		return true
 	}
 
@@ -200,7 +203,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) SetKey(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *WellKnownAppAuthenticatorConfiguration) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -210,7 +213,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownAppAuthenticatorConfiguration) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -218,7 +221,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) GetLastUpdatedOk() (*time.Time,
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *WellKnownAppAuthenticatorConfiguration) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -232,7 +235,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) SetLastUpdated(v time.Time) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *WellKnownAppAuthenticatorConfiguration) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -242,7 +245,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownAppAuthenticatorConfiguration) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -250,7 +253,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *WellKnownAppAuthenticatorConfiguration) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -264,7 +267,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) SetName(v string) {
 
 // GetOrgId returns the OrgId field value if set, zero value otherwise.
 func (o *WellKnownAppAuthenticatorConfiguration) GetOrgId() string {
-	if o == nil || o.OrgId == nil {
+	if o == nil || IsNil(o.OrgId) {
 		var ret string
 		return ret
 	}
@@ -274,7 +277,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) GetOrgId() string {
 // GetOrgIdOk returns a tuple with the OrgId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownAppAuthenticatorConfiguration) GetOrgIdOk() (*string, bool) {
-	if o == nil || o.OrgId == nil {
+	if o == nil || IsNil(o.OrgId) {
 		return nil, false
 	}
 	return o.OrgId, true
@@ -282,7 +285,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) GetOrgIdOk() (*string, bool) {
 
 // HasOrgId returns a boolean if a field has been set.
 func (o *WellKnownAppAuthenticatorConfiguration) HasOrgId() bool {
-	if o != nil && o.OrgId != nil {
+	if o != nil && !IsNil(o.OrgId) {
 		return true
 	}
 
@@ -296,7 +299,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) SetOrgId(v string) {
 
 // GetSettings returns the Settings field value if set, zero value otherwise.
 func (o *WellKnownAppAuthenticatorConfiguration) GetSettings() WellKnownAppAuthenticatorConfigurationSettings {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		var ret WellKnownAppAuthenticatorConfigurationSettings
 		return ret
 	}
@@ -306,7 +309,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) GetSettings() WellKnownAppAuthe
 // GetSettingsOk returns a tuple with the Settings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownAppAuthenticatorConfiguration) GetSettingsOk() (*WellKnownAppAuthenticatorConfigurationSettings, bool) {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		return nil, false
 	}
 	return o.Settings, true
@@ -314,7 +317,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) GetSettingsOk() (*WellKnownAppA
 
 // HasSettings returns a boolean if a field has been set.
 func (o *WellKnownAppAuthenticatorConfiguration) HasSettings() bool {
-	if o != nil && o.Settings != nil {
+	if o != nil && !IsNil(o.Settings) {
 		return true
 	}
 
@@ -328,7 +331,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) SetSettings(v WellKnownAppAuthe
 
 // GetSupportedMethods returns the SupportedMethods field value if set, zero value otherwise.
 func (o *WellKnownAppAuthenticatorConfiguration) GetSupportedMethods() []SupportedMethods {
-	if o == nil || o.SupportedMethods == nil {
+	if o == nil || IsNil(o.SupportedMethods) {
 		var ret []SupportedMethods
 		return ret
 	}
@@ -338,7 +341,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) GetSupportedMethods() []Support
 // GetSupportedMethodsOk returns a tuple with the SupportedMethods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownAppAuthenticatorConfiguration) GetSupportedMethodsOk() ([]SupportedMethods, bool) {
-	if o == nil || o.SupportedMethods == nil {
+	if o == nil || IsNil(o.SupportedMethods) {
 		return nil, false
 	}
 	return o.SupportedMethods, true
@@ -346,7 +349,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) GetSupportedMethodsOk() ([]Supp
 
 // HasSupportedMethods returns a boolean if a field has been set.
 func (o *WellKnownAppAuthenticatorConfiguration) HasSupportedMethods() bool {
-	if o != nil && o.SupportedMethods != nil {
+	if o != nil && !IsNil(o.SupportedMethods) {
 		return true
 	}
 
@@ -360,7 +363,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) SetSupportedMethods(v []Support
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *WellKnownAppAuthenticatorConfiguration) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -370,7 +373,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownAppAuthenticatorConfiguration) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -378,7 +381,7 @@ func (o *WellKnownAppAuthenticatorConfiguration) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *WellKnownAppAuthenticatorConfiguration) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -391,35 +394,43 @@ func (o *WellKnownAppAuthenticatorConfiguration) SetType(v string) {
 }
 
 func (o WellKnownAppAuthenticatorConfiguration) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o WellKnownAppAuthenticatorConfiguration) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AppAuthenticatorEnrollEndpoint != nil {
+	if !IsNil(o.AppAuthenticatorEnrollEndpoint) {
 		toSerialize["appAuthenticatorEnrollEndpoint"] = o.AppAuthenticatorEnrollEndpoint
 	}
-	if o.AuthenticatorId != nil {
+	if !IsNil(o.AuthenticatorId) {
 		toSerialize["authenticatorId"] = o.AuthenticatorId
 	}
-	if o.CreatedDate != nil {
+	if !IsNil(o.CreatedDate) {
 		toSerialize["createdDate"] = o.CreatedDate
 	}
-	if o.Key != nil {
+	if !IsNil(o.Key) {
 		toSerialize["key"] = o.Key
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.OrgId != nil {
+	if !IsNil(o.OrgId) {
 		toSerialize["orgId"] = o.OrgId
 	}
-	if o.Settings != nil {
+	if !IsNil(o.Settings) {
 		toSerialize["settings"] = o.Settings
 	}
-	if o.SupportedMethods != nil {
+	if !IsNil(o.SupportedMethods) {
 		toSerialize["supportedMethods"] = o.SupportedMethods
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -427,23 +438,23 @@ func (o WellKnownAppAuthenticatorConfiguration) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *WellKnownAppAuthenticatorConfiguration) UnmarshalJSON(bytes []byte) (err error) {
+func (o *WellKnownAppAuthenticatorConfiguration) UnmarshalJSON(data []byte) (err error) {
 	varWellKnownAppAuthenticatorConfiguration := _WellKnownAppAuthenticatorConfiguration{}
 
-	err = json.Unmarshal(bytes, &varWellKnownAppAuthenticatorConfiguration)
-	if err == nil {
-		*o = WellKnownAppAuthenticatorConfiguration(varWellKnownAppAuthenticatorConfiguration)
-	} else {
+	err = json.Unmarshal(data, &varWellKnownAppAuthenticatorConfiguration)
+
+	if err != nil {
 		return err
 	}
 
+	*o = WellKnownAppAuthenticatorConfiguration(varWellKnownAppAuthenticatorConfiguration)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "appAuthenticatorEnrollEndpoint")
 		delete(additionalProperties, "authenticatorId")
 		delete(additionalProperties, "createdDate")
@@ -455,8 +466,6 @@ func (o *WellKnownAppAuthenticatorConfiguration) UnmarshalJSON(bytes []byte) (er
 		delete(additionalProperties, "supportedMethods")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -497,4 +506,3 @@ func (v *NullableWellKnownAppAuthenticatorConfiguration) UnmarshalJSON(src []byt
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

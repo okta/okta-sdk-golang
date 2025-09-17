@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"fmt"
 )
 
+// checks if the IdentityProviderProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IdentityProviderProperties{}
+
 // IdentityProviderProperties The properties in the IdP `properties` object vary depending on the IdP type
 type IdentityProviderProperties struct {
 	// The [authentication assurance level](https://developers.login.gov/oidc/#aal-values) (AAL) value for the Login.gov IdP. See [Add a Login.gov IdP](https://developer.okta.com/docs/guides/add-logingov-idp/). Applies to `LOGINGOV` and `LOGINGOV_SANDBOX` IdP types.
@@ -37,7 +40,7 @@ type IdentityProviderProperties struct {
 	// The [type of identity verification](https://developers.login.gov/oidc/#ial-values) (IAL) value for the Login.gov IdP. See [Add a Login.gov IdP](https://developer.okta.com/docs/guides/add-logingov-idp/). Applies to `LOGINGOV` and `LOGINGOV_SANDBOX` IdP types.
 	IalValue NullableString `json:"ialValue,omitempty"`
 	// The ID of the inquiry template from your Persona dashboard. The inquiry template always starts with `itmpl`. Applies to the `IDV_PERSONA` IdP type.
-	InquiryTemplateId string `json:"inquiryTemplateId"`
+	InquiryTemplateId    string `json:"inquiryTemplateId"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -63,7 +66,7 @@ func NewIdentityProviderPropertiesWithDefaults() *IdentityProviderProperties {
 
 // GetAalValue returns the AalValue field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *IdentityProviderProperties) GetAalValue() string {
-	if o == nil || o.AalValue.Get() == nil {
+	if o == nil || IsNil(o.AalValue.Get()) {
 		var ret string
 		return ret
 	}
@@ -93,6 +96,7 @@ func (o *IdentityProviderProperties) HasAalValue() bool {
 func (o *IdentityProviderProperties) SetAalValue(v string) {
 	o.AalValue.Set(&v)
 }
+
 // SetAalValueNil sets the value for AalValue to be an explicit nil
 func (o *IdentityProviderProperties) SetAalValueNil() {
 	o.AalValue.Set(nil)
@@ -116,7 +120,7 @@ func (o *IdentityProviderProperties) GetAdditionalAmr() []string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *IdentityProviderProperties) GetAdditionalAmrOk() ([]string, bool) {
-	if o == nil || o.AdditionalAmr == nil {
+	if o == nil || IsNil(o.AdditionalAmr) {
 		return nil, false
 	}
 	return o.AdditionalAmr, true
@@ -124,7 +128,7 @@ func (o *IdentityProviderProperties) GetAdditionalAmrOk() ([]string, bool) {
 
 // HasAdditionalAmr returns a boolean if a field has been set.
 func (o *IdentityProviderProperties) HasAdditionalAmr() bool {
-	if o != nil && o.AdditionalAmr != nil {
+	if o != nil && !IsNil(o.AdditionalAmr) {
 		return true
 	}
 
@@ -138,7 +142,7 @@ func (o *IdentityProviderProperties) SetAdditionalAmr(v []string) {
 
 // GetIalValue returns the IalValue field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *IdentityProviderProperties) GetIalValue() string {
-	if o == nil || o.IalValue.Get() == nil {
+	if o == nil || IsNil(o.IalValue.Get()) {
 		var ret string
 		return ret
 	}
@@ -168,6 +172,7 @@ func (o *IdentityProviderProperties) HasIalValue() bool {
 func (o *IdentityProviderProperties) SetIalValue(v string) {
 	o.IalValue.Set(&v)
 }
+
 // SetIalValueNil sets the value for IalValue to be an explicit nil
 func (o *IdentityProviderProperties) SetIalValueNil() {
 	o.IalValue.Set(nil)
@@ -203,6 +208,14 @@ func (o *IdentityProviderProperties) SetInquiryTemplateId(v string) {
 }
 
 func (o IdentityProviderProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IdentityProviderProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.AalValue.IsSet() {
 		toSerialize["aalValue"] = o.AalValue.Get()
@@ -213,38 +226,55 @@ func (o IdentityProviderProperties) MarshalJSON() ([]byte, error) {
 	if o.IalValue.IsSet() {
 		toSerialize["ialValue"] = o.IalValue.Get()
 	}
-	if true {
-		toSerialize["inquiryTemplateId"] = o.InquiryTemplateId
-	}
+	toSerialize["inquiryTemplateId"] = o.InquiryTemplateId
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *IdentityProviderProperties) UnmarshalJSON(bytes []byte) (err error) {
-	varIdentityProviderProperties := _IdentityProviderProperties{}
+func (o *IdentityProviderProperties) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"inquiryTemplateId",
+	}
 
-	err = json.Unmarshal(bytes, &varIdentityProviderProperties)
-	if err == nil {
-		*o = IdentityProviderProperties(varIdentityProviderProperties)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varIdentityProviderProperties := _IdentityProviderProperties{}
+
+	err = json.Unmarshal(data, &varIdentityProviderProperties)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IdentityProviderProperties(varIdentityProviderProperties)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "aalValue")
 		delete(additionalProperties, "additionalAmr")
 		delete(additionalProperties, "ialValue")
 		delete(additionalProperties, "inquiryTemplateId")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -285,4 +315,3 @@ func (v *NullableIdentityProviderProperties) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

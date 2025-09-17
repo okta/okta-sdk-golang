@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the OidcAlgorithms type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OidcAlgorithms{}
+
 // OidcAlgorithms struct for OidcAlgorithms
 type OidcAlgorithms struct {
-	Request *OidcRequestAlgorithm `json:"request,omitempty"`
+	Request              *OidcRequestAlgorithm `json:"request,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewOidcAlgorithmsWithDefaults() *OidcAlgorithms {
 
 // GetRequest returns the Request field value if set, zero value otherwise.
 func (o *OidcAlgorithms) GetRequest() OidcRequestAlgorithm {
-	if o == nil || o.Request == nil {
+	if o == nil || IsNil(o.Request) {
 		var ret OidcRequestAlgorithm
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *OidcAlgorithms) GetRequest() OidcRequestAlgorithm {
 // GetRequestOk returns a tuple with the Request field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OidcAlgorithms) GetRequestOk() (*OidcRequestAlgorithm, bool) {
-	if o == nil || o.Request == nil {
+	if o == nil || IsNil(o.Request) {
 		return nil, false
 	}
 	return o.Request, true
@@ -72,7 +75,7 @@ func (o *OidcAlgorithms) GetRequestOk() (*OidcRequestAlgorithm, bool) {
 
 // HasRequest returns a boolean if a field has been set.
 func (o *OidcAlgorithms) HasRequest() bool {
-	if o != nil && o.Request != nil {
+	if o != nil && !IsNil(o.Request) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *OidcAlgorithms) SetRequest(v OidcRequestAlgorithm) {
 }
 
 func (o OidcAlgorithms) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OidcAlgorithms) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Request != nil {
+	if !IsNil(o.Request) {
 		toSerialize["request"] = o.Request
 	}
 
@@ -94,27 +105,25 @@ func (o OidcAlgorithms) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OidcAlgorithms) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OidcAlgorithms) UnmarshalJSON(data []byte) (err error) {
 	varOidcAlgorithms := _OidcAlgorithms{}
 
-	err = json.Unmarshal(bytes, &varOidcAlgorithms)
-	if err == nil {
-		*o = OidcAlgorithms(varOidcAlgorithms)
-	} else {
+	err = json.Unmarshal(data, &varOidcAlgorithms)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OidcAlgorithms(varOidcAlgorithms)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "request")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableOidcAlgorithms) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

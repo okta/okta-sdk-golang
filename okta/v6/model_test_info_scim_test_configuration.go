@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,12 +28,15 @@ import (
 	"fmt"
 )
 
+// checks if the TestInfoScimTestConfiguration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TestInfoScimTestConfiguration{}
+
 // TestInfoScimTestConfiguration SCIM test details
 type TestInfoScimTestConfiguration struct {
 	// The Runscope URL to your SCIM server specification test results. See [Test your SCIM API](https://developer.okta.com/docs/guides/build-provisioning-integration/test-scim-api/).
 	SpecTestResults string `json:"specTestResults"`
 	// The Runscope URL to your Okta SCIM CRUD test results. See [Test your Okta SCIM integration](https://developer.okta.com/docs/guides/scim-provisioning-integration-test/main/).
-	CrudTestResults string `json:"crudTestResults"`
+	CrudTestResults      string `json:"crudTestResults"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,40 +110,64 @@ func (o *TestInfoScimTestConfiguration) SetCrudTestResults(v string) {
 }
 
 func (o TestInfoScimTestConfiguration) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TestInfoScimTestConfiguration) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["specTestResults"] = o.SpecTestResults
-	}
-	if true {
-		toSerialize["crudTestResults"] = o.CrudTestResults
-	}
+	toSerialize["specTestResults"] = o.SpecTestResults
+	toSerialize["crudTestResults"] = o.CrudTestResults
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *TestInfoScimTestConfiguration) UnmarshalJSON(bytes []byte) (err error) {
-	varTestInfoScimTestConfiguration := _TestInfoScimTestConfiguration{}
+func (o *TestInfoScimTestConfiguration) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"specTestResults",
+		"crudTestResults",
+	}
 
-	err = json.Unmarshal(bytes, &varTestInfoScimTestConfiguration)
-	if err == nil {
-		*o = TestInfoScimTestConfiguration(varTestInfoScimTestConfiguration)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varTestInfoScimTestConfiguration := _TestInfoScimTestConfiguration{}
+
+	err = json.Unmarshal(data, &varTestInfoScimTestConfiguration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TestInfoScimTestConfiguration(varTestInfoScimTestConfiguration)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "specTestResults")
 		delete(additionalProperties, "crudTestResults")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -181,4 +208,3 @@ func (v *NullableTestInfoScimTestConfiguration) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

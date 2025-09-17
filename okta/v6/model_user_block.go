@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserBlock type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserBlock{}
+
 // UserBlock Describes how the account is blocked from access. If `appliesTo` is `ANY_DEVICES`, then the account is blocked for all devices. If `appliesTo` is `UNKNOWN_DEVICES`, then the account is only blocked for unknown devices.
 type UserBlock struct {
 	// The devices that the block applies to
 	AppliesTo *string `json:"appliesTo,omitempty"`
 	// Type of access block
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewUserBlockWithDefaults() *UserBlock {
 
 // GetAppliesTo returns the AppliesTo field value if set, zero value otherwise.
 func (o *UserBlock) GetAppliesTo() string {
-	if o == nil || o.AppliesTo == nil {
+	if o == nil || IsNil(o.AppliesTo) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *UserBlock) GetAppliesTo() string {
 // GetAppliesToOk returns a tuple with the AppliesTo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserBlock) GetAppliesToOk() (*string, bool) {
-	if o == nil || o.AppliesTo == nil {
+	if o == nil || IsNil(o.AppliesTo) {
 		return nil, false
 	}
 	return o.AppliesTo, true
@@ -75,7 +78,7 @@ func (o *UserBlock) GetAppliesToOk() (*string, bool) {
 
 // HasAppliesTo returns a boolean if a field has been set.
 func (o *UserBlock) HasAppliesTo() bool {
-	if o != nil && o.AppliesTo != nil {
+	if o != nil && !IsNil(o.AppliesTo) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *UserBlock) SetAppliesTo(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *UserBlock) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *UserBlock) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserBlock) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -107,7 +110,7 @@ func (o *UserBlock) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *UserBlock) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *UserBlock) SetType(v string) {
 }
 
 func (o UserBlock) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserBlock) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AppliesTo != nil {
+	if !IsNil(o.AppliesTo) {
 		toSerialize["appliesTo"] = o.AppliesTo
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -132,28 +143,26 @@ func (o UserBlock) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserBlock) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserBlock) UnmarshalJSON(data []byte) (err error) {
 	varUserBlock := _UserBlock{}
 
-	err = json.Unmarshal(bytes, &varUserBlock)
-	if err == nil {
-		*o = UserBlock(varUserBlock)
-	} else {
+	err = json.Unmarshal(data, &varUserBlock)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserBlock(varUserBlock)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "appliesTo")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableUserBlock) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

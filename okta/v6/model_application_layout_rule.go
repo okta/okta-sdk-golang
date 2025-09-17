@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the ApplicationLayoutRule type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApplicationLayoutRule{}
+
 // ApplicationLayoutRule struct for ApplicationLayoutRule
 type ApplicationLayoutRule struct {
-	Effect *string `json:"effect,omitempty"`
-	Condition *ApplicationLayoutRuleCondition `json:"condition,omitempty"`
+	Effect               *string                         `json:"effect,omitempty"`
+	Condition            *ApplicationLayoutRuleCondition `json:"condition,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewApplicationLayoutRuleWithDefaults() *ApplicationLayoutRule {
 
 // GetEffect returns the Effect field value if set, zero value otherwise.
 func (o *ApplicationLayoutRule) GetEffect() string {
-	if o == nil || o.Effect == nil {
+	if o == nil || IsNil(o.Effect) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *ApplicationLayoutRule) GetEffect() string {
 // GetEffectOk returns a tuple with the Effect field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationLayoutRule) GetEffectOk() (*string, bool) {
-	if o == nil || o.Effect == nil {
+	if o == nil || IsNil(o.Effect) {
 		return nil, false
 	}
 	return o.Effect, true
@@ -73,7 +76,7 @@ func (o *ApplicationLayoutRule) GetEffectOk() (*string, bool) {
 
 // HasEffect returns a boolean if a field has been set.
 func (o *ApplicationLayoutRule) HasEffect() bool {
-	if o != nil && o.Effect != nil {
+	if o != nil && !IsNil(o.Effect) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *ApplicationLayoutRule) SetEffect(v string) {
 
 // GetCondition returns the Condition field value if set, zero value otherwise.
 func (o *ApplicationLayoutRule) GetCondition() ApplicationLayoutRuleCondition {
-	if o == nil || o.Condition == nil {
+	if o == nil || IsNil(o.Condition) {
 		var ret ApplicationLayoutRuleCondition
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *ApplicationLayoutRule) GetCondition() ApplicationLayoutRuleCondition {
 // GetConditionOk returns a tuple with the Condition field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationLayoutRule) GetConditionOk() (*ApplicationLayoutRuleCondition, bool) {
-	if o == nil || o.Condition == nil {
+	if o == nil || IsNil(o.Condition) {
 		return nil, false
 	}
 	return o.Condition, true
@@ -105,7 +108,7 @@ func (o *ApplicationLayoutRule) GetConditionOk() (*ApplicationLayoutRuleConditio
 
 // HasCondition returns a boolean if a field has been set.
 func (o *ApplicationLayoutRule) HasCondition() bool {
-	if o != nil && o.Condition != nil {
+	if o != nil && !IsNil(o.Condition) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *ApplicationLayoutRule) SetCondition(v ApplicationLayoutRuleCondition) {
 }
 
 func (o ApplicationLayoutRule) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApplicationLayoutRule) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Effect != nil {
+	if !IsNil(o.Effect) {
 		toSerialize["effect"] = o.Effect
 	}
-	if o.Condition != nil {
+	if !IsNil(o.Condition) {
 		toSerialize["condition"] = o.Condition
 	}
 
@@ -130,28 +141,26 @@ func (o ApplicationLayoutRule) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ApplicationLayoutRule) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ApplicationLayoutRule) UnmarshalJSON(data []byte) (err error) {
 	varApplicationLayoutRule := _ApplicationLayoutRule{}
 
-	err = json.Unmarshal(bytes, &varApplicationLayoutRule)
-	if err == nil {
-		*o = ApplicationLayoutRule(varApplicationLayoutRule)
-	} else {
+	err = json.Unmarshal(data, &varApplicationLayoutRule)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ApplicationLayoutRule(varApplicationLayoutRule)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "effect")
 		delete(additionalProperties, "condition")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableApplicationLayoutRule) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

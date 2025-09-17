@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"reflect"
 	"strings"
 )
+
+// checks if the AuthenticatorSimple type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorSimple{}
 
 // AuthenticatorSimple struct for AuthenticatorSimple
 type AuthenticatorSimple struct {
@@ -55,30 +58,38 @@ func NewAuthenticatorSimpleWithDefaults() *AuthenticatorSimple {
 }
 
 func (o AuthenticatorSimple) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorSimple) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedAuthenticatorBase, errAuthenticatorBase := json.Marshal(o.AuthenticatorBase)
 	if errAuthenticatorBase != nil {
-		return []byte{}, errAuthenticatorBase
+		return map[string]interface{}{}, errAuthenticatorBase
 	}
 	errAuthenticatorBase = json.Unmarshal([]byte(serializedAuthenticatorBase), &toSerialize)
 	if errAuthenticatorBase != nil {
-		return []byte{}, errAuthenticatorBase
+		return map[string]interface{}{}, errAuthenticatorBase
 	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorSimple) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorSimple) UnmarshalJSON(data []byte) (err error) {
 	type AuthenticatorSimpleWithoutEmbeddedStruct struct {
 	}
 
 	varAuthenticatorSimpleWithoutEmbeddedStruct := AuthenticatorSimpleWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorSimpleWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varAuthenticatorSimpleWithoutEmbeddedStruct)
 	if err == nil {
 		varAuthenticatorSimple := _AuthenticatorSimple{}
 		*o = AuthenticatorSimple(varAuthenticatorSimple)
@@ -88,7 +99,7 @@ func (o *AuthenticatorSimple) UnmarshalJSON(bytes []byte) (err error) {
 
 	varAuthenticatorSimple := _AuthenticatorSimple{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorSimple)
+	err = json.Unmarshal(data, &varAuthenticatorSimple)
 	if err == nil {
 		o.AuthenticatorBase = varAuthenticatorSimple.AuthenticatorBase
 	} else {
@@ -97,8 +108,7 @@ func (o *AuthenticatorSimple) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 
 		// remove fields from embedded structs
 		reflectAuthenticatorBase := reflect.ValueOf(o.AuthenticatorBase)
@@ -119,8 +129,6 @@ func (o *AuthenticatorSimple) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -161,4 +169,3 @@ func (v *NullableAuthenticatorSimple) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the UIElementOptions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UIElementOptions{}
+
 // UIElementOptions UI Schema element options object
 type UIElementOptions struct {
 	// Specifies how the input appears
-	Format *string `json:"format,omitempty"`
+	Format               *string `json:"format,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewUIElementOptionsWithDefaults() *UIElementOptions {
 
 // GetFormat returns the Format field value if set, zero value otherwise.
 func (o *UIElementOptions) GetFormat() string {
-	if o == nil || o.Format == nil {
+	if o == nil || IsNil(o.Format) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *UIElementOptions) GetFormat() string {
 // GetFormatOk returns a tuple with the Format field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UIElementOptions) GetFormatOk() (*string, bool) {
-	if o == nil || o.Format == nil {
+	if o == nil || IsNil(o.Format) {
 		return nil, false
 	}
 	return o.Format, true
@@ -73,7 +76,7 @@ func (o *UIElementOptions) GetFormatOk() (*string, bool) {
 
 // HasFormat returns a boolean if a field has been set.
 func (o *UIElementOptions) HasFormat() bool {
-	if o != nil && o.Format != nil {
+	if o != nil && !IsNil(o.Format) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *UIElementOptions) SetFormat(v string) {
 }
 
 func (o UIElementOptions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UIElementOptions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Format != nil {
+	if !IsNil(o.Format) {
 		toSerialize["format"] = o.Format
 	}
 
@@ -95,27 +106,25 @@ func (o UIElementOptions) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UIElementOptions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UIElementOptions) UnmarshalJSON(data []byte) (err error) {
 	varUIElementOptions := _UIElementOptions{}
 
-	err = json.Unmarshal(bytes, &varUIElementOptions)
-	if err == nil {
-		*o = UIElementOptions(varUIElementOptions)
-	} else {
+	err = json.Unmarshal(data, &varUIElementOptions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UIElementOptions(varUIElementOptions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "format")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableUIElementOptions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

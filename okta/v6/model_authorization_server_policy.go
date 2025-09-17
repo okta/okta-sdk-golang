@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"time"
 )
 
+// checks if the AuthorizationServerPolicy type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthorizationServerPolicy{}
+
 // AuthorizationServerPolicy struct for AuthorizationServerPolicy
 type AuthorizationServerPolicy struct {
 	// ID of the Policy
@@ -35,7 +38,7 @@ type AuthorizationServerPolicy struct {
 	// Indicates that the Policy is an authorization server Policy
 	Type *string `json:"type,omitempty"`
 	// Name of the Policy
-	Name *string `json:"name,omitempty"`
+	Name       *string                              `json:"name,omitempty"`
 	Conditions *AuthorizationServerPolicyConditions `json:"conditions,omitempty"`
 	// Description of the Policy
 	Description *string `json:"description,omitempty"`
@@ -48,8 +51,8 @@ type AuthorizationServerPolicy struct {
 	// Timestamp when the Policy was created
 	Created *time.Time `json:"created,omitempty"`
 	// Timestamp when the Policy was last updated
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Links *AuthorizationServerPolicyAllOfLinks `json:"_links,omitempty"`
+	LastUpdated          *time.Time                           `json:"lastUpdated,omitempty"`
+	Links                *AuthorizationServerPolicyAllOfLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -74,7 +77,7 @@ func NewAuthorizationServerPolicyWithDefaults() *AuthorizationServerPolicy {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *AuthorizationServerPolicy) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *AuthorizationServerPolicy) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerPolicy) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -92,7 +95,7 @@ func (o *AuthorizationServerPolicy) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *AuthorizationServerPolicy) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *AuthorizationServerPolicy) SetId(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *AuthorizationServerPolicy) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *AuthorizationServerPolicy) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerPolicy) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -124,7 +127,7 @@ func (o *AuthorizationServerPolicy) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *AuthorizationServerPolicy) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -138,7 +141,7 @@ func (o *AuthorizationServerPolicy) SetType(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *AuthorizationServerPolicy) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -148,7 +151,7 @@ func (o *AuthorizationServerPolicy) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerPolicy) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -156,7 +159,7 @@ func (o *AuthorizationServerPolicy) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *AuthorizationServerPolicy) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -170,7 +173,7 @@ func (o *AuthorizationServerPolicy) SetName(v string) {
 
 // GetConditions returns the Conditions field value if set, zero value otherwise.
 func (o *AuthorizationServerPolicy) GetConditions() AuthorizationServerPolicyConditions {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		var ret AuthorizationServerPolicyConditions
 		return ret
 	}
@@ -180,7 +183,7 @@ func (o *AuthorizationServerPolicy) GetConditions() AuthorizationServerPolicyCon
 // GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerPolicy) GetConditionsOk() (*AuthorizationServerPolicyConditions, bool) {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		return nil, false
 	}
 	return o.Conditions, true
@@ -188,7 +191,7 @@ func (o *AuthorizationServerPolicy) GetConditionsOk() (*AuthorizationServerPolic
 
 // HasConditions returns a boolean if a field has been set.
 func (o *AuthorizationServerPolicy) HasConditions() bool {
-	if o != nil && o.Conditions != nil {
+	if o != nil && !IsNil(o.Conditions) {
 		return true
 	}
 
@@ -202,7 +205,7 @@ func (o *AuthorizationServerPolicy) SetConditions(v AuthorizationServerPolicyCon
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *AuthorizationServerPolicy) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -212,7 +215,7 @@ func (o *AuthorizationServerPolicy) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerPolicy) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -220,7 +223,7 @@ func (o *AuthorizationServerPolicy) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *AuthorizationServerPolicy) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -234,7 +237,7 @@ func (o *AuthorizationServerPolicy) SetDescription(v string) {
 
 // GetPriority returns the Priority field value if set, zero value otherwise.
 func (o *AuthorizationServerPolicy) GetPriority() int32 {
-	if o == nil || o.Priority == nil {
+	if o == nil || IsNil(o.Priority) {
 		var ret int32
 		return ret
 	}
@@ -244,7 +247,7 @@ func (o *AuthorizationServerPolicy) GetPriority() int32 {
 // GetPriorityOk returns a tuple with the Priority field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerPolicy) GetPriorityOk() (*int32, bool) {
-	if o == nil || o.Priority == nil {
+	if o == nil || IsNil(o.Priority) {
 		return nil, false
 	}
 	return o.Priority, true
@@ -252,7 +255,7 @@ func (o *AuthorizationServerPolicy) GetPriorityOk() (*int32, bool) {
 
 // HasPriority returns a boolean if a field has been set.
 func (o *AuthorizationServerPolicy) HasPriority() bool {
-	if o != nil && o.Priority != nil {
+	if o != nil && !IsNil(o.Priority) {
 		return true
 	}
 
@@ -266,7 +269,7 @@ func (o *AuthorizationServerPolicy) SetPriority(v int32) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *AuthorizationServerPolicy) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -276,7 +279,7 @@ func (o *AuthorizationServerPolicy) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerPolicy) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -284,7 +287,7 @@ func (o *AuthorizationServerPolicy) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *AuthorizationServerPolicy) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -298,7 +301,7 @@ func (o *AuthorizationServerPolicy) SetStatus(v string) {
 
 // GetSystem returns the System field value if set, zero value otherwise.
 func (o *AuthorizationServerPolicy) GetSystem() bool {
-	if o == nil || o.System == nil {
+	if o == nil || IsNil(o.System) {
 		var ret bool
 		return ret
 	}
@@ -308,7 +311,7 @@ func (o *AuthorizationServerPolicy) GetSystem() bool {
 // GetSystemOk returns a tuple with the System field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerPolicy) GetSystemOk() (*bool, bool) {
-	if o == nil || o.System == nil {
+	if o == nil || IsNil(o.System) {
 		return nil, false
 	}
 	return o.System, true
@@ -316,7 +319,7 @@ func (o *AuthorizationServerPolicy) GetSystemOk() (*bool, bool) {
 
 // HasSystem returns a boolean if a field has been set.
 func (o *AuthorizationServerPolicy) HasSystem() bool {
-	if o != nil && o.System != nil {
+	if o != nil && !IsNil(o.System) {
 		return true
 	}
 
@@ -330,7 +333,7 @@ func (o *AuthorizationServerPolicy) SetSystem(v bool) {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *AuthorizationServerPolicy) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -340,7 +343,7 @@ func (o *AuthorizationServerPolicy) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerPolicy) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -348,7 +351,7 @@ func (o *AuthorizationServerPolicy) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *AuthorizationServerPolicy) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -362,7 +365,7 @@ func (o *AuthorizationServerPolicy) SetCreated(v time.Time) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *AuthorizationServerPolicy) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -372,7 +375,7 @@ func (o *AuthorizationServerPolicy) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerPolicy) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -380,7 +383,7 @@ func (o *AuthorizationServerPolicy) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *AuthorizationServerPolicy) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -394,7 +397,7 @@ func (o *AuthorizationServerPolicy) SetLastUpdated(v time.Time) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *AuthorizationServerPolicy) GetLinks() AuthorizationServerPolicyAllOfLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret AuthorizationServerPolicyAllOfLinks
 		return ret
 	}
@@ -404,7 +407,7 @@ func (o *AuthorizationServerPolicy) GetLinks() AuthorizationServerPolicyAllOfLin
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerPolicy) GetLinksOk() (*AuthorizationServerPolicyAllOfLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -412,7 +415,7 @@ func (o *AuthorizationServerPolicy) GetLinksOk() (*AuthorizationServerPolicyAllO
 
 // HasLinks returns a boolean if a field has been set.
 func (o *AuthorizationServerPolicy) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -425,38 +428,46 @@ func (o *AuthorizationServerPolicy) SetLinks(v AuthorizationServerPolicyAllOfLin
 }
 
 func (o AuthorizationServerPolicy) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthorizationServerPolicy) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Conditions != nil {
+	if !IsNil(o.Conditions) {
 		toSerialize["conditions"] = o.Conditions
 	}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.Priority != nil {
+	if !IsNil(o.Priority) {
 		toSerialize["priority"] = o.Priority
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.System != nil {
+	if !IsNil(o.System) {
 		toSerialize["system"] = o.System
 	}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -464,23 +475,23 @@ func (o AuthorizationServerPolicy) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthorizationServerPolicy) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthorizationServerPolicy) UnmarshalJSON(data []byte) (err error) {
 	varAuthorizationServerPolicy := _AuthorizationServerPolicy{}
 
-	err = json.Unmarshal(bytes, &varAuthorizationServerPolicy)
-	if err == nil {
-		*o = AuthorizationServerPolicy(varAuthorizationServerPolicy)
-	} else {
+	err = json.Unmarshal(data, &varAuthorizationServerPolicy)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthorizationServerPolicy(varAuthorizationServerPolicy)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "name")
@@ -493,8 +504,6 @@ func (o *AuthorizationServerPolicy) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "lastUpdated")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -535,4 +544,3 @@ func (v *NullableAuthorizationServerPolicy) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

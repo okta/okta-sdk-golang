@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the OAuth2Actor type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OAuth2Actor{}
+
 // OAuth2Actor User that created the object
 type OAuth2Actor struct {
 	// User ID
 	Id *string `json:"id,omitempty"`
 	// Type of user
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewOAuth2ActorWithDefaults() *OAuth2Actor {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *OAuth2Actor) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *OAuth2Actor) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Actor) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -75,7 +78,7 @@ func (o *OAuth2Actor) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *OAuth2Actor) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *OAuth2Actor) SetId(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *OAuth2Actor) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *OAuth2Actor) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Actor) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -107,7 +110,7 @@ func (o *OAuth2Actor) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *OAuth2Actor) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *OAuth2Actor) SetType(v string) {
 }
 
 func (o OAuth2Actor) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OAuth2Actor) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -132,28 +143,26 @@ func (o OAuth2Actor) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OAuth2Actor) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OAuth2Actor) UnmarshalJSON(data []byte) (err error) {
 	varOAuth2Actor := _OAuth2Actor{}
 
-	err = json.Unmarshal(bytes, &varOAuth2Actor)
-	if err == nil {
-		*o = OAuth2Actor(varOAuth2Actor)
-	} else {
+	err = json.Unmarshal(data, &varOAuth2Actor)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OAuth2Actor(varOAuth2Actor)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableOAuth2Actor) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

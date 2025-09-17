@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the Call1 type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Call1{}
+
 // Call1 Verifies an OTP sent by a `call` factor challenge. If you omit `passCode` in the request, a new OTP is sent to the phone.
 type Call1 struct {
 	// OTP for the current time window
-	PassCode *string `json:"passCode,omitempty"`
+	PassCode             *string `json:"passCode,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewCall1WithDefaults() *Call1 {
 
 // GetPassCode returns the PassCode field value if set, zero value otherwise.
 func (o *Call1) GetPassCode() string {
-	if o == nil || o.PassCode == nil {
+	if o == nil || IsNil(o.PassCode) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *Call1) GetPassCode() string {
 // GetPassCodeOk returns a tuple with the PassCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Call1) GetPassCodeOk() (*string, bool) {
-	if o == nil || o.PassCode == nil {
+	if o == nil || IsNil(o.PassCode) {
 		return nil, false
 	}
 	return o.PassCode, true
@@ -73,7 +76,7 @@ func (o *Call1) GetPassCodeOk() (*string, bool) {
 
 // HasPassCode returns a boolean if a field has been set.
 func (o *Call1) HasPassCode() bool {
-	if o != nil && o.PassCode != nil {
+	if o != nil && !IsNil(o.PassCode) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *Call1) SetPassCode(v string) {
 }
 
 func (o Call1) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Call1) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.PassCode != nil {
+	if !IsNil(o.PassCode) {
 		toSerialize["passCode"] = o.PassCode
 	}
 
@@ -95,27 +106,25 @@ func (o Call1) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Call1) UnmarshalJSON(bytes []byte) (err error) {
+func (o *Call1) UnmarshalJSON(data []byte) (err error) {
 	varCall1 := _Call1{}
 
-	err = json.Unmarshal(bytes, &varCall1)
-	if err == nil {
-		*o = Call1(varCall1)
-	} else {
+	err = json.Unmarshal(data, &varCall1)
+
+	if err != nil {
 		return err
 	}
 
+	*o = Call1(varCall1)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "passCode")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableCall1) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

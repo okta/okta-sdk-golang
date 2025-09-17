@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the AccessPolicyAllOfEmbedded type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AccessPolicyAllOfEmbedded{}
+
 // AccessPolicyAllOfEmbedded struct for AccessPolicyAllOfEmbedded
 type AccessPolicyAllOfEmbedded struct {
 	// The resource that this policy controls. For the [Okta account management policy](https://developer.okta.com/docs/guides/okta-account-management-policy/main/#example-response), `END_USER_ACCOUNT_MANAGEMENT` is returned. For other policies, `APP` is returned.
-	ResourceType *string `json:"resourceType,omitempty"`
+	ResourceType         *string `json:"resourceType,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewAccessPolicyAllOfEmbeddedWithDefaults() *AccessPolicyAllOfEmbedded {
 
 // GetResourceType returns the ResourceType field value if set, zero value otherwise.
 func (o *AccessPolicyAllOfEmbedded) GetResourceType() string {
-	if o == nil || o.ResourceType == nil {
+	if o == nil || IsNil(o.ResourceType) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *AccessPolicyAllOfEmbedded) GetResourceType() string {
 // GetResourceTypeOk returns a tuple with the ResourceType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccessPolicyAllOfEmbedded) GetResourceTypeOk() (*string, bool) {
-	if o == nil || o.ResourceType == nil {
+	if o == nil || IsNil(o.ResourceType) {
 		return nil, false
 	}
 	return o.ResourceType, true
@@ -73,7 +76,7 @@ func (o *AccessPolicyAllOfEmbedded) GetResourceTypeOk() (*string, bool) {
 
 // HasResourceType returns a boolean if a field has been set.
 func (o *AccessPolicyAllOfEmbedded) HasResourceType() bool {
-	if o != nil && o.ResourceType != nil {
+	if o != nil && !IsNil(o.ResourceType) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *AccessPolicyAllOfEmbedded) SetResourceType(v string) {
 }
 
 func (o AccessPolicyAllOfEmbedded) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AccessPolicyAllOfEmbedded) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ResourceType != nil {
+	if !IsNil(o.ResourceType) {
 		toSerialize["resourceType"] = o.ResourceType
 	}
 
@@ -95,27 +106,25 @@ func (o AccessPolicyAllOfEmbedded) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AccessPolicyAllOfEmbedded) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AccessPolicyAllOfEmbedded) UnmarshalJSON(data []byte) (err error) {
 	varAccessPolicyAllOfEmbedded := _AccessPolicyAllOfEmbedded{}
 
-	err = json.Unmarshal(bytes, &varAccessPolicyAllOfEmbedded)
-	if err == nil {
-		*o = AccessPolicyAllOfEmbedded(varAccessPolicyAllOfEmbedded)
-	} else {
+	err = json.Unmarshal(data, &varAccessPolicyAllOfEmbedded)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AccessPolicyAllOfEmbedded(varAccessPolicyAllOfEmbedded)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "resourceType")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableAccessPolicyAllOfEmbedded) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

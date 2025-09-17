@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,23 +26,22 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type RoleECustomAPI interface {
 
 	/*
-	CreateRole Create a custom role
+		CreateRole Create a custom role
 
-	Creates a custom role
+		Creates a custom role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateRoleRequest
 	*/
 	CreateRole(ctx context.Context) ApiCreateRoleRequest
 
@@ -51,13 +50,13 @@ type RoleECustomAPI interface {
 	CreateRoleExecute(r ApiCreateRoleRequest) (*IamRole, *APIResponse, error)
 
 	/*
-	DeleteRole Delete a custom role
+		DeleteRole Delete a custom role
 
-	Deletes a custom role by `roleIdOrLabel`
+		Deletes a custom role by `roleIdOrLabel`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleIdOrLabel `id` or `label` of the role
-	@return ApiDeleteRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param roleIdOrLabel `id` or `label` of the role
+		@return ApiDeleteRoleRequest
 	*/
 	DeleteRole(ctx context.Context, roleIdOrLabel string) ApiDeleteRoleRequest
 
@@ -65,13 +64,13 @@ type RoleECustomAPI interface {
 	DeleteRoleExecute(r ApiDeleteRoleRequest) (*APIResponse, error)
 
 	/*
-	GetRole Retrieve a role
+		GetRole Retrieve a role
 
-	Retrieves a role by `roleIdOrLabel`
+		Retrieves a role by `roleIdOrLabel`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleIdOrLabel `id` or `label` of the role
-	@return ApiGetRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param roleIdOrLabel `id` or `label` of the role
+		@return ApiGetRoleRequest
 	*/
 	GetRole(ctx context.Context, roleIdOrLabel string) ApiGetRoleRequest
 
@@ -80,12 +79,12 @@ type RoleECustomAPI interface {
 	GetRoleExecute(r ApiGetRoleRequest) (*IamRole, *APIResponse, error)
 
 	/*
-	ListRoles List all custom roles
+		ListRoles List all custom roles
 
-	Lists all custom roles with pagination support
+		Lists all custom roles with pagination support
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListRolesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListRolesRequest
 	*/
 	ListRoles(ctx context.Context) ApiListRolesRequest
 
@@ -94,13 +93,13 @@ type RoleECustomAPI interface {
 	ListRolesExecute(r ApiListRolesRequest) (*IamRoles, *APIResponse, error)
 
 	/*
-	ReplaceRole Replace a custom role
+		ReplaceRole Replace a custom role
 
-	Replaces the label and description for a custom role by `roleIdOrLabel`
+		Replaces the label and description for a custom role by `roleIdOrLabel`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleIdOrLabel `id` or `label` of the role
-	@return ApiReplaceRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param roleIdOrLabel `id` or `label` of the role
+		@return ApiReplaceRoleRequest
 	*/
 	ReplaceRole(ctx context.Context, roleIdOrLabel string) ApiReplaceRoleRequest
 
@@ -113,9 +112,9 @@ type RoleECustomAPI interface {
 type RoleECustomAPIService service
 
 type ApiCreateRoleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleECustomAPI
-	instance *CreateIamRoleRequest
+	instance   *CreateIamRoleRequest
 	retryCount int32
 }
 
@@ -133,19 +132,20 @@ CreateRole Create a custom role
 
 Creates a custom role
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateRoleRequest
 */
 func (a *RoleECustomAPIService) CreateRole(ctx context.Context) ApiCreateRoleRequest {
 	return ApiCreateRoleRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return IamRole
+//
+//	@return IamRole
 func (a *RoleECustomAPIService) CreateRoleExecute(r ApiCreateRoleRequest) (*IamRole, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -154,7 +154,7 @@ func (a *RoleECustomAPIService) CreateRoleExecute(r ApiCreateRoleRequest) (*IamR
 		localVarReturnValue  *IamRole
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -219,9 +219,9 @@ func (a *RoleECustomAPIService) CreateRoleExecute(r ApiCreateRoleRequest) (*IamR
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -279,16 +279,16 @@ func (a *RoleECustomAPIService) CreateRoleExecute(r ApiCreateRoleRequest) (*IamR
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteRoleRequest struct {
-	ctx context.Context
-	ApiService RoleECustomAPI
+	ctx           context.Context
+	ApiService    RoleECustomAPI
 	roleIdOrLabel string
-	retryCount int32
+	retryCount    int32
 }
 
 func (r ApiDeleteRoleRequest) Execute() (*APIResponse, error) {
@@ -300,16 +300,16 @@ DeleteRole Delete a custom role
 
 Deletes a custom role by `roleIdOrLabel`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param roleIdOrLabel `id` or `label` of the role
- @return ApiDeleteRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param roleIdOrLabel `id` or `label` of the role
+	@return ApiDeleteRoleRequest
 */
 func (a *RoleECustomAPIService) DeleteRole(ctx context.Context, roleIdOrLabel string) ApiDeleteRoleRequest {
 	return ApiDeleteRoleRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		roleIdOrLabel: roleIdOrLabel,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -321,7 +321,7 @@ func (a *RoleECustomAPIService) DeleteRoleExecute(r ApiDeleteRoleRequest) (*APIR
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -382,9 +382,9 @@ func (a *RoleECustomAPIService) DeleteRoleExecute(r ApiDeleteRoleRequest) (*APIR
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -438,10 +438,10 @@ func (a *RoleECustomAPIService) DeleteRoleExecute(r ApiDeleteRoleRequest) (*APIR
 }
 
 type ApiGetRoleRequest struct {
-	ctx context.Context
-	ApiService RoleECustomAPI
+	ctx           context.Context
+	ApiService    RoleECustomAPI
 	roleIdOrLabel string
-	retryCount int32
+	retryCount    int32
 }
 
 func (r ApiGetRoleRequest) Execute() (*IamRole, *APIResponse, error) {
@@ -453,21 +453,22 @@ GetRole Retrieve a role
 
 Retrieves a role by `roleIdOrLabel`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param roleIdOrLabel `id` or `label` of the role
- @return ApiGetRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param roleIdOrLabel `id` or `label` of the role
+	@return ApiGetRoleRequest
 */
 func (a *RoleECustomAPIService) GetRole(ctx context.Context, roleIdOrLabel string) ApiGetRoleRequest {
 	return ApiGetRoleRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		roleIdOrLabel: roleIdOrLabel,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
 // Execute executes the request
-//  @return IamRole
+//
+//	@return IamRole
 func (a *RoleECustomAPIService) GetRoleExecute(r ApiGetRoleRequest) (*IamRole, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -476,7 +477,7 @@ func (a *RoleECustomAPIService) GetRoleExecute(r ApiGetRoleRequest) (*IamRole, *
 		localVarReturnValue  *IamRole
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -537,9 +538,9 @@ func (a *RoleECustomAPIService) GetRoleExecute(r ApiGetRoleRequest) (*IamRole, *
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -597,15 +598,15 @@ func (a *RoleECustomAPIService) GetRoleExecute(r ApiGetRoleRequest) (*IamRole, *
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListRolesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleECustomAPI
-	after *string
+	after      *string
 	retryCount int32
 }
 
@@ -624,19 +625,20 @@ ListRoles List all custom roles
 
 Lists all custom roles with pagination support
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListRolesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListRolesRequest
 */
 func (a *RoleECustomAPIService) ListRoles(ctx context.Context) ApiListRolesRequest {
 	return ApiListRolesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return IamRoles
+//
+//	@return IamRoles
 func (a *RoleECustomAPIService) ListRolesExecute(r ApiListRolesRequest) (*IamRoles, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -645,7 +647,7 @@ func (a *RoleECustomAPIService) ListRolesExecute(r ApiListRolesRequest) (*IamRol
 		localVarReturnValue  *IamRoles
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -708,9 +710,9 @@ func (a *RoleECustomAPIService) ListRolesExecute(r ApiListRolesRequest) (*IamRol
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -756,17 +758,17 @@ func (a *RoleECustomAPIService) ListRolesExecute(r ApiListRolesRequest) (*IamRol
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceRoleRequest struct {
-	ctx context.Context
-	ApiService RoleECustomAPI
+	ctx           context.Context
+	ApiService    RoleECustomAPI
 	roleIdOrLabel string
-	instance *UpdateIamRoleRequest
-	retryCount int32
+	instance      *UpdateIamRoleRequest
+	retryCount    int32
 }
 
 func (r ApiReplaceRoleRequest) Instance(instance UpdateIamRoleRequest) ApiReplaceRoleRequest {
@@ -783,21 +785,22 @@ ReplaceRole Replace a custom role
 
 Replaces the label and description for a custom role by `roleIdOrLabel`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param roleIdOrLabel `id` or `label` of the role
- @return ApiReplaceRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param roleIdOrLabel `id` or `label` of the role
+	@return ApiReplaceRoleRequest
 */
 func (a *RoleECustomAPIService) ReplaceRole(ctx context.Context, roleIdOrLabel string) ApiReplaceRoleRequest {
 	return ApiReplaceRoleRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		roleIdOrLabel: roleIdOrLabel,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
 // Execute executes the request
-//  @return IamRole
+//
+//	@return IamRole
 func (a *RoleECustomAPIService) ReplaceRoleExecute(r ApiReplaceRoleRequest) (*IamRole, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -806,7 +809,7 @@ func (a *RoleECustomAPIService) ReplaceRoleExecute(r ApiReplaceRoleRequest) (*Ia
 		localVarReturnValue  *IamRole
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -872,9 +875,9 @@ func (a *RoleECustomAPIService) ReplaceRoleExecute(r ApiReplaceRoleRequest) (*Ia
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -944,7 +947,7 @@ func (a *RoleECustomAPIService) ReplaceRoleExecute(r ApiReplaceRoleRequest) (*Ia
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

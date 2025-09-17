@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the InlineHookResponseCommandValue type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InlineHookResponseCommandValue{}
+
 // InlineHookResponseCommandValue struct for InlineHookResponseCommandValue
 type InlineHookResponseCommandValue struct {
-	Op *string `json:"op,omitempty"`
-	Path *string `json:"path,omitempty"`
-	Value *string `json:"value,omitempty"`
+	Op                   *string `json:"op,omitempty"`
+	Path                 *string `json:"path,omitempty"`
+	Value                *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewInlineHookResponseCommandValueWithDefaults() *InlineHookResponseCommandV
 
 // GetOp returns the Op field value if set, zero value otherwise.
 func (o *InlineHookResponseCommandValue) GetOp() string {
-	if o == nil || o.Op == nil {
+	if o == nil || IsNil(o.Op) {
 		var ret string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *InlineHookResponseCommandValue) GetOp() string {
 // GetOpOk returns a tuple with the Op field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookResponseCommandValue) GetOpOk() (*string, bool) {
-	if o == nil || o.Op == nil {
+	if o == nil || IsNil(o.Op) {
 		return nil, false
 	}
 	return o.Op, true
@@ -74,7 +77,7 @@ func (o *InlineHookResponseCommandValue) GetOpOk() (*string, bool) {
 
 // HasOp returns a boolean if a field has been set.
 func (o *InlineHookResponseCommandValue) HasOp() bool {
-	if o != nil && o.Op != nil {
+	if o != nil && !IsNil(o.Op) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *InlineHookResponseCommandValue) SetOp(v string) {
 
 // GetPath returns the Path field value if set, zero value otherwise.
 func (o *InlineHookResponseCommandValue) GetPath() string {
-	if o == nil || o.Path == nil {
+	if o == nil || IsNil(o.Path) {
 		var ret string
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *InlineHookResponseCommandValue) GetPath() string {
 // GetPathOk returns a tuple with the Path field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookResponseCommandValue) GetPathOk() (*string, bool) {
-	if o == nil || o.Path == nil {
+	if o == nil || IsNil(o.Path) {
 		return nil, false
 	}
 	return o.Path, true
@@ -106,7 +109,7 @@ func (o *InlineHookResponseCommandValue) GetPathOk() (*string, bool) {
 
 // HasPath returns a boolean if a field has been set.
 func (o *InlineHookResponseCommandValue) HasPath() bool {
-	if o != nil && o.Path != nil {
+	if o != nil && !IsNil(o.Path) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *InlineHookResponseCommandValue) SetPath(v string) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *InlineHookResponseCommandValue) GetValue() string {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret string
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *InlineHookResponseCommandValue) GetValue() string {
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookResponseCommandValue) GetValueOk() (*string, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -138,7 +141,7 @@ func (o *InlineHookResponseCommandValue) GetValueOk() (*string, bool) {
 
 // HasValue returns a boolean if a field has been set.
 func (o *InlineHookResponseCommandValue) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *InlineHookResponseCommandValue) SetValue(v string) {
 }
 
 func (o InlineHookResponseCommandValue) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o InlineHookResponseCommandValue) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Op != nil {
+	if !IsNil(o.Op) {
 		toSerialize["op"] = o.Op
 	}
-	if o.Path != nil {
+	if !IsNil(o.Path) {
 		toSerialize["path"] = o.Path
 	}
-	if o.Value != nil {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
 
@@ -166,29 +177,27 @@ func (o InlineHookResponseCommandValue) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *InlineHookResponseCommandValue) UnmarshalJSON(bytes []byte) (err error) {
+func (o *InlineHookResponseCommandValue) UnmarshalJSON(data []byte) (err error) {
 	varInlineHookResponseCommandValue := _InlineHookResponseCommandValue{}
 
-	err = json.Unmarshal(bytes, &varInlineHookResponseCommandValue)
-	if err == nil {
-		*o = InlineHookResponseCommandValue(varInlineHookResponseCommandValue)
-	} else {
+	err = json.Unmarshal(data, &varInlineHookResponseCommandValue)
+
+	if err != nil {
 		return err
 	}
 
+	*o = InlineHookResponseCommandValue(varInlineHookResponseCommandValue)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "op")
 		delete(additionalProperties, "path")
 		delete(additionalProperties, "value")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullableInlineHookResponseCommandValue) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

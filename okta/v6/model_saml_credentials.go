@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the SamlCredentials type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SamlCredentials{}
+
 // SamlCredentials Federation Trust Credentials for verifying assertions from the IdP and signing requests to the IdP
 type SamlCredentials struct {
-	Signing *SamlSigningCredentials `json:"signing,omitempty"`
-	Trust *SamlTrustCredentials `json:"trust,omitempty"`
+	Signing              *SamlSigningCredentials `json:"signing,omitempty"`
+	Trust                *SamlTrustCredentials   `json:"trust,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewSamlCredentialsWithDefaults() *SamlCredentials {
 
 // GetSigning returns the Signing field value if set, zero value otherwise.
 func (o *SamlCredentials) GetSigning() SamlSigningCredentials {
-	if o == nil || o.Signing == nil {
+	if o == nil || IsNil(o.Signing) {
 		var ret SamlSigningCredentials
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *SamlCredentials) GetSigning() SamlSigningCredentials {
 // GetSigningOk returns a tuple with the Signing field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlCredentials) GetSigningOk() (*SamlSigningCredentials, bool) {
-	if o == nil || o.Signing == nil {
+	if o == nil || IsNil(o.Signing) {
 		return nil, false
 	}
 	return o.Signing, true
@@ -73,7 +76,7 @@ func (o *SamlCredentials) GetSigningOk() (*SamlSigningCredentials, bool) {
 
 // HasSigning returns a boolean if a field has been set.
 func (o *SamlCredentials) HasSigning() bool {
-	if o != nil && o.Signing != nil {
+	if o != nil && !IsNil(o.Signing) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *SamlCredentials) SetSigning(v SamlSigningCredentials) {
 
 // GetTrust returns the Trust field value if set, zero value otherwise.
 func (o *SamlCredentials) GetTrust() SamlTrustCredentials {
-	if o == nil || o.Trust == nil {
+	if o == nil || IsNil(o.Trust) {
 		var ret SamlTrustCredentials
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *SamlCredentials) GetTrust() SamlTrustCredentials {
 // GetTrustOk returns a tuple with the Trust field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlCredentials) GetTrustOk() (*SamlTrustCredentials, bool) {
-	if o == nil || o.Trust == nil {
+	if o == nil || IsNil(o.Trust) {
 		return nil, false
 	}
 	return o.Trust, true
@@ -105,7 +108,7 @@ func (o *SamlCredentials) GetTrustOk() (*SamlTrustCredentials, bool) {
 
 // HasTrust returns a boolean if a field has been set.
 func (o *SamlCredentials) HasTrust() bool {
-	if o != nil && o.Trust != nil {
+	if o != nil && !IsNil(o.Trust) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *SamlCredentials) SetTrust(v SamlTrustCredentials) {
 }
 
 func (o SamlCredentials) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SamlCredentials) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Signing != nil {
+	if !IsNil(o.Signing) {
 		toSerialize["signing"] = o.Signing
 	}
-	if o.Trust != nil {
+	if !IsNil(o.Trust) {
 		toSerialize["trust"] = o.Trust
 	}
 
@@ -130,28 +141,26 @@ func (o SamlCredentials) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SamlCredentials) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SamlCredentials) UnmarshalJSON(data []byte) (err error) {
 	varSamlCredentials := _SamlCredentials{}
 
-	err = json.Unmarshal(bytes, &varSamlCredentials)
-	if err == nil {
-		*o = SamlCredentials(varSamlCredentials)
-	} else {
+	err = json.Unmarshal(data, &varSamlCredentials)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SamlCredentials(varSamlCredentials)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "signing")
 		delete(additionalProperties, "trust")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableSamlCredentials) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

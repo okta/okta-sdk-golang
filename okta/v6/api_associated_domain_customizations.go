@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,24 +26,23 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type AssociatedDomainCustomizationsAPI interface {
 
 	/*
-	GetAllWellKnownURIs Retrieve all the well-known URIs
+		GetAllWellKnownURIs Retrieve all the well-known URIs
 
-	Retrieves the content from each of the well-known URIs for a specified brand
+		Retrieves the content from each of the well-known URIs for a specified brand
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiGetAllWellKnownURIsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiGetAllWellKnownURIsRequest
 	*/
 	GetAllWellKnownURIs(ctx context.Context, brandId string) ApiGetAllWellKnownURIsRequest
 
@@ -52,14 +51,14 @@ type AssociatedDomainCustomizationsAPI interface {
 	GetAllWellKnownURIsExecute(r ApiGetAllWellKnownURIsRequest) (*WellKnownURIsRoot, *APIResponse, error)
 
 	/*
-	GetAppleAppSiteAssociationWellKnownURI Retrieve the customized apple-app-site-association URI content
+			GetAppleAppSiteAssociationWellKnownURI Retrieve the customized apple-app-site-association URI content
 
-	Retrieves the content of the `apple-app-site-assocation` well-known URI
+			Retrieves the content of the `apple-app-site-assocation` well-known URI
 
-> **Note:**  When serving this URI, Okta adds `authsrv` content to provide a seamless experience for Okta Verify. You can't modify the content in the `authsrv` object.
+		> **Note:**  When serving this URI, Okta adds `authsrv` content to provide a seamless experience for Okta Verify. You can't modify the content in the `authsrv` object.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetAppleAppSiteAssociationWellKnownURIRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiGetAppleAppSiteAssociationWellKnownURIRequest
 	*/
 	GetAppleAppSiteAssociationWellKnownURI(ctx context.Context) ApiGetAppleAppSiteAssociationWellKnownURIRequest
 
@@ -68,28 +67,28 @@ type AssociatedDomainCustomizationsAPI interface {
 	GetAppleAppSiteAssociationWellKnownURIExecute(r ApiGetAppleAppSiteAssociationWellKnownURIRequest) (map[string]interface{}, *APIResponse, error)
 
 	/*
-	GetAssetLinksWellKnownURI Retrieve the customized assetlinks.json URI content
+		GetAssetLinksWellKnownURI Retrieve the customized assetlinks.json URI content
 
-	Retrieves the content of the `assetlinks.json` well-known URI
+		Retrieves the content of the `assetlinks.json` well-known URI
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetAssetLinksWellKnownURIRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetAssetLinksWellKnownURIRequest
 	*/
 	GetAssetLinksWellKnownURI(ctx context.Context) ApiGetAssetLinksWellKnownURIRequest
 
 	// GetAssetLinksWellKnownURIExecute executes the request
-	//  @return []string
-	GetAssetLinksWellKnownURIExecute(r ApiGetAssetLinksWellKnownURIRequest) ([]string, *APIResponse, error)
+	//  @return []map[string]interface{}
+	GetAssetLinksWellKnownURIExecute(r ApiGetAssetLinksWellKnownURIRequest) ([]map[string]interface{}, *APIResponse, error)
 
 	/*
-	GetBrandWellKnownURI Retrieve the customized content of the specified well-known URI
+		GetBrandWellKnownURI Retrieve the customized content of the specified well-known URI
 
-	Retrieves the customized content of a well-known URI for a specific brand and well-known URI path
+		Retrieves the customized content of a well-known URI for a specific brand and well-known URI path
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param path The path of the well-known URI
-	@return ApiGetBrandWellKnownURIRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@param path The path of the well-known URI
+		@return ApiGetBrandWellKnownURIRequest
 	*/
 	GetBrandWellKnownURI(ctx context.Context, brandId string, path string) ApiGetBrandWellKnownURIRequest
 
@@ -98,14 +97,14 @@ type AssociatedDomainCustomizationsAPI interface {
 	GetBrandWellKnownURIExecute(r ApiGetBrandWellKnownURIRequest) (*WellKnownURIObjectResponse, *APIResponse, error)
 
 	/*
-	GetRootBrandWellKnownURI Retrieve the well-known URI of a specific brand
+		GetRootBrandWellKnownURI Retrieve the well-known URI of a specific brand
 
-	Retrieves the well-known URI of a specific brand and well-known URI path
+		Retrieves the well-known URI of a specific brand and well-known URI path
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param path The path of the well-known URI
-	@return ApiGetRootBrandWellKnownURIRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@param path The path of the well-known URI
+		@return ApiGetRootBrandWellKnownURIRequest
 	*/
 	GetRootBrandWellKnownURI(ctx context.Context, brandId string, path string) ApiGetRootBrandWellKnownURIRequest
 
@@ -114,12 +113,12 @@ type AssociatedDomainCustomizationsAPI interface {
 	GetRootBrandWellKnownURIExecute(r ApiGetRootBrandWellKnownURIRequest) (*WellKnownURIObjectResponse, *APIResponse, error)
 
 	/*
-	GetWebAuthnWellKnownURI Retrieve the customized webauthn URI content
+		GetWebAuthnWellKnownURI Retrieve the customized webauthn URI content
 
-	Retrieves the content of the `webauthn` well-known URI
+		Retrieves the content of the `webauthn` well-known URI
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetWebAuthnWellKnownURIRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetWebAuthnWellKnownURIRequest
 	*/
 	GetWebAuthnWellKnownURI(ctx context.Context) ApiGetWebAuthnWellKnownURIRequest
 
@@ -128,16 +127,16 @@ type AssociatedDomainCustomizationsAPI interface {
 	GetWebAuthnWellKnownURIExecute(r ApiGetWebAuthnWellKnownURIRequest) (map[string]interface{}, *APIResponse, error)
 
 	/*
-	ReplaceBrandWellKnownURI Replace the customized well-known URI of the specific path
+			ReplaceBrandWellKnownURI Replace the customized well-known URI of the specific path
 
-	Replaces the content of a customized well-known URI that you specify.
+			Replaces the content of a customized well-known URI that you specify.
 
-There are endpoint-specific format requirements when you update the content of a customized well-known URI. See [Customize associated domains](https://developer.okta.com/docs/guides/custom-well-known-uri/main/).
+		There are endpoint-specific format requirements when you update the content of a customized well-known URI. See [Customize associated domains](https://developer.okta.com/docs/guides/custom-well-known-uri/main/).
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param path The path of the well-known URI
-	@return ApiReplaceBrandWellKnownURIRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param brandId The ID of the brand
+			@param path The path of the well-known URI
+			@return ApiReplaceBrandWellKnownURIRequest
 	*/
 	ReplaceBrandWellKnownURI(ctx context.Context, brandId string, path string) ApiReplaceBrandWellKnownURIRequest
 
@@ -150,10 +149,10 @@ There are endpoint-specific format requirements when you update the content of a
 type AssociatedDomainCustomizationsAPIService service
 
 type ApiGetAllWellKnownURIsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AssociatedDomainCustomizationsAPI
-	brandId string
-	expand *[]string
+	brandId    string
+	expand     *[]string
 	retryCount int32
 }
 
@@ -172,21 +171,22 @@ GetAllWellKnownURIs Retrieve all the well-known URIs
 
 Retrieves the content from each of the well-known URIs for a specified brand
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @return ApiGetAllWellKnownURIsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@return ApiGetAllWellKnownURIsRequest
 */
 func (a *AssociatedDomainCustomizationsAPIService) GetAllWellKnownURIs(ctx context.Context, brandId string) ApiGetAllWellKnownURIsRequest {
 	return ApiGetAllWellKnownURIsRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return WellKnownURIsRoot
+//
+//	@return WellKnownURIsRoot
 func (a *AssociatedDomainCustomizationsAPIService) GetAllWellKnownURIsExecute(r ApiGetAllWellKnownURIsRequest) (*WellKnownURIsRoot, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -195,7 +195,7 @@ func (a *AssociatedDomainCustomizationsAPIService) GetAllWellKnownURIsExecute(r 
 		localVarReturnValue  *WellKnownURIsRoot
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -259,9 +259,9 @@ func (a *AssociatedDomainCustomizationsAPIService) GetAllWellKnownURIsExecute(r 
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -319,13 +319,13 @@ func (a *AssociatedDomainCustomizationsAPIService) GetAllWellKnownURIsExecute(r 
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetAppleAppSiteAssociationWellKnownURIRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AssociatedDomainCustomizationsAPI
 	retryCount int32
 }
@@ -337,23 +337,24 @@ func (r ApiGetAppleAppSiteAssociationWellKnownURIRequest) Execute() (map[string]
 /*
 GetAppleAppSiteAssociationWellKnownURI Retrieve the customized apple-app-site-association URI content
 
-Retrieves the content of the `apple-app-site-assocation` well-known URI
+# Retrieves the content of the `apple-app-site-assocation` well-known URI
 
 > **Note:**  When serving this URI, Okta adds `authsrv` content to provide a seamless experience for Okta Verify. You can't modify the content in the `authsrv` object.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetAppleAppSiteAssociationWellKnownURIRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetAppleAppSiteAssociationWellKnownURIRequest
 */
 func (a *AssociatedDomainCustomizationsAPIService) GetAppleAppSiteAssociationWellKnownURI(ctx context.Context) ApiGetAppleAppSiteAssociationWellKnownURIRequest {
 	return ApiGetAppleAppSiteAssociationWellKnownURIRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return map[string]interface{}
+//
+//	@return map[string]interface{}
 func (a *AssociatedDomainCustomizationsAPIService) GetAppleAppSiteAssociationWellKnownURIExecute(r ApiGetAppleAppSiteAssociationWellKnownURIRequest) (map[string]interface{}, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -362,7 +363,7 @@ func (a *AssociatedDomainCustomizationsAPIService) GetAppleAppSiteAssociationWel
 		localVarReturnValue  map[string]interface{}
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -408,9 +409,9 @@ func (a *AssociatedDomainCustomizationsAPIService) GetAppleAppSiteAssociationWel
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -444,18 +445,18 @@ func (a *AssociatedDomainCustomizationsAPIService) GetAppleAppSiteAssociationWel
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetAssetLinksWellKnownURIRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AssociatedDomainCustomizationsAPI
 	retryCount int32
 }
 
-func (r ApiGetAssetLinksWellKnownURIRequest) Execute() ([]string, *APIResponse, error) {
+func (r ApiGetAssetLinksWellKnownURIRequest) Execute() ([]map[string]interface{}, *APIResponse, error) {
 	return r.ApiService.GetAssetLinksWellKnownURIExecute(r)
 }
 
@@ -464,28 +465,29 @@ GetAssetLinksWellKnownURI Retrieve the customized assetlinks.json URI content
 
 Retrieves the content of the `assetlinks.json` well-known URI
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetAssetLinksWellKnownURIRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetAssetLinksWellKnownURIRequest
 */
 func (a *AssociatedDomainCustomizationsAPIService) GetAssetLinksWellKnownURI(ctx context.Context) ApiGetAssetLinksWellKnownURIRequest {
 	return ApiGetAssetLinksWellKnownURIRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []string
-func (a *AssociatedDomainCustomizationsAPIService) GetAssetLinksWellKnownURIExecute(r ApiGetAssetLinksWellKnownURIRequest) ([]string, *APIResponse, error) {
+//
+//	@return []map[string]interface{}
+func (a *AssociatedDomainCustomizationsAPIService) GetAssetLinksWellKnownURIExecute(r ApiGetAssetLinksWellKnownURIRequest) ([]map[string]interface{}, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  []string
+		localVarReturnValue  []map[string]interface{}
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -531,9 +533,9 @@ func (a *AssociatedDomainCustomizationsAPIService) GetAssetLinksWellKnownURIExec
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -579,16 +581,16 @@ func (a *AssociatedDomainCustomizationsAPIService) GetAssetLinksWellKnownURIExec
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetBrandWellKnownURIRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AssociatedDomainCustomizationsAPI
-	brandId string
-	path string
+	brandId    string
+	path       string
 	retryCount int32
 }
 
@@ -601,23 +603,24 @@ GetBrandWellKnownURI Retrieve the customized content of the specified well-known
 
 Retrieves the customized content of a well-known URI for a specific brand and well-known URI path
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @param path The path of the well-known URI
- @return ApiGetBrandWellKnownURIRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@param path The path of the well-known URI
+	@return ApiGetBrandWellKnownURIRequest
 */
 func (a *AssociatedDomainCustomizationsAPIService) GetBrandWellKnownURI(ctx context.Context, brandId string, path string) ApiGetBrandWellKnownURIRequest {
 	return ApiGetBrandWellKnownURIRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
-		path: path,
+		ctx:        ctx,
+		brandId:    brandId,
+		path:       path,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return WellKnownURIObjectResponse
+//
+//	@return WellKnownURIObjectResponse
 func (a *AssociatedDomainCustomizationsAPIService) GetBrandWellKnownURIExecute(r ApiGetBrandWellKnownURIRequest) (*WellKnownURIObjectResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -626,7 +629,7 @@ func (a *AssociatedDomainCustomizationsAPIService) GetBrandWellKnownURIExecute(r
 		localVarReturnValue  *WellKnownURIObjectResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -688,9 +691,9 @@ func (a *AssociatedDomainCustomizationsAPIService) GetBrandWellKnownURIExecute(r
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -760,17 +763,17 @@ func (a *AssociatedDomainCustomizationsAPIService) GetBrandWellKnownURIExecute(r
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetRootBrandWellKnownURIRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AssociatedDomainCustomizationsAPI
-	brandId string
-	path string
-	expand *[]string
+	brandId    string
+	path       string
+	expand     *[]string
 	retryCount int32
 }
 
@@ -789,23 +792,24 @@ GetRootBrandWellKnownURI Retrieve the well-known URI of a specific brand
 
 Retrieves the well-known URI of a specific brand and well-known URI path
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @param path The path of the well-known URI
- @return ApiGetRootBrandWellKnownURIRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@param path The path of the well-known URI
+	@return ApiGetRootBrandWellKnownURIRequest
 */
 func (a *AssociatedDomainCustomizationsAPIService) GetRootBrandWellKnownURI(ctx context.Context, brandId string, path string) ApiGetRootBrandWellKnownURIRequest {
 	return ApiGetRootBrandWellKnownURIRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
-		path: path,
+		ctx:        ctx,
+		brandId:    brandId,
+		path:       path,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return WellKnownURIObjectResponse
+//
+//	@return WellKnownURIObjectResponse
 func (a *AssociatedDomainCustomizationsAPIService) GetRootBrandWellKnownURIExecute(r ApiGetRootBrandWellKnownURIRequest) (*WellKnownURIObjectResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -814,7 +818,7 @@ func (a *AssociatedDomainCustomizationsAPIService) GetRootBrandWellKnownURIExecu
 		localVarReturnValue  *WellKnownURIObjectResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -879,9 +883,9 @@ func (a *AssociatedDomainCustomizationsAPIService) GetRootBrandWellKnownURIExecu
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -951,13 +955,13 @@ func (a *AssociatedDomainCustomizationsAPIService) GetRootBrandWellKnownURIExecu
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetWebAuthnWellKnownURIRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AssociatedDomainCustomizationsAPI
 	retryCount int32
 }
@@ -971,19 +975,20 @@ GetWebAuthnWellKnownURI Retrieve the customized webauthn URI content
 
 Retrieves the content of the `webauthn` well-known URI
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetWebAuthnWellKnownURIRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetWebAuthnWellKnownURIRequest
 */
 func (a *AssociatedDomainCustomizationsAPIService) GetWebAuthnWellKnownURI(ctx context.Context) ApiGetWebAuthnWellKnownURIRequest {
 	return ApiGetWebAuthnWellKnownURIRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return map[string]interface{}
+//
+//	@return map[string]interface{}
 func (a *AssociatedDomainCustomizationsAPIService) GetWebAuthnWellKnownURIExecute(r ApiGetWebAuthnWellKnownURIRequest) (map[string]interface{}, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -992,7 +997,7 @@ func (a *AssociatedDomainCustomizationsAPIService) GetWebAuthnWellKnownURIExecut
 		localVarReturnValue  map[string]interface{}
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1038,9 +1043,9 @@ func (a *AssociatedDomainCustomizationsAPIService) GetWebAuthnWellKnownURIExecut
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1086,18 +1091,18 @@ func (a *AssociatedDomainCustomizationsAPIService) GetWebAuthnWellKnownURIExecut
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceBrandWellKnownURIRequest struct {
-	ctx context.Context
-	ApiService AssociatedDomainCustomizationsAPI
-	brandId string
-	path string
+	ctx                 context.Context
+	ApiService          AssociatedDomainCustomizationsAPI
+	brandId             string
+	path                string
 	wellKnownURIRequest *WellKnownURIRequest
-	retryCount int32
+	retryCount          int32
 }
 
 func (r ApiReplaceBrandWellKnownURIRequest) WellKnownURIRequest(wellKnownURIRequest WellKnownURIRequest) ApiReplaceBrandWellKnownURIRequest {
@@ -1116,23 +1121,24 @@ Replaces the content of a customized well-known URI that you specify.
 
 There are endpoint-specific format requirements when you update the content of a customized well-known URI. See [Customize associated domains](https://developer.okta.com/docs/guides/custom-well-known-uri/main/).
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @param path The path of the well-known URI
- @return ApiReplaceBrandWellKnownURIRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@param path The path of the well-known URI
+	@return ApiReplaceBrandWellKnownURIRequest
 */
 func (a *AssociatedDomainCustomizationsAPIService) ReplaceBrandWellKnownURI(ctx context.Context, brandId string, path string) ApiReplaceBrandWellKnownURIRequest {
 	return ApiReplaceBrandWellKnownURIRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
-		path: path,
+		ctx:        ctx,
+		brandId:    brandId,
+		path:       path,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return WellKnownURIObjectResponse
+//
+//	@return WellKnownURIObjectResponse
 func (a *AssociatedDomainCustomizationsAPIService) ReplaceBrandWellKnownURIExecute(r ApiReplaceBrandWellKnownURIRequest) (*WellKnownURIObjectResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -1141,7 +1147,7 @@ func (a *AssociatedDomainCustomizationsAPIService) ReplaceBrandWellKnownURIExecu
 		localVarReturnValue  *WellKnownURIObjectResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1205,9 +1211,9 @@ func (a *AssociatedDomainCustomizationsAPIService) ReplaceBrandWellKnownURIExecu
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1277,7 +1283,7 @@ func (a *AssociatedDomainCustomizationsAPIService) ReplaceBrandWellKnownURIExecu
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

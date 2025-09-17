@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the IdentitySourceGroupMembershipsDeleteProfileInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IdentitySourceGroupMembershipsDeleteProfileInner{}
+
 // IdentitySourceGroupMembershipsDeleteProfileInner struct for IdentitySourceGroupMembershipsDeleteProfileInner
 type IdentitySourceGroupMembershipsDeleteProfileInner struct {
 	// The external ID of the group whose memberships need to be deleted in Okta
 	GroupExternalId *string `json:"groupExternalId,omitempty"`
 	// Array of external IDs of member profiles that need to be inserted in this group in Okta
-	MemberExternalIds []string `json:"memberExternalIds,omitempty"`
+	MemberExternalIds    []string `json:"memberExternalIds,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewIdentitySourceGroupMembershipsDeleteProfileInnerWithDefaults() *Identity
 
 // GetGroupExternalId returns the GroupExternalId field value if set, zero value otherwise.
 func (o *IdentitySourceGroupMembershipsDeleteProfileInner) GetGroupExternalId() string {
-	if o == nil || o.GroupExternalId == nil {
+	if o == nil || IsNil(o.GroupExternalId) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *IdentitySourceGroupMembershipsDeleteProfileInner) GetGroupExternalId() 
 // GetGroupExternalIdOk returns a tuple with the GroupExternalId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentitySourceGroupMembershipsDeleteProfileInner) GetGroupExternalIdOk() (*string, bool) {
-	if o == nil || o.GroupExternalId == nil {
+	if o == nil || IsNil(o.GroupExternalId) {
 		return nil, false
 	}
 	return o.GroupExternalId, true
@@ -75,7 +78,7 @@ func (o *IdentitySourceGroupMembershipsDeleteProfileInner) GetGroupExternalIdOk(
 
 // HasGroupExternalId returns a boolean if a field has been set.
 func (o *IdentitySourceGroupMembershipsDeleteProfileInner) HasGroupExternalId() bool {
-	if o != nil && o.GroupExternalId != nil {
+	if o != nil && !IsNil(o.GroupExternalId) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *IdentitySourceGroupMembershipsDeleteProfileInner) SetGroupExternalId(v 
 
 // GetMemberExternalIds returns the MemberExternalIds field value if set, zero value otherwise.
 func (o *IdentitySourceGroupMembershipsDeleteProfileInner) GetMemberExternalIds() []string {
-	if o == nil || o.MemberExternalIds == nil {
+	if o == nil || IsNil(o.MemberExternalIds) {
 		var ret []string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *IdentitySourceGroupMembershipsDeleteProfileInner) GetMemberExternalIds(
 // GetMemberExternalIdsOk returns a tuple with the MemberExternalIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentitySourceGroupMembershipsDeleteProfileInner) GetMemberExternalIdsOk() ([]string, bool) {
-	if o == nil || o.MemberExternalIds == nil {
+	if o == nil || IsNil(o.MemberExternalIds) {
 		return nil, false
 	}
 	return o.MemberExternalIds, true
@@ -107,7 +110,7 @@ func (o *IdentitySourceGroupMembershipsDeleteProfileInner) GetMemberExternalIdsO
 
 // HasMemberExternalIds returns a boolean if a field has been set.
 func (o *IdentitySourceGroupMembershipsDeleteProfileInner) HasMemberExternalIds() bool {
-	if o != nil && o.MemberExternalIds != nil {
+	if o != nil && !IsNil(o.MemberExternalIds) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *IdentitySourceGroupMembershipsDeleteProfileInner) SetMemberExternalIds(
 }
 
 func (o IdentitySourceGroupMembershipsDeleteProfileInner) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IdentitySourceGroupMembershipsDeleteProfileInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.GroupExternalId != nil {
+	if !IsNil(o.GroupExternalId) {
 		toSerialize["groupExternalId"] = o.GroupExternalId
 	}
-	if o.MemberExternalIds != nil {
+	if !IsNil(o.MemberExternalIds) {
 		toSerialize["memberExternalIds"] = o.MemberExternalIds
 	}
 
@@ -132,28 +143,26 @@ func (o IdentitySourceGroupMembershipsDeleteProfileInner) MarshalJSON() ([]byte,
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *IdentitySourceGroupMembershipsDeleteProfileInner) UnmarshalJSON(bytes []byte) (err error) {
+func (o *IdentitySourceGroupMembershipsDeleteProfileInner) UnmarshalJSON(data []byte) (err error) {
 	varIdentitySourceGroupMembershipsDeleteProfileInner := _IdentitySourceGroupMembershipsDeleteProfileInner{}
 
-	err = json.Unmarshal(bytes, &varIdentitySourceGroupMembershipsDeleteProfileInner)
-	if err == nil {
-		*o = IdentitySourceGroupMembershipsDeleteProfileInner(varIdentitySourceGroupMembershipsDeleteProfileInner)
-	} else {
+	err = json.Unmarshal(data, &varIdentitySourceGroupMembershipsDeleteProfileInner)
+
+	if err != nil {
 		return err
 	}
 
+	*o = IdentitySourceGroupMembershipsDeleteProfileInner(varIdentitySourceGroupMembershipsDeleteProfileInner)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "groupExternalId")
 		delete(additionalProperties, "memberExternalIds")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableIdentitySourceGroupMembershipsDeleteProfileInner) UnmarshalJSON
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

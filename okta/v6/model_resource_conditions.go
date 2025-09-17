@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the ResourceConditions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceConditions{}
+
 // ResourceConditions Conditions for further restricting a resource.
 type ResourceConditions struct {
-	Exclude *ResourceConditionsExclude `json:"Exclude,omitempty"`
+	Exclude              *ResourceConditionsExclude `json:"Exclude,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewResourceConditionsWithDefaults() *ResourceConditions {
 
 // GetExclude returns the Exclude field value if set, zero value otherwise.
 func (o *ResourceConditions) GetExclude() ResourceConditionsExclude {
-	if o == nil || o.Exclude == nil {
+	if o == nil || IsNil(o.Exclude) {
 		var ret ResourceConditionsExclude
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *ResourceConditions) GetExclude() ResourceConditionsExclude {
 // GetExcludeOk returns a tuple with the Exclude field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceConditions) GetExcludeOk() (*ResourceConditionsExclude, bool) {
-	if o == nil || o.Exclude == nil {
+	if o == nil || IsNil(o.Exclude) {
 		return nil, false
 	}
 	return o.Exclude, true
@@ -72,7 +75,7 @@ func (o *ResourceConditions) GetExcludeOk() (*ResourceConditionsExclude, bool) {
 
 // HasExclude returns a boolean if a field has been set.
 func (o *ResourceConditions) HasExclude() bool {
-	if o != nil && o.Exclude != nil {
+	if o != nil && !IsNil(o.Exclude) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *ResourceConditions) SetExclude(v ResourceConditionsExclude) {
 }
 
 func (o ResourceConditions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ResourceConditions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Exclude != nil {
+	if !IsNil(o.Exclude) {
 		toSerialize["Exclude"] = o.Exclude
 	}
 
@@ -94,27 +105,25 @@ func (o ResourceConditions) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResourceConditions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ResourceConditions) UnmarshalJSON(data []byte) (err error) {
 	varResourceConditions := _ResourceConditions{}
 
-	err = json.Unmarshal(bytes, &varResourceConditions)
-	if err == nil {
-		*o = ResourceConditions(varResourceConditions)
-	} else {
+	err = json.Unmarshal(data, &varResourceConditions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ResourceConditions(varResourceConditions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "Exclude")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableResourceConditions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

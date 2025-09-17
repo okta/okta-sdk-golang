@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,12 +28,15 @@ import (
 	"fmt"
 )
 
+// checks if the StreamVerificationRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StreamVerificationRequest{}
+
 // StreamVerificationRequest struct for StreamVerificationRequest
 type StreamVerificationRequest struct {
 	// An arbitrary string that Okta as a transmitter must echo back to the Event Receiver in the Verification Event's payload
 	State *string `json:"state,omitempty"`
 	// The ID of the SSF Stream Configuration
-	StreamId string `json:"stream_id"`
+	StreamId             string `json:"stream_id"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewStreamVerificationRequestWithDefaults() *StreamVerificationRequest {
 
 // GetState returns the State field value if set, zero value otherwise.
 func (o *StreamVerificationRequest) GetState() string {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *StreamVerificationRequest) GetState() string {
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StreamVerificationRequest) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
 	return o.State, true
@@ -77,7 +80,7 @@ func (o *StreamVerificationRequest) GetStateOk() (*string, bool) {
 
 // HasState returns a boolean if a field has been set.
 func (o *StreamVerificationRequest) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && !IsNil(o.State) {
 		return true
 	}
 
@@ -114,40 +117,65 @@ func (o *StreamVerificationRequest) SetStreamId(v string) {
 }
 
 func (o StreamVerificationRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o StreamVerificationRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.State != nil {
+	if !IsNil(o.State) {
 		toSerialize["state"] = o.State
 	}
-	if true {
-		toSerialize["stream_id"] = o.StreamId
-	}
+	toSerialize["stream_id"] = o.StreamId
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *StreamVerificationRequest) UnmarshalJSON(bytes []byte) (err error) {
-	varStreamVerificationRequest := _StreamVerificationRequest{}
+func (o *StreamVerificationRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"stream_id",
+	}
 
-	err = json.Unmarshal(bytes, &varStreamVerificationRequest)
-	if err == nil {
-		*o = StreamVerificationRequest(varStreamVerificationRequest)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varStreamVerificationRequest := _StreamVerificationRequest{}
+
+	err = json.Unmarshal(data, &varStreamVerificationRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = StreamVerificationRequest(varStreamVerificationRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "state")
 		delete(additionalProperties, "stream_id")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -188,4 +216,3 @@ func (v *NullableStreamVerificationRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

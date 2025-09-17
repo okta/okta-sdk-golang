@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SecurityEventSubject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SecurityEventSubject{}
+
 // SecurityEventSubject The event subject
 type SecurityEventSubject struct {
 	// The format of the subject
@@ -34,7 +37,7 @@ type SecurityEventSubject struct {
 	// An identifier of the actor
 	Iss *string `json:"iss,omitempty"`
 	// An identifier for the subject that was acted on
-	Sub *string `json:"sub,omitempty"`
+	Sub                  *string `json:"sub,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewSecurityEventSubjectWithDefaults() *SecurityEventSubject {
 
 // GetFormat returns the Format field value if set, zero value otherwise.
 func (o *SecurityEventSubject) GetFormat() string {
-	if o == nil || o.Format == nil {
+	if o == nil || IsNil(o.Format) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *SecurityEventSubject) GetFormat() string {
 // GetFormatOk returns a tuple with the Format field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityEventSubject) GetFormatOk() (*string, bool) {
-	if o == nil || o.Format == nil {
+	if o == nil || IsNil(o.Format) {
 		return nil, false
 	}
 	return o.Format, true
@@ -77,7 +80,7 @@ func (o *SecurityEventSubject) GetFormatOk() (*string, bool) {
 
 // HasFormat returns a boolean if a field has been set.
 func (o *SecurityEventSubject) HasFormat() bool {
-	if o != nil && o.Format != nil {
+	if o != nil && !IsNil(o.Format) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *SecurityEventSubject) SetFormat(v string) {
 
 // GetIss returns the Iss field value if set, zero value otherwise.
 func (o *SecurityEventSubject) GetIss() string {
-	if o == nil || o.Iss == nil {
+	if o == nil || IsNil(o.Iss) {
 		var ret string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *SecurityEventSubject) GetIss() string {
 // GetIssOk returns a tuple with the Iss field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityEventSubject) GetIssOk() (*string, bool) {
-	if o == nil || o.Iss == nil {
+	if o == nil || IsNil(o.Iss) {
 		return nil, false
 	}
 	return o.Iss, true
@@ -109,7 +112,7 @@ func (o *SecurityEventSubject) GetIssOk() (*string, bool) {
 
 // HasIss returns a boolean if a field has been set.
 func (o *SecurityEventSubject) HasIss() bool {
-	if o != nil && o.Iss != nil {
+	if o != nil && !IsNil(o.Iss) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *SecurityEventSubject) SetIss(v string) {
 
 // GetSub returns the Sub field value if set, zero value otherwise.
 func (o *SecurityEventSubject) GetSub() string {
-	if o == nil || o.Sub == nil {
+	if o == nil || IsNil(o.Sub) {
 		var ret string
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *SecurityEventSubject) GetSub() string {
 // GetSubOk returns a tuple with the Sub field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityEventSubject) GetSubOk() (*string, bool) {
-	if o == nil || o.Sub == nil {
+	if o == nil || IsNil(o.Sub) {
 		return nil, false
 	}
 	return o.Sub, true
@@ -141,7 +144,7 @@ func (o *SecurityEventSubject) GetSubOk() (*string, bool) {
 
 // HasSub returns a boolean if a field has been set.
 func (o *SecurityEventSubject) HasSub() bool {
-	if o != nil && o.Sub != nil {
+	if o != nil && !IsNil(o.Sub) {
 		return true
 	}
 
@@ -154,14 +157,22 @@ func (o *SecurityEventSubject) SetSub(v string) {
 }
 
 func (o SecurityEventSubject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SecurityEventSubject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Format != nil {
+	if !IsNil(o.Format) {
 		toSerialize["format"] = o.Format
 	}
-	if o.Iss != nil {
+	if !IsNil(o.Iss) {
 		toSerialize["iss"] = o.Iss
 	}
-	if o.Sub != nil {
+	if !IsNil(o.Sub) {
 		toSerialize["sub"] = o.Sub
 	}
 
@@ -169,29 +180,27 @@ func (o SecurityEventSubject) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SecurityEventSubject) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SecurityEventSubject) UnmarshalJSON(data []byte) (err error) {
 	varSecurityEventSubject := _SecurityEventSubject{}
 
-	err = json.Unmarshal(bytes, &varSecurityEventSubject)
-	if err == nil {
-		*o = SecurityEventSubject(varSecurityEventSubject)
-	} else {
+	err = json.Unmarshal(data, &varSecurityEventSubject)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SecurityEventSubject(varSecurityEventSubject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "format")
 		delete(additionalProperties, "iss")
 		delete(additionalProperties, "sub")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -232,4 +241,3 @@ func (v *NullableSecurityEventSubject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

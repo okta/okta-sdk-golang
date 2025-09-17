@@ -65613,6 +65613,8 @@ components:
           type: string
           x-okta-known-values:
           - ACTIVE_DIRECTORY
+      required:
+      - type
       type: object
     AppConfigActiveDirectory:
       allOf:
@@ -70375,7 +70377,6 @@ components:
     ByDateTimeExpiry:
       allOf:
       - $ref: "#/components/schemas/DateTime"
-      example: {}
     ByDurationExpiry:
       allOf:
       - $ref: "#/components/schemas/TimeDuration"
@@ -72747,7 +72748,7 @@ components:
         type: object
       example:
         gracePeriod:
-          expiry: {}
+          expiry: 2024-12-01T00:00:00Z
           type: BY_DATE_TIME
         lastUpdatedBy: lastUpdatedBy
         osVersionConstraints:
@@ -76090,7 +76091,7 @@ components:
       description: <x-lifecycle-container><x-lifecycle class="ea"></x-lifecycle></x-lifecycle-container>Represents
         the Grace Period configuration for the device assurance policy
       example:
-        expiry: {}
+        expiry: 2024-12-01T00:00:00Z
         type: BY_DATE_TIME
       properties:
         expiry:
@@ -88529,11 +88530,7 @@ components:
     PublicAssetLinksWellKnownURI:
       description: The well-known URI content in a JSON array of objects format
       items:
-        description: TODO default missing array inner type to string
-        type: string
-      properties:
-        items:
-          type: object
+        type: object
       type: array
     PublicWebauthnSiteWellKnownURI:
       description: The well-known URI content in JSON object format
@@ -100912,8 +100909,8 @@ components:
       - $ref: "#/components/schemas/LinksNext"
     GracePeriod_expiry:
       oneOf:
-      - $ref: "#/components/schemas/ByDateTimeExpiry"
-      - $ref: "#/components/schemas/ByDurationExpiry"
+      - $ref: "#/components/schemas/DateTime"
+      - $ref: "#/components/schemas/TimeDuration"
     Group__links:
       allOf:
       - $ref: "#/components/schemas/LinksSelf"

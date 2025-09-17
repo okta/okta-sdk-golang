@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SAMLPayLoadDataContextAllOfProtocolIssuer type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SAMLPayLoadDataContextAllOfProtocolIssuer{}
+
 // SAMLPayLoadDataContextAllOfProtocolIssuer struct for SAMLPayLoadDataContextAllOfProtocolIssuer
 type SAMLPayLoadDataContextAllOfProtocolIssuer struct {
 	// The unique identifier of the issuer that provided the SAML assertion
@@ -34,7 +37,7 @@ type SAMLPayLoadDataContextAllOfProtocolIssuer struct {
 	// The name of the issuer that provided the SAML assertion
 	Name *string `json:"name,omitempty"`
 	// The base URI of the SAML endpoint that's used to assert the authorization
-	Uri *string `json:"uri,omitempty"`
+	Uri                  *string `json:"uri,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewSAMLPayLoadDataContextAllOfProtocolIssuerWithDefaults() *SAMLPayLoadData
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *SAMLPayLoadDataContextAllOfProtocolIssuer) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *SAMLPayLoadDataContextAllOfProtocolIssuer) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoadDataContextAllOfProtocolIssuer) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -77,7 +80,7 @@ func (o *SAMLPayLoadDataContextAllOfProtocolIssuer) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *SAMLPayLoadDataContextAllOfProtocolIssuer) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *SAMLPayLoadDataContextAllOfProtocolIssuer) SetId(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *SAMLPayLoadDataContextAllOfProtocolIssuer) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *SAMLPayLoadDataContextAllOfProtocolIssuer) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoadDataContextAllOfProtocolIssuer) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -109,7 +112,7 @@ func (o *SAMLPayLoadDataContextAllOfProtocolIssuer) GetNameOk() (*string, bool) 
 
 // HasName returns a boolean if a field has been set.
 func (o *SAMLPayLoadDataContextAllOfProtocolIssuer) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *SAMLPayLoadDataContextAllOfProtocolIssuer) SetName(v string) {
 
 // GetUri returns the Uri field value if set, zero value otherwise.
 func (o *SAMLPayLoadDataContextAllOfProtocolIssuer) GetUri() string {
-	if o == nil || o.Uri == nil {
+	if o == nil || IsNil(o.Uri) {
 		var ret string
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *SAMLPayLoadDataContextAllOfProtocolIssuer) GetUri() string {
 // GetUriOk returns a tuple with the Uri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoadDataContextAllOfProtocolIssuer) GetUriOk() (*string, bool) {
-	if o == nil || o.Uri == nil {
+	if o == nil || IsNil(o.Uri) {
 		return nil, false
 	}
 	return o.Uri, true
@@ -141,7 +144,7 @@ func (o *SAMLPayLoadDataContextAllOfProtocolIssuer) GetUriOk() (*string, bool) {
 
 // HasUri returns a boolean if a field has been set.
 func (o *SAMLPayLoadDataContextAllOfProtocolIssuer) HasUri() bool {
-	if o != nil && o.Uri != nil {
+	if o != nil && !IsNil(o.Uri) {
 		return true
 	}
 
@@ -154,14 +157,22 @@ func (o *SAMLPayLoadDataContextAllOfProtocolIssuer) SetUri(v string) {
 }
 
 func (o SAMLPayLoadDataContextAllOfProtocolIssuer) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SAMLPayLoadDataContextAllOfProtocolIssuer) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Uri != nil {
+	if !IsNil(o.Uri) {
 		toSerialize["uri"] = o.Uri
 	}
 
@@ -169,29 +180,27 @@ func (o SAMLPayLoadDataContextAllOfProtocolIssuer) MarshalJSON() ([]byte, error)
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SAMLPayLoadDataContextAllOfProtocolIssuer) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SAMLPayLoadDataContextAllOfProtocolIssuer) UnmarshalJSON(data []byte) (err error) {
 	varSAMLPayLoadDataContextAllOfProtocolIssuer := _SAMLPayLoadDataContextAllOfProtocolIssuer{}
 
-	err = json.Unmarshal(bytes, &varSAMLPayLoadDataContextAllOfProtocolIssuer)
-	if err == nil {
-		*o = SAMLPayLoadDataContextAllOfProtocolIssuer(varSAMLPayLoadDataContextAllOfProtocolIssuer)
-	} else {
+	err = json.Unmarshal(data, &varSAMLPayLoadDataContextAllOfProtocolIssuer)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SAMLPayLoadDataContextAllOfProtocolIssuer(varSAMLPayLoadDataContextAllOfProtocolIssuer)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "uri")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -232,4 +241,3 @@ func (v *NullableSAMLPayLoadDataContextAllOfProtocolIssuer) UnmarshalJSON(src []
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

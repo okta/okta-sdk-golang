@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the InlineObject2 type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InlineObject2{}
+
 // InlineObject2 struct for InlineObject2
 type InlineObject2 struct {
 	// List of domains and their disaster recovery status
-	Status []DRStatusItem `json:"status,omitempty"`
+	Status               []DRStatusItem `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewInlineObject2WithDefaults() *InlineObject2 {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *InlineObject2) GetStatus() []DRStatusItem {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret []DRStatusItem
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *InlineObject2) GetStatus() []DRStatusItem {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineObject2) GetStatusOk() ([]DRStatusItem, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -73,7 +76,7 @@ func (o *InlineObject2) GetStatusOk() ([]DRStatusItem, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *InlineObject2) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *InlineObject2) SetStatus(v []DRStatusItem) {
 }
 
 func (o InlineObject2) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o InlineObject2) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
 
@@ -95,27 +106,25 @@ func (o InlineObject2) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *InlineObject2) UnmarshalJSON(bytes []byte) (err error) {
+func (o *InlineObject2) UnmarshalJSON(data []byte) (err error) {
 	varInlineObject2 := _InlineObject2{}
 
-	err = json.Unmarshal(bytes, &varInlineObject2)
-	if err == nil {
-		*o = InlineObject2(varInlineObject2)
-	} else {
+	err = json.Unmarshal(data, &varInlineObject2)
+
+	if err != nil {
 		return err
 	}
 
+	*o = InlineObject2(varInlineObject2)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "status")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableInlineObject2) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

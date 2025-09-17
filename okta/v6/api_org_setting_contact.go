@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,24 +26,23 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type OrgSettingContactAPI interface {
 
 	/*
-	GetOrgContactUser Retrieve the contact type user
+		GetOrgContactUser Retrieve the contact type user
 
-	Retrieves the ID and the user resource associated with the specified contact type
+		Retrieves the ID and the user resource associated with the specified contact type
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param contactType
-	@return ApiGetOrgContactUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param contactType
+		@return ApiGetOrgContactUserRequest
 	*/
 	GetOrgContactUser(ctx context.Context, contactType string) ApiGetOrgContactUserRequest
 
@@ -52,12 +51,12 @@ type OrgSettingContactAPI interface {
 	GetOrgContactUserExecute(r ApiGetOrgContactUserRequest) (*OrgContactUser, *APIResponse, error)
 
 	/*
-	ListOrgContactTypes List all org contact types
+		ListOrgContactTypes List all org contact types
 
-	Lists all org contact types for your Okta org
+		Lists all org contact types for your Okta org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListOrgContactTypesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListOrgContactTypesRequest
 	*/
 	ListOrgContactTypes(ctx context.Context) ApiListOrgContactTypesRequest
 
@@ -66,13 +65,13 @@ type OrgSettingContactAPI interface {
 	ListOrgContactTypesExecute(r ApiListOrgContactTypesRequest) ([]ListOrgContactTypes200ResponseInner, *APIResponse, error)
 
 	/*
-	ReplaceOrgContactUser Replace the contact type user
+		ReplaceOrgContactUser Replace the contact type user
 
-	Replaces the user associated with the specified contact type
+		Replaces the user associated with the specified contact type
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param contactType
-	@return ApiReplaceOrgContactUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param contactType
+		@return ApiReplaceOrgContactUserRequest
 	*/
 	ReplaceOrgContactUser(ctx context.Context, contactType string) ApiReplaceOrgContactUserRequest
 
@@ -85,10 +84,10 @@ type OrgSettingContactAPI interface {
 type OrgSettingContactAPIService service
 
 type ApiGetOrgContactUserRequest struct {
-	ctx context.Context
-	ApiService OrgSettingContactAPI
+	ctx         context.Context
+	ApiService  OrgSettingContactAPI
 	contactType string
-	retryCount int32
+	retryCount  int32
 }
 
 func (r ApiGetOrgContactUserRequest) Execute() (*OrgContactUser, *APIResponse, error) {
@@ -100,21 +99,22 @@ GetOrgContactUser Retrieve the contact type user
 
 Retrieves the ID and the user resource associated with the specified contact type
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param contactType
- @return ApiGetOrgContactUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param contactType
+	@return ApiGetOrgContactUserRequest
 */
 func (a *OrgSettingContactAPIService) GetOrgContactUser(ctx context.Context, contactType string) ApiGetOrgContactUserRequest {
 	return ApiGetOrgContactUserRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		contactType: contactType,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
 // Execute executes the request
-//  @return OrgContactUser
+//
+//	@return OrgContactUser
 func (a *OrgSettingContactAPIService) GetOrgContactUserExecute(r ApiGetOrgContactUserRequest) (*OrgContactUser, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -123,7 +123,7 @@ func (a *OrgSettingContactAPIService) GetOrgContactUserExecute(r ApiGetOrgContac
 		localVarReturnValue  *OrgContactUser
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -184,9 +184,9 @@ func (a *OrgSettingContactAPIService) GetOrgContactUserExecute(r ApiGetOrgContac
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -244,13 +244,13 @@ func (a *OrgSettingContactAPIService) GetOrgContactUserExecute(r ApiGetOrgContac
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListOrgContactTypesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingContactAPI
 	retryCount int32
 }
@@ -264,19 +264,20 @@ ListOrgContactTypes List all org contact types
 
 Lists all org contact types for your Okta org
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListOrgContactTypesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListOrgContactTypesRequest
 */
 func (a *OrgSettingContactAPIService) ListOrgContactTypes(ctx context.Context) ApiListOrgContactTypesRequest {
 	return ApiListOrgContactTypesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []ListOrgContactTypes200ResponseInner
+//
+//	@return []ListOrgContactTypes200ResponseInner
 func (a *OrgSettingContactAPIService) ListOrgContactTypesExecute(r ApiListOrgContactTypesRequest) ([]ListOrgContactTypes200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -285,7 +286,7 @@ func (a *OrgSettingContactAPIService) ListOrgContactTypesExecute(r ApiListOrgCon
 		localVarReturnValue  []ListOrgContactTypes200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -345,9 +346,9 @@ func (a *OrgSettingContactAPIService) ListOrgContactTypesExecute(r ApiListOrgCon
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -393,17 +394,17 @@ func (a *OrgSettingContactAPIService) ListOrgContactTypesExecute(r ApiListOrgCon
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceOrgContactUserRequest struct {
-	ctx context.Context
-	ApiService OrgSettingContactAPI
-	contactType string
+	ctx            context.Context
+	ApiService     OrgSettingContactAPI
+	contactType    string
 	orgContactUser *OrgContactUser
-	retryCount int32
+	retryCount     int32
 }
 
 func (r ApiReplaceOrgContactUserRequest) OrgContactUser(orgContactUser OrgContactUser) ApiReplaceOrgContactUserRequest {
@@ -420,21 +421,22 @@ ReplaceOrgContactUser Replace the contact type user
 
 Replaces the user associated with the specified contact type
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param contactType
- @return ApiReplaceOrgContactUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param contactType
+	@return ApiReplaceOrgContactUserRequest
 */
 func (a *OrgSettingContactAPIService) ReplaceOrgContactUser(ctx context.Context, contactType string) ApiReplaceOrgContactUserRequest {
 	return ApiReplaceOrgContactUserRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		contactType: contactType,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
 // Execute executes the request
-//  @return OrgContactUser
+//
+//	@return OrgContactUser
 func (a *OrgSettingContactAPIService) ReplaceOrgContactUserExecute(r ApiReplaceOrgContactUserRequest) (*OrgContactUser, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -443,7 +445,7 @@ func (a *OrgSettingContactAPIService) ReplaceOrgContactUserExecute(r ApiReplaceO
 		localVarReturnValue  *OrgContactUser
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -509,9 +511,9 @@ func (a *OrgSettingContactAPIService) ReplaceOrgContactUserExecute(r ApiReplaceO
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -581,7 +583,7 @@ func (a *OrgSettingContactAPIService) ReplaceOrgContactUserExecute(r ApiReplaceO
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

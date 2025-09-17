@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,28 +26,27 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type UserLinkedObjectAPI interface {
 
 	/*
-	AssignLinkedObjectValueForPrimary Assign a linked object value for primary
+			AssignLinkedObjectValueForPrimary Assign a linked object value for primary
 
-	Assigns the first user as the `associated` and the second user as the `primary` for the specified relationship.
+			Assigns the first user as the `associated` and the second user as the `primary` for the specified relationship.
 
-If the first user is already associated with a different `primary` for this relationship, the previous link is removed. A linked object relationship can specify only one primary user for an associated user.
+		If the first user is already associated with a different `primary` for this relationship, the previous link is removed. A linked object relationship can specify only one primary user for an associated user.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userIdOrLogin If for the `self` link, this is the ID of the user for whom you want to get the primary user ID. If for the `associated` relation, this is the user ID or login value of the user assigned the associated relationship.  This can be `me` to represent the current session user.
-	@param primaryRelationshipName Name of the `primary` relationship being assigned
-	@param primaryUserId User ID to be assigned to the `primary` relationship for the `associated` user
-	@return ApiAssignLinkedObjectValueForPrimaryRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param userIdOrLogin If for the `self` link, this is the ID of the user for whom you want to get the primary user ID. If for the `associated` relation, this is the user ID or login value of the user assigned the associated relationship.  This can be `me` to represent the current session user.
+			@param primaryRelationshipName Name of the `primary` relationship being assigned
+			@param primaryUserId User ID to be assigned to the `primary` relationship for the `associated` user
+			@return ApiAssignLinkedObjectValueForPrimaryRequest
 	*/
 	AssignLinkedObjectValueForPrimary(ctx context.Context, userIdOrLogin string, primaryRelationshipName string, primaryUserId string) ApiAssignLinkedObjectValueForPrimaryRequest
 
@@ -55,16 +54,16 @@ If the first user is already associated with a different `primary` for this rela
 	AssignLinkedObjectValueForPrimaryExecute(r ApiAssignLinkedObjectValueForPrimaryRequest) (*APIResponse, error)
 
 	/*
-	DeleteLinkedObjectForUser Delete a linked object value
+			DeleteLinkedObjectForUser Delete a linked object value
 
-	Deletes any existing relationship between the `associated` and `primary` user. For the `associated` user, this is specified by the ID. The `primary` name specifies the relationship.
+			Deletes any existing relationship between the `associated` and `primary` user. For the `associated` user, this is specified by the ID. The `primary` name specifies the relationship.
 
-The operation is successful if the relationship is deleted. The operation is also successful if the specified user isn't in the `associated` relationship for any instance of the specified `primary` and thus, no relationship is found.
+		The operation is successful if the relationship is deleted. The operation is also successful if the specified user isn't in the `associated` relationship for any instance of the specified `primary` and thus, no relationship is found.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userIdOrLogin If for the `self` link, this is the ID of the user for whom you want to get the primary user ID. If for the `associated` relation, this is the user ID or login value of the user assigned the associated relationship.  This can be `me` to represent the current session user.
-	@param relationshipName Name of the `primary` or `associated` relationship being queried
-	@return ApiDeleteLinkedObjectForUserRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param userIdOrLogin If for the `self` link, this is the ID of the user for whom you want to get the primary user ID. If for the `associated` relation, this is the user ID or login value of the user assigned the associated relationship.  This can be `me` to represent the current session user.
+			@param relationshipName Name of the `primary` or `associated` relationship being queried
+			@return ApiDeleteLinkedObjectForUserRequest
 	*/
 	DeleteLinkedObjectForUser(ctx context.Context, userIdOrLogin string, relationshipName string) ApiDeleteLinkedObjectForUserRequest
 
@@ -72,16 +71,16 @@ The operation is successful if the relationship is deleted. The operation is als
 	DeleteLinkedObjectForUserExecute(r ApiDeleteLinkedObjectForUserRequest) (*APIResponse, error)
 
 	/*
-	ListLinkedObjectsForUser List the primary or all of the associated linked object values
+			ListLinkedObjectsForUser List the primary or all of the associated linked object values
 
-	Lists either the `self` link for the primary user or all associated users in the relationship specified by `relationshipName`. If the specified user isn't associated in any relationship, an empty array is returned.
+			Lists either the `self` link for the primary user or all associated users in the relationship specified by `relationshipName`. If the specified user isn't associated in any relationship, an empty array is returned.
 
-Use `me` instead of `id` to specify the current session user.
+		Use `me` instead of `id` to specify the current session user.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userIdOrLogin If for the `self` link, this is the ID of the user for whom you want to get the primary user ID. If for the `associated` relation, this is the user ID or login value of the user assigned the associated relationship.  This can be `me` to represent the current session user.
-	@param relationshipName Name of the `primary` or `associated` relationship being queried
-	@return ApiListLinkedObjectsForUserRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param userIdOrLogin If for the `self` link, this is the ID of the user for whom you want to get the primary user ID. If for the `associated` relation, this is the user ID or login value of the user assigned the associated relationship.  This can be `me` to represent the current session user.
+			@param relationshipName Name of the `primary` or `associated` relationship being queried
+			@return ApiListLinkedObjectsForUserRequest
 	*/
 	ListLinkedObjectsForUser(ctx context.Context, userIdOrLogin string, relationshipName string) ApiListLinkedObjectsForUserRequest
 
@@ -94,12 +93,12 @@ Use `me` instead of `id` to specify the current session user.
 type UserLinkedObjectAPIService service
 
 type ApiAssignLinkedObjectValueForPrimaryRequest struct {
-	ctx context.Context
-	ApiService UserLinkedObjectAPI
-	userIdOrLogin string
+	ctx                     context.Context
+	ApiService              UserLinkedObjectAPI
+	userIdOrLogin           string
 	primaryRelationshipName string
-	primaryUserId string
-	retryCount int32
+	primaryUserId           string
+	retryCount              int32
 }
 
 func (r ApiAssignLinkedObjectValueForPrimaryRequest) Execute() (*APIResponse, error) {
@@ -113,20 +112,20 @@ Assigns the first user as the `associated` and the second user as the `primary` 
 
 If the first user is already associated with a different `primary` for this relationship, the previous link is removed. A linked object relationship can specify only one primary user for an associated user.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userIdOrLogin If for the `self` link, this is the ID of the user for whom you want to get the primary user ID. If for the `associated` relation, this is the user ID or login value of the user assigned the associated relationship.  This can be `me` to represent the current session user.
- @param primaryRelationshipName Name of the `primary` relationship being assigned
- @param primaryUserId User ID to be assigned to the `primary` relationship for the `associated` user
- @return ApiAssignLinkedObjectValueForPrimaryRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userIdOrLogin If for the `self` link, this is the ID of the user for whom you want to get the primary user ID. If for the `associated` relation, this is the user ID or login value of the user assigned the associated relationship.  This can be `me` to represent the current session user.
+	@param primaryRelationshipName Name of the `primary` relationship being assigned
+	@param primaryUserId User ID to be assigned to the `primary` relationship for the `associated` user
+	@return ApiAssignLinkedObjectValueForPrimaryRequest
 */
 func (a *UserLinkedObjectAPIService) AssignLinkedObjectValueForPrimary(ctx context.Context, userIdOrLogin string, primaryRelationshipName string, primaryUserId string) ApiAssignLinkedObjectValueForPrimaryRequest {
 	return ApiAssignLinkedObjectValueForPrimaryRequest{
-		ApiService: a,
-		ctx: ctx,
-		userIdOrLogin: userIdOrLogin,
+		ApiService:              a,
+		ctx:                     ctx,
+		userIdOrLogin:           userIdOrLogin,
 		primaryRelationshipName: primaryRelationshipName,
-		primaryUserId: primaryUserId,
-		retryCount: 0,
+		primaryUserId:           primaryUserId,
+		retryCount:              0,
 	}
 }
 
@@ -138,7 +137,7 @@ func (a *UserLinkedObjectAPIService) AssignLinkedObjectValueForPrimaryExecute(r 
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -187,9 +186,9 @@ func (a *UserLinkedObjectAPIService) AssignLinkedObjectValueForPrimaryExecute(r 
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -243,11 +242,11 @@ func (a *UserLinkedObjectAPIService) AssignLinkedObjectValueForPrimaryExecute(r 
 }
 
 type ApiDeleteLinkedObjectForUserRequest struct {
-	ctx context.Context
-	ApiService UserLinkedObjectAPI
-	userIdOrLogin string
+	ctx              context.Context
+	ApiService       UserLinkedObjectAPI
+	userIdOrLogin    string
 	relationshipName string
-	retryCount int32
+	retryCount       int32
 }
 
 func (r ApiDeleteLinkedObjectForUserRequest) Execute() (*APIResponse, error) {
@@ -261,18 +260,18 @@ Deletes any existing relationship between the `associated` and `primary` user. F
 
 The operation is successful if the relationship is deleted. The operation is also successful if the specified user isn't in the `associated` relationship for any instance of the specified `primary` and thus, no relationship is found.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userIdOrLogin If for the `self` link, this is the ID of the user for whom you want to get the primary user ID. If for the `associated` relation, this is the user ID or login value of the user assigned the associated relationship.  This can be `me` to represent the current session user.
- @param relationshipName Name of the `primary` or `associated` relationship being queried
- @return ApiDeleteLinkedObjectForUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userIdOrLogin If for the `self` link, this is the ID of the user for whom you want to get the primary user ID. If for the `associated` relation, this is the user ID or login value of the user assigned the associated relationship.  This can be `me` to represent the current session user.
+	@param relationshipName Name of the `primary` or `associated` relationship being queried
+	@return ApiDeleteLinkedObjectForUserRequest
 */
 func (a *UserLinkedObjectAPIService) DeleteLinkedObjectForUser(ctx context.Context, userIdOrLogin string, relationshipName string) ApiDeleteLinkedObjectForUserRequest {
 	return ApiDeleteLinkedObjectForUserRequest{
-		ApiService: a,
-		ctx: ctx,
-		userIdOrLogin: userIdOrLogin,
+		ApiService:       a,
+		ctx:              ctx,
+		userIdOrLogin:    userIdOrLogin,
 		relationshipName: relationshipName,
-		retryCount: 0,
+		retryCount:       0,
 	}
 }
 
@@ -284,7 +283,7 @@ func (a *UserLinkedObjectAPIService) DeleteLinkedObjectForUserExecute(r ApiDelet
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -346,9 +345,9 @@ func (a *UserLinkedObjectAPIService) DeleteLinkedObjectForUserExecute(r ApiDelet
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -402,11 +401,11 @@ func (a *UserLinkedObjectAPIService) DeleteLinkedObjectForUserExecute(r ApiDelet
 }
 
 type ApiListLinkedObjectsForUserRequest struct {
-	ctx context.Context
-	ApiService UserLinkedObjectAPI
-	userIdOrLogin string
+	ctx              context.Context
+	ApiService       UserLinkedObjectAPI
+	userIdOrLogin    string
 	relationshipName string
-	retryCount int32
+	retryCount       int32
 }
 
 func (r ApiListLinkedObjectsForUserRequest) Execute() ([]ResponseLinks, *APIResponse, error) {
@@ -420,23 +419,24 @@ Lists either the `self` link for the primary user or all associated users in the
 
 Use `me` instead of `id` to specify the current session user.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userIdOrLogin If for the `self` link, this is the ID of the user for whom you want to get the primary user ID. If for the `associated` relation, this is the user ID or login value of the user assigned the associated relationship.  This can be `me` to represent the current session user.
- @param relationshipName Name of the `primary` or `associated` relationship being queried
- @return ApiListLinkedObjectsForUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userIdOrLogin If for the `self` link, this is the ID of the user for whom you want to get the primary user ID. If for the `associated` relation, this is the user ID or login value of the user assigned the associated relationship.  This can be `me` to represent the current session user.
+	@param relationshipName Name of the `primary` or `associated` relationship being queried
+	@return ApiListLinkedObjectsForUserRequest
 */
 func (a *UserLinkedObjectAPIService) ListLinkedObjectsForUser(ctx context.Context, userIdOrLogin string, relationshipName string) ApiListLinkedObjectsForUserRequest {
 	return ApiListLinkedObjectsForUserRequest{
-		ApiService: a,
-		ctx: ctx,
-		userIdOrLogin: userIdOrLogin,
+		ApiService:       a,
+		ctx:              ctx,
+		userIdOrLogin:    userIdOrLogin,
 		relationshipName: relationshipName,
-		retryCount: 0,
+		retryCount:       0,
 	}
 }
 
 // Execute executes the request
-//  @return []ResponseLinks
+//
+//	@return []ResponseLinks
 func (a *UserLinkedObjectAPIService) ListLinkedObjectsForUserExecute(r ApiListLinkedObjectsForUserRequest) ([]ResponseLinks, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -445,7 +445,7 @@ func (a *UserLinkedObjectAPIService) ListLinkedObjectsForUserExecute(r ApiListLi
 		localVarReturnValue  []ResponseLinks
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -507,9 +507,9 @@ func (a *UserLinkedObjectAPIService) ListLinkedObjectsForUserExecute(r ApiListLi
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -567,7 +567,7 @@ func (a *UserLinkedObjectAPIService) ListLinkedObjectsForUserExecute(r ApiListLi
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

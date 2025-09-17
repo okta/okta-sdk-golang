@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the OktaSignOnPolicyConditions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OktaSignOnPolicyConditions{}
+
 // OktaSignOnPolicyConditions struct for OktaSignOnPolicyConditions
 type OktaSignOnPolicyConditions struct {
-	People *AuthenticatorEnrollmentPolicyConditionsAllOfPeople `json:"people,omitempty"`
+	People               *AuthenticatorEnrollmentPolicyConditionsAllOfPeople `json:"people,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewOktaSignOnPolicyConditionsWithDefaults() *OktaSignOnPolicyConditions {
 
 // GetPeople returns the People field value if set, zero value otherwise.
 func (o *OktaSignOnPolicyConditions) GetPeople() AuthenticatorEnrollmentPolicyConditionsAllOfPeople {
-	if o == nil || o.People == nil {
+	if o == nil || IsNil(o.People) {
 		var ret AuthenticatorEnrollmentPolicyConditionsAllOfPeople
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *OktaSignOnPolicyConditions) GetPeople() AuthenticatorEnrollmentPolicyCo
 // GetPeopleOk returns a tuple with the People field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaSignOnPolicyConditions) GetPeopleOk() (*AuthenticatorEnrollmentPolicyConditionsAllOfPeople, bool) {
-	if o == nil || o.People == nil {
+	if o == nil || IsNil(o.People) {
 		return nil, false
 	}
 	return o.People, true
@@ -72,7 +75,7 @@ func (o *OktaSignOnPolicyConditions) GetPeopleOk() (*AuthenticatorEnrollmentPoli
 
 // HasPeople returns a boolean if a field has been set.
 func (o *OktaSignOnPolicyConditions) HasPeople() bool {
-	if o != nil && o.People != nil {
+	if o != nil && !IsNil(o.People) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *OktaSignOnPolicyConditions) SetPeople(v AuthenticatorEnrollmentPolicyCo
 }
 
 func (o OktaSignOnPolicyConditions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OktaSignOnPolicyConditions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.People != nil {
+	if !IsNil(o.People) {
 		toSerialize["people"] = o.People
 	}
 
@@ -94,27 +105,25 @@ func (o OktaSignOnPolicyConditions) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OktaSignOnPolicyConditions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OktaSignOnPolicyConditions) UnmarshalJSON(data []byte) (err error) {
 	varOktaSignOnPolicyConditions := _OktaSignOnPolicyConditions{}
 
-	err = json.Unmarshal(bytes, &varOktaSignOnPolicyConditions)
-	if err == nil {
-		*o = OktaSignOnPolicyConditions(varOktaSignOnPolicyConditions)
-	} else {
+	err = json.Unmarshal(data, &varOktaSignOnPolicyConditions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OktaSignOnPolicyConditions(varOktaSignOnPolicyConditions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "people")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableOktaSignOnPolicyConditions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

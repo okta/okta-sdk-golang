@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,24 +26,23 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type ApplicationAPI interface {
 
 	/*
-	ActivateApplication Activate an application
+		ActivateApplication Activate an application
 
-	Activates an inactive application
+		Activates an inactive application
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiActivateApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiActivateApplicationRequest
 	*/
 	ActivateApplication(ctx context.Context, appId string) ApiActivateApplicationRequest
 
@@ -51,17 +50,17 @@ type ApplicationAPI interface {
 	ActivateApplicationExecute(r ApiActivateApplicationRequest) (*APIResponse, error)
 
 	/*
-	CreateApplication Create an application
+			CreateApplication Create an application
 
-	Creates an app instance in your Okta org.
+			Creates an app instance in your Okta org.
 
-You can either create an OIN app instance or a custom app instance:
-* OIN app instances have prescribed `name` (key app definition) and `signOnMode` options. See the [OIN schemas](/openapi/okta-management/management/tag/Application/#tag/Application/schema/GoogleApplication) for the request body.
-* For custom app instances, select the [signOnMode](/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication!path=0/signOnMode&t=request) that pertains to your app and specify the required parameters in the request body.
+		You can either create an OIN app instance or a custom app instance:
+		* OIN app instances have prescribed `name` (key app definition) and `signOnMode` options. See the [OIN schemas](/openapi/okta-management/management/tag/Application/#tag/Application/schema/GoogleApplication) for the request body.
+		* For custom app instances, select the [signOnMode](/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication!path=0/signOnMode&t=request) that pertains to your app and specify the required parameters in the request body.
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateApplicationRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiCreateApplicationRequest
 	*/
 	CreateApplication(ctx context.Context) ApiCreateApplicationRequest
 
@@ -70,15 +69,15 @@ You can either create an OIN app instance or a custom app instance:
 	CreateApplicationExecute(r ApiCreateApplicationRequest) (*ListApplications200ResponseInner, *APIResponse, error)
 
 	/*
-	DeactivateApplication Deactivate an application
+			DeactivateApplication Deactivate an application
 
-	Deactivates an active application
+			Deactivates an active application
 
-> **Note:** Deactivating an app triggers a full reconciliation of all users assigned to the app by groups. This reconcile process removes the app assignment for the deactivated app, and might also correct assignments that were supposed to be removed but failed previously.
+		> **Note:** Deactivating an app triggers a full reconciliation of all users assigned to the app by groups. This reconcile process removes the app assignment for the deactivated app, and might also correct assignments that were supposed to be removed but failed previously.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiDeactivateApplicationRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appId Application ID
+			@return ApiDeactivateApplicationRequest
 	*/
 	DeactivateApplication(ctx context.Context, appId string) ApiDeactivateApplicationRequest
 
@@ -86,13 +85,13 @@ You can either create an OIN app instance or a custom app instance:
 	DeactivateApplicationExecute(r ApiDeactivateApplicationRequest) (*APIResponse, error)
 
 	/*
-	DeleteApplication Delete an application
+		DeleteApplication Delete an application
 
-	Deletes an inactive application
+		Deletes an inactive application
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiDeleteApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiDeleteApplicationRequest
 	*/
 	DeleteApplication(ctx context.Context, appId string) ApiDeleteApplicationRequest
 
@@ -100,13 +99,13 @@ You can either create an OIN app instance or a custom app instance:
 	DeleteApplicationExecute(r ApiDeleteApplicationRequest) (*APIResponse, error)
 
 	/*
-	GetApplication Retrieve an application
+		GetApplication Retrieve an application
 
-	Retrieves an application from your Okta organization by `id`
+		Retrieves an application from your Okta organization by `id`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiGetApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiGetApplicationRequest
 	*/
 	GetApplication(ctx context.Context, appId string) ApiGetApplicationRequest
 
@@ -115,14 +114,14 @@ You can either create an OIN app instance or a custom app instance:
 	GetApplicationExecute(r ApiGetApplicationRequest) (*ListApplications200ResponseInner, *APIResponse, error)
 
 	/*
-	ListApplications List all applications
+			ListApplications List all applications
 
-	Lists all apps in the org with pagination. A subset of apps can be returned that match a supported filter expression or query. The results are [paginated](/#pagination) according to the `limit` parameter. If there are multiple pages of results, the header contains a `next` link. Treat the link as an opaque value (follow it, don't parse it).
+			Lists all apps in the org with pagination. A subset of apps can be returned that match a supported filter expression or query. The results are [paginated](/#pagination) according to the `limit` parameter. If there are multiple pages of results, the header contains a `next` link. Treat the link as an opaque value (follow it, don't parse it).
 
-> **Note:** To list all of a member's assigned app links, use the [List all assigned app links endpoint in the User Resources API](/openapi/okta-management/management/tag/UserResources/#tag/UserResources/operation/listAppLinks).
+		> **Note:** To list all of a member's assigned app links, use the [List all assigned app links endpoint in the User Resources API](/openapi/okta-management/management/tag/UserResources/#tag/UserResources/operation/listAppLinks).
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListApplicationsRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiListApplicationsRequest
 	*/
 	ListApplications(ctx context.Context) ApiListApplicationsRequest
 
@@ -131,17 +130,17 @@ You can either create an OIN app instance or a custom app instance:
 	ListApplicationsExecute(r ApiListApplicationsRequest) ([]ListApplications200ResponseInner, *APIResponse, error)
 
 	/*
-	ReplaceApplication Replace an application
+			ReplaceApplication Replace an application
 
-	Replaces properties for an application
-> **Notes:**
-> * All required properties must be specified in the request body
-> * You can't modify system-assigned properties, such as `id`, `name`, `status`, `created`, and `lastUpdated`. The values for these properties in the PUT request body are ignored.
+			Replaces properties for an application
+		> **Notes:**
+		> * All required properties must be specified in the request body
+		> * You can't modify system-assigned properties, such as `id`, `name`, `status`, `created`, and `lastUpdated`. The values for these properties in the PUT request body are ignored.
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiReplaceApplicationRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appId Application ID
+			@return ApiReplaceApplicationRequest
 	*/
 	ReplaceApplication(ctx context.Context, appId string) ApiReplaceApplicationRequest
 
@@ -154,9 +153,9 @@ You can either create an OIN app instance or a custom app instance:
 type ApplicationAPIService service
 
 type ApiActivateApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationAPI
-	appId string
+	appId      string
 	retryCount int32
 }
 
@@ -169,15 +168,15 @@ ActivateApplication Activate an application
 
 Activates an inactive application
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiActivateApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiActivateApplicationRequest
 */
 func (a *ApplicationAPIService) ActivateApplication(ctx context.Context, appId string) ApiActivateApplicationRequest {
 	return ApiActivateApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -190,7 +189,7 @@ func (a *ApplicationAPIService) ActivateApplicationExecute(r ApiActivateApplicat
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -251,9 +250,9 @@ func (a *ApplicationAPIService) ActivateApplicationExecute(r ApiActivateApplicat
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -307,12 +306,12 @@ func (a *ApplicationAPIService) ActivateApplicationExecute(r ApiActivateApplicat
 }
 
 type ApiCreateApplicationRequest struct {
-	ctx context.Context
-	ApiService ApplicationAPI
-	application *ListApplications200ResponseInner
-	activate *bool
+	ctx                    context.Context
+	ApiService             ApplicationAPI
+	application            *ListApplications200ResponseInner
+	activate               *bool
 	oktaAccessGatewayAgent *string
-	retryCount int32
+	retryCount             int32
 }
 
 func (r ApiCreateApplicationRequest) Application(application ListApplications200ResponseInner) ApiCreateApplicationRequest {
@@ -344,20 +343,20 @@ You can either create an OIN app instance or a custom app instance:
 * OIN app instances have prescribed `name` (key app definition) and `signOnMode` options. See the [OIN schemas](/openapi/okta-management/management/tag/Application/#tag/Application/schema/GoogleApplication) for the request body.
 * For custom app instances, select the [signOnMode](/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication!path=0/signOnMode&t=request) that pertains to your app and specify the required parameters in the request body.
 
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateApplicationRequest
 */
 func (a *ApplicationAPIService) CreateApplication(ctx context.Context) ApiCreateApplicationRequest {
 	return ApiCreateApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListApplications200ResponseInner
+//
+//	@return ListApplications200ResponseInner
 func (a *ApplicationAPIService) CreateApplicationExecute(r ApiCreateApplicationRequest) (*ListApplications200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -366,7 +365,7 @@ func (a *ApplicationAPIService) CreateApplicationExecute(r ApiCreateApplicationR
 		localVarReturnValue  *ListApplications200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -437,9 +436,9 @@ func (a *ApplicationAPIService) CreateApplicationExecute(r ApiCreateApplicationR
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -497,15 +496,15 @@ func (a *ApplicationAPIService) CreateApplicationExecute(r ApiCreateApplicationR
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeactivateApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationAPI
-	appId string
+	appId      string
 	retryCount int32
 }
 
@@ -516,19 +515,19 @@ func (r ApiDeactivateApplicationRequest) Execute() (*APIResponse, error) {
 /*
 DeactivateApplication Deactivate an application
 
-Deactivates an active application
+# Deactivates an active application
 
 > **Note:** Deactivating an app triggers a full reconciliation of all users assigned to the app by groups. This reconcile process removes the app assignment for the deactivated app, and might also correct assignments that were supposed to be removed but failed previously.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiDeactivateApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiDeactivateApplicationRequest
 */
 func (a *ApplicationAPIService) DeactivateApplication(ctx context.Context, appId string) ApiDeactivateApplicationRequest {
 	return ApiDeactivateApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -541,7 +540,7 @@ func (a *ApplicationAPIService) DeactivateApplicationExecute(r ApiDeactivateAppl
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -602,9 +601,9 @@ func (a *ApplicationAPIService) DeactivateApplicationExecute(r ApiDeactivateAppl
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -658,9 +657,9 @@ func (a *ApplicationAPIService) DeactivateApplicationExecute(r ApiDeactivateAppl
 }
 
 type ApiDeleteApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationAPI
-	appId string
+	appId      string
 	retryCount int32
 }
 
@@ -673,15 +672,15 @@ DeleteApplication Delete an application
 
 Deletes an inactive application
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiDeleteApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiDeleteApplicationRequest
 */
 func (a *ApplicationAPIService) DeleteApplication(ctx context.Context, appId string) ApiDeleteApplicationRequest {
 	return ApiDeleteApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -694,7 +693,7 @@ func (a *ApplicationAPIService) DeleteApplicationExecute(r ApiDeleteApplicationR
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -755,9 +754,9 @@ func (a *ApplicationAPIService) DeleteApplicationExecute(r ApiDeleteApplicationR
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -811,10 +810,10 @@ func (a *ApplicationAPIService) DeleteApplicationExecute(r ApiDeleteApplicationR
 }
 
 type ApiGetApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationAPI
-	appId string
-	expand *string
+	appId      string
+	expand     *string
 	retryCount int32
 }
 
@@ -833,21 +832,22 @@ GetApplication Retrieve an application
 
 Retrieves an application from your Okta organization by `id`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiGetApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiGetApplicationRequest
 */
 func (a *ApplicationAPIService) GetApplication(ctx context.Context, appId string) ApiGetApplicationRequest {
 	return ApiGetApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListApplications200ResponseInner
+//
+//	@return ListApplications200ResponseInner
 func (a *ApplicationAPIService) GetApplicationExecute(r ApiGetApplicationRequest) (*ListApplications200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -856,7 +856,7 @@ func (a *ApplicationAPIService) GetApplicationExecute(r ApiGetApplicationRequest
 		localVarReturnValue  *ListApplications200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -920,9 +920,9 @@ func (a *ApplicationAPIService) GetApplicationExecute(r ApiGetApplicationRequest
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -980,22 +980,22 @@ func (a *ApplicationAPIService) GetApplicationExecute(r ApiGetApplicationRequest
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListApplicationsRequest struct {
-	ctx context.Context
-	ApiService ApplicationAPI
-	q *string
-	after *string
-	useOptimization *bool
-	limit *int32
-	filter *string
-	expand *string
+	ctx               context.Context
+	ApiService        ApplicationAPI
+	q                 *string
+	after             *string
+	useOptimization   *bool
+	limit             *int32
+	filter            *string
+	expand            *string
 	includeNonDeleted *bool
-	retryCount int32
+	retryCount        int32
 }
 
 // Searches for apps with &#x60;name&#x60; or &#x60;label&#x60; properties that starts with the &#x60;q&#x60; value using the &#x60;startsWith&#x60; operation
@@ -1051,19 +1051,20 @@ Lists all apps in the org with pagination. A subset of apps can be returned that
 
 > **Note:** To list all of a member's assigned app links, use the [List all assigned app links endpoint in the User Resources API](/openapi/okta-management/management/tag/UserResources/#tag/UserResources/operation/listAppLinks).
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListApplicationsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListApplicationsRequest
 */
 func (a *ApplicationAPIService) ListApplications(ctx context.Context) ApiListApplicationsRequest {
 	return ApiListApplicationsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []ListApplications200ResponseInner
+//
+//	@return []ListApplications200ResponseInner
 func (a *ApplicationAPIService) ListApplicationsExecute(r ApiListApplicationsRequest) ([]ListApplications200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1072,7 +1073,7 @@ func (a *ApplicationAPIService) ListApplicationsExecute(r ApiListApplicationsReq
 		localVarReturnValue  []ListApplications200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1153,9 +1154,9 @@ func (a *ApplicationAPIService) ListApplicationsExecute(r ApiListApplicationsReq
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1201,17 +1202,17 @@ func (a *ApplicationAPIService) ListApplicationsExecute(r ApiListApplicationsReq
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceApplicationRequest struct {
-	ctx context.Context
-	ApiService ApplicationAPI
-	appId string
+	ctx         context.Context
+	ApiService  ApplicationAPI
+	appId       string
 	application *ListApplications200ResponseInner
-	retryCount int32
+	retryCount  int32
 }
 
 func (r ApiReplaceApplicationRequest) Application(application ListApplications200ResponseInner) ApiReplaceApplicationRequest {
@@ -1231,22 +1232,22 @@ Replaces properties for an application
 > * All required properties must be specified in the request body
 > * You can't modify system-assigned properties, such as `id`, `name`, `status`, `created`, and `lastUpdated`. The values for these properties in the PUT request body are ignored.
 
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiReplaceApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiReplaceApplicationRequest
 */
 func (a *ApplicationAPIService) ReplaceApplication(ctx context.Context, appId string) ApiReplaceApplicationRequest {
 	return ApiReplaceApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListApplications200ResponseInner
+//
+//	@return ListApplications200ResponseInner
 func (a *ApplicationAPIService) ReplaceApplicationExecute(r ApiReplaceApplicationRequest) (*ListApplications200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -1255,7 +1256,7 @@ func (a *ApplicationAPIService) ReplaceApplicationExecute(r ApiReplaceApplicatio
 		localVarReturnValue  *ListApplications200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1321,9 +1322,9 @@ func (a *ApplicationAPIService) ReplaceApplicationExecute(r ApiReplaceApplicatio
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1393,7 +1394,7 @@ func (a *ApplicationAPIService) ReplaceApplicationExecute(r ApiReplaceApplicatio
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

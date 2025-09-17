@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthenticatorMethodTac type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorMethodTac{}
+
 // AuthenticatorMethodTac struct for AuthenticatorMethodTac
 type AuthenticatorMethodTac struct {
 	Status *string `json:"status,omitempty"`
 	// The type of authenticator method
-	Type *string `json:"type,omitempty"`
-	Links *LinksSelfAndLifecycle `json:"_links,omitempty"`
+	Type                 *string                `json:"type,omitempty"`
+	Links                *LinksSelfAndLifecycle `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewAuthenticatorMethodTacWithDefaults() *AuthenticatorMethodTac {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *AuthenticatorMethodTac) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *AuthenticatorMethodTac) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorMethodTac) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -75,7 +78,7 @@ func (o *AuthenticatorMethodTac) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *AuthenticatorMethodTac) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *AuthenticatorMethodTac) SetStatus(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *AuthenticatorMethodTac) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *AuthenticatorMethodTac) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorMethodTac) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -107,7 +110,7 @@ func (o *AuthenticatorMethodTac) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *AuthenticatorMethodTac) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -121,7 +124,7 @@ func (o *AuthenticatorMethodTac) SetType(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *AuthenticatorMethodTac) GetLinks() LinksSelfAndLifecycle {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksSelfAndLifecycle
 		return ret
 	}
@@ -131,7 +134,7 @@ func (o *AuthenticatorMethodTac) GetLinks() LinksSelfAndLifecycle {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorMethodTac) GetLinksOk() (*LinksSelfAndLifecycle, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -139,7 +142,7 @@ func (o *AuthenticatorMethodTac) GetLinksOk() (*LinksSelfAndLifecycle, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *AuthenticatorMethodTac) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -152,14 +155,22 @@ func (o *AuthenticatorMethodTac) SetLinks(v LinksSelfAndLifecycle) {
 }
 
 func (o AuthenticatorMethodTac) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorMethodTac) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -167,29 +178,27 @@ func (o AuthenticatorMethodTac) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorMethodTac) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorMethodTac) UnmarshalJSON(data []byte) (err error) {
 	varAuthenticatorMethodTac := _AuthenticatorMethodTac{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorMethodTac)
-	if err == nil {
-		*o = AuthenticatorMethodTac(varAuthenticatorMethodTac)
-	} else {
+	err = json.Unmarshal(data, &varAuthenticatorMethodTac)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthenticatorMethodTac(varAuthenticatorMethodTac)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -230,4 +239,3 @@ func (v *NullableAuthenticatorMethodTac) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

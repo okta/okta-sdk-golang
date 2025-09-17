@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the FCMConfiguration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FCMConfiguration{}
+
 // FCMConfiguration struct for FCMConfiguration
 type FCMConfiguration struct {
 	// (Optional) File name for Admin Console display
@@ -34,7 +37,7 @@ type FCMConfiguration struct {
 	// Project ID of FCM configuration
 	ProjectId *string `json:"projectId,omitempty"`
 	// JSON containing the private service account key and service account details. See [Creating and managing service account keys](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) for more information on creating service account keys in JSON.
-	ServiceAccountJson map[string]interface{} `json:"serviceAccountJson,omitempty"`
+	ServiceAccountJson   map[string]interface{} `json:"serviceAccountJson,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewFCMConfigurationWithDefaults() *FCMConfiguration {
 
 // GetFileName returns the FileName field value if set, zero value otherwise.
 func (o *FCMConfiguration) GetFileName() string {
-	if o == nil || o.FileName == nil {
+	if o == nil || IsNil(o.FileName) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *FCMConfiguration) GetFileName() string {
 // GetFileNameOk returns a tuple with the FileName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FCMConfiguration) GetFileNameOk() (*string, bool) {
-	if o == nil || o.FileName == nil {
+	if o == nil || IsNil(o.FileName) {
 		return nil, false
 	}
 	return o.FileName, true
@@ -77,7 +80,7 @@ func (o *FCMConfiguration) GetFileNameOk() (*string, bool) {
 
 // HasFileName returns a boolean if a field has been set.
 func (o *FCMConfiguration) HasFileName() bool {
-	if o != nil && o.FileName != nil {
+	if o != nil && !IsNil(o.FileName) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *FCMConfiguration) SetFileName(v string) {
 
 // GetProjectId returns the ProjectId field value if set, zero value otherwise.
 func (o *FCMConfiguration) GetProjectId() string {
-	if o == nil || o.ProjectId == nil {
+	if o == nil || IsNil(o.ProjectId) {
 		var ret string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *FCMConfiguration) GetProjectId() string {
 // GetProjectIdOk returns a tuple with the ProjectId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FCMConfiguration) GetProjectIdOk() (*string, bool) {
-	if o == nil || o.ProjectId == nil {
+	if o == nil || IsNil(o.ProjectId) {
 		return nil, false
 	}
 	return o.ProjectId, true
@@ -109,7 +112,7 @@ func (o *FCMConfiguration) GetProjectIdOk() (*string, bool) {
 
 // HasProjectId returns a boolean if a field has been set.
 func (o *FCMConfiguration) HasProjectId() bool {
-	if o != nil && o.ProjectId != nil {
+	if o != nil && !IsNil(o.ProjectId) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *FCMConfiguration) SetProjectId(v string) {
 
 // GetServiceAccountJson returns the ServiceAccountJson field value if set, zero value otherwise.
 func (o *FCMConfiguration) GetServiceAccountJson() map[string]interface{} {
-	if o == nil || o.ServiceAccountJson == nil {
+	if o == nil || IsNil(o.ServiceAccountJson) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -133,15 +136,15 @@ func (o *FCMConfiguration) GetServiceAccountJson() map[string]interface{} {
 // GetServiceAccountJsonOk returns a tuple with the ServiceAccountJson field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FCMConfiguration) GetServiceAccountJsonOk() (map[string]interface{}, bool) {
-	if o == nil || o.ServiceAccountJson == nil {
-		return nil, false
+	if o == nil || IsNil(o.ServiceAccountJson) {
+		return map[string]interface{}{}, false
 	}
 	return o.ServiceAccountJson, true
 }
 
 // HasServiceAccountJson returns a boolean if a field has been set.
 func (o *FCMConfiguration) HasServiceAccountJson() bool {
-	if o != nil && o.ServiceAccountJson != nil {
+	if o != nil && !IsNil(o.ServiceAccountJson) {
 		return true
 	}
 
@@ -154,14 +157,22 @@ func (o *FCMConfiguration) SetServiceAccountJson(v map[string]interface{}) {
 }
 
 func (o FCMConfiguration) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o FCMConfiguration) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.FileName != nil {
+	if !IsNil(o.FileName) {
 		toSerialize["fileName"] = o.FileName
 	}
-	if o.ProjectId != nil {
+	if !IsNil(o.ProjectId) {
 		toSerialize["projectId"] = o.ProjectId
 	}
-	if o.ServiceAccountJson != nil {
+	if !IsNil(o.ServiceAccountJson) {
 		toSerialize["serviceAccountJson"] = o.ServiceAccountJson
 	}
 
@@ -169,29 +180,27 @@ func (o FCMConfiguration) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *FCMConfiguration) UnmarshalJSON(bytes []byte) (err error) {
+func (o *FCMConfiguration) UnmarshalJSON(data []byte) (err error) {
 	varFCMConfiguration := _FCMConfiguration{}
 
-	err = json.Unmarshal(bytes, &varFCMConfiguration)
-	if err == nil {
-		*o = FCMConfiguration(varFCMConfiguration)
-	} else {
+	err = json.Unmarshal(data, &varFCMConfiguration)
+
+	if err != nil {
 		return err
 	}
 
+	*o = FCMConfiguration(varFCMConfiguration)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "fileName")
 		delete(additionalProperties, "projectId")
 		delete(additionalProperties, "serviceAccountJson")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -232,4 +241,3 @@ func (v *NullableFCMConfiguration) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

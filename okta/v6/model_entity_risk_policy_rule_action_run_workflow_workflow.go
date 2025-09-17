@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the EntityRiskPolicyRuleActionRunWorkflowWorkflow type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EntityRiskPolicyRuleActionRunWorkflowWorkflow{}
+
 // EntityRiskPolicyRuleActionRunWorkflowWorkflow This action runs a workflow
 type EntityRiskPolicyRuleActionRunWorkflowWorkflow struct {
 	// The `id` of the workflow that runs.
-	Id *int32 `json:"id,omitempty"`
+	Id                   *int32 `json:"id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewEntityRiskPolicyRuleActionRunWorkflowWorkflowWithDefaults() *EntityRiskP
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *EntityRiskPolicyRuleActionRunWorkflowWorkflow) GetId() int32 {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret int32
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *EntityRiskPolicyRuleActionRunWorkflowWorkflow) GetId() int32 {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntityRiskPolicyRuleActionRunWorkflowWorkflow) GetIdOk() (*int32, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -73,7 +76,7 @@ func (o *EntityRiskPolicyRuleActionRunWorkflowWorkflow) GetIdOk() (*int32, bool)
 
 // HasId returns a boolean if a field has been set.
 func (o *EntityRiskPolicyRuleActionRunWorkflowWorkflow) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *EntityRiskPolicyRuleActionRunWorkflowWorkflow) SetId(v int32) {
 }
 
 func (o EntityRiskPolicyRuleActionRunWorkflowWorkflow) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EntityRiskPolicyRuleActionRunWorkflowWorkflow) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
 
@@ -95,27 +106,25 @@ func (o EntityRiskPolicyRuleActionRunWorkflowWorkflow) MarshalJSON() ([]byte, er
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EntityRiskPolicyRuleActionRunWorkflowWorkflow) UnmarshalJSON(bytes []byte) (err error) {
+func (o *EntityRiskPolicyRuleActionRunWorkflowWorkflow) UnmarshalJSON(data []byte) (err error) {
 	varEntityRiskPolicyRuleActionRunWorkflowWorkflow := _EntityRiskPolicyRuleActionRunWorkflowWorkflow{}
 
-	err = json.Unmarshal(bytes, &varEntityRiskPolicyRuleActionRunWorkflowWorkflow)
-	if err == nil {
-		*o = EntityRiskPolicyRuleActionRunWorkflowWorkflow(varEntityRiskPolicyRuleActionRunWorkflowWorkflow)
-	} else {
+	err = json.Unmarshal(data, &varEntityRiskPolicyRuleActionRunWorkflowWorkflow)
+
+	if err != nil {
 		return err
 	}
 
+	*o = EntityRiskPolicyRuleActionRunWorkflowWorkflow(varEntityRiskPolicyRuleActionRunWorkflowWorkflow)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableEntityRiskPolicyRuleActionRunWorkflowWorkflow) UnmarshalJSON(sr
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

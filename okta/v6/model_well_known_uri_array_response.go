@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the WellKnownURIArrayResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WellKnownURIArrayResponse{}
+
 // WellKnownURIArrayResponse struct for WellKnownURIArrayResponse
 type WellKnownURIArrayResponse struct {
 	// The well-known URI content in a JSON array of objects format
-	Representation []string `json:"representation,omitempty"`
-	Links *WellKnownURIArrayResponseLinks `json:"_links,omitempty"`
+	Representation       []string                        `json:"representation,omitempty"`
+	Links                *WellKnownURIArrayResponseLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewWellKnownURIArrayResponseWithDefaults() *WellKnownURIArrayResponse {
 
 // GetRepresentation returns the Representation field value if set, zero value otherwise.
 func (o *WellKnownURIArrayResponse) GetRepresentation() []string {
-	if o == nil || o.Representation == nil {
+	if o == nil || IsNil(o.Representation) {
 		var ret []string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *WellKnownURIArrayResponse) GetRepresentation() []string {
 // GetRepresentationOk returns a tuple with the Representation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownURIArrayResponse) GetRepresentationOk() ([]string, bool) {
-	if o == nil || o.Representation == nil {
+	if o == nil || IsNil(o.Representation) {
 		return nil, false
 	}
 	return o.Representation, true
@@ -74,7 +77,7 @@ func (o *WellKnownURIArrayResponse) GetRepresentationOk() ([]string, bool) {
 
 // HasRepresentation returns a boolean if a field has been set.
 func (o *WellKnownURIArrayResponse) HasRepresentation() bool {
-	if o != nil && o.Representation != nil {
+	if o != nil && !IsNil(o.Representation) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *WellKnownURIArrayResponse) SetRepresentation(v []string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *WellKnownURIArrayResponse) GetLinks() WellKnownURIArrayResponseLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret WellKnownURIArrayResponseLinks
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *WellKnownURIArrayResponse) GetLinks() WellKnownURIArrayResponseLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownURIArrayResponse) GetLinksOk() (*WellKnownURIArrayResponseLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -106,7 +109,7 @@ func (o *WellKnownURIArrayResponse) GetLinksOk() (*WellKnownURIArrayResponseLink
 
 // HasLinks returns a boolean if a field has been set.
 func (o *WellKnownURIArrayResponse) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *WellKnownURIArrayResponse) SetLinks(v WellKnownURIArrayResponseLinks) {
 }
 
 func (o WellKnownURIArrayResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o WellKnownURIArrayResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Representation != nil {
+	if !IsNil(o.Representation) {
 		toSerialize["representation"] = o.Representation
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -131,28 +142,26 @@ func (o WellKnownURIArrayResponse) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *WellKnownURIArrayResponse) UnmarshalJSON(bytes []byte) (err error) {
+func (o *WellKnownURIArrayResponse) UnmarshalJSON(data []byte) (err error) {
 	varWellKnownURIArrayResponse := _WellKnownURIArrayResponse{}
 
-	err = json.Unmarshal(bytes, &varWellKnownURIArrayResponse)
-	if err == nil {
-		*o = WellKnownURIArrayResponse(varWellKnownURIArrayResponse)
-	} else {
+	err = json.Unmarshal(data, &varWellKnownURIArrayResponse)
+
+	if err != nil {
 		return err
 	}
 
+	*o = WellKnownURIArrayResponse(varWellKnownURIArrayResponse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "representation")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableWellKnownURIArrayResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

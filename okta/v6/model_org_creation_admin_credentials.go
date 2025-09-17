@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the OrgCreationAdminCredentials type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrgCreationAdminCredentials{}
+
 // OrgCreationAdminCredentials Specifies primary authentication and recovery credentials for a user. Credential types and requirements vary depending on the provider and security policy of the org.
 type OrgCreationAdminCredentials struct {
-	Password *OrgCreationAdminCredentialsPassword `json:"password,omitempty"`
-	RecoveryQuestion *RecoveryQuestionCredential `json:"recovery_question,omitempty"`
+	Password             *OrgCreationAdminCredentialsPassword `json:"password,omitempty"`
+	RecoveryQuestion     *RecoveryQuestionCredential          `json:"recovery_question,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewOrgCreationAdminCredentialsWithDefaults() *OrgCreationAdminCredentials {
 
 // GetPassword returns the Password field value if set, zero value otherwise.
 func (o *OrgCreationAdminCredentials) GetPassword() OrgCreationAdminCredentialsPassword {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		var ret OrgCreationAdminCredentialsPassword
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *OrgCreationAdminCredentials) GetPassword() OrgCreationAdminCredentialsP
 // GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgCreationAdminCredentials) GetPasswordOk() (*OrgCreationAdminCredentialsPassword, bool) {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		return nil, false
 	}
 	return o.Password, true
@@ -73,7 +76,7 @@ func (o *OrgCreationAdminCredentials) GetPasswordOk() (*OrgCreationAdminCredenti
 
 // HasPassword returns a boolean if a field has been set.
 func (o *OrgCreationAdminCredentials) HasPassword() bool {
-	if o != nil && o.Password != nil {
+	if o != nil && !IsNil(o.Password) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *OrgCreationAdminCredentials) SetPassword(v OrgCreationAdminCredentialsP
 
 // GetRecoveryQuestion returns the RecoveryQuestion field value if set, zero value otherwise.
 func (o *OrgCreationAdminCredentials) GetRecoveryQuestion() RecoveryQuestionCredential {
-	if o == nil || o.RecoveryQuestion == nil {
+	if o == nil || IsNil(o.RecoveryQuestion) {
 		var ret RecoveryQuestionCredential
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *OrgCreationAdminCredentials) GetRecoveryQuestion() RecoveryQuestionCred
 // GetRecoveryQuestionOk returns a tuple with the RecoveryQuestion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgCreationAdminCredentials) GetRecoveryQuestionOk() (*RecoveryQuestionCredential, bool) {
-	if o == nil || o.RecoveryQuestion == nil {
+	if o == nil || IsNil(o.RecoveryQuestion) {
 		return nil, false
 	}
 	return o.RecoveryQuestion, true
@@ -105,7 +108,7 @@ func (o *OrgCreationAdminCredentials) GetRecoveryQuestionOk() (*RecoveryQuestion
 
 // HasRecoveryQuestion returns a boolean if a field has been set.
 func (o *OrgCreationAdminCredentials) HasRecoveryQuestion() bool {
-	if o != nil && o.RecoveryQuestion != nil {
+	if o != nil && !IsNil(o.RecoveryQuestion) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *OrgCreationAdminCredentials) SetRecoveryQuestion(v RecoveryQuestionCred
 }
 
 func (o OrgCreationAdminCredentials) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OrgCreationAdminCredentials) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Password != nil {
+	if !IsNil(o.Password) {
 		toSerialize["password"] = o.Password
 	}
-	if o.RecoveryQuestion != nil {
+	if !IsNil(o.RecoveryQuestion) {
 		toSerialize["recovery_question"] = o.RecoveryQuestion
 	}
 
@@ -130,28 +141,26 @@ func (o OrgCreationAdminCredentials) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OrgCreationAdminCredentials) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OrgCreationAdminCredentials) UnmarshalJSON(data []byte) (err error) {
 	varOrgCreationAdminCredentials := _OrgCreationAdminCredentials{}
 
-	err = json.Unmarshal(bytes, &varOrgCreationAdminCredentials)
-	if err == nil {
-		*o = OrgCreationAdminCredentials(varOrgCreationAdminCredentials)
-	} else {
+	err = json.Unmarshal(data, &varOrgCreationAdminCredentials)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OrgCreationAdminCredentials(varOrgCreationAdminCredentials)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "password")
 		delete(additionalProperties, "recovery_question")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableOrgCreationAdminCredentials) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

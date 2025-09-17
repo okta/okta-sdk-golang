@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,24 +26,23 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type UserAuthenticatorEnrollmentsAPI interface {
 
 	/*
-	CreateAuthenticatorEnrollment Create an auto-activated Phone authenticator enrollment
+		CreateAuthenticatorEnrollment Create an auto-activated Phone authenticator enrollment
 
-	Creates a Phone authenticator enrollment that's automatically activated
+		Creates a Phone authenticator enrollment that's automatically activated
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiCreateAuthenticatorEnrollmentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiCreateAuthenticatorEnrollmentRequest
 	*/
 	CreateAuthenticatorEnrollment(ctx context.Context, userId string) ApiCreateAuthenticatorEnrollmentRequest
 
@@ -52,13 +51,13 @@ type UserAuthenticatorEnrollmentsAPI interface {
 	CreateAuthenticatorEnrollmentExecute(r ApiCreateAuthenticatorEnrollmentRequest) (*AuthenticatorEnrollment, *APIResponse, error)
 
 	/*
-	CreateTacAuthenticatorEnrollment Create an auto-activated TAC authenticator enrollment
+		CreateTacAuthenticatorEnrollment Create an auto-activated TAC authenticator enrollment
 
-	Creates an auto-activated Temporary access code (TAC) authenticator enrollment
+		Creates an auto-activated Temporary access code (TAC) authenticator enrollment
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiCreateTacAuthenticatorEnrollmentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiCreateTacAuthenticatorEnrollmentRequest
 	*/
 	CreateTacAuthenticatorEnrollment(ctx context.Context, userId string) ApiCreateTacAuthenticatorEnrollmentRequest
 
@@ -67,14 +66,14 @@ type UserAuthenticatorEnrollmentsAPI interface {
 	CreateTacAuthenticatorEnrollmentExecute(r ApiCreateTacAuthenticatorEnrollmentRequest) (*TacAuthenticatorEnrollment, *APIResponse, error)
 
 	/*
-	DeleteAuthenticatorEnrollment Delete an authenticator enrollment
+		DeleteAuthenticatorEnrollment Delete an authenticator enrollment
 
-	Deletes an existing enrollment for the specified user. The user can enroll the authenticator again.
+		Deletes an existing enrollment for the specified user. The user can enroll the authenticator again.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param enrollmentId Unique identifier of an enrollment
-	@return ApiDeleteAuthenticatorEnrollmentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param enrollmentId Unique identifier of an enrollment
+		@return ApiDeleteAuthenticatorEnrollmentRequest
 	*/
 	DeleteAuthenticatorEnrollment(ctx context.Context, userId string, enrollmentId string) ApiDeleteAuthenticatorEnrollmentRequest
 
@@ -82,14 +81,14 @@ type UserAuthenticatorEnrollmentsAPI interface {
 	DeleteAuthenticatorEnrollmentExecute(r ApiDeleteAuthenticatorEnrollmentRequest) (*APIResponse, error)
 
 	/*
-	GetAuthenticatorEnrollment Retrieve an authenticator enrollment
+		GetAuthenticatorEnrollment Retrieve an authenticator enrollment
 
-	Retrieves a user's authenticator enrollment by `enrollmentId`
+		Retrieves a user's authenticator enrollment by `enrollmentId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param enrollmentId Unique identifier of an enrollment
-	@return ApiGetAuthenticatorEnrollmentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param enrollmentId Unique identifier of an enrollment
+		@return ApiGetAuthenticatorEnrollmentRequest
 	*/
 	GetAuthenticatorEnrollment(ctx context.Context, userId string, enrollmentId string) ApiGetAuthenticatorEnrollmentRequest
 
@@ -98,13 +97,13 @@ type UserAuthenticatorEnrollmentsAPI interface {
 	GetAuthenticatorEnrollmentExecute(r ApiGetAuthenticatorEnrollmentRequest) (*AuthenticatorEnrollment, *APIResponse, error)
 
 	/*
-	ListAuthenticatorEnrollments List all authenticator enrollments
+		ListAuthenticatorEnrollments List all authenticator enrollments
 
-	Lists all authenticator enrollments of the specified user
+		Lists all authenticator enrollments of the specified user
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiListAuthenticatorEnrollmentsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiListAuthenticatorEnrollmentsRequest
 	*/
 	ListAuthenticatorEnrollments(ctx context.Context, userId string) ApiListAuthenticatorEnrollmentsRequest
 
@@ -117,11 +116,11 @@ type UserAuthenticatorEnrollmentsAPI interface {
 type UserAuthenticatorEnrollmentsAPIService service
 
 type ApiCreateAuthenticatorEnrollmentRequest struct {
-	ctx context.Context
-	ApiService UserAuthenticatorEnrollmentsAPI
-	userId string
+	ctx           context.Context
+	ApiService    UserAuthenticatorEnrollmentsAPI
+	userId        string
 	authenticator *AuthenticatorEnrollmentCreateRequest
-	retryCount int32
+	retryCount    int32
 }
 
 func (r ApiCreateAuthenticatorEnrollmentRequest) Authenticator(authenticator AuthenticatorEnrollmentCreateRequest) ApiCreateAuthenticatorEnrollmentRequest {
@@ -138,21 +137,22 @@ CreateAuthenticatorEnrollment Create an auto-activated Phone authenticator enrol
 
 Creates a Phone authenticator enrollment that's automatically activated
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiCreateAuthenticatorEnrollmentRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiCreateAuthenticatorEnrollmentRequest
 */
 func (a *UserAuthenticatorEnrollmentsAPIService) CreateAuthenticatorEnrollment(ctx context.Context, userId string) ApiCreateAuthenticatorEnrollmentRequest {
 	return ApiCreateAuthenticatorEnrollmentRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return AuthenticatorEnrollment
+//
+//	@return AuthenticatorEnrollment
 func (a *UserAuthenticatorEnrollmentsAPIService) CreateAuthenticatorEnrollmentExecute(r ApiCreateAuthenticatorEnrollmentRequest) (*AuthenticatorEnrollment, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -161,7 +161,7 @@ func (a *UserAuthenticatorEnrollmentsAPIService) CreateAuthenticatorEnrollmentEx
 		localVarReturnValue  *AuthenticatorEnrollment
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -227,9 +227,9 @@ func (a *UserAuthenticatorEnrollmentsAPIService) CreateAuthenticatorEnrollmentEx
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -287,17 +287,17 @@ func (a *UserAuthenticatorEnrollmentsAPIService) CreateAuthenticatorEnrollmentEx
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiCreateTacAuthenticatorEnrollmentRequest struct {
-	ctx context.Context
-	ApiService UserAuthenticatorEnrollmentsAPI
-	userId string
+	ctx           context.Context
+	ApiService    UserAuthenticatorEnrollmentsAPI
+	userId        string
 	authenticator *AuthenticatorEnrollmentCreateRequestTac
-	retryCount int32
+	retryCount    int32
 }
 
 func (r ApiCreateTacAuthenticatorEnrollmentRequest) Authenticator(authenticator AuthenticatorEnrollmentCreateRequestTac) ApiCreateTacAuthenticatorEnrollmentRequest {
@@ -314,21 +314,22 @@ CreateTacAuthenticatorEnrollment Create an auto-activated TAC authenticator enro
 
 Creates an auto-activated Temporary access code (TAC) authenticator enrollment
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiCreateTacAuthenticatorEnrollmentRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiCreateTacAuthenticatorEnrollmentRequest
 */
 func (a *UserAuthenticatorEnrollmentsAPIService) CreateTacAuthenticatorEnrollment(ctx context.Context, userId string) ApiCreateTacAuthenticatorEnrollmentRequest {
 	return ApiCreateTacAuthenticatorEnrollmentRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return TacAuthenticatorEnrollment
+//
+//	@return TacAuthenticatorEnrollment
 func (a *UserAuthenticatorEnrollmentsAPIService) CreateTacAuthenticatorEnrollmentExecute(r ApiCreateTacAuthenticatorEnrollmentRequest) (*TacAuthenticatorEnrollment, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -337,7 +338,7 @@ func (a *UserAuthenticatorEnrollmentsAPIService) CreateTacAuthenticatorEnrollmen
 		localVarReturnValue  *TacAuthenticatorEnrollment
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -403,9 +404,9 @@ func (a *UserAuthenticatorEnrollmentsAPIService) CreateTacAuthenticatorEnrollmen
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -463,17 +464,17 @@ func (a *UserAuthenticatorEnrollmentsAPIService) CreateTacAuthenticatorEnrollmen
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteAuthenticatorEnrollmentRequest struct {
-	ctx context.Context
-	ApiService UserAuthenticatorEnrollmentsAPI
-	userId string
+	ctx          context.Context
+	ApiService   UserAuthenticatorEnrollmentsAPI
+	userId       string
 	enrollmentId string
-	retryCount int32
+	retryCount   int32
 }
 
 func (r ApiDeleteAuthenticatorEnrollmentRequest) Execute() (*APIResponse, error) {
@@ -485,18 +486,18 @@ DeleteAuthenticatorEnrollment Delete an authenticator enrollment
 
 Deletes an existing enrollment for the specified user. The user can enroll the authenticator again.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param enrollmentId Unique identifier of an enrollment
- @return ApiDeleteAuthenticatorEnrollmentRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param enrollmentId Unique identifier of an enrollment
+	@return ApiDeleteAuthenticatorEnrollmentRequest
 */
 func (a *UserAuthenticatorEnrollmentsAPIService) DeleteAuthenticatorEnrollment(ctx context.Context, userId string, enrollmentId string) ApiDeleteAuthenticatorEnrollmentRequest {
 	return ApiDeleteAuthenticatorEnrollmentRequest{
-		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ApiService:   a,
+		ctx:          ctx,
+		userId:       userId,
 		enrollmentId: enrollmentId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -508,7 +509,7 @@ func (a *UserAuthenticatorEnrollmentsAPIService) DeleteAuthenticatorEnrollmentEx
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -570,9 +571,9 @@ func (a *UserAuthenticatorEnrollmentsAPIService) DeleteAuthenticatorEnrollmentEx
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -626,11 +627,11 @@ func (a *UserAuthenticatorEnrollmentsAPIService) DeleteAuthenticatorEnrollmentEx
 }
 
 type ApiGetAuthenticatorEnrollmentRequest struct {
-	ctx context.Context
-	ApiService UserAuthenticatorEnrollmentsAPI
-	userId string
+	ctx          context.Context
+	ApiService   UserAuthenticatorEnrollmentsAPI
+	userId       string
 	enrollmentId string
-	retryCount int32
+	retryCount   int32
 }
 
 func (r ApiGetAuthenticatorEnrollmentRequest) Execute() (*AuthenticatorEnrollment, *APIResponse, error) {
@@ -642,23 +643,24 @@ GetAuthenticatorEnrollment Retrieve an authenticator enrollment
 
 Retrieves a user's authenticator enrollment by `enrollmentId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param enrollmentId Unique identifier of an enrollment
- @return ApiGetAuthenticatorEnrollmentRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param enrollmentId Unique identifier of an enrollment
+	@return ApiGetAuthenticatorEnrollmentRequest
 */
 func (a *UserAuthenticatorEnrollmentsAPIService) GetAuthenticatorEnrollment(ctx context.Context, userId string, enrollmentId string) ApiGetAuthenticatorEnrollmentRequest {
 	return ApiGetAuthenticatorEnrollmentRequest{
-		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ApiService:   a,
+		ctx:          ctx,
+		userId:       userId,
 		enrollmentId: enrollmentId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return AuthenticatorEnrollment
+//
+//	@return AuthenticatorEnrollment
 func (a *UserAuthenticatorEnrollmentsAPIService) GetAuthenticatorEnrollmentExecute(r ApiGetAuthenticatorEnrollmentRequest) (*AuthenticatorEnrollment, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -667,7 +669,7 @@ func (a *UserAuthenticatorEnrollmentsAPIService) GetAuthenticatorEnrollmentExecu
 		localVarReturnValue  *AuthenticatorEnrollment
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -729,9 +731,9 @@ func (a *UserAuthenticatorEnrollmentsAPIService) GetAuthenticatorEnrollmentExecu
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -789,15 +791,15 @@ func (a *UserAuthenticatorEnrollmentsAPIService) GetAuthenticatorEnrollmentExecu
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListAuthenticatorEnrollmentsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAuthenticatorEnrollmentsAPI
-	userId string
+	userId     string
 	retryCount int32
 }
 
@@ -810,21 +812,22 @@ ListAuthenticatorEnrollments List all authenticator enrollments
 
 Lists all authenticator enrollments of the specified user
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiListAuthenticatorEnrollmentsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiListAuthenticatorEnrollmentsRequest
 */
 func (a *UserAuthenticatorEnrollmentsAPIService) ListAuthenticatorEnrollments(ctx context.Context, userId string) ApiListAuthenticatorEnrollmentsRequest {
 	return ApiListAuthenticatorEnrollmentsRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return AuthenticatorEnrollment
+//
+//	@return AuthenticatorEnrollment
 func (a *UserAuthenticatorEnrollmentsAPIService) ListAuthenticatorEnrollmentsExecute(r ApiListAuthenticatorEnrollmentsRequest) (*AuthenticatorEnrollment, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -833,7 +836,7 @@ func (a *UserAuthenticatorEnrollmentsAPIService) ListAuthenticatorEnrollmentsExe
 		localVarReturnValue  *AuthenticatorEnrollment
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -894,9 +897,9 @@ func (a *UserAuthenticatorEnrollmentsAPIService) ListAuthenticatorEnrollmentsExe
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -954,7 +957,7 @@ func (a *UserAuthenticatorEnrollmentsAPIService) ListAuthenticatorEnrollmentsExe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

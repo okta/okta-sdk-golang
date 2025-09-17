@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthenticationMethodChain type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticationMethodChain{}
+
 // AuthenticationMethodChain struct for AuthenticationMethodChain
 type AuthenticationMethodChain struct {
 	AuthenticationMethods []AuthenticationMethod `json:"authenticationMethods,omitempty"`
 	// The next steps of the authentication method chain. This is an array of `AuthenticationMethodChain`. Only supports one item in the array.
 	Next []map[string]interface{} `json:"next,omitempty"`
 	// Specifies how often the user is prompted for authentication using duration format for the time period. For example, `PT2H30M` for two and a half hours. This parameter can't be set at the same time as the `reauthenticateIn` property on the `verificationMethod`.
-	ReauthenticateIn *string `json:"reauthenticateIn,omitempty"`
+	ReauthenticateIn     *string `json:"reauthenticateIn,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewAuthenticationMethodChainWithDefaults() *AuthenticationMethodChain {
 
 // GetAuthenticationMethods returns the AuthenticationMethods field value if set, zero value otherwise.
 func (o *AuthenticationMethodChain) GetAuthenticationMethods() []AuthenticationMethod {
-	if o == nil || o.AuthenticationMethods == nil {
+	if o == nil || IsNil(o.AuthenticationMethods) {
 		var ret []AuthenticationMethod
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *AuthenticationMethodChain) GetAuthenticationMethods() []AuthenticationM
 // GetAuthenticationMethodsOk returns a tuple with the AuthenticationMethods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticationMethodChain) GetAuthenticationMethodsOk() ([]AuthenticationMethod, bool) {
-	if o == nil || o.AuthenticationMethods == nil {
+	if o == nil || IsNil(o.AuthenticationMethods) {
 		return nil, false
 	}
 	return o.AuthenticationMethods, true
@@ -76,7 +79,7 @@ func (o *AuthenticationMethodChain) GetAuthenticationMethodsOk() ([]Authenticati
 
 // HasAuthenticationMethods returns a boolean if a field has been set.
 func (o *AuthenticationMethodChain) HasAuthenticationMethods() bool {
-	if o != nil && o.AuthenticationMethods != nil {
+	if o != nil && !IsNil(o.AuthenticationMethods) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *AuthenticationMethodChain) SetAuthenticationMethods(v []AuthenticationM
 
 // GetNext returns the Next field value if set, zero value otherwise.
 func (o *AuthenticationMethodChain) GetNext() []map[string]interface{} {
-	if o == nil || o.Next == nil {
+	if o == nil || IsNil(o.Next) {
 		var ret []map[string]interface{}
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *AuthenticationMethodChain) GetNext() []map[string]interface{} {
 // GetNextOk returns a tuple with the Next field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticationMethodChain) GetNextOk() ([]map[string]interface{}, bool) {
-	if o == nil || o.Next == nil {
+	if o == nil || IsNil(o.Next) {
 		return nil, false
 	}
 	return o.Next, true
@@ -108,7 +111,7 @@ func (o *AuthenticationMethodChain) GetNextOk() ([]map[string]interface{}, bool)
 
 // HasNext returns a boolean if a field has been set.
 func (o *AuthenticationMethodChain) HasNext() bool {
-	if o != nil && o.Next != nil {
+	if o != nil && !IsNil(o.Next) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *AuthenticationMethodChain) SetNext(v []map[string]interface{}) {
 
 // GetReauthenticateIn returns the ReauthenticateIn field value if set, zero value otherwise.
 func (o *AuthenticationMethodChain) GetReauthenticateIn() string {
-	if o == nil || o.ReauthenticateIn == nil {
+	if o == nil || IsNil(o.ReauthenticateIn) {
 		var ret string
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *AuthenticationMethodChain) GetReauthenticateIn() string {
 // GetReauthenticateInOk returns a tuple with the ReauthenticateIn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticationMethodChain) GetReauthenticateInOk() (*string, bool) {
-	if o == nil || o.ReauthenticateIn == nil {
+	if o == nil || IsNil(o.ReauthenticateIn) {
 		return nil, false
 	}
 	return o.ReauthenticateIn, true
@@ -140,7 +143,7 @@ func (o *AuthenticationMethodChain) GetReauthenticateInOk() (*string, bool) {
 
 // HasReauthenticateIn returns a boolean if a field has been set.
 func (o *AuthenticationMethodChain) HasReauthenticateIn() bool {
-	if o != nil && o.ReauthenticateIn != nil {
+	if o != nil && !IsNil(o.ReauthenticateIn) {
 		return true
 	}
 
@@ -153,14 +156,22 @@ func (o *AuthenticationMethodChain) SetReauthenticateIn(v string) {
 }
 
 func (o AuthenticationMethodChain) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticationMethodChain) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AuthenticationMethods != nil {
+	if !IsNil(o.AuthenticationMethods) {
 		toSerialize["authenticationMethods"] = o.AuthenticationMethods
 	}
-	if o.Next != nil {
+	if !IsNil(o.Next) {
 		toSerialize["next"] = o.Next
 	}
-	if o.ReauthenticateIn != nil {
+	if !IsNil(o.ReauthenticateIn) {
 		toSerialize["reauthenticateIn"] = o.ReauthenticateIn
 	}
 
@@ -168,29 +179,27 @@ func (o AuthenticationMethodChain) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticationMethodChain) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticationMethodChain) UnmarshalJSON(data []byte) (err error) {
 	varAuthenticationMethodChain := _AuthenticationMethodChain{}
 
-	err = json.Unmarshal(bytes, &varAuthenticationMethodChain)
-	if err == nil {
-		*o = AuthenticationMethodChain(varAuthenticationMethodChain)
-	} else {
+	err = json.Unmarshal(data, &varAuthenticationMethodChain)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthenticationMethodChain(varAuthenticationMethodChain)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "authenticationMethods")
 		delete(additionalProperties, "next")
 		delete(additionalProperties, "reauthenticateIn")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -231,4 +240,3 @@ func (v *NullableAuthenticationMethodChain) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

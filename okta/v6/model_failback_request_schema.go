@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the FailbackRequestSchema type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FailbackRequestSchema{}
+
 // FailbackRequestSchema struct for FailbackRequestSchema
 type FailbackRequestSchema struct {
 	// List of Okta domains to failback
-	Domains []string `json:"domains,omitempty"`
+	Domains              []string `json:"domains,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewFailbackRequestSchemaWithDefaults() *FailbackRequestSchema {
 
 // GetDomains returns the Domains field value if set, zero value otherwise.
 func (o *FailbackRequestSchema) GetDomains() []string {
-	if o == nil || o.Domains == nil {
+	if o == nil || IsNil(o.Domains) {
 		var ret []string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *FailbackRequestSchema) GetDomains() []string {
 // GetDomainsOk returns a tuple with the Domains field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FailbackRequestSchema) GetDomainsOk() ([]string, bool) {
-	if o == nil || o.Domains == nil {
+	if o == nil || IsNil(o.Domains) {
 		return nil, false
 	}
 	return o.Domains, true
@@ -73,7 +76,7 @@ func (o *FailbackRequestSchema) GetDomainsOk() ([]string, bool) {
 
 // HasDomains returns a boolean if a field has been set.
 func (o *FailbackRequestSchema) HasDomains() bool {
-	if o != nil && o.Domains != nil {
+	if o != nil && !IsNil(o.Domains) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *FailbackRequestSchema) SetDomains(v []string) {
 }
 
 func (o FailbackRequestSchema) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o FailbackRequestSchema) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Domains != nil {
+	if !IsNil(o.Domains) {
 		toSerialize["domains"] = o.Domains
 	}
 
@@ -95,27 +106,25 @@ func (o FailbackRequestSchema) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *FailbackRequestSchema) UnmarshalJSON(bytes []byte) (err error) {
+func (o *FailbackRequestSchema) UnmarshalJSON(data []byte) (err error) {
 	varFailbackRequestSchema := _FailbackRequestSchema{}
 
-	err = json.Unmarshal(bytes, &varFailbackRequestSchema)
-	if err == nil {
-		*o = FailbackRequestSchema(varFailbackRequestSchema)
-	} else {
+	err = json.Unmarshal(data, &varFailbackRequestSchema)
+
+	if err != nil {
 		return err
 	}
 
+	*o = FailbackRequestSchema(varFailbackRequestSchema)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "domains")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableFailbackRequestSchema) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

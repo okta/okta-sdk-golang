@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 	"fmt"
 )
+
+// checks if the WsFederationApplicationSettingsApplication type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WsFederationApplicationSettingsApplication{}
 
 // WsFederationApplicationSettingsApplication struct for WsFederationApplicationSettingsApplication
 type WsFederationApplicationSettingsApplication struct {
@@ -53,7 +56,7 @@ type WsFederationApplicationSettingsApplication struct {
 	// Enables a web app to override the `wReplyURL` URL with a reply parameter.
 	WReplyOverride *bool `json:"wReplyOverride,omitempty"`
 	// The WS-Fed SP endpoint where your users sign in
-	WReplyURL string `json:"wReplyURL"`
+	WReplyURL            string `json:"wReplyURL"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -85,7 +88,7 @@ func NewWsFederationApplicationSettingsApplicationWithDefaults() *WsFederationAp
 
 // GetAttributeStatements returns the AttributeStatements field value if set, zero value otherwise.
 func (o *WsFederationApplicationSettingsApplication) GetAttributeStatements() string {
-	if o == nil || o.AttributeStatements == nil {
+	if o == nil || IsNil(o.AttributeStatements) {
 		var ret string
 		return ret
 	}
@@ -95,7 +98,7 @@ func (o *WsFederationApplicationSettingsApplication) GetAttributeStatements() st
 // GetAttributeStatementsOk returns a tuple with the AttributeStatements field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WsFederationApplicationSettingsApplication) GetAttributeStatementsOk() (*string, bool) {
-	if o == nil || o.AttributeStatements == nil {
+	if o == nil || IsNil(o.AttributeStatements) {
 		return nil, false
 	}
 	return o.AttributeStatements, true
@@ -103,7 +106,7 @@ func (o *WsFederationApplicationSettingsApplication) GetAttributeStatementsOk() 
 
 // HasAttributeStatements returns a boolean if a field has been set.
 func (o *WsFederationApplicationSettingsApplication) HasAttributeStatements() bool {
-	if o != nil && o.AttributeStatements != nil {
+	if o != nil && !IsNil(o.AttributeStatements) {
 		return true
 	}
 
@@ -165,7 +168,7 @@ func (o *WsFederationApplicationSettingsApplication) SetAuthnContextClassRef(v s
 
 // GetGroupFilter returns the GroupFilter field value if set, zero value otherwise.
 func (o *WsFederationApplicationSettingsApplication) GetGroupFilter() string {
-	if o == nil || o.GroupFilter == nil {
+	if o == nil || IsNil(o.GroupFilter) {
 		var ret string
 		return ret
 	}
@@ -175,7 +178,7 @@ func (o *WsFederationApplicationSettingsApplication) GetGroupFilter() string {
 // GetGroupFilterOk returns a tuple with the GroupFilter field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WsFederationApplicationSettingsApplication) GetGroupFilterOk() (*string, bool) {
-	if o == nil || o.GroupFilter == nil {
+	if o == nil || IsNil(o.GroupFilter) {
 		return nil, false
 	}
 	return o.GroupFilter, true
@@ -183,7 +186,7 @@ func (o *WsFederationApplicationSettingsApplication) GetGroupFilterOk() (*string
 
 // HasGroupFilter returns a boolean if a field has been set.
 func (o *WsFederationApplicationSettingsApplication) HasGroupFilter() bool {
-	if o != nil && o.GroupFilter != nil {
+	if o != nil && !IsNil(o.GroupFilter) {
 		return true
 	}
 
@@ -197,7 +200,7 @@ func (o *WsFederationApplicationSettingsApplication) SetGroupFilter(v string) {
 
 // GetGroupName returns the GroupName field value if set, zero value otherwise.
 func (o *WsFederationApplicationSettingsApplication) GetGroupName() string {
-	if o == nil || o.GroupName == nil {
+	if o == nil || IsNil(o.GroupName) {
 		var ret string
 		return ret
 	}
@@ -207,7 +210,7 @@ func (o *WsFederationApplicationSettingsApplication) GetGroupName() string {
 // GetGroupNameOk returns a tuple with the GroupName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WsFederationApplicationSettingsApplication) GetGroupNameOk() (*string, bool) {
-	if o == nil || o.GroupName == nil {
+	if o == nil || IsNil(o.GroupName) {
 		return nil, false
 	}
 	return o.GroupName, true
@@ -215,7 +218,7 @@ func (o *WsFederationApplicationSettingsApplication) GetGroupNameOk() (*string, 
 
 // HasGroupName returns a boolean if a field has been set.
 func (o *WsFederationApplicationSettingsApplication) HasGroupName() bool {
-	if o != nil && o.GroupName != nil {
+	if o != nil && !IsNil(o.GroupName) {
 		return true
 	}
 
@@ -277,7 +280,7 @@ func (o *WsFederationApplicationSettingsApplication) SetNameIDFormat(v string) {
 
 // GetRealm returns the Realm field value if set, zero value otherwise.
 func (o *WsFederationApplicationSettingsApplication) GetRealm() string {
-	if o == nil || o.Realm == nil {
+	if o == nil || IsNil(o.Realm) {
 		var ret string
 		return ret
 	}
@@ -287,7 +290,7 @@ func (o *WsFederationApplicationSettingsApplication) GetRealm() string {
 // GetRealmOk returns a tuple with the Realm field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WsFederationApplicationSettingsApplication) GetRealmOk() (*string, bool) {
-	if o == nil || o.Realm == nil {
+	if o == nil || IsNil(o.Realm) {
 		return nil, false
 	}
 	return o.Realm, true
@@ -295,7 +298,7 @@ func (o *WsFederationApplicationSettingsApplication) GetRealmOk() (*string, bool
 
 // HasRealm returns a boolean if a field has been set.
 func (o *WsFederationApplicationSettingsApplication) HasRealm() bool {
-	if o != nil && o.Realm != nil {
+	if o != nil && !IsNil(o.Realm) {
 		return true
 	}
 
@@ -357,7 +360,7 @@ func (o *WsFederationApplicationSettingsApplication) SetUsernameAttribute(v stri
 
 // GetWReplyOverride returns the WReplyOverride field value if set, zero value otherwise.
 func (o *WsFederationApplicationSettingsApplication) GetWReplyOverride() bool {
-	if o == nil || o.WReplyOverride == nil {
+	if o == nil || IsNil(o.WReplyOverride) {
 		var ret bool
 		return ret
 	}
@@ -367,7 +370,7 @@ func (o *WsFederationApplicationSettingsApplication) GetWReplyOverride() bool {
 // GetWReplyOverrideOk returns a tuple with the WReplyOverride field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WsFederationApplicationSettingsApplication) GetWReplyOverrideOk() (*bool, bool) {
-	if o == nil || o.WReplyOverride == nil {
+	if o == nil || IsNil(o.WReplyOverride) {
 		return nil, false
 	}
 	return o.WReplyOverride, true
@@ -375,7 +378,7 @@ func (o *WsFederationApplicationSettingsApplication) GetWReplyOverrideOk() (*boo
 
 // HasWReplyOverride returns a boolean if a field has been set.
 func (o *WsFederationApplicationSettingsApplication) HasWReplyOverride() bool {
-	if o != nil && o.WReplyOverride != nil {
+	if o != nil && !IsNil(o.WReplyOverride) {
 		return true
 	}
 
@@ -412,65 +415,86 @@ func (o *WsFederationApplicationSettingsApplication) SetWReplyURL(v string) {
 }
 
 func (o WsFederationApplicationSettingsApplication) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o WsFederationApplicationSettingsApplication) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AttributeStatements != nil {
+	if !IsNil(o.AttributeStatements) {
 		toSerialize["attributeStatements"] = o.AttributeStatements
 	}
-	if true {
-		toSerialize["audienceRestriction"] = o.AudienceRestriction
-	}
-	if true {
-		toSerialize["authnContextClassRef"] = o.AuthnContextClassRef
-	}
-	if o.GroupFilter != nil {
+	toSerialize["audienceRestriction"] = o.AudienceRestriction
+	toSerialize["authnContextClassRef"] = o.AuthnContextClassRef
+	if !IsNil(o.GroupFilter) {
 		toSerialize["groupFilter"] = o.GroupFilter
 	}
-	if o.GroupName != nil {
+	if !IsNil(o.GroupName) {
 		toSerialize["groupName"] = o.GroupName
 	}
-	if true {
-		toSerialize["groupValueFormat"] = o.GroupValueFormat
-	}
-	if true {
-		toSerialize["nameIDFormat"] = o.NameIDFormat
-	}
-	if o.Realm != nil {
+	toSerialize["groupValueFormat"] = o.GroupValueFormat
+	toSerialize["nameIDFormat"] = o.NameIDFormat
+	if !IsNil(o.Realm) {
 		toSerialize["realm"] = o.Realm
 	}
-	if true {
-		toSerialize["siteURL"] = o.SiteURL
-	}
-	if true {
-		toSerialize["usernameAttribute"] = o.UsernameAttribute
-	}
-	if o.WReplyOverride != nil {
+	toSerialize["siteURL"] = o.SiteURL
+	toSerialize["usernameAttribute"] = o.UsernameAttribute
+	if !IsNil(o.WReplyOverride) {
 		toSerialize["wReplyOverride"] = o.WReplyOverride
 	}
-	if true {
-		toSerialize["wReplyURL"] = o.WReplyURL
-	}
+	toSerialize["wReplyURL"] = o.WReplyURL
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *WsFederationApplicationSettingsApplication) UnmarshalJSON(bytes []byte) (err error) {
-	varWsFederationApplicationSettingsApplication := _WsFederationApplicationSettingsApplication{}
+func (o *WsFederationApplicationSettingsApplication) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"audienceRestriction",
+		"authnContextClassRef",
+		"groupValueFormat",
+		"nameIDFormat",
+		"siteURL",
+		"usernameAttribute",
+		"wReplyURL",
+	}
 
-	err = json.Unmarshal(bytes, &varWsFederationApplicationSettingsApplication)
-	if err == nil {
-		*o = WsFederationApplicationSettingsApplication(varWsFederationApplicationSettingsApplication)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varWsFederationApplicationSettingsApplication := _WsFederationApplicationSettingsApplication{}
+
+	err = json.Unmarshal(data, &varWsFederationApplicationSettingsApplication)
+
+	if err != nil {
+		return err
+	}
+
+	*o = WsFederationApplicationSettingsApplication(varWsFederationApplicationSettingsApplication)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "attributeStatements")
 		delete(additionalProperties, "audienceRestriction")
 		delete(additionalProperties, "authnContextClassRef")
@@ -484,8 +508,6 @@ func (o *WsFederationApplicationSettingsApplication) UnmarshalJSON(bytes []byte)
 		delete(additionalProperties, "wReplyOverride")
 		delete(additionalProperties, "wReplyURL")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -526,4 +548,3 @@ func (v *NullableWsFederationApplicationSettingsApplication) UnmarshalJSON(src [
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"fmt"
 )
 
+// checks if the TestInfoSamlTestConfiguration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TestInfoSamlTestConfiguration{}
+
 // TestInfoSamlTestConfiguration SAML test details
 type TestInfoSamlTestConfiguration struct {
 	// Indicates if your integration supports IdP-initiated sign-in
@@ -40,7 +43,7 @@ type TestInfoSamlTestConfiguration struct {
 	SpInitiateUrl string `json:"spInitiateUrl"`
 	// Instructions on how to sign in to your app using the SP-initiated flow (required if `sp = true`)
 	SpInitiateDescription *string `json:"spInitiateDescription,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties  map[string]interface{}
 }
 
 type _TestInfoSamlTestConfiguration TestInfoSamlTestConfiguration
@@ -65,7 +68,7 @@ func NewTestInfoSamlTestConfigurationWithDefaults() *TestInfoSamlTestConfigurati
 
 // GetIdp returns the Idp field value if set, zero value otherwise.
 func (o *TestInfoSamlTestConfiguration) GetIdp() bool {
-	if o == nil || o.Idp == nil {
+	if o == nil || IsNil(o.Idp) {
 		var ret bool
 		return ret
 	}
@@ -75,7 +78,7 @@ func (o *TestInfoSamlTestConfiguration) GetIdp() bool {
 // GetIdpOk returns a tuple with the Idp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TestInfoSamlTestConfiguration) GetIdpOk() (*bool, bool) {
-	if o == nil || o.Idp == nil {
+	if o == nil || IsNil(o.Idp) {
 		return nil, false
 	}
 	return o.Idp, true
@@ -83,7 +86,7 @@ func (o *TestInfoSamlTestConfiguration) GetIdpOk() (*bool, bool) {
 
 // HasIdp returns a boolean if a field has been set.
 func (o *TestInfoSamlTestConfiguration) HasIdp() bool {
-	if o != nil && o.Idp != nil {
+	if o != nil && !IsNil(o.Idp) {
 		return true
 	}
 
@@ -97,7 +100,7 @@ func (o *TestInfoSamlTestConfiguration) SetIdp(v bool) {
 
 // GetSp returns the Sp field value if set, zero value otherwise.
 func (o *TestInfoSamlTestConfiguration) GetSp() bool {
-	if o == nil || o.Sp == nil {
+	if o == nil || IsNil(o.Sp) {
 		var ret bool
 		return ret
 	}
@@ -107,7 +110,7 @@ func (o *TestInfoSamlTestConfiguration) GetSp() bool {
 // GetSpOk returns a tuple with the Sp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TestInfoSamlTestConfiguration) GetSpOk() (*bool, bool) {
-	if o == nil || o.Sp == nil {
+	if o == nil || IsNil(o.Sp) {
 		return nil, false
 	}
 	return o.Sp, true
@@ -115,7 +118,7 @@ func (o *TestInfoSamlTestConfiguration) GetSpOk() (*bool, bool) {
 
 // HasSp returns a boolean if a field has been set.
 func (o *TestInfoSamlTestConfiguration) HasSp() bool {
-	if o != nil && o.Sp != nil {
+	if o != nil && !IsNil(o.Sp) {
 		return true
 	}
 
@@ -129,7 +132,7 @@ func (o *TestInfoSamlTestConfiguration) SetSp(v bool) {
 
 // GetJit returns the Jit field value if set, zero value otherwise.
 func (o *TestInfoSamlTestConfiguration) GetJit() bool {
-	if o == nil || o.Jit == nil {
+	if o == nil || IsNil(o.Jit) {
 		var ret bool
 		return ret
 	}
@@ -139,7 +142,7 @@ func (o *TestInfoSamlTestConfiguration) GetJit() bool {
 // GetJitOk returns a tuple with the Jit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TestInfoSamlTestConfiguration) GetJitOk() (*bool, bool) {
-	if o == nil || o.Jit == nil {
+	if o == nil || IsNil(o.Jit) {
 		return nil, false
 	}
 	return o.Jit, true
@@ -147,7 +150,7 @@ func (o *TestInfoSamlTestConfiguration) GetJitOk() (*bool, bool) {
 
 // HasJit returns a boolean if a field has been set.
 func (o *TestInfoSamlTestConfiguration) HasJit() bool {
-	if o != nil && o.Jit != nil {
+	if o != nil && !IsNil(o.Jit) {
 		return true
 	}
 
@@ -185,7 +188,7 @@ func (o *TestInfoSamlTestConfiguration) SetSpInitiateUrl(v string) {
 
 // GetSpInitiateDescription returns the SpInitiateDescription field value if set, zero value otherwise.
 func (o *TestInfoSamlTestConfiguration) GetSpInitiateDescription() string {
-	if o == nil || o.SpInitiateDescription == nil {
+	if o == nil || IsNil(o.SpInitiateDescription) {
 		var ret string
 		return ret
 	}
@@ -195,7 +198,7 @@ func (o *TestInfoSamlTestConfiguration) GetSpInitiateDescription() string {
 // GetSpInitiateDescriptionOk returns a tuple with the SpInitiateDescription field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TestInfoSamlTestConfiguration) GetSpInitiateDescriptionOk() (*string, bool) {
-	if o == nil || o.SpInitiateDescription == nil {
+	if o == nil || IsNil(o.SpInitiateDescription) {
 		return nil, false
 	}
 	return o.SpInitiateDescription, true
@@ -203,7 +206,7 @@ func (o *TestInfoSamlTestConfiguration) GetSpInitiateDescriptionOk() (*string, b
 
 // HasSpInitiateDescription returns a boolean if a field has been set.
 func (o *TestInfoSamlTestConfiguration) HasSpInitiateDescription() bool {
-	if o != nil && o.SpInitiateDescription != nil {
+	if o != nil && !IsNil(o.SpInitiateDescription) {
 		return true
 	}
 
@@ -216,20 +219,26 @@ func (o *TestInfoSamlTestConfiguration) SetSpInitiateDescription(v string) {
 }
 
 func (o TestInfoSamlTestConfiguration) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TestInfoSamlTestConfiguration) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Idp != nil {
+	if !IsNil(o.Idp) {
 		toSerialize["idp"] = o.Idp
 	}
-	if o.Sp != nil {
+	if !IsNil(o.Sp) {
 		toSerialize["sp"] = o.Sp
 	}
-	if o.Jit != nil {
+	if !IsNil(o.Jit) {
 		toSerialize["jit"] = o.Jit
 	}
-	if true {
-		toSerialize["spInitiateUrl"] = o.SpInitiateUrl
-	}
-	if o.SpInitiateDescription != nil {
+	toSerialize["spInitiateUrl"] = o.SpInitiateUrl
+	if !IsNil(o.SpInitiateDescription) {
 		toSerialize["spInitiateDescription"] = o.SpInitiateDescription
 	}
 
@@ -237,31 +246,50 @@ func (o TestInfoSamlTestConfiguration) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *TestInfoSamlTestConfiguration) UnmarshalJSON(bytes []byte) (err error) {
-	varTestInfoSamlTestConfiguration := _TestInfoSamlTestConfiguration{}
+func (o *TestInfoSamlTestConfiguration) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"spInitiateUrl",
+	}
 
-	err = json.Unmarshal(bytes, &varTestInfoSamlTestConfiguration)
-	if err == nil {
-		*o = TestInfoSamlTestConfiguration(varTestInfoSamlTestConfiguration)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varTestInfoSamlTestConfiguration := _TestInfoSamlTestConfiguration{}
+
+	err = json.Unmarshal(data, &varTestInfoSamlTestConfiguration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TestInfoSamlTestConfiguration(varTestInfoSamlTestConfiguration)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "idp")
 		delete(additionalProperties, "sp")
 		delete(additionalProperties, "jit")
 		delete(additionalProperties, "spInitiateUrl")
 		delete(additionalProperties, "spInitiateDescription")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -302,4 +330,3 @@ func (v *NullableTestInfoSamlTestConfiguration) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

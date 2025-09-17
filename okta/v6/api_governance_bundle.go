@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,23 +26,22 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type GovernanceBundleAPI interface {
 
 	/*
-	CreateGovernanceBundle Create a governance bundle for the Admin Console in RAMP
+		CreateGovernanceBundle Create a governance bundle for the Admin Console in RAMP
 
-	Creates a Governance Bundle for the Admin Console in RAMP
+		Creates a Governance Bundle for the Admin Console in RAMP
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateGovernanceBundleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateGovernanceBundleRequest
 	*/
 	CreateGovernanceBundle(ctx context.Context) ApiCreateGovernanceBundleRequest
 
@@ -51,13 +50,13 @@ type GovernanceBundleAPI interface {
 	CreateGovernanceBundleExecute(r ApiCreateGovernanceBundleRequest) (*GovernanceBundle, *APIResponse, error)
 
 	/*
-	DeleteGovernanceBundle Delete a governance bundle from RAMP
+		DeleteGovernanceBundle Delete a governance bundle from RAMP
 
-	Deletes a Governance Bundle from RAMP
+		Deletes a Governance Bundle from RAMP
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param bundleId The `id` of a bundle
-	@return ApiDeleteGovernanceBundleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param bundleId The `id` of a bundle
+		@return ApiDeleteGovernanceBundleRequest
 	*/
 	DeleteGovernanceBundle(ctx context.Context, bundleId string) ApiDeleteGovernanceBundleRequest
 
@@ -65,13 +64,13 @@ type GovernanceBundleAPI interface {
 	DeleteGovernanceBundleExecute(r ApiDeleteGovernanceBundleRequest) (*APIResponse, error)
 
 	/*
-	GetGovernanceBundle Retrieve a governance bundle from RAMP
+		GetGovernanceBundle Retrieve a governance bundle from RAMP
 
-	Retrieves a Governance Bundle from RAMP
+		Retrieves a Governance Bundle from RAMP
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param bundleId The `id` of a bundle
-	@return ApiGetGovernanceBundleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param bundleId The `id` of a bundle
+		@return ApiGetGovernanceBundleRequest
 	*/
 	GetGovernanceBundle(ctx context.Context, bundleId string) ApiGetGovernanceBundleRequest
 
@@ -80,12 +79,12 @@ type GovernanceBundleAPI interface {
 	GetGovernanceBundleExecute(r ApiGetGovernanceBundleRequest) (*GovernanceBundle, *APIResponse, error)
 
 	/*
-	GetOptInStatus Retrieve the opt-in status from RAMP
+		GetOptInStatus Retrieve the opt-in status from RAMP
 
-	Retrieves the opt-in status of the Admin Console from RAMP
+		Retrieves the opt-in status of the Admin Console from RAMP
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetOptInStatusRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetOptInStatusRequest
 	*/
 	GetOptInStatus(ctx context.Context) ApiGetOptInStatusRequest
 
@@ -94,14 +93,14 @@ type GovernanceBundleAPI interface {
 	GetOptInStatusExecute(r ApiGetOptInStatusRequest) (*OptInStatusResponse, *APIResponse, error)
 
 	/*
-	ListBundleEntitlementValues List all entitlement values for a bundle entitlement
+		ListBundleEntitlementValues List all entitlement values for a bundle entitlement
 
-	Lists all Entitlement Values specific to a Bundle Entitlement
+		Lists all Entitlement Values specific to a Bundle Entitlement
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param bundleId The `id` of a bundle
-	@param entitlementId The `id` of a bundle entitlement
-	@return ApiListBundleEntitlementValuesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param bundleId The `id` of a bundle
+		@param entitlementId The `id` of a bundle entitlement
+		@return ApiListBundleEntitlementValuesRequest
 	*/
 	ListBundleEntitlementValues(ctx context.Context, bundleId string, entitlementId string) ApiListBundleEntitlementValuesRequest
 
@@ -110,13 +109,13 @@ type GovernanceBundleAPI interface {
 	ListBundleEntitlementValuesExecute(r ApiListBundleEntitlementValuesRequest) (*EntitlementValuesResponse, *APIResponse, error)
 
 	/*
-	ListBundleEntitlements List all entitlements for a governance bundle
+		ListBundleEntitlements List all entitlements for a governance bundle
 
-	Lists all Entitlements specific to a Governance Bundle
+		Lists all Entitlements specific to a Governance Bundle
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param bundleId The `id` of a bundle
-	@return ApiListBundleEntitlementsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param bundleId The `id` of a bundle
+		@return ApiListBundleEntitlementsRequest
 	*/
 	ListBundleEntitlements(ctx context.Context, bundleId string) ApiListBundleEntitlementsRequest
 
@@ -125,12 +124,12 @@ type GovernanceBundleAPI interface {
 	ListBundleEntitlementsExecute(r ApiListBundleEntitlementsRequest) (*BundleEntitlementsResponse, *APIResponse, error)
 
 	/*
-	ListGovernanceBundles List all governance bundles for the Admin Console
+		ListGovernanceBundles List all governance bundles for the Admin Console
 
-	Lists all Governance Bundles for the Admin Console in your org
+		Lists all Governance Bundles for the Admin Console in your org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListGovernanceBundlesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListGovernanceBundlesRequest
 	*/
 	ListGovernanceBundles(ctx context.Context) ApiListGovernanceBundlesRequest
 
@@ -139,12 +138,12 @@ type GovernanceBundleAPI interface {
 	ListGovernanceBundlesExecute(r ApiListGovernanceBundlesRequest) (*GovernanceBundlesResponse, *APIResponse, error)
 
 	/*
-	OptIn Opt in the Admin Console to RAMP
+		OptIn Opt in the Admin Console to RAMP
 
-	Opts in the Admin Console to RAMP
+		Opts in the Admin Console to RAMP
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiOptInRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiOptInRequest
 	*/
 	OptIn(ctx context.Context) ApiOptInRequest
 
@@ -153,12 +152,12 @@ type GovernanceBundleAPI interface {
 	OptInExecute(r ApiOptInRequest) (*OptInStatusResponse, *APIResponse, error)
 
 	/*
-	OptOut Opt out the Admin Console from RAMP
+		OptOut Opt out the Admin Console from RAMP
 
-	Opts out the Admin Console from RAMP
+		Opts out the Admin Console from RAMP
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiOptOutRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiOptOutRequest
 	*/
 	OptOut(ctx context.Context) ApiOptOutRequest
 
@@ -167,13 +166,13 @@ type GovernanceBundleAPI interface {
 	OptOutExecute(r ApiOptOutRequest) (*OptInStatusResponse, *APIResponse, error)
 
 	/*
-	ReplaceGovernanceBundle Replace a governance bundle in RAMP
+		ReplaceGovernanceBundle Replace a governance bundle in RAMP
 
-	Replaces a Governance Bundle in RAMP
+		Replaces a Governance Bundle in RAMP
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param bundleId The `id` of a bundle
-	@return ApiReplaceGovernanceBundleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param bundleId The `id` of a bundle
+		@return ApiReplaceGovernanceBundleRequest
 	*/
 	ReplaceGovernanceBundle(ctx context.Context, bundleId string) ApiReplaceGovernanceBundleRequest
 
@@ -186,10 +185,10 @@ type GovernanceBundleAPI interface {
 type GovernanceBundleAPIService service
 
 type ApiCreateGovernanceBundleRequest struct {
-	ctx context.Context
-	ApiService GovernanceBundleAPI
+	ctx                           context.Context
+	ApiService                    GovernanceBundleAPI
 	governanceBundleCreateRequest *GovernanceBundleCreateRequest
-	retryCount int32
+	retryCount                    int32
 }
 
 func (r ApiCreateGovernanceBundleRequest) GovernanceBundleCreateRequest(governanceBundleCreateRequest GovernanceBundleCreateRequest) ApiCreateGovernanceBundleRequest {
@@ -206,19 +205,20 @@ CreateGovernanceBundle Create a governance bundle for the Admin Console in RAMP
 
 Creates a Governance Bundle for the Admin Console in RAMP
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateGovernanceBundleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateGovernanceBundleRequest
 */
 func (a *GovernanceBundleAPIService) CreateGovernanceBundle(ctx context.Context) ApiCreateGovernanceBundleRequest {
 	return ApiCreateGovernanceBundleRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return GovernanceBundle
+//
+//	@return GovernanceBundle
 func (a *GovernanceBundleAPIService) CreateGovernanceBundleExecute(r ApiCreateGovernanceBundleRequest) (*GovernanceBundle, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -227,7 +227,7 @@ func (a *GovernanceBundleAPIService) CreateGovernanceBundleExecute(r ApiCreateGo
 		localVarReturnValue  *GovernanceBundle
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -292,9 +292,9 @@ func (a *GovernanceBundleAPIService) CreateGovernanceBundleExecute(r ApiCreateGo
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -352,15 +352,15 @@ func (a *GovernanceBundleAPIService) CreateGovernanceBundleExecute(r ApiCreateGo
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteGovernanceBundleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GovernanceBundleAPI
-	bundleId string
+	bundleId   string
 	retryCount int32
 }
 
@@ -373,15 +373,15 @@ DeleteGovernanceBundle Delete a governance bundle from RAMP
 
 Deletes a Governance Bundle from RAMP
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param bundleId The `id` of a bundle
- @return ApiDeleteGovernanceBundleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bundleId The `id` of a bundle
+	@return ApiDeleteGovernanceBundleRequest
 */
 func (a *GovernanceBundleAPIService) DeleteGovernanceBundle(ctx context.Context, bundleId string) ApiDeleteGovernanceBundleRequest {
 	return ApiDeleteGovernanceBundleRequest{
 		ApiService: a,
-		ctx: ctx,
-		bundleId: bundleId,
+		ctx:        ctx,
+		bundleId:   bundleId,
 		retryCount: 0,
 	}
 }
@@ -394,7 +394,7 @@ func (a *GovernanceBundleAPIService) DeleteGovernanceBundleExecute(r ApiDeleteGo
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -455,9 +455,9 @@ func (a *GovernanceBundleAPIService) DeleteGovernanceBundleExecute(r ApiDeleteGo
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -499,9 +499,9 @@ func (a *GovernanceBundleAPIService) DeleteGovernanceBundleExecute(r ApiDeleteGo
 }
 
 type ApiGetGovernanceBundleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GovernanceBundleAPI
-	bundleId string
+	bundleId   string
 	retryCount int32
 }
 
@@ -514,21 +514,22 @@ GetGovernanceBundle Retrieve a governance bundle from RAMP
 
 Retrieves a Governance Bundle from RAMP
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param bundleId The `id` of a bundle
- @return ApiGetGovernanceBundleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bundleId The `id` of a bundle
+	@return ApiGetGovernanceBundleRequest
 */
 func (a *GovernanceBundleAPIService) GetGovernanceBundle(ctx context.Context, bundleId string) ApiGetGovernanceBundleRequest {
 	return ApiGetGovernanceBundleRequest{
 		ApiService: a,
-		ctx: ctx,
-		bundleId: bundleId,
+		ctx:        ctx,
+		bundleId:   bundleId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return GovernanceBundle
+//
+//	@return GovernanceBundle
 func (a *GovernanceBundleAPIService) GetGovernanceBundleExecute(r ApiGetGovernanceBundleRequest) (*GovernanceBundle, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -537,7 +538,7 @@ func (a *GovernanceBundleAPIService) GetGovernanceBundleExecute(r ApiGetGovernan
 		localVarReturnValue  *GovernanceBundle
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -598,9 +599,9 @@ func (a *GovernanceBundleAPIService) GetGovernanceBundleExecute(r ApiGetGovernan
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -658,13 +659,13 @@ func (a *GovernanceBundleAPIService) GetGovernanceBundleExecute(r ApiGetGovernan
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetOptInStatusRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GovernanceBundleAPI
 	retryCount int32
 }
@@ -678,19 +679,20 @@ GetOptInStatus Retrieve the opt-in status from RAMP
 
 Retrieves the opt-in status of the Admin Console from RAMP
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetOptInStatusRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetOptInStatusRequest
 */
 func (a *GovernanceBundleAPIService) GetOptInStatus(ctx context.Context) ApiGetOptInStatusRequest {
 	return ApiGetOptInStatusRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OptInStatusResponse
+//
+//	@return OptInStatusResponse
 func (a *GovernanceBundleAPIService) GetOptInStatusExecute(r ApiGetOptInStatusRequest) (*OptInStatusResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -699,7 +701,7 @@ func (a *GovernanceBundleAPIService) GetOptInStatusExecute(r ApiGetOptInStatusRe
 		localVarReturnValue  *OptInStatusResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -759,9 +761,9 @@ func (a *GovernanceBundleAPIService) GetOptInStatusExecute(r ApiGetOptInStatusRe
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -807,19 +809,19 @@ func (a *GovernanceBundleAPIService) GetOptInStatusExecute(r ApiGetOptInStatusRe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListBundleEntitlementValuesRequest struct {
-	ctx context.Context
-	ApiService GovernanceBundleAPI
-	bundleId string
+	ctx           context.Context
+	ApiService    GovernanceBundleAPI
+	bundleId      string
 	entitlementId string
-	after *string
-	limit *int32
-	retryCount int32
+	after         *string
+	limit         *int32
+	retryCount    int32
 }
 
 // The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination).
@@ -843,23 +845,24 @@ ListBundleEntitlementValues List all entitlement values for a bundle entitlement
 
 Lists all Entitlement Values specific to a Bundle Entitlement
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param bundleId The `id` of a bundle
- @param entitlementId The `id` of a bundle entitlement
- @return ApiListBundleEntitlementValuesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bundleId The `id` of a bundle
+	@param entitlementId The `id` of a bundle entitlement
+	@return ApiListBundleEntitlementValuesRequest
 */
 func (a *GovernanceBundleAPIService) ListBundleEntitlementValues(ctx context.Context, bundleId string, entitlementId string) ApiListBundleEntitlementValuesRequest {
 	return ApiListBundleEntitlementValuesRequest{
-		ApiService: a,
-		ctx: ctx,
-		bundleId: bundleId,
+		ApiService:    a,
+		ctx:           ctx,
+		bundleId:      bundleId,
 		entitlementId: entitlementId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
 // Execute executes the request
-//  @return EntitlementValuesResponse
+//
+//	@return EntitlementValuesResponse
 func (a *GovernanceBundleAPIService) ListBundleEntitlementValuesExecute(r ApiListBundleEntitlementValuesRequest) (*EntitlementValuesResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -868,7 +871,7 @@ func (a *GovernanceBundleAPIService) ListBundleEntitlementValuesExecute(r ApiLis
 		localVarReturnValue  *EntitlementValuesResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -936,9 +939,9 @@ func (a *GovernanceBundleAPIService) ListBundleEntitlementValuesExecute(r ApiLis
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -984,17 +987,17 @@ func (a *GovernanceBundleAPIService) ListBundleEntitlementValuesExecute(r ApiLis
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListBundleEntitlementsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GovernanceBundleAPI
-	bundleId string
-	after *string
-	limit *int32
+	bundleId   string
+	after      *string
+	limit      *int32
 	retryCount int32
 }
 
@@ -1019,21 +1022,22 @@ ListBundleEntitlements List all entitlements for a governance bundle
 
 Lists all Entitlements specific to a Governance Bundle
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param bundleId The `id` of a bundle
- @return ApiListBundleEntitlementsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bundleId The `id` of a bundle
+	@return ApiListBundleEntitlementsRequest
 */
 func (a *GovernanceBundleAPIService) ListBundleEntitlements(ctx context.Context, bundleId string) ApiListBundleEntitlementsRequest {
 	return ApiListBundleEntitlementsRequest{
 		ApiService: a,
-		ctx: ctx,
-		bundleId: bundleId,
+		ctx:        ctx,
+		bundleId:   bundleId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return BundleEntitlementsResponse
+//
+//	@return BundleEntitlementsResponse
 func (a *GovernanceBundleAPIService) ListBundleEntitlementsExecute(r ApiListBundleEntitlementsRequest) (*BundleEntitlementsResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1042,7 +1046,7 @@ func (a *GovernanceBundleAPIService) ListBundleEntitlementsExecute(r ApiListBund
 		localVarReturnValue  *BundleEntitlementsResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1109,9 +1113,9 @@ func (a *GovernanceBundleAPIService) ListBundleEntitlementsExecute(r ApiListBund
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1157,16 +1161,16 @@ func (a *GovernanceBundleAPIService) ListBundleEntitlementsExecute(r ApiListBund
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListGovernanceBundlesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GovernanceBundleAPI
-	after *string
-	limit *int32
+	after      *string
+	limit      *int32
 	retryCount int32
 }
 
@@ -1191,19 +1195,20 @@ ListGovernanceBundles List all governance bundles for the Admin Console
 
 Lists all Governance Bundles for the Admin Console in your org
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListGovernanceBundlesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListGovernanceBundlesRequest
 */
 func (a *GovernanceBundleAPIService) ListGovernanceBundles(ctx context.Context) ApiListGovernanceBundlesRequest {
 	return ApiListGovernanceBundlesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return GovernanceBundlesResponse
+//
+//	@return GovernanceBundlesResponse
 func (a *GovernanceBundleAPIService) ListGovernanceBundlesExecute(r ApiListGovernanceBundlesRequest) (*GovernanceBundlesResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1212,7 +1217,7 @@ func (a *GovernanceBundleAPIService) ListGovernanceBundlesExecute(r ApiListGover
 		localVarReturnValue  *GovernanceBundlesResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1278,9 +1283,9 @@ func (a *GovernanceBundleAPIService) ListGovernanceBundlesExecute(r ApiListGover
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1326,13 +1331,13 @@ func (a *GovernanceBundleAPIService) ListGovernanceBundlesExecute(r ApiListGover
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiOptInRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GovernanceBundleAPI
 	retryCount int32
 }
@@ -1346,19 +1351,20 @@ OptIn Opt in the Admin Console to RAMP
 
 Opts in the Admin Console to RAMP
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiOptInRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiOptInRequest
 */
 func (a *GovernanceBundleAPIService) OptIn(ctx context.Context) ApiOptInRequest {
 	return ApiOptInRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OptInStatusResponse
+//
+//	@return OptInStatusResponse
 func (a *GovernanceBundleAPIService) OptInExecute(r ApiOptInRequest) (*OptInStatusResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1367,7 +1373,7 @@ func (a *GovernanceBundleAPIService) OptInExecute(r ApiOptInRequest) (*OptInStat
 		localVarReturnValue  *OptInStatusResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1427,9 +1433,9 @@ func (a *GovernanceBundleAPIService) OptInExecute(r ApiOptInRequest) (*OptInStat
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1475,13 +1481,13 @@ func (a *GovernanceBundleAPIService) OptInExecute(r ApiOptInRequest) (*OptInStat
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiOptOutRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GovernanceBundleAPI
 	retryCount int32
 }
@@ -1495,19 +1501,20 @@ OptOut Opt out the Admin Console from RAMP
 
 Opts out the Admin Console from RAMP
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiOptOutRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiOptOutRequest
 */
 func (a *GovernanceBundleAPIService) OptOut(ctx context.Context) ApiOptOutRequest {
 	return ApiOptOutRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OptInStatusResponse
+//
+//	@return OptInStatusResponse
 func (a *GovernanceBundleAPIService) OptOutExecute(r ApiOptOutRequest) (*OptInStatusResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1516,7 +1523,7 @@ func (a *GovernanceBundleAPIService) OptOutExecute(r ApiOptOutRequest) (*OptInSt
 		localVarReturnValue  *OptInStatusResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1576,9 +1583,9 @@ func (a *GovernanceBundleAPIService) OptOutExecute(r ApiOptOutRequest) (*OptInSt
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1624,17 +1631,17 @@ func (a *GovernanceBundleAPIService) OptOutExecute(r ApiOptOutRequest) (*OptInSt
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceGovernanceBundleRequest struct {
-	ctx context.Context
-	ApiService GovernanceBundleAPI
-	bundleId string
+	ctx                           context.Context
+	ApiService                    GovernanceBundleAPI
+	bundleId                      string
 	governanceBundleUpdateRequest *GovernanceBundleUpdateRequest
-	retryCount int32
+	retryCount                    int32
 }
 
 func (r ApiReplaceGovernanceBundleRequest) GovernanceBundleUpdateRequest(governanceBundleUpdateRequest GovernanceBundleUpdateRequest) ApiReplaceGovernanceBundleRequest {
@@ -1651,21 +1658,22 @@ ReplaceGovernanceBundle Replace a governance bundle in RAMP
 
 Replaces a Governance Bundle in RAMP
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param bundleId The `id` of a bundle
- @return ApiReplaceGovernanceBundleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bundleId The `id` of a bundle
+	@return ApiReplaceGovernanceBundleRequest
 */
 func (a *GovernanceBundleAPIService) ReplaceGovernanceBundle(ctx context.Context, bundleId string) ApiReplaceGovernanceBundleRequest {
 	return ApiReplaceGovernanceBundleRequest{
 		ApiService: a,
-		ctx: ctx,
-		bundleId: bundleId,
+		ctx:        ctx,
+		bundleId:   bundleId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return GovernanceBundle
+//
+//	@return GovernanceBundle
 func (a *GovernanceBundleAPIService) ReplaceGovernanceBundleExecute(r ApiReplaceGovernanceBundleRequest) (*GovernanceBundle, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -1674,7 +1682,7 @@ func (a *GovernanceBundleAPIService) ReplaceGovernanceBundleExecute(r ApiReplace
 		localVarReturnValue  *GovernanceBundle
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1740,9 +1748,9 @@ func (a *GovernanceBundleAPIService) ReplaceGovernanceBundleExecute(r ApiReplace
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1800,7 +1808,7 @@ func (a *GovernanceBundleAPIService) ReplaceGovernanceBundleExecute(r ApiReplace
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,26 +26,25 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type UserOAuthAPI interface {
 
 	/*
-	GetRefreshTokenForUserAndClient Retrieve a refresh token for a client
+		GetRefreshTokenForUserAndClient Retrieve a refresh token for a client
 
-	Retrieves a refresh token issued for the specified user and client
+		Retrieves a refresh token issued for the specified user and client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param clientId Client app ID
-	@param tokenId `id` of Token
-	@return ApiGetRefreshTokenForUserAndClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param clientId Client app ID
+		@param tokenId `id` of Token
+		@return ApiGetRefreshTokenForUserAndClientRequest
 	*/
 	GetRefreshTokenForUserAndClient(ctx context.Context, userId string, clientId string, tokenId string) ApiGetRefreshTokenForUserAndClientRequest
 
@@ -54,14 +53,14 @@ type UserOAuthAPI interface {
 	GetRefreshTokenForUserAndClientExecute(r ApiGetRefreshTokenForUserAndClientRequest) (*OAuth2RefreshToken, *APIResponse, error)
 
 	/*
-	ListRefreshTokensForUserAndClient List all refresh tokens for a client
+		ListRefreshTokensForUserAndClient List all refresh tokens for a client
 
-	Lists all refresh tokens issued for the specified user and client
+		Lists all refresh tokens issued for the specified user and client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param clientId Client app ID
-	@return ApiListRefreshTokensForUserAndClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param clientId Client app ID
+		@return ApiListRefreshTokensForUserAndClientRequest
 	*/
 	ListRefreshTokensForUserAndClient(ctx context.Context, userId string, clientId string) ApiListRefreshTokensForUserAndClientRequest
 
@@ -70,15 +69,15 @@ type UserOAuthAPI interface {
 	ListRefreshTokensForUserAndClientExecute(r ApiListRefreshTokensForUserAndClientRequest) ([]OAuth2RefreshToken, *APIResponse, error)
 
 	/*
-	RevokeTokenForUserAndClient Revoke a token for a client
+		RevokeTokenForUserAndClient Revoke a token for a client
 
-	Revokes the specified refresh and access tokens
+		Revokes the specified refresh and access tokens
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param clientId Client app ID
-	@param tokenId `id` of Token
-	@return ApiRevokeTokenForUserAndClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param clientId Client app ID
+		@param tokenId `id` of Token
+		@return ApiRevokeTokenForUserAndClientRequest
 	*/
 	RevokeTokenForUserAndClient(ctx context.Context, userId string, clientId string, tokenId string) ApiRevokeTokenForUserAndClientRequest
 
@@ -86,14 +85,14 @@ type UserOAuthAPI interface {
 	RevokeTokenForUserAndClientExecute(r ApiRevokeTokenForUserAndClientRequest) (*APIResponse, error)
 
 	/*
-	RevokeTokensForUserAndClient Revoke all refresh tokens for a client
+		RevokeTokensForUserAndClient Revoke all refresh tokens for a client
 
-	Revokes all refresh tokens issued for the specified user and client
+		Revokes all refresh tokens issued for the specified user and client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param clientId Client app ID
-	@return ApiRevokeTokensForUserAndClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param clientId Client app ID
+		@return ApiRevokeTokensForUserAndClientRequest
 	*/
 	RevokeTokensForUserAndClient(ctx context.Context, userId string, clientId string) ApiRevokeTokensForUserAndClientRequest
 
@@ -105,12 +104,12 @@ type UserOAuthAPI interface {
 type UserOAuthAPIService service
 
 type ApiGetRefreshTokenForUserAndClientRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserOAuthAPI
-	userId string
-	clientId string
-	tokenId string
-	expand *string
+	userId     string
+	clientId   string
+	tokenId    string
+	expand     *string
 	retryCount int32
 }
 
@@ -129,25 +128,26 @@ GetRefreshTokenForUserAndClient Retrieve a refresh token for a client
 
 Retrieves a refresh token issued for the specified user and client
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param clientId Client app ID
- @param tokenId `id` of Token
- @return ApiGetRefreshTokenForUserAndClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param clientId Client app ID
+	@param tokenId `id` of Token
+	@return ApiGetRefreshTokenForUserAndClientRequest
 */
 func (a *UserOAuthAPIService) GetRefreshTokenForUserAndClient(ctx context.Context, userId string, clientId string, tokenId string) ApiGetRefreshTokenForUserAndClientRequest {
 	return ApiGetRefreshTokenForUserAndClientRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		clientId: clientId,
-		tokenId: tokenId,
+		ctx:        ctx,
+		userId:     userId,
+		clientId:   clientId,
+		tokenId:    tokenId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OAuth2RefreshToken
+//
+//	@return OAuth2RefreshToken
 func (a *UserOAuthAPIService) GetRefreshTokenForUserAndClientExecute(r ApiGetRefreshTokenForUserAndClientRequest) (*OAuth2RefreshToken, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -156,7 +156,7 @@ func (a *UserOAuthAPIService) GetRefreshTokenForUserAndClientExecute(r ApiGetRef
 		localVarReturnValue  *OAuth2RefreshToken
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -222,9 +222,9 @@ func (a *UserOAuthAPIService) GetRefreshTokenForUserAndClientExecute(r ApiGetRef
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -282,19 +282,19 @@ func (a *UserOAuthAPIService) GetRefreshTokenForUserAndClientExecute(r ApiGetRef
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListRefreshTokensForUserAndClientRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserOAuthAPI
-	userId string
-	clientId string
-	expand *string
-	after *string
-	limit *int32
+	userId     string
+	clientId   string
+	expand     *string
+	after      *string
+	limit      *int32
 	retryCount int32
 }
 
@@ -325,23 +325,24 @@ ListRefreshTokensForUserAndClient List all refresh tokens for a client
 
 Lists all refresh tokens issued for the specified user and client
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param clientId Client app ID
- @return ApiListRefreshTokensForUserAndClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param clientId Client app ID
+	@return ApiListRefreshTokensForUserAndClientRequest
 */
 func (a *UserOAuthAPIService) ListRefreshTokensForUserAndClient(ctx context.Context, userId string, clientId string) ApiListRefreshTokensForUserAndClientRequest {
 	return ApiListRefreshTokensForUserAndClientRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		clientId: clientId,
+		ctx:        ctx,
+		userId:     userId,
+		clientId:   clientId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []OAuth2RefreshToken
+//
+//	@return []OAuth2RefreshToken
 func (a *UserOAuthAPIService) ListRefreshTokensForUserAndClientExecute(r ApiListRefreshTokensForUserAndClientRequest) ([]OAuth2RefreshToken, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -350,7 +351,7 @@ func (a *UserOAuthAPIService) ListRefreshTokensForUserAndClientExecute(r ApiList
 		localVarReturnValue  []OAuth2RefreshToken
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -421,9 +422,9 @@ func (a *UserOAuthAPIService) ListRefreshTokensForUserAndClientExecute(r ApiList
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -481,17 +482,17 @@ func (a *UserOAuthAPIService) ListRefreshTokensForUserAndClientExecute(r ApiList
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiRevokeTokenForUserAndClientRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserOAuthAPI
-	userId string
-	clientId string
-	tokenId string
+	userId     string
+	clientId   string
+	tokenId    string
 	retryCount int32
 }
 
@@ -504,19 +505,19 @@ RevokeTokenForUserAndClient Revoke a token for a client
 
 Revokes the specified refresh and access tokens
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param clientId Client app ID
- @param tokenId `id` of Token
- @return ApiRevokeTokenForUserAndClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param clientId Client app ID
+	@param tokenId `id` of Token
+	@return ApiRevokeTokenForUserAndClientRequest
 */
 func (a *UserOAuthAPIService) RevokeTokenForUserAndClient(ctx context.Context, userId string, clientId string, tokenId string) ApiRevokeTokenForUserAndClientRequest {
 	return ApiRevokeTokenForUserAndClientRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		clientId: clientId,
-		tokenId: tokenId,
+		ctx:        ctx,
+		userId:     userId,
+		clientId:   clientId,
+		tokenId:    tokenId,
 		retryCount: 0,
 	}
 }
@@ -529,7 +530,7 @@ func (a *UserOAuthAPIService) RevokeTokenForUserAndClientExecute(r ApiRevokeToke
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -592,9 +593,9 @@ func (a *UserOAuthAPIService) RevokeTokenForUserAndClientExecute(r ApiRevokeToke
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -648,10 +649,10 @@ func (a *UserOAuthAPIService) RevokeTokenForUserAndClientExecute(r ApiRevokeToke
 }
 
 type ApiRevokeTokensForUserAndClientRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserOAuthAPI
-	userId string
-	clientId string
+	userId     string
+	clientId   string
 	retryCount int32
 }
 
@@ -664,17 +665,17 @@ RevokeTokensForUserAndClient Revoke all refresh tokens for a client
 
 Revokes all refresh tokens issued for the specified user and client
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param clientId Client app ID
- @return ApiRevokeTokensForUserAndClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param clientId Client app ID
+	@return ApiRevokeTokensForUserAndClientRequest
 */
 func (a *UserOAuthAPIService) RevokeTokensForUserAndClient(ctx context.Context, userId string, clientId string) ApiRevokeTokensForUserAndClientRequest {
 	return ApiRevokeTokensForUserAndClientRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		clientId: clientId,
+		ctx:        ctx,
+		userId:     userId,
+		clientId:   clientId,
 		retryCount: 0,
 	}
 }
@@ -687,7 +688,7 @@ func (a *UserOAuthAPIService) RevokeTokensForUserAndClientExecute(r ApiRevokeTok
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -749,9 +750,9 @@ func (a *UserOAuthAPIService) RevokeTokensForUserAndClientExecute(r ApiRevokeTok
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err

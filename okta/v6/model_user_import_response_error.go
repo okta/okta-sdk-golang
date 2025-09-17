@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserImportResponseError type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserImportResponseError{}
+
 // UserImportResponseError An object to return an error. Returning an error causes Okta to record a failure event in the Okta System Log. The string supplied in the `errorSummary` property is recorded in the System Log event.  >**Note:** If a response to an import inline hook request is not received from your external service within three seconds, a timeout occurs. In this scenario, the Okta import process continues and the user is created.
 type UserImportResponseError struct {
 	// A human-readable summary of the error
-	ErrorSummary *string `json:"errorSummary,omitempty"`
+	ErrorSummary         *string `json:"errorSummary,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewUserImportResponseErrorWithDefaults() *UserImportResponseError {
 
 // GetErrorSummary returns the ErrorSummary field value if set, zero value otherwise.
 func (o *UserImportResponseError) GetErrorSummary() string {
-	if o == nil || o.ErrorSummary == nil {
+	if o == nil || IsNil(o.ErrorSummary) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *UserImportResponseError) GetErrorSummary() string {
 // GetErrorSummaryOk returns a tuple with the ErrorSummary field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserImportResponseError) GetErrorSummaryOk() (*string, bool) {
-	if o == nil || o.ErrorSummary == nil {
+	if o == nil || IsNil(o.ErrorSummary) {
 		return nil, false
 	}
 	return o.ErrorSummary, true
@@ -73,7 +76,7 @@ func (o *UserImportResponseError) GetErrorSummaryOk() (*string, bool) {
 
 // HasErrorSummary returns a boolean if a field has been set.
 func (o *UserImportResponseError) HasErrorSummary() bool {
-	if o != nil && o.ErrorSummary != nil {
+	if o != nil && !IsNil(o.ErrorSummary) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *UserImportResponseError) SetErrorSummary(v string) {
 }
 
 func (o UserImportResponseError) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserImportResponseError) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ErrorSummary != nil {
+	if !IsNil(o.ErrorSummary) {
 		toSerialize["errorSummary"] = o.ErrorSummary
 	}
 
@@ -95,27 +106,25 @@ func (o UserImportResponseError) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserImportResponseError) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserImportResponseError) UnmarshalJSON(data []byte) (err error) {
 	varUserImportResponseError := _UserImportResponseError{}
 
-	err = json.Unmarshal(bytes, &varUserImportResponseError)
-	if err == nil {
-		*o = UserImportResponseError(varUserImportResponseError)
-	} else {
+	err = json.Unmarshal(data, &varUserImportResponseError)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserImportResponseError(varUserImportResponseError)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "errorSummary")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableUserImportResponseError) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

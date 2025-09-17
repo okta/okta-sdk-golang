@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,14 +28,12 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
 // GetFactorTransactionStatus200Response - struct for GetFactorTransactionStatus200Response
 type GetFactorTransactionStatus200Response struct {
-	UserFactorPushTransaction *UserFactorPushTransaction
-	UserFactorPushTransactionRejected *UserFactorPushTransactionRejected
-	UserFactorPushTransactionTimeout *UserFactorPushTransactionTimeout
-	UserFactorPushTransactionWaitingNMC *UserFactorPushTransactionWaitingNMC
+	UserFactorPushTransaction             *UserFactorPushTransaction
+	UserFactorPushTransactionRejected     *UserFactorPushTransactionRejected
+	UserFactorPushTransactionTimeout      *UserFactorPushTransactionTimeout
+	UserFactorPushTransactionWaitingNMC   *UserFactorPushTransactionWaitingNMC
 	UserFactorPushTransactionWaitingNoNMC *UserFactorPushTransactionWaitingNoNMC
 }
 
@@ -74,15 +72,14 @@ func UserFactorPushTransactionWaitingNoNMCAsGetFactorTransactionStatus200Respons
 	}
 }
 
-
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *GetFactorTransactionStatus200Response) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	// check if the discriminator value is 'REJECTED'
@@ -93,7 +90,7 @@ func (dst *GetFactorTransactionStatus200Response) UnmarshalJSON(data []byte) err
 			return nil // data stored in dst.UserFactorPushTransactionRejected, return on the first match
 		} else {
 			dst.UserFactorPushTransactionRejected = nil
-			return fmt.Errorf("Failed to unmarshal GetFactorTransactionStatus200Response as UserFactorPushTransactionRejected: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal GetFactorTransactionStatus200Response as UserFactorPushTransactionRejected: %s", err.Error())
 		}
 	}
 
@@ -105,7 +102,7 @@ func (dst *GetFactorTransactionStatus200Response) UnmarshalJSON(data []byte) err
 			return nil // data stored in dst.UserFactorPushTransaction, return on the first match
 		} else {
 			dst.UserFactorPushTransaction = nil
-			return fmt.Errorf("Failed to unmarshal GetFactorTransactionStatus200Response as UserFactorPushTransaction: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal GetFactorTransactionStatus200Response as UserFactorPushTransaction: %s", err.Error())
 		}
 	}
 
@@ -117,7 +114,7 @@ func (dst *GetFactorTransactionStatus200Response) UnmarshalJSON(data []byte) err
 			return nil // data stored in dst.UserFactorPushTransactionTimeout, return on the first match
 		} else {
 			dst.UserFactorPushTransactionTimeout = nil
-			return fmt.Errorf("Failed to unmarshal GetFactorTransactionStatus200Response as UserFactorPushTransactionTimeout: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal GetFactorTransactionStatus200Response as UserFactorPushTransactionTimeout: %s", err.Error())
 		}
 	}
 
@@ -129,7 +126,7 @@ func (dst *GetFactorTransactionStatus200Response) UnmarshalJSON(data []byte) err
 			return nil // data stored in dst.UserFactorPushTransactionWaitingNoNMC, return on the first match
 		} else {
 			dst.UserFactorPushTransactionWaitingNoNMC = nil
-			return fmt.Errorf("Failed to unmarshal GetFactorTransactionStatus200Response as UserFactorPushTransactionWaitingNoNMC: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal GetFactorTransactionStatus200Response as UserFactorPushTransactionWaitingNoNMC: %s", err.Error())
 		}
 	}
 
@@ -141,7 +138,7 @@ func (dst *GetFactorTransactionStatus200Response) UnmarshalJSON(data []byte) err
 			return nil // data stored in dst.UserFactorPushTransactionWaitingNMC, return on the first match
 		} else {
 			dst.UserFactorPushTransactionWaitingNMC = nil
-			return fmt.Errorf("Failed to unmarshal GetFactorTransactionStatus200Response as UserFactorPushTransactionWaitingNMC: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal GetFactorTransactionStatus200Response as UserFactorPushTransactionWaitingNMC: %s", err.Error())
 		}
 	}
 
@@ -153,7 +150,7 @@ func (dst *GetFactorTransactionStatus200Response) UnmarshalJSON(data []byte) err
 			return nil // data stored in dst.UserFactorPushTransaction, return on the first match
 		} else {
 			dst.UserFactorPushTransaction = nil
-			return fmt.Errorf("Failed to unmarshal GetFactorTransactionStatus200Response as UserFactorPushTransaction: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal GetFactorTransactionStatus200Response as UserFactorPushTransaction: %s", err.Error())
 		}
 	}
 
@@ -165,7 +162,7 @@ func (dst *GetFactorTransactionStatus200Response) UnmarshalJSON(data []byte) err
 			return nil // data stored in dst.UserFactorPushTransactionRejected, return on the first match
 		} else {
 			dst.UserFactorPushTransactionRejected = nil
-			return fmt.Errorf("Failed to unmarshal GetFactorTransactionStatus200Response as UserFactorPushTransactionRejected: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal GetFactorTransactionStatus200Response as UserFactorPushTransactionRejected: %s", err.Error())
 		}
 	}
 
@@ -177,7 +174,7 @@ func (dst *GetFactorTransactionStatus200Response) UnmarshalJSON(data []byte) err
 			return nil // data stored in dst.UserFactorPushTransactionTimeout, return on the first match
 		} else {
 			dst.UserFactorPushTransactionTimeout = nil
-			return fmt.Errorf("Failed to unmarshal GetFactorTransactionStatus200Response as UserFactorPushTransactionTimeout: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal GetFactorTransactionStatus200Response as UserFactorPushTransactionTimeout: %s", err.Error())
 		}
 	}
 
@@ -189,7 +186,7 @@ func (dst *GetFactorTransactionStatus200Response) UnmarshalJSON(data []byte) err
 			return nil // data stored in dst.UserFactorPushTransactionWaitingNMC, return on the first match
 		} else {
 			dst.UserFactorPushTransactionWaitingNMC = nil
-			return fmt.Errorf("Failed to unmarshal GetFactorTransactionStatus200Response as UserFactorPushTransactionWaitingNMC: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal GetFactorTransactionStatus200Response as UserFactorPushTransactionWaitingNMC: %s", err.Error())
 		}
 	}
 
@@ -201,7 +198,7 @@ func (dst *GetFactorTransactionStatus200Response) UnmarshalJSON(data []byte) err
 			return nil // data stored in dst.UserFactorPushTransactionWaitingNoNMC, return on the first match
 		} else {
 			dst.UserFactorPushTransactionWaitingNoNMC = nil
-			return fmt.Errorf("Failed to unmarshal GetFactorTransactionStatus200Response as UserFactorPushTransactionWaitingNoNMC: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal GetFactorTransactionStatus200Response as UserFactorPushTransactionWaitingNoNMC: %s", err.Error())
 		}
 	}
 
@@ -234,7 +231,7 @@ func (src GetFactorTransactionStatus200Response) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *GetFactorTransactionStatus200Response) GetActualInstance() (interface{}) {
+func (obj *GetFactorTransactionStatus200Response) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -256,6 +253,32 @@ func (obj *GetFactorTransactionStatus200Response) GetActualInstance() (interface
 
 	if obj.UserFactorPushTransactionWaitingNoNMC != nil {
 		return obj.UserFactorPushTransactionWaitingNoNMC
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj GetFactorTransactionStatus200Response) GetActualInstanceValue() interface{} {
+	if obj.UserFactorPushTransaction != nil {
+		return *obj.UserFactorPushTransaction
+	}
+
+	if obj.UserFactorPushTransactionRejected != nil {
+		return *obj.UserFactorPushTransactionRejected
+	}
+
+	if obj.UserFactorPushTransactionTimeout != nil {
+		return *obj.UserFactorPushTransactionTimeout
+	}
+
+	if obj.UserFactorPushTransactionWaitingNMC != nil {
+		return *obj.UserFactorPushTransactionWaitingNMC
+	}
+
+	if obj.UserFactorPushTransactionWaitingNoNMC != nil {
+		return *obj.UserFactorPushTransactionWaitingNoNMC
 	}
 
 	// all schemas are nil
@@ -297,5 +320,3 @@ func (v *NullableGetFactorTransactionStatus200Response) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -29,6 +29,9 @@ import (
 	"strings"
 )
 
+// checks if the RegistrationInlineHookPPData type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RegistrationInlineHookPPData{}
+
 // RegistrationInlineHookPPData struct for RegistrationInlineHookPPData
 type RegistrationInlineHookPPData struct {
 	RegistrationInlineHookRequest
@@ -41,8 +44,8 @@ type RegistrationInlineHookPPData struct {
 	// The time the inline hook request was sent
 	EventTime *string `json:"eventTime,omitempty"`
 	// The inline hook version
-	EventTypeVersion *string `json:"eventTypeVersion,omitempty"`
-	Data *RegistrationInlineHookPPDataAllOfData `json:"data,omitempty"`
+	EventTypeVersion     *string                                `json:"eventTypeVersion,omitempty"`
+	Data                 *RegistrationInlineHookPPDataAllOfData `json:"data,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -67,7 +70,7 @@ func NewRegistrationInlineHookPPDataWithDefaults() *RegistrationInlineHookPPData
 
 // GetCloudEventVersion returns the CloudEventVersion field value if set, zero value otherwise.
 func (o *RegistrationInlineHookPPData) GetCloudEventVersion() string {
-	if o == nil || o.CloudEventVersion == nil {
+	if o == nil || IsNil(o.CloudEventVersion) {
 		var ret string
 		return ret
 	}
@@ -77,7 +80,7 @@ func (o *RegistrationInlineHookPPData) GetCloudEventVersion() string {
 // GetCloudEventVersionOk returns a tuple with the CloudEventVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationInlineHookPPData) GetCloudEventVersionOk() (*string, bool) {
-	if o == nil || o.CloudEventVersion == nil {
+	if o == nil || IsNil(o.CloudEventVersion) {
 		return nil, false
 	}
 	return o.CloudEventVersion, true
@@ -85,7 +88,7 @@ func (o *RegistrationInlineHookPPData) GetCloudEventVersionOk() (*string, bool) 
 
 // HasCloudEventVersion returns a boolean if a field has been set.
 func (o *RegistrationInlineHookPPData) HasCloudEventVersion() bool {
-	if o != nil && o.CloudEventVersion != nil {
+	if o != nil && !IsNil(o.CloudEventVersion) {
 		return true
 	}
 
@@ -99,7 +102,7 @@ func (o *RegistrationInlineHookPPData) SetCloudEventVersion(v string) {
 
 // GetContentType returns the ContentType field value if set, zero value otherwise.
 func (o *RegistrationInlineHookPPData) GetContentType() string {
-	if o == nil || o.ContentType == nil {
+	if o == nil || IsNil(o.ContentType) {
 		var ret string
 		return ret
 	}
@@ -109,7 +112,7 @@ func (o *RegistrationInlineHookPPData) GetContentType() string {
 // GetContentTypeOk returns a tuple with the ContentType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationInlineHookPPData) GetContentTypeOk() (*string, bool) {
-	if o == nil || o.ContentType == nil {
+	if o == nil || IsNil(o.ContentType) {
 		return nil, false
 	}
 	return o.ContentType, true
@@ -117,7 +120,7 @@ func (o *RegistrationInlineHookPPData) GetContentTypeOk() (*string, bool) {
 
 // HasContentType returns a boolean if a field has been set.
 func (o *RegistrationInlineHookPPData) HasContentType() bool {
-	if o != nil && o.ContentType != nil {
+	if o != nil && !IsNil(o.ContentType) {
 		return true
 	}
 
@@ -131,7 +134,7 @@ func (o *RegistrationInlineHookPPData) SetContentType(v string) {
 
 // GetEventId returns the EventId field value if set, zero value otherwise.
 func (o *RegistrationInlineHookPPData) GetEventId() string {
-	if o == nil || o.EventId == nil {
+	if o == nil || IsNil(o.EventId) {
 		var ret string
 		return ret
 	}
@@ -141,7 +144,7 @@ func (o *RegistrationInlineHookPPData) GetEventId() string {
 // GetEventIdOk returns a tuple with the EventId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationInlineHookPPData) GetEventIdOk() (*string, bool) {
-	if o == nil || o.EventId == nil {
+	if o == nil || IsNil(o.EventId) {
 		return nil, false
 	}
 	return o.EventId, true
@@ -149,7 +152,7 @@ func (o *RegistrationInlineHookPPData) GetEventIdOk() (*string, bool) {
 
 // HasEventId returns a boolean if a field has been set.
 func (o *RegistrationInlineHookPPData) HasEventId() bool {
-	if o != nil && o.EventId != nil {
+	if o != nil && !IsNil(o.EventId) {
 		return true
 	}
 
@@ -163,7 +166,7 @@ func (o *RegistrationInlineHookPPData) SetEventId(v string) {
 
 // GetEventTime returns the EventTime field value if set, zero value otherwise.
 func (o *RegistrationInlineHookPPData) GetEventTime() string {
-	if o == nil || o.EventTime == nil {
+	if o == nil || IsNil(o.EventTime) {
 		var ret string
 		return ret
 	}
@@ -173,7 +176,7 @@ func (o *RegistrationInlineHookPPData) GetEventTime() string {
 // GetEventTimeOk returns a tuple with the EventTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationInlineHookPPData) GetEventTimeOk() (*string, bool) {
-	if o == nil || o.EventTime == nil {
+	if o == nil || IsNil(o.EventTime) {
 		return nil, false
 	}
 	return o.EventTime, true
@@ -181,7 +184,7 @@ func (o *RegistrationInlineHookPPData) GetEventTimeOk() (*string, bool) {
 
 // HasEventTime returns a boolean if a field has been set.
 func (o *RegistrationInlineHookPPData) HasEventTime() bool {
-	if o != nil && o.EventTime != nil {
+	if o != nil && !IsNil(o.EventTime) {
 		return true
 	}
 
@@ -195,7 +198,7 @@ func (o *RegistrationInlineHookPPData) SetEventTime(v string) {
 
 // GetEventTypeVersion returns the EventTypeVersion field value if set, zero value otherwise.
 func (o *RegistrationInlineHookPPData) GetEventTypeVersion() string {
-	if o == nil || o.EventTypeVersion == nil {
+	if o == nil || IsNil(o.EventTypeVersion) {
 		var ret string
 		return ret
 	}
@@ -205,7 +208,7 @@ func (o *RegistrationInlineHookPPData) GetEventTypeVersion() string {
 // GetEventTypeVersionOk returns a tuple with the EventTypeVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationInlineHookPPData) GetEventTypeVersionOk() (*string, bool) {
-	if o == nil || o.EventTypeVersion == nil {
+	if o == nil || IsNil(o.EventTypeVersion) {
 		return nil, false
 	}
 	return o.EventTypeVersion, true
@@ -213,7 +216,7 @@ func (o *RegistrationInlineHookPPData) GetEventTypeVersionOk() (*string, bool) {
 
 // HasEventTypeVersion returns a boolean if a field has been set.
 func (o *RegistrationInlineHookPPData) HasEventTypeVersion() bool {
-	if o != nil && o.EventTypeVersion != nil {
+	if o != nil && !IsNil(o.EventTypeVersion) {
 		return true
 	}
 
@@ -227,7 +230,7 @@ func (o *RegistrationInlineHookPPData) SetEventTypeVersion(v string) {
 
 // GetData returns the Data field value if set, zero value otherwise.
 func (o *RegistrationInlineHookPPData) GetData() RegistrationInlineHookPPDataAllOfData {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		var ret RegistrationInlineHookPPDataAllOfData
 		return ret
 	}
@@ -237,7 +240,7 @@ func (o *RegistrationInlineHookPPData) GetData() RegistrationInlineHookPPDataAll
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistrationInlineHookPPData) GetDataOk() (*RegistrationInlineHookPPDataAllOfData, bool) {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
 	return o.Data, true
@@ -245,7 +248,7 @@ func (o *RegistrationInlineHookPPData) GetDataOk() (*RegistrationInlineHookPPDat
 
 // HasData returns a boolean if a field has been set.
 func (o *RegistrationInlineHookPPData) HasData() bool {
-	if o != nil && o.Data != nil {
+	if o != nil && !IsNil(o.Data) {
 		return true
 	}
 
@@ -258,31 +261,39 @@ func (o *RegistrationInlineHookPPData) SetData(v RegistrationInlineHookPPDataAll
 }
 
 func (o RegistrationInlineHookPPData) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RegistrationInlineHookPPData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedRegistrationInlineHookRequest, errRegistrationInlineHookRequest := json.Marshal(o.RegistrationInlineHookRequest)
 	if errRegistrationInlineHookRequest != nil {
-		return []byte{}, errRegistrationInlineHookRequest
+		return map[string]interface{}{}, errRegistrationInlineHookRequest
 	}
 	errRegistrationInlineHookRequest = json.Unmarshal([]byte(serializedRegistrationInlineHookRequest), &toSerialize)
 	if errRegistrationInlineHookRequest != nil {
-		return []byte{}, errRegistrationInlineHookRequest
+		return map[string]interface{}{}, errRegistrationInlineHookRequest
 	}
-	if o.CloudEventVersion != nil {
+	if !IsNil(o.CloudEventVersion) {
 		toSerialize["cloudEventVersion"] = o.CloudEventVersion
 	}
-	if o.ContentType != nil {
+	if !IsNil(o.ContentType) {
 		toSerialize["contentType"] = o.ContentType
 	}
-	if o.EventId != nil {
+	if !IsNil(o.EventId) {
 		toSerialize["eventId"] = o.EventId
 	}
-	if o.EventTime != nil {
+	if !IsNil(o.EventTime) {
 		toSerialize["eventTime"] = o.EventTime
 	}
-	if o.EventTypeVersion != nil {
+	if !IsNil(o.EventTypeVersion) {
 		toSerialize["eventTypeVersion"] = o.EventTypeVersion
 	}
-	if o.Data != nil {
+	if !IsNil(o.Data) {
 		toSerialize["data"] = o.Data
 	}
 
@@ -290,10 +301,10 @@ func (o RegistrationInlineHookPPData) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RegistrationInlineHookPPData) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RegistrationInlineHookPPData) UnmarshalJSON(data []byte) (err error) {
 	type RegistrationInlineHookPPDataWithoutEmbeddedStruct struct {
 		// The inline hook cloud version
 		CloudEventVersion *string `json:"cloudEventVersion,omitempty"`
@@ -304,13 +315,13 @@ func (o *RegistrationInlineHookPPData) UnmarshalJSON(bytes []byte) (err error) {
 		// The time the inline hook request was sent
 		EventTime *string `json:"eventTime,omitempty"`
 		// The inline hook version
-		EventTypeVersion *string `json:"eventTypeVersion,omitempty"`
-		Data *RegistrationInlineHookPPDataAllOfData `json:"data,omitempty"`
+		EventTypeVersion *string                                `json:"eventTypeVersion,omitempty"`
+		Data             *RegistrationInlineHookPPDataAllOfData `json:"data,omitempty"`
 	}
 
 	varRegistrationInlineHookPPDataWithoutEmbeddedStruct := RegistrationInlineHookPPDataWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varRegistrationInlineHookPPDataWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varRegistrationInlineHookPPDataWithoutEmbeddedStruct)
 	if err == nil {
 		varRegistrationInlineHookPPData := _RegistrationInlineHookPPData{}
 		varRegistrationInlineHookPPData.CloudEventVersion = varRegistrationInlineHookPPDataWithoutEmbeddedStruct.CloudEventVersion
@@ -326,7 +337,7 @@ func (o *RegistrationInlineHookPPData) UnmarshalJSON(bytes []byte) (err error) {
 
 	varRegistrationInlineHookPPData := _RegistrationInlineHookPPData{}
 
-	err = json.Unmarshal(bytes, &varRegistrationInlineHookPPData)
+	err = json.Unmarshal(data, &varRegistrationInlineHookPPData)
 	if err == nil {
 		o.RegistrationInlineHookRequest = varRegistrationInlineHookPPData.RegistrationInlineHookRequest
 	} else {
@@ -335,8 +346,7 @@ func (o *RegistrationInlineHookPPData) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "cloudEventVersion")
 		delete(additionalProperties, "contentType")
 		delete(additionalProperties, "eventId")
@@ -363,8 +373,6 @@ func (o *RegistrationInlineHookPPData) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -405,4 +413,3 @@ func (v *NullableRegistrationInlineHookPPData) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

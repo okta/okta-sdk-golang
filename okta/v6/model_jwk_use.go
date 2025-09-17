@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the JwkUse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &JwkUse{}
+
 // JwkUse struct for JwkUse
 type JwkUse struct {
 	// Purpose of the certificate. The only supported value is `sig`.
-	Use *string `json:"use,omitempty"`
+	Use                  *string `json:"use,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewJwkUseWithDefaults() *JwkUse {
 
 // GetUse returns the Use field value if set, zero value otherwise.
 func (o *JwkUse) GetUse() string {
-	if o == nil || o.Use == nil {
+	if o == nil || IsNil(o.Use) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *JwkUse) GetUse() string {
 // GetUseOk returns a tuple with the Use field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *JwkUse) GetUseOk() (*string, bool) {
-	if o == nil || o.Use == nil {
+	if o == nil || IsNil(o.Use) {
 		return nil, false
 	}
 	return o.Use, true
@@ -73,7 +76,7 @@ func (o *JwkUse) GetUseOk() (*string, bool) {
 
 // HasUse returns a boolean if a field has been set.
 func (o *JwkUse) HasUse() bool {
-	if o != nil && o.Use != nil {
+	if o != nil && !IsNil(o.Use) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *JwkUse) SetUse(v string) {
 }
 
 func (o JwkUse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o JwkUse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Use != nil {
+	if !IsNil(o.Use) {
 		toSerialize["use"] = o.Use
 	}
 
@@ -95,27 +106,25 @@ func (o JwkUse) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *JwkUse) UnmarshalJSON(bytes []byte) (err error) {
+func (o *JwkUse) UnmarshalJSON(data []byte) (err error) {
 	varJwkUse := _JwkUse{}
 
-	err = json.Unmarshal(bytes, &varJwkUse)
-	if err == nil {
-		*o = JwkUse(varJwkUse)
-	} else {
+	err = json.Unmarshal(data, &varJwkUse)
+
+	if err != nil {
 		return err
 	}
 
+	*o = JwkUse(varJwkUse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "use")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableJwkUse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

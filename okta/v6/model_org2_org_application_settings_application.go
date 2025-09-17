@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"fmt"
 )
 
+// checks if the Org2OrgApplicationSettingsApplication type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Org2OrgApplicationSettingsApplication{}
+
 // Org2OrgApplicationSettingsApplication Org2Org app instance properties
 type Org2OrgApplicationSettingsApplication struct {
 	// The Assertion Consumer Service (ACS) URL of the source org (for `SAML_2_0` sign-on mode)
@@ -43,7 +46,7 @@ type Org2OrgApplicationSettingsApplication struct {
 	// An API token from the target org that's used to secure the connection between the orgs
 	Token *string `json:"token,omitempty"`
 	// Encrypted token to enhance security
-	TokenEncrypted *string `json:"tokenEncrypted,omitempty"`
+	TokenEncrypted       *string `json:"tokenEncrypted,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -69,7 +72,7 @@ func NewOrg2OrgApplicationSettingsApplicationWithDefaults() *Org2OrgApplicationS
 
 // GetAcsUrl returns the AcsUrl field value if set, zero value otherwise.
 func (o *Org2OrgApplicationSettingsApplication) GetAcsUrl() string {
-	if o == nil || o.AcsUrl == nil {
+	if o == nil || IsNil(o.AcsUrl) {
 		var ret string
 		return ret
 	}
@@ -79,7 +82,7 @@ func (o *Org2OrgApplicationSettingsApplication) GetAcsUrl() string {
 // GetAcsUrlOk returns a tuple with the AcsUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Org2OrgApplicationSettingsApplication) GetAcsUrlOk() (*string, bool) {
-	if o == nil || o.AcsUrl == nil {
+	if o == nil || IsNil(o.AcsUrl) {
 		return nil, false
 	}
 	return o.AcsUrl, true
@@ -87,7 +90,7 @@ func (o *Org2OrgApplicationSettingsApplication) GetAcsUrlOk() (*string, bool) {
 
 // HasAcsUrl returns a boolean if a field has been set.
 func (o *Org2OrgApplicationSettingsApplication) HasAcsUrl() bool {
-	if o != nil && o.AcsUrl != nil {
+	if o != nil && !IsNil(o.AcsUrl) {
 		return true
 	}
 
@@ -101,7 +104,7 @@ func (o *Org2OrgApplicationSettingsApplication) SetAcsUrl(v string) {
 
 // GetAudRestriction returns the AudRestriction field value if set, zero value otherwise.
 func (o *Org2OrgApplicationSettingsApplication) GetAudRestriction() string {
-	if o == nil || o.AudRestriction == nil {
+	if o == nil || IsNil(o.AudRestriction) {
 		var ret string
 		return ret
 	}
@@ -111,7 +114,7 @@ func (o *Org2OrgApplicationSettingsApplication) GetAudRestriction() string {
 // GetAudRestrictionOk returns a tuple with the AudRestriction field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Org2OrgApplicationSettingsApplication) GetAudRestrictionOk() (*string, bool) {
-	if o == nil || o.AudRestriction == nil {
+	if o == nil || IsNil(o.AudRestriction) {
 		return nil, false
 	}
 	return o.AudRestriction, true
@@ -119,7 +122,7 @@ func (o *Org2OrgApplicationSettingsApplication) GetAudRestrictionOk() (*string, 
 
 // HasAudRestriction returns a boolean if a field has been set.
 func (o *Org2OrgApplicationSettingsApplication) HasAudRestriction() bool {
-	if o != nil && o.AudRestriction != nil {
+	if o != nil && !IsNil(o.AudRestriction) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *Org2OrgApplicationSettingsApplication) SetBaseUrl(v string) {
 
 // GetCreationState returns the CreationState field value if set, zero value otherwise.
 func (o *Org2OrgApplicationSettingsApplication) GetCreationState() string {
-	if o == nil || o.CreationState == nil {
+	if o == nil || IsNil(o.CreationState) {
 		var ret string
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *Org2OrgApplicationSettingsApplication) GetCreationState() string {
 // GetCreationStateOk returns a tuple with the CreationState field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Org2OrgApplicationSettingsApplication) GetCreationStateOk() (*string, bool) {
-	if o == nil || o.CreationState == nil {
+	if o == nil || IsNil(o.CreationState) {
 		return nil, false
 	}
 	return o.CreationState, true
@@ -175,7 +178,7 @@ func (o *Org2OrgApplicationSettingsApplication) GetCreationStateOk() (*string, b
 
 // HasCreationState returns a boolean if a field has been set.
 func (o *Org2OrgApplicationSettingsApplication) HasCreationState() bool {
-	if o != nil && o.CreationState != nil {
+	if o != nil && !IsNil(o.CreationState) {
 		return true
 	}
 
@@ -189,7 +192,7 @@ func (o *Org2OrgApplicationSettingsApplication) SetCreationState(v string) {
 
 // GetPreferUsernameOverEmail returns the PreferUsernameOverEmail field value if set, zero value otherwise.
 func (o *Org2OrgApplicationSettingsApplication) GetPreferUsernameOverEmail() bool {
-	if o == nil || o.PreferUsernameOverEmail == nil {
+	if o == nil || IsNil(o.PreferUsernameOverEmail) {
 		var ret bool
 		return ret
 	}
@@ -199,7 +202,7 @@ func (o *Org2OrgApplicationSettingsApplication) GetPreferUsernameOverEmail() boo
 // GetPreferUsernameOverEmailOk returns a tuple with the PreferUsernameOverEmail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Org2OrgApplicationSettingsApplication) GetPreferUsernameOverEmailOk() (*bool, bool) {
-	if o == nil || o.PreferUsernameOverEmail == nil {
+	if o == nil || IsNil(o.PreferUsernameOverEmail) {
 		return nil, false
 	}
 	return o.PreferUsernameOverEmail, true
@@ -207,7 +210,7 @@ func (o *Org2OrgApplicationSettingsApplication) GetPreferUsernameOverEmailOk() (
 
 // HasPreferUsernameOverEmail returns a boolean if a field has been set.
 func (o *Org2OrgApplicationSettingsApplication) HasPreferUsernameOverEmail() bool {
-	if o != nil && o.PreferUsernameOverEmail != nil {
+	if o != nil && !IsNil(o.PreferUsernameOverEmail) {
 		return true
 	}
 
@@ -221,7 +224,7 @@ func (o *Org2OrgApplicationSettingsApplication) SetPreferUsernameOverEmail(v boo
 
 // GetToken returns the Token field value if set, zero value otherwise.
 func (o *Org2OrgApplicationSettingsApplication) GetToken() string {
-	if o == nil || o.Token == nil {
+	if o == nil || IsNil(o.Token) {
 		var ret string
 		return ret
 	}
@@ -231,7 +234,7 @@ func (o *Org2OrgApplicationSettingsApplication) GetToken() string {
 // GetTokenOk returns a tuple with the Token field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Org2OrgApplicationSettingsApplication) GetTokenOk() (*string, bool) {
-	if o == nil || o.Token == nil {
+	if o == nil || IsNil(o.Token) {
 		return nil, false
 	}
 	return o.Token, true
@@ -239,7 +242,7 @@ func (o *Org2OrgApplicationSettingsApplication) GetTokenOk() (*string, bool) {
 
 // HasToken returns a boolean if a field has been set.
 func (o *Org2OrgApplicationSettingsApplication) HasToken() bool {
-	if o != nil && o.Token != nil {
+	if o != nil && !IsNil(o.Token) {
 		return true
 	}
 
@@ -253,7 +256,7 @@ func (o *Org2OrgApplicationSettingsApplication) SetToken(v string) {
 
 // GetTokenEncrypted returns the TokenEncrypted field value if set, zero value otherwise.
 func (o *Org2OrgApplicationSettingsApplication) GetTokenEncrypted() string {
-	if o == nil || o.TokenEncrypted == nil {
+	if o == nil || IsNil(o.TokenEncrypted) {
 		var ret string
 		return ret
 	}
@@ -263,7 +266,7 @@ func (o *Org2OrgApplicationSettingsApplication) GetTokenEncrypted() string {
 // GetTokenEncryptedOk returns a tuple with the TokenEncrypted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Org2OrgApplicationSettingsApplication) GetTokenEncryptedOk() (*string, bool) {
-	if o == nil || o.TokenEncrypted == nil {
+	if o == nil || IsNil(o.TokenEncrypted) {
 		return nil, false
 	}
 	return o.TokenEncrypted, true
@@ -271,7 +274,7 @@ func (o *Org2OrgApplicationSettingsApplication) GetTokenEncryptedOk() (*string, 
 
 // HasTokenEncrypted returns a boolean if a field has been set.
 func (o *Org2OrgApplicationSettingsApplication) HasTokenEncrypted() bool {
-	if o != nil && o.TokenEncrypted != nil {
+	if o != nil && !IsNil(o.TokenEncrypted) {
 		return true
 	}
 
@@ -284,26 +287,32 @@ func (o *Org2OrgApplicationSettingsApplication) SetTokenEncrypted(v string) {
 }
 
 func (o Org2OrgApplicationSettingsApplication) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Org2OrgApplicationSettingsApplication) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AcsUrl != nil {
+	if !IsNil(o.AcsUrl) {
 		toSerialize["acsUrl"] = o.AcsUrl
 	}
-	if o.AudRestriction != nil {
+	if !IsNil(o.AudRestriction) {
 		toSerialize["audRestriction"] = o.AudRestriction
 	}
-	if true {
-		toSerialize["baseUrl"] = o.BaseUrl
-	}
-	if o.CreationState != nil {
+	toSerialize["baseUrl"] = o.BaseUrl
+	if !IsNil(o.CreationState) {
 		toSerialize["creationState"] = o.CreationState
 	}
-	if o.PreferUsernameOverEmail != nil {
+	if !IsNil(o.PreferUsernameOverEmail) {
 		toSerialize["preferUsernameOverEmail"] = o.PreferUsernameOverEmail
 	}
-	if o.Token != nil {
+	if !IsNil(o.Token) {
 		toSerialize["token"] = o.Token
 	}
-	if o.TokenEncrypted != nil {
+	if !IsNil(o.TokenEncrypted) {
 		toSerialize["tokenEncrypted"] = o.TokenEncrypted
 	}
 
@@ -311,23 +320,44 @@ func (o Org2OrgApplicationSettingsApplication) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Org2OrgApplicationSettingsApplication) UnmarshalJSON(bytes []byte) (err error) {
-	varOrg2OrgApplicationSettingsApplication := _Org2OrgApplicationSettingsApplication{}
+func (o *Org2OrgApplicationSettingsApplication) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"baseUrl",
+	}
 
-	err = json.Unmarshal(bytes, &varOrg2OrgApplicationSettingsApplication)
-	if err == nil {
-		*o = Org2OrgApplicationSettingsApplication(varOrg2OrgApplicationSettingsApplication)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varOrg2OrgApplicationSettingsApplication := _Org2OrgApplicationSettingsApplication{}
+
+	err = json.Unmarshal(data, &varOrg2OrgApplicationSettingsApplication)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Org2OrgApplicationSettingsApplication(varOrg2OrgApplicationSettingsApplication)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "acsUrl")
 		delete(additionalProperties, "audRestriction")
 		delete(additionalProperties, "baseUrl")
@@ -336,8 +366,6 @@ func (o *Org2OrgApplicationSettingsApplication) UnmarshalJSON(bytes []byte) (err
 		delete(additionalProperties, "token")
 		delete(additionalProperties, "tokenEncrypted")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -378,4 +406,3 @@ func (v *NullableOrg2OrgApplicationSettingsApplication) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

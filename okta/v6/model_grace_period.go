@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the GracePeriod type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GracePeriod{}
+
 // GracePeriod <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Represents the Grace Period configuration for the device assurance policy
 type GracePeriod struct {
 	Expiry *GracePeriodExpiry `json:"expiry,omitempty"`
 	// Represents the type of Grace Period configured for the device assurance policy
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewGracePeriodWithDefaults() *GracePeriod {
 
 // GetExpiry returns the Expiry field value if set, zero value otherwise.
 func (o *GracePeriod) GetExpiry() GracePeriodExpiry {
-	if o == nil || o.Expiry == nil {
+	if o == nil || IsNil(o.Expiry) {
 		var ret GracePeriodExpiry
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *GracePeriod) GetExpiry() GracePeriodExpiry {
 // GetExpiryOk returns a tuple with the Expiry field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GracePeriod) GetExpiryOk() (*GracePeriodExpiry, bool) {
-	if o == nil || o.Expiry == nil {
+	if o == nil || IsNil(o.Expiry) {
 		return nil, false
 	}
 	return o.Expiry, true
@@ -74,7 +77,7 @@ func (o *GracePeriod) GetExpiryOk() (*GracePeriodExpiry, bool) {
 
 // HasExpiry returns a boolean if a field has been set.
 func (o *GracePeriod) HasExpiry() bool {
-	if o != nil && o.Expiry != nil {
+	if o != nil && !IsNil(o.Expiry) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *GracePeriod) SetExpiry(v GracePeriodExpiry) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *GracePeriod) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *GracePeriod) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GracePeriod) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -106,7 +109,7 @@ func (o *GracePeriod) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *GracePeriod) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *GracePeriod) SetType(v string) {
 }
 
 func (o GracePeriod) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o GracePeriod) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Expiry != nil {
+	if !IsNil(o.Expiry) {
 		toSerialize["expiry"] = o.Expiry
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -131,28 +142,26 @@ func (o GracePeriod) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *GracePeriod) UnmarshalJSON(bytes []byte) (err error) {
+func (o *GracePeriod) UnmarshalJSON(data []byte) (err error) {
 	varGracePeriod := _GracePeriod{}
 
-	err = json.Unmarshal(bytes, &varGracePeriod)
-	if err == nil {
-		*o = GracePeriod(varGracePeriod)
-	} else {
+	err = json.Unmarshal(data, &varGracePeriod)
+
+	if err != nil {
 		return err
 	}
 
+	*o = GracePeriod(varGracePeriod)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "expiry")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableGracePeriod) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

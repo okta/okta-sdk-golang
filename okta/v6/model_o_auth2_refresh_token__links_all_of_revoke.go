@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the OAuth2RefreshTokenLinksAllOfRevoke type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OAuth2RefreshTokenLinksAllOfRevoke{}
+
 // OAuth2RefreshTokenLinksAllOfRevoke Link to revoke the refresh Token
 type OAuth2RefreshTokenLinksAllOfRevoke struct {
 	// Link URI
-	Href *string `json:"href,omitempty"`
-	Hints *OAuth2RefreshTokenLinksAllOfRevokeAllOfHints `json:"hints,omitempty"`
+	Href                 *string                                       `json:"href,omitempty"`
+	Hints                *OAuth2RefreshTokenLinksAllOfRevokeAllOfHints `json:"hints,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewOAuth2RefreshTokenLinksAllOfRevokeWithDefaults() *OAuth2RefreshTokenLink
 
 // GetHref returns the Href field value if set, zero value otherwise.
 func (o *OAuth2RefreshTokenLinksAllOfRevoke) GetHref() string {
-	if o == nil || o.Href == nil {
+	if o == nil || IsNil(o.Href) {
 		var ret string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *OAuth2RefreshTokenLinksAllOfRevoke) GetHref() string {
 // GetHrefOk returns a tuple with the Href field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2RefreshTokenLinksAllOfRevoke) GetHrefOk() (*string, bool) {
-	if o == nil || o.Href == nil {
+	if o == nil || IsNil(o.Href) {
 		return nil, false
 	}
 	return o.Href, true
@@ -74,7 +77,7 @@ func (o *OAuth2RefreshTokenLinksAllOfRevoke) GetHrefOk() (*string, bool) {
 
 // HasHref returns a boolean if a field has been set.
 func (o *OAuth2RefreshTokenLinksAllOfRevoke) HasHref() bool {
-	if o != nil && o.Href != nil {
+	if o != nil && !IsNil(o.Href) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *OAuth2RefreshTokenLinksAllOfRevoke) SetHref(v string) {
 
 // GetHints returns the Hints field value if set, zero value otherwise.
 func (o *OAuth2RefreshTokenLinksAllOfRevoke) GetHints() OAuth2RefreshTokenLinksAllOfRevokeAllOfHints {
-	if o == nil || o.Hints == nil {
+	if o == nil || IsNil(o.Hints) {
 		var ret OAuth2RefreshTokenLinksAllOfRevokeAllOfHints
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *OAuth2RefreshTokenLinksAllOfRevoke) GetHints() OAuth2RefreshTokenLinksA
 // GetHintsOk returns a tuple with the Hints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2RefreshTokenLinksAllOfRevoke) GetHintsOk() (*OAuth2RefreshTokenLinksAllOfRevokeAllOfHints, bool) {
-	if o == nil || o.Hints == nil {
+	if o == nil || IsNil(o.Hints) {
 		return nil, false
 	}
 	return o.Hints, true
@@ -106,7 +109,7 @@ func (o *OAuth2RefreshTokenLinksAllOfRevoke) GetHintsOk() (*OAuth2RefreshTokenLi
 
 // HasHints returns a boolean if a field has been set.
 func (o *OAuth2RefreshTokenLinksAllOfRevoke) HasHints() bool {
-	if o != nil && o.Hints != nil {
+	if o != nil && !IsNil(o.Hints) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *OAuth2RefreshTokenLinksAllOfRevoke) SetHints(v OAuth2RefreshTokenLinksA
 }
 
 func (o OAuth2RefreshTokenLinksAllOfRevoke) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OAuth2RefreshTokenLinksAllOfRevoke) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Href != nil {
+	if !IsNil(o.Href) {
 		toSerialize["href"] = o.Href
 	}
-	if o.Hints != nil {
+	if !IsNil(o.Hints) {
 		toSerialize["hints"] = o.Hints
 	}
 
@@ -131,28 +142,26 @@ func (o OAuth2RefreshTokenLinksAllOfRevoke) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OAuth2RefreshTokenLinksAllOfRevoke) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OAuth2RefreshTokenLinksAllOfRevoke) UnmarshalJSON(data []byte) (err error) {
 	varOAuth2RefreshTokenLinksAllOfRevoke := _OAuth2RefreshTokenLinksAllOfRevoke{}
 
-	err = json.Unmarshal(bytes, &varOAuth2RefreshTokenLinksAllOfRevoke)
-	if err == nil {
-		*o = OAuth2RefreshTokenLinksAllOfRevoke(varOAuth2RefreshTokenLinksAllOfRevoke)
-	} else {
+	err = json.Unmarshal(data, &varOAuth2RefreshTokenLinksAllOfRevoke)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OAuth2RefreshTokenLinksAllOfRevoke(varOAuth2RefreshTokenLinksAllOfRevoke)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "href")
 		delete(additionalProperties, "hints")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableOAuth2RefreshTokenLinksAllOfRevoke) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

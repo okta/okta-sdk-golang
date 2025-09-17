@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"fmt"
 )
 
+// checks if the RealmProfile type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RealmProfile{}
+
 // RealmProfile struct for RealmProfile
 type RealmProfile struct {
 	// Array of allowed domains. No user in this realm can be created or updated unless they have a username and email from one of these domains.  The following characters aren't allowed in the domain name: `!$%^&()=*+,:;<>'[]|/?\\`
@@ -35,7 +38,7 @@ type RealmProfile struct {
 	// Name of a realm
 	Name string `json:"name"`
 	// Used to store partner users. This property must be set to `PARTNER` to access Okta's external partner portal.
-	RealmType *string `json:"realmType,omitempty"`
+	RealmType            *string `json:"realmType,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewRealmProfileWithDefaults() *RealmProfile {
 
 // GetDomains returns the Domains field value if set, zero value otherwise.
 func (o *RealmProfile) GetDomains() []string {
-	if o == nil || o.Domains == nil {
+	if o == nil || IsNil(o.Domains) {
 		var ret []string
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *RealmProfile) GetDomains() []string {
 // GetDomainsOk returns a tuple with the Domains field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RealmProfile) GetDomainsOk() ([]string, bool) {
-	if o == nil || o.Domains == nil {
+	if o == nil || IsNil(o.Domains) {
 		return nil, false
 	}
 	return o.Domains, true
@@ -79,7 +82,7 @@ func (o *RealmProfile) GetDomainsOk() ([]string, bool) {
 
 // HasDomains returns a boolean if a field has been set.
 func (o *RealmProfile) HasDomains() bool {
-	if o != nil && o.Domains != nil {
+	if o != nil && !IsNil(o.Domains) {
 		return true
 	}
 
@@ -117,7 +120,7 @@ func (o *RealmProfile) SetName(v string) {
 
 // GetRealmType returns the RealmType field value if set, zero value otherwise.
 func (o *RealmProfile) GetRealmType() string {
-	if o == nil || o.RealmType == nil {
+	if o == nil || IsNil(o.RealmType) {
 		var ret string
 		return ret
 	}
@@ -127,7 +130,7 @@ func (o *RealmProfile) GetRealmType() string {
 // GetRealmTypeOk returns a tuple with the RealmType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RealmProfile) GetRealmTypeOk() (*string, bool) {
-	if o == nil || o.RealmType == nil {
+	if o == nil || IsNil(o.RealmType) {
 		return nil, false
 	}
 	return o.RealmType, true
@@ -135,7 +138,7 @@ func (o *RealmProfile) GetRealmTypeOk() (*string, bool) {
 
 // HasRealmType returns a boolean if a field has been set.
 func (o *RealmProfile) HasRealmType() bool {
-	if o != nil && o.RealmType != nil {
+	if o != nil && !IsNil(o.RealmType) {
 		return true
 	}
 
@@ -148,14 +151,20 @@ func (o *RealmProfile) SetRealmType(v string) {
 }
 
 func (o RealmProfile) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RealmProfile) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Domains != nil {
+	if !IsNil(o.Domains) {
 		toSerialize["domains"] = o.Domains
 	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.RealmType != nil {
+	toSerialize["name"] = o.Name
+	if !IsNil(o.RealmType) {
 		toSerialize["realmType"] = o.RealmType
 	}
 
@@ -163,29 +172,48 @@ func (o RealmProfile) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RealmProfile) UnmarshalJSON(bytes []byte) (err error) {
-	varRealmProfile := _RealmProfile{}
+func (o *RealmProfile) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+	}
 
-	err = json.Unmarshal(bytes, &varRealmProfile)
-	if err == nil {
-		*o = RealmProfile(varRealmProfile)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRealmProfile := _RealmProfile{}
+
+	err = json.Unmarshal(data, &varRealmProfile)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RealmProfile(varRealmProfile)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "domains")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "realmType")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -226,4 +254,3 @@ func (v *NullableRealmProfile) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

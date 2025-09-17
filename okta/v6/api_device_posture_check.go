@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,23 +26,22 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type DevicePostureCheckAPI interface {
 
 	/*
-	CreateDevicePostureCheck Create a device posture check
+		CreateDevicePostureCheck Create a device posture check
 
-	Creates a device posture check
+		Creates a device posture check
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateDevicePostureCheckRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateDevicePostureCheckRequest
 	*/
 	CreateDevicePostureCheck(ctx context.Context) ApiCreateDevicePostureCheckRequest
 
@@ -51,13 +50,13 @@ type DevicePostureCheckAPI interface {
 	CreateDevicePostureCheckExecute(r ApiCreateDevicePostureCheckRequest) (*DevicePostureCheck, *APIResponse, error)
 
 	/*
-	DeleteDevicePostureCheck Delete a device posture check
+		DeleteDevicePostureCheck Delete a device posture check
 
-	Deletes a device posture check by `postureCheckId`. You can't delete the device posture check if it's used in a device assurance policy.
+		Deletes a device posture check by `postureCheckId`. You can't delete the device posture check if it's used in a device assurance policy.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param postureCheckId ID of the device posture check
-	@return ApiDeleteDevicePostureCheckRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param postureCheckId ID of the device posture check
+		@return ApiDeleteDevicePostureCheckRequest
 	*/
 	DeleteDevicePostureCheck(ctx context.Context, postureCheckId string) ApiDeleteDevicePostureCheckRequest
 
@@ -65,13 +64,13 @@ type DevicePostureCheckAPI interface {
 	DeleteDevicePostureCheckExecute(r ApiDeleteDevicePostureCheckRequest) (*APIResponse, error)
 
 	/*
-	GetDevicePostureCheck Retrieve a device posture check
+		GetDevicePostureCheck Retrieve a device posture check
 
-	Retrieves a device posture check by `postureCheckId`
+		Retrieves a device posture check by `postureCheckId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param postureCheckId ID of the device posture check
-	@return ApiGetDevicePostureCheckRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param postureCheckId ID of the device posture check
+		@return ApiGetDevicePostureCheckRequest
 	*/
 	GetDevicePostureCheck(ctx context.Context, postureCheckId string) ApiGetDevicePostureCheckRequest
 
@@ -80,12 +79,12 @@ type DevicePostureCheckAPI interface {
 	GetDevicePostureCheckExecute(r ApiGetDevicePostureCheckRequest) (*DevicePostureCheck, *APIResponse, error)
 
 	/*
-	ListDefaultDevicePostureChecks List all default device posture checks
+		ListDefaultDevicePostureChecks List all default device posture checks
 
-	Lists all default device posture checks. Default device posture checks are defined by Okta. Their type will always be `BUILTIN`.
+		Lists all default device posture checks. Default device posture checks are defined by Okta. Their type will always be `BUILTIN`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListDefaultDevicePostureChecksRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListDefaultDevicePostureChecksRequest
 	*/
 	ListDefaultDevicePostureChecks(ctx context.Context) ApiListDefaultDevicePostureChecksRequest
 
@@ -94,12 +93,12 @@ type DevicePostureCheckAPI interface {
 	ListDefaultDevicePostureChecksExecute(r ApiListDefaultDevicePostureChecksRequest) ([]DevicePostureCheck, *APIResponse, error)
 
 	/*
-	ListDevicePostureChecks List all device posture checks
+		ListDevicePostureChecks List all device posture checks
 
-	Lists all device posture checks
+		Lists all device posture checks
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListDevicePostureChecksRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListDevicePostureChecksRequest
 	*/
 	ListDevicePostureChecks(ctx context.Context) ApiListDevicePostureChecksRequest
 
@@ -108,13 +107,13 @@ type DevicePostureCheckAPI interface {
 	ListDevicePostureChecksExecute(r ApiListDevicePostureChecksRequest) ([]DevicePostureCheck, *APIResponse, error)
 
 	/*
-	ReplaceDevicePostureCheck Replace a device posture check
+		ReplaceDevicePostureCheck Replace a device posture check
 
-	Replaces a device posture check by `postureCheckId`
+		Replaces a device posture check by `postureCheckId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param postureCheckId ID of the device posture check
-	@return ApiReplaceDevicePostureCheckRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param postureCheckId ID of the device posture check
+		@return ApiReplaceDevicePostureCheckRequest
 	*/
 	ReplaceDevicePostureCheck(ctx context.Context, postureCheckId string) ApiReplaceDevicePostureCheckRequest
 
@@ -127,10 +126,10 @@ type DevicePostureCheckAPI interface {
 type DevicePostureCheckAPIService service
 
 type ApiCreateDevicePostureCheckRequest struct {
-	ctx context.Context
-	ApiService DevicePostureCheckAPI
+	ctx                context.Context
+	ApiService         DevicePostureCheckAPI
 	devicePostureCheck *DevicePostureCheck
-	retryCount int32
+	retryCount         int32
 }
 
 func (r ApiCreateDevicePostureCheckRequest) DevicePostureCheck(devicePostureCheck DevicePostureCheck) ApiCreateDevicePostureCheckRequest {
@@ -147,19 +146,20 @@ CreateDevicePostureCheck Create a device posture check
 
 Creates a device posture check
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateDevicePostureCheckRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateDevicePostureCheckRequest
 */
 func (a *DevicePostureCheckAPIService) CreateDevicePostureCheck(ctx context.Context) ApiCreateDevicePostureCheckRequest {
 	return ApiCreateDevicePostureCheckRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return DevicePostureCheck
+//
+//	@return DevicePostureCheck
 func (a *DevicePostureCheckAPIService) CreateDevicePostureCheckExecute(r ApiCreateDevicePostureCheckRequest) (*DevicePostureCheck, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -168,7 +168,7 @@ func (a *DevicePostureCheckAPIService) CreateDevicePostureCheckExecute(r ApiCrea
 		localVarReturnValue  *DevicePostureCheck
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -233,9 +233,9 @@ func (a *DevicePostureCheckAPIService) CreateDevicePostureCheckExecute(r ApiCrea
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -293,16 +293,16 @@ func (a *DevicePostureCheckAPIService) CreateDevicePostureCheckExecute(r ApiCrea
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteDevicePostureCheckRequest struct {
-	ctx context.Context
-	ApiService DevicePostureCheckAPI
+	ctx            context.Context
+	ApiService     DevicePostureCheckAPI
 	postureCheckId string
-	retryCount int32
+	retryCount     int32
 }
 
 func (r ApiDeleteDevicePostureCheckRequest) Execute() (*APIResponse, error) {
@@ -314,16 +314,16 @@ DeleteDevicePostureCheck Delete a device posture check
 
 Deletes a device posture check by `postureCheckId`. You can't delete the device posture check if it's used in a device assurance policy.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param postureCheckId ID of the device posture check
- @return ApiDeleteDevicePostureCheckRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param postureCheckId ID of the device posture check
+	@return ApiDeleteDevicePostureCheckRequest
 */
 func (a *DevicePostureCheckAPIService) DeleteDevicePostureCheck(ctx context.Context, postureCheckId string) ApiDeleteDevicePostureCheckRequest {
 	return ApiDeleteDevicePostureCheckRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:     a,
+		ctx:            ctx,
 		postureCheckId: postureCheckId,
-		retryCount: 0,
+		retryCount:     0,
 	}
 }
 
@@ -335,7 +335,7 @@ func (a *DevicePostureCheckAPIService) DeleteDevicePostureCheckExecute(r ApiDele
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -396,9 +396,9 @@ func (a *DevicePostureCheckAPIService) DeleteDevicePostureCheckExecute(r ApiDele
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -464,10 +464,10 @@ func (a *DevicePostureCheckAPIService) DeleteDevicePostureCheckExecute(r ApiDele
 }
 
 type ApiGetDevicePostureCheckRequest struct {
-	ctx context.Context
-	ApiService DevicePostureCheckAPI
+	ctx            context.Context
+	ApiService     DevicePostureCheckAPI
 	postureCheckId string
-	retryCount int32
+	retryCount     int32
 }
 
 func (r ApiGetDevicePostureCheckRequest) Execute() (*DevicePostureCheck, *APIResponse, error) {
@@ -479,21 +479,22 @@ GetDevicePostureCheck Retrieve a device posture check
 
 Retrieves a device posture check by `postureCheckId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param postureCheckId ID of the device posture check
- @return ApiGetDevicePostureCheckRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param postureCheckId ID of the device posture check
+	@return ApiGetDevicePostureCheckRequest
 */
 func (a *DevicePostureCheckAPIService) GetDevicePostureCheck(ctx context.Context, postureCheckId string) ApiGetDevicePostureCheckRequest {
 	return ApiGetDevicePostureCheckRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:     a,
+		ctx:            ctx,
 		postureCheckId: postureCheckId,
-		retryCount: 0,
+		retryCount:     0,
 	}
 }
 
 // Execute executes the request
-//  @return DevicePostureCheck
+//
+//	@return DevicePostureCheck
 func (a *DevicePostureCheckAPIService) GetDevicePostureCheckExecute(r ApiGetDevicePostureCheckRequest) (*DevicePostureCheck, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -502,7 +503,7 @@ func (a *DevicePostureCheckAPIService) GetDevicePostureCheckExecute(r ApiGetDevi
 		localVarReturnValue  *DevicePostureCheck
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -563,9 +564,9 @@ func (a *DevicePostureCheckAPIService) GetDevicePostureCheckExecute(r ApiGetDevi
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -623,13 +624,13 @@ func (a *DevicePostureCheckAPIService) GetDevicePostureCheckExecute(r ApiGetDevi
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListDefaultDevicePostureChecksRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService DevicePostureCheckAPI
 	retryCount int32
 }
@@ -643,19 +644,20 @@ ListDefaultDevicePostureChecks List all default device posture checks
 
 Lists all default device posture checks. Default device posture checks are defined by Okta. Their type will always be `BUILTIN`.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListDefaultDevicePostureChecksRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListDefaultDevicePostureChecksRequest
 */
 func (a *DevicePostureCheckAPIService) ListDefaultDevicePostureChecks(ctx context.Context) ApiListDefaultDevicePostureChecksRequest {
 	return ApiListDefaultDevicePostureChecksRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []DevicePostureCheck
+//
+//	@return []DevicePostureCheck
 func (a *DevicePostureCheckAPIService) ListDefaultDevicePostureChecksExecute(r ApiListDefaultDevicePostureChecksRequest) ([]DevicePostureCheck, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -664,7 +666,7 @@ func (a *DevicePostureCheckAPIService) ListDefaultDevicePostureChecksExecute(r A
 		localVarReturnValue  []DevicePostureCheck
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -724,9 +726,9 @@ func (a *DevicePostureCheckAPIService) ListDefaultDevicePostureChecksExecute(r A
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -772,13 +774,13 @@ func (a *DevicePostureCheckAPIService) ListDefaultDevicePostureChecksExecute(r A
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListDevicePostureChecksRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService DevicePostureCheckAPI
 	retryCount int32
 }
@@ -792,19 +794,20 @@ ListDevicePostureChecks List all device posture checks
 
 Lists all device posture checks
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListDevicePostureChecksRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListDevicePostureChecksRequest
 */
 func (a *DevicePostureCheckAPIService) ListDevicePostureChecks(ctx context.Context) ApiListDevicePostureChecksRequest {
 	return ApiListDevicePostureChecksRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []DevicePostureCheck
+//
+//	@return []DevicePostureCheck
 func (a *DevicePostureCheckAPIService) ListDevicePostureChecksExecute(r ApiListDevicePostureChecksRequest) ([]DevicePostureCheck, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -813,7 +816,7 @@ func (a *DevicePostureCheckAPIService) ListDevicePostureChecksExecute(r ApiListD
 		localVarReturnValue  []DevicePostureCheck
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -873,9 +876,9 @@ func (a *DevicePostureCheckAPIService) ListDevicePostureChecksExecute(r ApiListD
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -921,17 +924,17 @@ func (a *DevicePostureCheckAPIService) ListDevicePostureChecksExecute(r ApiListD
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceDevicePostureCheckRequest struct {
-	ctx context.Context
-	ApiService DevicePostureCheckAPI
-	postureCheckId string
+	ctx                context.Context
+	ApiService         DevicePostureCheckAPI
+	postureCheckId     string
 	devicePostureCheck *DevicePostureCheck
-	retryCount int32
+	retryCount         int32
 }
 
 func (r ApiReplaceDevicePostureCheckRequest) DevicePostureCheck(devicePostureCheck DevicePostureCheck) ApiReplaceDevicePostureCheckRequest {
@@ -948,21 +951,22 @@ ReplaceDevicePostureCheck Replace a device posture check
 
 Replaces a device posture check by `postureCheckId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param postureCheckId ID of the device posture check
- @return ApiReplaceDevicePostureCheckRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param postureCheckId ID of the device posture check
+	@return ApiReplaceDevicePostureCheckRequest
 */
 func (a *DevicePostureCheckAPIService) ReplaceDevicePostureCheck(ctx context.Context, postureCheckId string) ApiReplaceDevicePostureCheckRequest {
 	return ApiReplaceDevicePostureCheckRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:     a,
+		ctx:            ctx,
 		postureCheckId: postureCheckId,
-		retryCount: 0,
+		retryCount:     0,
 	}
 }
 
 // Execute executes the request
-//  @return DevicePostureCheck
+//
+//	@return DevicePostureCheck
 func (a *DevicePostureCheckAPIService) ReplaceDevicePostureCheckExecute(r ApiReplaceDevicePostureCheckRequest) (*DevicePostureCheck, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -971,7 +975,7 @@ func (a *DevicePostureCheckAPIService) ReplaceDevicePostureCheckExecute(r ApiRep
 		localVarReturnValue  *DevicePostureCheck
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1037,9 +1041,9 @@ func (a *DevicePostureCheckAPIService) ReplaceDevicePostureCheckExecute(r ApiRep
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1109,7 +1113,7 @@ func (a *DevicePostureCheckAPIService) ReplaceDevicePostureCheckExecute(r ApiRep
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

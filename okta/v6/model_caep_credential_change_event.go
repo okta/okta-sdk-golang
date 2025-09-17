@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"fmt"
 )
 
+// checks if the CaepCredentialChangeEvent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CaepCredentialChangeEvent{}
+
 // CaepCredentialChangeEvent The credential was created, changed, revoked or deleted
 type CaepCredentialChangeEvent struct {
 	// The type of action done towards the credential
@@ -41,10 +44,10 @@ type CaepCredentialChangeEvent struct {
 	// Credential friendly name
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The entity that initiated the event
-	InitiatingEntity *string `json:"initiating_entity,omitempty"`
-	ReasonAdmin *CaepCredentialChangeEventReasonAdmin `json:"reason_admin,omitempty"`
-	ReasonUser *CaepCredentialChangeEventReasonUser `json:"reason_user,omitempty"`
-	Subject *SecurityEventSubject `json:"subject,omitempty"`
+	InitiatingEntity     *string                               `json:"initiating_entity,omitempty"`
+	ReasonAdmin          *CaepCredentialChangeEventReasonAdmin `json:"reason_admin,omitempty"`
+	ReasonUser           *CaepCredentialChangeEventReasonUser  `json:"reason_user,omitempty"`
+	Subject              *SecurityEventSubject                 `json:"subject,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -119,7 +122,7 @@ func (o *CaepCredentialChangeEvent) SetCredentialType(v string) {
 
 // GetEventTimestamp returns the EventTimestamp field value if set, zero value otherwise.
 func (o *CaepCredentialChangeEvent) GetEventTimestamp() int64 {
-	if o == nil || o.EventTimestamp == nil {
+	if o == nil || IsNil(o.EventTimestamp) {
 		var ret int64
 		return ret
 	}
@@ -129,7 +132,7 @@ func (o *CaepCredentialChangeEvent) GetEventTimestamp() int64 {
 // GetEventTimestampOk returns a tuple with the EventTimestamp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CaepCredentialChangeEvent) GetEventTimestampOk() (*int64, bool) {
-	if o == nil || o.EventTimestamp == nil {
+	if o == nil || IsNil(o.EventTimestamp) {
 		return nil, false
 	}
 	return o.EventTimestamp, true
@@ -137,7 +140,7 @@ func (o *CaepCredentialChangeEvent) GetEventTimestampOk() (*int64, bool) {
 
 // HasEventTimestamp returns a boolean if a field has been set.
 func (o *CaepCredentialChangeEvent) HasEventTimestamp() bool {
-	if o != nil && o.EventTimestamp != nil {
+	if o != nil && !IsNil(o.EventTimestamp) {
 		return true
 	}
 
@@ -151,7 +154,7 @@ func (o *CaepCredentialChangeEvent) SetEventTimestamp(v int64) {
 
 // GetFido2Aaguid returns the Fido2Aaguid field value if set, zero value otherwise.
 func (o *CaepCredentialChangeEvent) GetFido2Aaguid() string {
-	if o == nil || o.Fido2Aaguid == nil {
+	if o == nil || IsNil(o.Fido2Aaguid) {
 		var ret string
 		return ret
 	}
@@ -161,7 +164,7 @@ func (o *CaepCredentialChangeEvent) GetFido2Aaguid() string {
 // GetFido2AaguidOk returns a tuple with the Fido2Aaguid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CaepCredentialChangeEvent) GetFido2AaguidOk() (*string, bool) {
-	if o == nil || o.Fido2Aaguid == nil {
+	if o == nil || IsNil(o.Fido2Aaguid) {
 		return nil, false
 	}
 	return o.Fido2Aaguid, true
@@ -169,7 +172,7 @@ func (o *CaepCredentialChangeEvent) GetFido2AaguidOk() (*string, bool) {
 
 // HasFido2Aaguid returns a boolean if a field has been set.
 func (o *CaepCredentialChangeEvent) HasFido2Aaguid() bool {
-	if o != nil && o.Fido2Aaguid != nil {
+	if o != nil && !IsNil(o.Fido2Aaguid) {
 		return true
 	}
 
@@ -183,7 +186,7 @@ func (o *CaepCredentialChangeEvent) SetFido2Aaguid(v string) {
 
 // GetFriendlyName returns the FriendlyName field value if set, zero value otherwise.
 func (o *CaepCredentialChangeEvent) GetFriendlyName() string {
-	if o == nil || o.FriendlyName == nil {
+	if o == nil || IsNil(o.FriendlyName) {
 		var ret string
 		return ret
 	}
@@ -193,7 +196,7 @@ func (o *CaepCredentialChangeEvent) GetFriendlyName() string {
 // GetFriendlyNameOk returns a tuple with the FriendlyName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CaepCredentialChangeEvent) GetFriendlyNameOk() (*string, bool) {
-	if o == nil || o.FriendlyName == nil {
+	if o == nil || IsNil(o.FriendlyName) {
 		return nil, false
 	}
 	return o.FriendlyName, true
@@ -201,7 +204,7 @@ func (o *CaepCredentialChangeEvent) GetFriendlyNameOk() (*string, bool) {
 
 // HasFriendlyName returns a boolean if a field has been set.
 func (o *CaepCredentialChangeEvent) HasFriendlyName() bool {
-	if o != nil && o.FriendlyName != nil {
+	if o != nil && !IsNil(o.FriendlyName) {
 		return true
 	}
 
@@ -215,7 +218,7 @@ func (o *CaepCredentialChangeEvent) SetFriendlyName(v string) {
 
 // GetInitiatingEntity returns the InitiatingEntity field value if set, zero value otherwise.
 func (o *CaepCredentialChangeEvent) GetInitiatingEntity() string {
-	if o == nil || o.InitiatingEntity == nil {
+	if o == nil || IsNil(o.InitiatingEntity) {
 		var ret string
 		return ret
 	}
@@ -225,7 +228,7 @@ func (o *CaepCredentialChangeEvent) GetInitiatingEntity() string {
 // GetInitiatingEntityOk returns a tuple with the InitiatingEntity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CaepCredentialChangeEvent) GetInitiatingEntityOk() (*string, bool) {
-	if o == nil || o.InitiatingEntity == nil {
+	if o == nil || IsNil(o.InitiatingEntity) {
 		return nil, false
 	}
 	return o.InitiatingEntity, true
@@ -233,7 +236,7 @@ func (o *CaepCredentialChangeEvent) GetInitiatingEntityOk() (*string, bool) {
 
 // HasInitiatingEntity returns a boolean if a field has been set.
 func (o *CaepCredentialChangeEvent) HasInitiatingEntity() bool {
-	if o != nil && o.InitiatingEntity != nil {
+	if o != nil && !IsNil(o.InitiatingEntity) {
 		return true
 	}
 
@@ -247,7 +250,7 @@ func (o *CaepCredentialChangeEvent) SetInitiatingEntity(v string) {
 
 // GetReasonAdmin returns the ReasonAdmin field value if set, zero value otherwise.
 func (o *CaepCredentialChangeEvent) GetReasonAdmin() CaepCredentialChangeEventReasonAdmin {
-	if o == nil || o.ReasonAdmin == nil {
+	if o == nil || IsNil(o.ReasonAdmin) {
 		var ret CaepCredentialChangeEventReasonAdmin
 		return ret
 	}
@@ -257,7 +260,7 @@ func (o *CaepCredentialChangeEvent) GetReasonAdmin() CaepCredentialChangeEventRe
 // GetReasonAdminOk returns a tuple with the ReasonAdmin field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CaepCredentialChangeEvent) GetReasonAdminOk() (*CaepCredentialChangeEventReasonAdmin, bool) {
-	if o == nil || o.ReasonAdmin == nil {
+	if o == nil || IsNil(o.ReasonAdmin) {
 		return nil, false
 	}
 	return o.ReasonAdmin, true
@@ -265,7 +268,7 @@ func (o *CaepCredentialChangeEvent) GetReasonAdminOk() (*CaepCredentialChangeEve
 
 // HasReasonAdmin returns a boolean if a field has been set.
 func (o *CaepCredentialChangeEvent) HasReasonAdmin() bool {
-	if o != nil && o.ReasonAdmin != nil {
+	if o != nil && !IsNil(o.ReasonAdmin) {
 		return true
 	}
 
@@ -279,7 +282,7 @@ func (o *CaepCredentialChangeEvent) SetReasonAdmin(v CaepCredentialChangeEventRe
 
 // GetReasonUser returns the ReasonUser field value if set, zero value otherwise.
 func (o *CaepCredentialChangeEvent) GetReasonUser() CaepCredentialChangeEventReasonUser {
-	if o == nil || o.ReasonUser == nil {
+	if o == nil || IsNil(o.ReasonUser) {
 		var ret CaepCredentialChangeEventReasonUser
 		return ret
 	}
@@ -289,7 +292,7 @@ func (o *CaepCredentialChangeEvent) GetReasonUser() CaepCredentialChangeEventRea
 // GetReasonUserOk returns a tuple with the ReasonUser field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CaepCredentialChangeEvent) GetReasonUserOk() (*CaepCredentialChangeEventReasonUser, bool) {
-	if o == nil || o.ReasonUser == nil {
+	if o == nil || IsNil(o.ReasonUser) {
 		return nil, false
 	}
 	return o.ReasonUser, true
@@ -297,7 +300,7 @@ func (o *CaepCredentialChangeEvent) GetReasonUserOk() (*CaepCredentialChangeEven
 
 // HasReasonUser returns a boolean if a field has been set.
 func (o *CaepCredentialChangeEvent) HasReasonUser() bool {
-	if o != nil && o.ReasonUser != nil {
+	if o != nil && !IsNil(o.ReasonUser) {
 		return true
 	}
 
@@ -311,7 +314,7 @@ func (o *CaepCredentialChangeEvent) SetReasonUser(v CaepCredentialChangeEventRea
 
 // GetSubject returns the Subject field value if set, zero value otherwise.
 func (o *CaepCredentialChangeEvent) GetSubject() SecurityEventSubject {
-	if o == nil || o.Subject == nil {
+	if o == nil || IsNil(o.Subject) {
 		var ret SecurityEventSubject
 		return ret
 	}
@@ -321,7 +324,7 @@ func (o *CaepCredentialChangeEvent) GetSubject() SecurityEventSubject {
 // GetSubjectOk returns a tuple with the Subject field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CaepCredentialChangeEvent) GetSubjectOk() (*SecurityEventSubject, bool) {
-	if o == nil || o.Subject == nil {
+	if o == nil || IsNil(o.Subject) {
 		return nil, false
 	}
 	return o.Subject, true
@@ -329,7 +332,7 @@ func (o *CaepCredentialChangeEvent) GetSubjectOk() (*SecurityEventSubject, bool)
 
 // HasSubject returns a boolean if a field has been set.
 func (o *CaepCredentialChangeEvent) HasSubject() bool {
-	if o != nil && o.Subject != nil {
+	if o != nil && !IsNil(o.Subject) {
 		return true
 	}
 
@@ -342,32 +345,36 @@ func (o *CaepCredentialChangeEvent) SetSubject(v SecurityEventSubject) {
 }
 
 func (o CaepCredentialChangeEvent) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CaepCredentialChangeEvent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["change_type"] = o.ChangeType
-	}
-	if true {
-		toSerialize["credential_type"] = o.CredentialType
-	}
-	if o.EventTimestamp != nil {
+	toSerialize["change_type"] = o.ChangeType
+	toSerialize["credential_type"] = o.CredentialType
+	if !IsNil(o.EventTimestamp) {
 		toSerialize["event_timestamp"] = o.EventTimestamp
 	}
-	if o.Fido2Aaguid != nil {
+	if !IsNil(o.Fido2Aaguid) {
 		toSerialize["fido2_aaguid"] = o.Fido2Aaguid
 	}
-	if o.FriendlyName != nil {
+	if !IsNil(o.FriendlyName) {
 		toSerialize["friendly_name"] = o.FriendlyName
 	}
-	if o.InitiatingEntity != nil {
+	if !IsNil(o.InitiatingEntity) {
 		toSerialize["initiating_entity"] = o.InitiatingEntity
 	}
-	if o.ReasonAdmin != nil {
+	if !IsNil(o.ReasonAdmin) {
 		toSerialize["reason_admin"] = o.ReasonAdmin
 	}
-	if o.ReasonUser != nil {
+	if !IsNil(o.ReasonUser) {
 		toSerialize["reason_user"] = o.ReasonUser
 	}
-	if o.Subject != nil {
+	if !IsNil(o.Subject) {
 		toSerialize["subject"] = o.Subject
 	}
 
@@ -375,23 +382,45 @@ func (o CaepCredentialChangeEvent) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CaepCredentialChangeEvent) UnmarshalJSON(bytes []byte) (err error) {
-	varCaepCredentialChangeEvent := _CaepCredentialChangeEvent{}
+func (o *CaepCredentialChangeEvent) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"change_type",
+		"credential_type",
+	}
 
-	err = json.Unmarshal(bytes, &varCaepCredentialChangeEvent)
-	if err == nil {
-		*o = CaepCredentialChangeEvent(varCaepCredentialChangeEvent)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCaepCredentialChangeEvent := _CaepCredentialChangeEvent{}
+
+	err = json.Unmarshal(data, &varCaepCredentialChangeEvent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CaepCredentialChangeEvent(varCaepCredentialChangeEvent)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "change_type")
 		delete(additionalProperties, "credential_type")
 		delete(additionalProperties, "event_timestamp")
@@ -402,8 +431,6 @@ func (o *CaepCredentialChangeEvent) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "reason_user")
 		delete(additionalProperties, "subject")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -444,4 +471,3 @@ func (v *NullableCaepCredentialChangeEvent) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

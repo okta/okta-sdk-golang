@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the Webauthn1 type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Webauthn1{}
+
 // Webauthn1 Verifies a `webauthn` factor challenge by posting a signed assertion using the challenge `nonce`
 type Webauthn1 struct {
 	// Base64-encoded authenticator data from the WebAuthn authenticator
@@ -34,7 +37,7 @@ type Webauthn1 struct {
 	// Base64-encoded client data from the WebAuthn authenticator
 	ClientData *string `json:"clientData,omitempty"`
 	// Base64-encoded signature data from the WebAuthn authenticator
-	SignatureData *string `json:"signatureData,omitempty"`
+	SignatureData        *string `json:"signatureData,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewWebauthn1WithDefaults() *Webauthn1 {
 
 // GetAuthenticatorData returns the AuthenticatorData field value if set, zero value otherwise.
 func (o *Webauthn1) GetAuthenticatorData() string {
-	if o == nil || o.AuthenticatorData == nil {
+	if o == nil || IsNil(o.AuthenticatorData) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *Webauthn1) GetAuthenticatorData() string {
 // GetAuthenticatorDataOk returns a tuple with the AuthenticatorData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Webauthn1) GetAuthenticatorDataOk() (*string, bool) {
-	if o == nil || o.AuthenticatorData == nil {
+	if o == nil || IsNil(o.AuthenticatorData) {
 		return nil, false
 	}
 	return o.AuthenticatorData, true
@@ -77,7 +80,7 @@ func (o *Webauthn1) GetAuthenticatorDataOk() (*string, bool) {
 
 // HasAuthenticatorData returns a boolean if a field has been set.
 func (o *Webauthn1) HasAuthenticatorData() bool {
-	if o != nil && o.AuthenticatorData != nil {
+	if o != nil && !IsNil(o.AuthenticatorData) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *Webauthn1) SetAuthenticatorData(v string) {
 
 // GetClientData returns the ClientData field value if set, zero value otherwise.
 func (o *Webauthn1) GetClientData() string {
-	if o == nil || o.ClientData == nil {
+	if o == nil || IsNil(o.ClientData) {
 		var ret string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *Webauthn1) GetClientData() string {
 // GetClientDataOk returns a tuple with the ClientData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Webauthn1) GetClientDataOk() (*string, bool) {
-	if o == nil || o.ClientData == nil {
+	if o == nil || IsNil(o.ClientData) {
 		return nil, false
 	}
 	return o.ClientData, true
@@ -109,7 +112,7 @@ func (o *Webauthn1) GetClientDataOk() (*string, bool) {
 
 // HasClientData returns a boolean if a field has been set.
 func (o *Webauthn1) HasClientData() bool {
-	if o != nil && o.ClientData != nil {
+	if o != nil && !IsNil(o.ClientData) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *Webauthn1) SetClientData(v string) {
 
 // GetSignatureData returns the SignatureData field value if set, zero value otherwise.
 func (o *Webauthn1) GetSignatureData() string {
-	if o == nil || o.SignatureData == nil {
+	if o == nil || IsNil(o.SignatureData) {
 		var ret string
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *Webauthn1) GetSignatureData() string {
 // GetSignatureDataOk returns a tuple with the SignatureData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Webauthn1) GetSignatureDataOk() (*string, bool) {
-	if o == nil || o.SignatureData == nil {
+	if o == nil || IsNil(o.SignatureData) {
 		return nil, false
 	}
 	return o.SignatureData, true
@@ -141,7 +144,7 @@ func (o *Webauthn1) GetSignatureDataOk() (*string, bool) {
 
 // HasSignatureData returns a boolean if a field has been set.
 func (o *Webauthn1) HasSignatureData() bool {
-	if o != nil && o.SignatureData != nil {
+	if o != nil && !IsNil(o.SignatureData) {
 		return true
 	}
 
@@ -154,14 +157,22 @@ func (o *Webauthn1) SetSignatureData(v string) {
 }
 
 func (o Webauthn1) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Webauthn1) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AuthenticatorData != nil {
+	if !IsNil(o.AuthenticatorData) {
 		toSerialize["authenticatorData"] = o.AuthenticatorData
 	}
-	if o.ClientData != nil {
+	if !IsNil(o.ClientData) {
 		toSerialize["clientData"] = o.ClientData
 	}
-	if o.SignatureData != nil {
+	if !IsNil(o.SignatureData) {
 		toSerialize["signatureData"] = o.SignatureData
 	}
 
@@ -169,29 +180,27 @@ func (o Webauthn1) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Webauthn1) UnmarshalJSON(bytes []byte) (err error) {
+func (o *Webauthn1) UnmarshalJSON(data []byte) (err error) {
 	varWebauthn1 := _Webauthn1{}
 
-	err = json.Unmarshal(bytes, &varWebauthn1)
-	if err == nil {
-		*o = Webauthn1(varWebauthn1)
-	} else {
+	err = json.Unmarshal(data, &varWebauthn1)
+
+	if err != nil {
 		return err
 	}
 
+	*o = Webauthn1(varWebauthn1)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "authenticatorData")
 		delete(additionalProperties, "clientData")
 		delete(additionalProperties, "signatureData")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -232,4 +241,3 @@ func (v *NullableWebauthn1) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

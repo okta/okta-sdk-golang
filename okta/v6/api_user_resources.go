@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,26 +26,25 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type UserResourcesAPI interface {
 
 	/*
-	ListAppLinks List all assigned app links
+			ListAppLinks List all assigned app links
 
-	Lists all app links for all direct or indirect (through group membership) assigned apps.
+			Lists all app links for all direct or indirect (through group membership) assigned apps.
 
-> **Note:** To list all apps in an org, use the [List all applications endpoint in the Applications API](/openapi/okta-management/management/tag/Application/#tag/Application/operation/listApplications).
+		> **Note:** To list all apps in an org, use the [List all applications endpoint in the Applications API](/openapi/okta-management/management/tag/Application/#tag/Application/operation/listApplications).
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
-	@return ApiListAppLinksRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+			@return ApiListAppLinksRequest
 	*/
 	ListAppLinks(ctx context.Context, id string) ApiListAppLinksRequest
 
@@ -54,15 +53,15 @@ type UserResourcesAPI interface {
 	ListAppLinksExecute(r ApiListAppLinksRequest) ([]AssignedAppLink, *APIResponse, error)
 
 	/*
-	ListUserClients List all clients
+			ListUserClients List all clients
 
-	Lists all client resources for which the specified user has grants or tokens.
+			Lists all client resources for which the specified user has grants or tokens.
 
-> **Note:** To list all client resources for which a specified authorization server has tokens, use the [List all client resources for an authorization server in the Authorization Servers API](/openapi/okta-management/management/tag/AuthorizationServerClients/#tag/AuthorizationServerClients/operation/listOAuth2ClientsForAuthorizationServer).
+		> **Note:** To list all client resources for which a specified authorization server has tokens, use the [List all client resources for an authorization server in the Authorization Servers API](/openapi/okta-management/management/tag/AuthorizationServerClients/#tag/AuthorizationServerClients/operation/listOAuth2ClientsForAuthorizationServer).
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiListUserClientsRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param userId ID of an existing Okta user
+			@return ApiListUserClientsRequest
 	*/
 	ListUserClients(ctx context.Context, userId string) ApiListUserClientsRequest
 
@@ -71,15 +70,15 @@ type UserResourcesAPI interface {
 	ListUserClientsExecute(r ApiListUserClientsRequest) ([]OAuth2Client, *APIResponse, error)
 
 	/*
-	ListUserDevices List all devices
+			ListUserDevices List all devices
 
-	Lists all devices enrolled by a user.
+			Lists all devices enrolled by a user.
 
-> **Note:** To list all devices registered to an org, use the [List all devices endpoint in the Devices API](/openapi/okta-management/management/tag/Device/#tag/Device/operation/listDevices).
+		> **Note:** To list all devices registered to an org, use the [List all devices endpoint in the Devices API](/openapi/okta-management/management/tag/Device/#tag/Device/operation/listDevices).
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiListUserDevicesRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param userId ID of an existing Okta user
+			@return ApiListUserDevicesRequest
 	*/
 	ListUserDevices(ctx context.Context, userId string) ApiListUserDevicesRequest
 
@@ -88,14 +87,14 @@ type UserResourcesAPI interface {
 	ListUserDevicesExecute(r ApiListUserDevicesRequest) ([]UserDevice, *APIResponse, error)
 
 	/*
-	ListUserGroups List all groups
+			ListUserGroups List all groups
 
-	Lists all groups of which the user is a member.
-> **Note:** To list all groups in your org, use the [List all groups endpoints in the Groups API](/openapi/okta-management/management/tag/Group/#tag/Group/operation/listGroups).
+			Lists all groups of which the user is a member.
+		> **Note:** To list all groups in your org, use the [List all groups endpoints in the Groups API](/openapi/okta-management/management/tag/Group/#tag/Group/operation/listGroups).
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
-	@return ApiListUserGroupsRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+			@return ApiListUserGroupsRequest
 	*/
 	ListUserGroups(ctx context.Context, id string) ApiListUserGroupsRequest
 
@@ -108,9 +107,9 @@ type UserResourcesAPI interface {
 type UserResourcesAPIService service
 
 type ApiListAppLinksRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserResourcesAPI
-	id string
+	id         string
 	retryCount int32
 }
 
@@ -125,21 +124,22 @@ Lists all app links for all direct or indirect (through group membership) assign
 
 > **Note:** To list all apps in an org, use the [List all applications endpoint in the Applications API](/openapi/okta-management/management/tag/Application/#tag/Application/operation/listApplications).
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
- @return ApiListAppLinksRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+	@return ApiListAppLinksRequest
 */
 func (a *UserResourcesAPIService) ListAppLinks(ctx context.Context, id string) ApiListAppLinksRequest {
 	return ApiListAppLinksRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []AssignedAppLink
+//
+//	@return []AssignedAppLink
 func (a *UserResourcesAPIService) ListAppLinksExecute(r ApiListAppLinksRequest) ([]AssignedAppLink, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -148,7 +148,7 @@ func (a *UserResourcesAPIService) ListAppLinksExecute(r ApiListAppLinksRequest) 
 		localVarReturnValue  []AssignedAppLink
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -209,9 +209,9 @@ func (a *UserResourcesAPIService) ListAppLinksExecute(r ApiListAppLinksRequest) 
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -269,15 +269,15 @@ func (a *UserResourcesAPIService) ListAppLinksExecute(r ApiListAppLinksRequest) 
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListUserClientsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserResourcesAPI
-	userId string
+	userId     string
 	retryCount int32
 }
 
@@ -292,21 +292,22 @@ Lists all client resources for which the specified user has grants or tokens.
 
 > **Note:** To list all client resources for which a specified authorization server has tokens, use the [List all client resources for an authorization server in the Authorization Servers API](/openapi/okta-management/management/tag/AuthorizationServerClients/#tag/AuthorizationServerClients/operation/listOAuth2ClientsForAuthorizationServer).
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiListUserClientsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiListUserClientsRequest
 */
 func (a *UserResourcesAPIService) ListUserClients(ctx context.Context, userId string) ApiListUserClientsRequest {
 	return ApiListUserClientsRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []OAuth2Client
+//
+//	@return []OAuth2Client
 func (a *UserResourcesAPIService) ListUserClientsExecute(r ApiListUserClientsRequest) ([]OAuth2Client, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -315,7 +316,7 @@ func (a *UserResourcesAPIService) ListUserClientsExecute(r ApiListUserClientsReq
 		localVarReturnValue  []OAuth2Client
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -376,9 +377,9 @@ func (a *UserResourcesAPIService) ListUserClientsExecute(r ApiListUserClientsReq
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -436,15 +437,15 @@ func (a *UserResourcesAPIService) ListUserClientsExecute(r ApiListUserClientsReq
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListUserDevicesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserResourcesAPI
-	userId string
+	userId     string
 	retryCount int32
 }
 
@@ -459,21 +460,22 @@ Lists all devices enrolled by a user.
 
 > **Note:** To list all devices registered to an org, use the [List all devices endpoint in the Devices API](/openapi/okta-management/management/tag/Device/#tag/Device/operation/listDevices).
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiListUserDevicesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiListUserDevicesRequest
 */
 func (a *UserResourcesAPIService) ListUserDevices(ctx context.Context, userId string) ApiListUserDevicesRequest {
 	return ApiListUserDevicesRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []UserDevice
+//
+//	@return []UserDevice
 func (a *UserResourcesAPIService) ListUserDevicesExecute(r ApiListUserDevicesRequest) ([]UserDevice, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -482,7 +484,7 @@ func (a *UserResourcesAPIService) ListUserDevicesExecute(r ApiListUserDevicesReq
 		localVarReturnValue  []UserDevice
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -543,9 +545,9 @@ func (a *UserResourcesAPIService) ListUserDevicesExecute(r ApiListUserDevicesReq
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -603,15 +605,15 @@ func (a *UserResourcesAPIService) ListUserDevicesExecute(r ApiListUserDevicesReq
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListUserGroupsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserResourcesAPI
-	id string
+	id         string
 	retryCount int32
 }
 
@@ -625,21 +627,22 @@ ListUserGroups List all groups
 Lists all groups of which the user is a member.
 > **Note:** To list all groups in your org, use the [List all groups endpoints in the Groups API](/openapi/okta-management/management/tag/Group/#tag/Group/operation/listGroups).
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
- @return ApiListUserGroupsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+	@return ApiListUserGroupsRequest
 */
 func (a *UserResourcesAPIService) ListUserGroups(ctx context.Context, id string) ApiListUserGroupsRequest {
 	return ApiListUserGroupsRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []Group
+//
+//	@return []Group
 func (a *UserResourcesAPIService) ListUserGroupsExecute(r ApiListUserGroupsRequest) ([]Group, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -648,7 +651,7 @@ func (a *UserResourcesAPIService) ListUserGroupsExecute(r ApiListUserGroupsReque
 		localVarReturnValue  []Group
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -709,9 +712,9 @@ func (a *UserResourcesAPIService) ListUserGroupsExecute(r ApiListUserGroupsReque
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -769,7 +772,7 @@ func (a *UserResourcesAPIService) ListUserGroupsExecute(r ApiListUserGroupsReque
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

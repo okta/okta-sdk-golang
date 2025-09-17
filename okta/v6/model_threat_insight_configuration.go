@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,9 +25,12 @@ package okta
 
 import (
 	"encoding/json"
-	"time"
 	"fmt"
+	"time"
 )
+
+// checks if the ThreatInsightConfiguration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ThreatInsightConfiguration{}
 
 // ThreatInsightConfiguration struct for ThreatInsightConfiguration
 type ThreatInsightConfiguration struct {
@@ -38,8 +41,8 @@ type ThreatInsightConfiguration struct {
 	// Accepts a list of [Network Zone](/openapi/okta-management/management/tag/NetworkZone/) IDs. IPs in the excluded network zones aren't logged or blocked. This ensures that traffic from known, trusted IPs isn't accidentally logged or blocked.
 	ExcludeZones []string `json:"excludeZones,omitempty"`
 	// Timestamp when the ThreatInsight Configuration object was last updated
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	LastUpdated          *time.Time `json:"lastUpdated,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -89,7 +92,7 @@ func (o *ThreatInsightConfiguration) SetAction(v string) {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *ThreatInsightConfiguration) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *ThreatInsightConfiguration) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ThreatInsightConfiguration) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -107,7 +110,7 @@ func (o *ThreatInsightConfiguration) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *ThreatInsightConfiguration) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -121,7 +124,7 @@ func (o *ThreatInsightConfiguration) SetCreated(v time.Time) {
 
 // GetExcludeZones returns the ExcludeZones field value if set, zero value otherwise.
 func (o *ThreatInsightConfiguration) GetExcludeZones() []string {
-	if o == nil || o.ExcludeZones == nil {
+	if o == nil || IsNil(o.ExcludeZones) {
 		var ret []string
 		return ret
 	}
@@ -131,7 +134,7 @@ func (o *ThreatInsightConfiguration) GetExcludeZones() []string {
 // GetExcludeZonesOk returns a tuple with the ExcludeZones field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ThreatInsightConfiguration) GetExcludeZonesOk() ([]string, bool) {
-	if o == nil || o.ExcludeZones == nil {
+	if o == nil || IsNil(o.ExcludeZones) {
 		return nil, false
 	}
 	return o.ExcludeZones, true
@@ -139,7 +142,7 @@ func (o *ThreatInsightConfiguration) GetExcludeZonesOk() ([]string, bool) {
 
 // HasExcludeZones returns a boolean if a field has been set.
 func (o *ThreatInsightConfiguration) HasExcludeZones() bool {
-	if o != nil && o.ExcludeZones != nil {
+	if o != nil && !IsNil(o.ExcludeZones) {
 		return true
 	}
 
@@ -153,7 +156,7 @@ func (o *ThreatInsightConfiguration) SetExcludeZones(v []string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *ThreatInsightConfiguration) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -163,7 +166,7 @@ func (o *ThreatInsightConfiguration) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ThreatInsightConfiguration) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -171,7 +174,7 @@ func (o *ThreatInsightConfiguration) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *ThreatInsightConfiguration) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -185,7 +188,7 @@ func (o *ThreatInsightConfiguration) SetLastUpdated(v time.Time) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *ThreatInsightConfiguration) GetLinks() LinksSelf {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksSelf
 		return ret
 	}
@@ -195,7 +198,7 @@ func (o *ThreatInsightConfiguration) GetLinks() LinksSelf {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ThreatInsightConfiguration) GetLinksOk() (*LinksSelf, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -203,7 +206,7 @@ func (o *ThreatInsightConfiguration) GetLinksOk() (*LinksSelf, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *ThreatInsightConfiguration) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -216,20 +219,26 @@ func (o *ThreatInsightConfiguration) SetLinks(v LinksSelf) {
 }
 
 func (o ThreatInsightConfiguration) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["action"] = o.Action
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Created != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o ThreatInsightConfiguration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["action"] = o.Action
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.ExcludeZones != nil {
+	if !IsNil(o.ExcludeZones) {
 		toSerialize["excludeZones"] = o.ExcludeZones
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -237,31 +246,50 @@ func (o ThreatInsightConfiguration) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ThreatInsightConfiguration) UnmarshalJSON(bytes []byte) (err error) {
-	varThreatInsightConfiguration := _ThreatInsightConfiguration{}
+func (o *ThreatInsightConfiguration) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"action",
+	}
 
-	err = json.Unmarshal(bytes, &varThreatInsightConfiguration)
-	if err == nil {
-		*o = ThreatInsightConfiguration(varThreatInsightConfiguration)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varThreatInsightConfiguration := _ThreatInsightConfiguration{}
+
+	err = json.Unmarshal(data, &varThreatInsightConfiguration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ThreatInsightConfiguration(varThreatInsightConfiguration)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "action")
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "excludeZones")
 		delete(additionalProperties, "lastUpdated")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -302,4 +330,3 @@ func (v *NullableThreatInsightConfiguration) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

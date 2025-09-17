@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,12 +28,15 @@ import (
 	"fmt"
 )
 
+// checks if the BasicApplicationSettingsApplication type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BasicApplicationSettingsApplication{}
+
 // BasicApplicationSettingsApplication struct for BasicApplicationSettingsApplication
 type BasicApplicationSettingsApplication struct {
 	// The URL of the authenticating site for this app
 	AuthURL string `json:"authURL"`
 	// The URL of the sign-in page for this app
-	Url string `json:"url"`
+	Url                  string `json:"url"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,40 +110,64 @@ func (o *BasicApplicationSettingsApplication) SetUrl(v string) {
 }
 
 func (o BasicApplicationSettingsApplication) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BasicApplicationSettingsApplication) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["authURL"] = o.AuthURL
-	}
-	if true {
-		toSerialize["url"] = o.Url
-	}
+	toSerialize["authURL"] = o.AuthURL
+	toSerialize["url"] = o.Url
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *BasicApplicationSettingsApplication) UnmarshalJSON(bytes []byte) (err error) {
-	varBasicApplicationSettingsApplication := _BasicApplicationSettingsApplication{}
+func (o *BasicApplicationSettingsApplication) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"authURL",
+		"url",
+	}
 
-	err = json.Unmarshal(bytes, &varBasicApplicationSettingsApplication)
-	if err == nil {
-		*o = BasicApplicationSettingsApplication(varBasicApplicationSettingsApplication)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varBasicApplicationSettingsApplication := _BasicApplicationSettingsApplication{}
+
+	err = json.Unmarshal(data, &varBasicApplicationSettingsApplication)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BasicApplicationSettingsApplication(varBasicApplicationSettingsApplication)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "authURL")
 		delete(additionalProperties, "url")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -181,4 +208,3 @@ func (v *NullableBasicApplicationSettingsApplication) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

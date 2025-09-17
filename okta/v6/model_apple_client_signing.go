@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AppleClientSigning type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AppleClientSigning{}
+
 // AppleClientSigning Information used to generate the secret JSON Web Token for the token requests to Apple IdP > **Note:** The `privateKey` property is required for a CREATE request. For an UPDATE request, it can be null and keeps the existing value if it's null. The `privateKey` property isn't returned for LIST and GET requests or UPDATE requests if it's null.
 type AppleClientSigning struct {
 	// The key ID that you obtained from Apple when you created the private key for the client
@@ -34,7 +37,7 @@ type AppleClientSigning struct {
 	// The PKCS \\#8 encoded private key that you created for the client and downloaded from Apple
 	PrivateKey *string `json:"privateKey,omitempty"`
 	// The Team ID associated with your Apple developer account
-	TeamId *string `json:"teamId,omitempty"`
+	TeamId               *string `json:"teamId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewAppleClientSigningWithDefaults() *AppleClientSigning {
 
 // GetKid returns the Kid field value if set, zero value otherwise.
 func (o *AppleClientSigning) GetKid() string {
-	if o == nil || o.Kid == nil {
+	if o == nil || IsNil(o.Kid) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *AppleClientSigning) GetKid() string {
 // GetKidOk returns a tuple with the Kid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppleClientSigning) GetKidOk() (*string, bool) {
-	if o == nil || o.Kid == nil {
+	if o == nil || IsNil(o.Kid) {
 		return nil, false
 	}
 	return o.Kid, true
@@ -77,7 +80,7 @@ func (o *AppleClientSigning) GetKidOk() (*string, bool) {
 
 // HasKid returns a boolean if a field has been set.
 func (o *AppleClientSigning) HasKid() bool {
-	if o != nil && o.Kid != nil {
+	if o != nil && !IsNil(o.Kid) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *AppleClientSigning) SetKid(v string) {
 
 // GetPrivateKey returns the PrivateKey field value if set, zero value otherwise.
 func (o *AppleClientSigning) GetPrivateKey() string {
-	if o == nil || o.PrivateKey == nil {
+	if o == nil || IsNil(o.PrivateKey) {
 		var ret string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *AppleClientSigning) GetPrivateKey() string {
 // GetPrivateKeyOk returns a tuple with the PrivateKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppleClientSigning) GetPrivateKeyOk() (*string, bool) {
-	if o == nil || o.PrivateKey == nil {
+	if o == nil || IsNil(o.PrivateKey) {
 		return nil, false
 	}
 	return o.PrivateKey, true
@@ -109,7 +112,7 @@ func (o *AppleClientSigning) GetPrivateKeyOk() (*string, bool) {
 
 // HasPrivateKey returns a boolean if a field has been set.
 func (o *AppleClientSigning) HasPrivateKey() bool {
-	if o != nil && o.PrivateKey != nil {
+	if o != nil && !IsNil(o.PrivateKey) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *AppleClientSigning) SetPrivateKey(v string) {
 
 // GetTeamId returns the TeamId field value if set, zero value otherwise.
 func (o *AppleClientSigning) GetTeamId() string {
-	if o == nil || o.TeamId == nil {
+	if o == nil || IsNil(o.TeamId) {
 		var ret string
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *AppleClientSigning) GetTeamId() string {
 // GetTeamIdOk returns a tuple with the TeamId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppleClientSigning) GetTeamIdOk() (*string, bool) {
-	if o == nil || o.TeamId == nil {
+	if o == nil || IsNil(o.TeamId) {
 		return nil, false
 	}
 	return o.TeamId, true
@@ -141,7 +144,7 @@ func (o *AppleClientSigning) GetTeamIdOk() (*string, bool) {
 
 // HasTeamId returns a boolean if a field has been set.
 func (o *AppleClientSigning) HasTeamId() bool {
-	if o != nil && o.TeamId != nil {
+	if o != nil && !IsNil(o.TeamId) {
 		return true
 	}
 
@@ -154,14 +157,22 @@ func (o *AppleClientSigning) SetTeamId(v string) {
 }
 
 func (o AppleClientSigning) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AppleClientSigning) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Kid != nil {
+	if !IsNil(o.Kid) {
 		toSerialize["kid"] = o.Kid
 	}
-	if o.PrivateKey != nil {
+	if !IsNil(o.PrivateKey) {
 		toSerialize["privateKey"] = o.PrivateKey
 	}
-	if o.TeamId != nil {
+	if !IsNil(o.TeamId) {
 		toSerialize["teamId"] = o.TeamId
 	}
 
@@ -169,29 +180,27 @@ func (o AppleClientSigning) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AppleClientSigning) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AppleClientSigning) UnmarshalJSON(data []byte) (err error) {
 	varAppleClientSigning := _AppleClientSigning{}
 
-	err = json.Unmarshal(bytes, &varAppleClientSigning)
-	if err == nil {
-		*o = AppleClientSigning(varAppleClientSigning)
-	} else {
+	err = json.Unmarshal(data, &varAppleClientSigning)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AppleClientSigning(varAppleClientSigning)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "kid")
 		delete(additionalProperties, "privateKey")
 		delete(additionalProperties, "teamId")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -232,4 +241,3 @@ func (v *NullableAppleClientSigning) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

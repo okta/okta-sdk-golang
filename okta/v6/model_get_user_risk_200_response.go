@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,12 +28,10 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
 // GetUserRisk200Response - struct for GetUserRisk200Response
 type GetUserRisk200Response struct {
 	UserRiskLevelExists *UserRiskLevelExists
-	UserRiskLevelNone *UserRiskLevelNone
+	UserRiskLevelNone   *UserRiskLevelNone
 }
 
 // UserRiskLevelExistsAsGetUserRisk200Response is a convenience function that returns UserRiskLevelExists wrapped in GetUserRisk200Response
@@ -50,15 +48,14 @@ func UserRiskLevelNoneAsGetUserRisk200Response(v *UserRiskLevelNone) GetUserRisk
 	}
 }
 
-
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *GetUserRisk200Response) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	// check if the discriminator value is 'HIGH'
@@ -69,7 +66,7 @@ func (dst *GetUserRisk200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.UserRiskLevelExists, return on the first match
 		} else {
 			dst.UserRiskLevelExists = nil
-			return fmt.Errorf("Failed to unmarshal GetUserRisk200Response as UserRiskLevelExists: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal GetUserRisk200Response as UserRiskLevelExists: %s", err.Error())
 		}
 	}
 
@@ -81,7 +78,7 @@ func (dst *GetUserRisk200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.UserRiskLevelExists, return on the first match
 		} else {
 			dst.UserRiskLevelExists = nil
-			return fmt.Errorf("Failed to unmarshal GetUserRisk200Response as UserRiskLevelExists: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal GetUserRisk200Response as UserRiskLevelExists: %s", err.Error())
 		}
 	}
 
@@ -93,7 +90,7 @@ func (dst *GetUserRisk200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.UserRiskLevelExists, return on the first match
 		} else {
 			dst.UserRiskLevelExists = nil
-			return fmt.Errorf("Failed to unmarshal GetUserRisk200Response as UserRiskLevelExists: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal GetUserRisk200Response as UserRiskLevelExists: %s", err.Error())
 		}
 	}
 
@@ -105,7 +102,7 @@ func (dst *GetUserRisk200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.UserRiskLevelNone, return on the first match
 		} else {
 			dst.UserRiskLevelNone = nil
-			return fmt.Errorf("Failed to unmarshal GetUserRisk200Response as UserRiskLevelNone: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal GetUserRisk200Response as UserRiskLevelNone: %s", err.Error())
 		}
 	}
 
@@ -117,7 +114,7 @@ func (dst *GetUserRisk200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.UserRiskLevelExists, return on the first match
 		} else {
 			dst.UserRiskLevelExists = nil
-			return fmt.Errorf("Failed to unmarshal GetUserRisk200Response as UserRiskLevelExists: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal GetUserRisk200Response as UserRiskLevelExists: %s", err.Error())
 		}
 	}
 
@@ -129,7 +126,7 @@ func (dst *GetUserRisk200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.UserRiskLevelNone, return on the first match
 		} else {
 			dst.UserRiskLevelNone = nil
-			return fmt.Errorf("Failed to unmarshal GetUserRisk200Response as UserRiskLevelNone: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal GetUserRisk200Response as UserRiskLevelNone: %s", err.Error())
 		}
 	}
 
@@ -150,7 +147,7 @@ func (src GetUserRisk200Response) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *GetUserRisk200Response) GetActualInstance() (interface{}) {
+func (obj *GetUserRisk200Response) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -160,6 +157,20 @@ func (obj *GetUserRisk200Response) GetActualInstance() (interface{}) {
 
 	if obj.UserRiskLevelNone != nil {
 		return obj.UserRiskLevelNone
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj GetUserRisk200Response) GetActualInstanceValue() interface{} {
+	if obj.UserRiskLevelExists != nil {
+		return *obj.UserRiskLevelExists
+	}
+
+	if obj.UserRiskLevelNone != nil {
+		return *obj.UserRiskLevelNone
 	}
 
 	// all schemas are nil
@@ -201,5 +212,3 @@ func (v *NullableGetUserRisk200Response) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

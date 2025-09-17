@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the WellKnownURIsRoot type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WellKnownURIsRoot{}
+
 // WellKnownURIsRoot struct for WellKnownURIsRoot
 type WellKnownURIsRoot struct {
-	Embedded *WellKnownURIsRootEmbedded `json:"_embedded,omitempty"`
-	Links *WellKnownURIsRootLinks `json:"_links,omitempty"`
+	Embedded             *WellKnownURIsRootEmbedded `json:"_embedded,omitempty"`
+	Links                *WellKnownURIsRootLinks    `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewWellKnownURIsRootWithDefaults() *WellKnownURIsRoot {
 
 // GetEmbedded returns the Embedded field value if set, zero value otherwise.
 func (o *WellKnownURIsRoot) GetEmbedded() WellKnownURIsRootEmbedded {
-	if o == nil || o.Embedded == nil {
+	if o == nil || IsNil(o.Embedded) {
 		var ret WellKnownURIsRootEmbedded
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *WellKnownURIsRoot) GetEmbedded() WellKnownURIsRootEmbedded {
 // GetEmbeddedOk returns a tuple with the Embedded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownURIsRoot) GetEmbeddedOk() (*WellKnownURIsRootEmbedded, bool) {
-	if o == nil || o.Embedded == nil {
+	if o == nil || IsNil(o.Embedded) {
 		return nil, false
 	}
 	return o.Embedded, true
@@ -73,7 +76,7 @@ func (o *WellKnownURIsRoot) GetEmbeddedOk() (*WellKnownURIsRootEmbedded, bool) {
 
 // HasEmbedded returns a boolean if a field has been set.
 func (o *WellKnownURIsRoot) HasEmbedded() bool {
-	if o != nil && o.Embedded != nil {
+	if o != nil && !IsNil(o.Embedded) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *WellKnownURIsRoot) SetEmbedded(v WellKnownURIsRootEmbedded) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *WellKnownURIsRoot) GetLinks() WellKnownURIsRootLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret WellKnownURIsRootLinks
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *WellKnownURIsRoot) GetLinks() WellKnownURIsRootLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownURIsRoot) GetLinksOk() (*WellKnownURIsRootLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -105,7 +108,7 @@ func (o *WellKnownURIsRoot) GetLinksOk() (*WellKnownURIsRootLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *WellKnownURIsRoot) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *WellKnownURIsRoot) SetLinks(v WellKnownURIsRootLinks) {
 }
 
 func (o WellKnownURIsRoot) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o WellKnownURIsRoot) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Embedded != nil {
+	if !IsNil(o.Embedded) {
 		toSerialize["_embedded"] = o.Embedded
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -130,28 +141,26 @@ func (o WellKnownURIsRoot) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *WellKnownURIsRoot) UnmarshalJSON(bytes []byte) (err error) {
+func (o *WellKnownURIsRoot) UnmarshalJSON(data []byte) (err error) {
 	varWellKnownURIsRoot := _WellKnownURIsRoot{}
 
-	err = json.Unmarshal(bytes, &varWellKnownURIsRoot)
-	if err == nil {
-		*o = WellKnownURIsRoot(varWellKnownURIsRoot)
-	} else {
+	err = json.Unmarshal(data, &varWellKnownURIsRoot)
+
+	if err != nil {
 		return err
 	}
 
+	*o = WellKnownURIsRoot(varWellKnownURIsRoot)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "_embedded")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableWellKnownURIsRoot) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

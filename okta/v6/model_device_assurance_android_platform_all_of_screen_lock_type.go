@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the DeviceAssuranceAndroidPlatformAllOfScreenLockType type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeviceAssuranceAndroidPlatformAllOfScreenLockType{}
+
 // DeviceAssuranceAndroidPlatformAllOfScreenLockType struct for DeviceAssuranceAndroidPlatformAllOfScreenLockType
 type DeviceAssuranceAndroidPlatformAllOfScreenLockType struct {
-	Include []string `json:"include,omitempty"`
+	Include              []string `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewDeviceAssuranceAndroidPlatformAllOfScreenLockTypeWithDefaults() *DeviceA
 
 // GetInclude returns the Include field value if set, zero value otherwise.
 func (o *DeviceAssuranceAndroidPlatformAllOfScreenLockType) GetInclude() []string {
-	if o == nil || o.Include == nil {
+	if o == nil || IsNil(o.Include) {
 		var ret []string
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *DeviceAssuranceAndroidPlatformAllOfScreenLockType) GetInclude() []strin
 // GetIncludeOk returns a tuple with the Include field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceAssuranceAndroidPlatformAllOfScreenLockType) GetIncludeOk() ([]string, bool) {
-	if o == nil || o.Include == nil {
+	if o == nil || IsNil(o.Include) {
 		return nil, false
 	}
 	return o.Include, true
@@ -72,7 +75,7 @@ func (o *DeviceAssuranceAndroidPlatformAllOfScreenLockType) GetIncludeOk() ([]st
 
 // HasInclude returns a boolean if a field has been set.
 func (o *DeviceAssuranceAndroidPlatformAllOfScreenLockType) HasInclude() bool {
-	if o != nil && o.Include != nil {
+	if o != nil && !IsNil(o.Include) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *DeviceAssuranceAndroidPlatformAllOfScreenLockType) SetInclude(v []strin
 }
 
 func (o DeviceAssuranceAndroidPlatformAllOfScreenLockType) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DeviceAssuranceAndroidPlatformAllOfScreenLockType) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Include != nil {
+	if !IsNil(o.Include) {
 		toSerialize["include"] = o.Include
 	}
 
@@ -94,27 +105,25 @@ func (o DeviceAssuranceAndroidPlatformAllOfScreenLockType) MarshalJSON() ([]byte
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DeviceAssuranceAndroidPlatformAllOfScreenLockType) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DeviceAssuranceAndroidPlatformAllOfScreenLockType) UnmarshalJSON(data []byte) (err error) {
 	varDeviceAssuranceAndroidPlatformAllOfScreenLockType := _DeviceAssuranceAndroidPlatformAllOfScreenLockType{}
 
-	err = json.Unmarshal(bytes, &varDeviceAssuranceAndroidPlatformAllOfScreenLockType)
-	if err == nil {
-		*o = DeviceAssuranceAndroidPlatformAllOfScreenLockType(varDeviceAssuranceAndroidPlatformAllOfScreenLockType)
-	} else {
+	err = json.Unmarshal(data, &varDeviceAssuranceAndroidPlatformAllOfScreenLockType)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DeviceAssuranceAndroidPlatformAllOfScreenLockType(varDeviceAssuranceAndroidPlatformAllOfScreenLockType)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "include")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableDeviceAssuranceAndroidPlatformAllOfScreenLockType) UnmarshalJSO
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the OAuthCredentials type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OAuthCredentials{}
+
 // OAuthCredentials Client authentication credentials for an [OAuth 2.0 Authorization Server](https://tools.ietf.org/html/rfc6749#section-2.3)
 type OAuthCredentials struct {
-	Client *OAuthCredentialsClient `json:"client,omitempty"`
-	Signing *AppleClientSigning `json:"signing,omitempty"`
+	Client               *OAuthCredentialsClient `json:"client,omitempty"`
+	Signing              *AppleClientSigning     `json:"signing,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewOAuthCredentialsWithDefaults() *OAuthCredentials {
 
 // GetClient returns the Client field value if set, zero value otherwise.
 func (o *OAuthCredentials) GetClient() OAuthCredentialsClient {
-	if o == nil || o.Client == nil {
+	if o == nil || IsNil(o.Client) {
 		var ret OAuthCredentialsClient
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *OAuthCredentials) GetClient() OAuthCredentialsClient {
 // GetClientOk returns a tuple with the Client field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthCredentials) GetClientOk() (*OAuthCredentialsClient, bool) {
-	if o == nil || o.Client == nil {
+	if o == nil || IsNil(o.Client) {
 		return nil, false
 	}
 	return o.Client, true
@@ -73,7 +76,7 @@ func (o *OAuthCredentials) GetClientOk() (*OAuthCredentialsClient, bool) {
 
 // HasClient returns a boolean if a field has been set.
 func (o *OAuthCredentials) HasClient() bool {
-	if o != nil && o.Client != nil {
+	if o != nil && !IsNil(o.Client) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *OAuthCredentials) SetClient(v OAuthCredentialsClient) {
 
 // GetSigning returns the Signing field value if set, zero value otherwise.
 func (o *OAuthCredentials) GetSigning() AppleClientSigning {
-	if o == nil || o.Signing == nil {
+	if o == nil || IsNil(o.Signing) {
 		var ret AppleClientSigning
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *OAuthCredentials) GetSigning() AppleClientSigning {
 // GetSigningOk returns a tuple with the Signing field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthCredentials) GetSigningOk() (*AppleClientSigning, bool) {
-	if o == nil || o.Signing == nil {
+	if o == nil || IsNil(o.Signing) {
 		return nil, false
 	}
 	return o.Signing, true
@@ -105,7 +108,7 @@ func (o *OAuthCredentials) GetSigningOk() (*AppleClientSigning, bool) {
 
 // HasSigning returns a boolean if a field has been set.
 func (o *OAuthCredentials) HasSigning() bool {
-	if o != nil && o.Signing != nil {
+	if o != nil && !IsNil(o.Signing) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *OAuthCredentials) SetSigning(v AppleClientSigning) {
 }
 
 func (o OAuthCredentials) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OAuthCredentials) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Client != nil {
+	if !IsNil(o.Client) {
 		toSerialize["client"] = o.Client
 	}
-	if o.Signing != nil {
+	if !IsNil(o.Signing) {
 		toSerialize["signing"] = o.Signing
 	}
 
@@ -130,28 +141,26 @@ func (o OAuthCredentials) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OAuthCredentials) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OAuthCredentials) UnmarshalJSON(data []byte) (err error) {
 	varOAuthCredentials := _OAuthCredentials{}
 
-	err = json.Unmarshal(bytes, &varOAuthCredentials)
-	if err == nil {
-		*o = OAuthCredentials(varOAuthCredentials)
-	} else {
+	err = json.Unmarshal(data, &varOAuthCredentials)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OAuthCredentials(varOAuthCredentials)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "client")
 		delete(additionalProperties, "signing")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableOAuthCredentials) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

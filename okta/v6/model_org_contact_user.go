@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the OrgContactUser type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrgContactUser{}
+
 // OrgContactUser struct for OrgContactUser
 type OrgContactUser struct {
 	// Contact user ID
-	UserId *string `json:"userId,omitempty"`
-	Links *OrgContactUserLinks `json:"_links,omitempty"`
+	UserId               *string              `json:"userId,omitempty"`
+	Links                *OrgContactUserLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewOrgContactUserWithDefaults() *OrgContactUser {
 
 // GetUserId returns the UserId field value if set, zero value otherwise.
 func (o *OrgContactUser) GetUserId() string {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		var ret string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *OrgContactUser) GetUserId() string {
 // GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgContactUser) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		return nil, false
 	}
 	return o.UserId, true
@@ -74,7 +77,7 @@ func (o *OrgContactUser) GetUserIdOk() (*string, bool) {
 
 // HasUserId returns a boolean if a field has been set.
 func (o *OrgContactUser) HasUserId() bool {
-	if o != nil && o.UserId != nil {
+	if o != nil && !IsNil(o.UserId) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *OrgContactUser) SetUserId(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *OrgContactUser) GetLinks() OrgContactUserLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret OrgContactUserLinks
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *OrgContactUser) GetLinks() OrgContactUserLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgContactUser) GetLinksOk() (*OrgContactUserLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -106,7 +109,7 @@ func (o *OrgContactUser) GetLinksOk() (*OrgContactUserLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *OrgContactUser) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *OrgContactUser) SetLinks(v OrgContactUserLinks) {
 }
 
 func (o OrgContactUser) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OrgContactUser) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.UserId != nil {
+	if !IsNil(o.UserId) {
 		toSerialize["userId"] = o.UserId
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -131,28 +142,26 @@ func (o OrgContactUser) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OrgContactUser) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OrgContactUser) UnmarshalJSON(data []byte) (err error) {
 	varOrgContactUser := _OrgContactUser{}
 
-	err = json.Unmarshal(bytes, &varOrgContactUser)
-	if err == nil {
-		*o = OrgContactUser(varOrgContactUser)
-	} else {
+	err = json.Unmarshal(data, &varOrgContactUser)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OrgContactUser(varOrgContactUser)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "userId")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableOrgContactUser) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

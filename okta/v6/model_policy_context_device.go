@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PolicyContextDevice type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PolicyContextDevice{}
+
 // PolicyContextDevice struct for PolicyContextDevice
 type PolicyContextDevice struct {
 	// The platform of the device, for example, IOS.
@@ -36,7 +39,7 @@ type PolicyContextDevice struct {
 	// If the device is managed
 	Managed *bool `json:"managed,omitempty"`
 	// The device assurance policy ID for the simulation
-	AssuranceId *string `json:"assuranceId,omitempty"`
+	AssuranceId          *string `json:"assuranceId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewPolicyContextDeviceWithDefaults() *PolicyContextDevice {
 
 // GetPlatform returns the Platform field value if set, zero value otherwise.
 func (o *PolicyContextDevice) GetPlatform() string {
-	if o == nil || o.Platform == nil {
+	if o == nil || IsNil(o.Platform) {
 		var ret string
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *PolicyContextDevice) GetPlatform() string {
 // GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyContextDevice) GetPlatformOk() (*string, bool) {
-	if o == nil || o.Platform == nil {
+	if o == nil || IsNil(o.Platform) {
 		return nil, false
 	}
 	return o.Platform, true
@@ -79,7 +82,7 @@ func (o *PolicyContextDevice) GetPlatformOk() (*string, bool) {
 
 // HasPlatform returns a boolean if a field has been set.
 func (o *PolicyContextDevice) HasPlatform() bool {
-	if o != nil && o.Platform != nil {
+	if o != nil && !IsNil(o.Platform) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *PolicyContextDevice) SetPlatform(v string) {
 
 // GetRegistered returns the Registered field value if set, zero value otherwise.
 func (o *PolicyContextDevice) GetRegistered() bool {
-	if o == nil || o.Registered == nil {
+	if o == nil || IsNil(o.Registered) {
 		var ret bool
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *PolicyContextDevice) GetRegistered() bool {
 // GetRegisteredOk returns a tuple with the Registered field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyContextDevice) GetRegisteredOk() (*bool, bool) {
-	if o == nil || o.Registered == nil {
+	if o == nil || IsNil(o.Registered) {
 		return nil, false
 	}
 	return o.Registered, true
@@ -111,7 +114,7 @@ func (o *PolicyContextDevice) GetRegisteredOk() (*bool, bool) {
 
 // HasRegistered returns a boolean if a field has been set.
 func (o *PolicyContextDevice) HasRegistered() bool {
-	if o != nil && o.Registered != nil {
+	if o != nil && !IsNil(o.Registered) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *PolicyContextDevice) SetRegistered(v bool) {
 
 // GetManaged returns the Managed field value if set, zero value otherwise.
 func (o *PolicyContextDevice) GetManaged() bool {
-	if o == nil || o.Managed == nil {
+	if o == nil || IsNil(o.Managed) {
 		var ret bool
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *PolicyContextDevice) GetManaged() bool {
 // GetManagedOk returns a tuple with the Managed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyContextDevice) GetManagedOk() (*bool, bool) {
-	if o == nil || o.Managed == nil {
+	if o == nil || IsNil(o.Managed) {
 		return nil, false
 	}
 	return o.Managed, true
@@ -143,7 +146,7 @@ func (o *PolicyContextDevice) GetManagedOk() (*bool, bool) {
 
 // HasManaged returns a boolean if a field has been set.
 func (o *PolicyContextDevice) HasManaged() bool {
-	if o != nil && o.Managed != nil {
+	if o != nil && !IsNil(o.Managed) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *PolicyContextDevice) SetManaged(v bool) {
 
 // GetAssuranceId returns the AssuranceId field value if set, zero value otherwise.
 func (o *PolicyContextDevice) GetAssuranceId() string {
-	if o == nil || o.AssuranceId == nil {
+	if o == nil || IsNil(o.AssuranceId) {
 		var ret string
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *PolicyContextDevice) GetAssuranceId() string {
 // GetAssuranceIdOk returns a tuple with the AssuranceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyContextDevice) GetAssuranceIdOk() (*string, bool) {
-	if o == nil || o.AssuranceId == nil {
+	if o == nil || IsNil(o.AssuranceId) {
 		return nil, false
 	}
 	return o.AssuranceId, true
@@ -175,7 +178,7 @@ func (o *PolicyContextDevice) GetAssuranceIdOk() (*string, bool) {
 
 // HasAssuranceId returns a boolean if a field has been set.
 func (o *PolicyContextDevice) HasAssuranceId() bool {
-	if o != nil && o.AssuranceId != nil {
+	if o != nil && !IsNil(o.AssuranceId) {
 		return true
 	}
 
@@ -188,17 +191,25 @@ func (o *PolicyContextDevice) SetAssuranceId(v string) {
 }
 
 func (o PolicyContextDevice) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PolicyContextDevice) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Platform != nil {
+	if !IsNil(o.Platform) {
 		toSerialize["platform"] = o.Platform
 	}
-	if o.Registered != nil {
+	if !IsNil(o.Registered) {
 		toSerialize["registered"] = o.Registered
 	}
-	if o.Managed != nil {
+	if !IsNil(o.Managed) {
 		toSerialize["managed"] = o.Managed
 	}
-	if o.AssuranceId != nil {
+	if !IsNil(o.AssuranceId) {
 		toSerialize["assuranceId"] = o.AssuranceId
 	}
 
@@ -206,30 +217,28 @@ func (o PolicyContextDevice) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PolicyContextDevice) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PolicyContextDevice) UnmarshalJSON(data []byte) (err error) {
 	varPolicyContextDevice := _PolicyContextDevice{}
 
-	err = json.Unmarshal(bytes, &varPolicyContextDevice)
-	if err == nil {
-		*o = PolicyContextDevice(varPolicyContextDevice)
-	} else {
+	err = json.Unmarshal(data, &varPolicyContextDevice)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PolicyContextDevice(varPolicyContextDevice)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "platform")
 		delete(additionalProperties, "registered")
 		delete(additionalProperties, "managed")
 		delete(additionalProperties, "assuranceId")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -270,4 +279,3 @@ func (v *NullablePolicyContextDevice) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

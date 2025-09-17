@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -30,12 +30,15 @@ import (
 	"strings"
 )
 
+// checks if the DeviceSignalCollectionPolicy type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeviceSignalCollectionPolicy{}
+
 // DeviceSignalCollectionPolicy struct for DeviceSignalCollectionPolicy
 type DeviceSignalCollectionPolicy struct {
 	Policy
 	// Policy conditions aren't supported. Conditions are applied at the rule level for this policy type.
-	Conditions NullableString `json:"conditions,omitempty"`
-	Embedded *AccessPolicyAllOfEmbedded `json:"_embedded,omitempty"`
+	Conditions           NullableString             `json:"conditions,omitempty"`
+	Embedded             *AccessPolicyAllOfEmbedded `json:"_embedded,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -64,7 +67,7 @@ func NewDeviceSignalCollectionPolicyWithDefaults() *DeviceSignalCollectionPolicy
 
 // GetConditions returns the Conditions field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *DeviceSignalCollectionPolicy) GetConditions() string {
-	if o == nil || o.Conditions.Get() == nil {
+	if o == nil || IsNil(o.Conditions.Get()) {
 		var ret string
 		return ret
 	}
@@ -94,6 +97,7 @@ func (o *DeviceSignalCollectionPolicy) HasConditions() bool {
 func (o *DeviceSignalCollectionPolicy) SetConditions(v string) {
 	o.Conditions.Set(&v)
 }
+
 // SetConditionsNil sets the value for Conditions to be an explicit nil
 func (o *DeviceSignalCollectionPolicy) SetConditionsNil() {
 	o.Conditions.Set(nil)
@@ -106,7 +110,7 @@ func (o *DeviceSignalCollectionPolicy) UnsetConditions() {
 
 // GetEmbedded returns the Embedded field value if set, zero value otherwise.
 func (o *DeviceSignalCollectionPolicy) GetEmbedded() AccessPolicyAllOfEmbedded {
-	if o == nil || o.Embedded == nil {
+	if o == nil || IsNil(o.Embedded) {
 		var ret AccessPolicyAllOfEmbedded
 		return ret
 	}
@@ -116,7 +120,7 @@ func (o *DeviceSignalCollectionPolicy) GetEmbedded() AccessPolicyAllOfEmbedded {
 // GetEmbeddedOk returns a tuple with the Embedded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceSignalCollectionPolicy) GetEmbeddedOk() (*AccessPolicyAllOfEmbedded, bool) {
-	if o == nil || o.Embedded == nil {
+	if o == nil || IsNil(o.Embedded) {
 		return nil, false
 	}
 	return o.Embedded, true
@@ -124,7 +128,7 @@ func (o *DeviceSignalCollectionPolicy) GetEmbeddedOk() (*AccessPolicyAllOfEmbedd
 
 // HasEmbedded returns a boolean if a field has been set.
 func (o *DeviceSignalCollectionPolicy) HasEmbedded() bool {
-	if o != nil && o.Embedded != nil {
+	if o != nil && !IsNil(o.Embedded) {
 		return true
 	}
 
@@ -137,19 +141,27 @@ func (o *DeviceSignalCollectionPolicy) SetEmbedded(v AccessPolicyAllOfEmbedded) 
 }
 
 func (o DeviceSignalCollectionPolicy) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DeviceSignalCollectionPolicy) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedPolicy, errPolicy := json.Marshal(o.Policy)
 	if errPolicy != nil {
-		return []byte{}, errPolicy
+		return map[string]interface{}{}, errPolicy
 	}
 	errPolicy = json.Unmarshal([]byte(serializedPolicy), &toSerialize)
 	if errPolicy != nil {
-		return []byte{}, errPolicy
+		return map[string]interface{}{}, errPolicy
 	}
 	if o.Conditions.IsSet() {
 		toSerialize["conditions"] = o.Conditions.Get()
 	}
-	if o.Embedded != nil {
+	if !IsNil(o.Embedded) {
 		toSerialize["_embedded"] = o.Embedded
 	}
 
@@ -157,19 +169,41 @@ func (o DeviceSignalCollectionPolicy) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DeviceSignalCollectionPolicy) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DeviceSignalCollectionPolicy) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	type DeviceSignalCollectionPolicyWithoutEmbeddedStruct struct {
 		// Policy conditions aren't supported. Conditions are applied at the rule level for this policy type.
-		Conditions NullableString `json:"conditions,omitempty"`
-		Embedded *AccessPolicyAllOfEmbedded `json:"_embedded,omitempty"`
+		Conditions NullableString             `json:"conditions,omitempty"`
+		Embedded   *AccessPolicyAllOfEmbedded `json:"_embedded,omitempty"`
 	}
 
 	varDeviceSignalCollectionPolicyWithoutEmbeddedStruct := DeviceSignalCollectionPolicyWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varDeviceSignalCollectionPolicyWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varDeviceSignalCollectionPolicyWithoutEmbeddedStruct)
 	if err == nil {
 		varDeviceSignalCollectionPolicy := _DeviceSignalCollectionPolicy{}
 		varDeviceSignalCollectionPolicy.Conditions = varDeviceSignalCollectionPolicyWithoutEmbeddedStruct.Conditions
@@ -181,7 +215,7 @@ func (o *DeviceSignalCollectionPolicy) UnmarshalJSON(bytes []byte) (err error) {
 
 	varDeviceSignalCollectionPolicy := _DeviceSignalCollectionPolicy{}
 
-	err = json.Unmarshal(bytes, &varDeviceSignalCollectionPolicy)
+	err = json.Unmarshal(data, &varDeviceSignalCollectionPolicy)
 	if err == nil {
 		o.Policy = varDeviceSignalCollectionPolicy.Policy
 	} else {
@@ -190,8 +224,7 @@ func (o *DeviceSignalCollectionPolicy) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "conditions")
 		delete(additionalProperties, "_embedded")
 
@@ -214,8 +247,6 @@ func (o *DeviceSignalCollectionPolicy) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -256,4 +287,3 @@ func (v *NullableDeviceSignalCollectionPolicy) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"time"
 )
 
+// checks if the StandardRole type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StandardRole{}
+
 // StandardRole struct for StandardRole
 type StandardRole struct {
 	// Role assignment type
@@ -43,9 +46,9 @@ type StandardRole struct {
 	// Status of the role assignment
 	Status *string `json:"status,omitempty"`
 	// Standard role type
-	Type *string `json:"type,omitempty"`
-	Embedded *StandardRoleEmbedded `json:"_embedded,omitempty"`
-	Links *LinksAssignee `json:"_links,omitempty"`
+	Type                 *string               `json:"type,omitempty"`
+	Embedded             *StandardRoleEmbedded `json:"_embedded,omitempty"`
+	Links                *LinksAssignee        `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -70,7 +73,7 @@ func NewStandardRoleWithDefaults() *StandardRole {
 
 // GetAssignmentType returns the AssignmentType field value if set, zero value otherwise.
 func (o *StandardRole) GetAssignmentType() string {
-	if o == nil || o.AssignmentType == nil {
+	if o == nil || IsNil(o.AssignmentType) {
 		var ret string
 		return ret
 	}
@@ -80,7 +83,7 @@ func (o *StandardRole) GetAssignmentType() string {
 // GetAssignmentTypeOk returns a tuple with the AssignmentType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StandardRole) GetAssignmentTypeOk() (*string, bool) {
-	if o == nil || o.AssignmentType == nil {
+	if o == nil || IsNil(o.AssignmentType) {
 		return nil, false
 	}
 	return o.AssignmentType, true
@@ -88,7 +91,7 @@ func (o *StandardRole) GetAssignmentTypeOk() (*string, bool) {
 
 // HasAssignmentType returns a boolean if a field has been set.
 func (o *StandardRole) HasAssignmentType() bool {
-	if o != nil && o.AssignmentType != nil {
+	if o != nil && !IsNil(o.AssignmentType) {
 		return true
 	}
 
@@ -102,7 +105,7 @@ func (o *StandardRole) SetAssignmentType(v string) {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *StandardRole) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -112,7 +115,7 @@ func (o *StandardRole) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StandardRole) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -120,7 +123,7 @@ func (o *StandardRole) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *StandardRole) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -134,7 +137,7 @@ func (o *StandardRole) SetCreated(v time.Time) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *StandardRole) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -144,7 +147,7 @@ func (o *StandardRole) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StandardRole) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -152,7 +155,7 @@ func (o *StandardRole) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *StandardRole) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -166,7 +169,7 @@ func (o *StandardRole) SetId(v string) {
 
 // GetLabel returns the Label field value if set, zero value otherwise.
 func (o *StandardRole) GetLabel() string {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		var ret string
 		return ret
 	}
@@ -176,7 +179,7 @@ func (o *StandardRole) GetLabel() string {
 // GetLabelOk returns a tuple with the Label field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StandardRole) GetLabelOk() (*string, bool) {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		return nil, false
 	}
 	return o.Label, true
@@ -184,7 +187,7 @@ func (o *StandardRole) GetLabelOk() (*string, bool) {
 
 // HasLabel returns a boolean if a field has been set.
 func (o *StandardRole) HasLabel() bool {
-	if o != nil && o.Label != nil {
+	if o != nil && !IsNil(o.Label) {
 		return true
 	}
 
@@ -198,7 +201,7 @@ func (o *StandardRole) SetLabel(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *StandardRole) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -208,7 +211,7 @@ func (o *StandardRole) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StandardRole) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -216,7 +219,7 @@ func (o *StandardRole) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *StandardRole) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -230,7 +233,7 @@ func (o *StandardRole) SetLastUpdated(v time.Time) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *StandardRole) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -240,7 +243,7 @@ func (o *StandardRole) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StandardRole) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -248,7 +251,7 @@ func (o *StandardRole) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *StandardRole) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -262,7 +265,7 @@ func (o *StandardRole) SetStatus(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *StandardRole) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -272,7 +275,7 @@ func (o *StandardRole) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StandardRole) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -280,7 +283,7 @@ func (o *StandardRole) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *StandardRole) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -294,7 +297,7 @@ func (o *StandardRole) SetType(v string) {
 
 // GetEmbedded returns the Embedded field value if set, zero value otherwise.
 func (o *StandardRole) GetEmbedded() StandardRoleEmbedded {
-	if o == nil || o.Embedded == nil {
+	if o == nil || IsNil(o.Embedded) {
 		var ret StandardRoleEmbedded
 		return ret
 	}
@@ -304,7 +307,7 @@ func (o *StandardRole) GetEmbedded() StandardRoleEmbedded {
 // GetEmbeddedOk returns a tuple with the Embedded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StandardRole) GetEmbeddedOk() (*StandardRoleEmbedded, bool) {
-	if o == nil || o.Embedded == nil {
+	if o == nil || IsNil(o.Embedded) {
 		return nil, false
 	}
 	return o.Embedded, true
@@ -312,7 +315,7 @@ func (o *StandardRole) GetEmbeddedOk() (*StandardRoleEmbedded, bool) {
 
 // HasEmbedded returns a boolean if a field has been set.
 func (o *StandardRole) HasEmbedded() bool {
-	if o != nil && o.Embedded != nil {
+	if o != nil && !IsNil(o.Embedded) {
 		return true
 	}
 
@@ -326,7 +329,7 @@ func (o *StandardRole) SetEmbedded(v StandardRoleEmbedded) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *StandardRole) GetLinks() LinksAssignee {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksAssignee
 		return ret
 	}
@@ -336,7 +339,7 @@ func (o *StandardRole) GetLinks() LinksAssignee {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StandardRole) GetLinksOk() (*LinksAssignee, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -344,7 +347,7 @@ func (o *StandardRole) GetLinksOk() (*LinksAssignee, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *StandardRole) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -357,32 +360,40 @@ func (o *StandardRole) SetLinks(v LinksAssignee) {
 }
 
 func (o StandardRole) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o StandardRole) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AssignmentType != nil {
+	if !IsNil(o.AssignmentType) {
 		toSerialize["assignmentType"] = o.AssignmentType
 	}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Label != nil {
+	if !IsNil(o.Label) {
 		toSerialize["label"] = o.Label
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Embedded != nil {
+	if !IsNil(o.Embedded) {
 		toSerialize["_embedded"] = o.Embedded
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -390,23 +401,23 @@ func (o StandardRole) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *StandardRole) UnmarshalJSON(bytes []byte) (err error) {
+func (o *StandardRole) UnmarshalJSON(data []byte) (err error) {
 	varStandardRole := _StandardRole{}
 
-	err = json.Unmarshal(bytes, &varStandardRole)
-	if err == nil {
-		*o = StandardRole(varStandardRole)
-	} else {
+	err = json.Unmarshal(data, &varStandardRole)
+
+	if err != nil {
 		return err
 	}
 
+	*o = StandardRole(varStandardRole)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "assignmentType")
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "id")
@@ -417,8 +428,6 @@ func (o *StandardRole) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "_embedded")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -459,4 +468,3 @@ func (v *NullableStandardRole) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

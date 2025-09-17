@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the PolicyAccountLinkFilterUsers type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PolicyAccountLinkFilterUsers{}
+
 // PolicyAccountLinkFilterUsers Filters on which users are available for account linking
 type PolicyAccountLinkFilterUsers struct {
 	// Specifies the blocklist of user identifiers to exclude from account linking
 	Exclude []string `json:"exclude,omitempty"`
 	// Specifies whether admin users should be excluded from account linking
-	ExcludeAdmins *bool `json:"excludeAdmins,omitempty"`
+	ExcludeAdmins        *bool `json:"excludeAdmins,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewPolicyAccountLinkFilterUsersWithDefaults() *PolicyAccountLinkFilterUsers
 
 // GetExclude returns the Exclude field value if set, zero value otherwise.
 func (o *PolicyAccountLinkFilterUsers) GetExclude() []string {
-	if o == nil || o.Exclude == nil {
+	if o == nil || IsNil(o.Exclude) {
 		var ret []string
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *PolicyAccountLinkFilterUsers) GetExclude() []string {
 // GetExcludeOk returns a tuple with the Exclude field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyAccountLinkFilterUsers) GetExcludeOk() ([]string, bool) {
-	if o == nil || o.Exclude == nil {
+	if o == nil || IsNil(o.Exclude) {
 		return nil, false
 	}
 	return o.Exclude, true
@@ -79,7 +82,7 @@ func (o *PolicyAccountLinkFilterUsers) GetExcludeOk() ([]string, bool) {
 
 // HasExclude returns a boolean if a field has been set.
 func (o *PolicyAccountLinkFilterUsers) HasExclude() bool {
-	if o != nil && o.Exclude != nil {
+	if o != nil && !IsNil(o.Exclude) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *PolicyAccountLinkFilterUsers) SetExclude(v []string) {
 
 // GetExcludeAdmins returns the ExcludeAdmins field value if set, zero value otherwise.
 func (o *PolicyAccountLinkFilterUsers) GetExcludeAdmins() bool {
-	if o == nil || o.ExcludeAdmins == nil {
+	if o == nil || IsNil(o.ExcludeAdmins) {
 		var ret bool
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *PolicyAccountLinkFilterUsers) GetExcludeAdmins() bool {
 // GetExcludeAdminsOk returns a tuple with the ExcludeAdmins field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyAccountLinkFilterUsers) GetExcludeAdminsOk() (*bool, bool) {
-	if o == nil || o.ExcludeAdmins == nil {
+	if o == nil || IsNil(o.ExcludeAdmins) {
 		return nil, false
 	}
 	return o.ExcludeAdmins, true
@@ -111,7 +114,7 @@ func (o *PolicyAccountLinkFilterUsers) GetExcludeAdminsOk() (*bool, bool) {
 
 // HasExcludeAdmins returns a boolean if a field has been set.
 func (o *PolicyAccountLinkFilterUsers) HasExcludeAdmins() bool {
-	if o != nil && o.ExcludeAdmins != nil {
+	if o != nil && !IsNil(o.ExcludeAdmins) {
 		return true
 	}
 
@@ -124,11 +127,19 @@ func (o *PolicyAccountLinkFilterUsers) SetExcludeAdmins(v bool) {
 }
 
 func (o PolicyAccountLinkFilterUsers) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PolicyAccountLinkFilterUsers) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Exclude != nil {
+	if !IsNil(o.Exclude) {
 		toSerialize["exclude"] = o.Exclude
 	}
-	if o.ExcludeAdmins != nil {
+	if !IsNil(o.ExcludeAdmins) {
 		toSerialize["excludeAdmins"] = o.ExcludeAdmins
 	}
 
@@ -136,28 +147,26 @@ func (o PolicyAccountLinkFilterUsers) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PolicyAccountLinkFilterUsers) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PolicyAccountLinkFilterUsers) UnmarshalJSON(data []byte) (err error) {
 	varPolicyAccountLinkFilterUsers := _PolicyAccountLinkFilterUsers{}
 
-	err = json.Unmarshal(bytes, &varPolicyAccountLinkFilterUsers)
-	if err == nil {
-		*o = PolicyAccountLinkFilterUsers(varPolicyAccountLinkFilterUsers)
-	} else {
+	err = json.Unmarshal(data, &varPolicyAccountLinkFilterUsers)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PolicyAccountLinkFilterUsers(varPolicyAccountLinkFilterUsers)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "exclude")
 		delete(additionalProperties, "excludeAdmins")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -198,4 +207,3 @@ func (v *NullablePolicyAccountLinkFilterUsers) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

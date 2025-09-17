@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthorizationServerPolicyRuleUserCondition type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthorizationServerPolicyRuleUserCondition{}
+
 // AuthorizationServerPolicyRuleUserCondition Specifies a set of Users to be included
 type AuthorizationServerPolicyRuleUserCondition struct {
 	// Users to be included
-	Include []string `json:"include,omitempty"`
+	Include              []string `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewAuthorizationServerPolicyRuleUserConditionWithDefaults() *AuthorizationS
 
 // GetInclude returns the Include field value if set, zero value otherwise.
 func (o *AuthorizationServerPolicyRuleUserCondition) GetInclude() []string {
-	if o == nil || o.Include == nil {
+	if o == nil || IsNil(o.Include) {
 		var ret []string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *AuthorizationServerPolicyRuleUserCondition) GetInclude() []string {
 // GetIncludeOk returns a tuple with the Include field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerPolicyRuleUserCondition) GetIncludeOk() ([]string, bool) {
-	if o == nil || o.Include == nil {
+	if o == nil || IsNil(o.Include) {
 		return nil, false
 	}
 	return o.Include, true
@@ -73,7 +76,7 @@ func (o *AuthorizationServerPolicyRuleUserCondition) GetIncludeOk() ([]string, b
 
 // HasInclude returns a boolean if a field has been set.
 func (o *AuthorizationServerPolicyRuleUserCondition) HasInclude() bool {
-	if o != nil && o.Include != nil {
+	if o != nil && !IsNil(o.Include) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *AuthorizationServerPolicyRuleUserCondition) SetInclude(v []string) {
 }
 
 func (o AuthorizationServerPolicyRuleUserCondition) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthorizationServerPolicyRuleUserCondition) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Include != nil {
+	if !IsNil(o.Include) {
 		toSerialize["include"] = o.Include
 	}
 
@@ -95,27 +106,25 @@ func (o AuthorizationServerPolicyRuleUserCondition) MarshalJSON() ([]byte, error
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthorizationServerPolicyRuleUserCondition) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthorizationServerPolicyRuleUserCondition) UnmarshalJSON(data []byte) (err error) {
 	varAuthorizationServerPolicyRuleUserCondition := _AuthorizationServerPolicyRuleUserCondition{}
 
-	err = json.Unmarshal(bytes, &varAuthorizationServerPolicyRuleUserCondition)
-	if err == nil {
-		*o = AuthorizationServerPolicyRuleUserCondition(varAuthorizationServerPolicyRuleUserCondition)
-	} else {
+	err = json.Unmarshal(data, &varAuthorizationServerPolicyRuleUserCondition)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthorizationServerPolicyRuleUserCondition(varAuthorizationServerPolicyRuleUserCondition)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "include")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableAuthorizationServerPolicyRuleUserCondition) UnmarshalJSON(src [
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

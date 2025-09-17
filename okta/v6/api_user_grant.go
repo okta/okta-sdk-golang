@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,25 +26,24 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type UserGrantAPI interface {
 
 	/*
-	GetUserGrant Retrieve a user grant
+		GetUserGrant Retrieve a user grant
 
-	Retrieves a grant for the specified user
+		Retrieves a grant for the specified user
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param grantId Grant ID
-	@return ApiGetUserGrantRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param grantId Grant ID
+		@return ApiGetUserGrantRequest
 	*/
 	GetUserGrant(ctx context.Context, userId string, grantId string) ApiGetUserGrantRequest
 
@@ -53,14 +52,14 @@ type UserGrantAPI interface {
 	GetUserGrantExecute(r ApiGetUserGrantRequest) (*OAuth2ScopeConsentGrant, *APIResponse, error)
 
 	/*
-	ListGrantsForUserAndClient List all grants for a client
+		ListGrantsForUserAndClient List all grants for a client
 
-	Lists all grants for a specified user and client
+		Lists all grants for a specified user and client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param clientId Client app ID
-	@return ApiListGrantsForUserAndClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param clientId Client app ID
+		@return ApiListGrantsForUserAndClientRequest
 	*/
 	ListGrantsForUserAndClient(ctx context.Context, userId string, clientId string) ApiListGrantsForUserAndClientRequest
 
@@ -69,13 +68,13 @@ type UserGrantAPI interface {
 	ListGrantsForUserAndClientExecute(r ApiListGrantsForUserAndClientRequest) ([]OAuth2ScopeConsentGrant, *APIResponse, error)
 
 	/*
-	ListUserGrants List all user grants
+		ListUserGrants List all user grants
 
-	Lists all grants for the specified user
+		Lists all grants for the specified user
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiListUserGrantsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiListUserGrantsRequest
 	*/
 	ListUserGrants(ctx context.Context, userId string) ApiListUserGrantsRequest
 
@@ -84,14 +83,14 @@ type UserGrantAPI interface {
 	ListUserGrantsExecute(r ApiListUserGrantsRequest) ([]OAuth2ScopeConsentGrant, *APIResponse, error)
 
 	/*
-	RevokeGrantsForUserAndClient Revoke all grants for a client
+		RevokeGrantsForUserAndClient Revoke all grants for a client
 
-	Revokes all grants for the specified user and client
+		Revokes all grants for the specified user and client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param clientId Client app ID
-	@return ApiRevokeGrantsForUserAndClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param clientId Client app ID
+		@return ApiRevokeGrantsForUserAndClientRequest
 	*/
 	RevokeGrantsForUserAndClient(ctx context.Context, userId string, clientId string) ApiRevokeGrantsForUserAndClientRequest
 
@@ -99,14 +98,14 @@ type UserGrantAPI interface {
 	RevokeGrantsForUserAndClientExecute(r ApiRevokeGrantsForUserAndClientRequest) (*APIResponse, error)
 
 	/*
-	RevokeUserGrant Revoke a user grant
+		RevokeUserGrant Revoke a user grant
 
-	Revokes one grant for a specified user
+		Revokes one grant for a specified user
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param grantId Grant ID
-	@return ApiRevokeUserGrantRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param grantId Grant ID
+		@return ApiRevokeUserGrantRequest
 	*/
 	RevokeUserGrant(ctx context.Context, userId string, grantId string) ApiRevokeUserGrantRequest
 
@@ -114,13 +113,13 @@ type UserGrantAPI interface {
 	RevokeUserGrantExecute(r ApiRevokeUserGrantRequest) (*APIResponse, error)
 
 	/*
-	RevokeUserGrants Revoke all user grants
+		RevokeUserGrants Revoke all user grants
 
-	Revokes all grants for a specified user
+		Revokes all grants for a specified user
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiRevokeUserGrantsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiRevokeUserGrantsRequest
 	*/
 	RevokeUserGrants(ctx context.Context, userId string) ApiRevokeUserGrantsRequest
 
@@ -132,11 +131,11 @@ type UserGrantAPI interface {
 type UserGrantAPIService service
 
 type ApiGetUserGrantRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserGrantAPI
-	userId string
-	grantId string
-	expand *string
+	userId     string
+	grantId    string
+	expand     *string
 	retryCount int32
 }
 
@@ -155,23 +154,24 @@ GetUserGrant Retrieve a user grant
 
 Retrieves a grant for the specified user
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param grantId Grant ID
- @return ApiGetUserGrantRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param grantId Grant ID
+	@return ApiGetUserGrantRequest
 */
 func (a *UserGrantAPIService) GetUserGrant(ctx context.Context, userId string, grantId string) ApiGetUserGrantRequest {
 	return ApiGetUserGrantRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		grantId: grantId,
+		ctx:        ctx,
+		userId:     userId,
+		grantId:    grantId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OAuth2ScopeConsentGrant
+//
+//	@return OAuth2ScopeConsentGrant
 func (a *UserGrantAPIService) GetUserGrantExecute(r ApiGetUserGrantRequest) (*OAuth2ScopeConsentGrant, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -180,7 +180,7 @@ func (a *UserGrantAPIService) GetUserGrantExecute(r ApiGetUserGrantRequest) (*OA
 		localVarReturnValue  *OAuth2ScopeConsentGrant
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -245,9 +245,9 @@ func (a *UserGrantAPIService) GetUserGrantExecute(r ApiGetUserGrantRequest) (*OA
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -305,19 +305,19 @@ func (a *UserGrantAPIService) GetUserGrantExecute(r ApiGetUserGrantRequest) (*OA
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListGrantsForUserAndClientRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserGrantAPI
-	userId string
-	clientId string
-	expand *string
-	after *string
-	limit *int32
+	userId     string
+	clientId   string
+	expand     *string
+	after      *string
+	limit      *int32
 	retryCount int32
 }
 
@@ -348,23 +348,24 @@ ListGrantsForUserAndClient List all grants for a client
 
 Lists all grants for a specified user and client
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param clientId Client app ID
- @return ApiListGrantsForUserAndClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param clientId Client app ID
+	@return ApiListGrantsForUserAndClientRequest
 */
 func (a *UserGrantAPIService) ListGrantsForUserAndClient(ctx context.Context, userId string, clientId string) ApiListGrantsForUserAndClientRequest {
 	return ApiListGrantsForUserAndClientRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		clientId: clientId,
+		ctx:        ctx,
+		userId:     userId,
+		clientId:   clientId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []OAuth2ScopeConsentGrant
+//
+//	@return []OAuth2ScopeConsentGrant
 func (a *UserGrantAPIService) ListGrantsForUserAndClientExecute(r ApiListGrantsForUserAndClientRequest) ([]OAuth2ScopeConsentGrant, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -373,7 +374,7 @@ func (a *UserGrantAPIService) ListGrantsForUserAndClientExecute(r ApiListGrantsF
 		localVarReturnValue  []OAuth2ScopeConsentGrant
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -444,9 +445,9 @@ func (a *UserGrantAPIService) ListGrantsForUserAndClientExecute(r ApiListGrantsF
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -504,19 +505,19 @@ func (a *UserGrantAPIService) ListGrantsForUserAndClientExecute(r ApiListGrantsF
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListUserGrantsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserGrantAPI
-	userId string
-	scopeId *string
-	expand *string
-	after *string
-	limit *int32
+	userId     string
+	scopeId    *string
+	expand     *string
+	after      *string
+	limit      *int32
 	retryCount int32
 }
 
@@ -553,21 +554,22 @@ ListUserGrants List all user grants
 
 Lists all grants for the specified user
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiListUserGrantsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiListUserGrantsRequest
 */
 func (a *UserGrantAPIService) ListUserGrants(ctx context.Context, userId string) ApiListUserGrantsRequest {
 	return ApiListUserGrantsRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []OAuth2ScopeConsentGrant
+//
+//	@return []OAuth2ScopeConsentGrant
 func (a *UserGrantAPIService) ListUserGrantsExecute(r ApiListUserGrantsRequest) ([]OAuth2ScopeConsentGrant, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -576,7 +578,7 @@ func (a *UserGrantAPIService) ListUserGrantsExecute(r ApiListUserGrantsRequest) 
 		localVarReturnValue  []OAuth2ScopeConsentGrant
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -649,9 +651,9 @@ func (a *UserGrantAPIService) ListUserGrantsExecute(r ApiListUserGrantsRequest) 
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -709,16 +711,16 @@ func (a *UserGrantAPIService) ListUserGrantsExecute(r ApiListUserGrantsRequest) 
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiRevokeGrantsForUserAndClientRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserGrantAPI
-	userId string
-	clientId string
+	userId     string
+	clientId   string
 	retryCount int32
 }
 
@@ -731,17 +733,17 @@ RevokeGrantsForUserAndClient Revoke all grants for a client
 
 Revokes all grants for the specified user and client
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param clientId Client app ID
- @return ApiRevokeGrantsForUserAndClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param clientId Client app ID
+	@return ApiRevokeGrantsForUserAndClientRequest
 */
 func (a *UserGrantAPIService) RevokeGrantsForUserAndClient(ctx context.Context, userId string, clientId string) ApiRevokeGrantsForUserAndClientRequest {
 	return ApiRevokeGrantsForUserAndClientRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		clientId: clientId,
+		ctx:        ctx,
+		userId:     userId,
+		clientId:   clientId,
 		retryCount: 0,
 	}
 }
@@ -754,7 +756,7 @@ func (a *UserGrantAPIService) RevokeGrantsForUserAndClientExecute(r ApiRevokeGra
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -816,9 +818,9 @@ func (a *UserGrantAPIService) RevokeGrantsForUserAndClientExecute(r ApiRevokeGra
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -872,10 +874,10 @@ func (a *UserGrantAPIService) RevokeGrantsForUserAndClientExecute(r ApiRevokeGra
 }
 
 type ApiRevokeUserGrantRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserGrantAPI
-	userId string
-	grantId string
+	userId     string
+	grantId    string
 	retryCount int32
 }
 
@@ -888,17 +890,17 @@ RevokeUserGrant Revoke a user grant
 
 Revokes one grant for a specified user
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param grantId Grant ID
- @return ApiRevokeUserGrantRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param grantId Grant ID
+	@return ApiRevokeUserGrantRequest
 */
 func (a *UserGrantAPIService) RevokeUserGrant(ctx context.Context, userId string, grantId string) ApiRevokeUserGrantRequest {
 	return ApiRevokeUserGrantRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		grantId: grantId,
+		ctx:        ctx,
+		userId:     userId,
+		grantId:    grantId,
 		retryCount: 0,
 	}
 }
@@ -911,7 +913,7 @@ func (a *UserGrantAPIService) RevokeUserGrantExecute(r ApiRevokeUserGrantRequest
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -973,9 +975,9 @@ func (a *UserGrantAPIService) RevokeUserGrantExecute(r ApiRevokeUserGrantRequest
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -1029,9 +1031,9 @@ func (a *UserGrantAPIService) RevokeUserGrantExecute(r ApiRevokeUserGrantRequest
 }
 
 type ApiRevokeUserGrantsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserGrantAPI
-	userId string
+	userId     string
 	retryCount int32
 }
 
@@ -1044,15 +1046,15 @@ RevokeUserGrants Revoke all user grants
 
 Revokes all grants for a specified user
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiRevokeUserGrantsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiRevokeUserGrantsRequest
 */
 func (a *UserGrantAPIService) RevokeUserGrants(ctx context.Context, userId string) ApiRevokeUserGrantsRequest {
 	return ApiRevokeUserGrantsRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -1065,7 +1067,7 @@ func (a *UserGrantAPIService) RevokeUserGrantsExecute(r ApiRevokeUserGrantsReque
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1126,9 +1128,9 @@ func (a *UserGrantAPIService) RevokeUserGrantsExecute(r ApiRevokeUserGrantsReque
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err

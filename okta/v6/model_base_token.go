@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the BaseToken type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BaseToken{}
+
 // BaseToken struct for BaseToken
 type BaseToken struct {
 	// Claims included in the token. Consists of name-value pairs for each included claim. For descriptions of the claims that you can include, see the Okta [OpenID Connect and OAuth 2.0 API reference](/openapi/okta-oauth/guides/overview/#claims).
-	Claims map[string]interface{} `json:"claims,omitempty"`
-	Token *BaseTokenToken `json:"token,omitempty"`
+	Claims               map[string]interface{} `json:"claims,omitempty"`
+	Token                *BaseTokenToken        `json:"token,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewBaseTokenWithDefaults() *BaseToken {
 
 // GetClaims returns the Claims field value if set, zero value otherwise.
 func (o *BaseToken) GetClaims() map[string]interface{} {
-	if o == nil || o.Claims == nil {
+	if o == nil || IsNil(o.Claims) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -66,15 +69,15 @@ func (o *BaseToken) GetClaims() map[string]interface{} {
 // GetClaimsOk returns a tuple with the Claims field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseToken) GetClaimsOk() (map[string]interface{}, bool) {
-	if o == nil || o.Claims == nil {
-		return nil, false
+	if o == nil || IsNil(o.Claims) {
+		return map[string]interface{}{}, false
 	}
 	return o.Claims, true
 }
 
 // HasClaims returns a boolean if a field has been set.
 func (o *BaseToken) HasClaims() bool {
-	if o != nil && o.Claims != nil {
+	if o != nil && !IsNil(o.Claims) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *BaseToken) SetClaims(v map[string]interface{}) {
 
 // GetToken returns the Token field value if set, zero value otherwise.
 func (o *BaseToken) GetToken() BaseTokenToken {
-	if o == nil || o.Token == nil {
+	if o == nil || IsNil(o.Token) {
 		var ret BaseTokenToken
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *BaseToken) GetToken() BaseTokenToken {
 // GetTokenOk returns a tuple with the Token field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseToken) GetTokenOk() (*BaseTokenToken, bool) {
-	if o == nil || o.Token == nil {
+	if o == nil || IsNil(o.Token) {
 		return nil, false
 	}
 	return o.Token, true
@@ -106,7 +109,7 @@ func (o *BaseToken) GetTokenOk() (*BaseTokenToken, bool) {
 
 // HasToken returns a boolean if a field has been set.
 func (o *BaseToken) HasToken() bool {
-	if o != nil && o.Token != nil {
+	if o != nil && !IsNil(o.Token) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *BaseToken) SetToken(v BaseTokenToken) {
 }
 
 func (o BaseToken) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BaseToken) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Claims != nil {
+	if !IsNil(o.Claims) {
 		toSerialize["claims"] = o.Claims
 	}
-	if o.Token != nil {
+	if !IsNil(o.Token) {
 		toSerialize["token"] = o.Token
 	}
 
@@ -131,28 +142,26 @@ func (o BaseToken) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *BaseToken) UnmarshalJSON(bytes []byte) (err error) {
+func (o *BaseToken) UnmarshalJSON(data []byte) (err error) {
 	varBaseToken := _BaseToken{}
 
-	err = json.Unmarshal(bytes, &varBaseToken)
-	if err == nil {
-		*o = BaseToken(varBaseToken)
-	} else {
+	err = json.Unmarshal(data, &varBaseToken)
+
+	if err != nil {
 		return err
 	}
 
+	*o = BaseToken(varBaseToken)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "claims")
 		delete(additionalProperties, "token")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableBaseToken) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

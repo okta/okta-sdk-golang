@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,15 +27,18 @@ import (
 	"encoding/json"
 )
 
+// checks if the UIElement type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UIElement{}
+
 // UIElement Specifies the configuration of an input field on an enrollment form
 type UIElement struct {
 	// Label name for the UI element
-	Label *string `json:"label,omitempty"`
+	Label   *string           `json:"label,omitempty"`
 	Options *UIElementOptions `json:"options,omitempty"`
 	// Specifies the property bound to the input field. It must follow the format `#/properties/PROPERTY_NAME` where `PROPERTY_NAME` is a variable name for an attribute in `profile editor`.
 	Scope *string `json:"scope,omitempty"`
 	// Specifies the relationship between this input element and `scope`. The `Control` value specifies that this input controls the value represented by `scope`.
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +63,7 @@ func NewUIElementWithDefaults() *UIElement {
 
 // GetLabel returns the Label field value if set, zero value otherwise.
 func (o *UIElement) GetLabel() string {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		var ret string
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *UIElement) GetLabel() string {
 // GetLabelOk returns a tuple with the Label field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UIElement) GetLabelOk() (*string, bool) {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		return nil, false
 	}
 	return o.Label, true
@@ -78,7 +81,7 @@ func (o *UIElement) GetLabelOk() (*string, bool) {
 
 // HasLabel returns a boolean if a field has been set.
 func (o *UIElement) HasLabel() bool {
-	if o != nil && o.Label != nil {
+	if o != nil && !IsNil(o.Label) {
 		return true
 	}
 
@@ -92,7 +95,7 @@ func (o *UIElement) SetLabel(v string) {
 
 // GetOptions returns the Options field value if set, zero value otherwise.
 func (o *UIElement) GetOptions() UIElementOptions {
-	if o == nil || o.Options == nil {
+	if o == nil || IsNil(o.Options) {
 		var ret UIElementOptions
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *UIElement) GetOptions() UIElementOptions {
 // GetOptionsOk returns a tuple with the Options field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UIElement) GetOptionsOk() (*UIElementOptions, bool) {
-	if o == nil || o.Options == nil {
+	if o == nil || IsNil(o.Options) {
 		return nil, false
 	}
 	return o.Options, true
@@ -110,7 +113,7 @@ func (o *UIElement) GetOptionsOk() (*UIElementOptions, bool) {
 
 // HasOptions returns a boolean if a field has been set.
 func (o *UIElement) HasOptions() bool {
-	if o != nil && o.Options != nil {
+	if o != nil && !IsNil(o.Options) {
 		return true
 	}
 
@@ -124,7 +127,7 @@ func (o *UIElement) SetOptions(v UIElementOptions) {
 
 // GetScope returns the Scope field value if set, zero value otherwise.
 func (o *UIElement) GetScope() string {
-	if o == nil || o.Scope == nil {
+	if o == nil || IsNil(o.Scope) {
 		var ret string
 		return ret
 	}
@@ -134,7 +137,7 @@ func (o *UIElement) GetScope() string {
 // GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UIElement) GetScopeOk() (*string, bool) {
-	if o == nil || o.Scope == nil {
+	if o == nil || IsNil(o.Scope) {
 		return nil, false
 	}
 	return o.Scope, true
@@ -142,7 +145,7 @@ func (o *UIElement) GetScopeOk() (*string, bool) {
 
 // HasScope returns a boolean if a field has been set.
 func (o *UIElement) HasScope() bool {
-	if o != nil && o.Scope != nil {
+	if o != nil && !IsNil(o.Scope) {
 		return true
 	}
 
@@ -156,7 +159,7 @@ func (o *UIElement) SetScope(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *UIElement) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -166,7 +169,7 @@ func (o *UIElement) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UIElement) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -174,7 +177,7 @@ func (o *UIElement) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *UIElement) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -187,17 +190,25 @@ func (o *UIElement) SetType(v string) {
 }
 
 func (o UIElement) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UIElement) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Label != nil {
+	if !IsNil(o.Label) {
 		toSerialize["label"] = o.Label
 	}
-	if o.Options != nil {
+	if !IsNil(o.Options) {
 		toSerialize["options"] = o.Options
 	}
-	if o.Scope != nil {
+	if !IsNil(o.Scope) {
 		toSerialize["scope"] = o.Scope
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -205,30 +216,28 @@ func (o UIElement) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UIElement) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UIElement) UnmarshalJSON(data []byte) (err error) {
 	varUIElement := _UIElement{}
 
-	err = json.Unmarshal(bytes, &varUIElement)
-	if err == nil {
-		*o = UIElement(varUIElement)
-	} else {
+	err = json.Unmarshal(data, &varUIElement)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UIElement(varUIElement)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "label")
 		delete(additionalProperties, "options")
 		delete(additionalProperties, "scope")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -269,4 +278,3 @@ func (v *NullableUIElement) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

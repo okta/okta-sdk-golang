@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserImportRequestExecute type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserImportRequestExecute{}
+
 // UserImportRequestExecute User import inline hook request
 type UserImportRequestExecute struct {
 	// The inline hook cloud version
@@ -38,12 +41,12 @@ type UserImportRequestExecute struct {
 	// The time the inline hook request was sent
 	EventTime *string `json:"eventTime,omitempty"`
 	// The inline hook version
-	EventTypeVersion *string `json:"eventTypeVersion,omitempty"`
-	Data *UserImportRequestData `json:"data,omitempty"`
+	EventTypeVersion *string                `json:"eventTypeVersion,omitempty"`
+	Data             *UserImportRequestData `json:"data,omitempty"`
 	// The type of inline hook. The user import inline hook type is `com.okta.import.transform`.
 	EventType *string `json:"eventType,omitempty"`
 	// The ID of the user import inline hook
-	Source *string `json:"source,omitempty"`
+	Source               *string `json:"source,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -68,7 +71,7 @@ func NewUserImportRequestExecuteWithDefaults() *UserImportRequestExecute {
 
 // GetCloudEventVersion returns the CloudEventVersion field value if set, zero value otherwise.
 func (o *UserImportRequestExecute) GetCloudEventVersion() string {
-	if o == nil || o.CloudEventVersion == nil {
+	if o == nil || IsNil(o.CloudEventVersion) {
 		var ret string
 		return ret
 	}
@@ -78,7 +81,7 @@ func (o *UserImportRequestExecute) GetCloudEventVersion() string {
 // GetCloudEventVersionOk returns a tuple with the CloudEventVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserImportRequestExecute) GetCloudEventVersionOk() (*string, bool) {
-	if o == nil || o.CloudEventVersion == nil {
+	if o == nil || IsNil(o.CloudEventVersion) {
 		return nil, false
 	}
 	return o.CloudEventVersion, true
@@ -86,7 +89,7 @@ func (o *UserImportRequestExecute) GetCloudEventVersionOk() (*string, bool) {
 
 // HasCloudEventVersion returns a boolean if a field has been set.
 func (o *UserImportRequestExecute) HasCloudEventVersion() bool {
-	if o != nil && o.CloudEventVersion != nil {
+	if o != nil && !IsNil(o.CloudEventVersion) {
 		return true
 	}
 
@@ -100,7 +103,7 @@ func (o *UserImportRequestExecute) SetCloudEventVersion(v string) {
 
 // GetContentType returns the ContentType field value if set, zero value otherwise.
 func (o *UserImportRequestExecute) GetContentType() string {
-	if o == nil || o.ContentType == nil {
+	if o == nil || IsNil(o.ContentType) {
 		var ret string
 		return ret
 	}
@@ -110,7 +113,7 @@ func (o *UserImportRequestExecute) GetContentType() string {
 // GetContentTypeOk returns a tuple with the ContentType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserImportRequestExecute) GetContentTypeOk() (*string, bool) {
-	if o == nil || o.ContentType == nil {
+	if o == nil || IsNil(o.ContentType) {
 		return nil, false
 	}
 	return o.ContentType, true
@@ -118,7 +121,7 @@ func (o *UserImportRequestExecute) GetContentTypeOk() (*string, bool) {
 
 // HasContentType returns a boolean if a field has been set.
 func (o *UserImportRequestExecute) HasContentType() bool {
-	if o != nil && o.ContentType != nil {
+	if o != nil && !IsNil(o.ContentType) {
 		return true
 	}
 
@@ -132,7 +135,7 @@ func (o *UserImportRequestExecute) SetContentType(v string) {
 
 // GetEventId returns the EventId field value if set, zero value otherwise.
 func (o *UserImportRequestExecute) GetEventId() string {
-	if o == nil || o.EventId == nil {
+	if o == nil || IsNil(o.EventId) {
 		var ret string
 		return ret
 	}
@@ -142,7 +145,7 @@ func (o *UserImportRequestExecute) GetEventId() string {
 // GetEventIdOk returns a tuple with the EventId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserImportRequestExecute) GetEventIdOk() (*string, bool) {
-	if o == nil || o.EventId == nil {
+	if o == nil || IsNil(o.EventId) {
 		return nil, false
 	}
 	return o.EventId, true
@@ -150,7 +153,7 @@ func (o *UserImportRequestExecute) GetEventIdOk() (*string, bool) {
 
 // HasEventId returns a boolean if a field has been set.
 func (o *UserImportRequestExecute) HasEventId() bool {
-	if o != nil && o.EventId != nil {
+	if o != nil && !IsNil(o.EventId) {
 		return true
 	}
 
@@ -164,7 +167,7 @@ func (o *UserImportRequestExecute) SetEventId(v string) {
 
 // GetEventTime returns the EventTime field value if set, zero value otherwise.
 func (o *UserImportRequestExecute) GetEventTime() string {
-	if o == nil || o.EventTime == nil {
+	if o == nil || IsNil(o.EventTime) {
 		var ret string
 		return ret
 	}
@@ -174,7 +177,7 @@ func (o *UserImportRequestExecute) GetEventTime() string {
 // GetEventTimeOk returns a tuple with the EventTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserImportRequestExecute) GetEventTimeOk() (*string, bool) {
-	if o == nil || o.EventTime == nil {
+	if o == nil || IsNil(o.EventTime) {
 		return nil, false
 	}
 	return o.EventTime, true
@@ -182,7 +185,7 @@ func (o *UserImportRequestExecute) GetEventTimeOk() (*string, bool) {
 
 // HasEventTime returns a boolean if a field has been set.
 func (o *UserImportRequestExecute) HasEventTime() bool {
-	if o != nil && o.EventTime != nil {
+	if o != nil && !IsNil(o.EventTime) {
 		return true
 	}
 
@@ -196,7 +199,7 @@ func (o *UserImportRequestExecute) SetEventTime(v string) {
 
 // GetEventTypeVersion returns the EventTypeVersion field value if set, zero value otherwise.
 func (o *UserImportRequestExecute) GetEventTypeVersion() string {
-	if o == nil || o.EventTypeVersion == nil {
+	if o == nil || IsNil(o.EventTypeVersion) {
 		var ret string
 		return ret
 	}
@@ -206,7 +209,7 @@ func (o *UserImportRequestExecute) GetEventTypeVersion() string {
 // GetEventTypeVersionOk returns a tuple with the EventTypeVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserImportRequestExecute) GetEventTypeVersionOk() (*string, bool) {
-	if o == nil || o.EventTypeVersion == nil {
+	if o == nil || IsNil(o.EventTypeVersion) {
 		return nil, false
 	}
 	return o.EventTypeVersion, true
@@ -214,7 +217,7 @@ func (o *UserImportRequestExecute) GetEventTypeVersionOk() (*string, bool) {
 
 // HasEventTypeVersion returns a boolean if a field has been set.
 func (o *UserImportRequestExecute) HasEventTypeVersion() bool {
-	if o != nil && o.EventTypeVersion != nil {
+	if o != nil && !IsNil(o.EventTypeVersion) {
 		return true
 	}
 
@@ -228,7 +231,7 @@ func (o *UserImportRequestExecute) SetEventTypeVersion(v string) {
 
 // GetData returns the Data field value if set, zero value otherwise.
 func (o *UserImportRequestExecute) GetData() UserImportRequestData {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		var ret UserImportRequestData
 		return ret
 	}
@@ -238,7 +241,7 @@ func (o *UserImportRequestExecute) GetData() UserImportRequestData {
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserImportRequestExecute) GetDataOk() (*UserImportRequestData, bool) {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
 	return o.Data, true
@@ -246,7 +249,7 @@ func (o *UserImportRequestExecute) GetDataOk() (*UserImportRequestData, bool) {
 
 // HasData returns a boolean if a field has been set.
 func (o *UserImportRequestExecute) HasData() bool {
-	if o != nil && o.Data != nil {
+	if o != nil && !IsNil(o.Data) {
 		return true
 	}
 
@@ -260,7 +263,7 @@ func (o *UserImportRequestExecute) SetData(v UserImportRequestData) {
 
 // GetEventType returns the EventType field value if set, zero value otherwise.
 func (o *UserImportRequestExecute) GetEventType() string {
-	if o == nil || o.EventType == nil {
+	if o == nil || IsNil(o.EventType) {
 		var ret string
 		return ret
 	}
@@ -270,7 +273,7 @@ func (o *UserImportRequestExecute) GetEventType() string {
 // GetEventTypeOk returns a tuple with the EventType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserImportRequestExecute) GetEventTypeOk() (*string, bool) {
-	if o == nil || o.EventType == nil {
+	if o == nil || IsNil(o.EventType) {
 		return nil, false
 	}
 	return o.EventType, true
@@ -278,7 +281,7 @@ func (o *UserImportRequestExecute) GetEventTypeOk() (*string, bool) {
 
 // HasEventType returns a boolean if a field has been set.
 func (o *UserImportRequestExecute) HasEventType() bool {
-	if o != nil && o.EventType != nil {
+	if o != nil && !IsNil(o.EventType) {
 		return true
 	}
 
@@ -292,7 +295,7 @@ func (o *UserImportRequestExecute) SetEventType(v string) {
 
 // GetSource returns the Source field value if set, zero value otherwise.
 func (o *UserImportRequestExecute) GetSource() string {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		var ret string
 		return ret
 	}
@@ -302,7 +305,7 @@ func (o *UserImportRequestExecute) GetSource() string {
 // GetSourceOk returns a tuple with the Source field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserImportRequestExecute) GetSourceOk() (*string, bool) {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		return nil, false
 	}
 	return o.Source, true
@@ -310,7 +313,7 @@ func (o *UserImportRequestExecute) GetSourceOk() (*string, bool) {
 
 // HasSource returns a boolean if a field has been set.
 func (o *UserImportRequestExecute) HasSource() bool {
-	if o != nil && o.Source != nil {
+	if o != nil && !IsNil(o.Source) {
 		return true
 	}
 
@@ -323,29 +326,37 @@ func (o *UserImportRequestExecute) SetSource(v string) {
 }
 
 func (o UserImportRequestExecute) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserImportRequestExecute) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.CloudEventVersion != nil {
+	if !IsNil(o.CloudEventVersion) {
 		toSerialize["cloudEventVersion"] = o.CloudEventVersion
 	}
-	if o.ContentType != nil {
+	if !IsNil(o.ContentType) {
 		toSerialize["contentType"] = o.ContentType
 	}
-	if o.EventId != nil {
+	if !IsNil(o.EventId) {
 		toSerialize["eventId"] = o.EventId
 	}
-	if o.EventTime != nil {
+	if !IsNil(o.EventTime) {
 		toSerialize["eventTime"] = o.EventTime
 	}
-	if o.EventTypeVersion != nil {
+	if !IsNil(o.EventTypeVersion) {
 		toSerialize["eventTypeVersion"] = o.EventTypeVersion
 	}
-	if o.Data != nil {
+	if !IsNil(o.Data) {
 		toSerialize["data"] = o.Data
 	}
-	if o.EventType != nil {
+	if !IsNil(o.EventType) {
 		toSerialize["eventType"] = o.EventType
 	}
-	if o.Source != nil {
+	if !IsNil(o.Source) {
 		toSerialize["source"] = o.Source
 	}
 
@@ -353,23 +364,23 @@ func (o UserImportRequestExecute) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserImportRequestExecute) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserImportRequestExecute) UnmarshalJSON(data []byte) (err error) {
 	varUserImportRequestExecute := _UserImportRequestExecute{}
 
-	err = json.Unmarshal(bytes, &varUserImportRequestExecute)
-	if err == nil {
-		*o = UserImportRequestExecute(varUserImportRequestExecute)
-	} else {
+	err = json.Unmarshal(data, &varUserImportRequestExecute)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserImportRequestExecute(varUserImportRequestExecute)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "cloudEventVersion")
 		delete(additionalProperties, "contentType")
 		delete(additionalProperties, "eventId")
@@ -379,8 +390,6 @@ func (o *UserImportRequestExecute) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "eventType")
 		delete(additionalProperties, "source")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -421,4 +430,3 @@ func (v *NullableUserImportRequestExecute) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the LogIpAddress type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LogIpAddress{}
+
 // LogIpAddress struct for LogIpAddress
 type LogIpAddress struct {
 	GeographicalContext *LogGeographicalContext `json:"geographicalContext,omitempty"`
@@ -35,7 +38,7 @@ type LogIpAddress struct {
 	// Details regarding the source
 	Source *string `json:"source,omitempty"`
 	// IP address version
-	Version *string `json:"version,omitempty"`
+	Version              *string `json:"version,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +63,7 @@ func NewLogIpAddressWithDefaults() *LogIpAddress {
 
 // GetGeographicalContext returns the GeographicalContext field value if set, zero value otherwise.
 func (o *LogIpAddress) GetGeographicalContext() LogGeographicalContext {
-	if o == nil || o.GeographicalContext == nil {
+	if o == nil || IsNil(o.GeographicalContext) {
 		var ret LogGeographicalContext
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *LogIpAddress) GetGeographicalContext() LogGeographicalContext {
 // GetGeographicalContextOk returns a tuple with the GeographicalContext field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogIpAddress) GetGeographicalContextOk() (*LogGeographicalContext, bool) {
-	if o == nil || o.GeographicalContext == nil {
+	if o == nil || IsNil(o.GeographicalContext) {
 		return nil, false
 	}
 	return o.GeographicalContext, true
@@ -78,7 +81,7 @@ func (o *LogIpAddress) GetGeographicalContextOk() (*LogGeographicalContext, bool
 
 // HasGeographicalContext returns a boolean if a field has been set.
 func (o *LogIpAddress) HasGeographicalContext() bool {
-	if o != nil && o.GeographicalContext != nil {
+	if o != nil && !IsNil(o.GeographicalContext) {
 		return true
 	}
 
@@ -92,7 +95,7 @@ func (o *LogIpAddress) SetGeographicalContext(v LogGeographicalContext) {
 
 // GetIp returns the Ip field value if set, zero value otherwise.
 func (o *LogIpAddress) GetIp() string {
-	if o == nil || o.Ip == nil {
+	if o == nil || IsNil(o.Ip) {
 		var ret string
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *LogIpAddress) GetIp() string {
 // GetIpOk returns a tuple with the Ip field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogIpAddress) GetIpOk() (*string, bool) {
-	if o == nil || o.Ip == nil {
+	if o == nil || IsNil(o.Ip) {
 		return nil, false
 	}
 	return o.Ip, true
@@ -110,7 +113,7 @@ func (o *LogIpAddress) GetIpOk() (*string, bool) {
 
 // HasIp returns a boolean if a field has been set.
 func (o *LogIpAddress) HasIp() bool {
-	if o != nil && o.Ip != nil {
+	if o != nil && !IsNil(o.Ip) {
 		return true
 	}
 
@@ -124,7 +127,7 @@ func (o *LogIpAddress) SetIp(v string) {
 
 // GetSource returns the Source field value if set, zero value otherwise.
 func (o *LogIpAddress) GetSource() string {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		var ret string
 		return ret
 	}
@@ -134,7 +137,7 @@ func (o *LogIpAddress) GetSource() string {
 // GetSourceOk returns a tuple with the Source field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogIpAddress) GetSourceOk() (*string, bool) {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		return nil, false
 	}
 	return o.Source, true
@@ -142,7 +145,7 @@ func (o *LogIpAddress) GetSourceOk() (*string, bool) {
 
 // HasSource returns a boolean if a field has been set.
 func (o *LogIpAddress) HasSource() bool {
-	if o != nil && o.Source != nil {
+	if o != nil && !IsNil(o.Source) {
 		return true
 	}
 
@@ -156,7 +159,7 @@ func (o *LogIpAddress) SetSource(v string) {
 
 // GetVersion returns the Version field value if set, zero value otherwise.
 func (o *LogIpAddress) GetVersion() string {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		var ret string
 		return ret
 	}
@@ -166,7 +169,7 @@ func (o *LogIpAddress) GetVersion() string {
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogIpAddress) GetVersionOk() (*string, bool) {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
 	return o.Version, true
@@ -174,7 +177,7 @@ func (o *LogIpAddress) GetVersionOk() (*string, bool) {
 
 // HasVersion returns a boolean if a field has been set.
 func (o *LogIpAddress) HasVersion() bool {
-	if o != nil && o.Version != nil {
+	if o != nil && !IsNil(o.Version) {
 		return true
 	}
 
@@ -187,17 +190,25 @@ func (o *LogIpAddress) SetVersion(v string) {
 }
 
 func (o LogIpAddress) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LogIpAddress) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.GeographicalContext != nil {
+	if !IsNil(o.GeographicalContext) {
 		toSerialize["geographicalContext"] = o.GeographicalContext
 	}
-	if o.Ip != nil {
+	if !IsNil(o.Ip) {
 		toSerialize["ip"] = o.Ip
 	}
-	if o.Source != nil {
+	if !IsNil(o.Source) {
 		toSerialize["source"] = o.Source
 	}
-	if o.Version != nil {
+	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
 
@@ -205,30 +216,28 @@ func (o LogIpAddress) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LogIpAddress) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LogIpAddress) UnmarshalJSON(data []byte) (err error) {
 	varLogIpAddress := _LogIpAddress{}
 
-	err = json.Unmarshal(bytes, &varLogIpAddress)
-	if err == nil {
-		*o = LogIpAddress(varLogIpAddress)
-	} else {
+	err = json.Unmarshal(data, &varLogIpAddress)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LogIpAddress(varLogIpAddress)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "geographicalContext")
 		delete(additionalProperties, "ip")
 		delete(additionalProperties, "source")
 		delete(additionalProperties, "version")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -269,4 +278,3 @@ func (v *NullableLogIpAddress) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

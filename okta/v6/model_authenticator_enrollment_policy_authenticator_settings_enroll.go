@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll{}
+
 // AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll Enrollment requirements for the authenticator
 type AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll struct {
 	// Requirements for the user-initiated enrollment
-	Self *string `json:"self,omitempty"`
-	GracePeriod *EnrollmentPolicyAuthenticatorGracePeriod `json:"gracePeriod,omitempty"`
+	Self                 *string                                   `json:"self,omitempty"`
+	GracePeriod          *EnrollmentPolicyAuthenticatorGracePeriod `json:"gracePeriod,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +63,7 @@ func NewAuthenticatorEnrollmentPolicyAuthenticatorSettingsEnrollWithDefaults() *
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) GetSelf() string {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret string
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) GetSelf() str
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) GetSelfOk() (*string, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -78,7 +81,7 @@ func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) GetSelfOk() (
 
 // HasSelf returns a boolean if a field has been set.
 func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -92,7 +95,7 @@ func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) SetSelf(v str
 
 // GetGracePeriod returns the GracePeriod field value if set, zero value otherwise.
 func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) GetGracePeriod() EnrollmentPolicyAuthenticatorGracePeriod {
-	if o == nil || o.GracePeriod == nil {
+	if o == nil || IsNil(o.GracePeriod) {
 		var ret EnrollmentPolicyAuthenticatorGracePeriod
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) GetGracePerio
 // GetGracePeriodOk returns a tuple with the GracePeriod field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) GetGracePeriodOk() (*EnrollmentPolicyAuthenticatorGracePeriod, bool) {
-	if o == nil || o.GracePeriod == nil {
+	if o == nil || IsNil(o.GracePeriod) {
 		return nil, false
 	}
 	return o.GracePeriod, true
@@ -110,7 +113,7 @@ func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) GetGracePerio
 
 // HasGracePeriod returns a boolean if a field has been set.
 func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) HasGracePeriod() bool {
-	if o != nil && o.GracePeriod != nil {
+	if o != nil && !IsNil(o.GracePeriod) {
 		return true
 	}
 
@@ -123,11 +126,19 @@ func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) SetGracePerio
 }
 
 func (o AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.GracePeriod != nil {
+	if !IsNil(o.GracePeriod) {
 		toSerialize["gracePeriod"] = o.GracePeriod
 	}
 
@@ -135,28 +146,26 @@ func (o AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) MarshalJSON() 
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) UnmarshalJSON(data []byte) (err error) {
 	varAuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll := _AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll)
-	if err == nil {
-		*o = AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll(varAuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll)
-	} else {
+	err = json.Unmarshal(data, &varAuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll(varAuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "gracePeriod")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -197,4 +206,3 @@ func (v *NullableAuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) Unmar
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

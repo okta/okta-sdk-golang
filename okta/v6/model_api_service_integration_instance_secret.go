@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"fmt"
 )
 
+// checks if the APIServiceIntegrationInstanceSecret type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &APIServiceIntegrationInstanceSecret{}
+
 // APIServiceIntegrationInstanceSecret struct for APIServiceIntegrationInstanceSecret
 type APIServiceIntegrationInstanceSecret struct {
 	// The OAuth 2.0 client secret string. The client secret string is returned in the response of a Secret creation request. In other responses (such as list, activate, or deactivate requests), the client secret is returned as an undisclosed hashed value.
@@ -41,8 +44,8 @@ type APIServiceIntegrationInstanceSecret struct {
 	// OAuth 2.0 client secret string hash
 	SecretHash string `json:"secret_hash"`
 	// Status of the API Service Integration instance Secret
-	Status string `json:"status"`
-	Links APIServiceIntegrationSecretLinks `json:"_links"`
+	Status               string                           `json:"status"`
+	Links                APIServiceIntegrationSecretLinks `json:"_links"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -241,50 +244,71 @@ func (o *APIServiceIntegrationInstanceSecret) SetLinks(v APIServiceIntegrationSe
 }
 
 func (o APIServiceIntegrationInstanceSecret) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o APIServiceIntegrationInstanceSecret) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["client_secret"] = o.ClientSecret
-	}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["lastUpdated"] = o.LastUpdated
-	}
-	if true {
-		toSerialize["secret_hash"] = o.SecretHash
-	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
-	if true {
-		toSerialize["_links"] = o.Links
-	}
+	toSerialize["client_secret"] = o.ClientSecret
+	toSerialize["created"] = o.Created
+	toSerialize["id"] = o.Id
+	toSerialize["lastUpdated"] = o.LastUpdated
+	toSerialize["secret_hash"] = o.SecretHash
+	toSerialize["status"] = o.Status
+	toSerialize["_links"] = o.Links
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *APIServiceIntegrationInstanceSecret) UnmarshalJSON(bytes []byte) (err error) {
-	varAPIServiceIntegrationInstanceSecret := _APIServiceIntegrationInstanceSecret{}
+func (o *APIServiceIntegrationInstanceSecret) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"client_secret",
+		"created",
+		"id",
+		"lastUpdated",
+		"secret_hash",
+		"status",
+		"_links",
+	}
 
-	err = json.Unmarshal(bytes, &varAPIServiceIntegrationInstanceSecret)
-	if err == nil {
-		*o = APIServiceIntegrationInstanceSecret(varAPIServiceIntegrationInstanceSecret)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAPIServiceIntegrationInstanceSecret := _APIServiceIntegrationInstanceSecret{}
+
+	err = json.Unmarshal(data, &varAPIServiceIntegrationInstanceSecret)
+
+	if err != nil {
+		return err
+	}
+
+	*o = APIServiceIntegrationInstanceSecret(varAPIServiceIntegrationInstanceSecret)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "client_secret")
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "id")
@@ -293,8 +317,6 @@ func (o *APIServiceIntegrationInstanceSecret) UnmarshalJSON(bytes []byte) (err e
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -335,4 +357,3 @@ func (v *NullableAPIServiceIntegrationInstanceSecret) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

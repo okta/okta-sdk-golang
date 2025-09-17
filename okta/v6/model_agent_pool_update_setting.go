@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AgentPoolUpdateSetting type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AgentPoolUpdateSetting{}
+
 // AgentPoolUpdateSetting Setting for auto-update
 type AgentPoolUpdateSetting struct {
 	// Agent types that are being monitored
@@ -42,7 +45,7 @@ type AgentPoolUpdateSetting struct {
 	// Pool name
 	PoolName *string `json:"poolName,omitempty"`
 	// Release channel for auto-update
-	ReleaseChannel *string `json:"releaseChannel,omitempty"`
+	ReleaseChannel       *string `json:"releaseChannel,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -67,7 +70,7 @@ func NewAgentPoolUpdateSettingWithDefaults() *AgentPoolUpdateSetting {
 
 // GetAgentType returns the AgentType field value if set, zero value otherwise.
 func (o *AgentPoolUpdateSetting) GetAgentType() string {
-	if o == nil || o.AgentType == nil {
+	if o == nil || IsNil(o.AgentType) {
 		var ret string
 		return ret
 	}
@@ -77,7 +80,7 @@ func (o *AgentPoolUpdateSetting) GetAgentType() string {
 // GetAgentTypeOk returns a tuple with the AgentType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AgentPoolUpdateSetting) GetAgentTypeOk() (*string, bool) {
-	if o == nil || o.AgentType == nil {
+	if o == nil || IsNil(o.AgentType) {
 		return nil, false
 	}
 	return o.AgentType, true
@@ -85,7 +88,7 @@ func (o *AgentPoolUpdateSetting) GetAgentTypeOk() (*string, bool) {
 
 // HasAgentType returns a boolean if a field has been set.
 func (o *AgentPoolUpdateSetting) HasAgentType() bool {
-	if o != nil && o.AgentType != nil {
+	if o != nil && !IsNil(o.AgentType) {
 		return true
 	}
 
@@ -99,7 +102,7 @@ func (o *AgentPoolUpdateSetting) SetAgentType(v string) {
 
 // GetContinueOnError returns the ContinueOnError field value if set, zero value otherwise.
 func (o *AgentPoolUpdateSetting) GetContinueOnError() bool {
-	if o == nil || o.ContinueOnError == nil {
+	if o == nil || IsNil(o.ContinueOnError) {
 		var ret bool
 		return ret
 	}
@@ -109,7 +112,7 @@ func (o *AgentPoolUpdateSetting) GetContinueOnError() bool {
 // GetContinueOnErrorOk returns a tuple with the ContinueOnError field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AgentPoolUpdateSetting) GetContinueOnErrorOk() (*bool, bool) {
-	if o == nil || o.ContinueOnError == nil {
+	if o == nil || IsNil(o.ContinueOnError) {
 		return nil, false
 	}
 	return o.ContinueOnError, true
@@ -117,7 +120,7 @@ func (o *AgentPoolUpdateSetting) GetContinueOnErrorOk() (*bool, bool) {
 
 // HasContinueOnError returns a boolean if a field has been set.
 func (o *AgentPoolUpdateSetting) HasContinueOnError() bool {
-	if o != nil && o.ContinueOnError != nil {
+	if o != nil && !IsNil(o.ContinueOnError) {
 		return true
 	}
 
@@ -131,7 +134,7 @@ func (o *AgentPoolUpdateSetting) SetContinueOnError(v bool) {
 
 // GetLatestVersion returns the LatestVersion field value if set, zero value otherwise.
 func (o *AgentPoolUpdateSetting) GetLatestVersion() string {
-	if o == nil || o.LatestVersion == nil {
+	if o == nil || IsNil(o.LatestVersion) {
 		var ret string
 		return ret
 	}
@@ -141,7 +144,7 @@ func (o *AgentPoolUpdateSetting) GetLatestVersion() string {
 // GetLatestVersionOk returns a tuple with the LatestVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AgentPoolUpdateSetting) GetLatestVersionOk() (*string, bool) {
-	if o == nil || o.LatestVersion == nil {
+	if o == nil || IsNil(o.LatestVersion) {
 		return nil, false
 	}
 	return o.LatestVersion, true
@@ -149,7 +152,7 @@ func (o *AgentPoolUpdateSetting) GetLatestVersionOk() (*string, bool) {
 
 // HasLatestVersion returns a boolean if a field has been set.
 func (o *AgentPoolUpdateSetting) HasLatestVersion() bool {
-	if o != nil && o.LatestVersion != nil {
+	if o != nil && !IsNil(o.LatestVersion) {
 		return true
 	}
 
@@ -163,7 +166,7 @@ func (o *AgentPoolUpdateSetting) SetLatestVersion(v string) {
 
 // GetMinimalSupportedVersion returns the MinimalSupportedVersion field value if set, zero value otherwise.
 func (o *AgentPoolUpdateSetting) GetMinimalSupportedVersion() string {
-	if o == nil || o.MinimalSupportedVersion == nil {
+	if o == nil || IsNil(o.MinimalSupportedVersion) {
 		var ret string
 		return ret
 	}
@@ -173,7 +176,7 @@ func (o *AgentPoolUpdateSetting) GetMinimalSupportedVersion() string {
 // GetMinimalSupportedVersionOk returns a tuple with the MinimalSupportedVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AgentPoolUpdateSetting) GetMinimalSupportedVersionOk() (*string, bool) {
-	if o == nil || o.MinimalSupportedVersion == nil {
+	if o == nil || IsNil(o.MinimalSupportedVersion) {
 		return nil, false
 	}
 	return o.MinimalSupportedVersion, true
@@ -181,7 +184,7 @@ func (o *AgentPoolUpdateSetting) GetMinimalSupportedVersionOk() (*string, bool) 
 
 // HasMinimalSupportedVersion returns a boolean if a field has been set.
 func (o *AgentPoolUpdateSetting) HasMinimalSupportedVersion() bool {
-	if o != nil && o.MinimalSupportedVersion != nil {
+	if o != nil && !IsNil(o.MinimalSupportedVersion) {
 		return true
 	}
 
@@ -195,7 +198,7 @@ func (o *AgentPoolUpdateSetting) SetMinimalSupportedVersion(v string) {
 
 // GetPoolId returns the PoolId field value if set, zero value otherwise.
 func (o *AgentPoolUpdateSetting) GetPoolId() string {
-	if o == nil || o.PoolId == nil {
+	if o == nil || IsNil(o.PoolId) {
 		var ret string
 		return ret
 	}
@@ -205,7 +208,7 @@ func (o *AgentPoolUpdateSetting) GetPoolId() string {
 // GetPoolIdOk returns a tuple with the PoolId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AgentPoolUpdateSetting) GetPoolIdOk() (*string, bool) {
-	if o == nil || o.PoolId == nil {
+	if o == nil || IsNil(o.PoolId) {
 		return nil, false
 	}
 	return o.PoolId, true
@@ -213,7 +216,7 @@ func (o *AgentPoolUpdateSetting) GetPoolIdOk() (*string, bool) {
 
 // HasPoolId returns a boolean if a field has been set.
 func (o *AgentPoolUpdateSetting) HasPoolId() bool {
-	if o != nil && o.PoolId != nil {
+	if o != nil && !IsNil(o.PoolId) {
 		return true
 	}
 
@@ -227,7 +230,7 @@ func (o *AgentPoolUpdateSetting) SetPoolId(v string) {
 
 // GetPoolName returns the PoolName field value if set, zero value otherwise.
 func (o *AgentPoolUpdateSetting) GetPoolName() string {
-	if o == nil || o.PoolName == nil {
+	if o == nil || IsNil(o.PoolName) {
 		var ret string
 		return ret
 	}
@@ -237,7 +240,7 @@ func (o *AgentPoolUpdateSetting) GetPoolName() string {
 // GetPoolNameOk returns a tuple with the PoolName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AgentPoolUpdateSetting) GetPoolNameOk() (*string, bool) {
-	if o == nil || o.PoolName == nil {
+	if o == nil || IsNil(o.PoolName) {
 		return nil, false
 	}
 	return o.PoolName, true
@@ -245,7 +248,7 @@ func (o *AgentPoolUpdateSetting) GetPoolNameOk() (*string, bool) {
 
 // HasPoolName returns a boolean if a field has been set.
 func (o *AgentPoolUpdateSetting) HasPoolName() bool {
-	if o != nil && o.PoolName != nil {
+	if o != nil && !IsNil(o.PoolName) {
 		return true
 	}
 
@@ -259,7 +262,7 @@ func (o *AgentPoolUpdateSetting) SetPoolName(v string) {
 
 // GetReleaseChannel returns the ReleaseChannel field value if set, zero value otherwise.
 func (o *AgentPoolUpdateSetting) GetReleaseChannel() string {
-	if o == nil || o.ReleaseChannel == nil {
+	if o == nil || IsNil(o.ReleaseChannel) {
 		var ret string
 		return ret
 	}
@@ -269,7 +272,7 @@ func (o *AgentPoolUpdateSetting) GetReleaseChannel() string {
 // GetReleaseChannelOk returns a tuple with the ReleaseChannel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AgentPoolUpdateSetting) GetReleaseChannelOk() (*string, bool) {
-	if o == nil || o.ReleaseChannel == nil {
+	if o == nil || IsNil(o.ReleaseChannel) {
 		return nil, false
 	}
 	return o.ReleaseChannel, true
@@ -277,7 +280,7 @@ func (o *AgentPoolUpdateSetting) GetReleaseChannelOk() (*string, bool) {
 
 // HasReleaseChannel returns a boolean if a field has been set.
 func (o *AgentPoolUpdateSetting) HasReleaseChannel() bool {
-	if o != nil && o.ReleaseChannel != nil {
+	if o != nil && !IsNil(o.ReleaseChannel) {
 		return true
 	}
 
@@ -290,26 +293,34 @@ func (o *AgentPoolUpdateSetting) SetReleaseChannel(v string) {
 }
 
 func (o AgentPoolUpdateSetting) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AgentPoolUpdateSetting) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AgentType != nil {
+	if !IsNil(o.AgentType) {
 		toSerialize["agentType"] = o.AgentType
 	}
-	if o.ContinueOnError != nil {
+	if !IsNil(o.ContinueOnError) {
 		toSerialize["continueOnError"] = o.ContinueOnError
 	}
-	if o.LatestVersion != nil {
+	if !IsNil(o.LatestVersion) {
 		toSerialize["latestVersion"] = o.LatestVersion
 	}
-	if o.MinimalSupportedVersion != nil {
+	if !IsNil(o.MinimalSupportedVersion) {
 		toSerialize["minimalSupportedVersion"] = o.MinimalSupportedVersion
 	}
-	if o.PoolId != nil {
+	if !IsNil(o.PoolId) {
 		toSerialize["poolId"] = o.PoolId
 	}
-	if o.PoolName != nil {
+	if !IsNil(o.PoolName) {
 		toSerialize["poolName"] = o.PoolName
 	}
-	if o.ReleaseChannel != nil {
+	if !IsNil(o.ReleaseChannel) {
 		toSerialize["releaseChannel"] = o.ReleaseChannel
 	}
 
@@ -317,23 +328,23 @@ func (o AgentPoolUpdateSetting) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AgentPoolUpdateSetting) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AgentPoolUpdateSetting) UnmarshalJSON(data []byte) (err error) {
 	varAgentPoolUpdateSetting := _AgentPoolUpdateSetting{}
 
-	err = json.Unmarshal(bytes, &varAgentPoolUpdateSetting)
-	if err == nil {
-		*o = AgentPoolUpdateSetting(varAgentPoolUpdateSetting)
-	} else {
+	err = json.Unmarshal(data, &varAgentPoolUpdateSetting)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AgentPoolUpdateSetting(varAgentPoolUpdateSetting)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "agentType")
 		delete(additionalProperties, "continueOnError")
 		delete(additionalProperties, "latestVersion")
@@ -342,8 +353,6 @@ func (o *AgentPoolUpdateSetting) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "poolName")
 		delete(additionalProperties, "releaseChannel")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -384,4 +393,3 @@ func (v *NullableAgentPoolUpdateSetting) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

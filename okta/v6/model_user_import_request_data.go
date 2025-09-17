@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserImportRequestData type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserImportRequestData{}
+
 // UserImportRequestData struct for UserImportRequestData
 type UserImportRequestData struct {
-	Action *UserImportRequestDataAction `json:"action,omitempty"`
-	AppUser *UserImportRequestDataAppUser `json:"appUser,omitempty"`
-	Context *UserImportRequestDataContext `json:"context,omitempty"`
-	User *UserImportRequestDataUser `json:"user,omitempty"`
+	Action               *UserImportRequestDataAction  `json:"action,omitempty"`
+	AppUser              *UserImportRequestDataAppUser `json:"appUser,omitempty"`
+	Context              *UserImportRequestDataContext `json:"context,omitempty"`
+	User                 *UserImportRequestDataUser    `json:"user,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewUserImportRequestDataWithDefaults() *UserImportRequestData {
 
 // GetAction returns the Action field value if set, zero value otherwise.
 func (o *UserImportRequestData) GetAction() UserImportRequestDataAction {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		var ret UserImportRequestDataAction
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *UserImportRequestData) GetAction() UserImportRequestDataAction {
 // GetActionOk returns a tuple with the Action field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserImportRequestData) GetActionOk() (*UserImportRequestDataAction, bool) {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		return nil, false
 	}
 	return o.Action, true
@@ -75,7 +78,7 @@ func (o *UserImportRequestData) GetActionOk() (*UserImportRequestDataAction, boo
 
 // HasAction returns a boolean if a field has been set.
 func (o *UserImportRequestData) HasAction() bool {
-	if o != nil && o.Action != nil {
+	if o != nil && !IsNil(o.Action) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *UserImportRequestData) SetAction(v UserImportRequestDataAction) {
 
 // GetAppUser returns the AppUser field value if set, zero value otherwise.
 func (o *UserImportRequestData) GetAppUser() UserImportRequestDataAppUser {
-	if o == nil || o.AppUser == nil {
+	if o == nil || IsNil(o.AppUser) {
 		var ret UserImportRequestDataAppUser
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *UserImportRequestData) GetAppUser() UserImportRequestDataAppUser {
 // GetAppUserOk returns a tuple with the AppUser field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserImportRequestData) GetAppUserOk() (*UserImportRequestDataAppUser, bool) {
-	if o == nil || o.AppUser == nil {
+	if o == nil || IsNil(o.AppUser) {
 		return nil, false
 	}
 	return o.AppUser, true
@@ -107,7 +110,7 @@ func (o *UserImportRequestData) GetAppUserOk() (*UserImportRequestDataAppUser, b
 
 // HasAppUser returns a boolean if a field has been set.
 func (o *UserImportRequestData) HasAppUser() bool {
-	if o != nil && o.AppUser != nil {
+	if o != nil && !IsNil(o.AppUser) {
 		return true
 	}
 
@@ -121,7 +124,7 @@ func (o *UserImportRequestData) SetAppUser(v UserImportRequestDataAppUser) {
 
 // GetContext returns the Context field value if set, zero value otherwise.
 func (o *UserImportRequestData) GetContext() UserImportRequestDataContext {
-	if o == nil || o.Context == nil {
+	if o == nil || IsNil(o.Context) {
 		var ret UserImportRequestDataContext
 		return ret
 	}
@@ -131,7 +134,7 @@ func (o *UserImportRequestData) GetContext() UserImportRequestDataContext {
 // GetContextOk returns a tuple with the Context field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserImportRequestData) GetContextOk() (*UserImportRequestDataContext, bool) {
-	if o == nil || o.Context == nil {
+	if o == nil || IsNil(o.Context) {
 		return nil, false
 	}
 	return o.Context, true
@@ -139,7 +142,7 @@ func (o *UserImportRequestData) GetContextOk() (*UserImportRequestDataContext, b
 
 // HasContext returns a boolean if a field has been set.
 func (o *UserImportRequestData) HasContext() bool {
-	if o != nil && o.Context != nil {
+	if o != nil && !IsNil(o.Context) {
 		return true
 	}
 
@@ -153,7 +156,7 @@ func (o *UserImportRequestData) SetContext(v UserImportRequestDataContext) {
 
 // GetUser returns the User field value if set, zero value otherwise.
 func (o *UserImportRequestData) GetUser() UserImportRequestDataUser {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		var ret UserImportRequestDataUser
 		return ret
 	}
@@ -163,7 +166,7 @@ func (o *UserImportRequestData) GetUser() UserImportRequestDataUser {
 // GetUserOk returns a tuple with the User field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserImportRequestData) GetUserOk() (*UserImportRequestDataUser, bool) {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		return nil, false
 	}
 	return o.User, true
@@ -171,7 +174,7 @@ func (o *UserImportRequestData) GetUserOk() (*UserImportRequestDataUser, bool) {
 
 // HasUser returns a boolean if a field has been set.
 func (o *UserImportRequestData) HasUser() bool {
-	if o != nil && o.User != nil {
+	if o != nil && !IsNil(o.User) {
 		return true
 	}
 
@@ -184,17 +187,25 @@ func (o *UserImportRequestData) SetUser(v UserImportRequestDataUser) {
 }
 
 func (o UserImportRequestData) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserImportRequestData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Action != nil {
+	if !IsNil(o.Action) {
 		toSerialize["action"] = o.Action
 	}
-	if o.AppUser != nil {
+	if !IsNil(o.AppUser) {
 		toSerialize["appUser"] = o.AppUser
 	}
-	if o.Context != nil {
+	if !IsNil(o.Context) {
 		toSerialize["context"] = o.Context
 	}
-	if o.User != nil {
+	if !IsNil(o.User) {
 		toSerialize["user"] = o.User
 	}
 
@@ -202,30 +213,28 @@ func (o UserImportRequestData) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserImportRequestData) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserImportRequestData) UnmarshalJSON(data []byte) (err error) {
 	varUserImportRequestData := _UserImportRequestData{}
 
-	err = json.Unmarshal(bytes, &varUserImportRequestData)
-	if err == nil {
-		*o = UserImportRequestData(varUserImportRequestData)
-	} else {
+	err = json.Unmarshal(data, &varUserImportRequestData)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserImportRequestData(varUserImportRequestData)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "action")
 		delete(additionalProperties, "appUser")
 		delete(additionalProperties, "context")
 		delete(additionalProperties, "user")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -266,4 +275,3 @@ func (v *NullableUserImportRequestData) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

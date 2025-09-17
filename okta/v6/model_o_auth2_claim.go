@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,27 +27,30 @@ import (
 	"encoding/json"
 )
 
+// checks if the OAuth2Claim type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OAuth2Claim{}
+
 // OAuth2Claim struct for OAuth2Claim
 type OAuth2Claim struct {
 	// Specifies whether to include Claims in the token. The value is always `TRUE` for access token Claims. If the value is set to `FALSE` for an ID token claim, the Claim isn't included in the ID token when the token is requested with the access token or with the `authorization_code`. The client instead uses the access token to get Claims from the `/userinfo` endpoint.
 	AlwaysIncludeInToken *bool `json:"alwaysIncludeInToken,omitempty"`
 	// Specifies whether the Claim is for an access token (`RESOURCE`) or an ID token (`IDENTITY`)
-	ClaimType *string `json:"claimType,omitempty"`
+	ClaimType  *string                `json:"claimType,omitempty"`
 	Conditions *OAuth2ClaimConditions `json:"conditions,omitempty"`
 	// Specifies the type of group filter if `valueType` is `GROUPS`  If `valueType` is `GROUPS`, then the groups returned are filtered according to the value of `group_filter_type`.  If you have complex filters for Groups, you can [create a Groups allowlist](https://developer.okta.com/docs/guides/customize-tokens-groups-claim/main/) to put them all in a Claim.
 	GroupFilterType *string `json:"group_filter_type,omitempty"`
 	// ID of the Claim
 	Id *string `json:"id,omitempty"`
 	// Name of the Claim
-	Name *string `json:"name,omitempty"`
+	Name   *string `json:"name,omitempty"`
 	Status *string `json:"status,omitempty"`
 	// When `true`, indicates that Okta created the Claim
 	System *bool `json:"system,omitempty"`
 	// Specifies the value of the Claim. This value must be a string literal if `valueType` is `GROUPS`, and the string literal is matched with the selected `group_filter_type`. The value must be an Okta EL expression if `valueType` is `EXPRESSION`.
 	Value *string `json:"value,omitempty"`
 	// Specifies whether the Claim is an Okta Expression Language (EL) expression (`EXPRESSION`), a set of groups (`GROUPS`), or a system claim (`SYSTEM`)
-	ValueType *string `json:"valueType,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	ValueType            *string    `json:"valueType,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -72,7 +75,7 @@ func NewOAuth2ClaimWithDefaults() *OAuth2Claim {
 
 // GetAlwaysIncludeInToken returns the AlwaysIncludeInToken field value if set, zero value otherwise.
 func (o *OAuth2Claim) GetAlwaysIncludeInToken() bool {
-	if o == nil || o.AlwaysIncludeInToken == nil {
+	if o == nil || IsNil(o.AlwaysIncludeInToken) {
 		var ret bool
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *OAuth2Claim) GetAlwaysIncludeInToken() bool {
 // GetAlwaysIncludeInTokenOk returns a tuple with the AlwaysIncludeInToken field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Claim) GetAlwaysIncludeInTokenOk() (*bool, bool) {
-	if o == nil || o.AlwaysIncludeInToken == nil {
+	if o == nil || IsNil(o.AlwaysIncludeInToken) {
 		return nil, false
 	}
 	return o.AlwaysIncludeInToken, true
@@ -90,7 +93,7 @@ func (o *OAuth2Claim) GetAlwaysIncludeInTokenOk() (*bool, bool) {
 
 // HasAlwaysIncludeInToken returns a boolean if a field has been set.
 func (o *OAuth2Claim) HasAlwaysIncludeInToken() bool {
-	if o != nil && o.AlwaysIncludeInToken != nil {
+	if o != nil && !IsNil(o.AlwaysIncludeInToken) {
 		return true
 	}
 
@@ -104,7 +107,7 @@ func (o *OAuth2Claim) SetAlwaysIncludeInToken(v bool) {
 
 // GetClaimType returns the ClaimType field value if set, zero value otherwise.
 func (o *OAuth2Claim) GetClaimType() string {
-	if o == nil || o.ClaimType == nil {
+	if o == nil || IsNil(o.ClaimType) {
 		var ret string
 		return ret
 	}
@@ -114,7 +117,7 @@ func (o *OAuth2Claim) GetClaimType() string {
 // GetClaimTypeOk returns a tuple with the ClaimType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Claim) GetClaimTypeOk() (*string, bool) {
-	if o == nil || o.ClaimType == nil {
+	if o == nil || IsNil(o.ClaimType) {
 		return nil, false
 	}
 	return o.ClaimType, true
@@ -122,7 +125,7 @@ func (o *OAuth2Claim) GetClaimTypeOk() (*string, bool) {
 
 // HasClaimType returns a boolean if a field has been set.
 func (o *OAuth2Claim) HasClaimType() bool {
-	if o != nil && o.ClaimType != nil {
+	if o != nil && !IsNil(o.ClaimType) {
 		return true
 	}
 
@@ -136,7 +139,7 @@ func (o *OAuth2Claim) SetClaimType(v string) {
 
 // GetConditions returns the Conditions field value if set, zero value otherwise.
 func (o *OAuth2Claim) GetConditions() OAuth2ClaimConditions {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		var ret OAuth2ClaimConditions
 		return ret
 	}
@@ -146,7 +149,7 @@ func (o *OAuth2Claim) GetConditions() OAuth2ClaimConditions {
 // GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Claim) GetConditionsOk() (*OAuth2ClaimConditions, bool) {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		return nil, false
 	}
 	return o.Conditions, true
@@ -154,7 +157,7 @@ func (o *OAuth2Claim) GetConditionsOk() (*OAuth2ClaimConditions, bool) {
 
 // HasConditions returns a boolean if a field has been set.
 func (o *OAuth2Claim) HasConditions() bool {
-	if o != nil && o.Conditions != nil {
+	if o != nil && !IsNil(o.Conditions) {
 		return true
 	}
 
@@ -168,7 +171,7 @@ func (o *OAuth2Claim) SetConditions(v OAuth2ClaimConditions) {
 
 // GetGroupFilterType returns the GroupFilterType field value if set, zero value otherwise.
 func (o *OAuth2Claim) GetGroupFilterType() string {
-	if o == nil || o.GroupFilterType == nil {
+	if o == nil || IsNil(o.GroupFilterType) {
 		var ret string
 		return ret
 	}
@@ -178,7 +181,7 @@ func (o *OAuth2Claim) GetGroupFilterType() string {
 // GetGroupFilterTypeOk returns a tuple with the GroupFilterType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Claim) GetGroupFilterTypeOk() (*string, bool) {
-	if o == nil || o.GroupFilterType == nil {
+	if o == nil || IsNil(o.GroupFilterType) {
 		return nil, false
 	}
 	return o.GroupFilterType, true
@@ -186,7 +189,7 @@ func (o *OAuth2Claim) GetGroupFilterTypeOk() (*string, bool) {
 
 // HasGroupFilterType returns a boolean if a field has been set.
 func (o *OAuth2Claim) HasGroupFilterType() bool {
-	if o != nil && o.GroupFilterType != nil {
+	if o != nil && !IsNil(o.GroupFilterType) {
 		return true
 	}
 
@@ -200,7 +203,7 @@ func (o *OAuth2Claim) SetGroupFilterType(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *OAuth2Claim) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -210,7 +213,7 @@ func (o *OAuth2Claim) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Claim) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -218,7 +221,7 @@ func (o *OAuth2Claim) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *OAuth2Claim) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -232,7 +235,7 @@ func (o *OAuth2Claim) SetId(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *OAuth2Claim) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -242,7 +245,7 @@ func (o *OAuth2Claim) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Claim) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -250,7 +253,7 @@ func (o *OAuth2Claim) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *OAuth2Claim) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -264,7 +267,7 @@ func (o *OAuth2Claim) SetName(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *OAuth2Claim) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -274,7 +277,7 @@ func (o *OAuth2Claim) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Claim) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -282,7 +285,7 @@ func (o *OAuth2Claim) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *OAuth2Claim) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -296,7 +299,7 @@ func (o *OAuth2Claim) SetStatus(v string) {
 
 // GetSystem returns the System field value if set, zero value otherwise.
 func (o *OAuth2Claim) GetSystem() bool {
-	if o == nil || o.System == nil {
+	if o == nil || IsNil(o.System) {
 		var ret bool
 		return ret
 	}
@@ -306,7 +309,7 @@ func (o *OAuth2Claim) GetSystem() bool {
 // GetSystemOk returns a tuple with the System field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Claim) GetSystemOk() (*bool, bool) {
-	if o == nil || o.System == nil {
+	if o == nil || IsNil(o.System) {
 		return nil, false
 	}
 	return o.System, true
@@ -314,7 +317,7 @@ func (o *OAuth2Claim) GetSystemOk() (*bool, bool) {
 
 // HasSystem returns a boolean if a field has been set.
 func (o *OAuth2Claim) HasSystem() bool {
-	if o != nil && o.System != nil {
+	if o != nil && !IsNil(o.System) {
 		return true
 	}
 
@@ -328,7 +331,7 @@ func (o *OAuth2Claim) SetSystem(v bool) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *OAuth2Claim) GetValue() string {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret string
 		return ret
 	}
@@ -338,7 +341,7 @@ func (o *OAuth2Claim) GetValue() string {
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Claim) GetValueOk() (*string, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -346,7 +349,7 @@ func (o *OAuth2Claim) GetValueOk() (*string, bool) {
 
 // HasValue returns a boolean if a field has been set.
 func (o *OAuth2Claim) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -360,7 +363,7 @@ func (o *OAuth2Claim) SetValue(v string) {
 
 // GetValueType returns the ValueType field value if set, zero value otherwise.
 func (o *OAuth2Claim) GetValueType() string {
-	if o == nil || o.ValueType == nil {
+	if o == nil || IsNil(o.ValueType) {
 		var ret string
 		return ret
 	}
@@ -370,7 +373,7 @@ func (o *OAuth2Claim) GetValueType() string {
 // GetValueTypeOk returns a tuple with the ValueType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Claim) GetValueTypeOk() (*string, bool) {
-	if o == nil || o.ValueType == nil {
+	if o == nil || IsNil(o.ValueType) {
 		return nil, false
 	}
 	return o.ValueType, true
@@ -378,7 +381,7 @@ func (o *OAuth2Claim) GetValueTypeOk() (*string, bool) {
 
 // HasValueType returns a boolean if a field has been set.
 func (o *OAuth2Claim) HasValueType() bool {
-	if o != nil && o.ValueType != nil {
+	if o != nil && !IsNil(o.ValueType) {
 		return true
 	}
 
@@ -392,7 +395,7 @@ func (o *OAuth2Claim) SetValueType(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *OAuth2Claim) GetLinks() LinksSelf {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksSelf
 		return ret
 	}
@@ -402,7 +405,7 @@ func (o *OAuth2Claim) GetLinks() LinksSelf {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Claim) GetLinksOk() (*LinksSelf, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -410,7 +413,7 @@ func (o *OAuth2Claim) GetLinksOk() (*LinksSelf, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *OAuth2Claim) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -423,38 +426,46 @@ func (o *OAuth2Claim) SetLinks(v LinksSelf) {
 }
 
 func (o OAuth2Claim) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OAuth2Claim) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AlwaysIncludeInToken != nil {
+	if !IsNil(o.AlwaysIncludeInToken) {
 		toSerialize["alwaysIncludeInToken"] = o.AlwaysIncludeInToken
 	}
-	if o.ClaimType != nil {
+	if !IsNil(o.ClaimType) {
 		toSerialize["claimType"] = o.ClaimType
 	}
-	if o.Conditions != nil {
+	if !IsNil(o.Conditions) {
 		toSerialize["conditions"] = o.Conditions
 	}
-	if o.GroupFilterType != nil {
+	if !IsNil(o.GroupFilterType) {
 		toSerialize["group_filter_type"] = o.GroupFilterType
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.System != nil {
+	if !IsNil(o.System) {
 		toSerialize["system"] = o.System
 	}
-	if o.Value != nil {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
-	if o.ValueType != nil {
+	if !IsNil(o.ValueType) {
 		toSerialize["valueType"] = o.ValueType
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -462,23 +473,23 @@ func (o OAuth2Claim) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OAuth2Claim) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OAuth2Claim) UnmarshalJSON(data []byte) (err error) {
 	varOAuth2Claim := _OAuth2Claim{}
 
-	err = json.Unmarshal(bytes, &varOAuth2Claim)
-	if err == nil {
-		*o = OAuth2Claim(varOAuth2Claim)
-	} else {
+	err = json.Unmarshal(data, &varOAuth2Claim)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OAuth2Claim(varOAuth2Claim)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "alwaysIncludeInToken")
 		delete(additionalProperties, "claimType")
 		delete(additionalProperties, "conditions")
@@ -491,8 +502,6 @@ func (o *OAuth2Claim) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "valueType")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -533,4 +542,3 @@ func (v *NullableOAuth2Claim) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,14 +27,17 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthenticatorKeyOktaVerifyAllOfSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorKeyOktaVerifyAllOfSettings{}
+
 // AuthenticatorKeyOktaVerifyAllOfSettings struct for AuthenticatorKeyOktaVerifyAllOfSettings
 type AuthenticatorKeyOktaVerifyAllOfSettings struct {
 	ChannelBinding *ChannelBinding `json:"channelBinding,omitempty"`
-	Compliance *Compliance `json:"compliance,omitempty"`
+	Compliance     *Compliance     `json:"compliance,omitempty"`
 	// User verification setting. Possible values `DISCOURAGED` (the authenticator isn't asked to perform user verification, but may do so at its discretion), `PREFERRED` (the client uses an authenticator capable of user verification if possible), or `REQUIRED`(the client uses only an authenticator capable of user verification)
 	UserVerification *string `json:"userVerification,omitempty"`
 	// The application instance ID
-	AppInstanceId *string `json:"appInstanceId,omitempty"`
+	AppInstanceId        *string `json:"appInstanceId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewAuthenticatorKeyOktaVerifyAllOfSettingsWithDefaults() *AuthenticatorKeyO
 
 // GetChannelBinding returns the ChannelBinding field value if set, zero value otherwise.
 func (o *AuthenticatorKeyOktaVerifyAllOfSettings) GetChannelBinding() ChannelBinding {
-	if o == nil || o.ChannelBinding == nil {
+	if o == nil || IsNil(o.ChannelBinding) {
 		var ret ChannelBinding
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *AuthenticatorKeyOktaVerifyAllOfSettings) GetChannelBinding() ChannelBin
 // GetChannelBindingOk returns a tuple with the ChannelBinding field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorKeyOktaVerifyAllOfSettings) GetChannelBindingOk() (*ChannelBinding, bool) {
-	if o == nil || o.ChannelBinding == nil {
+	if o == nil || IsNil(o.ChannelBinding) {
 		return nil, false
 	}
 	return o.ChannelBinding, true
@@ -77,7 +80,7 @@ func (o *AuthenticatorKeyOktaVerifyAllOfSettings) GetChannelBindingOk() (*Channe
 
 // HasChannelBinding returns a boolean if a field has been set.
 func (o *AuthenticatorKeyOktaVerifyAllOfSettings) HasChannelBinding() bool {
-	if o != nil && o.ChannelBinding != nil {
+	if o != nil && !IsNil(o.ChannelBinding) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *AuthenticatorKeyOktaVerifyAllOfSettings) SetChannelBinding(v ChannelBin
 
 // GetCompliance returns the Compliance field value if set, zero value otherwise.
 func (o *AuthenticatorKeyOktaVerifyAllOfSettings) GetCompliance() Compliance {
-	if o == nil || o.Compliance == nil {
+	if o == nil || IsNil(o.Compliance) {
 		var ret Compliance
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *AuthenticatorKeyOktaVerifyAllOfSettings) GetCompliance() Compliance {
 // GetComplianceOk returns a tuple with the Compliance field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorKeyOktaVerifyAllOfSettings) GetComplianceOk() (*Compliance, bool) {
-	if o == nil || o.Compliance == nil {
+	if o == nil || IsNil(o.Compliance) {
 		return nil, false
 	}
 	return o.Compliance, true
@@ -109,7 +112,7 @@ func (o *AuthenticatorKeyOktaVerifyAllOfSettings) GetComplianceOk() (*Compliance
 
 // HasCompliance returns a boolean if a field has been set.
 func (o *AuthenticatorKeyOktaVerifyAllOfSettings) HasCompliance() bool {
-	if o != nil && o.Compliance != nil {
+	if o != nil && !IsNil(o.Compliance) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *AuthenticatorKeyOktaVerifyAllOfSettings) SetCompliance(v Compliance) {
 
 // GetUserVerification returns the UserVerification field value if set, zero value otherwise.
 func (o *AuthenticatorKeyOktaVerifyAllOfSettings) GetUserVerification() string {
-	if o == nil || o.UserVerification == nil {
+	if o == nil || IsNil(o.UserVerification) {
 		var ret string
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *AuthenticatorKeyOktaVerifyAllOfSettings) GetUserVerification() string {
 // GetUserVerificationOk returns a tuple with the UserVerification field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorKeyOktaVerifyAllOfSettings) GetUserVerificationOk() (*string, bool) {
-	if o == nil || o.UserVerification == nil {
+	if o == nil || IsNil(o.UserVerification) {
 		return nil, false
 	}
 	return o.UserVerification, true
@@ -141,7 +144,7 @@ func (o *AuthenticatorKeyOktaVerifyAllOfSettings) GetUserVerificationOk() (*stri
 
 // HasUserVerification returns a boolean if a field has been set.
 func (o *AuthenticatorKeyOktaVerifyAllOfSettings) HasUserVerification() bool {
-	if o != nil && o.UserVerification != nil {
+	if o != nil && !IsNil(o.UserVerification) {
 		return true
 	}
 
@@ -155,7 +158,7 @@ func (o *AuthenticatorKeyOktaVerifyAllOfSettings) SetUserVerification(v string) 
 
 // GetAppInstanceId returns the AppInstanceId field value if set, zero value otherwise.
 func (o *AuthenticatorKeyOktaVerifyAllOfSettings) GetAppInstanceId() string {
-	if o == nil || o.AppInstanceId == nil {
+	if o == nil || IsNil(o.AppInstanceId) {
 		var ret string
 		return ret
 	}
@@ -165,7 +168,7 @@ func (o *AuthenticatorKeyOktaVerifyAllOfSettings) GetAppInstanceId() string {
 // GetAppInstanceIdOk returns a tuple with the AppInstanceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorKeyOktaVerifyAllOfSettings) GetAppInstanceIdOk() (*string, bool) {
-	if o == nil || o.AppInstanceId == nil {
+	if o == nil || IsNil(o.AppInstanceId) {
 		return nil, false
 	}
 	return o.AppInstanceId, true
@@ -173,7 +176,7 @@ func (o *AuthenticatorKeyOktaVerifyAllOfSettings) GetAppInstanceIdOk() (*string,
 
 // HasAppInstanceId returns a boolean if a field has been set.
 func (o *AuthenticatorKeyOktaVerifyAllOfSettings) HasAppInstanceId() bool {
-	if o != nil && o.AppInstanceId != nil {
+	if o != nil && !IsNil(o.AppInstanceId) {
 		return true
 	}
 
@@ -186,17 +189,25 @@ func (o *AuthenticatorKeyOktaVerifyAllOfSettings) SetAppInstanceId(v string) {
 }
 
 func (o AuthenticatorKeyOktaVerifyAllOfSettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorKeyOktaVerifyAllOfSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ChannelBinding != nil {
+	if !IsNil(o.ChannelBinding) {
 		toSerialize["channelBinding"] = o.ChannelBinding
 	}
-	if o.Compliance != nil {
+	if !IsNil(o.Compliance) {
 		toSerialize["compliance"] = o.Compliance
 	}
-	if o.UserVerification != nil {
+	if !IsNil(o.UserVerification) {
 		toSerialize["userVerification"] = o.UserVerification
 	}
-	if o.AppInstanceId != nil {
+	if !IsNil(o.AppInstanceId) {
 		toSerialize["appInstanceId"] = o.AppInstanceId
 	}
 
@@ -204,30 +215,28 @@ func (o AuthenticatorKeyOktaVerifyAllOfSettings) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorKeyOktaVerifyAllOfSettings) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorKeyOktaVerifyAllOfSettings) UnmarshalJSON(data []byte) (err error) {
 	varAuthenticatorKeyOktaVerifyAllOfSettings := _AuthenticatorKeyOktaVerifyAllOfSettings{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorKeyOktaVerifyAllOfSettings)
-	if err == nil {
-		*o = AuthenticatorKeyOktaVerifyAllOfSettings(varAuthenticatorKeyOktaVerifyAllOfSettings)
-	} else {
+	err = json.Unmarshal(data, &varAuthenticatorKeyOktaVerifyAllOfSettings)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthenticatorKeyOktaVerifyAllOfSettings(varAuthenticatorKeyOktaVerifyAllOfSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "channelBinding")
 		delete(additionalProperties, "compliance")
 		delete(additionalProperties, "userVerification")
 		delete(additionalProperties, "appInstanceId")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -268,4 +277,3 @@ func (v *NullableAuthenticatorKeyOktaVerifyAllOfSettings) UnmarshalJSON(src []by
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

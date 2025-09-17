@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,28 +26,27 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type OrgSettingSupportAPI interface {
 
 	/*
-	ExtendOktaSupport Extend Okta Support access
+			ExtendOktaSupport Extend Okta Support access
 
-	Extends the length of time that Okta Support can access your org by 24 hours. This means that 24 hours are added to the remaining access time.
+			Extends the length of time that Okta Support can access your org by 24 hours. This means that 24 hours are added to the remaining access time.
 
-> **Note:** This resource is deprecated. Use the [Update an Okta Support case](/openapi/okta-management/management/tag/OrgSettingSupport/#tag/OrgSettingSupport/operation/updateOktaSupportCase) resource to extend Okta Support access for a support case.
-> For the corresponding Okta Admin Console feature, see [Give access to Okta Support](https://help.okta.com/okta_help.htm?type=oie&id=settings-support-access).
+		> **Note:** This resource is deprecated. Use the [Update an Okta Support case](/openapi/okta-management/management/tag/OrgSettingSupport/#tag/OrgSettingSupport/operation/updateOktaSupportCase) resource to extend Okta Support access for a support case.
+		> For the corresponding Okta Admin Console feature, see [Give access to Okta Support](https://help.okta.com/okta_help.htm?type=oie&id=settings-support-access).
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiExtendOktaSupportRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiExtendOktaSupportRequest
 
-	Deprecated
+			Deprecated
 	*/
 	ExtendOktaSupport(ctx context.Context) ApiExtendOktaSupportRequest
 
@@ -56,12 +55,12 @@ type OrgSettingSupportAPI interface {
 	ExtendOktaSupportExecute(r ApiExtendOktaSupportRequest) (*APIResponse, error)
 
 	/*
-	GetAerialConsent Retrieve Okta Aerial consent for your org
+		GetAerialConsent Retrieve Okta Aerial consent for your org
 
-	Retrieves the Okta Aerial consent grant details for your Org. Returns a 404 Not Found error if no consent has been granted.
+		Retrieves the Okta Aerial consent grant details for your Org. Returns a 404 Not Found error if no consent has been granted.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetAerialConsentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetAerialConsentRequest
 	*/
 	GetAerialConsent(ctx context.Context) ApiGetAerialConsentRequest
 
@@ -70,12 +69,12 @@ type OrgSettingSupportAPI interface {
 	GetAerialConsentExecute(r ApiGetAerialConsentRequest) (*OrgAerialConsentDetails, *APIResponse, error)
 
 	/*
-	GetOrgOktaSupportSettings Retrieve the Okta Support settings
+		GetOrgOktaSupportSettings Retrieve the Okta Support settings
 
-	Retrieves Okta Support Settings for your org
+		Retrieves Okta Support Settings for your org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetOrgOktaSupportSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetOrgOktaSupportSettingsRequest
 	*/
 	GetOrgOktaSupportSettings(ctx context.Context) ApiGetOrgOktaSupportSettingsRequest
 
@@ -84,12 +83,12 @@ type OrgSettingSupportAPI interface {
 	GetOrgOktaSupportSettingsExecute(r ApiGetOrgOktaSupportSettingsRequest) (*OrgOktaSupportSettingsObj, *APIResponse, error)
 
 	/*
-	GrantAerialConsent Grant Okta Aerial access to your org
+		GrantAerialConsent Grant Okta Aerial access to your org
 
-	Grants an Okta Aerial account consent to manage your org. If the org is a child org, consent is taken from the parent org. Grant calls directly to the child are not allowed.
+		Grants an Okta Aerial account consent to manage your org. If the org is a child org, consent is taken from the parent org. Grant calls directly to the child are not allowed.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGrantAerialConsentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGrantAerialConsentRequest
 	*/
 	GrantAerialConsent(ctx context.Context) ApiGrantAerialConsentRequest
 
@@ -98,17 +97,17 @@ type OrgSettingSupportAPI interface {
 	GrantAerialConsentExecute(r ApiGrantAerialConsentRequest) (*OrgAerialConsentDetails, *APIResponse, error)
 
 	/*
-	GrantOktaSupport Grant Okta Support access
+			GrantOktaSupport Grant Okta Support access
 
-	Grants Okta Support temporary access to your org as an administrator for eight hours
+			Grants Okta Support temporary access to your org as an administrator for eight hours
 
-> **Note:** This resource is deprecated. Use the [Update an Okta Support case](/openapi/okta-management/management/tag/OrgSettingSupport/#tag/OrgSettingSupport/operation/updateOktaSupportCase) resource to grant Okta Support access for a support case.
-> For the corresponding Okta Admin Console feature, see [Give access to Okta Support](https://help.okta.com/okta_help.htm?type=oie&id=settings-support-access).
+		> **Note:** This resource is deprecated. Use the [Update an Okta Support case](/openapi/okta-management/management/tag/OrgSettingSupport/#tag/OrgSettingSupport/operation/updateOktaSupportCase) resource to grant Okta Support access for a support case.
+		> For the corresponding Okta Admin Console feature, see [Give access to Okta Support](https://help.okta.com/okta_help.htm?type=oie&id=settings-support-access).
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGrantOktaSupportRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiGrantOktaSupportRequest
 
-	Deprecated
+			Deprecated
 	*/
 	GrantOktaSupport(ctx context.Context) ApiGrantOktaSupportRequest
 
@@ -117,12 +116,12 @@ type OrgSettingSupportAPI interface {
 	GrantOktaSupportExecute(r ApiGrantOktaSupportRequest) (*APIResponse, error)
 
 	/*
-	ListOktaSupportCases List all Okta Support cases
+		ListOktaSupportCases List all Okta Support cases
 
-	Lists all Okta Support cases that the requesting principal has permission to view
+		Lists all Okta Support cases that the requesting principal has permission to view
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListOktaSupportCasesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListOktaSupportCasesRequest
 	*/
 	ListOktaSupportCases(ctx context.Context) ApiListOktaSupportCasesRequest
 
@@ -131,12 +130,12 @@ type OrgSettingSupportAPI interface {
 	ListOktaSupportCasesExecute(r ApiListOktaSupportCasesRequest) (*OktaSupportCases, *APIResponse, error)
 
 	/*
-	RevokeAerialConsent Revoke Okta Aerial access to your org
+		RevokeAerialConsent Revoke Okta Aerial access to your org
 
-	Revokes access of an Okta Aerial account to your Org. The revoke operation will fail if the org has already been added to an Aerial account.
+		Revokes access of an Okta Aerial account to your Org. The revoke operation will fail if the org has already been added to an Aerial account.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiRevokeAerialConsentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiRevokeAerialConsentRequest
 	*/
 	RevokeAerialConsent(ctx context.Context) ApiRevokeAerialConsentRequest
 
@@ -145,17 +144,17 @@ type OrgSettingSupportAPI interface {
 	RevokeAerialConsentExecute(r ApiRevokeAerialConsentRequest) (*OrgAerialConsentRevoked, *APIResponse, error)
 
 	/*
-	RevokeOktaSupport Revoke Okta Support access
+			RevokeOktaSupport Revoke Okta Support access
 
-	Revokes Okta Support access to your org
+			Revokes Okta Support access to your org
 
-> **Note:** This resource is deprecated. Use the [Update an Okta Support case](/openapi/okta-management/management/tag/OrgSettingSupport/#tag/OrgSettingSupport/operation/updateOktaSupportCase) resource to revoke Okta Support access for a support case.
-> For the corresponding Okta Admin Console feature, see [Give access to Okta Support](https://help.okta.com/okta_help.htm?type=oie&id=settings-support-access).
+		> **Note:** This resource is deprecated. Use the [Update an Okta Support case](/openapi/okta-management/management/tag/OrgSettingSupport/#tag/OrgSettingSupport/operation/updateOktaSupportCase) resource to revoke Okta Support access for a support case.
+		> For the corresponding Okta Admin Console feature, see [Give access to Okta Support](https://help.okta.com/okta_help.htm?type=oie&id=settings-support-access).
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiRevokeOktaSupportRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiRevokeOktaSupportRequest
 
-	Deprecated
+			Deprecated
 	*/
 	RevokeOktaSupport(ctx context.Context) ApiRevokeOktaSupportRequest
 
@@ -164,17 +163,17 @@ type OrgSettingSupportAPI interface {
 	RevokeOktaSupportExecute(r ApiRevokeOktaSupportRequest) (*APIResponse, error)
 
 	/*
-	UpdateOktaSupportCase Update an Okta Support case
+			UpdateOktaSupportCase Update an Okta Support case
 
-	Updates access to the org for an Okta Support case:
+			Updates access to the org for an Okta Support case:
 
-* You can enable, disable, or extend access to your org for an Okta Support case.
+		* You can enable, disable, or extend access to your org for an Okta Support case.
 
-* You can approve Okta Support access to your org for self-assigned cases. A self-assigned case is created and assigned by the same Okta Support user.
+		* You can approve Okta Support access to your org for self-assigned cases. A self-assigned case is created and assigned by the same Okta Support user.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param caseNumber
-	@return ApiUpdateOktaSupportCaseRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param caseNumber
+			@return ApiUpdateOktaSupportCaseRequest
 	*/
 	UpdateOktaSupportCase(ctx context.Context, caseNumber string) ApiUpdateOktaSupportCaseRequest
 
@@ -187,7 +186,7 @@ type OrgSettingSupportAPI interface {
 type OrgSettingSupportAPIService service
 
 type ApiExtendOktaSupportRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingSupportAPI
 	retryCount int32
 }
@@ -204,15 +203,15 @@ Extends the length of time that Okta Support can access your org by 24 hours. Th
 > **Note:** This resource is deprecated. Use the [Update an Okta Support case](/openapi/okta-management/management/tag/OrgSettingSupport/#tag/OrgSettingSupport/operation/updateOktaSupportCase) resource to extend Okta Support access for a support case.
 > For the corresponding Okta Admin Console feature, see [Give access to Okta Support](https://help.okta.com/okta_help.htm?type=oie&id=settings-support-access).
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiExtendOktaSupportRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiExtendOktaSupportRequest
 
 Deprecated
 */
 func (a *OrgSettingSupportAPIService) ExtendOktaSupport(ctx context.Context) ApiExtendOktaSupportRequest {
 	return ApiExtendOktaSupportRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -226,7 +225,7 @@ func (a *OrgSettingSupportAPIService) ExtendOktaSupportExecute(r ApiExtendOktaSu
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -286,9 +285,9 @@ func (a *OrgSettingSupportAPIService) ExtendOktaSupportExecute(r ApiExtendOktaSu
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -308,7 +307,7 @@ func (a *OrgSettingSupportAPIService) ExtendOktaSupportExecute(r ApiExtendOktaSu
 }
 
 type ApiGetAerialConsentRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingSupportAPI
 	retryCount int32
 }
@@ -322,19 +321,20 @@ GetAerialConsent Retrieve Okta Aerial consent for your org
 
 Retrieves the Okta Aerial consent grant details for your Org. Returns a 404 Not Found error if no consent has been granted.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetAerialConsentRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetAerialConsentRequest
 */
 func (a *OrgSettingSupportAPIService) GetAerialConsent(ctx context.Context) ApiGetAerialConsentRequest {
 	return ApiGetAerialConsentRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OrgAerialConsentDetails
+//
+//	@return OrgAerialConsentDetails
 func (a *OrgSettingSupportAPIService) GetAerialConsentExecute(r ApiGetAerialConsentRequest) (*OrgAerialConsentDetails, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -343,7 +343,7 @@ func (a *OrgSettingSupportAPIService) GetAerialConsentExecute(r ApiGetAerialCons
 		localVarReturnValue  *OrgAerialConsentDetails
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -403,9 +403,9 @@ func (a *OrgSettingSupportAPIService) GetAerialConsentExecute(r ApiGetAerialCons
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -475,13 +475,13 @@ func (a *OrgSettingSupportAPIService) GetAerialConsentExecute(r ApiGetAerialCons
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetOrgOktaSupportSettingsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingSupportAPI
 	retryCount int32
 }
@@ -495,19 +495,20 @@ GetOrgOktaSupportSettings Retrieve the Okta Support settings
 
 Retrieves Okta Support Settings for your org
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetOrgOktaSupportSettingsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetOrgOktaSupportSettingsRequest
 */
 func (a *OrgSettingSupportAPIService) GetOrgOktaSupportSettings(ctx context.Context) ApiGetOrgOktaSupportSettingsRequest {
 	return ApiGetOrgOktaSupportSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OrgOktaSupportSettingsObj
+//
+//	@return OrgOktaSupportSettingsObj
 func (a *OrgSettingSupportAPIService) GetOrgOktaSupportSettingsExecute(r ApiGetOrgOktaSupportSettingsRequest) (*OrgOktaSupportSettingsObj, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -516,7 +517,7 @@ func (a *OrgSettingSupportAPIService) GetOrgOktaSupportSettingsExecute(r ApiGetO
 		localVarReturnValue  *OrgOktaSupportSettingsObj
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -576,9 +577,9 @@ func (a *OrgSettingSupportAPIService) GetOrgOktaSupportSettingsExecute(r ApiGetO
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -624,16 +625,16 @@ func (a *OrgSettingSupportAPIService) GetOrgOktaSupportSettingsExecute(r ApiGetO
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGrantAerialConsentRequest struct {
-	ctx context.Context
-	ApiService OrgSettingSupportAPI
+	ctx              context.Context
+	ApiService       OrgSettingSupportAPI
 	orgAerialConsent *OrgAerialConsent
-	retryCount int32
+	retryCount       int32
 }
 
 func (r ApiGrantAerialConsentRequest) OrgAerialConsent(orgAerialConsent OrgAerialConsent) ApiGrantAerialConsentRequest {
@@ -650,19 +651,20 @@ GrantAerialConsent Grant Okta Aerial access to your org
 
 Grants an Okta Aerial account consent to manage your org. If the org is a child org, consent is taken from the parent org. Grant calls directly to the child are not allowed.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGrantAerialConsentRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGrantAerialConsentRequest
 */
 func (a *OrgSettingSupportAPIService) GrantAerialConsent(ctx context.Context) ApiGrantAerialConsentRequest {
 	return ApiGrantAerialConsentRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OrgAerialConsentDetails
+//
+//	@return OrgAerialConsentDetails
 func (a *OrgSettingSupportAPIService) GrantAerialConsentExecute(r ApiGrantAerialConsentRequest) (*OrgAerialConsentDetails, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -671,7 +673,7 @@ func (a *OrgSettingSupportAPIService) GrantAerialConsentExecute(r ApiGrantAerial
 		localVarReturnValue  *OrgAerialConsentDetails
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -733,9 +735,9 @@ func (a *OrgSettingSupportAPIService) GrantAerialConsentExecute(r ApiGrantAerial
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -793,13 +795,13 @@ func (a *OrgSettingSupportAPIService) GrantAerialConsentExecute(r ApiGrantAerial
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGrantOktaSupportRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingSupportAPI
 	retryCount int32
 }
@@ -811,20 +813,20 @@ func (r ApiGrantOktaSupportRequest) Execute() (*APIResponse, error) {
 /*
 GrantOktaSupport Grant Okta Support access
 
-Grants Okta Support temporary access to your org as an administrator for eight hours
+# Grants Okta Support temporary access to your org as an administrator for eight hours
 
 > **Note:** This resource is deprecated. Use the [Update an Okta Support case](/openapi/okta-management/management/tag/OrgSettingSupport/#tag/OrgSettingSupport/operation/updateOktaSupportCase) resource to grant Okta Support access for a support case.
 > For the corresponding Okta Admin Console feature, see [Give access to Okta Support](https://help.okta.com/okta_help.htm?type=oie&id=settings-support-access).
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGrantOktaSupportRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGrantOktaSupportRequest
 
 Deprecated
 */
 func (a *OrgSettingSupportAPIService) GrantOktaSupport(ctx context.Context) ApiGrantOktaSupportRequest {
 	return ApiGrantOktaSupportRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -838,7 +840,7 @@ func (a *OrgSettingSupportAPIService) GrantOktaSupportExecute(r ApiGrantOktaSupp
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -898,9 +900,9 @@ func (a *OrgSettingSupportAPIService) GrantOktaSupportExecute(r ApiGrantOktaSupp
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -920,7 +922,7 @@ func (a *OrgSettingSupportAPIService) GrantOktaSupportExecute(r ApiGrantOktaSupp
 }
 
 type ApiListOktaSupportCasesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingSupportAPI
 	retryCount int32
 }
@@ -934,19 +936,20 @@ ListOktaSupportCases List all Okta Support cases
 
 Lists all Okta Support cases that the requesting principal has permission to view
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListOktaSupportCasesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListOktaSupportCasesRequest
 */
 func (a *OrgSettingSupportAPIService) ListOktaSupportCases(ctx context.Context) ApiListOktaSupportCasesRequest {
 	return ApiListOktaSupportCasesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OktaSupportCases
+//
+//	@return OktaSupportCases
 func (a *OrgSettingSupportAPIService) ListOktaSupportCasesExecute(r ApiListOktaSupportCasesRequest) (*OktaSupportCases, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -955,7 +958,7 @@ func (a *OrgSettingSupportAPIService) ListOktaSupportCasesExecute(r ApiListOktaS
 		localVarReturnValue  *OktaSupportCases
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1015,9 +1018,9 @@ func (a *OrgSettingSupportAPIService) ListOktaSupportCasesExecute(r ApiListOktaS
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1063,16 +1066,16 @@ func (a *OrgSettingSupportAPIService) ListOktaSupportCasesExecute(r ApiListOktaS
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiRevokeAerialConsentRequest struct {
-	ctx context.Context
-	ApiService OrgSettingSupportAPI
+	ctx              context.Context
+	ApiService       OrgSettingSupportAPI
 	orgAerialConsent *OrgAerialConsent
-	retryCount int32
+	retryCount       int32
 }
 
 func (r ApiRevokeAerialConsentRequest) OrgAerialConsent(orgAerialConsent OrgAerialConsent) ApiRevokeAerialConsentRequest {
@@ -1089,19 +1092,20 @@ RevokeAerialConsent Revoke Okta Aerial access to your org
 
 Revokes access of an Okta Aerial account to your Org. The revoke operation will fail if the org has already been added to an Aerial account.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiRevokeAerialConsentRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiRevokeAerialConsentRequest
 */
 func (a *OrgSettingSupportAPIService) RevokeAerialConsent(ctx context.Context) ApiRevokeAerialConsentRequest {
 	return ApiRevokeAerialConsentRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OrgAerialConsentRevoked
+//
+//	@return OrgAerialConsentRevoked
 func (a *OrgSettingSupportAPIService) RevokeAerialConsentExecute(r ApiRevokeAerialConsentRequest) (*OrgAerialConsentRevoked, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1110,7 +1114,7 @@ func (a *OrgSettingSupportAPIService) RevokeAerialConsentExecute(r ApiRevokeAeri
 		localVarReturnValue  *OrgAerialConsentRevoked
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1172,9 +1176,9 @@ func (a *OrgSettingSupportAPIService) RevokeAerialConsentExecute(r ApiRevokeAeri
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1232,13 +1236,13 @@ func (a *OrgSettingSupportAPIService) RevokeAerialConsentExecute(r ApiRevokeAeri
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiRevokeOktaSupportRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingSupportAPI
 	retryCount int32
 }
@@ -1250,20 +1254,20 @@ func (r ApiRevokeOktaSupportRequest) Execute() (*APIResponse, error) {
 /*
 RevokeOktaSupport Revoke Okta Support access
 
-Revokes Okta Support access to your org
+# Revokes Okta Support access to your org
 
 > **Note:** This resource is deprecated. Use the [Update an Okta Support case](/openapi/okta-management/management/tag/OrgSettingSupport/#tag/OrgSettingSupport/operation/updateOktaSupportCase) resource to revoke Okta Support access for a support case.
 > For the corresponding Okta Admin Console feature, see [Give access to Okta Support](https://help.okta.com/okta_help.htm?type=oie&id=settings-support-access).
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiRevokeOktaSupportRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiRevokeOktaSupportRequest
 
 Deprecated
 */
 func (a *OrgSettingSupportAPIService) RevokeOktaSupport(ctx context.Context) ApiRevokeOktaSupportRequest {
 	return ApiRevokeOktaSupportRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1277,7 +1281,7 @@ func (a *OrgSettingSupportAPIService) RevokeOktaSupportExecute(r ApiRevokeOktaSu
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1337,9 +1341,9 @@ func (a *OrgSettingSupportAPIService) RevokeOktaSupportExecute(r ApiRevokeOktaSu
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -1359,11 +1363,11 @@ func (a *OrgSettingSupportAPIService) RevokeOktaSupportExecute(r ApiRevokeOktaSu
 }
 
 type ApiUpdateOktaSupportCaseRequest struct {
-	ctx context.Context
-	ApiService OrgSettingSupportAPI
-	caseNumber string
+	ctx             context.Context
+	ApiService      OrgSettingSupportAPI
+	caseNumber      string
 	oktaSupportCase *OktaSupportCase
-	retryCount int32
+	retryCount      int32
 }
 
 func (r ApiUpdateOktaSupportCaseRequest) OktaSupportCase(oktaSupportCase OktaSupportCase) ApiUpdateOktaSupportCaseRequest {
@@ -1384,21 +1388,22 @@ Updates access to the org for an Okta Support case:
 
 * You can approve Okta Support access to your org for self-assigned cases. A self-assigned case is created and assigned by the same Okta Support user.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param caseNumber
- @return ApiUpdateOktaSupportCaseRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param caseNumber
+	@return ApiUpdateOktaSupportCaseRequest
 */
 func (a *OrgSettingSupportAPIService) UpdateOktaSupportCase(ctx context.Context, caseNumber string) ApiUpdateOktaSupportCaseRequest {
 	return ApiUpdateOktaSupportCaseRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		caseNumber: caseNumber,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OktaSupportCase
+//
+//	@return OktaSupportCase
 func (a *OrgSettingSupportAPIService) UpdateOktaSupportCaseExecute(r ApiUpdateOktaSupportCaseRequest) (*OktaSupportCase, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
@@ -1407,7 +1412,7 @@ func (a *OrgSettingSupportAPIService) UpdateOktaSupportCaseExecute(r ApiUpdateOk
 		localVarReturnValue  *OktaSupportCase
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1470,9 +1475,9 @@ func (a *OrgSettingSupportAPIService) UpdateOktaSupportCaseExecute(r ApiUpdateOk
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1518,7 +1523,7 @@ func (a *OrgSettingSupportAPIService) UpdateOktaSupportCaseExecute(r ApiUpdateOk
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserRiskPutResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserRiskPutResponse{}
+
 // UserRiskPutResponse struct for UserRiskPutResponse
 type UserRiskPutResponse struct {
 	// Describes the risk level for the user
 	Reason *string `json:"reason,omitempty"`
 	// The risk level associated with the user
-	RiskLevel *string `json:"riskLevel,omitempty"`
-	Links *UserRiskGetResponseLinks `json:"_links,omitempty"`
+	RiskLevel            *string                   `json:"riskLevel,omitempty"`
+	Links                *UserRiskGetResponseLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewUserRiskPutResponseWithDefaults() *UserRiskPutResponse {
 
 // GetReason returns the Reason field value if set, zero value otherwise.
 func (o *UserRiskPutResponse) GetReason() string {
-	if o == nil || o.Reason == nil {
+	if o == nil || IsNil(o.Reason) {
 		var ret string
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *UserRiskPutResponse) GetReason() string {
 // GetReasonOk returns a tuple with the Reason field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserRiskPutResponse) GetReasonOk() (*string, bool) {
-	if o == nil || o.Reason == nil {
+	if o == nil || IsNil(o.Reason) {
 		return nil, false
 	}
 	return o.Reason, true
@@ -76,7 +79,7 @@ func (o *UserRiskPutResponse) GetReasonOk() (*string, bool) {
 
 // HasReason returns a boolean if a field has been set.
 func (o *UserRiskPutResponse) HasReason() bool {
-	if o != nil && o.Reason != nil {
+	if o != nil && !IsNil(o.Reason) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *UserRiskPutResponse) SetReason(v string) {
 
 // GetRiskLevel returns the RiskLevel field value if set, zero value otherwise.
 func (o *UserRiskPutResponse) GetRiskLevel() string {
-	if o == nil || o.RiskLevel == nil {
+	if o == nil || IsNil(o.RiskLevel) {
 		var ret string
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *UserRiskPutResponse) GetRiskLevel() string {
 // GetRiskLevelOk returns a tuple with the RiskLevel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserRiskPutResponse) GetRiskLevelOk() (*string, bool) {
-	if o == nil || o.RiskLevel == nil {
+	if o == nil || IsNil(o.RiskLevel) {
 		return nil, false
 	}
 	return o.RiskLevel, true
@@ -108,7 +111,7 @@ func (o *UserRiskPutResponse) GetRiskLevelOk() (*string, bool) {
 
 // HasRiskLevel returns a boolean if a field has been set.
 func (o *UserRiskPutResponse) HasRiskLevel() bool {
-	if o != nil && o.RiskLevel != nil {
+	if o != nil && !IsNil(o.RiskLevel) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *UserRiskPutResponse) SetRiskLevel(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *UserRiskPutResponse) GetLinks() UserRiskGetResponseLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret UserRiskGetResponseLinks
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *UserRiskPutResponse) GetLinks() UserRiskGetResponseLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserRiskPutResponse) GetLinksOk() (*UserRiskGetResponseLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -140,7 +143,7 @@ func (o *UserRiskPutResponse) GetLinksOk() (*UserRiskGetResponseLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *UserRiskPutResponse) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -153,14 +156,22 @@ func (o *UserRiskPutResponse) SetLinks(v UserRiskGetResponseLinks) {
 }
 
 func (o UserRiskPutResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserRiskPutResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Reason != nil {
+	if !IsNil(o.Reason) {
 		toSerialize["reason"] = o.Reason
 	}
-	if o.RiskLevel != nil {
+	if !IsNil(o.RiskLevel) {
 		toSerialize["riskLevel"] = o.RiskLevel
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -168,29 +179,27 @@ func (o UserRiskPutResponse) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserRiskPutResponse) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserRiskPutResponse) UnmarshalJSON(data []byte) (err error) {
 	varUserRiskPutResponse := _UserRiskPutResponse{}
 
-	err = json.Unmarshal(bytes, &varUserRiskPutResponse)
-	if err == nil {
-		*o = UserRiskPutResponse(varUserRiskPutResponse)
-	} else {
+	err = json.Unmarshal(data, &varUserRiskPutResponse)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserRiskPutResponse(varUserRiskPutResponse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "reason")
 		delete(additionalProperties, "riskLevel")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -231,4 +240,3 @@ func (v *NullableUserRiskPutResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

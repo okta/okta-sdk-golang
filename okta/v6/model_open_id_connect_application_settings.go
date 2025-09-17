@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the OpenIdConnectApplicationSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OpenIdConnectApplicationSettings{}
+
 // OpenIdConnectApplicationSettings struct for OpenIdConnectApplicationSettings
 type OpenIdConnectApplicationSettings struct {
 	// The Governance Engine opt-in status for the app
@@ -36,10 +39,10 @@ type OpenIdConnectApplicationSettings struct {
 	// Controls whether Okta automatically assigns users to the app based on the user's role or group membership.
 	ImplicitAssignment *bool `json:"implicitAssignment,omitempty"`
 	// Identifier of an inline hook. Inline hooks are outbound calls from Okta to your own custom code, triggered at specific points in Okta process flows. They allow you to integrate custom functionality into those flows. See [Inline hooks](/openapi/okta-management/management/tag/InlineHook/).
-	InlineHookId *string `json:"inlineHookId,omitempty"`
-	Notes *ApplicationSettingsNotes `json:"notes,omitempty"`
-	Notifications *ApplicationSettingsNotifications `json:"notifications,omitempty"`
-	OauthClient *OpenIdConnectApplicationSettingsClient `json:"oauthClient,omitempty"`
+	InlineHookId         *string                                 `json:"inlineHookId,omitempty"`
+	Notes                *ApplicationSettingsNotes               `json:"notes,omitempty"`
+	Notifications        *ApplicationSettingsNotifications       `json:"notifications,omitempty"`
+	OauthClient          *OpenIdConnectApplicationSettingsClient `json:"oauthClient,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -64,7 +67,7 @@ func NewOpenIdConnectApplicationSettingsWithDefaults() *OpenIdConnectApplication
 
 // GetEmOptInStatus returns the EmOptInStatus field value if set, zero value otherwise.
 func (o *OpenIdConnectApplicationSettings) GetEmOptInStatus() string {
-	if o == nil || o.EmOptInStatus == nil {
+	if o == nil || IsNil(o.EmOptInStatus) {
 		var ret string
 		return ret
 	}
@@ -74,7 +77,7 @@ func (o *OpenIdConnectApplicationSettings) GetEmOptInStatus() string {
 // GetEmOptInStatusOk returns a tuple with the EmOptInStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OpenIdConnectApplicationSettings) GetEmOptInStatusOk() (*string, bool) {
-	if o == nil || o.EmOptInStatus == nil {
+	if o == nil || IsNil(o.EmOptInStatus) {
 		return nil, false
 	}
 	return o.EmOptInStatus, true
@@ -82,7 +85,7 @@ func (o *OpenIdConnectApplicationSettings) GetEmOptInStatusOk() (*string, bool) 
 
 // HasEmOptInStatus returns a boolean if a field has been set.
 func (o *OpenIdConnectApplicationSettings) HasEmOptInStatus() bool {
-	if o != nil && o.EmOptInStatus != nil {
+	if o != nil && !IsNil(o.EmOptInStatus) {
 		return true
 	}
 
@@ -96,7 +99,7 @@ func (o *OpenIdConnectApplicationSettings) SetEmOptInStatus(v string) {
 
 // GetIdentityStoreId returns the IdentityStoreId field value if set, zero value otherwise.
 func (o *OpenIdConnectApplicationSettings) GetIdentityStoreId() string {
-	if o == nil || o.IdentityStoreId == nil {
+	if o == nil || IsNil(o.IdentityStoreId) {
 		var ret string
 		return ret
 	}
@@ -106,7 +109,7 @@ func (o *OpenIdConnectApplicationSettings) GetIdentityStoreId() string {
 // GetIdentityStoreIdOk returns a tuple with the IdentityStoreId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OpenIdConnectApplicationSettings) GetIdentityStoreIdOk() (*string, bool) {
-	if o == nil || o.IdentityStoreId == nil {
+	if o == nil || IsNil(o.IdentityStoreId) {
 		return nil, false
 	}
 	return o.IdentityStoreId, true
@@ -114,7 +117,7 @@ func (o *OpenIdConnectApplicationSettings) GetIdentityStoreIdOk() (*string, bool
 
 // HasIdentityStoreId returns a boolean if a field has been set.
 func (o *OpenIdConnectApplicationSettings) HasIdentityStoreId() bool {
-	if o != nil && o.IdentityStoreId != nil {
+	if o != nil && !IsNil(o.IdentityStoreId) {
 		return true
 	}
 
@@ -128,7 +131,7 @@ func (o *OpenIdConnectApplicationSettings) SetIdentityStoreId(v string) {
 
 // GetImplicitAssignment returns the ImplicitAssignment field value if set, zero value otherwise.
 func (o *OpenIdConnectApplicationSettings) GetImplicitAssignment() bool {
-	if o == nil || o.ImplicitAssignment == nil {
+	if o == nil || IsNil(o.ImplicitAssignment) {
 		var ret bool
 		return ret
 	}
@@ -138,7 +141,7 @@ func (o *OpenIdConnectApplicationSettings) GetImplicitAssignment() bool {
 // GetImplicitAssignmentOk returns a tuple with the ImplicitAssignment field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OpenIdConnectApplicationSettings) GetImplicitAssignmentOk() (*bool, bool) {
-	if o == nil || o.ImplicitAssignment == nil {
+	if o == nil || IsNil(o.ImplicitAssignment) {
 		return nil, false
 	}
 	return o.ImplicitAssignment, true
@@ -146,7 +149,7 @@ func (o *OpenIdConnectApplicationSettings) GetImplicitAssignmentOk() (*bool, boo
 
 // HasImplicitAssignment returns a boolean if a field has been set.
 func (o *OpenIdConnectApplicationSettings) HasImplicitAssignment() bool {
-	if o != nil && o.ImplicitAssignment != nil {
+	if o != nil && !IsNil(o.ImplicitAssignment) {
 		return true
 	}
 
@@ -160,7 +163,7 @@ func (o *OpenIdConnectApplicationSettings) SetImplicitAssignment(v bool) {
 
 // GetInlineHookId returns the InlineHookId field value if set, zero value otherwise.
 func (o *OpenIdConnectApplicationSettings) GetInlineHookId() string {
-	if o == nil || o.InlineHookId == nil {
+	if o == nil || IsNil(o.InlineHookId) {
 		var ret string
 		return ret
 	}
@@ -170,7 +173,7 @@ func (o *OpenIdConnectApplicationSettings) GetInlineHookId() string {
 // GetInlineHookIdOk returns a tuple with the InlineHookId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OpenIdConnectApplicationSettings) GetInlineHookIdOk() (*string, bool) {
-	if o == nil || o.InlineHookId == nil {
+	if o == nil || IsNil(o.InlineHookId) {
 		return nil, false
 	}
 	return o.InlineHookId, true
@@ -178,7 +181,7 @@ func (o *OpenIdConnectApplicationSettings) GetInlineHookIdOk() (*string, bool) {
 
 // HasInlineHookId returns a boolean if a field has been set.
 func (o *OpenIdConnectApplicationSettings) HasInlineHookId() bool {
-	if o != nil && o.InlineHookId != nil {
+	if o != nil && !IsNil(o.InlineHookId) {
 		return true
 	}
 
@@ -192,7 +195,7 @@ func (o *OpenIdConnectApplicationSettings) SetInlineHookId(v string) {
 
 // GetNotes returns the Notes field value if set, zero value otherwise.
 func (o *OpenIdConnectApplicationSettings) GetNotes() ApplicationSettingsNotes {
-	if o == nil || o.Notes == nil {
+	if o == nil || IsNil(o.Notes) {
 		var ret ApplicationSettingsNotes
 		return ret
 	}
@@ -202,7 +205,7 @@ func (o *OpenIdConnectApplicationSettings) GetNotes() ApplicationSettingsNotes {
 // GetNotesOk returns a tuple with the Notes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OpenIdConnectApplicationSettings) GetNotesOk() (*ApplicationSettingsNotes, bool) {
-	if o == nil || o.Notes == nil {
+	if o == nil || IsNil(o.Notes) {
 		return nil, false
 	}
 	return o.Notes, true
@@ -210,7 +213,7 @@ func (o *OpenIdConnectApplicationSettings) GetNotesOk() (*ApplicationSettingsNot
 
 // HasNotes returns a boolean if a field has been set.
 func (o *OpenIdConnectApplicationSettings) HasNotes() bool {
-	if o != nil && o.Notes != nil {
+	if o != nil && !IsNil(o.Notes) {
 		return true
 	}
 
@@ -224,7 +227,7 @@ func (o *OpenIdConnectApplicationSettings) SetNotes(v ApplicationSettingsNotes) 
 
 // GetNotifications returns the Notifications field value if set, zero value otherwise.
 func (o *OpenIdConnectApplicationSettings) GetNotifications() ApplicationSettingsNotifications {
-	if o == nil || o.Notifications == nil {
+	if o == nil || IsNil(o.Notifications) {
 		var ret ApplicationSettingsNotifications
 		return ret
 	}
@@ -234,7 +237,7 @@ func (o *OpenIdConnectApplicationSettings) GetNotifications() ApplicationSetting
 // GetNotificationsOk returns a tuple with the Notifications field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OpenIdConnectApplicationSettings) GetNotificationsOk() (*ApplicationSettingsNotifications, bool) {
-	if o == nil || o.Notifications == nil {
+	if o == nil || IsNil(o.Notifications) {
 		return nil, false
 	}
 	return o.Notifications, true
@@ -242,7 +245,7 @@ func (o *OpenIdConnectApplicationSettings) GetNotificationsOk() (*ApplicationSet
 
 // HasNotifications returns a boolean if a field has been set.
 func (o *OpenIdConnectApplicationSettings) HasNotifications() bool {
-	if o != nil && o.Notifications != nil {
+	if o != nil && !IsNil(o.Notifications) {
 		return true
 	}
 
@@ -256,7 +259,7 @@ func (o *OpenIdConnectApplicationSettings) SetNotifications(v ApplicationSetting
 
 // GetOauthClient returns the OauthClient field value if set, zero value otherwise.
 func (o *OpenIdConnectApplicationSettings) GetOauthClient() OpenIdConnectApplicationSettingsClient {
-	if o == nil || o.OauthClient == nil {
+	if o == nil || IsNil(o.OauthClient) {
 		var ret OpenIdConnectApplicationSettingsClient
 		return ret
 	}
@@ -266,7 +269,7 @@ func (o *OpenIdConnectApplicationSettings) GetOauthClient() OpenIdConnectApplica
 // GetOauthClientOk returns a tuple with the OauthClient field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OpenIdConnectApplicationSettings) GetOauthClientOk() (*OpenIdConnectApplicationSettingsClient, bool) {
-	if o == nil || o.OauthClient == nil {
+	if o == nil || IsNil(o.OauthClient) {
 		return nil, false
 	}
 	return o.OauthClient, true
@@ -274,7 +277,7 @@ func (o *OpenIdConnectApplicationSettings) GetOauthClientOk() (*OpenIdConnectApp
 
 // HasOauthClient returns a boolean if a field has been set.
 func (o *OpenIdConnectApplicationSettings) HasOauthClient() bool {
-	if o != nil && o.OauthClient != nil {
+	if o != nil && !IsNil(o.OauthClient) {
 		return true
 	}
 
@@ -287,26 +290,34 @@ func (o *OpenIdConnectApplicationSettings) SetOauthClient(v OpenIdConnectApplica
 }
 
 func (o OpenIdConnectApplicationSettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OpenIdConnectApplicationSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.EmOptInStatus != nil {
+	if !IsNil(o.EmOptInStatus) {
 		toSerialize["emOptInStatus"] = o.EmOptInStatus
 	}
-	if o.IdentityStoreId != nil {
+	if !IsNil(o.IdentityStoreId) {
 		toSerialize["identityStoreId"] = o.IdentityStoreId
 	}
-	if o.ImplicitAssignment != nil {
+	if !IsNil(o.ImplicitAssignment) {
 		toSerialize["implicitAssignment"] = o.ImplicitAssignment
 	}
-	if o.InlineHookId != nil {
+	if !IsNil(o.InlineHookId) {
 		toSerialize["inlineHookId"] = o.InlineHookId
 	}
-	if o.Notes != nil {
+	if !IsNil(o.Notes) {
 		toSerialize["notes"] = o.Notes
 	}
-	if o.Notifications != nil {
+	if !IsNil(o.Notifications) {
 		toSerialize["notifications"] = o.Notifications
 	}
-	if o.OauthClient != nil {
+	if !IsNil(o.OauthClient) {
 		toSerialize["oauthClient"] = o.OauthClient
 	}
 
@@ -314,23 +325,23 @@ func (o OpenIdConnectApplicationSettings) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OpenIdConnectApplicationSettings) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OpenIdConnectApplicationSettings) UnmarshalJSON(data []byte) (err error) {
 	varOpenIdConnectApplicationSettings := _OpenIdConnectApplicationSettings{}
 
-	err = json.Unmarshal(bytes, &varOpenIdConnectApplicationSettings)
-	if err == nil {
-		*o = OpenIdConnectApplicationSettings(varOpenIdConnectApplicationSettings)
-	} else {
+	err = json.Unmarshal(data, &varOpenIdConnectApplicationSettings)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OpenIdConnectApplicationSettings(varOpenIdConnectApplicationSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "emOptInStatus")
 		delete(additionalProperties, "identityStoreId")
 		delete(additionalProperties, "implicitAssignment")
@@ -339,8 +350,6 @@ func (o *OpenIdConnectApplicationSettings) UnmarshalJSON(bytes []byte) (err erro
 		delete(additionalProperties, "notifications")
 		delete(additionalProperties, "oauthClient")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -381,4 +390,3 @@ func (v *NullableOpenIdConnectApplicationSettings) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

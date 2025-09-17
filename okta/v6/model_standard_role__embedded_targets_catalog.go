@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the StandardRoleEmbeddedTargetsCatalog type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StandardRoleEmbeddedTargetsCatalog{}
+
 // StandardRoleEmbeddedTargetsCatalog App targets
 type StandardRoleEmbeddedTargetsCatalog struct {
-	Apps []CatalogApplication `json:"apps,omitempty"`
+	Apps                 []CatalogApplication `json:"apps,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewStandardRoleEmbeddedTargetsCatalogWithDefaults() *StandardRoleEmbeddedTa
 
 // GetApps returns the Apps field value if set, zero value otherwise.
 func (o *StandardRoleEmbeddedTargetsCatalog) GetApps() []CatalogApplication {
-	if o == nil || o.Apps == nil {
+	if o == nil || IsNil(o.Apps) {
 		var ret []CatalogApplication
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *StandardRoleEmbeddedTargetsCatalog) GetApps() []CatalogApplication {
 // GetAppsOk returns a tuple with the Apps field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StandardRoleEmbeddedTargetsCatalog) GetAppsOk() ([]CatalogApplication, bool) {
-	if o == nil || o.Apps == nil {
+	if o == nil || IsNil(o.Apps) {
 		return nil, false
 	}
 	return o.Apps, true
@@ -72,7 +75,7 @@ func (o *StandardRoleEmbeddedTargetsCatalog) GetAppsOk() ([]CatalogApplication, 
 
 // HasApps returns a boolean if a field has been set.
 func (o *StandardRoleEmbeddedTargetsCatalog) HasApps() bool {
-	if o != nil && o.Apps != nil {
+	if o != nil && !IsNil(o.Apps) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *StandardRoleEmbeddedTargetsCatalog) SetApps(v []CatalogApplication) {
 }
 
 func (o StandardRoleEmbeddedTargetsCatalog) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o StandardRoleEmbeddedTargetsCatalog) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Apps != nil {
+	if !IsNil(o.Apps) {
 		toSerialize["apps"] = o.Apps
 	}
 
@@ -94,27 +105,25 @@ func (o StandardRoleEmbeddedTargetsCatalog) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *StandardRoleEmbeddedTargetsCatalog) UnmarshalJSON(bytes []byte) (err error) {
+func (o *StandardRoleEmbeddedTargetsCatalog) UnmarshalJSON(data []byte) (err error) {
 	varStandardRoleEmbeddedTargetsCatalog := _StandardRoleEmbeddedTargetsCatalog{}
 
-	err = json.Unmarshal(bytes, &varStandardRoleEmbeddedTargetsCatalog)
-	if err == nil {
-		*o = StandardRoleEmbeddedTargetsCatalog(varStandardRoleEmbeddedTargetsCatalog)
-	} else {
+	err = json.Unmarshal(data, &varStandardRoleEmbeddedTargetsCatalog)
+
+	if err != nil {
 		return err
 	}
 
+	*o = StandardRoleEmbeddedTargetsCatalog(varStandardRoleEmbeddedTargetsCatalog)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "apps")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableStandardRoleEmbeddedTargetsCatalog) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

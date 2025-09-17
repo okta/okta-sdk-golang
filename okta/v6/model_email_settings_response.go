@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the EmailSettingsResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EmailSettingsResponse{}
+
 // EmailSettingsResponse struct for EmailSettingsResponse
 type EmailSettingsResponse struct {
-	Recipients *string `json:"recipients,omitempty"`
-	Links *EmailSettingsResponseLinks `json:"_links,omitempty"`
+	Recipients           *string                     `json:"recipients,omitempty"`
+	Links                *EmailSettingsResponseLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewEmailSettingsResponseWithDefaults() *EmailSettingsResponse {
 
 // GetRecipients returns the Recipients field value if set, zero value otherwise.
 func (o *EmailSettingsResponse) GetRecipients() string {
-	if o == nil || o.Recipients == nil {
+	if o == nil || IsNil(o.Recipients) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *EmailSettingsResponse) GetRecipients() string {
 // GetRecipientsOk returns a tuple with the Recipients field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EmailSettingsResponse) GetRecipientsOk() (*string, bool) {
-	if o == nil || o.Recipients == nil {
+	if o == nil || IsNil(o.Recipients) {
 		return nil, false
 	}
 	return o.Recipients, true
@@ -73,7 +76,7 @@ func (o *EmailSettingsResponse) GetRecipientsOk() (*string, bool) {
 
 // HasRecipients returns a boolean if a field has been set.
 func (o *EmailSettingsResponse) HasRecipients() bool {
-	if o != nil && o.Recipients != nil {
+	if o != nil && !IsNil(o.Recipients) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *EmailSettingsResponse) SetRecipients(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *EmailSettingsResponse) GetLinks() EmailSettingsResponseLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret EmailSettingsResponseLinks
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *EmailSettingsResponse) GetLinks() EmailSettingsResponseLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EmailSettingsResponse) GetLinksOk() (*EmailSettingsResponseLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -105,7 +108,7 @@ func (o *EmailSettingsResponse) GetLinksOk() (*EmailSettingsResponseLinks, bool)
 
 // HasLinks returns a boolean if a field has been set.
 func (o *EmailSettingsResponse) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *EmailSettingsResponse) SetLinks(v EmailSettingsResponseLinks) {
 }
 
 func (o EmailSettingsResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EmailSettingsResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Recipients != nil {
+	if !IsNil(o.Recipients) {
 		toSerialize["recipients"] = o.Recipients
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -130,28 +141,26 @@ func (o EmailSettingsResponse) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EmailSettingsResponse) UnmarshalJSON(bytes []byte) (err error) {
+func (o *EmailSettingsResponse) UnmarshalJSON(data []byte) (err error) {
 	varEmailSettingsResponse := _EmailSettingsResponse{}
 
-	err = json.Unmarshal(bytes, &varEmailSettingsResponse)
-	if err == nil {
-		*o = EmailSettingsResponse(varEmailSettingsResponse)
-	} else {
+	err = json.Unmarshal(data, &varEmailSettingsResponse)
+
+	if err != nil {
 		return err
 	}
 
+	*o = EmailSettingsResponse(varEmailSettingsResponse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "recipients")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableEmailSettingsResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

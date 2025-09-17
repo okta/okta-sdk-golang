@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"fmt"
 )
 
+// checks if the OrgCreationAdminProfile type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrgCreationAdminProfile{}
+
 // OrgCreationAdminProfile Specifies the profile attributes for the first super admin user. The minimal set of required attributes are `email`, `firstName`, `lastName`, and `login`. See [profile](/openapi/okta-management/management/tag/User/#tag/User/operation/getUser!c=200&path=profile&t=response) for additional profile attributes.
 type OrgCreationAdminProfile struct {
 	// Given name of the User (`givenName`)
@@ -37,7 +40,7 @@ type OrgCreationAdminProfile struct {
 	// The primary email address of the User. For validation, see [RFC 5322 Section 3.2.3](https://datatracker.ietf.org/doc/html/rfc5322#section-3.2.3).
 	Email string `json:"email"`
 	// The unique identifier for the User (`username`)
-	Login string `json:"login"`
+	Login                string `json:"login"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -165,48 +168,70 @@ func (o *OrgCreationAdminProfile) SetLogin(v string) {
 }
 
 func (o OrgCreationAdminProfile) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OrgCreationAdminProfile) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["firstName"] = o.FirstName.Get()
-	}
-	if true {
-		toSerialize["lastName"] = o.LastName.Get()
-	}
-	if true {
-		toSerialize["email"] = o.Email
-	}
-	if true {
-		toSerialize["login"] = o.Login
-	}
+	toSerialize["firstName"] = o.FirstName.Get()
+	toSerialize["lastName"] = o.LastName.Get()
+	toSerialize["email"] = o.Email
+	toSerialize["login"] = o.Login
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OrgCreationAdminProfile) UnmarshalJSON(bytes []byte) (err error) {
-	varOrgCreationAdminProfile := _OrgCreationAdminProfile{}
+func (o *OrgCreationAdminProfile) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"firstName",
+		"lastName",
+		"email",
+		"login",
+	}
 
-	err = json.Unmarshal(bytes, &varOrgCreationAdminProfile)
-	if err == nil {
-		*o = OrgCreationAdminProfile(varOrgCreationAdminProfile)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varOrgCreationAdminProfile := _OrgCreationAdminProfile{}
+
+	err = json.Unmarshal(data, &varOrgCreationAdminProfile)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OrgCreationAdminProfile(varOrgCreationAdminProfile)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "firstName")
 		delete(additionalProperties, "lastName")
 		delete(additionalProperties, "email")
 		delete(additionalProperties, "login")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -247,4 +272,3 @@ func (v *NullableOrgCreationAdminProfile) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

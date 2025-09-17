@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SamlAssertionEncryption type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SamlAssertionEncryption{}
+
 // SamlAssertionEncryption Determines if the app supports encrypted assertions
 type SamlAssertionEncryption struct {
 	// Indicates whether Okta encrypts the assertions that it sends to the Service Provider
@@ -36,7 +39,7 @@ type SamlAssertionEncryption struct {
 	// The key transport algorithm used to encrypt the SAML assertion
 	KeyTransportAlgorithm *string `json:"keyTransportAlgorithm,omitempty"`
 	// A list that contains exactly one x509 encoded certificate which Okta uses to encrypt the SAML assertion with
-	X5c []string `json:"x5c,omitempty"`
+	X5c                  []string `json:"x5c,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewSamlAssertionEncryptionWithDefaults() *SamlAssertionEncryption {
 
 // GetEnabled returns the Enabled field value if set, zero value otherwise.
 func (o *SamlAssertionEncryption) GetEnabled() bool {
-	if o == nil || o.Enabled == nil {
+	if o == nil || IsNil(o.Enabled) {
 		var ret bool
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *SamlAssertionEncryption) GetEnabled() bool {
 // GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlAssertionEncryption) GetEnabledOk() (*bool, bool) {
-	if o == nil || o.Enabled == nil {
+	if o == nil || IsNil(o.Enabled) {
 		return nil, false
 	}
 	return o.Enabled, true
@@ -79,7 +82,7 @@ func (o *SamlAssertionEncryption) GetEnabledOk() (*bool, bool) {
 
 // HasEnabled returns a boolean if a field has been set.
 func (o *SamlAssertionEncryption) HasEnabled() bool {
-	if o != nil && o.Enabled != nil {
+	if o != nil && !IsNil(o.Enabled) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *SamlAssertionEncryption) SetEnabled(v bool) {
 
 // GetEncryptionAlgorithm returns the EncryptionAlgorithm field value if set, zero value otherwise.
 func (o *SamlAssertionEncryption) GetEncryptionAlgorithm() string {
-	if o == nil || o.EncryptionAlgorithm == nil {
+	if o == nil || IsNil(o.EncryptionAlgorithm) {
 		var ret string
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *SamlAssertionEncryption) GetEncryptionAlgorithm() string {
 // GetEncryptionAlgorithmOk returns a tuple with the EncryptionAlgorithm field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlAssertionEncryption) GetEncryptionAlgorithmOk() (*string, bool) {
-	if o == nil || o.EncryptionAlgorithm == nil {
+	if o == nil || IsNil(o.EncryptionAlgorithm) {
 		return nil, false
 	}
 	return o.EncryptionAlgorithm, true
@@ -111,7 +114,7 @@ func (o *SamlAssertionEncryption) GetEncryptionAlgorithmOk() (*string, bool) {
 
 // HasEncryptionAlgorithm returns a boolean if a field has been set.
 func (o *SamlAssertionEncryption) HasEncryptionAlgorithm() bool {
-	if o != nil && o.EncryptionAlgorithm != nil {
+	if o != nil && !IsNil(o.EncryptionAlgorithm) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *SamlAssertionEncryption) SetEncryptionAlgorithm(v string) {
 
 // GetKeyTransportAlgorithm returns the KeyTransportAlgorithm field value if set, zero value otherwise.
 func (o *SamlAssertionEncryption) GetKeyTransportAlgorithm() string {
-	if o == nil || o.KeyTransportAlgorithm == nil {
+	if o == nil || IsNil(o.KeyTransportAlgorithm) {
 		var ret string
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *SamlAssertionEncryption) GetKeyTransportAlgorithm() string {
 // GetKeyTransportAlgorithmOk returns a tuple with the KeyTransportAlgorithm field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlAssertionEncryption) GetKeyTransportAlgorithmOk() (*string, bool) {
-	if o == nil || o.KeyTransportAlgorithm == nil {
+	if o == nil || IsNil(o.KeyTransportAlgorithm) {
 		return nil, false
 	}
 	return o.KeyTransportAlgorithm, true
@@ -143,7 +146,7 @@ func (o *SamlAssertionEncryption) GetKeyTransportAlgorithmOk() (*string, bool) {
 
 // HasKeyTransportAlgorithm returns a boolean if a field has been set.
 func (o *SamlAssertionEncryption) HasKeyTransportAlgorithm() bool {
-	if o != nil && o.KeyTransportAlgorithm != nil {
+	if o != nil && !IsNil(o.KeyTransportAlgorithm) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *SamlAssertionEncryption) SetKeyTransportAlgorithm(v string) {
 
 // GetX5c returns the X5c field value if set, zero value otherwise.
 func (o *SamlAssertionEncryption) GetX5c() []string {
-	if o == nil || o.X5c == nil {
+	if o == nil || IsNil(o.X5c) {
 		var ret []string
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *SamlAssertionEncryption) GetX5c() []string {
 // GetX5cOk returns a tuple with the X5c field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlAssertionEncryption) GetX5cOk() ([]string, bool) {
-	if o == nil || o.X5c == nil {
+	if o == nil || IsNil(o.X5c) {
 		return nil, false
 	}
 	return o.X5c, true
@@ -175,7 +178,7 @@ func (o *SamlAssertionEncryption) GetX5cOk() ([]string, bool) {
 
 // HasX5c returns a boolean if a field has been set.
 func (o *SamlAssertionEncryption) HasX5c() bool {
-	if o != nil && o.X5c != nil {
+	if o != nil && !IsNil(o.X5c) {
 		return true
 	}
 
@@ -188,17 +191,25 @@ func (o *SamlAssertionEncryption) SetX5c(v []string) {
 }
 
 func (o SamlAssertionEncryption) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SamlAssertionEncryption) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Enabled != nil {
+	if !IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
 	}
-	if o.EncryptionAlgorithm != nil {
+	if !IsNil(o.EncryptionAlgorithm) {
 		toSerialize["encryptionAlgorithm"] = o.EncryptionAlgorithm
 	}
-	if o.KeyTransportAlgorithm != nil {
+	if !IsNil(o.KeyTransportAlgorithm) {
 		toSerialize["keyTransportAlgorithm"] = o.KeyTransportAlgorithm
 	}
-	if o.X5c != nil {
+	if !IsNil(o.X5c) {
 		toSerialize["x5c"] = o.X5c
 	}
 
@@ -206,30 +217,28 @@ func (o SamlAssertionEncryption) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SamlAssertionEncryption) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SamlAssertionEncryption) UnmarshalJSON(data []byte) (err error) {
 	varSamlAssertionEncryption := _SamlAssertionEncryption{}
 
-	err = json.Unmarshal(bytes, &varSamlAssertionEncryption)
-	if err == nil {
-		*o = SamlAssertionEncryption(varSamlAssertionEncryption)
-	} else {
+	err = json.Unmarshal(data, &varSamlAssertionEncryption)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SamlAssertionEncryption(varSamlAssertionEncryption)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "enabled")
 		delete(additionalProperties, "encryptionAlgorithm")
 		delete(additionalProperties, "keyTransportAlgorithm")
 		delete(additionalProperties, "x5c")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -270,4 +279,3 @@ func (v *NullableSamlAssertionEncryption) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

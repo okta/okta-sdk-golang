@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,9 +25,12 @@ package okta
 
 import (
 	"encoding/json"
-	"time"
 	"fmt"
+	"time"
 )
+
+// checks if the ChildOrg type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ChildOrg{}
 
 // ChildOrg struct for ChildOrg
 type ChildOrg struct {
@@ -55,7 +58,7 @@ type ChildOrg struct {
 	// Default website for the org
 	Website *string `json:"website,omitempty"`
 	// Specifies available link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification
-	Links map[string]interface{} `json:"_links,omitempty"`
+	Links                map[string]interface{} `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -108,7 +111,7 @@ func (o *ChildOrg) SetAdmin(v OrgCreationAdmin) {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *ChildOrg) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -118,7 +121,7 @@ func (o *ChildOrg) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ChildOrg) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -126,7 +129,7 @@ func (o *ChildOrg) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *ChildOrg) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -164,7 +167,7 @@ func (o *ChildOrg) SetEdition(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *ChildOrg) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -174,7 +177,7 @@ func (o *ChildOrg) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ChildOrg) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -182,7 +185,7 @@ func (o *ChildOrg) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *ChildOrg) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -196,7 +199,7 @@ func (o *ChildOrg) SetId(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *ChildOrg) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -206,7 +209,7 @@ func (o *ChildOrg) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ChildOrg) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -214,7 +217,7 @@ func (o *ChildOrg) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *ChildOrg) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -252,7 +255,7 @@ func (o *ChildOrg) SetName(v string) {
 
 // GetSettings returns the Settings field value if set, zero value otherwise.
 func (o *ChildOrg) GetSettings() map[string]interface{} {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -262,15 +265,15 @@ func (o *ChildOrg) GetSettings() map[string]interface{} {
 // GetSettingsOk returns a tuple with the Settings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ChildOrg) GetSettingsOk() (map[string]interface{}, bool) {
-	if o == nil || o.Settings == nil {
-		return nil, false
+	if o == nil || IsNil(o.Settings) {
+		return map[string]interface{}{}, false
 	}
 	return o.Settings, true
 }
 
 // HasSettings returns a boolean if a field has been set.
 func (o *ChildOrg) HasSettings() bool {
-	if o != nil && o.Settings != nil {
+	if o != nil && !IsNil(o.Settings) {
 		return true
 	}
 
@@ -284,7 +287,7 @@ func (o *ChildOrg) SetSettings(v map[string]interface{}) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *ChildOrg) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -294,7 +297,7 @@ func (o *ChildOrg) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ChildOrg) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -302,7 +305,7 @@ func (o *ChildOrg) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *ChildOrg) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -340,7 +343,7 @@ func (o *ChildOrg) SetSubdomain(v string) {
 
 // GetToken returns the Token field value if set, zero value otherwise.
 func (o *ChildOrg) GetToken() string {
-	if o == nil || o.Token == nil {
+	if o == nil || IsNil(o.Token) {
 		var ret string
 		return ret
 	}
@@ -350,7 +353,7 @@ func (o *ChildOrg) GetToken() string {
 // GetTokenOk returns a tuple with the Token field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ChildOrg) GetTokenOk() (*string, bool) {
-	if o == nil || o.Token == nil {
+	if o == nil || IsNil(o.Token) {
 		return nil, false
 	}
 	return o.Token, true
@@ -358,7 +361,7 @@ func (o *ChildOrg) GetTokenOk() (*string, bool) {
 
 // HasToken returns a boolean if a field has been set.
 func (o *ChildOrg) HasToken() bool {
-	if o != nil && o.Token != nil {
+	if o != nil && !IsNil(o.Token) {
 		return true
 	}
 
@@ -372,7 +375,7 @@ func (o *ChildOrg) SetToken(v string) {
 
 // GetTokenType returns the TokenType field value if set, zero value otherwise.
 func (o *ChildOrg) GetTokenType() string {
-	if o == nil || o.TokenType == nil {
+	if o == nil || IsNil(o.TokenType) {
 		var ret string
 		return ret
 	}
@@ -382,7 +385,7 @@ func (o *ChildOrg) GetTokenType() string {
 // GetTokenTypeOk returns a tuple with the TokenType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ChildOrg) GetTokenTypeOk() (*string, bool) {
-	if o == nil || o.TokenType == nil {
+	if o == nil || IsNil(o.TokenType) {
 		return nil, false
 	}
 	return o.TokenType, true
@@ -390,7 +393,7 @@ func (o *ChildOrg) GetTokenTypeOk() (*string, bool) {
 
 // HasTokenType returns a boolean if a field has been set.
 func (o *ChildOrg) HasTokenType() bool {
-	if o != nil && o.TokenType != nil {
+	if o != nil && !IsNil(o.TokenType) {
 		return true
 	}
 
@@ -404,7 +407,7 @@ func (o *ChildOrg) SetTokenType(v string) {
 
 // GetWebsite returns the Website field value if set, zero value otherwise.
 func (o *ChildOrg) GetWebsite() string {
-	if o == nil || o.Website == nil {
+	if o == nil || IsNil(o.Website) {
 		var ret string
 		return ret
 	}
@@ -414,7 +417,7 @@ func (o *ChildOrg) GetWebsite() string {
 // GetWebsiteOk returns a tuple with the Website field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ChildOrg) GetWebsiteOk() (*string, bool) {
-	if o == nil || o.Website == nil {
+	if o == nil || IsNil(o.Website) {
 		return nil, false
 	}
 	return o.Website, true
@@ -422,7 +425,7 @@ func (o *ChildOrg) GetWebsiteOk() (*string, bool) {
 
 // HasWebsite returns a boolean if a field has been set.
 func (o *ChildOrg) HasWebsite() bool {
-	if o != nil && o.Website != nil {
+	if o != nil && !IsNil(o.Website) {
 		return true
 	}
 
@@ -436,7 +439,7 @@ func (o *ChildOrg) SetWebsite(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *ChildOrg) GetLinks() map[string]interface{} {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -446,15 +449,15 @@ func (o *ChildOrg) GetLinks() map[string]interface{} {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ChildOrg) GetLinksOk() (map[string]interface{}, bool) {
-	if o == nil || o.Links == nil {
-		return nil, false
+	if o == nil || IsNil(o.Links) {
+		return map[string]interface{}{}, false
 	}
 	return o.Links, true
 }
 
 // HasLinks returns a boolean if a field has been set.
 func (o *ChildOrg) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -467,44 +470,44 @@ func (o *ChildOrg) SetLinks(v map[string]interface{}) {
 }
 
 func (o ChildOrg) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["admin"] = o.Admin
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Created != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o ChildOrg) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["admin"] = o.Admin
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if true {
-		toSerialize["edition"] = o.Edition
-	}
-	if o.Id != nil {
+	toSerialize["edition"] = o.Edition
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Settings != nil {
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Settings) {
 		toSerialize["settings"] = o.Settings
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if true {
-		toSerialize["subdomain"] = o.Subdomain
-	}
-	if o.Token != nil {
+	toSerialize["subdomain"] = o.Subdomain
+	if !IsNil(o.Token) {
 		toSerialize["token"] = o.Token
 	}
-	if o.TokenType != nil {
+	if !IsNil(o.TokenType) {
 		toSerialize["tokenType"] = o.TokenType
 	}
-	if o.Website != nil {
+	if !IsNil(o.Website) {
 		toSerialize["website"] = o.Website
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -512,23 +515,47 @@ func (o ChildOrg) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ChildOrg) UnmarshalJSON(bytes []byte) (err error) {
-	varChildOrg := _ChildOrg{}
+func (o *ChildOrg) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"admin",
+		"edition",
+		"name",
+		"subdomain",
+	}
 
-	err = json.Unmarshal(bytes, &varChildOrg)
-	if err == nil {
-		*o = ChildOrg(varChildOrg)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varChildOrg := _ChildOrg{}
+
+	err = json.Unmarshal(data, &varChildOrg)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ChildOrg(varChildOrg)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "admin")
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "edition")
@@ -543,8 +570,6 @@ func (o *ChildOrg) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "website")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -585,4 +610,3 @@ func (v *NullableChildOrg) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

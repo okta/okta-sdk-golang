@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the MtlsTrustCredentials type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MtlsTrustCredentials{}
+
 // MtlsTrustCredentials struct for MtlsTrustCredentials
 type MtlsTrustCredentials struct {
 	// Not used
@@ -39,7 +42,7 @@ type MtlsTrustCredentials struct {
 	Revocation *string `json:"revocation,omitempty"`
 	// Time in minutes to cache the certificate revocation information
 	RevocationCacheLifetime *float32 `json:"revocationCacheLifetime,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties    map[string]interface{}
 }
 
 type _MtlsTrustCredentials MtlsTrustCredentials
@@ -63,7 +66,7 @@ func NewMtlsTrustCredentialsWithDefaults() *MtlsTrustCredentials {
 
 // GetAudience returns the Audience field value if set, zero value otherwise.
 func (o *MtlsTrustCredentials) GetAudience() string {
-	if o == nil || o.Audience == nil {
+	if o == nil || IsNil(o.Audience) {
 		var ret string
 		return ret
 	}
@@ -73,7 +76,7 @@ func (o *MtlsTrustCredentials) GetAudience() string {
 // GetAudienceOk returns a tuple with the Audience field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MtlsTrustCredentials) GetAudienceOk() (*string, bool) {
-	if o == nil || o.Audience == nil {
+	if o == nil || IsNil(o.Audience) {
 		return nil, false
 	}
 	return o.Audience, true
@@ -81,7 +84,7 @@ func (o *MtlsTrustCredentials) GetAudienceOk() (*string, bool) {
 
 // HasAudience returns a boolean if a field has been set.
 func (o *MtlsTrustCredentials) HasAudience() bool {
-	if o != nil && o.Audience != nil {
+	if o != nil && !IsNil(o.Audience) {
 		return true
 	}
 
@@ -95,7 +98,7 @@ func (o *MtlsTrustCredentials) SetAudience(v string) {
 
 // GetIssuer returns the Issuer field value if set, zero value otherwise.
 func (o *MtlsTrustCredentials) GetIssuer() string {
-	if o == nil || o.Issuer == nil {
+	if o == nil || IsNil(o.Issuer) {
 		var ret string
 		return ret
 	}
@@ -105,7 +108,7 @@ func (o *MtlsTrustCredentials) GetIssuer() string {
 // GetIssuerOk returns a tuple with the Issuer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MtlsTrustCredentials) GetIssuerOk() (*string, bool) {
-	if o == nil || o.Issuer == nil {
+	if o == nil || IsNil(o.Issuer) {
 		return nil, false
 	}
 	return o.Issuer, true
@@ -113,7 +116,7 @@ func (o *MtlsTrustCredentials) GetIssuerOk() (*string, bool) {
 
 // HasIssuer returns a boolean if a field has been set.
 func (o *MtlsTrustCredentials) HasIssuer() bool {
-	if o != nil && o.Issuer != nil {
+	if o != nil && !IsNil(o.Issuer) {
 		return true
 	}
 
@@ -127,7 +130,7 @@ func (o *MtlsTrustCredentials) SetIssuer(v string) {
 
 // GetKid returns the Kid field value if set, zero value otherwise.
 func (o *MtlsTrustCredentials) GetKid() string {
-	if o == nil || o.Kid == nil {
+	if o == nil || IsNil(o.Kid) {
 		var ret string
 		return ret
 	}
@@ -137,7 +140,7 @@ func (o *MtlsTrustCredentials) GetKid() string {
 // GetKidOk returns a tuple with the Kid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MtlsTrustCredentials) GetKidOk() (*string, bool) {
-	if o == nil || o.Kid == nil {
+	if o == nil || IsNil(o.Kid) {
 		return nil, false
 	}
 	return o.Kid, true
@@ -145,7 +148,7 @@ func (o *MtlsTrustCredentials) GetKidOk() (*string, bool) {
 
 // HasKid returns a boolean if a field has been set.
 func (o *MtlsTrustCredentials) HasKid() bool {
-	if o != nil && o.Kid != nil {
+	if o != nil && !IsNil(o.Kid) {
 		return true
 	}
 
@@ -159,7 +162,7 @@ func (o *MtlsTrustCredentials) SetKid(v string) {
 
 // GetRevocation returns the Revocation field value if set, zero value otherwise.
 func (o *MtlsTrustCredentials) GetRevocation() string {
-	if o == nil || o.Revocation == nil {
+	if o == nil || IsNil(o.Revocation) {
 		var ret string
 		return ret
 	}
@@ -169,7 +172,7 @@ func (o *MtlsTrustCredentials) GetRevocation() string {
 // GetRevocationOk returns a tuple with the Revocation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MtlsTrustCredentials) GetRevocationOk() (*string, bool) {
-	if o == nil || o.Revocation == nil {
+	if o == nil || IsNil(o.Revocation) {
 		return nil, false
 	}
 	return o.Revocation, true
@@ -177,7 +180,7 @@ func (o *MtlsTrustCredentials) GetRevocationOk() (*string, bool) {
 
 // HasRevocation returns a boolean if a field has been set.
 func (o *MtlsTrustCredentials) HasRevocation() bool {
-	if o != nil && o.Revocation != nil {
+	if o != nil && !IsNil(o.Revocation) {
 		return true
 	}
 
@@ -191,7 +194,7 @@ func (o *MtlsTrustCredentials) SetRevocation(v string) {
 
 // GetRevocationCacheLifetime returns the RevocationCacheLifetime field value if set, zero value otherwise.
 func (o *MtlsTrustCredentials) GetRevocationCacheLifetime() float32 {
-	if o == nil || o.RevocationCacheLifetime == nil {
+	if o == nil || IsNil(o.RevocationCacheLifetime) {
 		var ret float32
 		return ret
 	}
@@ -201,7 +204,7 @@ func (o *MtlsTrustCredentials) GetRevocationCacheLifetime() float32 {
 // GetRevocationCacheLifetimeOk returns a tuple with the RevocationCacheLifetime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MtlsTrustCredentials) GetRevocationCacheLifetimeOk() (*float32, bool) {
-	if o == nil || o.RevocationCacheLifetime == nil {
+	if o == nil || IsNil(o.RevocationCacheLifetime) {
 		return nil, false
 	}
 	return o.RevocationCacheLifetime, true
@@ -209,7 +212,7 @@ func (o *MtlsTrustCredentials) GetRevocationCacheLifetimeOk() (*float32, bool) {
 
 // HasRevocationCacheLifetime returns a boolean if a field has been set.
 func (o *MtlsTrustCredentials) HasRevocationCacheLifetime() bool {
-	if o != nil && o.RevocationCacheLifetime != nil {
+	if o != nil && !IsNil(o.RevocationCacheLifetime) {
 		return true
 	}
 
@@ -222,20 +225,28 @@ func (o *MtlsTrustCredentials) SetRevocationCacheLifetime(v float32) {
 }
 
 func (o MtlsTrustCredentials) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o MtlsTrustCredentials) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Audience != nil {
+	if !IsNil(o.Audience) {
 		toSerialize["audience"] = o.Audience
 	}
-	if o.Issuer != nil {
+	if !IsNil(o.Issuer) {
 		toSerialize["issuer"] = o.Issuer
 	}
-	if o.Kid != nil {
+	if !IsNil(o.Kid) {
 		toSerialize["kid"] = o.Kid
 	}
-	if o.Revocation != nil {
+	if !IsNil(o.Revocation) {
 		toSerialize["revocation"] = o.Revocation
 	}
-	if o.RevocationCacheLifetime != nil {
+	if !IsNil(o.RevocationCacheLifetime) {
 		toSerialize["revocationCacheLifetime"] = o.RevocationCacheLifetime
 	}
 
@@ -243,31 +254,29 @@ func (o MtlsTrustCredentials) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *MtlsTrustCredentials) UnmarshalJSON(bytes []byte) (err error) {
+func (o *MtlsTrustCredentials) UnmarshalJSON(data []byte) (err error) {
 	varMtlsTrustCredentials := _MtlsTrustCredentials{}
 
-	err = json.Unmarshal(bytes, &varMtlsTrustCredentials)
-	if err == nil {
-		*o = MtlsTrustCredentials(varMtlsTrustCredentials)
-	} else {
+	err = json.Unmarshal(data, &varMtlsTrustCredentials)
+
+	if err != nil {
 		return err
 	}
 
+	*o = MtlsTrustCredentials(varMtlsTrustCredentials)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "audience")
 		delete(additionalProperties, "issuer")
 		delete(additionalProperties, "kid")
 		delete(additionalProperties, "revocation")
 		delete(additionalProperties, "revocationCacheLifetime")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -308,4 +317,3 @@ func (v *NullableMtlsTrustCredentials) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

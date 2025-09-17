@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the OAuth2ClientLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OAuth2ClientLinks{}
+
 // OAuth2ClientLinks struct for OAuth2ClientLinks
 type OAuth2ClientLinks struct {
 	Self *HrefObjectSelfLink `json:"self,omitempty"`
 	// Link to the grant resources
 	Grants *GrantResourcesHrefObject `json:"grants,omitempty"`
 	// Link to the token resources
-	Tokens *TokenResourcesHrefObject `json:"tokens,omitempty"`
+	Tokens               *TokenResourcesHrefObject `json:"tokens,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewOAuth2ClientLinksWithDefaults() *OAuth2ClientLinks {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *OAuth2ClientLinks) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *OAuth2ClientLinks) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ClientLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -76,7 +79,7 @@ func (o *OAuth2ClientLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *OAuth2ClientLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *OAuth2ClientLinks) SetSelf(v HrefObjectSelfLink) {
 
 // GetGrants returns the Grants field value if set, zero value otherwise.
 func (o *OAuth2ClientLinks) GetGrants() GrantResourcesHrefObject {
-	if o == nil || o.Grants == nil {
+	if o == nil || IsNil(o.Grants) {
 		var ret GrantResourcesHrefObject
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *OAuth2ClientLinks) GetGrants() GrantResourcesHrefObject {
 // GetGrantsOk returns a tuple with the Grants field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ClientLinks) GetGrantsOk() (*GrantResourcesHrefObject, bool) {
-	if o == nil || o.Grants == nil {
+	if o == nil || IsNil(o.Grants) {
 		return nil, false
 	}
 	return o.Grants, true
@@ -108,7 +111,7 @@ func (o *OAuth2ClientLinks) GetGrantsOk() (*GrantResourcesHrefObject, bool) {
 
 // HasGrants returns a boolean if a field has been set.
 func (o *OAuth2ClientLinks) HasGrants() bool {
-	if o != nil && o.Grants != nil {
+	if o != nil && !IsNil(o.Grants) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *OAuth2ClientLinks) SetGrants(v GrantResourcesHrefObject) {
 
 // GetTokens returns the Tokens field value if set, zero value otherwise.
 func (o *OAuth2ClientLinks) GetTokens() TokenResourcesHrefObject {
-	if o == nil || o.Tokens == nil {
+	if o == nil || IsNil(o.Tokens) {
 		var ret TokenResourcesHrefObject
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *OAuth2ClientLinks) GetTokens() TokenResourcesHrefObject {
 // GetTokensOk returns a tuple with the Tokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ClientLinks) GetTokensOk() (*TokenResourcesHrefObject, bool) {
-	if o == nil || o.Tokens == nil {
+	if o == nil || IsNil(o.Tokens) {
 		return nil, false
 	}
 	return o.Tokens, true
@@ -140,7 +143,7 @@ func (o *OAuth2ClientLinks) GetTokensOk() (*TokenResourcesHrefObject, bool) {
 
 // HasTokens returns a boolean if a field has been set.
 func (o *OAuth2ClientLinks) HasTokens() bool {
-	if o != nil && o.Tokens != nil {
+	if o != nil && !IsNil(o.Tokens) {
 		return true
 	}
 
@@ -153,14 +156,22 @@ func (o *OAuth2ClientLinks) SetTokens(v TokenResourcesHrefObject) {
 }
 
 func (o OAuth2ClientLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OAuth2ClientLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.Grants != nil {
+	if !IsNil(o.Grants) {
 		toSerialize["grants"] = o.Grants
 	}
-	if o.Tokens != nil {
+	if !IsNil(o.Tokens) {
 		toSerialize["tokens"] = o.Tokens
 	}
 
@@ -168,29 +179,27 @@ func (o OAuth2ClientLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OAuth2ClientLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OAuth2ClientLinks) UnmarshalJSON(data []byte) (err error) {
 	varOAuth2ClientLinks := _OAuth2ClientLinks{}
 
-	err = json.Unmarshal(bytes, &varOAuth2ClientLinks)
-	if err == nil {
-		*o = OAuth2ClientLinks(varOAuth2ClientLinks)
-	} else {
+	err = json.Unmarshal(data, &varOAuth2ClientLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OAuth2ClientLinks(varOAuth2ClientLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "grants")
 		delete(additionalProperties, "tokens")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -231,4 +240,3 @@ func (v *NullableOAuth2ClientLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

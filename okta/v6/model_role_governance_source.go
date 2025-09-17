@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,9 +25,12 @@ package okta
 
 import (
 	"encoding/json"
-	"time"
 	"fmt"
+	"time"
 )
+
+// checks if the RoleGovernanceSource type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RoleGovernanceSource{}
 
 // RoleGovernanceSource User role governance source
 type RoleGovernanceSource struct {
@@ -38,8 +41,8 @@ type RoleGovernanceSource struct {
 	// `id` of the grant
 	GrantId string `json:"grantId"`
 	// The grant type
-	Type string `json:"type"`
-	Links *RoleGovernanceSourceLinks `json:"_links,omitempty"`
+	Type                 string                     `json:"type"`
+	Links                *RoleGovernanceSourceLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -66,7 +69,7 @@ func NewRoleGovernanceSourceWithDefaults() *RoleGovernanceSource {
 
 // GetBundleId returns the BundleId field value if set, zero value otherwise.
 func (o *RoleGovernanceSource) GetBundleId() string {
-	if o == nil || o.BundleId == nil {
+	if o == nil || IsNil(o.BundleId) {
 		var ret string
 		return ret
 	}
@@ -76,7 +79,7 @@ func (o *RoleGovernanceSource) GetBundleId() string {
 // GetBundleIdOk returns a tuple with the BundleId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RoleGovernanceSource) GetBundleIdOk() (*string, bool) {
-	if o == nil || o.BundleId == nil {
+	if o == nil || IsNil(o.BundleId) {
 		return nil, false
 	}
 	return o.BundleId, true
@@ -84,7 +87,7 @@ func (o *RoleGovernanceSource) GetBundleIdOk() (*string, bool) {
 
 // HasBundleId returns a boolean if a field has been set.
 func (o *RoleGovernanceSource) HasBundleId() bool {
-	if o != nil && o.BundleId != nil {
+	if o != nil && !IsNil(o.BundleId) {
 		return true
 	}
 
@@ -98,7 +101,7 @@ func (o *RoleGovernanceSource) SetBundleId(v string) {
 
 // GetExpirationDate returns the ExpirationDate field value if set, zero value otherwise.
 func (o *RoleGovernanceSource) GetExpirationDate() time.Time {
-	if o == nil || o.ExpirationDate == nil {
+	if o == nil || IsNil(o.ExpirationDate) {
 		var ret time.Time
 		return ret
 	}
@@ -108,7 +111,7 @@ func (o *RoleGovernanceSource) GetExpirationDate() time.Time {
 // GetExpirationDateOk returns a tuple with the ExpirationDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RoleGovernanceSource) GetExpirationDateOk() (*time.Time, bool) {
-	if o == nil || o.ExpirationDate == nil {
+	if o == nil || IsNil(o.ExpirationDate) {
 		return nil, false
 	}
 	return o.ExpirationDate, true
@@ -116,7 +119,7 @@ func (o *RoleGovernanceSource) GetExpirationDateOk() (*time.Time, bool) {
 
 // HasExpirationDate returns a boolean if a field has been set.
 func (o *RoleGovernanceSource) HasExpirationDate() bool {
-	if o != nil && o.ExpirationDate != nil {
+	if o != nil && !IsNil(o.ExpirationDate) {
 		return true
 	}
 
@@ -178,7 +181,7 @@ func (o *RoleGovernanceSource) SetType(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *RoleGovernanceSource) GetLinks() RoleGovernanceSourceLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret RoleGovernanceSourceLinks
 		return ret
 	}
@@ -188,7 +191,7 @@ func (o *RoleGovernanceSource) GetLinks() RoleGovernanceSourceLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RoleGovernanceSource) GetLinksOk() (*RoleGovernanceSourceLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -196,7 +199,7 @@ func (o *RoleGovernanceSource) GetLinksOk() (*RoleGovernanceSourceLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *RoleGovernanceSource) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -209,20 +212,24 @@ func (o *RoleGovernanceSource) SetLinks(v RoleGovernanceSourceLinks) {
 }
 
 func (o RoleGovernanceSource) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RoleGovernanceSource) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.BundleId != nil {
+	if !IsNil(o.BundleId) {
 		toSerialize["bundleId"] = o.BundleId
 	}
-	if o.ExpirationDate != nil {
+	if !IsNil(o.ExpirationDate) {
 		toSerialize["expirationDate"] = o.ExpirationDate
 	}
-	if true {
-		toSerialize["grantId"] = o.GrantId
-	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if o.Links != nil {
+	toSerialize["grantId"] = o.GrantId
+	toSerialize["type"] = o.Type
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -230,31 +237,51 @@ func (o RoleGovernanceSource) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RoleGovernanceSource) UnmarshalJSON(bytes []byte) (err error) {
-	varRoleGovernanceSource := _RoleGovernanceSource{}
+func (o *RoleGovernanceSource) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"grantId",
+		"type",
+	}
 
-	err = json.Unmarshal(bytes, &varRoleGovernanceSource)
-	if err == nil {
-		*o = RoleGovernanceSource(varRoleGovernanceSource)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRoleGovernanceSource := _RoleGovernanceSource{}
+
+	err = json.Unmarshal(data, &varRoleGovernanceSource)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RoleGovernanceSource(varRoleGovernanceSource)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "bundleId")
 		delete(additionalProperties, "expirationDate")
 		delete(additionalProperties, "grantId")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -295,4 +322,3 @@ func (v *NullableRoleGovernanceSource) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

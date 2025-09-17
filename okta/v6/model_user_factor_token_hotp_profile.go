@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserFactorTokenHOTPProfile type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserFactorTokenHOTPProfile{}
+
 // UserFactorTokenHOTPProfile struct for UserFactorTokenHOTPProfile
 type UserFactorTokenHOTPProfile struct {
 	// Unique secret key used to generate the OTP
-	SharedSecret *string `json:"sharedSecret,omitempty"`
+	SharedSecret         *string `json:"sharedSecret,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewUserFactorTokenHOTPProfileWithDefaults() *UserFactorTokenHOTPProfile {
 
 // GetSharedSecret returns the SharedSecret field value if set, zero value otherwise.
 func (o *UserFactorTokenHOTPProfile) GetSharedSecret() string {
-	if o == nil || o.SharedSecret == nil {
+	if o == nil || IsNil(o.SharedSecret) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *UserFactorTokenHOTPProfile) GetSharedSecret() string {
 // GetSharedSecretOk returns a tuple with the SharedSecret field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorTokenHOTPProfile) GetSharedSecretOk() (*string, bool) {
-	if o == nil || o.SharedSecret == nil {
+	if o == nil || IsNil(o.SharedSecret) {
 		return nil, false
 	}
 	return o.SharedSecret, true
@@ -73,7 +76,7 @@ func (o *UserFactorTokenHOTPProfile) GetSharedSecretOk() (*string, bool) {
 
 // HasSharedSecret returns a boolean if a field has been set.
 func (o *UserFactorTokenHOTPProfile) HasSharedSecret() bool {
-	if o != nil && o.SharedSecret != nil {
+	if o != nil && !IsNil(o.SharedSecret) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *UserFactorTokenHOTPProfile) SetSharedSecret(v string) {
 }
 
 func (o UserFactorTokenHOTPProfile) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserFactorTokenHOTPProfile) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.SharedSecret != nil {
+	if !IsNil(o.SharedSecret) {
 		toSerialize["sharedSecret"] = o.SharedSecret
 	}
 
@@ -95,27 +106,25 @@ func (o UserFactorTokenHOTPProfile) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserFactorTokenHOTPProfile) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserFactorTokenHOTPProfile) UnmarshalJSON(data []byte) (err error) {
 	varUserFactorTokenHOTPProfile := _UserFactorTokenHOTPProfile{}
 
-	err = json.Unmarshal(bytes, &varUserFactorTokenHOTPProfile)
-	if err == nil {
-		*o = UserFactorTokenHOTPProfile(varUserFactorTokenHOTPProfile)
-	} else {
+	err = json.Unmarshal(data, &varUserFactorTokenHOTPProfile)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserFactorTokenHOTPProfile(varUserFactorTokenHOTPProfile)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "sharedSecret")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableUserFactorTokenHOTPProfile) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

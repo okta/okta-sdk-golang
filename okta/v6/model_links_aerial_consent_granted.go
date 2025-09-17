@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the LinksAerialConsentGranted type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LinksAerialConsentGranted{}
+
 // LinksAerialConsentGranted struct for LinksAerialConsentGranted
 type LinksAerialConsentGranted struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Revoke *HrefObjectRevokeAerialConsent `json:"revoke,omitempty"`
+	Self                 *HrefObjectSelfLink            `json:"self,omitempty"`
+	Revoke               *HrefObjectRevokeAerialConsent `json:"revoke,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewLinksAerialConsentGrantedWithDefaults() *LinksAerialConsentGranted {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *LinksAerialConsentGranted) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *LinksAerialConsentGranted) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksAerialConsentGranted) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -73,7 +76,7 @@ func (o *LinksAerialConsentGranted) GetSelfOk() (*HrefObjectSelfLink, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *LinksAerialConsentGranted) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *LinksAerialConsentGranted) SetSelf(v HrefObjectSelfLink) {
 
 // GetRevoke returns the Revoke field value if set, zero value otherwise.
 func (o *LinksAerialConsentGranted) GetRevoke() HrefObjectRevokeAerialConsent {
-	if o == nil || o.Revoke == nil {
+	if o == nil || IsNil(o.Revoke) {
 		var ret HrefObjectRevokeAerialConsent
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *LinksAerialConsentGranted) GetRevoke() HrefObjectRevokeAerialConsent {
 // GetRevokeOk returns a tuple with the Revoke field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksAerialConsentGranted) GetRevokeOk() (*HrefObjectRevokeAerialConsent, bool) {
-	if o == nil || o.Revoke == nil {
+	if o == nil || IsNil(o.Revoke) {
 		return nil, false
 	}
 	return o.Revoke, true
@@ -105,7 +108,7 @@ func (o *LinksAerialConsentGranted) GetRevokeOk() (*HrefObjectRevokeAerialConsen
 
 // HasRevoke returns a boolean if a field has been set.
 func (o *LinksAerialConsentGranted) HasRevoke() bool {
-	if o != nil && o.Revoke != nil {
+	if o != nil && !IsNil(o.Revoke) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *LinksAerialConsentGranted) SetRevoke(v HrefObjectRevokeAerialConsent) {
 }
 
 func (o LinksAerialConsentGranted) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LinksAerialConsentGranted) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.Revoke != nil {
+	if !IsNil(o.Revoke) {
 		toSerialize["revoke"] = o.Revoke
 	}
 
@@ -130,28 +141,26 @@ func (o LinksAerialConsentGranted) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LinksAerialConsentGranted) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LinksAerialConsentGranted) UnmarshalJSON(data []byte) (err error) {
 	varLinksAerialConsentGranted := _LinksAerialConsentGranted{}
 
-	err = json.Unmarshal(bytes, &varLinksAerialConsentGranted)
-	if err == nil {
-		*o = LinksAerialConsentGranted(varLinksAerialConsentGranted)
-	} else {
+	err = json.Unmarshal(data, &varLinksAerialConsentGranted)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LinksAerialConsentGranted(varLinksAerialConsentGranted)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "revoke")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableLinksAerialConsentGranted) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

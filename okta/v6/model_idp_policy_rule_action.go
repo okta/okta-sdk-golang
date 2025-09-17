@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the IdpPolicyRuleAction type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IdpPolicyRuleAction{}
+
 // IdpPolicyRuleAction Specifies where to route users when they are attempting to sign in to your org, if the rule conditions are satisfied. You can add up to 10 providers to a single `idp` policy action.
 type IdpPolicyRuleAction struct {
-	Idp *IdpPolicyRuleActionIdp `json:"idp,omitempty"`
+	Idp                  *IdpPolicyRuleActionIdp `json:"idp,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewIdpPolicyRuleActionWithDefaults() *IdpPolicyRuleAction {
 
 // GetIdp returns the Idp field value if set, zero value otherwise.
 func (o *IdpPolicyRuleAction) GetIdp() IdpPolicyRuleActionIdp {
-	if o == nil || o.Idp == nil {
+	if o == nil || IsNil(o.Idp) {
 		var ret IdpPolicyRuleActionIdp
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *IdpPolicyRuleAction) GetIdp() IdpPolicyRuleActionIdp {
 // GetIdpOk returns a tuple with the Idp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdpPolicyRuleAction) GetIdpOk() (*IdpPolicyRuleActionIdp, bool) {
-	if o == nil || o.Idp == nil {
+	if o == nil || IsNil(o.Idp) {
 		return nil, false
 	}
 	return o.Idp, true
@@ -72,7 +75,7 @@ func (o *IdpPolicyRuleAction) GetIdpOk() (*IdpPolicyRuleActionIdp, bool) {
 
 // HasIdp returns a boolean if a field has been set.
 func (o *IdpPolicyRuleAction) HasIdp() bool {
-	if o != nil && o.Idp != nil {
+	if o != nil && !IsNil(o.Idp) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *IdpPolicyRuleAction) SetIdp(v IdpPolicyRuleActionIdp) {
 }
 
 func (o IdpPolicyRuleAction) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IdpPolicyRuleAction) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Idp != nil {
+	if !IsNil(o.Idp) {
 		toSerialize["idp"] = o.Idp
 	}
 
@@ -94,27 +105,25 @@ func (o IdpPolicyRuleAction) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *IdpPolicyRuleAction) UnmarshalJSON(bytes []byte) (err error) {
+func (o *IdpPolicyRuleAction) UnmarshalJSON(data []byte) (err error) {
 	varIdpPolicyRuleAction := _IdpPolicyRuleAction{}
 
-	err = json.Unmarshal(bytes, &varIdpPolicyRuleAction)
-	if err == nil {
-		*o = IdpPolicyRuleAction(varIdpPolicyRuleAction)
-	} else {
+	err = json.Unmarshal(data, &varIdpPolicyRuleAction)
+
+	if err != nil {
 		return err
 	}
 
+	*o = IdpPolicyRuleAction(varIdpPolicyRuleAction)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "idp")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableIdpPolicyRuleAction) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

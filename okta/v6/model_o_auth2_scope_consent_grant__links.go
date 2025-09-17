@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the OAuth2ScopeConsentGrantLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OAuth2ScopeConsentGrantLinks{}
+
 // OAuth2ScopeConsentGrantLinks struct for OAuth2ScopeConsentGrantLinks
 type OAuth2ScopeConsentGrantLinks struct {
 	Self *HrefObjectSelfLink `json:"self,omitempty"`
@@ -39,7 +42,7 @@ type OAuth2ScopeConsentGrantLinks struct {
 	// Link to the user resource
 	User *UserResourceHrefObject `json:"user,omitempty"`
 	// Link to the authorization server resource
-	AuthorizationServer *AuthorizationServerResourceHrefObject `json:"authorizationServer,omitempty"`
+	AuthorizationServer  *AuthorizationServerResourceHrefObject `json:"authorizationServer,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -64,7 +67,7 @@ func NewOAuth2ScopeConsentGrantLinksWithDefaults() *OAuth2ScopeConsentGrantLinks
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *OAuth2ScopeConsentGrantLinks) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -74,7 +77,7 @@ func (o *OAuth2ScopeConsentGrantLinks) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ScopeConsentGrantLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -82,7 +85,7 @@ func (o *OAuth2ScopeConsentGrantLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *OAuth2ScopeConsentGrantLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -96,7 +99,7 @@ func (o *OAuth2ScopeConsentGrantLinks) SetSelf(v HrefObjectSelfLink) {
 
 // GetApp returns the App field value if set, zero value otherwise.
 func (o *OAuth2ScopeConsentGrantLinks) GetApp() AppResourceHrefObject {
-	if o == nil || o.App == nil {
+	if o == nil || IsNil(o.App) {
 		var ret AppResourceHrefObject
 		return ret
 	}
@@ -106,7 +109,7 @@ func (o *OAuth2ScopeConsentGrantLinks) GetApp() AppResourceHrefObject {
 // GetAppOk returns a tuple with the App field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ScopeConsentGrantLinks) GetAppOk() (*AppResourceHrefObject, bool) {
-	if o == nil || o.App == nil {
+	if o == nil || IsNil(o.App) {
 		return nil, false
 	}
 	return o.App, true
@@ -114,7 +117,7 @@ func (o *OAuth2ScopeConsentGrantLinks) GetAppOk() (*AppResourceHrefObject, bool)
 
 // HasApp returns a boolean if a field has been set.
 func (o *OAuth2ScopeConsentGrantLinks) HasApp() bool {
-	if o != nil && o.App != nil {
+	if o != nil && !IsNil(o.App) {
 		return true
 	}
 
@@ -128,7 +131,7 @@ func (o *OAuth2ScopeConsentGrantLinks) SetApp(v AppResourceHrefObject) {
 
 // GetClient returns the Client field value if set, zero value otherwise.
 func (o *OAuth2ScopeConsentGrantLinks) GetClient() AppResourceHrefObject {
-	if o == nil || o.Client == nil {
+	if o == nil || IsNil(o.Client) {
 		var ret AppResourceHrefObject
 		return ret
 	}
@@ -138,7 +141,7 @@ func (o *OAuth2ScopeConsentGrantLinks) GetClient() AppResourceHrefObject {
 // GetClientOk returns a tuple with the Client field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ScopeConsentGrantLinks) GetClientOk() (*AppResourceHrefObject, bool) {
-	if o == nil || o.Client == nil {
+	if o == nil || IsNil(o.Client) {
 		return nil, false
 	}
 	return o.Client, true
@@ -146,7 +149,7 @@ func (o *OAuth2ScopeConsentGrantLinks) GetClientOk() (*AppResourceHrefObject, bo
 
 // HasClient returns a boolean if a field has been set.
 func (o *OAuth2ScopeConsentGrantLinks) HasClient() bool {
-	if o != nil && o.Client != nil {
+	if o != nil && !IsNil(o.Client) {
 		return true
 	}
 
@@ -160,7 +163,7 @@ func (o *OAuth2ScopeConsentGrantLinks) SetClient(v AppResourceHrefObject) {
 
 // GetScope returns the Scope field value if set, zero value otherwise.
 func (o *OAuth2ScopeConsentGrantLinks) GetScope() ScopeResourceHrefObject {
-	if o == nil || o.Scope == nil {
+	if o == nil || IsNil(o.Scope) {
 		var ret ScopeResourceHrefObject
 		return ret
 	}
@@ -170,7 +173,7 @@ func (o *OAuth2ScopeConsentGrantLinks) GetScope() ScopeResourceHrefObject {
 // GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ScopeConsentGrantLinks) GetScopeOk() (*ScopeResourceHrefObject, bool) {
-	if o == nil || o.Scope == nil {
+	if o == nil || IsNil(o.Scope) {
 		return nil, false
 	}
 	return o.Scope, true
@@ -178,7 +181,7 @@ func (o *OAuth2ScopeConsentGrantLinks) GetScopeOk() (*ScopeResourceHrefObject, b
 
 // HasScope returns a boolean if a field has been set.
 func (o *OAuth2ScopeConsentGrantLinks) HasScope() bool {
-	if o != nil && o.Scope != nil {
+	if o != nil && !IsNil(o.Scope) {
 		return true
 	}
 
@@ -192,7 +195,7 @@ func (o *OAuth2ScopeConsentGrantLinks) SetScope(v ScopeResourceHrefObject) {
 
 // GetUser returns the User field value if set, zero value otherwise.
 func (o *OAuth2ScopeConsentGrantLinks) GetUser() UserResourceHrefObject {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		var ret UserResourceHrefObject
 		return ret
 	}
@@ -202,7 +205,7 @@ func (o *OAuth2ScopeConsentGrantLinks) GetUser() UserResourceHrefObject {
 // GetUserOk returns a tuple with the User field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ScopeConsentGrantLinks) GetUserOk() (*UserResourceHrefObject, bool) {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		return nil, false
 	}
 	return o.User, true
@@ -210,7 +213,7 @@ func (o *OAuth2ScopeConsentGrantLinks) GetUserOk() (*UserResourceHrefObject, boo
 
 // HasUser returns a boolean if a field has been set.
 func (o *OAuth2ScopeConsentGrantLinks) HasUser() bool {
-	if o != nil && o.User != nil {
+	if o != nil && !IsNil(o.User) {
 		return true
 	}
 
@@ -224,7 +227,7 @@ func (o *OAuth2ScopeConsentGrantLinks) SetUser(v UserResourceHrefObject) {
 
 // GetAuthorizationServer returns the AuthorizationServer field value if set, zero value otherwise.
 func (o *OAuth2ScopeConsentGrantLinks) GetAuthorizationServer() AuthorizationServerResourceHrefObject {
-	if o == nil || o.AuthorizationServer == nil {
+	if o == nil || IsNil(o.AuthorizationServer) {
 		var ret AuthorizationServerResourceHrefObject
 		return ret
 	}
@@ -234,7 +237,7 @@ func (o *OAuth2ScopeConsentGrantLinks) GetAuthorizationServer() AuthorizationSer
 // GetAuthorizationServerOk returns a tuple with the AuthorizationServer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ScopeConsentGrantLinks) GetAuthorizationServerOk() (*AuthorizationServerResourceHrefObject, bool) {
-	if o == nil || o.AuthorizationServer == nil {
+	if o == nil || IsNil(o.AuthorizationServer) {
 		return nil, false
 	}
 	return o.AuthorizationServer, true
@@ -242,7 +245,7 @@ func (o *OAuth2ScopeConsentGrantLinks) GetAuthorizationServerOk() (*Authorizatio
 
 // HasAuthorizationServer returns a boolean if a field has been set.
 func (o *OAuth2ScopeConsentGrantLinks) HasAuthorizationServer() bool {
-	if o != nil && o.AuthorizationServer != nil {
+	if o != nil && !IsNil(o.AuthorizationServer) {
 		return true
 	}
 
@@ -255,23 +258,31 @@ func (o *OAuth2ScopeConsentGrantLinks) SetAuthorizationServer(v AuthorizationSer
 }
 
 func (o OAuth2ScopeConsentGrantLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OAuth2ScopeConsentGrantLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.App != nil {
+	if !IsNil(o.App) {
 		toSerialize["app"] = o.App
 	}
-	if o.Client != nil {
+	if !IsNil(o.Client) {
 		toSerialize["client"] = o.Client
 	}
-	if o.Scope != nil {
+	if !IsNil(o.Scope) {
 		toSerialize["scope"] = o.Scope
 	}
-	if o.User != nil {
+	if !IsNil(o.User) {
 		toSerialize["user"] = o.User
 	}
-	if o.AuthorizationServer != nil {
+	if !IsNil(o.AuthorizationServer) {
 		toSerialize["authorizationServer"] = o.AuthorizationServer
 	}
 
@@ -279,23 +290,23 @@ func (o OAuth2ScopeConsentGrantLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OAuth2ScopeConsentGrantLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OAuth2ScopeConsentGrantLinks) UnmarshalJSON(data []byte) (err error) {
 	varOAuth2ScopeConsentGrantLinks := _OAuth2ScopeConsentGrantLinks{}
 
-	err = json.Unmarshal(bytes, &varOAuth2ScopeConsentGrantLinks)
-	if err == nil {
-		*o = OAuth2ScopeConsentGrantLinks(varOAuth2ScopeConsentGrantLinks)
-	} else {
+	err = json.Unmarshal(data, &varOAuth2ScopeConsentGrantLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OAuth2ScopeConsentGrantLinks(varOAuth2ScopeConsentGrantLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "app")
 		delete(additionalProperties, "client")
@@ -303,8 +314,6 @@ func (o *OAuth2ScopeConsentGrantLinks) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "user")
 		delete(additionalProperties, "authorizationServer")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -345,4 +354,3 @@ func (v *NullableOAuth2ScopeConsentGrantLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

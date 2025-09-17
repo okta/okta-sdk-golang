@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the SAMLPayLoadDataAssertionSubjectConfirmationData type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SAMLPayLoadDataAssertionSubjectConfirmationData{}
+
 // SAMLPayLoadDataAssertionSubjectConfirmationData struct for SAMLPayLoadDataAssertionSubjectConfirmationData
 type SAMLPayLoadDataAssertionSubjectConfirmationData struct {
 	// The token endpoint URL of the authorization server
-	Recipient *string `json:"recipient,omitempty"`
+	Recipient            *string `json:"recipient,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewSAMLPayLoadDataAssertionSubjectConfirmationDataWithDefaults() *SAMLPayLo
 
 // GetRecipient returns the Recipient field value if set, zero value otherwise.
 func (o *SAMLPayLoadDataAssertionSubjectConfirmationData) GetRecipient() string {
-	if o == nil || o.Recipient == nil {
+	if o == nil || IsNil(o.Recipient) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *SAMLPayLoadDataAssertionSubjectConfirmationData) GetRecipient() string 
 // GetRecipientOk returns a tuple with the Recipient field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoadDataAssertionSubjectConfirmationData) GetRecipientOk() (*string, bool) {
-	if o == nil || o.Recipient == nil {
+	if o == nil || IsNil(o.Recipient) {
 		return nil, false
 	}
 	return o.Recipient, true
@@ -73,7 +76,7 @@ func (o *SAMLPayLoadDataAssertionSubjectConfirmationData) GetRecipientOk() (*str
 
 // HasRecipient returns a boolean if a field has been set.
 func (o *SAMLPayLoadDataAssertionSubjectConfirmationData) HasRecipient() bool {
-	if o != nil && o.Recipient != nil {
+	if o != nil && !IsNil(o.Recipient) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *SAMLPayLoadDataAssertionSubjectConfirmationData) SetRecipient(v string)
 }
 
 func (o SAMLPayLoadDataAssertionSubjectConfirmationData) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SAMLPayLoadDataAssertionSubjectConfirmationData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Recipient != nil {
+	if !IsNil(o.Recipient) {
 		toSerialize["recipient"] = o.Recipient
 	}
 
@@ -95,27 +106,25 @@ func (o SAMLPayLoadDataAssertionSubjectConfirmationData) MarshalJSON() ([]byte, 
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SAMLPayLoadDataAssertionSubjectConfirmationData) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SAMLPayLoadDataAssertionSubjectConfirmationData) UnmarshalJSON(data []byte) (err error) {
 	varSAMLPayLoadDataAssertionSubjectConfirmationData := _SAMLPayLoadDataAssertionSubjectConfirmationData{}
 
-	err = json.Unmarshal(bytes, &varSAMLPayLoadDataAssertionSubjectConfirmationData)
-	if err == nil {
-		*o = SAMLPayLoadDataAssertionSubjectConfirmationData(varSAMLPayLoadDataAssertionSubjectConfirmationData)
-	} else {
+	err = json.Unmarshal(data, &varSAMLPayLoadDataAssertionSubjectConfirmationData)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SAMLPayLoadDataAssertionSubjectConfirmationData(varSAMLPayLoadDataAssertionSubjectConfirmationData)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "recipient")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableSAMLPayLoadDataAssertionSubjectConfirmationData) UnmarshalJSON(
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

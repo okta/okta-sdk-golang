@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the InlineHookRequestObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InlineHookRequestObject{}
+
 // InlineHookRequestObject The API request that triggered the inline hook
 type InlineHookRequestObject struct {
 	// The unique identifier that Okta assigned to the API request
@@ -34,8 +37,8 @@ type InlineHookRequestObject struct {
 	// The IP address of the client that made the API request
 	IpAddress *string `json:"ipAddress,omitempty"`
 	// The HTTP request method of the API request
-	Method *string `json:"method,omitempty"`
-	Url *InlineHookRequestObjectUrl `json:"url,omitempty"`
+	Method               *string                     `json:"method,omitempty"`
+	Url                  *InlineHookRequestObjectUrl `json:"url,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +63,7 @@ func NewInlineHookRequestObjectWithDefaults() *InlineHookRequestObject {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *InlineHookRequestObject) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *InlineHookRequestObject) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookRequestObject) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -78,7 +81,7 @@ func (o *InlineHookRequestObject) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *InlineHookRequestObject) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -92,7 +95,7 @@ func (o *InlineHookRequestObject) SetId(v string) {
 
 // GetIpAddress returns the IpAddress field value if set, zero value otherwise.
 func (o *InlineHookRequestObject) GetIpAddress() string {
-	if o == nil || o.IpAddress == nil {
+	if o == nil || IsNil(o.IpAddress) {
 		var ret string
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *InlineHookRequestObject) GetIpAddress() string {
 // GetIpAddressOk returns a tuple with the IpAddress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookRequestObject) GetIpAddressOk() (*string, bool) {
-	if o == nil || o.IpAddress == nil {
+	if o == nil || IsNil(o.IpAddress) {
 		return nil, false
 	}
 	return o.IpAddress, true
@@ -110,7 +113,7 @@ func (o *InlineHookRequestObject) GetIpAddressOk() (*string, bool) {
 
 // HasIpAddress returns a boolean if a field has been set.
 func (o *InlineHookRequestObject) HasIpAddress() bool {
-	if o != nil && o.IpAddress != nil {
+	if o != nil && !IsNil(o.IpAddress) {
 		return true
 	}
 
@@ -124,7 +127,7 @@ func (o *InlineHookRequestObject) SetIpAddress(v string) {
 
 // GetMethod returns the Method field value if set, zero value otherwise.
 func (o *InlineHookRequestObject) GetMethod() string {
-	if o == nil || o.Method == nil {
+	if o == nil || IsNil(o.Method) {
 		var ret string
 		return ret
 	}
@@ -134,7 +137,7 @@ func (o *InlineHookRequestObject) GetMethod() string {
 // GetMethodOk returns a tuple with the Method field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookRequestObject) GetMethodOk() (*string, bool) {
-	if o == nil || o.Method == nil {
+	if o == nil || IsNil(o.Method) {
 		return nil, false
 	}
 	return o.Method, true
@@ -142,7 +145,7 @@ func (o *InlineHookRequestObject) GetMethodOk() (*string, bool) {
 
 // HasMethod returns a boolean if a field has been set.
 func (o *InlineHookRequestObject) HasMethod() bool {
-	if o != nil && o.Method != nil {
+	if o != nil && !IsNil(o.Method) {
 		return true
 	}
 
@@ -156,7 +159,7 @@ func (o *InlineHookRequestObject) SetMethod(v string) {
 
 // GetUrl returns the Url field value if set, zero value otherwise.
 func (o *InlineHookRequestObject) GetUrl() InlineHookRequestObjectUrl {
-	if o == nil || o.Url == nil {
+	if o == nil || IsNil(o.Url) {
 		var ret InlineHookRequestObjectUrl
 		return ret
 	}
@@ -166,7 +169,7 @@ func (o *InlineHookRequestObject) GetUrl() InlineHookRequestObjectUrl {
 // GetUrlOk returns a tuple with the Url field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookRequestObject) GetUrlOk() (*InlineHookRequestObjectUrl, bool) {
-	if o == nil || o.Url == nil {
+	if o == nil || IsNil(o.Url) {
 		return nil, false
 	}
 	return o.Url, true
@@ -174,7 +177,7 @@ func (o *InlineHookRequestObject) GetUrlOk() (*InlineHookRequestObjectUrl, bool)
 
 // HasUrl returns a boolean if a field has been set.
 func (o *InlineHookRequestObject) HasUrl() bool {
-	if o != nil && o.Url != nil {
+	if o != nil && !IsNil(o.Url) {
 		return true
 	}
 
@@ -187,17 +190,25 @@ func (o *InlineHookRequestObject) SetUrl(v InlineHookRequestObjectUrl) {
 }
 
 func (o InlineHookRequestObject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o InlineHookRequestObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.IpAddress != nil {
+	if !IsNil(o.IpAddress) {
 		toSerialize["ipAddress"] = o.IpAddress
 	}
-	if o.Method != nil {
+	if !IsNil(o.Method) {
 		toSerialize["method"] = o.Method
 	}
-	if o.Url != nil {
+	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
 	}
 
@@ -205,30 +216,28 @@ func (o InlineHookRequestObject) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *InlineHookRequestObject) UnmarshalJSON(bytes []byte) (err error) {
+func (o *InlineHookRequestObject) UnmarshalJSON(data []byte) (err error) {
 	varInlineHookRequestObject := _InlineHookRequestObject{}
 
-	err = json.Unmarshal(bytes, &varInlineHookRequestObject)
-	if err == nil {
-		*o = InlineHookRequestObject(varInlineHookRequestObject)
-	} else {
+	err = json.Unmarshal(data, &varInlineHookRequestObject)
+
+	if err != nil {
 		return err
 	}
 
+	*o = InlineHookRequestObject(varInlineHookRequestObject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "ipAddress")
 		delete(additionalProperties, "method")
 		delete(additionalProperties, "url")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -269,4 +278,3 @@ func (v *NullableInlineHookRequestObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType{}
+
 // DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType struct for DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType
 type DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType struct {
-	Include []string `json:"include,omitempty"`
+	Include              []string `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewDeviceAssuranceAndroidPlatformAllOfDiskEncryptionTypeWithDefaults() *Dev
 
 // GetInclude returns the Include field value if set, zero value otherwise.
 func (o *DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType) GetInclude() []string {
-	if o == nil || o.Include == nil {
+	if o == nil || IsNil(o.Include) {
 		var ret []string
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType) GetInclude() []s
 // GetIncludeOk returns a tuple with the Include field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType) GetIncludeOk() ([]string, bool) {
-	if o == nil || o.Include == nil {
+	if o == nil || IsNil(o.Include) {
 		return nil, false
 	}
 	return o.Include, true
@@ -72,7 +75,7 @@ func (o *DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType) GetIncludeOk() (
 
 // HasInclude returns a boolean if a field has been set.
 func (o *DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType) HasInclude() bool {
-	if o != nil && o.Include != nil {
+	if o != nil && !IsNil(o.Include) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType) SetInclude(v []s
 }
 
 func (o DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Include != nil {
+	if !IsNil(o.Include) {
 		toSerialize["include"] = o.Include
 	}
 
@@ -94,27 +105,25 @@ func (o DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType) MarshalJSON() ([]
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType) UnmarshalJSON(data []byte) (err error) {
 	varDeviceAssuranceAndroidPlatformAllOfDiskEncryptionType := _DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType{}
 
-	err = json.Unmarshal(bytes, &varDeviceAssuranceAndroidPlatformAllOfDiskEncryptionType)
-	if err == nil {
-		*o = DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType(varDeviceAssuranceAndroidPlatformAllOfDiskEncryptionType)
-	} else {
+	err = json.Unmarshal(data, &varDeviceAssuranceAndroidPlatformAllOfDiskEncryptionType)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType(varDeviceAssuranceAndroidPlatformAllOfDiskEncryptionType)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "include")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableDeviceAssuranceAndroidPlatformAllOfDiskEncryptionType) Unmarsha
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

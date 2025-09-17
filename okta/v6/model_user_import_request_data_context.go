@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,16 +27,19 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserImportRequestDataContext type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserImportRequestDataContext{}
+
 // UserImportRequestDataContext struct for UserImportRequestDataContext
 type UserImportRequestDataContext struct {
 	// An array of user profile attributes that are in conflict
-	Conflicts []map[string]interface{} `json:"conflicts,omitempty"`
+	Conflicts   []map[string]interface{}                 `json:"conflicts,omitempty"`
 	Application *UserImportRequestDataContextApplication `json:"application,omitempty"`
-	Job *UserImportRequestDataContextJob `json:"job,omitempty"`
+	Job         *UserImportRequestDataContextJob         `json:"job,omitempty"`
 	// The list of Okta users currently matched to the app user based on import matching. There can be more than one match.
 	Matches []map[string]interface{} `json:"matches,omitempty"`
 	// The list of any policies that apply to the import matching
-	Policy []map[string]interface{} `json:"policy,omitempty"`
+	Policy               []map[string]interface{} `json:"policy,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewUserImportRequestDataContextWithDefaults() *UserImportRequestDataContext
 
 // GetConflicts returns the Conflicts field value if set, zero value otherwise.
 func (o *UserImportRequestDataContext) GetConflicts() []map[string]interface{} {
-	if o == nil || o.Conflicts == nil {
+	if o == nil || IsNil(o.Conflicts) {
 		var ret []map[string]interface{}
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *UserImportRequestDataContext) GetConflicts() []map[string]interface{} {
 // GetConflictsOk returns a tuple with the Conflicts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserImportRequestDataContext) GetConflictsOk() ([]map[string]interface{}, bool) {
-	if o == nil || o.Conflicts == nil {
+	if o == nil || IsNil(o.Conflicts) {
 		return nil, false
 	}
 	return o.Conflicts, true
@@ -79,7 +82,7 @@ func (o *UserImportRequestDataContext) GetConflictsOk() ([]map[string]interface{
 
 // HasConflicts returns a boolean if a field has been set.
 func (o *UserImportRequestDataContext) HasConflicts() bool {
-	if o != nil && o.Conflicts != nil {
+	if o != nil && !IsNil(o.Conflicts) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *UserImportRequestDataContext) SetConflicts(v []map[string]interface{}) 
 
 // GetApplication returns the Application field value if set, zero value otherwise.
 func (o *UserImportRequestDataContext) GetApplication() UserImportRequestDataContextApplication {
-	if o == nil || o.Application == nil {
+	if o == nil || IsNil(o.Application) {
 		var ret UserImportRequestDataContextApplication
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *UserImportRequestDataContext) GetApplication() UserImportRequestDataCon
 // GetApplicationOk returns a tuple with the Application field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserImportRequestDataContext) GetApplicationOk() (*UserImportRequestDataContextApplication, bool) {
-	if o == nil || o.Application == nil {
+	if o == nil || IsNil(o.Application) {
 		return nil, false
 	}
 	return o.Application, true
@@ -111,7 +114,7 @@ func (o *UserImportRequestDataContext) GetApplicationOk() (*UserImportRequestDat
 
 // HasApplication returns a boolean if a field has been set.
 func (o *UserImportRequestDataContext) HasApplication() bool {
-	if o != nil && o.Application != nil {
+	if o != nil && !IsNil(o.Application) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *UserImportRequestDataContext) SetApplication(v UserImportRequestDataCon
 
 // GetJob returns the Job field value if set, zero value otherwise.
 func (o *UserImportRequestDataContext) GetJob() UserImportRequestDataContextJob {
-	if o == nil || o.Job == nil {
+	if o == nil || IsNil(o.Job) {
 		var ret UserImportRequestDataContextJob
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *UserImportRequestDataContext) GetJob() UserImportRequestDataContextJob 
 // GetJobOk returns a tuple with the Job field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserImportRequestDataContext) GetJobOk() (*UserImportRequestDataContextJob, bool) {
-	if o == nil || o.Job == nil {
+	if o == nil || IsNil(o.Job) {
 		return nil, false
 	}
 	return o.Job, true
@@ -143,7 +146,7 @@ func (o *UserImportRequestDataContext) GetJobOk() (*UserImportRequestDataContext
 
 // HasJob returns a boolean if a field has been set.
 func (o *UserImportRequestDataContext) HasJob() bool {
-	if o != nil && o.Job != nil {
+	if o != nil && !IsNil(o.Job) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *UserImportRequestDataContext) SetJob(v UserImportRequestDataContextJob)
 
 // GetMatches returns the Matches field value if set, zero value otherwise.
 func (o *UserImportRequestDataContext) GetMatches() []map[string]interface{} {
-	if o == nil || o.Matches == nil {
+	if o == nil || IsNil(o.Matches) {
 		var ret []map[string]interface{}
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *UserImportRequestDataContext) GetMatches() []map[string]interface{} {
 // GetMatchesOk returns a tuple with the Matches field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserImportRequestDataContext) GetMatchesOk() ([]map[string]interface{}, bool) {
-	if o == nil || o.Matches == nil {
+	if o == nil || IsNil(o.Matches) {
 		return nil, false
 	}
 	return o.Matches, true
@@ -175,7 +178,7 @@ func (o *UserImportRequestDataContext) GetMatchesOk() ([]map[string]interface{},
 
 // HasMatches returns a boolean if a field has been set.
 func (o *UserImportRequestDataContext) HasMatches() bool {
-	if o != nil && o.Matches != nil {
+	if o != nil && !IsNil(o.Matches) {
 		return true
 	}
 
@@ -189,7 +192,7 @@ func (o *UserImportRequestDataContext) SetMatches(v []map[string]interface{}) {
 
 // GetPolicy returns the Policy field value if set, zero value otherwise.
 func (o *UserImportRequestDataContext) GetPolicy() []map[string]interface{} {
-	if o == nil || o.Policy == nil {
+	if o == nil || IsNil(o.Policy) {
 		var ret []map[string]interface{}
 		return ret
 	}
@@ -199,7 +202,7 @@ func (o *UserImportRequestDataContext) GetPolicy() []map[string]interface{} {
 // GetPolicyOk returns a tuple with the Policy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserImportRequestDataContext) GetPolicyOk() ([]map[string]interface{}, bool) {
-	if o == nil || o.Policy == nil {
+	if o == nil || IsNil(o.Policy) {
 		return nil, false
 	}
 	return o.Policy, true
@@ -207,7 +210,7 @@ func (o *UserImportRequestDataContext) GetPolicyOk() ([]map[string]interface{}, 
 
 // HasPolicy returns a boolean if a field has been set.
 func (o *UserImportRequestDataContext) HasPolicy() bool {
-	if o != nil && o.Policy != nil {
+	if o != nil && !IsNil(o.Policy) {
 		return true
 	}
 
@@ -220,20 +223,28 @@ func (o *UserImportRequestDataContext) SetPolicy(v []map[string]interface{}) {
 }
 
 func (o UserImportRequestDataContext) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserImportRequestDataContext) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Conflicts != nil {
+	if !IsNil(o.Conflicts) {
 		toSerialize["conflicts"] = o.Conflicts
 	}
-	if o.Application != nil {
+	if !IsNil(o.Application) {
 		toSerialize["application"] = o.Application
 	}
-	if o.Job != nil {
+	if !IsNil(o.Job) {
 		toSerialize["job"] = o.Job
 	}
-	if o.Matches != nil {
+	if !IsNil(o.Matches) {
 		toSerialize["matches"] = o.Matches
 	}
-	if o.Policy != nil {
+	if !IsNil(o.Policy) {
 		toSerialize["policy"] = o.Policy
 	}
 
@@ -241,31 +252,29 @@ func (o UserImportRequestDataContext) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserImportRequestDataContext) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserImportRequestDataContext) UnmarshalJSON(data []byte) (err error) {
 	varUserImportRequestDataContext := _UserImportRequestDataContext{}
 
-	err = json.Unmarshal(bytes, &varUserImportRequestDataContext)
-	if err == nil {
-		*o = UserImportRequestDataContext(varUserImportRequestDataContext)
-	} else {
+	err = json.Unmarshal(data, &varUserImportRequestDataContext)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserImportRequestDataContext(varUserImportRequestDataContext)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "conflicts")
 		delete(additionalProperties, "application")
 		delete(additionalProperties, "job")
 		delete(additionalProperties, "matches")
 		delete(additionalProperties, "policy")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -306,4 +315,3 @@ func (v *NullableUserImportRequestDataContext) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

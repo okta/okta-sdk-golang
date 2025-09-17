@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the DesktopMFARecoveryPinOrgSetting type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DesktopMFARecoveryPinOrgSetting{}
+
 // DesktopMFARecoveryPinOrgSetting struct for DesktopMFARecoveryPinOrgSetting
 type DesktopMFARecoveryPinOrgSetting struct {
 	// Indicates whether or not the Desktop MFA Recovery PIN feature is enabled
 	DesktopMFARecoveryPinEnabled *bool `json:"desktopMFARecoveryPinEnabled,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties         map[string]interface{}
 }
 
 type _DesktopMFARecoveryPinOrgSetting DesktopMFARecoveryPinOrgSetting
@@ -59,7 +62,7 @@ func NewDesktopMFARecoveryPinOrgSettingWithDefaults() *DesktopMFARecoveryPinOrgS
 
 // GetDesktopMFARecoveryPinEnabled returns the DesktopMFARecoveryPinEnabled field value if set, zero value otherwise.
 func (o *DesktopMFARecoveryPinOrgSetting) GetDesktopMFARecoveryPinEnabled() bool {
-	if o == nil || o.DesktopMFARecoveryPinEnabled == nil {
+	if o == nil || IsNil(o.DesktopMFARecoveryPinEnabled) {
 		var ret bool
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *DesktopMFARecoveryPinOrgSetting) GetDesktopMFARecoveryPinEnabled() bool
 // GetDesktopMFARecoveryPinEnabledOk returns a tuple with the DesktopMFARecoveryPinEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DesktopMFARecoveryPinOrgSetting) GetDesktopMFARecoveryPinEnabledOk() (*bool, bool) {
-	if o == nil || o.DesktopMFARecoveryPinEnabled == nil {
+	if o == nil || IsNil(o.DesktopMFARecoveryPinEnabled) {
 		return nil, false
 	}
 	return o.DesktopMFARecoveryPinEnabled, true
@@ -77,7 +80,7 @@ func (o *DesktopMFARecoveryPinOrgSetting) GetDesktopMFARecoveryPinEnabledOk() (*
 
 // HasDesktopMFARecoveryPinEnabled returns a boolean if a field has been set.
 func (o *DesktopMFARecoveryPinOrgSetting) HasDesktopMFARecoveryPinEnabled() bool {
-	if o != nil && o.DesktopMFARecoveryPinEnabled != nil {
+	if o != nil && !IsNil(o.DesktopMFARecoveryPinEnabled) {
 		return true
 	}
 
@@ -90,8 +93,16 @@ func (o *DesktopMFARecoveryPinOrgSetting) SetDesktopMFARecoveryPinEnabled(v bool
 }
 
 func (o DesktopMFARecoveryPinOrgSetting) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DesktopMFARecoveryPinOrgSetting) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.DesktopMFARecoveryPinEnabled != nil {
+	if !IsNil(o.DesktopMFARecoveryPinEnabled) {
 		toSerialize["desktopMFARecoveryPinEnabled"] = o.DesktopMFARecoveryPinEnabled
 	}
 
@@ -99,27 +110,25 @@ func (o DesktopMFARecoveryPinOrgSetting) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DesktopMFARecoveryPinOrgSetting) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DesktopMFARecoveryPinOrgSetting) UnmarshalJSON(data []byte) (err error) {
 	varDesktopMFARecoveryPinOrgSetting := _DesktopMFARecoveryPinOrgSetting{}
 
-	err = json.Unmarshal(bytes, &varDesktopMFARecoveryPinOrgSetting)
-	if err == nil {
-		*o = DesktopMFARecoveryPinOrgSetting(varDesktopMFARecoveryPinOrgSetting)
-	} else {
+	err = json.Unmarshal(data, &varDesktopMFARecoveryPinOrgSetting)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DesktopMFARecoveryPinOrgSetting(varDesktopMFARecoveryPinOrgSetting)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "desktopMFARecoveryPinEnabled")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -160,4 +169,3 @@ func (v *NullableDesktopMFARecoveryPinOrgSetting) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

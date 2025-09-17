@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the BouncesRemoveListError type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BouncesRemoveListError{}
+
 // BouncesRemoveListError struct for BouncesRemoveListError
 type BouncesRemoveListError struct {
 	// An email address with a validation error
 	EmailAddress *string `json:"emailAddress,omitempty"`
 	// Validation error reason
-	Reason *string `json:"reason,omitempty"`
+	Reason               *string `json:"reason,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewBouncesRemoveListErrorWithDefaults() *BouncesRemoveListError {
 
 // GetEmailAddress returns the EmailAddress field value if set, zero value otherwise.
 func (o *BouncesRemoveListError) GetEmailAddress() string {
-	if o == nil || o.EmailAddress == nil {
+	if o == nil || IsNil(o.EmailAddress) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *BouncesRemoveListError) GetEmailAddress() string {
 // GetEmailAddressOk returns a tuple with the EmailAddress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BouncesRemoveListError) GetEmailAddressOk() (*string, bool) {
-	if o == nil || o.EmailAddress == nil {
+	if o == nil || IsNil(o.EmailAddress) {
 		return nil, false
 	}
 	return o.EmailAddress, true
@@ -75,7 +78,7 @@ func (o *BouncesRemoveListError) GetEmailAddressOk() (*string, bool) {
 
 // HasEmailAddress returns a boolean if a field has been set.
 func (o *BouncesRemoveListError) HasEmailAddress() bool {
-	if o != nil && o.EmailAddress != nil {
+	if o != nil && !IsNil(o.EmailAddress) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *BouncesRemoveListError) SetEmailAddress(v string) {
 
 // GetReason returns the Reason field value if set, zero value otherwise.
 func (o *BouncesRemoveListError) GetReason() string {
-	if o == nil || o.Reason == nil {
+	if o == nil || IsNil(o.Reason) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *BouncesRemoveListError) GetReason() string {
 // GetReasonOk returns a tuple with the Reason field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BouncesRemoveListError) GetReasonOk() (*string, bool) {
-	if o == nil || o.Reason == nil {
+	if o == nil || IsNil(o.Reason) {
 		return nil, false
 	}
 	return o.Reason, true
@@ -107,7 +110,7 @@ func (o *BouncesRemoveListError) GetReasonOk() (*string, bool) {
 
 // HasReason returns a boolean if a field has been set.
 func (o *BouncesRemoveListError) HasReason() bool {
-	if o != nil && o.Reason != nil {
+	if o != nil && !IsNil(o.Reason) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *BouncesRemoveListError) SetReason(v string) {
 }
 
 func (o BouncesRemoveListError) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BouncesRemoveListError) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.EmailAddress != nil {
+	if !IsNil(o.EmailAddress) {
 		toSerialize["emailAddress"] = o.EmailAddress
 	}
-	if o.Reason != nil {
+	if !IsNil(o.Reason) {
 		toSerialize["reason"] = o.Reason
 	}
 
@@ -132,28 +143,26 @@ func (o BouncesRemoveListError) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *BouncesRemoveListError) UnmarshalJSON(bytes []byte) (err error) {
+func (o *BouncesRemoveListError) UnmarshalJSON(data []byte) (err error) {
 	varBouncesRemoveListError := _BouncesRemoveListError{}
 
-	err = json.Unmarshal(bytes, &varBouncesRemoveListError)
-	if err == nil {
-		*o = BouncesRemoveListError(varBouncesRemoveListError)
-	} else {
+	err = json.Unmarshal(data, &varBouncesRemoveListError)
+
+	if err != nil {
 		return err
 	}
 
+	*o = BouncesRemoveListError(varBouncesRemoveListError)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "emailAddress")
 		delete(additionalProperties, "reason")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableBouncesRemoveListError) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

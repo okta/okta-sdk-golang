@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the SamlAlgorithms type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SamlAlgorithms{}
+
 // SamlAlgorithms Settings for signing and verifying SAML messages
 type SamlAlgorithms struct {
-	Request *SamlRequestAlgorithm `json:"request,omitempty"`
-	Response *SamlResponseAlgorithm `json:"response,omitempty"`
+	Request              *SamlRequestAlgorithm  `json:"request,omitempty"`
+	Response             *SamlResponseAlgorithm `json:"response,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewSamlAlgorithmsWithDefaults() *SamlAlgorithms {
 
 // GetRequest returns the Request field value if set, zero value otherwise.
 func (o *SamlAlgorithms) GetRequest() SamlRequestAlgorithm {
-	if o == nil || o.Request == nil {
+	if o == nil || IsNil(o.Request) {
 		var ret SamlRequestAlgorithm
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *SamlAlgorithms) GetRequest() SamlRequestAlgorithm {
 // GetRequestOk returns a tuple with the Request field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlAlgorithms) GetRequestOk() (*SamlRequestAlgorithm, bool) {
-	if o == nil || o.Request == nil {
+	if o == nil || IsNil(o.Request) {
 		return nil, false
 	}
 	return o.Request, true
@@ -73,7 +76,7 @@ func (o *SamlAlgorithms) GetRequestOk() (*SamlRequestAlgorithm, bool) {
 
 // HasRequest returns a boolean if a field has been set.
 func (o *SamlAlgorithms) HasRequest() bool {
-	if o != nil && o.Request != nil {
+	if o != nil && !IsNil(o.Request) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *SamlAlgorithms) SetRequest(v SamlRequestAlgorithm) {
 
 // GetResponse returns the Response field value if set, zero value otherwise.
 func (o *SamlAlgorithms) GetResponse() SamlResponseAlgorithm {
-	if o == nil || o.Response == nil {
+	if o == nil || IsNil(o.Response) {
 		var ret SamlResponseAlgorithm
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *SamlAlgorithms) GetResponse() SamlResponseAlgorithm {
 // GetResponseOk returns a tuple with the Response field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlAlgorithms) GetResponseOk() (*SamlResponseAlgorithm, bool) {
-	if o == nil || o.Response == nil {
+	if o == nil || IsNil(o.Response) {
 		return nil, false
 	}
 	return o.Response, true
@@ -105,7 +108,7 @@ func (o *SamlAlgorithms) GetResponseOk() (*SamlResponseAlgorithm, bool) {
 
 // HasResponse returns a boolean if a field has been set.
 func (o *SamlAlgorithms) HasResponse() bool {
-	if o != nil && o.Response != nil {
+	if o != nil && !IsNil(o.Response) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *SamlAlgorithms) SetResponse(v SamlResponseAlgorithm) {
 }
 
 func (o SamlAlgorithms) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SamlAlgorithms) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Request != nil {
+	if !IsNil(o.Request) {
 		toSerialize["request"] = o.Request
 	}
-	if o.Response != nil {
+	if !IsNil(o.Response) {
 		toSerialize["response"] = o.Response
 	}
 
@@ -130,28 +141,26 @@ func (o SamlAlgorithms) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SamlAlgorithms) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SamlAlgorithms) UnmarshalJSON(data []byte) (err error) {
 	varSamlAlgorithms := _SamlAlgorithms{}
 
-	err = json.Unmarshal(bytes, &varSamlAlgorithms)
-	if err == nil {
-		*o = SamlAlgorithms(varSamlAlgorithms)
-	} else {
+	err = json.Unmarshal(data, &varSamlAlgorithms)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SamlAlgorithms(varSamlAlgorithms)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "request")
 		delete(additionalProperties, "response")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableSamlAlgorithms) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

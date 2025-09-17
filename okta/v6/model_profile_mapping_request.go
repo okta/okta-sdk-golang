@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,9 +28,12 @@ import (
 	"fmt"
 )
 
+// checks if the ProfileMappingRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ProfileMappingRequest{}
+
 // ProfileMappingRequest The updated request body properties
 type ProfileMappingRequest struct {
-	Properties ProfileMappingProperty `json:"properties"`
+	Properties           ProfileMappingProperty `json:"properties"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -68,7 +71,7 @@ func (o *ProfileMappingRequest) GetProperties() ProfileMappingProperty {
 // and a boolean to check if the value has been set.
 func (o *ProfileMappingRequest) GetPropertiesOk() (ProfileMappingProperty, bool) {
 	if o == nil {
-		return nil, false
+		return ProfileMappingProperty{}, false
 	}
 	return o.Properties, true
 }
@@ -79,36 +82,61 @@ func (o *ProfileMappingRequest) SetProperties(v ProfileMappingProperty) {
 }
 
 func (o ProfileMappingRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["properties"] = o.Properties
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ProfileMappingRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["properties"] = o.Properties
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ProfileMappingRequest) UnmarshalJSON(bytes []byte) (err error) {
-	varProfileMappingRequest := _ProfileMappingRequest{}
+func (o *ProfileMappingRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"properties",
+	}
 
-	err = json.Unmarshal(bytes, &varProfileMappingRequest)
-	if err == nil {
-		*o = ProfileMappingRequest(varProfileMappingRequest)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varProfileMappingRequest := _ProfileMappingRequest{}
+
+	err = json.Unmarshal(data, &varProfileMappingRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ProfileMappingRequest(varProfileMappingRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "properties")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -149,4 +177,3 @@ func (v *NullableProfileMappingRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

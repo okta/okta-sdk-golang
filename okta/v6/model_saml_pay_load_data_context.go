@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the SAMLPayLoadDataContext type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SAMLPayLoadDataContext{}
+
 // SAMLPayLoadDataContext struct for SAMLPayLoadDataContext
 type SAMLPayLoadDataContext struct {
-	Request *InlineHookRequestObject `json:"request,omitempty"`
-	Session *BaseContextSession `json:"session,omitempty"`
-	User *BaseContextUser `json:"user,omitempty"`
-	Protocol *SAMLPayLoadDataContextAllOfProtocol `json:"protocol,omitempty"`
+	Request              *InlineHookRequestObject             `json:"request,omitempty"`
+	Session              *BaseContextSession                  `json:"session,omitempty"`
+	User                 *BaseContextUser                     `json:"user,omitempty"`
+	Protocol             *SAMLPayLoadDataContextAllOfProtocol `json:"protocol,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewSAMLPayLoadDataContextWithDefaults() *SAMLPayLoadDataContext {
 
 // GetRequest returns the Request field value if set, zero value otherwise.
 func (o *SAMLPayLoadDataContext) GetRequest() InlineHookRequestObject {
-	if o == nil || o.Request == nil {
+	if o == nil || IsNil(o.Request) {
 		var ret InlineHookRequestObject
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *SAMLPayLoadDataContext) GetRequest() InlineHookRequestObject {
 // GetRequestOk returns a tuple with the Request field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoadDataContext) GetRequestOk() (*InlineHookRequestObject, bool) {
-	if o == nil || o.Request == nil {
+	if o == nil || IsNil(o.Request) {
 		return nil, false
 	}
 	return o.Request, true
@@ -75,7 +78,7 @@ func (o *SAMLPayLoadDataContext) GetRequestOk() (*InlineHookRequestObject, bool)
 
 // HasRequest returns a boolean if a field has been set.
 func (o *SAMLPayLoadDataContext) HasRequest() bool {
-	if o != nil && o.Request != nil {
+	if o != nil && !IsNil(o.Request) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *SAMLPayLoadDataContext) SetRequest(v InlineHookRequestObject) {
 
 // GetSession returns the Session field value if set, zero value otherwise.
 func (o *SAMLPayLoadDataContext) GetSession() BaseContextSession {
-	if o == nil || o.Session == nil {
+	if o == nil || IsNil(o.Session) {
 		var ret BaseContextSession
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *SAMLPayLoadDataContext) GetSession() BaseContextSession {
 // GetSessionOk returns a tuple with the Session field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoadDataContext) GetSessionOk() (*BaseContextSession, bool) {
-	if o == nil || o.Session == nil {
+	if o == nil || IsNil(o.Session) {
 		return nil, false
 	}
 	return o.Session, true
@@ -107,7 +110,7 @@ func (o *SAMLPayLoadDataContext) GetSessionOk() (*BaseContextSession, bool) {
 
 // HasSession returns a boolean if a field has been set.
 func (o *SAMLPayLoadDataContext) HasSession() bool {
-	if o != nil && o.Session != nil {
+	if o != nil && !IsNil(o.Session) {
 		return true
 	}
 
@@ -121,7 +124,7 @@ func (o *SAMLPayLoadDataContext) SetSession(v BaseContextSession) {
 
 // GetUser returns the User field value if set, zero value otherwise.
 func (o *SAMLPayLoadDataContext) GetUser() BaseContextUser {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		var ret BaseContextUser
 		return ret
 	}
@@ -131,7 +134,7 @@ func (o *SAMLPayLoadDataContext) GetUser() BaseContextUser {
 // GetUserOk returns a tuple with the User field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoadDataContext) GetUserOk() (*BaseContextUser, bool) {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		return nil, false
 	}
 	return o.User, true
@@ -139,7 +142,7 @@ func (o *SAMLPayLoadDataContext) GetUserOk() (*BaseContextUser, bool) {
 
 // HasUser returns a boolean if a field has been set.
 func (o *SAMLPayLoadDataContext) HasUser() bool {
-	if o != nil && o.User != nil {
+	if o != nil && !IsNil(o.User) {
 		return true
 	}
 
@@ -153,7 +156,7 @@ func (o *SAMLPayLoadDataContext) SetUser(v BaseContextUser) {
 
 // GetProtocol returns the Protocol field value if set, zero value otherwise.
 func (o *SAMLPayLoadDataContext) GetProtocol() SAMLPayLoadDataContextAllOfProtocol {
-	if o == nil || o.Protocol == nil {
+	if o == nil || IsNil(o.Protocol) {
 		var ret SAMLPayLoadDataContextAllOfProtocol
 		return ret
 	}
@@ -163,7 +166,7 @@ func (o *SAMLPayLoadDataContext) GetProtocol() SAMLPayLoadDataContextAllOfProtoc
 // GetProtocolOk returns a tuple with the Protocol field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoadDataContext) GetProtocolOk() (*SAMLPayLoadDataContextAllOfProtocol, bool) {
-	if o == nil || o.Protocol == nil {
+	if o == nil || IsNil(o.Protocol) {
 		return nil, false
 	}
 	return o.Protocol, true
@@ -171,7 +174,7 @@ func (o *SAMLPayLoadDataContext) GetProtocolOk() (*SAMLPayLoadDataContextAllOfPr
 
 // HasProtocol returns a boolean if a field has been set.
 func (o *SAMLPayLoadDataContext) HasProtocol() bool {
-	if o != nil && o.Protocol != nil {
+	if o != nil && !IsNil(o.Protocol) {
 		return true
 	}
 
@@ -184,17 +187,25 @@ func (o *SAMLPayLoadDataContext) SetProtocol(v SAMLPayLoadDataContextAllOfProtoc
 }
 
 func (o SAMLPayLoadDataContext) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SAMLPayLoadDataContext) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Request != nil {
+	if !IsNil(o.Request) {
 		toSerialize["request"] = o.Request
 	}
-	if o.Session != nil {
+	if !IsNil(o.Session) {
 		toSerialize["session"] = o.Session
 	}
-	if o.User != nil {
+	if !IsNil(o.User) {
 		toSerialize["user"] = o.User
 	}
-	if o.Protocol != nil {
+	if !IsNil(o.Protocol) {
 		toSerialize["protocol"] = o.Protocol
 	}
 
@@ -202,30 +213,28 @@ func (o SAMLPayLoadDataContext) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SAMLPayLoadDataContext) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SAMLPayLoadDataContext) UnmarshalJSON(data []byte) (err error) {
 	varSAMLPayLoadDataContext := _SAMLPayLoadDataContext{}
 
-	err = json.Unmarshal(bytes, &varSAMLPayLoadDataContext)
-	if err == nil {
-		*o = SAMLPayLoadDataContext(varSAMLPayLoadDataContext)
-	} else {
+	err = json.Unmarshal(data, &varSAMLPayLoadDataContext)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SAMLPayLoadDataContext(varSAMLPayLoadDataContext)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "request")
 		delete(additionalProperties, "session")
 		delete(additionalProperties, "user")
 		delete(additionalProperties, "protocol")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -266,4 +275,3 @@ func (v *NullableSAMLPayLoadDataContext) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

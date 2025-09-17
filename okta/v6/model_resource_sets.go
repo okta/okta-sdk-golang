@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the ResourceSets type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceSets{}
+
 // ResourceSets struct for ResourceSets
 type ResourceSets struct {
-	ResourceSets []ResourceSet `json:"resource-sets,omitempty"`
-	Links *LinksNext `json:"_links,omitempty"`
+	ResourceSets         []ResourceSet `json:"resource-sets,omitempty"`
+	Links                *LinksNext    `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewResourceSetsWithDefaults() *ResourceSets {
 
 // GetResourceSets returns the ResourceSets field value if set, zero value otherwise.
 func (o *ResourceSets) GetResourceSets() []ResourceSet {
-	if o == nil || o.ResourceSets == nil {
+	if o == nil || IsNil(o.ResourceSets) {
 		var ret []ResourceSet
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *ResourceSets) GetResourceSets() []ResourceSet {
 // GetResourceSetsOk returns a tuple with the ResourceSets field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSets) GetResourceSetsOk() ([]ResourceSet, bool) {
-	if o == nil || o.ResourceSets == nil {
+	if o == nil || IsNil(o.ResourceSets) {
 		return nil, false
 	}
 	return o.ResourceSets, true
@@ -73,7 +76,7 @@ func (o *ResourceSets) GetResourceSetsOk() ([]ResourceSet, bool) {
 
 // HasResourceSets returns a boolean if a field has been set.
 func (o *ResourceSets) HasResourceSets() bool {
-	if o != nil && o.ResourceSets != nil {
+	if o != nil && !IsNil(o.ResourceSets) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *ResourceSets) SetResourceSets(v []ResourceSet) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *ResourceSets) GetLinks() LinksNext {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksNext
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *ResourceSets) GetLinks() LinksNext {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSets) GetLinksOk() (*LinksNext, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -105,7 +108,7 @@ func (o *ResourceSets) GetLinksOk() (*LinksNext, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *ResourceSets) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *ResourceSets) SetLinks(v LinksNext) {
 }
 
 func (o ResourceSets) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ResourceSets) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ResourceSets != nil {
+	if !IsNil(o.ResourceSets) {
 		toSerialize["resource-sets"] = o.ResourceSets
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -130,28 +141,26 @@ func (o ResourceSets) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResourceSets) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ResourceSets) UnmarshalJSON(data []byte) (err error) {
 	varResourceSets := _ResourceSets{}
 
-	err = json.Unmarshal(bytes, &varResourceSets)
-	if err == nil {
-		*o = ResourceSets(varResourceSets)
-	} else {
+	err = json.Unmarshal(data, &varResourceSets)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ResourceSets(varResourceSets)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "resource-sets")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableResourceSets) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

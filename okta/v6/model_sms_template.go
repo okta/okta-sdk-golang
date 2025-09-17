@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,19 +28,22 @@ import (
 	"time"
 )
 
+// checks if the SmsTemplate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SmsTemplate{}
+
 // SmsTemplate struct for SmsTemplate
 type SmsTemplate struct {
-	Created *time.Time `json:"created,omitempty"`
-	Id *string `json:"id,omitempty"`
+	Created     *time.Time `json:"created,omitempty"`
+	Id          *string    `json:"id,omitempty"`
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	// Human-readable name of the Template
 	Name *string `json:"name,omitempty"`
 	// Text of the Template, including any [macros](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Template/)
 	Template *string `json:"template,omitempty"`
-	// - Template translations are optionally provided when you want to localize the SMS messages. Translations are provided as an object that contains `key:value` pairs: the language and the translated Template text. The key portion is a two-letter country code that conforms to [ISO 639-1](https://www.loc.gov/standards/iso639-2/php/code_list.php). The value is the translated SMS Template. - Just like with regular SMS Templates, the length of the SMS message can't exceed 160 characters. 
+	// - Template translations are optionally provided when you want to localize the SMS messages. Translations are provided as an object that contains `key:value` pairs: the language and the translated Template text. The key portion is a two-letter country code that conforms to [ISO 639-1](https://www.loc.gov/standards/iso639-2/php/code_list.php). The value is the translated SMS Template. - Just like with regular SMS Templates, the length of the SMS message can't exceed 160 characters.
 	Translations map[string]interface{} `json:"translations,omitempty"`
 	// Type of the Template
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -65,7 +68,7 @@ func NewSmsTemplateWithDefaults() *SmsTemplate {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *SmsTemplate) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -75,7 +78,7 @@ func (o *SmsTemplate) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SmsTemplate) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -83,7 +86,7 @@ func (o *SmsTemplate) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *SmsTemplate) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -97,7 +100,7 @@ func (o *SmsTemplate) SetCreated(v time.Time) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *SmsTemplate) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -107,7 +110,7 @@ func (o *SmsTemplate) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SmsTemplate) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -115,7 +118,7 @@ func (o *SmsTemplate) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *SmsTemplate) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -129,7 +132,7 @@ func (o *SmsTemplate) SetId(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *SmsTemplate) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -139,7 +142,7 @@ func (o *SmsTemplate) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SmsTemplate) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -147,7 +150,7 @@ func (o *SmsTemplate) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *SmsTemplate) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -161,7 +164,7 @@ func (o *SmsTemplate) SetLastUpdated(v time.Time) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *SmsTemplate) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -171,7 +174,7 @@ func (o *SmsTemplate) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SmsTemplate) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -179,7 +182,7 @@ func (o *SmsTemplate) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *SmsTemplate) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -193,7 +196,7 @@ func (o *SmsTemplate) SetName(v string) {
 
 // GetTemplate returns the Template field value if set, zero value otherwise.
 func (o *SmsTemplate) GetTemplate() string {
-	if o == nil || o.Template == nil {
+	if o == nil || IsNil(o.Template) {
 		var ret string
 		return ret
 	}
@@ -203,7 +206,7 @@ func (o *SmsTemplate) GetTemplate() string {
 // GetTemplateOk returns a tuple with the Template field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SmsTemplate) GetTemplateOk() (*string, bool) {
-	if o == nil || o.Template == nil {
+	if o == nil || IsNil(o.Template) {
 		return nil, false
 	}
 	return o.Template, true
@@ -211,7 +214,7 @@ func (o *SmsTemplate) GetTemplateOk() (*string, bool) {
 
 // HasTemplate returns a boolean if a field has been set.
 func (o *SmsTemplate) HasTemplate() bool {
-	if o != nil && o.Template != nil {
+	if o != nil && !IsNil(o.Template) {
 		return true
 	}
 
@@ -225,7 +228,7 @@ func (o *SmsTemplate) SetTemplate(v string) {
 
 // GetTranslations returns the Translations field value if set, zero value otherwise.
 func (o *SmsTemplate) GetTranslations() map[string]interface{} {
-	if o == nil || o.Translations == nil {
+	if o == nil || IsNil(o.Translations) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -235,15 +238,15 @@ func (o *SmsTemplate) GetTranslations() map[string]interface{} {
 // GetTranslationsOk returns a tuple with the Translations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SmsTemplate) GetTranslationsOk() (map[string]interface{}, bool) {
-	if o == nil || o.Translations == nil {
-		return nil, false
+	if o == nil || IsNil(o.Translations) {
+		return map[string]interface{}{}, false
 	}
 	return o.Translations, true
 }
 
 // HasTranslations returns a boolean if a field has been set.
 func (o *SmsTemplate) HasTranslations() bool {
-	if o != nil && o.Translations != nil {
+	if o != nil && !IsNil(o.Translations) {
 		return true
 	}
 
@@ -257,7 +260,7 @@ func (o *SmsTemplate) SetTranslations(v map[string]interface{}) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *SmsTemplate) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -267,7 +270,7 @@ func (o *SmsTemplate) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SmsTemplate) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -275,7 +278,7 @@ func (o *SmsTemplate) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *SmsTemplate) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -288,26 +291,34 @@ func (o *SmsTemplate) SetType(v string) {
 }
 
 func (o SmsTemplate) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SmsTemplate) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Template != nil {
+	if !IsNil(o.Template) {
 		toSerialize["template"] = o.Template
 	}
-	if o.Translations != nil {
+	if !IsNil(o.Translations) {
 		toSerialize["translations"] = o.Translations
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -315,23 +326,23 @@ func (o SmsTemplate) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SmsTemplate) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SmsTemplate) UnmarshalJSON(data []byte) (err error) {
 	varSmsTemplate := _SmsTemplate{}
 
-	err = json.Unmarshal(bytes, &varSmsTemplate)
-	if err == nil {
-		*o = SmsTemplate(varSmsTemplate)
-	} else {
+	err = json.Unmarshal(data, &varSmsTemplate)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SmsTemplate(varSmsTemplate)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "lastUpdated")
@@ -340,8 +351,6 @@ func (o *SmsTemplate) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "translations")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -382,4 +391,3 @@ func (v *NullableSmsTemplate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

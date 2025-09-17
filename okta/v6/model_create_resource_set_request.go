@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"fmt"
 )
 
+// checks if the CreateResourceSetRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateResourceSetRequest{}
+
 // CreateResourceSetRequest struct for CreateResourceSetRequest
 type CreateResourceSetRequest struct {
 	// Description of the resource set
@@ -35,7 +38,7 @@ type CreateResourceSetRequest struct {
 	// Unique name for the resource set
 	Label string `json:"label"`
 	// The endpoint (URL) that references all resource objects included in the resource set. Resources are identified by either an Okta Resource Name (ORN) or by a REST URL format. See [Okta Resource Name](/openapi/okta-management/guides/roles/#okta-resource-name-orn).
-	Resources []string `json:"resources"`
+	Resources            []string `json:"resources"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -134,44 +137,67 @@ func (o *CreateResourceSetRequest) SetResources(v []string) {
 }
 
 func (o CreateResourceSetRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CreateResourceSetRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["label"] = o.Label
-	}
-	if true {
-		toSerialize["resources"] = o.Resources
-	}
+	toSerialize["description"] = o.Description
+	toSerialize["label"] = o.Label
+	toSerialize["resources"] = o.Resources
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CreateResourceSetRequest) UnmarshalJSON(bytes []byte) (err error) {
-	varCreateResourceSetRequest := _CreateResourceSetRequest{}
+func (o *CreateResourceSetRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"description",
+		"label",
+		"resources",
+	}
 
-	err = json.Unmarshal(bytes, &varCreateResourceSetRequest)
-	if err == nil {
-		*o = CreateResourceSetRequest(varCreateResourceSetRequest)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCreateResourceSetRequest := _CreateResourceSetRequest{}
+
+	err = json.Unmarshal(data, &varCreateResourceSetRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreateResourceSetRequest(varCreateResourceSetRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "label")
 		delete(additionalProperties, "resources")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -212,4 +238,3 @@ func (v *NullableCreateResourceSetRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

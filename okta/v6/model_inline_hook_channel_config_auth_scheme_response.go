@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the InlineHookChannelConfigAuthSchemeResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InlineHookChannelConfigAuthSchemeResponse{}
+
 // InlineHookChannelConfigAuthSchemeResponse The authentication scheme to use for this request
 type InlineHookChannelConfigAuthSchemeResponse struct {
 	// The header name for the authorization server
 	Key *string `json:"key,omitempty"`
 	// The authentication scheme type. Supported type&mdash;`HEADER`
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewInlineHookChannelConfigAuthSchemeResponseWithDefaults() *InlineHookChann
 
 // GetKey returns the Key field value if set, zero value otherwise.
 func (o *InlineHookChannelConfigAuthSchemeResponse) GetKey() string {
-	if o == nil || o.Key == nil {
+	if o == nil || IsNil(o.Key) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *InlineHookChannelConfigAuthSchemeResponse) GetKey() string {
 // GetKeyOk returns a tuple with the Key field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookChannelConfigAuthSchemeResponse) GetKeyOk() (*string, bool) {
-	if o == nil || o.Key == nil {
+	if o == nil || IsNil(o.Key) {
 		return nil, false
 	}
 	return o.Key, true
@@ -75,7 +78,7 @@ func (o *InlineHookChannelConfigAuthSchemeResponse) GetKeyOk() (*string, bool) {
 
 // HasKey returns a boolean if a field has been set.
 func (o *InlineHookChannelConfigAuthSchemeResponse) HasKey() bool {
-	if o != nil && o.Key != nil {
+	if o != nil && !IsNil(o.Key) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *InlineHookChannelConfigAuthSchemeResponse) SetKey(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *InlineHookChannelConfigAuthSchemeResponse) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *InlineHookChannelConfigAuthSchemeResponse) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookChannelConfigAuthSchemeResponse) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -107,7 +110,7 @@ func (o *InlineHookChannelConfigAuthSchemeResponse) GetTypeOk() (*string, bool) 
 
 // HasType returns a boolean if a field has been set.
 func (o *InlineHookChannelConfigAuthSchemeResponse) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *InlineHookChannelConfigAuthSchemeResponse) SetType(v string) {
 }
 
 func (o InlineHookChannelConfigAuthSchemeResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o InlineHookChannelConfigAuthSchemeResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Key != nil {
+	if !IsNil(o.Key) {
 		toSerialize["key"] = o.Key
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -132,28 +143,26 @@ func (o InlineHookChannelConfigAuthSchemeResponse) MarshalJSON() ([]byte, error)
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *InlineHookChannelConfigAuthSchemeResponse) UnmarshalJSON(bytes []byte) (err error) {
+func (o *InlineHookChannelConfigAuthSchemeResponse) UnmarshalJSON(data []byte) (err error) {
 	varInlineHookChannelConfigAuthSchemeResponse := _InlineHookChannelConfigAuthSchemeResponse{}
 
-	err = json.Unmarshal(bytes, &varInlineHookChannelConfigAuthSchemeResponse)
-	if err == nil {
-		*o = InlineHookChannelConfigAuthSchemeResponse(varInlineHookChannelConfigAuthSchemeResponse)
-	} else {
+	err = json.Unmarshal(data, &varInlineHookChannelConfigAuthSchemeResponse)
+
+	if err != nil {
 		return err
 	}
 
+	*o = InlineHookChannelConfigAuthSchemeResponse(varInlineHookChannelConfigAuthSchemeResponse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "key")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableInlineHookChannelConfigAuthSchemeResponse) UnmarshalJSON(src []
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

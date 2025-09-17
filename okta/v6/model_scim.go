@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,12 +28,15 @@ import (
 	"fmt"
 )
 
+// checks if the Scim type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Scim{}
+
 // Scim SCIM configuration details
 type Scim struct {
 	// The authentication mode for requests to your SCIM server  | authMode | Description | | -------- | ----------- | | `header` | Uses authorization header with a customer-provided token value in the following format: `Authorization: {API token}` | | `bearer` | Uses authorization header with a customer-provided bearer token in the following format: `Authorization: Bearer {API token}` | | {authModeId} | The ID of the auth mode object that contains OAuth 2.0 credentials. <br> **Note:** Use the `/integrations/api/v1/internal/authModes` endpoint to create the auth mode object. |
 	AuthMode string `json:"authMode"`
 	// The base URL that Okta uses to send outbound calls to your SCIM server. Only the HTTPS protocol is supported. You can use the app-level variables defined in the `config` array for the base URL. For example, if you have a `subdomain` variable defined in the `config` array and the URL to retrieve SCIM users for your integration is `https://${subdomain}.example.com/scim/v2/Users`, then specify the following base URL: `'https://' + app.subdomain + '.example.com/scim/v2'`.
-	BaseUri string `json:"baseUri"`
+	BaseUri          string               `json:"baseUri"`
 	ScimServerConfig ScimScimServerConfig `json:"scimServerConfig"`
 	// The URL to your customer-facing instructions for configuring your SCIM integration. See [Customer configuration document guidelines](https://developer.okta.com/docs/guides/submit-app-prereq/main/#customer-configuration-document-guidelines).
 	SetupInstructionsUri string `json:"setupInstructionsUri"`
@@ -160,48 +163,70 @@ func (o *Scim) SetSetupInstructionsUri(v string) {
 }
 
 func (o Scim) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Scim) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["authMode"] = o.AuthMode
-	}
-	if true {
-		toSerialize["baseUri"] = o.BaseUri
-	}
-	if true {
-		toSerialize["scimServerConfig"] = o.ScimServerConfig
-	}
-	if true {
-		toSerialize["setupInstructionsUri"] = o.SetupInstructionsUri
-	}
+	toSerialize["authMode"] = o.AuthMode
+	toSerialize["baseUri"] = o.BaseUri
+	toSerialize["scimServerConfig"] = o.ScimServerConfig
+	toSerialize["setupInstructionsUri"] = o.SetupInstructionsUri
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Scim) UnmarshalJSON(bytes []byte) (err error) {
-	varScim := _Scim{}
+func (o *Scim) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"authMode",
+		"baseUri",
+		"scimServerConfig",
+		"setupInstructionsUri",
+	}
 
-	err = json.Unmarshal(bytes, &varScim)
-	if err == nil {
-		*o = Scim(varScim)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varScim := _Scim{}
+
+	err = json.Unmarshal(data, &varScim)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Scim(varScim)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "authMode")
 		delete(additionalProperties, "baseUri")
 		delete(additionalProperties, "scimServerConfig")
 		delete(additionalProperties, "setupInstructionsUri")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -242,4 +267,3 @@ func (v *NullableScim) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

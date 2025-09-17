@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the AssociatedServerMediated type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AssociatedServerMediated{}
+
 // AssociatedServerMediated struct for AssociatedServerMediated
 type AssociatedServerMediated struct {
 	// A list of the authorization server IDs
-	Trusted []string `json:"trusted,omitempty"`
+	Trusted              []string `json:"trusted,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewAssociatedServerMediatedWithDefaults() *AssociatedServerMediated {
 
 // GetTrusted returns the Trusted field value if set, zero value otherwise.
 func (o *AssociatedServerMediated) GetTrusted() []string {
-	if o == nil || o.Trusted == nil {
+	if o == nil || IsNil(o.Trusted) {
 		var ret []string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *AssociatedServerMediated) GetTrusted() []string {
 // GetTrustedOk returns a tuple with the Trusted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssociatedServerMediated) GetTrustedOk() ([]string, bool) {
-	if o == nil || o.Trusted == nil {
+	if o == nil || IsNil(o.Trusted) {
 		return nil, false
 	}
 	return o.Trusted, true
@@ -73,7 +76,7 @@ func (o *AssociatedServerMediated) GetTrustedOk() ([]string, bool) {
 
 // HasTrusted returns a boolean if a field has been set.
 func (o *AssociatedServerMediated) HasTrusted() bool {
-	if o != nil && o.Trusted != nil {
+	if o != nil && !IsNil(o.Trusted) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *AssociatedServerMediated) SetTrusted(v []string) {
 }
 
 func (o AssociatedServerMediated) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AssociatedServerMediated) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Trusted != nil {
+	if !IsNil(o.Trusted) {
 		toSerialize["trusted"] = o.Trusted
 	}
 
@@ -95,27 +106,25 @@ func (o AssociatedServerMediated) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AssociatedServerMediated) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AssociatedServerMediated) UnmarshalJSON(data []byte) (err error) {
 	varAssociatedServerMediated := _AssociatedServerMediated{}
 
-	err = json.Unmarshal(bytes, &varAssociatedServerMediated)
-	if err == nil {
-		*o = AssociatedServerMediated(varAssociatedServerMediated)
-	} else {
+	err = json.Unmarshal(data, &varAssociatedServerMediated)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AssociatedServerMediated(varAssociatedServerMediated)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "trusted")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableAssociatedServerMediated) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

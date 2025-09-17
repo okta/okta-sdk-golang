@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the ResponseLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResponseLinks{}
+
 // ResponseLinks Link objects
 type ResponseLinks struct {
-	Links *LinksSelf `json:"_links,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewResponseLinksWithDefaults() *ResponseLinks {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *ResponseLinks) GetLinks() LinksSelf {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksSelf
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *ResponseLinks) GetLinks() LinksSelf {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResponseLinks) GetLinksOk() (*LinksSelf, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -72,7 +75,7 @@ func (o *ResponseLinks) GetLinksOk() (*LinksSelf, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *ResponseLinks) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *ResponseLinks) SetLinks(v LinksSelf) {
 }
 
 func (o ResponseLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ResponseLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -94,27 +105,25 @@ func (o ResponseLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResponseLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ResponseLinks) UnmarshalJSON(data []byte) (err error) {
 	varResponseLinks := _ResponseLinks{}
 
-	err = json.Unmarshal(bytes, &varResponseLinks)
-	if err == nil {
-		*o = ResponseLinks(varResponseLinks)
-	} else {
+	err = json.Unmarshal(data, &varResponseLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ResponseLinks(varResponseLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableResponseLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

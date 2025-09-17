@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the PermissionConditions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PermissionConditions{}
+
 // PermissionConditions Conditions for further restricting a permission. See [Permission conditions](https://help.okta.com/okta_help.htm?type=oie&id=ext-permission-conditions).
 type PermissionConditions struct {
 	// Exclude attributes with specific values for the permission
 	Exclude map[string]map[string]interface{} `json:"exclude,omitempty"`
 	// Include attributes with specific values for the permission
-	Include map[string]map[string]interface{} `json:"include,omitempty"`
+	Include              map[string]map[string]interface{} `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -68,15 +71,15 @@ func (o *PermissionConditions) GetExclude() map[string]map[string]interface{} {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PermissionConditions) GetExcludeOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || o.Exclude == nil {
-		return nil, false
+	if o == nil || IsNil(o.Exclude) {
+		return map[string]map[string]interface{}{}, false
 	}
 	return o.Exclude, true
 }
 
 // HasExclude returns a boolean if a field has been set.
 func (o *PermissionConditions) HasExclude() bool {
-	if o != nil && o.Exclude != nil {
+	if o != nil && !IsNil(o.Exclude) {
 		return true
 	}
 
@@ -101,15 +104,15 @@ func (o *PermissionConditions) GetInclude() map[string]map[string]interface{} {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PermissionConditions) GetIncludeOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || o.Include == nil {
-		return nil, false
+	if o == nil || IsNil(o.Include) {
+		return map[string]map[string]interface{}{}, false
 	}
 	return o.Include, true
 }
 
 // HasInclude returns a boolean if a field has been set.
 func (o *PermissionConditions) HasInclude() bool {
-	if o != nil && o.Include != nil {
+	if o != nil && !IsNil(o.Include) {
 		return true
 	}
 
@@ -122,6 +125,14 @@ func (o *PermissionConditions) SetInclude(v map[string]map[string]interface{}) {
 }
 
 func (o PermissionConditions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PermissionConditions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Exclude != nil {
 		toSerialize["exclude"] = o.Exclude
@@ -134,28 +145,26 @@ func (o PermissionConditions) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PermissionConditions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PermissionConditions) UnmarshalJSON(data []byte) (err error) {
 	varPermissionConditions := _PermissionConditions{}
 
-	err = json.Unmarshal(bytes, &varPermissionConditions)
-	if err == nil {
-		*o = PermissionConditions(varPermissionConditions)
-	} else {
+	err = json.Unmarshal(data, &varPermissionConditions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PermissionConditions(varPermissionConditions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "exclude")
 		delete(additionalProperties, "include")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -196,4 +205,3 @@ func (v *NullablePermissionConditions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

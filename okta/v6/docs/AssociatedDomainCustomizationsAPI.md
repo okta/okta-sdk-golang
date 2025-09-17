@@ -149,7 +149,7 @@ No authorization required
 
 ## GetAssetLinksWellKnownURI
 
-> []string GetAssetLinksWellKnownURI(ctx).Execute()
+> []map[string]interface{} GetAssetLinksWellKnownURI(ctx).Execute()
 
 Retrieve the customized assetlinks.json URI content
 
@@ -176,7 +176,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AssociatedDomainCustomizationsAPI.GetAssetLinksWellKnownURI``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAssetLinksWellKnownURI`: []string
+	// response from `GetAssetLinksWellKnownURI`: []map[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `AssociatedDomainCustomizationsAPI.GetAssetLinksWellKnownURI`: %v\n", resp)
 }
 ```
@@ -192,7 +192,7 @@ Other parameters are passed through a pointer to a apiGetAssetLinksWellKnownURIR
 
 ### Return type
 
-**[]string**
+**[]map[string]interface{}**
 
 ### Authorization
 

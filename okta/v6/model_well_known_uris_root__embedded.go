@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the WellKnownURIsRootEmbedded type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WellKnownURIsRootEmbedded{}
+
 // WellKnownURIsRootEmbedded struct for WellKnownURIsRootEmbedded
 type WellKnownURIsRootEmbedded struct {
 	AppleAppSiteAssociation *WellKnownURIsRootEmbeddedAppleAppSiteAssociation `json:"apple-app-site-association,omitempty"`
-	AssetlinksJson *WellKnownURIsRootEmbeddedAssetlinksJson `json:"assetlinks.json,omitempty"`
-	Webauthn *WellKnownURIsRootEmbeddedAppleAppSiteAssociation `json:"webauthn,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AssetlinksJson          *WellKnownURIsRootEmbeddedAssetlinksJson          `json:"assetlinks.json,omitempty"`
+	Webauthn                *WellKnownURIsRootEmbeddedAppleAppSiteAssociation `json:"webauthn,omitempty"`
+	AdditionalProperties    map[string]interface{}
 }
 
 type _WellKnownURIsRootEmbedded WellKnownURIsRootEmbedded
@@ -56,7 +59,7 @@ func NewWellKnownURIsRootEmbeddedWithDefaults() *WellKnownURIsRootEmbedded {
 
 // GetAppleAppSiteAssociation returns the AppleAppSiteAssociation field value if set, zero value otherwise.
 func (o *WellKnownURIsRootEmbedded) GetAppleAppSiteAssociation() WellKnownURIsRootEmbeddedAppleAppSiteAssociation {
-	if o == nil || o.AppleAppSiteAssociation == nil {
+	if o == nil || IsNil(o.AppleAppSiteAssociation) {
 		var ret WellKnownURIsRootEmbeddedAppleAppSiteAssociation
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *WellKnownURIsRootEmbedded) GetAppleAppSiteAssociation() WellKnownURIsRo
 // GetAppleAppSiteAssociationOk returns a tuple with the AppleAppSiteAssociation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownURIsRootEmbedded) GetAppleAppSiteAssociationOk() (*WellKnownURIsRootEmbeddedAppleAppSiteAssociation, bool) {
-	if o == nil || o.AppleAppSiteAssociation == nil {
+	if o == nil || IsNil(o.AppleAppSiteAssociation) {
 		return nil, false
 	}
 	return o.AppleAppSiteAssociation, true
@@ -74,7 +77,7 @@ func (o *WellKnownURIsRootEmbedded) GetAppleAppSiteAssociationOk() (*WellKnownUR
 
 // HasAppleAppSiteAssociation returns a boolean if a field has been set.
 func (o *WellKnownURIsRootEmbedded) HasAppleAppSiteAssociation() bool {
-	if o != nil && o.AppleAppSiteAssociation != nil {
+	if o != nil && !IsNil(o.AppleAppSiteAssociation) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *WellKnownURIsRootEmbedded) SetAppleAppSiteAssociation(v WellKnownURIsRo
 
 // GetAssetlinksJson returns the AssetlinksJson field value if set, zero value otherwise.
 func (o *WellKnownURIsRootEmbedded) GetAssetlinksJson() WellKnownURIsRootEmbeddedAssetlinksJson {
-	if o == nil || o.AssetlinksJson == nil {
+	if o == nil || IsNil(o.AssetlinksJson) {
 		var ret WellKnownURIsRootEmbeddedAssetlinksJson
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *WellKnownURIsRootEmbedded) GetAssetlinksJson() WellKnownURIsRootEmbedde
 // GetAssetlinksJsonOk returns a tuple with the AssetlinksJson field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownURIsRootEmbedded) GetAssetlinksJsonOk() (*WellKnownURIsRootEmbeddedAssetlinksJson, bool) {
-	if o == nil || o.AssetlinksJson == nil {
+	if o == nil || IsNil(o.AssetlinksJson) {
 		return nil, false
 	}
 	return o.AssetlinksJson, true
@@ -106,7 +109,7 @@ func (o *WellKnownURIsRootEmbedded) GetAssetlinksJsonOk() (*WellKnownURIsRootEmb
 
 // HasAssetlinksJson returns a boolean if a field has been set.
 func (o *WellKnownURIsRootEmbedded) HasAssetlinksJson() bool {
-	if o != nil && o.AssetlinksJson != nil {
+	if o != nil && !IsNil(o.AssetlinksJson) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *WellKnownURIsRootEmbedded) SetAssetlinksJson(v WellKnownURIsRootEmbedde
 
 // GetWebauthn returns the Webauthn field value if set, zero value otherwise.
 func (o *WellKnownURIsRootEmbedded) GetWebauthn() WellKnownURIsRootEmbeddedAppleAppSiteAssociation {
-	if o == nil || o.Webauthn == nil {
+	if o == nil || IsNil(o.Webauthn) {
 		var ret WellKnownURIsRootEmbeddedAppleAppSiteAssociation
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *WellKnownURIsRootEmbedded) GetWebauthn() WellKnownURIsRootEmbeddedApple
 // GetWebauthnOk returns a tuple with the Webauthn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownURIsRootEmbedded) GetWebauthnOk() (*WellKnownURIsRootEmbeddedAppleAppSiteAssociation, bool) {
-	if o == nil || o.Webauthn == nil {
+	if o == nil || IsNil(o.Webauthn) {
 		return nil, false
 	}
 	return o.Webauthn, true
@@ -138,7 +141,7 @@ func (o *WellKnownURIsRootEmbedded) GetWebauthnOk() (*WellKnownURIsRootEmbeddedA
 
 // HasWebauthn returns a boolean if a field has been set.
 func (o *WellKnownURIsRootEmbedded) HasWebauthn() bool {
-	if o != nil && o.Webauthn != nil {
+	if o != nil && !IsNil(o.Webauthn) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *WellKnownURIsRootEmbedded) SetWebauthn(v WellKnownURIsRootEmbeddedApple
 }
 
 func (o WellKnownURIsRootEmbedded) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o WellKnownURIsRootEmbedded) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AppleAppSiteAssociation != nil {
+	if !IsNil(o.AppleAppSiteAssociation) {
 		toSerialize["apple-app-site-association"] = o.AppleAppSiteAssociation
 	}
-	if o.AssetlinksJson != nil {
+	if !IsNil(o.AssetlinksJson) {
 		toSerialize["assetlinks.json"] = o.AssetlinksJson
 	}
-	if o.Webauthn != nil {
+	if !IsNil(o.Webauthn) {
 		toSerialize["webauthn"] = o.Webauthn
 	}
 
@@ -166,29 +177,27 @@ func (o WellKnownURIsRootEmbedded) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *WellKnownURIsRootEmbedded) UnmarshalJSON(bytes []byte) (err error) {
+func (o *WellKnownURIsRootEmbedded) UnmarshalJSON(data []byte) (err error) {
 	varWellKnownURIsRootEmbedded := _WellKnownURIsRootEmbedded{}
 
-	err = json.Unmarshal(bytes, &varWellKnownURIsRootEmbedded)
-	if err == nil {
-		*o = WellKnownURIsRootEmbedded(varWellKnownURIsRootEmbedded)
-	} else {
+	err = json.Unmarshal(data, &varWellKnownURIsRootEmbedded)
+
+	if err != nil {
 		return err
 	}
 
+	*o = WellKnownURIsRootEmbedded(varWellKnownURIsRootEmbedded)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "apple-app-site-association")
 		delete(additionalProperties, "assetlinks.json")
 		delete(additionalProperties, "webauthn")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullableWellKnownURIsRootEmbedded) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

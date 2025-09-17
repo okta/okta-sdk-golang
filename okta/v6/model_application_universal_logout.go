@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ApplicationUniversalLogout type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApplicationUniversalLogout{}
+
 // ApplicationUniversalLogout <div class=\"x-lifecycle-container\"><x-lifecycle class=\"oie\"></x-lifecycle></div> Universal Logout properties for the app. These properties are only returned and can't be updated.
 type ApplicationUniversalLogout struct {
 	// Indicates whether the app uses a shared identity stack that may cause the user to sign out of other apps by the same company
@@ -36,7 +39,7 @@ type ApplicationUniversalLogout struct {
 	// Universal Logout status for the app instance
 	Status *string `json:"status,omitempty"`
 	// Indicates whether the app supports full or partial Universal Logout (UL).
-	SupportType *string `json:"supportType,omitempty"`
+	SupportType          *string `json:"supportType,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewApplicationUniversalLogoutWithDefaults() *ApplicationUniversalLogout {
 
 // GetIdentityStack returns the IdentityStack field value if set, zero value otherwise.
 func (o *ApplicationUniversalLogout) GetIdentityStack() string {
-	if o == nil || o.IdentityStack == nil {
+	if o == nil || IsNil(o.IdentityStack) {
 		var ret string
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *ApplicationUniversalLogout) GetIdentityStack() string {
 // GetIdentityStackOk returns a tuple with the IdentityStack field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationUniversalLogout) GetIdentityStackOk() (*string, bool) {
-	if o == nil || o.IdentityStack == nil {
+	if o == nil || IsNil(o.IdentityStack) {
 		return nil, false
 	}
 	return o.IdentityStack, true
@@ -79,7 +82,7 @@ func (o *ApplicationUniversalLogout) GetIdentityStackOk() (*string, bool) {
 
 // HasIdentityStack returns a boolean if a field has been set.
 func (o *ApplicationUniversalLogout) HasIdentityStack() bool {
-	if o != nil && o.IdentityStack != nil {
+	if o != nil && !IsNil(o.IdentityStack) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *ApplicationUniversalLogout) SetIdentityStack(v string) {
 
 // GetProtocol returns the Protocol field value if set, zero value otherwise.
 func (o *ApplicationUniversalLogout) GetProtocol() string {
-	if o == nil || o.Protocol == nil {
+	if o == nil || IsNil(o.Protocol) {
 		var ret string
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *ApplicationUniversalLogout) GetProtocol() string {
 // GetProtocolOk returns a tuple with the Protocol field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationUniversalLogout) GetProtocolOk() (*string, bool) {
-	if o == nil || o.Protocol == nil {
+	if o == nil || IsNil(o.Protocol) {
 		return nil, false
 	}
 	return o.Protocol, true
@@ -111,7 +114,7 @@ func (o *ApplicationUniversalLogout) GetProtocolOk() (*string, bool) {
 
 // HasProtocol returns a boolean if a field has been set.
 func (o *ApplicationUniversalLogout) HasProtocol() bool {
-	if o != nil && o.Protocol != nil {
+	if o != nil && !IsNil(o.Protocol) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *ApplicationUniversalLogout) SetProtocol(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *ApplicationUniversalLogout) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *ApplicationUniversalLogout) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationUniversalLogout) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -143,7 +146,7 @@ func (o *ApplicationUniversalLogout) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *ApplicationUniversalLogout) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *ApplicationUniversalLogout) SetStatus(v string) {
 
 // GetSupportType returns the SupportType field value if set, zero value otherwise.
 func (o *ApplicationUniversalLogout) GetSupportType() string {
-	if o == nil || o.SupportType == nil {
+	if o == nil || IsNil(o.SupportType) {
 		var ret string
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *ApplicationUniversalLogout) GetSupportType() string {
 // GetSupportTypeOk returns a tuple with the SupportType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationUniversalLogout) GetSupportTypeOk() (*string, bool) {
-	if o == nil || o.SupportType == nil {
+	if o == nil || IsNil(o.SupportType) {
 		return nil, false
 	}
 	return o.SupportType, true
@@ -175,7 +178,7 @@ func (o *ApplicationUniversalLogout) GetSupportTypeOk() (*string, bool) {
 
 // HasSupportType returns a boolean if a field has been set.
 func (o *ApplicationUniversalLogout) HasSupportType() bool {
-	if o != nil && o.SupportType != nil {
+	if o != nil && !IsNil(o.SupportType) {
 		return true
 	}
 
@@ -188,17 +191,25 @@ func (o *ApplicationUniversalLogout) SetSupportType(v string) {
 }
 
 func (o ApplicationUniversalLogout) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApplicationUniversalLogout) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.IdentityStack != nil {
+	if !IsNil(o.IdentityStack) {
 		toSerialize["identityStack"] = o.IdentityStack
 	}
-	if o.Protocol != nil {
+	if !IsNil(o.Protocol) {
 		toSerialize["protocol"] = o.Protocol
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.SupportType != nil {
+	if !IsNil(o.SupportType) {
 		toSerialize["supportType"] = o.SupportType
 	}
 
@@ -206,30 +217,28 @@ func (o ApplicationUniversalLogout) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ApplicationUniversalLogout) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ApplicationUniversalLogout) UnmarshalJSON(data []byte) (err error) {
 	varApplicationUniversalLogout := _ApplicationUniversalLogout{}
 
-	err = json.Unmarshal(bytes, &varApplicationUniversalLogout)
-	if err == nil {
-		*o = ApplicationUniversalLogout(varApplicationUniversalLogout)
-	} else {
+	err = json.Unmarshal(data, &varApplicationUniversalLogout)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ApplicationUniversalLogout(varApplicationUniversalLogout)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "identityStack")
 		delete(additionalProperties, "protocol")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "supportType")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -270,4 +279,3 @@ func (v *NullableApplicationUniversalLogout) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

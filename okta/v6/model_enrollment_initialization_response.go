@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the EnrollmentInitializationResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EnrollmentInitializationResponse{}
+
 // EnrollmentInitializationResponse Yubico transport key in the form of a JSON Web Token (JWK), used to encrypt our fulfillment request to Yubico. The currently agreed protocol uses P-384.
 type EnrollmentInitializationResponse struct {
 	// List of credential requests for the fulfillment provider
@@ -36,7 +39,7 @@ type EnrollmentInitializationResponse struct {
 	// Encrypted JWE of PIN request for the fulfillment provider
 	PinRequestJwe *string `json:"pinRequestJwe,omitempty"`
 	// ID of an existing Okta user
-	UserId *string `json:"userId,omitempty"`
+	UserId               *string `json:"userId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewEnrollmentInitializationResponseWithDefaults() *EnrollmentInitialization
 
 // GetCredRequests returns the CredRequests field value if set, zero value otherwise.
 func (o *EnrollmentInitializationResponse) GetCredRequests() []WebAuthnCredRequest {
-	if o == nil || o.CredRequests == nil {
+	if o == nil || IsNil(o.CredRequests) {
 		var ret []WebAuthnCredRequest
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *EnrollmentInitializationResponse) GetCredRequests() []WebAuthnCredReque
 // GetCredRequestsOk returns a tuple with the CredRequests field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnrollmentInitializationResponse) GetCredRequestsOk() ([]WebAuthnCredRequest, bool) {
-	if o == nil || o.CredRequests == nil {
+	if o == nil || IsNil(o.CredRequests) {
 		return nil, false
 	}
 	return o.CredRequests, true
@@ -79,7 +82,7 @@ func (o *EnrollmentInitializationResponse) GetCredRequestsOk() ([]WebAuthnCredRe
 
 // HasCredRequests returns a boolean if a field has been set.
 func (o *EnrollmentInitializationResponse) HasCredRequests() bool {
-	if o != nil && o.CredRequests != nil {
+	if o != nil && !IsNil(o.CredRequests) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *EnrollmentInitializationResponse) SetCredRequests(v []WebAuthnCredReque
 
 // GetFulfillmentProvider returns the FulfillmentProvider field value if set, zero value otherwise.
 func (o *EnrollmentInitializationResponse) GetFulfillmentProvider() string {
-	if o == nil || o.FulfillmentProvider == nil {
+	if o == nil || IsNil(o.FulfillmentProvider) {
 		var ret string
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *EnrollmentInitializationResponse) GetFulfillmentProvider() string {
 // GetFulfillmentProviderOk returns a tuple with the FulfillmentProvider field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnrollmentInitializationResponse) GetFulfillmentProviderOk() (*string, bool) {
-	if o == nil || o.FulfillmentProvider == nil {
+	if o == nil || IsNil(o.FulfillmentProvider) {
 		return nil, false
 	}
 	return o.FulfillmentProvider, true
@@ -111,7 +114,7 @@ func (o *EnrollmentInitializationResponse) GetFulfillmentProviderOk() (*string, 
 
 // HasFulfillmentProvider returns a boolean if a field has been set.
 func (o *EnrollmentInitializationResponse) HasFulfillmentProvider() bool {
-	if o != nil && o.FulfillmentProvider != nil {
+	if o != nil && !IsNil(o.FulfillmentProvider) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *EnrollmentInitializationResponse) SetFulfillmentProvider(v string) {
 
 // GetPinRequestJwe returns the PinRequestJwe field value if set, zero value otherwise.
 func (o *EnrollmentInitializationResponse) GetPinRequestJwe() string {
-	if o == nil || o.PinRequestJwe == nil {
+	if o == nil || IsNil(o.PinRequestJwe) {
 		var ret string
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *EnrollmentInitializationResponse) GetPinRequestJwe() string {
 // GetPinRequestJweOk returns a tuple with the PinRequestJwe field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnrollmentInitializationResponse) GetPinRequestJweOk() (*string, bool) {
-	if o == nil || o.PinRequestJwe == nil {
+	if o == nil || IsNil(o.PinRequestJwe) {
 		return nil, false
 	}
 	return o.PinRequestJwe, true
@@ -143,7 +146,7 @@ func (o *EnrollmentInitializationResponse) GetPinRequestJweOk() (*string, bool) 
 
 // HasPinRequestJwe returns a boolean if a field has been set.
 func (o *EnrollmentInitializationResponse) HasPinRequestJwe() bool {
-	if o != nil && o.PinRequestJwe != nil {
+	if o != nil && !IsNil(o.PinRequestJwe) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *EnrollmentInitializationResponse) SetPinRequestJwe(v string) {
 
 // GetUserId returns the UserId field value if set, zero value otherwise.
 func (o *EnrollmentInitializationResponse) GetUserId() string {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		var ret string
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *EnrollmentInitializationResponse) GetUserId() string {
 // GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnrollmentInitializationResponse) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		return nil, false
 	}
 	return o.UserId, true
@@ -175,7 +178,7 @@ func (o *EnrollmentInitializationResponse) GetUserIdOk() (*string, bool) {
 
 // HasUserId returns a boolean if a field has been set.
 func (o *EnrollmentInitializationResponse) HasUserId() bool {
-	if o != nil && o.UserId != nil {
+	if o != nil && !IsNil(o.UserId) {
 		return true
 	}
 
@@ -188,17 +191,25 @@ func (o *EnrollmentInitializationResponse) SetUserId(v string) {
 }
 
 func (o EnrollmentInitializationResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EnrollmentInitializationResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.CredRequests != nil {
+	if !IsNil(o.CredRequests) {
 		toSerialize["credRequests"] = o.CredRequests
 	}
-	if o.FulfillmentProvider != nil {
+	if !IsNil(o.FulfillmentProvider) {
 		toSerialize["fulfillmentProvider"] = o.FulfillmentProvider
 	}
-	if o.PinRequestJwe != nil {
+	if !IsNil(o.PinRequestJwe) {
 		toSerialize["pinRequestJwe"] = o.PinRequestJwe
 	}
-	if o.UserId != nil {
+	if !IsNil(o.UserId) {
 		toSerialize["userId"] = o.UserId
 	}
 
@@ -206,30 +217,28 @@ func (o EnrollmentInitializationResponse) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EnrollmentInitializationResponse) UnmarshalJSON(bytes []byte) (err error) {
+func (o *EnrollmentInitializationResponse) UnmarshalJSON(data []byte) (err error) {
 	varEnrollmentInitializationResponse := _EnrollmentInitializationResponse{}
 
-	err = json.Unmarshal(bytes, &varEnrollmentInitializationResponse)
-	if err == nil {
-		*o = EnrollmentInitializationResponse(varEnrollmentInitializationResponse)
-	} else {
+	err = json.Unmarshal(data, &varEnrollmentInitializationResponse)
+
+	if err != nil {
 		return err
 	}
 
+	*o = EnrollmentInitializationResponse(varEnrollmentInitializationResponse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "credRequests")
 		delete(additionalProperties, "fulfillmentProvider")
 		delete(additionalProperties, "pinRequestJwe")
 		delete(additionalProperties, "userId")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -270,4 +279,3 @@ func (v *NullableEnrollmentInitializationResponse) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserCredentials type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserCredentials{}
+
 // UserCredentials Specifies primary authentication and recovery credentials for a user. Credential types and requirements vary depending on the provider and security policy of the org.
 type UserCredentials struct {
-	Password *PasswordCredential `json:"password,omitempty"`
-	Provider *AuthenticationProvider `json:"provider,omitempty"`
-	RecoveryQuestion *RecoveryQuestionCredential `json:"recovery_question,omitempty"`
+	Password             *PasswordCredential         `json:"password,omitempty"`
+	Provider             *AuthenticationProvider     `json:"provider,omitempty"`
+	RecoveryQuestion     *RecoveryQuestionCredential `json:"recovery_question,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewUserCredentialsWithDefaults() *UserCredentials {
 
 // GetPassword returns the Password field value if set, zero value otherwise.
 func (o *UserCredentials) GetPassword() PasswordCredential {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		var ret PasswordCredential
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *UserCredentials) GetPassword() PasswordCredential {
 // GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserCredentials) GetPasswordOk() (*PasswordCredential, bool) {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		return nil, false
 	}
 	return o.Password, true
@@ -74,7 +77,7 @@ func (o *UserCredentials) GetPasswordOk() (*PasswordCredential, bool) {
 
 // HasPassword returns a boolean if a field has been set.
 func (o *UserCredentials) HasPassword() bool {
-	if o != nil && o.Password != nil {
+	if o != nil && !IsNil(o.Password) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *UserCredentials) SetPassword(v PasswordCredential) {
 
 // GetProvider returns the Provider field value if set, zero value otherwise.
 func (o *UserCredentials) GetProvider() AuthenticationProvider {
-	if o == nil || o.Provider == nil {
+	if o == nil || IsNil(o.Provider) {
 		var ret AuthenticationProvider
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *UserCredentials) GetProvider() AuthenticationProvider {
 // GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserCredentials) GetProviderOk() (*AuthenticationProvider, bool) {
-	if o == nil || o.Provider == nil {
+	if o == nil || IsNil(o.Provider) {
 		return nil, false
 	}
 	return o.Provider, true
@@ -106,7 +109,7 @@ func (o *UserCredentials) GetProviderOk() (*AuthenticationProvider, bool) {
 
 // HasProvider returns a boolean if a field has been set.
 func (o *UserCredentials) HasProvider() bool {
-	if o != nil && o.Provider != nil {
+	if o != nil && !IsNil(o.Provider) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *UserCredentials) SetProvider(v AuthenticationProvider) {
 
 // GetRecoveryQuestion returns the RecoveryQuestion field value if set, zero value otherwise.
 func (o *UserCredentials) GetRecoveryQuestion() RecoveryQuestionCredential {
-	if o == nil || o.RecoveryQuestion == nil {
+	if o == nil || IsNil(o.RecoveryQuestion) {
 		var ret RecoveryQuestionCredential
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *UserCredentials) GetRecoveryQuestion() RecoveryQuestionCredential {
 // GetRecoveryQuestionOk returns a tuple with the RecoveryQuestion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserCredentials) GetRecoveryQuestionOk() (*RecoveryQuestionCredential, bool) {
-	if o == nil || o.RecoveryQuestion == nil {
+	if o == nil || IsNil(o.RecoveryQuestion) {
 		return nil, false
 	}
 	return o.RecoveryQuestion, true
@@ -138,7 +141,7 @@ func (o *UserCredentials) GetRecoveryQuestionOk() (*RecoveryQuestionCredential, 
 
 // HasRecoveryQuestion returns a boolean if a field has been set.
 func (o *UserCredentials) HasRecoveryQuestion() bool {
-	if o != nil && o.RecoveryQuestion != nil {
+	if o != nil && !IsNil(o.RecoveryQuestion) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *UserCredentials) SetRecoveryQuestion(v RecoveryQuestionCredential) {
 }
 
 func (o UserCredentials) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserCredentials) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Password != nil {
+	if !IsNil(o.Password) {
 		toSerialize["password"] = o.Password
 	}
-	if o.Provider != nil {
+	if !IsNil(o.Provider) {
 		toSerialize["provider"] = o.Provider
 	}
-	if o.RecoveryQuestion != nil {
+	if !IsNil(o.RecoveryQuestion) {
 		toSerialize["recovery_question"] = o.RecoveryQuestion
 	}
 
@@ -166,29 +177,27 @@ func (o UserCredentials) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserCredentials) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserCredentials) UnmarshalJSON(data []byte) (err error) {
 	varUserCredentials := _UserCredentials{}
 
-	err = json.Unmarshal(bytes, &varUserCredentials)
-	if err == nil {
-		*o = UserCredentials(varUserCredentials)
-	} else {
+	err = json.Unmarshal(data, &varUserCredentials)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserCredentials(varUserCredentials)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "password")
 		delete(additionalProperties, "provider")
 		delete(additionalProperties, "recovery_question")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullableUserCredentials) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

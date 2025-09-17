@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the BulkGroupDeleteRequestBody type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BulkGroupDeleteRequestBody{}
+
 // BulkGroupDeleteRequestBody struct for BulkGroupDeleteRequestBody
 type BulkGroupDeleteRequestBody struct {
 	// Array of external IDs of groups that need to be deleted in Okta
-	ExternalIds []string `json:"externalIds,omitempty"`
+	ExternalIds          []string `json:"externalIds,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewBulkGroupDeleteRequestBodyWithDefaults() *BulkGroupDeleteRequestBody {
 
 // GetExternalIds returns the ExternalIds field value if set, zero value otherwise.
 func (o *BulkGroupDeleteRequestBody) GetExternalIds() []string {
-	if o == nil || o.ExternalIds == nil {
+	if o == nil || IsNil(o.ExternalIds) {
 		var ret []string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *BulkGroupDeleteRequestBody) GetExternalIds() []string {
 // GetExternalIdsOk returns a tuple with the ExternalIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BulkGroupDeleteRequestBody) GetExternalIdsOk() ([]string, bool) {
-	if o == nil || o.ExternalIds == nil {
+	if o == nil || IsNil(o.ExternalIds) {
 		return nil, false
 	}
 	return o.ExternalIds, true
@@ -73,7 +76,7 @@ func (o *BulkGroupDeleteRequestBody) GetExternalIdsOk() ([]string, bool) {
 
 // HasExternalIds returns a boolean if a field has been set.
 func (o *BulkGroupDeleteRequestBody) HasExternalIds() bool {
-	if o != nil && o.ExternalIds != nil {
+	if o != nil && !IsNil(o.ExternalIds) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *BulkGroupDeleteRequestBody) SetExternalIds(v []string) {
 }
 
 func (o BulkGroupDeleteRequestBody) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BulkGroupDeleteRequestBody) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ExternalIds != nil {
+	if !IsNil(o.ExternalIds) {
 		toSerialize["externalIds"] = o.ExternalIds
 	}
 
@@ -95,27 +106,25 @@ func (o BulkGroupDeleteRequestBody) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *BulkGroupDeleteRequestBody) UnmarshalJSON(bytes []byte) (err error) {
+func (o *BulkGroupDeleteRequestBody) UnmarshalJSON(data []byte) (err error) {
 	varBulkGroupDeleteRequestBody := _BulkGroupDeleteRequestBody{}
 
-	err = json.Unmarshal(bytes, &varBulkGroupDeleteRequestBody)
-	if err == nil {
-		*o = BulkGroupDeleteRequestBody(varBulkGroupDeleteRequestBody)
-	} else {
+	err = json.Unmarshal(data, &varBulkGroupDeleteRequestBody)
+
+	if err != nil {
 		return err
 	}
 
+	*o = BulkGroupDeleteRequestBody(varBulkGroupDeleteRequestBody)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "externalIds")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableBulkGroupDeleteRequestBody) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

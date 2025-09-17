@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the BaseTokenTokenLifetime type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BaseTokenTokenLifetime{}
+
 // BaseTokenTokenLifetime Lifetime of the token
 type BaseTokenTokenLifetime struct {
 	// Time in seconds until the token expires
-	Expiration *int32 `json:"expiration,omitempty"`
+	Expiration           *int32 `json:"expiration,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewBaseTokenTokenLifetimeWithDefaults() *BaseTokenTokenLifetime {
 
 // GetExpiration returns the Expiration field value if set, zero value otherwise.
 func (o *BaseTokenTokenLifetime) GetExpiration() int32 {
-	if o == nil || o.Expiration == nil {
+	if o == nil || IsNil(o.Expiration) {
 		var ret int32
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *BaseTokenTokenLifetime) GetExpiration() int32 {
 // GetExpirationOk returns a tuple with the Expiration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseTokenTokenLifetime) GetExpirationOk() (*int32, bool) {
-	if o == nil || o.Expiration == nil {
+	if o == nil || IsNil(o.Expiration) {
 		return nil, false
 	}
 	return o.Expiration, true
@@ -73,7 +76,7 @@ func (o *BaseTokenTokenLifetime) GetExpirationOk() (*int32, bool) {
 
 // HasExpiration returns a boolean if a field has been set.
 func (o *BaseTokenTokenLifetime) HasExpiration() bool {
-	if o != nil && o.Expiration != nil {
+	if o != nil && !IsNil(o.Expiration) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *BaseTokenTokenLifetime) SetExpiration(v int32) {
 }
 
 func (o BaseTokenTokenLifetime) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BaseTokenTokenLifetime) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Expiration != nil {
+	if !IsNil(o.Expiration) {
 		toSerialize["expiration"] = o.Expiration
 	}
 
@@ -95,27 +106,25 @@ func (o BaseTokenTokenLifetime) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *BaseTokenTokenLifetime) UnmarshalJSON(bytes []byte) (err error) {
+func (o *BaseTokenTokenLifetime) UnmarshalJSON(data []byte) (err error) {
 	varBaseTokenTokenLifetime := _BaseTokenTokenLifetime{}
 
-	err = json.Unmarshal(bytes, &varBaseTokenTokenLifetime)
-	if err == nil {
-		*o = BaseTokenTokenLifetime(varBaseTokenTokenLifetime)
-	} else {
+	err = json.Unmarshal(data, &varBaseTokenTokenLifetime)
+
+	if err != nil {
 		return err
 	}
 
+	*o = BaseTokenTokenLifetime(varBaseTokenTokenLifetime)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "expiration")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableBaseTokenTokenLifetime) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

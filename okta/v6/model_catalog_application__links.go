@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the CatalogApplicationLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CatalogApplicationLinks{}
+
 // CatalogApplicationLinks Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification
 type CatalogApplicationLinks struct {
 	// List of app logo resources
-	Logo []HrefObjectLogoLink `json:"logo,omitempty"`
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
+	Logo                 []HrefObjectLogoLink `json:"logo,omitempty"`
+	Self                 *HrefObjectSelfLink  `json:"self,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewCatalogApplicationLinksWithDefaults() *CatalogApplicationLinks {
 
 // GetLogo returns the Logo field value if set, zero value otherwise.
 func (o *CatalogApplicationLinks) GetLogo() []HrefObjectLogoLink {
-	if o == nil || o.Logo == nil {
+	if o == nil || IsNil(o.Logo) {
 		var ret []HrefObjectLogoLink
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *CatalogApplicationLinks) GetLogo() []HrefObjectLogoLink {
 // GetLogoOk returns a tuple with the Logo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CatalogApplicationLinks) GetLogoOk() ([]HrefObjectLogoLink, bool) {
-	if o == nil || o.Logo == nil {
+	if o == nil || IsNil(o.Logo) {
 		return nil, false
 	}
 	return o.Logo, true
@@ -74,7 +77,7 @@ func (o *CatalogApplicationLinks) GetLogoOk() ([]HrefObjectLogoLink, bool) {
 
 // HasLogo returns a boolean if a field has been set.
 func (o *CatalogApplicationLinks) HasLogo() bool {
-	if o != nil && o.Logo != nil {
+	if o != nil && !IsNil(o.Logo) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *CatalogApplicationLinks) SetLogo(v []HrefObjectLogoLink) {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *CatalogApplicationLinks) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *CatalogApplicationLinks) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CatalogApplicationLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -106,7 +109,7 @@ func (o *CatalogApplicationLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *CatalogApplicationLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *CatalogApplicationLinks) SetSelf(v HrefObjectSelfLink) {
 }
 
 func (o CatalogApplicationLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CatalogApplicationLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Logo != nil {
+	if !IsNil(o.Logo) {
 		toSerialize["logo"] = o.Logo
 	}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
 
@@ -131,28 +142,26 @@ func (o CatalogApplicationLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CatalogApplicationLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *CatalogApplicationLinks) UnmarshalJSON(data []byte) (err error) {
 	varCatalogApplicationLinks := _CatalogApplicationLinks{}
 
-	err = json.Unmarshal(bytes, &varCatalogApplicationLinks)
-	if err == nil {
-		*o = CatalogApplicationLinks(varCatalogApplicationLinks)
-	} else {
+	err = json.Unmarshal(data, &varCatalogApplicationLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = CatalogApplicationLinks(varCatalogApplicationLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "logo")
 		delete(additionalProperties, "self")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableCatalogApplicationLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

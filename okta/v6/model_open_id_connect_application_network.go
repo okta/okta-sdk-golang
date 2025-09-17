@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,14 +28,17 @@ import (
 	"fmt"
 )
 
+// checks if the OpenIdConnectApplicationNetwork type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OpenIdConnectApplicationNetwork{}
+
 // OpenIdConnectApplicationNetwork <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>The network restrictions of the client
 type OpenIdConnectApplicationNetwork struct {
-	// The connection type of the network. Can be `ANYWHERE` or `ZONE`. 
+	// The connection type of the network. Can be `ANYWHERE` or `ZONE`.
 	Connection string `json:"connection"`
 	// If `ZONE` is specified as a connection, then specify the excluded IP network zones here. Value can be \"ALL_IP_ZONES\" or an array of zone IDs.
 	Exclude []string `json:"exclude,omitempty"`
 	// If `ZONE` is specified as a connection, then specify the included IP network zones here. Value can be \"ALL_IP_ZONES\" or an array of zone IDs.
-	Include []string `json:"include,omitempty"`
+	Include              []string `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -85,7 +88,7 @@ func (o *OpenIdConnectApplicationNetwork) SetConnection(v string) {
 
 // GetExclude returns the Exclude field value if set, zero value otherwise.
 func (o *OpenIdConnectApplicationNetwork) GetExclude() []string {
-	if o == nil || o.Exclude == nil {
+	if o == nil || IsNil(o.Exclude) {
 		var ret []string
 		return ret
 	}
@@ -95,7 +98,7 @@ func (o *OpenIdConnectApplicationNetwork) GetExclude() []string {
 // GetExcludeOk returns a tuple with the Exclude field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OpenIdConnectApplicationNetwork) GetExcludeOk() ([]string, bool) {
-	if o == nil || o.Exclude == nil {
+	if o == nil || IsNil(o.Exclude) {
 		return nil, false
 	}
 	return o.Exclude, true
@@ -103,7 +106,7 @@ func (o *OpenIdConnectApplicationNetwork) GetExcludeOk() ([]string, bool) {
 
 // HasExclude returns a boolean if a field has been set.
 func (o *OpenIdConnectApplicationNetwork) HasExclude() bool {
-	if o != nil && o.Exclude != nil {
+	if o != nil && !IsNil(o.Exclude) {
 		return true
 	}
 
@@ -117,7 +120,7 @@ func (o *OpenIdConnectApplicationNetwork) SetExclude(v []string) {
 
 // GetInclude returns the Include field value if set, zero value otherwise.
 func (o *OpenIdConnectApplicationNetwork) GetInclude() []string {
-	if o == nil || o.Include == nil {
+	if o == nil || IsNil(o.Include) {
 		var ret []string
 		return ret
 	}
@@ -127,7 +130,7 @@ func (o *OpenIdConnectApplicationNetwork) GetInclude() []string {
 // GetIncludeOk returns a tuple with the Include field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OpenIdConnectApplicationNetwork) GetIncludeOk() ([]string, bool) {
-	if o == nil || o.Include == nil {
+	if o == nil || IsNil(o.Include) {
 		return nil, false
 	}
 	return o.Include, true
@@ -135,7 +138,7 @@ func (o *OpenIdConnectApplicationNetwork) GetIncludeOk() ([]string, bool) {
 
 // HasInclude returns a boolean if a field has been set.
 func (o *OpenIdConnectApplicationNetwork) HasInclude() bool {
-	if o != nil && o.Include != nil {
+	if o != nil && !IsNil(o.Include) {
 		return true
 	}
 
@@ -148,14 +151,20 @@ func (o *OpenIdConnectApplicationNetwork) SetInclude(v []string) {
 }
 
 func (o OpenIdConnectApplicationNetwork) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["connection"] = o.Connection
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Exclude != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o OpenIdConnectApplicationNetwork) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["connection"] = o.Connection
+	if !IsNil(o.Exclude) {
 		toSerialize["exclude"] = o.Exclude
 	}
-	if o.Include != nil {
+	if !IsNil(o.Include) {
 		toSerialize["include"] = o.Include
 	}
 
@@ -163,29 +172,48 @@ func (o OpenIdConnectApplicationNetwork) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OpenIdConnectApplicationNetwork) UnmarshalJSON(bytes []byte) (err error) {
-	varOpenIdConnectApplicationNetwork := _OpenIdConnectApplicationNetwork{}
+func (o *OpenIdConnectApplicationNetwork) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"connection",
+	}
 
-	err = json.Unmarshal(bytes, &varOpenIdConnectApplicationNetwork)
-	if err == nil {
-		*o = OpenIdConnectApplicationNetwork(varOpenIdConnectApplicationNetwork)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varOpenIdConnectApplicationNetwork := _OpenIdConnectApplicationNetwork{}
+
+	err = json.Unmarshal(data, &varOpenIdConnectApplicationNetwork)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OpenIdConnectApplicationNetwork(varOpenIdConnectApplicationNetwork)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "connection")
 		delete(additionalProperties, "exclude")
 		delete(additionalProperties, "include")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -226,4 +254,3 @@ func (v *NullableOpenIdConnectApplicationNetwork) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

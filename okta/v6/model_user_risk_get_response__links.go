@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserRiskGetResponseLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserRiskGetResponseLinks{}
+
 // UserRiskGetResponseLinks struct for UserRiskGetResponseLinks
 type UserRiskGetResponseLinks struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	User *HrefObjectUserLink `json:"user,omitempty"`
+	Self                 *HrefObjectSelfLink `json:"self,omitempty"`
+	User                 *HrefObjectUserLink `json:"user,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewUserRiskGetResponseLinksWithDefaults() *UserRiskGetResponseLinks {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *UserRiskGetResponseLinks) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *UserRiskGetResponseLinks) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserRiskGetResponseLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -73,7 +76,7 @@ func (o *UserRiskGetResponseLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *UserRiskGetResponseLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *UserRiskGetResponseLinks) SetSelf(v HrefObjectSelfLink) {
 
 // GetUser returns the User field value if set, zero value otherwise.
 func (o *UserRiskGetResponseLinks) GetUser() HrefObjectUserLink {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		var ret HrefObjectUserLink
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *UserRiskGetResponseLinks) GetUser() HrefObjectUserLink {
 // GetUserOk returns a tuple with the User field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserRiskGetResponseLinks) GetUserOk() (*HrefObjectUserLink, bool) {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		return nil, false
 	}
 	return o.User, true
@@ -105,7 +108,7 @@ func (o *UserRiskGetResponseLinks) GetUserOk() (*HrefObjectUserLink, bool) {
 
 // HasUser returns a boolean if a field has been set.
 func (o *UserRiskGetResponseLinks) HasUser() bool {
-	if o != nil && o.User != nil {
+	if o != nil && !IsNil(o.User) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *UserRiskGetResponseLinks) SetUser(v HrefObjectUserLink) {
 }
 
 func (o UserRiskGetResponseLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserRiskGetResponseLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.User != nil {
+	if !IsNil(o.User) {
 		toSerialize["user"] = o.User
 	}
 
@@ -130,28 +141,26 @@ func (o UserRiskGetResponseLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserRiskGetResponseLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserRiskGetResponseLinks) UnmarshalJSON(data []byte) (err error) {
 	varUserRiskGetResponseLinks := _UserRiskGetResponseLinks{}
 
-	err = json.Unmarshal(bytes, &varUserRiskGetResponseLinks)
-	if err == nil {
-		*o = UserRiskGetResponseLinks(varUserRiskGetResponseLinks)
-	} else {
+	err = json.Unmarshal(data, &varUserRiskGetResponseLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserRiskGetResponseLinks(varUserRiskGetResponseLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "user")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableUserRiskGetResponseLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

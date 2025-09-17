@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the LinksSelfAndRoles type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LinksSelfAndRoles{}
+
 // LinksSelfAndRoles struct for LinksSelfAndRoles
 type LinksSelfAndRoles struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Roles *HrefObjectRoleLink `json:"roles,omitempty"`
+	Self                 *HrefObjectSelfLink `json:"self,omitempty"`
+	Roles                *HrefObjectRoleLink `json:"roles,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewLinksSelfAndRolesWithDefaults() *LinksSelfAndRoles {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *LinksSelfAndRoles) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *LinksSelfAndRoles) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksSelfAndRoles) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -73,7 +76,7 @@ func (o *LinksSelfAndRoles) GetSelfOk() (*HrefObjectSelfLink, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *LinksSelfAndRoles) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *LinksSelfAndRoles) SetSelf(v HrefObjectSelfLink) {
 
 // GetRoles returns the Roles field value if set, zero value otherwise.
 func (o *LinksSelfAndRoles) GetRoles() HrefObjectRoleLink {
-	if o == nil || o.Roles == nil {
+	if o == nil || IsNil(o.Roles) {
 		var ret HrefObjectRoleLink
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *LinksSelfAndRoles) GetRoles() HrefObjectRoleLink {
 // GetRolesOk returns a tuple with the Roles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksSelfAndRoles) GetRolesOk() (*HrefObjectRoleLink, bool) {
-	if o == nil || o.Roles == nil {
+	if o == nil || IsNil(o.Roles) {
 		return nil, false
 	}
 	return o.Roles, true
@@ -105,7 +108,7 @@ func (o *LinksSelfAndRoles) GetRolesOk() (*HrefObjectRoleLink, bool) {
 
 // HasRoles returns a boolean if a field has been set.
 func (o *LinksSelfAndRoles) HasRoles() bool {
-	if o != nil && o.Roles != nil {
+	if o != nil && !IsNil(o.Roles) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *LinksSelfAndRoles) SetRoles(v HrefObjectRoleLink) {
 }
 
 func (o LinksSelfAndRoles) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LinksSelfAndRoles) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.Roles != nil {
+	if !IsNil(o.Roles) {
 		toSerialize["roles"] = o.Roles
 	}
 
@@ -130,28 +141,26 @@ func (o LinksSelfAndRoles) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LinksSelfAndRoles) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LinksSelfAndRoles) UnmarshalJSON(data []byte) (err error) {
 	varLinksSelfAndRoles := _LinksSelfAndRoles{}
 
-	err = json.Unmarshal(bytes, &varLinksSelfAndRoles)
-	if err == nil {
-		*o = LinksSelfAndRoles(varLinksSelfAndRoles)
-	} else {
+	err = json.Unmarshal(data, &varLinksSelfAndRoles)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LinksSelfAndRoles(varLinksSelfAndRoles)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "roles")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableLinksSelfAndRoles) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

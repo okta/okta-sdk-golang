@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the GroupRuleGroupAssignment type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GroupRuleGroupAssignment{}
+
 // GroupRuleGroupAssignment Contains the `groupIds` array
 type GroupRuleGroupAssignment struct {
 	// Array of `groupIds` to which users are added
-	GroupIds []string `json:"groupIds,omitempty"`
+	GroupIds             []string `json:"groupIds,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewGroupRuleGroupAssignmentWithDefaults() *GroupRuleGroupAssignment {
 
 // GetGroupIds returns the GroupIds field value if set, zero value otherwise.
 func (o *GroupRuleGroupAssignment) GetGroupIds() []string {
-	if o == nil || o.GroupIds == nil {
+	if o == nil || IsNil(o.GroupIds) {
 		var ret []string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *GroupRuleGroupAssignment) GetGroupIds() []string {
 // GetGroupIdsOk returns a tuple with the GroupIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupRuleGroupAssignment) GetGroupIdsOk() ([]string, bool) {
-	if o == nil || o.GroupIds == nil {
+	if o == nil || IsNil(o.GroupIds) {
 		return nil, false
 	}
 	return o.GroupIds, true
@@ -73,7 +76,7 @@ func (o *GroupRuleGroupAssignment) GetGroupIdsOk() ([]string, bool) {
 
 // HasGroupIds returns a boolean if a field has been set.
 func (o *GroupRuleGroupAssignment) HasGroupIds() bool {
-	if o != nil && o.GroupIds != nil {
+	if o != nil && !IsNil(o.GroupIds) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *GroupRuleGroupAssignment) SetGroupIds(v []string) {
 }
 
 func (o GroupRuleGroupAssignment) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o GroupRuleGroupAssignment) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.GroupIds != nil {
+	if !IsNil(o.GroupIds) {
 		toSerialize["groupIds"] = o.GroupIds
 	}
 
@@ -95,27 +106,25 @@ func (o GroupRuleGroupAssignment) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *GroupRuleGroupAssignment) UnmarshalJSON(bytes []byte) (err error) {
+func (o *GroupRuleGroupAssignment) UnmarshalJSON(data []byte) (err error) {
 	varGroupRuleGroupAssignment := _GroupRuleGroupAssignment{}
 
-	err = json.Unmarshal(bytes, &varGroupRuleGroupAssignment)
-	if err == nil {
-		*o = GroupRuleGroupAssignment(varGroupRuleGroupAssignment)
-	} else {
+	err = json.Unmarshal(data, &varGroupRuleGroupAssignment)
+
+	if err != nil {
 		return err
 	}
 
+	*o = GroupRuleGroupAssignment(varGroupRuleGroupAssignment)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "groupIds")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableGroupRuleGroupAssignment) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

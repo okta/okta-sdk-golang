@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the ApplicationCredentials type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApplicationCredentials{}
+
 // ApplicationCredentials Credentials for the specified `signOnMode`
 type ApplicationCredentials struct {
-	Signing *ApplicationCredentialsSigning `json:"signing,omitempty"`
-	UserNameTemplate *ApplicationCredentialsUsernameTemplate `json:"userNameTemplate,omitempty"`
+	Signing              *ApplicationCredentialsSigning          `json:"signing,omitempty"`
+	UserNameTemplate     *ApplicationCredentialsUsernameTemplate `json:"userNameTemplate,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewApplicationCredentialsWithDefaults() *ApplicationCredentials {
 
 // GetSigning returns the Signing field value if set, zero value otherwise.
 func (o *ApplicationCredentials) GetSigning() ApplicationCredentialsSigning {
-	if o == nil || o.Signing == nil {
+	if o == nil || IsNil(o.Signing) {
 		var ret ApplicationCredentialsSigning
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *ApplicationCredentials) GetSigning() ApplicationCredentialsSigning {
 // GetSigningOk returns a tuple with the Signing field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationCredentials) GetSigningOk() (*ApplicationCredentialsSigning, bool) {
-	if o == nil || o.Signing == nil {
+	if o == nil || IsNil(o.Signing) {
 		return nil, false
 	}
 	return o.Signing, true
@@ -73,7 +76,7 @@ func (o *ApplicationCredentials) GetSigningOk() (*ApplicationCredentialsSigning,
 
 // HasSigning returns a boolean if a field has been set.
 func (o *ApplicationCredentials) HasSigning() bool {
-	if o != nil && o.Signing != nil {
+	if o != nil && !IsNil(o.Signing) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *ApplicationCredentials) SetSigning(v ApplicationCredentialsSigning) {
 
 // GetUserNameTemplate returns the UserNameTemplate field value if set, zero value otherwise.
 func (o *ApplicationCredentials) GetUserNameTemplate() ApplicationCredentialsUsernameTemplate {
-	if o == nil || o.UserNameTemplate == nil {
+	if o == nil || IsNil(o.UserNameTemplate) {
 		var ret ApplicationCredentialsUsernameTemplate
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *ApplicationCredentials) GetUserNameTemplate() ApplicationCredentialsUse
 // GetUserNameTemplateOk returns a tuple with the UserNameTemplate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationCredentials) GetUserNameTemplateOk() (*ApplicationCredentialsUsernameTemplate, bool) {
-	if o == nil || o.UserNameTemplate == nil {
+	if o == nil || IsNil(o.UserNameTemplate) {
 		return nil, false
 	}
 	return o.UserNameTemplate, true
@@ -105,7 +108,7 @@ func (o *ApplicationCredentials) GetUserNameTemplateOk() (*ApplicationCredential
 
 // HasUserNameTemplate returns a boolean if a field has been set.
 func (o *ApplicationCredentials) HasUserNameTemplate() bool {
-	if o != nil && o.UserNameTemplate != nil {
+	if o != nil && !IsNil(o.UserNameTemplate) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *ApplicationCredentials) SetUserNameTemplate(v ApplicationCredentialsUse
 }
 
 func (o ApplicationCredentials) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApplicationCredentials) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Signing != nil {
+	if !IsNil(o.Signing) {
 		toSerialize["signing"] = o.Signing
 	}
-	if o.UserNameTemplate != nil {
+	if !IsNil(o.UserNameTemplate) {
 		toSerialize["userNameTemplate"] = o.UserNameTemplate
 	}
 
@@ -130,28 +141,26 @@ func (o ApplicationCredentials) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ApplicationCredentials) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ApplicationCredentials) UnmarshalJSON(data []byte) (err error) {
 	varApplicationCredentials := _ApplicationCredentials{}
 
-	err = json.Unmarshal(bytes, &varApplicationCredentials)
-	if err == nil {
-		*o = ApplicationCredentials(varApplicationCredentials)
-	} else {
+	err = json.Unmarshal(data, &varApplicationCredentials)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ApplicationCredentials(varApplicationCredentials)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "signing")
 		delete(additionalProperties, "userNameTemplate")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableApplicationCredentials) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

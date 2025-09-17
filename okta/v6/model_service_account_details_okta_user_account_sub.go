@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,13 +28,16 @@ import (
 	"fmt"
 )
 
+// checks if the ServiceAccountDetailsOktaUserAccountSub type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ServiceAccountDetailsOktaUserAccountSub{}
+
 // ServiceAccountDetailsOktaUserAccountSub Details for managing an Okta user as a service account
 type ServiceAccountDetailsOktaUserAccountSub struct {
 	Credentials *OktaUserServiceAccountCredentials `json:"credentials,omitempty"`
 	// The email address for the Okta user
 	Email *string `json:"email,omitempty"`
 	// The ID of the Okta user to manage as a service account
-	OktaUserId string `json:"oktaUserId"`
+	OktaUserId           string `json:"oktaUserId"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +63,7 @@ func NewServiceAccountDetailsOktaUserAccountSubWithDefaults() *ServiceAccountDet
 
 // GetCredentials returns the Credentials field value if set, zero value otherwise.
 func (o *ServiceAccountDetailsOktaUserAccountSub) GetCredentials() OktaUserServiceAccountCredentials {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		var ret OktaUserServiceAccountCredentials
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *ServiceAccountDetailsOktaUserAccountSub) GetCredentials() OktaUserServi
 // GetCredentialsOk returns a tuple with the Credentials field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServiceAccountDetailsOktaUserAccountSub) GetCredentialsOk() (*OktaUserServiceAccountCredentials, bool) {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		return nil, false
 	}
 	return o.Credentials, true
@@ -78,7 +81,7 @@ func (o *ServiceAccountDetailsOktaUserAccountSub) GetCredentialsOk() (*OktaUserS
 
 // HasCredentials returns a boolean if a field has been set.
 func (o *ServiceAccountDetailsOktaUserAccountSub) HasCredentials() bool {
-	if o != nil && o.Credentials != nil {
+	if o != nil && !IsNil(o.Credentials) {
 		return true
 	}
 
@@ -92,7 +95,7 @@ func (o *ServiceAccountDetailsOktaUserAccountSub) SetCredentials(v OktaUserServi
 
 // GetEmail returns the Email field value if set, zero value otherwise.
 func (o *ServiceAccountDetailsOktaUserAccountSub) GetEmail() string {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		var ret string
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *ServiceAccountDetailsOktaUserAccountSub) GetEmail() string {
 // GetEmailOk returns a tuple with the Email field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServiceAccountDetailsOktaUserAccountSub) GetEmailOk() (*string, bool) {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		return nil, false
 	}
 	return o.Email, true
@@ -110,7 +113,7 @@ func (o *ServiceAccountDetailsOktaUserAccountSub) GetEmailOk() (*string, bool) {
 
 // HasEmail returns a boolean if a field has been set.
 func (o *ServiceAccountDetailsOktaUserAccountSub) HasEmail() bool {
-	if o != nil && o.Email != nil {
+	if o != nil && !IsNil(o.Email) {
 		return true
 	}
 
@@ -147,44 +150,69 @@ func (o *ServiceAccountDetailsOktaUserAccountSub) SetOktaUserId(v string) {
 }
 
 func (o ServiceAccountDetailsOktaUserAccountSub) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ServiceAccountDetailsOktaUserAccountSub) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Credentials != nil {
+	if !IsNil(o.Credentials) {
 		toSerialize["credentials"] = o.Credentials
 	}
-	if o.Email != nil {
+	if !IsNil(o.Email) {
 		toSerialize["email"] = o.Email
 	}
-	if true {
-		toSerialize["oktaUserId"] = o.OktaUserId
-	}
+	toSerialize["oktaUserId"] = o.OktaUserId
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ServiceAccountDetailsOktaUserAccountSub) UnmarshalJSON(bytes []byte) (err error) {
-	varServiceAccountDetailsOktaUserAccountSub := _ServiceAccountDetailsOktaUserAccountSub{}
+func (o *ServiceAccountDetailsOktaUserAccountSub) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"oktaUserId",
+	}
 
-	err = json.Unmarshal(bytes, &varServiceAccountDetailsOktaUserAccountSub)
-	if err == nil {
-		*o = ServiceAccountDetailsOktaUserAccountSub(varServiceAccountDetailsOktaUserAccountSub)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varServiceAccountDetailsOktaUserAccountSub := _ServiceAccountDetailsOktaUserAccountSub{}
+
+	err = json.Unmarshal(data, &varServiceAccountDetailsOktaUserAccountSub)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServiceAccountDetailsOktaUserAccountSub(varServiceAccountDetailsOktaUserAccountSub)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "credentials")
 		delete(additionalProperties, "email")
 		delete(additionalProperties, "oktaUserId")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -225,4 +253,3 @@ func (v *NullableServiceAccountDetailsOktaUserAccountSub) UnmarshalJSON(src []by
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

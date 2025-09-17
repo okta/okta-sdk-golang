@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,12 +28,15 @@ import (
 	"fmt"
 )
 
+// checks if the PrivilegedResourceCredentials type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PrivilegedResourceCredentials{}
+
 // PrivilegedResourceCredentials Credentials for the privileged resource
 type PrivilegedResourceCredentials struct {
 	// The password associated with the privileged resource
 	Password *string `json:"password,omitempty"`
 	// The username associated with the privileged resource
-	UserName string `json:"userName"`
+	UserName             string `json:"userName"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewPrivilegedResourceCredentialsWithDefaults() *PrivilegedResourceCredentia
 
 // GetPassword returns the Password field value if set, zero value otherwise.
 func (o *PrivilegedResourceCredentials) GetPassword() string {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *PrivilegedResourceCredentials) GetPassword() string {
 // GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrivilegedResourceCredentials) GetPasswordOk() (*string, bool) {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		return nil, false
 	}
 	return o.Password, true
@@ -77,7 +80,7 @@ func (o *PrivilegedResourceCredentials) GetPasswordOk() (*string, bool) {
 
 // HasPassword returns a boolean if a field has been set.
 func (o *PrivilegedResourceCredentials) HasPassword() bool {
-	if o != nil && o.Password != nil {
+	if o != nil && !IsNil(o.Password) {
 		return true
 	}
 
@@ -114,40 +117,65 @@ func (o *PrivilegedResourceCredentials) SetUserName(v string) {
 }
 
 func (o PrivilegedResourceCredentials) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PrivilegedResourceCredentials) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Password != nil {
+	if !IsNil(o.Password) {
 		toSerialize["password"] = o.Password
 	}
-	if true {
-		toSerialize["userName"] = o.UserName
-	}
+	toSerialize["userName"] = o.UserName
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PrivilegedResourceCredentials) UnmarshalJSON(bytes []byte) (err error) {
-	varPrivilegedResourceCredentials := _PrivilegedResourceCredentials{}
+func (o *PrivilegedResourceCredentials) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"userName",
+	}
 
-	err = json.Unmarshal(bytes, &varPrivilegedResourceCredentials)
-	if err == nil {
-		*o = PrivilegedResourceCredentials(varPrivilegedResourceCredentials)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPrivilegedResourceCredentials := _PrivilegedResourceCredentials{}
+
+	err = json.Unmarshal(data, &varPrivilegedResourceCredentials)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PrivilegedResourceCredentials(varPrivilegedResourceCredentials)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "password")
 		delete(additionalProperties, "userName")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -188,4 +216,3 @@ func (v *NullablePrivilegedResourceCredentials) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

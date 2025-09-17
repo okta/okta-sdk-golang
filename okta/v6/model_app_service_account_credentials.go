@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,12 +28,15 @@ import (
 	"fmt"
 )
 
+// checks if the AppServiceAccountCredentials type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AppServiceAccountCredentials{}
+
 // AppServiceAccountCredentials Credentials for a SaaS app account
 type AppServiceAccountCredentials struct {
 	// The password associated with the service account
 	Password *string `json:"password,omitempty"`
 	// The username associated with the service account
-	Username string `json:"username"`
+	Username             string `json:"username"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewAppServiceAccountCredentialsWithDefaults() *AppServiceAccountCredentials
 
 // GetPassword returns the Password field value if set, zero value otherwise.
 func (o *AppServiceAccountCredentials) GetPassword() string {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *AppServiceAccountCredentials) GetPassword() string {
 // GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppServiceAccountCredentials) GetPasswordOk() (*string, bool) {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		return nil, false
 	}
 	return o.Password, true
@@ -77,7 +80,7 @@ func (o *AppServiceAccountCredentials) GetPasswordOk() (*string, bool) {
 
 // HasPassword returns a boolean if a field has been set.
 func (o *AppServiceAccountCredentials) HasPassword() bool {
-	if o != nil && o.Password != nil {
+	if o != nil && !IsNil(o.Password) {
 		return true
 	}
 
@@ -114,40 +117,65 @@ func (o *AppServiceAccountCredentials) SetUsername(v string) {
 }
 
 func (o AppServiceAccountCredentials) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AppServiceAccountCredentials) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Password != nil {
+	if !IsNil(o.Password) {
 		toSerialize["password"] = o.Password
 	}
-	if true {
-		toSerialize["username"] = o.Username
-	}
+	toSerialize["username"] = o.Username
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AppServiceAccountCredentials) UnmarshalJSON(bytes []byte) (err error) {
-	varAppServiceAccountCredentials := _AppServiceAccountCredentials{}
+func (o *AppServiceAccountCredentials) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"username",
+	}
 
-	err = json.Unmarshal(bytes, &varAppServiceAccountCredentials)
-	if err == nil {
-		*o = AppServiceAccountCredentials(varAppServiceAccountCredentials)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAppServiceAccountCredentials := _AppServiceAccountCredentials{}
+
+	err = json.Unmarshal(data, &varAppServiceAccountCredentials)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AppServiceAccountCredentials(varAppServiceAccountCredentials)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "password")
 		delete(additionalProperties, "username")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -188,4 +216,3 @@ func (v *NullableAppServiceAccountCredentials) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

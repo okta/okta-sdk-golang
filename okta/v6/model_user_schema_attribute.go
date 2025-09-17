@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package okta
 import (
 	"encoding/json"
 )
+
+// checks if the UserSchemaAttribute type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserSchemaAttribute{}
 
 // UserSchemaAttribute struct for UserSchemaAttribute
 type UserSchemaAttribute struct {
@@ -57,13 +60,13 @@ type UserSchemaAttribute struct {
 	Permissions []UserSchemaAttributePermission `json:"permissions,omitempty"`
 	// Determines whether the property is required
 	Required NullableBool `json:"required,omitempty"`
-	Scope *string `json:"scope,omitempty"`
+	Scope    *string      `json:"scope,omitempty"`
 	// User-defined display name for the property
 	Title *string `json:"title,omitempty"`
 	// Type of property
 	Type *string `json:"type,omitempty"`
 	// Determines whether property values must be unique
-	Unique NullableBool `json:"unique,omitempty"`
+	Unique               NullableBool `json:"unique,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -99,7 +102,7 @@ func (o *UserSchemaAttribute) GetDefault() interface{} {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UserSchemaAttribute) GetDefaultOk() (*interface{}, bool) {
-	if o == nil || o.Default == nil {
+	if o == nil || IsNil(o.Default) {
 		return nil, false
 	}
 	return &o.Default, true
@@ -107,7 +110,7 @@ func (o *UserSchemaAttribute) GetDefaultOk() (*interface{}, bool) {
 
 // HasDefault returns a boolean if a field has been set.
 func (o *UserSchemaAttribute) HasDefault() bool {
-	if o != nil && o.Default != nil {
+	if o != nil && !IsNil(o.Default) {
 		return true
 	}
 
@@ -121,7 +124,7 @@ func (o *UserSchemaAttribute) SetDefault(v interface{}) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *UserSchemaAttribute) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -131,7 +134,7 @@ func (o *UserSchemaAttribute) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaAttribute) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -139,7 +142,7 @@ func (o *UserSchemaAttribute) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *UserSchemaAttribute) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -164,7 +167,7 @@ func (o *UserSchemaAttribute) GetEnum() []GroupSchemaAttributeEnumInner {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UserSchemaAttribute) GetEnumOk() ([]GroupSchemaAttributeEnumInner, bool) {
-	if o == nil || o.Enum == nil {
+	if o == nil || IsNil(o.Enum) {
 		return nil, false
 	}
 	return o.Enum, true
@@ -172,7 +175,7 @@ func (o *UserSchemaAttribute) GetEnumOk() ([]GroupSchemaAttributeEnumInner, bool
 
 // HasEnum returns a boolean if a field has been set.
 func (o *UserSchemaAttribute) HasEnum() bool {
-	if o != nil && o.Enum != nil {
+	if o != nil && !IsNil(o.Enum) {
 		return true
 	}
 
@@ -186,7 +189,7 @@ func (o *UserSchemaAttribute) SetEnum(v []GroupSchemaAttributeEnumInner) {
 
 // GetExternalName returns the ExternalName field value if set, zero value otherwise.
 func (o *UserSchemaAttribute) GetExternalName() string {
-	if o == nil || o.ExternalName == nil {
+	if o == nil || IsNil(o.ExternalName) {
 		var ret string
 		return ret
 	}
@@ -196,7 +199,7 @@ func (o *UserSchemaAttribute) GetExternalName() string {
 // GetExternalNameOk returns a tuple with the ExternalName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaAttribute) GetExternalNameOk() (*string, bool) {
-	if o == nil || o.ExternalName == nil {
+	if o == nil || IsNil(o.ExternalName) {
 		return nil, false
 	}
 	return o.ExternalName, true
@@ -204,7 +207,7 @@ func (o *UserSchemaAttribute) GetExternalNameOk() (*string, bool) {
 
 // HasExternalName returns a boolean if a field has been set.
 func (o *UserSchemaAttribute) HasExternalName() bool {
-	if o != nil && o.ExternalName != nil {
+	if o != nil && !IsNil(o.ExternalName) {
 		return true
 	}
 
@@ -218,7 +221,7 @@ func (o *UserSchemaAttribute) SetExternalName(v string) {
 
 // GetExternalNamespace returns the ExternalNamespace field value if set, zero value otherwise.
 func (o *UserSchemaAttribute) GetExternalNamespace() string {
-	if o == nil || o.ExternalNamespace == nil {
+	if o == nil || IsNil(o.ExternalNamespace) {
 		var ret string
 		return ret
 	}
@@ -228,7 +231,7 @@ func (o *UserSchemaAttribute) GetExternalNamespace() string {
 // GetExternalNamespaceOk returns a tuple with the ExternalNamespace field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaAttribute) GetExternalNamespaceOk() (*string, bool) {
-	if o == nil || o.ExternalNamespace == nil {
+	if o == nil || IsNil(o.ExternalNamespace) {
 		return nil, false
 	}
 	return o.ExternalNamespace, true
@@ -236,7 +239,7 @@ func (o *UserSchemaAttribute) GetExternalNamespaceOk() (*string, bool) {
 
 // HasExternalNamespace returns a boolean if a field has been set.
 func (o *UserSchemaAttribute) HasExternalNamespace() bool {
-	if o != nil && o.ExternalNamespace != nil {
+	if o != nil && !IsNil(o.ExternalNamespace) {
 		return true
 	}
 
@@ -250,7 +253,7 @@ func (o *UserSchemaAttribute) SetExternalNamespace(v string) {
 
 // GetFormat returns the Format field value if set, zero value otherwise.
 func (o *UserSchemaAttribute) GetFormat() string {
-	if o == nil || o.Format == nil {
+	if o == nil || IsNil(o.Format) {
 		var ret string
 		return ret
 	}
@@ -260,7 +263,7 @@ func (o *UserSchemaAttribute) GetFormat() string {
 // GetFormatOk returns a tuple with the Format field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaAttribute) GetFormatOk() (*string, bool) {
-	if o == nil || o.Format == nil {
+	if o == nil || IsNil(o.Format) {
 		return nil, false
 	}
 	return o.Format, true
@@ -268,7 +271,7 @@ func (o *UserSchemaAttribute) GetFormatOk() (*string, bool) {
 
 // HasFormat returns a boolean if a field has been set.
 func (o *UserSchemaAttribute) HasFormat() bool {
-	if o != nil && o.Format != nil {
+	if o != nil && !IsNil(o.Format) {
 		return true
 	}
 
@@ -282,7 +285,7 @@ func (o *UserSchemaAttribute) SetFormat(v string) {
 
 // GetMaster returns the Master field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserSchemaAttribute) GetMaster() UserSchemaAttributeMaster {
-	if o == nil || o.Master.Get() == nil {
+	if o == nil || IsNil(o.Master.Get()) {
 		var ret UserSchemaAttributeMaster
 		return ret
 	}
@@ -312,6 +315,7 @@ func (o *UserSchemaAttribute) HasMaster() bool {
 func (o *UserSchemaAttribute) SetMaster(v UserSchemaAttributeMaster) {
 	o.Master.Set(&v)
 }
+
 // SetMasterNil sets the value for Master to be an explicit nil
 func (o *UserSchemaAttribute) SetMasterNil() {
 	o.Master.Set(nil)
@@ -324,7 +328,7 @@ func (o *UserSchemaAttribute) UnsetMaster() {
 
 // GetMaxLength returns the MaxLength field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserSchemaAttribute) GetMaxLength() int32 {
-	if o == nil || o.MaxLength.Get() == nil {
+	if o == nil || IsNil(o.MaxLength.Get()) {
 		var ret int32
 		return ret
 	}
@@ -354,6 +358,7 @@ func (o *UserSchemaAttribute) HasMaxLength() bool {
 func (o *UserSchemaAttribute) SetMaxLength(v int32) {
 	o.MaxLength.Set(&v)
 }
+
 // SetMaxLengthNil sets the value for MaxLength to be an explicit nil
 func (o *UserSchemaAttribute) SetMaxLengthNil() {
 	o.MaxLength.Set(nil)
@@ -366,7 +371,7 @@ func (o *UserSchemaAttribute) UnsetMaxLength() {
 
 // GetMinLength returns the MinLength field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserSchemaAttribute) GetMinLength() int32 {
-	if o == nil || o.MinLength.Get() == nil {
+	if o == nil || IsNil(o.MinLength.Get()) {
 		var ret int32
 		return ret
 	}
@@ -396,6 +401,7 @@ func (o *UserSchemaAttribute) HasMinLength() bool {
 func (o *UserSchemaAttribute) SetMinLength(v int32) {
 	o.MinLength.Set(&v)
 }
+
 // SetMinLengthNil sets the value for MinLength to be an explicit nil
 func (o *UserSchemaAttribute) SetMinLengthNil() {
 	o.MinLength.Set(nil)
@@ -408,7 +414,7 @@ func (o *UserSchemaAttribute) UnsetMinLength() {
 
 // GetMutability returns the Mutability field value if set, zero value otherwise.
 func (o *UserSchemaAttribute) GetMutability() string {
-	if o == nil || o.Mutability == nil {
+	if o == nil || IsNil(o.Mutability) {
 		var ret string
 		return ret
 	}
@@ -418,7 +424,7 @@ func (o *UserSchemaAttribute) GetMutability() string {
 // GetMutabilityOk returns a tuple with the Mutability field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaAttribute) GetMutabilityOk() (*string, bool) {
-	if o == nil || o.Mutability == nil {
+	if o == nil || IsNil(o.Mutability) {
 		return nil, false
 	}
 	return o.Mutability, true
@@ -426,7 +432,7 @@ func (o *UserSchemaAttribute) GetMutabilityOk() (*string, bool) {
 
 // HasMutability returns a boolean if a field has been set.
 func (o *UserSchemaAttribute) HasMutability() bool {
-	if o != nil && o.Mutability != nil {
+	if o != nil && !IsNil(o.Mutability) {
 		return true
 	}
 
@@ -451,7 +457,7 @@ func (o *UserSchemaAttribute) GetOneOf() []UserSchemaAttributeEnum {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UserSchemaAttribute) GetOneOfOk() ([]UserSchemaAttributeEnum, bool) {
-	if o == nil || o.OneOf == nil {
+	if o == nil || IsNil(o.OneOf) {
 		return nil, false
 	}
 	return o.OneOf, true
@@ -459,7 +465,7 @@ func (o *UserSchemaAttribute) GetOneOfOk() ([]UserSchemaAttributeEnum, bool) {
 
 // HasOneOf returns a boolean if a field has been set.
 func (o *UserSchemaAttribute) HasOneOf() bool {
-	if o != nil && o.OneOf != nil {
+	if o != nil && !IsNil(o.OneOf) {
 		return true
 	}
 
@@ -473,7 +479,7 @@ func (o *UserSchemaAttribute) SetOneOf(v []UserSchemaAttributeEnum) {
 
 // GetPattern returns the Pattern field value if set, zero value otherwise.
 func (o *UserSchemaAttribute) GetPattern() string {
-	if o == nil || o.Pattern == nil {
+	if o == nil || IsNil(o.Pattern) {
 		var ret string
 		return ret
 	}
@@ -483,7 +489,7 @@ func (o *UserSchemaAttribute) GetPattern() string {
 // GetPatternOk returns a tuple with the Pattern field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaAttribute) GetPatternOk() (*string, bool) {
-	if o == nil || o.Pattern == nil {
+	if o == nil || IsNil(o.Pattern) {
 		return nil, false
 	}
 	return o.Pattern, true
@@ -491,7 +497,7 @@ func (o *UserSchemaAttribute) GetPatternOk() (*string, bool) {
 
 // HasPattern returns a boolean if a field has been set.
 func (o *UserSchemaAttribute) HasPattern() bool {
-	if o != nil && o.Pattern != nil {
+	if o != nil && !IsNil(o.Pattern) {
 		return true
 	}
 
@@ -516,7 +522,7 @@ func (o *UserSchemaAttribute) GetPermissions() []UserSchemaAttributePermission {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UserSchemaAttribute) GetPermissionsOk() ([]UserSchemaAttributePermission, bool) {
-	if o == nil || o.Permissions == nil {
+	if o == nil || IsNil(o.Permissions) {
 		return nil, false
 	}
 	return o.Permissions, true
@@ -524,7 +530,7 @@ func (o *UserSchemaAttribute) GetPermissionsOk() ([]UserSchemaAttributePermissio
 
 // HasPermissions returns a boolean if a field has been set.
 func (o *UserSchemaAttribute) HasPermissions() bool {
-	if o != nil && o.Permissions != nil {
+	if o != nil && !IsNil(o.Permissions) {
 		return true
 	}
 
@@ -538,7 +544,7 @@ func (o *UserSchemaAttribute) SetPermissions(v []UserSchemaAttributePermission) 
 
 // GetRequired returns the Required field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserSchemaAttribute) GetRequired() bool {
-	if o == nil || o.Required.Get() == nil {
+	if o == nil || IsNil(o.Required.Get()) {
 		var ret bool
 		return ret
 	}
@@ -568,6 +574,7 @@ func (o *UserSchemaAttribute) HasRequired() bool {
 func (o *UserSchemaAttribute) SetRequired(v bool) {
 	o.Required.Set(&v)
 }
+
 // SetRequiredNil sets the value for Required to be an explicit nil
 func (o *UserSchemaAttribute) SetRequiredNil() {
 	o.Required.Set(nil)
@@ -580,7 +587,7 @@ func (o *UserSchemaAttribute) UnsetRequired() {
 
 // GetScope returns the Scope field value if set, zero value otherwise.
 func (o *UserSchemaAttribute) GetScope() string {
-	if o == nil || o.Scope == nil {
+	if o == nil || IsNil(o.Scope) {
 		var ret string
 		return ret
 	}
@@ -590,7 +597,7 @@ func (o *UserSchemaAttribute) GetScope() string {
 // GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaAttribute) GetScopeOk() (*string, bool) {
-	if o == nil || o.Scope == nil {
+	if o == nil || IsNil(o.Scope) {
 		return nil, false
 	}
 	return o.Scope, true
@@ -598,7 +605,7 @@ func (o *UserSchemaAttribute) GetScopeOk() (*string, bool) {
 
 // HasScope returns a boolean if a field has been set.
 func (o *UserSchemaAttribute) HasScope() bool {
-	if o != nil && o.Scope != nil {
+	if o != nil && !IsNil(o.Scope) {
 		return true
 	}
 
@@ -612,7 +619,7 @@ func (o *UserSchemaAttribute) SetScope(v string) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *UserSchemaAttribute) GetTitle() string {
-	if o == nil || o.Title == nil {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -622,7 +629,7 @@ func (o *UserSchemaAttribute) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaAttribute) GetTitleOk() (*string, bool) {
-	if o == nil || o.Title == nil {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -630,7 +637,7 @@ func (o *UserSchemaAttribute) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *UserSchemaAttribute) HasTitle() bool {
-	if o != nil && o.Title != nil {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -644,7 +651,7 @@ func (o *UserSchemaAttribute) SetTitle(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *UserSchemaAttribute) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -654,7 +661,7 @@ func (o *UserSchemaAttribute) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaAttribute) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -662,7 +669,7 @@ func (o *UserSchemaAttribute) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *UserSchemaAttribute) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -676,7 +683,7 @@ func (o *UserSchemaAttribute) SetType(v string) {
 
 // GetUnique returns the Unique field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserSchemaAttribute) GetUnique() bool {
-	if o == nil || o.Unique.Get() == nil {
+	if o == nil || IsNil(o.Unique.Get()) {
 		var ret bool
 		return ret
 	}
@@ -706,6 +713,7 @@ func (o *UserSchemaAttribute) HasUnique() bool {
 func (o *UserSchemaAttribute) SetUnique(v bool) {
 	o.Unique.Set(&v)
 }
+
 // SetUniqueNil sets the value for Unique to be an explicit nil
 func (o *UserSchemaAttribute) SetUniqueNil() {
 	o.Unique.Set(nil)
@@ -717,23 +725,31 @@ func (o *UserSchemaAttribute) UnsetUnique() {
 }
 
 func (o UserSchemaAttribute) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserSchemaAttribute) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Default != nil {
 		toSerialize["default"] = o.Default
 	}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
 	if o.Enum != nil {
 		toSerialize["enum"] = o.Enum
 	}
-	if o.ExternalName != nil {
+	if !IsNil(o.ExternalName) {
 		toSerialize["externalName"] = o.ExternalName
 	}
-	if o.ExternalNamespace != nil {
+	if !IsNil(o.ExternalNamespace) {
 		toSerialize["externalNamespace"] = o.ExternalNamespace
 	}
-	if o.Format != nil {
+	if !IsNil(o.Format) {
 		toSerialize["format"] = o.Format
 	}
 	if o.Master.IsSet() {
@@ -745,13 +761,13 @@ func (o UserSchemaAttribute) MarshalJSON() ([]byte, error) {
 	if o.MinLength.IsSet() {
 		toSerialize["minLength"] = o.MinLength.Get()
 	}
-	if o.Mutability != nil {
+	if !IsNil(o.Mutability) {
 		toSerialize["mutability"] = o.Mutability
 	}
 	if o.OneOf != nil {
 		toSerialize["oneOf"] = o.OneOf
 	}
-	if o.Pattern != nil {
+	if !IsNil(o.Pattern) {
 		toSerialize["pattern"] = o.Pattern
 	}
 	if o.Permissions != nil {
@@ -760,13 +776,13 @@ func (o UserSchemaAttribute) MarshalJSON() ([]byte, error) {
 	if o.Required.IsSet() {
 		toSerialize["required"] = o.Required.Get()
 	}
-	if o.Scope != nil {
+	if !IsNil(o.Scope) {
 		toSerialize["scope"] = o.Scope
 	}
-	if o.Title != nil {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 	if o.Unique.IsSet() {
@@ -777,23 +793,23 @@ func (o UserSchemaAttribute) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserSchemaAttribute) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserSchemaAttribute) UnmarshalJSON(data []byte) (err error) {
 	varUserSchemaAttribute := _UserSchemaAttribute{}
 
-	err = json.Unmarshal(bytes, &varUserSchemaAttribute)
-	if err == nil {
-		*o = UserSchemaAttribute(varUserSchemaAttribute)
-	} else {
+	err = json.Unmarshal(data, &varUserSchemaAttribute)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserSchemaAttribute(varUserSchemaAttribute)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "default")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "enum")
@@ -813,8 +829,6 @@ func (o *UserSchemaAttribute) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "unique")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -855,4 +869,3 @@ func (v *NullableUserSchemaAttribute) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

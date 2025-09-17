@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the BaseContextUserProfile type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BaseContextUserProfile{}
+
 // BaseContextUserProfile struct for BaseContextUserProfile
 type BaseContextUserProfile struct {
 	// The username used to identify the user. This is often the user's email address.
@@ -38,7 +41,7 @@ type BaseContextUserProfile struct {
 	// The user's default location for purposes of localizing items such as currency, date time format, numerical representations, and so on. A locale value is a concatenation of the [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes) two-letter language code, an underscore, and the [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) two-letter country code. For example, `en_US` specifies the language English and country US. This value is `en_US` by default.
 	Locale *string `json:"locale,omitempty"`
 	// The user's timezone
-	TimeZone *string `json:"timeZone,omitempty"`
+	TimeZone             *string `json:"timeZone,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -63,7 +66,7 @@ func NewBaseContextUserProfileWithDefaults() *BaseContextUserProfile {
 
 // GetLogin returns the Login field value if set, zero value otherwise.
 func (o *BaseContextUserProfile) GetLogin() string {
-	if o == nil || o.Login == nil {
+	if o == nil || IsNil(o.Login) {
 		var ret string
 		return ret
 	}
@@ -73,7 +76,7 @@ func (o *BaseContextUserProfile) GetLogin() string {
 // GetLoginOk returns a tuple with the Login field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseContextUserProfile) GetLoginOk() (*string, bool) {
-	if o == nil || o.Login == nil {
+	if o == nil || IsNil(o.Login) {
 		return nil, false
 	}
 	return o.Login, true
@@ -81,7 +84,7 @@ func (o *BaseContextUserProfile) GetLoginOk() (*string, bool) {
 
 // HasLogin returns a boolean if a field has been set.
 func (o *BaseContextUserProfile) HasLogin() bool {
-	if o != nil && o.Login != nil {
+	if o != nil && !IsNil(o.Login) {
 		return true
 	}
 
@@ -95,7 +98,7 @@ func (o *BaseContextUserProfile) SetLogin(v string) {
 
 // GetFirstName returns the FirstName field value if set, zero value otherwise.
 func (o *BaseContextUserProfile) GetFirstName() string {
-	if o == nil || o.FirstName == nil {
+	if o == nil || IsNil(o.FirstName) {
 		var ret string
 		return ret
 	}
@@ -105,7 +108,7 @@ func (o *BaseContextUserProfile) GetFirstName() string {
 // GetFirstNameOk returns a tuple with the FirstName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseContextUserProfile) GetFirstNameOk() (*string, bool) {
-	if o == nil || o.FirstName == nil {
+	if o == nil || IsNil(o.FirstName) {
 		return nil, false
 	}
 	return o.FirstName, true
@@ -113,7 +116,7 @@ func (o *BaseContextUserProfile) GetFirstNameOk() (*string, bool) {
 
 // HasFirstName returns a boolean if a field has been set.
 func (o *BaseContextUserProfile) HasFirstName() bool {
-	if o != nil && o.FirstName != nil {
+	if o != nil && !IsNil(o.FirstName) {
 		return true
 	}
 
@@ -127,7 +130,7 @@ func (o *BaseContextUserProfile) SetFirstName(v string) {
 
 // GetLastName returns the LastName field value if set, zero value otherwise.
 func (o *BaseContextUserProfile) GetLastName() string {
-	if o == nil || o.LastName == nil {
+	if o == nil || IsNil(o.LastName) {
 		var ret string
 		return ret
 	}
@@ -137,7 +140,7 @@ func (o *BaseContextUserProfile) GetLastName() string {
 // GetLastNameOk returns a tuple with the LastName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseContextUserProfile) GetLastNameOk() (*string, bool) {
-	if o == nil || o.LastName == nil {
+	if o == nil || IsNil(o.LastName) {
 		return nil, false
 	}
 	return o.LastName, true
@@ -145,7 +148,7 @@ func (o *BaseContextUserProfile) GetLastNameOk() (*string, bool) {
 
 // HasLastName returns a boolean if a field has been set.
 func (o *BaseContextUserProfile) HasLastName() bool {
-	if o != nil && o.LastName != nil {
+	if o != nil && !IsNil(o.LastName) {
 		return true
 	}
 
@@ -159,7 +162,7 @@ func (o *BaseContextUserProfile) SetLastName(v string) {
 
 // GetLocale returns the Locale field value if set, zero value otherwise.
 func (o *BaseContextUserProfile) GetLocale() string {
-	if o == nil || o.Locale == nil {
+	if o == nil || IsNil(o.Locale) {
 		var ret string
 		return ret
 	}
@@ -169,7 +172,7 @@ func (o *BaseContextUserProfile) GetLocale() string {
 // GetLocaleOk returns a tuple with the Locale field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseContextUserProfile) GetLocaleOk() (*string, bool) {
-	if o == nil || o.Locale == nil {
+	if o == nil || IsNil(o.Locale) {
 		return nil, false
 	}
 	return o.Locale, true
@@ -177,7 +180,7 @@ func (o *BaseContextUserProfile) GetLocaleOk() (*string, bool) {
 
 // HasLocale returns a boolean if a field has been set.
 func (o *BaseContextUserProfile) HasLocale() bool {
-	if o != nil && o.Locale != nil {
+	if o != nil && !IsNil(o.Locale) {
 		return true
 	}
 
@@ -191,7 +194,7 @@ func (o *BaseContextUserProfile) SetLocale(v string) {
 
 // GetTimeZone returns the TimeZone field value if set, zero value otherwise.
 func (o *BaseContextUserProfile) GetTimeZone() string {
-	if o == nil || o.TimeZone == nil {
+	if o == nil || IsNil(o.TimeZone) {
 		var ret string
 		return ret
 	}
@@ -201,7 +204,7 @@ func (o *BaseContextUserProfile) GetTimeZone() string {
 // GetTimeZoneOk returns a tuple with the TimeZone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseContextUserProfile) GetTimeZoneOk() (*string, bool) {
-	if o == nil || o.TimeZone == nil {
+	if o == nil || IsNil(o.TimeZone) {
 		return nil, false
 	}
 	return o.TimeZone, true
@@ -209,7 +212,7 @@ func (o *BaseContextUserProfile) GetTimeZoneOk() (*string, bool) {
 
 // HasTimeZone returns a boolean if a field has been set.
 func (o *BaseContextUserProfile) HasTimeZone() bool {
-	if o != nil && o.TimeZone != nil {
+	if o != nil && !IsNil(o.TimeZone) {
 		return true
 	}
 
@@ -222,20 +225,28 @@ func (o *BaseContextUserProfile) SetTimeZone(v string) {
 }
 
 func (o BaseContextUserProfile) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BaseContextUserProfile) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Login != nil {
+	if !IsNil(o.Login) {
 		toSerialize["login"] = o.Login
 	}
-	if o.FirstName != nil {
+	if !IsNil(o.FirstName) {
 		toSerialize["firstName"] = o.FirstName
 	}
-	if o.LastName != nil {
+	if !IsNil(o.LastName) {
 		toSerialize["lastName"] = o.LastName
 	}
-	if o.Locale != nil {
+	if !IsNil(o.Locale) {
 		toSerialize["locale"] = o.Locale
 	}
-	if o.TimeZone != nil {
+	if !IsNil(o.TimeZone) {
 		toSerialize["timeZone"] = o.TimeZone
 	}
 
@@ -243,31 +254,29 @@ func (o BaseContextUserProfile) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *BaseContextUserProfile) UnmarshalJSON(bytes []byte) (err error) {
+func (o *BaseContextUserProfile) UnmarshalJSON(data []byte) (err error) {
 	varBaseContextUserProfile := _BaseContextUserProfile{}
 
-	err = json.Unmarshal(bytes, &varBaseContextUserProfile)
-	if err == nil {
-		*o = BaseContextUserProfile(varBaseContextUserProfile)
-	} else {
+	err = json.Unmarshal(data, &varBaseContextUserProfile)
+
+	if err != nil {
 		return err
 	}
 
+	*o = BaseContextUserProfile(varBaseContextUserProfile)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "login")
 		delete(additionalProperties, "firstName")
 		delete(additionalProperties, "lastName")
 		delete(additionalProperties, "locale")
 		delete(additionalProperties, "timeZone")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -308,4 +317,3 @@ func (v *NullableBaseContextUserProfile) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

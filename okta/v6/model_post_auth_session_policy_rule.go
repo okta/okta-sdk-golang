@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -29,11 +29,14 @@ import (
 	"strings"
 )
 
+// checks if the PostAuthSessionPolicyRule type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PostAuthSessionPolicyRule{}
+
 // PostAuthSessionPolicyRule struct for PostAuthSessionPolicyRule
 type PostAuthSessionPolicyRule struct {
 	PolicyRule
-	Actions *PostAuthSessionPolicyRuleAllOfActions `json:"actions,omitempty"`
-	Conditions *PostAuthSessionPolicyRuleAllOfConditions `json:"conditions,omitempty"`
+	Actions              *PostAuthSessionPolicyRuleAllOfActions    `json:"actions,omitempty"`
+	Conditions           *PostAuthSessionPolicyRuleAllOfConditions `json:"conditions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +63,7 @@ func NewPostAuthSessionPolicyRuleWithDefaults() *PostAuthSessionPolicyRule {
 
 // GetActions returns the Actions field value if set, zero value otherwise.
 func (o *PostAuthSessionPolicyRule) GetActions() PostAuthSessionPolicyRuleAllOfActions {
-	if o == nil || o.Actions == nil {
+	if o == nil || IsNil(o.Actions) {
 		var ret PostAuthSessionPolicyRuleAllOfActions
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *PostAuthSessionPolicyRule) GetActions() PostAuthSessionPolicyRuleAllOfA
 // GetActionsOk returns a tuple with the Actions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PostAuthSessionPolicyRule) GetActionsOk() (*PostAuthSessionPolicyRuleAllOfActions, bool) {
-	if o == nil || o.Actions == nil {
+	if o == nil || IsNil(o.Actions) {
 		return nil, false
 	}
 	return o.Actions, true
@@ -78,7 +81,7 @@ func (o *PostAuthSessionPolicyRule) GetActionsOk() (*PostAuthSessionPolicyRuleAl
 
 // HasActions returns a boolean if a field has been set.
 func (o *PostAuthSessionPolicyRule) HasActions() bool {
-	if o != nil && o.Actions != nil {
+	if o != nil && !IsNil(o.Actions) {
 		return true
 	}
 
@@ -92,7 +95,7 @@ func (o *PostAuthSessionPolicyRule) SetActions(v PostAuthSessionPolicyRuleAllOfA
 
 // GetConditions returns the Conditions field value if set, zero value otherwise.
 func (o *PostAuthSessionPolicyRule) GetConditions() PostAuthSessionPolicyRuleAllOfConditions {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		var ret PostAuthSessionPolicyRuleAllOfConditions
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *PostAuthSessionPolicyRule) GetConditions() PostAuthSessionPolicyRuleAll
 // GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PostAuthSessionPolicyRule) GetConditionsOk() (*PostAuthSessionPolicyRuleAllOfConditions, bool) {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		return nil, false
 	}
 	return o.Conditions, true
@@ -110,7 +113,7 @@ func (o *PostAuthSessionPolicyRule) GetConditionsOk() (*PostAuthSessionPolicyRul
 
 // HasConditions returns a boolean if a field has been set.
 func (o *PostAuthSessionPolicyRule) HasConditions() bool {
-	if o != nil && o.Conditions != nil {
+	if o != nil && !IsNil(o.Conditions) {
 		return true
 	}
 
@@ -123,19 +126,27 @@ func (o *PostAuthSessionPolicyRule) SetConditions(v PostAuthSessionPolicyRuleAll
 }
 
 func (o PostAuthSessionPolicyRule) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PostAuthSessionPolicyRule) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedPolicyRule, errPolicyRule := json.Marshal(o.PolicyRule)
 	if errPolicyRule != nil {
-		return []byte{}, errPolicyRule
+		return map[string]interface{}{}, errPolicyRule
 	}
 	errPolicyRule = json.Unmarshal([]byte(serializedPolicyRule), &toSerialize)
 	if errPolicyRule != nil {
-		return []byte{}, errPolicyRule
+		return map[string]interface{}{}, errPolicyRule
 	}
-	if o.Actions != nil {
+	if !IsNil(o.Actions) {
 		toSerialize["actions"] = o.Actions
 	}
-	if o.Conditions != nil {
+	if !IsNil(o.Conditions) {
 		toSerialize["conditions"] = o.Conditions
 	}
 
@@ -143,18 +154,18 @@ func (o PostAuthSessionPolicyRule) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PostAuthSessionPolicyRule) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PostAuthSessionPolicyRule) UnmarshalJSON(data []byte) (err error) {
 	type PostAuthSessionPolicyRuleWithoutEmbeddedStruct struct {
-		Actions *PostAuthSessionPolicyRuleAllOfActions `json:"actions,omitempty"`
+		Actions    *PostAuthSessionPolicyRuleAllOfActions    `json:"actions,omitempty"`
 		Conditions *PostAuthSessionPolicyRuleAllOfConditions `json:"conditions,omitempty"`
 	}
 
 	varPostAuthSessionPolicyRuleWithoutEmbeddedStruct := PostAuthSessionPolicyRuleWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varPostAuthSessionPolicyRuleWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varPostAuthSessionPolicyRuleWithoutEmbeddedStruct)
 	if err == nil {
 		varPostAuthSessionPolicyRule := _PostAuthSessionPolicyRule{}
 		varPostAuthSessionPolicyRule.Actions = varPostAuthSessionPolicyRuleWithoutEmbeddedStruct.Actions
@@ -166,7 +177,7 @@ func (o *PostAuthSessionPolicyRule) UnmarshalJSON(bytes []byte) (err error) {
 
 	varPostAuthSessionPolicyRule := _PostAuthSessionPolicyRule{}
 
-	err = json.Unmarshal(bytes, &varPostAuthSessionPolicyRule)
+	err = json.Unmarshal(data, &varPostAuthSessionPolicyRule)
 	if err == nil {
 		o.PolicyRule = varPostAuthSessionPolicyRule.PolicyRule
 	} else {
@@ -175,8 +186,7 @@ func (o *PostAuthSessionPolicyRule) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "actions")
 		delete(additionalProperties, "conditions")
 
@@ -199,8 +209,6 @@ func (o *PostAuthSessionPolicyRule) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -241,4 +249,3 @@ func (v *NullablePostAuthSessionPolicyRule) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

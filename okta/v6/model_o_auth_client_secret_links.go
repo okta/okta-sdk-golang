@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the OAuthClientSecretLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OAuthClientSecretLinks{}
+
 // OAuthClientSecretLinks Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available for the current status of an application using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification. This object is used for dynamic discovery of related resources and lifecycle operations.
 type OAuthClientSecretLinks struct {
-	Activate *HrefObjectActivateLink `json:"activate,omitempty"`
-	Deactivate *HrefObjectDeactivateLink `json:"deactivate,omitempty"`
-	Delete *HrefObjectDeleteLink `json:"delete,omitempty"`
+	Activate             *HrefObjectActivateLink   `json:"activate,omitempty"`
+	Deactivate           *HrefObjectDeactivateLink `json:"deactivate,omitempty"`
+	Delete               *HrefObjectDeleteLink     `json:"delete,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewOAuthClientSecretLinksWithDefaults() *OAuthClientSecretLinks {
 
 // GetActivate returns the Activate field value if set, zero value otherwise.
 func (o *OAuthClientSecretLinks) GetActivate() HrefObjectActivateLink {
-	if o == nil || o.Activate == nil {
+	if o == nil || IsNil(o.Activate) {
 		var ret HrefObjectActivateLink
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *OAuthClientSecretLinks) GetActivate() HrefObjectActivateLink {
 // GetActivateOk returns a tuple with the Activate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthClientSecretLinks) GetActivateOk() (*HrefObjectActivateLink, bool) {
-	if o == nil || o.Activate == nil {
+	if o == nil || IsNil(o.Activate) {
 		return nil, false
 	}
 	return o.Activate, true
@@ -74,7 +77,7 @@ func (o *OAuthClientSecretLinks) GetActivateOk() (*HrefObjectActivateLink, bool)
 
 // HasActivate returns a boolean if a field has been set.
 func (o *OAuthClientSecretLinks) HasActivate() bool {
-	if o != nil && o.Activate != nil {
+	if o != nil && !IsNil(o.Activate) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *OAuthClientSecretLinks) SetActivate(v HrefObjectActivateLink) {
 
 // GetDeactivate returns the Deactivate field value if set, zero value otherwise.
 func (o *OAuthClientSecretLinks) GetDeactivate() HrefObjectDeactivateLink {
-	if o == nil || o.Deactivate == nil {
+	if o == nil || IsNil(o.Deactivate) {
 		var ret HrefObjectDeactivateLink
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *OAuthClientSecretLinks) GetDeactivate() HrefObjectDeactivateLink {
 // GetDeactivateOk returns a tuple with the Deactivate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthClientSecretLinks) GetDeactivateOk() (*HrefObjectDeactivateLink, bool) {
-	if o == nil || o.Deactivate == nil {
+	if o == nil || IsNil(o.Deactivate) {
 		return nil, false
 	}
 	return o.Deactivate, true
@@ -106,7 +109,7 @@ func (o *OAuthClientSecretLinks) GetDeactivateOk() (*HrefObjectDeactivateLink, b
 
 // HasDeactivate returns a boolean if a field has been set.
 func (o *OAuthClientSecretLinks) HasDeactivate() bool {
-	if o != nil && o.Deactivate != nil {
+	if o != nil && !IsNil(o.Deactivate) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *OAuthClientSecretLinks) SetDeactivate(v HrefObjectDeactivateLink) {
 
 // GetDelete returns the Delete field value if set, zero value otherwise.
 func (o *OAuthClientSecretLinks) GetDelete() HrefObjectDeleteLink {
-	if o == nil || o.Delete == nil {
+	if o == nil || IsNil(o.Delete) {
 		var ret HrefObjectDeleteLink
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *OAuthClientSecretLinks) GetDelete() HrefObjectDeleteLink {
 // GetDeleteOk returns a tuple with the Delete field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthClientSecretLinks) GetDeleteOk() (*HrefObjectDeleteLink, bool) {
-	if o == nil || o.Delete == nil {
+	if o == nil || IsNil(o.Delete) {
 		return nil, false
 	}
 	return o.Delete, true
@@ -138,7 +141,7 @@ func (o *OAuthClientSecretLinks) GetDeleteOk() (*HrefObjectDeleteLink, bool) {
 
 // HasDelete returns a boolean if a field has been set.
 func (o *OAuthClientSecretLinks) HasDelete() bool {
-	if o != nil && o.Delete != nil {
+	if o != nil && !IsNil(o.Delete) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *OAuthClientSecretLinks) SetDelete(v HrefObjectDeleteLink) {
 }
 
 func (o OAuthClientSecretLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OAuthClientSecretLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Activate != nil {
+	if !IsNil(o.Activate) {
 		toSerialize["activate"] = o.Activate
 	}
-	if o.Deactivate != nil {
+	if !IsNil(o.Deactivate) {
 		toSerialize["deactivate"] = o.Deactivate
 	}
-	if o.Delete != nil {
+	if !IsNil(o.Delete) {
 		toSerialize["delete"] = o.Delete
 	}
 
@@ -166,29 +177,27 @@ func (o OAuthClientSecretLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OAuthClientSecretLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OAuthClientSecretLinks) UnmarshalJSON(data []byte) (err error) {
 	varOAuthClientSecretLinks := _OAuthClientSecretLinks{}
 
-	err = json.Unmarshal(bytes, &varOAuthClientSecretLinks)
-	if err == nil {
-		*o = OAuthClientSecretLinks(varOAuthClientSecretLinks)
-	} else {
+	err = json.Unmarshal(data, &varOAuthClientSecretLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OAuthClientSecretLinks(varOAuthClientSecretLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "activate")
 		delete(additionalProperties, "deactivate")
 		delete(additionalProperties, "delete")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullableOAuthClientSecretLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

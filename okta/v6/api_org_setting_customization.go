@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,23 +26,22 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"os"
+	"time"
 )
-
 
 type OrgSettingCustomizationAPI interface {
 
 	/*
-	GetOrgPreferences Retrieve the org preferences
+		GetOrgPreferences Retrieve the org preferences
 
-	Retrieves preferences of your Okta org
+		Retrieves preferences of your Okta org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetOrgPreferencesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetOrgPreferencesRequest
 	*/
 	GetOrgPreferences(ctx context.Context) ApiGetOrgPreferencesRequest
 
@@ -51,12 +50,12 @@ type OrgSettingCustomizationAPI interface {
 	GetOrgPreferencesExecute(r ApiGetOrgPreferencesRequest) (*OrgPreferences, *APIResponse, error)
 
 	/*
-	SetOrgHideOktaUIFooter Set the hide dashboard footer preference
+		SetOrgHideOktaUIFooter Set the hide dashboard footer preference
 
-	Sets the preference to hide the Okta End-User Dashboard footer for all end users of your org
+		Sets the preference to hide the Okta End-User Dashboard footer for all end users of your org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiSetOrgHideOktaUIFooterRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiSetOrgHideOktaUIFooterRequest
 	*/
 	SetOrgHideOktaUIFooter(ctx context.Context) ApiSetOrgHideOktaUIFooterRequest
 
@@ -65,12 +64,12 @@ type OrgSettingCustomizationAPI interface {
 	SetOrgHideOktaUIFooterExecute(r ApiSetOrgHideOktaUIFooterRequest) (*OrgPreferences, *APIResponse, error)
 
 	/*
-	SetOrgShowOktaUIFooter Set the show dashboard footer preference
+		SetOrgShowOktaUIFooter Set the show dashboard footer preference
 
-	Sets the preference to show the Okta UI footer for all end users of your org
+		Sets the preference to show the Okta UI footer for all end users of your org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiSetOrgShowOktaUIFooterRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiSetOrgShowOktaUIFooterRequest
 	*/
 	SetOrgShowOktaUIFooter(ctx context.Context) ApiSetOrgShowOktaUIFooterRequest
 
@@ -79,12 +78,12 @@ type OrgSettingCustomizationAPI interface {
 	SetOrgShowOktaUIFooterExecute(r ApiSetOrgShowOktaUIFooterRequest) (*OrgPreferences, *APIResponse, error)
 
 	/*
-	UploadOrgLogo Upload the org logo
+		UploadOrgLogo Upload the org logo
 
-	Uploads and replaces the logo for your organization
+		Uploads and replaces the logo for your organization
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiUploadOrgLogoRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiUploadOrgLogoRequest
 	*/
 	UploadOrgLogo(ctx context.Context) ApiUploadOrgLogoRequest
 
@@ -96,7 +95,7 @@ type OrgSettingCustomizationAPI interface {
 type OrgSettingCustomizationAPIService service
 
 type ApiGetOrgPreferencesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingCustomizationAPI
 	retryCount int32
 }
@@ -110,19 +109,20 @@ GetOrgPreferences Retrieve the org preferences
 
 Retrieves preferences of your Okta org
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetOrgPreferencesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetOrgPreferencesRequest
 */
 func (a *OrgSettingCustomizationAPIService) GetOrgPreferences(ctx context.Context) ApiGetOrgPreferencesRequest {
 	return ApiGetOrgPreferencesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OrgPreferences
+//
+//	@return OrgPreferences
 func (a *OrgSettingCustomizationAPIService) GetOrgPreferencesExecute(r ApiGetOrgPreferencesRequest) (*OrgPreferences, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -131,7 +131,7 @@ func (a *OrgSettingCustomizationAPIService) GetOrgPreferencesExecute(r ApiGetOrg
 		localVarReturnValue  *OrgPreferences
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -191,9 +191,9 @@ func (a *OrgSettingCustomizationAPIService) GetOrgPreferencesExecute(r ApiGetOrg
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -239,13 +239,13 @@ func (a *OrgSettingCustomizationAPIService) GetOrgPreferencesExecute(r ApiGetOrg
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiSetOrgHideOktaUIFooterRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingCustomizationAPI
 	retryCount int32
 }
@@ -259,19 +259,20 @@ SetOrgHideOktaUIFooter Set the hide dashboard footer preference
 
 Sets the preference to hide the Okta End-User Dashboard footer for all end users of your org
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSetOrgHideOktaUIFooterRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSetOrgHideOktaUIFooterRequest
 */
 func (a *OrgSettingCustomizationAPIService) SetOrgHideOktaUIFooter(ctx context.Context) ApiSetOrgHideOktaUIFooterRequest {
 	return ApiSetOrgHideOktaUIFooterRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OrgPreferences
+//
+//	@return OrgPreferences
 func (a *OrgSettingCustomizationAPIService) SetOrgHideOktaUIFooterExecute(r ApiSetOrgHideOktaUIFooterRequest) (*OrgPreferences, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -280,7 +281,7 @@ func (a *OrgSettingCustomizationAPIService) SetOrgHideOktaUIFooterExecute(r ApiS
 		localVarReturnValue  *OrgPreferences
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -340,9 +341,9 @@ func (a *OrgSettingCustomizationAPIService) SetOrgHideOktaUIFooterExecute(r ApiS
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -388,13 +389,13 @@ func (a *OrgSettingCustomizationAPIService) SetOrgHideOktaUIFooterExecute(r ApiS
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiSetOrgShowOktaUIFooterRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingCustomizationAPI
 	retryCount int32
 }
@@ -408,19 +409,20 @@ SetOrgShowOktaUIFooter Set the show dashboard footer preference
 
 Sets the preference to show the Okta UI footer for all end users of your org
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSetOrgShowOktaUIFooterRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSetOrgShowOktaUIFooterRequest
 */
 func (a *OrgSettingCustomizationAPIService) SetOrgShowOktaUIFooter(ctx context.Context) ApiSetOrgShowOktaUIFooterRequest {
 	return ApiSetOrgShowOktaUIFooterRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OrgPreferences
+//
+//	@return OrgPreferences
 func (a *OrgSettingCustomizationAPIService) SetOrgShowOktaUIFooterExecute(r ApiSetOrgShowOktaUIFooterRequest) (*OrgPreferences, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -429,7 +431,7 @@ func (a *OrgSettingCustomizationAPIService) SetOrgShowOktaUIFooterExecute(r ApiS
 		localVarReturnValue  *OrgPreferences
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -489,9 +491,9 @@ func (a *OrgSettingCustomizationAPIService) SetOrgShowOktaUIFooterExecute(r ApiS
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -537,15 +539,15 @@ func (a *OrgSettingCustomizationAPIService) SetOrgShowOktaUIFooterExecute(r ApiS
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUploadOrgLogoRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingCustomizationAPI
-	file **os.File
+	file       **os.File
 	retryCount int32
 }
 
@@ -564,13 +566,13 @@ UploadOrgLogo Upload the org logo
 
 Uploads and replaces the logo for your organization
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiUploadOrgLogoRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUploadOrgLogoRequest
 */
 func (a *OrgSettingCustomizationAPIService) UploadOrgLogo(ctx context.Context) ApiUploadOrgLogoRequest {
 	return ApiUploadOrgLogoRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -583,7 +585,7 @@ func (a *OrgSettingCustomizationAPIService) UploadOrgLogoExecute(r ApiUploadOrgL
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -623,14 +625,14 @@ func (a *OrgSettingCustomizationAPIService) UploadOrgLogoExecute(r ApiUploadOrgL
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	var fileLocalVarFormFileName string
-	var fileLocalVarFileName     string
-	var fileLocalVarFileBytes    []byte
+	var fileLocalVarFileName string
+	var fileLocalVarFileBytes []byte
 
 	fileLocalVarFormFileName = "file"
 
 	fileLocalVarFile := *r.file
 	if fileLocalVarFile != nil {
-		fbs, _ := ioutil.ReadAll(fileLocalVarFile)
+		fbs, _ := io.ReadAll(fileLocalVarFile)
 		fileLocalVarFileBytes = fbs
 		fileLocalVarFileName = fileLocalVarFile.Name()
 		fileLocalVarFile.Close()
@@ -660,9 +662,9 @@ func (a *OrgSettingCustomizationAPIService) UploadOrgLogoExecute(r ApiUploadOrgL
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err

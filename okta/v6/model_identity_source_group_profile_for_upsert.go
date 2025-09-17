@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the IdentitySourceGroupProfileForUpsert type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IdentitySourceGroupProfileForUpsert{}
+
 // IdentitySourceGroupProfileForUpsert Contains a set of external group attributes and their values that are mapped to Okta standard properties. See the group [`profile` object](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Group/#tag/Group/operation/getGroup!c=200&path=profile&t=response) and Declaration of a Custom Identity Source Schema in [Using anything as a source](https://help.okta.com/okta_help.htm?type=oie&id=ext-anything-as-a-source). > **Note:** Profile attributes can only be of the string type.
 type IdentitySourceGroupProfileForUpsert struct {
 	// Description of the group
 	Description NullableString `json:"description,omitempty"`
 	// Name of the group
-	DisplayName *string `json:"displayName,omitempty"`
+	DisplayName          *string `json:"displayName,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewIdentitySourceGroupProfileForUpsertWithDefaults() *IdentitySourceGroupPr
 
 // GetDescription returns the Description field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *IdentitySourceGroupProfileForUpsert) GetDescription() string {
-	if o == nil || o.Description.Get() == nil {
+	if o == nil || IsNil(o.Description.Get()) {
 		var ret string
 		return ret
 	}
@@ -87,6 +90,7 @@ func (o *IdentitySourceGroupProfileForUpsert) HasDescription() bool {
 func (o *IdentitySourceGroupProfileForUpsert) SetDescription(v string) {
 	o.Description.Set(&v)
 }
+
 // SetDescriptionNil sets the value for Description to be an explicit nil
 func (o *IdentitySourceGroupProfileForUpsert) SetDescriptionNil() {
 	o.Description.Set(nil)
@@ -99,7 +103,7 @@ func (o *IdentitySourceGroupProfileForUpsert) UnsetDescription() {
 
 // GetDisplayName returns the DisplayName field value if set, zero value otherwise.
 func (o *IdentitySourceGroupProfileForUpsert) GetDisplayName() string {
-	if o == nil || o.DisplayName == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		var ret string
 		return ret
 	}
@@ -109,7 +113,7 @@ func (o *IdentitySourceGroupProfileForUpsert) GetDisplayName() string {
 // GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentitySourceGroupProfileForUpsert) GetDisplayNameOk() (*string, bool) {
-	if o == nil || o.DisplayName == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		return nil, false
 	}
 	return o.DisplayName, true
@@ -117,7 +121,7 @@ func (o *IdentitySourceGroupProfileForUpsert) GetDisplayNameOk() (*string, bool)
 
 // HasDisplayName returns a boolean if a field has been set.
 func (o *IdentitySourceGroupProfileForUpsert) HasDisplayName() bool {
-	if o != nil && o.DisplayName != nil {
+	if o != nil && !IsNil(o.DisplayName) {
 		return true
 	}
 
@@ -130,11 +134,19 @@ func (o *IdentitySourceGroupProfileForUpsert) SetDisplayName(v string) {
 }
 
 func (o IdentitySourceGroupProfileForUpsert) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IdentitySourceGroupProfileForUpsert) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Description.IsSet() {
 		toSerialize["description"] = o.Description.Get()
 	}
-	if o.DisplayName != nil {
+	if !IsNil(o.DisplayName) {
 		toSerialize["displayName"] = o.DisplayName
 	}
 
@@ -142,28 +154,26 @@ func (o IdentitySourceGroupProfileForUpsert) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *IdentitySourceGroupProfileForUpsert) UnmarshalJSON(bytes []byte) (err error) {
+func (o *IdentitySourceGroupProfileForUpsert) UnmarshalJSON(data []byte) (err error) {
 	varIdentitySourceGroupProfileForUpsert := _IdentitySourceGroupProfileForUpsert{}
 
-	err = json.Unmarshal(bytes, &varIdentitySourceGroupProfileForUpsert)
-	if err == nil {
-		*o = IdentitySourceGroupProfileForUpsert(varIdentitySourceGroupProfileForUpsert)
-	} else {
+	err = json.Unmarshal(data, &varIdentitySourceGroupProfileForUpsert)
+
+	if err != nil {
 		return err
 	}
 
+	*o = IdentitySourceGroupProfileForUpsert(varIdentitySourceGroupProfileForUpsert)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "displayName")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -204,4 +214,3 @@ func (v *NullableIdentitySourceGroupProfileForUpsert) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

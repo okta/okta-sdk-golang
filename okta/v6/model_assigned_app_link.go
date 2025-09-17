@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,18 +27,21 @@ import (
 	"encoding/json"
 )
 
+// checks if the AssignedAppLink type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AssignedAppLink{}
+
 // AssignedAppLink struct for AssignedAppLink
 type AssignedAppLink struct {
-	AppAssignmentId *string `json:"appAssignmentId,omitempty"`
-	AppInstanceId *string `json:"appInstanceId,omitempty"`
-	AppName *string `json:"appName,omitempty"`
-	CredentialsSetup *bool `json:"credentialsSetup,omitempty"`
-	Hidden *bool `json:"hidden,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Label *string `json:"label,omitempty"`
-	LinkUrl *string `json:"linkUrl,omitempty"`
-	LogoUrl *string `json:"logoUrl,omitempty"`
-	SortOrder *int32 `json:"sortOrder,omitempty"`
+	AppAssignmentId      *string `json:"appAssignmentId,omitempty"`
+	AppInstanceId        *string `json:"appInstanceId,omitempty"`
+	AppName              *string `json:"appName,omitempty"`
+	CredentialsSetup     *bool   `json:"credentialsSetup,omitempty"`
+	Hidden               *bool   `json:"hidden,omitempty"`
+	Id                   *string `json:"id,omitempty"`
+	Label                *string `json:"label,omitempty"`
+	LinkUrl              *string `json:"linkUrl,omitempty"`
+	LogoUrl              *string `json:"logoUrl,omitempty"`
+	SortOrder            *int32  `json:"sortOrder,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -63,7 +66,7 @@ func NewAssignedAppLinkWithDefaults() *AssignedAppLink {
 
 // GetAppAssignmentId returns the AppAssignmentId field value if set, zero value otherwise.
 func (o *AssignedAppLink) GetAppAssignmentId() string {
-	if o == nil || o.AppAssignmentId == nil {
+	if o == nil || IsNil(o.AppAssignmentId) {
 		var ret string
 		return ret
 	}
@@ -73,7 +76,7 @@ func (o *AssignedAppLink) GetAppAssignmentId() string {
 // GetAppAssignmentIdOk returns a tuple with the AppAssignmentId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssignedAppLink) GetAppAssignmentIdOk() (*string, bool) {
-	if o == nil || o.AppAssignmentId == nil {
+	if o == nil || IsNil(o.AppAssignmentId) {
 		return nil, false
 	}
 	return o.AppAssignmentId, true
@@ -81,7 +84,7 @@ func (o *AssignedAppLink) GetAppAssignmentIdOk() (*string, bool) {
 
 // HasAppAssignmentId returns a boolean if a field has been set.
 func (o *AssignedAppLink) HasAppAssignmentId() bool {
-	if o != nil && o.AppAssignmentId != nil {
+	if o != nil && !IsNil(o.AppAssignmentId) {
 		return true
 	}
 
@@ -95,7 +98,7 @@ func (o *AssignedAppLink) SetAppAssignmentId(v string) {
 
 // GetAppInstanceId returns the AppInstanceId field value if set, zero value otherwise.
 func (o *AssignedAppLink) GetAppInstanceId() string {
-	if o == nil || o.AppInstanceId == nil {
+	if o == nil || IsNil(o.AppInstanceId) {
 		var ret string
 		return ret
 	}
@@ -105,7 +108,7 @@ func (o *AssignedAppLink) GetAppInstanceId() string {
 // GetAppInstanceIdOk returns a tuple with the AppInstanceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssignedAppLink) GetAppInstanceIdOk() (*string, bool) {
-	if o == nil || o.AppInstanceId == nil {
+	if o == nil || IsNil(o.AppInstanceId) {
 		return nil, false
 	}
 	return o.AppInstanceId, true
@@ -113,7 +116,7 @@ func (o *AssignedAppLink) GetAppInstanceIdOk() (*string, bool) {
 
 // HasAppInstanceId returns a boolean if a field has been set.
 func (o *AssignedAppLink) HasAppInstanceId() bool {
-	if o != nil && o.AppInstanceId != nil {
+	if o != nil && !IsNil(o.AppInstanceId) {
 		return true
 	}
 
@@ -127,7 +130,7 @@ func (o *AssignedAppLink) SetAppInstanceId(v string) {
 
 // GetAppName returns the AppName field value if set, zero value otherwise.
 func (o *AssignedAppLink) GetAppName() string {
-	if o == nil || o.AppName == nil {
+	if o == nil || IsNil(o.AppName) {
 		var ret string
 		return ret
 	}
@@ -137,7 +140,7 @@ func (o *AssignedAppLink) GetAppName() string {
 // GetAppNameOk returns a tuple with the AppName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssignedAppLink) GetAppNameOk() (*string, bool) {
-	if o == nil || o.AppName == nil {
+	if o == nil || IsNil(o.AppName) {
 		return nil, false
 	}
 	return o.AppName, true
@@ -145,7 +148,7 @@ func (o *AssignedAppLink) GetAppNameOk() (*string, bool) {
 
 // HasAppName returns a boolean if a field has been set.
 func (o *AssignedAppLink) HasAppName() bool {
-	if o != nil && o.AppName != nil {
+	if o != nil && !IsNil(o.AppName) {
 		return true
 	}
 
@@ -159,7 +162,7 @@ func (o *AssignedAppLink) SetAppName(v string) {
 
 // GetCredentialsSetup returns the CredentialsSetup field value if set, zero value otherwise.
 func (o *AssignedAppLink) GetCredentialsSetup() bool {
-	if o == nil || o.CredentialsSetup == nil {
+	if o == nil || IsNil(o.CredentialsSetup) {
 		var ret bool
 		return ret
 	}
@@ -169,7 +172,7 @@ func (o *AssignedAppLink) GetCredentialsSetup() bool {
 // GetCredentialsSetupOk returns a tuple with the CredentialsSetup field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssignedAppLink) GetCredentialsSetupOk() (*bool, bool) {
-	if o == nil || o.CredentialsSetup == nil {
+	if o == nil || IsNil(o.CredentialsSetup) {
 		return nil, false
 	}
 	return o.CredentialsSetup, true
@@ -177,7 +180,7 @@ func (o *AssignedAppLink) GetCredentialsSetupOk() (*bool, bool) {
 
 // HasCredentialsSetup returns a boolean if a field has been set.
 func (o *AssignedAppLink) HasCredentialsSetup() bool {
-	if o != nil && o.CredentialsSetup != nil {
+	if o != nil && !IsNil(o.CredentialsSetup) {
 		return true
 	}
 
@@ -191,7 +194,7 @@ func (o *AssignedAppLink) SetCredentialsSetup(v bool) {
 
 // GetHidden returns the Hidden field value if set, zero value otherwise.
 func (o *AssignedAppLink) GetHidden() bool {
-	if o == nil || o.Hidden == nil {
+	if o == nil || IsNil(o.Hidden) {
 		var ret bool
 		return ret
 	}
@@ -201,7 +204,7 @@ func (o *AssignedAppLink) GetHidden() bool {
 // GetHiddenOk returns a tuple with the Hidden field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssignedAppLink) GetHiddenOk() (*bool, bool) {
-	if o == nil || o.Hidden == nil {
+	if o == nil || IsNil(o.Hidden) {
 		return nil, false
 	}
 	return o.Hidden, true
@@ -209,7 +212,7 @@ func (o *AssignedAppLink) GetHiddenOk() (*bool, bool) {
 
 // HasHidden returns a boolean if a field has been set.
 func (o *AssignedAppLink) HasHidden() bool {
-	if o != nil && o.Hidden != nil {
+	if o != nil && !IsNil(o.Hidden) {
 		return true
 	}
 
@@ -223,7 +226,7 @@ func (o *AssignedAppLink) SetHidden(v bool) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *AssignedAppLink) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -233,7 +236,7 @@ func (o *AssignedAppLink) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssignedAppLink) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -241,7 +244,7 @@ func (o *AssignedAppLink) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *AssignedAppLink) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -255,7 +258,7 @@ func (o *AssignedAppLink) SetId(v string) {
 
 // GetLabel returns the Label field value if set, zero value otherwise.
 func (o *AssignedAppLink) GetLabel() string {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		var ret string
 		return ret
 	}
@@ -265,7 +268,7 @@ func (o *AssignedAppLink) GetLabel() string {
 // GetLabelOk returns a tuple with the Label field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssignedAppLink) GetLabelOk() (*string, bool) {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		return nil, false
 	}
 	return o.Label, true
@@ -273,7 +276,7 @@ func (o *AssignedAppLink) GetLabelOk() (*string, bool) {
 
 // HasLabel returns a boolean if a field has been set.
 func (o *AssignedAppLink) HasLabel() bool {
-	if o != nil && o.Label != nil {
+	if o != nil && !IsNil(o.Label) {
 		return true
 	}
 
@@ -287,7 +290,7 @@ func (o *AssignedAppLink) SetLabel(v string) {
 
 // GetLinkUrl returns the LinkUrl field value if set, zero value otherwise.
 func (o *AssignedAppLink) GetLinkUrl() string {
-	if o == nil || o.LinkUrl == nil {
+	if o == nil || IsNil(o.LinkUrl) {
 		var ret string
 		return ret
 	}
@@ -297,7 +300,7 @@ func (o *AssignedAppLink) GetLinkUrl() string {
 // GetLinkUrlOk returns a tuple with the LinkUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssignedAppLink) GetLinkUrlOk() (*string, bool) {
-	if o == nil || o.LinkUrl == nil {
+	if o == nil || IsNil(o.LinkUrl) {
 		return nil, false
 	}
 	return o.LinkUrl, true
@@ -305,7 +308,7 @@ func (o *AssignedAppLink) GetLinkUrlOk() (*string, bool) {
 
 // HasLinkUrl returns a boolean if a field has been set.
 func (o *AssignedAppLink) HasLinkUrl() bool {
-	if o != nil && o.LinkUrl != nil {
+	if o != nil && !IsNil(o.LinkUrl) {
 		return true
 	}
 
@@ -319,7 +322,7 @@ func (o *AssignedAppLink) SetLinkUrl(v string) {
 
 // GetLogoUrl returns the LogoUrl field value if set, zero value otherwise.
 func (o *AssignedAppLink) GetLogoUrl() string {
-	if o == nil || o.LogoUrl == nil {
+	if o == nil || IsNil(o.LogoUrl) {
 		var ret string
 		return ret
 	}
@@ -329,7 +332,7 @@ func (o *AssignedAppLink) GetLogoUrl() string {
 // GetLogoUrlOk returns a tuple with the LogoUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssignedAppLink) GetLogoUrlOk() (*string, bool) {
-	if o == nil || o.LogoUrl == nil {
+	if o == nil || IsNil(o.LogoUrl) {
 		return nil, false
 	}
 	return o.LogoUrl, true
@@ -337,7 +340,7 @@ func (o *AssignedAppLink) GetLogoUrlOk() (*string, bool) {
 
 // HasLogoUrl returns a boolean if a field has been set.
 func (o *AssignedAppLink) HasLogoUrl() bool {
-	if o != nil && o.LogoUrl != nil {
+	if o != nil && !IsNil(o.LogoUrl) {
 		return true
 	}
 
@@ -351,7 +354,7 @@ func (o *AssignedAppLink) SetLogoUrl(v string) {
 
 // GetSortOrder returns the SortOrder field value if set, zero value otherwise.
 func (o *AssignedAppLink) GetSortOrder() int32 {
-	if o == nil || o.SortOrder == nil {
+	if o == nil || IsNil(o.SortOrder) {
 		var ret int32
 		return ret
 	}
@@ -361,7 +364,7 @@ func (o *AssignedAppLink) GetSortOrder() int32 {
 // GetSortOrderOk returns a tuple with the SortOrder field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssignedAppLink) GetSortOrderOk() (*int32, bool) {
-	if o == nil || o.SortOrder == nil {
+	if o == nil || IsNil(o.SortOrder) {
 		return nil, false
 	}
 	return o.SortOrder, true
@@ -369,7 +372,7 @@ func (o *AssignedAppLink) GetSortOrderOk() (*int32, bool) {
 
 // HasSortOrder returns a boolean if a field has been set.
 func (o *AssignedAppLink) HasSortOrder() bool {
-	if o != nil && o.SortOrder != nil {
+	if o != nil && !IsNil(o.SortOrder) {
 		return true
 	}
 
@@ -382,35 +385,43 @@ func (o *AssignedAppLink) SetSortOrder(v int32) {
 }
 
 func (o AssignedAppLink) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AssignedAppLink) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AppAssignmentId != nil {
+	if !IsNil(o.AppAssignmentId) {
 		toSerialize["appAssignmentId"] = o.AppAssignmentId
 	}
-	if o.AppInstanceId != nil {
+	if !IsNil(o.AppInstanceId) {
 		toSerialize["appInstanceId"] = o.AppInstanceId
 	}
-	if o.AppName != nil {
+	if !IsNil(o.AppName) {
 		toSerialize["appName"] = o.AppName
 	}
-	if o.CredentialsSetup != nil {
+	if !IsNil(o.CredentialsSetup) {
 		toSerialize["credentialsSetup"] = o.CredentialsSetup
 	}
-	if o.Hidden != nil {
+	if !IsNil(o.Hidden) {
 		toSerialize["hidden"] = o.Hidden
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Label != nil {
+	if !IsNil(o.Label) {
 		toSerialize["label"] = o.Label
 	}
-	if o.LinkUrl != nil {
+	if !IsNil(o.LinkUrl) {
 		toSerialize["linkUrl"] = o.LinkUrl
 	}
-	if o.LogoUrl != nil {
+	if !IsNil(o.LogoUrl) {
 		toSerialize["logoUrl"] = o.LogoUrl
 	}
-	if o.SortOrder != nil {
+	if !IsNil(o.SortOrder) {
 		toSerialize["sortOrder"] = o.SortOrder
 	}
 
@@ -418,23 +429,23 @@ func (o AssignedAppLink) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AssignedAppLink) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AssignedAppLink) UnmarshalJSON(data []byte) (err error) {
 	varAssignedAppLink := _AssignedAppLink{}
 
-	err = json.Unmarshal(bytes, &varAssignedAppLink)
-	if err == nil {
-		*o = AssignedAppLink(varAssignedAppLink)
-	} else {
+	err = json.Unmarshal(data, &varAssignedAppLink)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AssignedAppLink(varAssignedAppLink)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "appAssignmentId")
 		delete(additionalProperties, "appInstanceId")
 		delete(additionalProperties, "appName")
@@ -446,8 +457,6 @@ func (o *AssignedAppLink) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "logoUrl")
 		delete(additionalProperties, "sortOrder")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -488,4 +497,3 @@ func (v *NullableAssignedAppLink) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

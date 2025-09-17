@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the ScimScimServerConfigChangePassword type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ScimScimServerConfigChangePassword{}
+
 // ScimScimServerConfigChangePassword Password change options
 type ScimScimServerConfigChangePassword struct {
 	// Specifies if password change is supported
-	Supported *bool `json:"supported,omitempty"`
+	Supported            *bool `json:"supported,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewScimScimServerConfigChangePasswordWithDefaults() *ScimScimServerConfigCh
 
 // GetSupported returns the Supported field value if set, zero value otherwise.
 func (o *ScimScimServerConfigChangePassword) GetSupported() bool {
-	if o == nil || o.Supported == nil {
+	if o == nil || IsNil(o.Supported) {
 		var ret bool
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *ScimScimServerConfigChangePassword) GetSupported() bool {
 // GetSupportedOk returns a tuple with the Supported field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ScimScimServerConfigChangePassword) GetSupportedOk() (*bool, bool) {
-	if o == nil || o.Supported == nil {
+	if o == nil || IsNil(o.Supported) {
 		return nil, false
 	}
 	return o.Supported, true
@@ -77,7 +80,7 @@ func (o *ScimScimServerConfigChangePassword) GetSupportedOk() (*bool, bool) {
 
 // HasSupported returns a boolean if a field has been set.
 func (o *ScimScimServerConfigChangePassword) HasSupported() bool {
-	if o != nil && o.Supported != nil {
+	if o != nil && !IsNil(o.Supported) {
 		return true
 	}
 
@@ -90,8 +93,16 @@ func (o *ScimScimServerConfigChangePassword) SetSupported(v bool) {
 }
 
 func (o ScimScimServerConfigChangePassword) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ScimScimServerConfigChangePassword) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Supported != nil {
+	if !IsNil(o.Supported) {
 		toSerialize["supported"] = o.Supported
 	}
 
@@ -99,27 +110,25 @@ func (o ScimScimServerConfigChangePassword) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ScimScimServerConfigChangePassword) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ScimScimServerConfigChangePassword) UnmarshalJSON(data []byte) (err error) {
 	varScimScimServerConfigChangePassword := _ScimScimServerConfigChangePassword{}
 
-	err = json.Unmarshal(bytes, &varScimScimServerConfigChangePassword)
-	if err == nil {
-		*o = ScimScimServerConfigChangePassword(varScimScimServerConfigChangePassword)
-	} else {
+	err = json.Unmarshal(data, &varScimScimServerConfigChangePassword)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ScimScimServerConfigChangePassword(varScimScimServerConfigChangePassword)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "supported")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -160,4 +169,3 @@ func (v *NullableScimScimServerConfigChangePassword) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

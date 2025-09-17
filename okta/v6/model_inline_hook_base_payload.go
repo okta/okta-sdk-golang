@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the InlineHookBasePayload type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InlineHookBasePayload{}
+
 // InlineHookBasePayload struct for InlineHookBasePayload
 type InlineHookBasePayload struct {
 	// The inline hook cloud version
@@ -38,7 +41,7 @@ type InlineHookBasePayload struct {
 	// The time the inline hook request was sent
 	EventTime *string `json:"eventTime,omitempty"`
 	// The inline hook version
-	EventTypeVersion *string `json:"eventTypeVersion,omitempty"`
+	EventTypeVersion     *string `json:"eventTypeVersion,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -63,7 +66,7 @@ func NewInlineHookBasePayloadWithDefaults() *InlineHookBasePayload {
 
 // GetCloudEventVersion returns the CloudEventVersion field value if set, zero value otherwise.
 func (o *InlineHookBasePayload) GetCloudEventVersion() string {
-	if o == nil || o.CloudEventVersion == nil {
+	if o == nil || IsNil(o.CloudEventVersion) {
 		var ret string
 		return ret
 	}
@@ -73,7 +76,7 @@ func (o *InlineHookBasePayload) GetCloudEventVersion() string {
 // GetCloudEventVersionOk returns a tuple with the CloudEventVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookBasePayload) GetCloudEventVersionOk() (*string, bool) {
-	if o == nil || o.CloudEventVersion == nil {
+	if o == nil || IsNil(o.CloudEventVersion) {
 		return nil, false
 	}
 	return o.CloudEventVersion, true
@@ -81,7 +84,7 @@ func (o *InlineHookBasePayload) GetCloudEventVersionOk() (*string, bool) {
 
 // HasCloudEventVersion returns a boolean if a field has been set.
 func (o *InlineHookBasePayload) HasCloudEventVersion() bool {
-	if o != nil && o.CloudEventVersion != nil {
+	if o != nil && !IsNil(o.CloudEventVersion) {
 		return true
 	}
 
@@ -95,7 +98,7 @@ func (o *InlineHookBasePayload) SetCloudEventVersion(v string) {
 
 // GetContentType returns the ContentType field value if set, zero value otherwise.
 func (o *InlineHookBasePayload) GetContentType() string {
-	if o == nil || o.ContentType == nil {
+	if o == nil || IsNil(o.ContentType) {
 		var ret string
 		return ret
 	}
@@ -105,7 +108,7 @@ func (o *InlineHookBasePayload) GetContentType() string {
 // GetContentTypeOk returns a tuple with the ContentType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookBasePayload) GetContentTypeOk() (*string, bool) {
-	if o == nil || o.ContentType == nil {
+	if o == nil || IsNil(o.ContentType) {
 		return nil, false
 	}
 	return o.ContentType, true
@@ -113,7 +116,7 @@ func (o *InlineHookBasePayload) GetContentTypeOk() (*string, bool) {
 
 // HasContentType returns a boolean if a field has been set.
 func (o *InlineHookBasePayload) HasContentType() bool {
-	if o != nil && o.ContentType != nil {
+	if o != nil && !IsNil(o.ContentType) {
 		return true
 	}
 
@@ -127,7 +130,7 @@ func (o *InlineHookBasePayload) SetContentType(v string) {
 
 // GetEventId returns the EventId field value if set, zero value otherwise.
 func (o *InlineHookBasePayload) GetEventId() string {
-	if o == nil || o.EventId == nil {
+	if o == nil || IsNil(o.EventId) {
 		var ret string
 		return ret
 	}
@@ -137,7 +140,7 @@ func (o *InlineHookBasePayload) GetEventId() string {
 // GetEventIdOk returns a tuple with the EventId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookBasePayload) GetEventIdOk() (*string, bool) {
-	if o == nil || o.EventId == nil {
+	if o == nil || IsNil(o.EventId) {
 		return nil, false
 	}
 	return o.EventId, true
@@ -145,7 +148,7 @@ func (o *InlineHookBasePayload) GetEventIdOk() (*string, bool) {
 
 // HasEventId returns a boolean if a field has been set.
 func (o *InlineHookBasePayload) HasEventId() bool {
-	if o != nil && o.EventId != nil {
+	if o != nil && !IsNil(o.EventId) {
 		return true
 	}
 
@@ -159,7 +162,7 @@ func (o *InlineHookBasePayload) SetEventId(v string) {
 
 // GetEventTime returns the EventTime field value if set, zero value otherwise.
 func (o *InlineHookBasePayload) GetEventTime() string {
-	if o == nil || o.EventTime == nil {
+	if o == nil || IsNil(o.EventTime) {
 		var ret string
 		return ret
 	}
@@ -169,7 +172,7 @@ func (o *InlineHookBasePayload) GetEventTime() string {
 // GetEventTimeOk returns a tuple with the EventTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookBasePayload) GetEventTimeOk() (*string, bool) {
-	if o == nil || o.EventTime == nil {
+	if o == nil || IsNil(o.EventTime) {
 		return nil, false
 	}
 	return o.EventTime, true
@@ -177,7 +180,7 @@ func (o *InlineHookBasePayload) GetEventTimeOk() (*string, bool) {
 
 // HasEventTime returns a boolean if a field has been set.
 func (o *InlineHookBasePayload) HasEventTime() bool {
-	if o != nil && o.EventTime != nil {
+	if o != nil && !IsNil(o.EventTime) {
 		return true
 	}
 
@@ -191,7 +194,7 @@ func (o *InlineHookBasePayload) SetEventTime(v string) {
 
 // GetEventTypeVersion returns the EventTypeVersion field value if set, zero value otherwise.
 func (o *InlineHookBasePayload) GetEventTypeVersion() string {
-	if o == nil || o.EventTypeVersion == nil {
+	if o == nil || IsNil(o.EventTypeVersion) {
 		var ret string
 		return ret
 	}
@@ -201,7 +204,7 @@ func (o *InlineHookBasePayload) GetEventTypeVersion() string {
 // GetEventTypeVersionOk returns a tuple with the EventTypeVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookBasePayload) GetEventTypeVersionOk() (*string, bool) {
-	if o == nil || o.EventTypeVersion == nil {
+	if o == nil || IsNil(o.EventTypeVersion) {
 		return nil, false
 	}
 	return o.EventTypeVersion, true
@@ -209,7 +212,7 @@ func (o *InlineHookBasePayload) GetEventTypeVersionOk() (*string, bool) {
 
 // HasEventTypeVersion returns a boolean if a field has been set.
 func (o *InlineHookBasePayload) HasEventTypeVersion() bool {
-	if o != nil && o.EventTypeVersion != nil {
+	if o != nil && !IsNil(o.EventTypeVersion) {
 		return true
 	}
 
@@ -222,20 +225,28 @@ func (o *InlineHookBasePayload) SetEventTypeVersion(v string) {
 }
 
 func (o InlineHookBasePayload) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o InlineHookBasePayload) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.CloudEventVersion != nil {
+	if !IsNil(o.CloudEventVersion) {
 		toSerialize["cloudEventVersion"] = o.CloudEventVersion
 	}
-	if o.ContentType != nil {
+	if !IsNil(o.ContentType) {
 		toSerialize["contentType"] = o.ContentType
 	}
-	if o.EventId != nil {
+	if !IsNil(o.EventId) {
 		toSerialize["eventId"] = o.EventId
 	}
-	if o.EventTime != nil {
+	if !IsNil(o.EventTime) {
 		toSerialize["eventTime"] = o.EventTime
 	}
-	if o.EventTypeVersion != nil {
+	if !IsNil(o.EventTypeVersion) {
 		toSerialize["eventTypeVersion"] = o.EventTypeVersion
 	}
 
@@ -243,31 +254,29 @@ func (o InlineHookBasePayload) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *InlineHookBasePayload) UnmarshalJSON(bytes []byte) (err error) {
+func (o *InlineHookBasePayload) UnmarshalJSON(data []byte) (err error) {
 	varInlineHookBasePayload := _InlineHookBasePayload{}
 
-	err = json.Unmarshal(bytes, &varInlineHookBasePayload)
-	if err == nil {
-		*o = InlineHookBasePayload(varInlineHookBasePayload)
-	} else {
+	err = json.Unmarshal(data, &varInlineHookBasePayload)
+
+	if err != nil {
 		return err
 	}
 
+	*o = InlineHookBasePayload(varInlineHookBasePayload)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "cloudEventVersion")
 		delete(additionalProperties, "contentType")
 		delete(additionalProperties, "eventId")
 		delete(additionalProperties, "eventTime")
 		delete(additionalProperties, "eventTypeVersion")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -308,4 +317,3 @@ func (v *NullableInlineHookBasePayload) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

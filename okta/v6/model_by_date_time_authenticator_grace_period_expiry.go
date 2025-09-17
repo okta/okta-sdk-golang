@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -29,11 +29,14 @@ import (
 	"strings"
 )
 
+// checks if the ByDateTimeAuthenticatorGracePeriodExpiry type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ByDateTimeAuthenticatorGracePeriodExpiry{}
+
 // ByDateTimeAuthenticatorGracePeriodExpiry struct for ByDateTimeAuthenticatorGracePeriodExpiry
 type ByDateTimeAuthenticatorGracePeriodExpiry struct {
 	EnrollmentPolicyAuthenticatorGracePeriod
-	// The expiry date for a `BY_DATE_TIME` grace period type. Valid format: `yyyy-MM-dd'T'HH:mm:ss.SSS'Z'`  For example, `2025-01-01T18:30:45.000Z` 
-	Expiry *string `json:"expiry,omitempty"`
+	// The expiry date for a `BY_DATE_TIME` grace period type. Valid format: `yyyy-MM-dd'T'HH:mm:ss.SSS'Z'`  For example, `2025-01-01T18:30:45.000Z`
+	Expiry               *string `json:"expiry,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewByDateTimeAuthenticatorGracePeriodExpiryWithDefaults() *ByDateTimeAuthen
 
 // GetExpiry returns the Expiry field value if set, zero value otherwise.
 func (o *ByDateTimeAuthenticatorGracePeriodExpiry) GetExpiry() string {
-	if o == nil || o.Expiry == nil {
+	if o == nil || IsNil(o.Expiry) {
 		var ret string
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *ByDateTimeAuthenticatorGracePeriodExpiry) GetExpiry() string {
 // GetExpiryOk returns a tuple with the Expiry field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ByDateTimeAuthenticatorGracePeriodExpiry) GetExpiryOk() (*string, bool) {
-	if o == nil || o.Expiry == nil {
+	if o == nil || IsNil(o.Expiry) {
 		return nil, false
 	}
 	return o.Expiry, true
@@ -76,7 +79,7 @@ func (o *ByDateTimeAuthenticatorGracePeriodExpiry) GetExpiryOk() (*string, bool)
 
 // HasExpiry returns a boolean if a field has been set.
 func (o *ByDateTimeAuthenticatorGracePeriodExpiry) HasExpiry() bool {
-	if o != nil && o.Expiry != nil {
+	if o != nil && !IsNil(o.Expiry) {
 		return true
 	}
 
@@ -89,16 +92,24 @@ func (o *ByDateTimeAuthenticatorGracePeriodExpiry) SetExpiry(v string) {
 }
 
 func (o ByDateTimeAuthenticatorGracePeriodExpiry) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ByDateTimeAuthenticatorGracePeriodExpiry) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedEnrollmentPolicyAuthenticatorGracePeriod, errEnrollmentPolicyAuthenticatorGracePeriod := json.Marshal(o.EnrollmentPolicyAuthenticatorGracePeriod)
 	if errEnrollmentPolicyAuthenticatorGracePeriod != nil {
-		return []byte{}, errEnrollmentPolicyAuthenticatorGracePeriod
+		return map[string]interface{}{}, errEnrollmentPolicyAuthenticatorGracePeriod
 	}
 	errEnrollmentPolicyAuthenticatorGracePeriod = json.Unmarshal([]byte(serializedEnrollmentPolicyAuthenticatorGracePeriod), &toSerialize)
 	if errEnrollmentPolicyAuthenticatorGracePeriod != nil {
-		return []byte{}, errEnrollmentPolicyAuthenticatorGracePeriod
+		return map[string]interface{}{}, errEnrollmentPolicyAuthenticatorGracePeriod
 	}
-	if o.Expiry != nil {
+	if !IsNil(o.Expiry) {
 		toSerialize["expiry"] = o.Expiry
 	}
 
@@ -106,18 +117,18 @@ func (o ByDateTimeAuthenticatorGracePeriodExpiry) MarshalJSON() ([]byte, error) 
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ByDateTimeAuthenticatorGracePeriodExpiry) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ByDateTimeAuthenticatorGracePeriodExpiry) UnmarshalJSON(data []byte) (err error) {
 	type ByDateTimeAuthenticatorGracePeriodExpiryWithoutEmbeddedStruct struct {
-		// The expiry date for a `BY_DATE_TIME` grace period type. Valid format: `yyyy-MM-dd'T'HH:mm:ss.SSS'Z'`  For example, `2025-01-01T18:30:45.000Z` 
+		// The expiry date for a `BY_DATE_TIME` grace period type. Valid format: `yyyy-MM-dd'T'HH:mm:ss.SSS'Z'`  For example, `2025-01-01T18:30:45.000Z`
 		Expiry *string `json:"expiry,omitempty"`
 	}
 
 	varByDateTimeAuthenticatorGracePeriodExpiryWithoutEmbeddedStruct := ByDateTimeAuthenticatorGracePeriodExpiryWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varByDateTimeAuthenticatorGracePeriodExpiryWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varByDateTimeAuthenticatorGracePeriodExpiryWithoutEmbeddedStruct)
 	if err == nil {
 		varByDateTimeAuthenticatorGracePeriodExpiry := _ByDateTimeAuthenticatorGracePeriodExpiry{}
 		varByDateTimeAuthenticatorGracePeriodExpiry.Expiry = varByDateTimeAuthenticatorGracePeriodExpiryWithoutEmbeddedStruct.Expiry
@@ -128,7 +139,7 @@ func (o *ByDateTimeAuthenticatorGracePeriodExpiry) UnmarshalJSON(bytes []byte) (
 
 	varByDateTimeAuthenticatorGracePeriodExpiry := _ByDateTimeAuthenticatorGracePeriodExpiry{}
 
-	err = json.Unmarshal(bytes, &varByDateTimeAuthenticatorGracePeriodExpiry)
+	err = json.Unmarshal(data, &varByDateTimeAuthenticatorGracePeriodExpiry)
 	if err == nil {
 		o.EnrollmentPolicyAuthenticatorGracePeriod = varByDateTimeAuthenticatorGracePeriodExpiry.EnrollmentPolicyAuthenticatorGracePeriod
 	} else {
@@ -137,8 +148,7 @@ func (o *ByDateTimeAuthenticatorGracePeriodExpiry) UnmarshalJSON(bytes []byte) (
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "expiry")
 
 		// remove fields from embedded structs
@@ -160,8 +170,6 @@ func (o *ByDateTimeAuthenticatorGracePeriodExpiry) UnmarshalJSON(bytes []byte) (
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -202,4 +210,3 @@ func (v *NullableByDateTimeAuthenticatorGracePeriodExpiry) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

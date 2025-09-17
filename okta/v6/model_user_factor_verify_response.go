@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"time"
 )
 
+// checks if the UserFactorVerifyResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserFactorVerifyResponse{}
+
 // UserFactorVerifyResponse struct for UserFactorVerifyResponse
 type UserFactorVerifyResponse struct {
 	// Timestamp when the verification expires
@@ -35,10 +38,10 @@ type UserFactorVerifyResponse struct {
 	// Optional display message for factor verification
 	FactorMessage NullableString `json:"factorMessage,omitempty"`
 	// Result of a factor verification
-	FactorResult *string `json:"factorResult,omitempty"`
-	Profile map[string]map[string]interface{} `json:"profile,omitempty"`
-	Embedded map[string]map[string]interface{} `json:"_embedded,omitempty"`
-	Links *UserFactorLinks `json:"_links,omitempty"`
+	FactorResult         *string                           `json:"factorResult,omitempty"`
+	Profile              map[string]map[string]interface{} `json:"profile,omitempty"`
+	Embedded             map[string]map[string]interface{} `json:"_embedded,omitempty"`
+	Links                *UserFactorLinks                  `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -63,7 +66,7 @@ func NewUserFactorVerifyResponseWithDefaults() *UserFactorVerifyResponse {
 
 // GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
 func (o *UserFactorVerifyResponse) GetExpiresAt() time.Time {
-	if o == nil || o.ExpiresAt == nil {
+	if o == nil || IsNil(o.ExpiresAt) {
 		var ret time.Time
 		return ret
 	}
@@ -73,7 +76,7 @@ func (o *UserFactorVerifyResponse) GetExpiresAt() time.Time {
 // GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorVerifyResponse) GetExpiresAtOk() (*time.Time, bool) {
-	if o == nil || o.ExpiresAt == nil {
+	if o == nil || IsNil(o.ExpiresAt) {
 		return nil, false
 	}
 	return o.ExpiresAt, true
@@ -81,7 +84,7 @@ func (o *UserFactorVerifyResponse) GetExpiresAtOk() (*time.Time, bool) {
 
 // HasExpiresAt returns a boolean if a field has been set.
 func (o *UserFactorVerifyResponse) HasExpiresAt() bool {
-	if o != nil && o.ExpiresAt != nil {
+	if o != nil && !IsNil(o.ExpiresAt) {
 		return true
 	}
 
@@ -95,7 +98,7 @@ func (o *UserFactorVerifyResponse) SetExpiresAt(v time.Time) {
 
 // GetFactorMessage returns the FactorMessage field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserFactorVerifyResponse) GetFactorMessage() string {
-	if o == nil || o.FactorMessage.Get() == nil {
+	if o == nil || IsNil(o.FactorMessage.Get()) {
 		var ret string
 		return ret
 	}
@@ -125,6 +128,7 @@ func (o *UserFactorVerifyResponse) HasFactorMessage() bool {
 func (o *UserFactorVerifyResponse) SetFactorMessage(v string) {
 	o.FactorMessage.Set(&v)
 }
+
 // SetFactorMessageNil sets the value for FactorMessage to be an explicit nil
 func (o *UserFactorVerifyResponse) SetFactorMessageNil() {
 	o.FactorMessage.Set(nil)
@@ -137,7 +141,7 @@ func (o *UserFactorVerifyResponse) UnsetFactorMessage() {
 
 // GetFactorResult returns the FactorResult field value if set, zero value otherwise.
 func (o *UserFactorVerifyResponse) GetFactorResult() string {
-	if o == nil || o.FactorResult == nil {
+	if o == nil || IsNil(o.FactorResult) {
 		var ret string
 		return ret
 	}
@@ -147,7 +151,7 @@ func (o *UserFactorVerifyResponse) GetFactorResult() string {
 // GetFactorResultOk returns a tuple with the FactorResult field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorVerifyResponse) GetFactorResultOk() (*string, bool) {
-	if o == nil || o.FactorResult == nil {
+	if o == nil || IsNil(o.FactorResult) {
 		return nil, false
 	}
 	return o.FactorResult, true
@@ -155,7 +159,7 @@ func (o *UserFactorVerifyResponse) GetFactorResultOk() (*string, bool) {
 
 // HasFactorResult returns a boolean if a field has been set.
 func (o *UserFactorVerifyResponse) HasFactorResult() bool {
-	if o != nil && o.FactorResult != nil {
+	if o != nil && !IsNil(o.FactorResult) {
 		return true
 	}
 
@@ -169,7 +173,7 @@ func (o *UserFactorVerifyResponse) SetFactorResult(v string) {
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *UserFactorVerifyResponse) GetProfile() map[string]map[string]interface{} {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
@@ -179,15 +183,15 @@ func (o *UserFactorVerifyResponse) GetProfile() map[string]map[string]interface{
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorVerifyResponse) GetProfileOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || o.Profile == nil {
-		return nil, false
+	if o == nil || IsNil(o.Profile) {
+		return map[string]map[string]interface{}{}, false
 	}
 	return o.Profile, true
 }
 
 // HasProfile returns a boolean if a field has been set.
 func (o *UserFactorVerifyResponse) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -201,7 +205,7 @@ func (o *UserFactorVerifyResponse) SetProfile(v map[string]map[string]interface{
 
 // GetEmbedded returns the Embedded field value if set, zero value otherwise.
 func (o *UserFactorVerifyResponse) GetEmbedded() map[string]map[string]interface{} {
-	if o == nil || o.Embedded == nil {
+	if o == nil || IsNil(o.Embedded) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
@@ -211,15 +215,15 @@ func (o *UserFactorVerifyResponse) GetEmbedded() map[string]map[string]interface
 // GetEmbeddedOk returns a tuple with the Embedded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorVerifyResponse) GetEmbeddedOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || o.Embedded == nil {
-		return nil, false
+	if o == nil || IsNil(o.Embedded) {
+		return map[string]map[string]interface{}{}, false
 	}
 	return o.Embedded, true
 }
 
 // HasEmbedded returns a boolean if a field has been set.
 func (o *UserFactorVerifyResponse) HasEmbedded() bool {
-	if o != nil && o.Embedded != nil {
+	if o != nil && !IsNil(o.Embedded) {
 		return true
 	}
 
@@ -233,7 +237,7 @@ func (o *UserFactorVerifyResponse) SetEmbedded(v map[string]map[string]interface
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *UserFactorVerifyResponse) GetLinks() UserFactorLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret UserFactorLinks
 		return ret
 	}
@@ -243,7 +247,7 @@ func (o *UserFactorVerifyResponse) GetLinks() UserFactorLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorVerifyResponse) GetLinksOk() (*UserFactorLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -251,7 +255,7 @@ func (o *UserFactorVerifyResponse) GetLinksOk() (*UserFactorLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *UserFactorVerifyResponse) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -264,23 +268,31 @@ func (o *UserFactorVerifyResponse) SetLinks(v UserFactorLinks) {
 }
 
 func (o UserFactorVerifyResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserFactorVerifyResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ExpiresAt != nil {
+	if !IsNil(o.ExpiresAt) {
 		toSerialize["expiresAt"] = o.ExpiresAt
 	}
 	if o.FactorMessage.IsSet() {
 		toSerialize["factorMessage"] = o.FactorMessage.Get()
 	}
-	if o.FactorResult != nil {
+	if !IsNil(o.FactorResult) {
 		toSerialize["factorResult"] = o.FactorResult
 	}
-	if o.Profile != nil {
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
-	if o.Embedded != nil {
+	if !IsNil(o.Embedded) {
 		toSerialize["_embedded"] = o.Embedded
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -288,23 +300,23 @@ func (o UserFactorVerifyResponse) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserFactorVerifyResponse) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserFactorVerifyResponse) UnmarshalJSON(data []byte) (err error) {
 	varUserFactorVerifyResponse := _UserFactorVerifyResponse{}
 
-	err = json.Unmarshal(bytes, &varUserFactorVerifyResponse)
-	if err == nil {
-		*o = UserFactorVerifyResponse(varUserFactorVerifyResponse)
-	} else {
+	err = json.Unmarshal(data, &varUserFactorVerifyResponse)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserFactorVerifyResponse(varUserFactorVerifyResponse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "expiresAt")
 		delete(additionalProperties, "factorMessage")
 		delete(additionalProperties, "factorResult")
@@ -312,8 +324,6 @@ func (o *UserFactorVerifyResponse) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "_embedded")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -354,4 +364,3 @@ func (v *NullableUserFactorVerifyResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

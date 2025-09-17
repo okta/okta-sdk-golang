@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ProfileEnrollmentPolicyRuleProfileAttribute type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ProfileEnrollmentPolicyRuleProfileAttribute{}
+
 // ProfileEnrollmentPolicyRuleProfileAttribute struct for ProfileEnrollmentPolicyRuleProfileAttribute
 type ProfileEnrollmentPolicyRuleProfileAttribute struct {
 	// A display-friendly label for this property
@@ -34,7 +37,7 @@ type ProfileEnrollmentPolicyRuleProfileAttribute struct {
 	// The name of a user profile property. Can be an existing property.
 	Name *string `json:"name,omitempty"`
 	// (Optional, default `FALSE`) Indicates if this property is required for enrollment
-	Required *bool `json:"required,omitempty"`
+	Required             *bool `json:"required,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -63,7 +66,7 @@ func NewProfileEnrollmentPolicyRuleProfileAttributeWithDefaults() *ProfileEnroll
 
 // GetLabel returns the Label field value if set, zero value otherwise.
 func (o *ProfileEnrollmentPolicyRuleProfileAttribute) GetLabel() string {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		var ret string
 		return ret
 	}
@@ -73,7 +76,7 @@ func (o *ProfileEnrollmentPolicyRuleProfileAttribute) GetLabel() string {
 // GetLabelOk returns a tuple with the Label field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProfileEnrollmentPolicyRuleProfileAttribute) GetLabelOk() (*string, bool) {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		return nil, false
 	}
 	return o.Label, true
@@ -81,7 +84,7 @@ func (o *ProfileEnrollmentPolicyRuleProfileAttribute) GetLabelOk() (*string, boo
 
 // HasLabel returns a boolean if a field has been set.
 func (o *ProfileEnrollmentPolicyRuleProfileAttribute) HasLabel() bool {
-	if o != nil && o.Label != nil {
+	if o != nil && !IsNil(o.Label) {
 		return true
 	}
 
@@ -95,7 +98,7 @@ func (o *ProfileEnrollmentPolicyRuleProfileAttribute) SetLabel(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *ProfileEnrollmentPolicyRuleProfileAttribute) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -105,7 +108,7 @@ func (o *ProfileEnrollmentPolicyRuleProfileAttribute) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProfileEnrollmentPolicyRuleProfileAttribute) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -113,7 +116,7 @@ func (o *ProfileEnrollmentPolicyRuleProfileAttribute) GetNameOk() (*string, bool
 
 // HasName returns a boolean if a field has been set.
 func (o *ProfileEnrollmentPolicyRuleProfileAttribute) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -127,7 +130,7 @@ func (o *ProfileEnrollmentPolicyRuleProfileAttribute) SetName(v string) {
 
 // GetRequired returns the Required field value if set, zero value otherwise.
 func (o *ProfileEnrollmentPolicyRuleProfileAttribute) GetRequired() bool {
-	if o == nil || o.Required == nil {
+	if o == nil || IsNil(o.Required) {
 		var ret bool
 		return ret
 	}
@@ -137,7 +140,7 @@ func (o *ProfileEnrollmentPolicyRuleProfileAttribute) GetRequired() bool {
 // GetRequiredOk returns a tuple with the Required field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProfileEnrollmentPolicyRuleProfileAttribute) GetRequiredOk() (*bool, bool) {
-	if o == nil || o.Required == nil {
+	if o == nil || IsNil(o.Required) {
 		return nil, false
 	}
 	return o.Required, true
@@ -145,7 +148,7 @@ func (o *ProfileEnrollmentPolicyRuleProfileAttribute) GetRequiredOk() (*bool, bo
 
 // HasRequired returns a boolean if a field has been set.
 func (o *ProfileEnrollmentPolicyRuleProfileAttribute) HasRequired() bool {
-	if o != nil && o.Required != nil {
+	if o != nil && !IsNil(o.Required) {
 		return true
 	}
 
@@ -158,14 +161,22 @@ func (o *ProfileEnrollmentPolicyRuleProfileAttribute) SetRequired(v bool) {
 }
 
 func (o ProfileEnrollmentPolicyRuleProfileAttribute) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ProfileEnrollmentPolicyRuleProfileAttribute) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Label != nil {
+	if !IsNil(o.Label) {
 		toSerialize["label"] = o.Label
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Required != nil {
+	if !IsNil(o.Required) {
 		toSerialize["required"] = o.Required
 	}
 
@@ -173,29 +184,27 @@ func (o ProfileEnrollmentPolicyRuleProfileAttribute) MarshalJSON() ([]byte, erro
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ProfileEnrollmentPolicyRuleProfileAttribute) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ProfileEnrollmentPolicyRuleProfileAttribute) UnmarshalJSON(data []byte) (err error) {
 	varProfileEnrollmentPolicyRuleProfileAttribute := _ProfileEnrollmentPolicyRuleProfileAttribute{}
 
-	err = json.Unmarshal(bytes, &varProfileEnrollmentPolicyRuleProfileAttribute)
-	if err == nil {
-		*o = ProfileEnrollmentPolicyRuleProfileAttribute(varProfileEnrollmentPolicyRuleProfileAttribute)
-	} else {
+	err = json.Unmarshal(data, &varProfileEnrollmentPolicyRuleProfileAttribute)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ProfileEnrollmentPolicyRuleProfileAttribute(varProfileEnrollmentPolicyRuleProfileAttribute)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "label")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "required")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -236,4 +245,3 @@ func (v *NullableProfileEnrollmentPolicyRuleProfileAttribute) UnmarshalJSON(src 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

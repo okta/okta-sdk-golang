@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,10 +28,13 @@ import (
 	"fmt"
 )
 
+// checks if the IdPCertificateCredential type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IdPCertificateCredential{}
+
 // IdPCertificateCredential struct for IdPCertificateCredential
 type IdPCertificateCredential struct {
 	// Base64-encoded X.509 certificate chain with DER encoding
-	X5c []string `json:"x5c"`
+	X5c                  []string `json:"x5c"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -80,36 +83,61 @@ func (o *IdPCertificateCredential) SetX5c(v []string) {
 }
 
 func (o IdPCertificateCredential) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["x5c"] = o.X5c
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IdPCertificateCredential) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["x5c"] = o.X5c
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *IdPCertificateCredential) UnmarshalJSON(bytes []byte) (err error) {
-	varIdPCertificateCredential := _IdPCertificateCredential{}
+func (o *IdPCertificateCredential) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"x5c",
+	}
 
-	err = json.Unmarshal(bytes, &varIdPCertificateCredential)
-	if err == nil {
-		*o = IdPCertificateCredential(varIdPCertificateCredential)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varIdPCertificateCredential := _IdPCertificateCredential{}
+
+	err = json.Unmarshal(data, &varIdPCertificateCredential)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IdPCertificateCredential(varIdPCertificateCredential)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "x5c")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -150,4 +178,3 @@ func (v *NullableIdPCertificateCredential) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

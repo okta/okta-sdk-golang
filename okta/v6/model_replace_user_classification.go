@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the ReplaceUserClassification type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ReplaceUserClassification{}
+
 // ReplaceUserClassification struct for ReplaceUserClassification
 type ReplaceUserClassification struct {
 	// The type of user classification
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewReplaceUserClassificationWithDefaults() *ReplaceUserClassification {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *ReplaceUserClassification) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *ReplaceUserClassification) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReplaceUserClassification) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -73,7 +76,7 @@ func (o *ReplaceUserClassification) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *ReplaceUserClassification) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *ReplaceUserClassification) SetType(v string) {
 }
 
 func (o ReplaceUserClassification) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ReplaceUserClassification) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -95,27 +106,25 @@ func (o ReplaceUserClassification) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ReplaceUserClassification) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ReplaceUserClassification) UnmarshalJSON(data []byte) (err error) {
 	varReplaceUserClassification := _ReplaceUserClassification{}
 
-	err = json.Unmarshal(bytes, &varReplaceUserClassification)
-	if err == nil {
-		*o = ReplaceUserClassification(varReplaceUserClassification)
-	} else {
+	err = json.Unmarshal(data, &varReplaceUserClassification)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ReplaceUserClassification(varReplaceUserClassification)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableReplaceUserClassification) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

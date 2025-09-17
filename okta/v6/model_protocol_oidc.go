@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,18 +27,21 @@ import (
 	"encoding/json"
 )
 
+// checks if the ProtocolOidc type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ProtocolOidc{}
+
 // ProtocolOidc Protocol settings for authentication using the [OpenID Connect Protocol](http://openid.net/specs/openid-connect-core-1_0.html#CodeFlowAuth)
 type ProtocolOidc struct {
-	Algorithms *OidcAlgorithms `json:"algorithms,omitempty"`
+	Algorithms  *OidcAlgorithms   `json:"algorithms,omitempty"`
 	Credentials *OAuthCredentials `json:"credentials,omitempty"`
-	Endpoints *OAuthEndpoints `json:"endpoints,omitempty"`
+	Endpoints   *OAuthEndpoints   `json:"endpoints,omitempty"`
 	// URL of the IdP org
 	OktaIdpOrgUrl *string `json:"oktaIdpOrgUrl,omitempty"`
 	// OpenID Connect and IdP-defined permission bundles to request delegated access from the user > **Note:** The [IdP type](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/createIdentityProvider!path=type&t=request) table lists the scopes that are supported for each IdP.
-	Scopes []string `json:"scopes,omitempty"`
+	Scopes   []string      `json:"scopes,omitempty"`
 	Settings *OidcSettings `json:"settings,omitempty"`
 	// OpenID Connect Authorization Code flow
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -63,7 +66,7 @@ func NewProtocolOidcWithDefaults() *ProtocolOidc {
 
 // GetAlgorithms returns the Algorithms field value if set, zero value otherwise.
 func (o *ProtocolOidc) GetAlgorithms() OidcAlgorithms {
-	if o == nil || o.Algorithms == nil {
+	if o == nil || IsNil(o.Algorithms) {
 		var ret OidcAlgorithms
 		return ret
 	}
@@ -73,7 +76,7 @@ func (o *ProtocolOidc) GetAlgorithms() OidcAlgorithms {
 // GetAlgorithmsOk returns a tuple with the Algorithms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProtocolOidc) GetAlgorithmsOk() (*OidcAlgorithms, bool) {
-	if o == nil || o.Algorithms == nil {
+	if o == nil || IsNil(o.Algorithms) {
 		return nil, false
 	}
 	return o.Algorithms, true
@@ -81,7 +84,7 @@ func (o *ProtocolOidc) GetAlgorithmsOk() (*OidcAlgorithms, bool) {
 
 // HasAlgorithms returns a boolean if a field has been set.
 func (o *ProtocolOidc) HasAlgorithms() bool {
-	if o != nil && o.Algorithms != nil {
+	if o != nil && !IsNil(o.Algorithms) {
 		return true
 	}
 
@@ -95,7 +98,7 @@ func (o *ProtocolOidc) SetAlgorithms(v OidcAlgorithms) {
 
 // GetCredentials returns the Credentials field value if set, zero value otherwise.
 func (o *ProtocolOidc) GetCredentials() OAuthCredentials {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		var ret OAuthCredentials
 		return ret
 	}
@@ -105,7 +108,7 @@ func (o *ProtocolOidc) GetCredentials() OAuthCredentials {
 // GetCredentialsOk returns a tuple with the Credentials field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProtocolOidc) GetCredentialsOk() (*OAuthCredentials, bool) {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		return nil, false
 	}
 	return o.Credentials, true
@@ -113,7 +116,7 @@ func (o *ProtocolOidc) GetCredentialsOk() (*OAuthCredentials, bool) {
 
 // HasCredentials returns a boolean if a field has been set.
 func (o *ProtocolOidc) HasCredentials() bool {
-	if o != nil && o.Credentials != nil {
+	if o != nil && !IsNil(o.Credentials) {
 		return true
 	}
 
@@ -127,7 +130,7 @@ func (o *ProtocolOidc) SetCredentials(v OAuthCredentials) {
 
 // GetEndpoints returns the Endpoints field value if set, zero value otherwise.
 func (o *ProtocolOidc) GetEndpoints() OAuthEndpoints {
-	if o == nil || o.Endpoints == nil {
+	if o == nil || IsNil(o.Endpoints) {
 		var ret OAuthEndpoints
 		return ret
 	}
@@ -137,7 +140,7 @@ func (o *ProtocolOidc) GetEndpoints() OAuthEndpoints {
 // GetEndpointsOk returns a tuple with the Endpoints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProtocolOidc) GetEndpointsOk() (*OAuthEndpoints, bool) {
-	if o == nil || o.Endpoints == nil {
+	if o == nil || IsNil(o.Endpoints) {
 		return nil, false
 	}
 	return o.Endpoints, true
@@ -145,7 +148,7 @@ func (o *ProtocolOidc) GetEndpointsOk() (*OAuthEndpoints, bool) {
 
 // HasEndpoints returns a boolean if a field has been set.
 func (o *ProtocolOidc) HasEndpoints() bool {
-	if o != nil && o.Endpoints != nil {
+	if o != nil && !IsNil(o.Endpoints) {
 		return true
 	}
 
@@ -159,7 +162,7 @@ func (o *ProtocolOidc) SetEndpoints(v OAuthEndpoints) {
 
 // GetOktaIdpOrgUrl returns the OktaIdpOrgUrl field value if set, zero value otherwise.
 func (o *ProtocolOidc) GetOktaIdpOrgUrl() string {
-	if o == nil || o.OktaIdpOrgUrl == nil {
+	if o == nil || IsNil(o.OktaIdpOrgUrl) {
 		var ret string
 		return ret
 	}
@@ -169,7 +172,7 @@ func (o *ProtocolOidc) GetOktaIdpOrgUrl() string {
 // GetOktaIdpOrgUrlOk returns a tuple with the OktaIdpOrgUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProtocolOidc) GetOktaIdpOrgUrlOk() (*string, bool) {
-	if o == nil || o.OktaIdpOrgUrl == nil {
+	if o == nil || IsNil(o.OktaIdpOrgUrl) {
 		return nil, false
 	}
 	return o.OktaIdpOrgUrl, true
@@ -177,7 +180,7 @@ func (o *ProtocolOidc) GetOktaIdpOrgUrlOk() (*string, bool) {
 
 // HasOktaIdpOrgUrl returns a boolean if a field has been set.
 func (o *ProtocolOidc) HasOktaIdpOrgUrl() bool {
-	if o != nil && o.OktaIdpOrgUrl != nil {
+	if o != nil && !IsNil(o.OktaIdpOrgUrl) {
 		return true
 	}
 
@@ -191,7 +194,7 @@ func (o *ProtocolOidc) SetOktaIdpOrgUrl(v string) {
 
 // GetScopes returns the Scopes field value if set, zero value otherwise.
 func (o *ProtocolOidc) GetScopes() []string {
-	if o == nil || o.Scopes == nil {
+	if o == nil || IsNil(o.Scopes) {
 		var ret []string
 		return ret
 	}
@@ -201,7 +204,7 @@ func (o *ProtocolOidc) GetScopes() []string {
 // GetScopesOk returns a tuple with the Scopes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProtocolOidc) GetScopesOk() ([]string, bool) {
-	if o == nil || o.Scopes == nil {
+	if o == nil || IsNil(o.Scopes) {
 		return nil, false
 	}
 	return o.Scopes, true
@@ -209,7 +212,7 @@ func (o *ProtocolOidc) GetScopesOk() ([]string, bool) {
 
 // HasScopes returns a boolean if a field has been set.
 func (o *ProtocolOidc) HasScopes() bool {
-	if o != nil && o.Scopes != nil {
+	if o != nil && !IsNil(o.Scopes) {
 		return true
 	}
 
@@ -223,7 +226,7 @@ func (o *ProtocolOidc) SetScopes(v []string) {
 
 // GetSettings returns the Settings field value if set, zero value otherwise.
 func (o *ProtocolOidc) GetSettings() OidcSettings {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		var ret OidcSettings
 		return ret
 	}
@@ -233,7 +236,7 @@ func (o *ProtocolOidc) GetSettings() OidcSettings {
 // GetSettingsOk returns a tuple with the Settings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProtocolOidc) GetSettingsOk() (*OidcSettings, bool) {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		return nil, false
 	}
 	return o.Settings, true
@@ -241,7 +244,7 @@ func (o *ProtocolOidc) GetSettingsOk() (*OidcSettings, bool) {
 
 // HasSettings returns a boolean if a field has been set.
 func (o *ProtocolOidc) HasSettings() bool {
-	if o != nil && o.Settings != nil {
+	if o != nil && !IsNil(o.Settings) {
 		return true
 	}
 
@@ -255,7 +258,7 @@ func (o *ProtocolOidc) SetSettings(v OidcSettings) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *ProtocolOidc) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -265,7 +268,7 @@ func (o *ProtocolOidc) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProtocolOidc) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -273,7 +276,7 @@ func (o *ProtocolOidc) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *ProtocolOidc) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -286,26 +289,34 @@ func (o *ProtocolOidc) SetType(v string) {
 }
 
 func (o ProtocolOidc) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ProtocolOidc) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Algorithms != nil {
+	if !IsNil(o.Algorithms) {
 		toSerialize["algorithms"] = o.Algorithms
 	}
-	if o.Credentials != nil {
+	if !IsNil(o.Credentials) {
 		toSerialize["credentials"] = o.Credentials
 	}
-	if o.Endpoints != nil {
+	if !IsNil(o.Endpoints) {
 		toSerialize["endpoints"] = o.Endpoints
 	}
-	if o.OktaIdpOrgUrl != nil {
+	if !IsNil(o.OktaIdpOrgUrl) {
 		toSerialize["oktaIdpOrgUrl"] = o.OktaIdpOrgUrl
 	}
-	if o.Scopes != nil {
+	if !IsNil(o.Scopes) {
 		toSerialize["scopes"] = o.Scopes
 	}
-	if o.Settings != nil {
+	if !IsNil(o.Settings) {
 		toSerialize["settings"] = o.Settings
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -313,23 +324,23 @@ func (o ProtocolOidc) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ProtocolOidc) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ProtocolOidc) UnmarshalJSON(data []byte) (err error) {
 	varProtocolOidc := _ProtocolOidc{}
 
-	err = json.Unmarshal(bytes, &varProtocolOidc)
-	if err == nil {
-		*o = ProtocolOidc(varProtocolOidc)
-	} else {
+	err = json.Unmarshal(data, &varProtocolOidc)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ProtocolOidc(varProtocolOidc)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "algorithms")
 		delete(additionalProperties, "credentials")
 		delete(additionalProperties, "endpoints")
@@ -338,8 +349,6 @@ func (o *ProtocolOidc) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "settings")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -380,4 +389,3 @@ func (v *NullableProtocolOidc) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

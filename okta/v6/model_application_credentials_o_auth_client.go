@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ApplicationCredentialsOAuthClient type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApplicationCredentialsOAuthClient{}
+
 // ApplicationCredentialsOAuthClient struct for ApplicationCredentialsOAuthClient
 type ApplicationCredentialsOAuthClient struct {
 	// Requested key rotation mode
@@ -39,7 +42,7 @@ type ApplicationCredentialsOAuthClient struct {
 	PkceRequired *bool `json:"pkce_required,omitempty"`
 	// Requested authentication method for the token endpoint
 	TokenEndpointAuthMethod *string `json:"token_endpoint_auth_method,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties    map[string]interface{}
 }
 
 type _ApplicationCredentialsOAuthClient ApplicationCredentialsOAuthClient
@@ -75,7 +78,7 @@ func NewApplicationCredentialsOAuthClientWithDefaults() *ApplicationCredentialsO
 
 // GetAutoKeyRotation returns the AutoKeyRotation field value if set, zero value otherwise.
 func (o *ApplicationCredentialsOAuthClient) GetAutoKeyRotation() bool {
-	if o == nil || o.AutoKeyRotation == nil {
+	if o == nil || IsNil(o.AutoKeyRotation) {
 		var ret bool
 		return ret
 	}
@@ -85,7 +88,7 @@ func (o *ApplicationCredentialsOAuthClient) GetAutoKeyRotation() bool {
 // GetAutoKeyRotationOk returns a tuple with the AutoKeyRotation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationCredentialsOAuthClient) GetAutoKeyRotationOk() (*bool, bool) {
-	if o == nil || o.AutoKeyRotation == nil {
+	if o == nil || IsNil(o.AutoKeyRotation) {
 		return nil, false
 	}
 	return o.AutoKeyRotation, true
@@ -93,7 +96,7 @@ func (o *ApplicationCredentialsOAuthClient) GetAutoKeyRotationOk() (*bool, bool)
 
 // HasAutoKeyRotation returns a boolean if a field has been set.
 func (o *ApplicationCredentialsOAuthClient) HasAutoKeyRotation() bool {
-	if o != nil && o.AutoKeyRotation != nil {
+	if o != nil && !IsNil(o.AutoKeyRotation) {
 		return true
 	}
 
@@ -107,7 +110,7 @@ func (o *ApplicationCredentialsOAuthClient) SetAutoKeyRotation(v bool) {
 
 // GetClientId returns the ClientId field value if set, zero value otherwise.
 func (o *ApplicationCredentialsOAuthClient) GetClientId() string {
-	if o == nil || o.ClientId == nil {
+	if o == nil || IsNil(o.ClientId) {
 		var ret string
 		return ret
 	}
@@ -117,7 +120,7 @@ func (o *ApplicationCredentialsOAuthClient) GetClientId() string {
 // GetClientIdOk returns a tuple with the ClientId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationCredentialsOAuthClient) GetClientIdOk() (*string, bool) {
-	if o == nil || o.ClientId == nil {
+	if o == nil || IsNil(o.ClientId) {
 		return nil, false
 	}
 	return o.ClientId, true
@@ -125,7 +128,7 @@ func (o *ApplicationCredentialsOAuthClient) GetClientIdOk() (*string, bool) {
 
 // HasClientId returns a boolean if a field has been set.
 func (o *ApplicationCredentialsOAuthClient) HasClientId() bool {
-	if o != nil && o.ClientId != nil {
+	if o != nil && !IsNil(o.ClientId) {
 		return true
 	}
 
@@ -139,7 +142,7 @@ func (o *ApplicationCredentialsOAuthClient) SetClientId(v string) {
 
 // GetClientSecret returns the ClientSecret field value if set, zero value otherwise.
 func (o *ApplicationCredentialsOAuthClient) GetClientSecret() string {
-	if o == nil || o.ClientSecret == nil {
+	if o == nil || IsNil(o.ClientSecret) {
 		var ret string
 		return ret
 	}
@@ -149,7 +152,7 @@ func (o *ApplicationCredentialsOAuthClient) GetClientSecret() string {
 // GetClientSecretOk returns a tuple with the ClientSecret field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationCredentialsOAuthClient) GetClientSecretOk() (*string, bool) {
-	if o == nil || o.ClientSecret == nil {
+	if o == nil || IsNil(o.ClientSecret) {
 		return nil, false
 	}
 	return o.ClientSecret, true
@@ -157,7 +160,7 @@ func (o *ApplicationCredentialsOAuthClient) GetClientSecretOk() (*string, bool) 
 
 // HasClientSecret returns a boolean if a field has been set.
 func (o *ApplicationCredentialsOAuthClient) HasClientSecret() bool {
-	if o != nil && o.ClientSecret != nil {
+	if o != nil && !IsNil(o.ClientSecret) {
 		return true
 	}
 
@@ -171,7 +174,7 @@ func (o *ApplicationCredentialsOAuthClient) SetClientSecret(v string) {
 
 // GetPkceRequired returns the PkceRequired field value if set, zero value otherwise.
 func (o *ApplicationCredentialsOAuthClient) GetPkceRequired() bool {
-	if o == nil || o.PkceRequired == nil {
+	if o == nil || IsNil(o.PkceRequired) {
 		var ret bool
 		return ret
 	}
@@ -181,7 +184,7 @@ func (o *ApplicationCredentialsOAuthClient) GetPkceRequired() bool {
 // GetPkceRequiredOk returns a tuple with the PkceRequired field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationCredentialsOAuthClient) GetPkceRequiredOk() (*bool, bool) {
-	if o == nil || o.PkceRequired == nil {
+	if o == nil || IsNil(o.PkceRequired) {
 		return nil, false
 	}
 	return o.PkceRequired, true
@@ -189,7 +192,7 @@ func (o *ApplicationCredentialsOAuthClient) GetPkceRequiredOk() (*bool, bool) {
 
 // HasPkceRequired returns a boolean if a field has been set.
 func (o *ApplicationCredentialsOAuthClient) HasPkceRequired() bool {
-	if o != nil && o.PkceRequired != nil {
+	if o != nil && !IsNil(o.PkceRequired) {
 		return true
 	}
 
@@ -203,7 +206,7 @@ func (o *ApplicationCredentialsOAuthClient) SetPkceRequired(v bool) {
 
 // GetTokenEndpointAuthMethod returns the TokenEndpointAuthMethod field value if set, zero value otherwise.
 func (o *ApplicationCredentialsOAuthClient) GetTokenEndpointAuthMethod() string {
-	if o == nil || o.TokenEndpointAuthMethod == nil {
+	if o == nil || IsNil(o.TokenEndpointAuthMethod) {
 		var ret string
 		return ret
 	}
@@ -213,7 +216,7 @@ func (o *ApplicationCredentialsOAuthClient) GetTokenEndpointAuthMethod() string 
 // GetTokenEndpointAuthMethodOk returns a tuple with the TokenEndpointAuthMethod field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationCredentialsOAuthClient) GetTokenEndpointAuthMethodOk() (*string, bool) {
-	if o == nil || o.TokenEndpointAuthMethod == nil {
+	if o == nil || IsNil(o.TokenEndpointAuthMethod) {
 		return nil, false
 	}
 	return o.TokenEndpointAuthMethod, true
@@ -221,7 +224,7 @@ func (o *ApplicationCredentialsOAuthClient) GetTokenEndpointAuthMethodOk() (*str
 
 // HasTokenEndpointAuthMethod returns a boolean if a field has been set.
 func (o *ApplicationCredentialsOAuthClient) HasTokenEndpointAuthMethod() bool {
-	if o != nil && o.TokenEndpointAuthMethod != nil {
+	if o != nil && !IsNil(o.TokenEndpointAuthMethod) {
 		return true
 	}
 
@@ -234,20 +237,28 @@ func (o *ApplicationCredentialsOAuthClient) SetTokenEndpointAuthMethod(v string)
 }
 
 func (o ApplicationCredentialsOAuthClient) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApplicationCredentialsOAuthClient) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AutoKeyRotation != nil {
+	if !IsNil(o.AutoKeyRotation) {
 		toSerialize["autoKeyRotation"] = o.AutoKeyRotation
 	}
-	if o.ClientId != nil {
+	if !IsNil(o.ClientId) {
 		toSerialize["client_id"] = o.ClientId
 	}
-	if o.ClientSecret != nil {
+	if !IsNil(o.ClientSecret) {
 		toSerialize["client_secret"] = o.ClientSecret
 	}
-	if o.PkceRequired != nil {
+	if !IsNil(o.PkceRequired) {
 		toSerialize["pkce_required"] = o.PkceRequired
 	}
-	if o.TokenEndpointAuthMethod != nil {
+	if !IsNil(o.TokenEndpointAuthMethod) {
 		toSerialize["token_endpoint_auth_method"] = o.TokenEndpointAuthMethod
 	}
 
@@ -255,31 +266,29 @@ func (o ApplicationCredentialsOAuthClient) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ApplicationCredentialsOAuthClient) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ApplicationCredentialsOAuthClient) UnmarshalJSON(data []byte) (err error) {
 	varApplicationCredentialsOAuthClient := _ApplicationCredentialsOAuthClient{}
 
-	err = json.Unmarshal(bytes, &varApplicationCredentialsOAuthClient)
-	if err == nil {
-		*o = ApplicationCredentialsOAuthClient(varApplicationCredentialsOAuthClient)
-	} else {
+	err = json.Unmarshal(data, &varApplicationCredentialsOAuthClient)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ApplicationCredentialsOAuthClient(varApplicationCredentialsOAuthClient)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "autoKeyRotation")
 		delete(additionalProperties, "client_id")
 		delete(additionalProperties, "client_secret")
 		delete(additionalProperties, "pkce_required")
 		delete(additionalProperties, "token_endpoint_auth_method")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -320,4 +329,3 @@ func (v *NullableApplicationCredentialsOAuthClient) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

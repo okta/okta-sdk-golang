@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the APNSConfiguration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &APNSConfiguration{}
+
 // APNSConfiguration struct for APNSConfiguration
 type APNSConfiguration struct {
 	// (Optional) File name for Admin Console display
@@ -36,7 +39,7 @@ type APNSConfiguration struct {
 	// 10-character Team ID used to develop the iOS app
 	TeamId *string `json:"teamId,omitempty"`
 	// APNs private authentication token signing key
-	TokenSigningKey *string `json:"tokenSigningKey,omitempty"`
+	TokenSigningKey      *string `json:"tokenSigningKey,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewAPNSConfigurationWithDefaults() *APNSConfiguration {
 
 // GetFileName returns the FileName field value if set, zero value otherwise.
 func (o *APNSConfiguration) GetFileName() string {
-	if o == nil || o.FileName == nil {
+	if o == nil || IsNil(o.FileName) {
 		var ret string
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *APNSConfiguration) GetFileName() string {
 // GetFileNameOk returns a tuple with the FileName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *APNSConfiguration) GetFileNameOk() (*string, bool) {
-	if o == nil || o.FileName == nil {
+	if o == nil || IsNil(o.FileName) {
 		return nil, false
 	}
 	return o.FileName, true
@@ -79,7 +82,7 @@ func (o *APNSConfiguration) GetFileNameOk() (*string, bool) {
 
 // HasFileName returns a boolean if a field has been set.
 func (o *APNSConfiguration) HasFileName() bool {
-	if o != nil && o.FileName != nil {
+	if o != nil && !IsNil(o.FileName) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *APNSConfiguration) SetFileName(v string) {
 
 // GetKeyId returns the KeyId field value if set, zero value otherwise.
 func (o *APNSConfiguration) GetKeyId() string {
-	if o == nil || o.KeyId == nil {
+	if o == nil || IsNil(o.KeyId) {
 		var ret string
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *APNSConfiguration) GetKeyId() string {
 // GetKeyIdOk returns a tuple with the KeyId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *APNSConfiguration) GetKeyIdOk() (*string, bool) {
-	if o == nil || o.KeyId == nil {
+	if o == nil || IsNil(o.KeyId) {
 		return nil, false
 	}
 	return o.KeyId, true
@@ -111,7 +114,7 @@ func (o *APNSConfiguration) GetKeyIdOk() (*string, bool) {
 
 // HasKeyId returns a boolean if a field has been set.
 func (o *APNSConfiguration) HasKeyId() bool {
-	if o != nil && o.KeyId != nil {
+	if o != nil && !IsNil(o.KeyId) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *APNSConfiguration) SetKeyId(v string) {
 
 // GetTeamId returns the TeamId field value if set, zero value otherwise.
 func (o *APNSConfiguration) GetTeamId() string {
-	if o == nil || o.TeamId == nil {
+	if o == nil || IsNil(o.TeamId) {
 		var ret string
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *APNSConfiguration) GetTeamId() string {
 // GetTeamIdOk returns a tuple with the TeamId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *APNSConfiguration) GetTeamIdOk() (*string, bool) {
-	if o == nil || o.TeamId == nil {
+	if o == nil || IsNil(o.TeamId) {
 		return nil, false
 	}
 	return o.TeamId, true
@@ -143,7 +146,7 @@ func (o *APNSConfiguration) GetTeamIdOk() (*string, bool) {
 
 // HasTeamId returns a boolean if a field has been set.
 func (o *APNSConfiguration) HasTeamId() bool {
-	if o != nil && o.TeamId != nil {
+	if o != nil && !IsNil(o.TeamId) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *APNSConfiguration) SetTeamId(v string) {
 
 // GetTokenSigningKey returns the TokenSigningKey field value if set, zero value otherwise.
 func (o *APNSConfiguration) GetTokenSigningKey() string {
-	if o == nil || o.TokenSigningKey == nil {
+	if o == nil || IsNil(o.TokenSigningKey) {
 		var ret string
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *APNSConfiguration) GetTokenSigningKey() string {
 // GetTokenSigningKeyOk returns a tuple with the TokenSigningKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *APNSConfiguration) GetTokenSigningKeyOk() (*string, bool) {
-	if o == nil || o.TokenSigningKey == nil {
+	if o == nil || IsNil(o.TokenSigningKey) {
 		return nil, false
 	}
 	return o.TokenSigningKey, true
@@ -175,7 +178,7 @@ func (o *APNSConfiguration) GetTokenSigningKeyOk() (*string, bool) {
 
 // HasTokenSigningKey returns a boolean if a field has been set.
 func (o *APNSConfiguration) HasTokenSigningKey() bool {
-	if o != nil && o.TokenSigningKey != nil {
+	if o != nil && !IsNil(o.TokenSigningKey) {
 		return true
 	}
 
@@ -188,17 +191,25 @@ func (o *APNSConfiguration) SetTokenSigningKey(v string) {
 }
 
 func (o APNSConfiguration) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o APNSConfiguration) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.FileName != nil {
+	if !IsNil(o.FileName) {
 		toSerialize["fileName"] = o.FileName
 	}
-	if o.KeyId != nil {
+	if !IsNil(o.KeyId) {
 		toSerialize["keyId"] = o.KeyId
 	}
-	if o.TeamId != nil {
+	if !IsNil(o.TeamId) {
 		toSerialize["teamId"] = o.TeamId
 	}
-	if o.TokenSigningKey != nil {
+	if !IsNil(o.TokenSigningKey) {
 		toSerialize["tokenSigningKey"] = o.TokenSigningKey
 	}
 
@@ -206,30 +217,28 @@ func (o APNSConfiguration) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *APNSConfiguration) UnmarshalJSON(bytes []byte) (err error) {
+func (o *APNSConfiguration) UnmarshalJSON(data []byte) (err error) {
 	varAPNSConfiguration := _APNSConfiguration{}
 
-	err = json.Unmarshal(bytes, &varAPNSConfiguration)
-	if err == nil {
-		*o = APNSConfiguration(varAPNSConfiguration)
-	} else {
+	err = json.Unmarshal(data, &varAPNSConfiguration)
+
+	if err != nil {
 		return err
 	}
 
+	*o = APNSConfiguration(varAPNSConfiguration)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "fileName")
 		delete(additionalProperties, "keyId")
 		delete(additionalProperties, "teamId")
 		delete(additionalProperties, "tokenSigningKey")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -270,4 +279,3 @@ func (v *NullableAPNSConfiguration) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

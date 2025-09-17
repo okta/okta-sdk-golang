@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the FederatedClaim type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FederatedClaim{}
+
 // FederatedClaim struct for FederatedClaim
 type FederatedClaim struct {
 	// Timestamp when the federated claim was created
@@ -38,7 +41,7 @@ type FederatedClaim struct {
 	// Timestamp when the federated claim was updated
 	LastUpdated *string `json:"lastUpdated,omitempty"`
 	// The name of the claim to be used in the produced token
-	Name *string `json:"name,omitempty"`
+	Name                 *string `json:"name,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -63,7 +66,7 @@ func NewFederatedClaimWithDefaults() *FederatedClaim {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *FederatedClaim) GetCreated() string {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret string
 		return ret
 	}
@@ -73,7 +76,7 @@ func (o *FederatedClaim) GetCreated() string {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FederatedClaim) GetCreatedOk() (*string, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -81,7 +84,7 @@ func (o *FederatedClaim) GetCreatedOk() (*string, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *FederatedClaim) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -95,7 +98,7 @@ func (o *FederatedClaim) SetCreated(v string) {
 
 // GetExpression returns the Expression field value if set, zero value otherwise.
 func (o *FederatedClaim) GetExpression() string {
-	if o == nil || o.Expression == nil {
+	if o == nil || IsNil(o.Expression) {
 		var ret string
 		return ret
 	}
@@ -105,7 +108,7 @@ func (o *FederatedClaim) GetExpression() string {
 // GetExpressionOk returns a tuple with the Expression field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FederatedClaim) GetExpressionOk() (*string, bool) {
-	if o == nil || o.Expression == nil {
+	if o == nil || IsNil(o.Expression) {
 		return nil, false
 	}
 	return o.Expression, true
@@ -113,7 +116,7 @@ func (o *FederatedClaim) GetExpressionOk() (*string, bool) {
 
 // HasExpression returns a boolean if a field has been set.
 func (o *FederatedClaim) HasExpression() bool {
-	if o != nil && o.Expression != nil {
+	if o != nil && !IsNil(o.Expression) {
 		return true
 	}
 
@@ -127,7 +130,7 @@ func (o *FederatedClaim) SetExpression(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *FederatedClaim) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -137,7 +140,7 @@ func (o *FederatedClaim) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FederatedClaim) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -145,7 +148,7 @@ func (o *FederatedClaim) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *FederatedClaim) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -159,7 +162,7 @@ func (o *FederatedClaim) SetId(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *FederatedClaim) GetLastUpdated() string {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret string
 		return ret
 	}
@@ -169,7 +172,7 @@ func (o *FederatedClaim) GetLastUpdated() string {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FederatedClaim) GetLastUpdatedOk() (*string, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -177,7 +180,7 @@ func (o *FederatedClaim) GetLastUpdatedOk() (*string, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *FederatedClaim) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -191,7 +194,7 @@ func (o *FederatedClaim) SetLastUpdated(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *FederatedClaim) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -201,7 +204,7 @@ func (o *FederatedClaim) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FederatedClaim) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -209,7 +212,7 @@ func (o *FederatedClaim) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *FederatedClaim) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -222,20 +225,28 @@ func (o *FederatedClaim) SetName(v string) {
 }
 
 func (o FederatedClaim) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o FederatedClaim) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Expression != nil {
+	if !IsNil(o.Expression) {
 		toSerialize["expression"] = o.Expression
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
 
@@ -243,31 +254,29 @@ func (o FederatedClaim) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *FederatedClaim) UnmarshalJSON(bytes []byte) (err error) {
+func (o *FederatedClaim) UnmarshalJSON(data []byte) (err error) {
 	varFederatedClaim := _FederatedClaim{}
 
-	err = json.Unmarshal(bytes, &varFederatedClaim)
-	if err == nil {
-		*o = FederatedClaim(varFederatedClaim)
-	} else {
+	err = json.Unmarshal(data, &varFederatedClaim)
+
+	if err != nil {
 		return err
 	}
 
+	*o = FederatedClaim(varFederatedClaim)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "expression")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "lastUpdated")
 		delete(additionalProperties, "name")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -308,4 +317,3 @@ func (v *NullableFederatedClaim) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

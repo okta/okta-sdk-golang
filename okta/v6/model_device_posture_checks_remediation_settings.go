@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the DevicePostureChecksRemediationSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DevicePostureChecksRemediationSettings{}
+
 // DevicePostureChecksRemediationSettings Represents the remediation instructions shown to the end user when the device posture check fails
 type DevicePostureChecksRemediationSettings struct {
-	Link *DevicePostureChecksRemediationSettingsLink `json:"link,omitempty"`
-	Message *DevicePostureChecksRemediationSettingsMessage `json:"message,omitempty"`
+	Link                 *DevicePostureChecksRemediationSettingsLink    `json:"link,omitempty"`
+	Message              *DevicePostureChecksRemediationSettingsMessage `json:"message,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewDevicePostureChecksRemediationSettingsWithDefaults() *DevicePostureCheck
 
 // GetLink returns the Link field value if set, zero value otherwise.
 func (o *DevicePostureChecksRemediationSettings) GetLink() DevicePostureChecksRemediationSettingsLink {
-	if o == nil || o.Link == nil {
+	if o == nil || IsNil(o.Link) {
 		var ret DevicePostureChecksRemediationSettingsLink
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *DevicePostureChecksRemediationSettings) GetLink() DevicePostureChecksRe
 // GetLinkOk returns a tuple with the Link field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DevicePostureChecksRemediationSettings) GetLinkOk() (*DevicePostureChecksRemediationSettingsLink, bool) {
-	if o == nil || o.Link == nil {
+	if o == nil || IsNil(o.Link) {
 		return nil, false
 	}
 	return o.Link, true
@@ -73,7 +76,7 @@ func (o *DevicePostureChecksRemediationSettings) GetLinkOk() (*DevicePostureChec
 
 // HasLink returns a boolean if a field has been set.
 func (o *DevicePostureChecksRemediationSettings) HasLink() bool {
-	if o != nil && o.Link != nil {
+	if o != nil && !IsNil(o.Link) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *DevicePostureChecksRemediationSettings) SetLink(v DevicePostureChecksRe
 
 // GetMessage returns the Message field value if set, zero value otherwise.
 func (o *DevicePostureChecksRemediationSettings) GetMessage() DevicePostureChecksRemediationSettingsMessage {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		var ret DevicePostureChecksRemediationSettingsMessage
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *DevicePostureChecksRemediationSettings) GetMessage() DevicePostureCheck
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DevicePostureChecksRemediationSettings) GetMessageOk() (*DevicePostureChecksRemediationSettingsMessage, bool) {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
 	return o.Message, true
@@ -105,7 +108,7 @@ func (o *DevicePostureChecksRemediationSettings) GetMessageOk() (*DevicePostureC
 
 // HasMessage returns a boolean if a field has been set.
 func (o *DevicePostureChecksRemediationSettings) HasMessage() bool {
-	if o != nil && o.Message != nil {
+	if o != nil && !IsNil(o.Message) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *DevicePostureChecksRemediationSettings) SetMessage(v DevicePostureCheck
 }
 
 func (o DevicePostureChecksRemediationSettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DevicePostureChecksRemediationSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Link != nil {
+	if !IsNil(o.Link) {
 		toSerialize["link"] = o.Link
 	}
-	if o.Message != nil {
+	if !IsNil(o.Message) {
 		toSerialize["message"] = o.Message
 	}
 
@@ -130,28 +141,26 @@ func (o DevicePostureChecksRemediationSettings) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DevicePostureChecksRemediationSettings) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DevicePostureChecksRemediationSettings) UnmarshalJSON(data []byte) (err error) {
 	varDevicePostureChecksRemediationSettings := _DevicePostureChecksRemediationSettings{}
 
-	err = json.Unmarshal(bytes, &varDevicePostureChecksRemediationSettings)
-	if err == nil {
-		*o = DevicePostureChecksRemediationSettings(varDevicePostureChecksRemediationSettings)
-	} else {
+	err = json.Unmarshal(data, &varDevicePostureChecksRemediationSettings)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DevicePostureChecksRemediationSettings(varDevicePostureChecksRemediationSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "link")
 		delete(additionalProperties, "message")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableDevicePostureChecksRemediationSettings) UnmarshalJSON(src []byt
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

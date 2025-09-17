@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the InlineObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InlineObject{}
+
 // InlineObject struct for InlineObject
 type InlineObject struct {
 	// Results of the failover operation
-	Results []InlineObjectResultsInner `json:"results,omitempty"`
+	Results              []InlineObjectResultsInner `json:"results,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewInlineObjectWithDefaults() *InlineObject {
 
 // GetResults returns the Results field value if set, zero value otherwise.
 func (o *InlineObject) GetResults() []InlineObjectResultsInner {
-	if o == nil || o.Results == nil {
+	if o == nil || IsNil(o.Results) {
 		var ret []InlineObjectResultsInner
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *InlineObject) GetResults() []InlineObjectResultsInner {
 // GetResultsOk returns a tuple with the Results field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineObject) GetResultsOk() ([]InlineObjectResultsInner, bool) {
-	if o == nil || o.Results == nil {
+	if o == nil || IsNil(o.Results) {
 		return nil, false
 	}
 	return o.Results, true
@@ -73,7 +76,7 @@ func (o *InlineObject) GetResultsOk() ([]InlineObjectResultsInner, bool) {
 
 // HasResults returns a boolean if a field has been set.
 func (o *InlineObject) HasResults() bool {
-	if o != nil && o.Results != nil {
+	if o != nil && !IsNil(o.Results) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *InlineObject) SetResults(v []InlineObjectResultsInner) {
 }
 
 func (o InlineObject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o InlineObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Results != nil {
+	if !IsNil(o.Results) {
 		toSerialize["results"] = o.Results
 	}
 
@@ -95,27 +106,25 @@ func (o InlineObject) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *InlineObject) UnmarshalJSON(bytes []byte) (err error) {
+func (o *InlineObject) UnmarshalJSON(data []byte) (err error) {
 	varInlineObject := _InlineObject{}
 
-	err = json.Unmarshal(bytes, &varInlineObject)
-	if err == nil {
-		*o = InlineObject(varInlineObject)
-	} else {
+	err = json.Unmarshal(data, &varInlineObject)
+
+	if err != nil {
 		return err
 	}
 
+	*o = InlineObject(varInlineObject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "results")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableInlineObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

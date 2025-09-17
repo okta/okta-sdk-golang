@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the TokenHookResponseError type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TokenHookResponseError{}
+
 // TokenHookResponseError When an error object is returned, it causes Okta to return an OAuth 2.0 error to the requester of the token. In the error response, the value of `error` is `server_error`, and the value of `error_description` is the string that you supplied in the `errorSummary` property of the `error` object that you returned.
 type TokenHookResponseError struct {
 	// Human-readable summary of the error. If the error object doesn't include the `errorSummary` property defined, the following common default message is returned to the end user: `The callback service returned an error`.
-	ErrorSummary *string `json:"errorSummary,omitempty"`
+	ErrorSummary         *string `json:"errorSummary,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewTokenHookResponseErrorWithDefaults() *TokenHookResponseError {
 
 // GetErrorSummary returns the ErrorSummary field value if set, zero value otherwise.
 func (o *TokenHookResponseError) GetErrorSummary() string {
-	if o == nil || o.ErrorSummary == nil {
+	if o == nil || IsNil(o.ErrorSummary) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *TokenHookResponseError) GetErrorSummary() string {
 // GetErrorSummaryOk returns a tuple with the ErrorSummary field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenHookResponseError) GetErrorSummaryOk() (*string, bool) {
-	if o == nil || o.ErrorSummary == nil {
+	if o == nil || IsNil(o.ErrorSummary) {
 		return nil, false
 	}
 	return o.ErrorSummary, true
@@ -73,7 +76,7 @@ func (o *TokenHookResponseError) GetErrorSummaryOk() (*string, bool) {
 
 // HasErrorSummary returns a boolean if a field has been set.
 func (o *TokenHookResponseError) HasErrorSummary() bool {
-	if o != nil && o.ErrorSummary != nil {
+	if o != nil && !IsNil(o.ErrorSummary) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *TokenHookResponseError) SetErrorSummary(v string) {
 }
 
 func (o TokenHookResponseError) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TokenHookResponseError) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ErrorSummary != nil {
+	if !IsNil(o.ErrorSummary) {
 		toSerialize["errorSummary"] = o.ErrorSummary
 	}
 
@@ -95,27 +106,25 @@ func (o TokenHookResponseError) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *TokenHookResponseError) UnmarshalJSON(bytes []byte) (err error) {
+func (o *TokenHookResponseError) UnmarshalJSON(data []byte) (err error) {
 	varTokenHookResponseError := _TokenHookResponseError{}
 
-	err = json.Unmarshal(bytes, &varTokenHookResponseError)
-	if err == nil {
-		*o = TokenHookResponseError(varTokenHookResponseError)
-	} else {
+	err = json.Unmarshal(data, &varTokenHookResponseError)
+
+	if err != nil {
 		return err
 	}
 
+	*o = TokenHookResponseError(varTokenHookResponseError)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "errorSummary")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableTokenHookResponseError) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

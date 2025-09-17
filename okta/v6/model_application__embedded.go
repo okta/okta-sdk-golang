@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the ApplicationEmbedded type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApplicationEmbedded{}
+
 // ApplicationEmbedded Embedded resources related to the app using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification. If the `expand=user/{userId}` query parameter is specified, then the assigned [Application User](/openapi/okta-management/management/tag/ApplicationUsers/) is embedded.
 type ApplicationEmbedded struct {
 	// The specified [Application User](/openapi/okta-management/management/tag/ApplicationUsers/) assigned to the app
-	User map[string]map[string]interface{} `json:"user,omitempty"`
+	User                 map[string]map[string]interface{} `json:"user,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewApplicationEmbeddedWithDefaults() *ApplicationEmbedded {
 
 // GetUser returns the User field value if set, zero value otherwise.
 func (o *ApplicationEmbedded) GetUser() map[string]map[string]interface{} {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
@@ -65,15 +68,15 @@ func (o *ApplicationEmbedded) GetUser() map[string]map[string]interface{} {
 // GetUserOk returns a tuple with the User field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationEmbedded) GetUserOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || o.User == nil {
-		return nil, false
+	if o == nil || IsNil(o.User) {
+		return map[string]map[string]interface{}{}, false
 	}
 	return o.User, true
 }
 
 // HasUser returns a boolean if a field has been set.
 func (o *ApplicationEmbedded) HasUser() bool {
-	if o != nil && o.User != nil {
+	if o != nil && !IsNil(o.User) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *ApplicationEmbedded) SetUser(v map[string]map[string]interface{}) {
 }
 
 func (o ApplicationEmbedded) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApplicationEmbedded) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.User != nil {
+	if !IsNil(o.User) {
 		toSerialize["user"] = o.User
 	}
 
@@ -95,27 +106,25 @@ func (o ApplicationEmbedded) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ApplicationEmbedded) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ApplicationEmbedded) UnmarshalJSON(data []byte) (err error) {
 	varApplicationEmbedded := _ApplicationEmbedded{}
 
-	err = json.Unmarshal(bytes, &varApplicationEmbedded)
-	if err == nil {
-		*o = ApplicationEmbedded(varApplicationEmbedded)
-	} else {
+	err = json.Unmarshal(data, &varApplicationEmbedded)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ApplicationEmbedded(varApplicationEmbedded)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "user")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableApplicationEmbedded) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the ProtocolMtls type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ProtocolMtls{}
+
 // ProtocolMtls Protocol settings for the [MTLS Protocol](https://tools.ietf.org/html/rfc5246#section-7.4.4)
 type ProtocolMtls struct {
 	Credentials *MtlsCredentials `json:"credentials,omitempty"`
-	Endpoints *MtlsEndpoints `json:"endpoints,omitempty"`
+	Endpoints   *MtlsEndpoints   `json:"endpoints,omitempty"`
 	// Mutual TLS
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewProtocolMtlsWithDefaults() *ProtocolMtls {
 
 // GetCredentials returns the Credentials field value if set, zero value otherwise.
 func (o *ProtocolMtls) GetCredentials() MtlsCredentials {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		var ret MtlsCredentials
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *ProtocolMtls) GetCredentials() MtlsCredentials {
 // GetCredentialsOk returns a tuple with the Credentials field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProtocolMtls) GetCredentialsOk() (*MtlsCredentials, bool) {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		return nil, false
 	}
 	return o.Credentials, true
@@ -75,7 +78,7 @@ func (o *ProtocolMtls) GetCredentialsOk() (*MtlsCredentials, bool) {
 
 // HasCredentials returns a boolean if a field has been set.
 func (o *ProtocolMtls) HasCredentials() bool {
-	if o != nil && o.Credentials != nil {
+	if o != nil && !IsNil(o.Credentials) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *ProtocolMtls) SetCredentials(v MtlsCredentials) {
 
 // GetEndpoints returns the Endpoints field value if set, zero value otherwise.
 func (o *ProtocolMtls) GetEndpoints() MtlsEndpoints {
-	if o == nil || o.Endpoints == nil {
+	if o == nil || IsNil(o.Endpoints) {
 		var ret MtlsEndpoints
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *ProtocolMtls) GetEndpoints() MtlsEndpoints {
 // GetEndpointsOk returns a tuple with the Endpoints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProtocolMtls) GetEndpointsOk() (*MtlsEndpoints, bool) {
-	if o == nil || o.Endpoints == nil {
+	if o == nil || IsNil(o.Endpoints) {
 		return nil, false
 	}
 	return o.Endpoints, true
@@ -107,7 +110,7 @@ func (o *ProtocolMtls) GetEndpointsOk() (*MtlsEndpoints, bool) {
 
 // HasEndpoints returns a boolean if a field has been set.
 func (o *ProtocolMtls) HasEndpoints() bool {
-	if o != nil && o.Endpoints != nil {
+	if o != nil && !IsNil(o.Endpoints) {
 		return true
 	}
 
@@ -121,7 +124,7 @@ func (o *ProtocolMtls) SetEndpoints(v MtlsEndpoints) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *ProtocolMtls) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -131,7 +134,7 @@ func (o *ProtocolMtls) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProtocolMtls) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -139,7 +142,7 @@ func (o *ProtocolMtls) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *ProtocolMtls) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -152,14 +155,22 @@ func (o *ProtocolMtls) SetType(v string) {
 }
 
 func (o ProtocolMtls) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ProtocolMtls) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Credentials != nil {
+	if !IsNil(o.Credentials) {
 		toSerialize["credentials"] = o.Credentials
 	}
-	if o.Endpoints != nil {
+	if !IsNil(o.Endpoints) {
 		toSerialize["endpoints"] = o.Endpoints
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -167,29 +178,27 @@ func (o ProtocolMtls) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ProtocolMtls) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ProtocolMtls) UnmarshalJSON(data []byte) (err error) {
 	varProtocolMtls := _ProtocolMtls{}
 
-	err = json.Unmarshal(bytes, &varProtocolMtls)
-	if err == nil {
-		*o = ProtocolMtls(varProtocolMtls)
-	} else {
+	err = json.Unmarshal(data, &varProtocolMtls)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ProtocolMtls(varProtocolMtls)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "credentials")
 		delete(additionalProperties, "endpoints")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -230,4 +239,3 @@ func (v *NullableProtocolMtls) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

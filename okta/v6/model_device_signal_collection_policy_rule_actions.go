@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the DeviceSignalCollectionPolicyRuleActions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeviceSignalCollectionPolicyRuleActions{}
+
 // DeviceSignalCollectionPolicyRuleActions <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Specifies actions to be taken, or operations that may be allowed, if the rule conditions are satisfied
 type DeviceSignalCollectionPolicyRuleActions struct {
 	DeviceSignalCollection *DeviceSignalCollectionPolicyRuleDeviceSignalCollection `json:"deviceSignalCollection,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties   map[string]interface{}
 }
 
 type _DeviceSignalCollectionPolicyRuleActions DeviceSignalCollectionPolicyRuleActions
@@ -54,7 +57,7 @@ func NewDeviceSignalCollectionPolicyRuleActionsWithDefaults() *DeviceSignalColle
 
 // GetDeviceSignalCollection returns the DeviceSignalCollection field value if set, zero value otherwise.
 func (o *DeviceSignalCollectionPolicyRuleActions) GetDeviceSignalCollection() DeviceSignalCollectionPolicyRuleDeviceSignalCollection {
-	if o == nil || o.DeviceSignalCollection == nil {
+	if o == nil || IsNil(o.DeviceSignalCollection) {
 		var ret DeviceSignalCollectionPolicyRuleDeviceSignalCollection
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *DeviceSignalCollectionPolicyRuleActions) GetDeviceSignalCollection() De
 // GetDeviceSignalCollectionOk returns a tuple with the DeviceSignalCollection field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceSignalCollectionPolicyRuleActions) GetDeviceSignalCollectionOk() (*DeviceSignalCollectionPolicyRuleDeviceSignalCollection, bool) {
-	if o == nil || o.DeviceSignalCollection == nil {
+	if o == nil || IsNil(o.DeviceSignalCollection) {
 		return nil, false
 	}
 	return o.DeviceSignalCollection, true
@@ -72,7 +75,7 @@ func (o *DeviceSignalCollectionPolicyRuleActions) GetDeviceSignalCollectionOk() 
 
 // HasDeviceSignalCollection returns a boolean if a field has been set.
 func (o *DeviceSignalCollectionPolicyRuleActions) HasDeviceSignalCollection() bool {
-	if o != nil && o.DeviceSignalCollection != nil {
+	if o != nil && !IsNil(o.DeviceSignalCollection) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *DeviceSignalCollectionPolicyRuleActions) SetDeviceSignalCollection(v De
 }
 
 func (o DeviceSignalCollectionPolicyRuleActions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DeviceSignalCollectionPolicyRuleActions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.DeviceSignalCollection != nil {
+	if !IsNil(o.DeviceSignalCollection) {
 		toSerialize["deviceSignalCollection"] = o.DeviceSignalCollection
 	}
 
@@ -94,27 +105,25 @@ func (o DeviceSignalCollectionPolicyRuleActions) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DeviceSignalCollectionPolicyRuleActions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DeviceSignalCollectionPolicyRuleActions) UnmarshalJSON(data []byte) (err error) {
 	varDeviceSignalCollectionPolicyRuleActions := _DeviceSignalCollectionPolicyRuleActions{}
 
-	err = json.Unmarshal(bytes, &varDeviceSignalCollectionPolicyRuleActions)
-	if err == nil {
-		*o = DeviceSignalCollectionPolicyRuleActions(varDeviceSignalCollectionPolicyRuleActions)
-	} else {
+	err = json.Unmarshal(data, &varDeviceSignalCollectionPolicyRuleActions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DeviceSignalCollectionPolicyRuleActions(varDeviceSignalCollectionPolicyRuleActions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "deviceSignalCollection")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableDeviceSignalCollectionPolicyRuleActions) UnmarshalJSON(src []by
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

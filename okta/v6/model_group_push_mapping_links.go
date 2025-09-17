@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the GroupPushMappingLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GroupPushMappingLinks{}
+
 // GroupPushMappingLinks Discoverable resources related to the group push mapping
 type GroupPushMappingLinks struct {
-	App *HrefObjectAppLink `json:"app,omitempty"`
-	SourceGroup *HrefObjectGroupLink `json:"sourceGroup,omitempty"`
-	TargetGroup *HrefObjectGroupLink `json:"targetGroup,omitempty"`
+	App                  *HrefObjectAppLink   `json:"app,omitempty"`
+	SourceGroup          *HrefObjectGroupLink `json:"sourceGroup,omitempty"`
+	TargetGroup          *HrefObjectGroupLink `json:"targetGroup,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewGroupPushMappingLinksWithDefaults() *GroupPushMappingLinks {
 
 // GetApp returns the App field value if set, zero value otherwise.
 func (o *GroupPushMappingLinks) GetApp() HrefObjectAppLink {
-	if o == nil || o.App == nil {
+	if o == nil || IsNil(o.App) {
 		var ret HrefObjectAppLink
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *GroupPushMappingLinks) GetApp() HrefObjectAppLink {
 // GetAppOk returns a tuple with the App field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupPushMappingLinks) GetAppOk() (*HrefObjectAppLink, bool) {
-	if o == nil || o.App == nil {
+	if o == nil || IsNil(o.App) {
 		return nil, false
 	}
 	return o.App, true
@@ -74,7 +77,7 @@ func (o *GroupPushMappingLinks) GetAppOk() (*HrefObjectAppLink, bool) {
 
 // HasApp returns a boolean if a field has been set.
 func (o *GroupPushMappingLinks) HasApp() bool {
-	if o != nil && o.App != nil {
+	if o != nil && !IsNil(o.App) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *GroupPushMappingLinks) SetApp(v HrefObjectAppLink) {
 
 // GetSourceGroup returns the SourceGroup field value if set, zero value otherwise.
 func (o *GroupPushMappingLinks) GetSourceGroup() HrefObjectGroupLink {
-	if o == nil || o.SourceGroup == nil {
+	if o == nil || IsNil(o.SourceGroup) {
 		var ret HrefObjectGroupLink
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *GroupPushMappingLinks) GetSourceGroup() HrefObjectGroupLink {
 // GetSourceGroupOk returns a tuple with the SourceGroup field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupPushMappingLinks) GetSourceGroupOk() (*HrefObjectGroupLink, bool) {
-	if o == nil || o.SourceGroup == nil {
+	if o == nil || IsNil(o.SourceGroup) {
 		return nil, false
 	}
 	return o.SourceGroup, true
@@ -106,7 +109,7 @@ func (o *GroupPushMappingLinks) GetSourceGroupOk() (*HrefObjectGroupLink, bool) 
 
 // HasSourceGroup returns a boolean if a field has been set.
 func (o *GroupPushMappingLinks) HasSourceGroup() bool {
-	if o != nil && o.SourceGroup != nil {
+	if o != nil && !IsNil(o.SourceGroup) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *GroupPushMappingLinks) SetSourceGroup(v HrefObjectGroupLink) {
 
 // GetTargetGroup returns the TargetGroup field value if set, zero value otherwise.
 func (o *GroupPushMappingLinks) GetTargetGroup() HrefObjectGroupLink {
-	if o == nil || o.TargetGroup == nil {
+	if o == nil || IsNil(o.TargetGroup) {
 		var ret HrefObjectGroupLink
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *GroupPushMappingLinks) GetTargetGroup() HrefObjectGroupLink {
 // GetTargetGroupOk returns a tuple with the TargetGroup field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupPushMappingLinks) GetTargetGroupOk() (*HrefObjectGroupLink, bool) {
-	if o == nil || o.TargetGroup == nil {
+	if o == nil || IsNil(o.TargetGroup) {
 		return nil, false
 	}
 	return o.TargetGroup, true
@@ -138,7 +141,7 @@ func (o *GroupPushMappingLinks) GetTargetGroupOk() (*HrefObjectGroupLink, bool) 
 
 // HasTargetGroup returns a boolean if a field has been set.
 func (o *GroupPushMappingLinks) HasTargetGroup() bool {
-	if o != nil && o.TargetGroup != nil {
+	if o != nil && !IsNil(o.TargetGroup) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *GroupPushMappingLinks) SetTargetGroup(v HrefObjectGroupLink) {
 }
 
 func (o GroupPushMappingLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o GroupPushMappingLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.App != nil {
+	if !IsNil(o.App) {
 		toSerialize["app"] = o.App
 	}
-	if o.SourceGroup != nil {
+	if !IsNil(o.SourceGroup) {
 		toSerialize["sourceGroup"] = o.SourceGroup
 	}
-	if o.TargetGroup != nil {
+	if !IsNil(o.TargetGroup) {
 		toSerialize["targetGroup"] = o.TargetGroup
 	}
 
@@ -166,29 +177,27 @@ func (o GroupPushMappingLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *GroupPushMappingLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *GroupPushMappingLinks) UnmarshalJSON(data []byte) (err error) {
 	varGroupPushMappingLinks := _GroupPushMappingLinks{}
 
-	err = json.Unmarshal(bytes, &varGroupPushMappingLinks)
-	if err == nil {
-		*o = GroupPushMappingLinks(varGroupPushMappingLinks)
-	} else {
+	err = json.Unmarshal(data, &varGroupPushMappingLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = GroupPushMappingLinks(varGroupPushMappingLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "app")
 		delete(additionalProperties, "sourceGroup")
 		delete(additionalProperties, "targetGroup")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullableGroupPushMappingLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

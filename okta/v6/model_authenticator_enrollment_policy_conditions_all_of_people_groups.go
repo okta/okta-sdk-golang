@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups{}
+
 // AuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups Specifies a set of groups whose users are to be included or excluded
 type AuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups struct {
 	// Groups to be included
-	Include []string `json:"include,omitempty"`
+	Include              []string `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewAuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroupsWithDefaults() *
 
 // GetInclude returns the Include field value if set, zero value otherwise.
 func (o *AuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups) GetInclude() []string {
-	if o == nil || o.Include == nil {
+	if o == nil || IsNil(o.Include) {
 		var ret []string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *AuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups) GetInclude() 
 // GetIncludeOk returns a tuple with the Include field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups) GetIncludeOk() ([]string, bool) {
-	if o == nil || o.Include == nil {
+	if o == nil || IsNil(o.Include) {
 		return nil, false
 	}
 	return o.Include, true
@@ -73,7 +76,7 @@ func (o *AuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups) GetIncludeOk(
 
 // HasInclude returns a boolean if a field has been set.
 func (o *AuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups) HasInclude() bool {
-	if o != nil && o.Include != nil {
+	if o != nil && !IsNil(o.Include) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *AuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups) SetInclude(v 
 }
 
 func (o AuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Include != nil {
+	if !IsNil(o.Include) {
 		toSerialize["include"] = o.Include
 	}
 
@@ -95,27 +106,25 @@ func (o AuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups) MarshalJSON() 
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups) UnmarshalJSON(data []byte) (err error) {
 	varAuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups := _AuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups)
-	if err == nil {
-		*o = AuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups(varAuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups)
-	} else {
+	err = json.Unmarshal(data, &varAuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups(varAuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "include")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableAuthenticatorEnrollmentPolicyConditionsAllOfPeopleGroups) Unmar
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

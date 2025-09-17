@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PasswordPolicyPasswordSettingsAge type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordPolicyPasswordSettingsAge{}
+
 // PasswordPolicyPasswordSettingsAge Age settings
 type PasswordPolicyPasswordSettingsAge struct {
 	// Specifies the number of days prior to password expiration when a User is warned to reset their password: `0` indicates no warning
@@ -36,7 +39,7 @@ type PasswordPolicyPasswordSettingsAge struct {
 	// Specifies how long (in days) a password remains valid before it expires: `0` indicates no limit
 	MaxAgeDays *int32 `json:"maxAgeDays,omitempty"`
 	// Specifies the minimum time interval (in minutes) between password changes: `0` indicates no limit
-	MinAgeMinutes *int32 `json:"minAgeMinutes,omitempty"`
+	MinAgeMinutes        *int32 `json:"minAgeMinutes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -77,7 +80,7 @@ func NewPasswordPolicyPasswordSettingsAgeWithDefaults() *PasswordPolicyPasswordS
 
 // GetExpireWarnDays returns the ExpireWarnDays field value if set, zero value otherwise.
 func (o *PasswordPolicyPasswordSettingsAge) GetExpireWarnDays() int32 {
-	if o == nil || o.ExpireWarnDays == nil {
+	if o == nil || IsNil(o.ExpireWarnDays) {
 		var ret int32
 		return ret
 	}
@@ -87,7 +90,7 @@ func (o *PasswordPolicyPasswordSettingsAge) GetExpireWarnDays() int32 {
 // GetExpireWarnDaysOk returns a tuple with the ExpireWarnDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyPasswordSettingsAge) GetExpireWarnDaysOk() (*int32, bool) {
-	if o == nil || o.ExpireWarnDays == nil {
+	if o == nil || IsNil(o.ExpireWarnDays) {
 		return nil, false
 	}
 	return o.ExpireWarnDays, true
@@ -95,7 +98,7 @@ func (o *PasswordPolicyPasswordSettingsAge) GetExpireWarnDaysOk() (*int32, bool)
 
 // HasExpireWarnDays returns a boolean if a field has been set.
 func (o *PasswordPolicyPasswordSettingsAge) HasExpireWarnDays() bool {
-	if o != nil && o.ExpireWarnDays != nil {
+	if o != nil && !IsNil(o.ExpireWarnDays) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *PasswordPolicyPasswordSettingsAge) SetExpireWarnDays(v int32) {
 
 // GetHistoryCount returns the HistoryCount field value if set, zero value otherwise.
 func (o *PasswordPolicyPasswordSettingsAge) GetHistoryCount() int32 {
-	if o == nil || o.HistoryCount == nil {
+	if o == nil || IsNil(o.HistoryCount) {
 		var ret int32
 		return ret
 	}
@@ -119,7 +122,7 @@ func (o *PasswordPolicyPasswordSettingsAge) GetHistoryCount() int32 {
 // GetHistoryCountOk returns a tuple with the HistoryCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyPasswordSettingsAge) GetHistoryCountOk() (*int32, bool) {
-	if o == nil || o.HistoryCount == nil {
+	if o == nil || IsNil(o.HistoryCount) {
 		return nil, false
 	}
 	return o.HistoryCount, true
@@ -127,7 +130,7 @@ func (o *PasswordPolicyPasswordSettingsAge) GetHistoryCountOk() (*int32, bool) {
 
 // HasHistoryCount returns a boolean if a field has been set.
 func (o *PasswordPolicyPasswordSettingsAge) HasHistoryCount() bool {
-	if o != nil && o.HistoryCount != nil {
+	if o != nil && !IsNil(o.HistoryCount) {
 		return true
 	}
 
@@ -141,7 +144,7 @@ func (o *PasswordPolicyPasswordSettingsAge) SetHistoryCount(v int32) {
 
 // GetMaxAgeDays returns the MaxAgeDays field value if set, zero value otherwise.
 func (o *PasswordPolicyPasswordSettingsAge) GetMaxAgeDays() int32 {
-	if o == nil || o.MaxAgeDays == nil {
+	if o == nil || IsNil(o.MaxAgeDays) {
 		var ret int32
 		return ret
 	}
@@ -151,7 +154,7 @@ func (o *PasswordPolicyPasswordSettingsAge) GetMaxAgeDays() int32 {
 // GetMaxAgeDaysOk returns a tuple with the MaxAgeDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyPasswordSettingsAge) GetMaxAgeDaysOk() (*int32, bool) {
-	if o == nil || o.MaxAgeDays == nil {
+	if o == nil || IsNil(o.MaxAgeDays) {
 		return nil, false
 	}
 	return o.MaxAgeDays, true
@@ -159,7 +162,7 @@ func (o *PasswordPolicyPasswordSettingsAge) GetMaxAgeDaysOk() (*int32, bool) {
 
 // HasMaxAgeDays returns a boolean if a field has been set.
 func (o *PasswordPolicyPasswordSettingsAge) HasMaxAgeDays() bool {
-	if o != nil && o.MaxAgeDays != nil {
+	if o != nil && !IsNil(o.MaxAgeDays) {
 		return true
 	}
 
@@ -173,7 +176,7 @@ func (o *PasswordPolicyPasswordSettingsAge) SetMaxAgeDays(v int32) {
 
 // GetMinAgeMinutes returns the MinAgeMinutes field value if set, zero value otherwise.
 func (o *PasswordPolicyPasswordSettingsAge) GetMinAgeMinutes() int32 {
-	if o == nil || o.MinAgeMinutes == nil {
+	if o == nil || IsNil(o.MinAgeMinutes) {
 		var ret int32
 		return ret
 	}
@@ -183,7 +186,7 @@ func (o *PasswordPolicyPasswordSettingsAge) GetMinAgeMinutes() int32 {
 // GetMinAgeMinutesOk returns a tuple with the MinAgeMinutes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyPasswordSettingsAge) GetMinAgeMinutesOk() (*int32, bool) {
-	if o == nil || o.MinAgeMinutes == nil {
+	if o == nil || IsNil(o.MinAgeMinutes) {
 		return nil, false
 	}
 	return o.MinAgeMinutes, true
@@ -191,7 +194,7 @@ func (o *PasswordPolicyPasswordSettingsAge) GetMinAgeMinutesOk() (*int32, bool) 
 
 // HasMinAgeMinutes returns a boolean if a field has been set.
 func (o *PasswordPolicyPasswordSettingsAge) HasMinAgeMinutes() bool {
-	if o != nil && o.MinAgeMinutes != nil {
+	if o != nil && !IsNil(o.MinAgeMinutes) {
 		return true
 	}
 
@@ -204,17 +207,25 @@ func (o *PasswordPolicyPasswordSettingsAge) SetMinAgeMinutes(v int32) {
 }
 
 func (o PasswordPolicyPasswordSettingsAge) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordPolicyPasswordSettingsAge) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ExpireWarnDays != nil {
+	if !IsNil(o.ExpireWarnDays) {
 		toSerialize["expireWarnDays"] = o.ExpireWarnDays
 	}
-	if o.HistoryCount != nil {
+	if !IsNil(o.HistoryCount) {
 		toSerialize["historyCount"] = o.HistoryCount
 	}
-	if o.MaxAgeDays != nil {
+	if !IsNil(o.MaxAgeDays) {
 		toSerialize["maxAgeDays"] = o.MaxAgeDays
 	}
-	if o.MinAgeMinutes != nil {
+	if !IsNil(o.MinAgeMinutes) {
 		toSerialize["minAgeMinutes"] = o.MinAgeMinutes
 	}
 
@@ -222,30 +233,28 @@ func (o PasswordPolicyPasswordSettingsAge) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordPolicyPasswordSettingsAge) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordPolicyPasswordSettingsAge) UnmarshalJSON(data []byte) (err error) {
 	varPasswordPolicyPasswordSettingsAge := _PasswordPolicyPasswordSettingsAge{}
 
-	err = json.Unmarshal(bytes, &varPasswordPolicyPasswordSettingsAge)
-	if err == nil {
-		*o = PasswordPolicyPasswordSettingsAge(varPasswordPolicyPasswordSettingsAge)
-	} else {
+	err = json.Unmarshal(data, &varPasswordPolicyPasswordSettingsAge)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PasswordPolicyPasswordSettingsAge(varPasswordPolicyPasswordSettingsAge)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "expireWarnDays")
 		delete(additionalProperties, "historyCount")
 		delete(additionalProperties, "maxAgeDays")
 		delete(additionalProperties, "minAgeMinutes")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -286,4 +295,3 @@ func (v *NullablePasswordPolicyPasswordSettingsAge) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

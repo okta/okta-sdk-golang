@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the IdentityProviderPolicy type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IdentityProviderPolicy{}
+
 // IdentityProviderPolicy Policy settings for the IdP. The following provisioning and account linking actions are supported by each IdP provider: | IdP type                                                          | User provisioning actions | Group provisioning actions            | Account link actions | Account link filters | | ----------------------------------------------------------------- | ------------------------- | ------------------------------------- | -------------------- | -------------------- | | `SAML2`                                                           | `AUTO` or `DISABLED`      | `NONE`, `ASSIGN`, `APPEND`, or `SYNC` | `AUTO`, `DISABLED`   | `groups`, `users`    | | `X509`, `IDV_PERSONA`, `IDV_INCODE`, and `IDV_CLEAR`              | `DISABLED`                | No support for JIT provisioning       |                      |                      | | All other IdP types                                               | `AUTO`, `DISABLED`        | `NONE` or `ASSIGN`                    | `AUTO`, `DISABLED`   | `groups`, `users`    |
 type IdentityProviderPolicy struct {
 	AccountLink *PolicyAccountLink `json:"accountLink,omitempty"`
 	// Maximum allowable clock skew when processing messages from the IdP
-	MaxClockSkew *int32 `json:"maxClockSkew,omitempty"`
-	Provisioning *Provisioning `json:"provisioning,omitempty"`
-	Subject *PolicySubject `json:"subject,omitempty"`
+	MaxClockSkew         *int32         `json:"maxClockSkew,omitempty"`
+	Provisioning         *Provisioning  `json:"provisioning,omitempty"`
+	Subject              *PolicySubject `json:"subject,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewIdentityProviderPolicyWithDefaults() *IdentityProviderPolicy {
 
 // GetAccountLink returns the AccountLink field value if set, zero value otherwise.
 func (o *IdentityProviderPolicy) GetAccountLink() PolicyAccountLink {
-	if o == nil || o.AccountLink == nil {
+	if o == nil || IsNil(o.AccountLink) {
 		var ret PolicyAccountLink
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *IdentityProviderPolicy) GetAccountLink() PolicyAccountLink {
 // GetAccountLinkOk returns a tuple with the AccountLink field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProviderPolicy) GetAccountLinkOk() (*PolicyAccountLink, bool) {
-	if o == nil || o.AccountLink == nil {
+	if o == nil || IsNil(o.AccountLink) {
 		return nil, false
 	}
 	return o.AccountLink, true
@@ -76,7 +79,7 @@ func (o *IdentityProviderPolicy) GetAccountLinkOk() (*PolicyAccountLink, bool) {
 
 // HasAccountLink returns a boolean if a field has been set.
 func (o *IdentityProviderPolicy) HasAccountLink() bool {
-	if o != nil && o.AccountLink != nil {
+	if o != nil && !IsNil(o.AccountLink) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *IdentityProviderPolicy) SetAccountLink(v PolicyAccountLink) {
 
 // GetMaxClockSkew returns the MaxClockSkew field value if set, zero value otherwise.
 func (o *IdentityProviderPolicy) GetMaxClockSkew() int32 {
-	if o == nil || o.MaxClockSkew == nil {
+	if o == nil || IsNil(o.MaxClockSkew) {
 		var ret int32
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *IdentityProviderPolicy) GetMaxClockSkew() int32 {
 // GetMaxClockSkewOk returns a tuple with the MaxClockSkew field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProviderPolicy) GetMaxClockSkewOk() (*int32, bool) {
-	if o == nil || o.MaxClockSkew == nil {
+	if o == nil || IsNil(o.MaxClockSkew) {
 		return nil, false
 	}
 	return o.MaxClockSkew, true
@@ -108,7 +111,7 @@ func (o *IdentityProviderPolicy) GetMaxClockSkewOk() (*int32, bool) {
 
 // HasMaxClockSkew returns a boolean if a field has been set.
 func (o *IdentityProviderPolicy) HasMaxClockSkew() bool {
-	if o != nil && o.MaxClockSkew != nil {
+	if o != nil && !IsNil(o.MaxClockSkew) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *IdentityProviderPolicy) SetMaxClockSkew(v int32) {
 
 // GetProvisioning returns the Provisioning field value if set, zero value otherwise.
 func (o *IdentityProviderPolicy) GetProvisioning() Provisioning {
-	if o == nil || o.Provisioning == nil {
+	if o == nil || IsNil(o.Provisioning) {
 		var ret Provisioning
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *IdentityProviderPolicy) GetProvisioning() Provisioning {
 // GetProvisioningOk returns a tuple with the Provisioning field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProviderPolicy) GetProvisioningOk() (*Provisioning, bool) {
-	if o == nil || o.Provisioning == nil {
+	if o == nil || IsNil(o.Provisioning) {
 		return nil, false
 	}
 	return o.Provisioning, true
@@ -140,7 +143,7 @@ func (o *IdentityProviderPolicy) GetProvisioningOk() (*Provisioning, bool) {
 
 // HasProvisioning returns a boolean if a field has been set.
 func (o *IdentityProviderPolicy) HasProvisioning() bool {
-	if o != nil && o.Provisioning != nil {
+	if o != nil && !IsNil(o.Provisioning) {
 		return true
 	}
 
@@ -154,7 +157,7 @@ func (o *IdentityProviderPolicy) SetProvisioning(v Provisioning) {
 
 // GetSubject returns the Subject field value if set, zero value otherwise.
 func (o *IdentityProviderPolicy) GetSubject() PolicySubject {
-	if o == nil || o.Subject == nil {
+	if o == nil || IsNil(o.Subject) {
 		var ret PolicySubject
 		return ret
 	}
@@ -164,7 +167,7 @@ func (o *IdentityProviderPolicy) GetSubject() PolicySubject {
 // GetSubjectOk returns a tuple with the Subject field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProviderPolicy) GetSubjectOk() (*PolicySubject, bool) {
-	if o == nil || o.Subject == nil {
+	if o == nil || IsNil(o.Subject) {
 		return nil, false
 	}
 	return o.Subject, true
@@ -172,7 +175,7 @@ func (o *IdentityProviderPolicy) GetSubjectOk() (*PolicySubject, bool) {
 
 // HasSubject returns a boolean if a field has been set.
 func (o *IdentityProviderPolicy) HasSubject() bool {
-	if o != nil && o.Subject != nil {
+	if o != nil && !IsNil(o.Subject) {
 		return true
 	}
 
@@ -185,17 +188,25 @@ func (o *IdentityProviderPolicy) SetSubject(v PolicySubject) {
 }
 
 func (o IdentityProviderPolicy) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IdentityProviderPolicy) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AccountLink != nil {
+	if !IsNil(o.AccountLink) {
 		toSerialize["accountLink"] = o.AccountLink
 	}
-	if o.MaxClockSkew != nil {
+	if !IsNil(o.MaxClockSkew) {
 		toSerialize["maxClockSkew"] = o.MaxClockSkew
 	}
-	if o.Provisioning != nil {
+	if !IsNil(o.Provisioning) {
 		toSerialize["provisioning"] = o.Provisioning
 	}
-	if o.Subject != nil {
+	if !IsNil(o.Subject) {
 		toSerialize["subject"] = o.Subject
 	}
 
@@ -203,30 +214,28 @@ func (o IdentityProviderPolicy) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *IdentityProviderPolicy) UnmarshalJSON(bytes []byte) (err error) {
+func (o *IdentityProviderPolicy) UnmarshalJSON(data []byte) (err error) {
 	varIdentityProviderPolicy := _IdentityProviderPolicy{}
 
-	err = json.Unmarshal(bytes, &varIdentityProviderPolicy)
-	if err == nil {
-		*o = IdentityProviderPolicy(varIdentityProviderPolicy)
-	} else {
+	err = json.Unmarshal(data, &varIdentityProviderPolicy)
+
+	if err != nil {
 		return err
 	}
 
+	*o = IdentityProviderPolicy(varIdentityProviderPolicy)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "accountLink")
 		delete(additionalProperties, "maxClockSkew")
 		delete(additionalProperties, "provisioning")
 		delete(additionalProperties, "subject")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -267,4 +276,3 @@ func (v *NullableIdentityProviderPolicy) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

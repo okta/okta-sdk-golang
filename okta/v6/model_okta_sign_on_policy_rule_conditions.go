@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the OktaSignOnPolicyRuleConditions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OktaSignOnPolicyRuleConditions{}
+
 // OktaSignOnPolicyRuleConditions struct for OktaSignOnPolicyRuleConditions
 type OktaSignOnPolicyRuleConditions struct {
-	AuthContext *PolicyRuleAuthContextCondition `json:"authContext,omitempty"`
-	IdentityProvider *IdentityProviderPolicyRuleCondition `json:"identityProvider,omitempty"`
-	Network *PolicyNetworkCondition `json:"network,omitempty"`
-	People *PolicyPeopleCondition `json:"people,omitempty"`
+	AuthContext          *PolicyRuleAuthContextCondition      `json:"authContext,omitempty"`
+	IdentityProvider     *IdentityProviderPolicyRuleCondition `json:"identityProvider,omitempty"`
+	Network              *PolicyNetworkCondition              `json:"network,omitempty"`
+	People               *PolicyPeopleCondition               `json:"people,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewOktaSignOnPolicyRuleConditionsWithDefaults() *OktaSignOnPolicyRuleCondit
 
 // GetAuthContext returns the AuthContext field value if set, zero value otherwise.
 func (o *OktaSignOnPolicyRuleConditions) GetAuthContext() PolicyRuleAuthContextCondition {
-	if o == nil || o.AuthContext == nil {
+	if o == nil || IsNil(o.AuthContext) {
 		var ret PolicyRuleAuthContextCondition
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *OktaSignOnPolicyRuleConditions) GetAuthContext() PolicyRuleAuthContextC
 // GetAuthContextOk returns a tuple with the AuthContext field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaSignOnPolicyRuleConditions) GetAuthContextOk() (*PolicyRuleAuthContextCondition, bool) {
-	if o == nil || o.AuthContext == nil {
+	if o == nil || IsNil(o.AuthContext) {
 		return nil, false
 	}
 	return o.AuthContext, true
@@ -75,7 +78,7 @@ func (o *OktaSignOnPolicyRuleConditions) GetAuthContextOk() (*PolicyRuleAuthCont
 
 // HasAuthContext returns a boolean if a field has been set.
 func (o *OktaSignOnPolicyRuleConditions) HasAuthContext() bool {
-	if o != nil && o.AuthContext != nil {
+	if o != nil && !IsNil(o.AuthContext) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *OktaSignOnPolicyRuleConditions) SetAuthContext(v PolicyRuleAuthContextC
 
 // GetIdentityProvider returns the IdentityProvider field value if set, zero value otherwise.
 func (o *OktaSignOnPolicyRuleConditions) GetIdentityProvider() IdentityProviderPolicyRuleCondition {
-	if o == nil || o.IdentityProvider == nil {
+	if o == nil || IsNil(o.IdentityProvider) {
 		var ret IdentityProviderPolicyRuleCondition
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *OktaSignOnPolicyRuleConditions) GetIdentityProvider() IdentityProviderP
 // GetIdentityProviderOk returns a tuple with the IdentityProvider field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaSignOnPolicyRuleConditions) GetIdentityProviderOk() (*IdentityProviderPolicyRuleCondition, bool) {
-	if o == nil || o.IdentityProvider == nil {
+	if o == nil || IsNil(o.IdentityProvider) {
 		return nil, false
 	}
 	return o.IdentityProvider, true
@@ -107,7 +110,7 @@ func (o *OktaSignOnPolicyRuleConditions) GetIdentityProviderOk() (*IdentityProvi
 
 // HasIdentityProvider returns a boolean if a field has been set.
 func (o *OktaSignOnPolicyRuleConditions) HasIdentityProvider() bool {
-	if o != nil && o.IdentityProvider != nil {
+	if o != nil && !IsNil(o.IdentityProvider) {
 		return true
 	}
 
@@ -121,7 +124,7 @@ func (o *OktaSignOnPolicyRuleConditions) SetIdentityProvider(v IdentityProviderP
 
 // GetNetwork returns the Network field value if set, zero value otherwise.
 func (o *OktaSignOnPolicyRuleConditions) GetNetwork() PolicyNetworkCondition {
-	if o == nil || o.Network == nil {
+	if o == nil || IsNil(o.Network) {
 		var ret PolicyNetworkCondition
 		return ret
 	}
@@ -131,7 +134,7 @@ func (o *OktaSignOnPolicyRuleConditions) GetNetwork() PolicyNetworkCondition {
 // GetNetworkOk returns a tuple with the Network field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaSignOnPolicyRuleConditions) GetNetworkOk() (*PolicyNetworkCondition, bool) {
-	if o == nil || o.Network == nil {
+	if o == nil || IsNil(o.Network) {
 		return nil, false
 	}
 	return o.Network, true
@@ -139,7 +142,7 @@ func (o *OktaSignOnPolicyRuleConditions) GetNetworkOk() (*PolicyNetworkCondition
 
 // HasNetwork returns a boolean if a field has been set.
 func (o *OktaSignOnPolicyRuleConditions) HasNetwork() bool {
-	if o != nil && o.Network != nil {
+	if o != nil && !IsNil(o.Network) {
 		return true
 	}
 
@@ -153,7 +156,7 @@ func (o *OktaSignOnPolicyRuleConditions) SetNetwork(v PolicyNetworkCondition) {
 
 // GetPeople returns the People field value if set, zero value otherwise.
 func (o *OktaSignOnPolicyRuleConditions) GetPeople() PolicyPeopleCondition {
-	if o == nil || o.People == nil {
+	if o == nil || IsNil(o.People) {
 		var ret PolicyPeopleCondition
 		return ret
 	}
@@ -163,7 +166,7 @@ func (o *OktaSignOnPolicyRuleConditions) GetPeople() PolicyPeopleCondition {
 // GetPeopleOk returns a tuple with the People field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaSignOnPolicyRuleConditions) GetPeopleOk() (*PolicyPeopleCondition, bool) {
-	if o == nil || o.People == nil {
+	if o == nil || IsNil(o.People) {
 		return nil, false
 	}
 	return o.People, true
@@ -171,7 +174,7 @@ func (o *OktaSignOnPolicyRuleConditions) GetPeopleOk() (*PolicyPeopleCondition, 
 
 // HasPeople returns a boolean if a field has been set.
 func (o *OktaSignOnPolicyRuleConditions) HasPeople() bool {
-	if o != nil && o.People != nil {
+	if o != nil && !IsNil(o.People) {
 		return true
 	}
 
@@ -184,17 +187,25 @@ func (o *OktaSignOnPolicyRuleConditions) SetPeople(v PolicyPeopleCondition) {
 }
 
 func (o OktaSignOnPolicyRuleConditions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OktaSignOnPolicyRuleConditions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AuthContext != nil {
+	if !IsNil(o.AuthContext) {
 		toSerialize["authContext"] = o.AuthContext
 	}
-	if o.IdentityProvider != nil {
+	if !IsNil(o.IdentityProvider) {
 		toSerialize["identityProvider"] = o.IdentityProvider
 	}
-	if o.Network != nil {
+	if !IsNil(o.Network) {
 		toSerialize["network"] = o.Network
 	}
-	if o.People != nil {
+	if !IsNil(o.People) {
 		toSerialize["people"] = o.People
 	}
 
@@ -202,30 +213,28 @@ func (o OktaSignOnPolicyRuleConditions) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OktaSignOnPolicyRuleConditions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OktaSignOnPolicyRuleConditions) UnmarshalJSON(data []byte) (err error) {
 	varOktaSignOnPolicyRuleConditions := _OktaSignOnPolicyRuleConditions{}
 
-	err = json.Unmarshal(bytes, &varOktaSignOnPolicyRuleConditions)
-	if err == nil {
-		*o = OktaSignOnPolicyRuleConditions(varOktaSignOnPolicyRuleConditions)
-	} else {
+	err = json.Unmarshal(data, &varOktaSignOnPolicyRuleConditions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OktaSignOnPolicyRuleConditions(varOktaSignOnPolicyRuleConditions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "authContext")
 		delete(additionalProperties, "identityProvider")
 		delete(additionalProperties, "network")
 		delete(additionalProperties, "people")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -266,4 +275,3 @@ func (v *NullableOktaSignOnPolicyRuleConditions) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

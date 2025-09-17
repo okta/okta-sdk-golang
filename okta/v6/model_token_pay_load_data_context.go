@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the TokenPayLoadDataContext type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TokenPayLoadDataContext{}
+
 // TokenPayLoadDataContext struct for TokenPayLoadDataContext
 type TokenPayLoadDataContext struct {
-	Request *InlineHookRequestObject `json:"request,omitempty"`
-	Session *BaseContextSession `json:"session,omitempty"`
-	User *BaseContextUser `json:"user,omitempty"`
-	Protocol *TokenPayLoadDataContextAllOfProtocol `json:"protocol,omitempty"`
-	Policy *TokenPayLoadDataContextAllOfPolicy `json:"policy,omitempty"`
+	Request              *InlineHookRequestObject              `json:"request,omitempty"`
+	Session              *BaseContextSession                   `json:"session,omitempty"`
+	User                 *BaseContextUser                      `json:"user,omitempty"`
+	Protocol             *TokenPayLoadDataContextAllOfProtocol `json:"protocol,omitempty"`
+	Policy               *TokenPayLoadDataContextAllOfPolicy   `json:"policy,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewTokenPayLoadDataContextWithDefaults() *TokenPayLoadDataContext {
 
 // GetRequest returns the Request field value if set, zero value otherwise.
 func (o *TokenPayLoadDataContext) GetRequest() InlineHookRequestObject {
-	if o == nil || o.Request == nil {
+	if o == nil || IsNil(o.Request) {
 		var ret InlineHookRequestObject
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *TokenPayLoadDataContext) GetRequest() InlineHookRequestObject {
 // GetRequestOk returns a tuple with the Request field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenPayLoadDataContext) GetRequestOk() (*InlineHookRequestObject, bool) {
-	if o == nil || o.Request == nil {
+	if o == nil || IsNil(o.Request) {
 		return nil, false
 	}
 	return o.Request, true
@@ -76,7 +79,7 @@ func (o *TokenPayLoadDataContext) GetRequestOk() (*InlineHookRequestObject, bool
 
 // HasRequest returns a boolean if a field has been set.
 func (o *TokenPayLoadDataContext) HasRequest() bool {
-	if o != nil && o.Request != nil {
+	if o != nil && !IsNil(o.Request) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *TokenPayLoadDataContext) SetRequest(v InlineHookRequestObject) {
 
 // GetSession returns the Session field value if set, zero value otherwise.
 func (o *TokenPayLoadDataContext) GetSession() BaseContextSession {
-	if o == nil || o.Session == nil {
+	if o == nil || IsNil(o.Session) {
 		var ret BaseContextSession
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *TokenPayLoadDataContext) GetSession() BaseContextSession {
 // GetSessionOk returns a tuple with the Session field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenPayLoadDataContext) GetSessionOk() (*BaseContextSession, bool) {
-	if o == nil || o.Session == nil {
+	if o == nil || IsNil(o.Session) {
 		return nil, false
 	}
 	return o.Session, true
@@ -108,7 +111,7 @@ func (o *TokenPayLoadDataContext) GetSessionOk() (*BaseContextSession, bool) {
 
 // HasSession returns a boolean if a field has been set.
 func (o *TokenPayLoadDataContext) HasSession() bool {
-	if o != nil && o.Session != nil {
+	if o != nil && !IsNil(o.Session) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *TokenPayLoadDataContext) SetSession(v BaseContextSession) {
 
 // GetUser returns the User field value if set, zero value otherwise.
 func (o *TokenPayLoadDataContext) GetUser() BaseContextUser {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		var ret BaseContextUser
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *TokenPayLoadDataContext) GetUser() BaseContextUser {
 // GetUserOk returns a tuple with the User field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenPayLoadDataContext) GetUserOk() (*BaseContextUser, bool) {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		return nil, false
 	}
 	return o.User, true
@@ -140,7 +143,7 @@ func (o *TokenPayLoadDataContext) GetUserOk() (*BaseContextUser, bool) {
 
 // HasUser returns a boolean if a field has been set.
 func (o *TokenPayLoadDataContext) HasUser() bool {
-	if o != nil && o.User != nil {
+	if o != nil && !IsNil(o.User) {
 		return true
 	}
 
@@ -154,7 +157,7 @@ func (o *TokenPayLoadDataContext) SetUser(v BaseContextUser) {
 
 // GetProtocol returns the Protocol field value if set, zero value otherwise.
 func (o *TokenPayLoadDataContext) GetProtocol() TokenPayLoadDataContextAllOfProtocol {
-	if o == nil || o.Protocol == nil {
+	if o == nil || IsNil(o.Protocol) {
 		var ret TokenPayLoadDataContextAllOfProtocol
 		return ret
 	}
@@ -164,7 +167,7 @@ func (o *TokenPayLoadDataContext) GetProtocol() TokenPayLoadDataContextAllOfProt
 // GetProtocolOk returns a tuple with the Protocol field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenPayLoadDataContext) GetProtocolOk() (*TokenPayLoadDataContextAllOfProtocol, bool) {
-	if o == nil || o.Protocol == nil {
+	if o == nil || IsNil(o.Protocol) {
 		return nil, false
 	}
 	return o.Protocol, true
@@ -172,7 +175,7 @@ func (o *TokenPayLoadDataContext) GetProtocolOk() (*TokenPayLoadDataContextAllOf
 
 // HasProtocol returns a boolean if a field has been set.
 func (o *TokenPayLoadDataContext) HasProtocol() bool {
-	if o != nil && o.Protocol != nil {
+	if o != nil && !IsNil(o.Protocol) {
 		return true
 	}
 
@@ -186,7 +189,7 @@ func (o *TokenPayLoadDataContext) SetProtocol(v TokenPayLoadDataContextAllOfProt
 
 // GetPolicy returns the Policy field value if set, zero value otherwise.
 func (o *TokenPayLoadDataContext) GetPolicy() TokenPayLoadDataContextAllOfPolicy {
-	if o == nil || o.Policy == nil {
+	if o == nil || IsNil(o.Policy) {
 		var ret TokenPayLoadDataContextAllOfPolicy
 		return ret
 	}
@@ -196,7 +199,7 @@ func (o *TokenPayLoadDataContext) GetPolicy() TokenPayLoadDataContextAllOfPolicy
 // GetPolicyOk returns a tuple with the Policy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenPayLoadDataContext) GetPolicyOk() (*TokenPayLoadDataContextAllOfPolicy, bool) {
-	if o == nil || o.Policy == nil {
+	if o == nil || IsNil(o.Policy) {
 		return nil, false
 	}
 	return o.Policy, true
@@ -204,7 +207,7 @@ func (o *TokenPayLoadDataContext) GetPolicyOk() (*TokenPayLoadDataContextAllOfPo
 
 // HasPolicy returns a boolean if a field has been set.
 func (o *TokenPayLoadDataContext) HasPolicy() bool {
-	if o != nil && o.Policy != nil {
+	if o != nil && !IsNil(o.Policy) {
 		return true
 	}
 
@@ -217,20 +220,28 @@ func (o *TokenPayLoadDataContext) SetPolicy(v TokenPayLoadDataContextAllOfPolicy
 }
 
 func (o TokenPayLoadDataContext) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TokenPayLoadDataContext) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Request != nil {
+	if !IsNil(o.Request) {
 		toSerialize["request"] = o.Request
 	}
-	if o.Session != nil {
+	if !IsNil(o.Session) {
 		toSerialize["session"] = o.Session
 	}
-	if o.User != nil {
+	if !IsNil(o.User) {
 		toSerialize["user"] = o.User
 	}
-	if o.Protocol != nil {
+	if !IsNil(o.Protocol) {
 		toSerialize["protocol"] = o.Protocol
 	}
-	if o.Policy != nil {
+	if !IsNil(o.Policy) {
 		toSerialize["policy"] = o.Policy
 	}
 
@@ -238,31 +249,29 @@ func (o TokenPayLoadDataContext) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *TokenPayLoadDataContext) UnmarshalJSON(bytes []byte) (err error) {
+func (o *TokenPayLoadDataContext) UnmarshalJSON(data []byte) (err error) {
 	varTokenPayLoadDataContext := _TokenPayLoadDataContext{}
 
-	err = json.Unmarshal(bytes, &varTokenPayLoadDataContext)
-	if err == nil {
-		*o = TokenPayLoadDataContext(varTokenPayLoadDataContext)
-	} else {
+	err = json.Unmarshal(data, &varTokenPayLoadDataContext)
+
+	if err != nil {
 		return err
 	}
 
+	*o = TokenPayLoadDataContext(varTokenPayLoadDataContext)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "request")
 		delete(additionalProperties, "session")
 		delete(additionalProperties, "user")
 		delete(additionalProperties, "protocol")
 		delete(additionalProperties, "policy")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -303,4 +312,3 @@ func (v *NullableTokenPayLoadDataContext) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SamlAttributeStatementExpression type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SamlAttributeStatementExpression{}
+
 // SamlAttributeStatementExpression Generic `EXPRESSION` attribute statements
 type SamlAttributeStatementExpression struct {
 	// The name of the attribute in your app. The attribute name must be unique across all user and group attribute statements.
@@ -36,7 +39,7 @@ type SamlAttributeStatementExpression struct {
 	// The type of attribute statements object
 	Type *string `json:"type,omitempty"`
 	// The attribute values (supports [Okta Expression Language](https://developer.okta.com/docs/reference/okta-expression-language/))
-	Values []string `json:"values,omitempty"`
+	Values               []string `json:"values,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewSamlAttributeStatementExpressionWithDefaults() *SamlAttributeStatementEx
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *SamlAttributeStatementExpression) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *SamlAttributeStatementExpression) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlAttributeStatementExpression) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -79,7 +82,7 @@ func (o *SamlAttributeStatementExpression) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *SamlAttributeStatementExpression) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *SamlAttributeStatementExpression) SetName(v string) {
 
 // GetNamespace returns the Namespace field value if set, zero value otherwise.
 func (o *SamlAttributeStatementExpression) GetNamespace() string {
-	if o == nil || o.Namespace == nil {
+	if o == nil || IsNil(o.Namespace) {
 		var ret string
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *SamlAttributeStatementExpression) GetNamespace() string {
 // GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlAttributeStatementExpression) GetNamespaceOk() (*string, bool) {
-	if o == nil || o.Namespace == nil {
+	if o == nil || IsNil(o.Namespace) {
 		return nil, false
 	}
 	return o.Namespace, true
@@ -111,7 +114,7 @@ func (o *SamlAttributeStatementExpression) GetNamespaceOk() (*string, bool) {
 
 // HasNamespace returns a boolean if a field has been set.
 func (o *SamlAttributeStatementExpression) HasNamespace() bool {
-	if o != nil && o.Namespace != nil {
+	if o != nil && !IsNil(o.Namespace) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *SamlAttributeStatementExpression) SetNamespace(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *SamlAttributeStatementExpression) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *SamlAttributeStatementExpression) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlAttributeStatementExpression) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -143,7 +146,7 @@ func (o *SamlAttributeStatementExpression) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *SamlAttributeStatementExpression) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *SamlAttributeStatementExpression) SetType(v string) {
 
 // GetValues returns the Values field value if set, zero value otherwise.
 func (o *SamlAttributeStatementExpression) GetValues() []string {
-	if o == nil || o.Values == nil {
+	if o == nil || IsNil(o.Values) {
 		var ret []string
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *SamlAttributeStatementExpression) GetValues() []string {
 // GetValuesOk returns a tuple with the Values field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlAttributeStatementExpression) GetValuesOk() ([]string, bool) {
-	if o == nil || o.Values == nil {
+	if o == nil || IsNil(o.Values) {
 		return nil, false
 	}
 	return o.Values, true
@@ -175,7 +178,7 @@ func (o *SamlAttributeStatementExpression) GetValuesOk() ([]string, bool) {
 
 // HasValues returns a boolean if a field has been set.
 func (o *SamlAttributeStatementExpression) HasValues() bool {
-	if o != nil && o.Values != nil {
+	if o != nil && !IsNil(o.Values) {
 		return true
 	}
 
@@ -188,17 +191,25 @@ func (o *SamlAttributeStatementExpression) SetValues(v []string) {
 }
 
 func (o SamlAttributeStatementExpression) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SamlAttributeStatementExpression) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Namespace != nil {
+	if !IsNil(o.Namespace) {
 		toSerialize["namespace"] = o.Namespace
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Values != nil {
+	if !IsNil(o.Values) {
 		toSerialize["values"] = o.Values
 	}
 
@@ -206,30 +217,28 @@ func (o SamlAttributeStatementExpression) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SamlAttributeStatementExpression) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SamlAttributeStatementExpression) UnmarshalJSON(data []byte) (err error) {
 	varSamlAttributeStatementExpression := _SamlAttributeStatementExpression{}
 
-	err = json.Unmarshal(bytes, &varSamlAttributeStatementExpression)
-	if err == nil {
-		*o = SamlAttributeStatementExpression(varSamlAttributeStatementExpression)
-	} else {
+	err = json.Unmarshal(data, &varSamlAttributeStatementExpression)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SamlAttributeStatementExpression(varSamlAttributeStatementExpression)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "namespace")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "values")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -270,4 +279,3 @@ func (v *NullableSamlAttributeStatementExpression) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the EventHookChannelConfigAuthScheme type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EventHookChannelConfigAuthScheme{}
+
 // EventHookChannelConfigAuthScheme The authentication scheme used for this request.  To use Basic Auth for authentication, set `type` to `HEADER`, `key` to `Authorization`, and `value` to the Base64-encoded string of \"username:password\". Ensure that you include the scheme (including space) as part of the `value` parameter. For example, `Basic YWRtaW46c3VwZXJzZWNyZXQ=`.
 type EventHookChannelConfigAuthScheme struct {
 	// The name for the authorization header
@@ -34,7 +37,7 @@ type EventHookChannelConfigAuthScheme struct {
 	// The authentication scheme type. Currently only supports `HEADER`.
 	Type *string `json:"type,omitempty"`
 	// The header value. This secret key is passed to your external service endpoint for security verification. This property is not returned in the response.
-	Value *string `json:"value,omitempty"`
+	Value                *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewEventHookChannelConfigAuthSchemeWithDefaults() *EventHookChannelConfigAu
 
 // GetKey returns the Key field value if set, zero value otherwise.
 func (o *EventHookChannelConfigAuthScheme) GetKey() string {
-	if o == nil || o.Key == nil {
+	if o == nil || IsNil(o.Key) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *EventHookChannelConfigAuthScheme) GetKey() string {
 // GetKeyOk returns a tuple with the Key field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventHookChannelConfigAuthScheme) GetKeyOk() (*string, bool) {
-	if o == nil || o.Key == nil {
+	if o == nil || IsNil(o.Key) {
 		return nil, false
 	}
 	return o.Key, true
@@ -77,7 +80,7 @@ func (o *EventHookChannelConfigAuthScheme) GetKeyOk() (*string, bool) {
 
 // HasKey returns a boolean if a field has been set.
 func (o *EventHookChannelConfigAuthScheme) HasKey() bool {
-	if o != nil && o.Key != nil {
+	if o != nil && !IsNil(o.Key) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *EventHookChannelConfigAuthScheme) SetKey(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *EventHookChannelConfigAuthScheme) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *EventHookChannelConfigAuthScheme) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventHookChannelConfigAuthScheme) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -109,7 +112,7 @@ func (o *EventHookChannelConfigAuthScheme) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *EventHookChannelConfigAuthScheme) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *EventHookChannelConfigAuthScheme) SetType(v string) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *EventHookChannelConfigAuthScheme) GetValue() string {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret string
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *EventHookChannelConfigAuthScheme) GetValue() string {
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventHookChannelConfigAuthScheme) GetValueOk() (*string, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -141,7 +144,7 @@ func (o *EventHookChannelConfigAuthScheme) GetValueOk() (*string, bool) {
 
 // HasValue returns a boolean if a field has been set.
 func (o *EventHookChannelConfigAuthScheme) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -154,14 +157,22 @@ func (o *EventHookChannelConfigAuthScheme) SetValue(v string) {
 }
 
 func (o EventHookChannelConfigAuthScheme) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EventHookChannelConfigAuthScheme) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Key != nil {
+	if !IsNil(o.Key) {
 		toSerialize["key"] = o.Key
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Value != nil {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
 
@@ -169,29 +180,27 @@ func (o EventHookChannelConfigAuthScheme) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EventHookChannelConfigAuthScheme) UnmarshalJSON(bytes []byte) (err error) {
+func (o *EventHookChannelConfigAuthScheme) UnmarshalJSON(data []byte) (err error) {
 	varEventHookChannelConfigAuthScheme := _EventHookChannelConfigAuthScheme{}
 
-	err = json.Unmarshal(bytes, &varEventHookChannelConfigAuthScheme)
-	if err == nil {
-		*o = EventHookChannelConfigAuthScheme(varEventHookChannelConfigAuthScheme)
-	} else {
+	err = json.Unmarshal(data, &varEventHookChannelConfigAuthScheme)
+
+	if err != nil {
 		return err
 	}
 
+	*o = EventHookChannelConfigAuthScheme(varEventHookChannelConfigAuthScheme)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "key")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "value")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -232,4 +241,3 @@ func (v *NullableEventHookChannelConfigAuthScheme) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,8 +28,6 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
 // OAuth2ClientJsonSigningKeyRequest - A [JSON Web Key (JWK)](https://tools.ietf.org/html/rfc7517) is a JSON representation of a cryptographic key. Okta uses signing keys to verify the signature of a JWT when provided for the `private_key_jwt` client authentication method or for a signed authorize request object. Okta supports both RSA and Elliptic Curve (EC) keys for signing tokens.
 type OAuth2ClientJsonSigningKeyRequest struct {
 	OAuth2ClientJsonWebKeyRequestBase *OAuth2ClientJsonWebKeyRequestBase
@@ -42,34 +40,33 @@ func OAuth2ClientJsonWebKeyRequestBaseAsOAuth2ClientJsonSigningKeyRequest(v *OAu
 	}
 }
 
-
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *OAuth2ClientJsonSigningKeyRequest) UnmarshalJSON(data []byte) error {
 	var err error
-        match := 0
-        // try to unmarshal data into OAuth2ClientJsonWebKeyRequestBase
-        err = json.Unmarshal(data, &dst.OAuth2ClientJsonWebKeyRequestBase)
-        if err == nil {
-                jsonOAuth2ClientJsonWebKeyRequestBase, _ := json.Marshal(dst.OAuth2ClientJsonWebKeyRequestBase)
-                if string(jsonOAuth2ClientJsonWebKeyRequestBase) == "{}" { // empty struct
-                        dst.OAuth2ClientJsonWebKeyRequestBase = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.OAuth2ClientJsonWebKeyRequestBase = nil
-        }
+	match := 0
+	// try to unmarshal data into OAuth2ClientJsonWebKeyRequestBase
+	err = json.Unmarshal(data, &dst.OAuth2ClientJsonWebKeyRequestBase)
+	if err == nil {
+		jsonOAuth2ClientJsonWebKeyRequestBase, _ := json.Marshal(dst.OAuth2ClientJsonWebKeyRequestBase)
+		if string(jsonOAuth2ClientJsonWebKeyRequestBase) == "{}" { // empty struct
+			dst.OAuth2ClientJsonWebKeyRequestBase = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.OAuth2ClientJsonWebKeyRequestBase = nil
+	}
 
-        if match > 1 { // more than 1 match
-                // reset to nil
-                dst.OAuth2ClientJsonWebKeyRequestBase = nil
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.OAuth2ClientJsonWebKeyRequestBase = nil
 
-                return fmt.Errorf("Data matches more than one schema in oneOf(OAuth2ClientJsonSigningKeyRequest)")
-        } else if match == 1 {
-                return nil // exactly one match
-        } else { // no match
-                return fmt.Errorf("Data failed to match schemas in oneOf(OAuth2ClientJsonSigningKeyRequest)")
-        }
+		return fmt.Errorf("data matches more than one schema in oneOf(OAuth2ClientJsonSigningKeyRequest)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("data failed to match schemas in oneOf(OAuth2ClientJsonSigningKeyRequest)")
+	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -82,12 +79,22 @@ func (src OAuth2ClientJsonSigningKeyRequest) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *OAuth2ClientJsonSigningKeyRequest) GetActualInstance() (interface{}) {
+func (obj *OAuth2ClientJsonSigningKeyRequest) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
 	if obj.OAuth2ClientJsonWebKeyRequestBase != nil {
 		return obj.OAuth2ClientJsonWebKeyRequestBase
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj OAuth2ClientJsonSigningKeyRequest) GetActualInstanceValue() interface{} {
+	if obj.OAuth2ClientJsonWebKeyRequestBase != nil {
+		return *obj.OAuth2ClientJsonWebKeyRequestBase
 	}
 
 	// all schemas are nil
@@ -129,5 +136,3 @@ func (v *NullableOAuth2ClientJsonSigningKeyRequest) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

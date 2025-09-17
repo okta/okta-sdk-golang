@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the LogTargetChangeDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LogTargetChangeDetails{}
+
 // LogTargetChangeDetails Details on the target's changes. Not all event types support the `changeDetails` property, and not all `target` objects contain the `changeDetails` property.  > **Note:** You can't run queries on `changeDetails` or the object's `to` or `from` properties.
 type LogTargetChangeDetails struct {
 	// The original properties of the target
 	From map[string]interface{} `json:"from,omitempty"`
 	// The updated properties of the target
-	To map[string]interface{} `json:"to,omitempty"`
+	To                   map[string]interface{} `json:"to,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewLogTargetChangeDetailsWithDefaults() *LogTargetChangeDetails {
 
 // GetFrom returns the From field value if set, zero value otherwise.
 func (o *LogTargetChangeDetails) GetFrom() map[string]interface{} {
-	if o == nil || o.From == nil {
+	if o == nil || IsNil(o.From) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -67,15 +70,15 @@ func (o *LogTargetChangeDetails) GetFrom() map[string]interface{} {
 // GetFromOk returns a tuple with the From field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogTargetChangeDetails) GetFromOk() (map[string]interface{}, bool) {
-	if o == nil || o.From == nil {
-		return nil, false
+	if o == nil || IsNil(o.From) {
+		return map[string]interface{}{}, false
 	}
 	return o.From, true
 }
 
 // HasFrom returns a boolean if a field has been set.
 func (o *LogTargetChangeDetails) HasFrom() bool {
-	if o != nil && o.From != nil {
+	if o != nil && !IsNil(o.From) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *LogTargetChangeDetails) SetFrom(v map[string]interface{}) {
 
 // GetTo returns the To field value if set, zero value otherwise.
 func (o *LogTargetChangeDetails) GetTo() map[string]interface{} {
-	if o == nil || o.To == nil {
+	if o == nil || IsNil(o.To) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -99,15 +102,15 @@ func (o *LogTargetChangeDetails) GetTo() map[string]interface{} {
 // GetToOk returns a tuple with the To field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogTargetChangeDetails) GetToOk() (map[string]interface{}, bool) {
-	if o == nil || o.To == nil {
-		return nil, false
+	if o == nil || IsNil(o.To) {
+		return map[string]interface{}{}, false
 	}
 	return o.To, true
 }
 
 // HasTo returns a boolean if a field has been set.
 func (o *LogTargetChangeDetails) HasTo() bool {
-	if o != nil && o.To != nil {
+	if o != nil && !IsNil(o.To) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *LogTargetChangeDetails) SetTo(v map[string]interface{}) {
 }
 
 func (o LogTargetChangeDetails) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LogTargetChangeDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.From != nil {
+	if !IsNil(o.From) {
 		toSerialize["from"] = o.From
 	}
-	if o.To != nil {
+	if !IsNil(o.To) {
 		toSerialize["to"] = o.To
 	}
 
@@ -132,28 +143,26 @@ func (o LogTargetChangeDetails) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LogTargetChangeDetails) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LogTargetChangeDetails) UnmarshalJSON(data []byte) (err error) {
 	varLogTargetChangeDetails := _LogTargetChangeDetails{}
 
-	err = json.Unmarshal(bytes, &varLogTargetChangeDetails)
-	if err == nil {
-		*o = LogTargetChangeDetails(varLogTargetChangeDetails)
-	} else {
+	err = json.Unmarshal(data, &varLogTargetChangeDetails)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LogTargetChangeDetails(varLogTargetChangeDetails)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "from")
 		delete(additionalProperties, "to")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableLogTargetChangeDetails) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the DeviceAccessPolicyRuleCondition type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeviceAccessPolicyRuleCondition{}
+
 // DeviceAccessPolicyRuleCondition <x-lifecycle class=\"oie\"></x-lifecycle> Specifies the device condition to match on
 type DeviceAccessPolicyRuleCondition struct {
 	Assurance *DevicePolicyRuleConditionAssurance `json:"assurance,omitempty"`
 	// Indicates if the device is managed. A device is considered managed if it's part of a device management system.
 	Managed *bool `json:"managed,omitempty"`
-	// Indicates if the device is registered. A device is registered if the User enrolls with Okta Verify that's installed on the device. When the `managed` property is passed, you must also include the `registered` property and set it to `true`. 
-	Registered *bool `json:"registered,omitempty"`
+	// Indicates if the device is registered. A device is registered if the User enrolls with Okta Verify that's installed on the device. When the `managed` property is passed, you must also include the `registered` property and set it to `true`.
+	Registered           *bool `json:"registered,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewDeviceAccessPolicyRuleConditionWithDefaults() *DeviceAccessPolicyRuleCon
 
 // GetAssurance returns the Assurance field value if set, zero value otherwise.
 func (o *DeviceAccessPolicyRuleCondition) GetAssurance() DevicePolicyRuleConditionAssurance {
-	if o == nil || o.Assurance == nil {
+	if o == nil || IsNil(o.Assurance) {
 		var ret DevicePolicyRuleConditionAssurance
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *DeviceAccessPolicyRuleCondition) GetAssurance() DevicePolicyRuleConditi
 // GetAssuranceOk returns a tuple with the Assurance field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceAccessPolicyRuleCondition) GetAssuranceOk() (*DevicePolicyRuleConditionAssurance, bool) {
-	if o == nil || o.Assurance == nil {
+	if o == nil || IsNil(o.Assurance) {
 		return nil, false
 	}
 	return o.Assurance, true
@@ -76,7 +79,7 @@ func (o *DeviceAccessPolicyRuleCondition) GetAssuranceOk() (*DevicePolicyRuleCon
 
 // HasAssurance returns a boolean if a field has been set.
 func (o *DeviceAccessPolicyRuleCondition) HasAssurance() bool {
-	if o != nil && o.Assurance != nil {
+	if o != nil && !IsNil(o.Assurance) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *DeviceAccessPolicyRuleCondition) SetAssurance(v DevicePolicyRuleConditi
 
 // GetManaged returns the Managed field value if set, zero value otherwise.
 func (o *DeviceAccessPolicyRuleCondition) GetManaged() bool {
-	if o == nil || o.Managed == nil {
+	if o == nil || IsNil(o.Managed) {
 		var ret bool
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *DeviceAccessPolicyRuleCondition) GetManaged() bool {
 // GetManagedOk returns a tuple with the Managed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceAccessPolicyRuleCondition) GetManagedOk() (*bool, bool) {
-	if o == nil || o.Managed == nil {
+	if o == nil || IsNil(o.Managed) {
 		return nil, false
 	}
 	return o.Managed, true
@@ -108,7 +111,7 @@ func (o *DeviceAccessPolicyRuleCondition) GetManagedOk() (*bool, bool) {
 
 // HasManaged returns a boolean if a field has been set.
 func (o *DeviceAccessPolicyRuleCondition) HasManaged() bool {
-	if o != nil && o.Managed != nil {
+	if o != nil && !IsNil(o.Managed) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *DeviceAccessPolicyRuleCondition) SetManaged(v bool) {
 
 // GetRegistered returns the Registered field value if set, zero value otherwise.
 func (o *DeviceAccessPolicyRuleCondition) GetRegistered() bool {
-	if o == nil || o.Registered == nil {
+	if o == nil || IsNil(o.Registered) {
 		var ret bool
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *DeviceAccessPolicyRuleCondition) GetRegistered() bool {
 // GetRegisteredOk returns a tuple with the Registered field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceAccessPolicyRuleCondition) GetRegisteredOk() (*bool, bool) {
-	if o == nil || o.Registered == nil {
+	if o == nil || IsNil(o.Registered) {
 		return nil, false
 	}
 	return o.Registered, true
@@ -140,7 +143,7 @@ func (o *DeviceAccessPolicyRuleCondition) GetRegisteredOk() (*bool, bool) {
 
 // HasRegistered returns a boolean if a field has been set.
 func (o *DeviceAccessPolicyRuleCondition) HasRegistered() bool {
-	if o != nil && o.Registered != nil {
+	if o != nil && !IsNil(o.Registered) {
 		return true
 	}
 
@@ -153,14 +156,22 @@ func (o *DeviceAccessPolicyRuleCondition) SetRegistered(v bool) {
 }
 
 func (o DeviceAccessPolicyRuleCondition) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DeviceAccessPolicyRuleCondition) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Assurance != nil {
+	if !IsNil(o.Assurance) {
 		toSerialize["assurance"] = o.Assurance
 	}
-	if o.Managed != nil {
+	if !IsNil(o.Managed) {
 		toSerialize["managed"] = o.Managed
 	}
-	if o.Registered != nil {
+	if !IsNil(o.Registered) {
 		toSerialize["registered"] = o.Registered
 	}
 
@@ -168,29 +179,27 @@ func (o DeviceAccessPolicyRuleCondition) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DeviceAccessPolicyRuleCondition) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DeviceAccessPolicyRuleCondition) UnmarshalJSON(data []byte) (err error) {
 	varDeviceAccessPolicyRuleCondition := _DeviceAccessPolicyRuleCondition{}
 
-	err = json.Unmarshal(bytes, &varDeviceAccessPolicyRuleCondition)
-	if err == nil {
-		*o = DeviceAccessPolicyRuleCondition(varDeviceAccessPolicyRuleCondition)
-	} else {
+	err = json.Unmarshal(data, &varDeviceAccessPolicyRuleCondition)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DeviceAccessPolicyRuleCondition(varDeviceAccessPolicyRuleCondition)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "assurance")
 		delete(additionalProperties, "managed")
 		delete(additionalProperties, "registered")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -231,4 +240,3 @@ func (v *NullableDeviceAccessPolicyRuleCondition) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

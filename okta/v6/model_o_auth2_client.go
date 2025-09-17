@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,16 +27,19 @@ import (
 	"encoding/json"
 )
 
+// checks if the OAuth2Client type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OAuth2Client{}
+
 // OAuth2Client struct for OAuth2Client
 type OAuth2Client struct {
 	// Unique key for the client application. The `client_id` is immutable.
 	ClientId *string `json:"client_id,omitempty"`
 	// Human-readable string name of the client application
 	ClientName *string `json:"client_name,omitempty"`
-	ClientUri *string `json:"client_uri,omitempty"`
+	ClientUri  *string `json:"client_uri,omitempty"`
 	// URL string that references a logo for the client consent dialog (not the sign-in dialog)
-	LogoUri *string `json:"logo_uri,omitempty"`
-	Links *OAuth2ClientLinks `json:"_links,omitempty"`
+	LogoUri              *string            `json:"logo_uri,omitempty"`
+	Links                *OAuth2ClientLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewOAuth2ClientWithDefaults() *OAuth2Client {
 
 // GetClientId returns the ClientId field value if set, zero value otherwise.
 func (o *OAuth2Client) GetClientId() string {
-	if o == nil || o.ClientId == nil {
+	if o == nil || IsNil(o.ClientId) {
 		var ret string
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *OAuth2Client) GetClientId() string {
 // GetClientIdOk returns a tuple with the ClientId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Client) GetClientIdOk() (*string, bool) {
-	if o == nil || o.ClientId == nil {
+	if o == nil || IsNil(o.ClientId) {
 		return nil, false
 	}
 	return o.ClientId, true
@@ -79,7 +82,7 @@ func (o *OAuth2Client) GetClientIdOk() (*string, bool) {
 
 // HasClientId returns a boolean if a field has been set.
 func (o *OAuth2Client) HasClientId() bool {
-	if o != nil && o.ClientId != nil {
+	if o != nil && !IsNil(o.ClientId) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *OAuth2Client) SetClientId(v string) {
 
 // GetClientName returns the ClientName field value if set, zero value otherwise.
 func (o *OAuth2Client) GetClientName() string {
-	if o == nil || o.ClientName == nil {
+	if o == nil || IsNil(o.ClientName) {
 		var ret string
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *OAuth2Client) GetClientName() string {
 // GetClientNameOk returns a tuple with the ClientName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Client) GetClientNameOk() (*string, bool) {
-	if o == nil || o.ClientName == nil {
+	if o == nil || IsNil(o.ClientName) {
 		return nil, false
 	}
 	return o.ClientName, true
@@ -111,7 +114,7 @@ func (o *OAuth2Client) GetClientNameOk() (*string, bool) {
 
 // HasClientName returns a boolean if a field has been set.
 func (o *OAuth2Client) HasClientName() bool {
-	if o != nil && o.ClientName != nil {
+	if o != nil && !IsNil(o.ClientName) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *OAuth2Client) SetClientName(v string) {
 
 // GetClientUri returns the ClientUri field value if set, zero value otherwise.
 func (o *OAuth2Client) GetClientUri() string {
-	if o == nil || o.ClientUri == nil {
+	if o == nil || IsNil(o.ClientUri) {
 		var ret string
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *OAuth2Client) GetClientUri() string {
 // GetClientUriOk returns a tuple with the ClientUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Client) GetClientUriOk() (*string, bool) {
-	if o == nil || o.ClientUri == nil {
+	if o == nil || IsNil(o.ClientUri) {
 		return nil, false
 	}
 	return o.ClientUri, true
@@ -143,7 +146,7 @@ func (o *OAuth2Client) GetClientUriOk() (*string, bool) {
 
 // HasClientUri returns a boolean if a field has been set.
 func (o *OAuth2Client) HasClientUri() bool {
-	if o != nil && o.ClientUri != nil {
+	if o != nil && !IsNil(o.ClientUri) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *OAuth2Client) SetClientUri(v string) {
 
 // GetLogoUri returns the LogoUri field value if set, zero value otherwise.
 func (o *OAuth2Client) GetLogoUri() string {
-	if o == nil || o.LogoUri == nil {
+	if o == nil || IsNil(o.LogoUri) {
 		var ret string
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *OAuth2Client) GetLogoUri() string {
 // GetLogoUriOk returns a tuple with the LogoUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Client) GetLogoUriOk() (*string, bool) {
-	if o == nil || o.LogoUri == nil {
+	if o == nil || IsNil(o.LogoUri) {
 		return nil, false
 	}
 	return o.LogoUri, true
@@ -175,7 +178,7 @@ func (o *OAuth2Client) GetLogoUriOk() (*string, bool) {
 
 // HasLogoUri returns a boolean if a field has been set.
 func (o *OAuth2Client) HasLogoUri() bool {
-	if o != nil && o.LogoUri != nil {
+	if o != nil && !IsNil(o.LogoUri) {
 		return true
 	}
 
@@ -189,7 +192,7 @@ func (o *OAuth2Client) SetLogoUri(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *OAuth2Client) GetLinks() OAuth2ClientLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret OAuth2ClientLinks
 		return ret
 	}
@@ -199,7 +202,7 @@ func (o *OAuth2Client) GetLinks() OAuth2ClientLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2Client) GetLinksOk() (*OAuth2ClientLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -207,7 +210,7 @@ func (o *OAuth2Client) GetLinksOk() (*OAuth2ClientLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *OAuth2Client) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -220,20 +223,28 @@ func (o *OAuth2Client) SetLinks(v OAuth2ClientLinks) {
 }
 
 func (o OAuth2Client) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OAuth2Client) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ClientId != nil {
+	if !IsNil(o.ClientId) {
 		toSerialize["client_id"] = o.ClientId
 	}
-	if o.ClientName != nil {
+	if !IsNil(o.ClientName) {
 		toSerialize["client_name"] = o.ClientName
 	}
-	if o.ClientUri != nil {
+	if !IsNil(o.ClientUri) {
 		toSerialize["client_uri"] = o.ClientUri
 	}
-	if o.LogoUri != nil {
+	if !IsNil(o.LogoUri) {
 		toSerialize["logo_uri"] = o.LogoUri
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -241,31 +252,29 @@ func (o OAuth2Client) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OAuth2Client) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OAuth2Client) UnmarshalJSON(data []byte) (err error) {
 	varOAuth2Client := _OAuth2Client{}
 
-	err = json.Unmarshal(bytes, &varOAuth2Client)
-	if err == nil {
-		*o = OAuth2Client(varOAuth2Client)
-	} else {
+	err = json.Unmarshal(data, &varOAuth2Client)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OAuth2Client(varOAuth2Client)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "client_id")
 		delete(additionalProperties, "client_name")
 		delete(additionalProperties, "client_uri")
 		delete(additionalProperties, "logo_uri")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -306,4 +315,3 @@ func (v *NullableOAuth2Client) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

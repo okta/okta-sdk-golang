@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,15 +28,13 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
 // IdentityProviderProtocol - IdP-specific protocol settings for endpoints, bindings, and algorithms used to connect with the IdP and validate messages
 type IdentityProviderProtocol struct {
 	ProtocolIdVerification *ProtocolIdVerification
-	ProtocolMtls *ProtocolMtls
-	ProtocolOAuth *ProtocolOAuth
-	ProtocolOidc *ProtocolOidc
-	ProtocolSaml *ProtocolSaml
+	ProtocolMtls           *ProtocolMtls
+	ProtocolOAuth          *ProtocolOAuth
+	ProtocolOidc           *ProtocolOidc
+	ProtocolSaml           *ProtocolSaml
 }
 
 // ProtocolIdVerificationAsIdentityProviderProtocol is a convenience function that returns ProtocolIdVerification wrapped in IdentityProviderProtocol
@@ -74,90 +72,89 @@ func ProtocolSamlAsIdentityProviderProtocol(v *ProtocolSaml) IdentityProviderPro
 	}
 }
 
-
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *IdentityProviderProtocol) UnmarshalJSON(data []byte) error {
 	var err error
-        match := 0
-        // try to unmarshal data into ProtocolIdVerification
-        err = json.Unmarshal(data, &dst.ProtocolIdVerification)
-        if err == nil {
-                jsonProtocolIdVerification, _ := json.Marshal(dst.ProtocolIdVerification)
-                if string(jsonProtocolIdVerification) == "{}" { // empty struct
-                        dst.ProtocolIdVerification = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.ProtocolIdVerification = nil
-        }
+	match := 0
+	// try to unmarshal data into ProtocolIdVerification
+	err = json.Unmarshal(data, &dst.ProtocolIdVerification)
+	if err == nil {
+		jsonProtocolIdVerification, _ := json.Marshal(dst.ProtocolIdVerification)
+		if string(jsonProtocolIdVerification) == "{}" { // empty struct
+			dst.ProtocolIdVerification = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.ProtocolIdVerification = nil
+	}
 
-        // try to unmarshal data into ProtocolMtls
-        err = json.Unmarshal(data, &dst.ProtocolMtls)
-        if err == nil {
-                jsonProtocolMtls, _ := json.Marshal(dst.ProtocolMtls)
-                if string(jsonProtocolMtls) == "{}" { // empty struct
-                        dst.ProtocolMtls = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.ProtocolMtls = nil
-        }
+	// try to unmarshal data into ProtocolMtls
+	err = json.Unmarshal(data, &dst.ProtocolMtls)
+	if err == nil {
+		jsonProtocolMtls, _ := json.Marshal(dst.ProtocolMtls)
+		if string(jsonProtocolMtls) == "{}" { // empty struct
+			dst.ProtocolMtls = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.ProtocolMtls = nil
+	}
 
-        // try to unmarshal data into ProtocolOAuth
-        err = json.Unmarshal(data, &dst.ProtocolOAuth)
-        if err == nil {
-                jsonProtocolOAuth, _ := json.Marshal(dst.ProtocolOAuth)
-                if string(jsonProtocolOAuth) == "{}" { // empty struct
-                        dst.ProtocolOAuth = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.ProtocolOAuth = nil
-        }
+	// try to unmarshal data into ProtocolOAuth
+	err = json.Unmarshal(data, &dst.ProtocolOAuth)
+	if err == nil {
+		jsonProtocolOAuth, _ := json.Marshal(dst.ProtocolOAuth)
+		if string(jsonProtocolOAuth) == "{}" { // empty struct
+			dst.ProtocolOAuth = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.ProtocolOAuth = nil
+	}
 
-        // try to unmarshal data into ProtocolOidc
-        err = json.Unmarshal(data, &dst.ProtocolOidc)
-        if err == nil {
-                jsonProtocolOidc, _ := json.Marshal(dst.ProtocolOidc)
-                if string(jsonProtocolOidc) == "{}" { // empty struct
-                        dst.ProtocolOidc = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.ProtocolOidc = nil
-        }
+	// try to unmarshal data into ProtocolOidc
+	err = json.Unmarshal(data, &dst.ProtocolOidc)
+	if err == nil {
+		jsonProtocolOidc, _ := json.Marshal(dst.ProtocolOidc)
+		if string(jsonProtocolOidc) == "{}" { // empty struct
+			dst.ProtocolOidc = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.ProtocolOidc = nil
+	}
 
-        // try to unmarshal data into ProtocolSaml
-        err = json.Unmarshal(data, &dst.ProtocolSaml)
-        if err == nil {
-                jsonProtocolSaml, _ := json.Marshal(dst.ProtocolSaml)
-                if string(jsonProtocolSaml) == "{}" { // empty struct
-                        dst.ProtocolSaml = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.ProtocolSaml = nil
-        }
+	// try to unmarshal data into ProtocolSaml
+	err = json.Unmarshal(data, &dst.ProtocolSaml)
+	if err == nil {
+		jsonProtocolSaml, _ := json.Marshal(dst.ProtocolSaml)
+		if string(jsonProtocolSaml) == "{}" { // empty struct
+			dst.ProtocolSaml = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.ProtocolSaml = nil
+	}
 
-        if match > 1 { // more than 1 match
-                // reset to nil
-                dst.ProtocolIdVerification = nil
-                dst.ProtocolMtls = nil
-                dst.ProtocolOAuth = nil
-                dst.ProtocolOidc = nil
-                dst.ProtocolSaml = nil
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.ProtocolIdVerification = nil
+		dst.ProtocolMtls = nil
+		dst.ProtocolOAuth = nil
+		dst.ProtocolOidc = nil
+		dst.ProtocolSaml = nil
 
-                return fmt.Errorf("Data matches more than one schema in oneOf(IdentityProviderProtocol)")
-        } else if match == 1 {
-                return nil // exactly one match
-        } else { // no match
-                return fmt.Errorf("Data failed to match schemas in oneOf(IdentityProviderProtocol)")
-        }
+		return fmt.Errorf("data matches more than one schema in oneOf(IdentityProviderProtocol)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("data failed to match schemas in oneOf(IdentityProviderProtocol)")
+	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -186,7 +183,7 @@ func (src IdentityProviderProtocol) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *IdentityProviderProtocol) GetActualInstance() (interface{}) {
+func (obj *IdentityProviderProtocol) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -208,6 +205,32 @@ func (obj *IdentityProviderProtocol) GetActualInstance() (interface{}) {
 
 	if obj.ProtocolSaml != nil {
 		return obj.ProtocolSaml
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj IdentityProviderProtocol) GetActualInstanceValue() interface{} {
+	if obj.ProtocolIdVerification != nil {
+		return *obj.ProtocolIdVerification
+	}
+
+	if obj.ProtocolMtls != nil {
+		return *obj.ProtocolMtls
+	}
+
+	if obj.ProtocolOAuth != nil {
+		return *obj.ProtocolOAuth
+	}
+
+	if obj.ProtocolOidc != nil {
+		return *obj.ProtocolOidc
+	}
+
+	if obj.ProtocolSaml != nil {
+		return *obj.ProtocolSaml
 	}
 
 	// all schemas are nil
@@ -249,5 +272,3 @@ func (v *NullableIdentityProviderProtocol) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the Subject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Subject{}
+
 // Subject struct for Subject
 type Subject struct {
 	// The user identifier
 	Format *string `json:"format,omitempty"`
 	// ID of the user
-	Id *string `json:"id,omitempty"`
+	Id                   *string `json:"id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewSubjectWithDefaults() *Subject {
 
 // GetFormat returns the Format field value if set, zero value otherwise.
 func (o *Subject) GetFormat() string {
-	if o == nil || o.Format == nil {
+	if o == nil || IsNil(o.Format) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *Subject) GetFormat() string {
 // GetFormatOk returns a tuple with the Format field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Subject) GetFormatOk() (*string, bool) {
-	if o == nil || o.Format == nil {
+	if o == nil || IsNil(o.Format) {
 		return nil, false
 	}
 	return o.Format, true
@@ -75,7 +78,7 @@ func (o *Subject) GetFormatOk() (*string, bool) {
 
 // HasFormat returns a boolean if a field has been set.
 func (o *Subject) HasFormat() bool {
-	if o != nil && o.Format != nil {
+	if o != nil && !IsNil(o.Format) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *Subject) SetFormat(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *Subject) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *Subject) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Subject) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -107,7 +110,7 @@ func (o *Subject) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *Subject) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *Subject) SetId(v string) {
 }
 
 func (o Subject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Subject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Format != nil {
+	if !IsNil(o.Format) {
 		toSerialize["format"] = o.Format
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
 
@@ -132,28 +143,26 @@ func (o Subject) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Subject) UnmarshalJSON(bytes []byte) (err error) {
+func (o *Subject) UnmarshalJSON(data []byte) (err error) {
 	varSubject := _Subject{}
 
-	err = json.Unmarshal(bytes, &varSubject)
-	if err == nil {
-		*o = Subject(varSubject)
-	} else {
+	err = json.Unmarshal(data, &varSubject)
+
+	if err != nil {
 		return err
 	}
 
+	*o = Subject(varSubject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "format")
 		delete(additionalProperties, "id")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableSubject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

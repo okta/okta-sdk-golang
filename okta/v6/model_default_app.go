@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the DefaultApp type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DefaultApp{}
+
 // DefaultApp struct for DefaultApp
 type DefaultApp struct {
 	// ID for the App instance
@@ -35,7 +38,7 @@ type DefaultApp struct {
 	AppLinkName *string `json:"appLinkName,omitempty"`
 	// Application URI for classic Orgs
 	ClassicApplicationUri *string `json:"classicApplicationUri,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties  map[string]interface{}
 }
 
 type _DefaultApp DefaultApp
@@ -59,7 +62,7 @@ func NewDefaultAppWithDefaults() *DefaultApp {
 
 // GetAppInstanceId returns the AppInstanceId field value if set, zero value otherwise.
 func (o *DefaultApp) GetAppInstanceId() string {
-	if o == nil || o.AppInstanceId == nil {
+	if o == nil || IsNil(o.AppInstanceId) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *DefaultApp) GetAppInstanceId() string {
 // GetAppInstanceIdOk returns a tuple with the AppInstanceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DefaultApp) GetAppInstanceIdOk() (*string, bool) {
-	if o == nil || o.AppInstanceId == nil {
+	if o == nil || IsNil(o.AppInstanceId) {
 		return nil, false
 	}
 	return o.AppInstanceId, true
@@ -77,7 +80,7 @@ func (o *DefaultApp) GetAppInstanceIdOk() (*string, bool) {
 
 // HasAppInstanceId returns a boolean if a field has been set.
 func (o *DefaultApp) HasAppInstanceId() bool {
-	if o != nil && o.AppInstanceId != nil {
+	if o != nil && !IsNil(o.AppInstanceId) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *DefaultApp) SetAppInstanceId(v string) {
 
 // GetAppLinkName returns the AppLinkName field value if set, zero value otherwise.
 func (o *DefaultApp) GetAppLinkName() string {
-	if o == nil || o.AppLinkName == nil {
+	if o == nil || IsNil(o.AppLinkName) {
 		var ret string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *DefaultApp) GetAppLinkName() string {
 // GetAppLinkNameOk returns a tuple with the AppLinkName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DefaultApp) GetAppLinkNameOk() (*string, bool) {
-	if o == nil || o.AppLinkName == nil {
+	if o == nil || IsNil(o.AppLinkName) {
 		return nil, false
 	}
 	return o.AppLinkName, true
@@ -109,7 +112,7 @@ func (o *DefaultApp) GetAppLinkNameOk() (*string, bool) {
 
 // HasAppLinkName returns a boolean if a field has been set.
 func (o *DefaultApp) HasAppLinkName() bool {
-	if o != nil && o.AppLinkName != nil {
+	if o != nil && !IsNil(o.AppLinkName) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *DefaultApp) SetAppLinkName(v string) {
 
 // GetClassicApplicationUri returns the ClassicApplicationUri field value if set, zero value otherwise.
 func (o *DefaultApp) GetClassicApplicationUri() string {
-	if o == nil || o.ClassicApplicationUri == nil {
+	if o == nil || IsNil(o.ClassicApplicationUri) {
 		var ret string
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *DefaultApp) GetClassicApplicationUri() string {
 // GetClassicApplicationUriOk returns a tuple with the ClassicApplicationUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DefaultApp) GetClassicApplicationUriOk() (*string, bool) {
-	if o == nil || o.ClassicApplicationUri == nil {
+	if o == nil || IsNil(o.ClassicApplicationUri) {
 		return nil, false
 	}
 	return o.ClassicApplicationUri, true
@@ -141,7 +144,7 @@ func (o *DefaultApp) GetClassicApplicationUriOk() (*string, bool) {
 
 // HasClassicApplicationUri returns a boolean if a field has been set.
 func (o *DefaultApp) HasClassicApplicationUri() bool {
-	if o != nil && o.ClassicApplicationUri != nil {
+	if o != nil && !IsNil(o.ClassicApplicationUri) {
 		return true
 	}
 
@@ -154,14 +157,22 @@ func (o *DefaultApp) SetClassicApplicationUri(v string) {
 }
 
 func (o DefaultApp) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DefaultApp) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AppInstanceId != nil {
+	if !IsNil(o.AppInstanceId) {
 		toSerialize["appInstanceId"] = o.AppInstanceId
 	}
-	if o.AppLinkName != nil {
+	if !IsNil(o.AppLinkName) {
 		toSerialize["appLinkName"] = o.AppLinkName
 	}
-	if o.ClassicApplicationUri != nil {
+	if !IsNil(o.ClassicApplicationUri) {
 		toSerialize["classicApplicationUri"] = o.ClassicApplicationUri
 	}
 
@@ -169,29 +180,27 @@ func (o DefaultApp) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DefaultApp) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DefaultApp) UnmarshalJSON(data []byte) (err error) {
 	varDefaultApp := _DefaultApp{}
 
-	err = json.Unmarshal(bytes, &varDefaultApp)
-	if err == nil {
-		*o = DefaultApp(varDefaultApp)
-	} else {
+	err = json.Unmarshal(data, &varDefaultApp)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DefaultApp(varDefaultApp)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "appInstanceId")
 		delete(additionalProperties, "appLinkName")
 		delete(additionalProperties, "classicApplicationUri")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -232,4 +241,3 @@ func (v *NullableDefaultApp) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

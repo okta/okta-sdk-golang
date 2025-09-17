@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,19 +27,22 @@ import (
 	"encoding/json"
 )
 
+// checks if the DeviceIntegrations type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeviceIntegrations{}
+
 // DeviceIntegrations struct for DeviceIntegrations
 type DeviceIntegrations struct {
 	// The display name of the device integration
 	DisplayName *string `json:"displayName,omitempty"`
 	// The ID of the device integration
-	Id *string `json:"id,omitempty"`
+	Id       *string                     `json:"id,omitempty"`
 	Metadata *DeviceIntegrationsMetadata `json:"metadata,omitempty"`
 	// The namespace of the device integration
-	Name *string `json:"name,omitempty"`
+	Name     *string `json:"name,omitempty"`
 	Platform *string `json:"platform,omitempty"`
 	// The status of the device integration
-	Status *string `json:"status,omitempty"`
-	Links *LinksSelfAndLifecycle `json:"_links,omitempty"`
+	Status               *string                `json:"status,omitempty"`
+	Links                *LinksSelfAndLifecycle `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -64,7 +67,7 @@ func NewDeviceIntegrationsWithDefaults() *DeviceIntegrations {
 
 // GetDisplayName returns the DisplayName field value if set, zero value otherwise.
 func (o *DeviceIntegrations) GetDisplayName() string {
-	if o == nil || o.DisplayName == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		var ret string
 		return ret
 	}
@@ -74,7 +77,7 @@ func (o *DeviceIntegrations) GetDisplayName() string {
 // GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceIntegrations) GetDisplayNameOk() (*string, bool) {
-	if o == nil || o.DisplayName == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		return nil, false
 	}
 	return o.DisplayName, true
@@ -82,7 +85,7 @@ func (o *DeviceIntegrations) GetDisplayNameOk() (*string, bool) {
 
 // HasDisplayName returns a boolean if a field has been set.
 func (o *DeviceIntegrations) HasDisplayName() bool {
-	if o != nil && o.DisplayName != nil {
+	if o != nil && !IsNil(o.DisplayName) {
 		return true
 	}
 
@@ -96,7 +99,7 @@ func (o *DeviceIntegrations) SetDisplayName(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *DeviceIntegrations) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -106,7 +109,7 @@ func (o *DeviceIntegrations) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceIntegrations) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -114,7 +117,7 @@ func (o *DeviceIntegrations) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *DeviceIntegrations) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -128,7 +131,7 @@ func (o *DeviceIntegrations) SetId(v string) {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *DeviceIntegrations) GetMetadata() DeviceIntegrationsMetadata {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret DeviceIntegrationsMetadata
 		return ret
 	}
@@ -138,7 +141,7 @@ func (o *DeviceIntegrations) GetMetadata() DeviceIntegrationsMetadata {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceIntegrations) GetMetadataOk() (*DeviceIntegrationsMetadata, bool) {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -146,7 +149,7 @@ func (o *DeviceIntegrations) GetMetadataOk() (*DeviceIntegrationsMetadata, bool)
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *DeviceIntegrations) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -160,7 +163,7 @@ func (o *DeviceIntegrations) SetMetadata(v DeviceIntegrationsMetadata) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *DeviceIntegrations) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -170,7 +173,7 @@ func (o *DeviceIntegrations) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceIntegrations) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -178,7 +181,7 @@ func (o *DeviceIntegrations) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *DeviceIntegrations) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -192,7 +195,7 @@ func (o *DeviceIntegrations) SetName(v string) {
 
 // GetPlatform returns the Platform field value if set, zero value otherwise.
 func (o *DeviceIntegrations) GetPlatform() string {
-	if o == nil || o.Platform == nil {
+	if o == nil || IsNil(o.Platform) {
 		var ret string
 		return ret
 	}
@@ -202,7 +205,7 @@ func (o *DeviceIntegrations) GetPlatform() string {
 // GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceIntegrations) GetPlatformOk() (*string, bool) {
-	if o == nil || o.Platform == nil {
+	if o == nil || IsNil(o.Platform) {
 		return nil, false
 	}
 	return o.Platform, true
@@ -210,7 +213,7 @@ func (o *DeviceIntegrations) GetPlatformOk() (*string, bool) {
 
 // HasPlatform returns a boolean if a field has been set.
 func (o *DeviceIntegrations) HasPlatform() bool {
-	if o != nil && o.Platform != nil {
+	if o != nil && !IsNil(o.Platform) {
 		return true
 	}
 
@@ -224,7 +227,7 @@ func (o *DeviceIntegrations) SetPlatform(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *DeviceIntegrations) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -234,7 +237,7 @@ func (o *DeviceIntegrations) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceIntegrations) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -242,7 +245,7 @@ func (o *DeviceIntegrations) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *DeviceIntegrations) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -256,7 +259,7 @@ func (o *DeviceIntegrations) SetStatus(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *DeviceIntegrations) GetLinks() LinksSelfAndLifecycle {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksSelfAndLifecycle
 		return ret
 	}
@@ -266,7 +269,7 @@ func (o *DeviceIntegrations) GetLinks() LinksSelfAndLifecycle {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceIntegrations) GetLinksOk() (*LinksSelfAndLifecycle, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -274,7 +277,7 @@ func (o *DeviceIntegrations) GetLinksOk() (*LinksSelfAndLifecycle, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *DeviceIntegrations) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -287,26 +290,34 @@ func (o *DeviceIntegrations) SetLinks(v LinksSelfAndLifecycle) {
 }
 
 func (o DeviceIntegrations) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DeviceIntegrations) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.DisplayName != nil {
+	if !IsNil(o.DisplayName) {
 		toSerialize["displayName"] = o.DisplayName
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Metadata != nil {
+	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Platform != nil {
+	if !IsNil(o.Platform) {
 		toSerialize["platform"] = o.Platform
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -314,23 +325,23 @@ func (o DeviceIntegrations) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DeviceIntegrations) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DeviceIntegrations) UnmarshalJSON(data []byte) (err error) {
 	varDeviceIntegrations := _DeviceIntegrations{}
 
-	err = json.Unmarshal(bytes, &varDeviceIntegrations)
-	if err == nil {
-		*o = DeviceIntegrations(varDeviceIntegrations)
-	} else {
+	err = json.Unmarshal(data, &varDeviceIntegrations)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DeviceIntegrations(varDeviceIntegrations)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "displayName")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "metadata")
@@ -339,8 +350,6 @@ func (o *DeviceIntegrations) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -381,4 +390,3 @@ func (v *NullableDeviceIntegrations) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

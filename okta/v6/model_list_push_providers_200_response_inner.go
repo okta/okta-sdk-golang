@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,12 +28,10 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
 // ListPushProviders200ResponseInner - struct for ListPushProviders200ResponseInner
 type ListPushProviders200ResponseInner struct {
 	APNSPushProvider *APNSPushProvider
-	FCMPushProvider *FCMPushProvider
+	FCMPushProvider  *FCMPushProvider
 }
 
 // APNSPushProviderAsListPushProviders200ResponseInner is a convenience function that returns APNSPushProvider wrapped in ListPushProviders200ResponseInner
@@ -50,15 +48,14 @@ func FCMPushProviderAsListPushProviders200ResponseInner(v *FCMPushProvider) List
 	}
 }
 
-
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *ListPushProviders200ResponseInner) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	// check if the discriminator value is 'APNS'
@@ -69,7 +66,7 @@ func (dst *ListPushProviders200ResponseInner) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.APNSPushProvider, return on the first match
 		} else {
 			dst.APNSPushProvider = nil
-			return fmt.Errorf("Failed to unmarshal ListPushProviders200ResponseInner as APNSPushProvider: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListPushProviders200ResponseInner as APNSPushProvider: %s", err.Error())
 		}
 	}
 
@@ -81,7 +78,7 @@ func (dst *ListPushProviders200ResponseInner) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.FCMPushProvider, return on the first match
 		} else {
 			dst.FCMPushProvider = nil
-			return fmt.Errorf("Failed to unmarshal ListPushProviders200ResponseInner as FCMPushProvider: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListPushProviders200ResponseInner as FCMPushProvider: %s", err.Error())
 		}
 	}
 
@@ -93,7 +90,7 @@ func (dst *ListPushProviders200ResponseInner) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.APNSPushProvider, return on the first match
 		} else {
 			dst.APNSPushProvider = nil
-			return fmt.Errorf("Failed to unmarshal ListPushProviders200ResponseInner as APNSPushProvider: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListPushProviders200ResponseInner as APNSPushProvider: %s", err.Error())
 		}
 	}
 
@@ -105,7 +102,7 @@ func (dst *ListPushProviders200ResponseInner) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.FCMPushProvider, return on the first match
 		} else {
 			dst.FCMPushProvider = nil
-			return fmt.Errorf("Failed to unmarshal ListPushProviders200ResponseInner as FCMPushProvider: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListPushProviders200ResponseInner as FCMPushProvider: %s", err.Error())
 		}
 	}
 
@@ -126,7 +123,7 @@ func (src ListPushProviders200ResponseInner) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *ListPushProviders200ResponseInner) GetActualInstance() (interface{}) {
+func (obj *ListPushProviders200ResponseInner) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -136,6 +133,20 @@ func (obj *ListPushProviders200ResponseInner) GetActualInstance() (interface{}) 
 
 	if obj.FCMPushProvider != nil {
 		return obj.FCMPushProvider
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj ListPushProviders200ResponseInner) GetActualInstanceValue() interface{} {
+	if obj.APNSPushProvider != nil {
+		return *obj.APNSPushProvider
+	}
+
+	if obj.FCMPushProvider != nil {
+		return *obj.FCMPushProvider
 	}
 
 	// all schemas are nil
@@ -177,5 +188,3 @@ func (v *NullableListPushProviders200ResponseInner) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

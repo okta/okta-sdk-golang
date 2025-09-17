@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the SAMLHookResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SAMLHookResponse{}
+
 // SAMLHookResponse struct for SAMLHookResponse
 type SAMLHookResponse struct {
 	// The `commands` object is where you tell Okta to add additional claims to the assertion or to modify the existing assertion statements.  `commands` is an array, allowing you to send multiple commands. In each array element, include a `type` property and a `value` property. The `type` property is where you specify which of the supported commands you want to execute, and `value` is where you supply an operand for that command. In the case of the SAML assertion inline hook, the `value` property is itself a nested object, in which you specify a particular operation, a path to act on, and a value.
-	Commands []SAMLHookResponseCommandsInner `json:"commands,omitempty"`
-	Error *SAMLHookResponseError `json:"error,omitempty"`
+	Commands             []SAMLHookResponseCommandsInner `json:"commands,omitempty"`
+	Error                *SAMLHookResponseError          `json:"error,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewSAMLHookResponseWithDefaults() *SAMLHookResponse {
 
 // GetCommands returns the Commands field value if set, zero value otherwise.
 func (o *SAMLHookResponse) GetCommands() []SAMLHookResponseCommandsInner {
-	if o == nil || o.Commands == nil {
+	if o == nil || IsNil(o.Commands) {
 		var ret []SAMLHookResponseCommandsInner
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *SAMLHookResponse) GetCommands() []SAMLHookResponseCommandsInner {
 // GetCommandsOk returns a tuple with the Commands field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLHookResponse) GetCommandsOk() ([]SAMLHookResponseCommandsInner, bool) {
-	if o == nil || o.Commands == nil {
+	if o == nil || IsNil(o.Commands) {
 		return nil, false
 	}
 	return o.Commands, true
@@ -74,7 +77,7 @@ func (o *SAMLHookResponse) GetCommandsOk() ([]SAMLHookResponseCommandsInner, boo
 
 // HasCommands returns a boolean if a field has been set.
 func (o *SAMLHookResponse) HasCommands() bool {
-	if o != nil && o.Commands != nil {
+	if o != nil && !IsNil(o.Commands) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *SAMLHookResponse) SetCommands(v []SAMLHookResponseCommandsInner) {
 
 // GetError returns the Error field value if set, zero value otherwise.
 func (o *SAMLHookResponse) GetError() SAMLHookResponseError {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		var ret SAMLHookResponseError
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *SAMLHookResponse) GetError() SAMLHookResponseError {
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLHookResponse) GetErrorOk() (*SAMLHookResponseError, bool) {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		return nil, false
 	}
 	return o.Error, true
@@ -106,7 +109,7 @@ func (o *SAMLHookResponse) GetErrorOk() (*SAMLHookResponseError, bool) {
 
 // HasError returns a boolean if a field has been set.
 func (o *SAMLHookResponse) HasError() bool {
-	if o != nil && o.Error != nil {
+	if o != nil && !IsNil(o.Error) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *SAMLHookResponse) SetError(v SAMLHookResponseError) {
 }
 
 func (o SAMLHookResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SAMLHookResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Commands != nil {
+	if !IsNil(o.Commands) {
 		toSerialize["commands"] = o.Commands
 	}
-	if o.Error != nil {
+	if !IsNil(o.Error) {
 		toSerialize["error"] = o.Error
 	}
 
@@ -131,28 +142,26 @@ func (o SAMLHookResponse) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SAMLHookResponse) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SAMLHookResponse) UnmarshalJSON(data []byte) (err error) {
 	varSAMLHookResponse := _SAMLHookResponse{}
 
-	err = json.Unmarshal(bytes, &varSAMLHookResponse)
-	if err == nil {
-		*o = SAMLHookResponse(varSAMLHookResponse)
-	} else {
+	err = json.Unmarshal(data, &varSAMLHookResponse)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SAMLHookResponse(varSAMLHookResponse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "commands")
 		delete(additionalProperties, "error")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableSAMLHookResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

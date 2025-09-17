@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,26 +26,25 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
-	"strings"
 	"os"
+	"strings"
+	"time"
 )
-
 
 type ThemesAPI interface {
 
 	/*
-	DeleteBrandThemeBackgroundImage Delete the background image
+		DeleteBrandThemeBackgroundImage Delete the background image
 
-	Deletes a theme background image
+		Deletes a theme background image
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param themeId The ID of the theme
-	@return ApiDeleteBrandThemeBackgroundImageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@param themeId The ID of the theme
+		@return ApiDeleteBrandThemeBackgroundImageRequest
 	*/
 	DeleteBrandThemeBackgroundImage(ctx context.Context, brandId string, themeId string) ApiDeleteBrandThemeBackgroundImageRequest
 
@@ -53,14 +52,14 @@ type ThemesAPI interface {
 	DeleteBrandThemeBackgroundImageExecute(r ApiDeleteBrandThemeBackgroundImageRequest) (*APIResponse, error)
 
 	/*
-	DeleteBrandThemeFavicon Delete the favicon
+		DeleteBrandThemeFavicon Delete the favicon
 
-	Deletes a theme favicon. The theme will use the default Okta favicon.
+		Deletes a theme favicon. The theme will use the default Okta favicon.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param themeId The ID of the theme
-	@return ApiDeleteBrandThemeFaviconRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@param themeId The ID of the theme
+		@return ApiDeleteBrandThemeFaviconRequest
 	*/
 	DeleteBrandThemeFavicon(ctx context.Context, brandId string, themeId string) ApiDeleteBrandThemeFaviconRequest
 
@@ -68,14 +67,14 @@ type ThemesAPI interface {
 	DeleteBrandThemeFaviconExecute(r ApiDeleteBrandThemeFaviconRequest) (*APIResponse, error)
 
 	/*
-	DeleteBrandThemeLogo Delete the logo
+		DeleteBrandThemeLogo Delete the logo
 
-	Deletes a Theme logo. The theme will use the default Okta logo.
+		Deletes a Theme logo. The theme will use the default Okta logo.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param themeId The ID of the theme
-	@return ApiDeleteBrandThemeLogoRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@param themeId The ID of the theme
+		@return ApiDeleteBrandThemeLogoRequest
 	*/
 	DeleteBrandThemeLogo(ctx context.Context, brandId string, themeId string) ApiDeleteBrandThemeLogoRequest
 
@@ -83,14 +82,14 @@ type ThemesAPI interface {
 	DeleteBrandThemeLogoExecute(r ApiDeleteBrandThemeLogoRequest) (*APIResponse, error)
 
 	/*
-	GetBrandTheme Retrieve a theme
+		GetBrandTheme Retrieve a theme
 
-	Retrieves a theme for a brand
+		Retrieves a theme for a brand
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param themeId The ID of the theme
-	@return ApiGetBrandThemeRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@param themeId The ID of the theme
+		@return ApiGetBrandThemeRequest
 	*/
 	GetBrandTheme(ctx context.Context, brandId string, themeId string) ApiGetBrandThemeRequest
 
@@ -99,15 +98,15 @@ type ThemesAPI interface {
 	GetBrandThemeExecute(r ApiGetBrandThemeRequest) (*ThemeResponse, *APIResponse, error)
 
 	/*
-	ListBrandThemes List all themes
+			ListBrandThemes List all themes
 
-	Lists all the themes in your brand.
+			Lists all the themes in your brand.
 
-> **Important:** Currently each org supports only one theme, therefore this contains a single object only.
+		> **Important:** Currently each org supports only one theme, therefore this contains a single object only.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiListBrandThemesRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param brandId The ID of the brand
+			@return ApiListBrandThemesRequest
 	*/
 	ListBrandThemes(ctx context.Context, brandId string) ApiListBrandThemesRequest
 
@@ -116,14 +115,14 @@ type ThemesAPI interface {
 	ListBrandThemesExecute(r ApiListBrandThemesRequest) ([]ThemeResponse, *APIResponse, error)
 
 	/*
-	ReplaceBrandTheme Replace a theme
+		ReplaceBrandTheme Replace a theme
 
-	Replaces a theme for a brand
+		Replaces a theme for a brand
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param themeId The ID of the theme
-	@return ApiReplaceBrandThemeRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@param themeId The ID of the theme
+		@return ApiReplaceBrandThemeRequest
 	*/
 	ReplaceBrandTheme(ctx context.Context, brandId string, themeId string) ApiReplaceBrandThemeRequest
 
@@ -132,14 +131,14 @@ type ThemesAPI interface {
 	ReplaceBrandThemeExecute(r ApiReplaceBrandThemeRequest) (*ThemeResponse, *APIResponse, error)
 
 	/*
-	UploadBrandThemeBackgroundImage Upload the background image
+		UploadBrandThemeBackgroundImage Upload the background image
 
-	Uploads and replaces the background image for the theme. The file must be in PNG, JPG, or GIF format and less than 2 MB in size.
+		Uploads and replaces the background image for the theme. The file must be in PNG, JPG, or GIF format and less than 2 MB in size.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param themeId The ID of the theme
-	@return ApiUploadBrandThemeBackgroundImageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@param themeId The ID of the theme
+		@return ApiUploadBrandThemeBackgroundImageRequest
 	*/
 	UploadBrandThemeBackgroundImage(ctx context.Context, brandId string, themeId string) ApiUploadBrandThemeBackgroundImageRequest
 
@@ -148,14 +147,14 @@ type ThemesAPI interface {
 	UploadBrandThemeBackgroundImageExecute(r ApiUploadBrandThemeBackgroundImageRequest) (*ImageUploadResponse, *APIResponse, error)
 
 	/*
-	UploadBrandThemeFavicon Upload the favicon
+		UploadBrandThemeFavicon Upload the favicon
 
-	Uploads and replaces the favicon for the theme
+		Uploads and replaces the favicon for the theme
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param themeId The ID of the theme
-	@return ApiUploadBrandThemeFaviconRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@param themeId The ID of the theme
+		@return ApiUploadBrandThemeFaviconRequest
 	*/
 	UploadBrandThemeFavicon(ctx context.Context, brandId string, themeId string) ApiUploadBrandThemeFaviconRequest
 
@@ -164,14 +163,14 @@ type ThemesAPI interface {
 	UploadBrandThemeFaviconExecute(r ApiUploadBrandThemeFaviconRequest) (*ImageUploadResponse, *APIResponse, error)
 
 	/*
-	UploadBrandThemeLogo Upload the logo
+		UploadBrandThemeLogo Upload the logo
 
-	Uploads and replaces the logo for the theme. The file must be in PNG, JPG, or GIF format and less than 100kB in size. For best results use landscape orientation, a transparent background, and a minimum size of 300px by 50px to prevent upscaling.
+		Uploads and replaces the logo for the theme. The file must be in PNG, JPG, or GIF format and less than 100kB in size. For best results use landscape orientation, a transparent background, and a minimum size of 300px by 50px to prevent upscaling.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param themeId The ID of the theme
-	@return ApiUploadBrandThemeLogoRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@param themeId The ID of the theme
+		@return ApiUploadBrandThemeLogoRequest
 	*/
 	UploadBrandThemeLogo(ctx context.Context, brandId string, themeId string) ApiUploadBrandThemeLogoRequest
 
@@ -184,10 +183,10 @@ type ThemesAPI interface {
 type ThemesAPIService service
 
 type ApiDeleteBrandThemeBackgroundImageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ThemesAPI
-	brandId string
-	themeId string
+	brandId    string
+	themeId    string
 	retryCount int32
 }
 
@@ -200,17 +199,17 @@ DeleteBrandThemeBackgroundImage Delete the background image
 
 Deletes a theme background image
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @param themeId The ID of the theme
- @return ApiDeleteBrandThemeBackgroundImageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@param themeId The ID of the theme
+	@return ApiDeleteBrandThemeBackgroundImageRequest
 */
 func (a *ThemesAPIService) DeleteBrandThemeBackgroundImage(ctx context.Context, brandId string, themeId string) ApiDeleteBrandThemeBackgroundImageRequest {
 	return ApiDeleteBrandThemeBackgroundImageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
-		themeId: themeId,
+		ctx:        ctx,
+		brandId:    brandId,
+		themeId:    themeId,
 		retryCount: 0,
 	}
 }
@@ -223,7 +222,7 @@ func (a *ThemesAPIService) DeleteBrandThemeBackgroundImageExecute(r ApiDeleteBra
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -285,9 +284,9 @@ func (a *ThemesAPIService) DeleteBrandThemeBackgroundImageExecute(r ApiDeleteBra
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -341,10 +340,10 @@ func (a *ThemesAPIService) DeleteBrandThemeBackgroundImageExecute(r ApiDeleteBra
 }
 
 type ApiDeleteBrandThemeFaviconRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ThemesAPI
-	brandId string
-	themeId string
+	brandId    string
+	themeId    string
 	retryCount int32
 }
 
@@ -357,17 +356,17 @@ DeleteBrandThemeFavicon Delete the favicon
 
 Deletes a theme favicon. The theme will use the default Okta favicon.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @param themeId The ID of the theme
- @return ApiDeleteBrandThemeFaviconRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@param themeId The ID of the theme
+	@return ApiDeleteBrandThemeFaviconRequest
 */
 func (a *ThemesAPIService) DeleteBrandThemeFavicon(ctx context.Context, brandId string, themeId string) ApiDeleteBrandThemeFaviconRequest {
 	return ApiDeleteBrandThemeFaviconRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
-		themeId: themeId,
+		ctx:        ctx,
+		brandId:    brandId,
+		themeId:    themeId,
 		retryCount: 0,
 	}
 }
@@ -380,7 +379,7 @@ func (a *ThemesAPIService) DeleteBrandThemeFaviconExecute(r ApiDeleteBrandThemeF
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -442,9 +441,9 @@ func (a *ThemesAPIService) DeleteBrandThemeFaviconExecute(r ApiDeleteBrandThemeF
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -498,10 +497,10 @@ func (a *ThemesAPIService) DeleteBrandThemeFaviconExecute(r ApiDeleteBrandThemeF
 }
 
 type ApiDeleteBrandThemeLogoRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ThemesAPI
-	brandId string
-	themeId string
+	brandId    string
+	themeId    string
 	retryCount int32
 }
 
@@ -514,17 +513,17 @@ DeleteBrandThemeLogo Delete the logo
 
 Deletes a Theme logo. The theme will use the default Okta logo.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @param themeId The ID of the theme
- @return ApiDeleteBrandThemeLogoRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@param themeId The ID of the theme
+	@return ApiDeleteBrandThemeLogoRequest
 */
 func (a *ThemesAPIService) DeleteBrandThemeLogo(ctx context.Context, brandId string, themeId string) ApiDeleteBrandThemeLogoRequest {
 	return ApiDeleteBrandThemeLogoRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
-		themeId: themeId,
+		ctx:        ctx,
+		brandId:    brandId,
+		themeId:    themeId,
 		retryCount: 0,
 	}
 }
@@ -537,7 +536,7 @@ func (a *ThemesAPIService) DeleteBrandThemeLogoExecute(r ApiDeleteBrandThemeLogo
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -599,9 +598,9 @@ func (a *ThemesAPIService) DeleteBrandThemeLogoExecute(r ApiDeleteBrandThemeLogo
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -655,10 +654,10 @@ func (a *ThemesAPIService) DeleteBrandThemeLogoExecute(r ApiDeleteBrandThemeLogo
 }
 
 type ApiGetBrandThemeRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ThemesAPI
-	brandId string
-	themeId string
+	brandId    string
+	themeId    string
 	retryCount int32
 }
 
@@ -671,23 +670,24 @@ GetBrandTheme Retrieve a theme
 
 Retrieves a theme for a brand
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @param themeId The ID of the theme
- @return ApiGetBrandThemeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@param themeId The ID of the theme
+	@return ApiGetBrandThemeRequest
 */
 func (a *ThemesAPIService) GetBrandTheme(ctx context.Context, brandId string, themeId string) ApiGetBrandThemeRequest {
 	return ApiGetBrandThemeRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
-		themeId: themeId,
+		ctx:        ctx,
+		brandId:    brandId,
+		themeId:    themeId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ThemeResponse
+//
+//	@return ThemeResponse
 func (a *ThemesAPIService) GetBrandThemeExecute(r ApiGetBrandThemeRequest) (*ThemeResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -696,7 +696,7 @@ func (a *ThemesAPIService) GetBrandThemeExecute(r ApiGetBrandThemeRequest) (*The
 		localVarReturnValue  *ThemeResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -758,9 +758,9 @@ func (a *ThemesAPIService) GetBrandThemeExecute(r ApiGetBrandThemeRequest) (*The
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -818,15 +818,15 @@ func (a *ThemesAPIService) GetBrandThemeExecute(r ApiGetBrandThemeRequest) (*The
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListBrandThemesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ThemesAPI
-	brandId string
+	brandId    string
 	retryCount int32
 }
 
@@ -841,21 +841,22 @@ Lists all the themes in your brand.
 
 > **Important:** Currently each org supports only one theme, therefore this contains a single object only.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @return ApiListBrandThemesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@return ApiListBrandThemesRequest
 */
 func (a *ThemesAPIService) ListBrandThemes(ctx context.Context, brandId string) ApiListBrandThemesRequest {
 	return ApiListBrandThemesRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []ThemeResponse
+//
+//	@return []ThemeResponse
 func (a *ThemesAPIService) ListBrandThemesExecute(r ApiListBrandThemesRequest) ([]ThemeResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -864,7 +865,7 @@ func (a *ThemesAPIService) ListBrandThemesExecute(r ApiListBrandThemesRequest) (
 		localVarReturnValue  []ThemeResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -925,9 +926,9 @@ func (a *ThemesAPIService) ListBrandThemesExecute(r ApiListBrandThemesRequest) (
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -985,17 +986,17 @@ func (a *ThemesAPIService) ListBrandThemesExecute(r ApiListBrandThemesRequest) (
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceBrandThemeRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ThemesAPI
-	brandId string
-	themeId string
-	theme *UpdateThemeRequest
+	brandId    string
+	themeId    string
+	theme      *UpdateThemeRequest
 	retryCount int32
 }
 
@@ -1013,23 +1014,24 @@ ReplaceBrandTheme Replace a theme
 
 Replaces a theme for a brand
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @param themeId The ID of the theme
- @return ApiReplaceBrandThemeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@param themeId The ID of the theme
+	@return ApiReplaceBrandThemeRequest
 */
 func (a *ThemesAPIService) ReplaceBrandTheme(ctx context.Context, brandId string, themeId string) ApiReplaceBrandThemeRequest {
 	return ApiReplaceBrandThemeRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
-		themeId: themeId,
+		ctx:        ctx,
+		brandId:    brandId,
+		themeId:    themeId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ThemeResponse
+//
+//	@return ThemeResponse
 func (a *ThemesAPIService) ReplaceBrandThemeExecute(r ApiReplaceBrandThemeRequest) (*ThemeResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -1038,7 +1040,7 @@ func (a *ThemesAPIService) ReplaceBrandThemeExecute(r ApiReplaceBrandThemeReques
 		localVarReturnValue  *ThemeResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1105,9 +1107,9 @@ func (a *ThemesAPIService) ReplaceBrandThemeExecute(r ApiReplaceBrandThemeReques
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1177,17 +1179,17 @@ func (a *ThemesAPIService) ReplaceBrandThemeExecute(r ApiReplaceBrandThemeReques
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUploadBrandThemeBackgroundImageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ThemesAPI
-	brandId string
-	themeId string
-	file **os.File
+	brandId    string
+	themeId    string
+	file       **os.File
 	retryCount int32
 }
 
@@ -1205,23 +1207,24 @@ UploadBrandThemeBackgroundImage Upload the background image
 
 Uploads and replaces the background image for the theme. The file must be in PNG, JPG, or GIF format and less than 2 MB in size.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @param themeId The ID of the theme
- @return ApiUploadBrandThemeBackgroundImageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@param themeId The ID of the theme
+	@return ApiUploadBrandThemeBackgroundImageRequest
 */
 func (a *ThemesAPIService) UploadBrandThemeBackgroundImage(ctx context.Context, brandId string, themeId string) ApiUploadBrandThemeBackgroundImageRequest {
 	return ApiUploadBrandThemeBackgroundImageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
-		themeId: themeId,
+		ctx:        ctx,
+		brandId:    brandId,
+		themeId:    themeId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ImageUploadResponse
+//
+//	@return ImageUploadResponse
 func (a *ThemesAPIService) UploadBrandThemeBackgroundImageExecute(r ApiUploadBrandThemeBackgroundImageRequest) (*ImageUploadResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1230,7 +1233,7 @@ func (a *ThemesAPIService) UploadBrandThemeBackgroundImageExecute(r ApiUploadBra
 		localVarReturnValue  *ImageUploadResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1272,14 +1275,14 @@ func (a *ThemesAPIService) UploadBrandThemeBackgroundImageExecute(r ApiUploadBra
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	var fileLocalVarFormFileName string
-	var fileLocalVarFileName     string
-	var fileLocalVarFileBytes    []byte
+	var fileLocalVarFileName string
+	var fileLocalVarFileBytes []byte
 
 	fileLocalVarFormFileName = "file"
 
 	fileLocalVarFile := *r.file
 	if fileLocalVarFile != nil {
-		fbs, _ := ioutil.ReadAll(fileLocalVarFile)
+		fbs, _ := io.ReadAll(fileLocalVarFile)
 		fileLocalVarFileBytes = fbs
 		fileLocalVarFileName = fileLocalVarFile.Name()
 		fileLocalVarFile.Close()
@@ -1309,9 +1312,9 @@ func (a *ThemesAPIService) UploadBrandThemeBackgroundImageExecute(r ApiUploadBra
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1381,17 +1384,17 @@ func (a *ThemesAPIService) UploadBrandThemeBackgroundImageExecute(r ApiUploadBra
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUploadBrandThemeFaviconRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ThemesAPI
-	brandId string
-	themeId string
-	file **os.File
+	brandId    string
+	themeId    string
+	file       **os.File
 	retryCount int32
 }
 
@@ -1409,23 +1412,24 @@ UploadBrandThemeFavicon Upload the favicon
 
 Uploads and replaces the favicon for the theme
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @param themeId The ID of the theme
- @return ApiUploadBrandThemeFaviconRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@param themeId The ID of the theme
+	@return ApiUploadBrandThemeFaviconRequest
 */
 func (a *ThemesAPIService) UploadBrandThemeFavicon(ctx context.Context, brandId string, themeId string) ApiUploadBrandThemeFaviconRequest {
 	return ApiUploadBrandThemeFaviconRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
-		themeId: themeId,
+		ctx:        ctx,
+		brandId:    brandId,
+		themeId:    themeId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ImageUploadResponse
+//
+//	@return ImageUploadResponse
 func (a *ThemesAPIService) UploadBrandThemeFaviconExecute(r ApiUploadBrandThemeFaviconRequest) (*ImageUploadResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1434,7 +1438,7 @@ func (a *ThemesAPIService) UploadBrandThemeFaviconExecute(r ApiUploadBrandThemeF
 		localVarReturnValue  *ImageUploadResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1476,14 +1480,14 @@ func (a *ThemesAPIService) UploadBrandThemeFaviconExecute(r ApiUploadBrandThemeF
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	var fileLocalVarFormFileName string
-	var fileLocalVarFileName     string
-	var fileLocalVarFileBytes    []byte
+	var fileLocalVarFileName string
+	var fileLocalVarFileBytes []byte
 
 	fileLocalVarFormFileName = "file"
 
 	fileLocalVarFile := *r.file
 	if fileLocalVarFile != nil {
-		fbs, _ := ioutil.ReadAll(fileLocalVarFile)
+		fbs, _ := io.ReadAll(fileLocalVarFile)
 		fileLocalVarFileBytes = fbs
 		fileLocalVarFileName = fileLocalVarFile.Name()
 		fileLocalVarFile.Close()
@@ -1513,9 +1517,9 @@ func (a *ThemesAPIService) UploadBrandThemeFaviconExecute(r ApiUploadBrandThemeF
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1585,17 +1589,17 @@ func (a *ThemesAPIService) UploadBrandThemeFaviconExecute(r ApiUploadBrandThemeF
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUploadBrandThemeLogoRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ThemesAPI
-	brandId string
-	themeId string
-	file **os.File
+	brandId    string
+	themeId    string
+	file       **os.File
 	retryCount int32
 }
 
@@ -1613,23 +1617,24 @@ UploadBrandThemeLogo Upload the logo
 
 Uploads and replaces the logo for the theme. The file must be in PNG, JPG, or GIF format and less than 100kB in size. For best results use landscape orientation, a transparent background, and a minimum size of 300px by 50px to prevent upscaling.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @param themeId The ID of the theme
- @return ApiUploadBrandThemeLogoRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@param themeId The ID of the theme
+	@return ApiUploadBrandThemeLogoRequest
 */
 func (a *ThemesAPIService) UploadBrandThemeLogo(ctx context.Context, brandId string, themeId string) ApiUploadBrandThemeLogoRequest {
 	return ApiUploadBrandThemeLogoRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
-		themeId: themeId,
+		ctx:        ctx,
+		brandId:    brandId,
+		themeId:    themeId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ImageUploadResponse
+//
+//	@return ImageUploadResponse
 func (a *ThemesAPIService) UploadBrandThemeLogoExecute(r ApiUploadBrandThemeLogoRequest) (*ImageUploadResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1638,7 +1643,7 @@ func (a *ThemesAPIService) UploadBrandThemeLogoExecute(r ApiUploadBrandThemeLogo
 		localVarReturnValue  *ImageUploadResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1680,14 +1685,14 @@ func (a *ThemesAPIService) UploadBrandThemeLogoExecute(r ApiUploadBrandThemeLogo
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	var fileLocalVarFormFileName string
-	var fileLocalVarFileName     string
-	var fileLocalVarFileBytes    []byte
+	var fileLocalVarFileName string
+	var fileLocalVarFileBytes []byte
 
 	fileLocalVarFormFileName = "file"
 
 	fileLocalVarFile := *r.file
 	if fileLocalVarFile != nil {
-		fbs, _ := ioutil.ReadAll(fileLocalVarFile)
+		fbs, _ := io.ReadAll(fileLocalVarFile)
 		fileLocalVarFileBytes = fbs
 		fileLocalVarFileName = fileLocalVarFile.Name()
 		fileLocalVarFile.Close()
@@ -1717,9 +1722,9 @@ func (a *ThemesAPIService) UploadBrandThemeLogoExecute(r ApiUploadBrandThemeLogo
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1789,7 +1794,7 @@ func (a *ThemesAPIService) UploadBrandThemeLogoExecute(r ApiUploadBrandThemeLogo
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -30,11 +30,14 @@ import (
 	"strings"
 )
 
+// checks if the IdpDiscoveryPolicy type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IdpDiscoveryPolicy{}
+
 // IdpDiscoveryPolicy struct for IdpDiscoveryPolicy
 type IdpDiscoveryPolicy struct {
 	Policy
 	// Policy conditions aren't supported for this policy type.
-	Conditions NullableString `json:"conditions,omitempty"`
+	Conditions           NullableString `json:"conditions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -63,7 +66,7 @@ func NewIdpDiscoveryPolicyWithDefaults() *IdpDiscoveryPolicy {
 
 // GetConditions returns the Conditions field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *IdpDiscoveryPolicy) GetConditions() string {
-	if o == nil || o.Conditions.Get() == nil {
+	if o == nil || IsNil(o.Conditions.Get()) {
 		var ret string
 		return ret
 	}
@@ -93,6 +96,7 @@ func (o *IdpDiscoveryPolicy) HasConditions() bool {
 func (o *IdpDiscoveryPolicy) SetConditions(v string) {
 	o.Conditions.Set(&v)
 }
+
 // SetConditionsNil sets the value for Conditions to be an explicit nil
 func (o *IdpDiscoveryPolicy) SetConditionsNil() {
 	o.Conditions.Set(nil)
@@ -104,14 +108,22 @@ func (o *IdpDiscoveryPolicy) UnsetConditions() {
 }
 
 func (o IdpDiscoveryPolicy) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IdpDiscoveryPolicy) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedPolicy, errPolicy := json.Marshal(o.Policy)
 	if errPolicy != nil {
-		return []byte{}, errPolicy
+		return map[string]interface{}{}, errPolicy
 	}
 	errPolicy = json.Unmarshal([]byte(serializedPolicy), &toSerialize)
 	if errPolicy != nil {
-		return []byte{}, errPolicy
+		return map[string]interface{}{}, errPolicy
 	}
 	if o.Conditions.IsSet() {
 		toSerialize["conditions"] = o.Conditions.Get()
@@ -121,10 +133,32 @@ func (o IdpDiscoveryPolicy) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *IdpDiscoveryPolicy) UnmarshalJSON(bytes []byte) (err error) {
+func (o *IdpDiscoveryPolicy) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	type IdpDiscoveryPolicyWithoutEmbeddedStruct struct {
 		// Policy conditions aren't supported for this policy type.
 		Conditions NullableString `json:"conditions,omitempty"`
@@ -132,7 +166,7 @@ func (o *IdpDiscoveryPolicy) UnmarshalJSON(bytes []byte) (err error) {
 
 	varIdpDiscoveryPolicyWithoutEmbeddedStruct := IdpDiscoveryPolicyWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varIdpDiscoveryPolicyWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varIdpDiscoveryPolicyWithoutEmbeddedStruct)
 	if err == nil {
 		varIdpDiscoveryPolicy := _IdpDiscoveryPolicy{}
 		varIdpDiscoveryPolicy.Conditions = varIdpDiscoveryPolicyWithoutEmbeddedStruct.Conditions
@@ -143,7 +177,7 @@ func (o *IdpDiscoveryPolicy) UnmarshalJSON(bytes []byte) (err error) {
 
 	varIdpDiscoveryPolicy := _IdpDiscoveryPolicy{}
 
-	err = json.Unmarshal(bytes, &varIdpDiscoveryPolicy)
+	err = json.Unmarshal(data, &varIdpDiscoveryPolicy)
 	if err == nil {
 		o.Policy = varIdpDiscoveryPolicy.Policy
 	} else {
@@ -152,8 +186,7 @@ func (o *IdpDiscoveryPolicy) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "conditions")
 
 		// remove fields from embedded structs
@@ -175,8 +208,6 @@ func (o *IdpDiscoveryPolicy) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -217,4 +248,3 @@ func (v *NullableIdpDiscoveryPolicy) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

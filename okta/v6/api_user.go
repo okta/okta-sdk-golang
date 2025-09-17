@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,41 +26,40 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type UserAPI interface {
 
 	/*
-	CreateUser Create a user
+			CreateUser Create a user
 
-	Creates a new user in your Okta org with or without credentials.<br>
-> **Legal Disclaimer**
->
-> After a user is added to the Okta directory, they receive an activation email. As part of signing up for this service,
-> you agreed not to use Okta's service/product to spam and/or send unsolicited messages.
-> Please refrain from adding unrelated accounts to the directory as Okta is not responsible for, and disclaims any and all
-> liability associated with, the activation email's content. You, and you alone, bear responsibility for the emails sent to any recipients.
+			Creates a new user in your Okta org with or without credentials.<br>
+		> **Legal Disclaimer**
+		>
+		> After a user is added to the Okta directory, they receive an activation email. As part of signing up for this service,
+		> you agreed not to use Okta's service/product to spam and/or send unsolicited messages.
+		> Please refrain from adding unrelated accounts to the directory as Okta is not responsible for, and disclaims any and all
+		> liability associated with, the activation email's content. You, and you alone, bear responsibility for the emails sent to any recipients.
 
-All responses return the created user. Activation of a user is an asynchronous operation. The system performs group reconciliation during activation and assigns the user to all apps via direct or indirect relationships (group memberships).
-* The user's `transitioningToStatus` property is `ACTIVE` during activation to indicate that the user hasn't completed the asynchronous operation.
-* The user's `status` is `ACTIVE` when the activation process is complete.
+		All responses return the created user. Activation of a user is an asynchronous operation. The system performs group reconciliation during activation and assigns the user to all apps via direct or indirect relationships (group memberships).
+		* The user's `transitioningToStatus` property is `ACTIVE` during activation to indicate that the user hasn't completed the asynchronous operation.
+		* The user's `status` is `ACTIVE` when the activation process is complete.
 
-The user is emailed a one-time activation token if activated without a password.
+		The user is emailed a one-time activation token if activated without a password.
 
-> **Note:** If the user is assigned to an app that is configured for provisioning, the activation process triggers downstream provisioning to the app.  It is possible for a user to sign in before these apps have been successfully provisioned for the user.
+		> **Note:** If the user is assigned to an app that is configured for provisioning, the activation process triggers downstream provisioning to the app.  It is possible for a user to sign in before these apps have been successfully provisioned for the user.
 
-> **Important:** Do not generate or send a one-time activation token when activating users with an assigned password. Users should sign in with their assigned password.
+		> **Important:** Do not generate or send a one-time activation token when activating users with an assigned password. Users should sign in with their assigned password.
 
-For more information about the various scenarios of creating a user listed in the examples, see the [User creation scenarios](/openapi/okta-management/management/tag/User/#user-creation-scenarios) section.
+		For more information about the various scenarios of creating a user listed in the examples, see the [User creation scenarios](/openapi/okta-management/management/tag/User/#user-creation-scenarios) section.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateUserRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiCreateUserRequest
 	*/
 	CreateUser(ctx context.Context) ApiCreateUserRequest
 
@@ -69,21 +68,21 @@ For more information about the various scenarios of creating a user listed in th
 	CreateUserExecute(r ApiCreateUserRequest) (*User, *APIResponse, error)
 
 	/*
-	DeleteUser Delete a user
+			DeleteUser Delete a user
 
-	Deletes a user permanently. This operation can only be performed on users that have a `DEPROVISIONED` status.
+			Deletes a user permanently. This operation can only be performed on users that have a `DEPROVISIONED` status.
 
-> **Warning:** This action can't be recovered!
+		> **Warning:** This action can't be recovered!
 
-This operation on a user that hasn't been deactivated causes that user to be deactivated. A second delete operation is required to delete the user.
+		This operation on a user that hasn't been deactivated causes that user to be deactivated. A second delete operation is required to delete the user.
 
-> **Note:** You can also perform user deletion asynchronously. To invoke asynchronous user deletion, pass an HTTP header `Prefer: respond-async` with the request.
+		> **Note:** You can also perform user deletion asynchronously. To invoke asynchronous user deletion, pass an HTTP header `Prefer: respond-async` with the request.
 
-This header is also supported by user deactivation, which is performed if the delete endpoint is invoked on a user that hasn't been deactivated.
+		This header is also supported by user deactivation, which is performed if the delete endpoint is invoked on a user that hasn't been deactivated.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
-	@return ApiDeleteUserRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+			@return ApiDeleteUserRequest
 	*/
 	DeleteUser(ctx context.Context, id string) ApiDeleteUserRequest
 
@@ -91,21 +90,21 @@ This header is also supported by user deactivation, which is performed if the de
 	DeleteUserExecute(r ApiDeleteUserRequest) (*APIResponse, error)
 
 	/*
-	GetUser Retrieve a user
+			GetUser Retrieve a user
 
-	Retrieves a user from your Okta org.
+			Retrieves a user from your Okta org.
 
-You can substitute `me` for the `id` to fetch the current user linked to an API token or session cookie.
- * The request returns the user linked to the API token that is specified in the Authorization header, not the user linked to the active session. Details of the admin user who granted the API token is returned.
- * When the end user has an active Okta session, it is typically a CORS request from the browser. Therefore, it's possible to retrieve the current user without the Authorization header.
+		You can substitute `me` for the `id` to fetch the current user linked to an API token or session cookie.
+		 * The request returns the user linked to the API token that is specified in the Authorization header, not the user linked to the active session. Details of the admin user who granted the API token is returned.
+		 * When the end user has an active Okta session, it is typically a CORS request from the browser. Therefore, it's possible to retrieve the current user without the Authorization header.
 
-When fetching a user by `login` or `login shortname`, [URL encode](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding) the request parameter to ensure that special characters are escaped properly. Logins with a `/` character can only be fetched by `id` due to URL issues with escaping the `/` character. If you don't know a user's ID, you can use the [List all users](/openapi/okta-management/management/tag/User/#tag/User/operation/listUsers) endpoint to find it.
+		When fetching a user by `login` or `login shortname`, [URL encode](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding) the request parameter to ensure that special characters are escaped properly. Logins with a `/` character can only be fetched by `id` due to URL issues with escaping the `/` character. If you don't know a user's ID, you can use the [List all users](/openapi/okta-management/management/tag/User/#tag/User/operation/listUsers) endpoint to find it.
 
-> **Note:** Some browsers block third-party cookies by default, which disrupts Okta functionality in certain flows. See [Mitigate the impact of third-party cookie deprecation](https://help.okta.com/okta_help.htm?type=oie&id=ext-third-party-cookies).
+		> **Note:** Some browsers block third-party cookies by default, which disrupts Okta functionality in certain flows. See [Mitigate the impact of third-party cookie deprecation](https://help.okta.com/okta_help.htm?type=oie&id=ext-third-party-cookies).
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
-	@return ApiGetUserRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+			@return ApiGetUserRequest
 	*/
 	GetUser(ctx context.Context, id string) ApiGetUserRequest
 
@@ -114,13 +113,13 @@ When fetching a user by `login` or `login shortname`, [URL encode](https://devel
 	GetUserExecute(r ApiGetUserRequest) (*UserGetSingleton, *APIResponse, error)
 
 	/*
-	ListUserBlocks List all user blocks
+		ListUserBlocks List all user blocks
 
-	Lists information about how the user is blocked from accessing their account
+		Lists information about how the user is blocked from accessing their account
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
-	@return ApiListUserBlocksRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+		@return ApiListUserBlocksRequest
 	*/
 	ListUserBlocks(ctx context.Context, id string) ApiListUserBlocksRequest
 
@@ -129,16 +128,16 @@ When fetching a user by `login` or `login shortname`, [URL encode](https://devel
 	ListUserBlocksExecute(r ApiListUserBlocksRequest) ([]UserBlock, *APIResponse, error)
 
 	/*
-	ListUsers List all users
+			ListUsers List all users
 
-	Lists users in your org, with pagination in most cases.
+			Lists users in your org, with pagination in most cases.
 
-A subset of users can be returned that match a supported filter expression or search criteria. Different results are returned depending on specified queries in the request.
+		A subset of users can be returned that match a supported filter expression or search criteria. Different results are returned depending on specified queries in the request.
 
-> **Note:** This operation omits users that have a status of `DEPROVISIONED` in the response. To return all users, use a filter or search query instead.
+		> **Note:** This operation omits users that have a status of `DEPROVISIONED` in the response. To return all users, use a filter or search query instead.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListUsersRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiListUsersRequest
 	*/
 	ListUsers(ctx context.Context) ApiListUsersRequest
 
@@ -147,16 +146,16 @@ A subset of users can be returned that match a supported filter expression or se
 	ListUsersExecute(r ApiListUsersRequest) ([]User, *APIResponse, error)
 
 	/*
-	ReplaceUser Replace a user
+			ReplaceUser Replace a user
 
-	Replaces a user's profile, credentials, or both using strict-update semantics.
+			Replaces a user's profile, credentials, or both using strict-update semantics.
 
-All profile properties must be specified when updating a user's profile with a `PUT` method. Any property not specified in the request is deleted.
-> **Important:** Don't use a `PUT` method for partial updates.
+		All profile properties must be specified when updating a user's profile with a `PUT` method. Any property not specified in the request is deleted.
+		> **Important:** Don't use a `PUT` method for partial updates.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
-	@return ApiReplaceUserRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+			@return ApiReplaceUserRequest
 	*/
 	ReplaceUser(ctx context.Context, id string) ApiReplaceUserRequest
 
@@ -165,25 +164,25 @@ All profile properties must be specified when updating a user's profile with a `
 	ReplaceUserExecute(r ApiReplaceUserRequest) (*User, *APIResponse, error)
 
 	/*
-	UpdateUser Update a user
+			UpdateUser Update a user
 
-	Updates a user's profile or credentials with partial update semantics.
+			Updates a user's profile or credentials with partial update semantics.
 
-> **Important:** Use the `POST` method for partial updates. Unspecified properties are set to null with `PUT`.
+		> **Important:** Use the `POST` method for partial updates. Unspecified properties are set to null with `PUT`.
 
-`profile` and `credentials` can be updated independently or together with a single request.
-> **Note**: Currently, the user type of a user can only be changed via a full replacement PUT operation. If the request parameters of a partial update include the type element from the user object,
-the value must match the existing type of the user. Only admins are permitted to change the user type of a user; end users are not allowed to change their own user type.
+		`profile` and `credentials` can be updated independently or together with a single request.
+		> **Note**: Currently, the user type of a user can only be changed via a full replacement PUT operation. If the request parameters of a partial update include the type element from the user object,
+		the value must match the existing type of the user. Only admins are permitted to change the user type of a user; end users are not allowed to change their own user type.
 
-> **Note**: To update a current user's profile with partial semantics, the `/api/v1/users/me` endpoint can be invoked.
->
-> A user can only update profile properties for which the user has write access. Within the profile, if the user tries to update the primary or the secondary email IDs, verification emails are sent to those email IDs, and the fields are updated only upon verification.
+		> **Note**: To update a current user's profile with partial semantics, the `/api/v1/users/me` endpoint can be invoked.
+		>
+		> A user can only update profile properties for which the user has write access. Within the profile, if the user tries to update the primary or the secondary email IDs, verification emails are sent to those email IDs, and the fields are updated only upon verification.
 
-If you are using this endpoint to set a password, it sets a password without validating existing user credentials. This is an administrative operation. For operations that validate credentials, refer to the [Reset password](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserCred/#tag/UserCred/operation/resetPassword), [Start forgot password flow](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserCred/#tag/UserCred/operation/forgotPassword), and [Update password](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserCred/#tag/UserCred/operation/changePassword) endpoints.
+		If you are using this endpoint to set a password, it sets a password without validating existing user credentials. This is an administrative operation. For operations that validate credentials, refer to the [Reset password](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserCred/#tag/UserCred/operation/resetPassword), [Start forgot password flow](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserCred/#tag/UserCred/operation/forgotPassword), and [Update password](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserCred/#tag/UserCred/operation/changePassword) endpoints.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
-	@return ApiUpdateUserRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+			@return ApiUpdateUserRequest
 	*/
 	UpdateUser(ctx context.Context, id string) ApiUpdateUserRequest
 
@@ -196,12 +195,12 @@ If you are using this endpoint to set a password, it sets a password without val
 type UserAPIService service
 
 type ApiCreateUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	body *CreateUserRequest
-	activate *bool
-	provider *bool
-	nextLogin *string
+	body       *CreateUserRequest
+	activate   *bool
+	provider   *bool
+	nextLogin  *string
 	retryCount int32
 }
 
@@ -255,19 +254,20 @@ The user is emailed a one-time activation token if activated without a password.
 
 For more information about the various scenarios of creating a user listed in the examples, see the [User creation scenarios](/openapi/okta-management/management/tag/User/#user-creation-scenarios) section.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateUserRequest
 */
 func (a *UserAPIService) CreateUser(ctx context.Context) ApiCreateUserRequest {
 	return ApiCreateUserRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return User
+//
+//	@return User
 func (a *UserAPIService) CreateUserExecute(r ApiCreateUserRequest) (*User, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -276,7 +276,7 @@ func (a *UserAPIService) CreateUserExecute(r ApiCreateUserRequest) (*User, *APIR
 		localVarReturnValue  *User
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -350,9 +350,9 @@ func (a *UserAPIService) CreateUserExecute(r ApiCreateUserRequest) (*User, *APIR
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -410,17 +410,17 @@ func (a *UserAPIService) CreateUserExecute(r ApiCreateUserRequest) (*User, *APIR
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	id string
-	sendEmail *bool
-	prefer *string
+	id         string
+	sendEmail  *bool
+	prefer     *string
 	retryCount int32
 }
 
@@ -452,15 +452,15 @@ This operation on a user that hasn't been deactivated causes that user to be dea
 
 This header is also supported by user deactivation, which is performed if the delete endpoint is invoked on a user that hasn't been deactivated.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
- @return ApiDeleteUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+	@return ApiDeleteUserRequest
 */
 func (a *UserAPIService) DeleteUser(ctx context.Context, id string) ApiDeleteUserRequest {
 	return ApiDeleteUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
@@ -473,7 +473,7 @@ func (a *UserAPIService) DeleteUserExecute(r ApiDeleteUserRequest) (*APIResponse
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -540,9 +540,9 @@ func (a *UserAPIService) DeleteUserExecute(r ApiDeleteUserRequest) (*APIResponse
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -608,12 +608,12 @@ func (a *UserAPIService) DeleteUserExecute(r ApiDeleteUserRequest) (*APIResponse
 }
 
 type ApiGetUserRequest struct {
-	ctx context.Context
-	ApiService UserAPI
-	id string
+	ctx         context.Context
+	ApiService  UserAPI
+	id          string
 	contentType *string
-	expand *string
-	retryCount int32
+	expand      *string
+	retryCount  int32
 }
 
 // Specifies the media type of the resource. Optional &#x60;okta-response&#x60; value can be included for performance optimization.  Complex DelAuth configurations may degrade performance when fetching specific parts of the response, and passing this parameter can omit these parts, bypassing the bottleneck.  Enum values for &#x60;okta-response&#x60;:   * &#x60;omitCredentials&#x60;: Omits the credentials subobject from the response.   * &#x60;omitCredentialsLinks&#x60;: Omits the following HAL links from the response: Update password, Change recovery question, Start forgot password flow, Reset password, Reset factors, Unlock.   * &#x60;omitTransitioningToStatus&#x60;: Omits the &#x60;transitioningToStatus&#x60; field from the response.
@@ -638,28 +638,29 @@ GetUser Retrieve a user
 Retrieves a user from your Okta org.
 
 You can substitute `me` for the `id` to fetch the current user linked to an API token or session cookie.
- * The request returns the user linked to the API token that is specified in the Authorization header, not the user linked to the active session. Details of the admin user who granted the API token is returned.
- * When the end user has an active Okta session, it is typically a CORS request from the browser. Therefore, it's possible to retrieve the current user without the Authorization header.
+  - The request returns the user linked to the API token that is specified in the Authorization header, not the user linked to the active session. Details of the admin user who granted the API token is returned.
+  - When the end user has an active Okta session, it is typically a CORS request from the browser. Therefore, it's possible to retrieve the current user without the Authorization header.
 
 When fetching a user by `login` or `login shortname`, [URL encode](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding) the request parameter to ensure that special characters are escaped properly. Logins with a `/` character can only be fetched by `id` due to URL issues with escaping the `/` character. If you don't know a user's ID, you can use the [List all users](/openapi/okta-management/management/tag/User/#tag/User/operation/listUsers) endpoint to find it.
 
 > **Note:** Some browsers block third-party cookies by default, which disrupts Okta functionality in certain flows. See [Mitigate the impact of third-party cookie deprecation](https://help.okta.com/okta_help.htm?type=oie&id=ext-third-party-cookies).
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
- @return ApiGetUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+	@return ApiGetUserRequest
 */
 func (a *UserAPIService) GetUser(ctx context.Context, id string) ApiGetUserRequest {
 	return ApiGetUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserGetSingleton
+//
+//	@return UserGetSingleton
 func (a *UserAPIService) GetUserExecute(r ApiGetUserRequest) (*UserGetSingleton, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -668,7 +669,7 @@ func (a *UserAPIService) GetUserExecute(r ApiGetUserRequest) (*UserGetSingleton,
 		localVarReturnValue  *UserGetSingleton
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -735,9 +736,9 @@ func (a *UserAPIService) GetUserExecute(r ApiGetUserRequest) (*UserGetSingleton,
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -795,15 +796,15 @@ func (a *UserAPIService) GetUserExecute(r ApiGetUserRequest) (*UserGetSingleton,
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListUserBlocksRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	id string
+	id         string
 	retryCount int32
 }
 
@@ -816,21 +817,22 @@ ListUserBlocks List all user blocks
 
 Lists information about how the user is blocked from accessing their account
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
- @return ApiListUserBlocksRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+	@return ApiListUserBlocksRequest
 */
 func (a *UserAPIService) ListUserBlocks(ctx context.Context, id string) ApiListUserBlocksRequest {
 	return ApiListUserBlocksRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []UserBlock
+//
+//	@return []UserBlock
 func (a *UserAPIService) ListUserBlocksExecute(r ApiListUserBlocksRequest) ([]UserBlock, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -839,7 +841,7 @@ func (a *UserAPIService) ListUserBlocksExecute(r ApiListUserBlocksRequest) ([]Us
 		localVarReturnValue  []UserBlock
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -900,9 +902,9 @@ func (a *UserAPIService) ListUserBlocksExecute(r ApiListUserBlocksRequest) ([]Us
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -960,24 +962,24 @@ func (a *UserAPIService) ListUserBlocksExecute(r ApiListUserBlocksRequest) ([]Us
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListUsersRequest struct {
-	ctx context.Context
-	ApiService UserAPI
+	ctx         context.Context
+	ApiService  UserAPI
 	contentType *string
-	search *string
-	filter *string
-	q *string
-	after *string
-	limit *int32
-	sortBy *string
-	sortOrder *string
-	expand *string
-	retryCount int32
+	search      *string
+	filter      *string
+	q           *string
+	after       *string
+	limit       *int32
+	sortBy      *string
+	sortOrder   *string
+	expand      *string
+	retryCount  int32
 }
 
 // Specifies the media type of the resource. Optional &#x60;okta-response&#x60; value can be included for performance optimization.  Complex DelAuth configurations may degrade performance when fetching specific parts of the response, and passing this parameter can omit these parts, bypassing the bottleneck.  Enum values for &#x60;okta-response&#x60;:   * &#x60;omitCredentials&#x60;: Omits the credentials subobject from the response.   * &#x60;omitCredentialsLinks&#x60;: Omits the following HAL links from the response: Update password, Change recovery question, Start forgot password flow, Reset password, Reset factors, Unlock.   * &#x60;omitTransitioningToStatus&#x60;: Omits the &#x60;transitioningToStatus&#x60; field from the response.
@@ -1047,19 +1049,20 @@ A subset of users can be returned that match a supported filter expression or se
 
 > **Note:** This operation omits users that have a status of `DEPROVISIONED` in the response. To return all users, use a filter or search query instead.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListUsersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListUsersRequest
 */
 func (a *UserAPIService) ListUsers(ctx context.Context) ApiListUsersRequest {
 	return ApiListUsersRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []User
+//
+//	@return []User
 func (a *UserAPIService) ListUsersExecute(r ApiListUsersRequest) ([]User, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1068,7 +1071,7 @@ func (a *UserAPIService) ListUsersExecute(r ApiListUsersRequest) ([]User, *APIRe
 		localVarReturnValue  []User
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1155,9 +1158,9 @@ func (a *UserAPIService) ListUsersExecute(r ApiListUsersRequest) ([]User, *APIRe
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1203,18 +1206,18 @@ func (a *UserAPIService) ListUsersExecute(r ApiListUsersRequest) ([]User, *APIRe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	id string
-	user *UpdateUserRequest
-	strict *bool
-	ifMatch *string
+	id         string
+	user       *UpdateUserRequest
+	strict     *bool
+	ifMatch    *string
 	retryCount int32
 }
 
@@ -1247,21 +1250,22 @@ Replaces a user's profile, credentials, or both using strict-update semantics.
 All profile properties must be specified when updating a user's profile with a `PUT` method. Any property not specified in the request is deleted.
 > **Important:** Don't use a `PUT` method for partial updates.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
- @return ApiReplaceUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+	@return ApiReplaceUserRequest
 */
 func (a *UserAPIService) ReplaceUser(ctx context.Context, id string) ApiReplaceUserRequest {
 	return ApiReplaceUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return User
+//
+//	@return User
 func (a *UserAPIService) ReplaceUserExecute(r ApiReplaceUserRequest) (*User, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -1270,7 +1274,7 @@ func (a *UserAPIService) ReplaceUserExecute(r ApiReplaceUserRequest) (*User, *AP
 		localVarReturnValue  *User
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1342,9 +1346,9 @@ func (a *UserAPIService) ReplaceUserExecute(r ApiReplaceUserRequest) (*User, *AP
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1414,18 +1418,18 @@ func (a *UserAPIService) ReplaceUserExecute(r ApiReplaceUserRequest) (*User, *AP
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	id string
-	user *UpdateUserRequest
-	strict *bool
-	ifMatch *string
+	id         string
+	user       *UpdateUserRequest
+	strict     *bool
+	ifMatch    *string
 	retryCount int32
 }
 
@@ -1467,21 +1471,22 @@ the value must match the existing type of the user. Only admins are permitted to
 
 If you are using this endpoint to set a password, it sets a password without validating existing user credentials. This is an administrative operation. For operations that validate credentials, refer to the [Reset password](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserCred/#tag/UserCred/operation/resetPassword), [Start forgot password flow](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserCred/#tag/UserCred/operation/forgotPassword), and [Update password](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserCred/#tag/UserCred/operation/changePassword) endpoints.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
- @return ApiUpdateUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+	@return ApiUpdateUserRequest
 */
 func (a *UserAPIService) UpdateUser(ctx context.Context, id string) ApiUpdateUserRequest {
 	return ApiUpdateUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return User
+//
+//	@return User
 func (a *UserAPIService) UpdateUserExecute(r ApiUpdateUserRequest) (*User, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1490,7 +1495,7 @@ func (a *UserAPIService) UpdateUserExecute(r ApiUpdateUserRequest) (*User, *APIR
 		localVarReturnValue  *User
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1562,9 +1567,9 @@ func (a *UserAPIService) UpdateUserExecute(r ApiUpdateUserRequest) (*User, *APIR
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1634,7 +1639,7 @@ func (a *UserAPIService) UpdateUserExecute(r ApiUpdateUserRequest) (*User, *APIR
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

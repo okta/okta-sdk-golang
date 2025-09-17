@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,10 +28,13 @@ import (
 	"fmt"
 )
 
+// checks if the PolicyPeopleCondition type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PolicyPeopleCondition{}
+
 // PolicyPeopleCondition Identifies users and groups that are used together
 type PolicyPeopleCondition struct {
-	Groups GroupCondition `json:"groups"`
-	Users UserCondition `json:"users"`
+	Groups               GroupCondition `json:"groups"`
+	Users                UserCondition  `json:"users"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -105,40 +108,64 @@ func (o *PolicyPeopleCondition) SetUsers(v UserCondition) {
 }
 
 func (o PolicyPeopleCondition) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PolicyPeopleCondition) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["groups"] = o.Groups
-	}
-	if true {
-		toSerialize["users"] = o.Users
-	}
+	toSerialize["groups"] = o.Groups
+	toSerialize["users"] = o.Users
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PolicyPeopleCondition) UnmarshalJSON(bytes []byte) (err error) {
-	varPolicyPeopleCondition := _PolicyPeopleCondition{}
+func (o *PolicyPeopleCondition) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"groups",
+		"users",
+	}
 
-	err = json.Unmarshal(bytes, &varPolicyPeopleCondition)
-	if err == nil {
-		*o = PolicyPeopleCondition(varPolicyPeopleCondition)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPolicyPeopleCondition := _PolicyPeopleCondition{}
+
+	err = json.Unmarshal(data, &varPolicyPeopleCondition)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PolicyPeopleCondition(varPolicyPeopleCondition)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "groups")
 		delete(additionalProperties, "users")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -179,4 +206,3 @@ func (v *NullablePolicyPeopleCondition) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

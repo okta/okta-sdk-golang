@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthenticatorEnrollmentPolicyRuleConditions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorEnrollmentPolicyRuleConditions{}
+
 // AuthenticatorEnrollmentPolicyRuleConditions Specifies conditions that must be met during policy evaluation to apply the rule. All policy conditions and conditions for at least one rule must be met to apply the settings specified in the policy and the associated rule.
 type AuthenticatorEnrollmentPolicyRuleConditions struct {
-	Network *PolicyNetworkCondition `json:"network,omitempty"`
-	People *AuthenticatorEnrollmentPolicyRuleConditionsPeople `json:"people,omitempty"`
+	Network              *PolicyNetworkCondition                            `json:"network,omitempty"`
+	People               *AuthenticatorEnrollmentPolicyRuleConditionsPeople `json:"people,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewAuthenticatorEnrollmentPolicyRuleConditionsWithDefaults() *Authenticator
 
 // GetNetwork returns the Network field value if set, zero value otherwise.
 func (o *AuthenticatorEnrollmentPolicyRuleConditions) GetNetwork() PolicyNetworkCondition {
-	if o == nil || o.Network == nil {
+	if o == nil || IsNil(o.Network) {
 		var ret PolicyNetworkCondition
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *AuthenticatorEnrollmentPolicyRuleConditions) GetNetwork() PolicyNetwork
 // GetNetworkOk returns a tuple with the Network field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorEnrollmentPolicyRuleConditions) GetNetworkOk() (*PolicyNetworkCondition, bool) {
-	if o == nil || o.Network == nil {
+	if o == nil || IsNil(o.Network) {
 		return nil, false
 	}
 	return o.Network, true
@@ -73,7 +76,7 @@ func (o *AuthenticatorEnrollmentPolicyRuleConditions) GetNetworkOk() (*PolicyNet
 
 // HasNetwork returns a boolean if a field has been set.
 func (o *AuthenticatorEnrollmentPolicyRuleConditions) HasNetwork() bool {
-	if o != nil && o.Network != nil {
+	if o != nil && !IsNil(o.Network) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *AuthenticatorEnrollmentPolicyRuleConditions) SetNetwork(v PolicyNetwork
 
 // GetPeople returns the People field value if set, zero value otherwise.
 func (o *AuthenticatorEnrollmentPolicyRuleConditions) GetPeople() AuthenticatorEnrollmentPolicyRuleConditionsPeople {
-	if o == nil || o.People == nil {
+	if o == nil || IsNil(o.People) {
 		var ret AuthenticatorEnrollmentPolicyRuleConditionsPeople
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *AuthenticatorEnrollmentPolicyRuleConditions) GetPeople() AuthenticatorE
 // GetPeopleOk returns a tuple with the People field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorEnrollmentPolicyRuleConditions) GetPeopleOk() (*AuthenticatorEnrollmentPolicyRuleConditionsPeople, bool) {
-	if o == nil || o.People == nil {
+	if o == nil || IsNil(o.People) {
 		return nil, false
 	}
 	return o.People, true
@@ -105,7 +108,7 @@ func (o *AuthenticatorEnrollmentPolicyRuleConditions) GetPeopleOk() (*Authentica
 
 // HasPeople returns a boolean if a field has been set.
 func (o *AuthenticatorEnrollmentPolicyRuleConditions) HasPeople() bool {
-	if o != nil && o.People != nil {
+	if o != nil && !IsNil(o.People) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *AuthenticatorEnrollmentPolicyRuleConditions) SetPeople(v AuthenticatorE
 }
 
 func (o AuthenticatorEnrollmentPolicyRuleConditions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorEnrollmentPolicyRuleConditions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Network != nil {
+	if !IsNil(o.Network) {
 		toSerialize["network"] = o.Network
 	}
-	if o.People != nil {
+	if !IsNil(o.People) {
 		toSerialize["people"] = o.People
 	}
 
@@ -130,28 +141,26 @@ func (o AuthenticatorEnrollmentPolicyRuleConditions) MarshalJSON() ([]byte, erro
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorEnrollmentPolicyRuleConditions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorEnrollmentPolicyRuleConditions) UnmarshalJSON(data []byte) (err error) {
 	varAuthenticatorEnrollmentPolicyRuleConditions := _AuthenticatorEnrollmentPolicyRuleConditions{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorEnrollmentPolicyRuleConditions)
-	if err == nil {
-		*o = AuthenticatorEnrollmentPolicyRuleConditions(varAuthenticatorEnrollmentPolicyRuleConditions)
-	} else {
+	err = json.Unmarshal(data, &varAuthenticatorEnrollmentPolicyRuleConditions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthenticatorEnrollmentPolicyRuleConditions(varAuthenticatorEnrollmentPolicyRuleConditions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "network")
 		delete(additionalProperties, "people")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableAuthenticatorEnrollmentPolicyRuleConditions) UnmarshalJSON(src 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

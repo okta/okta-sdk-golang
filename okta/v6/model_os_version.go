@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
-// OSVersion Specifies the OS requirement for the policy.  There are two types of OS requirements:  * **Static**: A specific OS version requirement that doesn't change until you update the policy. A static OS requirement is specified with the `osVersion.minimum` property. * **Dynamic**: An OS version requirement that is relative to the latest major OS release and security patch. A dynamic OS requirement is specified with the `osVersion.dynamicVersionRequirement` property. > **Note:** Dynamic OS requirements are available only if the **Dynamic OS version compliance** [self-service EA](/openapi/okta-management/guides/release-lifecycle/#early-access-ea) feature is enabled. You can't specify both `osVersion.minimum` and `osVersion.dynamicVersionRequirement` properties at the same time. 
+// checks if the OSVersion type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OSVersion{}
+
+// OSVersion Specifies the OS requirement for the policy.  There are two types of OS requirements:  * **Static**: A specific OS version requirement that doesn't change until you update the policy. A static OS requirement is specified with the `osVersion.minimum` property. * **Dynamic**: An OS version requirement that is relative to the latest major OS release and security patch. A dynamic OS requirement is specified with the `osVersion.dynamicVersionRequirement` property. > **Note:** Dynamic OS requirements are available only if the **Dynamic OS version compliance** [self-service EA](/openapi/okta-management/guides/release-lifecycle/#early-access-ea) feature is enabled. You can't specify both `osVersion.minimum` and `osVersion.dynamicVersionRequirement` properties at the same time.
 type OSVersion struct {
 	DynamicVersionRequirement *OSVersionDynamicVersionRequirement `json:"dynamicVersionRequirement,omitempty"`
 	// The device version must be equal to or newer than the specified version string (maximum of three components for iOS and macOS, and maximum of four components for Android)
-	Minimum *string `json:"minimum,omitempty"`
+	Minimum              *string `json:"minimum,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewOSVersionWithDefaults() *OSVersion {
 
 // GetDynamicVersionRequirement returns the DynamicVersionRequirement field value if set, zero value otherwise.
 func (o *OSVersion) GetDynamicVersionRequirement() OSVersionDynamicVersionRequirement {
-	if o == nil || o.DynamicVersionRequirement == nil {
+	if o == nil || IsNil(o.DynamicVersionRequirement) {
 		var ret OSVersionDynamicVersionRequirement
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *OSVersion) GetDynamicVersionRequirement() OSVersionDynamicVersionRequir
 // GetDynamicVersionRequirementOk returns a tuple with the DynamicVersionRequirement field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OSVersion) GetDynamicVersionRequirementOk() (*OSVersionDynamicVersionRequirement, bool) {
-	if o == nil || o.DynamicVersionRequirement == nil {
+	if o == nil || IsNil(o.DynamicVersionRequirement) {
 		return nil, false
 	}
 	return o.DynamicVersionRequirement, true
@@ -74,7 +77,7 @@ func (o *OSVersion) GetDynamicVersionRequirementOk() (*OSVersionDynamicVersionRe
 
 // HasDynamicVersionRequirement returns a boolean if a field has been set.
 func (o *OSVersion) HasDynamicVersionRequirement() bool {
-	if o != nil && o.DynamicVersionRequirement != nil {
+	if o != nil && !IsNil(o.DynamicVersionRequirement) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *OSVersion) SetDynamicVersionRequirement(v OSVersionDynamicVersionRequir
 
 // GetMinimum returns the Minimum field value if set, zero value otherwise.
 func (o *OSVersion) GetMinimum() string {
-	if o == nil || o.Minimum == nil {
+	if o == nil || IsNil(o.Minimum) {
 		var ret string
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *OSVersion) GetMinimum() string {
 // GetMinimumOk returns a tuple with the Minimum field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OSVersion) GetMinimumOk() (*string, bool) {
-	if o == nil || o.Minimum == nil {
+	if o == nil || IsNil(o.Minimum) {
 		return nil, false
 	}
 	return o.Minimum, true
@@ -106,7 +109,7 @@ func (o *OSVersion) GetMinimumOk() (*string, bool) {
 
 // HasMinimum returns a boolean if a field has been set.
 func (o *OSVersion) HasMinimum() bool {
-	if o != nil && o.Minimum != nil {
+	if o != nil && !IsNil(o.Minimum) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *OSVersion) SetMinimum(v string) {
 }
 
 func (o OSVersion) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OSVersion) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.DynamicVersionRequirement != nil {
+	if !IsNil(o.DynamicVersionRequirement) {
 		toSerialize["dynamicVersionRequirement"] = o.DynamicVersionRequirement
 	}
-	if o.Minimum != nil {
+	if !IsNil(o.Minimum) {
 		toSerialize["minimum"] = o.Minimum
 	}
 
@@ -131,28 +142,26 @@ func (o OSVersion) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OSVersion) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OSVersion) UnmarshalJSON(data []byte) (err error) {
 	varOSVersion := _OSVersion{}
 
-	err = json.Unmarshal(bytes, &varOSVersion)
-	if err == nil {
-		*o = OSVersion(varOSVersion)
-	} else {
+	err = json.Unmarshal(data, &varOSVersion)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OSVersion(varOSVersion)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "dynamicVersionRequirement")
 		delete(additionalProperties, "minimum")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableOSVersion) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

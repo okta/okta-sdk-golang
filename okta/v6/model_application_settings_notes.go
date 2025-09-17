@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the ApplicationSettingsNotes type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApplicationSettingsNotes{}
+
 // ApplicationSettingsNotes App notes visible to either the admin or end user
 type ApplicationSettingsNotes struct {
 	// An app message that's visible to admins
 	Admin *string `json:"admin,omitempty"`
 	// A message that's visible in the End-User Dashboard
-	Enduser *string `json:"enduser,omitempty"`
+	Enduser              *string `json:"enduser,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewApplicationSettingsNotesWithDefaults() *ApplicationSettingsNotes {
 
 // GetAdmin returns the Admin field value if set, zero value otherwise.
 func (o *ApplicationSettingsNotes) GetAdmin() string {
-	if o == nil || o.Admin == nil {
+	if o == nil || IsNil(o.Admin) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *ApplicationSettingsNotes) GetAdmin() string {
 // GetAdminOk returns a tuple with the Admin field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationSettingsNotes) GetAdminOk() (*string, bool) {
-	if o == nil || o.Admin == nil {
+	if o == nil || IsNil(o.Admin) {
 		return nil, false
 	}
 	return o.Admin, true
@@ -75,7 +78,7 @@ func (o *ApplicationSettingsNotes) GetAdminOk() (*string, bool) {
 
 // HasAdmin returns a boolean if a field has been set.
 func (o *ApplicationSettingsNotes) HasAdmin() bool {
-	if o != nil && o.Admin != nil {
+	if o != nil && !IsNil(o.Admin) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *ApplicationSettingsNotes) SetAdmin(v string) {
 
 // GetEnduser returns the Enduser field value if set, zero value otherwise.
 func (o *ApplicationSettingsNotes) GetEnduser() string {
-	if o == nil || o.Enduser == nil {
+	if o == nil || IsNil(o.Enduser) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *ApplicationSettingsNotes) GetEnduser() string {
 // GetEnduserOk returns a tuple with the Enduser field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationSettingsNotes) GetEnduserOk() (*string, bool) {
-	if o == nil || o.Enduser == nil {
+	if o == nil || IsNil(o.Enduser) {
 		return nil, false
 	}
 	return o.Enduser, true
@@ -107,7 +110,7 @@ func (o *ApplicationSettingsNotes) GetEnduserOk() (*string, bool) {
 
 // HasEnduser returns a boolean if a field has been set.
 func (o *ApplicationSettingsNotes) HasEnduser() bool {
-	if o != nil && o.Enduser != nil {
+	if o != nil && !IsNil(o.Enduser) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *ApplicationSettingsNotes) SetEnduser(v string) {
 }
 
 func (o ApplicationSettingsNotes) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApplicationSettingsNotes) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Admin != nil {
+	if !IsNil(o.Admin) {
 		toSerialize["admin"] = o.Admin
 	}
-	if o.Enduser != nil {
+	if !IsNil(o.Enduser) {
 		toSerialize["enduser"] = o.Enduser
 	}
 
@@ -132,28 +143,26 @@ func (o ApplicationSettingsNotes) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ApplicationSettingsNotes) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ApplicationSettingsNotes) UnmarshalJSON(data []byte) (err error) {
 	varApplicationSettingsNotes := _ApplicationSettingsNotes{}
 
-	err = json.Unmarshal(bytes, &varApplicationSettingsNotes)
-	if err == nil {
-		*o = ApplicationSettingsNotes(varApplicationSettingsNotes)
-	} else {
+	err = json.Unmarshal(data, &varApplicationSettingsNotes)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ApplicationSettingsNotes(varApplicationSettingsNotes)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "admin")
 		delete(additionalProperties, "enduser")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableApplicationSettingsNotes) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

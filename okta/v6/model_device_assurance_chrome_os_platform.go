@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -29,11 +29,14 @@ import (
 	"strings"
 )
 
+// checks if the DeviceAssuranceChromeOSPlatform type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeviceAssuranceChromeOSPlatform{}
+
 // DeviceAssuranceChromeOSPlatform struct for DeviceAssuranceChromeOSPlatform
 type DeviceAssuranceChromeOSPlatform struct {
 	DeviceAssurance
 	ThirdPartySignalProviders *DeviceAssuranceChromeOSPlatformAllOfThirdPartySignalProviders `json:"thirdPartySignalProviders,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties      map[string]interface{}
 }
 
 type _DeviceAssuranceChromeOSPlatform DeviceAssuranceChromeOSPlatform
@@ -57,7 +60,7 @@ func NewDeviceAssuranceChromeOSPlatformWithDefaults() *DeviceAssuranceChromeOSPl
 
 // GetThirdPartySignalProviders returns the ThirdPartySignalProviders field value if set, zero value otherwise.
 func (o *DeviceAssuranceChromeOSPlatform) GetThirdPartySignalProviders() DeviceAssuranceChromeOSPlatformAllOfThirdPartySignalProviders {
-	if o == nil || o.ThirdPartySignalProviders == nil {
+	if o == nil || IsNil(o.ThirdPartySignalProviders) {
 		var ret DeviceAssuranceChromeOSPlatformAllOfThirdPartySignalProviders
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *DeviceAssuranceChromeOSPlatform) GetThirdPartySignalProviders() DeviceA
 // GetThirdPartySignalProvidersOk returns a tuple with the ThirdPartySignalProviders field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceAssuranceChromeOSPlatform) GetThirdPartySignalProvidersOk() (*DeviceAssuranceChromeOSPlatformAllOfThirdPartySignalProviders, bool) {
-	if o == nil || o.ThirdPartySignalProviders == nil {
+	if o == nil || IsNil(o.ThirdPartySignalProviders) {
 		return nil, false
 	}
 	return o.ThirdPartySignalProviders, true
@@ -75,7 +78,7 @@ func (o *DeviceAssuranceChromeOSPlatform) GetThirdPartySignalProvidersOk() (*Dev
 
 // HasThirdPartySignalProviders returns a boolean if a field has been set.
 func (o *DeviceAssuranceChromeOSPlatform) HasThirdPartySignalProviders() bool {
-	if o != nil && o.ThirdPartySignalProviders != nil {
+	if o != nil && !IsNil(o.ThirdPartySignalProviders) {
 		return true
 	}
 
@@ -88,16 +91,24 @@ func (o *DeviceAssuranceChromeOSPlatform) SetThirdPartySignalProviders(v DeviceA
 }
 
 func (o DeviceAssuranceChromeOSPlatform) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DeviceAssuranceChromeOSPlatform) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedDeviceAssurance, errDeviceAssurance := json.Marshal(o.DeviceAssurance)
 	if errDeviceAssurance != nil {
-		return []byte{}, errDeviceAssurance
+		return map[string]interface{}{}, errDeviceAssurance
 	}
 	errDeviceAssurance = json.Unmarshal([]byte(serializedDeviceAssurance), &toSerialize)
 	if errDeviceAssurance != nil {
-		return []byte{}, errDeviceAssurance
+		return map[string]interface{}{}, errDeviceAssurance
 	}
-	if o.ThirdPartySignalProviders != nil {
+	if !IsNil(o.ThirdPartySignalProviders) {
 		toSerialize["thirdPartySignalProviders"] = o.ThirdPartySignalProviders
 	}
 
@@ -105,17 +116,17 @@ func (o DeviceAssuranceChromeOSPlatform) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DeviceAssuranceChromeOSPlatform) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DeviceAssuranceChromeOSPlatform) UnmarshalJSON(data []byte) (err error) {
 	type DeviceAssuranceChromeOSPlatformWithoutEmbeddedStruct struct {
 		ThirdPartySignalProviders *DeviceAssuranceChromeOSPlatformAllOfThirdPartySignalProviders `json:"thirdPartySignalProviders,omitempty"`
 	}
 
 	varDeviceAssuranceChromeOSPlatformWithoutEmbeddedStruct := DeviceAssuranceChromeOSPlatformWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varDeviceAssuranceChromeOSPlatformWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varDeviceAssuranceChromeOSPlatformWithoutEmbeddedStruct)
 	if err == nil {
 		varDeviceAssuranceChromeOSPlatform := _DeviceAssuranceChromeOSPlatform{}
 		varDeviceAssuranceChromeOSPlatform.ThirdPartySignalProviders = varDeviceAssuranceChromeOSPlatformWithoutEmbeddedStruct.ThirdPartySignalProviders
@@ -126,7 +137,7 @@ func (o *DeviceAssuranceChromeOSPlatform) UnmarshalJSON(bytes []byte) (err error
 
 	varDeviceAssuranceChromeOSPlatform := _DeviceAssuranceChromeOSPlatform{}
 
-	err = json.Unmarshal(bytes, &varDeviceAssuranceChromeOSPlatform)
+	err = json.Unmarshal(data, &varDeviceAssuranceChromeOSPlatform)
 	if err == nil {
 		o.DeviceAssurance = varDeviceAssuranceChromeOSPlatform.DeviceAssurance
 	} else {
@@ -135,8 +146,7 @@ func (o *DeviceAssuranceChromeOSPlatform) UnmarshalJSON(bytes []byte) (err error
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "thirdPartySignalProviders")
 
 		// remove fields from embedded structs
@@ -158,8 +168,6 @@ func (o *DeviceAssuranceChromeOSPlatform) UnmarshalJSON(bytes []byte) (err error
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -200,4 +208,3 @@ func (v *NullableDeviceAssuranceChromeOSPlatform) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

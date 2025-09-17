@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the BaseTokenToken type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BaseTokenToken{}
+
 // BaseTokenToken The token
 type BaseTokenToken struct {
-	Lifetime *BaseTokenTokenLifetime `json:"lifetime,omitempty"`
+	Lifetime             *BaseTokenTokenLifetime `json:"lifetime,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewBaseTokenTokenWithDefaults() *BaseTokenToken {
 
 // GetLifetime returns the Lifetime field value if set, zero value otherwise.
 func (o *BaseTokenToken) GetLifetime() BaseTokenTokenLifetime {
-	if o == nil || o.Lifetime == nil {
+	if o == nil || IsNil(o.Lifetime) {
 		var ret BaseTokenTokenLifetime
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *BaseTokenToken) GetLifetime() BaseTokenTokenLifetime {
 // GetLifetimeOk returns a tuple with the Lifetime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseTokenToken) GetLifetimeOk() (*BaseTokenTokenLifetime, bool) {
-	if o == nil || o.Lifetime == nil {
+	if o == nil || IsNil(o.Lifetime) {
 		return nil, false
 	}
 	return o.Lifetime, true
@@ -72,7 +75,7 @@ func (o *BaseTokenToken) GetLifetimeOk() (*BaseTokenTokenLifetime, bool) {
 
 // HasLifetime returns a boolean if a field has been set.
 func (o *BaseTokenToken) HasLifetime() bool {
-	if o != nil && o.Lifetime != nil {
+	if o != nil && !IsNil(o.Lifetime) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *BaseTokenToken) SetLifetime(v BaseTokenTokenLifetime) {
 }
 
 func (o BaseTokenToken) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BaseTokenToken) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Lifetime != nil {
+	if !IsNil(o.Lifetime) {
 		toSerialize["lifetime"] = o.Lifetime
 	}
 
@@ -94,27 +105,25 @@ func (o BaseTokenToken) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *BaseTokenToken) UnmarshalJSON(bytes []byte) (err error) {
+func (o *BaseTokenToken) UnmarshalJSON(data []byte) (err error) {
 	varBaseTokenToken := _BaseTokenToken{}
 
-	err = json.Unmarshal(bytes, &varBaseTokenToken)
-	if err == nil {
-		*o = BaseTokenToken(varBaseTokenToken)
-	} else {
+	err = json.Unmarshal(data, &varBaseTokenToken)
+
+	if err != nil {
 		return err
 	}
 
+	*o = BaseTokenToken(varBaseTokenToken)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "lifetime")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableBaseTokenToken) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

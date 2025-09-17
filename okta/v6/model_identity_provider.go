@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"time"
 )
 
+// checks if the IdentityProvider type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IdentityProvider{}
+
 // IdentityProvider struct for IdentityProvider
 type IdentityProvider struct {
 	// Timestamp when the object was created
@@ -39,14 +42,14 @@ type IdentityProvider struct {
 	// Timestamp when the object was last updated
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	// Unique name for the IdP
-	Name *string `json:"name,omitempty"`
-	Policy *IdentityProviderPolicy `json:"policy,omitempty"`
+	Name       *string                            `json:"name,omitempty"`
+	Policy     *IdentityProviderPolicy            `json:"policy,omitempty"`
 	Properties NullableIdentityProviderProperties `json:"properties,omitempty"`
-	Protocol *IdentityProviderProtocol `json:"protocol,omitempty"`
-	Status *string `json:"status,omitempty"`
+	Protocol   *IdentityProviderProtocol          `json:"protocol,omitempty"`
+	Status     *string                            `json:"status,omitempty"`
 	// The IdP object's `type` property identifies the social or enterprise IdP used for authentication. Each IdP uses a specific protocol, therefore the `protocol` object must correspond with the IdP `type`. If the protocol is OAuth 2.0-based, the `protocol` object's `scopes` property must also correspond with the scopes supported by the IdP `type`. For policy actions supported by each IdP type, see [IdP type policy actions](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/createIdentityProvider!path=policy&t=request).  | Type               | Description                                                                                                                                           | Corresponding protocol | Corresponding protocol scopes                                         | | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- | --------------------------------------------------------------------  | | `AMAZON`           | [Amazon](https://developer.amazon.com/settings/console/registration?return_to=/)&nbsp;as the IdP                                        | OpenID Connect         | `profile`, `profile:user_id`                                          | | `APPLE`            | [Apple](https://developer.apple.com/sign-in-with-apple/)&nbsp;as the IdP                                                                | OpenID Connect         | `names`, `email`, `openid`                                            | | `DISCORD`          | [Discord](https://discord.com/login)&nbsp;as the IdP                                                                                    | OAuth 2.0              | `identify`, `email`                                                   | | `FACEBOOK`         | [Facebook](https://developers.facebook.com)&nbsp;as the IdP                                                                             | OAuth 2.0              | `public_profile`, `email`                                             | | `GITHUB`           | [GitHub](https://github.com/join)&nbsp;as the IdP                                                                                       | OAuth 2.0              | `user`                                                                | | `GITLAB`           | [GitLab](https://gitlab.com/users/sign_in)&nbsp;as the IdP                                                                              | OpenID Connect         | `openid`, `read_user`, `profile`, `email`                             | | `GOOGLE`           | [Google](https://accounts.google.com/signup)&nbsp;as the IdP                                                                            | OpenID Connect         | `openid`, `email`, `profile`                                          | | `IDV_PERSONA`      | [Persona](https://app.withpersona.com/dashboard/login)&nbsp;as the IDV IdP                                                              | ID verification        |                                                                       | | `IDV_CLEAR`        | [CLEAR Verified](https://www.clearme.com/)&nbsp;as the IDV IdP                                                                          | ID verification        | `openid`, `profile`, `identity_assurance`                             | | `IDV_INCODE`       | [Incode](https://incode.com/)&nbsp;as the IDV IdP                                                                                       | ID verification        | `openid`, `profile`, `identity_assurance`                             | | `LINKEDIN`         | [LinkedIn](https://developer.linkedin.com/)&nbsp;as the IdP                                                                             | OAuth 2.0              | `r_emailaddress`, `r_liteprofile`                                     | | `LOGINGOV`         | [Login.gov](https://developers.login.gov/)&nbsp;as the IdP                                                                              | OpenID Connect         | `email`, `profile`, `profile:name`                                    | | `LOGINGOV_SANDBOX` | [Login.gov's identity sandbox](https://developers.login.gov/testing/)&nbsp;as the IdP                                                   | OpenID Connect         | `email`, `profile`, `profile:name`                                    | | `MICROSOFT`        | [Microsoft Enterprise SSO](https://azure.microsoft.com/)&nbsp;as the IdP                                                                | OpenID Connect         | `openid`, `email`, `profile`, `https://graph.microsoft.com/User.Read` | | `OIDC`             | IdP that supports [OpenID Connect](https://openid.net/specs/openid-connect-core-1_0.html)                                               | OpenID Connect         | `openid`, `email`, `profile`                                          | | `PAYPAL`           | [Paypal](https://www.paypal.com/signin)&nbsp;as the IdP                                                                                 | OpenID Connect         | `openid`, `email`, `profile`                                          | | `PAYPAL_SANDBOX`   | [Paypal Sandbox](https://developer.paypal.com/tools/sandbox/)&nbsp;as the IdP                                                           | OpenID Connect         | `openid`, `email`, `profile`                                          | | `SALESFORCE`       | [SalesForce](https://login.salesforce.com/)&nbsp;as the IdP                                                                             | OAuth 2.0              | `id`, `email`, `profile`                                              | | `SAML2`            | Enterprise IdP that supports the [SAML 2.0 Web Browser SSO Profile](https://docs.oasis-open.org/security/saml/v2.0/saml-profiles-2.0-os.pdf)| SAML 2.0  |                                                                                | | `SPOTIFY`          | [Spotify](https://developer.spotify.com/)&nbsp;as the IdP                                                                               | OpenID Connect         | `user-read-email`, `user-read-private`                                | | `X509`             | [Smart Card IdP](https://tools.ietf.org/html/rfc5280)                                                                                   | Mutual TLS             |                                                                       | | `XERO`             | [Xero](https://www.xero.com/us/signup/api/)&nbsp;as the IdP                                                                             | OpenID Connect         | `openid`, `profile`, `email`                                          | | `YAHOO`            | [Yahoo](https://login.yahoo.com/)&nbsp;as the IdP                                                                                       | OpenID Connect         | `openid`, `profile`, `email`                                          | | `YAHOOJP`          | [Yahoo Japan](https://login.yahoo.co.jp/config/login)&nbsp;as the IdP                                                                   | OpenID Connect         | `openid`, `profile`, `email`                                          | | `OKTA_INTEGRATION`             | IdP that supports the [OpenID Connect](https://openid.net/specs/openid-connect-core-1_0.html) Org2Org IdP                                               | OpenID Connect         | `openid`, `email`, `profile`                                          |
-	Type *string `json:"type,omitempty"`
-	Links *IdentityProviderLinks `json:"_links,omitempty"`
+	Type                 *string                `json:"type,omitempty"`
+	Links                *IdentityProviderLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -75,7 +78,7 @@ func NewIdentityProviderWithDefaults() *IdentityProvider {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *IdentityProvider) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -85,7 +88,7 @@ func (o *IdentityProvider) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProvider) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -93,7 +96,7 @@ func (o *IdentityProvider) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *IdentityProvider) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -107,7 +110,7 @@ func (o *IdentityProvider) SetCreated(v time.Time) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *IdentityProvider) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -117,7 +120,7 @@ func (o *IdentityProvider) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProvider) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -125,7 +128,7 @@ func (o *IdentityProvider) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *IdentityProvider) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -139,7 +142,7 @@ func (o *IdentityProvider) SetId(v string) {
 
 // GetIssuerMode returns the IssuerMode field value if set, zero value otherwise.
 func (o *IdentityProvider) GetIssuerMode() string {
-	if o == nil || o.IssuerMode == nil {
+	if o == nil || IsNil(o.IssuerMode) {
 		var ret string
 		return ret
 	}
@@ -149,7 +152,7 @@ func (o *IdentityProvider) GetIssuerMode() string {
 // GetIssuerModeOk returns a tuple with the IssuerMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProvider) GetIssuerModeOk() (*string, bool) {
-	if o == nil || o.IssuerMode == nil {
+	if o == nil || IsNil(o.IssuerMode) {
 		return nil, false
 	}
 	return o.IssuerMode, true
@@ -157,7 +160,7 @@ func (o *IdentityProvider) GetIssuerModeOk() (*string, bool) {
 
 // HasIssuerMode returns a boolean if a field has been set.
 func (o *IdentityProvider) HasIssuerMode() bool {
-	if o != nil && o.IssuerMode != nil {
+	if o != nil && !IsNil(o.IssuerMode) {
 		return true
 	}
 
@@ -171,7 +174,7 @@ func (o *IdentityProvider) SetIssuerMode(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *IdentityProvider) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -181,7 +184,7 @@ func (o *IdentityProvider) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProvider) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -189,7 +192,7 @@ func (o *IdentityProvider) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *IdentityProvider) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -203,7 +206,7 @@ func (o *IdentityProvider) SetLastUpdated(v time.Time) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *IdentityProvider) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -213,7 +216,7 @@ func (o *IdentityProvider) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProvider) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -221,7 +224,7 @@ func (o *IdentityProvider) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *IdentityProvider) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -235,7 +238,7 @@ func (o *IdentityProvider) SetName(v string) {
 
 // GetPolicy returns the Policy field value if set, zero value otherwise.
 func (o *IdentityProvider) GetPolicy() IdentityProviderPolicy {
-	if o == nil || o.Policy == nil {
+	if o == nil || IsNil(o.Policy) {
 		var ret IdentityProviderPolicy
 		return ret
 	}
@@ -245,7 +248,7 @@ func (o *IdentityProvider) GetPolicy() IdentityProviderPolicy {
 // GetPolicyOk returns a tuple with the Policy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProvider) GetPolicyOk() (*IdentityProviderPolicy, bool) {
-	if o == nil || o.Policy == nil {
+	if o == nil || IsNil(o.Policy) {
 		return nil, false
 	}
 	return o.Policy, true
@@ -253,7 +256,7 @@ func (o *IdentityProvider) GetPolicyOk() (*IdentityProviderPolicy, bool) {
 
 // HasPolicy returns a boolean if a field has been set.
 func (o *IdentityProvider) HasPolicy() bool {
-	if o != nil && o.Policy != nil {
+	if o != nil && !IsNil(o.Policy) {
 		return true
 	}
 
@@ -267,7 +270,7 @@ func (o *IdentityProvider) SetPolicy(v IdentityProviderPolicy) {
 
 // GetProperties returns the Properties field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *IdentityProvider) GetProperties() IdentityProviderProperties {
-	if o == nil || o.Properties.Get() == nil {
+	if o == nil || IsNil(o.Properties.Get()) {
 		var ret IdentityProviderProperties
 		return ret
 	}
@@ -297,6 +300,7 @@ func (o *IdentityProvider) HasProperties() bool {
 func (o *IdentityProvider) SetProperties(v IdentityProviderProperties) {
 	o.Properties.Set(&v)
 }
+
 // SetPropertiesNil sets the value for Properties to be an explicit nil
 func (o *IdentityProvider) SetPropertiesNil() {
 	o.Properties.Set(nil)
@@ -309,7 +313,7 @@ func (o *IdentityProvider) UnsetProperties() {
 
 // GetProtocol returns the Protocol field value if set, zero value otherwise.
 func (o *IdentityProvider) GetProtocol() IdentityProviderProtocol {
-	if o == nil || o.Protocol == nil {
+	if o == nil || IsNil(o.Protocol) {
 		var ret IdentityProviderProtocol
 		return ret
 	}
@@ -319,7 +323,7 @@ func (o *IdentityProvider) GetProtocol() IdentityProviderProtocol {
 // GetProtocolOk returns a tuple with the Protocol field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProvider) GetProtocolOk() (*IdentityProviderProtocol, bool) {
-	if o == nil || o.Protocol == nil {
+	if o == nil || IsNil(o.Protocol) {
 		return nil, false
 	}
 	return o.Protocol, true
@@ -327,7 +331,7 @@ func (o *IdentityProvider) GetProtocolOk() (*IdentityProviderProtocol, bool) {
 
 // HasProtocol returns a boolean if a field has been set.
 func (o *IdentityProvider) HasProtocol() bool {
-	if o != nil && o.Protocol != nil {
+	if o != nil && !IsNil(o.Protocol) {
 		return true
 	}
 
@@ -341,7 +345,7 @@ func (o *IdentityProvider) SetProtocol(v IdentityProviderProtocol) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *IdentityProvider) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -351,7 +355,7 @@ func (o *IdentityProvider) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProvider) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -359,7 +363,7 @@ func (o *IdentityProvider) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *IdentityProvider) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -373,7 +377,7 @@ func (o *IdentityProvider) SetStatus(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *IdentityProvider) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -383,7 +387,7 @@ func (o *IdentityProvider) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProvider) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -391,7 +395,7 @@ func (o *IdentityProvider) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *IdentityProvider) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -405,7 +409,7 @@ func (o *IdentityProvider) SetType(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *IdentityProvider) GetLinks() IdentityProviderLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret IdentityProviderLinks
 		return ret
 	}
@@ -415,7 +419,7 @@ func (o *IdentityProvider) GetLinks() IdentityProviderLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProvider) GetLinksOk() (*IdentityProviderLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -423,7 +427,7 @@ func (o *IdentityProvider) GetLinksOk() (*IdentityProviderLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *IdentityProvider) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -436,38 +440,46 @@ func (o *IdentityProvider) SetLinks(v IdentityProviderLinks) {
 }
 
 func (o IdentityProvider) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IdentityProvider) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.IssuerMode != nil {
+	if !IsNil(o.IssuerMode) {
 		toSerialize["issuerMode"] = o.IssuerMode
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Policy != nil {
+	if !IsNil(o.Policy) {
 		toSerialize["policy"] = o.Policy
 	}
 	if o.Properties.IsSet() {
 		toSerialize["properties"] = o.Properties.Get()
 	}
-	if o.Protocol != nil {
+	if !IsNil(o.Protocol) {
 		toSerialize["protocol"] = o.Protocol
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -475,23 +487,23 @@ func (o IdentityProvider) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *IdentityProvider) UnmarshalJSON(bytes []byte) (err error) {
+func (o *IdentityProvider) UnmarshalJSON(data []byte) (err error) {
 	varIdentityProvider := _IdentityProvider{}
 
-	err = json.Unmarshal(bytes, &varIdentityProvider)
-	if err == nil {
-		*o = IdentityProvider(varIdentityProvider)
-	} else {
+	err = json.Unmarshal(data, &varIdentityProvider)
+
+	if err != nil {
 		return err
 	}
 
+	*o = IdentityProvider(varIdentityProvider)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "issuerMode")
@@ -504,8 +516,6 @@ func (o *IdentityProvider) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -546,4 +556,3 @@ func (v *NullableIdentityProvider) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

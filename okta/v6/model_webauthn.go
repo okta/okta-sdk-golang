@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the Webauthn type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Webauthn{}
+
 // Webauthn Activates a `webauthn` factor with the specified attestation and registration information from the WebAuthn authenticator
 type Webauthn struct {
 	// Base64-encoded attestation from the WebAuthn authenticator
 	Attestation *string `json:"attestation,omitempty"`
 	// Base64-encoded client data from the WebAuthn authenticator
-	ClientData *string `json:"clientData,omitempty"`
+	ClientData           *string `json:"clientData,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewWebauthnWithDefaults() *Webauthn {
 
 // GetAttestation returns the Attestation field value if set, zero value otherwise.
 func (o *Webauthn) GetAttestation() string {
-	if o == nil || o.Attestation == nil {
+	if o == nil || IsNil(o.Attestation) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *Webauthn) GetAttestation() string {
 // GetAttestationOk returns a tuple with the Attestation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Webauthn) GetAttestationOk() (*string, bool) {
-	if o == nil || o.Attestation == nil {
+	if o == nil || IsNil(o.Attestation) {
 		return nil, false
 	}
 	return o.Attestation, true
@@ -75,7 +78,7 @@ func (o *Webauthn) GetAttestationOk() (*string, bool) {
 
 // HasAttestation returns a boolean if a field has been set.
 func (o *Webauthn) HasAttestation() bool {
-	if o != nil && o.Attestation != nil {
+	if o != nil && !IsNil(o.Attestation) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *Webauthn) SetAttestation(v string) {
 
 // GetClientData returns the ClientData field value if set, zero value otherwise.
 func (o *Webauthn) GetClientData() string {
-	if o == nil || o.ClientData == nil {
+	if o == nil || IsNil(o.ClientData) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *Webauthn) GetClientData() string {
 // GetClientDataOk returns a tuple with the ClientData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Webauthn) GetClientDataOk() (*string, bool) {
-	if o == nil || o.ClientData == nil {
+	if o == nil || IsNil(o.ClientData) {
 		return nil, false
 	}
 	return o.ClientData, true
@@ -107,7 +110,7 @@ func (o *Webauthn) GetClientDataOk() (*string, bool) {
 
 // HasClientData returns a boolean if a field has been set.
 func (o *Webauthn) HasClientData() bool {
-	if o != nil && o.ClientData != nil {
+	if o != nil && !IsNil(o.ClientData) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *Webauthn) SetClientData(v string) {
 }
 
 func (o Webauthn) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Webauthn) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Attestation != nil {
+	if !IsNil(o.Attestation) {
 		toSerialize["attestation"] = o.Attestation
 	}
-	if o.ClientData != nil {
+	if !IsNil(o.ClientData) {
 		toSerialize["clientData"] = o.ClientData
 	}
 
@@ -132,28 +143,26 @@ func (o Webauthn) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Webauthn) UnmarshalJSON(bytes []byte) (err error) {
+func (o *Webauthn) UnmarshalJSON(data []byte) (err error) {
 	varWebauthn := _Webauthn{}
 
-	err = json.Unmarshal(bytes, &varWebauthn)
-	if err == nil {
-		*o = Webauthn(varWebauthn)
-	} else {
+	err = json.Unmarshal(data, &varWebauthn)
+
+	if err != nil {
 		return err
 	}
 
+	*o = Webauthn(varWebauthn)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "attestation")
 		delete(additionalProperties, "clientData")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableWebauthn) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

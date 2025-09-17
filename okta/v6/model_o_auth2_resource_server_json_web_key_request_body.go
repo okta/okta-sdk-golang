@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the OAuth2ResourceServerJsonWebKeyRequestBody type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OAuth2ResourceServerJsonWebKeyRequestBody{}
+
 // OAuth2ResourceServerJsonWebKeyRequestBody struct for OAuth2ResourceServerJsonWebKeyRequestBody
 type OAuth2ResourceServerJsonWebKeyRequestBody struct {
 	// RSA key value (exponent) for key binding
@@ -40,7 +43,7 @@ type OAuth2ResourceServerJsonWebKeyRequestBody struct {
 	// Status of the JSON Web Key
 	Status *string `json:"status,omitempty"`
 	// Acceptable use of the JSON Web Key
-	Use *string `json:"use,omitempty"`
+	Use                  *string `json:"use,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -65,7 +68,7 @@ func NewOAuth2ResourceServerJsonWebKeyRequestBodyWithDefaults() *OAuth2ResourceS
 
 // GetE returns the E field value if set, zero value otherwise.
 func (o *OAuth2ResourceServerJsonWebKeyRequestBody) GetE() string {
-	if o == nil || o.E == nil {
+	if o == nil || IsNil(o.E) {
 		var ret string
 		return ret
 	}
@@ -75,7 +78,7 @@ func (o *OAuth2ResourceServerJsonWebKeyRequestBody) GetE() string {
 // GetEOk returns a tuple with the E field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ResourceServerJsonWebKeyRequestBody) GetEOk() (*string, bool) {
-	if o == nil || o.E == nil {
+	if o == nil || IsNil(o.E) {
 		return nil, false
 	}
 	return o.E, true
@@ -83,7 +86,7 @@ func (o *OAuth2ResourceServerJsonWebKeyRequestBody) GetEOk() (*string, bool) {
 
 // HasE returns a boolean if a field has been set.
 func (o *OAuth2ResourceServerJsonWebKeyRequestBody) HasE() bool {
-	if o != nil && o.E != nil {
+	if o != nil && !IsNil(o.E) {
 		return true
 	}
 
@@ -97,7 +100,7 @@ func (o *OAuth2ResourceServerJsonWebKeyRequestBody) SetE(v string) {
 
 // GetKid returns the Kid field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *OAuth2ResourceServerJsonWebKeyRequestBody) GetKid() string {
-	if o == nil || o.Kid.Get() == nil {
+	if o == nil || IsNil(o.Kid.Get()) {
 		var ret string
 		return ret
 	}
@@ -127,6 +130,7 @@ func (o *OAuth2ResourceServerJsonWebKeyRequestBody) HasKid() bool {
 func (o *OAuth2ResourceServerJsonWebKeyRequestBody) SetKid(v string) {
 	o.Kid.Set(&v)
 }
+
 // SetKidNil sets the value for Kid to be an explicit nil
 func (o *OAuth2ResourceServerJsonWebKeyRequestBody) SetKidNil() {
 	o.Kid.Set(nil)
@@ -139,7 +143,7 @@ func (o *OAuth2ResourceServerJsonWebKeyRequestBody) UnsetKid() {
 
 // GetKty returns the Kty field value if set, zero value otherwise.
 func (o *OAuth2ResourceServerJsonWebKeyRequestBody) GetKty() string {
-	if o == nil || o.Kty == nil {
+	if o == nil || IsNil(o.Kty) {
 		var ret string
 		return ret
 	}
@@ -149,7 +153,7 @@ func (o *OAuth2ResourceServerJsonWebKeyRequestBody) GetKty() string {
 // GetKtyOk returns a tuple with the Kty field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ResourceServerJsonWebKeyRequestBody) GetKtyOk() (*string, bool) {
-	if o == nil || o.Kty == nil {
+	if o == nil || IsNil(o.Kty) {
 		return nil, false
 	}
 	return o.Kty, true
@@ -157,7 +161,7 @@ func (o *OAuth2ResourceServerJsonWebKeyRequestBody) GetKtyOk() (*string, bool) {
 
 // HasKty returns a boolean if a field has been set.
 func (o *OAuth2ResourceServerJsonWebKeyRequestBody) HasKty() bool {
-	if o != nil && o.Kty != nil {
+	if o != nil && !IsNil(o.Kty) {
 		return true
 	}
 
@@ -171,7 +175,7 @@ func (o *OAuth2ResourceServerJsonWebKeyRequestBody) SetKty(v string) {
 
 // GetN returns the N field value if set, zero value otherwise.
 func (o *OAuth2ResourceServerJsonWebKeyRequestBody) GetN() string {
-	if o == nil || o.N == nil {
+	if o == nil || IsNil(o.N) {
 		var ret string
 		return ret
 	}
@@ -181,7 +185,7 @@ func (o *OAuth2ResourceServerJsonWebKeyRequestBody) GetN() string {
 // GetNOk returns a tuple with the N field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ResourceServerJsonWebKeyRequestBody) GetNOk() (*string, bool) {
-	if o == nil || o.N == nil {
+	if o == nil || IsNil(o.N) {
 		return nil, false
 	}
 	return o.N, true
@@ -189,7 +193,7 @@ func (o *OAuth2ResourceServerJsonWebKeyRequestBody) GetNOk() (*string, bool) {
 
 // HasN returns a boolean if a field has been set.
 func (o *OAuth2ResourceServerJsonWebKeyRequestBody) HasN() bool {
-	if o != nil && o.N != nil {
+	if o != nil && !IsNil(o.N) {
 		return true
 	}
 
@@ -203,7 +207,7 @@ func (o *OAuth2ResourceServerJsonWebKeyRequestBody) SetN(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *OAuth2ResourceServerJsonWebKeyRequestBody) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -213,7 +217,7 @@ func (o *OAuth2ResourceServerJsonWebKeyRequestBody) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ResourceServerJsonWebKeyRequestBody) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -221,7 +225,7 @@ func (o *OAuth2ResourceServerJsonWebKeyRequestBody) GetStatusOk() (*string, bool
 
 // HasStatus returns a boolean if a field has been set.
 func (o *OAuth2ResourceServerJsonWebKeyRequestBody) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -235,7 +239,7 @@ func (o *OAuth2ResourceServerJsonWebKeyRequestBody) SetStatus(v string) {
 
 // GetUse returns the Use field value if set, zero value otherwise.
 func (o *OAuth2ResourceServerJsonWebKeyRequestBody) GetUse() string {
-	if o == nil || o.Use == nil {
+	if o == nil || IsNil(o.Use) {
 		var ret string
 		return ret
 	}
@@ -245,7 +249,7 @@ func (o *OAuth2ResourceServerJsonWebKeyRequestBody) GetUse() string {
 // GetUseOk returns a tuple with the Use field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ResourceServerJsonWebKeyRequestBody) GetUseOk() (*string, bool) {
-	if o == nil || o.Use == nil {
+	if o == nil || IsNil(o.Use) {
 		return nil, false
 	}
 	return o.Use, true
@@ -253,7 +257,7 @@ func (o *OAuth2ResourceServerJsonWebKeyRequestBody) GetUseOk() (*string, bool) {
 
 // HasUse returns a boolean if a field has been set.
 func (o *OAuth2ResourceServerJsonWebKeyRequestBody) HasUse() bool {
-	if o != nil && o.Use != nil {
+	if o != nil && !IsNil(o.Use) {
 		return true
 	}
 
@@ -266,23 +270,31 @@ func (o *OAuth2ResourceServerJsonWebKeyRequestBody) SetUse(v string) {
 }
 
 func (o OAuth2ResourceServerJsonWebKeyRequestBody) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OAuth2ResourceServerJsonWebKeyRequestBody) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.E != nil {
+	if !IsNil(o.E) {
 		toSerialize["e"] = o.E
 	}
 	if o.Kid.IsSet() {
 		toSerialize["kid"] = o.Kid.Get()
 	}
-	if o.Kty != nil {
+	if !IsNil(o.Kty) {
 		toSerialize["kty"] = o.Kty
 	}
-	if o.N != nil {
+	if !IsNil(o.N) {
 		toSerialize["n"] = o.N
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Use != nil {
+	if !IsNil(o.Use) {
 		toSerialize["use"] = o.Use
 	}
 
@@ -290,23 +302,23 @@ func (o OAuth2ResourceServerJsonWebKeyRequestBody) MarshalJSON() ([]byte, error)
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OAuth2ResourceServerJsonWebKeyRequestBody) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OAuth2ResourceServerJsonWebKeyRequestBody) UnmarshalJSON(data []byte) (err error) {
 	varOAuth2ResourceServerJsonWebKeyRequestBody := _OAuth2ResourceServerJsonWebKeyRequestBody{}
 
-	err = json.Unmarshal(bytes, &varOAuth2ResourceServerJsonWebKeyRequestBody)
-	if err == nil {
-		*o = OAuth2ResourceServerJsonWebKeyRequestBody(varOAuth2ResourceServerJsonWebKeyRequestBody)
-	} else {
+	err = json.Unmarshal(data, &varOAuth2ResourceServerJsonWebKeyRequestBody)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OAuth2ResourceServerJsonWebKeyRequestBody(varOAuth2ResourceServerJsonWebKeyRequestBody)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "e")
 		delete(additionalProperties, "kid")
 		delete(additionalProperties, "kty")
@@ -314,8 +326,6 @@ func (o *OAuth2ResourceServerJsonWebKeyRequestBody) UnmarshalJSON(bytes []byte) 
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "use")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -356,4 +366,3 @@ func (v *NullableOAuth2ResourceServerJsonWebKeyRequestBody) UnmarshalJSON(src []
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

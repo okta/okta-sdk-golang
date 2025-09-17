@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the OrgOktaSupportSettingsObjLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrgOktaSupportSettingsObjLinks{}
+
 // OrgOktaSupportSettingsObjLinks Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available for the Okta Support Settings object using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification
 type OrgOktaSupportSettingsObjLinks struct {
 	// Link to [extend Okta Support Access](/openapi/okta-management/management/tag/OrgSettingSupport/#tag/OrgSettingSupport/operation/extendOktaSupport)
@@ -38,7 +41,7 @@ type OrgOktaSupportSettingsObjLinks struct {
 	// Link to [update an Okta Support case](/openapi/okta-management/management/tag/OrgSettingSupport/#tag/OrgSettingSupport/operation/updateOktaSupportCase)
 	Case *HrefObject `json:"case,omitempty"`
 	// Link to [List all Okta Support cases](/openapi/okta-management/management/tag/OrgSettingSupport/#tag/OrgSettingSupport/operation/listOktaSupportCases)
-	Cases *HrefObject `json:"cases,omitempty"`
+	Cases                *HrefObject `json:"cases,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -63,7 +66,7 @@ func NewOrgOktaSupportSettingsObjLinksWithDefaults() *OrgOktaSupportSettingsObjL
 
 // GetExtend returns the Extend field value if set, zero value otherwise.
 func (o *OrgOktaSupportSettingsObjLinks) GetExtend() HrefObject {
-	if o == nil || o.Extend == nil {
+	if o == nil || IsNil(o.Extend) {
 		var ret HrefObject
 		return ret
 	}
@@ -73,7 +76,7 @@ func (o *OrgOktaSupportSettingsObjLinks) GetExtend() HrefObject {
 // GetExtendOk returns a tuple with the Extend field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgOktaSupportSettingsObjLinks) GetExtendOk() (*HrefObject, bool) {
-	if o == nil || o.Extend == nil {
+	if o == nil || IsNil(o.Extend) {
 		return nil, false
 	}
 	return o.Extend, true
@@ -81,7 +84,7 @@ func (o *OrgOktaSupportSettingsObjLinks) GetExtendOk() (*HrefObject, bool) {
 
 // HasExtend returns a boolean if a field has been set.
 func (o *OrgOktaSupportSettingsObjLinks) HasExtend() bool {
-	if o != nil && o.Extend != nil {
+	if o != nil && !IsNil(o.Extend) {
 		return true
 	}
 
@@ -95,7 +98,7 @@ func (o *OrgOktaSupportSettingsObjLinks) SetExtend(v HrefObject) {
 
 // GetRevoke returns the Revoke field value if set, zero value otherwise.
 func (o *OrgOktaSupportSettingsObjLinks) GetRevoke() HrefObject {
-	if o == nil || o.Revoke == nil {
+	if o == nil || IsNil(o.Revoke) {
 		var ret HrefObject
 		return ret
 	}
@@ -105,7 +108,7 @@ func (o *OrgOktaSupportSettingsObjLinks) GetRevoke() HrefObject {
 // GetRevokeOk returns a tuple with the Revoke field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgOktaSupportSettingsObjLinks) GetRevokeOk() (*HrefObject, bool) {
-	if o == nil || o.Revoke == nil {
+	if o == nil || IsNil(o.Revoke) {
 		return nil, false
 	}
 	return o.Revoke, true
@@ -113,7 +116,7 @@ func (o *OrgOktaSupportSettingsObjLinks) GetRevokeOk() (*HrefObject, bool) {
 
 // HasRevoke returns a boolean if a field has been set.
 func (o *OrgOktaSupportSettingsObjLinks) HasRevoke() bool {
-	if o != nil && o.Revoke != nil {
+	if o != nil && !IsNil(o.Revoke) {
 		return true
 	}
 
@@ -127,7 +130,7 @@ func (o *OrgOktaSupportSettingsObjLinks) SetRevoke(v HrefObject) {
 
 // GetGrant returns the Grant field value if set, zero value otherwise.
 func (o *OrgOktaSupportSettingsObjLinks) GetGrant() HrefObject {
-	if o == nil || o.Grant == nil {
+	if o == nil || IsNil(o.Grant) {
 		var ret HrefObject
 		return ret
 	}
@@ -137,7 +140,7 @@ func (o *OrgOktaSupportSettingsObjLinks) GetGrant() HrefObject {
 // GetGrantOk returns a tuple with the Grant field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgOktaSupportSettingsObjLinks) GetGrantOk() (*HrefObject, bool) {
-	if o == nil || o.Grant == nil {
+	if o == nil || IsNil(o.Grant) {
 		return nil, false
 	}
 	return o.Grant, true
@@ -145,7 +148,7 @@ func (o *OrgOktaSupportSettingsObjLinks) GetGrantOk() (*HrefObject, bool) {
 
 // HasGrant returns a boolean if a field has been set.
 func (o *OrgOktaSupportSettingsObjLinks) HasGrant() bool {
-	if o != nil && o.Grant != nil {
+	if o != nil && !IsNil(o.Grant) {
 		return true
 	}
 
@@ -159,7 +162,7 @@ func (o *OrgOktaSupportSettingsObjLinks) SetGrant(v HrefObject) {
 
 // GetCase returns the Case field value if set, zero value otherwise.
 func (o *OrgOktaSupportSettingsObjLinks) GetCase() HrefObject {
-	if o == nil || o.Case == nil {
+	if o == nil || IsNil(o.Case) {
 		var ret HrefObject
 		return ret
 	}
@@ -169,7 +172,7 @@ func (o *OrgOktaSupportSettingsObjLinks) GetCase() HrefObject {
 // GetCaseOk returns a tuple with the Case field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgOktaSupportSettingsObjLinks) GetCaseOk() (*HrefObject, bool) {
-	if o == nil || o.Case == nil {
+	if o == nil || IsNil(o.Case) {
 		return nil, false
 	}
 	return o.Case, true
@@ -177,7 +180,7 @@ func (o *OrgOktaSupportSettingsObjLinks) GetCaseOk() (*HrefObject, bool) {
 
 // HasCase returns a boolean if a field has been set.
 func (o *OrgOktaSupportSettingsObjLinks) HasCase() bool {
-	if o != nil && o.Case != nil {
+	if o != nil && !IsNil(o.Case) {
 		return true
 	}
 
@@ -191,7 +194,7 @@ func (o *OrgOktaSupportSettingsObjLinks) SetCase(v HrefObject) {
 
 // GetCases returns the Cases field value if set, zero value otherwise.
 func (o *OrgOktaSupportSettingsObjLinks) GetCases() HrefObject {
-	if o == nil || o.Cases == nil {
+	if o == nil || IsNil(o.Cases) {
 		var ret HrefObject
 		return ret
 	}
@@ -201,7 +204,7 @@ func (o *OrgOktaSupportSettingsObjLinks) GetCases() HrefObject {
 // GetCasesOk returns a tuple with the Cases field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgOktaSupportSettingsObjLinks) GetCasesOk() (*HrefObject, bool) {
-	if o == nil || o.Cases == nil {
+	if o == nil || IsNil(o.Cases) {
 		return nil, false
 	}
 	return o.Cases, true
@@ -209,7 +212,7 @@ func (o *OrgOktaSupportSettingsObjLinks) GetCasesOk() (*HrefObject, bool) {
 
 // HasCases returns a boolean if a field has been set.
 func (o *OrgOktaSupportSettingsObjLinks) HasCases() bool {
-	if o != nil && o.Cases != nil {
+	if o != nil && !IsNil(o.Cases) {
 		return true
 	}
 
@@ -222,20 +225,28 @@ func (o *OrgOktaSupportSettingsObjLinks) SetCases(v HrefObject) {
 }
 
 func (o OrgOktaSupportSettingsObjLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OrgOktaSupportSettingsObjLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Extend != nil {
+	if !IsNil(o.Extend) {
 		toSerialize["extend"] = o.Extend
 	}
-	if o.Revoke != nil {
+	if !IsNil(o.Revoke) {
 		toSerialize["revoke"] = o.Revoke
 	}
-	if o.Grant != nil {
+	if !IsNil(o.Grant) {
 		toSerialize["grant"] = o.Grant
 	}
-	if o.Case != nil {
+	if !IsNil(o.Case) {
 		toSerialize["case"] = o.Case
 	}
-	if o.Cases != nil {
+	if !IsNil(o.Cases) {
 		toSerialize["cases"] = o.Cases
 	}
 
@@ -243,31 +254,29 @@ func (o OrgOktaSupportSettingsObjLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OrgOktaSupportSettingsObjLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OrgOktaSupportSettingsObjLinks) UnmarshalJSON(data []byte) (err error) {
 	varOrgOktaSupportSettingsObjLinks := _OrgOktaSupportSettingsObjLinks{}
 
-	err = json.Unmarshal(bytes, &varOrgOktaSupportSettingsObjLinks)
-	if err == nil {
-		*o = OrgOktaSupportSettingsObjLinks(varOrgOktaSupportSettingsObjLinks)
-	} else {
+	err = json.Unmarshal(data, &varOrgOktaSupportSettingsObjLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OrgOktaSupportSettingsObjLinks(varOrgOktaSupportSettingsObjLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "extend")
 		delete(additionalProperties, "revoke")
 		delete(additionalProperties, "grant")
 		delete(additionalProperties, "case")
 		delete(additionalProperties, "cases")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -308,4 +317,3 @@ func (v *NullableOrgOktaSupportSettingsObjLinks) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

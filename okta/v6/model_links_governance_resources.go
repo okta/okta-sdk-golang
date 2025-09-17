@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the LinksGovernanceResources type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LinksGovernanceResources{}
+
 // LinksGovernanceResources Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available for the resources using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification.
 type LinksGovernanceResources struct {
-	Resources *HrefObjectGovernanceResourcesLink `json:"resources,omitempty"`
+	Resources            *HrefObjectGovernanceResourcesLink `json:"resources,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewLinksGovernanceResourcesWithDefaults() *LinksGovernanceResources {
 
 // GetResources returns the Resources field value if set, zero value otherwise.
 func (o *LinksGovernanceResources) GetResources() HrefObjectGovernanceResourcesLink {
-	if o == nil || o.Resources == nil {
+	if o == nil || IsNil(o.Resources) {
 		var ret HrefObjectGovernanceResourcesLink
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *LinksGovernanceResources) GetResources() HrefObjectGovernanceResourcesL
 // GetResourcesOk returns a tuple with the Resources field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksGovernanceResources) GetResourcesOk() (*HrefObjectGovernanceResourcesLink, bool) {
-	if o == nil || o.Resources == nil {
+	if o == nil || IsNil(o.Resources) {
 		return nil, false
 	}
 	return o.Resources, true
@@ -72,7 +75,7 @@ func (o *LinksGovernanceResources) GetResourcesOk() (*HrefObjectGovernanceResour
 
 // HasResources returns a boolean if a field has been set.
 func (o *LinksGovernanceResources) HasResources() bool {
-	if o != nil && o.Resources != nil {
+	if o != nil && !IsNil(o.Resources) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *LinksGovernanceResources) SetResources(v HrefObjectGovernanceResourcesL
 }
 
 func (o LinksGovernanceResources) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LinksGovernanceResources) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Resources != nil {
+	if !IsNil(o.Resources) {
 		toSerialize["resources"] = o.Resources
 	}
 
@@ -94,27 +105,25 @@ func (o LinksGovernanceResources) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LinksGovernanceResources) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LinksGovernanceResources) UnmarshalJSON(data []byte) (err error) {
 	varLinksGovernanceResources := _LinksGovernanceResources{}
 
-	err = json.Unmarshal(bytes, &varLinksGovernanceResources)
-	if err == nil {
-		*o = LinksGovernanceResources(varLinksGovernanceResources)
-	} else {
+	err = json.Unmarshal(data, &varLinksGovernanceResources)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LinksGovernanceResources(varLinksGovernanceResources)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "resources")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableLinksGovernanceResources) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

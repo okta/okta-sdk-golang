@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,25 +26,24 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type AuthorizationServerKeysAPI interface {
 
 	/*
-	GetAuthorizationServerKey Retrieve an authorization server key
+		GetAuthorizationServerKey Retrieve an authorization server key
 
-	Retrieves an Authorization Server Key specified by the `keyId`
+		Retrieves an Authorization Server Key specified by the `keyId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param keyId `id` of the certificate key
-	@return ApiGetAuthorizationServerKeyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param keyId `id` of the certificate key
+		@return ApiGetAuthorizationServerKeyRequest
 	*/
 	GetAuthorizationServerKey(ctx context.Context, authServerId string, keyId string) ApiGetAuthorizationServerKeyRequest
 
@@ -53,13 +52,13 @@ type AuthorizationServerKeysAPI interface {
 	GetAuthorizationServerKeyExecute(r ApiGetAuthorizationServerKeyRequest) (*AuthorizationServerJsonWebKey, *APIResponse, error)
 
 	/*
-	ListAuthorizationServerKeys List all credential keys
+		ListAuthorizationServerKeys List all credential keys
 
-	Lists all of the current, future, and expired Keys used by the Custom Authorization Server
+		Lists all of the current, future, and expired Keys used by the Custom Authorization Server
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@return ApiListAuthorizationServerKeysRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@return ApiListAuthorizationServerKeysRequest
 	*/
 	ListAuthorizationServerKeys(ctx context.Context, authServerId string) ApiListAuthorizationServerKeysRequest
 
@@ -68,20 +67,20 @@ type AuthorizationServerKeysAPI interface {
 	ListAuthorizationServerKeysExecute(r ApiListAuthorizationServerKeysRequest) ([]AuthorizationServerJsonWebKey, *APIResponse, error)
 
 	/*
-	RotateAuthorizationServerKeys Rotate all credential keys
+			RotateAuthorizationServerKeys Rotate all credential keys
 
-	Rotates the current Keys for a Custom Authorization Server. If you rotate Keys,
-the `ACTIVE` Key becomes the `EXPIRED` Key, the `NEXT` Key becomes the `ACTIVE` Key,
-and the Custom Authorization Server immediately begins using the new active
-Key to sign tokens.
+			Rotates the current Keys for a Custom Authorization Server. If you rotate Keys,
+		the `ACTIVE` Key becomes the `EXPIRED` Key, the `NEXT` Key becomes the `ACTIVE` Key,
+		and the Custom Authorization Server immediately begins using the new active
+		Key to sign tokens.
 
-> **Note:** Okta rotates your Keys automatically in `AUTO` mode. You can rotate Keys
-yourself in either mode. If Keys are rotated manually, you should invalidate any intermediate cache.
-and fetch the Keys again using the Keys endpoint.
+		> **Note:** Okta rotates your Keys automatically in `AUTO` mode. You can rotate Keys
+		yourself in either mode. If Keys are rotated manually, you should invalidate any intermediate cache.
+		and fetch the Keys again using the Keys endpoint.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@return ApiRotateAuthorizationServerKeysRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param authServerId `id` of the Authorization Server
+			@return ApiRotateAuthorizationServerKeysRequest
 	*/
 	RotateAuthorizationServerKeys(ctx context.Context, authServerId string) ApiRotateAuthorizationServerKeysRequest
 
@@ -94,11 +93,11 @@ and fetch the Keys again using the Keys endpoint.
 type AuthorizationServerKeysAPIService service
 
 type ApiGetAuthorizationServerKeyRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerKeysAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerKeysAPI
 	authServerId string
-	keyId string
-	retryCount int32
+	keyId        string
+	retryCount   int32
 }
 
 func (r ApiGetAuthorizationServerKeyRequest) Execute() (*AuthorizationServerJsonWebKey, *APIResponse, error) {
@@ -110,23 +109,24 @@ GetAuthorizationServerKey Retrieve an authorization server key
 
 Retrieves an Authorization Server Key specified by the `keyId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @param keyId `id` of the certificate key
- @return ApiGetAuthorizationServerKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@param keyId `id` of the certificate key
+	@return ApiGetAuthorizationServerKeyRequest
 */
 func (a *AuthorizationServerKeysAPIService) GetAuthorizationServerKey(ctx context.Context, authServerId string, keyId string) ApiGetAuthorizationServerKeyRequest {
 	return ApiGetAuthorizationServerKeyRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		keyId: keyId,
-		retryCount: 0,
+		keyId:        keyId,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return AuthorizationServerJsonWebKey
+//
+//	@return AuthorizationServerJsonWebKey
 func (a *AuthorizationServerKeysAPIService) GetAuthorizationServerKeyExecute(r ApiGetAuthorizationServerKeyRequest) (*AuthorizationServerJsonWebKey, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -135,7 +135,7 @@ func (a *AuthorizationServerKeysAPIService) GetAuthorizationServerKeyExecute(r A
 		localVarReturnValue  *AuthorizationServerJsonWebKey
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -197,9 +197,9 @@ func (a *AuthorizationServerKeysAPIService) GetAuthorizationServerKeyExecute(r A
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -257,16 +257,16 @@ func (a *AuthorizationServerKeysAPIService) GetAuthorizationServerKeyExecute(r A
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListAuthorizationServerKeysRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerKeysAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerKeysAPI
 	authServerId string
-	retryCount int32
+	retryCount   int32
 }
 
 func (r ApiListAuthorizationServerKeysRequest) Execute() ([]AuthorizationServerJsonWebKey, *APIResponse, error) {
@@ -278,21 +278,22 @@ ListAuthorizationServerKeys List all credential keys
 
 Lists all of the current, future, and expired Keys used by the Custom Authorization Server
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @return ApiListAuthorizationServerKeysRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@return ApiListAuthorizationServerKeysRequest
 */
 func (a *AuthorizationServerKeysAPIService) ListAuthorizationServerKeys(ctx context.Context, authServerId string) ApiListAuthorizationServerKeysRequest {
 	return ApiListAuthorizationServerKeysRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return []AuthorizationServerJsonWebKey
+//
+//	@return []AuthorizationServerJsonWebKey
 func (a *AuthorizationServerKeysAPIService) ListAuthorizationServerKeysExecute(r ApiListAuthorizationServerKeysRequest) ([]AuthorizationServerJsonWebKey, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -301,7 +302,7 @@ func (a *AuthorizationServerKeysAPIService) ListAuthorizationServerKeysExecute(r
 		localVarReturnValue  []AuthorizationServerJsonWebKey
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -362,9 +363,9 @@ func (a *AuthorizationServerKeysAPIService) ListAuthorizationServerKeysExecute(r
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -422,17 +423,17 @@ func (a *AuthorizationServerKeysAPIService) ListAuthorizationServerKeysExecute(r
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiRotateAuthorizationServerKeysRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerKeysAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerKeysAPI
 	authServerId string
-	use *JwkUse
-	retryCount int32
+	use          *JwkUse
+	retryCount   int32
 }
 
 func (r ApiRotateAuthorizationServerKeysRequest) Use(use JwkUse) ApiRotateAuthorizationServerKeysRequest {
@@ -456,21 +457,22 @@ Key to sign tokens.
 yourself in either mode. If Keys are rotated manually, you should invalidate any intermediate cache.
 and fetch the Keys again using the Keys endpoint.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @return ApiRotateAuthorizationServerKeysRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@return ApiRotateAuthorizationServerKeysRequest
 */
 func (a *AuthorizationServerKeysAPIService) RotateAuthorizationServerKeys(ctx context.Context, authServerId string) ApiRotateAuthorizationServerKeysRequest {
 	return ApiRotateAuthorizationServerKeysRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return []AuthorizationServerJsonWebKey
+//
+//	@return []AuthorizationServerJsonWebKey
 func (a *AuthorizationServerKeysAPIService) RotateAuthorizationServerKeysExecute(r ApiRotateAuthorizationServerKeysRequest) ([]AuthorizationServerJsonWebKey, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -479,7 +481,7 @@ func (a *AuthorizationServerKeysAPIService) RotateAuthorizationServerKeysExecute
 		localVarReturnValue  []AuthorizationServerJsonWebKey
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -545,9 +547,9 @@ func (a *AuthorizationServerKeysAPIService) RotateAuthorizationServerKeysExecute
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -617,7 +619,7 @@ func (a *AuthorizationServerKeysAPIService) RotateAuthorizationServerKeysExecute
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

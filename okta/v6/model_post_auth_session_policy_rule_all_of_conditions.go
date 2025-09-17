@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the PostAuthSessionPolicyRuleAllOfConditions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PostAuthSessionPolicyRuleAllOfConditions{}
+
 // PostAuthSessionPolicyRuleAllOfConditions Specifies conditions that must be met during policy evaluation to apply the rule. All policy conditions and conditions for at least one rule must be met to apply the settings specified in the policy and the associated rule.
 type PostAuthSessionPolicyRuleAllOfConditions struct {
-	People *PolicyPeopleCondition `json:"people,omitempty"`
+	People               *PolicyPeopleCondition `json:"people,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewPostAuthSessionPolicyRuleAllOfConditionsWithDefaults() *PostAuthSessionP
 
 // GetPeople returns the People field value if set, zero value otherwise.
 func (o *PostAuthSessionPolicyRuleAllOfConditions) GetPeople() PolicyPeopleCondition {
-	if o == nil || o.People == nil {
+	if o == nil || IsNil(o.People) {
 		var ret PolicyPeopleCondition
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *PostAuthSessionPolicyRuleAllOfConditions) GetPeople() PolicyPeopleCondi
 // GetPeopleOk returns a tuple with the People field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PostAuthSessionPolicyRuleAllOfConditions) GetPeopleOk() (*PolicyPeopleCondition, bool) {
-	if o == nil || o.People == nil {
+	if o == nil || IsNil(o.People) {
 		return nil, false
 	}
 	return o.People, true
@@ -72,7 +75,7 @@ func (o *PostAuthSessionPolicyRuleAllOfConditions) GetPeopleOk() (*PolicyPeopleC
 
 // HasPeople returns a boolean if a field has been set.
 func (o *PostAuthSessionPolicyRuleAllOfConditions) HasPeople() bool {
-	if o != nil && o.People != nil {
+	if o != nil && !IsNil(o.People) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *PostAuthSessionPolicyRuleAllOfConditions) SetPeople(v PolicyPeopleCondi
 }
 
 func (o PostAuthSessionPolicyRuleAllOfConditions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PostAuthSessionPolicyRuleAllOfConditions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.People != nil {
+	if !IsNil(o.People) {
 		toSerialize["people"] = o.People
 	}
 
@@ -94,27 +105,25 @@ func (o PostAuthSessionPolicyRuleAllOfConditions) MarshalJSON() ([]byte, error) 
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PostAuthSessionPolicyRuleAllOfConditions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PostAuthSessionPolicyRuleAllOfConditions) UnmarshalJSON(data []byte) (err error) {
 	varPostAuthSessionPolicyRuleAllOfConditions := _PostAuthSessionPolicyRuleAllOfConditions{}
 
-	err = json.Unmarshal(bytes, &varPostAuthSessionPolicyRuleAllOfConditions)
-	if err == nil {
-		*o = PostAuthSessionPolicyRuleAllOfConditions(varPostAuthSessionPolicyRuleAllOfConditions)
-	} else {
+	err = json.Unmarshal(data, &varPostAuthSessionPolicyRuleAllOfConditions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PostAuthSessionPolicyRuleAllOfConditions(varPostAuthSessionPolicyRuleAllOfConditions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "people")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullablePostAuthSessionPolicyRuleAllOfConditions) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

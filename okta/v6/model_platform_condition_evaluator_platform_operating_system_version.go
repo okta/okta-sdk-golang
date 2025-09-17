@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the PlatformConditionEvaluatorPlatformOperatingSystemVersion type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PlatformConditionEvaluatorPlatformOperatingSystemVersion{}
+
 // PlatformConditionEvaluatorPlatformOperatingSystemVersion struct for PlatformConditionEvaluatorPlatformOperatingSystemVersion
 type PlatformConditionEvaluatorPlatformOperatingSystemVersion struct {
-	MatchType *string `json:"matchType,omitempty"`
-	Value *string `json:"value,omitempty"`
+	MatchType            *string `json:"matchType,omitempty"`
+	Value                *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewPlatformConditionEvaluatorPlatformOperatingSystemVersionWithDefaults() *
 
 // GetMatchType returns the MatchType field value if set, zero value otherwise.
 func (o *PlatformConditionEvaluatorPlatformOperatingSystemVersion) GetMatchType() string {
-	if o == nil || o.MatchType == nil {
+	if o == nil || IsNil(o.MatchType) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *PlatformConditionEvaluatorPlatformOperatingSystemVersion) GetMatchType(
 // GetMatchTypeOk returns a tuple with the MatchType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PlatformConditionEvaluatorPlatformOperatingSystemVersion) GetMatchTypeOk() (*string, bool) {
-	if o == nil || o.MatchType == nil {
+	if o == nil || IsNil(o.MatchType) {
 		return nil, false
 	}
 	return o.MatchType, true
@@ -73,7 +76,7 @@ func (o *PlatformConditionEvaluatorPlatformOperatingSystemVersion) GetMatchTypeO
 
 // HasMatchType returns a boolean if a field has been set.
 func (o *PlatformConditionEvaluatorPlatformOperatingSystemVersion) HasMatchType() bool {
-	if o != nil && o.MatchType != nil {
+	if o != nil && !IsNil(o.MatchType) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *PlatformConditionEvaluatorPlatformOperatingSystemVersion) SetMatchType(
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *PlatformConditionEvaluatorPlatformOperatingSystemVersion) GetValue() string {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret string
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *PlatformConditionEvaluatorPlatformOperatingSystemVersion) GetValue() st
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PlatformConditionEvaluatorPlatformOperatingSystemVersion) GetValueOk() (*string, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -105,7 +108,7 @@ func (o *PlatformConditionEvaluatorPlatformOperatingSystemVersion) GetValueOk() 
 
 // HasValue returns a boolean if a field has been set.
 func (o *PlatformConditionEvaluatorPlatformOperatingSystemVersion) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *PlatformConditionEvaluatorPlatformOperatingSystemVersion) SetValue(v st
 }
 
 func (o PlatformConditionEvaluatorPlatformOperatingSystemVersion) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PlatformConditionEvaluatorPlatformOperatingSystemVersion) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.MatchType != nil {
+	if !IsNil(o.MatchType) {
 		toSerialize["matchType"] = o.MatchType
 	}
-	if o.Value != nil {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
 
@@ -130,28 +141,26 @@ func (o PlatformConditionEvaluatorPlatformOperatingSystemVersion) MarshalJSON() 
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PlatformConditionEvaluatorPlatformOperatingSystemVersion) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PlatformConditionEvaluatorPlatformOperatingSystemVersion) UnmarshalJSON(data []byte) (err error) {
 	varPlatformConditionEvaluatorPlatformOperatingSystemVersion := _PlatformConditionEvaluatorPlatformOperatingSystemVersion{}
 
-	err = json.Unmarshal(bytes, &varPlatformConditionEvaluatorPlatformOperatingSystemVersion)
-	if err == nil {
-		*o = PlatformConditionEvaluatorPlatformOperatingSystemVersion(varPlatformConditionEvaluatorPlatformOperatingSystemVersion)
-	} else {
+	err = json.Unmarshal(data, &varPlatformConditionEvaluatorPlatformOperatingSystemVersion)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PlatformConditionEvaluatorPlatformOperatingSystemVersion(varPlatformConditionEvaluatorPlatformOperatingSystemVersion)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "matchType")
 		delete(additionalProperties, "value")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullablePlatformConditionEvaluatorPlatformOperatingSystemVersion) Unmar
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

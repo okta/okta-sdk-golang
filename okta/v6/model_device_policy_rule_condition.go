@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the DevicePolicyRuleCondition type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DevicePolicyRuleCondition{}
+
 // DevicePolicyRuleCondition struct for DevicePolicyRuleCondition
 type DevicePolicyRuleCondition struct {
-	Migrated *bool `json:"migrated,omitempty"`
-	Platform *DevicePolicyRuleConditionPlatform `json:"platform,omitempty"`
-	Rooted *bool `json:"rooted,omitempty"`
-	TrustLevel *string `json:"trustLevel,omitempty"`
+	Migrated             *bool                              `json:"migrated,omitempty"`
+	Platform             *DevicePolicyRuleConditionPlatform `json:"platform,omitempty"`
+	Rooted               *bool                              `json:"rooted,omitempty"`
+	TrustLevel           *string                            `json:"trustLevel,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewDevicePolicyRuleConditionWithDefaults() *DevicePolicyRuleCondition {
 
 // GetMigrated returns the Migrated field value if set, zero value otherwise.
 func (o *DevicePolicyRuleCondition) GetMigrated() bool {
-	if o == nil || o.Migrated == nil {
+	if o == nil || IsNil(o.Migrated) {
 		var ret bool
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *DevicePolicyRuleCondition) GetMigrated() bool {
 // GetMigratedOk returns a tuple with the Migrated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DevicePolicyRuleCondition) GetMigratedOk() (*bool, bool) {
-	if o == nil || o.Migrated == nil {
+	if o == nil || IsNil(o.Migrated) {
 		return nil, false
 	}
 	return o.Migrated, true
@@ -75,7 +78,7 @@ func (o *DevicePolicyRuleCondition) GetMigratedOk() (*bool, bool) {
 
 // HasMigrated returns a boolean if a field has been set.
 func (o *DevicePolicyRuleCondition) HasMigrated() bool {
-	if o != nil && o.Migrated != nil {
+	if o != nil && !IsNil(o.Migrated) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *DevicePolicyRuleCondition) SetMigrated(v bool) {
 
 // GetPlatform returns the Platform field value if set, zero value otherwise.
 func (o *DevicePolicyRuleCondition) GetPlatform() DevicePolicyRuleConditionPlatform {
-	if o == nil || o.Platform == nil {
+	if o == nil || IsNil(o.Platform) {
 		var ret DevicePolicyRuleConditionPlatform
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *DevicePolicyRuleCondition) GetPlatform() DevicePolicyRuleConditionPlatf
 // GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DevicePolicyRuleCondition) GetPlatformOk() (*DevicePolicyRuleConditionPlatform, bool) {
-	if o == nil || o.Platform == nil {
+	if o == nil || IsNil(o.Platform) {
 		return nil, false
 	}
 	return o.Platform, true
@@ -107,7 +110,7 @@ func (o *DevicePolicyRuleCondition) GetPlatformOk() (*DevicePolicyRuleConditionP
 
 // HasPlatform returns a boolean if a field has been set.
 func (o *DevicePolicyRuleCondition) HasPlatform() bool {
-	if o != nil && o.Platform != nil {
+	if o != nil && !IsNil(o.Platform) {
 		return true
 	}
 
@@ -121,7 +124,7 @@ func (o *DevicePolicyRuleCondition) SetPlatform(v DevicePolicyRuleConditionPlatf
 
 // GetRooted returns the Rooted field value if set, zero value otherwise.
 func (o *DevicePolicyRuleCondition) GetRooted() bool {
-	if o == nil || o.Rooted == nil {
+	if o == nil || IsNil(o.Rooted) {
 		var ret bool
 		return ret
 	}
@@ -131,7 +134,7 @@ func (o *DevicePolicyRuleCondition) GetRooted() bool {
 // GetRootedOk returns a tuple with the Rooted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DevicePolicyRuleCondition) GetRootedOk() (*bool, bool) {
-	if o == nil || o.Rooted == nil {
+	if o == nil || IsNil(o.Rooted) {
 		return nil, false
 	}
 	return o.Rooted, true
@@ -139,7 +142,7 @@ func (o *DevicePolicyRuleCondition) GetRootedOk() (*bool, bool) {
 
 // HasRooted returns a boolean if a field has been set.
 func (o *DevicePolicyRuleCondition) HasRooted() bool {
-	if o != nil && o.Rooted != nil {
+	if o != nil && !IsNil(o.Rooted) {
 		return true
 	}
 
@@ -153,7 +156,7 @@ func (o *DevicePolicyRuleCondition) SetRooted(v bool) {
 
 // GetTrustLevel returns the TrustLevel field value if set, zero value otherwise.
 func (o *DevicePolicyRuleCondition) GetTrustLevel() string {
-	if o == nil || o.TrustLevel == nil {
+	if o == nil || IsNil(o.TrustLevel) {
 		var ret string
 		return ret
 	}
@@ -163,7 +166,7 @@ func (o *DevicePolicyRuleCondition) GetTrustLevel() string {
 // GetTrustLevelOk returns a tuple with the TrustLevel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DevicePolicyRuleCondition) GetTrustLevelOk() (*string, bool) {
-	if o == nil || o.TrustLevel == nil {
+	if o == nil || IsNil(o.TrustLevel) {
 		return nil, false
 	}
 	return o.TrustLevel, true
@@ -171,7 +174,7 @@ func (o *DevicePolicyRuleCondition) GetTrustLevelOk() (*string, bool) {
 
 // HasTrustLevel returns a boolean if a field has been set.
 func (o *DevicePolicyRuleCondition) HasTrustLevel() bool {
-	if o != nil && o.TrustLevel != nil {
+	if o != nil && !IsNil(o.TrustLevel) {
 		return true
 	}
 
@@ -184,17 +187,25 @@ func (o *DevicePolicyRuleCondition) SetTrustLevel(v string) {
 }
 
 func (o DevicePolicyRuleCondition) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DevicePolicyRuleCondition) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Migrated != nil {
+	if !IsNil(o.Migrated) {
 		toSerialize["migrated"] = o.Migrated
 	}
-	if o.Platform != nil {
+	if !IsNil(o.Platform) {
 		toSerialize["platform"] = o.Platform
 	}
-	if o.Rooted != nil {
+	if !IsNil(o.Rooted) {
 		toSerialize["rooted"] = o.Rooted
 	}
-	if o.TrustLevel != nil {
+	if !IsNil(o.TrustLevel) {
 		toSerialize["trustLevel"] = o.TrustLevel
 	}
 
@@ -202,30 +213,28 @@ func (o DevicePolicyRuleCondition) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DevicePolicyRuleCondition) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DevicePolicyRuleCondition) UnmarshalJSON(data []byte) (err error) {
 	varDevicePolicyRuleCondition := _DevicePolicyRuleCondition{}
 
-	err = json.Unmarshal(bytes, &varDevicePolicyRuleCondition)
-	if err == nil {
-		*o = DevicePolicyRuleCondition(varDevicePolicyRuleCondition)
-	} else {
+	err = json.Unmarshal(data, &varDevicePolicyRuleCondition)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DevicePolicyRuleCondition(varDevicePolicyRuleCondition)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "migrated")
 		delete(additionalProperties, "platform")
 		delete(additionalProperties, "rooted")
 		delete(additionalProperties, "trustLevel")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -266,4 +275,3 @@ func (v *NullableDevicePolicyRuleCondition) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

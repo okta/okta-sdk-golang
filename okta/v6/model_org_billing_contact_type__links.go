@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the OrgBillingContactTypeLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrgBillingContactTypeLinks{}
+
 // OrgBillingContactTypeLinks Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available for the org billing contact type object using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification
 type OrgBillingContactTypeLinks struct {
 	// Link to the org billing [contact type user](/openapi/okta-management/management/tag/OrgSettingContact/#tag/OrgSettingContact/operation/getOrgContactUser) resource
-	Billing *HrefObject `json:"billing,omitempty"`
+	Billing              *HrefObject `json:"billing,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewOrgBillingContactTypeLinksWithDefaults() *OrgBillingContactTypeLinks {
 
 // GetBilling returns the Billing field value if set, zero value otherwise.
 func (o *OrgBillingContactTypeLinks) GetBilling() HrefObject {
-	if o == nil || o.Billing == nil {
+	if o == nil || IsNil(o.Billing) {
 		var ret HrefObject
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *OrgBillingContactTypeLinks) GetBilling() HrefObject {
 // GetBillingOk returns a tuple with the Billing field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgBillingContactTypeLinks) GetBillingOk() (*HrefObject, bool) {
-	if o == nil || o.Billing == nil {
+	if o == nil || IsNil(o.Billing) {
 		return nil, false
 	}
 	return o.Billing, true
@@ -73,7 +76,7 @@ func (o *OrgBillingContactTypeLinks) GetBillingOk() (*HrefObject, bool) {
 
 // HasBilling returns a boolean if a field has been set.
 func (o *OrgBillingContactTypeLinks) HasBilling() bool {
-	if o != nil && o.Billing != nil {
+	if o != nil && !IsNil(o.Billing) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *OrgBillingContactTypeLinks) SetBilling(v HrefObject) {
 }
 
 func (o OrgBillingContactTypeLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OrgBillingContactTypeLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Billing != nil {
+	if !IsNil(o.Billing) {
 		toSerialize["billing"] = o.Billing
 	}
 
@@ -95,27 +106,25 @@ func (o OrgBillingContactTypeLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OrgBillingContactTypeLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OrgBillingContactTypeLinks) UnmarshalJSON(data []byte) (err error) {
 	varOrgBillingContactTypeLinks := _OrgBillingContactTypeLinks{}
 
-	err = json.Unmarshal(bytes, &varOrgBillingContactTypeLinks)
-	if err == nil {
-		*o = OrgBillingContactTypeLinks(varOrgBillingContactTypeLinks)
-	} else {
+	err = json.Unmarshal(data, &varOrgBillingContactTypeLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OrgBillingContactTypeLinks(varOrgBillingContactTypeLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "billing")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableOrgBillingContactTypeLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

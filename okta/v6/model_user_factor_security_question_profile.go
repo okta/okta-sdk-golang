@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserFactorSecurityQuestionProfile type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserFactorSecurityQuestionProfile{}
+
 // UserFactorSecurityQuestionProfile struct for UserFactorSecurityQuestionProfile
 type UserFactorSecurityQuestionProfile struct {
 	// Answer to the question
@@ -34,7 +37,7 @@ type UserFactorSecurityQuestionProfile struct {
 	// Unique key for the question
 	Question *string `json:"question,omitempty"`
 	// Human-readable text that's displayed to the user
-	QuestionText *string `json:"questionText,omitempty"`
+	QuestionText         *string `json:"questionText,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewUserFactorSecurityQuestionProfileWithDefaults() *UserFactorSecurityQuest
 
 // GetAnswer returns the Answer field value if set, zero value otherwise.
 func (o *UserFactorSecurityQuestionProfile) GetAnswer() string {
-	if o == nil || o.Answer == nil {
+	if o == nil || IsNil(o.Answer) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *UserFactorSecurityQuestionProfile) GetAnswer() string {
 // GetAnswerOk returns a tuple with the Answer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorSecurityQuestionProfile) GetAnswerOk() (*string, bool) {
-	if o == nil || o.Answer == nil {
+	if o == nil || IsNil(o.Answer) {
 		return nil, false
 	}
 	return o.Answer, true
@@ -77,7 +80,7 @@ func (o *UserFactorSecurityQuestionProfile) GetAnswerOk() (*string, bool) {
 
 // HasAnswer returns a boolean if a field has been set.
 func (o *UserFactorSecurityQuestionProfile) HasAnswer() bool {
-	if o != nil && o.Answer != nil {
+	if o != nil && !IsNil(o.Answer) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *UserFactorSecurityQuestionProfile) SetAnswer(v string) {
 
 // GetQuestion returns the Question field value if set, zero value otherwise.
 func (o *UserFactorSecurityQuestionProfile) GetQuestion() string {
-	if o == nil || o.Question == nil {
+	if o == nil || IsNil(o.Question) {
 		var ret string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *UserFactorSecurityQuestionProfile) GetQuestion() string {
 // GetQuestionOk returns a tuple with the Question field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorSecurityQuestionProfile) GetQuestionOk() (*string, bool) {
-	if o == nil || o.Question == nil {
+	if o == nil || IsNil(o.Question) {
 		return nil, false
 	}
 	return o.Question, true
@@ -109,7 +112,7 @@ func (o *UserFactorSecurityQuestionProfile) GetQuestionOk() (*string, bool) {
 
 // HasQuestion returns a boolean if a field has been set.
 func (o *UserFactorSecurityQuestionProfile) HasQuestion() bool {
-	if o != nil && o.Question != nil {
+	if o != nil && !IsNil(o.Question) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *UserFactorSecurityQuestionProfile) SetQuestion(v string) {
 
 // GetQuestionText returns the QuestionText field value if set, zero value otherwise.
 func (o *UserFactorSecurityQuestionProfile) GetQuestionText() string {
-	if o == nil || o.QuestionText == nil {
+	if o == nil || IsNil(o.QuestionText) {
 		var ret string
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *UserFactorSecurityQuestionProfile) GetQuestionText() string {
 // GetQuestionTextOk returns a tuple with the QuestionText field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorSecurityQuestionProfile) GetQuestionTextOk() (*string, bool) {
-	if o == nil || o.QuestionText == nil {
+	if o == nil || IsNil(o.QuestionText) {
 		return nil, false
 	}
 	return o.QuestionText, true
@@ -141,7 +144,7 @@ func (o *UserFactorSecurityQuestionProfile) GetQuestionTextOk() (*string, bool) 
 
 // HasQuestionText returns a boolean if a field has been set.
 func (o *UserFactorSecurityQuestionProfile) HasQuestionText() bool {
-	if o != nil && o.QuestionText != nil {
+	if o != nil && !IsNil(o.QuestionText) {
 		return true
 	}
 
@@ -154,14 +157,22 @@ func (o *UserFactorSecurityQuestionProfile) SetQuestionText(v string) {
 }
 
 func (o UserFactorSecurityQuestionProfile) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserFactorSecurityQuestionProfile) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Answer != nil {
+	if !IsNil(o.Answer) {
 		toSerialize["answer"] = o.Answer
 	}
-	if o.Question != nil {
+	if !IsNil(o.Question) {
 		toSerialize["question"] = o.Question
 	}
-	if o.QuestionText != nil {
+	if !IsNil(o.QuestionText) {
 		toSerialize["questionText"] = o.QuestionText
 	}
 
@@ -169,29 +180,27 @@ func (o UserFactorSecurityQuestionProfile) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserFactorSecurityQuestionProfile) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserFactorSecurityQuestionProfile) UnmarshalJSON(data []byte) (err error) {
 	varUserFactorSecurityQuestionProfile := _UserFactorSecurityQuestionProfile{}
 
-	err = json.Unmarshal(bytes, &varUserFactorSecurityQuestionProfile)
-	if err == nil {
-		*o = UserFactorSecurityQuestionProfile(varUserFactorSecurityQuestionProfile)
-	} else {
+	err = json.Unmarshal(data, &varUserFactorSecurityQuestionProfile)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserFactorSecurityQuestionProfile(varUserFactorSecurityQuestionProfile)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "answer")
 		delete(additionalProperties, "question")
 		delete(additionalProperties, "questionText")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -232,4 +241,3 @@ func (v *NullableUserFactorSecurityQuestionProfile) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

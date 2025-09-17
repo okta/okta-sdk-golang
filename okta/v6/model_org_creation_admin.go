@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,10 +28,13 @@ import (
 	"fmt"
 )
 
+// checks if the OrgCreationAdmin type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrgCreationAdmin{}
+
 // OrgCreationAdmin Profile and credential information for the first super admin user of the child org. If you plan to configure and manage the org programmatically, create a system user with a dedicated email address and a strong password. > **Note:** If you don't provide `credentials`, the super admin user is prompted to set up their credentials when they sign in to the org for the first time.
 type OrgCreationAdmin struct {
-	Credentials *OrgCreationAdminCredentials `json:"credentials,omitempty"`
-	Profile OrgCreationAdminProfile `json:"profile"`
+	Credentials          *OrgCreationAdminCredentials `json:"credentials,omitempty"`
+	Profile              OrgCreationAdminProfile      `json:"profile"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewOrgCreationAdminWithDefaults() *OrgCreationAdmin {
 
 // GetCredentials returns the Credentials field value if set, zero value otherwise.
 func (o *OrgCreationAdmin) GetCredentials() OrgCreationAdminCredentials {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		var ret OrgCreationAdminCredentials
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *OrgCreationAdmin) GetCredentials() OrgCreationAdminCredentials {
 // GetCredentialsOk returns a tuple with the Credentials field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgCreationAdmin) GetCredentialsOk() (*OrgCreationAdminCredentials, bool) {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		return nil, false
 	}
 	return o.Credentials, true
@@ -75,7 +78,7 @@ func (o *OrgCreationAdmin) GetCredentialsOk() (*OrgCreationAdminCredentials, boo
 
 // HasCredentials returns a boolean if a field has been set.
 func (o *OrgCreationAdmin) HasCredentials() bool {
-	if o != nil && o.Credentials != nil {
+	if o != nil && !IsNil(o.Credentials) {
 		return true
 	}
 
@@ -112,40 +115,65 @@ func (o *OrgCreationAdmin) SetProfile(v OrgCreationAdminProfile) {
 }
 
 func (o OrgCreationAdmin) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OrgCreationAdmin) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Credentials != nil {
+	if !IsNil(o.Credentials) {
 		toSerialize["credentials"] = o.Credentials
 	}
-	if true {
-		toSerialize["profile"] = o.Profile
-	}
+	toSerialize["profile"] = o.Profile
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OrgCreationAdmin) UnmarshalJSON(bytes []byte) (err error) {
-	varOrgCreationAdmin := _OrgCreationAdmin{}
+func (o *OrgCreationAdmin) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"profile",
+	}
 
-	err = json.Unmarshal(bytes, &varOrgCreationAdmin)
-	if err == nil {
-		*o = OrgCreationAdmin(varOrgCreationAdmin)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varOrgCreationAdmin := _OrgCreationAdmin{}
+
+	err = json.Unmarshal(data, &varOrgCreationAdmin)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OrgCreationAdmin(varOrgCreationAdmin)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "credentials")
 		delete(additionalProperties, "profile")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -186,4 +214,3 @@ func (v *NullableOrgCreationAdmin) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

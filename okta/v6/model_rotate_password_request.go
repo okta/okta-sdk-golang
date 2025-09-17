@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,12 +28,15 @@ import (
 	"fmt"
 )
 
+// checks if the RotatePasswordRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RotatePasswordRequest{}
+
 // RotatePasswordRequest Rotate password request for the privileged resource
 type RotatePasswordRequest struct {
 	// The password associated with the privileged resource
 	Password string `json:"password"`
 	// The version ID of the password secret from the OPA vault
-	SecretVersionId string `json:"secretVersionId"`
+	SecretVersionId      string `json:"secretVersionId"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,40 +110,64 @@ func (o *RotatePasswordRequest) SetSecretVersionId(v string) {
 }
 
 func (o RotatePasswordRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RotatePasswordRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["password"] = o.Password
-	}
-	if true {
-		toSerialize["secretVersionId"] = o.SecretVersionId
-	}
+	toSerialize["password"] = o.Password
+	toSerialize["secretVersionId"] = o.SecretVersionId
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RotatePasswordRequest) UnmarshalJSON(bytes []byte) (err error) {
-	varRotatePasswordRequest := _RotatePasswordRequest{}
+func (o *RotatePasswordRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"password",
+		"secretVersionId",
+	}
 
-	err = json.Unmarshal(bytes, &varRotatePasswordRequest)
-	if err == nil {
-		*o = RotatePasswordRequest(varRotatePasswordRequest)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRotatePasswordRequest := _RotatePasswordRequest{}
+
+	err = json.Unmarshal(data, &varRotatePasswordRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RotatePasswordRequest(varRotatePasswordRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "password")
 		delete(additionalProperties, "secretVersionId")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -181,4 +208,3 @@ func (v *NullableRotatePasswordRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

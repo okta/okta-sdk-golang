@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,27 +26,26 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"time"
 )
 
-
 type OrgCreatorAPI interface {
 
 	/*
-	CreateChildOrg Create an org
+			CreateChildOrg Create an org
 
-	Creates an org (child org) that has the same features as the current requesting org (parent org).
-A child org inherits any new features added to the parent org, but new features added to the child org aren't propagated back to the parent org.
-> **Notes:**
-> * Some features associated with products, such as Atspoke, Workflows, and Okta Identity Governance, aren't propagated to the child org.
-> * Wait at least 30 seconds after a 201-Created response before you make API requests to the new child org.
-> * For rate limits, see [Org creation rate limits](https://developer.okta.com/docs/reference/rl-additional-limits/#org-creation-rate-limits).
+			Creates an org (child org) that has the same features as the current requesting org (parent org).
+		A child org inherits any new features added to the parent org, but new features added to the child org aren't propagated back to the parent org.
+		> **Notes:**
+		> * Some features associated with products, such as Atspoke, Workflows, and Okta Identity Governance, aren't propagated to the child org.
+		> * Wait at least 30 seconds after a 201-Created response before you make API requests to the new child org.
+		> * For rate limits, see [Org creation rate limits](https://developer.okta.com/docs/reference/rl-additional-limits/#org-creation-rate-limits).
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateChildOrgRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiCreateChildOrgRequest
 	*/
 	CreateChildOrg(ctx context.Context) ApiCreateChildOrgRequest
 
@@ -59,9 +58,9 @@ A child org inherits any new features added to the parent org, but new features 
 type OrgCreatorAPIService service
 
 type ApiCreateChildOrgRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgCreatorAPI
-	childOrg *ChildOrg
+	childOrg   *ChildOrg
 	retryCount int32
 }
 
@@ -84,19 +83,20 @@ A child org inherits any new features added to the parent org, but new features 
 > * Wait at least 30 seconds after a 201-Created response before you make API requests to the new child org.
 > * For rate limits, see [Org creation rate limits](https://developer.okta.com/docs/reference/rl-additional-limits/#org-creation-rate-limits).
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateChildOrgRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateChildOrgRequest
 */
 func (a *OrgCreatorAPIService) CreateChildOrg(ctx context.Context) ApiCreateChildOrgRequest {
 	return ApiCreateChildOrgRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ChildOrg
+//
+//	@return ChildOrg
 func (a *OrgCreatorAPIService) CreateChildOrgExecute(r ApiCreateChildOrgRequest) (*ChildOrg, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -105,7 +105,7 @@ func (a *OrgCreatorAPIService) CreateChildOrgExecute(r ApiCreateChildOrgRequest)
 		localVarReturnValue  *ChildOrg
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -167,9 +167,9 @@ func (a *OrgCreatorAPIService) CreateChildOrgExecute(r ApiCreateChildOrgRequest)
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -251,7 +251,7 @@ func (a *OrgCreatorAPIService) CreateChildOrgExecute(r ApiCreateChildOrgRequest)
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

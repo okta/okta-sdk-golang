@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,12 +28,10 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
 // UpdateFeatureForApplicationRequest - struct for UpdateFeatureForApplicationRequest
 type UpdateFeatureForApplicationRequest struct {
 	CapabilitiesInboundProvisioningObject *CapabilitiesInboundProvisioningObject
-	CapabilitiesObject *CapabilitiesObject
+	CapabilitiesObject                    *CapabilitiesObject
 }
 
 // CapabilitiesInboundProvisioningObjectAsUpdateFeatureForApplicationRequest is a convenience function that returns CapabilitiesInboundProvisioningObject wrapped in UpdateFeatureForApplicationRequest
@@ -50,48 +48,47 @@ func CapabilitiesObjectAsUpdateFeatureForApplicationRequest(v *CapabilitiesObjec
 	}
 }
 
-
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *UpdateFeatureForApplicationRequest) UnmarshalJSON(data []byte) error {
 	var err error
-        match := 0
-        // try to unmarshal data into CapabilitiesInboundProvisioningObject
-        err = json.Unmarshal(data, &dst.CapabilitiesInboundProvisioningObject)
-        if err == nil {
-                jsonCapabilitiesInboundProvisioningObject, _ := json.Marshal(dst.CapabilitiesInboundProvisioningObject)
-                if string(jsonCapabilitiesInboundProvisioningObject) == "{}" { // empty struct
-                        dst.CapabilitiesInboundProvisioningObject = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.CapabilitiesInboundProvisioningObject = nil
-        }
+	match := 0
+	// try to unmarshal data into CapabilitiesInboundProvisioningObject
+	err = json.Unmarshal(data, &dst.CapabilitiesInboundProvisioningObject)
+	if err == nil {
+		jsonCapabilitiesInboundProvisioningObject, _ := json.Marshal(dst.CapabilitiesInboundProvisioningObject)
+		if string(jsonCapabilitiesInboundProvisioningObject) == "{}" { // empty struct
+			dst.CapabilitiesInboundProvisioningObject = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.CapabilitiesInboundProvisioningObject = nil
+	}
 
-        // try to unmarshal data into CapabilitiesObject
-        err = json.Unmarshal(data, &dst.CapabilitiesObject)
-        if err == nil {
-                jsonCapabilitiesObject, _ := json.Marshal(dst.CapabilitiesObject)
-                if string(jsonCapabilitiesObject) == "{}" { // empty struct
-                        dst.CapabilitiesObject = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.CapabilitiesObject = nil
-        }
+	// try to unmarshal data into CapabilitiesObject
+	err = json.Unmarshal(data, &dst.CapabilitiesObject)
+	if err == nil {
+		jsonCapabilitiesObject, _ := json.Marshal(dst.CapabilitiesObject)
+		if string(jsonCapabilitiesObject) == "{}" { // empty struct
+			dst.CapabilitiesObject = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.CapabilitiesObject = nil
+	}
 
-        if match > 1 { // more than 1 match
-                // reset to nil
-                dst.CapabilitiesInboundProvisioningObject = nil
-                dst.CapabilitiesObject = nil
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.CapabilitiesInboundProvisioningObject = nil
+		dst.CapabilitiesObject = nil
 
-                return fmt.Errorf("Data matches more than one schema in oneOf(UpdateFeatureForApplicationRequest)")
-        } else if match == 1 {
-                return nil // exactly one match
-        } else { // no match
-                return fmt.Errorf("Data failed to match schemas in oneOf(UpdateFeatureForApplicationRequest)")
-        }
+		return fmt.Errorf("data matches more than one schema in oneOf(UpdateFeatureForApplicationRequest)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("data failed to match schemas in oneOf(UpdateFeatureForApplicationRequest)")
+	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -108,7 +105,7 @@ func (src UpdateFeatureForApplicationRequest) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *UpdateFeatureForApplicationRequest) GetActualInstance() (interface{}) {
+func (obj *UpdateFeatureForApplicationRequest) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -118,6 +115,20 @@ func (obj *UpdateFeatureForApplicationRequest) GetActualInstance() (interface{})
 
 	if obj.CapabilitiesObject != nil {
 		return obj.CapabilitiesObject
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj UpdateFeatureForApplicationRequest) GetActualInstanceValue() interface{} {
+	if obj.CapabilitiesInboundProvisioningObject != nil {
+		return *obj.CapabilitiesInboundProvisioningObject
+	}
+
+	if obj.CapabilitiesObject != nil {
+		return *obj.CapabilitiesObject
 	}
 
 	// all schemas are nil
@@ -159,5 +170,3 @@ func (v *NullableUpdateFeatureForApplicationRequest) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

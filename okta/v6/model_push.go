@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the Push type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Push{}
+
 // Push Sends an asynchronous push notification to the device for approval by the user. You must poll the transaction to determine the state of the verification. See [Retrieve a factor transaction status](./#tag/UserFactor/operation/getFactorTransactionStatus).  Activations have a short lifetime of several minutes and return a `TIMEOUT` if not completed before the timestamp specified in the `expiresAt` param. Use the published activate link to restart the activation process if the activation expires.
 type Push struct {
 	// Select whether to use a number matching challenge for a `push` factor.  > **Note:** Sending a request with a body is required when you verify a `push` factor with a number matching challenge.
 	UseNumberMatchingChallenge *bool `json:"useNumberMatchingChallenge,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties       map[string]interface{}
 }
 
 type _Push Push
@@ -55,7 +58,7 @@ func NewPushWithDefaults() *Push {
 
 // GetUseNumberMatchingChallenge returns the UseNumberMatchingChallenge field value if set, zero value otherwise.
 func (o *Push) GetUseNumberMatchingChallenge() bool {
-	if o == nil || o.UseNumberMatchingChallenge == nil {
+	if o == nil || IsNil(o.UseNumberMatchingChallenge) {
 		var ret bool
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *Push) GetUseNumberMatchingChallenge() bool {
 // GetUseNumberMatchingChallengeOk returns a tuple with the UseNumberMatchingChallenge field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Push) GetUseNumberMatchingChallengeOk() (*bool, bool) {
-	if o == nil || o.UseNumberMatchingChallenge == nil {
+	if o == nil || IsNil(o.UseNumberMatchingChallenge) {
 		return nil, false
 	}
 	return o.UseNumberMatchingChallenge, true
@@ -73,7 +76,7 @@ func (o *Push) GetUseNumberMatchingChallengeOk() (*bool, bool) {
 
 // HasUseNumberMatchingChallenge returns a boolean if a field has been set.
 func (o *Push) HasUseNumberMatchingChallenge() bool {
-	if o != nil && o.UseNumberMatchingChallenge != nil {
+	if o != nil && !IsNil(o.UseNumberMatchingChallenge) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *Push) SetUseNumberMatchingChallenge(v bool) {
 }
 
 func (o Push) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Push) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.UseNumberMatchingChallenge != nil {
+	if !IsNil(o.UseNumberMatchingChallenge) {
 		toSerialize["useNumberMatchingChallenge"] = o.UseNumberMatchingChallenge
 	}
 
@@ -95,27 +106,25 @@ func (o Push) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Push) UnmarshalJSON(bytes []byte) (err error) {
+func (o *Push) UnmarshalJSON(data []byte) (err error) {
 	varPush := _Push{}
 
-	err = json.Unmarshal(bytes, &varPush)
-	if err == nil {
-		*o = Push(varPush)
-	} else {
+	err = json.Unmarshal(data, &varPush)
+
+	if err != nil {
 		return err
 	}
 
+	*o = Push(varPush)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "useNumberMatchingChallenge")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullablePush) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

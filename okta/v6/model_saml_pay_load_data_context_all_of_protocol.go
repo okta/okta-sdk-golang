@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the SAMLPayLoadDataContextAllOfProtocol type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SAMLPayLoadDataContextAllOfProtocol{}
+
 // SAMLPayLoadDataContextAllOfProtocol Details of the assertion protocol being used
 type SAMLPayLoadDataContextAllOfProtocol struct {
 	// The type of authentication protocol being used for the assertion
-	Type *string `json:"type,omitempty"`
-	Issuer *SAMLPayLoadDataContextAllOfProtocolIssuer `json:"issuer,omitempty"`
+	Type                 *string                                    `json:"type,omitempty"`
+	Issuer               *SAMLPayLoadDataContextAllOfProtocolIssuer `json:"issuer,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewSAMLPayLoadDataContextAllOfProtocolWithDefaults() *SAMLPayLoadDataContex
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *SAMLPayLoadDataContextAllOfProtocol) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *SAMLPayLoadDataContextAllOfProtocol) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoadDataContextAllOfProtocol) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -74,7 +77,7 @@ func (o *SAMLPayLoadDataContextAllOfProtocol) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *SAMLPayLoadDataContextAllOfProtocol) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *SAMLPayLoadDataContextAllOfProtocol) SetType(v string) {
 
 // GetIssuer returns the Issuer field value if set, zero value otherwise.
 func (o *SAMLPayLoadDataContextAllOfProtocol) GetIssuer() SAMLPayLoadDataContextAllOfProtocolIssuer {
-	if o == nil || o.Issuer == nil {
+	if o == nil || IsNil(o.Issuer) {
 		var ret SAMLPayLoadDataContextAllOfProtocolIssuer
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *SAMLPayLoadDataContextAllOfProtocol) GetIssuer() SAMLPayLoadDataContext
 // GetIssuerOk returns a tuple with the Issuer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoadDataContextAllOfProtocol) GetIssuerOk() (*SAMLPayLoadDataContextAllOfProtocolIssuer, bool) {
-	if o == nil || o.Issuer == nil {
+	if o == nil || IsNil(o.Issuer) {
 		return nil, false
 	}
 	return o.Issuer, true
@@ -106,7 +109,7 @@ func (o *SAMLPayLoadDataContextAllOfProtocol) GetIssuerOk() (*SAMLPayLoadDataCon
 
 // HasIssuer returns a boolean if a field has been set.
 func (o *SAMLPayLoadDataContextAllOfProtocol) HasIssuer() bool {
-	if o != nil && o.Issuer != nil {
+	if o != nil && !IsNil(o.Issuer) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *SAMLPayLoadDataContextAllOfProtocol) SetIssuer(v SAMLPayLoadDataContext
 }
 
 func (o SAMLPayLoadDataContextAllOfProtocol) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SAMLPayLoadDataContextAllOfProtocol) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Issuer != nil {
+	if !IsNil(o.Issuer) {
 		toSerialize["issuer"] = o.Issuer
 	}
 
@@ -131,28 +142,26 @@ func (o SAMLPayLoadDataContextAllOfProtocol) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SAMLPayLoadDataContextAllOfProtocol) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SAMLPayLoadDataContextAllOfProtocol) UnmarshalJSON(data []byte) (err error) {
 	varSAMLPayLoadDataContextAllOfProtocol := _SAMLPayLoadDataContextAllOfProtocol{}
 
-	err = json.Unmarshal(bytes, &varSAMLPayLoadDataContextAllOfProtocol)
-	if err == nil {
-		*o = SAMLPayLoadDataContextAllOfProtocol(varSAMLPayLoadDataContextAllOfProtocol)
-	} else {
+	err = json.Unmarshal(data, &varSAMLPayLoadDataContextAllOfProtocol)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SAMLPayLoadDataContextAllOfProtocol(varSAMLPayLoadDataContextAllOfProtocol)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "issuer")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableSAMLPayLoadDataContextAllOfProtocol) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

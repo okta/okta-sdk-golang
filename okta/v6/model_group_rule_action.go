@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the GroupRuleAction type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GroupRuleAction{}
+
 // GroupRuleAction Defines which users and groups to assign
 type GroupRuleAction struct {
-	AssignUserToGroups *GroupRuleGroupAssignment `json:"assignUserToGroups,omitempty"`
+	AssignUserToGroups   *GroupRuleGroupAssignment `json:"assignUserToGroups,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewGroupRuleActionWithDefaults() *GroupRuleAction {
 
 // GetAssignUserToGroups returns the AssignUserToGroups field value if set, zero value otherwise.
 func (o *GroupRuleAction) GetAssignUserToGroups() GroupRuleGroupAssignment {
-	if o == nil || o.AssignUserToGroups == nil {
+	if o == nil || IsNil(o.AssignUserToGroups) {
 		var ret GroupRuleGroupAssignment
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *GroupRuleAction) GetAssignUserToGroups() GroupRuleGroupAssignment {
 // GetAssignUserToGroupsOk returns a tuple with the AssignUserToGroups field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupRuleAction) GetAssignUserToGroupsOk() (*GroupRuleGroupAssignment, bool) {
-	if o == nil || o.AssignUserToGroups == nil {
+	if o == nil || IsNil(o.AssignUserToGroups) {
 		return nil, false
 	}
 	return o.AssignUserToGroups, true
@@ -72,7 +75,7 @@ func (o *GroupRuleAction) GetAssignUserToGroupsOk() (*GroupRuleGroupAssignment, 
 
 // HasAssignUserToGroups returns a boolean if a field has been set.
 func (o *GroupRuleAction) HasAssignUserToGroups() bool {
-	if o != nil && o.AssignUserToGroups != nil {
+	if o != nil && !IsNil(o.AssignUserToGroups) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *GroupRuleAction) SetAssignUserToGroups(v GroupRuleGroupAssignment) {
 }
 
 func (o GroupRuleAction) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o GroupRuleAction) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AssignUserToGroups != nil {
+	if !IsNil(o.AssignUserToGroups) {
 		toSerialize["assignUserToGroups"] = o.AssignUserToGroups
 	}
 
@@ -94,27 +105,25 @@ func (o GroupRuleAction) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *GroupRuleAction) UnmarshalJSON(bytes []byte) (err error) {
+func (o *GroupRuleAction) UnmarshalJSON(data []byte) (err error) {
 	varGroupRuleAction := _GroupRuleAction{}
 
-	err = json.Unmarshal(bytes, &varGroupRuleAction)
-	if err == nil {
-		*o = GroupRuleAction(varGroupRuleAction)
-	} else {
+	err = json.Unmarshal(data, &varGroupRuleAction)
+
+	if err != nil {
 		return err
 	}
 
+	*o = GroupRuleAction(varGroupRuleAction)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "assignUserToGroups")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableGroupRuleAction) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

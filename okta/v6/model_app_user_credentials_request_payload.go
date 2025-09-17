@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the AppUserCredentialsRequestPayload type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AppUserCredentialsRequestPayload{}
+
 // AppUserCredentialsRequestPayload Updates the assigned user credentials
 type AppUserCredentialsRequestPayload struct {
-	Credentials *AppUserCredentials `json:"credentials,omitempty"`
+	Credentials          *AppUserCredentials `json:"credentials,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewAppUserCredentialsRequestPayloadWithDefaults() *AppUserCredentialsReques
 
 // GetCredentials returns the Credentials field value if set, zero value otherwise.
 func (o *AppUserCredentialsRequestPayload) GetCredentials() AppUserCredentials {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		var ret AppUserCredentials
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *AppUserCredentialsRequestPayload) GetCredentials() AppUserCredentials {
 // GetCredentialsOk returns a tuple with the Credentials field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppUserCredentialsRequestPayload) GetCredentialsOk() (*AppUserCredentials, bool) {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		return nil, false
 	}
 	return o.Credentials, true
@@ -72,7 +75,7 @@ func (o *AppUserCredentialsRequestPayload) GetCredentialsOk() (*AppUserCredentia
 
 // HasCredentials returns a boolean if a field has been set.
 func (o *AppUserCredentialsRequestPayload) HasCredentials() bool {
-	if o != nil && o.Credentials != nil {
+	if o != nil && !IsNil(o.Credentials) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *AppUserCredentialsRequestPayload) SetCredentials(v AppUserCredentials) 
 }
 
 func (o AppUserCredentialsRequestPayload) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AppUserCredentialsRequestPayload) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Credentials != nil {
+	if !IsNil(o.Credentials) {
 		toSerialize["credentials"] = o.Credentials
 	}
 
@@ -94,27 +105,25 @@ func (o AppUserCredentialsRequestPayload) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AppUserCredentialsRequestPayload) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AppUserCredentialsRequestPayload) UnmarshalJSON(data []byte) (err error) {
 	varAppUserCredentialsRequestPayload := _AppUserCredentialsRequestPayload{}
 
-	err = json.Unmarshal(bytes, &varAppUserCredentialsRequestPayload)
-	if err == nil {
-		*o = AppUserCredentialsRequestPayload(varAppUserCredentialsRequestPayload)
-	} else {
+	err = json.Unmarshal(data, &varAppUserCredentialsRequestPayload)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AppUserCredentialsRequestPayload(varAppUserCredentialsRequestPayload)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "credentials")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableAppUserCredentialsRequestPayload) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

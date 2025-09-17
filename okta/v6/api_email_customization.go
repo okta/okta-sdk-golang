@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,28 +26,27 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"time"
 )
 
-
 type EmailCustomizationAPI interface {
 
 	/*
-	BulkRemoveEmailAddressBounces Remove bounced emails
+			BulkRemoveEmailAddressBounces Remove bounced emails
 
-	Removes emails from an email service bounce list.
+			Removes emails from an email service bounce list.
 
-The emails submitted in this operation are removed from the bounce list by an asynchronous job.
-Any email address that passes validation is accepted for the removal process, even if there are other email addresses in the request that failed validation.
+		The emails submitted in this operation are removed from the bounce list by an asynchronous job.
+		Any email address that passes validation is accepted for the removal process, even if there are other email addresses in the request that failed validation.
 
-> **Note:** If there are validation errors for all email addresses, a `200 OK` HTTP status is still returned.
+		> **Note:** If there are validation errors for all email addresses, a `200 OK` HTTP status is still returned.
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiBulkRemoveEmailAddressBouncesRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiBulkRemoveEmailAddressBouncesRequest
 	*/
 	BulkRemoveEmailAddressBounces(ctx context.Context) ApiBulkRemoveEmailAddressBouncesRequest
 
@@ -60,10 +59,10 @@ Any email address that passes validation is accepted for the removal process, ev
 type EmailCustomizationAPIService service
 
 type ApiBulkRemoveEmailAddressBouncesRequest struct {
-	ctx context.Context
-	ApiService EmailCustomizationAPI
+	ctx                  context.Context
+	ApiService           EmailCustomizationAPI
 	bouncesRemoveListObj *BouncesRemoveListObj
-	retryCount int32
+	retryCount           int32
 }
 
 func (r ApiBulkRemoveEmailAddressBouncesRequest) BouncesRemoveListObj(bouncesRemoveListObj BouncesRemoveListObj) ApiBulkRemoveEmailAddressBouncesRequest {
@@ -85,20 +84,20 @@ Any email address that passes validation is accepted for the removal process, ev
 
 > **Note:** If there are validation errors for all email addresses, a `200 OK` HTTP status is still returned.
 
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiBulkRemoveEmailAddressBouncesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiBulkRemoveEmailAddressBouncesRequest
 */
 func (a *EmailCustomizationAPIService) BulkRemoveEmailAddressBounces(ctx context.Context) ApiBulkRemoveEmailAddressBouncesRequest {
 	return ApiBulkRemoveEmailAddressBouncesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return BouncesRemoveListResult
+//
+//	@return BouncesRemoveListResult
 func (a *EmailCustomizationAPIService) BulkRemoveEmailAddressBouncesExecute(r ApiBulkRemoveEmailAddressBouncesRequest) (*BouncesRemoveListResult, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -107,7 +106,7 @@ func (a *EmailCustomizationAPIService) BulkRemoveEmailAddressBouncesExecute(r Ap
 		localVarReturnValue  *BouncesRemoveListResult
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -169,9 +168,9 @@ func (a *EmailCustomizationAPIService) BulkRemoveEmailAddressBouncesExecute(r Ap
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -229,7 +228,7 @@ func (a *EmailCustomizationAPIService) BulkRemoveEmailAddressBouncesExecute(r Ap
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

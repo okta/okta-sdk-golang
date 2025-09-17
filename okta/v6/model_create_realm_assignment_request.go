@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,14 +27,17 @@ import (
 	"encoding/json"
 )
 
+// checks if the CreateRealmAssignmentRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateRealmAssignmentRequest{}
+
 // CreateRealmAssignmentRequest struct for CreateRealmAssignmentRequest
 type CreateRealmAssignmentRequest struct {
-	Actions *Actions `json:"actions,omitempty"`
+	Actions    *Actions    `json:"actions,omitempty"`
 	Conditions *Conditions `json:"conditions,omitempty"`
 	// Name of the realm
 	Name *string `json:"name,omitempty"`
 	// The priority of the realm assignment. The lower the number, the higher the priority. This helps resolve conflicts between realm assignments. > **Note:** When you create realm assignments in bulk, realm assignment priorities must be unique.
-	Priority *int32 `json:"priority,omitempty"`
+	Priority             *int32 `json:"priority,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewCreateRealmAssignmentRequestWithDefaults() *CreateRealmAssignmentRequest
 
 // GetActions returns the Actions field value if set, zero value otherwise.
 func (o *CreateRealmAssignmentRequest) GetActions() Actions {
-	if o == nil || o.Actions == nil {
+	if o == nil || IsNil(o.Actions) {
 		var ret Actions
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *CreateRealmAssignmentRequest) GetActions() Actions {
 // GetActionsOk returns a tuple with the Actions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateRealmAssignmentRequest) GetActionsOk() (*Actions, bool) {
-	if o == nil || o.Actions == nil {
+	if o == nil || IsNil(o.Actions) {
 		return nil, false
 	}
 	return o.Actions, true
@@ -77,7 +80,7 @@ func (o *CreateRealmAssignmentRequest) GetActionsOk() (*Actions, bool) {
 
 // HasActions returns a boolean if a field has been set.
 func (o *CreateRealmAssignmentRequest) HasActions() bool {
-	if o != nil && o.Actions != nil {
+	if o != nil && !IsNil(o.Actions) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *CreateRealmAssignmentRequest) SetActions(v Actions) {
 
 // GetConditions returns the Conditions field value if set, zero value otherwise.
 func (o *CreateRealmAssignmentRequest) GetConditions() Conditions {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		var ret Conditions
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *CreateRealmAssignmentRequest) GetConditions() Conditions {
 // GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateRealmAssignmentRequest) GetConditionsOk() (*Conditions, bool) {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		return nil, false
 	}
 	return o.Conditions, true
@@ -109,7 +112,7 @@ func (o *CreateRealmAssignmentRequest) GetConditionsOk() (*Conditions, bool) {
 
 // HasConditions returns a boolean if a field has been set.
 func (o *CreateRealmAssignmentRequest) HasConditions() bool {
-	if o != nil && o.Conditions != nil {
+	if o != nil && !IsNil(o.Conditions) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *CreateRealmAssignmentRequest) SetConditions(v Conditions) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *CreateRealmAssignmentRequest) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *CreateRealmAssignmentRequest) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateRealmAssignmentRequest) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -141,7 +144,7 @@ func (o *CreateRealmAssignmentRequest) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *CreateRealmAssignmentRequest) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -155,7 +158,7 @@ func (o *CreateRealmAssignmentRequest) SetName(v string) {
 
 // GetPriority returns the Priority field value if set, zero value otherwise.
 func (o *CreateRealmAssignmentRequest) GetPriority() int32 {
-	if o == nil || o.Priority == nil {
+	if o == nil || IsNil(o.Priority) {
 		var ret int32
 		return ret
 	}
@@ -165,7 +168,7 @@ func (o *CreateRealmAssignmentRequest) GetPriority() int32 {
 // GetPriorityOk returns a tuple with the Priority field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateRealmAssignmentRequest) GetPriorityOk() (*int32, bool) {
-	if o == nil || o.Priority == nil {
+	if o == nil || IsNil(o.Priority) {
 		return nil, false
 	}
 	return o.Priority, true
@@ -173,7 +176,7 @@ func (o *CreateRealmAssignmentRequest) GetPriorityOk() (*int32, bool) {
 
 // HasPriority returns a boolean if a field has been set.
 func (o *CreateRealmAssignmentRequest) HasPriority() bool {
-	if o != nil && o.Priority != nil {
+	if o != nil && !IsNil(o.Priority) {
 		return true
 	}
 
@@ -186,17 +189,25 @@ func (o *CreateRealmAssignmentRequest) SetPriority(v int32) {
 }
 
 func (o CreateRealmAssignmentRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CreateRealmAssignmentRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Actions != nil {
+	if !IsNil(o.Actions) {
 		toSerialize["actions"] = o.Actions
 	}
-	if o.Conditions != nil {
+	if !IsNil(o.Conditions) {
 		toSerialize["conditions"] = o.Conditions
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Priority != nil {
+	if !IsNil(o.Priority) {
 		toSerialize["priority"] = o.Priority
 	}
 
@@ -204,30 +215,28 @@ func (o CreateRealmAssignmentRequest) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CreateRealmAssignmentRequest) UnmarshalJSON(bytes []byte) (err error) {
+func (o *CreateRealmAssignmentRequest) UnmarshalJSON(data []byte) (err error) {
 	varCreateRealmAssignmentRequest := _CreateRealmAssignmentRequest{}
 
-	err = json.Unmarshal(bytes, &varCreateRealmAssignmentRequest)
-	if err == nil {
-		*o = CreateRealmAssignmentRequest(varCreateRealmAssignmentRequest)
-	} else {
+	err = json.Unmarshal(data, &varCreateRealmAssignmentRequest)
+
+	if err != nil {
 		return err
 	}
 
+	*o = CreateRealmAssignmentRequest(varCreateRealmAssignmentRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "actions")
 		delete(additionalProperties, "conditions")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "priority")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -268,4 +277,3 @@ func (v *NullableCreateRealmAssignmentRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

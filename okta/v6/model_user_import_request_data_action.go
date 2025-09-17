@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserImportRequestDataAction type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserImportRequestDataAction{}
+
 // UserImportRequestDataAction The object that specifies the default action Okta is set to take
 type UserImportRequestDataAction struct {
 	// The current default action that results when Okta imports a user. The two possible values are `CREATE_USER` and `LINK_USER`. You can change the action that is taken by means of the commands object you return.
-	Result *string `json:"result,omitempty"`
+	Result               *string `json:"result,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewUserImportRequestDataActionWithDefaults() *UserImportRequestDataAction {
 
 // GetResult returns the Result field value if set, zero value otherwise.
 func (o *UserImportRequestDataAction) GetResult() string {
-	if o == nil || o.Result == nil {
+	if o == nil || IsNil(o.Result) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *UserImportRequestDataAction) GetResult() string {
 // GetResultOk returns a tuple with the Result field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserImportRequestDataAction) GetResultOk() (*string, bool) {
-	if o == nil || o.Result == nil {
+	if o == nil || IsNil(o.Result) {
 		return nil, false
 	}
 	return o.Result, true
@@ -73,7 +76,7 @@ func (o *UserImportRequestDataAction) GetResultOk() (*string, bool) {
 
 // HasResult returns a boolean if a field has been set.
 func (o *UserImportRequestDataAction) HasResult() bool {
-	if o != nil && o.Result != nil {
+	if o != nil && !IsNil(o.Result) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *UserImportRequestDataAction) SetResult(v string) {
 }
 
 func (o UserImportRequestDataAction) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserImportRequestDataAction) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Result != nil {
+	if !IsNil(o.Result) {
 		toSerialize["result"] = o.Result
 	}
 
@@ -95,27 +106,25 @@ func (o UserImportRequestDataAction) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserImportRequestDataAction) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserImportRequestDataAction) UnmarshalJSON(data []byte) (err error) {
 	varUserImportRequestDataAction := _UserImportRequestDataAction{}
 
-	err = json.Unmarshal(bytes, &varUserImportRequestDataAction)
-	if err == nil {
-		*o = UserImportRequestDataAction(varUserImportRequestDataAction)
-	} else {
+	err = json.Unmarshal(data, &varUserImportRequestDataAction)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserImportRequestDataAction(varUserImportRequestDataAction)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "result")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableUserImportRequestDataAction) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

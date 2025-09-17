@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the DevicePostureChecksRemediationSettingsMessage type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DevicePostureChecksRemediationSettingsMessage{}
+
 // DevicePostureChecksRemediationSettingsMessage struct for DevicePostureChecksRemediationSettingsMessage
 type DevicePostureChecksRemediationSettingsMessage struct {
 	// Default i18n key for the message. This property is only relevant if type is set to `BUILTIN`. If type is set to `CUSTOM`, this field is ignored.
 	DefaultI18nKey *string `json:"defaultI18nKey,omitempty"`
 	// Custom text for the message
-	CustomText *string `json:"customText,omitempty"`
+	CustomText           *string `json:"customText,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewDevicePostureChecksRemediationSettingsMessageWithDefaults() *DevicePostu
 
 // GetDefaultI18nKey returns the DefaultI18nKey field value if set, zero value otherwise.
 func (o *DevicePostureChecksRemediationSettingsMessage) GetDefaultI18nKey() string {
-	if o == nil || o.DefaultI18nKey == nil {
+	if o == nil || IsNil(o.DefaultI18nKey) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *DevicePostureChecksRemediationSettingsMessage) GetDefaultI18nKey() stri
 // GetDefaultI18nKeyOk returns a tuple with the DefaultI18nKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DevicePostureChecksRemediationSettingsMessage) GetDefaultI18nKeyOk() (*string, bool) {
-	if o == nil || o.DefaultI18nKey == nil {
+	if o == nil || IsNil(o.DefaultI18nKey) {
 		return nil, false
 	}
 	return o.DefaultI18nKey, true
@@ -75,7 +78,7 @@ func (o *DevicePostureChecksRemediationSettingsMessage) GetDefaultI18nKeyOk() (*
 
 // HasDefaultI18nKey returns a boolean if a field has been set.
 func (o *DevicePostureChecksRemediationSettingsMessage) HasDefaultI18nKey() bool {
-	if o != nil && o.DefaultI18nKey != nil {
+	if o != nil && !IsNil(o.DefaultI18nKey) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *DevicePostureChecksRemediationSettingsMessage) SetDefaultI18nKey(v stri
 
 // GetCustomText returns the CustomText field value if set, zero value otherwise.
 func (o *DevicePostureChecksRemediationSettingsMessage) GetCustomText() string {
-	if o == nil || o.CustomText == nil {
+	if o == nil || IsNil(o.CustomText) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *DevicePostureChecksRemediationSettingsMessage) GetCustomText() string {
 // GetCustomTextOk returns a tuple with the CustomText field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DevicePostureChecksRemediationSettingsMessage) GetCustomTextOk() (*string, bool) {
-	if o == nil || o.CustomText == nil {
+	if o == nil || IsNil(o.CustomText) {
 		return nil, false
 	}
 	return o.CustomText, true
@@ -107,7 +110,7 @@ func (o *DevicePostureChecksRemediationSettingsMessage) GetCustomTextOk() (*stri
 
 // HasCustomText returns a boolean if a field has been set.
 func (o *DevicePostureChecksRemediationSettingsMessage) HasCustomText() bool {
-	if o != nil && o.CustomText != nil {
+	if o != nil && !IsNil(o.CustomText) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *DevicePostureChecksRemediationSettingsMessage) SetCustomText(v string) 
 }
 
 func (o DevicePostureChecksRemediationSettingsMessage) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DevicePostureChecksRemediationSettingsMessage) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.DefaultI18nKey != nil {
+	if !IsNil(o.DefaultI18nKey) {
 		toSerialize["defaultI18nKey"] = o.DefaultI18nKey
 	}
-	if o.CustomText != nil {
+	if !IsNil(o.CustomText) {
 		toSerialize["customText"] = o.CustomText
 	}
 
@@ -132,28 +143,26 @@ func (o DevicePostureChecksRemediationSettingsMessage) MarshalJSON() ([]byte, er
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DevicePostureChecksRemediationSettingsMessage) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DevicePostureChecksRemediationSettingsMessage) UnmarshalJSON(data []byte) (err error) {
 	varDevicePostureChecksRemediationSettingsMessage := _DevicePostureChecksRemediationSettingsMessage{}
 
-	err = json.Unmarshal(bytes, &varDevicePostureChecksRemediationSettingsMessage)
-	if err == nil {
-		*o = DevicePostureChecksRemediationSettingsMessage(varDevicePostureChecksRemediationSettingsMessage)
-	} else {
+	err = json.Unmarshal(data, &varDevicePostureChecksRemediationSettingsMessage)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DevicePostureChecksRemediationSettingsMessage(varDevicePostureChecksRemediationSettingsMessage)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "defaultI18nKey")
 		delete(additionalProperties, "customText")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableDevicePostureChecksRemediationSettingsMessage) UnmarshalJSON(sr
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

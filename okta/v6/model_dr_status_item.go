@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the DRStatusItem type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DRStatusItem{}
+
 // DRStatusItem Status whether a domain has been failed over or not
 type DRStatusItem struct {
 	// Domain for your org
 	Domain *string `json:"domain,omitempty"`
 	// Indicates if the domain has been failed over
-	IsFailedOver *bool `json:"isFailedOver,omitempty"`
+	IsFailedOver         *bool `json:"isFailedOver,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewDRStatusItemWithDefaults() *DRStatusItem {
 
 // GetDomain returns the Domain field value if set, zero value otherwise.
 func (o *DRStatusItem) GetDomain() string {
-	if o == nil || o.Domain == nil {
+	if o == nil || IsNil(o.Domain) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *DRStatusItem) GetDomain() string {
 // GetDomainOk returns a tuple with the Domain field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DRStatusItem) GetDomainOk() (*string, bool) {
-	if o == nil || o.Domain == nil {
+	if o == nil || IsNil(o.Domain) {
 		return nil, false
 	}
 	return o.Domain, true
@@ -75,7 +78,7 @@ func (o *DRStatusItem) GetDomainOk() (*string, bool) {
 
 // HasDomain returns a boolean if a field has been set.
 func (o *DRStatusItem) HasDomain() bool {
-	if o != nil && o.Domain != nil {
+	if o != nil && !IsNil(o.Domain) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *DRStatusItem) SetDomain(v string) {
 
 // GetIsFailedOver returns the IsFailedOver field value if set, zero value otherwise.
 func (o *DRStatusItem) GetIsFailedOver() bool {
-	if o == nil || o.IsFailedOver == nil {
+	if o == nil || IsNil(o.IsFailedOver) {
 		var ret bool
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *DRStatusItem) GetIsFailedOver() bool {
 // GetIsFailedOverOk returns a tuple with the IsFailedOver field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DRStatusItem) GetIsFailedOverOk() (*bool, bool) {
-	if o == nil || o.IsFailedOver == nil {
+	if o == nil || IsNil(o.IsFailedOver) {
 		return nil, false
 	}
 	return o.IsFailedOver, true
@@ -107,7 +110,7 @@ func (o *DRStatusItem) GetIsFailedOverOk() (*bool, bool) {
 
 // HasIsFailedOver returns a boolean if a field has been set.
 func (o *DRStatusItem) HasIsFailedOver() bool {
-	if o != nil && o.IsFailedOver != nil {
+	if o != nil && !IsNil(o.IsFailedOver) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *DRStatusItem) SetIsFailedOver(v bool) {
 }
 
 func (o DRStatusItem) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DRStatusItem) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Domain != nil {
+	if !IsNil(o.Domain) {
 		toSerialize["domain"] = o.Domain
 	}
-	if o.IsFailedOver != nil {
+	if !IsNil(o.IsFailedOver) {
 		toSerialize["isFailedOver"] = o.IsFailedOver
 	}
 
@@ -132,28 +143,26 @@ func (o DRStatusItem) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DRStatusItem) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DRStatusItem) UnmarshalJSON(data []byte) (err error) {
 	varDRStatusItem := _DRStatusItem{}
 
-	err = json.Unmarshal(bytes, &varDRStatusItem)
-	if err == nil {
-		*o = DRStatusItem(varDRStatusItem)
-	} else {
+	err = json.Unmarshal(data, &varDRStatusItem)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DRStatusItem(varDRStatusItem)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "domain")
 		delete(additionalProperties, "isFailedOver")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableDRStatusItem) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

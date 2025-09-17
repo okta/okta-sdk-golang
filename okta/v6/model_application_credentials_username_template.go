@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ApplicationCredentialsUsernameTemplate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApplicationCredentialsUsernameTemplate{}
+
 // ApplicationCredentialsUsernameTemplate The template used to generate the username when the app is assigned through a group or directly to a user
 type ApplicationCredentialsUsernameTemplate struct {
 	// Determines if the username is pushed to the app on updates for CUSTOM `type`
@@ -36,7 +39,7 @@ type ApplicationCredentialsUsernameTemplate struct {
 	// Type of mapping expression. Empty string is allowed.
 	Type *string `json:"type,omitempty"`
 	// An optional suffix appended to usernames for `BUILT_IN` mapping expressions
-	UserSuffix *string `json:"userSuffix,omitempty"`
+	UserSuffix           *string `json:"userSuffix,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -69,7 +72,7 @@ func NewApplicationCredentialsUsernameTemplateWithDefaults() *ApplicationCredent
 
 // GetPushStatus returns the PushStatus field value if set, zero value otherwise.
 func (o *ApplicationCredentialsUsernameTemplate) GetPushStatus() string {
-	if o == nil || o.PushStatus == nil {
+	if o == nil || IsNil(o.PushStatus) {
 		var ret string
 		return ret
 	}
@@ -79,7 +82,7 @@ func (o *ApplicationCredentialsUsernameTemplate) GetPushStatus() string {
 // GetPushStatusOk returns a tuple with the PushStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationCredentialsUsernameTemplate) GetPushStatusOk() (*string, bool) {
-	if o == nil || o.PushStatus == nil {
+	if o == nil || IsNil(o.PushStatus) {
 		return nil, false
 	}
 	return o.PushStatus, true
@@ -87,7 +90,7 @@ func (o *ApplicationCredentialsUsernameTemplate) GetPushStatusOk() (*string, boo
 
 // HasPushStatus returns a boolean if a field has been set.
 func (o *ApplicationCredentialsUsernameTemplate) HasPushStatus() bool {
-	if o != nil && o.PushStatus != nil {
+	if o != nil && !IsNil(o.PushStatus) {
 		return true
 	}
 
@@ -101,7 +104,7 @@ func (o *ApplicationCredentialsUsernameTemplate) SetPushStatus(v string) {
 
 // GetTemplate returns the Template field value if set, zero value otherwise.
 func (o *ApplicationCredentialsUsernameTemplate) GetTemplate() string {
-	if o == nil || o.Template == nil {
+	if o == nil || IsNil(o.Template) {
 		var ret string
 		return ret
 	}
@@ -111,7 +114,7 @@ func (o *ApplicationCredentialsUsernameTemplate) GetTemplate() string {
 // GetTemplateOk returns a tuple with the Template field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationCredentialsUsernameTemplate) GetTemplateOk() (*string, bool) {
-	if o == nil || o.Template == nil {
+	if o == nil || IsNil(o.Template) {
 		return nil, false
 	}
 	return o.Template, true
@@ -119,7 +122,7 @@ func (o *ApplicationCredentialsUsernameTemplate) GetTemplateOk() (*string, bool)
 
 // HasTemplate returns a boolean if a field has been set.
 func (o *ApplicationCredentialsUsernameTemplate) HasTemplate() bool {
-	if o != nil && o.Template != nil {
+	if o != nil && !IsNil(o.Template) {
 		return true
 	}
 
@@ -133,7 +136,7 @@ func (o *ApplicationCredentialsUsernameTemplate) SetTemplate(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *ApplicationCredentialsUsernameTemplate) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -143,7 +146,7 @@ func (o *ApplicationCredentialsUsernameTemplate) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationCredentialsUsernameTemplate) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -151,7 +154,7 @@ func (o *ApplicationCredentialsUsernameTemplate) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *ApplicationCredentialsUsernameTemplate) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -165,7 +168,7 @@ func (o *ApplicationCredentialsUsernameTemplate) SetType(v string) {
 
 // GetUserSuffix returns the UserSuffix field value if set, zero value otherwise.
 func (o *ApplicationCredentialsUsernameTemplate) GetUserSuffix() string {
-	if o == nil || o.UserSuffix == nil {
+	if o == nil || IsNil(o.UserSuffix) {
 		var ret string
 		return ret
 	}
@@ -175,7 +178,7 @@ func (o *ApplicationCredentialsUsernameTemplate) GetUserSuffix() string {
 // GetUserSuffixOk returns a tuple with the UserSuffix field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationCredentialsUsernameTemplate) GetUserSuffixOk() (*string, bool) {
-	if o == nil || o.UserSuffix == nil {
+	if o == nil || IsNil(o.UserSuffix) {
 		return nil, false
 	}
 	return o.UserSuffix, true
@@ -183,7 +186,7 @@ func (o *ApplicationCredentialsUsernameTemplate) GetUserSuffixOk() (*string, boo
 
 // HasUserSuffix returns a boolean if a field has been set.
 func (o *ApplicationCredentialsUsernameTemplate) HasUserSuffix() bool {
-	if o != nil && o.UserSuffix != nil {
+	if o != nil && !IsNil(o.UserSuffix) {
 		return true
 	}
 
@@ -196,17 +199,25 @@ func (o *ApplicationCredentialsUsernameTemplate) SetUserSuffix(v string) {
 }
 
 func (o ApplicationCredentialsUsernameTemplate) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApplicationCredentialsUsernameTemplate) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.PushStatus != nil {
+	if !IsNil(o.PushStatus) {
 		toSerialize["pushStatus"] = o.PushStatus
 	}
-	if o.Template != nil {
+	if !IsNil(o.Template) {
 		toSerialize["template"] = o.Template
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.UserSuffix != nil {
+	if !IsNil(o.UserSuffix) {
 		toSerialize["userSuffix"] = o.UserSuffix
 	}
 
@@ -214,30 +225,28 @@ func (o ApplicationCredentialsUsernameTemplate) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ApplicationCredentialsUsernameTemplate) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ApplicationCredentialsUsernameTemplate) UnmarshalJSON(data []byte) (err error) {
 	varApplicationCredentialsUsernameTemplate := _ApplicationCredentialsUsernameTemplate{}
 
-	err = json.Unmarshal(bytes, &varApplicationCredentialsUsernameTemplate)
-	if err == nil {
-		*o = ApplicationCredentialsUsernameTemplate(varApplicationCredentialsUsernameTemplate)
-	} else {
+	err = json.Unmarshal(data, &varApplicationCredentialsUsernameTemplate)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ApplicationCredentialsUsernameTemplate(varApplicationCredentialsUsernameTemplate)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "pushStatus")
 		delete(additionalProperties, "template")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "userSuffix")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -278,4 +287,3 @@ func (v *NullableApplicationCredentialsUsernameTemplate) UnmarshalJSON(src []byt
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

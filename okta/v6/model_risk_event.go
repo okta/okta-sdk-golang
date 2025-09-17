@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,9 +25,12 @@ package okta
 
 import (
 	"encoding/json"
-	"time"
 	"fmt"
+	"time"
 )
+
+// checks if the RiskEvent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RiskEvent{}
 
 // RiskEvent struct for RiskEvent
 type RiskEvent struct {
@@ -36,7 +39,7 @@ type RiskEvent struct {
 	// List of risk event subjects
 	Subjects []RiskEventSubject `json:"subjects"`
 	// Timestamp of when the event is produced (expressed as a UTC time zone using ISO 8601 format: yyyy-MM-dd`T`HH:mm:ss.SSS`Z`)
-	Timestamp *time.Time `json:"timestamp,omitempty"`
+	Timestamp            *time.Time `json:"timestamp,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -62,7 +65,7 @@ func NewRiskEventWithDefaults() *RiskEvent {
 
 // GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
 func (o *RiskEvent) GetExpiresAt() time.Time {
-	if o == nil || o.ExpiresAt == nil {
+	if o == nil || IsNil(o.ExpiresAt) {
 		var ret time.Time
 		return ret
 	}
@@ -72,7 +75,7 @@ func (o *RiskEvent) GetExpiresAt() time.Time {
 // GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskEvent) GetExpiresAtOk() (*time.Time, bool) {
-	if o == nil || o.ExpiresAt == nil {
+	if o == nil || IsNil(o.ExpiresAt) {
 		return nil, false
 	}
 	return o.ExpiresAt, true
@@ -80,7 +83,7 @@ func (o *RiskEvent) GetExpiresAtOk() (*time.Time, bool) {
 
 // HasExpiresAt returns a boolean if a field has been set.
 func (o *RiskEvent) HasExpiresAt() bool {
-	if o != nil && o.ExpiresAt != nil {
+	if o != nil && !IsNil(o.ExpiresAt) {
 		return true
 	}
 
@@ -118,7 +121,7 @@ func (o *RiskEvent) SetSubjects(v []RiskEventSubject) {
 
 // GetTimestamp returns the Timestamp field value if set, zero value otherwise.
 func (o *RiskEvent) GetTimestamp() time.Time {
-	if o == nil || o.Timestamp == nil {
+	if o == nil || IsNil(o.Timestamp) {
 		var ret time.Time
 		return ret
 	}
@@ -128,7 +131,7 @@ func (o *RiskEvent) GetTimestamp() time.Time {
 // GetTimestampOk returns a tuple with the Timestamp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskEvent) GetTimestampOk() (*time.Time, bool) {
-	if o == nil || o.Timestamp == nil {
+	if o == nil || IsNil(o.Timestamp) {
 		return nil, false
 	}
 	return o.Timestamp, true
@@ -136,7 +139,7 @@ func (o *RiskEvent) GetTimestampOk() (*time.Time, bool) {
 
 // HasTimestamp returns a boolean if a field has been set.
 func (o *RiskEvent) HasTimestamp() bool {
-	if o != nil && o.Timestamp != nil {
+	if o != nil && !IsNil(o.Timestamp) {
 		return true
 	}
 
@@ -149,14 +152,20 @@ func (o *RiskEvent) SetTimestamp(v time.Time) {
 }
 
 func (o RiskEvent) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RiskEvent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ExpiresAt != nil {
+	if !IsNil(o.ExpiresAt) {
 		toSerialize["expiresAt"] = o.ExpiresAt
 	}
-	if true {
-		toSerialize["subjects"] = o.Subjects
-	}
-	if o.Timestamp != nil {
+	toSerialize["subjects"] = o.Subjects
+	if !IsNil(o.Timestamp) {
 		toSerialize["timestamp"] = o.Timestamp
 	}
 
@@ -164,29 +173,48 @@ func (o RiskEvent) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RiskEvent) UnmarshalJSON(bytes []byte) (err error) {
-	varRiskEvent := _RiskEvent{}
+func (o *RiskEvent) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"subjects",
+	}
 
-	err = json.Unmarshal(bytes, &varRiskEvent)
-	if err == nil {
-		*o = RiskEvent(varRiskEvent)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRiskEvent := _RiskEvent{}
+
+	err = json.Unmarshal(data, &varRiskEvent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RiskEvent(varRiskEvent)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "expiresAt")
 		delete(additionalProperties, "subjects")
 		delete(additionalProperties, "timestamp")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -227,4 +255,3 @@ func (v *NullableRiskEvent) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

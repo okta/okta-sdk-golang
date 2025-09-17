@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,12 +28,15 @@ import (
 	"time"
 )
 
+// checks if the UserClassification type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserClassification{}
+
 // UserClassification struct for UserClassification
 type UserClassification struct {
 	// The timestamp when the user classification was last updated
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	// The type of user classification
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewUserClassificationWithDefaults() *UserClassification {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *UserClassification) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *UserClassification) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserClassification) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -76,7 +79,7 @@ func (o *UserClassification) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *UserClassification) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *UserClassification) SetLastUpdated(v time.Time) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *UserClassification) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *UserClassification) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserClassification) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -108,7 +111,7 @@ func (o *UserClassification) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *UserClassification) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -121,11 +124,19 @@ func (o *UserClassification) SetType(v string) {
 }
 
 func (o UserClassification) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserClassification) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -133,28 +144,26 @@ func (o UserClassification) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserClassification) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserClassification) UnmarshalJSON(data []byte) (err error) {
 	varUserClassification := _UserClassification{}
 
-	err = json.Unmarshal(bytes, &varUserClassification)
-	if err == nil {
-		*o = UserClassification(varUserClassification)
-	} else {
+	err = json.Unmarshal(data, &varUserClassification)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserClassification(varUserClassification)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "lastUpdated")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -195,4 +204,3 @@ func (v *NullableUserClassification) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

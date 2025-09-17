@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,13 +28,16 @@ import (
 	"fmt"
 )
 
+// checks if the BrandRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BrandRequest{}
+
 // BrandRequest struct for BrandRequest
 type BrandRequest struct {
 	// Consent for updating the custom privacy URL. Not required when resetting the URL.
 	AgreeToCustomPrivacyPolicy *bool `json:"agreeToCustomPrivacyPolicy,omitempty"`
 	// Custom privacy policy URL
-	CustomPrivacyPolicyUrl *string `json:"customPrivacyPolicyUrl,omitempty"`
-	DefaultApp *DefaultApp `json:"defaultApp,omitempty"`
+	CustomPrivacyPolicyUrl *string     `json:"customPrivacyPolicyUrl,omitempty"`
+	DefaultApp             *DefaultApp `json:"defaultApp,omitempty"`
 	// The ID of the email domain
 	EmailDomainId *string `json:"emailDomainId,omitempty"`
 	// The language specified as an [IETF BCP 47 language tag](https://datatracker.ietf.org/doc/html/rfc5646)
@@ -42,7 +45,7 @@ type BrandRequest struct {
 	// The name of the Brand
 	Name string `json:"name"`
 	// Removes \"Powered by Okta\" from the sign-in page in redirect authentication deployments, and \"© [current year] Okta, Inc.\" from the Okta End-User Dashboard
-	RemovePoweredByOkta *bool `json:"removePoweredByOkta,omitempty"`
+	RemovePoweredByOkta  *bool `json:"removePoweredByOkta,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -72,7 +75,7 @@ func NewBrandRequestWithDefaults() *BrandRequest {
 
 // GetAgreeToCustomPrivacyPolicy returns the AgreeToCustomPrivacyPolicy field value if set, zero value otherwise.
 func (o *BrandRequest) GetAgreeToCustomPrivacyPolicy() bool {
-	if o == nil || o.AgreeToCustomPrivacyPolicy == nil {
+	if o == nil || IsNil(o.AgreeToCustomPrivacyPolicy) {
 		var ret bool
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *BrandRequest) GetAgreeToCustomPrivacyPolicy() bool {
 // GetAgreeToCustomPrivacyPolicyOk returns a tuple with the AgreeToCustomPrivacyPolicy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BrandRequest) GetAgreeToCustomPrivacyPolicyOk() (*bool, bool) {
-	if o == nil || o.AgreeToCustomPrivacyPolicy == nil {
+	if o == nil || IsNil(o.AgreeToCustomPrivacyPolicy) {
 		return nil, false
 	}
 	return o.AgreeToCustomPrivacyPolicy, true
@@ -90,7 +93,7 @@ func (o *BrandRequest) GetAgreeToCustomPrivacyPolicyOk() (*bool, bool) {
 
 // HasAgreeToCustomPrivacyPolicy returns a boolean if a field has been set.
 func (o *BrandRequest) HasAgreeToCustomPrivacyPolicy() bool {
-	if o != nil && o.AgreeToCustomPrivacyPolicy != nil {
+	if o != nil && !IsNil(o.AgreeToCustomPrivacyPolicy) {
 		return true
 	}
 
@@ -104,7 +107,7 @@ func (o *BrandRequest) SetAgreeToCustomPrivacyPolicy(v bool) {
 
 // GetCustomPrivacyPolicyUrl returns the CustomPrivacyPolicyUrl field value if set, zero value otherwise.
 func (o *BrandRequest) GetCustomPrivacyPolicyUrl() string {
-	if o == nil || o.CustomPrivacyPolicyUrl == nil {
+	if o == nil || IsNil(o.CustomPrivacyPolicyUrl) {
 		var ret string
 		return ret
 	}
@@ -114,7 +117,7 @@ func (o *BrandRequest) GetCustomPrivacyPolicyUrl() string {
 // GetCustomPrivacyPolicyUrlOk returns a tuple with the CustomPrivacyPolicyUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BrandRequest) GetCustomPrivacyPolicyUrlOk() (*string, bool) {
-	if o == nil || o.CustomPrivacyPolicyUrl == nil {
+	if o == nil || IsNil(o.CustomPrivacyPolicyUrl) {
 		return nil, false
 	}
 	return o.CustomPrivacyPolicyUrl, true
@@ -122,7 +125,7 @@ func (o *BrandRequest) GetCustomPrivacyPolicyUrlOk() (*string, bool) {
 
 // HasCustomPrivacyPolicyUrl returns a boolean if a field has been set.
 func (o *BrandRequest) HasCustomPrivacyPolicyUrl() bool {
-	if o != nil && o.CustomPrivacyPolicyUrl != nil {
+	if o != nil && !IsNil(o.CustomPrivacyPolicyUrl) {
 		return true
 	}
 
@@ -136,7 +139,7 @@ func (o *BrandRequest) SetCustomPrivacyPolicyUrl(v string) {
 
 // GetDefaultApp returns the DefaultApp field value if set, zero value otherwise.
 func (o *BrandRequest) GetDefaultApp() DefaultApp {
-	if o == nil || o.DefaultApp == nil {
+	if o == nil || IsNil(o.DefaultApp) {
 		var ret DefaultApp
 		return ret
 	}
@@ -146,7 +149,7 @@ func (o *BrandRequest) GetDefaultApp() DefaultApp {
 // GetDefaultAppOk returns a tuple with the DefaultApp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BrandRequest) GetDefaultAppOk() (*DefaultApp, bool) {
-	if o == nil || o.DefaultApp == nil {
+	if o == nil || IsNil(o.DefaultApp) {
 		return nil, false
 	}
 	return o.DefaultApp, true
@@ -154,7 +157,7 @@ func (o *BrandRequest) GetDefaultAppOk() (*DefaultApp, bool) {
 
 // HasDefaultApp returns a boolean if a field has been set.
 func (o *BrandRequest) HasDefaultApp() bool {
-	if o != nil && o.DefaultApp != nil {
+	if o != nil && !IsNil(o.DefaultApp) {
 		return true
 	}
 
@@ -168,7 +171,7 @@ func (o *BrandRequest) SetDefaultApp(v DefaultApp) {
 
 // GetEmailDomainId returns the EmailDomainId field value if set, zero value otherwise.
 func (o *BrandRequest) GetEmailDomainId() string {
-	if o == nil || o.EmailDomainId == nil {
+	if o == nil || IsNil(o.EmailDomainId) {
 		var ret string
 		return ret
 	}
@@ -178,7 +181,7 @@ func (o *BrandRequest) GetEmailDomainId() string {
 // GetEmailDomainIdOk returns a tuple with the EmailDomainId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BrandRequest) GetEmailDomainIdOk() (*string, bool) {
-	if o == nil || o.EmailDomainId == nil {
+	if o == nil || IsNil(o.EmailDomainId) {
 		return nil, false
 	}
 	return o.EmailDomainId, true
@@ -186,7 +189,7 @@ func (o *BrandRequest) GetEmailDomainIdOk() (*string, bool) {
 
 // HasEmailDomainId returns a boolean if a field has been set.
 func (o *BrandRequest) HasEmailDomainId() bool {
-	if o != nil && o.EmailDomainId != nil {
+	if o != nil && !IsNil(o.EmailDomainId) {
 		return true
 	}
 
@@ -200,7 +203,7 @@ func (o *BrandRequest) SetEmailDomainId(v string) {
 
 // GetLocale returns the Locale field value if set, zero value otherwise.
 func (o *BrandRequest) GetLocale() string {
-	if o == nil || o.Locale == nil {
+	if o == nil || IsNil(o.Locale) {
 		var ret string
 		return ret
 	}
@@ -210,7 +213,7 @@ func (o *BrandRequest) GetLocale() string {
 // GetLocaleOk returns a tuple with the Locale field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BrandRequest) GetLocaleOk() (*string, bool) {
-	if o == nil || o.Locale == nil {
+	if o == nil || IsNil(o.Locale) {
 		return nil, false
 	}
 	return o.Locale, true
@@ -218,7 +221,7 @@ func (o *BrandRequest) GetLocaleOk() (*string, bool) {
 
 // HasLocale returns a boolean if a field has been set.
 func (o *BrandRequest) HasLocale() bool {
-	if o != nil && o.Locale != nil {
+	if o != nil && !IsNil(o.Locale) {
 		return true
 	}
 
@@ -256,7 +259,7 @@ func (o *BrandRequest) SetName(v string) {
 
 // GetRemovePoweredByOkta returns the RemovePoweredByOkta field value if set, zero value otherwise.
 func (o *BrandRequest) GetRemovePoweredByOkta() bool {
-	if o == nil || o.RemovePoweredByOkta == nil {
+	if o == nil || IsNil(o.RemovePoweredByOkta) {
 		var ret bool
 		return ret
 	}
@@ -266,7 +269,7 @@ func (o *BrandRequest) GetRemovePoweredByOkta() bool {
 // GetRemovePoweredByOktaOk returns a tuple with the RemovePoweredByOkta field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BrandRequest) GetRemovePoweredByOktaOk() (*bool, bool) {
-	if o == nil || o.RemovePoweredByOkta == nil {
+	if o == nil || IsNil(o.RemovePoweredByOkta) {
 		return nil, false
 	}
 	return o.RemovePoweredByOkta, true
@@ -274,7 +277,7 @@ func (o *BrandRequest) GetRemovePoweredByOktaOk() (*bool, bool) {
 
 // HasRemovePoweredByOkta returns a boolean if a field has been set.
 func (o *BrandRequest) HasRemovePoweredByOkta() bool {
-	if o != nil && o.RemovePoweredByOkta != nil {
+	if o != nil && !IsNil(o.RemovePoweredByOkta) {
 		return true
 	}
 
@@ -287,26 +290,32 @@ func (o *BrandRequest) SetRemovePoweredByOkta(v bool) {
 }
 
 func (o BrandRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BrandRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AgreeToCustomPrivacyPolicy != nil {
+	if !IsNil(o.AgreeToCustomPrivacyPolicy) {
 		toSerialize["agreeToCustomPrivacyPolicy"] = o.AgreeToCustomPrivacyPolicy
 	}
-	if o.CustomPrivacyPolicyUrl != nil {
+	if !IsNil(o.CustomPrivacyPolicyUrl) {
 		toSerialize["customPrivacyPolicyUrl"] = o.CustomPrivacyPolicyUrl
 	}
-	if o.DefaultApp != nil {
+	if !IsNil(o.DefaultApp) {
 		toSerialize["defaultApp"] = o.DefaultApp
 	}
-	if o.EmailDomainId != nil {
+	if !IsNil(o.EmailDomainId) {
 		toSerialize["emailDomainId"] = o.EmailDomainId
 	}
-	if o.Locale != nil {
+	if !IsNil(o.Locale) {
 		toSerialize["locale"] = o.Locale
 	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.RemovePoweredByOkta != nil {
+	toSerialize["name"] = o.Name
+	if !IsNil(o.RemovePoweredByOkta) {
 		toSerialize["removePoweredByOkta"] = o.RemovePoweredByOkta
 	}
 
@@ -314,23 +323,44 @@ func (o BrandRequest) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *BrandRequest) UnmarshalJSON(bytes []byte) (err error) {
-	varBrandRequest := _BrandRequest{}
+func (o *BrandRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+	}
 
-	err = json.Unmarshal(bytes, &varBrandRequest)
-	if err == nil {
-		*o = BrandRequest(varBrandRequest)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varBrandRequest := _BrandRequest{}
+
+	err = json.Unmarshal(data, &varBrandRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BrandRequest(varBrandRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "agreeToCustomPrivacyPolicy")
 		delete(additionalProperties, "customPrivacyPolicyUrl")
 		delete(additionalProperties, "defaultApp")
@@ -339,8 +369,6 @@ func (o *BrandRequest) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "removePoweredByOkta")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -381,4 +409,3 @@ func (v *NullableBrandRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the FulfillmentDataOrderDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FulfillmentDataOrderDetails{}
+
 // FulfillmentDataOrderDetails Information about the fulfillment order that includes the factor’s make and model, the custom configuration of the factor, and inventory details.
 type FulfillmentDataOrderDetails struct {
 	// ID for the set of custom configurations of the requested factor
@@ -34,7 +37,7 @@ type FulfillmentDataOrderDetails struct {
 	// ID for the specific inventory bucket of the requested factor
 	InventoryProductId *string `json:"inventoryProductId,omitempty"`
 	// ID for the make and model of the requested factor
-	ProductId *string `json:"productId,omitempty"`
+	ProductId            *string `json:"productId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewFulfillmentDataOrderDetailsWithDefaults() *FulfillmentDataOrderDetails {
 
 // GetCustomizationId returns the CustomizationId field value if set, zero value otherwise.
 func (o *FulfillmentDataOrderDetails) GetCustomizationId() string {
-	if o == nil || o.CustomizationId == nil {
+	if o == nil || IsNil(o.CustomizationId) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *FulfillmentDataOrderDetails) GetCustomizationId() string {
 // GetCustomizationIdOk returns a tuple with the CustomizationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FulfillmentDataOrderDetails) GetCustomizationIdOk() (*string, bool) {
-	if o == nil || o.CustomizationId == nil {
+	if o == nil || IsNil(o.CustomizationId) {
 		return nil, false
 	}
 	return o.CustomizationId, true
@@ -77,7 +80,7 @@ func (o *FulfillmentDataOrderDetails) GetCustomizationIdOk() (*string, bool) {
 
 // HasCustomizationId returns a boolean if a field has been set.
 func (o *FulfillmentDataOrderDetails) HasCustomizationId() bool {
-	if o != nil && o.CustomizationId != nil {
+	if o != nil && !IsNil(o.CustomizationId) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *FulfillmentDataOrderDetails) SetCustomizationId(v string) {
 
 // GetInventoryProductId returns the InventoryProductId field value if set, zero value otherwise.
 func (o *FulfillmentDataOrderDetails) GetInventoryProductId() string {
-	if o == nil || o.InventoryProductId == nil {
+	if o == nil || IsNil(o.InventoryProductId) {
 		var ret string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *FulfillmentDataOrderDetails) GetInventoryProductId() string {
 // GetInventoryProductIdOk returns a tuple with the InventoryProductId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FulfillmentDataOrderDetails) GetInventoryProductIdOk() (*string, bool) {
-	if o == nil || o.InventoryProductId == nil {
+	if o == nil || IsNil(o.InventoryProductId) {
 		return nil, false
 	}
 	return o.InventoryProductId, true
@@ -109,7 +112,7 @@ func (o *FulfillmentDataOrderDetails) GetInventoryProductIdOk() (*string, bool) 
 
 // HasInventoryProductId returns a boolean if a field has been set.
 func (o *FulfillmentDataOrderDetails) HasInventoryProductId() bool {
-	if o != nil && o.InventoryProductId != nil {
+	if o != nil && !IsNil(o.InventoryProductId) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *FulfillmentDataOrderDetails) SetInventoryProductId(v string) {
 
 // GetProductId returns the ProductId field value if set, zero value otherwise.
 func (o *FulfillmentDataOrderDetails) GetProductId() string {
-	if o == nil || o.ProductId == nil {
+	if o == nil || IsNil(o.ProductId) {
 		var ret string
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *FulfillmentDataOrderDetails) GetProductId() string {
 // GetProductIdOk returns a tuple with the ProductId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FulfillmentDataOrderDetails) GetProductIdOk() (*string, bool) {
-	if o == nil || o.ProductId == nil {
+	if o == nil || IsNil(o.ProductId) {
 		return nil, false
 	}
 	return o.ProductId, true
@@ -141,7 +144,7 @@ func (o *FulfillmentDataOrderDetails) GetProductIdOk() (*string, bool) {
 
 // HasProductId returns a boolean if a field has been set.
 func (o *FulfillmentDataOrderDetails) HasProductId() bool {
-	if o != nil && o.ProductId != nil {
+	if o != nil && !IsNil(o.ProductId) {
 		return true
 	}
 
@@ -154,14 +157,22 @@ func (o *FulfillmentDataOrderDetails) SetProductId(v string) {
 }
 
 func (o FulfillmentDataOrderDetails) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o FulfillmentDataOrderDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.CustomizationId != nil {
+	if !IsNil(o.CustomizationId) {
 		toSerialize["customizationId"] = o.CustomizationId
 	}
-	if o.InventoryProductId != nil {
+	if !IsNil(o.InventoryProductId) {
 		toSerialize["inventoryProductId"] = o.InventoryProductId
 	}
-	if o.ProductId != nil {
+	if !IsNil(o.ProductId) {
 		toSerialize["productId"] = o.ProductId
 	}
 
@@ -169,29 +180,27 @@ func (o FulfillmentDataOrderDetails) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *FulfillmentDataOrderDetails) UnmarshalJSON(bytes []byte) (err error) {
+func (o *FulfillmentDataOrderDetails) UnmarshalJSON(data []byte) (err error) {
 	varFulfillmentDataOrderDetails := _FulfillmentDataOrderDetails{}
 
-	err = json.Unmarshal(bytes, &varFulfillmentDataOrderDetails)
-	if err == nil {
-		*o = FulfillmentDataOrderDetails(varFulfillmentDataOrderDetails)
-	} else {
+	err = json.Unmarshal(data, &varFulfillmentDataOrderDetails)
+
+	if err != nil {
 		return err
 	}
 
+	*o = FulfillmentDataOrderDetails(varFulfillmentDataOrderDetails)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "customizationId")
 		delete(additionalProperties, "inventoryProductId")
 		delete(additionalProperties, "productId")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -232,4 +241,3 @@ func (v *NullableFulfillmentDataOrderDetails) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

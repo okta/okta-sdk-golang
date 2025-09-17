@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,10 +28,13 @@ import (
 	"time"
 )
 
+// checks if the AppUser type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AppUser{}
+
 // AppUser The application user object defines a user's app-specific profile and credentials for an app
 type AppUser struct {
 	// Timestamp when the object was created
-	Created *time.Time `json:"created,omitempty"`
+	Created     *time.Time          `json:"created,omitempty"`
 	Credentials *AppUserCredentials `json:"credentials,omitempty"`
 	// The ID of the user in the target app that's linked to the Okta application user object. This value is the native app-specific identifier or primary key for the user in the target app.  The `externalId` is set during import when the user is confirmed (reconciled) or during provisioning when the user is created in the target app. This value isn't populated for SSO app assignments (for example, SAML or SWA) because it isn't synchronized with a target app.
 	ExternalId *string `json:"externalId,omitempty"`
@@ -43,7 +46,7 @@ type AppUser struct {
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	// Timestamp when the application user password was last changed
 	PasswordChanged NullableTime `json:"passwordChanged,omitempty"`
-	// Specifies the default and custom profile properties for a user. Properties that are visible in the Admin Console for an app assignment can also be assigned through the API. Some properties are reference properties that are imported from the target app and can't be configured. See [profile](/openapi/okta-management/management/tag/User/#tag/User/operation/getUser!c=200&path=profile&t=response). 
+	// Specifies the default and custom profile properties for a user. Properties that are visible in the Admin Console for an app assignment can also be assigned through the API. Some properties are reference properties that are imported from the target app and can't be configured. See [profile](/openapi/okta-management/management/tag/User/#tag/User/operation/getUser!c=200&path=profile&t=response).
 	Profile map[string]interface{} `json:"profile,omitempty"`
 	// Indicates if the assignment is direct (`USER`) or by group membership (`GROUP`).
 	Scope *string `json:"scope,omitempty"`
@@ -54,8 +57,8 @@ type AppUser struct {
 	// The synchronization state for the application user. The application user's `syncState` depends on whether the `PROFILE_MASTERING` feature is enabled for the app.  > **Note:** User provisioning currently must be configured through the Admin Console.
 	SyncState *string `json:"syncState,omitempty"`
 	// Embedded resources related to the application user using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification
-	Embedded map[string]map[string]interface{} `json:"_embedded,omitempty"`
-	Links *LinksAppAndUser `json:"_links,omitempty"`
+	Embedded             map[string]map[string]interface{} `json:"_embedded,omitempty"`
+	Links                *LinksAppAndUser                  `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -80,7 +83,7 @@ func NewAppUserWithDefaults() *AppUser {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *AppUser) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -90,7 +93,7 @@ func (o *AppUser) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppUser) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -98,7 +101,7 @@ func (o *AppUser) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *AppUser) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -112,7 +115,7 @@ func (o *AppUser) SetCreated(v time.Time) {
 
 // GetCredentials returns the Credentials field value if set, zero value otherwise.
 func (o *AppUser) GetCredentials() AppUserCredentials {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		var ret AppUserCredentials
 		return ret
 	}
@@ -122,7 +125,7 @@ func (o *AppUser) GetCredentials() AppUserCredentials {
 // GetCredentialsOk returns a tuple with the Credentials field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppUser) GetCredentialsOk() (*AppUserCredentials, bool) {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		return nil, false
 	}
 	return o.Credentials, true
@@ -130,7 +133,7 @@ func (o *AppUser) GetCredentialsOk() (*AppUserCredentials, bool) {
 
 // HasCredentials returns a boolean if a field has been set.
 func (o *AppUser) HasCredentials() bool {
-	if o != nil && o.Credentials != nil {
+	if o != nil && !IsNil(o.Credentials) {
 		return true
 	}
 
@@ -144,7 +147,7 @@ func (o *AppUser) SetCredentials(v AppUserCredentials) {
 
 // GetExternalId returns the ExternalId field value if set, zero value otherwise.
 func (o *AppUser) GetExternalId() string {
-	if o == nil || o.ExternalId == nil {
+	if o == nil || IsNil(o.ExternalId) {
 		var ret string
 		return ret
 	}
@@ -154,7 +157,7 @@ func (o *AppUser) GetExternalId() string {
 // GetExternalIdOk returns a tuple with the ExternalId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppUser) GetExternalIdOk() (*string, bool) {
-	if o == nil || o.ExternalId == nil {
+	if o == nil || IsNil(o.ExternalId) {
 		return nil, false
 	}
 	return o.ExternalId, true
@@ -162,7 +165,7 @@ func (o *AppUser) GetExternalIdOk() (*string, bool) {
 
 // HasExternalId returns a boolean if a field has been set.
 func (o *AppUser) HasExternalId() bool {
-	if o != nil && o.ExternalId != nil {
+	if o != nil && !IsNil(o.ExternalId) {
 		return true
 	}
 
@@ -176,7 +179,7 @@ func (o *AppUser) SetExternalId(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *AppUser) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -186,7 +189,7 @@ func (o *AppUser) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppUser) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -194,7 +197,7 @@ func (o *AppUser) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *AppUser) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -208,7 +211,7 @@ func (o *AppUser) SetId(v string) {
 
 // GetLastSync returns the LastSync field value if set, zero value otherwise.
 func (o *AppUser) GetLastSync() time.Time {
-	if o == nil || o.LastSync == nil {
+	if o == nil || IsNil(o.LastSync) {
 		var ret time.Time
 		return ret
 	}
@@ -218,7 +221,7 @@ func (o *AppUser) GetLastSync() time.Time {
 // GetLastSyncOk returns a tuple with the LastSync field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppUser) GetLastSyncOk() (*time.Time, bool) {
-	if o == nil || o.LastSync == nil {
+	if o == nil || IsNil(o.LastSync) {
 		return nil, false
 	}
 	return o.LastSync, true
@@ -226,7 +229,7 @@ func (o *AppUser) GetLastSyncOk() (*time.Time, bool) {
 
 // HasLastSync returns a boolean if a field has been set.
 func (o *AppUser) HasLastSync() bool {
-	if o != nil && o.LastSync != nil {
+	if o != nil && !IsNil(o.LastSync) {
 		return true
 	}
 
@@ -240,7 +243,7 @@ func (o *AppUser) SetLastSync(v time.Time) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *AppUser) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -250,7 +253,7 @@ func (o *AppUser) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppUser) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -258,7 +261,7 @@ func (o *AppUser) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *AppUser) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -272,7 +275,7 @@ func (o *AppUser) SetLastUpdated(v time.Time) {
 
 // GetPasswordChanged returns the PasswordChanged field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *AppUser) GetPasswordChanged() time.Time {
-	if o == nil || o.PasswordChanged.Get() == nil {
+	if o == nil || IsNil(o.PasswordChanged.Get()) {
 		var ret time.Time
 		return ret
 	}
@@ -302,6 +305,7 @@ func (o *AppUser) HasPasswordChanged() bool {
 func (o *AppUser) SetPasswordChanged(v time.Time) {
 	o.PasswordChanged.Set(&v)
 }
+
 // SetPasswordChangedNil sets the value for PasswordChanged to be an explicit nil
 func (o *AppUser) SetPasswordChangedNil() {
 	o.PasswordChanged.Set(nil)
@@ -314,7 +318,7 @@ func (o *AppUser) UnsetPasswordChanged() {
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *AppUser) GetProfile() map[string]interface{} {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -324,15 +328,15 @@ func (o *AppUser) GetProfile() map[string]interface{} {
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppUser) GetProfileOk() (map[string]interface{}, bool) {
-	if o == nil || o.Profile == nil {
-		return nil, false
+	if o == nil || IsNil(o.Profile) {
+		return map[string]interface{}{}, false
 	}
 	return o.Profile, true
 }
 
 // HasProfile returns a boolean if a field has been set.
 func (o *AppUser) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -346,7 +350,7 @@ func (o *AppUser) SetProfile(v map[string]interface{}) {
 
 // GetScope returns the Scope field value if set, zero value otherwise.
 func (o *AppUser) GetScope() string {
-	if o == nil || o.Scope == nil {
+	if o == nil || IsNil(o.Scope) {
 		var ret string
 		return ret
 	}
@@ -356,7 +360,7 @@ func (o *AppUser) GetScope() string {
 // GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppUser) GetScopeOk() (*string, bool) {
-	if o == nil || o.Scope == nil {
+	if o == nil || IsNil(o.Scope) {
 		return nil, false
 	}
 	return o.Scope, true
@@ -364,7 +368,7 @@ func (o *AppUser) GetScopeOk() (*string, bool) {
 
 // HasScope returns a boolean if a field has been set.
 func (o *AppUser) HasScope() bool {
-	if o != nil && o.Scope != nil {
+	if o != nil && !IsNil(o.Scope) {
 		return true
 	}
 
@@ -378,7 +382,7 @@ func (o *AppUser) SetScope(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *AppUser) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -388,7 +392,7 @@ func (o *AppUser) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppUser) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -396,7 +400,7 @@ func (o *AppUser) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *AppUser) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -410,7 +414,7 @@ func (o *AppUser) SetStatus(v string) {
 
 // GetStatusChanged returns the StatusChanged field value if set, zero value otherwise.
 func (o *AppUser) GetStatusChanged() time.Time {
-	if o == nil || o.StatusChanged == nil {
+	if o == nil || IsNil(o.StatusChanged) {
 		var ret time.Time
 		return ret
 	}
@@ -420,7 +424,7 @@ func (o *AppUser) GetStatusChanged() time.Time {
 // GetStatusChangedOk returns a tuple with the StatusChanged field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppUser) GetStatusChangedOk() (*time.Time, bool) {
-	if o == nil || o.StatusChanged == nil {
+	if o == nil || IsNil(o.StatusChanged) {
 		return nil, false
 	}
 	return o.StatusChanged, true
@@ -428,7 +432,7 @@ func (o *AppUser) GetStatusChangedOk() (*time.Time, bool) {
 
 // HasStatusChanged returns a boolean if a field has been set.
 func (o *AppUser) HasStatusChanged() bool {
-	if o != nil && o.StatusChanged != nil {
+	if o != nil && !IsNil(o.StatusChanged) {
 		return true
 	}
 
@@ -442,7 +446,7 @@ func (o *AppUser) SetStatusChanged(v time.Time) {
 
 // GetSyncState returns the SyncState field value if set, zero value otherwise.
 func (o *AppUser) GetSyncState() string {
-	if o == nil || o.SyncState == nil {
+	if o == nil || IsNil(o.SyncState) {
 		var ret string
 		return ret
 	}
@@ -452,7 +456,7 @@ func (o *AppUser) GetSyncState() string {
 // GetSyncStateOk returns a tuple with the SyncState field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppUser) GetSyncStateOk() (*string, bool) {
-	if o == nil || o.SyncState == nil {
+	if o == nil || IsNil(o.SyncState) {
 		return nil, false
 	}
 	return o.SyncState, true
@@ -460,7 +464,7 @@ func (o *AppUser) GetSyncStateOk() (*string, bool) {
 
 // HasSyncState returns a boolean if a field has been set.
 func (o *AppUser) HasSyncState() bool {
-	if o != nil && o.SyncState != nil {
+	if o != nil && !IsNil(o.SyncState) {
 		return true
 	}
 
@@ -474,7 +478,7 @@ func (o *AppUser) SetSyncState(v string) {
 
 // GetEmbedded returns the Embedded field value if set, zero value otherwise.
 func (o *AppUser) GetEmbedded() map[string]map[string]interface{} {
-	if o == nil || o.Embedded == nil {
+	if o == nil || IsNil(o.Embedded) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
@@ -484,15 +488,15 @@ func (o *AppUser) GetEmbedded() map[string]map[string]interface{} {
 // GetEmbeddedOk returns a tuple with the Embedded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppUser) GetEmbeddedOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || o.Embedded == nil {
-		return nil, false
+	if o == nil || IsNil(o.Embedded) {
+		return map[string]map[string]interface{}{}, false
 	}
 	return o.Embedded, true
 }
 
 // HasEmbedded returns a boolean if a field has been set.
 func (o *AppUser) HasEmbedded() bool {
-	if o != nil && o.Embedded != nil {
+	if o != nil && !IsNil(o.Embedded) {
 		return true
 	}
 
@@ -506,7 +510,7 @@ func (o *AppUser) SetEmbedded(v map[string]map[string]interface{}) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *AppUser) GetLinks() LinksAppAndUser {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksAppAndUser
 		return ret
 	}
@@ -516,7 +520,7 @@ func (o *AppUser) GetLinks() LinksAppAndUser {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppUser) GetLinksOk() (*LinksAppAndUser, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -524,7 +528,7 @@ func (o *AppUser) GetLinksOk() (*LinksAppAndUser, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *AppUser) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -537,47 +541,55 @@ func (o *AppUser) SetLinks(v LinksAppAndUser) {
 }
 
 func (o AppUser) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AppUser) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Credentials != nil {
+	if !IsNil(o.Credentials) {
 		toSerialize["credentials"] = o.Credentials
 	}
-	if o.ExternalId != nil {
+	if !IsNil(o.ExternalId) {
 		toSerialize["externalId"] = o.ExternalId
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastSync != nil {
+	if !IsNil(o.LastSync) {
 		toSerialize["lastSync"] = o.LastSync
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
 	if o.PasswordChanged.IsSet() {
 		toSerialize["passwordChanged"] = o.PasswordChanged.Get()
 	}
-	if o.Profile != nil {
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
-	if o.Scope != nil {
+	if !IsNil(o.Scope) {
 		toSerialize["scope"] = o.Scope
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.StatusChanged != nil {
+	if !IsNil(o.StatusChanged) {
 		toSerialize["statusChanged"] = o.StatusChanged
 	}
-	if o.SyncState != nil {
+	if !IsNil(o.SyncState) {
 		toSerialize["syncState"] = o.SyncState
 	}
-	if o.Embedded != nil {
+	if !IsNil(o.Embedded) {
 		toSerialize["_embedded"] = o.Embedded
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -585,23 +597,23 @@ func (o AppUser) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AppUser) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AppUser) UnmarshalJSON(data []byte) (err error) {
 	varAppUser := _AppUser{}
 
-	err = json.Unmarshal(bytes, &varAppUser)
-	if err == nil {
-		*o = AppUser(varAppUser)
-	} else {
+	err = json.Unmarshal(data, &varAppUser)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AppUser(varAppUser)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "credentials")
 		delete(additionalProperties, "externalId")
@@ -617,8 +629,6 @@ func (o *AppUser) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "_embedded")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -659,4 +669,3 @@ func (v *NullableAppUser) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

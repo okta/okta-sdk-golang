@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the OrgTechnicalContactType type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrgTechnicalContactType{}
+
 // OrgTechnicalContactType Org technical contact
 type OrgTechnicalContactType struct {
 	// Type of contact
-	ContactType *string `json:"contactType,omitempty"`
-	Links *OrgTechnicalContactTypeLinks `json:"_links,omitempty"`
+	ContactType          *string                       `json:"contactType,omitempty"`
+	Links                *OrgTechnicalContactTypeLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewOrgTechnicalContactTypeWithDefaults() *OrgTechnicalContactType {
 
 // GetContactType returns the ContactType field value if set, zero value otherwise.
 func (o *OrgTechnicalContactType) GetContactType() string {
-	if o == nil || o.ContactType == nil {
+	if o == nil || IsNil(o.ContactType) {
 		var ret string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *OrgTechnicalContactType) GetContactType() string {
 // GetContactTypeOk returns a tuple with the ContactType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgTechnicalContactType) GetContactTypeOk() (*string, bool) {
-	if o == nil || o.ContactType == nil {
+	if o == nil || IsNil(o.ContactType) {
 		return nil, false
 	}
 	return o.ContactType, true
@@ -74,7 +77,7 @@ func (o *OrgTechnicalContactType) GetContactTypeOk() (*string, bool) {
 
 // HasContactType returns a boolean if a field has been set.
 func (o *OrgTechnicalContactType) HasContactType() bool {
-	if o != nil && o.ContactType != nil {
+	if o != nil && !IsNil(o.ContactType) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *OrgTechnicalContactType) SetContactType(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *OrgTechnicalContactType) GetLinks() OrgTechnicalContactTypeLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret OrgTechnicalContactTypeLinks
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *OrgTechnicalContactType) GetLinks() OrgTechnicalContactTypeLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgTechnicalContactType) GetLinksOk() (*OrgTechnicalContactTypeLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -106,7 +109,7 @@ func (o *OrgTechnicalContactType) GetLinksOk() (*OrgTechnicalContactTypeLinks, b
 
 // HasLinks returns a boolean if a field has been set.
 func (o *OrgTechnicalContactType) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *OrgTechnicalContactType) SetLinks(v OrgTechnicalContactTypeLinks) {
 }
 
 func (o OrgTechnicalContactType) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OrgTechnicalContactType) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ContactType != nil {
+	if !IsNil(o.ContactType) {
 		toSerialize["contactType"] = o.ContactType
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -131,28 +142,26 @@ func (o OrgTechnicalContactType) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OrgTechnicalContactType) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OrgTechnicalContactType) UnmarshalJSON(data []byte) (err error) {
 	varOrgTechnicalContactType := _OrgTechnicalContactType{}
 
-	err = json.Unmarshal(bytes, &varOrgTechnicalContactType)
-	if err == nil {
-		*o = OrgTechnicalContactType(varOrgTechnicalContactType)
-	} else {
+	err = json.Unmarshal(data, &varOrgTechnicalContactType)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OrgTechnicalContactType(varOrgTechnicalContactType)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "contactType")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableOrgTechnicalContactType) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

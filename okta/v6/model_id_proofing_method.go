@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -29,11 +29,14 @@ import (
 	"strings"
 )
 
+// checks if the IdProofingMethod type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IdProofingMethod{}
+
 // IdProofingMethod struct for IdProofingMethod
 type IdProofingMethod struct {
 	VerificationMethod
 	// ID for ID proofing entity
-	Id *string `json:"id,omitempty"`
+	Id                   *string `json:"id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewIdProofingMethodWithDefaults() *IdProofingMethod {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *IdProofingMethod) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *IdProofingMethod) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdProofingMethod) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -76,7 +79,7 @@ func (o *IdProofingMethod) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *IdProofingMethod) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -89,16 +92,24 @@ func (o *IdProofingMethod) SetId(v string) {
 }
 
 func (o IdProofingMethod) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IdProofingMethod) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedVerificationMethod, errVerificationMethod := json.Marshal(o.VerificationMethod)
 	if errVerificationMethod != nil {
-		return []byte{}, errVerificationMethod
+		return map[string]interface{}{}, errVerificationMethod
 	}
 	errVerificationMethod = json.Unmarshal([]byte(serializedVerificationMethod), &toSerialize)
 	if errVerificationMethod != nil {
-		return []byte{}, errVerificationMethod
+		return map[string]interface{}{}, errVerificationMethod
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
 
@@ -106,10 +117,10 @@ func (o IdProofingMethod) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *IdProofingMethod) UnmarshalJSON(bytes []byte) (err error) {
+func (o *IdProofingMethod) UnmarshalJSON(data []byte) (err error) {
 	type IdProofingMethodWithoutEmbeddedStruct struct {
 		// ID for ID proofing entity
 		Id *string `json:"id,omitempty"`
@@ -117,7 +128,7 @@ func (o *IdProofingMethod) UnmarshalJSON(bytes []byte) (err error) {
 
 	varIdProofingMethodWithoutEmbeddedStruct := IdProofingMethodWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varIdProofingMethodWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varIdProofingMethodWithoutEmbeddedStruct)
 	if err == nil {
 		varIdProofingMethod := _IdProofingMethod{}
 		varIdProofingMethod.Id = varIdProofingMethodWithoutEmbeddedStruct.Id
@@ -128,7 +139,7 @@ func (o *IdProofingMethod) UnmarshalJSON(bytes []byte) (err error) {
 
 	varIdProofingMethod := _IdProofingMethod{}
 
-	err = json.Unmarshal(bytes, &varIdProofingMethod)
+	err = json.Unmarshal(data, &varIdProofingMethod)
 	if err == nil {
 		o.VerificationMethod = varIdProofingMethod.VerificationMethod
 	} else {
@@ -137,8 +148,7 @@ func (o *IdProofingMethod) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 
 		// remove fields from embedded structs
@@ -160,8 +170,6 @@ func (o *IdProofingMethod) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -202,4 +210,3 @@ func (v *NullableIdProofingMethod) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

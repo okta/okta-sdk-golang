@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the WellKnownSSFMetadataSpecUrn type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WellKnownSSFMetadataSpecUrn{}
+
 // WellKnownSSFMetadataSpecUrn struct for WellKnownSSFMetadataSpecUrn
 type WellKnownSSFMetadataSpecUrn struct {
 	// The URN that describes the specification of the protocol being used
-	SpecUrn *string `json:"spec_urn,omitempty"`
+	SpecUrn              *string `json:"spec_urn,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewWellKnownSSFMetadataSpecUrnWithDefaults() *WellKnownSSFMetadataSpecUrn {
 
 // GetSpecUrn returns the SpecUrn field value if set, zero value otherwise.
 func (o *WellKnownSSFMetadataSpecUrn) GetSpecUrn() string {
-	if o == nil || o.SpecUrn == nil {
+	if o == nil || IsNil(o.SpecUrn) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *WellKnownSSFMetadataSpecUrn) GetSpecUrn() string {
 // GetSpecUrnOk returns a tuple with the SpecUrn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownSSFMetadataSpecUrn) GetSpecUrnOk() (*string, bool) {
-	if o == nil || o.SpecUrn == nil {
+	if o == nil || IsNil(o.SpecUrn) {
 		return nil, false
 	}
 	return o.SpecUrn, true
@@ -73,7 +76,7 @@ func (o *WellKnownSSFMetadataSpecUrn) GetSpecUrnOk() (*string, bool) {
 
 // HasSpecUrn returns a boolean if a field has been set.
 func (o *WellKnownSSFMetadataSpecUrn) HasSpecUrn() bool {
-	if o != nil && o.SpecUrn != nil {
+	if o != nil && !IsNil(o.SpecUrn) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *WellKnownSSFMetadataSpecUrn) SetSpecUrn(v string) {
 }
 
 func (o WellKnownSSFMetadataSpecUrn) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o WellKnownSSFMetadataSpecUrn) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.SpecUrn != nil {
+	if !IsNil(o.SpecUrn) {
 		toSerialize["spec_urn"] = o.SpecUrn
 	}
 
@@ -95,27 +106,25 @@ func (o WellKnownSSFMetadataSpecUrn) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *WellKnownSSFMetadataSpecUrn) UnmarshalJSON(bytes []byte) (err error) {
+func (o *WellKnownSSFMetadataSpecUrn) UnmarshalJSON(data []byte) (err error) {
 	varWellKnownSSFMetadataSpecUrn := _WellKnownSSFMetadataSpecUrn{}
 
-	err = json.Unmarshal(bytes, &varWellKnownSSFMetadataSpecUrn)
-	if err == nil {
-		*o = WellKnownSSFMetadataSpecUrn(varWellKnownSSFMetadataSpecUrn)
-	} else {
+	err = json.Unmarshal(data, &varWellKnownSSFMetadataSpecUrn)
+
+	if err != nil {
 		return err
 	}
 
+	*o = WellKnownSSFMetadataSpecUrn(varWellKnownSSFMetadataSpecUrn)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "spec_urn")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableWellKnownSSFMetadataSpecUrn) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the OAuth2ClientSecretRequestBody type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OAuth2ClientSecretRequestBody{}
+
 // OAuth2ClientSecretRequestBody struct for OAuth2ClientSecretRequestBody
 type OAuth2ClientSecretRequestBody struct {
 	// The OAuth 2.0 client secret string
 	ClientSecret *string `json:"client_secret,omitempty"`
 	// Status of the OAuth 2.0 Client Secret
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewOAuth2ClientSecretRequestBodyWithDefaults() *OAuth2ClientSecretRequestBo
 
 // GetClientSecret returns the ClientSecret field value if set, zero value otherwise.
 func (o *OAuth2ClientSecretRequestBody) GetClientSecret() string {
-	if o == nil || o.ClientSecret == nil {
+	if o == nil || IsNil(o.ClientSecret) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *OAuth2ClientSecretRequestBody) GetClientSecret() string {
 // GetClientSecretOk returns a tuple with the ClientSecret field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ClientSecretRequestBody) GetClientSecretOk() (*string, bool) {
-	if o == nil || o.ClientSecret == nil {
+	if o == nil || IsNil(o.ClientSecret) {
 		return nil, false
 	}
 	return o.ClientSecret, true
@@ -75,7 +78,7 @@ func (o *OAuth2ClientSecretRequestBody) GetClientSecretOk() (*string, bool) {
 
 // HasClientSecret returns a boolean if a field has been set.
 func (o *OAuth2ClientSecretRequestBody) HasClientSecret() bool {
-	if o != nil && o.ClientSecret != nil {
+	if o != nil && !IsNil(o.ClientSecret) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *OAuth2ClientSecretRequestBody) SetClientSecret(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *OAuth2ClientSecretRequestBody) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *OAuth2ClientSecretRequestBody) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ClientSecretRequestBody) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -107,7 +110,7 @@ func (o *OAuth2ClientSecretRequestBody) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *OAuth2ClientSecretRequestBody) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *OAuth2ClientSecretRequestBody) SetStatus(v string) {
 }
 
 func (o OAuth2ClientSecretRequestBody) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OAuth2ClientSecretRequestBody) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ClientSecret != nil {
+	if !IsNil(o.ClientSecret) {
 		toSerialize["client_secret"] = o.ClientSecret
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
 
@@ -132,28 +143,26 @@ func (o OAuth2ClientSecretRequestBody) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OAuth2ClientSecretRequestBody) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OAuth2ClientSecretRequestBody) UnmarshalJSON(data []byte) (err error) {
 	varOAuth2ClientSecretRequestBody := _OAuth2ClientSecretRequestBody{}
 
-	err = json.Unmarshal(bytes, &varOAuth2ClientSecretRequestBody)
-	if err == nil {
-		*o = OAuth2ClientSecretRequestBody(varOAuth2ClientSecretRequestBody)
-	} else {
+	err = json.Unmarshal(data, &varOAuth2ClientSecretRequestBody)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OAuth2ClientSecretRequestBody(varOAuth2ClientSecretRequestBody)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "client_secret")
 		delete(additionalProperties, "status")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableOAuth2ClientSecretRequestBody) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

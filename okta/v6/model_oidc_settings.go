@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the OidcSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OidcSettings{}
+
 // OidcSettings Advanced settings for the OpenID Connect protocol
 type OidcSettings struct {
 	// Set to `true` to have Okta send a logout request to the upstream IdP when a user signs out of Okta or a downstream app.
 	ParticipateSlo *bool `json:"participateSlo,omitempty"`
 	// Determines if the IdP should send the application context as `OktaAppInstanceId` and `OktaAppName` params in the request
 	SendApplicationContext *bool `json:"sendApplicationContext,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties   map[string]interface{}
 }
 
 type _OidcSettings OidcSettings
@@ -61,7 +64,7 @@ func NewOidcSettingsWithDefaults() *OidcSettings {
 
 // GetParticipateSlo returns the ParticipateSlo field value if set, zero value otherwise.
 func (o *OidcSettings) GetParticipateSlo() bool {
-	if o == nil || o.ParticipateSlo == nil {
+	if o == nil || IsNil(o.ParticipateSlo) {
 		var ret bool
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *OidcSettings) GetParticipateSlo() bool {
 // GetParticipateSloOk returns a tuple with the ParticipateSlo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OidcSettings) GetParticipateSloOk() (*bool, bool) {
-	if o == nil || o.ParticipateSlo == nil {
+	if o == nil || IsNil(o.ParticipateSlo) {
 		return nil, false
 	}
 	return o.ParticipateSlo, true
@@ -79,7 +82,7 @@ func (o *OidcSettings) GetParticipateSloOk() (*bool, bool) {
 
 // HasParticipateSlo returns a boolean if a field has been set.
 func (o *OidcSettings) HasParticipateSlo() bool {
-	if o != nil && o.ParticipateSlo != nil {
+	if o != nil && !IsNil(o.ParticipateSlo) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *OidcSettings) SetParticipateSlo(v bool) {
 
 // GetSendApplicationContext returns the SendApplicationContext field value if set, zero value otherwise.
 func (o *OidcSettings) GetSendApplicationContext() bool {
-	if o == nil || o.SendApplicationContext == nil {
+	if o == nil || IsNil(o.SendApplicationContext) {
 		var ret bool
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *OidcSettings) GetSendApplicationContext() bool {
 // GetSendApplicationContextOk returns a tuple with the SendApplicationContext field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OidcSettings) GetSendApplicationContextOk() (*bool, bool) {
-	if o == nil || o.SendApplicationContext == nil {
+	if o == nil || IsNil(o.SendApplicationContext) {
 		return nil, false
 	}
 	return o.SendApplicationContext, true
@@ -111,7 +114,7 @@ func (o *OidcSettings) GetSendApplicationContextOk() (*bool, bool) {
 
 // HasSendApplicationContext returns a boolean if a field has been set.
 func (o *OidcSettings) HasSendApplicationContext() bool {
-	if o != nil && o.SendApplicationContext != nil {
+	if o != nil && !IsNil(o.SendApplicationContext) {
 		return true
 	}
 
@@ -124,11 +127,19 @@ func (o *OidcSettings) SetSendApplicationContext(v bool) {
 }
 
 func (o OidcSettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OidcSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ParticipateSlo != nil {
+	if !IsNil(o.ParticipateSlo) {
 		toSerialize["participateSlo"] = o.ParticipateSlo
 	}
-	if o.SendApplicationContext != nil {
+	if !IsNil(o.SendApplicationContext) {
 		toSerialize["sendApplicationContext"] = o.SendApplicationContext
 	}
 
@@ -136,28 +147,26 @@ func (o OidcSettings) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OidcSettings) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OidcSettings) UnmarshalJSON(data []byte) (err error) {
 	varOidcSettings := _OidcSettings{}
 
-	err = json.Unmarshal(bytes, &varOidcSettings)
-	if err == nil {
-		*o = OidcSettings(varOidcSettings)
-	} else {
+	err = json.Unmarshal(data, &varOidcSettings)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OidcSettings(varOidcSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "participateSlo")
 		delete(additionalProperties, "sendApplicationContext")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -198,4 +207,3 @@ func (v *NullableOidcSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

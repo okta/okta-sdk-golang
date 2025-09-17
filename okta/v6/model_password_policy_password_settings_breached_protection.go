@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PasswordPolicyPasswordSettingsBreachedProtection type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordPolicyPasswordSettingsBreachedProtection{}
+
 // PasswordPolicyPasswordSettingsBreachedProtection Breached Protection settings
 type PasswordPolicyPasswordSettingsBreachedProtection struct {
 	// The `id` of the workflow that runs when a breached password is found during a sign-in attempt.
@@ -34,7 +37,7 @@ type PasswordPolicyPasswordSettingsBreachedProtection struct {
 	// Specifies the number of days after a breached password is found during a sign-in attempt that the user's password should expire. Valid values: 0 through 10. If set to 0, it happens immediately.
 	ExpireAfterDays NullableInt32 `json:"expireAfterDays,omitempty"`
 	// (Optional, default is false) If true, you must also specify a value for `expireAfterDays`. When enabled, the user's session(s) are terminated immediately the first time the user's credentials are detected as part of a breach.
-	LogoutEnabled NullableBool `json:"logoutEnabled,omitempty"`
+	LogoutEnabled        NullableBool `json:"logoutEnabled,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -63,7 +66,7 @@ func NewPasswordPolicyPasswordSettingsBreachedProtectionWithDefaults() *Password
 
 // GetDelegatedWorkflowId returns the DelegatedWorkflowId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PasswordPolicyPasswordSettingsBreachedProtection) GetDelegatedWorkflowId() string {
-	if o == nil || o.DelegatedWorkflowId.Get() == nil {
+	if o == nil || IsNil(o.DelegatedWorkflowId.Get()) {
 		var ret string
 		return ret
 	}
@@ -93,6 +96,7 @@ func (o *PasswordPolicyPasswordSettingsBreachedProtection) HasDelegatedWorkflowI
 func (o *PasswordPolicyPasswordSettingsBreachedProtection) SetDelegatedWorkflowId(v string) {
 	o.DelegatedWorkflowId.Set(&v)
 }
+
 // SetDelegatedWorkflowIdNil sets the value for DelegatedWorkflowId to be an explicit nil
 func (o *PasswordPolicyPasswordSettingsBreachedProtection) SetDelegatedWorkflowIdNil() {
 	o.DelegatedWorkflowId.Set(nil)
@@ -105,7 +109,7 @@ func (o *PasswordPolicyPasswordSettingsBreachedProtection) UnsetDelegatedWorkflo
 
 // GetExpireAfterDays returns the ExpireAfterDays field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PasswordPolicyPasswordSettingsBreachedProtection) GetExpireAfterDays() int32 {
-	if o == nil || o.ExpireAfterDays.Get() == nil {
+	if o == nil || IsNil(o.ExpireAfterDays.Get()) {
 		var ret int32
 		return ret
 	}
@@ -135,6 +139,7 @@ func (o *PasswordPolicyPasswordSettingsBreachedProtection) HasExpireAfterDays() 
 func (o *PasswordPolicyPasswordSettingsBreachedProtection) SetExpireAfterDays(v int32) {
 	o.ExpireAfterDays.Set(&v)
 }
+
 // SetExpireAfterDaysNil sets the value for ExpireAfterDays to be an explicit nil
 func (o *PasswordPolicyPasswordSettingsBreachedProtection) SetExpireAfterDaysNil() {
 	o.ExpireAfterDays.Set(nil)
@@ -147,7 +152,7 @@ func (o *PasswordPolicyPasswordSettingsBreachedProtection) UnsetExpireAfterDays(
 
 // GetLogoutEnabled returns the LogoutEnabled field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PasswordPolicyPasswordSettingsBreachedProtection) GetLogoutEnabled() bool {
-	if o == nil || o.LogoutEnabled.Get() == nil {
+	if o == nil || IsNil(o.LogoutEnabled.Get()) {
 		var ret bool
 		return ret
 	}
@@ -177,6 +182,7 @@ func (o *PasswordPolicyPasswordSettingsBreachedProtection) HasLogoutEnabled() bo
 func (o *PasswordPolicyPasswordSettingsBreachedProtection) SetLogoutEnabled(v bool) {
 	o.LogoutEnabled.Set(&v)
 }
+
 // SetLogoutEnabledNil sets the value for LogoutEnabled to be an explicit nil
 func (o *PasswordPolicyPasswordSettingsBreachedProtection) SetLogoutEnabledNil() {
 	o.LogoutEnabled.Set(nil)
@@ -188,6 +194,14 @@ func (o *PasswordPolicyPasswordSettingsBreachedProtection) UnsetLogoutEnabled() 
 }
 
 func (o PasswordPolicyPasswordSettingsBreachedProtection) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordPolicyPasswordSettingsBreachedProtection) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.DelegatedWorkflowId.IsSet() {
 		toSerialize["delegatedWorkflowId"] = o.DelegatedWorkflowId.Get()
@@ -203,29 +217,27 @@ func (o PasswordPolicyPasswordSettingsBreachedProtection) MarshalJSON() ([]byte,
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordPolicyPasswordSettingsBreachedProtection) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordPolicyPasswordSettingsBreachedProtection) UnmarshalJSON(data []byte) (err error) {
 	varPasswordPolicyPasswordSettingsBreachedProtection := _PasswordPolicyPasswordSettingsBreachedProtection{}
 
-	err = json.Unmarshal(bytes, &varPasswordPolicyPasswordSettingsBreachedProtection)
-	if err == nil {
-		*o = PasswordPolicyPasswordSettingsBreachedProtection(varPasswordPolicyPasswordSettingsBreachedProtection)
-	} else {
+	err = json.Unmarshal(data, &varPasswordPolicyPasswordSettingsBreachedProtection)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PasswordPolicyPasswordSettingsBreachedProtection(varPasswordPolicyPasswordSettingsBreachedProtection)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "delegatedWorkflowId")
 		delete(additionalProperties, "expireAfterDays")
 		delete(additionalProperties, "logoutEnabled")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -266,4 +278,3 @@ func (v *NullablePasswordPolicyPasswordSettingsBreachedProtection) UnmarshalJSON
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

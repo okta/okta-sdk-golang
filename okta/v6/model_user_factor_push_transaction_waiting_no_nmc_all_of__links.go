@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserFactorPushTransactionWaitingNoNMCAllOfLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserFactorPushTransactionWaitingNoNMCAllOfLinks{}
+
 // UserFactorPushTransactionWaitingNoNMCAllOfLinks struct for UserFactorPushTransactionWaitingNoNMCAllOfLinks
 type UserFactorPushTransactionWaitingNoNMCAllOfLinks struct {
 	// Polls the factor resource for status information. Always use the `poll` link instead of manually constructing your own URL.
 	Poll *HrefObject `json:"poll,omitempty"`
 	// Cancels a `push` factor challenge with a `WAITING` status
-	Cancel *HrefObject `json:"cancel,omitempty"`
+	Cancel               *HrefObject `json:"cancel,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewUserFactorPushTransactionWaitingNoNMCAllOfLinksWithDefaults() *UserFacto
 
 // GetPoll returns the Poll field value if set, zero value otherwise.
 func (o *UserFactorPushTransactionWaitingNoNMCAllOfLinks) GetPoll() HrefObject {
-	if o == nil || o.Poll == nil {
+	if o == nil || IsNil(o.Poll) {
 		var ret HrefObject
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *UserFactorPushTransactionWaitingNoNMCAllOfLinks) GetPoll() HrefObject {
 // GetPollOk returns a tuple with the Poll field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorPushTransactionWaitingNoNMCAllOfLinks) GetPollOk() (*HrefObject, bool) {
-	if o == nil || o.Poll == nil {
+	if o == nil || IsNil(o.Poll) {
 		return nil, false
 	}
 	return o.Poll, true
@@ -75,7 +78,7 @@ func (o *UserFactorPushTransactionWaitingNoNMCAllOfLinks) GetPollOk() (*HrefObje
 
 // HasPoll returns a boolean if a field has been set.
 func (o *UserFactorPushTransactionWaitingNoNMCAllOfLinks) HasPoll() bool {
-	if o != nil && o.Poll != nil {
+	if o != nil && !IsNil(o.Poll) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *UserFactorPushTransactionWaitingNoNMCAllOfLinks) SetPoll(v HrefObject) 
 
 // GetCancel returns the Cancel field value if set, zero value otherwise.
 func (o *UserFactorPushTransactionWaitingNoNMCAllOfLinks) GetCancel() HrefObject {
-	if o == nil || o.Cancel == nil {
+	if o == nil || IsNil(o.Cancel) {
 		var ret HrefObject
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *UserFactorPushTransactionWaitingNoNMCAllOfLinks) GetCancel() HrefObject
 // GetCancelOk returns a tuple with the Cancel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorPushTransactionWaitingNoNMCAllOfLinks) GetCancelOk() (*HrefObject, bool) {
-	if o == nil || o.Cancel == nil {
+	if o == nil || IsNil(o.Cancel) {
 		return nil, false
 	}
 	return o.Cancel, true
@@ -107,7 +110,7 @@ func (o *UserFactorPushTransactionWaitingNoNMCAllOfLinks) GetCancelOk() (*HrefOb
 
 // HasCancel returns a boolean if a field has been set.
 func (o *UserFactorPushTransactionWaitingNoNMCAllOfLinks) HasCancel() bool {
-	if o != nil && o.Cancel != nil {
+	if o != nil && !IsNil(o.Cancel) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *UserFactorPushTransactionWaitingNoNMCAllOfLinks) SetCancel(v HrefObject
 }
 
 func (o UserFactorPushTransactionWaitingNoNMCAllOfLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserFactorPushTransactionWaitingNoNMCAllOfLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Poll != nil {
+	if !IsNil(o.Poll) {
 		toSerialize["poll"] = o.Poll
 	}
-	if o.Cancel != nil {
+	if !IsNil(o.Cancel) {
 		toSerialize["cancel"] = o.Cancel
 	}
 
@@ -132,28 +143,26 @@ func (o UserFactorPushTransactionWaitingNoNMCAllOfLinks) MarshalJSON() ([]byte, 
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserFactorPushTransactionWaitingNoNMCAllOfLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserFactorPushTransactionWaitingNoNMCAllOfLinks) UnmarshalJSON(data []byte) (err error) {
 	varUserFactorPushTransactionWaitingNoNMCAllOfLinks := _UserFactorPushTransactionWaitingNoNMCAllOfLinks{}
 
-	err = json.Unmarshal(bytes, &varUserFactorPushTransactionWaitingNoNMCAllOfLinks)
-	if err == nil {
-		*o = UserFactorPushTransactionWaitingNoNMCAllOfLinks(varUserFactorPushTransactionWaitingNoNMCAllOfLinks)
-	} else {
+	err = json.Unmarshal(data, &varUserFactorPushTransactionWaitingNoNMCAllOfLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserFactorPushTransactionWaitingNoNMCAllOfLinks(varUserFactorPushTransactionWaitingNoNMCAllOfLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "poll")
 		delete(additionalProperties, "cancel")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableUserFactorPushTransactionWaitingNoNMCAllOfLinks) UnmarshalJSON(
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,14 +27,17 @@ import (
 	"encoding/json"
 )
 
+// checks if the TokenPayLoadDataContextAllOfProtocol type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TokenPayLoadDataContextAllOfProtocol{}
+
 // TokenPayLoadDataContextAllOfProtocol Details of the authentication protocol
 type TokenPayLoadDataContextAllOfProtocol struct {
 	// The type of authentication protocol used
-	Type *string `json:"type,omitempty"`
-	Request *TokenProtocolRequest `json:"request,omitempty"`
-	OriginalGrant *TokenPayLoadDataContextAllOfProtocolOriginalGrant `json:"OriginalGrant,omitempty"`
-	Issuer *TokenPayLoadDataContextAllOfProtocolIssuer `json:"issuer,omitempty"`
-	Client *TokenPayLoadDataContextAllOfProtocolClient `json:"client,omitempty"`
+	Type                 *string                                            `json:"type,omitempty"`
+	Request              *TokenProtocolRequest                              `json:"request,omitempty"`
+	OriginalGrant        *TokenPayLoadDataContextAllOfProtocolOriginalGrant `json:"OriginalGrant,omitempty"`
+	Issuer               *TokenPayLoadDataContextAllOfProtocolIssuer        `json:"issuer,omitempty"`
+	Client               *TokenPayLoadDataContextAllOfProtocolClient        `json:"client,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewTokenPayLoadDataContextAllOfProtocolWithDefaults() *TokenPayLoadDataCont
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *TokenPayLoadDataContextAllOfProtocol) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *TokenPayLoadDataContextAllOfProtocol) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenPayLoadDataContextAllOfProtocol) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -77,7 +80,7 @@ func (o *TokenPayLoadDataContextAllOfProtocol) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *TokenPayLoadDataContextAllOfProtocol) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *TokenPayLoadDataContextAllOfProtocol) SetType(v string) {
 
 // GetRequest returns the Request field value if set, zero value otherwise.
 func (o *TokenPayLoadDataContextAllOfProtocol) GetRequest() TokenProtocolRequest {
-	if o == nil || o.Request == nil {
+	if o == nil || IsNil(o.Request) {
 		var ret TokenProtocolRequest
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *TokenPayLoadDataContextAllOfProtocol) GetRequest() TokenProtocolRequest
 // GetRequestOk returns a tuple with the Request field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenPayLoadDataContextAllOfProtocol) GetRequestOk() (*TokenProtocolRequest, bool) {
-	if o == nil || o.Request == nil {
+	if o == nil || IsNil(o.Request) {
 		return nil, false
 	}
 	return o.Request, true
@@ -109,7 +112,7 @@ func (o *TokenPayLoadDataContextAllOfProtocol) GetRequestOk() (*TokenProtocolReq
 
 // HasRequest returns a boolean if a field has been set.
 func (o *TokenPayLoadDataContextAllOfProtocol) HasRequest() bool {
-	if o != nil && o.Request != nil {
+	if o != nil && !IsNil(o.Request) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *TokenPayLoadDataContextAllOfProtocol) SetRequest(v TokenProtocolRequest
 
 // GetOriginalGrant returns the OriginalGrant field value if set, zero value otherwise.
 func (o *TokenPayLoadDataContextAllOfProtocol) GetOriginalGrant() TokenPayLoadDataContextAllOfProtocolOriginalGrant {
-	if o == nil || o.OriginalGrant == nil {
+	if o == nil || IsNil(o.OriginalGrant) {
 		var ret TokenPayLoadDataContextAllOfProtocolOriginalGrant
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *TokenPayLoadDataContextAllOfProtocol) GetOriginalGrant() TokenPayLoadDa
 // GetOriginalGrantOk returns a tuple with the OriginalGrant field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenPayLoadDataContextAllOfProtocol) GetOriginalGrantOk() (*TokenPayLoadDataContextAllOfProtocolOriginalGrant, bool) {
-	if o == nil || o.OriginalGrant == nil {
+	if o == nil || IsNil(o.OriginalGrant) {
 		return nil, false
 	}
 	return o.OriginalGrant, true
@@ -141,7 +144,7 @@ func (o *TokenPayLoadDataContextAllOfProtocol) GetOriginalGrantOk() (*TokenPayLo
 
 // HasOriginalGrant returns a boolean if a field has been set.
 func (o *TokenPayLoadDataContextAllOfProtocol) HasOriginalGrant() bool {
-	if o != nil && o.OriginalGrant != nil {
+	if o != nil && !IsNil(o.OriginalGrant) {
 		return true
 	}
 
@@ -155,7 +158,7 @@ func (o *TokenPayLoadDataContextAllOfProtocol) SetOriginalGrant(v TokenPayLoadDa
 
 // GetIssuer returns the Issuer field value if set, zero value otherwise.
 func (o *TokenPayLoadDataContextAllOfProtocol) GetIssuer() TokenPayLoadDataContextAllOfProtocolIssuer {
-	if o == nil || o.Issuer == nil {
+	if o == nil || IsNil(o.Issuer) {
 		var ret TokenPayLoadDataContextAllOfProtocolIssuer
 		return ret
 	}
@@ -165,7 +168,7 @@ func (o *TokenPayLoadDataContextAllOfProtocol) GetIssuer() TokenPayLoadDataConte
 // GetIssuerOk returns a tuple with the Issuer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenPayLoadDataContextAllOfProtocol) GetIssuerOk() (*TokenPayLoadDataContextAllOfProtocolIssuer, bool) {
-	if o == nil || o.Issuer == nil {
+	if o == nil || IsNil(o.Issuer) {
 		return nil, false
 	}
 	return o.Issuer, true
@@ -173,7 +176,7 @@ func (o *TokenPayLoadDataContextAllOfProtocol) GetIssuerOk() (*TokenPayLoadDataC
 
 // HasIssuer returns a boolean if a field has been set.
 func (o *TokenPayLoadDataContextAllOfProtocol) HasIssuer() bool {
-	if o != nil && o.Issuer != nil {
+	if o != nil && !IsNil(o.Issuer) {
 		return true
 	}
 
@@ -187,7 +190,7 @@ func (o *TokenPayLoadDataContextAllOfProtocol) SetIssuer(v TokenPayLoadDataConte
 
 // GetClient returns the Client field value if set, zero value otherwise.
 func (o *TokenPayLoadDataContextAllOfProtocol) GetClient() TokenPayLoadDataContextAllOfProtocolClient {
-	if o == nil || o.Client == nil {
+	if o == nil || IsNil(o.Client) {
 		var ret TokenPayLoadDataContextAllOfProtocolClient
 		return ret
 	}
@@ -197,7 +200,7 @@ func (o *TokenPayLoadDataContextAllOfProtocol) GetClient() TokenPayLoadDataConte
 // GetClientOk returns a tuple with the Client field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenPayLoadDataContextAllOfProtocol) GetClientOk() (*TokenPayLoadDataContextAllOfProtocolClient, bool) {
-	if o == nil || o.Client == nil {
+	if o == nil || IsNil(o.Client) {
 		return nil, false
 	}
 	return o.Client, true
@@ -205,7 +208,7 @@ func (o *TokenPayLoadDataContextAllOfProtocol) GetClientOk() (*TokenPayLoadDataC
 
 // HasClient returns a boolean if a field has been set.
 func (o *TokenPayLoadDataContextAllOfProtocol) HasClient() bool {
-	if o != nil && o.Client != nil {
+	if o != nil && !IsNil(o.Client) {
 		return true
 	}
 
@@ -218,20 +221,28 @@ func (o *TokenPayLoadDataContextAllOfProtocol) SetClient(v TokenPayLoadDataConte
 }
 
 func (o TokenPayLoadDataContextAllOfProtocol) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TokenPayLoadDataContextAllOfProtocol) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Request != nil {
+	if !IsNil(o.Request) {
 		toSerialize["request"] = o.Request
 	}
-	if o.OriginalGrant != nil {
+	if !IsNil(o.OriginalGrant) {
 		toSerialize["OriginalGrant"] = o.OriginalGrant
 	}
-	if o.Issuer != nil {
+	if !IsNil(o.Issuer) {
 		toSerialize["issuer"] = o.Issuer
 	}
-	if o.Client != nil {
+	if !IsNil(o.Client) {
 		toSerialize["client"] = o.Client
 	}
 
@@ -239,31 +250,29 @@ func (o TokenPayLoadDataContextAllOfProtocol) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *TokenPayLoadDataContextAllOfProtocol) UnmarshalJSON(bytes []byte) (err error) {
+func (o *TokenPayLoadDataContextAllOfProtocol) UnmarshalJSON(data []byte) (err error) {
 	varTokenPayLoadDataContextAllOfProtocol := _TokenPayLoadDataContextAllOfProtocol{}
 
-	err = json.Unmarshal(bytes, &varTokenPayLoadDataContextAllOfProtocol)
-	if err == nil {
-		*o = TokenPayLoadDataContextAllOfProtocol(varTokenPayLoadDataContextAllOfProtocol)
-	} else {
+	err = json.Unmarshal(data, &varTokenPayLoadDataContextAllOfProtocol)
+
+	if err != nil {
 		return err
 	}
 
+	*o = TokenPayLoadDataContextAllOfProtocol(varTokenPayLoadDataContextAllOfProtocol)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "request")
 		delete(additionalProperties, "OriginalGrant")
 		delete(additionalProperties, "issuer")
 		delete(additionalProperties, "client")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -304,4 +313,3 @@ func (v *NullableTokenPayLoadDataContextAllOfProtocol) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

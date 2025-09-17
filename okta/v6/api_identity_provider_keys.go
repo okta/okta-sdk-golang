@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,24 +26,23 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type IdentityProviderKeysAPI interface {
 
 	/*
-	CreateIdentityProviderKey Create an IdP key credential
+			CreateIdentityProviderKey Create an IdP key credential
 
-	Creates a new X.509 certificate credential in the identity provider (IdP) key store
-> **Note:** RSA-based certificates are supported for all IdP types. Okta currently supports EC-based certificates only for the `X509` IdP type. For EC-based certificates we support only P-256, P-384, and P-521 curves.
+			Creates a new X.509 certificate credential in the identity provider (IdP) key store
+		> **Note:** RSA-based certificates are supported for all IdP types. Okta currently supports EC-based certificates only for the `X509` IdP type. For EC-based certificates we support only P-256, P-384, and P-521 curves.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateIdentityProviderKeyRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiCreateIdentityProviderKeyRequest
 	*/
 	CreateIdentityProviderKey(ctx context.Context) ApiCreateIdentityProviderKeyRequest
 
@@ -52,13 +51,13 @@ type IdentityProviderKeysAPI interface {
 	CreateIdentityProviderKeyExecute(r ApiCreateIdentityProviderKeyRequest) (*IdPKeyCredential, *APIResponse, error)
 
 	/*
-	DeleteIdentityProviderKey Delete an IdP key credential
+		DeleteIdentityProviderKey Delete an IdP key credential
 
-	Deletes a specific identity provider (IdP) key credential by `kid` if it isn't currently being used by an active or inactive IdP
+		Deletes a specific identity provider (IdP) key credential by `kid` if it isn't currently being used by an active or inactive IdP
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param kid Unique `id` of the IdP key credential
-	@return ApiDeleteIdentityProviderKeyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param kid Unique `id` of the IdP key credential
+		@return ApiDeleteIdentityProviderKeyRequest
 	*/
 	DeleteIdentityProviderKey(ctx context.Context, kid string) ApiDeleteIdentityProviderKeyRequest
 
@@ -66,13 +65,13 @@ type IdentityProviderKeysAPI interface {
 	DeleteIdentityProviderKeyExecute(r ApiDeleteIdentityProviderKeyRequest) (*APIResponse, error)
 
 	/*
-	GetIdentityProviderKey Retrieve an IdP key credential
+		GetIdentityProviderKey Retrieve an IdP key credential
 
-	Retrieves a specific identity provider (IdP) key credential by `kid`
+		Retrieves a specific identity provider (IdP) key credential by `kid`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param kid Unique `id` of the IdP key credential
-	@return ApiGetIdentityProviderKeyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param kid Unique `id` of the IdP key credential
+		@return ApiGetIdentityProviderKeyRequest
 	*/
 	GetIdentityProviderKey(ctx context.Context, kid string) ApiGetIdentityProviderKeyRequest
 
@@ -81,12 +80,12 @@ type IdentityProviderKeysAPI interface {
 	GetIdentityProviderKeyExecute(r ApiGetIdentityProviderKeyRequest) (*IdPKeyCredential, *APIResponse, error)
 
 	/*
-	ListIdentityProviderKeys List all IdP key credentials
+		ListIdentityProviderKeys List all IdP key credentials
 
-	Lists all identity provider (IdP) key credentials
+		Lists all identity provider (IdP) key credentials
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListIdentityProviderKeysRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListIdentityProviderKeysRequest
 	*/
 	ListIdentityProviderKeys(ctx context.Context) ApiListIdentityProviderKeysRequest
 
@@ -95,13 +94,13 @@ type IdentityProviderKeysAPI interface {
 	ListIdentityProviderKeysExecute(r ApiListIdentityProviderKeysRequest) ([]IdPKeyCredential, *APIResponse, error)
 
 	/*
-	ReplaceIdentityProviderKey Replace an IdP key credential
+		ReplaceIdentityProviderKey Replace an IdP key credential
 
-	Replaces an identity provider (IdP) key credential by `kid`
+		Replaces an identity provider (IdP) key credential by `kid`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param kid Unique `id` of the IdP key credential
-	@return ApiReplaceIdentityProviderKeyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param kid Unique `id` of the IdP key credential
+		@return ApiReplaceIdentityProviderKeyRequest
 	*/
 	ReplaceIdentityProviderKey(ctx context.Context, kid string) ApiReplaceIdentityProviderKeyRequest
 
@@ -114,7 +113,7 @@ type IdentityProviderKeysAPI interface {
 type IdentityProviderKeysAPIService service
 
 type ApiCreateIdentityProviderKeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderKeysAPI
 	jsonWebKey *IdPCertificateCredential
 	retryCount int32
@@ -135,19 +134,20 @@ CreateIdentityProviderKey Create an IdP key credential
 Creates a new X.509 certificate credential in the identity provider (IdP) key store
 > **Note:** RSA-based certificates are supported for all IdP types. Okta currently supports EC-based certificates only for the `X509` IdP type. For EC-based certificates we support only P-256, P-384, and P-521 curves.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateIdentityProviderKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateIdentityProviderKeyRequest
 */
 func (a *IdentityProviderKeysAPIService) CreateIdentityProviderKey(ctx context.Context) ApiCreateIdentityProviderKeyRequest {
 	return ApiCreateIdentityProviderKeyRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return IdPKeyCredential
+//
+//	@return IdPKeyCredential
 func (a *IdentityProviderKeysAPIService) CreateIdentityProviderKeyExecute(r ApiCreateIdentityProviderKeyRequest) (*IdPKeyCredential, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -156,7 +156,7 @@ func (a *IdentityProviderKeysAPIService) CreateIdentityProviderKeyExecute(r ApiC
 		localVarReturnValue  *IdPKeyCredential
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -221,9 +221,9 @@ func (a *IdentityProviderKeysAPIService) CreateIdentityProviderKeyExecute(r ApiC
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -281,15 +281,15 @@ func (a *IdentityProviderKeysAPIService) CreateIdentityProviderKeyExecute(r ApiC
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteIdentityProviderKeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderKeysAPI
-	kid string
+	kid        string
 	retryCount int32
 }
 
@@ -302,15 +302,15 @@ DeleteIdentityProviderKey Delete an IdP key credential
 
 Deletes a specific identity provider (IdP) key credential by `kid` if it isn't currently being used by an active or inactive IdP
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param kid Unique `id` of the IdP key credential
- @return ApiDeleteIdentityProviderKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param kid Unique `id` of the IdP key credential
+	@return ApiDeleteIdentityProviderKeyRequest
 */
 func (a *IdentityProviderKeysAPIService) DeleteIdentityProviderKey(ctx context.Context, kid string) ApiDeleteIdentityProviderKeyRequest {
 	return ApiDeleteIdentityProviderKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		kid: kid,
+		ctx:        ctx,
+		kid:        kid,
 		retryCount: 0,
 	}
 }
@@ -323,7 +323,7 @@ func (a *IdentityProviderKeysAPIService) DeleteIdentityProviderKeyExecute(r ApiD
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -384,9 +384,9 @@ func (a *IdentityProviderKeysAPIService) DeleteIdentityProviderKeyExecute(r ApiD
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -440,9 +440,9 @@ func (a *IdentityProviderKeysAPIService) DeleteIdentityProviderKeyExecute(r ApiD
 }
 
 type ApiGetIdentityProviderKeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderKeysAPI
-	kid string
+	kid        string
 	retryCount int32
 }
 
@@ -455,21 +455,22 @@ GetIdentityProviderKey Retrieve an IdP key credential
 
 Retrieves a specific identity provider (IdP) key credential by `kid`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param kid Unique `id` of the IdP key credential
- @return ApiGetIdentityProviderKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param kid Unique `id` of the IdP key credential
+	@return ApiGetIdentityProviderKeyRequest
 */
 func (a *IdentityProviderKeysAPIService) GetIdentityProviderKey(ctx context.Context, kid string) ApiGetIdentityProviderKeyRequest {
 	return ApiGetIdentityProviderKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		kid: kid,
+		ctx:        ctx,
+		kid:        kid,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return IdPKeyCredential
+//
+//	@return IdPKeyCredential
 func (a *IdentityProviderKeysAPIService) GetIdentityProviderKeyExecute(r ApiGetIdentityProviderKeyRequest) (*IdPKeyCredential, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -478,7 +479,7 @@ func (a *IdentityProviderKeysAPIService) GetIdentityProviderKeyExecute(r ApiGetI
 		localVarReturnValue  *IdPKeyCredential
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -539,9 +540,9 @@ func (a *IdentityProviderKeysAPIService) GetIdentityProviderKeyExecute(r ApiGetI
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -599,16 +600,16 @@ func (a *IdentityProviderKeysAPIService) GetIdentityProviderKeyExecute(r ApiGetI
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListIdentityProviderKeysRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderKeysAPI
-	after *string
-	limit *int32
+	after      *string
+	limit      *int32
 	retryCount int32
 }
 
@@ -633,19 +634,20 @@ ListIdentityProviderKeys List all IdP key credentials
 
 Lists all identity provider (IdP) key credentials
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListIdentityProviderKeysRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListIdentityProviderKeysRequest
 */
 func (a *IdentityProviderKeysAPIService) ListIdentityProviderKeys(ctx context.Context) ApiListIdentityProviderKeysRequest {
 	return ApiListIdentityProviderKeysRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []IdPKeyCredential
+//
+//	@return []IdPKeyCredential
 func (a *IdentityProviderKeysAPIService) ListIdentityProviderKeysExecute(r ApiListIdentityProviderKeysRequest) ([]IdPKeyCredential, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -654,7 +656,7 @@ func (a *IdentityProviderKeysAPIService) ListIdentityProviderKeysExecute(r ApiLi
 		localVarReturnValue  []IdPKeyCredential
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -720,9 +722,9 @@ func (a *IdentityProviderKeysAPIService) ListIdentityProviderKeysExecute(r ApiLi
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -768,17 +770,17 @@ func (a *IdentityProviderKeysAPIService) ListIdentityProviderKeysExecute(r ApiLi
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceIdentityProviderKeyRequest struct {
-	ctx context.Context
-	ApiService IdentityProviderKeysAPI
-	kid string
+	ctx              context.Context
+	ApiService       IdentityProviderKeysAPI
+	kid              string
 	idPKeyCredential *IdPKeyCredential
-	retryCount int32
+	retryCount       int32
 }
 
 // Updated IdP key credential
@@ -796,21 +798,22 @@ ReplaceIdentityProviderKey Replace an IdP key credential
 
 Replaces an identity provider (IdP) key credential by `kid`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param kid Unique `id` of the IdP key credential
- @return ApiReplaceIdentityProviderKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param kid Unique `id` of the IdP key credential
+	@return ApiReplaceIdentityProviderKeyRequest
 */
 func (a *IdentityProviderKeysAPIService) ReplaceIdentityProviderKey(ctx context.Context, kid string) ApiReplaceIdentityProviderKeyRequest {
 	return ApiReplaceIdentityProviderKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		kid: kid,
+		ctx:        ctx,
+		kid:        kid,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return IdPKeyCredential
+//
+//	@return IdPKeyCredential
 func (a *IdentityProviderKeysAPIService) ReplaceIdentityProviderKeyExecute(r ApiReplaceIdentityProviderKeyRequest) (*IdPKeyCredential, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -819,7 +822,7 @@ func (a *IdentityProviderKeysAPIService) ReplaceIdentityProviderKeyExecute(r Api
 		localVarReturnValue  *IdPKeyCredential
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -885,9 +888,9 @@ func (a *IdentityProviderKeysAPIService) ReplaceIdentityProviderKeyExecute(r Api
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -957,7 +960,7 @@ func (a *IdentityProviderKeysAPIService) ReplaceIdentityProviderKeyExecute(r Api
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

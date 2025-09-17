@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the CapabilitiesUpdateObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CapabilitiesUpdateObject{}
+
 // CapabilitiesUpdateObject Determines whether updates to a user's profile are pushed to the app
 type CapabilitiesUpdateObject struct {
-	LifecycleDeactivate *LifecycleDeactivateSettingObject `json:"lifecycleDeactivate,omitempty"`
-	Password *PasswordSettingObject `json:"password,omitempty"`
-	Profile *ProfileSettingObject `json:"profile,omitempty"`
+	LifecycleDeactivate  *LifecycleDeactivateSettingObject `json:"lifecycleDeactivate,omitempty"`
+	Password             *PasswordSettingObject            `json:"password,omitempty"`
+	Profile              *ProfileSettingObject             `json:"profile,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewCapabilitiesUpdateObjectWithDefaults() *CapabilitiesUpdateObject {
 
 // GetLifecycleDeactivate returns the LifecycleDeactivate field value if set, zero value otherwise.
 func (o *CapabilitiesUpdateObject) GetLifecycleDeactivate() LifecycleDeactivateSettingObject {
-	if o == nil || o.LifecycleDeactivate == nil {
+	if o == nil || IsNil(o.LifecycleDeactivate) {
 		var ret LifecycleDeactivateSettingObject
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *CapabilitiesUpdateObject) GetLifecycleDeactivate() LifecycleDeactivateS
 // GetLifecycleDeactivateOk returns a tuple with the LifecycleDeactivate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CapabilitiesUpdateObject) GetLifecycleDeactivateOk() (*LifecycleDeactivateSettingObject, bool) {
-	if o == nil || o.LifecycleDeactivate == nil {
+	if o == nil || IsNil(o.LifecycleDeactivate) {
 		return nil, false
 	}
 	return o.LifecycleDeactivate, true
@@ -74,7 +77,7 @@ func (o *CapabilitiesUpdateObject) GetLifecycleDeactivateOk() (*LifecycleDeactiv
 
 // HasLifecycleDeactivate returns a boolean if a field has been set.
 func (o *CapabilitiesUpdateObject) HasLifecycleDeactivate() bool {
-	if o != nil && o.LifecycleDeactivate != nil {
+	if o != nil && !IsNil(o.LifecycleDeactivate) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *CapabilitiesUpdateObject) SetLifecycleDeactivate(v LifecycleDeactivateS
 
 // GetPassword returns the Password field value if set, zero value otherwise.
 func (o *CapabilitiesUpdateObject) GetPassword() PasswordSettingObject {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		var ret PasswordSettingObject
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *CapabilitiesUpdateObject) GetPassword() PasswordSettingObject {
 // GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CapabilitiesUpdateObject) GetPasswordOk() (*PasswordSettingObject, bool) {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		return nil, false
 	}
 	return o.Password, true
@@ -106,7 +109,7 @@ func (o *CapabilitiesUpdateObject) GetPasswordOk() (*PasswordSettingObject, bool
 
 // HasPassword returns a boolean if a field has been set.
 func (o *CapabilitiesUpdateObject) HasPassword() bool {
-	if o != nil && o.Password != nil {
+	if o != nil && !IsNil(o.Password) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *CapabilitiesUpdateObject) SetPassword(v PasswordSettingObject) {
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *CapabilitiesUpdateObject) GetProfile() ProfileSettingObject {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret ProfileSettingObject
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *CapabilitiesUpdateObject) GetProfile() ProfileSettingObject {
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CapabilitiesUpdateObject) GetProfileOk() (*ProfileSettingObject, bool) {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		return nil, false
 	}
 	return o.Profile, true
@@ -138,7 +141,7 @@ func (o *CapabilitiesUpdateObject) GetProfileOk() (*ProfileSettingObject, bool) 
 
 // HasProfile returns a boolean if a field has been set.
 func (o *CapabilitiesUpdateObject) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *CapabilitiesUpdateObject) SetProfile(v ProfileSettingObject) {
 }
 
 func (o CapabilitiesUpdateObject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CapabilitiesUpdateObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.LifecycleDeactivate != nil {
+	if !IsNil(o.LifecycleDeactivate) {
 		toSerialize["lifecycleDeactivate"] = o.LifecycleDeactivate
 	}
-	if o.Password != nil {
+	if !IsNil(o.Password) {
 		toSerialize["password"] = o.Password
 	}
-	if o.Profile != nil {
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
 
@@ -166,29 +177,27 @@ func (o CapabilitiesUpdateObject) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CapabilitiesUpdateObject) UnmarshalJSON(bytes []byte) (err error) {
+func (o *CapabilitiesUpdateObject) UnmarshalJSON(data []byte) (err error) {
 	varCapabilitiesUpdateObject := _CapabilitiesUpdateObject{}
 
-	err = json.Unmarshal(bytes, &varCapabilitiesUpdateObject)
-	if err == nil {
-		*o = CapabilitiesUpdateObject(varCapabilitiesUpdateObject)
-	} else {
+	err = json.Unmarshal(data, &varCapabilitiesUpdateObject)
+
+	if err != nil {
 		return err
 	}
 
+	*o = CapabilitiesUpdateObject(varCapabilitiesUpdateObject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "lifecycleDeactivate")
 		delete(additionalProperties, "password")
 		delete(additionalProperties, "profile")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullableCapabilitiesUpdateObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

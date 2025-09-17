@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the OAuth2ClaimConditions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OAuth2ClaimConditions{}
+
 // OAuth2ClaimConditions Specifies the scopes for the Claim
 type OAuth2ClaimConditions struct {
-	Scopes []string `json:"scopes,omitempty"`
+	Scopes               []string `json:"scopes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewOAuth2ClaimConditionsWithDefaults() *OAuth2ClaimConditions {
 
 // GetScopes returns the Scopes field value if set, zero value otherwise.
 func (o *OAuth2ClaimConditions) GetScopes() []string {
-	if o == nil || o.Scopes == nil {
+	if o == nil || IsNil(o.Scopes) {
 		var ret []string
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *OAuth2ClaimConditions) GetScopes() []string {
 // GetScopesOk returns a tuple with the Scopes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ClaimConditions) GetScopesOk() ([]string, bool) {
-	if o == nil || o.Scopes == nil {
+	if o == nil || IsNil(o.Scopes) {
 		return nil, false
 	}
 	return o.Scopes, true
@@ -72,7 +75,7 @@ func (o *OAuth2ClaimConditions) GetScopesOk() ([]string, bool) {
 
 // HasScopes returns a boolean if a field has been set.
 func (o *OAuth2ClaimConditions) HasScopes() bool {
-	if o != nil && o.Scopes != nil {
+	if o != nil && !IsNil(o.Scopes) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *OAuth2ClaimConditions) SetScopes(v []string) {
 }
 
 func (o OAuth2ClaimConditions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OAuth2ClaimConditions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Scopes != nil {
+	if !IsNil(o.Scopes) {
 		toSerialize["scopes"] = o.Scopes
 	}
 
@@ -94,27 +105,25 @@ func (o OAuth2ClaimConditions) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OAuth2ClaimConditions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OAuth2ClaimConditions) UnmarshalJSON(data []byte) (err error) {
 	varOAuth2ClaimConditions := _OAuth2ClaimConditions{}
 
-	err = json.Unmarshal(bytes, &varOAuth2ClaimConditions)
-	if err == nil {
-		*o = OAuth2ClaimConditions(varOAuth2ClaimConditions)
-	} else {
+	err = json.Unmarshal(data, &varOAuth2ClaimConditions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OAuth2ClaimConditions(varOAuth2ClaimConditions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "scopes")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableOAuth2ClaimConditions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

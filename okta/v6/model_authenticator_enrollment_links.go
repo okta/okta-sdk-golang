@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthenticatorEnrollmentLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorEnrollmentLinks{}
+
 // AuthenticatorEnrollmentLinks struct for AuthenticatorEnrollmentLinks
 type AuthenticatorEnrollmentLinks struct {
 	Self *HrefObjectSelfLink `json:"self,omitempty"`
 	// Returns information on the specified user
 	User *HrefObject `json:"user,omitempty"`
 	// Returns information about a specific authenticator. See [Retrieve an authenticator](/openapi/okta-management/management/tag/Authenticator/#tag/Authenticator/operation/getAuthenticator).
-	Authenticator *HrefObject `json:"authenticator,omitempty"`
+	Authenticator        *HrefObject `json:"authenticator,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewAuthenticatorEnrollmentLinksWithDefaults() *AuthenticatorEnrollmentLinks
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *AuthenticatorEnrollmentLinks) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *AuthenticatorEnrollmentLinks) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorEnrollmentLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -76,7 +79,7 @@ func (o *AuthenticatorEnrollmentLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *AuthenticatorEnrollmentLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *AuthenticatorEnrollmentLinks) SetSelf(v HrefObjectSelfLink) {
 
 // GetUser returns the User field value if set, zero value otherwise.
 func (o *AuthenticatorEnrollmentLinks) GetUser() HrefObject {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		var ret HrefObject
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *AuthenticatorEnrollmentLinks) GetUser() HrefObject {
 // GetUserOk returns a tuple with the User field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorEnrollmentLinks) GetUserOk() (*HrefObject, bool) {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		return nil, false
 	}
 	return o.User, true
@@ -108,7 +111,7 @@ func (o *AuthenticatorEnrollmentLinks) GetUserOk() (*HrefObject, bool) {
 
 // HasUser returns a boolean if a field has been set.
 func (o *AuthenticatorEnrollmentLinks) HasUser() bool {
-	if o != nil && o.User != nil {
+	if o != nil && !IsNil(o.User) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *AuthenticatorEnrollmentLinks) SetUser(v HrefObject) {
 
 // GetAuthenticator returns the Authenticator field value if set, zero value otherwise.
 func (o *AuthenticatorEnrollmentLinks) GetAuthenticator() HrefObject {
-	if o == nil || o.Authenticator == nil {
+	if o == nil || IsNil(o.Authenticator) {
 		var ret HrefObject
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *AuthenticatorEnrollmentLinks) GetAuthenticator() HrefObject {
 // GetAuthenticatorOk returns a tuple with the Authenticator field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorEnrollmentLinks) GetAuthenticatorOk() (*HrefObject, bool) {
-	if o == nil || o.Authenticator == nil {
+	if o == nil || IsNil(o.Authenticator) {
 		return nil, false
 	}
 	return o.Authenticator, true
@@ -140,7 +143,7 @@ func (o *AuthenticatorEnrollmentLinks) GetAuthenticatorOk() (*HrefObject, bool) 
 
 // HasAuthenticator returns a boolean if a field has been set.
 func (o *AuthenticatorEnrollmentLinks) HasAuthenticator() bool {
-	if o != nil && o.Authenticator != nil {
+	if o != nil && !IsNil(o.Authenticator) {
 		return true
 	}
 
@@ -153,14 +156,22 @@ func (o *AuthenticatorEnrollmentLinks) SetAuthenticator(v HrefObject) {
 }
 
 func (o AuthenticatorEnrollmentLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorEnrollmentLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.User != nil {
+	if !IsNil(o.User) {
 		toSerialize["user"] = o.User
 	}
-	if o.Authenticator != nil {
+	if !IsNil(o.Authenticator) {
 		toSerialize["authenticator"] = o.Authenticator
 	}
 
@@ -168,29 +179,27 @@ func (o AuthenticatorEnrollmentLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorEnrollmentLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorEnrollmentLinks) UnmarshalJSON(data []byte) (err error) {
 	varAuthenticatorEnrollmentLinks := _AuthenticatorEnrollmentLinks{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorEnrollmentLinks)
-	if err == nil {
-		*o = AuthenticatorEnrollmentLinks(varAuthenticatorEnrollmentLinks)
-	} else {
+	err = json.Unmarshal(data, &varAuthenticatorEnrollmentLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthenticatorEnrollmentLinks(varAuthenticatorEnrollmentLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "user")
 		delete(additionalProperties, "authenticator")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -231,4 +240,3 @@ func (v *NullableAuthenticatorEnrollmentLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

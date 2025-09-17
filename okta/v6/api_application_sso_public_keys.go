@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,26 +26,25 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type ApplicationSSOPublicKeysAPI interface {
 
 	/*
-	ActivateOAuth2ClientJsonWebKey Activate an OAuth 2.0 client JSON Web Key
+			ActivateOAuth2ClientJsonWebKey Activate an OAuth 2.0 client JSON Web Key
 
-	Activates an OAuth 2.0 Client JSON Web Key by `keyId`
-> **Note:** You can have only one active encryption key at any given time for app. When you activate an inactive key, the current active key is automatically deactivated.
+			Activates an OAuth 2.0 Client JSON Web Key by `keyId`
+		> **Note:** You can have only one active encryption key at any given time for app. When you activate an inactive key, the current active key is automatically deactivated.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
-	@return ApiActivateOAuth2ClientJsonWebKeyRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appId Application ID
+			@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
+			@return ApiActivateOAuth2ClientJsonWebKeyRequest
 	*/
 	ActivateOAuth2ClientJsonWebKey(ctx context.Context, appId string, keyId string) ApiActivateOAuth2ClientJsonWebKeyRequest
 
@@ -54,14 +53,14 @@ type ApplicationSSOPublicKeysAPI interface {
 	ActivateOAuth2ClientJsonWebKeyExecute(r ApiActivateOAuth2ClientJsonWebKeyRequest) (*ListJwk200ResponseInner, *APIResponse, error)
 
 	/*
-	ActivateOAuth2ClientSecret Activate an OAuth 2.0 client secret
+		ActivateOAuth2ClientSecret Activate an OAuth 2.0 client secret
 
-	Activates an OAuth 2.0 Client Secret by `secretId`
+		Activates an OAuth 2.0 Client Secret by `secretId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param secretId Unique `id` of the OAuth 2.0 Client Secret
-	@return ApiActivateOAuth2ClientSecretRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param secretId Unique `id` of the OAuth 2.0 Client Secret
+		@return ApiActivateOAuth2ClientSecretRequest
 	*/
 	ActivateOAuth2ClientSecret(ctx context.Context, appId string, secretId string) ApiActivateOAuth2ClientSecretRequest
 
@@ -70,14 +69,14 @@ type ApplicationSSOPublicKeysAPI interface {
 	ActivateOAuth2ClientSecretExecute(r ApiActivateOAuth2ClientSecretRequest) (*OAuth2ClientSecret, *APIResponse, error)
 
 	/*
-	AddJwk Add a JSON Web Key
+			AddJwk Add a JSON Web Key
 
-	Adds a new JSON Web Key to the client`s JSON Web Keys.
-> **Note:** This API doesn't allow you to add a key if the existing key doesn't have a `kid`. This is also consistent with how the [Dynamic Client Registration](/openapi/okta-oauth/oauth/tag/Client/) or [Applications](/openapi/okta-management/management/tag/Application/) APIs behave, as they don't allow the creation of multiple keys without `kids`. Use the [Replace an Application](/openapi/okta-management/management/tag/Application/#tag/Application/operation/replaceApplication) or the [Replace a Client Application](/openapi/okta-oauth/oauth/tag/Client/#tag/Client/operation/replaceClient) operation to update the JWKS or [Delete an OAuth 2.0 Client JSON Web Key](/openapi/okta-management/management/tag/ApplicationSSOPublicKeys/#tag/ApplicationSSOPublicKeys/operation/deletejwk) and re-add the key with a `kid`.
+			Adds a new JSON Web Key to the client`s JSON Web Keys.
+		> **Note:** This API doesn't allow you to add a key if the existing key doesn't have a `kid`. This is also consistent with how the [Dynamic Client Registration](/openapi/okta-oauth/oauth/tag/Client/) or [Applications](/openapi/okta-management/management/tag/Application/) APIs behave, as they don't allow the creation of multiple keys without `kids`. Use the [Replace an Application](/openapi/okta-management/management/tag/Application/#tag/Application/operation/replaceApplication) or the [Replace a Client Application](/openapi/okta-oauth/oauth/tag/Client/#tag/Client/operation/replaceClient) operation to update the JWKS or [Delete an OAuth 2.0 Client JSON Web Key](/openapi/okta-management/management/tag/ApplicationSSOPublicKeys/#tag/ApplicationSSOPublicKeys/operation/deletejwk) and re-add the key with a `kid`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiAddJwkRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appId Application ID
+			@return ApiAddJwkRequest
 	*/
 	AddJwk(ctx context.Context, appId string) ApiAddJwkRequest
 
@@ -86,14 +85,14 @@ type ApplicationSSOPublicKeysAPI interface {
 	AddJwkExecute(r ApiAddJwkRequest) (*ListJwk200ResponseInner, *APIResponse, error)
 
 	/*
-	CreateOAuth2ClientSecret Create an OAuth 2.0 client secret
+			CreateOAuth2ClientSecret Create an OAuth 2.0 client secret
 
-	Creates an OAuth 2.0 Client Secret object with a new active client secret. You can create up to two Secret objects. An error is returned if you attempt to create more than two Secret objects.
-> **Note:** This API lets you bring your own secret. If [token_endpoint_auth_method](/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication!path=4/credentials/oauthClient/token_endpoint_auth_method&t=request) of the app is `client_secret_jwt`, then the minimum length of `client_secret` is 32 characters. If no secret is specified in the request, Okta adds a new system-generated secret.
+			Creates an OAuth 2.0 Client Secret object with a new active client secret. You can create up to two Secret objects. An error is returned if you attempt to create more than two Secret objects.
+		> **Note:** This API lets you bring your own secret. If [token_endpoint_auth_method](/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication!path=4/credentials/oauthClient/token_endpoint_auth_method&t=request) of the app is `client_secret_jwt`, then the minimum length of `client_secret` is 32 characters. If no secret is specified in the request, Okta adds a new system-generated secret.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiCreateOAuth2ClientSecretRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appId Application ID
+			@return ApiCreateOAuth2ClientSecretRequest
 	*/
 	CreateOAuth2ClientSecret(ctx context.Context, appId string) ApiCreateOAuth2ClientSecretRequest
 
@@ -102,15 +101,15 @@ type ApplicationSSOPublicKeysAPI interface {
 	CreateOAuth2ClientSecretExecute(r ApiCreateOAuth2ClientSecretRequest) (*OAuth2ClientSecret, *APIResponse, error)
 
 	/*
-	DeactivateOAuth2ClientJsonWebKey Deactivate an OAuth 2.0 client JSON Web Key
+			DeactivateOAuth2ClientJsonWebKey Deactivate an OAuth 2.0 client JSON Web Key
 
-	Deactivates an OAuth 2.0 Client JSON Web Key by `keyId`.
-> **Note:** You can only deactivate signing keys. Deactivating the active encryption key isn't allowed if the client has ID token encryption enabled. You can activate another encryption key, which makes the current key inactive.
+			Deactivates an OAuth 2.0 Client JSON Web Key by `keyId`.
+		> **Note:** You can only deactivate signing keys. Deactivating the active encryption key isn't allowed if the client has ID token encryption enabled. You can activate another encryption key, which makes the current key inactive.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
-	@return ApiDeactivateOAuth2ClientJsonWebKeyRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appId Application ID
+			@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
+			@return ApiDeactivateOAuth2ClientJsonWebKeyRequest
 	*/
 	DeactivateOAuth2ClientJsonWebKey(ctx context.Context, appId string, keyId string) ApiDeactivateOAuth2ClientJsonWebKeyRequest
 
@@ -119,14 +118,14 @@ type ApplicationSSOPublicKeysAPI interface {
 	DeactivateOAuth2ClientJsonWebKeyExecute(r ApiDeactivateOAuth2ClientJsonWebKeyRequest) (*OAuth2ClientJsonSigningKeyResponse, *APIResponse, error)
 
 	/*
-	DeactivateOAuth2ClientSecret Deactivate an OAuth 2.0 client secret
+		DeactivateOAuth2ClientSecret Deactivate an OAuth 2.0 client secret
 
-	Deactivates an OAuth 2.0 Client Secret by `secretId`. You can't deactivate a secret if it's the only secret of the client.
+		Deactivates an OAuth 2.0 Client Secret by `secretId`. You can't deactivate a secret if it's the only secret of the client.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param secretId Unique `id` of the OAuth 2.0 Client Secret
-	@return ApiDeactivateOAuth2ClientSecretRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param secretId Unique `id` of the OAuth 2.0 Client Secret
+		@return ApiDeactivateOAuth2ClientSecretRequest
 	*/
 	DeactivateOAuth2ClientSecret(ctx context.Context, appId string, secretId string) ApiDeactivateOAuth2ClientSecretRequest
 
@@ -135,14 +134,14 @@ type ApplicationSSOPublicKeysAPI interface {
 	DeactivateOAuth2ClientSecretExecute(r ApiDeactivateOAuth2ClientSecretRequest) (*OAuth2ClientSecret, *APIResponse, error)
 
 	/*
-	DeleteOAuth2ClientSecret Delete an OAuth 2.0 client secret
+		DeleteOAuth2ClientSecret Delete an OAuth 2.0 client secret
 
-	Deletes an OAuth 2.0 Client Secret by `secretId`. You can only delete an inactive Secret.
+		Deletes an OAuth 2.0 Client Secret by `secretId`. You can only delete an inactive Secret.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param secretId Unique `id` of the OAuth 2.0 Client Secret
-	@return ApiDeleteOAuth2ClientSecretRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param secretId Unique `id` of the OAuth 2.0 Client Secret
+		@return ApiDeleteOAuth2ClientSecretRequest
 	*/
 	DeleteOAuth2ClientSecret(ctx context.Context, appId string, secretId string) ApiDeleteOAuth2ClientSecretRequest
 
@@ -150,14 +149,14 @@ type ApplicationSSOPublicKeysAPI interface {
 	DeleteOAuth2ClientSecretExecute(r ApiDeleteOAuth2ClientSecretRequest) (*APIResponse, error)
 
 	/*
-	Deletejwk Delete an OAuth 2.0 client JSON Web Key
+		Deletejwk Delete an OAuth 2.0 client JSON Web Key
 
-	Deletes an OAuth 2.0 Client JSON Web Key by `keyId`. You can only delete an inactive key.
+		Deletes an OAuth 2.0 Client JSON Web Key by `keyId`. You can only delete an inactive key.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
-	@return ApiDeletejwkRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
+		@return ApiDeletejwkRequest
 	*/
 	Deletejwk(ctx context.Context, appId string, keyId string) ApiDeletejwkRequest
 
@@ -165,14 +164,14 @@ type ApplicationSSOPublicKeysAPI interface {
 	DeletejwkExecute(r ApiDeletejwkRequest) (*APIResponse, error)
 
 	/*
-	GetJwk Retrieve an OAuth 2.0 client JSON Web Key
+		GetJwk Retrieve an OAuth 2.0 client JSON Web Key
 
-	Retrieves an OAuth 2.0 Client JSON Web Key by `keyId`.
+		Retrieves an OAuth 2.0 Client JSON Web Key by `keyId`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
-	@return ApiGetJwkRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
+		@return ApiGetJwkRequest
 	*/
 	GetJwk(ctx context.Context, appId string, keyId string) ApiGetJwkRequest
 
@@ -181,14 +180,14 @@ type ApplicationSSOPublicKeysAPI interface {
 	GetJwkExecute(r ApiGetJwkRequest) (*GetJwk200Response, *APIResponse, error)
 
 	/*
-	GetOAuth2ClientSecret Retrieve an OAuth 2.0 client secret
+		GetOAuth2ClientSecret Retrieve an OAuth 2.0 client secret
 
-	Retrieves an OAuth 2.0 Client Secret by `secretId`
+		Retrieves an OAuth 2.0 Client Secret by `secretId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param secretId Unique `id` of the OAuth 2.0 Client Secret
-	@return ApiGetOAuth2ClientSecretRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param secretId Unique `id` of the OAuth 2.0 Client Secret
+		@return ApiGetOAuth2ClientSecretRequest
 	*/
 	GetOAuth2ClientSecret(ctx context.Context, appId string, secretId string) ApiGetOAuth2ClientSecretRequest
 
@@ -197,13 +196,13 @@ type ApplicationSSOPublicKeysAPI interface {
 	GetOAuth2ClientSecretExecute(r ApiGetOAuth2ClientSecretRequest) (*OAuth2ClientSecret, *APIResponse, error)
 
 	/*
-	ListJwk List all the OAuth 2.0 client JSON Web Keys
+		ListJwk List all the OAuth 2.0 client JSON Web Keys
 
-	Lists all JSON Web Keys for an OAuth 2.0 client app
+		Lists all JSON Web Keys for an OAuth 2.0 client app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiListJwkRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiListJwkRequest
 	*/
 	ListJwk(ctx context.Context, appId string) ApiListJwkRequest
 
@@ -212,13 +211,13 @@ type ApplicationSSOPublicKeysAPI interface {
 	ListJwkExecute(r ApiListJwkRequest) ([]ListJwk200ResponseInner, *APIResponse, error)
 
 	/*
-	ListOAuth2ClientSecrets List all OAuth 2.0 client secrets
+		ListOAuth2ClientSecrets List all OAuth 2.0 client secrets
 
-	Lists all client secrets for an OAuth 2.0 client app
+		Lists all client secrets for an OAuth 2.0 client app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiListOAuth2ClientSecretsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiListOAuth2ClientSecretsRequest
 	*/
 	ListOAuth2ClientSecrets(ctx context.Context, appId string) ApiListOAuth2ClientSecretsRequest
 
@@ -231,10 +230,10 @@ type ApplicationSSOPublicKeysAPI interface {
 type ApplicationSSOPublicKeysAPIService service
 
 type ApiActivateOAuth2ClientJsonWebKeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationSSOPublicKeysAPI
-	appId string
-	keyId string
+	appId      string
+	keyId      string
 	retryCount int32
 }
 
@@ -248,23 +247,24 @@ ActivateOAuth2ClientJsonWebKey Activate an OAuth 2.0 client JSON Web Key
 Activates an OAuth 2.0 Client JSON Web Key by `keyId`
 > **Note:** You can have only one active encryption key at any given time for app. When you activate an inactive key, the current active key is automatically deactivated.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param keyId Unique `id` of the Custom Authorization Server JSON Web Key
- @return ApiActivateOAuth2ClientJsonWebKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
+	@return ApiActivateOAuth2ClientJsonWebKeyRequest
 */
 func (a *ApplicationSSOPublicKeysAPIService) ActivateOAuth2ClientJsonWebKey(ctx context.Context, appId string, keyId string) ApiActivateOAuth2ClientJsonWebKeyRequest {
 	return ApiActivateOAuth2ClientJsonWebKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		keyId: keyId,
+		ctx:        ctx,
+		appId:      appId,
+		keyId:      keyId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListJwk200ResponseInner
+//
+//	@return ListJwk200ResponseInner
 func (a *ApplicationSSOPublicKeysAPIService) ActivateOAuth2ClientJsonWebKeyExecute(r ApiActivateOAuth2ClientJsonWebKeyRequest) (*ListJwk200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -273,7 +273,7 @@ func (a *ApplicationSSOPublicKeysAPIService) ActivateOAuth2ClientJsonWebKeyExecu
 		localVarReturnValue  *ListJwk200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -335,9 +335,9 @@ func (a *ApplicationSSOPublicKeysAPIService) ActivateOAuth2ClientJsonWebKeyExecu
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -407,16 +407,16 @@ func (a *ApplicationSSOPublicKeysAPIService) ActivateOAuth2ClientJsonWebKeyExecu
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiActivateOAuth2ClientSecretRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationSSOPublicKeysAPI
-	appId string
-	secretId string
+	appId      string
+	secretId   string
 	retryCount int32
 }
 
@@ -429,23 +429,24 @@ ActivateOAuth2ClientSecret Activate an OAuth 2.0 client secret
 
 Activates an OAuth 2.0 Client Secret by `secretId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param secretId Unique `id` of the OAuth 2.0 Client Secret
- @return ApiActivateOAuth2ClientSecretRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param secretId Unique `id` of the OAuth 2.0 Client Secret
+	@return ApiActivateOAuth2ClientSecretRequest
 */
 func (a *ApplicationSSOPublicKeysAPIService) ActivateOAuth2ClientSecret(ctx context.Context, appId string, secretId string) ApiActivateOAuth2ClientSecretRequest {
 	return ApiActivateOAuth2ClientSecretRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		secretId: secretId,
+		ctx:        ctx,
+		appId:      appId,
+		secretId:   secretId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OAuth2ClientSecret
+//
+//	@return OAuth2ClientSecret
 func (a *ApplicationSSOPublicKeysAPIService) ActivateOAuth2ClientSecretExecute(r ApiActivateOAuth2ClientSecretRequest) (*OAuth2ClientSecret, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -454,7 +455,7 @@ func (a *ApplicationSSOPublicKeysAPIService) ActivateOAuth2ClientSecretExecute(r
 		localVarReturnValue  *OAuth2ClientSecret
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -516,9 +517,9 @@ func (a *ApplicationSSOPublicKeysAPIService) ActivateOAuth2ClientSecretExecute(r
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -588,17 +589,17 @@ func (a *ApplicationSSOPublicKeysAPIService) ActivateOAuth2ClientSecretExecute(r
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiAddJwkRequest struct {
-	ctx context.Context
-	ApiService ApplicationSSOPublicKeysAPI
-	appId string
+	ctx           context.Context
+	ApiService    ApplicationSSOPublicKeysAPI
+	appId         string
 	addJwkRequest *AddJwkRequest
-	retryCount int32
+	retryCount    int32
 }
 
 func (r ApiAddJwkRequest) AddJwkRequest(addJwkRequest AddJwkRequest) ApiAddJwkRequest {
@@ -616,21 +617,22 @@ AddJwk Add a JSON Web Key
 Adds a new JSON Web Key to the client`s JSON Web Keys.
 > **Note:** This API doesn't allow you to add a key if the existing key doesn't have a `kid`. This is also consistent with how the [Dynamic Client Registration](/openapi/okta-oauth/oauth/tag/Client/) or [Applications](/openapi/okta-management/management/tag/Application/) APIs behave, as they don't allow the creation of multiple keys without `kids`. Use the [Replace an Application](/openapi/okta-management/management/tag/Application/#tag/Application/operation/replaceApplication) or the [Replace a Client Application](/openapi/okta-oauth/oauth/tag/Client/#tag/Client/operation/replaceClient) operation to update the JWKS or [Delete an OAuth 2.0 Client JSON Web Key](/openapi/okta-management/management/tag/ApplicationSSOPublicKeys/#tag/ApplicationSSOPublicKeys/operation/deletejwk) and re-add the key with a `kid`.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiAddJwkRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiAddJwkRequest
 */
 func (a *ApplicationSSOPublicKeysAPIService) AddJwk(ctx context.Context, appId string) ApiAddJwkRequest {
 	return ApiAddJwkRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListJwk200ResponseInner
+//
+//	@return ListJwk200ResponseInner
 func (a *ApplicationSSOPublicKeysAPIService) AddJwkExecute(r ApiAddJwkRequest) (*ListJwk200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -639,7 +641,7 @@ func (a *ApplicationSSOPublicKeysAPIService) AddJwkExecute(r ApiAddJwkRequest) (
 		localVarReturnValue  *ListJwk200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -705,9 +707,9 @@ func (a *ApplicationSSOPublicKeysAPIService) AddJwkExecute(r ApiAddJwkRequest) (
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -777,17 +779,17 @@ func (a *ApplicationSSOPublicKeysAPIService) AddJwkExecute(r ApiAddJwkRequest) (
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiCreateOAuth2ClientSecretRequest struct {
-	ctx context.Context
-	ApiService ApplicationSSOPublicKeysAPI
-	appId string
+	ctx                           context.Context
+	ApiService                    ApplicationSSOPublicKeysAPI
+	appId                         string
 	oAuth2ClientSecretRequestBody *OAuth2ClientSecretRequestBody
-	retryCount int32
+	retryCount                    int32
 }
 
 func (r ApiCreateOAuth2ClientSecretRequest) OAuth2ClientSecretRequestBody(oAuth2ClientSecretRequestBody OAuth2ClientSecretRequestBody) ApiCreateOAuth2ClientSecretRequest {
@@ -805,21 +807,22 @@ CreateOAuth2ClientSecret Create an OAuth 2.0 client secret
 Creates an OAuth 2.0 Client Secret object with a new active client secret. You can create up to two Secret objects. An error is returned if you attempt to create more than two Secret objects.
 > **Note:** This API lets you bring your own secret. If [token_endpoint_auth_method](/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication!path=4/credentials/oauthClient/token_endpoint_auth_method&t=request) of the app is `client_secret_jwt`, then the minimum length of `client_secret` is 32 characters. If no secret is specified in the request, Okta adds a new system-generated secret.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiCreateOAuth2ClientSecretRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiCreateOAuth2ClientSecretRequest
 */
 func (a *ApplicationSSOPublicKeysAPIService) CreateOAuth2ClientSecret(ctx context.Context, appId string) ApiCreateOAuth2ClientSecretRequest {
 	return ApiCreateOAuth2ClientSecretRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OAuth2ClientSecret
+//
+//	@return OAuth2ClientSecret
 func (a *ApplicationSSOPublicKeysAPIService) CreateOAuth2ClientSecretExecute(r ApiCreateOAuth2ClientSecretRequest) (*OAuth2ClientSecret, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -828,7 +831,7 @@ func (a *ApplicationSSOPublicKeysAPIService) CreateOAuth2ClientSecretExecute(r A
 		localVarReturnValue  *OAuth2ClientSecret
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -891,9 +894,9 @@ func (a *ApplicationSSOPublicKeysAPIService) CreateOAuth2ClientSecretExecute(r A
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -963,16 +966,16 @@ func (a *ApplicationSSOPublicKeysAPIService) CreateOAuth2ClientSecretExecute(r A
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeactivateOAuth2ClientJsonWebKeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationSSOPublicKeysAPI
-	appId string
-	keyId string
+	appId      string
+	keyId      string
 	retryCount int32
 }
 
@@ -986,23 +989,24 @@ DeactivateOAuth2ClientJsonWebKey Deactivate an OAuth 2.0 client JSON Web Key
 Deactivates an OAuth 2.0 Client JSON Web Key by `keyId`.
 > **Note:** You can only deactivate signing keys. Deactivating the active encryption key isn't allowed if the client has ID token encryption enabled. You can activate another encryption key, which makes the current key inactive.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param keyId Unique `id` of the Custom Authorization Server JSON Web Key
- @return ApiDeactivateOAuth2ClientJsonWebKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
+	@return ApiDeactivateOAuth2ClientJsonWebKeyRequest
 */
 func (a *ApplicationSSOPublicKeysAPIService) DeactivateOAuth2ClientJsonWebKey(ctx context.Context, appId string, keyId string) ApiDeactivateOAuth2ClientJsonWebKeyRequest {
 	return ApiDeactivateOAuth2ClientJsonWebKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		keyId: keyId,
+		ctx:        ctx,
+		appId:      appId,
+		keyId:      keyId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OAuth2ClientJsonSigningKeyResponse
+//
+//	@return OAuth2ClientJsonSigningKeyResponse
 func (a *ApplicationSSOPublicKeysAPIService) DeactivateOAuth2ClientJsonWebKeyExecute(r ApiDeactivateOAuth2ClientJsonWebKeyRequest) (*OAuth2ClientJsonSigningKeyResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1011,7 +1015,7 @@ func (a *ApplicationSSOPublicKeysAPIService) DeactivateOAuth2ClientJsonWebKeyExe
 		localVarReturnValue  *OAuth2ClientJsonSigningKeyResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1073,9 +1077,9 @@ func (a *ApplicationSSOPublicKeysAPIService) DeactivateOAuth2ClientJsonWebKeyExe
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1157,16 +1161,16 @@ func (a *ApplicationSSOPublicKeysAPIService) DeactivateOAuth2ClientJsonWebKeyExe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeactivateOAuth2ClientSecretRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationSSOPublicKeysAPI
-	appId string
-	secretId string
+	appId      string
+	secretId   string
 	retryCount int32
 }
 
@@ -1179,23 +1183,24 @@ DeactivateOAuth2ClientSecret Deactivate an OAuth 2.0 client secret
 
 Deactivates an OAuth 2.0 Client Secret by `secretId`. You can't deactivate a secret if it's the only secret of the client.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param secretId Unique `id` of the OAuth 2.0 Client Secret
- @return ApiDeactivateOAuth2ClientSecretRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param secretId Unique `id` of the OAuth 2.0 Client Secret
+	@return ApiDeactivateOAuth2ClientSecretRequest
 */
 func (a *ApplicationSSOPublicKeysAPIService) DeactivateOAuth2ClientSecret(ctx context.Context, appId string, secretId string) ApiDeactivateOAuth2ClientSecretRequest {
 	return ApiDeactivateOAuth2ClientSecretRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		secretId: secretId,
+		ctx:        ctx,
+		appId:      appId,
+		secretId:   secretId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OAuth2ClientSecret
+//
+//	@return OAuth2ClientSecret
 func (a *ApplicationSSOPublicKeysAPIService) DeactivateOAuth2ClientSecretExecute(r ApiDeactivateOAuth2ClientSecretRequest) (*OAuth2ClientSecret, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1204,7 +1209,7 @@ func (a *ApplicationSSOPublicKeysAPIService) DeactivateOAuth2ClientSecretExecute
 		localVarReturnValue  *OAuth2ClientSecret
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1266,9 +1271,9 @@ func (a *ApplicationSSOPublicKeysAPIService) DeactivateOAuth2ClientSecretExecute
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1350,16 +1355,16 @@ func (a *ApplicationSSOPublicKeysAPIService) DeactivateOAuth2ClientSecretExecute
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteOAuth2ClientSecretRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationSSOPublicKeysAPI
-	appId string
-	secretId string
+	appId      string
+	secretId   string
 	retryCount int32
 }
 
@@ -1372,17 +1377,17 @@ DeleteOAuth2ClientSecret Delete an OAuth 2.0 client secret
 
 Deletes an OAuth 2.0 Client Secret by `secretId`. You can only delete an inactive Secret.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param secretId Unique `id` of the OAuth 2.0 Client Secret
- @return ApiDeleteOAuth2ClientSecretRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param secretId Unique `id` of the OAuth 2.0 Client Secret
+	@return ApiDeleteOAuth2ClientSecretRequest
 */
 func (a *ApplicationSSOPublicKeysAPIService) DeleteOAuth2ClientSecret(ctx context.Context, appId string, secretId string) ApiDeleteOAuth2ClientSecretRequest {
 	return ApiDeleteOAuth2ClientSecretRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		secretId: secretId,
+		ctx:        ctx,
+		appId:      appId,
+		secretId:   secretId,
 		retryCount: 0,
 	}
 }
@@ -1395,7 +1400,7 @@ func (a *ApplicationSSOPublicKeysAPIService) DeleteOAuth2ClientSecretExecute(r A
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1457,9 +1462,9 @@ func (a *ApplicationSSOPublicKeysAPIService) DeleteOAuth2ClientSecretExecute(r A
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -1537,10 +1542,10 @@ func (a *ApplicationSSOPublicKeysAPIService) DeleteOAuth2ClientSecretExecute(r A
 }
 
 type ApiDeletejwkRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationSSOPublicKeysAPI
-	appId string
-	keyId string
+	appId      string
+	keyId      string
 	retryCount int32
 }
 
@@ -1553,17 +1558,17 @@ Deletejwk Delete an OAuth 2.0 client JSON Web Key
 
 Deletes an OAuth 2.0 Client JSON Web Key by `keyId`. You can only delete an inactive key.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param keyId Unique `id` of the Custom Authorization Server JSON Web Key
- @return ApiDeletejwkRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
+	@return ApiDeletejwkRequest
 */
 func (a *ApplicationSSOPublicKeysAPIService) Deletejwk(ctx context.Context, appId string, keyId string) ApiDeletejwkRequest {
 	return ApiDeletejwkRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		keyId: keyId,
+		ctx:        ctx,
+		appId:      appId,
+		keyId:      keyId,
 		retryCount: 0,
 	}
 }
@@ -1576,7 +1581,7 @@ func (a *ApplicationSSOPublicKeysAPIService) DeletejwkExecute(r ApiDeletejwkRequ
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1638,9 +1643,9 @@ func (a *ApplicationSSOPublicKeysAPIService) DeletejwkExecute(r ApiDeletejwkRequ
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -1718,10 +1723,10 @@ func (a *ApplicationSSOPublicKeysAPIService) DeletejwkExecute(r ApiDeletejwkRequ
 }
 
 type ApiGetJwkRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationSSOPublicKeysAPI
-	appId string
-	keyId string
+	appId      string
+	keyId      string
 	retryCount int32
 }
 
@@ -1734,23 +1739,24 @@ GetJwk Retrieve an OAuth 2.0 client JSON Web Key
 
 Retrieves an OAuth 2.0 Client JSON Web Key by `keyId`.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param keyId Unique `id` of the Custom Authorization Server JSON Web Key
- @return ApiGetJwkRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
+	@return ApiGetJwkRequest
 */
 func (a *ApplicationSSOPublicKeysAPIService) GetJwk(ctx context.Context, appId string, keyId string) ApiGetJwkRequest {
 	return ApiGetJwkRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		keyId: keyId,
+		ctx:        ctx,
+		appId:      appId,
+		keyId:      keyId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return GetJwk200Response
+//
+//	@return GetJwk200Response
 func (a *ApplicationSSOPublicKeysAPIService) GetJwkExecute(r ApiGetJwkRequest) (*GetJwk200Response, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1759,7 +1765,7 @@ func (a *ApplicationSSOPublicKeysAPIService) GetJwkExecute(r ApiGetJwkRequest) (
 		localVarReturnValue  *GetJwk200Response
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1821,9 +1827,9 @@ func (a *ApplicationSSOPublicKeysAPIService) GetJwkExecute(r ApiGetJwkRequest) (
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1893,16 +1899,16 @@ func (a *ApplicationSSOPublicKeysAPIService) GetJwkExecute(r ApiGetJwkRequest) (
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetOAuth2ClientSecretRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationSSOPublicKeysAPI
-	appId string
-	secretId string
+	appId      string
+	secretId   string
 	retryCount int32
 }
 
@@ -1915,23 +1921,24 @@ GetOAuth2ClientSecret Retrieve an OAuth 2.0 client secret
 
 Retrieves an OAuth 2.0 Client Secret by `secretId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param secretId Unique `id` of the OAuth 2.0 Client Secret
- @return ApiGetOAuth2ClientSecretRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param secretId Unique `id` of the OAuth 2.0 Client Secret
+	@return ApiGetOAuth2ClientSecretRequest
 */
 func (a *ApplicationSSOPublicKeysAPIService) GetOAuth2ClientSecret(ctx context.Context, appId string, secretId string) ApiGetOAuth2ClientSecretRequest {
 	return ApiGetOAuth2ClientSecretRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		secretId: secretId,
+		ctx:        ctx,
+		appId:      appId,
+		secretId:   secretId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OAuth2ClientSecret
+//
+//	@return OAuth2ClientSecret
 func (a *ApplicationSSOPublicKeysAPIService) GetOAuth2ClientSecretExecute(r ApiGetOAuth2ClientSecretRequest) (*OAuth2ClientSecret, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1940,7 +1947,7 @@ func (a *ApplicationSSOPublicKeysAPIService) GetOAuth2ClientSecretExecute(r ApiG
 		localVarReturnValue  *OAuth2ClientSecret
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2002,9 +2009,9 @@ func (a *ApplicationSSOPublicKeysAPIService) GetOAuth2ClientSecretExecute(r ApiG
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -2074,15 +2081,15 @@ func (a *ApplicationSSOPublicKeysAPIService) GetOAuth2ClientSecretExecute(r ApiG
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListJwkRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationSSOPublicKeysAPI
-	appId string
+	appId      string
 	retryCount int32
 }
 
@@ -2095,21 +2102,22 @@ ListJwk List all the OAuth 2.0 client JSON Web Keys
 
 Lists all JSON Web Keys for an OAuth 2.0 client app
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiListJwkRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiListJwkRequest
 */
 func (a *ApplicationSSOPublicKeysAPIService) ListJwk(ctx context.Context, appId string) ApiListJwkRequest {
 	return ApiListJwkRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []ListJwk200ResponseInner
+//
+//	@return []ListJwk200ResponseInner
 func (a *ApplicationSSOPublicKeysAPIService) ListJwkExecute(r ApiListJwkRequest) ([]ListJwk200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -2118,7 +2126,7 @@ func (a *ApplicationSSOPublicKeysAPIService) ListJwkExecute(r ApiListJwkRequest)
 		localVarReturnValue  []ListJwk200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2179,9 +2187,9 @@ func (a *ApplicationSSOPublicKeysAPIService) ListJwkExecute(r ApiListJwkRequest)
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -2251,15 +2259,15 @@ func (a *ApplicationSSOPublicKeysAPIService) ListJwkExecute(r ApiListJwkRequest)
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListOAuth2ClientSecretsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationSSOPublicKeysAPI
-	appId string
+	appId      string
 	retryCount int32
 }
 
@@ -2272,21 +2280,22 @@ ListOAuth2ClientSecrets List all OAuth 2.0 client secrets
 
 Lists all client secrets for an OAuth 2.0 client app
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiListOAuth2ClientSecretsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiListOAuth2ClientSecretsRequest
 */
 func (a *ApplicationSSOPublicKeysAPIService) ListOAuth2ClientSecrets(ctx context.Context, appId string) ApiListOAuth2ClientSecretsRequest {
 	return ApiListOAuth2ClientSecretsRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []OAuth2ClientSecret
+//
+//	@return []OAuth2ClientSecret
 func (a *ApplicationSSOPublicKeysAPIService) ListOAuth2ClientSecretsExecute(r ApiListOAuth2ClientSecretsRequest) ([]OAuth2ClientSecret, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -2295,7 +2304,7 @@ func (a *ApplicationSSOPublicKeysAPIService) ListOAuth2ClientSecretsExecute(r Ap
 		localVarReturnValue  []OAuth2ClientSecret
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2356,9 +2365,9 @@ func (a *ApplicationSSOPublicKeysAPIService) ListOAuth2ClientSecretsExecute(r Ap
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -2428,7 +2437,7 @@ func (a *ApplicationSSOPublicKeysAPIService) ListOAuth2ClientSecretsExecute(r Ap
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

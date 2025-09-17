@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package okta
 import (
 	"encoding/json"
 )
+
+// checks if the SAMLPayLoadDataAssertionAuthenticationAuthnContext type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SAMLPayLoadDataAssertionAuthenticationAuthnContext{}
 
 // SAMLPayLoadDataAssertionAuthenticationAuthnContext Details of the authentication methods used for the SAML assertion
 type SAMLPayLoadDataAssertionAuthenticationAuthnContext struct {
@@ -55,7 +58,7 @@ func NewSAMLPayLoadDataAssertionAuthenticationAuthnContextWithDefaults() *SAMLPa
 
 // GetAuthnContextClassRef returns the AuthnContextClassRef field value if set, zero value otherwise.
 func (o *SAMLPayLoadDataAssertionAuthenticationAuthnContext) GetAuthnContextClassRef() string {
-	if o == nil || o.AuthnContextClassRef == nil {
+	if o == nil || IsNil(o.AuthnContextClassRef) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *SAMLPayLoadDataAssertionAuthenticationAuthnContext) GetAuthnContextClas
 // GetAuthnContextClassRefOk returns a tuple with the AuthnContextClassRef field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoadDataAssertionAuthenticationAuthnContext) GetAuthnContextClassRefOk() (*string, bool) {
-	if o == nil || o.AuthnContextClassRef == nil {
+	if o == nil || IsNil(o.AuthnContextClassRef) {
 		return nil, false
 	}
 	return o.AuthnContextClassRef, true
@@ -73,7 +76,7 @@ func (o *SAMLPayLoadDataAssertionAuthenticationAuthnContext) GetAuthnContextClas
 
 // HasAuthnContextClassRef returns a boolean if a field has been set.
 func (o *SAMLPayLoadDataAssertionAuthenticationAuthnContext) HasAuthnContextClassRef() bool {
-	if o != nil && o.AuthnContextClassRef != nil {
+	if o != nil && !IsNil(o.AuthnContextClassRef) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *SAMLPayLoadDataAssertionAuthenticationAuthnContext) SetAuthnContextClas
 }
 
 func (o SAMLPayLoadDataAssertionAuthenticationAuthnContext) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SAMLPayLoadDataAssertionAuthenticationAuthnContext) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AuthnContextClassRef != nil {
+	if !IsNil(o.AuthnContextClassRef) {
 		toSerialize["authnContextClassRef"] = o.AuthnContextClassRef
 	}
 
@@ -95,27 +106,25 @@ func (o SAMLPayLoadDataAssertionAuthenticationAuthnContext) MarshalJSON() ([]byt
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SAMLPayLoadDataAssertionAuthenticationAuthnContext) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SAMLPayLoadDataAssertionAuthenticationAuthnContext) UnmarshalJSON(data []byte) (err error) {
 	varSAMLPayLoadDataAssertionAuthenticationAuthnContext := _SAMLPayLoadDataAssertionAuthenticationAuthnContext{}
 
-	err = json.Unmarshal(bytes, &varSAMLPayLoadDataAssertionAuthenticationAuthnContext)
-	if err == nil {
-		*o = SAMLPayLoadDataAssertionAuthenticationAuthnContext(varSAMLPayLoadDataAssertionAuthenticationAuthnContext)
-	} else {
+	err = json.Unmarshal(data, &varSAMLPayLoadDataAssertionAuthenticationAuthnContext)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SAMLPayLoadDataAssertionAuthenticationAuthnContext(varSAMLPayLoadDataAssertionAuthenticationAuthnContext)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "authnContextClassRef")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableSAMLPayLoadDataAssertionAuthenticationAuthnContext) UnmarshalJS
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

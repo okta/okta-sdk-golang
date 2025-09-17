@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ var _ MappedNullable = &OrgContactTypeObj{}
 
 // OrgContactTypeObj struct for OrgContactTypeObj
 type OrgContactTypeObj struct {
-	OrgBillingContactType *OrgBillingContactType
+	OrgBillingContactType   *OrgBillingContactType
 	OrgTechnicalContactType *OrgTechnicalContactType
 }
 
@@ -50,7 +50,7 @@ func (dst *OrgContactTypeObj) UnmarshalJSON(data []byte) error {
 	// check if the discriminator value is 'BILLING'
 	if jsonDict["contactType"] == "BILLING" {
 		// try to unmarshal JSON data into OrgBillingContactType
-		err = json.Unmarshal(data, &dst.OrgBillingContactType);
+		err = json.Unmarshal(data, &dst.OrgBillingContactType)
 		if err == nil {
 			jsonOrgBillingContactType, _ := json.Marshal(dst.OrgBillingContactType)
 			if string(jsonOrgBillingContactType) == "{}" { // empty struct
@@ -66,7 +66,7 @@ func (dst *OrgContactTypeObj) UnmarshalJSON(data []byte) error {
 	// check if the discriminator value is 'TECHNICAL'
 	if jsonDict["contactType"] == "TECHNICAL" {
 		// try to unmarshal JSON data into OrgTechnicalContactType
-		err = json.Unmarshal(data, &dst.OrgTechnicalContactType);
+		err = json.Unmarshal(data, &dst.OrgTechnicalContactType)
 		if err == nil {
 			jsonOrgTechnicalContactType, _ := json.Marshal(dst.OrgTechnicalContactType)
 			if string(jsonOrgTechnicalContactType) == "{}" { // empty struct
@@ -82,7 +82,7 @@ func (dst *OrgContactTypeObj) UnmarshalJSON(data []byte) error {
 	// check if the discriminator value is 'orgBillingContactType'
 	if jsonDict["contactType"] == "orgBillingContactType" {
 		// try to unmarshal JSON data into OrgBillingContactType
-		err = json.Unmarshal(data, &dst.OrgBillingContactType);
+		err = json.Unmarshal(data, &dst.OrgBillingContactType)
 		if err == nil {
 			jsonOrgBillingContactType, _ := json.Marshal(dst.OrgBillingContactType)
 			if string(jsonOrgBillingContactType) == "{}" { // empty struct
@@ -98,7 +98,7 @@ func (dst *OrgContactTypeObj) UnmarshalJSON(data []byte) error {
 	// check if the discriminator value is 'orgTechnicalContactType'
 	if jsonDict["contactType"] == "orgTechnicalContactType" {
 		// try to unmarshal JSON data into OrgTechnicalContactType
-		err = json.Unmarshal(data, &dst.OrgTechnicalContactType);
+		err = json.Unmarshal(data, &dst.OrgTechnicalContactType)
 		if err == nil {
 			jsonOrgTechnicalContactType, _ := json.Marshal(dst.OrgTechnicalContactType)
 			if string(jsonOrgTechnicalContactType) == "{}" { // empty struct
@@ -112,7 +112,7 @@ func (dst *OrgContactTypeObj) UnmarshalJSON(data []byte) error {
 	}
 
 	// try to unmarshal JSON data into OrgBillingContactType
-	err = json.Unmarshal(data, &dst.OrgBillingContactType);
+	err = json.Unmarshal(data, &dst.OrgBillingContactType)
 	if err == nil {
 		jsonOrgBillingContactType, _ := json.Marshal(dst.OrgBillingContactType)
 		if string(jsonOrgBillingContactType) == "{}" { // empty struct
@@ -125,7 +125,7 @@ func (dst *OrgContactTypeObj) UnmarshalJSON(data []byte) error {
 	}
 
 	// try to unmarshal JSON data into OrgTechnicalContactType
-	err = json.Unmarshal(data, &dst.OrgTechnicalContactType);
+	err = json.Unmarshal(data, &dst.OrgTechnicalContactType)
 	if err == nil {
 		jsonOrgTechnicalContactType, _ := json.Marshal(dst.OrgTechnicalContactType)
 		if string(jsonOrgTechnicalContactType) == "{}" { // empty struct
@@ -162,7 +162,7 @@ func (src OrgContactTypeObj) ToMap() (map[string]interface{}, error) {
 		return src.OrgTechnicalContactType.ToMap()
 	}
 
-    return nil, nil // no data in anyOf schemas
+	return nil, nil // no data in anyOf schemas
 }
 
 type NullableOrgContactTypeObj struct {
@@ -200,5 +200,3 @@ func (v *NullableOrgContactTypeObj) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the WellKnownURIArrayResponseLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WellKnownURIArrayResponseLinks{}
+
 // WellKnownURIArrayResponseLinks struct for WellKnownURIArrayResponseLinks
 type WellKnownURIArrayResponseLinks struct {
-	Self *HrefObject `json:"self,omitempty"`
+	Self                 *HrefObject `json:"self,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewWellKnownURIArrayResponseLinksWithDefaults() *WellKnownURIArrayResponseL
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *WellKnownURIArrayResponseLinks) GetSelf() HrefObject {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObject
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *WellKnownURIArrayResponseLinks) GetSelf() HrefObject {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownURIArrayResponseLinks) GetSelfOk() (*HrefObject, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -72,7 +75,7 @@ func (o *WellKnownURIArrayResponseLinks) GetSelfOk() (*HrefObject, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *WellKnownURIArrayResponseLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *WellKnownURIArrayResponseLinks) SetSelf(v HrefObject) {
 }
 
 func (o WellKnownURIArrayResponseLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o WellKnownURIArrayResponseLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
 
@@ -94,27 +105,25 @@ func (o WellKnownURIArrayResponseLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *WellKnownURIArrayResponseLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *WellKnownURIArrayResponseLinks) UnmarshalJSON(data []byte) (err error) {
 	varWellKnownURIArrayResponseLinks := _WellKnownURIArrayResponseLinks{}
 
-	err = json.Unmarshal(bytes, &varWellKnownURIArrayResponseLinks)
-	if err == nil {
-		*o = WellKnownURIArrayResponseLinks(varWellKnownURIArrayResponseLinks)
-	} else {
+	err = json.Unmarshal(data, &varWellKnownURIArrayResponseLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = WellKnownURIArrayResponseLinks(varWellKnownURIArrayResponseLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableWellKnownURIArrayResponseLinks) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

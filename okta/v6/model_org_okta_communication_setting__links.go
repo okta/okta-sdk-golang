@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the OrgOktaCommunicationSettingLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrgOktaCommunicationSettingLinks{}
+
 // OrgOktaCommunicationSettingLinks Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available for this object using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification
 type OrgOktaCommunicationSettingLinks struct {
 	// Link to opt users in to communication emails
 	OptIn *HrefObject `json:"optIn,omitempty"`
 	// Link to opt users out of communication emails
-	OptOut *HrefObject `json:"optOut,omitempty"`
+	OptOut               *HrefObject `json:"optOut,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewOrgOktaCommunicationSettingLinksWithDefaults() *OrgOktaCommunicationSett
 
 // GetOptIn returns the OptIn field value if set, zero value otherwise.
 func (o *OrgOktaCommunicationSettingLinks) GetOptIn() HrefObject {
-	if o == nil || o.OptIn == nil {
+	if o == nil || IsNil(o.OptIn) {
 		var ret HrefObject
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *OrgOktaCommunicationSettingLinks) GetOptIn() HrefObject {
 // GetOptInOk returns a tuple with the OptIn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgOktaCommunicationSettingLinks) GetOptInOk() (*HrefObject, bool) {
-	if o == nil || o.OptIn == nil {
+	if o == nil || IsNil(o.OptIn) {
 		return nil, false
 	}
 	return o.OptIn, true
@@ -75,7 +78,7 @@ func (o *OrgOktaCommunicationSettingLinks) GetOptInOk() (*HrefObject, bool) {
 
 // HasOptIn returns a boolean if a field has been set.
 func (o *OrgOktaCommunicationSettingLinks) HasOptIn() bool {
-	if o != nil && o.OptIn != nil {
+	if o != nil && !IsNil(o.OptIn) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *OrgOktaCommunicationSettingLinks) SetOptIn(v HrefObject) {
 
 // GetOptOut returns the OptOut field value if set, zero value otherwise.
 func (o *OrgOktaCommunicationSettingLinks) GetOptOut() HrefObject {
-	if o == nil || o.OptOut == nil {
+	if o == nil || IsNil(o.OptOut) {
 		var ret HrefObject
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *OrgOktaCommunicationSettingLinks) GetOptOut() HrefObject {
 // GetOptOutOk returns a tuple with the OptOut field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgOktaCommunicationSettingLinks) GetOptOutOk() (*HrefObject, bool) {
-	if o == nil || o.OptOut == nil {
+	if o == nil || IsNil(o.OptOut) {
 		return nil, false
 	}
 	return o.OptOut, true
@@ -107,7 +110,7 @@ func (o *OrgOktaCommunicationSettingLinks) GetOptOutOk() (*HrefObject, bool) {
 
 // HasOptOut returns a boolean if a field has been set.
 func (o *OrgOktaCommunicationSettingLinks) HasOptOut() bool {
-	if o != nil && o.OptOut != nil {
+	if o != nil && !IsNil(o.OptOut) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *OrgOktaCommunicationSettingLinks) SetOptOut(v HrefObject) {
 }
 
 func (o OrgOktaCommunicationSettingLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OrgOktaCommunicationSettingLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.OptIn != nil {
+	if !IsNil(o.OptIn) {
 		toSerialize["optIn"] = o.OptIn
 	}
-	if o.OptOut != nil {
+	if !IsNil(o.OptOut) {
 		toSerialize["optOut"] = o.OptOut
 	}
 
@@ -132,28 +143,26 @@ func (o OrgOktaCommunicationSettingLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OrgOktaCommunicationSettingLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OrgOktaCommunicationSettingLinks) UnmarshalJSON(data []byte) (err error) {
 	varOrgOktaCommunicationSettingLinks := _OrgOktaCommunicationSettingLinks{}
 
-	err = json.Unmarshal(bytes, &varOrgOktaCommunicationSettingLinks)
-	if err == nil {
-		*o = OrgOktaCommunicationSettingLinks(varOrgOktaCommunicationSettingLinks)
-	} else {
+	err = json.Unmarshal(data, &varOrgOktaCommunicationSettingLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OrgOktaCommunicationSettingLinks(varOrgOktaCommunicationSettingLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "optIn")
 		delete(additionalProperties, "optOut")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableOrgOktaCommunicationSettingLinks) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

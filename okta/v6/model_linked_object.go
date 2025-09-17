@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the LinkedObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LinkedObject{}
+
 // LinkedObject struct for LinkedObject
 type LinkedObject struct {
-	Associated *LinkedObjectDetails `json:"associated,omitempty"`
-	Primary *LinkedObjectDetails `json:"primary,omitempty"`
-	Links *LinkedObjectLinksSelf `json:"_links,omitempty"`
+	Associated           *LinkedObjectDetails   `json:"associated,omitempty"`
+	Primary              *LinkedObjectDetails   `json:"primary,omitempty"`
+	Links                *LinkedObjectLinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewLinkedObjectWithDefaults() *LinkedObject {
 
 // GetAssociated returns the Associated field value if set, zero value otherwise.
 func (o *LinkedObject) GetAssociated() LinkedObjectDetails {
-	if o == nil || o.Associated == nil {
+	if o == nil || IsNil(o.Associated) {
 		var ret LinkedObjectDetails
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *LinkedObject) GetAssociated() LinkedObjectDetails {
 // GetAssociatedOk returns a tuple with the Associated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkedObject) GetAssociatedOk() (*LinkedObjectDetails, bool) {
-	if o == nil || o.Associated == nil {
+	if o == nil || IsNil(o.Associated) {
 		return nil, false
 	}
 	return o.Associated, true
@@ -74,7 +77,7 @@ func (o *LinkedObject) GetAssociatedOk() (*LinkedObjectDetails, bool) {
 
 // HasAssociated returns a boolean if a field has been set.
 func (o *LinkedObject) HasAssociated() bool {
-	if o != nil && o.Associated != nil {
+	if o != nil && !IsNil(o.Associated) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *LinkedObject) SetAssociated(v LinkedObjectDetails) {
 
 // GetPrimary returns the Primary field value if set, zero value otherwise.
 func (o *LinkedObject) GetPrimary() LinkedObjectDetails {
-	if o == nil || o.Primary == nil {
+	if o == nil || IsNil(o.Primary) {
 		var ret LinkedObjectDetails
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *LinkedObject) GetPrimary() LinkedObjectDetails {
 // GetPrimaryOk returns a tuple with the Primary field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkedObject) GetPrimaryOk() (*LinkedObjectDetails, bool) {
-	if o == nil || o.Primary == nil {
+	if o == nil || IsNil(o.Primary) {
 		return nil, false
 	}
 	return o.Primary, true
@@ -106,7 +109,7 @@ func (o *LinkedObject) GetPrimaryOk() (*LinkedObjectDetails, bool) {
 
 // HasPrimary returns a boolean if a field has been set.
 func (o *LinkedObject) HasPrimary() bool {
-	if o != nil && o.Primary != nil {
+	if o != nil && !IsNil(o.Primary) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *LinkedObject) SetPrimary(v LinkedObjectDetails) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *LinkedObject) GetLinks() LinkedObjectLinksSelf {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinkedObjectLinksSelf
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *LinkedObject) GetLinks() LinkedObjectLinksSelf {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkedObject) GetLinksOk() (*LinkedObjectLinksSelf, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -138,7 +141,7 @@ func (o *LinkedObject) GetLinksOk() (*LinkedObjectLinksSelf, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *LinkedObject) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *LinkedObject) SetLinks(v LinkedObjectLinksSelf) {
 }
 
 func (o LinkedObject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LinkedObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Associated != nil {
+	if !IsNil(o.Associated) {
 		toSerialize["associated"] = o.Associated
 	}
-	if o.Primary != nil {
+	if !IsNil(o.Primary) {
 		toSerialize["primary"] = o.Primary
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -166,29 +177,27 @@ func (o LinkedObject) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LinkedObject) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LinkedObject) UnmarshalJSON(data []byte) (err error) {
 	varLinkedObject := _LinkedObject{}
 
-	err = json.Unmarshal(bytes, &varLinkedObject)
-	if err == nil {
-		*o = LinkedObject(varLinkedObject)
-	} else {
+	err = json.Unmarshal(data, &varLinkedObject)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LinkedObject(varLinkedObject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "associated")
 		delete(additionalProperties, "primary")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullableLinkedObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

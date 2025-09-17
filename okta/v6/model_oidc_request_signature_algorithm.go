@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the OidcRequestSignatureAlgorithm type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OidcRequestSignatureAlgorithm{}
+
 // OidcRequestSignatureAlgorithm Signature Algorithm settings for signing authorization requests sent to the IdP > **Note:**  The `algorithm` property is ignored when you disable request signatures (`scope` set as `NONE`).
 type OidcRequestSignatureAlgorithm struct {
 	Algorithm *string `json:"algorithm,omitempty"`
 	// Specifies whether to digitally sign authorization requests to the IdP
-	Scope *string `json:"scope,omitempty"`
+	Scope                *string `json:"scope,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewOidcRequestSignatureAlgorithmWithDefaults() *OidcRequestSignatureAlgorit
 
 // GetAlgorithm returns the Algorithm field value if set, zero value otherwise.
 func (o *OidcRequestSignatureAlgorithm) GetAlgorithm() string {
-	if o == nil || o.Algorithm == nil {
+	if o == nil || IsNil(o.Algorithm) {
 		var ret string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *OidcRequestSignatureAlgorithm) GetAlgorithm() string {
 // GetAlgorithmOk returns a tuple with the Algorithm field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OidcRequestSignatureAlgorithm) GetAlgorithmOk() (*string, bool) {
-	if o == nil || o.Algorithm == nil {
+	if o == nil || IsNil(o.Algorithm) {
 		return nil, false
 	}
 	return o.Algorithm, true
@@ -74,7 +77,7 @@ func (o *OidcRequestSignatureAlgorithm) GetAlgorithmOk() (*string, bool) {
 
 // HasAlgorithm returns a boolean if a field has been set.
 func (o *OidcRequestSignatureAlgorithm) HasAlgorithm() bool {
-	if o != nil && o.Algorithm != nil {
+	if o != nil && !IsNil(o.Algorithm) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *OidcRequestSignatureAlgorithm) SetAlgorithm(v string) {
 
 // GetScope returns the Scope field value if set, zero value otherwise.
 func (o *OidcRequestSignatureAlgorithm) GetScope() string {
-	if o == nil || o.Scope == nil {
+	if o == nil || IsNil(o.Scope) {
 		var ret string
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *OidcRequestSignatureAlgorithm) GetScope() string {
 // GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OidcRequestSignatureAlgorithm) GetScopeOk() (*string, bool) {
-	if o == nil || o.Scope == nil {
+	if o == nil || IsNil(o.Scope) {
 		return nil, false
 	}
 	return o.Scope, true
@@ -106,7 +109,7 @@ func (o *OidcRequestSignatureAlgorithm) GetScopeOk() (*string, bool) {
 
 // HasScope returns a boolean if a field has been set.
 func (o *OidcRequestSignatureAlgorithm) HasScope() bool {
-	if o != nil && o.Scope != nil {
+	if o != nil && !IsNil(o.Scope) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *OidcRequestSignatureAlgorithm) SetScope(v string) {
 }
 
 func (o OidcRequestSignatureAlgorithm) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OidcRequestSignatureAlgorithm) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Algorithm != nil {
+	if !IsNil(o.Algorithm) {
 		toSerialize["algorithm"] = o.Algorithm
 	}
-	if o.Scope != nil {
+	if !IsNil(o.Scope) {
 		toSerialize["scope"] = o.Scope
 	}
 
@@ -131,28 +142,26 @@ func (o OidcRequestSignatureAlgorithm) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OidcRequestSignatureAlgorithm) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OidcRequestSignatureAlgorithm) UnmarshalJSON(data []byte) (err error) {
 	varOidcRequestSignatureAlgorithm := _OidcRequestSignatureAlgorithm{}
 
-	err = json.Unmarshal(bytes, &varOidcRequestSignatureAlgorithm)
-	if err == nil {
-		*o = OidcRequestSignatureAlgorithm(varOidcRequestSignatureAlgorithm)
-	} else {
+	err = json.Unmarshal(data, &varOidcRequestSignatureAlgorithm)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OidcRequestSignatureAlgorithm(varOidcRequestSignatureAlgorithm)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "algorithm")
 		delete(additionalProperties, "scope")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableOidcRequestSignatureAlgorithm) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

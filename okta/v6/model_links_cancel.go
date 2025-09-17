@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the LinksCancel type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LinksCancel{}
+
 // LinksCancel struct for LinksCancel
 type LinksCancel struct {
 	// Cancels a `push` factor challenge with a `WAITING` status
-	Cancel *HrefObject `json:"cancel,omitempty"`
+	Cancel               *HrefObject `json:"cancel,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewLinksCancelWithDefaults() *LinksCancel {
 
 // GetCancel returns the Cancel field value if set, zero value otherwise.
 func (o *LinksCancel) GetCancel() HrefObject {
-	if o == nil || o.Cancel == nil {
+	if o == nil || IsNil(o.Cancel) {
 		var ret HrefObject
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *LinksCancel) GetCancel() HrefObject {
 // GetCancelOk returns a tuple with the Cancel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksCancel) GetCancelOk() (*HrefObject, bool) {
-	if o == nil || o.Cancel == nil {
+	if o == nil || IsNil(o.Cancel) {
 		return nil, false
 	}
 	return o.Cancel, true
@@ -73,7 +76,7 @@ func (o *LinksCancel) GetCancelOk() (*HrefObject, bool) {
 
 // HasCancel returns a boolean if a field has been set.
 func (o *LinksCancel) HasCancel() bool {
-	if o != nil && o.Cancel != nil {
+	if o != nil && !IsNil(o.Cancel) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *LinksCancel) SetCancel(v HrefObject) {
 }
 
 func (o LinksCancel) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LinksCancel) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Cancel != nil {
+	if !IsNil(o.Cancel) {
 		toSerialize["cancel"] = o.Cancel
 	}
 
@@ -95,27 +106,25 @@ func (o LinksCancel) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LinksCancel) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LinksCancel) UnmarshalJSON(data []byte) (err error) {
 	varLinksCancel := _LinksCancel{}
 
-	err = json.Unmarshal(bytes, &varLinksCancel)
-	if err == nil {
-		*o = LinksCancel(varLinksCancel)
-	} else {
+	err = json.Unmarshal(data, &varLinksCancel)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LinksCancel(varLinksCancel)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "cancel")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableLinksCancel) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

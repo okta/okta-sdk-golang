@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SamlTrustCredentials type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SamlTrustCredentials{}
+
 // SamlTrustCredentials Federation Trust Credentials for verifying assertions from the IdP
 type SamlTrustCredentials struct {
 	// Additional IdP key credential reference to the Okta X.509 signature certificate
@@ -36,7 +39,7 @@ type SamlTrustCredentials struct {
 	// URI that identifies the issuer (IdP) of a `<SAMLResponse>` message `<Assertion>` element
 	Issuer *string `json:"issuer,omitempty"`
 	// IdP key credential reference to the Okta X.509 signature certificate
-	Kid *string `json:"kid,omitempty"`
+	Kid                  *string `json:"kid,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewSamlTrustCredentialsWithDefaults() *SamlTrustCredentials {
 
 // GetAdditionalKids returns the AdditionalKids field value if set, zero value otherwise.
 func (o *SamlTrustCredentials) GetAdditionalKids() []string {
-	if o == nil || o.AdditionalKids == nil {
+	if o == nil || IsNil(o.AdditionalKids) {
 		var ret []string
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *SamlTrustCredentials) GetAdditionalKids() []string {
 // GetAdditionalKidsOk returns a tuple with the AdditionalKids field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlTrustCredentials) GetAdditionalKidsOk() ([]string, bool) {
-	if o == nil || o.AdditionalKids == nil {
+	if o == nil || IsNil(o.AdditionalKids) {
 		return nil, false
 	}
 	return o.AdditionalKids, true
@@ -79,7 +82,7 @@ func (o *SamlTrustCredentials) GetAdditionalKidsOk() ([]string, bool) {
 
 // HasAdditionalKids returns a boolean if a field has been set.
 func (o *SamlTrustCredentials) HasAdditionalKids() bool {
-	if o != nil && o.AdditionalKids != nil {
+	if o != nil && !IsNil(o.AdditionalKids) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *SamlTrustCredentials) SetAdditionalKids(v []string) {
 
 // GetAudience returns the Audience field value if set, zero value otherwise.
 func (o *SamlTrustCredentials) GetAudience() string {
-	if o == nil || o.Audience == nil {
+	if o == nil || IsNil(o.Audience) {
 		var ret string
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *SamlTrustCredentials) GetAudience() string {
 // GetAudienceOk returns a tuple with the Audience field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlTrustCredentials) GetAudienceOk() (*string, bool) {
-	if o == nil || o.Audience == nil {
+	if o == nil || IsNil(o.Audience) {
 		return nil, false
 	}
 	return o.Audience, true
@@ -111,7 +114,7 @@ func (o *SamlTrustCredentials) GetAudienceOk() (*string, bool) {
 
 // HasAudience returns a boolean if a field has been set.
 func (o *SamlTrustCredentials) HasAudience() bool {
-	if o != nil && o.Audience != nil {
+	if o != nil && !IsNil(o.Audience) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *SamlTrustCredentials) SetAudience(v string) {
 
 // GetIssuer returns the Issuer field value if set, zero value otherwise.
 func (o *SamlTrustCredentials) GetIssuer() string {
-	if o == nil || o.Issuer == nil {
+	if o == nil || IsNil(o.Issuer) {
 		var ret string
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *SamlTrustCredentials) GetIssuer() string {
 // GetIssuerOk returns a tuple with the Issuer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlTrustCredentials) GetIssuerOk() (*string, bool) {
-	if o == nil || o.Issuer == nil {
+	if o == nil || IsNil(o.Issuer) {
 		return nil, false
 	}
 	return o.Issuer, true
@@ -143,7 +146,7 @@ func (o *SamlTrustCredentials) GetIssuerOk() (*string, bool) {
 
 // HasIssuer returns a boolean if a field has been set.
 func (o *SamlTrustCredentials) HasIssuer() bool {
-	if o != nil && o.Issuer != nil {
+	if o != nil && !IsNil(o.Issuer) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *SamlTrustCredentials) SetIssuer(v string) {
 
 // GetKid returns the Kid field value if set, zero value otherwise.
 func (o *SamlTrustCredentials) GetKid() string {
-	if o == nil || o.Kid == nil {
+	if o == nil || IsNil(o.Kid) {
 		var ret string
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *SamlTrustCredentials) GetKid() string {
 // GetKidOk returns a tuple with the Kid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlTrustCredentials) GetKidOk() (*string, bool) {
-	if o == nil || o.Kid == nil {
+	if o == nil || IsNil(o.Kid) {
 		return nil, false
 	}
 	return o.Kid, true
@@ -175,7 +178,7 @@ func (o *SamlTrustCredentials) GetKidOk() (*string, bool) {
 
 // HasKid returns a boolean if a field has been set.
 func (o *SamlTrustCredentials) HasKid() bool {
-	if o != nil && o.Kid != nil {
+	if o != nil && !IsNil(o.Kid) {
 		return true
 	}
 
@@ -188,17 +191,25 @@ func (o *SamlTrustCredentials) SetKid(v string) {
 }
 
 func (o SamlTrustCredentials) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SamlTrustCredentials) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AdditionalKids != nil {
+	if !IsNil(o.AdditionalKids) {
 		toSerialize["additionalKids"] = o.AdditionalKids
 	}
-	if o.Audience != nil {
+	if !IsNil(o.Audience) {
 		toSerialize["audience"] = o.Audience
 	}
-	if o.Issuer != nil {
+	if !IsNil(o.Issuer) {
 		toSerialize["issuer"] = o.Issuer
 	}
-	if o.Kid != nil {
+	if !IsNil(o.Kid) {
 		toSerialize["kid"] = o.Kid
 	}
 
@@ -206,30 +217,28 @@ func (o SamlTrustCredentials) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SamlTrustCredentials) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SamlTrustCredentials) UnmarshalJSON(data []byte) (err error) {
 	varSamlTrustCredentials := _SamlTrustCredentials{}
 
-	err = json.Unmarshal(bytes, &varSamlTrustCredentials)
-	if err == nil {
-		*o = SamlTrustCredentials(varSamlTrustCredentials)
-	} else {
+	err = json.Unmarshal(data, &varSamlTrustCredentials)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SamlTrustCredentials(varSamlTrustCredentials)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "additionalKids")
 		delete(additionalProperties, "audience")
 		delete(additionalProperties, "issuer")
 		delete(additionalProperties, "kid")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -270,4 +279,3 @@ func (v *NullableSamlTrustCredentials) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

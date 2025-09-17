@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserImportRequestDataUser type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserImportRequestDataUser{}
+
 // UserImportRequestDataUser Provides information on the Okta user profile currently set to be used for the user who is being imported, based on the matching rules and attribute mappings that were applied.
 type UserImportRequestDataUser struct {
 	// The `data.user.profile` contains the name-value pairs of the attributes in the user profile. If the user has been matched to an existing Okta user, a `data.user.id` object is included, containing the unique identifier of the Okta user profile.  You can change the values of the attributes by means of the `commands` object you return.
-	Profile *map[string]string `json:"profile,omitempty"`
+	Profile              *map[string]string `json:"profile,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewUserImportRequestDataUserWithDefaults() *UserImportRequestDataUser {
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *UserImportRequestDataUser) GetProfile() map[string]string {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret map[string]string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *UserImportRequestDataUser) GetProfile() map[string]string {
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserImportRequestDataUser) GetProfileOk() (*map[string]string, bool) {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		return nil, false
 	}
 	return o.Profile, true
@@ -73,7 +76,7 @@ func (o *UserImportRequestDataUser) GetProfileOk() (*map[string]string, bool) {
 
 // HasProfile returns a boolean if a field has been set.
 func (o *UserImportRequestDataUser) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *UserImportRequestDataUser) SetProfile(v map[string]string) {
 }
 
 func (o UserImportRequestDataUser) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserImportRequestDataUser) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Profile != nil {
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
 
@@ -95,27 +106,25 @@ func (o UserImportRequestDataUser) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserImportRequestDataUser) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserImportRequestDataUser) UnmarshalJSON(data []byte) (err error) {
 	varUserImportRequestDataUser := _UserImportRequestDataUser{}
 
-	err = json.Unmarshal(bytes, &varUserImportRequestDataUser)
-	if err == nil {
-		*o = UserImportRequestDataUser(varUserImportRequestDataUser)
-	} else {
+	err = json.Unmarshal(data, &varUserImportRequestDataUser)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserImportRequestDataUser(varUserImportRequestDataUser)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "profile")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableUserImportRequestDataUser) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -29,11 +29,14 @@ import (
 	"strings"
 )
 
+// checks if the UserFactorPush type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserFactorPush{}
+
 // UserFactorPush struct for UserFactorPush
 type UserFactorPush struct {
 	UserFactor
-	Profile *UserFactorPushProfile `json:"profile,omitempty"`
-	Provider *string `json:"provider,omitempty"`
+	Profile              *UserFactorPushProfile `json:"profile,omitempty"`
+	Provider             *string                `json:"provider,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewUserFactorPushWithDefaults() *UserFactorPush {
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *UserFactorPush) GetProfile() UserFactorPushProfile {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret UserFactorPushProfile
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *UserFactorPush) GetProfile() UserFactorPushProfile {
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorPush) GetProfileOk() (*UserFactorPushProfile, bool) {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		return nil, false
 	}
 	return o.Profile, true
@@ -76,7 +79,7 @@ func (o *UserFactorPush) GetProfileOk() (*UserFactorPushProfile, bool) {
 
 // HasProfile returns a boolean if a field has been set.
 func (o *UserFactorPush) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *UserFactorPush) SetProfile(v UserFactorPushProfile) {
 
 // GetProvider returns the Provider field value if set, zero value otherwise.
 func (o *UserFactorPush) GetProvider() string {
-	if o == nil || o.Provider == nil {
+	if o == nil || IsNil(o.Provider) {
 		var ret string
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *UserFactorPush) GetProvider() string {
 // GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorPush) GetProviderOk() (*string, bool) {
-	if o == nil || o.Provider == nil {
+	if o == nil || IsNil(o.Provider) {
 		return nil, false
 	}
 	return o.Provider, true
@@ -108,7 +111,7 @@ func (o *UserFactorPush) GetProviderOk() (*string, bool) {
 
 // HasProvider returns a boolean if a field has been set.
 func (o *UserFactorPush) HasProvider() bool {
-	if o != nil && o.Provider != nil {
+	if o != nil && !IsNil(o.Provider) {
 		return true
 	}
 
@@ -121,19 +124,27 @@ func (o *UserFactorPush) SetProvider(v string) {
 }
 
 func (o UserFactorPush) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserFactorPush) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedUserFactor, errUserFactor := json.Marshal(o.UserFactor)
 	if errUserFactor != nil {
-		return []byte{}, errUserFactor
+		return map[string]interface{}{}, errUserFactor
 	}
 	errUserFactor = json.Unmarshal([]byte(serializedUserFactor), &toSerialize)
 	if errUserFactor != nil {
-		return []byte{}, errUserFactor
+		return map[string]interface{}{}, errUserFactor
 	}
-	if o.Profile != nil {
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
-	if o.Provider != nil {
+	if !IsNil(o.Provider) {
 		toSerialize["provider"] = o.Provider
 	}
 
@@ -141,18 +152,18 @@ func (o UserFactorPush) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserFactorPush) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserFactorPush) UnmarshalJSON(data []byte) (err error) {
 	type UserFactorPushWithoutEmbeddedStruct struct {
-		Profile *UserFactorPushProfile `json:"profile,omitempty"`
-		Provider *string `json:"provider,omitempty"`
+		Profile  *UserFactorPushProfile `json:"profile,omitempty"`
+		Provider *string                `json:"provider,omitempty"`
 	}
 
 	varUserFactorPushWithoutEmbeddedStruct := UserFactorPushWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varUserFactorPushWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varUserFactorPushWithoutEmbeddedStruct)
 	if err == nil {
 		varUserFactorPush := _UserFactorPush{}
 		varUserFactorPush.Profile = varUserFactorPushWithoutEmbeddedStruct.Profile
@@ -164,7 +175,7 @@ func (o *UserFactorPush) UnmarshalJSON(bytes []byte) (err error) {
 
 	varUserFactorPush := _UserFactorPush{}
 
-	err = json.Unmarshal(bytes, &varUserFactorPush)
+	err = json.Unmarshal(data, &varUserFactorPush)
 	if err == nil {
 		o.UserFactor = varUserFactorPush.UserFactor
 	} else {
@@ -173,8 +184,7 @@ func (o *UserFactorPush) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "profile")
 		delete(additionalProperties, "provider")
 
@@ -197,8 +207,6 @@ func (o *UserFactorPush) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -239,4 +247,3 @@ func (v *NullableUserFactorPush) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

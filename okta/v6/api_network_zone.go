@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,24 +26,23 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type NetworkZoneAPI interface {
 
 	/*
-	ActivateNetworkZone Activate a network zone
+		ActivateNetworkZone Activate a network zone
 
-	Activates a Network Zone by `zoneId`
+		Activates a Network Zone by `zoneId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param zoneId `id` of the Network Zone
-	@return ApiActivateNetworkZoneRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param zoneId `id` of the Network Zone
+		@return ApiActivateNetworkZoneRequest
 	*/
 	ActivateNetworkZone(ctx context.Context, zoneId string) ApiActivateNetworkZoneRequest
 
@@ -52,15 +51,15 @@ type NetworkZoneAPI interface {
 	ActivateNetworkZoneExecute(r ApiActivateNetworkZoneRequest) (*ListNetworkZones200ResponseInner, *APIResponse, error)
 
 	/*
-	CreateNetworkZone Create a network zone
+			CreateNetworkZone Create a network zone
 
-	Creates a Network Zone
-* For an IP Network Zone, you must define either `gateways` or `proxies`.
-* For a Dynamic Network Zone, you must define at least one of the following: `asns`, `locations`, or `proxyType`.
-* For an Enhanced Dynamic Network Zone, you must define at least one of the following: `asns`, `locations`, or `ipServiceCategories`.
+			Creates a Network Zone
+		* For an IP Network Zone, you must define either `gateways` or `proxies`.
+		* For a Dynamic Network Zone, you must define at least one of the following: `asns`, `locations`, or `proxyType`.
+		* For an Enhanced Dynamic Network Zone, you must define at least one of the following: `asns`, `locations`, or `ipServiceCategories`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateNetworkZoneRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiCreateNetworkZoneRequest
 	*/
 	CreateNetworkZone(ctx context.Context) ApiCreateNetworkZoneRequest
 
@@ -69,13 +68,13 @@ type NetworkZoneAPI interface {
 	CreateNetworkZoneExecute(r ApiCreateNetworkZoneRequest) (*ListNetworkZones200ResponseInner, *APIResponse, error)
 
 	/*
-	DeactivateNetworkZone Deactivate a network zone
+		DeactivateNetworkZone Deactivate a network zone
 
-	Deactivates a Network Zone by `zoneId`
+		Deactivates a Network Zone by `zoneId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param zoneId `id` of the Network Zone
-	@return ApiDeactivateNetworkZoneRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param zoneId `id` of the Network Zone
+		@return ApiDeactivateNetworkZoneRequest
 	*/
 	DeactivateNetworkZone(ctx context.Context, zoneId string) ApiDeactivateNetworkZoneRequest
 
@@ -84,16 +83,16 @@ type NetworkZoneAPI interface {
 	DeactivateNetworkZoneExecute(r ApiDeactivateNetworkZoneRequest) (*ListNetworkZones200ResponseInner, *APIResponse, error)
 
 	/*
-	DeleteNetworkZone Delete a network zone
+			DeleteNetworkZone Delete a network zone
 
-	Deletes a Network Zone by `zoneId`
-> **Notes:**
-> * You can't delete a Network Zone that's used by a [Policy](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Policy/) or [Rule](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Policy/#tag/Policy/operation/listPolicyRules).
-> * For Okta Identity Engine orgs, you can't delete a Network Zone with an ACTIVE `status`. <x-lifecycle class="oie"></x-lifecycle>
+			Deletes a Network Zone by `zoneId`
+		> **Notes:**
+		> * You can't delete a Network Zone that's used by a [Policy](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Policy/) or [Rule](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Policy/#tag/Policy/operation/listPolicyRules).
+		> * For Okta Identity Engine orgs, you can't delete a Network Zone with an ACTIVE `status`. <x-lifecycle class="oie"></x-lifecycle>
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param zoneId `id` of the Network Zone
-	@return ApiDeleteNetworkZoneRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param zoneId `id` of the Network Zone
+			@return ApiDeleteNetworkZoneRequest
 	*/
 	DeleteNetworkZone(ctx context.Context, zoneId string) ApiDeleteNetworkZoneRequest
 
@@ -101,13 +100,13 @@ type NetworkZoneAPI interface {
 	DeleteNetworkZoneExecute(r ApiDeleteNetworkZoneRequest) (*APIResponse, error)
 
 	/*
-	GetNetworkZone Retrieve a network zone
+		GetNetworkZone Retrieve a network zone
 
-	Retrieves a Network Zone by `zoneId`
+		Retrieves a Network Zone by `zoneId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param zoneId `id` of the Network Zone
-	@return ApiGetNetworkZoneRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param zoneId `id` of the Network Zone
+		@return ApiGetNetworkZoneRequest
 	*/
 	GetNetworkZone(ctx context.Context, zoneId string) ApiGetNetworkZoneRequest
 
@@ -116,16 +115,16 @@ type NetworkZoneAPI interface {
 	GetNetworkZoneExecute(r ApiGetNetworkZoneRequest) (*ListNetworkZones200ResponseInner, *APIResponse, error)
 
 	/*
-	ListNetworkZones List all network zones
+			ListNetworkZones List all network zones
 
-	Lists all Network Zones with pagination. A subset of zones can be returned that match a supported filter expression or query.
+			Lists all Network Zones with pagination. A subset of zones can be returned that match a supported filter expression or query.
 
-This operation requires URL encoding. For example, `filter=(id eq "nzoul0wf9jyb8xwZm0g3" or id eq "nzoul1MxmGN18NDQT0g3")` is encoded as `filter=%28id+eq+%22nzoul0wf9jyb8xwZm0g3%22+or+id+eq+%22nzoul1MxmGN18NDQT0g3%22%29`.
+		This operation requires URL encoding. For example, `filter=(id eq "nzoul0wf9jyb8xwZm0g3" or id eq "nzoul1MxmGN18NDQT0g3")` is encoded as `filter=%28id+eq+%22nzoul0wf9jyb8xwZm0g3%22+or+id+eq+%22nzoul1MxmGN18NDQT0g3%22%29`.
 
-Okta supports filtering on the `id`, `usage`, and `system` properties. See [Filter](https://developer.okta.com/docs/api/#filter) for more information on the expressions that are used in filtering.
+		Okta supports filtering on the `id`, `usage`, and `system` properties. See [Filter](https://developer.okta.com/docs/api/#filter) for more information on the expressions that are used in filtering.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListNetworkZonesRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiListNetworkZonesRequest
 	*/
 	ListNetworkZones(ctx context.Context) ApiListNetworkZonesRequest
 
@@ -134,21 +133,21 @@ Okta supports filtering on the `id`, `usage`, and `system` properties. See [Filt
 	ListNetworkZonesExecute(r ApiListNetworkZonesRequest) ([]ListNetworkZones200ResponseInner, *APIResponse, error)
 
 	/*
-	ReplaceNetworkZone Replace a network zone
+			ReplaceNetworkZone Replace a network zone
 
-	Replaces a Network Zone by `zoneId`. The replaced Network Zone type must be the same as the existing type.
-You can replace the usage (`POLICY`, `BLOCKLIST`) of a Network Zone by updating the `usage` attribute.
+			Replaces a Network Zone by `zoneId`. The replaced Network Zone type must be the same as the existing type.
+		You can replace the usage (`POLICY`, `BLOCKLIST`) of a Network Zone by updating the `usage` attribute.
 
-**IP exempt zone**<br>
-If you have the IP exempt zone feature enabled, you can allow traffic from specific gateway IPs irrespective of Okta ThreatInsight configurations, blocked network zones, or IP change events within Identity Threat Protection with Okta AI.<br>
-<br>
-When you enable this feature, Okta creates a zone called `DefaultExemptIpZone`. Gateway IPs that you add to this zone always have access to Okta resources. See [IP exempt zone](https://help.okta.com/okta_help.htm?type=oie&id=csh-about-ip-exempt-zone).
+		**IP exempt zone**<br>
+		If you have the IP exempt zone feature enabled, you can allow traffic from specific gateway IPs irrespective of Okta ThreatInsight configurations, blocked network zones, or IP change events within Identity Threat Protection with Okta AI.<br>
+		<br>
+		When you enable this feature, Okta creates a zone called `DefaultExemptIpZone`. Gateway IPs that you add to this zone always have access to Okta resources. See [IP exempt zone](https://help.okta.com/okta_help.htm?type=oie&id=csh-about-ip-exempt-zone).
 
-> **Note:** You can't add trusted proxy IPs to this zone, delete the zone, or create additional exempt IP zones.
+		> **Note:** You can't add trusted proxy IPs to this zone, delete the zone, or create additional exempt IP zones.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param zoneId `id` of the Network Zone
-	@return ApiReplaceNetworkZoneRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param zoneId `id` of the Network Zone
+			@return ApiReplaceNetworkZoneRequest
 	*/
 	ReplaceNetworkZone(ctx context.Context, zoneId string) ApiReplaceNetworkZoneRequest
 
@@ -161,9 +160,9 @@ When you enable this feature, Okta creates a zone called `DefaultExemptIpZone`. 
 type NetworkZoneAPIService service
 
 type ApiActivateNetworkZoneRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService NetworkZoneAPI
-	zoneId string
+	zoneId     string
 	retryCount int32
 }
 
@@ -176,21 +175,22 @@ ActivateNetworkZone Activate a network zone
 
 Activates a Network Zone by `zoneId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param zoneId `id` of the Network Zone
- @return ApiActivateNetworkZoneRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param zoneId `id` of the Network Zone
+	@return ApiActivateNetworkZoneRequest
 */
 func (a *NetworkZoneAPIService) ActivateNetworkZone(ctx context.Context, zoneId string) ApiActivateNetworkZoneRequest {
 	return ApiActivateNetworkZoneRequest{
 		ApiService: a,
-		ctx: ctx,
-		zoneId: zoneId,
+		ctx:        ctx,
+		zoneId:     zoneId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListNetworkZones200ResponseInner
+//
+//	@return ListNetworkZones200ResponseInner
 func (a *NetworkZoneAPIService) ActivateNetworkZoneExecute(r ApiActivateNetworkZoneRequest) (*ListNetworkZones200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -199,7 +199,7 @@ func (a *NetworkZoneAPIService) ActivateNetworkZoneExecute(r ApiActivateNetworkZ
 		localVarReturnValue  *ListNetworkZones200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -260,9 +260,9 @@ func (a *NetworkZoneAPIService) ActivateNetworkZoneExecute(r ApiActivateNetworkZ
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -320,15 +320,15 @@ func (a *NetworkZoneAPIService) ActivateNetworkZoneExecute(r ApiActivateNetworkZ
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiCreateNetworkZoneRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService NetworkZoneAPI
-	zone *ListNetworkZones200ResponseInner
+	zone       *ListNetworkZones200ResponseInner
 	retryCount int32
 }
 
@@ -349,19 +349,20 @@ Creates a Network Zone
 * For a Dynamic Network Zone, you must define at least one of the following: `asns`, `locations`, or `proxyType`.
 * For an Enhanced Dynamic Network Zone, you must define at least one of the following: `asns`, `locations`, or `ipServiceCategories`.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateNetworkZoneRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateNetworkZoneRequest
 */
 func (a *NetworkZoneAPIService) CreateNetworkZone(ctx context.Context) ApiCreateNetworkZoneRequest {
 	return ApiCreateNetworkZoneRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListNetworkZones200ResponseInner
+//
+//	@return ListNetworkZones200ResponseInner
 func (a *NetworkZoneAPIService) CreateNetworkZoneExecute(r ApiCreateNetworkZoneRequest) (*ListNetworkZones200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -370,7 +371,7 @@ func (a *NetworkZoneAPIService) CreateNetworkZoneExecute(r ApiCreateNetworkZoneR
 		localVarReturnValue  *ListNetworkZones200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -435,9 +436,9 @@ func (a *NetworkZoneAPIService) CreateNetworkZoneExecute(r ApiCreateNetworkZoneR
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -495,15 +496,15 @@ func (a *NetworkZoneAPIService) CreateNetworkZoneExecute(r ApiCreateNetworkZoneR
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeactivateNetworkZoneRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService NetworkZoneAPI
-	zoneId string
+	zoneId     string
 	retryCount int32
 }
 
@@ -516,21 +517,22 @@ DeactivateNetworkZone Deactivate a network zone
 
 Deactivates a Network Zone by `zoneId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param zoneId `id` of the Network Zone
- @return ApiDeactivateNetworkZoneRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param zoneId `id` of the Network Zone
+	@return ApiDeactivateNetworkZoneRequest
 */
 func (a *NetworkZoneAPIService) DeactivateNetworkZone(ctx context.Context, zoneId string) ApiDeactivateNetworkZoneRequest {
 	return ApiDeactivateNetworkZoneRequest{
 		ApiService: a,
-		ctx: ctx,
-		zoneId: zoneId,
+		ctx:        ctx,
+		zoneId:     zoneId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListNetworkZones200ResponseInner
+//
+//	@return ListNetworkZones200ResponseInner
 func (a *NetworkZoneAPIService) DeactivateNetworkZoneExecute(r ApiDeactivateNetworkZoneRequest) (*ListNetworkZones200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -539,7 +541,7 @@ func (a *NetworkZoneAPIService) DeactivateNetworkZoneExecute(r ApiDeactivateNetw
 		localVarReturnValue  *ListNetworkZones200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -600,9 +602,9 @@ func (a *NetworkZoneAPIService) DeactivateNetworkZoneExecute(r ApiDeactivateNetw
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -660,15 +662,15 @@ func (a *NetworkZoneAPIService) DeactivateNetworkZoneExecute(r ApiDeactivateNetw
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteNetworkZoneRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService NetworkZoneAPI
-	zoneId string
+	zoneId     string
 	retryCount int32
 }
 
@@ -684,15 +686,15 @@ Deletes a Network Zone by `zoneId`
 > * You can't delete a Network Zone that's used by a [Policy](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Policy/) or [Rule](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Policy/#tag/Policy/operation/listPolicyRules).
 > * For Okta Identity Engine orgs, you can't delete a Network Zone with an ACTIVE `status`. <x-lifecycle class="oie"></x-lifecycle>
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param zoneId `id` of the Network Zone
- @return ApiDeleteNetworkZoneRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param zoneId `id` of the Network Zone
+	@return ApiDeleteNetworkZoneRequest
 */
 func (a *NetworkZoneAPIService) DeleteNetworkZone(ctx context.Context, zoneId string) ApiDeleteNetworkZoneRequest {
 	return ApiDeleteNetworkZoneRequest{
 		ApiService: a,
-		ctx: ctx,
-		zoneId: zoneId,
+		ctx:        ctx,
+		zoneId:     zoneId,
 		retryCount: 0,
 	}
 }
@@ -705,7 +707,7 @@ func (a *NetworkZoneAPIService) DeleteNetworkZoneExecute(r ApiDeleteNetworkZoneR
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -766,9 +768,9 @@ func (a *NetworkZoneAPIService) DeleteNetworkZoneExecute(r ApiDeleteNetworkZoneR
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -822,9 +824,9 @@ func (a *NetworkZoneAPIService) DeleteNetworkZoneExecute(r ApiDeleteNetworkZoneR
 }
 
 type ApiGetNetworkZoneRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService NetworkZoneAPI
-	zoneId string
+	zoneId     string
 	retryCount int32
 }
 
@@ -837,21 +839,22 @@ GetNetworkZone Retrieve a network zone
 
 Retrieves a Network Zone by `zoneId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param zoneId `id` of the Network Zone
- @return ApiGetNetworkZoneRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param zoneId `id` of the Network Zone
+	@return ApiGetNetworkZoneRequest
 */
 func (a *NetworkZoneAPIService) GetNetworkZone(ctx context.Context, zoneId string) ApiGetNetworkZoneRequest {
 	return ApiGetNetworkZoneRequest{
 		ApiService: a,
-		ctx: ctx,
-		zoneId: zoneId,
+		ctx:        ctx,
+		zoneId:     zoneId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListNetworkZones200ResponseInner
+//
+//	@return ListNetworkZones200ResponseInner
 func (a *NetworkZoneAPIService) GetNetworkZoneExecute(r ApiGetNetworkZoneRequest) (*ListNetworkZones200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -860,7 +863,7 @@ func (a *NetworkZoneAPIService) GetNetworkZoneExecute(r ApiGetNetworkZoneRequest
 		localVarReturnValue  *ListNetworkZones200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -921,9 +924,9 @@ func (a *NetworkZoneAPIService) GetNetworkZoneExecute(r ApiGetNetworkZoneRequest
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -981,17 +984,17 @@ func (a *NetworkZoneAPIService) GetNetworkZoneExecute(r ApiGetNetworkZoneRequest
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListNetworkZonesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService NetworkZoneAPI
-	after *string
-	limit *int32
-	filter *string
+	after      *string
+	limit      *int32
+	filter     *string
 	retryCount int32
 }
 
@@ -1023,19 +1026,20 @@ This operation requires URL encoding. For example, `filter=(id eq "nzoul0wf9jyb8
 
 Okta supports filtering on the `id`, `usage`, and `system` properties. See [Filter](https://developer.okta.com/docs/api/#filter) for more information on the expressions that are used in filtering.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListNetworkZonesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListNetworkZonesRequest
 */
 func (a *NetworkZoneAPIService) ListNetworkZones(ctx context.Context) ApiListNetworkZonesRequest {
 	return ApiListNetworkZonesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []ListNetworkZones200ResponseInner
+//
+//	@return []ListNetworkZones200ResponseInner
 func (a *NetworkZoneAPIService) ListNetworkZonesExecute(r ApiListNetworkZonesRequest) ([]ListNetworkZones200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1044,7 +1048,7 @@ func (a *NetworkZoneAPIService) ListNetworkZonesExecute(r ApiListNetworkZonesReq
 		localVarReturnValue  []ListNetworkZones200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1113,9 +1117,9 @@ func (a *NetworkZoneAPIService) ListNetworkZonesExecute(r ApiListNetworkZonesReq
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1161,16 +1165,16 @@ func (a *NetworkZoneAPIService) ListNetworkZonesExecute(r ApiListNetworkZonesReq
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceNetworkZoneRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService NetworkZoneAPI
-	zoneId string
-	zone *ListNetworkZones200ResponseInner
+	zoneId     string
+	zone       *ListNetworkZones200ResponseInner
 	retryCount int32
 }
 
@@ -1196,21 +1200,22 @@ When you enable this feature, Okta creates a zone called `DefaultExemptIpZone`. 
 
 > **Note:** You can't add trusted proxy IPs to this zone, delete the zone, or create additional exempt IP zones.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param zoneId `id` of the Network Zone
- @return ApiReplaceNetworkZoneRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param zoneId `id` of the Network Zone
+	@return ApiReplaceNetworkZoneRequest
 */
 func (a *NetworkZoneAPIService) ReplaceNetworkZone(ctx context.Context, zoneId string) ApiReplaceNetworkZoneRequest {
 	return ApiReplaceNetworkZoneRequest{
 		ApiService: a,
-		ctx: ctx,
-		zoneId: zoneId,
+		ctx:        ctx,
+		zoneId:     zoneId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListNetworkZones200ResponseInner
+//
+//	@return ListNetworkZones200ResponseInner
 func (a *NetworkZoneAPIService) ReplaceNetworkZoneExecute(r ApiReplaceNetworkZoneRequest) (*ListNetworkZones200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -1219,7 +1224,7 @@ func (a *NetworkZoneAPIService) ReplaceNetworkZoneExecute(r ApiReplaceNetworkZon
 		localVarReturnValue  *ListNetworkZones200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1285,9 +1290,9 @@ func (a *NetworkZoneAPIService) ReplaceNetworkZoneExecute(r ApiReplaceNetworkZon
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1357,7 +1362,7 @@ func (a *NetworkZoneAPIService) ReplaceNetworkZoneExecute(r ApiReplaceNetworkZon
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

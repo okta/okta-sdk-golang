@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"time"
 )
 
+// checks if the Device type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Device{}
+
 // Device struct for Device
 type Device struct {
 	// Timestamp when the device was created
@@ -35,16 +38,16 @@ type Device struct {
 	// Unique key for the device
 	Id *string `json:"id,omitempty"`
 	// Timestamp when the device record was last updated. Updates occur when Okta collects and saves device signals during authentication, and when the lifecycle state of the device changes.
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Profile *DeviceProfile `json:"profile,omitempty"`
-	ResourceAlternateId *string `json:"resourceAlternateId,omitempty"`
+	LastUpdated         *time.Time         `json:"lastUpdated,omitempty"`
+	Profile             *DeviceProfile     `json:"profile,omitempty"`
+	ResourceAlternateId *string            `json:"resourceAlternateId,omitempty"`
 	ResourceDisplayName *DeviceDisplayName `json:"resourceDisplayName,omitempty"`
 	// Alternate key for the `id`
-	ResourceId *string `json:"resourceId,omitempty"`
+	ResourceId   *string `json:"resourceId,omitempty"`
 	ResourceType *string `json:"resourceType,omitempty"`
 	// The state object of the device
-	Status *string `json:"status,omitempty"`
-	Links *LinksSelfAndFullUsersLifecycle `json:"_links,omitempty"`
+	Status               *string                         `json:"status,omitempty"`
+	Links                *LinksSelfAndFullUsersLifecycle `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -69,7 +72,7 @@ func NewDeviceWithDefaults() *Device {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *Device) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -79,7 +82,7 @@ func (o *Device) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Device) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -87,7 +90,7 @@ func (o *Device) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *Device) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -101,7 +104,7 @@ func (o *Device) SetCreated(v time.Time) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *Device) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -111,7 +114,7 @@ func (o *Device) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Device) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -119,7 +122,7 @@ func (o *Device) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *Device) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -133,7 +136,7 @@ func (o *Device) SetId(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *Device) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -143,7 +146,7 @@ func (o *Device) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Device) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -151,7 +154,7 @@ func (o *Device) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *Device) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -165,7 +168,7 @@ func (o *Device) SetLastUpdated(v time.Time) {
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *Device) GetProfile() DeviceProfile {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret DeviceProfile
 		return ret
 	}
@@ -175,7 +178,7 @@ func (o *Device) GetProfile() DeviceProfile {
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Device) GetProfileOk() (*DeviceProfile, bool) {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		return nil, false
 	}
 	return o.Profile, true
@@ -183,7 +186,7 @@ func (o *Device) GetProfileOk() (*DeviceProfile, bool) {
 
 // HasProfile returns a boolean if a field has been set.
 func (o *Device) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -197,7 +200,7 @@ func (o *Device) SetProfile(v DeviceProfile) {
 
 // GetResourceAlternateId returns the ResourceAlternateId field value if set, zero value otherwise.
 func (o *Device) GetResourceAlternateId() string {
-	if o == nil || o.ResourceAlternateId == nil {
+	if o == nil || IsNil(o.ResourceAlternateId) {
 		var ret string
 		return ret
 	}
@@ -207,7 +210,7 @@ func (o *Device) GetResourceAlternateId() string {
 // GetResourceAlternateIdOk returns a tuple with the ResourceAlternateId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Device) GetResourceAlternateIdOk() (*string, bool) {
-	if o == nil || o.ResourceAlternateId == nil {
+	if o == nil || IsNil(o.ResourceAlternateId) {
 		return nil, false
 	}
 	return o.ResourceAlternateId, true
@@ -215,7 +218,7 @@ func (o *Device) GetResourceAlternateIdOk() (*string, bool) {
 
 // HasResourceAlternateId returns a boolean if a field has been set.
 func (o *Device) HasResourceAlternateId() bool {
-	if o != nil && o.ResourceAlternateId != nil {
+	if o != nil && !IsNil(o.ResourceAlternateId) {
 		return true
 	}
 
@@ -229,7 +232,7 @@ func (o *Device) SetResourceAlternateId(v string) {
 
 // GetResourceDisplayName returns the ResourceDisplayName field value if set, zero value otherwise.
 func (o *Device) GetResourceDisplayName() DeviceDisplayName {
-	if o == nil || o.ResourceDisplayName == nil {
+	if o == nil || IsNil(o.ResourceDisplayName) {
 		var ret DeviceDisplayName
 		return ret
 	}
@@ -239,7 +242,7 @@ func (o *Device) GetResourceDisplayName() DeviceDisplayName {
 // GetResourceDisplayNameOk returns a tuple with the ResourceDisplayName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Device) GetResourceDisplayNameOk() (*DeviceDisplayName, bool) {
-	if o == nil || o.ResourceDisplayName == nil {
+	if o == nil || IsNil(o.ResourceDisplayName) {
 		return nil, false
 	}
 	return o.ResourceDisplayName, true
@@ -247,7 +250,7 @@ func (o *Device) GetResourceDisplayNameOk() (*DeviceDisplayName, bool) {
 
 // HasResourceDisplayName returns a boolean if a field has been set.
 func (o *Device) HasResourceDisplayName() bool {
-	if o != nil && o.ResourceDisplayName != nil {
+	if o != nil && !IsNil(o.ResourceDisplayName) {
 		return true
 	}
 
@@ -261,7 +264,7 @@ func (o *Device) SetResourceDisplayName(v DeviceDisplayName) {
 
 // GetResourceId returns the ResourceId field value if set, zero value otherwise.
 func (o *Device) GetResourceId() string {
-	if o == nil || o.ResourceId == nil {
+	if o == nil || IsNil(o.ResourceId) {
 		var ret string
 		return ret
 	}
@@ -271,7 +274,7 @@ func (o *Device) GetResourceId() string {
 // GetResourceIdOk returns a tuple with the ResourceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Device) GetResourceIdOk() (*string, bool) {
-	if o == nil || o.ResourceId == nil {
+	if o == nil || IsNil(o.ResourceId) {
 		return nil, false
 	}
 	return o.ResourceId, true
@@ -279,7 +282,7 @@ func (o *Device) GetResourceIdOk() (*string, bool) {
 
 // HasResourceId returns a boolean if a field has been set.
 func (o *Device) HasResourceId() bool {
-	if o != nil && o.ResourceId != nil {
+	if o != nil && !IsNil(o.ResourceId) {
 		return true
 	}
 
@@ -293,7 +296,7 @@ func (o *Device) SetResourceId(v string) {
 
 // GetResourceType returns the ResourceType field value if set, zero value otherwise.
 func (o *Device) GetResourceType() string {
-	if o == nil || o.ResourceType == nil {
+	if o == nil || IsNil(o.ResourceType) {
 		var ret string
 		return ret
 	}
@@ -303,7 +306,7 @@ func (o *Device) GetResourceType() string {
 // GetResourceTypeOk returns a tuple with the ResourceType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Device) GetResourceTypeOk() (*string, bool) {
-	if o == nil || o.ResourceType == nil {
+	if o == nil || IsNil(o.ResourceType) {
 		return nil, false
 	}
 	return o.ResourceType, true
@@ -311,7 +314,7 @@ func (o *Device) GetResourceTypeOk() (*string, bool) {
 
 // HasResourceType returns a boolean if a field has been set.
 func (o *Device) HasResourceType() bool {
-	if o != nil && o.ResourceType != nil {
+	if o != nil && !IsNil(o.ResourceType) {
 		return true
 	}
 
@@ -325,7 +328,7 @@ func (o *Device) SetResourceType(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *Device) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -335,7 +338,7 @@ func (o *Device) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Device) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -343,7 +346,7 @@ func (o *Device) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *Device) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -357,7 +360,7 @@ func (o *Device) SetStatus(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *Device) GetLinks() LinksSelfAndFullUsersLifecycle {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksSelfAndFullUsersLifecycle
 		return ret
 	}
@@ -367,7 +370,7 @@ func (o *Device) GetLinks() LinksSelfAndFullUsersLifecycle {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Device) GetLinksOk() (*LinksSelfAndFullUsersLifecycle, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -375,7 +378,7 @@ func (o *Device) GetLinksOk() (*LinksSelfAndFullUsersLifecycle, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *Device) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -388,35 +391,43 @@ func (o *Device) SetLinks(v LinksSelfAndFullUsersLifecycle) {
 }
 
 func (o Device) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Device) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Profile != nil {
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
-	if o.ResourceAlternateId != nil {
+	if !IsNil(o.ResourceAlternateId) {
 		toSerialize["resourceAlternateId"] = o.ResourceAlternateId
 	}
-	if o.ResourceDisplayName != nil {
+	if !IsNil(o.ResourceDisplayName) {
 		toSerialize["resourceDisplayName"] = o.ResourceDisplayName
 	}
-	if o.ResourceId != nil {
+	if !IsNil(o.ResourceId) {
 		toSerialize["resourceId"] = o.ResourceId
 	}
-	if o.ResourceType != nil {
+	if !IsNil(o.ResourceType) {
 		toSerialize["resourceType"] = o.ResourceType
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -424,23 +435,23 @@ func (o Device) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Device) UnmarshalJSON(bytes []byte) (err error) {
+func (o *Device) UnmarshalJSON(data []byte) (err error) {
 	varDevice := _Device{}
 
-	err = json.Unmarshal(bytes, &varDevice)
-	if err == nil {
-		*o = Device(varDevice)
-	} else {
+	err = json.Unmarshal(data, &varDevice)
+
+	if err != nil {
 		return err
 	}
 
+	*o = Device(varDevice)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "lastUpdated")
@@ -452,8 +463,6 @@ func (o *Device) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -494,4 +503,3 @@ func (v *NullableDevice) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

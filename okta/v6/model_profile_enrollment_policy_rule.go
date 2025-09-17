@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -29,12 +29,15 @@ import (
 	"strings"
 )
 
+// checks if the ProfileEnrollmentPolicyRule type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ProfileEnrollmentPolicyRule{}
+
 // ProfileEnrollmentPolicyRule struct for ProfileEnrollmentPolicyRule
 type ProfileEnrollmentPolicyRule struct {
 	PolicyRule
 	Actions *ProfileEnrollmentPolicyRuleActions `json:"actions,omitempty"`
 	// Policy rule conditions aren't supported for this policy type
-	Conditions NullableString `json:"conditions,omitempty"`
+	Conditions           NullableString `json:"conditions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewProfileEnrollmentPolicyRuleWithDefaults() *ProfileEnrollmentPolicyRule {
 
 // GetActions returns the Actions field value if set, zero value otherwise.
 func (o *ProfileEnrollmentPolicyRule) GetActions() ProfileEnrollmentPolicyRuleActions {
-	if o == nil || o.Actions == nil {
+	if o == nil || IsNil(o.Actions) {
 		var ret ProfileEnrollmentPolicyRuleActions
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *ProfileEnrollmentPolicyRule) GetActions() ProfileEnrollmentPolicyRuleAc
 // GetActionsOk returns a tuple with the Actions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProfileEnrollmentPolicyRule) GetActionsOk() (*ProfileEnrollmentPolicyRuleActions, bool) {
-	if o == nil || o.Actions == nil {
+	if o == nil || IsNil(o.Actions) {
 		return nil, false
 	}
 	return o.Actions, true
@@ -79,7 +82,7 @@ func (o *ProfileEnrollmentPolicyRule) GetActionsOk() (*ProfileEnrollmentPolicyRu
 
 // HasActions returns a boolean if a field has been set.
 func (o *ProfileEnrollmentPolicyRule) HasActions() bool {
-	if o != nil && o.Actions != nil {
+	if o != nil && !IsNil(o.Actions) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *ProfileEnrollmentPolicyRule) SetActions(v ProfileEnrollmentPolicyRuleAc
 
 // GetConditions returns the Conditions field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ProfileEnrollmentPolicyRule) GetConditions() string {
-	if o == nil || o.Conditions.Get() == nil {
+	if o == nil || IsNil(o.Conditions.Get()) {
 		var ret string
 		return ret
 	}
@@ -123,6 +126,7 @@ func (o *ProfileEnrollmentPolicyRule) HasConditions() bool {
 func (o *ProfileEnrollmentPolicyRule) SetConditions(v string) {
 	o.Conditions.Set(&v)
 }
+
 // SetConditionsNil sets the value for Conditions to be an explicit nil
 func (o *ProfileEnrollmentPolicyRule) SetConditionsNil() {
 	o.Conditions.Set(nil)
@@ -134,16 +138,24 @@ func (o *ProfileEnrollmentPolicyRule) UnsetConditions() {
 }
 
 func (o ProfileEnrollmentPolicyRule) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ProfileEnrollmentPolicyRule) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedPolicyRule, errPolicyRule := json.Marshal(o.PolicyRule)
 	if errPolicyRule != nil {
-		return []byte{}, errPolicyRule
+		return map[string]interface{}{}, errPolicyRule
 	}
 	errPolicyRule = json.Unmarshal([]byte(serializedPolicyRule), &toSerialize)
 	if errPolicyRule != nil {
-		return []byte{}, errPolicyRule
+		return map[string]interface{}{}, errPolicyRule
 	}
-	if o.Actions != nil {
+	if !IsNil(o.Actions) {
 		toSerialize["actions"] = o.Actions
 	}
 	if o.Conditions.IsSet() {
@@ -154,10 +166,10 @@ func (o ProfileEnrollmentPolicyRule) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ProfileEnrollmentPolicyRule) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ProfileEnrollmentPolicyRule) UnmarshalJSON(data []byte) (err error) {
 	type ProfileEnrollmentPolicyRuleWithoutEmbeddedStruct struct {
 		Actions *ProfileEnrollmentPolicyRuleActions `json:"actions,omitempty"`
 		// Policy rule conditions aren't supported for this policy type
@@ -166,7 +178,7 @@ func (o *ProfileEnrollmentPolicyRule) UnmarshalJSON(bytes []byte) (err error) {
 
 	varProfileEnrollmentPolicyRuleWithoutEmbeddedStruct := ProfileEnrollmentPolicyRuleWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varProfileEnrollmentPolicyRuleWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varProfileEnrollmentPolicyRuleWithoutEmbeddedStruct)
 	if err == nil {
 		varProfileEnrollmentPolicyRule := _ProfileEnrollmentPolicyRule{}
 		varProfileEnrollmentPolicyRule.Actions = varProfileEnrollmentPolicyRuleWithoutEmbeddedStruct.Actions
@@ -178,7 +190,7 @@ func (o *ProfileEnrollmentPolicyRule) UnmarshalJSON(bytes []byte) (err error) {
 
 	varProfileEnrollmentPolicyRule := _ProfileEnrollmentPolicyRule{}
 
-	err = json.Unmarshal(bytes, &varProfileEnrollmentPolicyRule)
+	err = json.Unmarshal(data, &varProfileEnrollmentPolicyRule)
 	if err == nil {
 		o.PolicyRule = varProfileEnrollmentPolicyRule.PolicyRule
 	} else {
@@ -187,8 +199,7 @@ func (o *ProfileEnrollmentPolicyRule) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "actions")
 		delete(additionalProperties, "conditions")
 
@@ -211,8 +222,6 @@ func (o *ProfileEnrollmentPolicyRule) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -253,4 +262,3 @@ func (v *NullableProfileEnrollmentPolicyRule) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

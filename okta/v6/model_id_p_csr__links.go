@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the IdPCsrLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IdPCsrLinks{}
+
 // IdPCsrLinks struct for IdPCsrLinks
 type IdPCsrLinks struct {
 	Self *HrefObjectSelfLink `json:"self,omitempty"`
 	// Publish the CSR
-	Publish *HrefObject `json:"publish,omitempty"`
+	Publish              *HrefObject `json:"publish,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewIdPCsrLinksWithDefaults() *IdPCsrLinks {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *IdPCsrLinks) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *IdPCsrLinks) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdPCsrLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -74,7 +77,7 @@ func (o *IdPCsrLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *IdPCsrLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *IdPCsrLinks) SetSelf(v HrefObjectSelfLink) {
 
 // GetPublish returns the Publish field value if set, zero value otherwise.
 func (o *IdPCsrLinks) GetPublish() HrefObject {
-	if o == nil || o.Publish == nil {
+	if o == nil || IsNil(o.Publish) {
 		var ret HrefObject
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *IdPCsrLinks) GetPublish() HrefObject {
 // GetPublishOk returns a tuple with the Publish field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdPCsrLinks) GetPublishOk() (*HrefObject, bool) {
-	if o == nil || o.Publish == nil {
+	if o == nil || IsNil(o.Publish) {
 		return nil, false
 	}
 	return o.Publish, true
@@ -106,7 +109,7 @@ func (o *IdPCsrLinks) GetPublishOk() (*HrefObject, bool) {
 
 // HasPublish returns a boolean if a field has been set.
 func (o *IdPCsrLinks) HasPublish() bool {
-	if o != nil && o.Publish != nil {
+	if o != nil && !IsNil(o.Publish) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *IdPCsrLinks) SetPublish(v HrefObject) {
 }
 
 func (o IdPCsrLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IdPCsrLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.Publish != nil {
+	if !IsNil(o.Publish) {
 		toSerialize["publish"] = o.Publish
 	}
 
@@ -131,28 +142,26 @@ func (o IdPCsrLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *IdPCsrLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *IdPCsrLinks) UnmarshalJSON(data []byte) (err error) {
 	varIdPCsrLinks := _IdPCsrLinks{}
 
-	err = json.Unmarshal(bytes, &varIdPCsrLinks)
-	if err == nil {
-		*o = IdPCsrLinks(varIdPCsrLinks)
-	} else {
+	err = json.Unmarshal(data, &varIdPCsrLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = IdPCsrLinks(varIdPCsrLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "publish")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableIdPCsrLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

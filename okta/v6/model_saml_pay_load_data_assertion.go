@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,14 +27,17 @@ import (
 	"encoding/json"
 )
 
+// checks if the SAMLPayLoadDataAssertion type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SAMLPayLoadDataAssertion{}
+
 // SAMLPayLoadDataAssertion Details of the SAML assertion that was generated
 type SAMLPayLoadDataAssertion struct {
-	Subject *SAMLPayLoadDataAssertionSubject `json:"subject,omitempty"`
+	Subject        *SAMLPayLoadDataAssertionSubject        `json:"subject,omitempty"`
 	Authentication *SAMLPayLoadDataAssertionAuthentication `json:"authentication,omitempty"`
-	Conditions *SAMLPayLoadDataAssertionConditions `json:"conditions,omitempty"`
+	Conditions     *SAMLPayLoadDataAssertionConditions     `json:"conditions,omitempty"`
 	// Provides a JSON representation of the `<saml:AttributeStatement>` element contained in the generated SAML assertion. Contains any optional SAML attribute statements that you have defined for the app using the Admin Console's **SAML Settings**.
-	Claims *map[string]SAMLPayLoadDataAssertionClaimsValue `json:"claims,omitempty"`
-	Lifetime *SAMLPayLoadDataAssertionLifetime `json:"lifetime,omitempty"`
+	Claims               *map[string]SAMLPayLoadDataAssertionClaimsValue `json:"claims,omitempty"`
+	Lifetime             *SAMLPayLoadDataAssertionLifetime               `json:"lifetime,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewSAMLPayLoadDataAssertionWithDefaults() *SAMLPayLoadDataAssertion {
 
 // GetSubject returns the Subject field value if set, zero value otherwise.
 func (o *SAMLPayLoadDataAssertion) GetSubject() SAMLPayLoadDataAssertionSubject {
-	if o == nil || o.Subject == nil {
+	if o == nil || IsNil(o.Subject) {
 		var ret SAMLPayLoadDataAssertionSubject
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *SAMLPayLoadDataAssertion) GetSubject() SAMLPayLoadDataAssertionSubject 
 // GetSubjectOk returns a tuple with the Subject field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoadDataAssertion) GetSubjectOk() (*SAMLPayLoadDataAssertionSubject, bool) {
-	if o == nil || o.Subject == nil {
+	if o == nil || IsNil(o.Subject) {
 		return nil, false
 	}
 	return o.Subject, true
@@ -77,7 +80,7 @@ func (o *SAMLPayLoadDataAssertion) GetSubjectOk() (*SAMLPayLoadDataAssertionSubj
 
 // HasSubject returns a boolean if a field has been set.
 func (o *SAMLPayLoadDataAssertion) HasSubject() bool {
-	if o != nil && o.Subject != nil {
+	if o != nil && !IsNil(o.Subject) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *SAMLPayLoadDataAssertion) SetSubject(v SAMLPayLoadDataAssertionSubject)
 
 // GetAuthentication returns the Authentication field value if set, zero value otherwise.
 func (o *SAMLPayLoadDataAssertion) GetAuthentication() SAMLPayLoadDataAssertionAuthentication {
-	if o == nil || o.Authentication == nil {
+	if o == nil || IsNil(o.Authentication) {
 		var ret SAMLPayLoadDataAssertionAuthentication
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *SAMLPayLoadDataAssertion) GetAuthentication() SAMLPayLoadDataAssertionA
 // GetAuthenticationOk returns a tuple with the Authentication field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoadDataAssertion) GetAuthenticationOk() (*SAMLPayLoadDataAssertionAuthentication, bool) {
-	if o == nil || o.Authentication == nil {
+	if o == nil || IsNil(o.Authentication) {
 		return nil, false
 	}
 	return o.Authentication, true
@@ -109,7 +112,7 @@ func (o *SAMLPayLoadDataAssertion) GetAuthenticationOk() (*SAMLPayLoadDataAssert
 
 // HasAuthentication returns a boolean if a field has been set.
 func (o *SAMLPayLoadDataAssertion) HasAuthentication() bool {
-	if o != nil && o.Authentication != nil {
+	if o != nil && !IsNil(o.Authentication) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *SAMLPayLoadDataAssertion) SetAuthentication(v SAMLPayLoadDataAssertionA
 
 // GetConditions returns the Conditions field value if set, zero value otherwise.
 func (o *SAMLPayLoadDataAssertion) GetConditions() SAMLPayLoadDataAssertionConditions {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		var ret SAMLPayLoadDataAssertionConditions
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *SAMLPayLoadDataAssertion) GetConditions() SAMLPayLoadDataAssertionCondi
 // GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoadDataAssertion) GetConditionsOk() (*SAMLPayLoadDataAssertionConditions, bool) {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		return nil, false
 	}
 	return o.Conditions, true
@@ -141,7 +144,7 @@ func (o *SAMLPayLoadDataAssertion) GetConditionsOk() (*SAMLPayLoadDataAssertionC
 
 // HasConditions returns a boolean if a field has been set.
 func (o *SAMLPayLoadDataAssertion) HasConditions() bool {
-	if o != nil && o.Conditions != nil {
+	if o != nil && !IsNil(o.Conditions) {
 		return true
 	}
 
@@ -155,7 +158,7 @@ func (o *SAMLPayLoadDataAssertion) SetConditions(v SAMLPayLoadDataAssertionCondi
 
 // GetClaims returns the Claims field value if set, zero value otherwise.
 func (o *SAMLPayLoadDataAssertion) GetClaims() map[string]SAMLPayLoadDataAssertionClaimsValue {
-	if o == nil || o.Claims == nil {
+	if o == nil || IsNil(o.Claims) {
 		var ret map[string]SAMLPayLoadDataAssertionClaimsValue
 		return ret
 	}
@@ -165,7 +168,7 @@ func (o *SAMLPayLoadDataAssertion) GetClaims() map[string]SAMLPayLoadDataAsserti
 // GetClaimsOk returns a tuple with the Claims field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoadDataAssertion) GetClaimsOk() (*map[string]SAMLPayLoadDataAssertionClaimsValue, bool) {
-	if o == nil || o.Claims == nil {
+	if o == nil || IsNil(o.Claims) {
 		return nil, false
 	}
 	return o.Claims, true
@@ -173,7 +176,7 @@ func (o *SAMLPayLoadDataAssertion) GetClaimsOk() (*map[string]SAMLPayLoadDataAss
 
 // HasClaims returns a boolean if a field has been set.
 func (o *SAMLPayLoadDataAssertion) HasClaims() bool {
-	if o != nil && o.Claims != nil {
+	if o != nil && !IsNil(o.Claims) {
 		return true
 	}
 
@@ -187,7 +190,7 @@ func (o *SAMLPayLoadDataAssertion) SetClaims(v map[string]SAMLPayLoadDataAsserti
 
 // GetLifetime returns the Lifetime field value if set, zero value otherwise.
 func (o *SAMLPayLoadDataAssertion) GetLifetime() SAMLPayLoadDataAssertionLifetime {
-	if o == nil || o.Lifetime == nil {
+	if o == nil || IsNil(o.Lifetime) {
 		var ret SAMLPayLoadDataAssertionLifetime
 		return ret
 	}
@@ -197,7 +200,7 @@ func (o *SAMLPayLoadDataAssertion) GetLifetime() SAMLPayLoadDataAssertionLifetim
 // GetLifetimeOk returns a tuple with the Lifetime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoadDataAssertion) GetLifetimeOk() (*SAMLPayLoadDataAssertionLifetime, bool) {
-	if o == nil || o.Lifetime == nil {
+	if o == nil || IsNil(o.Lifetime) {
 		return nil, false
 	}
 	return o.Lifetime, true
@@ -205,7 +208,7 @@ func (o *SAMLPayLoadDataAssertion) GetLifetimeOk() (*SAMLPayLoadDataAssertionLif
 
 // HasLifetime returns a boolean if a field has been set.
 func (o *SAMLPayLoadDataAssertion) HasLifetime() bool {
-	if o != nil && o.Lifetime != nil {
+	if o != nil && !IsNil(o.Lifetime) {
 		return true
 	}
 
@@ -218,20 +221,28 @@ func (o *SAMLPayLoadDataAssertion) SetLifetime(v SAMLPayLoadDataAssertionLifetim
 }
 
 func (o SAMLPayLoadDataAssertion) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SAMLPayLoadDataAssertion) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Subject != nil {
+	if !IsNil(o.Subject) {
 		toSerialize["subject"] = o.Subject
 	}
-	if o.Authentication != nil {
+	if !IsNil(o.Authentication) {
 		toSerialize["authentication"] = o.Authentication
 	}
-	if o.Conditions != nil {
+	if !IsNil(o.Conditions) {
 		toSerialize["conditions"] = o.Conditions
 	}
-	if o.Claims != nil {
+	if !IsNil(o.Claims) {
 		toSerialize["claims"] = o.Claims
 	}
-	if o.Lifetime != nil {
+	if !IsNil(o.Lifetime) {
 		toSerialize["lifetime"] = o.Lifetime
 	}
 
@@ -239,31 +250,29 @@ func (o SAMLPayLoadDataAssertion) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SAMLPayLoadDataAssertion) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SAMLPayLoadDataAssertion) UnmarshalJSON(data []byte) (err error) {
 	varSAMLPayLoadDataAssertion := _SAMLPayLoadDataAssertion{}
 
-	err = json.Unmarshal(bytes, &varSAMLPayLoadDataAssertion)
-	if err == nil {
-		*o = SAMLPayLoadDataAssertion(varSAMLPayLoadDataAssertion)
-	} else {
+	err = json.Unmarshal(data, &varSAMLPayLoadDataAssertion)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SAMLPayLoadDataAssertion(varSAMLPayLoadDataAssertion)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "subject")
 		delete(additionalProperties, "authentication")
 		delete(additionalProperties, "conditions")
 		delete(additionalProperties, "claims")
 		delete(additionalProperties, "lifetime")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -304,4 +313,3 @@ func (v *NullableSAMLPayLoadDataAssertion) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

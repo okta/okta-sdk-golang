@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the BaseContext type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BaseContext{}
+
 // BaseContext This object contains a number of sub-objects, each of which provide some type of contextual information.
 type BaseContext struct {
-	Request *InlineHookRequestObject `json:"request,omitempty"`
-	Session *BaseContextSession `json:"session,omitempty"`
-	User *BaseContextUser `json:"user,omitempty"`
+	Request              *InlineHookRequestObject `json:"request,omitempty"`
+	Session              *BaseContextSession      `json:"session,omitempty"`
+	User                 *BaseContextUser         `json:"user,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewBaseContextWithDefaults() *BaseContext {
 
 // GetRequest returns the Request field value if set, zero value otherwise.
 func (o *BaseContext) GetRequest() InlineHookRequestObject {
-	if o == nil || o.Request == nil {
+	if o == nil || IsNil(o.Request) {
 		var ret InlineHookRequestObject
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *BaseContext) GetRequest() InlineHookRequestObject {
 // GetRequestOk returns a tuple with the Request field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseContext) GetRequestOk() (*InlineHookRequestObject, bool) {
-	if o == nil || o.Request == nil {
+	if o == nil || IsNil(o.Request) {
 		return nil, false
 	}
 	return o.Request, true
@@ -74,7 +77,7 @@ func (o *BaseContext) GetRequestOk() (*InlineHookRequestObject, bool) {
 
 // HasRequest returns a boolean if a field has been set.
 func (o *BaseContext) HasRequest() bool {
-	if o != nil && o.Request != nil {
+	if o != nil && !IsNil(o.Request) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *BaseContext) SetRequest(v InlineHookRequestObject) {
 
 // GetSession returns the Session field value if set, zero value otherwise.
 func (o *BaseContext) GetSession() BaseContextSession {
-	if o == nil || o.Session == nil {
+	if o == nil || IsNil(o.Session) {
 		var ret BaseContextSession
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *BaseContext) GetSession() BaseContextSession {
 // GetSessionOk returns a tuple with the Session field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseContext) GetSessionOk() (*BaseContextSession, bool) {
-	if o == nil || o.Session == nil {
+	if o == nil || IsNil(o.Session) {
 		return nil, false
 	}
 	return o.Session, true
@@ -106,7 +109,7 @@ func (o *BaseContext) GetSessionOk() (*BaseContextSession, bool) {
 
 // HasSession returns a boolean if a field has been set.
 func (o *BaseContext) HasSession() bool {
-	if o != nil && o.Session != nil {
+	if o != nil && !IsNil(o.Session) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *BaseContext) SetSession(v BaseContextSession) {
 
 // GetUser returns the User field value if set, zero value otherwise.
 func (o *BaseContext) GetUser() BaseContextUser {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		var ret BaseContextUser
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *BaseContext) GetUser() BaseContextUser {
 // GetUserOk returns a tuple with the User field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseContext) GetUserOk() (*BaseContextUser, bool) {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		return nil, false
 	}
 	return o.User, true
@@ -138,7 +141,7 @@ func (o *BaseContext) GetUserOk() (*BaseContextUser, bool) {
 
 // HasUser returns a boolean if a field has been set.
 func (o *BaseContext) HasUser() bool {
-	if o != nil && o.User != nil {
+	if o != nil && !IsNil(o.User) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *BaseContext) SetUser(v BaseContextUser) {
 }
 
 func (o BaseContext) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BaseContext) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Request != nil {
+	if !IsNil(o.Request) {
 		toSerialize["request"] = o.Request
 	}
-	if o.Session != nil {
+	if !IsNil(o.Session) {
 		toSerialize["session"] = o.Session
 	}
-	if o.User != nil {
+	if !IsNil(o.User) {
 		toSerialize["user"] = o.User
 	}
 
@@ -166,29 +177,27 @@ func (o BaseContext) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *BaseContext) UnmarshalJSON(bytes []byte) (err error) {
+func (o *BaseContext) UnmarshalJSON(data []byte) (err error) {
 	varBaseContext := _BaseContext{}
 
-	err = json.Unmarshal(bytes, &varBaseContext)
-	if err == nil {
-		*o = BaseContext(varBaseContext)
-	} else {
+	err = json.Unmarshal(data, &varBaseContext)
+
+	if err != nil {
 		return err
 	}
 
+	*o = BaseContext(varBaseContext)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "request")
 		delete(additionalProperties, "session")
 		delete(additionalProperties, "user")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullableBaseContext) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

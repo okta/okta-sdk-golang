@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,24 +26,23 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type AuthorizationServerScopesAPI interface {
 
 	/*
-	CreateOAuth2Scope Create a custom token scope
+		CreateOAuth2Scope Create a custom token scope
 
-	Creates a custom token scope
+		Creates a custom token scope
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@return ApiCreateOAuth2ScopeRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@return ApiCreateOAuth2ScopeRequest
 	*/
 	CreateOAuth2Scope(ctx context.Context, authServerId string) ApiCreateOAuth2ScopeRequest
 
@@ -52,14 +51,14 @@ type AuthorizationServerScopesAPI interface {
 	CreateOAuth2ScopeExecute(r ApiCreateOAuth2ScopeRequest) (*OAuth2Scope, *APIResponse, error)
 
 	/*
-	DeleteOAuth2Scope Delete a custom token scope
+		DeleteOAuth2Scope Delete a custom token scope
 
-	Deletes a custom token scope
+		Deletes a custom token scope
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param scopeId `id` of Scope
-	@return ApiDeleteOAuth2ScopeRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param scopeId `id` of Scope
+		@return ApiDeleteOAuth2ScopeRequest
 	*/
 	DeleteOAuth2Scope(ctx context.Context, authServerId string, scopeId string) ApiDeleteOAuth2ScopeRequest
 
@@ -67,14 +66,14 @@ type AuthorizationServerScopesAPI interface {
 	DeleteOAuth2ScopeExecute(r ApiDeleteOAuth2ScopeRequest) (*APIResponse, error)
 
 	/*
-	GetOAuth2Scope Retrieve a custom token scope
+		GetOAuth2Scope Retrieve a custom token scope
 
-	Retrieves a custom token scope
+		Retrieves a custom token scope
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param scopeId `id` of Scope
-	@return ApiGetOAuth2ScopeRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param scopeId `id` of Scope
+		@return ApiGetOAuth2ScopeRequest
 	*/
 	GetOAuth2Scope(ctx context.Context, authServerId string, scopeId string) ApiGetOAuth2ScopeRequest
 
@@ -83,13 +82,13 @@ type AuthorizationServerScopesAPI interface {
 	GetOAuth2ScopeExecute(r ApiGetOAuth2ScopeRequest) (*OAuth2Scope, *APIResponse, error)
 
 	/*
-	ListOAuth2Scopes List all custom token scopes
+		ListOAuth2Scopes List all custom token scopes
 
-	Lists all custom token scopes
+		Lists all custom token scopes
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@return ApiListOAuth2ScopesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@return ApiListOAuth2ScopesRequest
 	*/
 	ListOAuth2Scopes(ctx context.Context, authServerId string) ApiListOAuth2ScopesRequest
 
@@ -98,14 +97,14 @@ type AuthorizationServerScopesAPI interface {
 	ListOAuth2ScopesExecute(r ApiListOAuth2ScopesRequest) ([]OAuth2Scope, *APIResponse, error)
 
 	/*
-	ReplaceOAuth2Scope Replace a custom token scope
+		ReplaceOAuth2Scope Replace a custom token scope
 
-	Replaces a custom token scope
+		Replaces a custom token scope
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param scopeId `id` of Scope
-	@return ApiReplaceOAuth2ScopeRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param scopeId `id` of Scope
+		@return ApiReplaceOAuth2ScopeRequest
 	*/
 	ReplaceOAuth2Scope(ctx context.Context, authServerId string, scopeId string) ApiReplaceOAuth2ScopeRequest
 
@@ -118,11 +117,11 @@ type AuthorizationServerScopesAPI interface {
 type AuthorizationServerScopesAPIService service
 
 type ApiCreateOAuth2ScopeRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerScopesAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerScopesAPI
 	authServerId string
-	oAuth2Scope *OAuth2Scope
-	retryCount int32
+	oAuth2Scope  *OAuth2Scope
+	retryCount   int32
 }
 
 func (r ApiCreateOAuth2ScopeRequest) OAuth2Scope(oAuth2Scope OAuth2Scope) ApiCreateOAuth2ScopeRequest {
@@ -139,21 +138,22 @@ CreateOAuth2Scope Create a custom token scope
 
 Creates a custom token scope
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @return ApiCreateOAuth2ScopeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@return ApiCreateOAuth2ScopeRequest
 */
 func (a *AuthorizationServerScopesAPIService) CreateOAuth2Scope(ctx context.Context, authServerId string) ApiCreateOAuth2ScopeRequest {
 	return ApiCreateOAuth2ScopeRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return OAuth2Scope
+//
+//	@return OAuth2Scope
 func (a *AuthorizationServerScopesAPIService) CreateOAuth2ScopeExecute(r ApiCreateOAuth2ScopeRequest) (*OAuth2Scope, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -162,7 +162,7 @@ func (a *AuthorizationServerScopesAPIService) CreateOAuth2ScopeExecute(r ApiCrea
 		localVarReturnValue  *OAuth2Scope
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -228,9 +228,9 @@ func (a *AuthorizationServerScopesAPIService) CreateOAuth2ScopeExecute(r ApiCrea
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -300,17 +300,17 @@ func (a *AuthorizationServerScopesAPIService) CreateOAuth2ScopeExecute(r ApiCrea
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteOAuth2ScopeRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerScopesAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerScopesAPI
 	authServerId string
-	scopeId string
-	retryCount int32
+	scopeId      string
+	retryCount   int32
 }
 
 func (r ApiDeleteOAuth2ScopeRequest) Execute() (*APIResponse, error) {
@@ -322,18 +322,18 @@ DeleteOAuth2Scope Delete a custom token scope
 
 Deletes a custom token scope
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @param scopeId `id` of Scope
- @return ApiDeleteOAuth2ScopeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@param scopeId `id` of Scope
+	@return ApiDeleteOAuth2ScopeRequest
 */
 func (a *AuthorizationServerScopesAPIService) DeleteOAuth2Scope(ctx context.Context, authServerId string, scopeId string) ApiDeleteOAuth2ScopeRequest {
 	return ApiDeleteOAuth2ScopeRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		scopeId: scopeId,
-		retryCount: 0,
+		scopeId:      scopeId,
+		retryCount:   0,
 	}
 }
 
@@ -345,7 +345,7 @@ func (a *AuthorizationServerScopesAPIService) DeleteOAuth2ScopeExecute(r ApiDele
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -407,9 +407,9 @@ func (a *AuthorizationServerScopesAPIService) DeleteOAuth2ScopeExecute(r ApiDele
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -463,11 +463,11 @@ func (a *AuthorizationServerScopesAPIService) DeleteOAuth2ScopeExecute(r ApiDele
 }
 
 type ApiGetOAuth2ScopeRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerScopesAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerScopesAPI
 	authServerId string
-	scopeId string
-	retryCount int32
+	scopeId      string
+	retryCount   int32
 }
 
 func (r ApiGetOAuth2ScopeRequest) Execute() (*OAuth2Scope, *APIResponse, error) {
@@ -479,23 +479,24 @@ GetOAuth2Scope Retrieve a custom token scope
 
 Retrieves a custom token scope
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @param scopeId `id` of Scope
- @return ApiGetOAuth2ScopeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@param scopeId `id` of Scope
+	@return ApiGetOAuth2ScopeRequest
 */
 func (a *AuthorizationServerScopesAPIService) GetOAuth2Scope(ctx context.Context, authServerId string, scopeId string) ApiGetOAuth2ScopeRequest {
 	return ApiGetOAuth2ScopeRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		scopeId: scopeId,
-		retryCount: 0,
+		scopeId:      scopeId,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return OAuth2Scope
+//
+//	@return OAuth2Scope
 func (a *AuthorizationServerScopesAPIService) GetOAuth2ScopeExecute(r ApiGetOAuth2ScopeRequest) (*OAuth2Scope, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -504,7 +505,7 @@ func (a *AuthorizationServerScopesAPIService) GetOAuth2ScopeExecute(r ApiGetOAut
 		localVarReturnValue  *OAuth2Scope
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -566,9 +567,9 @@ func (a *AuthorizationServerScopesAPIService) GetOAuth2ScopeExecute(r ApiGetOAut
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -626,20 +627,20 @@ func (a *AuthorizationServerScopesAPIService) GetOAuth2ScopeExecute(r ApiGetOAut
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListOAuth2ScopesRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerScopesAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerScopesAPI
 	authServerId string
-	q *string
-	filter *string
-	after *string
-	limit *int32
-	retryCount int32
+	q            *string
+	filter       *string
+	after        *string
+	limit        *int32
+	retryCount   int32
 }
 
 // Searches the &#x60;name&#x60; of Custom Token Scopes for matching values
@@ -675,21 +676,22 @@ ListOAuth2Scopes List all custom token scopes
 
 Lists all custom token scopes
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @return ApiListOAuth2ScopesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@return ApiListOAuth2ScopesRequest
 */
 func (a *AuthorizationServerScopesAPIService) ListOAuth2Scopes(ctx context.Context, authServerId string) ApiListOAuth2ScopesRequest {
 	return ApiListOAuth2ScopesRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return []OAuth2Scope
+//
+//	@return []OAuth2Scope
 func (a *AuthorizationServerScopesAPIService) ListOAuth2ScopesExecute(r ApiListOAuth2ScopesRequest) ([]OAuth2Scope, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -698,7 +700,7 @@ func (a *AuthorizationServerScopesAPIService) ListOAuth2ScopesExecute(r ApiListO
 		localVarReturnValue  []OAuth2Scope
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -771,9 +773,9 @@ func (a *AuthorizationServerScopesAPIService) ListOAuth2ScopesExecute(r ApiListO
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -831,18 +833,18 @@ func (a *AuthorizationServerScopesAPIService) ListOAuth2ScopesExecute(r ApiListO
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceOAuth2ScopeRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerScopesAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerScopesAPI
 	authServerId string
-	scopeId string
-	oAuth2Scope *OAuth2Scope
-	retryCount int32
+	scopeId      string
+	oAuth2Scope  *OAuth2Scope
+	retryCount   int32
 }
 
 func (r ApiReplaceOAuth2ScopeRequest) OAuth2Scope(oAuth2Scope OAuth2Scope) ApiReplaceOAuth2ScopeRequest {
@@ -859,23 +861,24 @@ ReplaceOAuth2Scope Replace a custom token scope
 
 Replaces a custom token scope
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @param scopeId `id` of Scope
- @return ApiReplaceOAuth2ScopeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@param scopeId `id` of Scope
+	@return ApiReplaceOAuth2ScopeRequest
 */
 func (a *AuthorizationServerScopesAPIService) ReplaceOAuth2Scope(ctx context.Context, authServerId string, scopeId string) ApiReplaceOAuth2ScopeRequest {
 	return ApiReplaceOAuth2ScopeRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		scopeId: scopeId,
-		retryCount: 0,
+		scopeId:      scopeId,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return OAuth2Scope
+//
+//	@return OAuth2Scope
 func (a *AuthorizationServerScopesAPIService) ReplaceOAuth2ScopeExecute(r ApiReplaceOAuth2ScopeRequest) (*OAuth2Scope, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -884,7 +887,7 @@ func (a *AuthorizationServerScopesAPIService) ReplaceOAuth2ScopeExecute(r ApiRep
 		localVarReturnValue  *OAuth2Scope
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -951,9 +954,9 @@ func (a *AuthorizationServerScopesAPIService) ReplaceOAuth2ScopeExecute(r ApiRep
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1023,7 +1026,7 @@ func (a *AuthorizationServerScopesAPIService) ReplaceOAuth2ScopeExecute(r ApiRep
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

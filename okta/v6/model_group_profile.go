@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,18 +28,17 @@ import (
 	"fmt"
 )
 
-
 // GroupProfile Specifies required and optional properties for a group. The `objectClass` of a group determines which additional properties are available.  You can extend group profiles with custom properties, but you must first add the properties to the group profile schema before you can reference them. Use the Profile Editor in the Admin Console or the [Schemas API](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Schema/)to manage schema extensions.  Custom properties can contain HTML tags. It is the client's responsibility to escape or encode this data before displaying it. Use [best-practices](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html) to prevent cross-site scripting.
 type GroupProfile struct {
 	OktaActiveDirectoryGroupProfile *OktaActiveDirectoryGroupProfile
-	OktaUserGroupProfile *OktaUserGroupProfile
+	OktaUserGroupProfile            *OktaUserGroupProfile
 }
 
 // Unmarshal JSON data into any of the pointers in the struct
 func (dst *GroupProfile) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal JSON data into OktaActiveDirectoryGroupProfile
-	err = json.Unmarshal(data, &dst.OktaActiveDirectoryGroupProfile);
+	err = json.Unmarshal(data, &dst.OktaActiveDirectoryGroupProfile)
 	if err == nil {
 		jsonOktaActiveDirectoryGroupProfile, _ := json.Marshal(dst.OktaActiveDirectoryGroupProfile)
 		if string(jsonOktaActiveDirectoryGroupProfile) == "{}" { // empty struct
@@ -52,7 +51,7 @@ func (dst *GroupProfile) UnmarshalJSON(data []byte) error {
 	}
 
 	// try to unmarshal JSON data into OktaUserGroupProfile
-	err = json.Unmarshal(data, &dst.OktaUserGroupProfile);
+	err = json.Unmarshal(data, &dst.OktaUserGroupProfile)
 	if err == nil {
 		jsonOktaUserGroupProfile, _ := json.Marshal(dst.OktaUserGroupProfile)
 		if string(jsonOktaUserGroupProfile) == "{}" { // empty struct
@@ -79,7 +78,6 @@ func (src GroupProfile) MarshalJSON() ([]byte, error) {
 
 	return nil, nil // no data in anyOf schemas
 }
-
 
 type NullableGroupProfile struct {
 	value *GroupProfile
@@ -116,5 +114,3 @@ func (v *NullableGroupProfile) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

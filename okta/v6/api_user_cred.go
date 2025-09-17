@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,32 +26,31 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type UserCredAPI interface {
 
 	/*
-	ChangePassword Update password
+			ChangePassword Update password
 
-	Updates a user's password by validating the user's current password.
+			Updates a user's password by validating the user's current password.
 
-This operation provides an option to delete all the sessions of the specified user. However, if the request is made in the context of a session owned by the specified user, that session isn't cleared.
+		This operation provides an option to delete all the sessions of the specified user. However, if the request is made in the context of a session owned by the specified user, that session isn't cleared.
 
-You can only perform this operation on users in `STAGED`, `ACTIVE`, `PASSWORD_EXPIRED`, or `RECOVERY` status that have a valid [password credential](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/User/#tag/User/operation/createUser!path=credentials/password&t=request).
+		You can only perform this operation on users in `STAGED`, `ACTIVE`, `PASSWORD_EXPIRED`, or `RECOVERY` status that have a valid [password credential](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/User/#tag/User/operation/createUser!path=credentials/password&t=request).
 
-The user transitions to `ACTIVE` status when successfully invoked in `RECOVERY` status.
+		The user transitions to `ACTIVE` status when successfully invoked in `RECOVERY` status.
 
-> **Note:** The Okta account management policy doesn't support the `/users/{userId}/credentials/change_password` endpoint. See [Configure an Okta account management policy](https://developer.okta.com/docs/guides/okta-account-management-policy/main/).
+		> **Note:** The Okta account management policy doesn't support the `/users/{userId}/credentials/change_password` endpoint. See [Configure an Okta account management policy](https://developer.okta.com/docs/guides/okta-account-management-policy/main/).
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiChangePasswordRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param userId ID of an existing Okta user
+			@return ApiChangePasswordRequest
 	*/
 	ChangePassword(ctx context.Context, userId string) ApiChangePasswordRequest
 
@@ -60,14 +59,14 @@ The user transitions to `ACTIVE` status when successfully invoked in `RECOVERY` 
 	ChangePasswordExecute(r ApiChangePasswordRequest) (*UserCredentials, *APIResponse, error)
 
 	/*
-	ChangeRecoveryQuestion Update recovery question
+			ChangeRecoveryQuestion Update recovery question
 
-	Updates a user's recovery question and answer credential by validating the user's current password.
-You can only perform this operation on users in `STAGED`, `ACTIVE`, or `RECOVERY` status that have a valid [password credential](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/User/#tag/User/operation/createUser!path=credentials/password&t=request).
+			Updates a user's recovery question and answer credential by validating the user's current password.
+		You can only perform this operation on users in `STAGED`, `ACTIVE`, or `RECOVERY` status that have a valid [password credential](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/User/#tag/User/operation/createUser!path=credentials/password&t=request).
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiChangeRecoveryQuestionRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param userId ID of an existing Okta user
+			@return ApiChangeRecoveryQuestionRequest
 	*/
 	ChangeRecoveryQuestion(ctx context.Context, userId string) ApiChangeRecoveryQuestionRequest
 
@@ -76,19 +75,19 @@ You can only perform this operation on users in `STAGED`, `ACTIVE`, or `RECOVERY
 	ChangeRecoveryQuestionExecute(r ApiChangeRecoveryQuestionRequest) (*UserCredentials, *APIResponse, error)
 
 	/*
-	ExpirePassword Expire the password
+			ExpirePassword Expire the password
 
-	Expires the password. This operation transitions the user status to `PASSWORD_EXPIRED` so that the user must change their password the next time that they sign in.
-<br>
-If you have integrated Okta with your on-premises Active Directory (AD), then setting a user's password as expired in Okta also expires the password in AD.
-When the user tries to sign in to Okta, delegated authentication finds the password-expired status in AD,
-and the user is presented with the password-expired page where they can change their password.
+			Expires the password. This operation transitions the user status to `PASSWORD_EXPIRED` so that the user must change their password the next time that they sign in.
+		<br>
+		If you have integrated Okta with your on-premises Active Directory (AD), then setting a user's password as expired in Okta also expires the password in AD.
+		When the user tries to sign in to Okta, delegated authentication finds the password-expired status in AD,
+		and the user is presented with the password-expired page where they can change their password.
 
-> **Note:** The Okta account management policy doesn't support the `/users/{id}/lifecycle/expire_password` endpoint. See [Configure an Okta account management policy](https://developer.okta.com/docs/guides/okta-account-management-policy/main/).
+		> **Note:** The Okta account management policy doesn't support the `/users/{id}/lifecycle/expire_password` endpoint. See [Configure an Okta account management policy](https://developer.okta.com/docs/guides/okta-account-management-policy/main/).
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
-	@return ApiExpirePasswordRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+			@return ApiExpirePasswordRequest
 	*/
 	ExpirePassword(ctx context.Context, id string) ApiExpirePasswordRequest
 
@@ -97,19 +96,19 @@ and the user is presented with the password-expired page where they can change t
 	ExpirePasswordExecute(r ApiExpirePasswordRequest) (*User, *APIResponse, error)
 
 	/*
-	ExpirePasswordWithTempPassword Expire the password with a temporary password
+			ExpirePasswordWithTempPassword Expire the password with a temporary password
 
-	Expires the password and resets the user's password to a temporary password. This operation transitions the user status to `PASSWORD_EXPIRED` so that the user must change their password the next time that they sign in.
-The user's password is reset to a temporary password that's returned, and then the user's password is expired.
-If `revokeSessions` is included in the request with a value of `true`, the user's current outstanding sessions are revoked and require re-authentication.
-<br>
-If you have integrated Okta with your on-premises Active Directory (AD), then setting a user's password as expired in Okta also expires the password in AD.
-When the user tries to sign in to Okta, delegated authentication finds the password-expired status in AD,
-and the user is presented with the password-expired page where they can change their password.
+			Expires the password and resets the user's password to a temporary password. This operation transitions the user status to `PASSWORD_EXPIRED` so that the user must change their password the next time that they sign in.
+		The user's password is reset to a temporary password that's returned, and then the user's password is expired.
+		If `revokeSessions` is included in the request with a value of `true`, the user's current outstanding sessions are revoked and require re-authentication.
+		<br>
+		If you have integrated Okta with your on-premises Active Directory (AD), then setting a user's password as expired in Okta also expires the password in AD.
+		When the user tries to sign in to Okta, delegated authentication finds the password-expired status in AD,
+		and the user is presented with the password-expired page where they can change their password.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
-	@return ApiExpirePasswordWithTempPasswordRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+			@return ApiExpirePasswordWithTempPasswordRequest
 	*/
 	ExpirePasswordWithTempPassword(ctx context.Context, id string) ApiExpirePasswordWithTempPasswordRequest
 
@@ -118,26 +117,26 @@ and the user is presented with the password-expired page where they can change t
 	ExpirePasswordWithTempPasswordExecute(r ApiExpirePasswordWithTempPasswordRequest) (*User, *APIResponse, error)
 
 	/*
-	ForgotPassword Start forgot password flow
+			ForgotPassword Start forgot password flow
 
-	Starts the forgot password flow.
+			Starts the forgot password flow.
 
-Generates a one-time token (OTT) that you can use to reset a user's password.
+		Generates a one-time token (OTT) that you can use to reset a user's password.
 
-The user must validate their security question's answer when visiting the reset link. Perform this operation only on users with an `ACTIVE` status and
-a valid [recovery question credential](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/User/#tag/User/operation/createUser!path=credentials/recovery_question&t=request).
+		The user must validate their security question's answer when visiting the reset link. Perform this operation only on users with an `ACTIVE` status and
+		a valid [recovery question credential](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/User/#tag/User/operation/createUser!path=credentials/recovery_question&t=request).
 
-> **Note:** If you have migrated to Identity Engine, you can allow users to recover passwords with any enrolled MFA authenticator. See [Self-service account recovery](https://help.okta.com/oie/en-us/content/topics/identity-engine/authenticators/configure-sspr.htm?cshid=ext-config-sspr).
+		> **Note:** If you have migrated to Identity Engine, you can allow users to recover passwords with any enrolled MFA authenticator. See [Self-service account recovery](https://help.okta.com/oie/en-us/content/topics/identity-engine/authenticators/configure-sspr.htm?cshid=ext-config-sspr).
 
-If an email address is associated with multiple users, keep in mind the following to ensure a successful password recovery lookup:
-  * Okta no longer includes deactivated users in the lookup.
-  * The lookup searches sign-in IDs first, then primary email addresses, and then secondary email addresses.
+		If an email address is associated with multiple users, keep in mind the following to ensure a successful password recovery lookup:
+		  * Okta no longer includes deactivated users in the lookup.
+		  * The lookup searches sign-in IDs first, then primary email addresses, and then secondary email addresses.
 
-If `sendEmail` is `false`, returns a link for the user to reset their password. This operation doesn't affect the status of the user.
+		If `sendEmail` is `false`, returns a link for the user to reset their password. This operation doesn't affect the status of the user.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiForgotPasswordRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param userId ID of an existing Okta user
+			@return ApiForgotPasswordRequest
 	*/
 	ForgotPassword(ctx context.Context, userId string) ApiForgotPasswordRequest
 
@@ -146,14 +145,14 @@ If `sendEmail` is `false`, returns a link for the user to reset their password. 
 	ForgotPasswordExecute(r ApiForgotPasswordRequest) (*ForgotPasswordResponse, *APIResponse, error)
 
 	/*
-	ForgotPasswordSetNewPassword Reset password with recovery question
+			ForgotPasswordSetNewPassword Reset password with recovery question
 
-	Resets the user's password to the specified password if the provided answer to the recovery question is correct.
-You must include the recovery question answer with the submission.
+			Resets the user's password to the specified password if the provided answer to the recovery question is correct.
+		You must include the recovery question answer with the submission.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiForgotPasswordSetNewPasswordRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param userId ID of an existing Okta user
+			@return ApiForgotPasswordSetNewPasswordRequest
 	*/
 	ForgotPasswordSetNewPassword(ctx context.Context, userId string) ApiForgotPasswordSetNewPasswordRequest
 
@@ -162,24 +161,24 @@ You must include the recovery question answer with the submission.
 	ForgotPasswordSetNewPasswordExecute(r ApiForgotPasswordSetNewPasswordRequest) (*UserCredentials, *APIResponse, error)
 
 	/*
-	ResetPassword Reset a password
+			ResetPassword Reset a password
 
-	Resets a password. Generates a one-time token (OTT) that you can use to reset a user's password. You can automatically email the OTT link to the user or return the OTT to the API caller and distribute using a custom flow.
+			Resets a password. Generates a one-time token (OTT) that you can use to reset a user's password. You can automatically email the OTT link to the user or return the OTT to the API caller and distribute using a custom flow.
 
-This operation transitions the user to the `RECOVERY` status. The user is then not able to sign in or initiate a forgot password flow until they complete the reset flow.
+		This operation transitions the user to the `RECOVERY` status. The user is then not able to sign in or initiate a forgot password flow until they complete the reset flow.
 
-This operation provides an option to delete all the user's sessions. However, if the request is made in the context of a session owned by the specified user, that session isn't cleared.
-> **Note:** You can also use this API to convert a user with the Okta credential provider to use a federated provider. After this conversion, the user can't directly sign in with a password.
-> To convert a federated user back to an Okta user, use the default API call.
+		This operation provides an option to delete all the user's sessions. However, if the request is made in the context of a session owned by the specified user, that session isn't cleared.
+		> **Note:** You can also use this API to convert a user with the Okta credential provider to use a federated provider. After this conversion, the user can't directly sign in with a password.
+		> To convert a federated user back to an Okta user, use the default API call.
 
-If an email address is associated with multiple users, keep in mind the following to ensure a successful password recovery lookup:
-  * Okta no longer includes deactivated users in the lookup.
-  * The lookup searches sign-in IDs first, then primary email addresses, and then secondary email addresses.
-  If `sendEmail` is `false`, returns a link for the user to reset their password.
+		If an email address is associated with multiple users, keep in mind the following to ensure a successful password recovery lookup:
+		  * Okta no longer includes deactivated users in the lookup.
+		  * The lookup searches sign-in IDs first, then primary email addresses, and then secondary email addresses.
+		  If `sendEmail` is `false`, returns a link for the user to reset their password.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
-	@return ApiResetPasswordRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+			@return ApiResetPasswordRequest
 	*/
 	ResetPassword(ctx context.Context, id string) ApiResetPasswordRequest
 
@@ -192,12 +191,12 @@ If an email address is associated with multiple users, keep in mind the followin
 type UserCredAPIService service
 
 type ApiChangePasswordRequest struct {
-	ctx context.Context
-	ApiService UserCredAPI
-	userId string
+	ctx                   context.Context
+	ApiService            UserCredAPI
+	userId                string
 	changePasswordRequest *ChangePasswordRequest
-	strict *bool
-	retryCount int32
+	strict                *bool
+	retryCount            int32
 }
 
 func (r ApiChangePasswordRequest) ChangePasswordRequest(changePasswordRequest ChangePasswordRequest) ApiChangePasswordRequest {
@@ -228,21 +227,22 @@ The user transitions to `ACTIVE` status when successfully invoked in `RECOVERY` 
 
 > **Note:** The Okta account management policy doesn't support the `/users/{userId}/credentials/change_password` endpoint. See [Configure an Okta account management policy](https://developer.okta.com/docs/guides/okta-account-management-policy/main/).
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiChangePasswordRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiChangePasswordRequest
 */
 func (a *UserCredAPIService) ChangePassword(ctx context.Context, userId string) ApiChangePasswordRequest {
 	return ApiChangePasswordRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserCredentials
+//
+//	@return UserCredentials
 func (a *UserCredAPIService) ChangePasswordExecute(r ApiChangePasswordRequest) (*UserCredentials, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -251,7 +251,7 @@ func (a *UserCredAPIService) ChangePasswordExecute(r ApiChangePasswordRequest) (
 		localVarReturnValue  *UserCredentials
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -320,9 +320,9 @@ func (a *UserCredAPIService) ChangePasswordExecute(r ApiChangePasswordRequest) (
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -392,17 +392,17 @@ func (a *UserCredAPIService) ChangePasswordExecute(r ApiChangePasswordRequest) (
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiChangeRecoveryQuestionRequest struct {
-	ctx context.Context
-	ApiService UserCredAPI
-	userId string
+	ctx             context.Context
+	ApiService      UserCredAPI
+	userId          string
 	userCredentials *UserCredentials
-	retryCount int32
+	retryCount      int32
 }
 
 func (r ApiChangeRecoveryQuestionRequest) UserCredentials(userCredentials UserCredentials) ApiChangeRecoveryQuestionRequest {
@@ -420,21 +420,22 @@ ChangeRecoveryQuestion Update recovery question
 Updates a user's recovery question and answer credential by validating the user's current password.
 You can only perform this operation on users in `STAGED`, `ACTIVE`, or `RECOVERY` status that have a valid [password credential](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/User/#tag/User/operation/createUser!path=credentials/password&t=request).
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiChangeRecoveryQuestionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiChangeRecoveryQuestionRequest
 */
 func (a *UserCredAPIService) ChangeRecoveryQuestion(ctx context.Context, userId string) ApiChangeRecoveryQuestionRequest {
 	return ApiChangeRecoveryQuestionRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserCredentials
+//
+//	@return UserCredentials
 func (a *UserCredAPIService) ChangeRecoveryQuestionExecute(r ApiChangeRecoveryQuestionRequest) (*UserCredentials, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -443,7 +444,7 @@ func (a *UserCredAPIService) ChangeRecoveryQuestionExecute(r ApiChangeRecoveryQu
 		localVarReturnValue  *UserCredentials
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -509,9 +510,9 @@ func (a *UserCredAPIService) ChangeRecoveryQuestionExecute(r ApiChangeRecoveryQu
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -581,15 +582,15 @@ func (a *UserCredAPIService) ChangeRecoveryQuestionExecute(r ApiChangeRecoveryQu
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiExpirePasswordRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserCredAPI
-	id string
+	id         string
 	retryCount int32
 }
 
@@ -608,21 +609,22 @@ and the user is presented with the password-expired page where they can change t
 
 > **Note:** The Okta account management policy doesn't support the `/users/{id}/lifecycle/expire_password` endpoint. See [Configure an Okta account management policy](https://developer.okta.com/docs/guides/okta-account-management-policy/main/).
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
- @return ApiExpirePasswordRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+	@return ApiExpirePasswordRequest
 */
 func (a *UserCredAPIService) ExpirePassword(ctx context.Context, id string) ApiExpirePasswordRequest {
 	return ApiExpirePasswordRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return User
+//
+//	@return User
 func (a *UserCredAPIService) ExpirePasswordExecute(r ApiExpirePasswordRequest) (*User, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -631,7 +633,7 @@ func (a *UserCredAPIService) ExpirePasswordExecute(r ApiExpirePasswordRequest) (
 		localVarReturnValue  *User
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -692,9 +694,9 @@ func (a *UserCredAPIService) ExpirePasswordExecute(r ApiExpirePasswordRequest) (
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -752,17 +754,17 @@ func (a *UserCredAPIService) ExpirePasswordExecute(r ApiExpirePasswordRequest) (
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiExpirePasswordWithTempPasswordRequest struct {
-	ctx context.Context
-	ApiService UserCredAPI
-	id string
+	ctx            context.Context
+	ApiService     UserCredAPI
+	id             string
 	revokeSessions *bool
-	retryCount int32
+	retryCount     int32
 }
 
 // Revokes the user&#39;s existing sessions if &#x60;true&#x60;
@@ -786,21 +788,22 @@ If you have integrated Okta with your on-premises Active Directory (AD), then se
 When the user tries to sign in to Okta, delegated authentication finds the password-expired status in AD,
 and the user is presented with the password-expired page where they can change their password.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
- @return ApiExpirePasswordWithTempPasswordRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+	@return ApiExpirePasswordWithTempPasswordRequest
 */
 func (a *UserCredAPIService) ExpirePasswordWithTempPassword(ctx context.Context, id string) ApiExpirePasswordWithTempPasswordRequest {
 	return ApiExpirePasswordWithTempPasswordRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return User
+//
+//	@return User
 func (a *UserCredAPIService) ExpirePasswordWithTempPasswordExecute(r ApiExpirePasswordWithTempPasswordRequest) (*User, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -809,7 +812,7 @@ func (a *UserCredAPIService) ExpirePasswordWithTempPasswordExecute(r ApiExpirePa
 		localVarReturnValue  *User
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -873,9 +876,9 @@ func (a *UserCredAPIService) ExpirePasswordWithTempPasswordExecute(r ApiExpirePa
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -933,16 +936,16 @@ func (a *UserCredAPIService) ExpirePasswordWithTempPasswordExecute(r ApiExpirePa
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiForgotPasswordRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserCredAPI
-	userId string
-	sendEmail *bool
+	userId     string
+	sendEmail  *bool
 	retryCount int32
 }
 
@@ -969,26 +972,27 @@ a valid [recovery question credential](https://developer.okta.com/docs/api/opena
 > **Note:** If you have migrated to Identity Engine, you can allow users to recover passwords with any enrolled MFA authenticator. See [Self-service account recovery](https://help.okta.com/oie/en-us/content/topics/identity-engine/authenticators/configure-sspr.htm?cshid=ext-config-sspr).
 
 If an email address is associated with multiple users, keep in mind the following to ensure a successful password recovery lookup:
-  * Okta no longer includes deactivated users in the lookup.
-  * The lookup searches sign-in IDs first, then primary email addresses, and then secondary email addresses.
+  - Okta no longer includes deactivated users in the lookup.
+  - The lookup searches sign-in IDs first, then primary email addresses, and then secondary email addresses.
 
 If `sendEmail` is `false`, returns a link for the user to reset their password. This operation doesn't affect the status of the user.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiForgotPasswordRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiForgotPasswordRequest
 */
 func (a *UserCredAPIService) ForgotPassword(ctx context.Context, userId string) ApiForgotPasswordRequest {
 	return ApiForgotPasswordRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ForgotPasswordResponse
+//
+//	@return ForgotPasswordResponse
 func (a *UserCredAPIService) ForgotPasswordExecute(r ApiForgotPasswordRequest) (*ForgotPasswordResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -997,7 +1001,7 @@ func (a *UserCredAPIService) ForgotPasswordExecute(r ApiForgotPasswordRequest) (
 		localVarReturnValue  *ForgotPasswordResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1061,9 +1065,9 @@ func (a *UserCredAPIService) ForgotPasswordExecute(r ApiForgotPasswordRequest) (
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1121,18 +1125,18 @@ func (a *UserCredAPIService) ForgotPasswordExecute(r ApiForgotPasswordRequest) (
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiForgotPasswordSetNewPasswordRequest struct {
-	ctx context.Context
-	ApiService UserCredAPI
-	userId string
+	ctx             context.Context
+	ApiService      UserCredAPI
+	userId          string
 	userCredentials *UserCredentials
-	sendEmail *bool
-	retryCount int32
+	sendEmail       *bool
+	retryCount      int32
 }
 
 func (r ApiForgotPasswordSetNewPasswordRequest) UserCredentials(userCredentials UserCredentials) ApiForgotPasswordSetNewPasswordRequest {
@@ -1155,21 +1159,22 @@ ForgotPasswordSetNewPassword Reset password with recovery question
 Resets the user's password to the specified password if the provided answer to the recovery question is correct.
 You must include the recovery question answer with the submission.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiForgotPasswordSetNewPasswordRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiForgotPasswordSetNewPasswordRequest
 */
 func (a *UserCredAPIService) ForgotPasswordSetNewPassword(ctx context.Context, userId string) ApiForgotPasswordSetNewPasswordRequest {
 	return ApiForgotPasswordSetNewPasswordRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserCredentials
+//
+//	@return UserCredentials
 func (a *UserCredAPIService) ForgotPasswordSetNewPasswordExecute(r ApiForgotPasswordSetNewPasswordRequest) (*UserCredentials, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1178,7 +1183,7 @@ func (a *UserCredAPIService) ForgotPasswordSetNewPasswordExecute(r ApiForgotPass
 		localVarReturnValue  *UserCredentials
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1247,9 +1252,9 @@ func (a *UserCredAPIService) ForgotPasswordSetNewPasswordExecute(r ApiForgotPass
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1319,18 +1324,18 @@ func (a *UserCredAPIService) ForgotPasswordSetNewPasswordExecute(r ApiForgotPass
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiResetPasswordRequest struct {
-	ctx context.Context
-	ApiService UserCredAPI
-	id string
-	sendEmail *bool
+	ctx            context.Context
+	ApiService     UserCredAPI
+	id             string
+	sendEmail      *bool
 	revokeSessions *bool
-	retryCount int32
+	retryCount     int32
 }
 
 func (r ApiResetPasswordRequest) SendEmail(sendEmail bool) ApiResetPasswordRequest {
@@ -1360,25 +1365,28 @@ This operation provides an option to delete all the user's sessions. However, if
 > To convert a federated user back to an Okta user, use the default API call.
 
 If an email address is associated with multiple users, keep in mind the following to ensure a successful password recovery lookup:
-  * Okta no longer includes deactivated users in the lookup.
-  * The lookup searches sign-in IDs first, then primary email addresses, and then secondary email addresses.
-  If `sendEmail` is `false`, returns a link for the user to reset their password.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
- @return ApiResetPasswordRequest
+  - Okta no longer includes deactivated users in the lookup.
+
+  - The lookup searches sign-in IDs first, then primary email addresses, and then secondary email addresses.
+    If `sendEmail` is `false`, returns a link for the user to reset their password.
+
+    @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+    @param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+    @return ApiResetPasswordRequest
 */
 func (a *UserCredAPIService) ResetPassword(ctx context.Context, id string) ApiResetPasswordRequest {
 	return ApiResetPasswordRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ResetPasswordToken
+//
+//	@return ResetPasswordToken
 func (a *UserCredAPIService) ResetPasswordExecute(r ApiResetPasswordRequest) (*ResetPasswordToken, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1387,7 +1395,7 @@ func (a *UserCredAPIService) ResetPasswordExecute(r ApiResetPasswordRequest) (*R
 		localVarReturnValue  *ResetPasswordToken
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1455,9 +1463,9 @@ func (a *UserCredAPIService) ResetPasswordExecute(r ApiResetPasswordRequest) (*R
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1515,7 +1523,7 @@ func (a *UserCredAPIService) ResetPasswordExecute(r ApiResetPasswordRequest) (*R
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

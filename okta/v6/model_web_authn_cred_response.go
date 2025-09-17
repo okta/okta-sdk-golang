@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the WebAuthnCredResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WebAuthnCredResponse{}
+
 // WebAuthnCredResponse Credential response object for enrolled credential details, along with enrollment and key identifiers to associate the credential
 type WebAuthnCredResponse struct {
 	// ID for a WebAuthn preregistration factor in Okta
 	AuthenticatorEnrollmentId *string `json:"authenticatorEnrollmentId,omitempty"`
 	// Encrypted JSON Web Encryption (JWE) of the credential response from the fulfillment provider
-	CredResponseJwe *string `json:"credResponseJwe,omitempty"`
+	CredResponseJwe      *string `json:"credResponseJwe,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewWebAuthnCredResponseWithDefaults() *WebAuthnCredResponse {
 
 // GetAuthenticatorEnrollmentId returns the AuthenticatorEnrollmentId field value if set, zero value otherwise.
 func (o *WebAuthnCredResponse) GetAuthenticatorEnrollmentId() string {
-	if o == nil || o.AuthenticatorEnrollmentId == nil {
+	if o == nil || IsNil(o.AuthenticatorEnrollmentId) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *WebAuthnCredResponse) GetAuthenticatorEnrollmentId() string {
 // GetAuthenticatorEnrollmentIdOk returns a tuple with the AuthenticatorEnrollmentId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WebAuthnCredResponse) GetAuthenticatorEnrollmentIdOk() (*string, bool) {
-	if o == nil || o.AuthenticatorEnrollmentId == nil {
+	if o == nil || IsNil(o.AuthenticatorEnrollmentId) {
 		return nil, false
 	}
 	return o.AuthenticatorEnrollmentId, true
@@ -75,7 +78,7 @@ func (o *WebAuthnCredResponse) GetAuthenticatorEnrollmentIdOk() (*string, bool) 
 
 // HasAuthenticatorEnrollmentId returns a boolean if a field has been set.
 func (o *WebAuthnCredResponse) HasAuthenticatorEnrollmentId() bool {
-	if o != nil && o.AuthenticatorEnrollmentId != nil {
+	if o != nil && !IsNil(o.AuthenticatorEnrollmentId) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *WebAuthnCredResponse) SetAuthenticatorEnrollmentId(v string) {
 
 // GetCredResponseJwe returns the CredResponseJwe field value if set, zero value otherwise.
 func (o *WebAuthnCredResponse) GetCredResponseJwe() string {
-	if o == nil || o.CredResponseJwe == nil {
+	if o == nil || IsNil(o.CredResponseJwe) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *WebAuthnCredResponse) GetCredResponseJwe() string {
 // GetCredResponseJweOk returns a tuple with the CredResponseJwe field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WebAuthnCredResponse) GetCredResponseJweOk() (*string, bool) {
-	if o == nil || o.CredResponseJwe == nil {
+	if o == nil || IsNil(o.CredResponseJwe) {
 		return nil, false
 	}
 	return o.CredResponseJwe, true
@@ -107,7 +110,7 @@ func (o *WebAuthnCredResponse) GetCredResponseJweOk() (*string, bool) {
 
 // HasCredResponseJwe returns a boolean if a field has been set.
 func (o *WebAuthnCredResponse) HasCredResponseJwe() bool {
-	if o != nil && o.CredResponseJwe != nil {
+	if o != nil && !IsNil(o.CredResponseJwe) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *WebAuthnCredResponse) SetCredResponseJwe(v string) {
 }
 
 func (o WebAuthnCredResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o WebAuthnCredResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AuthenticatorEnrollmentId != nil {
+	if !IsNil(o.AuthenticatorEnrollmentId) {
 		toSerialize["authenticatorEnrollmentId"] = o.AuthenticatorEnrollmentId
 	}
-	if o.CredResponseJwe != nil {
+	if !IsNil(o.CredResponseJwe) {
 		toSerialize["credResponseJwe"] = o.CredResponseJwe
 	}
 
@@ -132,28 +143,26 @@ func (o WebAuthnCredResponse) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *WebAuthnCredResponse) UnmarshalJSON(bytes []byte) (err error) {
+func (o *WebAuthnCredResponse) UnmarshalJSON(data []byte) (err error) {
 	varWebAuthnCredResponse := _WebAuthnCredResponse{}
 
-	err = json.Unmarshal(bytes, &varWebAuthnCredResponse)
-	if err == nil {
-		*o = WebAuthnCredResponse(varWebAuthnCredResponse)
-	} else {
+	err = json.Unmarshal(data, &varWebAuthnCredResponse)
+
+	if err != nil {
 		return err
 	}
 
+	*o = WebAuthnCredResponse(varWebAuthnCredResponse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "authenticatorEnrollmentId")
 		delete(additionalProperties, "credResponseJwe")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableWebAuthnCredResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

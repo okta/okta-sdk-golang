@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,14 +27,17 @@ import (
 	"encoding/json"
 )
 
+// checks if the ProtocolOAuth type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ProtocolOAuth{}
+
 // ProtocolOAuth Protocol settings for authentication using the [OAuth 2.0 Authorization Code flow](https://tools.ietf.org/html/rfc6749#section-4.1)
 type ProtocolOAuth struct {
 	Credentials *OAuthCredentials `json:"credentials,omitempty"`
-	Endpoints *OAuthEndpoints `json:"endpoints,omitempty"`
+	Endpoints   *OAuthEndpoints   `json:"endpoints,omitempty"`
 	// IdP-defined permission bundles to request delegated access from the user. > **Note:** The [identity provider type](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/createIdentityProvider!path=type&t=request) table lists the scopes that are supported for each IdP.
 	Scopes []string `json:"scopes,omitempty"`
 	// OAuth 2.0 Authorization Code flow
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewProtocolOAuthWithDefaults() *ProtocolOAuth {
 
 // GetCredentials returns the Credentials field value if set, zero value otherwise.
 func (o *ProtocolOAuth) GetCredentials() OAuthCredentials {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		var ret OAuthCredentials
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *ProtocolOAuth) GetCredentials() OAuthCredentials {
 // GetCredentialsOk returns a tuple with the Credentials field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProtocolOAuth) GetCredentialsOk() (*OAuthCredentials, bool) {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		return nil, false
 	}
 	return o.Credentials, true
@@ -77,7 +80,7 @@ func (o *ProtocolOAuth) GetCredentialsOk() (*OAuthCredentials, bool) {
 
 // HasCredentials returns a boolean if a field has been set.
 func (o *ProtocolOAuth) HasCredentials() bool {
-	if o != nil && o.Credentials != nil {
+	if o != nil && !IsNil(o.Credentials) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *ProtocolOAuth) SetCredentials(v OAuthCredentials) {
 
 // GetEndpoints returns the Endpoints field value if set, zero value otherwise.
 func (o *ProtocolOAuth) GetEndpoints() OAuthEndpoints {
-	if o == nil || o.Endpoints == nil {
+	if o == nil || IsNil(o.Endpoints) {
 		var ret OAuthEndpoints
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *ProtocolOAuth) GetEndpoints() OAuthEndpoints {
 // GetEndpointsOk returns a tuple with the Endpoints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProtocolOAuth) GetEndpointsOk() (*OAuthEndpoints, bool) {
-	if o == nil || o.Endpoints == nil {
+	if o == nil || IsNil(o.Endpoints) {
 		return nil, false
 	}
 	return o.Endpoints, true
@@ -109,7 +112,7 @@ func (o *ProtocolOAuth) GetEndpointsOk() (*OAuthEndpoints, bool) {
 
 // HasEndpoints returns a boolean if a field has been set.
 func (o *ProtocolOAuth) HasEndpoints() bool {
-	if o != nil && o.Endpoints != nil {
+	if o != nil && !IsNil(o.Endpoints) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *ProtocolOAuth) SetEndpoints(v OAuthEndpoints) {
 
 // GetScopes returns the Scopes field value if set, zero value otherwise.
 func (o *ProtocolOAuth) GetScopes() []string {
-	if o == nil || o.Scopes == nil {
+	if o == nil || IsNil(o.Scopes) {
 		var ret []string
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *ProtocolOAuth) GetScopes() []string {
 // GetScopesOk returns a tuple with the Scopes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProtocolOAuth) GetScopesOk() ([]string, bool) {
-	if o == nil || o.Scopes == nil {
+	if o == nil || IsNil(o.Scopes) {
 		return nil, false
 	}
 	return o.Scopes, true
@@ -141,7 +144,7 @@ func (o *ProtocolOAuth) GetScopesOk() ([]string, bool) {
 
 // HasScopes returns a boolean if a field has been set.
 func (o *ProtocolOAuth) HasScopes() bool {
-	if o != nil && o.Scopes != nil {
+	if o != nil && !IsNil(o.Scopes) {
 		return true
 	}
 
@@ -155,7 +158,7 @@ func (o *ProtocolOAuth) SetScopes(v []string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *ProtocolOAuth) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -165,7 +168,7 @@ func (o *ProtocolOAuth) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProtocolOAuth) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -173,7 +176,7 @@ func (o *ProtocolOAuth) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *ProtocolOAuth) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -186,17 +189,25 @@ func (o *ProtocolOAuth) SetType(v string) {
 }
 
 func (o ProtocolOAuth) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ProtocolOAuth) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Credentials != nil {
+	if !IsNil(o.Credentials) {
 		toSerialize["credentials"] = o.Credentials
 	}
-	if o.Endpoints != nil {
+	if !IsNil(o.Endpoints) {
 		toSerialize["endpoints"] = o.Endpoints
 	}
-	if o.Scopes != nil {
+	if !IsNil(o.Scopes) {
 		toSerialize["scopes"] = o.Scopes
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -204,30 +215,28 @@ func (o ProtocolOAuth) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ProtocolOAuth) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ProtocolOAuth) UnmarshalJSON(data []byte) (err error) {
 	varProtocolOAuth := _ProtocolOAuth{}
 
-	err = json.Unmarshal(bytes, &varProtocolOAuth)
-	if err == nil {
-		*o = ProtocolOAuth(varProtocolOAuth)
-	} else {
+	err = json.Unmarshal(data, &varProtocolOAuth)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ProtocolOAuth(varProtocolOAuth)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "credentials")
 		delete(additionalProperties, "endpoints")
 		delete(additionalProperties, "scopes")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -268,4 +277,3 @@ func (v *NullableProtocolOAuth) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,13 +28,16 @@ import (
 	"time"
 )
 
+// checks if the AuthorizationServer type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthorizationServer{}
+
 // AuthorizationServer struct for AuthorizationServer
 type AuthorizationServer struct {
 	// <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>The algorithm for encrypting access tokens issued by this authorization server. If this is requested, the response is signed, and then encrypted. The result is a nested JWT. The default, if omitted, is that no encryption is performed.
 	AccessTokenEncryptedResponseAlgorithm *string `json:"accessTokenEncryptedResponseAlgorithm,omitempty"`
 	// The recipients that the tokens are intended for. This becomes the `aud` claim in an access token. Okta currently supports only one audience.
-	Audiences []string `json:"audiences,omitempty"`
-	Created *time.Time `json:"created,omitempty"`
+	Audiences   []string                        `json:"audiences,omitempty"`
+	Created     *time.Time                      `json:"created,omitempty"`
 	Credentials *AuthorizationServerCredentials `json:"credentials,omitempty"`
 	// The description of the custom authorization server
 	Description *string `json:"description,omitempty"`
@@ -43,15 +46,15 @@ type AuthorizationServer struct {
 	// The complete URL for the custom authorization server. This becomes the `iss` claim in an access token.
 	Issuer *string `json:"issuer,omitempty"`
 	// Indicates which value is specified in the issuer of the tokens that a custom authorization server returns: the Okta org domain URL or a custom domain URL.  `issuerMode` is visible if you have a custom URL domain configured or the Dynamic Issuer Mode feature enabled. If you have a custom URL domain configured, you can set a custom domain URL in a custom authorization server, and this property is returned in the appropriate responses.  When set to `ORG_URL`, then in responses, `issuer` is the Okta org domain URL: `https://${yourOktaDomain}`.  When set to `CUSTOM_URL`, then in responses, `issuer` is the custom domain URL configured in the administration user interface.  When set to `DYNAMIC`, then in responses, `issuer` is the custom domain URL if the OAuth 2.0 request was sent to the custom domain, or is the Okta org's domain URL if the OAuth 2.0 request was sent to the original Okta org domain.  After you configure a custom URL domain, all new custom authorization servers use `CUSTOM_URL` by default. If the Dynamic Issuer Mode feature is enabled, then all new custom authorization servers use `DYNAMIC` by default. All existing custom authorization servers continue to use the original value until they're changed using the Admin Console or the API. This way, existing integrations with the client and resource server continue to work after the feature is enabled.
-	IssuerMode *string `json:"issuerMode,omitempty"`
-	Jwks *ResourceServerJsonWebKeys `json:"jwks,omitempty"`
+	IssuerMode *string                    `json:"issuerMode,omitempty"`
+	Jwks       *ResourceServerJsonWebKeys `json:"jwks,omitempty"`
 	// <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>URL string that references a JSON Web Key Set for encrypting JWTs minted by the custom authorization server
-	JwksUri *string `json:"jwks_uri,omitempty"`
+	JwksUri     *string    `json:"jwks_uri,omitempty"`
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	// The name of the custom authorization server
-	Name *string `json:"name,omitempty"`
-	Status *string `json:"status,omitempty"`
-	Links *AuthServerLinks `json:"_links,omitempty"`
+	Name                 *string          `json:"name,omitempty"`
+	Status               *string          `json:"status,omitempty"`
+	Links                *AuthServerLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -76,7 +79,7 @@ func NewAuthorizationServerWithDefaults() *AuthorizationServer {
 
 // GetAccessTokenEncryptedResponseAlgorithm returns the AccessTokenEncryptedResponseAlgorithm field value if set, zero value otherwise.
 func (o *AuthorizationServer) GetAccessTokenEncryptedResponseAlgorithm() string {
-	if o == nil || o.AccessTokenEncryptedResponseAlgorithm == nil {
+	if o == nil || IsNil(o.AccessTokenEncryptedResponseAlgorithm) {
 		var ret string
 		return ret
 	}
@@ -86,7 +89,7 @@ func (o *AuthorizationServer) GetAccessTokenEncryptedResponseAlgorithm() string 
 // GetAccessTokenEncryptedResponseAlgorithmOk returns a tuple with the AccessTokenEncryptedResponseAlgorithm field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServer) GetAccessTokenEncryptedResponseAlgorithmOk() (*string, bool) {
-	if o == nil || o.AccessTokenEncryptedResponseAlgorithm == nil {
+	if o == nil || IsNil(o.AccessTokenEncryptedResponseAlgorithm) {
 		return nil, false
 	}
 	return o.AccessTokenEncryptedResponseAlgorithm, true
@@ -94,7 +97,7 @@ func (o *AuthorizationServer) GetAccessTokenEncryptedResponseAlgorithmOk() (*str
 
 // HasAccessTokenEncryptedResponseAlgorithm returns a boolean if a field has been set.
 func (o *AuthorizationServer) HasAccessTokenEncryptedResponseAlgorithm() bool {
-	if o != nil && o.AccessTokenEncryptedResponseAlgorithm != nil {
+	if o != nil && !IsNil(o.AccessTokenEncryptedResponseAlgorithm) {
 		return true
 	}
 
@@ -108,7 +111,7 @@ func (o *AuthorizationServer) SetAccessTokenEncryptedResponseAlgorithm(v string)
 
 // GetAudiences returns the Audiences field value if set, zero value otherwise.
 func (o *AuthorizationServer) GetAudiences() []string {
-	if o == nil || o.Audiences == nil {
+	if o == nil || IsNil(o.Audiences) {
 		var ret []string
 		return ret
 	}
@@ -118,7 +121,7 @@ func (o *AuthorizationServer) GetAudiences() []string {
 // GetAudiencesOk returns a tuple with the Audiences field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServer) GetAudiencesOk() ([]string, bool) {
-	if o == nil || o.Audiences == nil {
+	if o == nil || IsNil(o.Audiences) {
 		return nil, false
 	}
 	return o.Audiences, true
@@ -126,7 +129,7 @@ func (o *AuthorizationServer) GetAudiencesOk() ([]string, bool) {
 
 // HasAudiences returns a boolean if a field has been set.
 func (o *AuthorizationServer) HasAudiences() bool {
-	if o != nil && o.Audiences != nil {
+	if o != nil && !IsNil(o.Audiences) {
 		return true
 	}
 
@@ -140,7 +143,7 @@ func (o *AuthorizationServer) SetAudiences(v []string) {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *AuthorizationServer) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -150,7 +153,7 @@ func (o *AuthorizationServer) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServer) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -158,7 +161,7 @@ func (o *AuthorizationServer) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *AuthorizationServer) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -172,7 +175,7 @@ func (o *AuthorizationServer) SetCreated(v time.Time) {
 
 // GetCredentials returns the Credentials field value if set, zero value otherwise.
 func (o *AuthorizationServer) GetCredentials() AuthorizationServerCredentials {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		var ret AuthorizationServerCredentials
 		return ret
 	}
@@ -182,7 +185,7 @@ func (o *AuthorizationServer) GetCredentials() AuthorizationServerCredentials {
 // GetCredentialsOk returns a tuple with the Credentials field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServer) GetCredentialsOk() (*AuthorizationServerCredentials, bool) {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		return nil, false
 	}
 	return o.Credentials, true
@@ -190,7 +193,7 @@ func (o *AuthorizationServer) GetCredentialsOk() (*AuthorizationServerCredential
 
 // HasCredentials returns a boolean if a field has been set.
 func (o *AuthorizationServer) HasCredentials() bool {
-	if o != nil && o.Credentials != nil {
+	if o != nil && !IsNil(o.Credentials) {
 		return true
 	}
 
@@ -204,7 +207,7 @@ func (o *AuthorizationServer) SetCredentials(v AuthorizationServerCredentials) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *AuthorizationServer) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -214,7 +217,7 @@ func (o *AuthorizationServer) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServer) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -222,7 +225,7 @@ func (o *AuthorizationServer) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *AuthorizationServer) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -236,7 +239,7 @@ func (o *AuthorizationServer) SetDescription(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *AuthorizationServer) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -246,7 +249,7 @@ func (o *AuthorizationServer) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServer) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -254,7 +257,7 @@ func (o *AuthorizationServer) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *AuthorizationServer) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -268,7 +271,7 @@ func (o *AuthorizationServer) SetId(v string) {
 
 // GetIssuer returns the Issuer field value if set, zero value otherwise.
 func (o *AuthorizationServer) GetIssuer() string {
-	if o == nil || o.Issuer == nil {
+	if o == nil || IsNil(o.Issuer) {
 		var ret string
 		return ret
 	}
@@ -278,7 +281,7 @@ func (o *AuthorizationServer) GetIssuer() string {
 // GetIssuerOk returns a tuple with the Issuer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServer) GetIssuerOk() (*string, bool) {
-	if o == nil || o.Issuer == nil {
+	if o == nil || IsNil(o.Issuer) {
 		return nil, false
 	}
 	return o.Issuer, true
@@ -286,7 +289,7 @@ func (o *AuthorizationServer) GetIssuerOk() (*string, bool) {
 
 // HasIssuer returns a boolean if a field has been set.
 func (o *AuthorizationServer) HasIssuer() bool {
-	if o != nil && o.Issuer != nil {
+	if o != nil && !IsNil(o.Issuer) {
 		return true
 	}
 
@@ -300,7 +303,7 @@ func (o *AuthorizationServer) SetIssuer(v string) {
 
 // GetIssuerMode returns the IssuerMode field value if set, zero value otherwise.
 func (o *AuthorizationServer) GetIssuerMode() string {
-	if o == nil || o.IssuerMode == nil {
+	if o == nil || IsNil(o.IssuerMode) {
 		var ret string
 		return ret
 	}
@@ -310,7 +313,7 @@ func (o *AuthorizationServer) GetIssuerMode() string {
 // GetIssuerModeOk returns a tuple with the IssuerMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServer) GetIssuerModeOk() (*string, bool) {
-	if o == nil || o.IssuerMode == nil {
+	if o == nil || IsNil(o.IssuerMode) {
 		return nil, false
 	}
 	return o.IssuerMode, true
@@ -318,7 +321,7 @@ func (o *AuthorizationServer) GetIssuerModeOk() (*string, bool) {
 
 // HasIssuerMode returns a boolean if a field has been set.
 func (o *AuthorizationServer) HasIssuerMode() bool {
-	if o != nil && o.IssuerMode != nil {
+	if o != nil && !IsNil(o.IssuerMode) {
 		return true
 	}
 
@@ -332,7 +335,7 @@ func (o *AuthorizationServer) SetIssuerMode(v string) {
 
 // GetJwks returns the Jwks field value if set, zero value otherwise.
 func (o *AuthorizationServer) GetJwks() ResourceServerJsonWebKeys {
-	if o == nil || o.Jwks == nil {
+	if o == nil || IsNil(o.Jwks) {
 		var ret ResourceServerJsonWebKeys
 		return ret
 	}
@@ -342,7 +345,7 @@ func (o *AuthorizationServer) GetJwks() ResourceServerJsonWebKeys {
 // GetJwksOk returns a tuple with the Jwks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServer) GetJwksOk() (*ResourceServerJsonWebKeys, bool) {
-	if o == nil || o.Jwks == nil {
+	if o == nil || IsNil(o.Jwks) {
 		return nil, false
 	}
 	return o.Jwks, true
@@ -350,7 +353,7 @@ func (o *AuthorizationServer) GetJwksOk() (*ResourceServerJsonWebKeys, bool) {
 
 // HasJwks returns a boolean if a field has been set.
 func (o *AuthorizationServer) HasJwks() bool {
-	if o != nil && o.Jwks != nil {
+	if o != nil && !IsNil(o.Jwks) {
 		return true
 	}
 
@@ -364,7 +367,7 @@ func (o *AuthorizationServer) SetJwks(v ResourceServerJsonWebKeys) {
 
 // GetJwksUri returns the JwksUri field value if set, zero value otherwise.
 func (o *AuthorizationServer) GetJwksUri() string {
-	if o == nil || o.JwksUri == nil {
+	if o == nil || IsNil(o.JwksUri) {
 		var ret string
 		return ret
 	}
@@ -374,7 +377,7 @@ func (o *AuthorizationServer) GetJwksUri() string {
 // GetJwksUriOk returns a tuple with the JwksUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServer) GetJwksUriOk() (*string, bool) {
-	if o == nil || o.JwksUri == nil {
+	if o == nil || IsNil(o.JwksUri) {
 		return nil, false
 	}
 	return o.JwksUri, true
@@ -382,7 +385,7 @@ func (o *AuthorizationServer) GetJwksUriOk() (*string, bool) {
 
 // HasJwksUri returns a boolean if a field has been set.
 func (o *AuthorizationServer) HasJwksUri() bool {
-	if o != nil && o.JwksUri != nil {
+	if o != nil && !IsNil(o.JwksUri) {
 		return true
 	}
 
@@ -396,7 +399,7 @@ func (o *AuthorizationServer) SetJwksUri(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *AuthorizationServer) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -406,7 +409,7 @@ func (o *AuthorizationServer) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServer) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -414,7 +417,7 @@ func (o *AuthorizationServer) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *AuthorizationServer) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -428,7 +431,7 @@ func (o *AuthorizationServer) SetLastUpdated(v time.Time) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *AuthorizationServer) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -438,7 +441,7 @@ func (o *AuthorizationServer) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServer) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -446,7 +449,7 @@ func (o *AuthorizationServer) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *AuthorizationServer) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -460,7 +463,7 @@ func (o *AuthorizationServer) SetName(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *AuthorizationServer) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -470,7 +473,7 @@ func (o *AuthorizationServer) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServer) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -478,7 +481,7 @@ func (o *AuthorizationServer) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *AuthorizationServer) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -492,7 +495,7 @@ func (o *AuthorizationServer) SetStatus(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *AuthorizationServer) GetLinks() AuthServerLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret AuthServerLinks
 		return ret
 	}
@@ -502,7 +505,7 @@ func (o *AuthorizationServer) GetLinks() AuthServerLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServer) GetLinksOk() (*AuthServerLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -510,7 +513,7 @@ func (o *AuthorizationServer) GetLinksOk() (*AuthServerLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *AuthorizationServer) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -523,47 +526,55 @@ func (o *AuthorizationServer) SetLinks(v AuthServerLinks) {
 }
 
 func (o AuthorizationServer) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthorizationServer) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AccessTokenEncryptedResponseAlgorithm != nil {
+	if !IsNil(o.AccessTokenEncryptedResponseAlgorithm) {
 		toSerialize["accessTokenEncryptedResponseAlgorithm"] = o.AccessTokenEncryptedResponseAlgorithm
 	}
-	if o.Audiences != nil {
+	if !IsNil(o.Audiences) {
 		toSerialize["audiences"] = o.Audiences
 	}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Credentials != nil {
+	if !IsNil(o.Credentials) {
 		toSerialize["credentials"] = o.Credentials
 	}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Issuer != nil {
+	if !IsNil(o.Issuer) {
 		toSerialize["issuer"] = o.Issuer
 	}
-	if o.IssuerMode != nil {
+	if !IsNil(o.IssuerMode) {
 		toSerialize["issuerMode"] = o.IssuerMode
 	}
-	if o.Jwks != nil {
+	if !IsNil(o.Jwks) {
 		toSerialize["jwks"] = o.Jwks
 	}
-	if o.JwksUri != nil {
+	if !IsNil(o.JwksUri) {
 		toSerialize["jwks_uri"] = o.JwksUri
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -571,23 +582,23 @@ func (o AuthorizationServer) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthorizationServer) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthorizationServer) UnmarshalJSON(data []byte) (err error) {
 	varAuthorizationServer := _AuthorizationServer{}
 
-	err = json.Unmarshal(bytes, &varAuthorizationServer)
-	if err == nil {
-		*o = AuthorizationServer(varAuthorizationServer)
-	} else {
+	err = json.Unmarshal(data, &varAuthorizationServer)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthorizationServer(varAuthorizationServer)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "accessTokenEncryptedResponseAlgorithm")
 		delete(additionalProperties, "audiences")
 		delete(additionalProperties, "created")
@@ -603,8 +614,6 @@ func (o *AuthorizationServer) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -645,4 +654,3 @@ func (v *NullableAuthorizationServer) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

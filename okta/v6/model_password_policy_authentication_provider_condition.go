@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the PasswordPolicyAuthenticationProviderCondition type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordPolicyAuthenticationProviderCondition{}
+
 // PasswordPolicyAuthenticationProviderCondition Specifies an authentication provider that's the source of some or all users
 type PasswordPolicyAuthenticationProviderCondition struct {
-	Include []string `json:"include,omitempty"`
-	Provider *string `json:"provider,omitempty"`
+	Include              []string `json:"include,omitempty"`
+	Provider             *string  `json:"provider,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewPasswordPolicyAuthenticationProviderConditionWithDefaults() *PasswordPol
 
 // GetInclude returns the Include field value if set, zero value otherwise.
 func (o *PasswordPolicyAuthenticationProviderCondition) GetInclude() []string {
-	if o == nil || o.Include == nil {
+	if o == nil || IsNil(o.Include) {
 		var ret []string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *PasswordPolicyAuthenticationProviderCondition) GetInclude() []string {
 // GetIncludeOk returns a tuple with the Include field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyAuthenticationProviderCondition) GetIncludeOk() ([]string, bool) {
-	if o == nil || o.Include == nil {
+	if o == nil || IsNil(o.Include) {
 		return nil, false
 	}
 	return o.Include, true
@@ -73,7 +76,7 @@ func (o *PasswordPolicyAuthenticationProviderCondition) GetIncludeOk() ([]string
 
 // HasInclude returns a boolean if a field has been set.
 func (o *PasswordPolicyAuthenticationProviderCondition) HasInclude() bool {
-	if o != nil && o.Include != nil {
+	if o != nil && !IsNil(o.Include) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *PasswordPolicyAuthenticationProviderCondition) SetInclude(v []string) {
 
 // GetProvider returns the Provider field value if set, zero value otherwise.
 func (o *PasswordPolicyAuthenticationProviderCondition) GetProvider() string {
-	if o == nil || o.Provider == nil {
+	if o == nil || IsNil(o.Provider) {
 		var ret string
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *PasswordPolicyAuthenticationProviderCondition) GetProvider() string {
 // GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyAuthenticationProviderCondition) GetProviderOk() (*string, bool) {
-	if o == nil || o.Provider == nil {
+	if o == nil || IsNil(o.Provider) {
 		return nil, false
 	}
 	return o.Provider, true
@@ -105,7 +108,7 @@ func (o *PasswordPolicyAuthenticationProviderCondition) GetProviderOk() (*string
 
 // HasProvider returns a boolean if a field has been set.
 func (o *PasswordPolicyAuthenticationProviderCondition) HasProvider() bool {
-	if o != nil && o.Provider != nil {
+	if o != nil && !IsNil(o.Provider) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *PasswordPolicyAuthenticationProviderCondition) SetProvider(v string) {
 }
 
 func (o PasswordPolicyAuthenticationProviderCondition) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordPolicyAuthenticationProviderCondition) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Include != nil {
+	if !IsNil(o.Include) {
 		toSerialize["include"] = o.Include
 	}
-	if o.Provider != nil {
+	if !IsNil(o.Provider) {
 		toSerialize["provider"] = o.Provider
 	}
 
@@ -130,28 +141,26 @@ func (o PasswordPolicyAuthenticationProviderCondition) MarshalJSON() ([]byte, er
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordPolicyAuthenticationProviderCondition) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordPolicyAuthenticationProviderCondition) UnmarshalJSON(data []byte) (err error) {
 	varPasswordPolicyAuthenticationProviderCondition := _PasswordPolicyAuthenticationProviderCondition{}
 
-	err = json.Unmarshal(bytes, &varPasswordPolicyAuthenticationProviderCondition)
-	if err == nil {
-		*o = PasswordPolicyAuthenticationProviderCondition(varPasswordPolicyAuthenticationProviderCondition)
-	} else {
+	err = json.Unmarshal(data, &varPasswordPolicyAuthenticationProviderCondition)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PasswordPolicyAuthenticationProviderCondition(varPasswordPolicyAuthenticationProviderCondition)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "include")
 		delete(additionalProperties, "provider")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullablePasswordPolicyAuthenticationProviderCondition) UnmarshalJSON(sr
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthorizationServerPolicyAllOfLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthorizationServerPolicyAllOfLinks{}
+
 // AuthorizationServerPolicyAllOfLinks struct for AuthorizationServerPolicyAllOfLinks
 type AuthorizationServerPolicyAllOfLinks struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Activate *HrefObjectActivateLink `json:"activate,omitempty"`
+	Self       *HrefObjectSelfLink       `json:"self,omitempty"`
+	Activate   *HrefObjectActivateLink   `json:"activate,omitempty"`
 	Deactivate *HrefObjectDeactivateLink `json:"deactivate,omitempty"`
 	// Link to the authorization server policy's rules
-	Rules *HrefObject `json:"rules,omitempty"`
+	Rules                *HrefObject `json:"rules,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewAuthorizationServerPolicyAllOfLinksWithDefaults() *AuthorizationServerPo
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *AuthorizationServerPolicyAllOfLinks) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *AuthorizationServerPolicyAllOfLinks) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerPolicyAllOfLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -76,7 +79,7 @@ func (o *AuthorizationServerPolicyAllOfLinks) GetSelfOk() (*HrefObjectSelfLink, 
 
 // HasSelf returns a boolean if a field has been set.
 func (o *AuthorizationServerPolicyAllOfLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *AuthorizationServerPolicyAllOfLinks) SetSelf(v HrefObjectSelfLink) {
 
 // GetActivate returns the Activate field value if set, zero value otherwise.
 func (o *AuthorizationServerPolicyAllOfLinks) GetActivate() HrefObjectActivateLink {
-	if o == nil || o.Activate == nil {
+	if o == nil || IsNil(o.Activate) {
 		var ret HrefObjectActivateLink
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *AuthorizationServerPolicyAllOfLinks) GetActivate() HrefObjectActivateLi
 // GetActivateOk returns a tuple with the Activate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerPolicyAllOfLinks) GetActivateOk() (*HrefObjectActivateLink, bool) {
-	if o == nil || o.Activate == nil {
+	if o == nil || IsNil(o.Activate) {
 		return nil, false
 	}
 	return o.Activate, true
@@ -108,7 +111,7 @@ func (o *AuthorizationServerPolicyAllOfLinks) GetActivateOk() (*HrefObjectActiva
 
 // HasActivate returns a boolean if a field has been set.
 func (o *AuthorizationServerPolicyAllOfLinks) HasActivate() bool {
-	if o != nil && o.Activate != nil {
+	if o != nil && !IsNil(o.Activate) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *AuthorizationServerPolicyAllOfLinks) SetActivate(v HrefObjectActivateLi
 
 // GetDeactivate returns the Deactivate field value if set, zero value otherwise.
 func (o *AuthorizationServerPolicyAllOfLinks) GetDeactivate() HrefObjectDeactivateLink {
-	if o == nil || o.Deactivate == nil {
+	if o == nil || IsNil(o.Deactivate) {
 		var ret HrefObjectDeactivateLink
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *AuthorizationServerPolicyAllOfLinks) GetDeactivate() HrefObjectDeactiva
 // GetDeactivateOk returns a tuple with the Deactivate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerPolicyAllOfLinks) GetDeactivateOk() (*HrefObjectDeactivateLink, bool) {
-	if o == nil || o.Deactivate == nil {
+	if o == nil || IsNil(o.Deactivate) {
 		return nil, false
 	}
 	return o.Deactivate, true
@@ -140,7 +143,7 @@ func (o *AuthorizationServerPolicyAllOfLinks) GetDeactivateOk() (*HrefObjectDeac
 
 // HasDeactivate returns a boolean if a field has been set.
 func (o *AuthorizationServerPolicyAllOfLinks) HasDeactivate() bool {
-	if o != nil && o.Deactivate != nil {
+	if o != nil && !IsNil(o.Deactivate) {
 		return true
 	}
 
@@ -154,7 +157,7 @@ func (o *AuthorizationServerPolicyAllOfLinks) SetDeactivate(v HrefObjectDeactiva
 
 // GetRules returns the Rules field value if set, zero value otherwise.
 func (o *AuthorizationServerPolicyAllOfLinks) GetRules() HrefObject {
-	if o == nil || o.Rules == nil {
+	if o == nil || IsNil(o.Rules) {
 		var ret HrefObject
 		return ret
 	}
@@ -164,7 +167,7 @@ func (o *AuthorizationServerPolicyAllOfLinks) GetRules() HrefObject {
 // GetRulesOk returns a tuple with the Rules field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerPolicyAllOfLinks) GetRulesOk() (*HrefObject, bool) {
-	if o == nil || o.Rules == nil {
+	if o == nil || IsNil(o.Rules) {
 		return nil, false
 	}
 	return o.Rules, true
@@ -172,7 +175,7 @@ func (o *AuthorizationServerPolicyAllOfLinks) GetRulesOk() (*HrefObject, bool) {
 
 // HasRules returns a boolean if a field has been set.
 func (o *AuthorizationServerPolicyAllOfLinks) HasRules() bool {
-	if o != nil && o.Rules != nil {
+	if o != nil && !IsNil(o.Rules) {
 		return true
 	}
 
@@ -185,17 +188,25 @@ func (o *AuthorizationServerPolicyAllOfLinks) SetRules(v HrefObject) {
 }
 
 func (o AuthorizationServerPolicyAllOfLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthorizationServerPolicyAllOfLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.Activate != nil {
+	if !IsNil(o.Activate) {
 		toSerialize["activate"] = o.Activate
 	}
-	if o.Deactivate != nil {
+	if !IsNil(o.Deactivate) {
 		toSerialize["deactivate"] = o.Deactivate
 	}
-	if o.Rules != nil {
+	if !IsNil(o.Rules) {
 		toSerialize["rules"] = o.Rules
 	}
 
@@ -203,30 +214,28 @@ func (o AuthorizationServerPolicyAllOfLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthorizationServerPolicyAllOfLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthorizationServerPolicyAllOfLinks) UnmarshalJSON(data []byte) (err error) {
 	varAuthorizationServerPolicyAllOfLinks := _AuthorizationServerPolicyAllOfLinks{}
 
-	err = json.Unmarshal(bytes, &varAuthorizationServerPolicyAllOfLinks)
-	if err == nil {
-		*o = AuthorizationServerPolicyAllOfLinks(varAuthorizationServerPolicyAllOfLinks)
-	} else {
+	err = json.Unmarshal(data, &varAuthorizationServerPolicyAllOfLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthorizationServerPolicyAllOfLinks(varAuthorizationServerPolicyAllOfLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "activate")
 		delete(additionalProperties, "deactivate")
 		delete(additionalProperties, "rules")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -267,4 +276,3 @@ func (v *NullableAuthorizationServerPolicyAllOfLinks) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

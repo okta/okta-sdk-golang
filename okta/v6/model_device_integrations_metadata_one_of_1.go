@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,12 +28,15 @@ import (
 	"fmt"
 )
 
+// checks if the DeviceIntegrationsMetadataOneOf1 type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeviceIntegrationsMetadataOneOf1{}
+
 // DeviceIntegrationsMetadataOneOf1 struct for DeviceIntegrationsMetadataOneOf1
 type DeviceIntegrationsMetadataOneOf1 struct {
-	Type string `json:"type"`
-	Provider string `json:"provider"`
-	EnrollmentUrl string `json:"enrollmentUrl"`
-	IdpId string `json:"idpId"`
+	Type                 string `json:"type"`
+	Provider             string `json:"provider"`
+	EnrollmentUrl        string `json:"enrollmentUrl"`
+	IdpId                string `json:"idpId"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,48 +160,70 @@ func (o *DeviceIntegrationsMetadataOneOf1) SetIdpId(v string) {
 }
 
 func (o DeviceIntegrationsMetadataOneOf1) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DeviceIntegrationsMetadataOneOf1) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["provider"] = o.Provider
-	}
-	if true {
-		toSerialize["enrollmentUrl"] = o.EnrollmentUrl
-	}
-	if true {
-		toSerialize["idpId"] = o.IdpId
-	}
+	toSerialize["type"] = o.Type
+	toSerialize["provider"] = o.Provider
+	toSerialize["enrollmentUrl"] = o.EnrollmentUrl
+	toSerialize["idpId"] = o.IdpId
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DeviceIntegrationsMetadataOneOf1) UnmarshalJSON(bytes []byte) (err error) {
-	varDeviceIntegrationsMetadataOneOf1 := _DeviceIntegrationsMetadataOneOf1{}
+func (o *DeviceIntegrationsMetadataOneOf1) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"provider",
+		"enrollmentUrl",
+		"idpId",
+	}
 
-	err = json.Unmarshal(bytes, &varDeviceIntegrationsMetadataOneOf1)
-	if err == nil {
-		*o = DeviceIntegrationsMetadataOneOf1(varDeviceIntegrationsMetadataOneOf1)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varDeviceIntegrationsMetadataOneOf1 := _DeviceIntegrationsMetadataOneOf1{}
+
+	err = json.Unmarshal(data, &varDeviceIntegrationsMetadataOneOf1)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DeviceIntegrationsMetadataOneOf1(varDeviceIntegrationsMetadataOneOf1)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "provider")
 		delete(additionalProperties, "enrollmentUrl")
 		delete(additionalProperties, "idpId")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -239,4 +264,3 @@ func (v *NullableDeviceIntegrationsMetadataOneOf1) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

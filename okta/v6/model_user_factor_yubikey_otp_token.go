@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"time"
 )
 
+// checks if the UserFactorYubikeyOtpToken type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserFactorYubikeyOtpToken{}
+
 // UserFactorYubikeyOtpToken struct for UserFactorYubikeyOtpToken
 type UserFactorYubikeyOtpToken struct {
 	// Timestamp when the token was created
@@ -41,9 +44,9 @@ type UserFactorYubikeyOtpToken struct {
 	// Specified profile information for token
 	Profile map[string]map[string]interface{} `json:"profile,omitempty"`
 	// Token status
-	Status *string `json:"status,omitempty"`
-	Embedded map[string]map[string]interface{} `json:"_embedded,omitempty"`
-	Links *UserFactorLinks `json:"_links,omitempty"`
+	Status               *string                           `json:"status,omitempty"`
+	Embedded             map[string]map[string]interface{} `json:"_embedded,omitempty"`
+	Links                *UserFactorLinks                  `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -68,7 +71,7 @@ func NewUserFactorYubikeyOtpTokenWithDefaults() *UserFactorYubikeyOtpToken {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *UserFactorYubikeyOtpToken) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -78,7 +81,7 @@ func (o *UserFactorYubikeyOtpToken) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorYubikeyOtpToken) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -86,7 +89,7 @@ func (o *UserFactorYubikeyOtpToken) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *UserFactorYubikeyOtpToken) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -100,7 +103,7 @@ func (o *UserFactorYubikeyOtpToken) SetCreated(v time.Time) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *UserFactorYubikeyOtpToken) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -110,7 +113,7 @@ func (o *UserFactorYubikeyOtpToken) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorYubikeyOtpToken) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -118,7 +121,7 @@ func (o *UserFactorYubikeyOtpToken) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *UserFactorYubikeyOtpToken) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -132,7 +135,7 @@ func (o *UserFactorYubikeyOtpToken) SetId(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *UserFactorYubikeyOtpToken) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -142,7 +145,7 @@ func (o *UserFactorYubikeyOtpToken) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorYubikeyOtpToken) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -150,7 +153,7 @@ func (o *UserFactorYubikeyOtpToken) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *UserFactorYubikeyOtpToken) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -164,7 +167,7 @@ func (o *UserFactorYubikeyOtpToken) SetLastUpdated(v time.Time) {
 
 // GetLastVerified returns the LastVerified field value if set, zero value otherwise.
 func (o *UserFactorYubikeyOtpToken) GetLastVerified() time.Time {
-	if o == nil || o.LastVerified == nil {
+	if o == nil || IsNil(o.LastVerified) {
 		var ret time.Time
 		return ret
 	}
@@ -174,7 +177,7 @@ func (o *UserFactorYubikeyOtpToken) GetLastVerified() time.Time {
 // GetLastVerifiedOk returns a tuple with the LastVerified field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorYubikeyOtpToken) GetLastVerifiedOk() (*time.Time, bool) {
-	if o == nil || o.LastVerified == nil {
+	if o == nil || IsNil(o.LastVerified) {
 		return nil, false
 	}
 	return o.LastVerified, true
@@ -182,7 +185,7 @@ func (o *UserFactorYubikeyOtpToken) GetLastVerifiedOk() (*time.Time, bool) {
 
 // HasLastVerified returns a boolean if a field has been set.
 func (o *UserFactorYubikeyOtpToken) HasLastVerified() bool {
-	if o != nil && o.LastVerified != nil {
+	if o != nil && !IsNil(o.LastVerified) {
 		return true
 	}
 
@@ -196,7 +199,7 @@ func (o *UserFactorYubikeyOtpToken) SetLastVerified(v time.Time) {
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *UserFactorYubikeyOtpToken) GetProfile() map[string]map[string]interface{} {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
@@ -206,15 +209,15 @@ func (o *UserFactorYubikeyOtpToken) GetProfile() map[string]map[string]interface
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorYubikeyOtpToken) GetProfileOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || o.Profile == nil {
-		return nil, false
+	if o == nil || IsNil(o.Profile) {
+		return map[string]map[string]interface{}{}, false
 	}
 	return o.Profile, true
 }
 
 // HasProfile returns a boolean if a field has been set.
 func (o *UserFactorYubikeyOtpToken) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -228,7 +231,7 @@ func (o *UserFactorYubikeyOtpToken) SetProfile(v map[string]map[string]interface
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *UserFactorYubikeyOtpToken) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -238,7 +241,7 @@ func (o *UserFactorYubikeyOtpToken) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorYubikeyOtpToken) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -246,7 +249,7 @@ func (o *UserFactorYubikeyOtpToken) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *UserFactorYubikeyOtpToken) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -260,7 +263,7 @@ func (o *UserFactorYubikeyOtpToken) SetStatus(v string) {
 
 // GetEmbedded returns the Embedded field value if set, zero value otherwise.
 func (o *UserFactorYubikeyOtpToken) GetEmbedded() map[string]map[string]interface{} {
-	if o == nil || o.Embedded == nil {
+	if o == nil || IsNil(o.Embedded) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
@@ -270,15 +273,15 @@ func (o *UserFactorYubikeyOtpToken) GetEmbedded() map[string]map[string]interfac
 // GetEmbeddedOk returns a tuple with the Embedded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorYubikeyOtpToken) GetEmbeddedOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || o.Embedded == nil {
-		return nil, false
+	if o == nil || IsNil(o.Embedded) {
+		return map[string]map[string]interface{}{}, false
 	}
 	return o.Embedded, true
 }
 
 // HasEmbedded returns a boolean if a field has been set.
 func (o *UserFactorYubikeyOtpToken) HasEmbedded() bool {
-	if o != nil && o.Embedded != nil {
+	if o != nil && !IsNil(o.Embedded) {
 		return true
 	}
 
@@ -292,7 +295,7 @@ func (o *UserFactorYubikeyOtpToken) SetEmbedded(v map[string]map[string]interfac
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *UserFactorYubikeyOtpToken) GetLinks() UserFactorLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret UserFactorLinks
 		return ret
 	}
@@ -302,7 +305,7 @@ func (o *UserFactorYubikeyOtpToken) GetLinks() UserFactorLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorYubikeyOtpToken) GetLinksOk() (*UserFactorLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -310,7 +313,7 @@ func (o *UserFactorYubikeyOtpToken) GetLinksOk() (*UserFactorLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *UserFactorYubikeyOtpToken) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -323,29 +326,37 @@ func (o *UserFactorYubikeyOtpToken) SetLinks(v UserFactorLinks) {
 }
 
 func (o UserFactorYubikeyOtpToken) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserFactorYubikeyOtpToken) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.LastVerified != nil {
+	if !IsNil(o.LastVerified) {
 		toSerialize["lastVerified"] = o.LastVerified
 	}
-	if o.Profile != nil {
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Embedded != nil {
+	if !IsNil(o.Embedded) {
 		toSerialize["_embedded"] = o.Embedded
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -353,23 +364,23 @@ func (o UserFactorYubikeyOtpToken) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserFactorYubikeyOtpToken) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserFactorYubikeyOtpToken) UnmarshalJSON(data []byte) (err error) {
 	varUserFactorYubikeyOtpToken := _UserFactorYubikeyOtpToken{}
 
-	err = json.Unmarshal(bytes, &varUserFactorYubikeyOtpToken)
-	if err == nil {
-		*o = UserFactorYubikeyOtpToken(varUserFactorYubikeyOtpToken)
-	} else {
+	err = json.Unmarshal(data, &varUserFactorYubikeyOtpToken)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserFactorYubikeyOtpToken(varUserFactorYubikeyOtpToken)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "lastUpdated")
@@ -379,8 +390,6 @@ func (o *UserFactorYubikeyOtpToken) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "_embedded")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -421,4 +430,3 @@ func (v *NullableUserFactorYubikeyOtpToken) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

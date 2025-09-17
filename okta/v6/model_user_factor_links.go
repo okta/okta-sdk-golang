@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserFactorLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserFactorLinks{}
+
 // UserFactorLinks struct for UserFactorLinks
 type UserFactorLinks struct {
 	// Activates an enrolled factor. See [Activate a factor](/openapi/okta-management/management/tag/UserFactor/#tag/UserFactor/operation/activateFactor).
@@ -48,12 +51,12 @@ type UserFactorLinks struct {
 	// Resends the factor enrollment challenge. See [Resend a factor enrollment](/openapi/okta-management/management/tag/UserFactor/#tag/UserFactor/operation/resendEnrollFactor).
 	Resend *HrefObject `json:"resend,omitempty"`
 	// Sends an activation link through email or sms for users who can't scan the QR code
-	Send *HrefObject `json:"send,omitempty"`
+	Send *HrefObject         `json:"send,omitempty"`
 	Self *HrefObjectSelfLink `json:"self,omitempty"`
 	// Returns information on the specified user
 	User *HrefObject `json:"user,omitempty"`
 	// Verifies the factor resource. See [Verify a factor](/openapi/okta-management/management/tag/UserFactor/#tag/UserFactor/operation/verifyFactor).
-	Verify *HrefObject `json:"verify,omitempty"`
+	Verify               *HrefObject `json:"verify,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -78,7 +81,7 @@ func NewUserFactorLinksWithDefaults() *UserFactorLinks {
 
 // GetActivate returns the Activate field value if set, zero value otherwise.
 func (o *UserFactorLinks) GetActivate() HrefObject {
-	if o == nil || o.Activate == nil {
+	if o == nil || IsNil(o.Activate) {
 		var ret HrefObject
 		return ret
 	}
@@ -88,7 +91,7 @@ func (o *UserFactorLinks) GetActivate() HrefObject {
 // GetActivateOk returns a tuple with the Activate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorLinks) GetActivateOk() (*HrefObject, bool) {
-	if o == nil || o.Activate == nil {
+	if o == nil || IsNil(o.Activate) {
 		return nil, false
 	}
 	return o.Activate, true
@@ -96,7 +99,7 @@ func (o *UserFactorLinks) GetActivateOk() (*HrefObject, bool) {
 
 // HasActivate returns a boolean if a field has been set.
 func (o *UserFactorLinks) HasActivate() bool {
-	if o != nil && o.Activate != nil {
+	if o != nil && !IsNil(o.Activate) {
 		return true
 	}
 
@@ -110,7 +113,7 @@ func (o *UserFactorLinks) SetActivate(v HrefObject) {
 
 // GetCancel returns the Cancel field value if set, zero value otherwise.
 func (o *UserFactorLinks) GetCancel() HrefObject {
-	if o == nil || o.Cancel == nil {
+	if o == nil || IsNil(o.Cancel) {
 		var ret HrefObject
 		return ret
 	}
@@ -120,7 +123,7 @@ func (o *UserFactorLinks) GetCancel() HrefObject {
 // GetCancelOk returns a tuple with the Cancel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorLinks) GetCancelOk() (*HrefObject, bool) {
-	if o == nil || o.Cancel == nil {
+	if o == nil || IsNil(o.Cancel) {
 		return nil, false
 	}
 	return o.Cancel, true
@@ -128,7 +131,7 @@ func (o *UserFactorLinks) GetCancelOk() (*HrefObject, bool) {
 
 // HasCancel returns a boolean if a field has been set.
 func (o *UserFactorLinks) HasCancel() bool {
-	if o != nil && o.Cancel != nil {
+	if o != nil && !IsNil(o.Cancel) {
 		return true
 	}
 
@@ -142,7 +145,7 @@ func (o *UserFactorLinks) SetCancel(v HrefObject) {
 
 // GetDeactivate returns the Deactivate field value if set, zero value otherwise.
 func (o *UserFactorLinks) GetDeactivate() HrefObject {
-	if o == nil || o.Deactivate == nil {
+	if o == nil || IsNil(o.Deactivate) {
 		var ret HrefObject
 		return ret
 	}
@@ -152,7 +155,7 @@ func (o *UserFactorLinks) GetDeactivate() HrefObject {
 // GetDeactivateOk returns a tuple with the Deactivate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorLinks) GetDeactivateOk() (*HrefObject, bool) {
-	if o == nil || o.Deactivate == nil {
+	if o == nil || IsNil(o.Deactivate) {
 		return nil, false
 	}
 	return o.Deactivate, true
@@ -160,7 +163,7 @@ func (o *UserFactorLinks) GetDeactivateOk() (*HrefObject, bool) {
 
 // HasDeactivate returns a boolean if a field has been set.
 func (o *UserFactorLinks) HasDeactivate() bool {
-	if o != nil && o.Deactivate != nil {
+	if o != nil && !IsNil(o.Deactivate) {
 		return true
 	}
 
@@ -174,7 +177,7 @@ func (o *UserFactorLinks) SetDeactivate(v HrefObject) {
 
 // GetEnroll returns the Enroll field value if set, zero value otherwise.
 func (o *UserFactorLinks) GetEnroll() HrefObject {
-	if o == nil || o.Enroll == nil {
+	if o == nil || IsNil(o.Enroll) {
 		var ret HrefObject
 		return ret
 	}
@@ -184,7 +187,7 @@ func (o *UserFactorLinks) GetEnroll() HrefObject {
 // GetEnrollOk returns a tuple with the Enroll field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorLinks) GetEnrollOk() (*HrefObject, bool) {
-	if o == nil || o.Enroll == nil {
+	if o == nil || IsNil(o.Enroll) {
 		return nil, false
 	}
 	return o.Enroll, true
@@ -192,7 +195,7 @@ func (o *UserFactorLinks) GetEnrollOk() (*HrefObject, bool) {
 
 // HasEnroll returns a boolean if a field has been set.
 func (o *UserFactorLinks) HasEnroll() bool {
-	if o != nil && o.Enroll != nil {
+	if o != nil && !IsNil(o.Enroll) {
 		return true
 	}
 
@@ -206,7 +209,7 @@ func (o *UserFactorLinks) SetEnroll(v HrefObject) {
 
 // GetFactor returns the Factor field value if set, zero value otherwise.
 func (o *UserFactorLinks) GetFactor() HrefObject {
-	if o == nil || o.Factor == nil {
+	if o == nil || IsNil(o.Factor) {
 		var ret HrefObject
 		return ret
 	}
@@ -216,7 +219,7 @@ func (o *UserFactorLinks) GetFactor() HrefObject {
 // GetFactorOk returns a tuple with the Factor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorLinks) GetFactorOk() (*HrefObject, bool) {
-	if o == nil || o.Factor == nil {
+	if o == nil || IsNil(o.Factor) {
 		return nil, false
 	}
 	return o.Factor, true
@@ -224,7 +227,7 @@ func (o *UserFactorLinks) GetFactorOk() (*HrefObject, bool) {
 
 // HasFactor returns a boolean if a field has been set.
 func (o *UserFactorLinks) HasFactor() bool {
-	if o != nil && o.Factor != nil {
+	if o != nil && !IsNil(o.Factor) {
 		return true
 	}
 
@@ -238,7 +241,7 @@ func (o *UserFactorLinks) SetFactor(v HrefObject) {
 
 // GetPoll returns the Poll field value if set, zero value otherwise.
 func (o *UserFactorLinks) GetPoll() HrefObject {
-	if o == nil || o.Poll == nil {
+	if o == nil || IsNil(o.Poll) {
 		var ret HrefObject
 		return ret
 	}
@@ -248,7 +251,7 @@ func (o *UserFactorLinks) GetPoll() HrefObject {
 // GetPollOk returns a tuple with the Poll field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorLinks) GetPollOk() (*HrefObject, bool) {
-	if o == nil || o.Poll == nil {
+	if o == nil || IsNil(o.Poll) {
 		return nil, false
 	}
 	return o.Poll, true
@@ -256,7 +259,7 @@ func (o *UserFactorLinks) GetPollOk() (*HrefObject, bool) {
 
 // HasPoll returns a boolean if a field has been set.
 func (o *UserFactorLinks) HasPoll() bool {
-	if o != nil && o.Poll != nil {
+	if o != nil && !IsNil(o.Poll) {
 		return true
 	}
 
@@ -270,7 +273,7 @@ func (o *UserFactorLinks) SetPoll(v HrefObject) {
 
 // GetQrcode returns the Qrcode field value if set, zero value otherwise.
 func (o *UserFactorLinks) GetQrcode() HrefObject {
-	if o == nil || o.Qrcode == nil {
+	if o == nil || IsNil(o.Qrcode) {
 		var ret HrefObject
 		return ret
 	}
@@ -280,7 +283,7 @@ func (o *UserFactorLinks) GetQrcode() HrefObject {
 // GetQrcodeOk returns a tuple with the Qrcode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorLinks) GetQrcodeOk() (*HrefObject, bool) {
-	if o == nil || o.Qrcode == nil {
+	if o == nil || IsNil(o.Qrcode) {
 		return nil, false
 	}
 	return o.Qrcode, true
@@ -288,7 +291,7 @@ func (o *UserFactorLinks) GetQrcodeOk() (*HrefObject, bool) {
 
 // HasQrcode returns a boolean if a field has been set.
 func (o *UserFactorLinks) HasQrcode() bool {
-	if o != nil && o.Qrcode != nil {
+	if o != nil && !IsNil(o.Qrcode) {
 		return true
 	}
 
@@ -302,7 +305,7 @@ func (o *UserFactorLinks) SetQrcode(v HrefObject) {
 
 // GetQuestion returns the Question field value if set, zero value otherwise.
 func (o *UserFactorLinks) GetQuestion() HrefObject {
-	if o == nil || o.Question == nil {
+	if o == nil || IsNil(o.Question) {
 		var ret HrefObject
 		return ret
 	}
@@ -312,7 +315,7 @@ func (o *UserFactorLinks) GetQuestion() HrefObject {
 // GetQuestionOk returns a tuple with the Question field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorLinks) GetQuestionOk() (*HrefObject, bool) {
-	if o == nil || o.Question == nil {
+	if o == nil || IsNil(o.Question) {
 		return nil, false
 	}
 	return o.Question, true
@@ -320,7 +323,7 @@ func (o *UserFactorLinks) GetQuestionOk() (*HrefObject, bool) {
 
 // HasQuestion returns a boolean if a field has been set.
 func (o *UserFactorLinks) HasQuestion() bool {
-	if o != nil && o.Question != nil {
+	if o != nil && !IsNil(o.Question) {
 		return true
 	}
 
@@ -334,7 +337,7 @@ func (o *UserFactorLinks) SetQuestion(v HrefObject) {
 
 // GetResend returns the Resend field value if set, zero value otherwise.
 func (o *UserFactorLinks) GetResend() HrefObject {
-	if o == nil || o.Resend == nil {
+	if o == nil || IsNil(o.Resend) {
 		var ret HrefObject
 		return ret
 	}
@@ -344,7 +347,7 @@ func (o *UserFactorLinks) GetResend() HrefObject {
 // GetResendOk returns a tuple with the Resend field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorLinks) GetResendOk() (*HrefObject, bool) {
-	if o == nil || o.Resend == nil {
+	if o == nil || IsNil(o.Resend) {
 		return nil, false
 	}
 	return o.Resend, true
@@ -352,7 +355,7 @@ func (o *UserFactorLinks) GetResendOk() (*HrefObject, bool) {
 
 // HasResend returns a boolean if a field has been set.
 func (o *UserFactorLinks) HasResend() bool {
-	if o != nil && o.Resend != nil {
+	if o != nil && !IsNil(o.Resend) {
 		return true
 	}
 
@@ -366,7 +369,7 @@ func (o *UserFactorLinks) SetResend(v HrefObject) {
 
 // GetSend returns the Send field value if set, zero value otherwise.
 func (o *UserFactorLinks) GetSend() HrefObject {
-	if o == nil || o.Send == nil {
+	if o == nil || IsNil(o.Send) {
 		var ret HrefObject
 		return ret
 	}
@@ -376,7 +379,7 @@ func (o *UserFactorLinks) GetSend() HrefObject {
 // GetSendOk returns a tuple with the Send field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorLinks) GetSendOk() (*HrefObject, bool) {
-	if o == nil || o.Send == nil {
+	if o == nil || IsNil(o.Send) {
 		return nil, false
 	}
 	return o.Send, true
@@ -384,7 +387,7 @@ func (o *UserFactorLinks) GetSendOk() (*HrefObject, bool) {
 
 // HasSend returns a boolean if a field has been set.
 func (o *UserFactorLinks) HasSend() bool {
-	if o != nil && o.Send != nil {
+	if o != nil && !IsNil(o.Send) {
 		return true
 	}
 
@@ -398,7 +401,7 @@ func (o *UserFactorLinks) SetSend(v HrefObject) {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *UserFactorLinks) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -408,7 +411,7 @@ func (o *UserFactorLinks) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -416,7 +419,7 @@ func (o *UserFactorLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *UserFactorLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -430,7 +433,7 @@ func (o *UserFactorLinks) SetSelf(v HrefObjectSelfLink) {
 
 // GetUser returns the User field value if set, zero value otherwise.
 func (o *UserFactorLinks) GetUser() HrefObject {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		var ret HrefObject
 		return ret
 	}
@@ -440,7 +443,7 @@ func (o *UserFactorLinks) GetUser() HrefObject {
 // GetUserOk returns a tuple with the User field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorLinks) GetUserOk() (*HrefObject, bool) {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		return nil, false
 	}
 	return o.User, true
@@ -448,7 +451,7 @@ func (o *UserFactorLinks) GetUserOk() (*HrefObject, bool) {
 
 // HasUser returns a boolean if a field has been set.
 func (o *UserFactorLinks) HasUser() bool {
-	if o != nil && o.User != nil {
+	if o != nil && !IsNil(o.User) {
 		return true
 	}
 
@@ -462,7 +465,7 @@ func (o *UserFactorLinks) SetUser(v HrefObject) {
 
 // GetVerify returns the Verify field value if set, zero value otherwise.
 func (o *UserFactorLinks) GetVerify() HrefObject {
-	if o == nil || o.Verify == nil {
+	if o == nil || IsNil(o.Verify) {
 		var ret HrefObject
 		return ret
 	}
@@ -472,7 +475,7 @@ func (o *UserFactorLinks) GetVerify() HrefObject {
 // GetVerifyOk returns a tuple with the Verify field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorLinks) GetVerifyOk() (*HrefObject, bool) {
-	if o == nil || o.Verify == nil {
+	if o == nil || IsNil(o.Verify) {
 		return nil, false
 	}
 	return o.Verify, true
@@ -480,7 +483,7 @@ func (o *UserFactorLinks) GetVerifyOk() (*HrefObject, bool) {
 
 // HasVerify returns a boolean if a field has been set.
 func (o *UserFactorLinks) HasVerify() bool {
-	if o != nil && o.Verify != nil {
+	if o != nil && !IsNil(o.Verify) {
 		return true
 	}
 
@@ -493,44 +496,52 @@ func (o *UserFactorLinks) SetVerify(v HrefObject) {
 }
 
 func (o UserFactorLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserFactorLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Activate != nil {
+	if !IsNil(o.Activate) {
 		toSerialize["activate"] = o.Activate
 	}
-	if o.Cancel != nil {
+	if !IsNil(o.Cancel) {
 		toSerialize["cancel"] = o.Cancel
 	}
-	if o.Deactivate != nil {
+	if !IsNil(o.Deactivate) {
 		toSerialize["deactivate"] = o.Deactivate
 	}
-	if o.Enroll != nil {
+	if !IsNil(o.Enroll) {
 		toSerialize["enroll"] = o.Enroll
 	}
-	if o.Factor != nil {
+	if !IsNil(o.Factor) {
 		toSerialize["factor"] = o.Factor
 	}
-	if o.Poll != nil {
+	if !IsNil(o.Poll) {
 		toSerialize["poll"] = o.Poll
 	}
-	if o.Qrcode != nil {
+	if !IsNil(o.Qrcode) {
 		toSerialize["qrcode"] = o.Qrcode
 	}
-	if o.Question != nil {
+	if !IsNil(o.Question) {
 		toSerialize["question"] = o.Question
 	}
-	if o.Resend != nil {
+	if !IsNil(o.Resend) {
 		toSerialize["resend"] = o.Resend
 	}
-	if o.Send != nil {
+	if !IsNil(o.Send) {
 		toSerialize["send"] = o.Send
 	}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.User != nil {
+	if !IsNil(o.User) {
 		toSerialize["user"] = o.User
 	}
-	if o.Verify != nil {
+	if !IsNil(o.Verify) {
 		toSerialize["verify"] = o.Verify
 	}
 
@@ -538,23 +549,23 @@ func (o UserFactorLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserFactorLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserFactorLinks) UnmarshalJSON(data []byte) (err error) {
 	varUserFactorLinks := _UserFactorLinks{}
 
-	err = json.Unmarshal(bytes, &varUserFactorLinks)
-	if err == nil {
-		*o = UserFactorLinks(varUserFactorLinks)
-	} else {
+	err = json.Unmarshal(data, &varUserFactorLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserFactorLinks(varUserFactorLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "activate")
 		delete(additionalProperties, "cancel")
 		delete(additionalProperties, "deactivate")
@@ -569,8 +580,6 @@ func (o *UserFactorLinks) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "user")
 		delete(additionalProperties, "verify")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -611,4 +620,3 @@ func (v *NullableUserFactorLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

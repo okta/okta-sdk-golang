@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,24 +26,23 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type AuthenticatorAPI interface {
 
 	/*
-	ActivateAuthenticator Activate an authenticator
+		ActivateAuthenticator Activate an authenticator
 
-	Activates an authenticator by `authenticatorId`
+		Activates an authenticator by `authenticatorId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the authenticator
-	@return ApiActivateAuthenticatorRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authenticatorId `id` of the authenticator
+		@return ApiActivateAuthenticatorRequest
 	*/
 	ActivateAuthenticator(ctx context.Context, authenticatorId string) ApiActivateAuthenticatorRequest
 
@@ -52,14 +51,14 @@ type AuthenticatorAPI interface {
 	ActivateAuthenticatorExecute(r ApiActivateAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error)
 
 	/*
-	ActivateAuthenticatorMethod Activate an authenticator method
+		ActivateAuthenticatorMethod Activate an authenticator method
 
-	Activates a method for an authenticator identified by `authenticatorId` and `methodType`
+		Activates a method for an authenticator identified by `authenticatorId` and `methodType`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the authenticator
-	@param methodType Type of authenticator method
-	@return ApiActivateAuthenticatorMethodRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authenticatorId `id` of the authenticator
+		@param methodType Type of authenticator method
+		@return ApiActivateAuthenticatorMethodRequest
 	*/
 	ActivateAuthenticatorMethod(ctx context.Context, authenticatorId string, methodType string) ApiActivateAuthenticatorMethodRequest
 
@@ -68,12 +67,12 @@ type AuthenticatorAPI interface {
 	ActivateAuthenticatorMethodExecute(r ApiActivateAuthenticatorMethodRequest) (*ListAuthenticatorMethods200ResponseInner, *APIResponse, error)
 
 	/*
-	CreateAuthenticator Create an authenticator
+		CreateAuthenticator Create an authenticator
 
-	Creates an authenticator
+		Creates an authenticator
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateAuthenticatorRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateAuthenticatorRequest
 	*/
 	CreateAuthenticator(ctx context.Context) ApiCreateAuthenticatorRequest
 
@@ -82,13 +81,13 @@ type AuthenticatorAPI interface {
 	CreateAuthenticatorExecute(r ApiCreateAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error)
 
 	/*
-	CreateCustomAAGUID Create a custom AAGUID
+		CreateCustomAAGUID Create a custom AAGUID
 
-	Creates a custom AAGUID for the WebAuthn authenticator
+		Creates a custom AAGUID for the WebAuthn authenticator
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the authenticator
-	@return ApiCreateCustomAAGUIDRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authenticatorId `id` of the authenticator
+		@return ApiCreateCustomAAGUIDRequest
 	*/
 	CreateCustomAAGUID(ctx context.Context, authenticatorId string) ApiCreateCustomAAGUIDRequest
 
@@ -97,13 +96,13 @@ type AuthenticatorAPI interface {
 	CreateCustomAAGUIDExecute(r ApiCreateCustomAAGUIDRequest) (*CustomAAGUIDResponseObject, *APIResponse, error)
 
 	/*
-	DeactivateAuthenticator Deactivate an authenticator
+		DeactivateAuthenticator Deactivate an authenticator
 
-	Deactivates an authenticator by `authenticatorId`
+		Deactivates an authenticator by `authenticatorId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the authenticator
-	@return ApiDeactivateAuthenticatorRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authenticatorId `id` of the authenticator
+		@return ApiDeactivateAuthenticatorRequest
 	*/
 	DeactivateAuthenticator(ctx context.Context, authenticatorId string) ApiDeactivateAuthenticatorRequest
 
@@ -112,14 +111,14 @@ type AuthenticatorAPI interface {
 	DeactivateAuthenticatorExecute(r ApiDeactivateAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error)
 
 	/*
-	DeactivateAuthenticatorMethod Deactivate an authenticator method
+		DeactivateAuthenticatorMethod Deactivate an authenticator method
 
-	Deactivates a method for an authenticator identified by `authenticatorId` and `methodType`
+		Deactivates a method for an authenticator identified by `authenticatorId` and `methodType`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the authenticator
-	@param methodType Type of authenticator method
-	@return ApiDeactivateAuthenticatorMethodRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authenticatorId `id` of the authenticator
+		@param methodType Type of authenticator method
+		@return ApiDeactivateAuthenticatorMethodRequest
 	*/
 	DeactivateAuthenticatorMethod(ctx context.Context, authenticatorId string, methodType string) ApiDeactivateAuthenticatorMethodRequest
 
@@ -128,16 +127,16 @@ type AuthenticatorAPI interface {
 	DeactivateAuthenticatorMethodExecute(r ApiDeactivateAuthenticatorMethodRequest) (*ListAuthenticatorMethods200ResponseInner, *APIResponse, error)
 
 	/*
-	DeleteCustomAAGUID Delete a custom AAGUID
+			DeleteCustomAAGUID Delete a custom AAGUID
 
-	Deletes a custom AAGUID
+			Deletes a custom AAGUID
 
-You can only delete custom AAGUIDs that an admin has created.
+		You can only delete custom AAGUIDs that an admin has created.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the authenticator
-	@param aaguid Unique ID of a custom AAGUID
-	@return ApiDeleteCustomAAGUIDRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param authenticatorId `id` of the authenticator
+			@param aaguid Unique ID of a custom AAGUID
+			@return ApiDeleteCustomAAGUIDRequest
 	*/
 	DeleteCustomAAGUID(ctx context.Context, authenticatorId string, aaguid string) ApiDeleteCustomAAGUIDRequest
 
@@ -145,13 +144,13 @@ You can only delete custom AAGUIDs that an admin has created.
 	DeleteCustomAAGUIDExecute(r ApiDeleteCustomAAGUIDRequest) (*APIResponse, error)
 
 	/*
-	GetAuthenticator Retrieve an authenticator
+		GetAuthenticator Retrieve an authenticator
 
-	Retrieves an authenticator from your Okta organization by `authenticatorId`
+		Retrieves an authenticator from your Okta organization by `authenticatorId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the authenticator
-	@return ApiGetAuthenticatorRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authenticatorId `id` of the authenticator
+		@return ApiGetAuthenticatorRequest
 	*/
 	GetAuthenticator(ctx context.Context, authenticatorId string) ApiGetAuthenticatorRequest
 
@@ -160,14 +159,14 @@ You can only delete custom AAGUIDs that an admin has created.
 	GetAuthenticatorExecute(r ApiGetAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error)
 
 	/*
-	GetAuthenticatorMethod Retrieve an authenticator method
+		GetAuthenticatorMethod Retrieve an authenticator method
 
-	Retrieves a method identified by `methodType` of an authenticator identified by `authenticatorId`
+		Retrieves a method identified by `methodType` of an authenticator identified by `authenticatorId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the authenticator
-	@param methodType Type of authenticator method
-	@return ApiGetAuthenticatorMethodRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authenticatorId `id` of the authenticator
+		@param methodType Type of authenticator method
+		@return ApiGetAuthenticatorMethodRequest
 	*/
 	GetAuthenticatorMethod(ctx context.Context, authenticatorId string, methodType string) ApiGetAuthenticatorMethodRequest
 
@@ -176,14 +175,14 @@ You can only delete custom AAGUIDs that an admin has created.
 	GetAuthenticatorMethodExecute(r ApiGetAuthenticatorMethodRequest) (*ListAuthenticatorMethods200ResponseInner, *APIResponse, error)
 
 	/*
-	GetCustomAAGUID Retrieve a custom AAGUID
+		GetCustomAAGUID Retrieve a custom AAGUID
 
-	Retrieves a custom AAGUID
+		Retrieves a custom AAGUID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the authenticator
-	@param aaguid Unique ID of a custom AAGUID
-	@return ApiGetCustomAAGUIDRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authenticatorId `id` of the authenticator
+		@param aaguid Unique ID of a custom AAGUID
+		@return ApiGetCustomAAGUIDRequest
 	*/
 	GetCustomAAGUID(ctx context.Context, authenticatorId string, aaguid string) ApiGetCustomAAGUIDRequest
 
@@ -192,12 +191,12 @@ You can only delete custom AAGUIDs that an admin has created.
 	GetCustomAAGUIDExecute(r ApiGetCustomAAGUIDRequest) (*CustomAAGUIDResponseObject, *APIResponse, error)
 
 	/*
-	GetWellKnownAppAuthenticatorConfiguration Retrieve the well-known app authenticator configuration
+		GetWellKnownAppAuthenticatorConfiguration Retrieve the well-known app authenticator configuration
 
-	Retrieves the well-known app authenticator configuration. Includes an app authenticator's settings, supported methods, and other details.
+		Retrieves the well-known app authenticator configuration. Includes an app authenticator's settings, supported methods, and other details.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetWellKnownAppAuthenticatorConfigurationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetWellKnownAppAuthenticatorConfigurationRequest
 	*/
 	GetWellKnownAppAuthenticatorConfiguration(ctx context.Context) ApiGetWellKnownAppAuthenticatorConfigurationRequest
 
@@ -206,15 +205,15 @@ You can only delete custom AAGUIDs that an admin has created.
 	GetWellKnownAppAuthenticatorConfigurationExecute(r ApiGetWellKnownAppAuthenticatorConfigurationRequest) ([]WellKnownAppAuthenticatorConfiguration, *APIResponse, error)
 
 	/*
-	ListAllCustomAAGUIDs List all custom AAGUIDs
+			ListAllCustomAAGUIDs List all custom AAGUIDs
 
-	Lists all custom Authenticator Attestation Global Unique Identifiers (AAGUIDs) in the org
+			Lists all custom Authenticator Attestation Global Unique Identifiers (AAGUIDs) in the org
 
-Only custom AAGUIDs that an admin has created are returned.
+		Only custom AAGUIDs that an admin has created are returned.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the authenticator
-	@return ApiListAllCustomAAGUIDsRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param authenticatorId `id` of the authenticator
+			@return ApiListAllCustomAAGUIDsRequest
 	*/
 	ListAllCustomAAGUIDs(ctx context.Context, authenticatorId string) ApiListAllCustomAAGUIDsRequest
 
@@ -223,13 +222,13 @@ Only custom AAGUIDs that an admin has created are returned.
 	ListAllCustomAAGUIDsExecute(r ApiListAllCustomAAGUIDsRequest) ([]CustomAAGUIDResponseObject, *APIResponse, error)
 
 	/*
-	ListAuthenticatorMethods List all methods of an authenticator
+		ListAuthenticatorMethods List all methods of an authenticator
 
-	Lists all methods of an authenticator identified by `authenticatorId`
+		Lists all methods of an authenticator identified by `authenticatorId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the authenticator
-	@return ApiListAuthenticatorMethodsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authenticatorId `id` of the authenticator
+		@return ApiListAuthenticatorMethodsRequest
 	*/
 	ListAuthenticatorMethods(ctx context.Context, authenticatorId string) ApiListAuthenticatorMethodsRequest
 
@@ -238,12 +237,12 @@ Only custom AAGUIDs that an admin has created are returned.
 	ListAuthenticatorMethodsExecute(r ApiListAuthenticatorMethodsRequest) ([]ListAuthenticatorMethods200ResponseInner, *APIResponse, error)
 
 	/*
-	ListAuthenticators List all authenticators
+		ListAuthenticators List all authenticators
 
-	Lists all authenticators
+		Lists all authenticators
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListAuthenticatorsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListAuthenticatorsRequest
 	*/
 	ListAuthenticators(ctx context.Context) ApiListAuthenticatorsRequest
 
@@ -252,13 +251,13 @@ Only custom AAGUIDs that an admin has created are returned.
 	ListAuthenticatorsExecute(r ApiListAuthenticatorsRequest) ([]ListAuthenticators200ResponseInner, *APIResponse, error)
 
 	/*
-	ReplaceAuthenticator Replace an authenticator
+		ReplaceAuthenticator Replace an authenticator
 
-	Replaces the properties for an authenticator identified by `authenticatorId`
+		Replaces the properties for an authenticator identified by `authenticatorId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the authenticator
-	@return ApiReplaceAuthenticatorRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authenticatorId `id` of the authenticator
+		@return ApiReplaceAuthenticatorRequest
 	*/
 	ReplaceAuthenticator(ctx context.Context, authenticatorId string) ApiReplaceAuthenticatorRequest
 
@@ -267,14 +266,14 @@ Only custom AAGUIDs that an admin has created are returned.
 	ReplaceAuthenticatorExecute(r ApiReplaceAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error)
 
 	/*
-	ReplaceAuthenticatorMethod Replace an authenticator method
+		ReplaceAuthenticatorMethod Replace an authenticator method
 
-	Replaces a method of `methodType` for an authenticator identified by `authenticatorId`
+		Replaces a method of `methodType` for an authenticator identified by `authenticatorId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the authenticator
-	@param methodType Type of authenticator method
-	@return ApiReplaceAuthenticatorMethodRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authenticatorId `id` of the authenticator
+		@param methodType Type of authenticator method
+		@return ApiReplaceAuthenticatorMethodRequest
 	*/
 	ReplaceAuthenticatorMethod(ctx context.Context, authenticatorId string, methodType string) ApiReplaceAuthenticatorMethodRequest
 
@@ -283,14 +282,14 @@ Only custom AAGUIDs that an admin has created are returned.
 	ReplaceAuthenticatorMethodExecute(r ApiReplaceAuthenticatorMethodRequest) (*ListAuthenticatorMethods200ResponseInner, *APIResponse, error)
 
 	/*
-	ReplaceCustomAAGUID Replace a custom AAGUID
+		ReplaceCustomAAGUID Replace a custom AAGUID
 
-	Replaces a custom AAGUID for the specified WebAuthn authenticator
+		Replaces a custom AAGUID for the specified WebAuthn authenticator
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the authenticator
-	@param aaguid Unique ID of a custom AAGUID
-	@return ApiReplaceCustomAAGUIDRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authenticatorId `id` of the authenticator
+		@param aaguid Unique ID of a custom AAGUID
+		@return ApiReplaceCustomAAGUIDRequest
 	*/
 	ReplaceCustomAAGUID(ctx context.Context, authenticatorId string, aaguid string) ApiReplaceCustomAAGUIDRequest
 
@@ -299,14 +298,14 @@ Only custom AAGUIDs that an admin has created are returned.
 	ReplaceCustomAAGUIDExecute(r ApiReplaceCustomAAGUIDRequest) (*CustomAAGUIDResponseObject, *APIResponse, error)
 
 	/*
-	UpdateCustomAAGUID Update a custom AAGUID
+		UpdateCustomAAGUID Update a custom AAGUID
 
-	Updates the properties of a custom AAGUID by the `authenticatorId` and `aaguid` ID
+		Updates the properties of a custom AAGUID by the `authenticatorId` and `aaguid` ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the authenticator
-	@param aaguid Unique ID of a custom AAGUID
-	@return ApiUpdateCustomAAGUIDRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authenticatorId `id` of the authenticator
+		@param aaguid Unique ID of a custom AAGUID
+		@return ApiUpdateCustomAAGUIDRequest
 	*/
 	UpdateCustomAAGUID(ctx context.Context, authenticatorId string, aaguid string) ApiUpdateCustomAAGUIDRequest
 
@@ -319,10 +318,10 @@ Only custom AAGUIDs that an admin has created are returned.
 type AuthenticatorAPIService service
 
 type ApiActivateAuthenticatorRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx             context.Context
+	ApiService      AuthenticatorAPI
 	authenticatorId string
-	retryCount int32
+	retryCount      int32
 }
 
 func (r ApiActivateAuthenticatorRequest) Execute() (*AuthenticatorBase, *APIResponse, error) {
@@ -334,21 +333,22 @@ ActivateAuthenticator Activate an authenticator
 
 Activates an authenticator by `authenticatorId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authenticatorId `id` of the authenticator
- @return ApiActivateAuthenticatorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authenticatorId `id` of the authenticator
+	@return ApiActivateAuthenticatorRequest
 */
 func (a *AuthenticatorAPIService) ActivateAuthenticator(ctx context.Context, authenticatorId string) ApiActivateAuthenticatorRequest {
 	return ApiActivateAuthenticatorRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		retryCount: 0,
+		retryCount:      0,
 	}
 }
 
 // Execute executes the request
-//  @return AuthenticatorBase
+//
+//	@return AuthenticatorBase
 func (a *AuthenticatorAPIService) ActivateAuthenticatorExecute(r ApiActivateAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -357,7 +357,7 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorExecute(r ApiActivateAuth
 		localVarReturnValue  *AuthenticatorBase
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -418,9 +418,9 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorExecute(r ApiActivateAuth
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -478,17 +478,17 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorExecute(r ApiActivateAuth
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiActivateAuthenticatorMethodRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx             context.Context
+	ApiService      AuthenticatorAPI
 	authenticatorId string
-	methodType string
-	retryCount int32
+	methodType      string
+	retryCount      int32
 }
 
 func (r ApiActivateAuthenticatorMethodRequest) Execute() (*ListAuthenticatorMethods200ResponseInner, *APIResponse, error) {
@@ -500,23 +500,24 @@ ActivateAuthenticatorMethod Activate an authenticator method
 
 Activates a method for an authenticator identified by `authenticatorId` and `methodType`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authenticatorId `id` of the authenticator
- @param methodType Type of authenticator method
- @return ApiActivateAuthenticatorMethodRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authenticatorId `id` of the authenticator
+	@param methodType Type of authenticator method
+	@return ApiActivateAuthenticatorMethodRequest
 */
 func (a *AuthenticatorAPIService) ActivateAuthenticatorMethod(ctx context.Context, authenticatorId string, methodType string) ApiActivateAuthenticatorMethodRequest {
 	return ApiActivateAuthenticatorMethodRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		methodType: methodType,
-		retryCount: 0,
+		methodType:      methodType,
+		retryCount:      0,
 	}
 }
 
 // Execute executes the request
-//  @return ListAuthenticatorMethods200ResponseInner
+//
+//	@return ListAuthenticatorMethods200ResponseInner
 func (a *AuthenticatorAPIService) ActivateAuthenticatorMethodExecute(r ApiActivateAuthenticatorMethodRequest) (*ListAuthenticatorMethods200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -525,7 +526,7 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorMethodExecute(r ApiActiva
 		localVarReturnValue  *ListAuthenticatorMethods200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -587,9 +588,9 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorMethodExecute(r ApiActiva
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -647,17 +648,17 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorMethodExecute(r ApiActiva
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiCreateAuthenticatorRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx           context.Context
+	ApiService    AuthenticatorAPI
 	authenticator *AuthenticatorBase
-	activate *bool
-	retryCount int32
+	activate      *bool
+	retryCount    int32
 }
 
 func (r ApiCreateAuthenticatorRequest) Authenticator(authenticator AuthenticatorBase) ApiCreateAuthenticatorRequest {
@@ -680,19 +681,20 @@ CreateAuthenticator Create an authenticator
 
 Creates an authenticator
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateAuthenticatorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateAuthenticatorRequest
 */
 func (a *AuthenticatorAPIService) CreateAuthenticator(ctx context.Context) ApiCreateAuthenticatorRequest {
 	return ApiCreateAuthenticatorRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return AuthenticatorBase
+//
+//	@return AuthenticatorBase
 func (a *AuthenticatorAPIService) CreateAuthenticatorExecute(r ApiCreateAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -701,7 +703,7 @@ func (a *AuthenticatorAPIService) CreateAuthenticatorExecute(r ApiCreateAuthenti
 		localVarReturnValue  *AuthenticatorBase
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -769,9 +771,9 @@ func (a *AuthenticatorAPIService) CreateAuthenticatorExecute(r ApiCreateAuthenti
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -829,17 +831,17 @@ func (a *AuthenticatorAPIService) CreateAuthenticatorExecute(r ApiCreateAuthenti
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiCreateCustomAAGUIDRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
-	authenticatorId string
+	ctx                             context.Context
+	ApiService                      AuthenticatorAPI
+	authenticatorId                 string
 	customAAGUIDCreateRequestObject *CustomAAGUIDCreateRequestObject
-	retryCount int32
+	retryCount                      int32
 }
 
 func (r ApiCreateCustomAAGUIDRequest) CustomAAGUIDCreateRequestObject(customAAGUIDCreateRequestObject CustomAAGUIDCreateRequestObject) ApiCreateCustomAAGUIDRequest {
@@ -856,21 +858,22 @@ CreateCustomAAGUID Create a custom AAGUID
 
 Creates a custom AAGUID for the WebAuthn authenticator
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authenticatorId `id` of the authenticator
- @return ApiCreateCustomAAGUIDRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authenticatorId `id` of the authenticator
+	@return ApiCreateCustomAAGUIDRequest
 */
 func (a *AuthenticatorAPIService) CreateCustomAAGUID(ctx context.Context, authenticatorId string) ApiCreateCustomAAGUIDRequest {
 	return ApiCreateCustomAAGUIDRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		retryCount: 0,
+		retryCount:      0,
 	}
 }
 
 // Execute executes the request
-//  @return CustomAAGUIDResponseObject
+//
+//	@return CustomAAGUIDResponseObject
 func (a *AuthenticatorAPIService) CreateCustomAAGUIDExecute(r ApiCreateCustomAAGUIDRequest) (*CustomAAGUIDResponseObject, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -879,7 +882,7 @@ func (a *AuthenticatorAPIService) CreateCustomAAGUIDExecute(r ApiCreateCustomAAG
 		localVarReturnValue  *CustomAAGUIDResponseObject
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -942,9 +945,9 @@ func (a *AuthenticatorAPIService) CreateCustomAAGUIDExecute(r ApiCreateCustomAAG
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1002,16 +1005,16 @@ func (a *AuthenticatorAPIService) CreateCustomAAGUIDExecute(r ApiCreateCustomAAG
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeactivateAuthenticatorRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx             context.Context
+	ApiService      AuthenticatorAPI
 	authenticatorId string
-	retryCount int32
+	retryCount      int32
 }
 
 func (r ApiDeactivateAuthenticatorRequest) Execute() (*AuthenticatorBase, *APIResponse, error) {
@@ -1023,21 +1026,22 @@ DeactivateAuthenticator Deactivate an authenticator
 
 Deactivates an authenticator by `authenticatorId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authenticatorId `id` of the authenticator
- @return ApiDeactivateAuthenticatorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authenticatorId `id` of the authenticator
+	@return ApiDeactivateAuthenticatorRequest
 */
 func (a *AuthenticatorAPIService) DeactivateAuthenticator(ctx context.Context, authenticatorId string) ApiDeactivateAuthenticatorRequest {
 	return ApiDeactivateAuthenticatorRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		retryCount: 0,
+		retryCount:      0,
 	}
 }
 
 // Execute executes the request
-//  @return AuthenticatorBase
+//
+//	@return AuthenticatorBase
 func (a *AuthenticatorAPIService) DeactivateAuthenticatorExecute(r ApiDeactivateAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1046,7 +1050,7 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticatorExecute(r ApiDeactivate
 		localVarReturnValue  *AuthenticatorBase
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1107,9 +1111,9 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticatorExecute(r ApiDeactivate
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1167,17 +1171,17 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticatorExecute(r ApiDeactivate
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeactivateAuthenticatorMethodRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx             context.Context
+	ApiService      AuthenticatorAPI
 	authenticatorId string
-	methodType string
-	retryCount int32
+	methodType      string
+	retryCount      int32
 }
 
 func (r ApiDeactivateAuthenticatorMethodRequest) Execute() (*ListAuthenticatorMethods200ResponseInner, *APIResponse, error) {
@@ -1189,23 +1193,24 @@ DeactivateAuthenticatorMethod Deactivate an authenticator method
 
 Deactivates a method for an authenticator identified by `authenticatorId` and `methodType`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authenticatorId `id` of the authenticator
- @param methodType Type of authenticator method
- @return ApiDeactivateAuthenticatorMethodRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authenticatorId `id` of the authenticator
+	@param methodType Type of authenticator method
+	@return ApiDeactivateAuthenticatorMethodRequest
 */
 func (a *AuthenticatorAPIService) DeactivateAuthenticatorMethod(ctx context.Context, authenticatorId string, methodType string) ApiDeactivateAuthenticatorMethodRequest {
 	return ApiDeactivateAuthenticatorMethodRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		methodType: methodType,
-		retryCount: 0,
+		methodType:      methodType,
+		retryCount:      0,
 	}
 }
 
 // Execute executes the request
-//  @return ListAuthenticatorMethods200ResponseInner
+//
+//	@return ListAuthenticatorMethods200ResponseInner
 func (a *AuthenticatorAPIService) DeactivateAuthenticatorMethodExecute(r ApiDeactivateAuthenticatorMethodRequest) (*ListAuthenticatorMethods200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1214,7 +1219,7 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticatorMethodExecute(r ApiDeac
 		localVarReturnValue  *ListAuthenticatorMethods200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1276,9 +1281,9 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticatorMethodExecute(r ApiDeac
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1336,17 +1341,17 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticatorMethodExecute(r ApiDeac
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteCustomAAGUIDRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx             context.Context
+	ApiService      AuthenticatorAPI
 	authenticatorId string
-	aaguid string
-	retryCount int32
+	aaguid          string
+	retryCount      int32
 }
 
 func (r ApiDeleteCustomAAGUIDRequest) Execute() (*APIResponse, error) {
@@ -1356,22 +1361,22 @@ func (r ApiDeleteCustomAAGUIDRequest) Execute() (*APIResponse, error) {
 /*
 DeleteCustomAAGUID Delete a custom AAGUID
 
-Deletes a custom AAGUID
+# Deletes a custom AAGUID
 
 You can only delete custom AAGUIDs that an admin has created.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authenticatorId `id` of the authenticator
- @param aaguid Unique ID of a custom AAGUID
- @return ApiDeleteCustomAAGUIDRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authenticatorId `id` of the authenticator
+	@param aaguid Unique ID of a custom AAGUID
+	@return ApiDeleteCustomAAGUIDRequest
 */
 func (a *AuthenticatorAPIService) DeleteCustomAAGUID(ctx context.Context, authenticatorId string, aaguid string) ApiDeleteCustomAAGUIDRequest {
 	return ApiDeleteCustomAAGUIDRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		aaguid: aaguid,
-		retryCount: 0,
+		aaguid:          aaguid,
+		retryCount:      0,
 	}
 }
 
@@ -1383,7 +1388,7 @@ func (a *AuthenticatorAPIService) DeleteCustomAAGUIDExecute(r ApiDeleteCustomAAG
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1445,9 +1450,9 @@ func (a *AuthenticatorAPIService) DeleteCustomAAGUIDExecute(r ApiDeleteCustomAAG
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -1501,10 +1506,10 @@ func (a *AuthenticatorAPIService) DeleteCustomAAGUIDExecute(r ApiDeleteCustomAAG
 }
 
 type ApiGetAuthenticatorRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx             context.Context
+	ApiService      AuthenticatorAPI
 	authenticatorId string
-	retryCount int32
+	retryCount      int32
 }
 
 func (r ApiGetAuthenticatorRequest) Execute() (*AuthenticatorBase, *APIResponse, error) {
@@ -1516,21 +1521,22 @@ GetAuthenticator Retrieve an authenticator
 
 Retrieves an authenticator from your Okta organization by `authenticatorId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authenticatorId `id` of the authenticator
- @return ApiGetAuthenticatorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authenticatorId `id` of the authenticator
+	@return ApiGetAuthenticatorRequest
 */
 func (a *AuthenticatorAPIService) GetAuthenticator(ctx context.Context, authenticatorId string) ApiGetAuthenticatorRequest {
 	return ApiGetAuthenticatorRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		retryCount: 0,
+		retryCount:      0,
 	}
 }
 
 // Execute executes the request
-//  @return AuthenticatorBase
+//
+//	@return AuthenticatorBase
 func (a *AuthenticatorAPIService) GetAuthenticatorExecute(r ApiGetAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1539,7 +1545,7 @@ func (a *AuthenticatorAPIService) GetAuthenticatorExecute(r ApiGetAuthenticatorR
 		localVarReturnValue  *AuthenticatorBase
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1600,9 +1606,9 @@ func (a *AuthenticatorAPIService) GetAuthenticatorExecute(r ApiGetAuthenticatorR
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1660,17 +1666,17 @@ func (a *AuthenticatorAPIService) GetAuthenticatorExecute(r ApiGetAuthenticatorR
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetAuthenticatorMethodRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx             context.Context
+	ApiService      AuthenticatorAPI
 	authenticatorId string
-	methodType string
-	retryCount int32
+	methodType      string
+	retryCount      int32
 }
 
 func (r ApiGetAuthenticatorMethodRequest) Execute() (*ListAuthenticatorMethods200ResponseInner, *APIResponse, error) {
@@ -1682,23 +1688,24 @@ GetAuthenticatorMethod Retrieve an authenticator method
 
 Retrieves a method identified by `methodType` of an authenticator identified by `authenticatorId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authenticatorId `id` of the authenticator
- @param methodType Type of authenticator method
- @return ApiGetAuthenticatorMethodRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authenticatorId `id` of the authenticator
+	@param methodType Type of authenticator method
+	@return ApiGetAuthenticatorMethodRequest
 */
 func (a *AuthenticatorAPIService) GetAuthenticatorMethod(ctx context.Context, authenticatorId string, methodType string) ApiGetAuthenticatorMethodRequest {
 	return ApiGetAuthenticatorMethodRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		methodType: methodType,
-		retryCount: 0,
+		methodType:      methodType,
+		retryCount:      0,
 	}
 }
 
 // Execute executes the request
-//  @return ListAuthenticatorMethods200ResponseInner
+//
+//	@return ListAuthenticatorMethods200ResponseInner
 func (a *AuthenticatorAPIService) GetAuthenticatorMethodExecute(r ApiGetAuthenticatorMethodRequest) (*ListAuthenticatorMethods200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1707,7 +1714,7 @@ func (a *AuthenticatorAPIService) GetAuthenticatorMethodExecute(r ApiGetAuthenti
 		localVarReturnValue  *ListAuthenticatorMethods200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1769,9 +1776,9 @@ func (a *AuthenticatorAPIService) GetAuthenticatorMethodExecute(r ApiGetAuthenti
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1829,17 +1836,17 @@ func (a *AuthenticatorAPIService) GetAuthenticatorMethodExecute(r ApiGetAuthenti
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetCustomAAGUIDRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx             context.Context
+	ApiService      AuthenticatorAPI
 	authenticatorId string
-	aaguid string
-	retryCount int32
+	aaguid          string
+	retryCount      int32
 }
 
 func (r ApiGetCustomAAGUIDRequest) Execute() (*CustomAAGUIDResponseObject, *APIResponse, error) {
@@ -1851,23 +1858,24 @@ GetCustomAAGUID Retrieve a custom AAGUID
 
 Retrieves a custom AAGUID
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authenticatorId `id` of the authenticator
- @param aaguid Unique ID of a custom AAGUID
- @return ApiGetCustomAAGUIDRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authenticatorId `id` of the authenticator
+	@param aaguid Unique ID of a custom AAGUID
+	@return ApiGetCustomAAGUIDRequest
 */
 func (a *AuthenticatorAPIService) GetCustomAAGUID(ctx context.Context, authenticatorId string, aaguid string) ApiGetCustomAAGUIDRequest {
 	return ApiGetCustomAAGUIDRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		aaguid: aaguid,
-		retryCount: 0,
+		aaguid:          aaguid,
+		retryCount:      0,
 	}
 }
 
 // Execute executes the request
-//  @return CustomAAGUIDResponseObject
+//
+//	@return CustomAAGUIDResponseObject
 func (a *AuthenticatorAPIService) GetCustomAAGUIDExecute(r ApiGetCustomAAGUIDRequest) (*CustomAAGUIDResponseObject, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1876,7 +1884,7 @@ func (a *AuthenticatorAPIService) GetCustomAAGUIDExecute(r ApiGetCustomAAGUIDReq
 		localVarReturnValue  *CustomAAGUIDResponseObject
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1938,9 +1946,9 @@ func (a *AuthenticatorAPIService) GetCustomAAGUIDExecute(r ApiGetCustomAAGUIDReq
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1998,16 +2006,16 @@ func (a *AuthenticatorAPIService) GetCustomAAGUIDExecute(r ApiGetCustomAAGUIDReq
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetWellKnownAppAuthenticatorConfigurationRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx           context.Context
+	ApiService    AuthenticatorAPI
 	oauthClientId *string
-	retryCount int32
+	retryCount    int32
 }
 
 // Filters app authenticator configurations by &#x60;oauthClientId&#x60;
@@ -2025,19 +2033,20 @@ GetWellKnownAppAuthenticatorConfiguration Retrieve the well-known app authentica
 
 Retrieves the well-known app authenticator configuration. Includes an app authenticator's settings, supported methods, and other details.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetWellKnownAppAuthenticatorConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetWellKnownAppAuthenticatorConfigurationRequest
 */
 func (a *AuthenticatorAPIService) GetWellKnownAppAuthenticatorConfiguration(ctx context.Context) ApiGetWellKnownAppAuthenticatorConfigurationRequest {
 	return ApiGetWellKnownAppAuthenticatorConfigurationRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []WellKnownAppAuthenticatorConfiguration
+//
+//	@return []WellKnownAppAuthenticatorConfiguration
 func (a *AuthenticatorAPIService) GetWellKnownAppAuthenticatorConfigurationExecute(r ApiGetWellKnownAppAuthenticatorConfigurationRequest) ([]WellKnownAppAuthenticatorConfiguration, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -2046,7 +2055,7 @@ func (a *AuthenticatorAPIService) GetWellKnownAppAuthenticatorConfigurationExecu
 		localVarReturnValue  []WellKnownAppAuthenticatorConfiguration
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2096,9 +2105,9 @@ func (a *AuthenticatorAPIService) GetWellKnownAppAuthenticatorConfigurationExecu
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -2144,16 +2153,16 @@ func (a *AuthenticatorAPIService) GetWellKnownAppAuthenticatorConfigurationExecu
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListAllCustomAAGUIDsRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx             context.Context
+	ApiService      AuthenticatorAPI
 	authenticatorId string
-	retryCount int32
+	retryCount      int32
 }
 
 func (r ApiListAllCustomAAGUIDsRequest) Execute() ([]CustomAAGUIDResponseObject, *APIResponse, error) {
@@ -2163,25 +2172,26 @@ func (r ApiListAllCustomAAGUIDsRequest) Execute() ([]CustomAAGUIDResponseObject,
 /*
 ListAllCustomAAGUIDs List all custom AAGUIDs
 
-Lists all custom Authenticator Attestation Global Unique Identifiers (AAGUIDs) in the org
+# Lists all custom Authenticator Attestation Global Unique Identifiers (AAGUIDs) in the org
 
 Only custom AAGUIDs that an admin has created are returned.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authenticatorId `id` of the authenticator
- @return ApiListAllCustomAAGUIDsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authenticatorId `id` of the authenticator
+	@return ApiListAllCustomAAGUIDsRequest
 */
 func (a *AuthenticatorAPIService) ListAllCustomAAGUIDs(ctx context.Context, authenticatorId string) ApiListAllCustomAAGUIDsRequest {
 	return ApiListAllCustomAAGUIDsRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		retryCount: 0,
+		retryCount:      0,
 	}
 }
 
 // Execute executes the request
-//  @return []CustomAAGUIDResponseObject
+//
+//	@return []CustomAAGUIDResponseObject
 func (a *AuthenticatorAPIService) ListAllCustomAAGUIDsExecute(r ApiListAllCustomAAGUIDsRequest) ([]CustomAAGUIDResponseObject, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -2190,7 +2200,7 @@ func (a *AuthenticatorAPIService) ListAllCustomAAGUIDsExecute(r ApiListAllCustom
 		localVarReturnValue  []CustomAAGUIDResponseObject
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2251,9 +2261,9 @@ func (a *AuthenticatorAPIService) ListAllCustomAAGUIDsExecute(r ApiListAllCustom
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -2311,16 +2321,16 @@ func (a *AuthenticatorAPIService) ListAllCustomAAGUIDsExecute(r ApiListAllCustom
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListAuthenticatorMethodsRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx             context.Context
+	ApiService      AuthenticatorAPI
 	authenticatorId string
-	retryCount int32
+	retryCount      int32
 }
 
 func (r ApiListAuthenticatorMethodsRequest) Execute() ([]ListAuthenticatorMethods200ResponseInner, *APIResponse, error) {
@@ -2332,21 +2342,22 @@ ListAuthenticatorMethods List all methods of an authenticator
 
 Lists all methods of an authenticator identified by `authenticatorId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authenticatorId `id` of the authenticator
- @return ApiListAuthenticatorMethodsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authenticatorId `id` of the authenticator
+	@return ApiListAuthenticatorMethodsRequest
 */
 func (a *AuthenticatorAPIService) ListAuthenticatorMethods(ctx context.Context, authenticatorId string) ApiListAuthenticatorMethodsRequest {
 	return ApiListAuthenticatorMethodsRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		retryCount: 0,
+		retryCount:      0,
 	}
 }
 
 // Execute executes the request
-//  @return []ListAuthenticatorMethods200ResponseInner
+//
+//	@return []ListAuthenticatorMethods200ResponseInner
 func (a *AuthenticatorAPIService) ListAuthenticatorMethodsExecute(r ApiListAuthenticatorMethodsRequest) ([]ListAuthenticatorMethods200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -2355,7 +2366,7 @@ func (a *AuthenticatorAPIService) ListAuthenticatorMethodsExecute(r ApiListAuthe
 		localVarReturnValue  []ListAuthenticatorMethods200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2416,9 +2427,9 @@ func (a *AuthenticatorAPIService) ListAuthenticatorMethodsExecute(r ApiListAuthe
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -2476,13 +2487,13 @@ func (a *AuthenticatorAPIService) ListAuthenticatorMethodsExecute(r ApiListAuthe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListAuthenticatorsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AuthenticatorAPI
 	retryCount int32
 }
@@ -2496,19 +2507,20 @@ ListAuthenticators List all authenticators
 
 Lists all authenticators
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListAuthenticatorsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListAuthenticatorsRequest
 */
 func (a *AuthenticatorAPIService) ListAuthenticators(ctx context.Context) ApiListAuthenticatorsRequest {
 	return ApiListAuthenticatorsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []ListAuthenticators200ResponseInner
+//
+//	@return []ListAuthenticators200ResponseInner
 func (a *AuthenticatorAPIService) ListAuthenticatorsExecute(r ApiListAuthenticatorsRequest) ([]ListAuthenticators200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -2517,7 +2529,7 @@ func (a *AuthenticatorAPIService) ListAuthenticatorsExecute(r ApiListAuthenticat
 		localVarReturnValue  []ListAuthenticators200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2577,9 +2589,9 @@ func (a *AuthenticatorAPIService) ListAuthenticatorsExecute(r ApiListAuthenticat
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -2625,17 +2637,17 @@ func (a *AuthenticatorAPIService) ListAuthenticatorsExecute(r ApiListAuthenticat
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceAuthenticatorRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx             context.Context
+	ApiService      AuthenticatorAPI
 	authenticatorId string
-	authenticator *AuthenticatorBase
-	retryCount int32
+	authenticator   *AuthenticatorBase
+	retryCount      int32
 }
 
 func (r ApiReplaceAuthenticatorRequest) Authenticator(authenticator AuthenticatorBase) ApiReplaceAuthenticatorRequest {
@@ -2652,21 +2664,22 @@ ReplaceAuthenticator Replace an authenticator
 
 Replaces the properties for an authenticator identified by `authenticatorId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authenticatorId `id` of the authenticator
- @return ApiReplaceAuthenticatorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authenticatorId `id` of the authenticator
+	@return ApiReplaceAuthenticatorRequest
 */
 func (a *AuthenticatorAPIService) ReplaceAuthenticator(ctx context.Context, authenticatorId string) ApiReplaceAuthenticatorRequest {
 	return ApiReplaceAuthenticatorRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		retryCount: 0,
+		retryCount:      0,
 	}
 }
 
 // Execute executes the request
-//  @return AuthenticatorBase
+//
+//	@return AuthenticatorBase
 func (a *AuthenticatorAPIService) ReplaceAuthenticatorExecute(r ApiReplaceAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -2675,7 +2688,7 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorExecute(r ApiReplaceAuthen
 		localVarReturnValue  *AuthenticatorBase
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2741,9 +2754,9 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorExecute(r ApiReplaceAuthen
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -2813,18 +2826,18 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorExecute(r ApiReplaceAuthen
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceAuthenticatorMethodRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
-	authenticatorId string
-	methodType string
+	ctx                                      context.Context
+	ApiService                               AuthenticatorAPI
+	authenticatorId                          string
+	methodType                               string
 	listAuthenticatorMethods200ResponseInner *ListAuthenticatorMethods200ResponseInner
-	retryCount int32
+	retryCount                               int32
 }
 
 func (r ApiReplaceAuthenticatorMethodRequest) ListAuthenticatorMethods200ResponseInner(listAuthenticatorMethods200ResponseInner ListAuthenticatorMethods200ResponseInner) ApiReplaceAuthenticatorMethodRequest {
@@ -2841,23 +2854,24 @@ ReplaceAuthenticatorMethod Replace an authenticator method
 
 Replaces a method of `methodType` for an authenticator identified by `authenticatorId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authenticatorId `id` of the authenticator
- @param methodType Type of authenticator method
- @return ApiReplaceAuthenticatorMethodRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authenticatorId `id` of the authenticator
+	@param methodType Type of authenticator method
+	@return ApiReplaceAuthenticatorMethodRequest
 */
 func (a *AuthenticatorAPIService) ReplaceAuthenticatorMethod(ctx context.Context, authenticatorId string, methodType string) ApiReplaceAuthenticatorMethodRequest {
 	return ApiReplaceAuthenticatorMethodRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		methodType: methodType,
-		retryCount: 0,
+		methodType:      methodType,
+		retryCount:      0,
 	}
 }
 
 // Execute executes the request
-//  @return ListAuthenticatorMethods200ResponseInner
+//
+//	@return ListAuthenticatorMethods200ResponseInner
 func (a *AuthenticatorAPIService) ReplaceAuthenticatorMethodExecute(r ApiReplaceAuthenticatorMethodRequest) (*ListAuthenticatorMethods200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -2866,7 +2880,7 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorMethodExecute(r ApiReplace
 		localVarReturnValue  *ListAuthenticatorMethods200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2930,9 +2944,9 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorMethodExecute(r ApiReplace
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -3002,18 +3016,18 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorMethodExecute(r ApiReplace
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceCustomAAGUIDRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
-	authenticatorId string
-	aaguid string
+	ctx                             context.Context
+	ApiService                      AuthenticatorAPI
+	authenticatorId                 string
+	aaguid                          string
 	customAAGUIDUpdateRequestObject *CustomAAGUIDUpdateRequestObject
-	retryCount int32
+	retryCount                      int32
 }
 
 func (r ApiReplaceCustomAAGUIDRequest) CustomAAGUIDUpdateRequestObject(customAAGUIDUpdateRequestObject CustomAAGUIDUpdateRequestObject) ApiReplaceCustomAAGUIDRequest {
@@ -3030,23 +3044,24 @@ ReplaceCustomAAGUID Replace a custom AAGUID
 
 Replaces a custom AAGUID for the specified WebAuthn authenticator
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authenticatorId `id` of the authenticator
- @param aaguid Unique ID of a custom AAGUID
- @return ApiReplaceCustomAAGUIDRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authenticatorId `id` of the authenticator
+	@param aaguid Unique ID of a custom AAGUID
+	@return ApiReplaceCustomAAGUIDRequest
 */
 func (a *AuthenticatorAPIService) ReplaceCustomAAGUID(ctx context.Context, authenticatorId string, aaguid string) ApiReplaceCustomAAGUIDRequest {
 	return ApiReplaceCustomAAGUIDRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		aaguid: aaguid,
-		retryCount: 0,
+		aaguid:          aaguid,
+		retryCount:      0,
 	}
 }
 
 // Execute executes the request
-//  @return CustomAAGUIDResponseObject
+//
+//	@return CustomAAGUIDResponseObject
 func (a *AuthenticatorAPIService) ReplaceCustomAAGUIDExecute(r ApiReplaceCustomAAGUIDRequest) (*CustomAAGUIDResponseObject, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -3055,7 +3070,7 @@ func (a *AuthenticatorAPIService) ReplaceCustomAAGUIDExecute(r ApiReplaceCustomA
 		localVarReturnValue  *CustomAAGUIDResponseObject
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3119,9 +3134,9 @@ func (a *AuthenticatorAPIService) ReplaceCustomAAGUIDExecute(r ApiReplaceCustomA
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -3179,18 +3194,18 @@ func (a *AuthenticatorAPIService) ReplaceCustomAAGUIDExecute(r ApiReplaceCustomA
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateCustomAAGUIDRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
-	authenticatorId string
-	aaguid string
+	ctx                             context.Context
+	ApiService                      AuthenticatorAPI
+	authenticatorId                 string
+	aaguid                          string
 	customAAGUIDUpdateRequestObject *CustomAAGUIDUpdateRequestObject
-	retryCount int32
+	retryCount                      int32
 }
 
 func (r ApiUpdateCustomAAGUIDRequest) CustomAAGUIDUpdateRequestObject(customAAGUIDUpdateRequestObject CustomAAGUIDUpdateRequestObject) ApiUpdateCustomAAGUIDRequest {
@@ -3207,23 +3222,24 @@ UpdateCustomAAGUID Update a custom AAGUID
 
 Updates the properties of a custom AAGUID by the `authenticatorId` and `aaguid` ID
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authenticatorId `id` of the authenticator
- @param aaguid Unique ID of a custom AAGUID
- @return ApiUpdateCustomAAGUIDRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authenticatorId `id` of the authenticator
+	@param aaguid Unique ID of a custom AAGUID
+	@return ApiUpdateCustomAAGUIDRequest
 */
 func (a *AuthenticatorAPIService) UpdateCustomAAGUID(ctx context.Context, authenticatorId string, aaguid string) ApiUpdateCustomAAGUIDRequest {
 	return ApiUpdateCustomAAGUIDRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		aaguid: aaguid,
-		retryCount: 0,
+		aaguid:          aaguid,
+		retryCount:      0,
 	}
 }
 
 // Execute executes the request
-//  @return CustomAAGUIDResponseObject
+//
+//	@return CustomAAGUIDResponseObject
 func (a *AuthenticatorAPIService) UpdateCustomAAGUIDExecute(r ApiUpdateCustomAAGUIDRequest) (*CustomAAGUIDResponseObject, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
@@ -3232,7 +3248,7 @@ func (a *AuthenticatorAPIService) UpdateCustomAAGUIDExecute(r ApiUpdateCustomAAG
 		localVarReturnValue  *CustomAAGUIDResponseObject
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3296,9 +3312,9 @@ func (a *AuthenticatorAPIService) UpdateCustomAAGUIDExecute(r ApiUpdateCustomAAG
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -3356,7 +3372,7 @@ func (a *AuthenticatorAPIService) UpdateCustomAAGUIDExecute(r ApiUpdateCustomAAG
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -30,13 +30,16 @@ import (
 	"strings"
 )
 
+// checks if the BasicAuthApplication type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BasicAuthApplication{}
+
 // BasicAuthApplication struct for BasicAuthApplication
 type BasicAuthApplication struct {
 	Application
 	Credentials *SchemeApplicationCredentials `json:"credentials,omitempty"`
 	// `template_basic_auth` is the key name for a Basic Authentication scheme app instance
-	Name string `json:"name"`
-	Settings BasicApplicationSettings `json:"settings"`
+	Name                 string                   `json:"name"`
+	Settings             BasicApplicationSettings `json:"settings"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -65,7 +68,7 @@ func NewBasicAuthApplicationWithDefaults() *BasicAuthApplication {
 
 // GetCredentials returns the Credentials field value if set, zero value otherwise.
 func (o *BasicAuthApplication) GetCredentials() SchemeApplicationCredentials {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		var ret SchemeApplicationCredentials
 		return ret
 	}
@@ -75,7 +78,7 @@ func (o *BasicAuthApplication) GetCredentials() SchemeApplicationCredentials {
 // GetCredentialsOk returns a tuple with the Credentials field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BasicAuthApplication) GetCredentialsOk() (*SchemeApplicationCredentials, bool) {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		return nil, false
 	}
 	return o.Credentials, true
@@ -83,7 +86,7 @@ func (o *BasicAuthApplication) GetCredentialsOk() (*SchemeApplicationCredentials
 
 // HasCredentials returns a boolean if a field has been set.
 func (o *BasicAuthApplication) HasCredentials() bool {
-	if o != nil && o.Credentials != nil {
+	if o != nil && !IsNil(o.Credentials) {
 		return true
 	}
 
@@ -144,43 +147,71 @@ func (o *BasicAuthApplication) SetSettings(v BasicApplicationSettings) {
 }
 
 func (o BasicAuthApplication) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BasicAuthApplication) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedApplication, errApplication := json.Marshal(o.Application)
 	if errApplication != nil {
-		return []byte{}, errApplication
+		return map[string]interface{}{}, errApplication
 	}
 	errApplication = json.Unmarshal([]byte(serializedApplication), &toSerialize)
 	if errApplication != nil {
-		return []byte{}, errApplication
+		return map[string]interface{}{}, errApplication
 	}
-	if o.Credentials != nil {
+	if !IsNil(o.Credentials) {
 		toSerialize["credentials"] = o.Credentials
 	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["settings"] = o.Settings
-	}
+	toSerialize["name"] = o.Name
+	toSerialize["settings"] = o.Settings
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *BasicAuthApplication) UnmarshalJSON(bytes []byte) (err error) {
+func (o *BasicAuthApplication) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"settings",
+		"label",
+		"signOnMode",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	type BasicAuthApplicationWithoutEmbeddedStruct struct {
 		Credentials *SchemeApplicationCredentials `json:"credentials,omitempty"`
 		// `template_basic_auth` is the key name for a Basic Authentication scheme app instance
-		Name string `json:"name"`
+		Name     string                   `json:"name"`
 		Settings BasicApplicationSettings `json:"settings"`
 	}
 
 	varBasicAuthApplicationWithoutEmbeddedStruct := BasicAuthApplicationWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varBasicAuthApplicationWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varBasicAuthApplicationWithoutEmbeddedStruct)
 	if err == nil {
 		varBasicAuthApplication := _BasicAuthApplication{}
 		varBasicAuthApplication.Credentials = varBasicAuthApplicationWithoutEmbeddedStruct.Credentials
@@ -193,7 +224,7 @@ func (o *BasicAuthApplication) UnmarshalJSON(bytes []byte) (err error) {
 
 	varBasicAuthApplication := _BasicAuthApplication{}
 
-	err = json.Unmarshal(bytes, &varBasicAuthApplication)
+	err = json.Unmarshal(data, &varBasicAuthApplication)
 	if err == nil {
 		o.Application = varBasicAuthApplication.Application
 	} else {
@@ -202,8 +233,7 @@ func (o *BasicAuthApplication) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "credentials")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "settings")
@@ -227,8 +257,6 @@ func (o *BasicAuthApplication) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -269,4 +297,3 @@ func (v *NullableBasicAuthApplication) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

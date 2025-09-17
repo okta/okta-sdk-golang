@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 	"time"
 )
+
+// checks if the GroupPushMapping type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GroupPushMapping{}
 
 // GroupPushMapping struct for GroupPushMapping
 type GroupPushMapping struct {
@@ -72,7 +75,7 @@ func NewGroupPushMappingWithDefaults() *GroupPushMapping {
 
 // GetAppConfig returns the AppConfig field value if set, zero value otherwise.
 func (o *GroupPushMapping) GetAppConfig() AppConfig {
-	if o == nil || o.AppConfig == nil {
+	if o == nil || IsNil(o.AppConfig) {
 		var ret AppConfig
 		return ret
 	}
@@ -82,15 +85,15 @@ func (o *GroupPushMapping) GetAppConfig() AppConfig {
 // GetAppConfigOk returns a tuple with the AppConfig field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupPushMapping) GetAppConfigOk() (AppConfig, bool) {
-	if o == nil || o.AppConfig == nil {
-		return nil, false
+	if o == nil || IsNil(o.AppConfig) {
+		return AppConfig{}, false
 	}
 	return o.AppConfig, true
 }
 
 // HasAppConfig returns a boolean if a field has been set.
 func (o *GroupPushMapping) HasAppConfig() bool {
-	if o != nil && o.AppConfig != nil {
+	if o != nil && !IsNil(o.AppConfig) {
 		return true
 	}
 
@@ -104,7 +107,7 @@ func (o *GroupPushMapping) SetAppConfig(v AppConfig) {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *GroupPushMapping) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -114,7 +117,7 @@ func (o *GroupPushMapping) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupPushMapping) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -122,7 +125,7 @@ func (o *GroupPushMapping) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *GroupPushMapping) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -136,7 +139,7 @@ func (o *GroupPushMapping) SetCreated(v time.Time) {
 
 // GetErrorSummary returns the ErrorSummary field value if set, zero value otherwise.
 func (o *GroupPushMapping) GetErrorSummary() string {
-	if o == nil || o.ErrorSummary == nil {
+	if o == nil || IsNil(o.ErrorSummary) {
 		var ret string
 		return ret
 	}
@@ -146,7 +149,7 @@ func (o *GroupPushMapping) GetErrorSummary() string {
 // GetErrorSummaryOk returns a tuple with the ErrorSummary field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupPushMapping) GetErrorSummaryOk() (*string, bool) {
-	if o == nil || o.ErrorSummary == nil {
+	if o == nil || IsNil(o.ErrorSummary) {
 		return nil, false
 	}
 	return o.ErrorSummary, true
@@ -154,7 +157,7 @@ func (o *GroupPushMapping) GetErrorSummaryOk() (*string, bool) {
 
 // HasErrorSummary returns a boolean if a field has been set.
 func (o *GroupPushMapping) HasErrorSummary() bool {
-	if o != nil && o.ErrorSummary != nil {
+	if o != nil && !IsNil(o.ErrorSummary) {
 		return true
 	}
 
@@ -168,7 +171,7 @@ func (o *GroupPushMapping) SetErrorSummary(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *GroupPushMapping) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -178,7 +181,7 @@ func (o *GroupPushMapping) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupPushMapping) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -186,7 +189,7 @@ func (o *GroupPushMapping) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *GroupPushMapping) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -200,7 +203,7 @@ func (o *GroupPushMapping) SetId(v string) {
 
 // GetLastPush returns the LastPush field value if set, zero value otherwise.
 func (o *GroupPushMapping) GetLastPush() time.Time {
-	if o == nil || o.LastPush == nil {
+	if o == nil || IsNil(o.LastPush) {
 		var ret time.Time
 		return ret
 	}
@@ -210,7 +213,7 @@ func (o *GroupPushMapping) GetLastPush() time.Time {
 // GetLastPushOk returns a tuple with the LastPush field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupPushMapping) GetLastPushOk() (*time.Time, bool) {
-	if o == nil || o.LastPush == nil {
+	if o == nil || IsNil(o.LastPush) {
 		return nil, false
 	}
 	return o.LastPush, true
@@ -218,7 +221,7 @@ func (o *GroupPushMapping) GetLastPushOk() (*time.Time, bool) {
 
 // HasLastPush returns a boolean if a field has been set.
 func (o *GroupPushMapping) HasLastPush() bool {
-	if o != nil && o.LastPush != nil {
+	if o != nil && !IsNil(o.LastPush) {
 		return true
 	}
 
@@ -232,7 +235,7 @@ func (o *GroupPushMapping) SetLastPush(v time.Time) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *GroupPushMapping) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -242,7 +245,7 @@ func (o *GroupPushMapping) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupPushMapping) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -250,7 +253,7 @@ func (o *GroupPushMapping) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *GroupPushMapping) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -264,7 +267,7 @@ func (o *GroupPushMapping) SetLastUpdated(v time.Time) {
 
 // GetSourceGroupId returns the SourceGroupId field value if set, zero value otherwise.
 func (o *GroupPushMapping) GetSourceGroupId() string {
-	if o == nil || o.SourceGroupId == nil {
+	if o == nil || IsNil(o.SourceGroupId) {
 		var ret string
 		return ret
 	}
@@ -274,7 +277,7 @@ func (o *GroupPushMapping) GetSourceGroupId() string {
 // GetSourceGroupIdOk returns a tuple with the SourceGroupId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupPushMapping) GetSourceGroupIdOk() (*string, bool) {
-	if o == nil || o.SourceGroupId == nil {
+	if o == nil || IsNil(o.SourceGroupId) {
 		return nil, false
 	}
 	return o.SourceGroupId, true
@@ -282,7 +285,7 @@ func (o *GroupPushMapping) GetSourceGroupIdOk() (*string, bool) {
 
 // HasSourceGroupId returns a boolean if a field has been set.
 func (o *GroupPushMapping) HasSourceGroupId() bool {
-	if o != nil && o.SourceGroupId != nil {
+	if o != nil && !IsNil(o.SourceGroupId) {
 		return true
 	}
 
@@ -296,7 +299,7 @@ func (o *GroupPushMapping) SetSourceGroupId(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *GroupPushMapping) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -306,7 +309,7 @@ func (o *GroupPushMapping) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupPushMapping) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -314,7 +317,7 @@ func (o *GroupPushMapping) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *GroupPushMapping) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -328,7 +331,7 @@ func (o *GroupPushMapping) SetStatus(v string) {
 
 // GetTargetGroupId returns the TargetGroupId field value if set, zero value otherwise.
 func (o *GroupPushMapping) GetTargetGroupId() string {
-	if o == nil || o.TargetGroupId == nil {
+	if o == nil || IsNil(o.TargetGroupId) {
 		var ret string
 		return ret
 	}
@@ -338,7 +341,7 @@ func (o *GroupPushMapping) GetTargetGroupId() string {
 // GetTargetGroupIdOk returns a tuple with the TargetGroupId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupPushMapping) GetTargetGroupIdOk() (*string, bool) {
-	if o == nil || o.TargetGroupId == nil {
+	if o == nil || IsNil(o.TargetGroupId) {
 		return nil, false
 	}
 	return o.TargetGroupId, true
@@ -346,7 +349,7 @@ func (o *GroupPushMapping) GetTargetGroupIdOk() (*string, bool) {
 
 // HasTargetGroupId returns a boolean if a field has been set.
 func (o *GroupPushMapping) HasTargetGroupId() bool {
-	if o != nil && o.TargetGroupId != nil {
+	if o != nil && !IsNil(o.TargetGroupId) {
 		return true
 	}
 
@@ -360,7 +363,7 @@ func (o *GroupPushMapping) SetTargetGroupId(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *GroupPushMapping) GetLinks() GroupPushMappingLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret GroupPushMappingLinks
 		return ret
 	}
@@ -370,7 +373,7 @@ func (o *GroupPushMapping) GetLinks() GroupPushMappingLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupPushMapping) GetLinksOk() (*GroupPushMappingLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -378,7 +381,7 @@ func (o *GroupPushMapping) GetLinksOk() (*GroupPushMappingLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *GroupPushMapping) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -391,35 +394,43 @@ func (o *GroupPushMapping) SetLinks(v GroupPushMappingLinks) {
 }
 
 func (o GroupPushMapping) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o GroupPushMapping) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AppConfig != nil {
+	if !IsNil(o.AppConfig) {
 		toSerialize["appConfig"] = o.AppConfig
 	}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.ErrorSummary != nil {
+	if !IsNil(o.ErrorSummary) {
 		toSerialize["errorSummary"] = o.ErrorSummary
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastPush != nil {
+	if !IsNil(o.LastPush) {
 		toSerialize["lastPush"] = o.LastPush
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.SourceGroupId != nil {
+	if !IsNil(o.SourceGroupId) {
 		toSerialize["sourceGroupId"] = o.SourceGroupId
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.TargetGroupId != nil {
+	if !IsNil(o.TargetGroupId) {
 		toSerialize["targetGroupId"] = o.TargetGroupId
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -427,23 +438,23 @@ func (o GroupPushMapping) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *GroupPushMapping) UnmarshalJSON(bytes []byte) (err error) {
+func (o *GroupPushMapping) UnmarshalJSON(data []byte) (err error) {
 	varGroupPushMapping := _GroupPushMapping{}
 
-	err = json.Unmarshal(bytes, &varGroupPushMapping)
-	if err == nil {
-		*o = GroupPushMapping(varGroupPushMapping)
-	} else {
+	err = json.Unmarshal(data, &varGroupPushMapping)
+
+	if err != nil {
 		return err
 	}
 
+	*o = GroupPushMapping(varGroupPushMapping)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "appConfig")
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "errorSummary")
@@ -455,8 +466,6 @@ func (o *GroupPushMapping) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "targetGroupId")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

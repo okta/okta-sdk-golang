@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,14 +25,17 @@ package okta
 
 import (
 	"encoding/json"
-	"time"
 	"fmt"
+	"time"
 )
+
+// checks if the PrivilegedResource type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PrivilegedResource{}
 
 // PrivilegedResource Base class for PrivilegedResourceRequest and PrivilegedResourceResponse
 type PrivilegedResource struct {
 	// Timestamp when the object was created
-	Created *time.Time `json:"created,omitempty"`
+	Created            *time.Time          `json:"created,omitempty"`
 	CredentialSyncInfo *CredentialSyncInfo `json:"credentialSyncInfo,omitempty"`
 	// ID of the privileged resource
 	Id *string `json:"id,omitempty"`
@@ -41,7 +44,7 @@ type PrivilegedResource struct {
 	// The type of the resource
 	ResourceType string `json:"resourceType"`
 	// Current status of the privileged resource
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -67,7 +70,7 @@ func NewPrivilegedResourceWithDefaults() *PrivilegedResource {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *PrivilegedResource) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -77,7 +80,7 @@ func (o *PrivilegedResource) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrivilegedResource) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -85,7 +88,7 @@ func (o *PrivilegedResource) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *PrivilegedResource) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -99,7 +102,7 @@ func (o *PrivilegedResource) SetCreated(v time.Time) {
 
 // GetCredentialSyncInfo returns the CredentialSyncInfo field value if set, zero value otherwise.
 func (o *PrivilegedResource) GetCredentialSyncInfo() CredentialSyncInfo {
-	if o == nil || o.CredentialSyncInfo == nil {
+	if o == nil || IsNil(o.CredentialSyncInfo) {
 		var ret CredentialSyncInfo
 		return ret
 	}
@@ -109,7 +112,7 @@ func (o *PrivilegedResource) GetCredentialSyncInfo() CredentialSyncInfo {
 // GetCredentialSyncInfoOk returns a tuple with the CredentialSyncInfo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrivilegedResource) GetCredentialSyncInfoOk() (*CredentialSyncInfo, bool) {
-	if o == nil || o.CredentialSyncInfo == nil {
+	if o == nil || IsNil(o.CredentialSyncInfo) {
 		return nil, false
 	}
 	return o.CredentialSyncInfo, true
@@ -117,7 +120,7 @@ func (o *PrivilegedResource) GetCredentialSyncInfoOk() (*CredentialSyncInfo, boo
 
 // HasCredentialSyncInfo returns a boolean if a field has been set.
 func (o *PrivilegedResource) HasCredentialSyncInfo() bool {
-	if o != nil && o.CredentialSyncInfo != nil {
+	if o != nil && !IsNil(o.CredentialSyncInfo) {
 		return true
 	}
 
@@ -131,7 +134,7 @@ func (o *PrivilegedResource) SetCredentialSyncInfo(v CredentialSyncInfo) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *PrivilegedResource) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -141,7 +144,7 @@ func (o *PrivilegedResource) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrivilegedResource) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -149,7 +152,7 @@ func (o *PrivilegedResource) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *PrivilegedResource) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -163,7 +166,7 @@ func (o *PrivilegedResource) SetId(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *PrivilegedResource) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -173,7 +176,7 @@ func (o *PrivilegedResource) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrivilegedResource) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -181,7 +184,7 @@ func (o *PrivilegedResource) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *PrivilegedResource) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -219,7 +222,7 @@ func (o *PrivilegedResource) SetResourceType(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *PrivilegedResource) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -229,7 +232,7 @@ func (o *PrivilegedResource) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrivilegedResource) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -237,7 +240,7 @@ func (o *PrivilegedResource) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *PrivilegedResource) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -250,23 +253,29 @@ func (o *PrivilegedResource) SetStatus(v string) {
 }
 
 func (o PrivilegedResource) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PrivilegedResource) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.CredentialSyncInfo != nil {
+	if !IsNil(o.CredentialSyncInfo) {
 		toSerialize["credentialSyncInfo"] = o.CredentialSyncInfo
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if true {
-		toSerialize["resourceType"] = o.ResourceType
-	}
-	if o.Status != nil {
+	toSerialize["resourceType"] = o.ResourceType
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
 
@@ -274,23 +283,44 @@ func (o PrivilegedResource) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PrivilegedResource) UnmarshalJSON(bytes []byte) (err error) {
-	varPrivilegedResource := _PrivilegedResource{}
+func (o *PrivilegedResource) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"resourceType",
+	}
 
-	err = json.Unmarshal(bytes, &varPrivilegedResource)
-	if err == nil {
-		*o = PrivilegedResource(varPrivilegedResource)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPrivilegedResource := _PrivilegedResource{}
+
+	err = json.Unmarshal(data, &varPrivilegedResource)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PrivilegedResource(varPrivilegedResource)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "credentialSyncInfo")
 		delete(additionalProperties, "id")
@@ -298,8 +328,6 @@ func (o *PrivilegedResource) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "resourceType")
 		delete(additionalProperties, "status")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -340,4 +368,3 @@ func (v *NullablePrivilegedResource) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

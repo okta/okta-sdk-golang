@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"fmt"
 )
 
+// checks if the TestInfoTestAccount type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TestInfoTestAccount{}
+
 // TestInfoTestAccount An account on a test instance of your app with admin privileges. A test admin account is required by Okta for integration testing. During OIN QA testing, an Okta analyst uses this admin account to configure your app for the various test case flows.
 type TestInfoTestAccount struct {
 	// The sign-in URL to a test instance of your app
@@ -37,7 +40,7 @@ type TestInfoTestAccount struct {
 	// The password for your app admin account
 	Password string `json:"password"`
 	// Additional instructions to test the app integration, including instructions for obtaining test accounts
-	Instructions *string `json:"instructions,omitempty"`
+	Instructions         *string `json:"instructions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -137,7 +140,7 @@ func (o *TestInfoTestAccount) SetPassword(v string) {
 
 // GetInstructions returns the Instructions field value if set, zero value otherwise.
 func (o *TestInfoTestAccount) GetInstructions() string {
-	if o == nil || o.Instructions == nil {
+	if o == nil || IsNil(o.Instructions) {
 		var ret string
 		return ret
 	}
@@ -147,7 +150,7 @@ func (o *TestInfoTestAccount) GetInstructions() string {
 // GetInstructionsOk returns a tuple with the Instructions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TestInfoTestAccount) GetInstructionsOk() (*string, bool) {
-	if o == nil || o.Instructions == nil {
+	if o == nil || IsNil(o.Instructions) {
 		return nil, false
 	}
 	return o.Instructions, true
@@ -155,7 +158,7 @@ func (o *TestInfoTestAccount) GetInstructionsOk() (*string, bool) {
 
 // HasInstructions returns a boolean if a field has been set.
 func (o *TestInfoTestAccount) HasInstructions() bool {
-	if o != nil && o.Instructions != nil {
+	if o != nil && !IsNil(o.Instructions) {
 		return true
 	}
 
@@ -168,17 +171,19 @@ func (o *TestInfoTestAccount) SetInstructions(v string) {
 }
 
 func (o TestInfoTestAccount) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TestInfoTestAccount) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["url"] = o.Url
-	}
-	if true {
-		toSerialize["username"] = o.Username
-	}
-	if true {
-		toSerialize["password"] = o.Password
-	}
-	if o.Instructions != nil {
+	toSerialize["url"] = o.Url
+	toSerialize["username"] = o.Username
+	toSerialize["password"] = o.Password
+	if !IsNil(o.Instructions) {
 		toSerialize["instructions"] = o.Instructions
 	}
 
@@ -186,30 +191,51 @@ func (o TestInfoTestAccount) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *TestInfoTestAccount) UnmarshalJSON(bytes []byte) (err error) {
-	varTestInfoTestAccount := _TestInfoTestAccount{}
+func (o *TestInfoTestAccount) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"url",
+		"username",
+		"password",
+	}
 
-	err = json.Unmarshal(bytes, &varTestInfoTestAccount)
-	if err == nil {
-		*o = TestInfoTestAccount(varTestInfoTestAccount)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varTestInfoTestAccount := _TestInfoTestAccount{}
+
+	err = json.Unmarshal(data, &varTestInfoTestAccount)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TestInfoTestAccount(varTestInfoTestAccount)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "url")
 		delete(additionalProperties, "username")
 		delete(additionalProperties, "password")
 		delete(additionalProperties, "instructions")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -250,4 +276,3 @@ func (v *NullableTestInfoTestAccount) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

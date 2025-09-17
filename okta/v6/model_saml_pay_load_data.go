@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the SAMLPayLoadData type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SAMLPayLoadData{}
+
 // SAMLPayLoadData struct for SAMLPayLoadData
 type SAMLPayLoadData struct {
-	Context *SAMLPayLoadDataContext `json:"context,omitempty"`
-	Assertion *SAMLPayLoadDataAssertion `json:"assertion,omitempty"`
+	Context              *SAMLPayLoadDataContext   `json:"context,omitempty"`
+	Assertion            *SAMLPayLoadDataAssertion `json:"assertion,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewSAMLPayLoadDataWithDefaults() *SAMLPayLoadData {
 
 // GetContext returns the Context field value if set, zero value otherwise.
 func (o *SAMLPayLoadData) GetContext() SAMLPayLoadDataContext {
-	if o == nil || o.Context == nil {
+	if o == nil || IsNil(o.Context) {
 		var ret SAMLPayLoadDataContext
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *SAMLPayLoadData) GetContext() SAMLPayLoadDataContext {
 // GetContextOk returns a tuple with the Context field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoadData) GetContextOk() (*SAMLPayLoadDataContext, bool) {
-	if o == nil || o.Context == nil {
+	if o == nil || IsNil(o.Context) {
 		return nil, false
 	}
 	return o.Context, true
@@ -73,7 +76,7 @@ func (o *SAMLPayLoadData) GetContextOk() (*SAMLPayLoadDataContext, bool) {
 
 // HasContext returns a boolean if a field has been set.
 func (o *SAMLPayLoadData) HasContext() bool {
-	if o != nil && o.Context != nil {
+	if o != nil && !IsNil(o.Context) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *SAMLPayLoadData) SetContext(v SAMLPayLoadDataContext) {
 
 // GetAssertion returns the Assertion field value if set, zero value otherwise.
 func (o *SAMLPayLoadData) GetAssertion() SAMLPayLoadDataAssertion {
-	if o == nil || o.Assertion == nil {
+	if o == nil || IsNil(o.Assertion) {
 		var ret SAMLPayLoadDataAssertion
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *SAMLPayLoadData) GetAssertion() SAMLPayLoadDataAssertion {
 // GetAssertionOk returns a tuple with the Assertion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoadData) GetAssertionOk() (*SAMLPayLoadDataAssertion, bool) {
-	if o == nil || o.Assertion == nil {
+	if o == nil || IsNil(o.Assertion) {
 		return nil, false
 	}
 	return o.Assertion, true
@@ -105,7 +108,7 @@ func (o *SAMLPayLoadData) GetAssertionOk() (*SAMLPayLoadDataAssertion, bool) {
 
 // HasAssertion returns a boolean if a field has been set.
 func (o *SAMLPayLoadData) HasAssertion() bool {
-	if o != nil && o.Assertion != nil {
+	if o != nil && !IsNil(o.Assertion) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *SAMLPayLoadData) SetAssertion(v SAMLPayLoadDataAssertion) {
 }
 
 func (o SAMLPayLoadData) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SAMLPayLoadData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Context != nil {
+	if !IsNil(o.Context) {
 		toSerialize["context"] = o.Context
 	}
-	if o.Assertion != nil {
+	if !IsNil(o.Assertion) {
 		toSerialize["assertion"] = o.Assertion
 	}
 
@@ -130,28 +141,26 @@ func (o SAMLPayLoadData) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SAMLPayLoadData) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SAMLPayLoadData) UnmarshalJSON(data []byte) (err error) {
 	varSAMLPayLoadData := _SAMLPayLoadData{}
 
-	err = json.Unmarshal(bytes, &varSAMLPayLoadData)
-	if err == nil {
-		*o = SAMLPayLoadData(varSAMLPayLoadData)
-	} else {
+	err = json.Unmarshal(data, &varSAMLPayLoadData)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SAMLPayLoadData(varSAMLPayLoadData)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "context")
 		delete(additionalProperties, "assertion")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableSAMLPayLoadData) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

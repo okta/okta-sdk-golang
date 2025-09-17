@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,11 +28,9 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
 // GetSsfStreams200Response - struct for GetSsfStreams200Response
 type GetSsfStreams200Response struct {
-	StreamConfiguration *StreamConfiguration
+	StreamConfiguration        *StreamConfiguration
 	ArrayOfStreamConfiguration *[]StreamConfiguration
 }
 
@@ -50,48 +48,47 @@ func ArrayOfStreamConfigurationAsGetSsfStreams200Response(v *[]StreamConfigurati
 	}
 }
 
-
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *GetSsfStreams200Response) UnmarshalJSON(data []byte) error {
 	var err error
-        match := 0
-        // try to unmarshal data into StreamConfiguration
-        err = json.Unmarshal(data, &dst.StreamConfiguration)
-        if err == nil {
-                jsonStreamConfiguration, _ := json.Marshal(dst.StreamConfiguration)
-                if string(jsonStreamConfiguration) == "{}" { // empty struct
-                        dst.StreamConfiguration = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.StreamConfiguration = nil
-        }
+	match := 0
+	// try to unmarshal data into StreamConfiguration
+	err = json.Unmarshal(data, &dst.StreamConfiguration)
+	if err == nil {
+		jsonStreamConfiguration, _ := json.Marshal(dst.StreamConfiguration)
+		if string(jsonStreamConfiguration) == "{}" { // empty struct
+			dst.StreamConfiguration = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.StreamConfiguration = nil
+	}
 
-        // try to unmarshal data into ArrayOfStreamConfiguration
-        err = json.Unmarshal(data, &dst.ArrayOfStreamConfiguration)
-        if err == nil {
-                jsonArrayOfStreamConfiguration, _ := json.Marshal(dst.ArrayOfStreamConfiguration)
-                if string(jsonArrayOfStreamConfiguration) == "{}" { // empty struct
-                        dst.ArrayOfStreamConfiguration = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.ArrayOfStreamConfiguration = nil
-        }
+	// try to unmarshal data into ArrayOfStreamConfiguration
+	err = json.Unmarshal(data, &dst.ArrayOfStreamConfiguration)
+	if err == nil {
+		jsonArrayOfStreamConfiguration, _ := json.Marshal(dst.ArrayOfStreamConfiguration)
+		if string(jsonArrayOfStreamConfiguration) == "{}" { // empty struct
+			dst.ArrayOfStreamConfiguration = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.ArrayOfStreamConfiguration = nil
+	}
 
-        if match > 1 { // more than 1 match
-                // reset to nil
-                dst.StreamConfiguration = nil
-                dst.ArrayOfStreamConfiguration = nil
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.StreamConfiguration = nil
+		dst.ArrayOfStreamConfiguration = nil
 
-                return fmt.Errorf("Data matches more than one schema in oneOf(GetSsfStreams200Response)")
-        } else if match == 1 {
-                return nil // exactly one match
-        } else { // no match
-                return fmt.Errorf("Data failed to match schemas in oneOf(GetSsfStreams200Response)")
-        }
+		return fmt.Errorf("data matches more than one schema in oneOf(GetSsfStreams200Response)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("data failed to match schemas in oneOf(GetSsfStreams200Response)")
+	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -108,7 +105,7 @@ func (src GetSsfStreams200Response) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *GetSsfStreams200Response) GetActualInstance() (interface{}) {
+func (obj *GetSsfStreams200Response) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -118,6 +115,20 @@ func (obj *GetSsfStreams200Response) GetActualInstance() (interface{}) {
 
 	if obj.ArrayOfStreamConfiguration != nil {
 		return obj.ArrayOfStreamConfiguration
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj GetSsfStreams200Response) GetActualInstanceValue() interface{} {
+	if obj.StreamConfiguration != nil {
+		return *obj.StreamConfiguration
+	}
+
+	if obj.ArrayOfStreamConfiguration != nil {
+		return *obj.ArrayOfStreamConfiguration
 	}
 
 	// all schemas are nil
@@ -159,5 +170,3 @@ func (v *NullableGetSsfStreams200Response) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the CaepSessionRevokedEvent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CaepSessionRevokedEvent{}
+
 // CaepSessionRevokedEvent The session of the subject was revoked
 type CaepSessionRevokedEvent struct {
 	// The time of the event (UNIX timestamp)
-	EventTimestamp *int64 `json:"event_timestamp,omitempty"`
-	ReasonAdmin *CaepCredentialChangeEventReasonAdmin `json:"reason_admin,omitempty"`
-	ReasonUser *CaepCredentialChangeEventReasonUser `json:"reason_user,omitempty"`
-	Subject *SecurityEventSubject `json:"subject,omitempty"`
+	EventTimestamp       *int64                                `json:"event_timestamp,omitempty"`
+	ReasonAdmin          *CaepCredentialChangeEventReasonAdmin `json:"reason_admin,omitempty"`
+	ReasonUser           *CaepCredentialChangeEventReasonUser  `json:"reason_user,omitempty"`
+	Subject              *SecurityEventSubject                 `json:"subject,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewCaepSessionRevokedEventWithDefaults() *CaepSessionRevokedEvent {
 
 // GetEventTimestamp returns the EventTimestamp field value if set, zero value otherwise.
 func (o *CaepSessionRevokedEvent) GetEventTimestamp() int64 {
-	if o == nil || o.EventTimestamp == nil {
+	if o == nil || IsNil(o.EventTimestamp) {
 		var ret int64
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *CaepSessionRevokedEvent) GetEventTimestamp() int64 {
 // GetEventTimestampOk returns a tuple with the EventTimestamp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CaepSessionRevokedEvent) GetEventTimestampOk() (*int64, bool) {
-	if o == nil || o.EventTimestamp == nil {
+	if o == nil || IsNil(o.EventTimestamp) {
 		return nil, false
 	}
 	return o.EventTimestamp, true
@@ -76,7 +79,7 @@ func (o *CaepSessionRevokedEvent) GetEventTimestampOk() (*int64, bool) {
 
 // HasEventTimestamp returns a boolean if a field has been set.
 func (o *CaepSessionRevokedEvent) HasEventTimestamp() bool {
-	if o != nil && o.EventTimestamp != nil {
+	if o != nil && !IsNil(o.EventTimestamp) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *CaepSessionRevokedEvent) SetEventTimestamp(v int64) {
 
 // GetReasonAdmin returns the ReasonAdmin field value if set, zero value otherwise.
 func (o *CaepSessionRevokedEvent) GetReasonAdmin() CaepCredentialChangeEventReasonAdmin {
-	if o == nil || o.ReasonAdmin == nil {
+	if o == nil || IsNil(o.ReasonAdmin) {
 		var ret CaepCredentialChangeEventReasonAdmin
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *CaepSessionRevokedEvent) GetReasonAdmin() CaepCredentialChangeEventReas
 // GetReasonAdminOk returns a tuple with the ReasonAdmin field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CaepSessionRevokedEvent) GetReasonAdminOk() (*CaepCredentialChangeEventReasonAdmin, bool) {
-	if o == nil || o.ReasonAdmin == nil {
+	if o == nil || IsNil(o.ReasonAdmin) {
 		return nil, false
 	}
 	return o.ReasonAdmin, true
@@ -108,7 +111,7 @@ func (o *CaepSessionRevokedEvent) GetReasonAdminOk() (*CaepCredentialChangeEvent
 
 // HasReasonAdmin returns a boolean if a field has been set.
 func (o *CaepSessionRevokedEvent) HasReasonAdmin() bool {
-	if o != nil && o.ReasonAdmin != nil {
+	if o != nil && !IsNil(o.ReasonAdmin) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *CaepSessionRevokedEvent) SetReasonAdmin(v CaepCredentialChangeEventReas
 
 // GetReasonUser returns the ReasonUser field value if set, zero value otherwise.
 func (o *CaepSessionRevokedEvent) GetReasonUser() CaepCredentialChangeEventReasonUser {
-	if o == nil || o.ReasonUser == nil {
+	if o == nil || IsNil(o.ReasonUser) {
 		var ret CaepCredentialChangeEventReasonUser
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *CaepSessionRevokedEvent) GetReasonUser() CaepCredentialChangeEventReaso
 // GetReasonUserOk returns a tuple with the ReasonUser field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CaepSessionRevokedEvent) GetReasonUserOk() (*CaepCredentialChangeEventReasonUser, bool) {
-	if o == nil || o.ReasonUser == nil {
+	if o == nil || IsNil(o.ReasonUser) {
 		return nil, false
 	}
 	return o.ReasonUser, true
@@ -140,7 +143,7 @@ func (o *CaepSessionRevokedEvent) GetReasonUserOk() (*CaepCredentialChangeEventR
 
 // HasReasonUser returns a boolean if a field has been set.
 func (o *CaepSessionRevokedEvent) HasReasonUser() bool {
-	if o != nil && o.ReasonUser != nil {
+	if o != nil && !IsNil(o.ReasonUser) {
 		return true
 	}
 
@@ -154,7 +157,7 @@ func (o *CaepSessionRevokedEvent) SetReasonUser(v CaepCredentialChangeEventReaso
 
 // GetSubject returns the Subject field value if set, zero value otherwise.
 func (o *CaepSessionRevokedEvent) GetSubject() SecurityEventSubject {
-	if o == nil || o.Subject == nil {
+	if o == nil || IsNil(o.Subject) {
 		var ret SecurityEventSubject
 		return ret
 	}
@@ -164,7 +167,7 @@ func (o *CaepSessionRevokedEvent) GetSubject() SecurityEventSubject {
 // GetSubjectOk returns a tuple with the Subject field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CaepSessionRevokedEvent) GetSubjectOk() (*SecurityEventSubject, bool) {
-	if o == nil || o.Subject == nil {
+	if o == nil || IsNil(o.Subject) {
 		return nil, false
 	}
 	return o.Subject, true
@@ -172,7 +175,7 @@ func (o *CaepSessionRevokedEvent) GetSubjectOk() (*SecurityEventSubject, bool) {
 
 // HasSubject returns a boolean if a field has been set.
 func (o *CaepSessionRevokedEvent) HasSubject() bool {
-	if o != nil && o.Subject != nil {
+	if o != nil && !IsNil(o.Subject) {
 		return true
 	}
 
@@ -185,17 +188,25 @@ func (o *CaepSessionRevokedEvent) SetSubject(v SecurityEventSubject) {
 }
 
 func (o CaepSessionRevokedEvent) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CaepSessionRevokedEvent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.EventTimestamp != nil {
+	if !IsNil(o.EventTimestamp) {
 		toSerialize["event_timestamp"] = o.EventTimestamp
 	}
-	if o.ReasonAdmin != nil {
+	if !IsNil(o.ReasonAdmin) {
 		toSerialize["reason_admin"] = o.ReasonAdmin
 	}
-	if o.ReasonUser != nil {
+	if !IsNil(o.ReasonUser) {
 		toSerialize["reason_user"] = o.ReasonUser
 	}
-	if o.Subject != nil {
+	if !IsNil(o.Subject) {
 		toSerialize["subject"] = o.Subject
 	}
 
@@ -203,30 +214,28 @@ func (o CaepSessionRevokedEvent) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CaepSessionRevokedEvent) UnmarshalJSON(bytes []byte) (err error) {
+func (o *CaepSessionRevokedEvent) UnmarshalJSON(data []byte) (err error) {
 	varCaepSessionRevokedEvent := _CaepSessionRevokedEvent{}
 
-	err = json.Unmarshal(bytes, &varCaepSessionRevokedEvent)
-	if err == nil {
-		*o = CaepSessionRevokedEvent(varCaepSessionRevokedEvent)
-	} else {
+	err = json.Unmarshal(data, &varCaepSessionRevokedEvent)
+
+	if err != nil {
 		return err
 	}
 
+	*o = CaepSessionRevokedEvent(varCaepSessionRevokedEvent)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "event_timestamp")
 		delete(additionalProperties, "reason_admin")
 		delete(additionalProperties, "reason_user")
 		delete(additionalProperties, "subject")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -267,4 +276,3 @@ func (v *NullableCaepSessionRevokedEvent) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

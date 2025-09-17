@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"fmt"
 )
 
+// checks if the ECKeyJWK type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ECKeyJWK{}
+
 // ECKeyJWK Elliptic curve key in JSON Web Key (JWK) format. It's used during enrollment to encrypt fulfillment requests to Yubico, or during activation to verify Yubico's JWS (JSON Web Signature) objects in fulfillment responses. The currently agreed protocol uses P-384.
 type ECKeyJWK struct {
 	// The elliptic curve protocol
@@ -41,7 +44,7 @@ type ECKeyJWK struct {
 	// The public x coordinate for the elliptic curve point
 	X string `json:"x"`
 	// The public y coordinate for the elliptic curve point
-	Y string `json:"y"`
+	Y                    string `json:"y"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -215,47 +218,69 @@ func (o *ECKeyJWK) SetY(v string) {
 }
 
 func (o ECKeyJWK) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ECKeyJWK) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["crv"] = o.Crv
-	}
-	if true {
-		toSerialize["kid"] = o.Kid
-	}
-	if true {
-		toSerialize["kty"] = o.Kty
-	}
-	if true {
-		toSerialize["use"] = o.Use
-	}
-	if true {
-		toSerialize["x"] = o.X
-	}
-	if true {
-		toSerialize["y"] = o.Y
-	}
+	toSerialize["crv"] = o.Crv
+	toSerialize["kid"] = o.Kid
+	toSerialize["kty"] = o.Kty
+	toSerialize["use"] = o.Use
+	toSerialize["x"] = o.X
+	toSerialize["y"] = o.Y
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ECKeyJWK) UnmarshalJSON(bytes []byte) (err error) {
-	varECKeyJWK := _ECKeyJWK{}
+func (o *ECKeyJWK) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"crv",
+		"kid",
+		"kty",
+		"use",
+		"x",
+		"y",
+	}
 
-	err = json.Unmarshal(bytes, &varECKeyJWK)
-	if err == nil {
-		*o = ECKeyJWK(varECKeyJWK)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varECKeyJWK := _ECKeyJWK{}
+
+	err = json.Unmarshal(data, &varECKeyJWK)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ECKeyJWK(varECKeyJWK)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "crv")
 		delete(additionalProperties, "kid")
 		delete(additionalProperties, "kty")
@@ -263,8 +288,6 @@ func (o *ECKeyJWK) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "x")
 		delete(additionalProperties, "y")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -305,4 +328,3 @@ func (v *NullableECKeyJWK) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

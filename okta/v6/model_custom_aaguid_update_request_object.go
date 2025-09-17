@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the CustomAAGUIDUpdateRequestObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CustomAAGUIDUpdateRequestObject{}
+
 // CustomAAGUIDUpdateRequestObject struct for CustomAAGUIDUpdateRequestObject
 type CustomAAGUIDUpdateRequestObject struct {
 	// Contains the certificate and information about it
-	AttestationRootCertificates []AttestationRootCertificatesRequestInner `json:"attestationRootCertificates,omitempty"`
-	AuthenticatorCharacteristics *AAGUIDAuthenticatorCharacteristics `json:"authenticatorCharacteristics,omitempty"`
+	AttestationRootCertificates  []AttestationRootCertificatesRequestInner `json:"attestationRootCertificates,omitempty"`
+	AuthenticatorCharacteristics *AAGUIDAuthenticatorCharacteristics       `json:"authenticatorCharacteristics,omitempty"`
 	// The product name associated with this AAGUID.
-	Name *string `json:"name,omitempty"`
+	Name                 *string `json:"name,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewCustomAAGUIDUpdateRequestObjectWithDefaults() *CustomAAGUIDUpdateRequest
 
 // GetAttestationRootCertificates returns the AttestationRootCertificates field value if set, zero value otherwise.
 func (o *CustomAAGUIDUpdateRequestObject) GetAttestationRootCertificates() []AttestationRootCertificatesRequestInner {
-	if o == nil || o.AttestationRootCertificates == nil {
+	if o == nil || IsNil(o.AttestationRootCertificates) {
 		var ret []AttestationRootCertificatesRequestInner
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *CustomAAGUIDUpdateRequestObject) GetAttestationRootCertificates() []Att
 // GetAttestationRootCertificatesOk returns a tuple with the AttestationRootCertificates field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CustomAAGUIDUpdateRequestObject) GetAttestationRootCertificatesOk() ([]AttestationRootCertificatesRequestInner, bool) {
-	if o == nil || o.AttestationRootCertificates == nil {
+	if o == nil || IsNil(o.AttestationRootCertificates) {
 		return nil, false
 	}
 	return o.AttestationRootCertificates, true
@@ -76,7 +79,7 @@ func (o *CustomAAGUIDUpdateRequestObject) GetAttestationRootCertificatesOk() ([]
 
 // HasAttestationRootCertificates returns a boolean if a field has been set.
 func (o *CustomAAGUIDUpdateRequestObject) HasAttestationRootCertificates() bool {
-	if o != nil && o.AttestationRootCertificates != nil {
+	if o != nil && !IsNil(o.AttestationRootCertificates) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *CustomAAGUIDUpdateRequestObject) SetAttestationRootCertificates(v []Att
 
 // GetAuthenticatorCharacteristics returns the AuthenticatorCharacteristics field value if set, zero value otherwise.
 func (o *CustomAAGUIDUpdateRequestObject) GetAuthenticatorCharacteristics() AAGUIDAuthenticatorCharacteristics {
-	if o == nil || o.AuthenticatorCharacteristics == nil {
+	if o == nil || IsNil(o.AuthenticatorCharacteristics) {
 		var ret AAGUIDAuthenticatorCharacteristics
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *CustomAAGUIDUpdateRequestObject) GetAuthenticatorCharacteristics() AAGU
 // GetAuthenticatorCharacteristicsOk returns a tuple with the AuthenticatorCharacteristics field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CustomAAGUIDUpdateRequestObject) GetAuthenticatorCharacteristicsOk() (*AAGUIDAuthenticatorCharacteristics, bool) {
-	if o == nil || o.AuthenticatorCharacteristics == nil {
+	if o == nil || IsNil(o.AuthenticatorCharacteristics) {
 		return nil, false
 	}
 	return o.AuthenticatorCharacteristics, true
@@ -108,7 +111,7 @@ func (o *CustomAAGUIDUpdateRequestObject) GetAuthenticatorCharacteristicsOk() (*
 
 // HasAuthenticatorCharacteristics returns a boolean if a field has been set.
 func (o *CustomAAGUIDUpdateRequestObject) HasAuthenticatorCharacteristics() bool {
-	if o != nil && o.AuthenticatorCharacteristics != nil {
+	if o != nil && !IsNil(o.AuthenticatorCharacteristics) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *CustomAAGUIDUpdateRequestObject) SetAuthenticatorCharacteristics(v AAGU
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *CustomAAGUIDUpdateRequestObject) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *CustomAAGUIDUpdateRequestObject) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CustomAAGUIDUpdateRequestObject) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -140,7 +143,7 @@ func (o *CustomAAGUIDUpdateRequestObject) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *CustomAAGUIDUpdateRequestObject) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -153,14 +156,22 @@ func (o *CustomAAGUIDUpdateRequestObject) SetName(v string) {
 }
 
 func (o CustomAAGUIDUpdateRequestObject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CustomAAGUIDUpdateRequestObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AttestationRootCertificates != nil {
+	if !IsNil(o.AttestationRootCertificates) {
 		toSerialize["attestationRootCertificates"] = o.AttestationRootCertificates
 	}
-	if o.AuthenticatorCharacteristics != nil {
+	if !IsNil(o.AuthenticatorCharacteristics) {
 		toSerialize["authenticatorCharacteristics"] = o.AuthenticatorCharacteristics
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
 
@@ -168,29 +179,27 @@ func (o CustomAAGUIDUpdateRequestObject) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CustomAAGUIDUpdateRequestObject) UnmarshalJSON(bytes []byte) (err error) {
+func (o *CustomAAGUIDUpdateRequestObject) UnmarshalJSON(data []byte) (err error) {
 	varCustomAAGUIDUpdateRequestObject := _CustomAAGUIDUpdateRequestObject{}
 
-	err = json.Unmarshal(bytes, &varCustomAAGUIDUpdateRequestObject)
-	if err == nil {
-		*o = CustomAAGUIDUpdateRequestObject(varCustomAAGUIDUpdateRequestObject)
-	} else {
+	err = json.Unmarshal(data, &varCustomAAGUIDUpdateRequestObject)
+
+	if err != nil {
 		return err
 	}
 
+	*o = CustomAAGUIDUpdateRequestObject(varCustomAAGUIDUpdateRequestObject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "attestationRootCertificates")
 		delete(additionalProperties, "authenticatorCharacteristics")
 		delete(additionalProperties, "name")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -231,4 +240,3 @@ func (v *NullableCustomAAGUIDUpdateRequestObject) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

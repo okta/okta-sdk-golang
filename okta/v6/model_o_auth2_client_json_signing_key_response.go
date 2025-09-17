@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,8 +28,6 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
 // OAuth2ClientJsonSigningKeyResponse - A [JSON Web Key (JWK)](https://tools.ietf.org/html/rfc7517) is a JSON representation of a cryptographic key. Okta uses signing keys to verify the signature of a JWT when provided for the `private_key_jwt` client authentication method or for a signed authorize request object. Okta supports both RSA and Elliptic Curve (EC) keys for signing tokens.
 type OAuth2ClientJsonSigningKeyResponse struct {
 	OAuth2ClientJsonWebKeyResponseBase *OAuth2ClientJsonWebKeyResponseBase
@@ -42,34 +40,33 @@ func OAuth2ClientJsonWebKeyResponseBaseAsOAuth2ClientJsonSigningKeyResponse(v *O
 	}
 }
 
-
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *OAuth2ClientJsonSigningKeyResponse) UnmarshalJSON(data []byte) error {
 	var err error
-        match := 0
-        // try to unmarshal data into OAuth2ClientJsonWebKeyResponseBase
-        err = json.Unmarshal(data, &dst.OAuth2ClientJsonWebKeyResponseBase)
-        if err == nil {
-                jsonOAuth2ClientJsonWebKeyResponseBase, _ := json.Marshal(dst.OAuth2ClientJsonWebKeyResponseBase)
-                if string(jsonOAuth2ClientJsonWebKeyResponseBase) == "{}" { // empty struct
-                        dst.OAuth2ClientJsonWebKeyResponseBase = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.OAuth2ClientJsonWebKeyResponseBase = nil
-        }
+	match := 0
+	// try to unmarshal data into OAuth2ClientJsonWebKeyResponseBase
+	err = json.Unmarshal(data, &dst.OAuth2ClientJsonWebKeyResponseBase)
+	if err == nil {
+		jsonOAuth2ClientJsonWebKeyResponseBase, _ := json.Marshal(dst.OAuth2ClientJsonWebKeyResponseBase)
+		if string(jsonOAuth2ClientJsonWebKeyResponseBase) == "{}" { // empty struct
+			dst.OAuth2ClientJsonWebKeyResponseBase = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.OAuth2ClientJsonWebKeyResponseBase = nil
+	}
 
-        if match > 1 { // more than 1 match
-                // reset to nil
-                dst.OAuth2ClientJsonWebKeyResponseBase = nil
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.OAuth2ClientJsonWebKeyResponseBase = nil
 
-                return fmt.Errorf("Data matches more than one schema in oneOf(OAuth2ClientJsonSigningKeyResponse)")
-        } else if match == 1 {
-                return nil // exactly one match
-        } else { // no match
-                return fmt.Errorf("Data failed to match schemas in oneOf(OAuth2ClientJsonSigningKeyResponse)")
-        }
+		return fmt.Errorf("data matches more than one schema in oneOf(OAuth2ClientJsonSigningKeyResponse)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("data failed to match schemas in oneOf(OAuth2ClientJsonSigningKeyResponse)")
+	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -82,12 +79,22 @@ func (src OAuth2ClientJsonSigningKeyResponse) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *OAuth2ClientJsonSigningKeyResponse) GetActualInstance() (interface{}) {
+func (obj *OAuth2ClientJsonSigningKeyResponse) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
 	if obj.OAuth2ClientJsonWebKeyResponseBase != nil {
 		return obj.OAuth2ClientJsonWebKeyResponseBase
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj OAuth2ClientJsonSigningKeyResponse) GetActualInstanceValue() interface{} {
+	if obj.OAuth2ClientJsonWebKeyResponseBase != nil {
+		return *obj.OAuth2ClientJsonWebKeyResponseBase
 	}
 
 	// all schemas are nil
@@ -129,5 +136,3 @@ func (v *NullableOAuth2ClientJsonSigningKeyResponse) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

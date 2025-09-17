@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,10 +28,9 @@ import (
 	"fmt"
 )
 
-
 // GroupSchemaAttributeEnumInner struct for GroupSchemaAttributeEnumInner
 type GroupSchemaAttributeEnumInner struct {
-	Int32 *int32
+	Int32  *int32
 	String *string
 }
 
@@ -39,7 +38,7 @@ type GroupSchemaAttributeEnumInner struct {
 func (dst *GroupSchemaAttributeEnumInner) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal JSON data into Int32
-	err = json.Unmarshal(data, &dst.Int32);
+	err = json.Unmarshal(data, &dst.Int32)
 	if err == nil {
 		jsonInt32, _ := json.Marshal(dst.Int32)
 		if string(jsonInt32) == "{}" { // empty struct
@@ -52,7 +51,7 @@ func (dst *GroupSchemaAttributeEnumInner) UnmarshalJSON(data []byte) error {
 	}
 
 	// try to unmarshal JSON data into String
-	err = json.Unmarshal(data, &dst.String);
+	err = json.Unmarshal(data, &dst.String)
 	if err == nil {
 		jsonString, _ := json.Marshal(dst.String)
 		if string(jsonString) == "{}" { // empty struct
@@ -79,7 +78,6 @@ func (src GroupSchemaAttributeEnumInner) MarshalJSON() ([]byte, error) {
 
 	return nil, nil // no data in anyOf schemas
 }
-
 
 type NullableGroupSchemaAttributeEnumInner struct {
 	value *GroupSchemaAttributeEnumInner
@@ -116,5 +114,3 @@ func (v *NullableGroupSchemaAttributeEnumInner) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

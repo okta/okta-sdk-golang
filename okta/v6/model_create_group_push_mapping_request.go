@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"fmt"
 )
 
+// checks if the CreateGroupPushMappingRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateGroupPushMappingRequest{}
+
 // CreateGroupPushMappingRequest struct for CreateGroupPushMappingRequest
 type CreateGroupPushMappingRequest struct {
 	AppConfig AppConfig `json:"appConfig,omitempty"`
@@ -38,7 +41,7 @@ type CreateGroupPushMappingRequest struct {
 	// The ID of the existing target group for the group push mapping. This is used to link to an existing group. Required if `targetGroupName` is not provided.
 	TargetGroupId *string `json:"targetGroupId,omitempty"`
 	// The name of the target group for the group push mapping. This is used when creating a new downstream group. If the group already exists, it links to the existing group. Required if `targetGroupId` is not provided.
-	TargetGroupName *string `json:"targetGroupName,omitempty"`
+	TargetGroupName      *string `json:"targetGroupName,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -68,7 +71,7 @@ func NewCreateGroupPushMappingRequestWithDefaults() *CreateGroupPushMappingReque
 
 // GetAppConfig returns the AppConfig field value if set, zero value otherwise.
 func (o *CreateGroupPushMappingRequest) GetAppConfig() AppConfig {
-	if o == nil || o.AppConfig == nil {
+	if o == nil || IsNil(o.AppConfig) {
 		var ret AppConfig
 		return ret
 	}
@@ -78,15 +81,15 @@ func (o *CreateGroupPushMappingRequest) GetAppConfig() AppConfig {
 // GetAppConfigOk returns a tuple with the AppConfig field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateGroupPushMappingRequest) GetAppConfigOk() (AppConfig, bool) {
-	if o == nil || o.AppConfig == nil {
-		return nil, false
+	if o == nil || IsNil(o.AppConfig) {
+		return AppConfig{}, false
 	}
 	return o.AppConfig, true
 }
 
 // HasAppConfig returns a boolean if a field has been set.
 func (o *CreateGroupPushMappingRequest) HasAppConfig() bool {
-	if o != nil && o.AppConfig != nil {
+	if o != nil && !IsNil(o.AppConfig) {
 		return true
 	}
 
@@ -124,7 +127,7 @@ func (o *CreateGroupPushMappingRequest) SetSourceGroupId(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *CreateGroupPushMappingRequest) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -134,7 +137,7 @@ func (o *CreateGroupPushMappingRequest) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateGroupPushMappingRequest) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -142,7 +145,7 @@ func (o *CreateGroupPushMappingRequest) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *CreateGroupPushMappingRequest) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -156,7 +159,7 @@ func (o *CreateGroupPushMappingRequest) SetStatus(v string) {
 
 // GetTargetGroupId returns the TargetGroupId field value if set, zero value otherwise.
 func (o *CreateGroupPushMappingRequest) GetTargetGroupId() string {
-	if o == nil || o.TargetGroupId == nil {
+	if o == nil || IsNil(o.TargetGroupId) {
 		var ret string
 		return ret
 	}
@@ -166,7 +169,7 @@ func (o *CreateGroupPushMappingRequest) GetTargetGroupId() string {
 // GetTargetGroupIdOk returns a tuple with the TargetGroupId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateGroupPushMappingRequest) GetTargetGroupIdOk() (*string, bool) {
-	if o == nil || o.TargetGroupId == nil {
+	if o == nil || IsNil(o.TargetGroupId) {
 		return nil, false
 	}
 	return o.TargetGroupId, true
@@ -174,7 +177,7 @@ func (o *CreateGroupPushMappingRequest) GetTargetGroupIdOk() (*string, bool) {
 
 // HasTargetGroupId returns a boolean if a field has been set.
 func (o *CreateGroupPushMappingRequest) HasTargetGroupId() bool {
-	if o != nil && o.TargetGroupId != nil {
+	if o != nil && !IsNil(o.TargetGroupId) {
 		return true
 	}
 
@@ -188,7 +191,7 @@ func (o *CreateGroupPushMappingRequest) SetTargetGroupId(v string) {
 
 // GetTargetGroupName returns the TargetGroupName field value if set, zero value otherwise.
 func (o *CreateGroupPushMappingRequest) GetTargetGroupName() string {
-	if o == nil || o.TargetGroupName == nil {
+	if o == nil || IsNil(o.TargetGroupName) {
 		var ret string
 		return ret
 	}
@@ -198,7 +201,7 @@ func (o *CreateGroupPushMappingRequest) GetTargetGroupName() string {
 // GetTargetGroupNameOk returns a tuple with the TargetGroupName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateGroupPushMappingRequest) GetTargetGroupNameOk() (*string, bool) {
-	if o == nil || o.TargetGroupName == nil {
+	if o == nil || IsNil(o.TargetGroupName) {
 		return nil, false
 	}
 	return o.TargetGroupName, true
@@ -206,7 +209,7 @@ func (o *CreateGroupPushMappingRequest) GetTargetGroupNameOk() (*string, bool) {
 
 // HasTargetGroupName returns a boolean if a field has been set.
 func (o *CreateGroupPushMappingRequest) HasTargetGroupName() bool {
-	if o != nil && o.TargetGroupName != nil {
+	if o != nil && !IsNil(o.TargetGroupName) {
 		return true
 	}
 
@@ -219,20 +222,26 @@ func (o *CreateGroupPushMappingRequest) SetTargetGroupName(v string) {
 }
 
 func (o CreateGroupPushMappingRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CreateGroupPushMappingRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AppConfig != nil {
+	if !IsNil(o.AppConfig) {
 		toSerialize["appConfig"] = o.AppConfig
 	}
-	if true {
-		toSerialize["sourceGroupId"] = o.SourceGroupId
-	}
-	if o.Status != nil {
+	toSerialize["sourceGroupId"] = o.SourceGroupId
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.TargetGroupId != nil {
+	if !IsNil(o.TargetGroupId) {
 		toSerialize["targetGroupId"] = o.TargetGroupId
 	}
-	if o.TargetGroupName != nil {
+	if !IsNil(o.TargetGroupName) {
 		toSerialize["targetGroupName"] = o.TargetGroupName
 	}
 
@@ -240,31 +249,50 @@ func (o CreateGroupPushMappingRequest) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CreateGroupPushMappingRequest) UnmarshalJSON(bytes []byte) (err error) {
-	varCreateGroupPushMappingRequest := _CreateGroupPushMappingRequest{}
+func (o *CreateGroupPushMappingRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"sourceGroupId",
+	}
 
-	err = json.Unmarshal(bytes, &varCreateGroupPushMappingRequest)
-	if err == nil {
-		*o = CreateGroupPushMappingRequest(varCreateGroupPushMappingRequest)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCreateGroupPushMappingRequest := _CreateGroupPushMappingRequest{}
+
+	err = json.Unmarshal(data, &varCreateGroupPushMappingRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreateGroupPushMappingRequest(varCreateGroupPushMappingRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "appConfig")
 		delete(additionalProperties, "sourceGroupId")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "targetGroupId")
 		delete(additionalProperties, "targetGroupName")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -305,4 +333,3 @@ func (v *NullableCreateGroupPushMappingRequest) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

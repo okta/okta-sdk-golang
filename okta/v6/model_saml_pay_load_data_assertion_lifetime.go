@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the SAMLPayLoadDataAssertionLifetime type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SAMLPayLoadDataAssertionLifetime{}
+
 // SAMLPayLoadDataAssertionLifetime Specifies the expiration time, in seconds, of the SAML assertion
 type SAMLPayLoadDataAssertionLifetime struct {
 	// The expiration time in seconds
-	Expiration *int32 `json:"expiration,omitempty"`
+	Expiration           *int32 `json:"expiration,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewSAMLPayLoadDataAssertionLifetimeWithDefaults() *SAMLPayLoadDataAssertion
 
 // GetExpiration returns the Expiration field value if set, zero value otherwise.
 func (o *SAMLPayLoadDataAssertionLifetime) GetExpiration() int32 {
-	if o == nil || o.Expiration == nil {
+	if o == nil || IsNil(o.Expiration) {
 		var ret int32
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *SAMLPayLoadDataAssertionLifetime) GetExpiration() int32 {
 // GetExpirationOk returns a tuple with the Expiration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoadDataAssertionLifetime) GetExpirationOk() (*int32, bool) {
-	if o == nil || o.Expiration == nil {
+	if o == nil || IsNil(o.Expiration) {
 		return nil, false
 	}
 	return o.Expiration, true
@@ -73,7 +76,7 @@ func (o *SAMLPayLoadDataAssertionLifetime) GetExpirationOk() (*int32, bool) {
 
 // HasExpiration returns a boolean if a field has been set.
 func (o *SAMLPayLoadDataAssertionLifetime) HasExpiration() bool {
-	if o != nil && o.Expiration != nil {
+	if o != nil && !IsNil(o.Expiration) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *SAMLPayLoadDataAssertionLifetime) SetExpiration(v int32) {
 }
 
 func (o SAMLPayLoadDataAssertionLifetime) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SAMLPayLoadDataAssertionLifetime) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Expiration != nil {
+	if !IsNil(o.Expiration) {
 		toSerialize["expiration"] = o.Expiration
 	}
 
@@ -95,27 +106,25 @@ func (o SAMLPayLoadDataAssertionLifetime) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SAMLPayLoadDataAssertionLifetime) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SAMLPayLoadDataAssertionLifetime) UnmarshalJSON(data []byte) (err error) {
 	varSAMLPayLoadDataAssertionLifetime := _SAMLPayLoadDataAssertionLifetime{}
 
-	err = json.Unmarshal(bytes, &varSAMLPayLoadDataAssertionLifetime)
-	if err == nil {
-		*o = SAMLPayLoadDataAssertionLifetime(varSAMLPayLoadDataAssertionLifetime)
-	} else {
+	err = json.Unmarshal(data, &varSAMLPayLoadDataAssertionLifetime)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SAMLPayLoadDataAssertionLifetime(varSAMLPayLoadDataAssertionLifetime)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "expiration")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableSAMLPayLoadDataAssertionLifetime) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

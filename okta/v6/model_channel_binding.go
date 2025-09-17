@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the ChannelBinding type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ChannelBinding{}
+
 // ChannelBinding struct for ChannelBinding
 type ChannelBinding struct {
-	Required *string `json:"required,omitempty"`
-	Style *string `json:"style,omitempty"`
+	Required             *string `json:"required,omitempty"`
+	Style                *string `json:"style,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewChannelBindingWithDefaults() *ChannelBinding {
 
 // GetRequired returns the Required field value if set, zero value otherwise.
 func (o *ChannelBinding) GetRequired() string {
-	if o == nil || o.Required == nil {
+	if o == nil || IsNil(o.Required) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *ChannelBinding) GetRequired() string {
 // GetRequiredOk returns a tuple with the Required field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ChannelBinding) GetRequiredOk() (*string, bool) {
-	if o == nil || o.Required == nil {
+	if o == nil || IsNil(o.Required) {
 		return nil, false
 	}
 	return o.Required, true
@@ -73,7 +76,7 @@ func (o *ChannelBinding) GetRequiredOk() (*string, bool) {
 
 // HasRequired returns a boolean if a field has been set.
 func (o *ChannelBinding) HasRequired() bool {
-	if o != nil && o.Required != nil {
+	if o != nil && !IsNil(o.Required) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *ChannelBinding) SetRequired(v string) {
 
 // GetStyle returns the Style field value if set, zero value otherwise.
 func (o *ChannelBinding) GetStyle() string {
-	if o == nil || o.Style == nil {
+	if o == nil || IsNil(o.Style) {
 		var ret string
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *ChannelBinding) GetStyle() string {
 // GetStyleOk returns a tuple with the Style field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ChannelBinding) GetStyleOk() (*string, bool) {
-	if o == nil || o.Style == nil {
+	if o == nil || IsNil(o.Style) {
 		return nil, false
 	}
 	return o.Style, true
@@ -105,7 +108,7 @@ func (o *ChannelBinding) GetStyleOk() (*string, bool) {
 
 // HasStyle returns a boolean if a field has been set.
 func (o *ChannelBinding) HasStyle() bool {
-	if o != nil && o.Style != nil {
+	if o != nil && !IsNil(o.Style) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *ChannelBinding) SetStyle(v string) {
 }
 
 func (o ChannelBinding) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ChannelBinding) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Required != nil {
+	if !IsNil(o.Required) {
 		toSerialize["required"] = o.Required
 	}
-	if o.Style != nil {
+	if !IsNil(o.Style) {
 		toSerialize["style"] = o.Style
 	}
 
@@ -130,28 +141,26 @@ func (o ChannelBinding) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ChannelBinding) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ChannelBinding) UnmarshalJSON(data []byte) (err error) {
 	varChannelBinding := _ChannelBinding{}
 
-	err = json.Unmarshal(bytes, &varChannelBinding)
-	if err == nil {
-		*o = ChannelBinding(varChannelBinding)
-	} else {
+	err = json.Unmarshal(data, &varChannelBinding)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ChannelBinding(varChannelBinding)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "required")
 		delete(additionalProperties, "style")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableChannelBinding) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

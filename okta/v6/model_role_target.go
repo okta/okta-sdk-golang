@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"time"
 )
 
+// checks if the RoleTarget type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RoleTarget{}
+
 // RoleTarget struct for RoleTarget
 type RoleTarget struct {
 	// The assignment type of how the user receives this target
@@ -35,8 +38,8 @@ type RoleTarget struct {
 	// The expiry time stamp of the associated target. It's only included in the response if the associated target will expire.
 	Expiration *time.Time `json:"expiration,omitempty"`
 	// The [Okta Resource Name (ORN)](https://support.okta.com/help/s/article/understanding-okta-resource-name-orn) of the app target or group target
-	Orn *string `json:"orn,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	Orn                  *string    `json:"orn,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewRoleTargetWithDefaults() *RoleTarget {
 
 // GetAssignmentType returns the AssignmentType field value if set, zero value otherwise.
 func (o *RoleTarget) GetAssignmentType() string {
-	if o == nil || o.AssignmentType == nil {
+	if o == nil || IsNil(o.AssignmentType) {
 		var ret string
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *RoleTarget) GetAssignmentType() string {
 // GetAssignmentTypeOk returns a tuple with the AssignmentType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RoleTarget) GetAssignmentTypeOk() (*string, bool) {
-	if o == nil || o.AssignmentType == nil {
+	if o == nil || IsNil(o.AssignmentType) {
 		return nil, false
 	}
 	return o.AssignmentType, true
@@ -79,7 +82,7 @@ func (o *RoleTarget) GetAssignmentTypeOk() (*string, bool) {
 
 // HasAssignmentType returns a boolean if a field has been set.
 func (o *RoleTarget) HasAssignmentType() bool {
-	if o != nil && o.AssignmentType != nil {
+	if o != nil && !IsNil(o.AssignmentType) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *RoleTarget) SetAssignmentType(v string) {
 
 // GetExpiration returns the Expiration field value if set, zero value otherwise.
 func (o *RoleTarget) GetExpiration() time.Time {
-	if o == nil || o.Expiration == nil {
+	if o == nil || IsNil(o.Expiration) {
 		var ret time.Time
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *RoleTarget) GetExpiration() time.Time {
 // GetExpirationOk returns a tuple with the Expiration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RoleTarget) GetExpirationOk() (*time.Time, bool) {
-	if o == nil || o.Expiration == nil {
+	if o == nil || IsNil(o.Expiration) {
 		return nil, false
 	}
 	return o.Expiration, true
@@ -111,7 +114,7 @@ func (o *RoleTarget) GetExpirationOk() (*time.Time, bool) {
 
 // HasExpiration returns a boolean if a field has been set.
 func (o *RoleTarget) HasExpiration() bool {
-	if o != nil && o.Expiration != nil {
+	if o != nil && !IsNil(o.Expiration) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *RoleTarget) SetExpiration(v time.Time) {
 
 // GetOrn returns the Orn field value if set, zero value otherwise.
 func (o *RoleTarget) GetOrn() string {
-	if o == nil || o.Orn == nil {
+	if o == nil || IsNil(o.Orn) {
 		var ret string
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *RoleTarget) GetOrn() string {
 // GetOrnOk returns a tuple with the Orn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RoleTarget) GetOrnOk() (*string, bool) {
-	if o == nil || o.Orn == nil {
+	if o == nil || IsNil(o.Orn) {
 		return nil, false
 	}
 	return o.Orn, true
@@ -143,7 +146,7 @@ func (o *RoleTarget) GetOrnOk() (*string, bool) {
 
 // HasOrn returns a boolean if a field has been set.
 func (o *RoleTarget) HasOrn() bool {
-	if o != nil && o.Orn != nil {
+	if o != nil && !IsNil(o.Orn) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *RoleTarget) SetOrn(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *RoleTarget) GetLinks() LinksSelf {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksSelf
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *RoleTarget) GetLinks() LinksSelf {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RoleTarget) GetLinksOk() (*LinksSelf, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -175,7 +178,7 @@ func (o *RoleTarget) GetLinksOk() (*LinksSelf, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *RoleTarget) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -188,17 +191,25 @@ func (o *RoleTarget) SetLinks(v LinksSelf) {
 }
 
 func (o RoleTarget) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RoleTarget) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AssignmentType != nil {
+	if !IsNil(o.AssignmentType) {
 		toSerialize["assignmentType"] = o.AssignmentType
 	}
-	if o.Expiration != nil {
+	if !IsNil(o.Expiration) {
 		toSerialize["expiration"] = o.Expiration
 	}
-	if o.Orn != nil {
+	if !IsNil(o.Orn) {
 		toSerialize["orn"] = o.Orn
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -206,30 +217,28 @@ func (o RoleTarget) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RoleTarget) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RoleTarget) UnmarshalJSON(data []byte) (err error) {
 	varRoleTarget := _RoleTarget{}
 
-	err = json.Unmarshal(bytes, &varRoleTarget)
-	if err == nil {
-		*o = RoleTarget(varRoleTarget)
-	} else {
+	err = json.Unmarshal(data, &varRoleTarget)
+
+	if err != nil {
 		return err
 	}
 
+	*o = RoleTarget(varRoleTarget)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "assignmentType")
 		delete(additionalProperties, "expiration")
 		delete(additionalProperties, "orn")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -270,4 +279,3 @@ func (v *NullableRoleTarget) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

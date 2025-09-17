@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,22 +26,21 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"time"
 )
 
-
 type OrgSettingCommunicationAPI interface {
 
 	/*
-	GetOktaCommunicationSettings Retrieve the Okta communication settings
+		GetOktaCommunicationSettings Retrieve the Okta communication settings
 
-	Retrieves Okta Communication Settings of your org
+		Retrieves Okta Communication Settings of your org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetOktaCommunicationSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetOktaCommunicationSettingsRequest
 	*/
 	GetOktaCommunicationSettings(ctx context.Context) ApiGetOktaCommunicationSettingsRequest
 
@@ -50,12 +49,12 @@ type OrgSettingCommunicationAPI interface {
 	GetOktaCommunicationSettingsExecute(r ApiGetOktaCommunicationSettingsRequest) (*OrgOktaCommunicationSetting, *APIResponse, error)
 
 	/*
-	OptInUsersToOktaCommunicationEmails Opt in to Okta user communication emails
+		OptInUsersToOktaCommunicationEmails Opt in to Okta user communication emails
 
-	Opts in all users of this org to Okta communication emails
+		Opts in all users of this org to Okta communication emails
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiOptInUsersToOktaCommunicationEmailsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiOptInUsersToOktaCommunicationEmailsRequest
 	*/
 	OptInUsersToOktaCommunicationEmails(ctx context.Context) ApiOptInUsersToOktaCommunicationEmailsRequest
 
@@ -64,12 +63,12 @@ type OrgSettingCommunicationAPI interface {
 	OptInUsersToOktaCommunicationEmailsExecute(r ApiOptInUsersToOktaCommunicationEmailsRequest) (*OrgOktaCommunicationSetting, *APIResponse, error)
 
 	/*
-	OptOutUsersFromOktaCommunicationEmails Opt out of Okta user communication emails
+		OptOutUsersFromOktaCommunicationEmails Opt out of Okta user communication emails
 
-	Opts out all users of this org from Okta communication emails
+		Opts out all users of this org from Okta communication emails
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiOptOutUsersFromOktaCommunicationEmailsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiOptOutUsersFromOktaCommunicationEmailsRequest
 	*/
 	OptOutUsersFromOktaCommunicationEmails(ctx context.Context) ApiOptOutUsersFromOktaCommunicationEmailsRequest
 
@@ -82,7 +81,7 @@ type OrgSettingCommunicationAPI interface {
 type OrgSettingCommunicationAPIService service
 
 type ApiGetOktaCommunicationSettingsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingCommunicationAPI
 	retryCount int32
 }
@@ -96,19 +95,20 @@ GetOktaCommunicationSettings Retrieve the Okta communication settings
 
 Retrieves Okta Communication Settings of your org
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetOktaCommunicationSettingsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetOktaCommunicationSettingsRequest
 */
 func (a *OrgSettingCommunicationAPIService) GetOktaCommunicationSettings(ctx context.Context) ApiGetOktaCommunicationSettingsRequest {
 	return ApiGetOktaCommunicationSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OrgOktaCommunicationSetting
+//
+//	@return OrgOktaCommunicationSetting
 func (a *OrgSettingCommunicationAPIService) GetOktaCommunicationSettingsExecute(r ApiGetOktaCommunicationSettingsRequest) (*OrgOktaCommunicationSetting, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -117,7 +117,7 @@ func (a *OrgSettingCommunicationAPIService) GetOktaCommunicationSettingsExecute(
 		localVarReturnValue  *OrgOktaCommunicationSetting
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -177,9 +177,9 @@ func (a *OrgSettingCommunicationAPIService) GetOktaCommunicationSettingsExecute(
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -225,13 +225,13 @@ func (a *OrgSettingCommunicationAPIService) GetOktaCommunicationSettingsExecute(
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiOptInUsersToOktaCommunicationEmailsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingCommunicationAPI
 	retryCount int32
 }
@@ -245,19 +245,20 @@ OptInUsersToOktaCommunicationEmails Opt in to Okta user communication emails
 
 Opts in all users of this org to Okta communication emails
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiOptInUsersToOktaCommunicationEmailsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiOptInUsersToOktaCommunicationEmailsRequest
 */
 func (a *OrgSettingCommunicationAPIService) OptInUsersToOktaCommunicationEmails(ctx context.Context) ApiOptInUsersToOktaCommunicationEmailsRequest {
 	return ApiOptInUsersToOktaCommunicationEmailsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OrgOktaCommunicationSetting
+//
+//	@return OrgOktaCommunicationSetting
 func (a *OrgSettingCommunicationAPIService) OptInUsersToOktaCommunicationEmailsExecute(r ApiOptInUsersToOktaCommunicationEmailsRequest) (*OrgOktaCommunicationSetting, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -266,7 +267,7 @@ func (a *OrgSettingCommunicationAPIService) OptInUsersToOktaCommunicationEmailsE
 		localVarReturnValue  *OrgOktaCommunicationSetting
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -326,9 +327,9 @@ func (a *OrgSettingCommunicationAPIService) OptInUsersToOktaCommunicationEmailsE
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -374,13 +375,13 @@ func (a *OrgSettingCommunicationAPIService) OptInUsersToOktaCommunicationEmailsE
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiOptOutUsersFromOktaCommunicationEmailsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingCommunicationAPI
 	retryCount int32
 }
@@ -394,19 +395,20 @@ OptOutUsersFromOktaCommunicationEmails Opt out of Okta user communication emails
 
 Opts out all users of this org from Okta communication emails
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiOptOutUsersFromOktaCommunicationEmailsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiOptOutUsersFromOktaCommunicationEmailsRequest
 */
 func (a *OrgSettingCommunicationAPIService) OptOutUsersFromOktaCommunicationEmails(ctx context.Context) ApiOptOutUsersFromOktaCommunicationEmailsRequest {
 	return ApiOptOutUsersFromOktaCommunicationEmailsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OrgOktaCommunicationSetting
+//
+//	@return OrgOktaCommunicationSetting
 func (a *OrgSettingCommunicationAPIService) OptOutUsersFromOktaCommunicationEmailsExecute(r ApiOptOutUsersFromOktaCommunicationEmailsRequest) (*OrgOktaCommunicationSetting, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -415,7 +417,7 @@ func (a *OrgSettingCommunicationAPIService) OptOutUsersFromOktaCommunicationEmai
 		localVarReturnValue  *OrgOktaCommunicationSetting
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -475,9 +477,9 @@ func (a *OrgSettingCommunicationAPIService) OptOutUsersFromOktaCommunicationEmai
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -523,7 +525,7 @@ func (a *OrgSettingCommunicationAPIService) OptOutUsersFromOktaCommunicationEmai
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

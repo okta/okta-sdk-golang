@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the EntityRiskPolicyRuleConditions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EntityRiskPolicyRuleConditions{}
+
 // EntityRiskPolicyRuleConditions struct for EntityRiskPolicyRuleConditions
 type EntityRiskPolicyRuleConditions struct {
-	EntityRisk *EntityRiskScorePolicyRuleCondition `json:"entityRisk,omitempty"`
-	People *PolicyPeopleCondition `json:"people,omitempty"`
-	RiskDetectionTypes *RiskDetectionTypesPolicyRuleCondition `json:"riskDetectionTypes,omitempty"`
+	EntityRisk           *EntityRiskScorePolicyRuleCondition    `json:"entityRisk,omitempty"`
+	People               *PolicyPeopleCondition                 `json:"people,omitempty"`
+	RiskDetectionTypes   *RiskDetectionTypesPolicyRuleCondition `json:"riskDetectionTypes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewEntityRiskPolicyRuleConditionsWithDefaults() *EntityRiskPolicyRuleCondit
 
 // GetEntityRisk returns the EntityRisk field value if set, zero value otherwise.
 func (o *EntityRiskPolicyRuleConditions) GetEntityRisk() EntityRiskScorePolicyRuleCondition {
-	if o == nil || o.EntityRisk == nil {
+	if o == nil || IsNil(o.EntityRisk) {
 		var ret EntityRiskScorePolicyRuleCondition
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *EntityRiskPolicyRuleConditions) GetEntityRisk() EntityRiskScorePolicyRu
 // GetEntityRiskOk returns a tuple with the EntityRisk field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntityRiskPolicyRuleConditions) GetEntityRiskOk() (*EntityRiskScorePolicyRuleCondition, bool) {
-	if o == nil || o.EntityRisk == nil {
+	if o == nil || IsNil(o.EntityRisk) {
 		return nil, false
 	}
 	return o.EntityRisk, true
@@ -74,7 +77,7 @@ func (o *EntityRiskPolicyRuleConditions) GetEntityRiskOk() (*EntityRiskScorePoli
 
 // HasEntityRisk returns a boolean if a field has been set.
 func (o *EntityRiskPolicyRuleConditions) HasEntityRisk() bool {
-	if o != nil && o.EntityRisk != nil {
+	if o != nil && !IsNil(o.EntityRisk) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *EntityRiskPolicyRuleConditions) SetEntityRisk(v EntityRiskScorePolicyRu
 
 // GetPeople returns the People field value if set, zero value otherwise.
 func (o *EntityRiskPolicyRuleConditions) GetPeople() PolicyPeopleCondition {
-	if o == nil || o.People == nil {
+	if o == nil || IsNil(o.People) {
 		var ret PolicyPeopleCondition
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *EntityRiskPolicyRuleConditions) GetPeople() PolicyPeopleCondition {
 // GetPeopleOk returns a tuple with the People field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntityRiskPolicyRuleConditions) GetPeopleOk() (*PolicyPeopleCondition, bool) {
-	if o == nil || o.People == nil {
+	if o == nil || IsNil(o.People) {
 		return nil, false
 	}
 	return o.People, true
@@ -106,7 +109,7 @@ func (o *EntityRiskPolicyRuleConditions) GetPeopleOk() (*PolicyPeopleCondition, 
 
 // HasPeople returns a boolean if a field has been set.
 func (o *EntityRiskPolicyRuleConditions) HasPeople() bool {
-	if o != nil && o.People != nil {
+	if o != nil && !IsNil(o.People) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *EntityRiskPolicyRuleConditions) SetPeople(v PolicyPeopleCondition) {
 
 // GetRiskDetectionTypes returns the RiskDetectionTypes field value if set, zero value otherwise.
 func (o *EntityRiskPolicyRuleConditions) GetRiskDetectionTypes() RiskDetectionTypesPolicyRuleCondition {
-	if o == nil || o.RiskDetectionTypes == nil {
+	if o == nil || IsNil(o.RiskDetectionTypes) {
 		var ret RiskDetectionTypesPolicyRuleCondition
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *EntityRiskPolicyRuleConditions) GetRiskDetectionTypes() RiskDetectionTy
 // GetRiskDetectionTypesOk returns a tuple with the RiskDetectionTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntityRiskPolicyRuleConditions) GetRiskDetectionTypesOk() (*RiskDetectionTypesPolicyRuleCondition, bool) {
-	if o == nil || o.RiskDetectionTypes == nil {
+	if o == nil || IsNil(o.RiskDetectionTypes) {
 		return nil, false
 	}
 	return o.RiskDetectionTypes, true
@@ -138,7 +141,7 @@ func (o *EntityRiskPolicyRuleConditions) GetRiskDetectionTypesOk() (*RiskDetecti
 
 // HasRiskDetectionTypes returns a boolean if a field has been set.
 func (o *EntityRiskPolicyRuleConditions) HasRiskDetectionTypes() bool {
-	if o != nil && o.RiskDetectionTypes != nil {
+	if o != nil && !IsNil(o.RiskDetectionTypes) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *EntityRiskPolicyRuleConditions) SetRiskDetectionTypes(v RiskDetectionTy
 }
 
 func (o EntityRiskPolicyRuleConditions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EntityRiskPolicyRuleConditions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.EntityRisk != nil {
+	if !IsNil(o.EntityRisk) {
 		toSerialize["entityRisk"] = o.EntityRisk
 	}
-	if o.People != nil {
+	if !IsNil(o.People) {
 		toSerialize["people"] = o.People
 	}
-	if o.RiskDetectionTypes != nil {
+	if !IsNil(o.RiskDetectionTypes) {
 		toSerialize["riskDetectionTypes"] = o.RiskDetectionTypes
 	}
 
@@ -166,29 +177,27 @@ func (o EntityRiskPolicyRuleConditions) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EntityRiskPolicyRuleConditions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *EntityRiskPolicyRuleConditions) UnmarshalJSON(data []byte) (err error) {
 	varEntityRiskPolicyRuleConditions := _EntityRiskPolicyRuleConditions{}
 
-	err = json.Unmarshal(bytes, &varEntityRiskPolicyRuleConditions)
-	if err == nil {
-		*o = EntityRiskPolicyRuleConditions(varEntityRiskPolicyRuleConditions)
-	} else {
+	err = json.Unmarshal(data, &varEntityRiskPolicyRuleConditions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = EntityRiskPolicyRuleConditions(varEntityRiskPolicyRuleConditions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "entityRisk")
 		delete(additionalProperties, "people")
 		delete(additionalProperties, "riskDetectionTypes")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullableEntityRiskPolicyRuleConditions) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

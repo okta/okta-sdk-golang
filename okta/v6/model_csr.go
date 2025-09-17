@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,14 +28,17 @@ import (
 	"time"
 )
 
+// checks if the Csr type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Csr{}
+
 // Csr struct for Csr
 type Csr struct {
 	// Timestamp when the object was created
-	Created *time.Time `json:"created,omitempty"`
-	Csr *string `json:"csr,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Kty *string `json:"kty,omitempty"`
-	Links *CSRLinks `json:"_links,omitempty"`
+	Created              *time.Time `json:"created,omitempty"`
+	Csr                  *string    `json:"csr,omitempty"`
+	Id                   *string    `json:"id,omitempty"`
+	Kty                  *string    `json:"kty,omitempty"`
+	Links                *CSRLinks  `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +63,7 @@ func NewCsrWithDefaults() *Csr {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *Csr) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *Csr) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Csr) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -78,7 +81,7 @@ func (o *Csr) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *Csr) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -92,7 +95,7 @@ func (o *Csr) SetCreated(v time.Time) {
 
 // GetCsr returns the Csr field value if set, zero value otherwise.
 func (o *Csr) GetCsr() string {
-	if o == nil || o.Csr == nil {
+	if o == nil || IsNil(o.Csr) {
 		var ret string
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *Csr) GetCsr() string {
 // GetCsrOk returns a tuple with the Csr field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Csr) GetCsrOk() (*string, bool) {
-	if o == nil || o.Csr == nil {
+	if o == nil || IsNil(o.Csr) {
 		return nil, false
 	}
 	return o.Csr, true
@@ -110,7 +113,7 @@ func (o *Csr) GetCsrOk() (*string, bool) {
 
 // HasCsr returns a boolean if a field has been set.
 func (o *Csr) HasCsr() bool {
-	if o != nil && o.Csr != nil {
+	if o != nil && !IsNil(o.Csr) {
 		return true
 	}
 
@@ -124,7 +127,7 @@ func (o *Csr) SetCsr(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *Csr) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -134,7 +137,7 @@ func (o *Csr) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Csr) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -142,7 +145,7 @@ func (o *Csr) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *Csr) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -156,7 +159,7 @@ func (o *Csr) SetId(v string) {
 
 // GetKty returns the Kty field value if set, zero value otherwise.
 func (o *Csr) GetKty() string {
-	if o == nil || o.Kty == nil {
+	if o == nil || IsNil(o.Kty) {
 		var ret string
 		return ret
 	}
@@ -166,7 +169,7 @@ func (o *Csr) GetKty() string {
 // GetKtyOk returns a tuple with the Kty field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Csr) GetKtyOk() (*string, bool) {
-	if o == nil || o.Kty == nil {
+	if o == nil || IsNil(o.Kty) {
 		return nil, false
 	}
 	return o.Kty, true
@@ -174,7 +177,7 @@ func (o *Csr) GetKtyOk() (*string, bool) {
 
 // HasKty returns a boolean if a field has been set.
 func (o *Csr) HasKty() bool {
-	if o != nil && o.Kty != nil {
+	if o != nil && !IsNil(o.Kty) {
 		return true
 	}
 
@@ -188,7 +191,7 @@ func (o *Csr) SetKty(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *Csr) GetLinks() CSRLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret CSRLinks
 		return ret
 	}
@@ -198,7 +201,7 @@ func (o *Csr) GetLinks() CSRLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Csr) GetLinksOk() (*CSRLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -206,7 +209,7 @@ func (o *Csr) GetLinksOk() (*CSRLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *Csr) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -219,20 +222,28 @@ func (o *Csr) SetLinks(v CSRLinks) {
 }
 
 func (o Csr) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Csr) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Csr != nil {
+	if !IsNil(o.Csr) {
 		toSerialize["csr"] = o.Csr
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Kty != nil {
+	if !IsNil(o.Kty) {
 		toSerialize["kty"] = o.Kty
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -240,31 +251,29 @@ func (o Csr) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Csr) UnmarshalJSON(bytes []byte) (err error) {
+func (o *Csr) UnmarshalJSON(data []byte) (err error) {
 	varCsr := _Csr{}
 
-	err = json.Unmarshal(bytes, &varCsr)
-	if err == nil {
-		*o = Csr(varCsr)
-	} else {
+	err = json.Unmarshal(data, &varCsr)
+
+	if err != nil {
 		return err
 	}
 
+	*o = Csr(varCsr)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "csr")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "kty")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -305,4 +314,3 @@ func (v *NullableCsr) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the PasswordExpirationPolicyRuleCondition type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordExpirationPolicyRuleCondition{}
+
 // PasswordExpirationPolicyRuleCondition struct for PasswordExpirationPolicyRuleCondition
 type PasswordExpirationPolicyRuleCondition struct {
-	Number *int32 `json:"number,omitempty"`
-	Unit *string `json:"unit,omitempty"`
+	Number               *int32  `json:"number,omitempty"`
+	Unit                 *string `json:"unit,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewPasswordExpirationPolicyRuleConditionWithDefaults() *PasswordExpirationP
 
 // GetNumber returns the Number field value if set, zero value otherwise.
 func (o *PasswordExpirationPolicyRuleCondition) GetNumber() int32 {
-	if o == nil || o.Number == nil {
+	if o == nil || IsNil(o.Number) {
 		var ret int32
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *PasswordExpirationPolicyRuleCondition) GetNumber() int32 {
 // GetNumberOk returns a tuple with the Number field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordExpirationPolicyRuleCondition) GetNumberOk() (*int32, bool) {
-	if o == nil || o.Number == nil {
+	if o == nil || IsNil(o.Number) {
 		return nil, false
 	}
 	return o.Number, true
@@ -73,7 +76,7 @@ func (o *PasswordExpirationPolicyRuleCondition) GetNumberOk() (*int32, bool) {
 
 // HasNumber returns a boolean if a field has been set.
 func (o *PasswordExpirationPolicyRuleCondition) HasNumber() bool {
-	if o != nil && o.Number != nil {
+	if o != nil && !IsNil(o.Number) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *PasswordExpirationPolicyRuleCondition) SetNumber(v int32) {
 
 // GetUnit returns the Unit field value if set, zero value otherwise.
 func (o *PasswordExpirationPolicyRuleCondition) GetUnit() string {
-	if o == nil || o.Unit == nil {
+	if o == nil || IsNil(o.Unit) {
 		var ret string
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *PasswordExpirationPolicyRuleCondition) GetUnit() string {
 // GetUnitOk returns a tuple with the Unit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordExpirationPolicyRuleCondition) GetUnitOk() (*string, bool) {
-	if o == nil || o.Unit == nil {
+	if o == nil || IsNil(o.Unit) {
 		return nil, false
 	}
 	return o.Unit, true
@@ -105,7 +108,7 @@ func (o *PasswordExpirationPolicyRuleCondition) GetUnitOk() (*string, bool) {
 
 // HasUnit returns a boolean if a field has been set.
 func (o *PasswordExpirationPolicyRuleCondition) HasUnit() bool {
-	if o != nil && o.Unit != nil {
+	if o != nil && !IsNil(o.Unit) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *PasswordExpirationPolicyRuleCondition) SetUnit(v string) {
 }
 
 func (o PasswordExpirationPolicyRuleCondition) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordExpirationPolicyRuleCondition) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Number != nil {
+	if !IsNil(o.Number) {
 		toSerialize["number"] = o.Number
 	}
-	if o.Unit != nil {
+	if !IsNil(o.Unit) {
 		toSerialize["unit"] = o.Unit
 	}
 
@@ -130,28 +141,26 @@ func (o PasswordExpirationPolicyRuleCondition) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordExpirationPolicyRuleCondition) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordExpirationPolicyRuleCondition) UnmarshalJSON(data []byte) (err error) {
 	varPasswordExpirationPolicyRuleCondition := _PasswordExpirationPolicyRuleCondition{}
 
-	err = json.Unmarshal(bytes, &varPasswordExpirationPolicyRuleCondition)
-	if err == nil {
-		*o = PasswordExpirationPolicyRuleCondition(varPasswordExpirationPolicyRuleCondition)
-	} else {
+	err = json.Unmarshal(data, &varPasswordExpirationPolicyRuleCondition)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PasswordExpirationPolicyRuleCondition(varPasswordExpirationPolicyRuleCondition)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "number")
 		delete(additionalProperties, "unit")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullablePasswordExpirationPolicyRuleCondition) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

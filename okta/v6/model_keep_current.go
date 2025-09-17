@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the KeepCurrent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &KeepCurrent{}
+
 // KeepCurrent struct for KeepCurrent
 type KeepCurrent struct {
 	// Skip deleting the user's current session when set to `true`
-	KeepCurrent *bool `json:"keepCurrent,omitempty"`
+	KeepCurrent          *bool `json:"keepCurrent,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewKeepCurrentWithDefaults() *KeepCurrent {
 
 // GetKeepCurrent returns the KeepCurrent field value if set, zero value otherwise.
 func (o *KeepCurrent) GetKeepCurrent() bool {
-	if o == nil || o.KeepCurrent == nil {
+	if o == nil || IsNil(o.KeepCurrent) {
 		var ret bool
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *KeepCurrent) GetKeepCurrent() bool {
 // GetKeepCurrentOk returns a tuple with the KeepCurrent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KeepCurrent) GetKeepCurrentOk() (*bool, bool) {
-	if o == nil || o.KeepCurrent == nil {
+	if o == nil || IsNil(o.KeepCurrent) {
 		return nil, false
 	}
 	return o.KeepCurrent, true
@@ -77,7 +80,7 @@ func (o *KeepCurrent) GetKeepCurrentOk() (*bool, bool) {
 
 // HasKeepCurrent returns a boolean if a field has been set.
 func (o *KeepCurrent) HasKeepCurrent() bool {
-	if o != nil && o.KeepCurrent != nil {
+	if o != nil && !IsNil(o.KeepCurrent) {
 		return true
 	}
 
@@ -90,8 +93,16 @@ func (o *KeepCurrent) SetKeepCurrent(v bool) {
 }
 
 func (o KeepCurrent) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o KeepCurrent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.KeepCurrent != nil {
+	if !IsNil(o.KeepCurrent) {
 		toSerialize["keepCurrent"] = o.KeepCurrent
 	}
 
@@ -99,27 +110,25 @@ func (o KeepCurrent) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *KeepCurrent) UnmarshalJSON(bytes []byte) (err error) {
+func (o *KeepCurrent) UnmarshalJSON(data []byte) (err error) {
 	varKeepCurrent := _KeepCurrent{}
 
-	err = json.Unmarshal(bytes, &varKeepCurrent)
-	if err == nil {
-		*o = KeepCurrent(varKeepCurrent)
-	} else {
+	err = json.Unmarshal(data, &varKeepCurrent)
+
+	if err != nil {
 		return err
 	}
 
+	*o = KeepCurrent(varKeepCurrent)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "keepCurrent")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -160,4 +169,3 @@ func (v *NullableKeepCurrent) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

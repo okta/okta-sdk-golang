@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the EntitlementValueLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EntitlementValueLinks{}
+
 // EntitlementValueLinks Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification
 type EntitlementValueLinks struct {
-	Group *HrefObjectGroupLink `json:"group,omitempty"`
-	App *HrefObjectAppLink `json:"app,omitempty"`
-	ResourceSet *HrefObjectResourceSetLink `json:"resource-set,omitempty"`
+	Group                *HrefObjectGroupLink       `json:"group,omitempty"`
+	App                  *HrefObjectAppLink         `json:"app,omitempty"`
+	ResourceSet          *HrefObjectResourceSetLink `json:"resource-set,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewEntitlementValueLinksWithDefaults() *EntitlementValueLinks {
 
 // GetGroup returns the Group field value if set, zero value otherwise.
 func (o *EntitlementValueLinks) GetGroup() HrefObjectGroupLink {
-	if o == nil || o.Group == nil {
+	if o == nil || IsNil(o.Group) {
 		var ret HrefObjectGroupLink
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *EntitlementValueLinks) GetGroup() HrefObjectGroupLink {
 // GetGroupOk returns a tuple with the Group field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementValueLinks) GetGroupOk() (*HrefObjectGroupLink, bool) {
-	if o == nil || o.Group == nil {
+	if o == nil || IsNil(o.Group) {
 		return nil, false
 	}
 	return o.Group, true
@@ -74,7 +77,7 @@ func (o *EntitlementValueLinks) GetGroupOk() (*HrefObjectGroupLink, bool) {
 
 // HasGroup returns a boolean if a field has been set.
 func (o *EntitlementValueLinks) HasGroup() bool {
-	if o != nil && o.Group != nil {
+	if o != nil && !IsNil(o.Group) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *EntitlementValueLinks) SetGroup(v HrefObjectGroupLink) {
 
 // GetApp returns the App field value if set, zero value otherwise.
 func (o *EntitlementValueLinks) GetApp() HrefObjectAppLink {
-	if o == nil || o.App == nil {
+	if o == nil || IsNil(o.App) {
 		var ret HrefObjectAppLink
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *EntitlementValueLinks) GetApp() HrefObjectAppLink {
 // GetAppOk returns a tuple with the App field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementValueLinks) GetAppOk() (*HrefObjectAppLink, bool) {
-	if o == nil || o.App == nil {
+	if o == nil || IsNil(o.App) {
 		return nil, false
 	}
 	return o.App, true
@@ -106,7 +109,7 @@ func (o *EntitlementValueLinks) GetAppOk() (*HrefObjectAppLink, bool) {
 
 // HasApp returns a boolean if a field has been set.
 func (o *EntitlementValueLinks) HasApp() bool {
-	if o != nil && o.App != nil {
+	if o != nil && !IsNil(o.App) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *EntitlementValueLinks) SetApp(v HrefObjectAppLink) {
 
 // GetResourceSet returns the ResourceSet field value if set, zero value otherwise.
 func (o *EntitlementValueLinks) GetResourceSet() HrefObjectResourceSetLink {
-	if o == nil || o.ResourceSet == nil {
+	if o == nil || IsNil(o.ResourceSet) {
 		var ret HrefObjectResourceSetLink
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *EntitlementValueLinks) GetResourceSet() HrefObjectResourceSetLink {
 // GetResourceSetOk returns a tuple with the ResourceSet field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementValueLinks) GetResourceSetOk() (*HrefObjectResourceSetLink, bool) {
-	if o == nil || o.ResourceSet == nil {
+	if o == nil || IsNil(o.ResourceSet) {
 		return nil, false
 	}
 	return o.ResourceSet, true
@@ -138,7 +141,7 @@ func (o *EntitlementValueLinks) GetResourceSetOk() (*HrefObjectResourceSetLink, 
 
 // HasResourceSet returns a boolean if a field has been set.
 func (o *EntitlementValueLinks) HasResourceSet() bool {
-	if o != nil && o.ResourceSet != nil {
+	if o != nil && !IsNil(o.ResourceSet) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *EntitlementValueLinks) SetResourceSet(v HrefObjectResourceSetLink) {
 }
 
 func (o EntitlementValueLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EntitlementValueLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Group != nil {
+	if !IsNil(o.Group) {
 		toSerialize["group"] = o.Group
 	}
-	if o.App != nil {
+	if !IsNil(o.App) {
 		toSerialize["app"] = o.App
 	}
-	if o.ResourceSet != nil {
+	if !IsNil(o.ResourceSet) {
 		toSerialize["resource-set"] = o.ResourceSet
 	}
 
@@ -166,29 +177,27 @@ func (o EntitlementValueLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EntitlementValueLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *EntitlementValueLinks) UnmarshalJSON(data []byte) (err error) {
 	varEntitlementValueLinks := _EntitlementValueLinks{}
 
-	err = json.Unmarshal(bytes, &varEntitlementValueLinks)
-	if err == nil {
-		*o = EntitlementValueLinks(varEntitlementValueLinks)
-	} else {
+	err = json.Unmarshal(data, &varEntitlementValueLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = EntitlementValueLinks(varEntitlementValueLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "group")
 		delete(additionalProperties, "app")
 		delete(additionalProperties, "resource-set")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullableEntitlementValueLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

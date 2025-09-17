@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,23 +26,22 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type ServiceAccountAPI interface {
 
 	/*
-	CreateAppServiceAccount Create an app service account
+		CreateAppServiceAccount Create an app service account
 
-	Creates a new app service account for managing an app account
+		Creates a new app service account for managing an app account
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateAppServiceAccountRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateAppServiceAccountRequest
 	*/
 	CreateAppServiceAccount(ctx context.Context) ApiCreateAppServiceAccountRequest
 
@@ -51,13 +50,13 @@ type ServiceAccountAPI interface {
 	CreateAppServiceAccountExecute(r ApiCreateAppServiceAccountRequest) (*AppServiceAccount, *APIResponse, error)
 
 	/*
-	DeleteAppServiceAccount Delete an app service account
+		DeleteAppServiceAccount Delete an app service account
 
-	Deletes an app service account specified by ID
+		Deletes an app service account specified by ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id ID of an existing service account
-	@return ApiDeleteAppServiceAccountRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id ID of an existing service account
+		@return ApiDeleteAppServiceAccountRequest
 	*/
 	DeleteAppServiceAccount(ctx context.Context, id string) ApiDeleteAppServiceAccountRequest
 
@@ -65,13 +64,13 @@ type ServiceAccountAPI interface {
 	DeleteAppServiceAccountExecute(r ApiDeleteAppServiceAccountRequest) (*APIResponse, error)
 
 	/*
-	GetAppServiceAccount Retrieve an app service account
+		GetAppServiceAccount Retrieve an app service account
 
-	Retrieves an app service account specified by ID
+		Retrieves an app service account specified by ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id ID of an existing service account
-	@return ApiGetAppServiceAccountRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id ID of an existing service account
+		@return ApiGetAppServiceAccountRequest
 	*/
 	GetAppServiceAccount(ctx context.Context, id string) ApiGetAppServiceAccountRequest
 
@@ -80,12 +79,12 @@ type ServiceAccountAPI interface {
 	GetAppServiceAccountExecute(r ApiGetAppServiceAccountRequest) (*AppServiceAccount, *APIResponse, error)
 
 	/*
-	ListAppServiceAccounts List all app service accounts
+		ListAppServiceAccounts List all app service accounts
 
-	Lists all app service accounts
+		Lists all app service accounts
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListAppServiceAccountsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListAppServiceAccountsRequest
 	*/
 	ListAppServiceAccounts(ctx context.Context) ApiListAppServiceAccountsRequest
 
@@ -94,13 +93,13 @@ type ServiceAccountAPI interface {
 	ListAppServiceAccountsExecute(r ApiListAppServiceAccountsRequest) ([]AppServiceAccount, *APIResponse, error)
 
 	/*
-	UpdateAppServiceAccount Update an existing app service account
+		UpdateAppServiceAccount Update an existing app service account
 
-	Updates an existing app service account specified by ID
+		Updates an existing app service account specified by ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id ID of an existing service account
-	@return ApiUpdateAppServiceAccountRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id ID of an existing service account
+		@return ApiUpdateAppServiceAccountRequest
 	*/
 	UpdateAppServiceAccount(ctx context.Context, id string) ApiUpdateAppServiceAccountRequest
 
@@ -113,9 +112,9 @@ type ServiceAccountAPI interface {
 type ServiceAccountAPIService service
 
 type ApiCreateAppServiceAccountRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ServiceAccountAPI
-	body *AppServiceAccount
+	body       *AppServiceAccount
 	retryCount int32
 }
 
@@ -133,19 +132,20 @@ CreateAppServiceAccount Create an app service account
 
 Creates a new app service account for managing an app account
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateAppServiceAccountRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateAppServiceAccountRequest
 */
 func (a *ServiceAccountAPIService) CreateAppServiceAccount(ctx context.Context) ApiCreateAppServiceAccountRequest {
 	return ApiCreateAppServiceAccountRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return AppServiceAccount
+//
+//	@return AppServiceAccount
 func (a *ServiceAccountAPIService) CreateAppServiceAccountExecute(r ApiCreateAppServiceAccountRequest) (*AppServiceAccount, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -154,7 +154,7 @@ func (a *ServiceAccountAPIService) CreateAppServiceAccountExecute(r ApiCreateApp
 		localVarReturnValue  *AppServiceAccount
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -219,9 +219,9 @@ func (a *ServiceAccountAPIService) CreateAppServiceAccountExecute(r ApiCreateApp
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -291,15 +291,15 @@ func (a *ServiceAccountAPIService) CreateAppServiceAccountExecute(r ApiCreateApp
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteAppServiceAccountRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ServiceAccountAPI
-	id string
+	id         string
 	retryCount int32
 }
 
@@ -312,15 +312,15 @@ DeleteAppServiceAccount Delete an app service account
 
 Deletes an app service account specified by ID
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id ID of an existing service account
- @return ApiDeleteAppServiceAccountRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID of an existing service account
+	@return ApiDeleteAppServiceAccountRequest
 */
 func (a *ServiceAccountAPIService) DeleteAppServiceAccount(ctx context.Context, id string) ApiDeleteAppServiceAccountRequest {
 	return ApiDeleteAppServiceAccountRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
@@ -333,7 +333,7 @@ func (a *ServiceAccountAPIService) DeleteAppServiceAccountExecute(r ApiDeleteApp
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -394,9 +394,9 @@ func (a *ServiceAccountAPIService) DeleteAppServiceAccountExecute(r ApiDeleteApp
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -462,9 +462,9 @@ func (a *ServiceAccountAPIService) DeleteAppServiceAccountExecute(r ApiDeleteApp
 }
 
 type ApiGetAppServiceAccountRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ServiceAccountAPI
-	id string
+	id         string
 	retryCount int32
 }
 
@@ -477,21 +477,22 @@ GetAppServiceAccount Retrieve an app service account
 
 Retrieves an app service account specified by ID
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id ID of an existing service account
- @return ApiGetAppServiceAccountRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID of an existing service account
+	@return ApiGetAppServiceAccountRequest
 */
 func (a *ServiceAccountAPIService) GetAppServiceAccount(ctx context.Context, id string) ApiGetAppServiceAccountRequest {
 	return ApiGetAppServiceAccountRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return AppServiceAccount
+//
+//	@return AppServiceAccount
 func (a *ServiceAccountAPIService) GetAppServiceAccountExecute(r ApiGetAppServiceAccountRequest) (*AppServiceAccount, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -500,7 +501,7 @@ func (a *ServiceAccountAPIService) GetAppServiceAccountExecute(r ApiGetAppServic
 		localVarReturnValue  *AppServiceAccount
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -561,9 +562,9 @@ func (a *ServiceAccountAPIService) GetAppServiceAccountExecute(r ApiGetAppServic
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -633,17 +634,17 @@ func (a *ServiceAccountAPIService) GetAppServiceAccountExecute(r ApiGetAppServic
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListAppServiceAccountsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ServiceAccountAPI
-	limit *int32
-	after *string
-	match *string
+	limit      *int32
+	after      *string
+	match      *string
 	retryCount int32
 }
 
@@ -674,19 +675,20 @@ ListAppServiceAccounts List all app service accounts
 
 Lists all app service accounts
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListAppServiceAccountsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListAppServiceAccountsRequest
 */
 func (a *ServiceAccountAPIService) ListAppServiceAccounts(ctx context.Context) ApiListAppServiceAccountsRequest {
 	return ApiListAppServiceAccountsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []AppServiceAccount
+//
+//	@return []AppServiceAccount
 func (a *ServiceAccountAPIService) ListAppServiceAccountsExecute(r ApiListAppServiceAccountsRequest) ([]AppServiceAccount, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -695,7 +697,7 @@ func (a *ServiceAccountAPIService) ListAppServiceAccountsExecute(r ApiListAppSer
 		localVarReturnValue  []AppServiceAccount
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -764,9 +766,9 @@ func (a *ServiceAccountAPIService) ListAppServiceAccountsExecute(r ApiListAppSer
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -836,16 +838,16 @@ func (a *ServiceAccountAPIService) ListAppServiceAccountsExecute(r ApiListAppSer
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateAppServiceAccountRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ServiceAccountAPI
-	id string
-	body *AppServiceAccountForUpdate
+	id         string
+	body       *AppServiceAccountForUpdate
 	retryCount int32
 }
 
@@ -863,21 +865,22 @@ UpdateAppServiceAccount Update an existing app service account
 
 Updates an existing app service account specified by ID
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id ID of an existing service account
- @return ApiUpdateAppServiceAccountRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID of an existing service account
+	@return ApiUpdateAppServiceAccountRequest
 */
 func (a *ServiceAccountAPIService) UpdateAppServiceAccount(ctx context.Context, id string) ApiUpdateAppServiceAccountRequest {
 	return ApiUpdateAppServiceAccountRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return AppServiceAccount
+//
+//	@return AppServiceAccount
 func (a *ServiceAccountAPIService) UpdateAppServiceAccountExecute(r ApiUpdateAppServiceAccountRequest) (*AppServiceAccount, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
@@ -886,7 +889,7 @@ func (a *ServiceAccountAPIService) UpdateAppServiceAccountExecute(r ApiUpdateApp
 		localVarReturnValue  *AppServiceAccount
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -949,9 +952,9 @@ func (a *ServiceAccountAPIService) UpdateAppServiceAccountExecute(r ApiUpdateApp
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1021,7 +1024,7 @@ func (a *ServiceAccountAPIService) UpdateAppServiceAccountExecute(r ApiUpdateApp
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

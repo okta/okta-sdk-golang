@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"time"
 )
 
+// checks if the IdentitySourceSession type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IdentitySourceSession{}
+
 // IdentitySourceSession struct for IdentitySourceSession
 type IdentitySourceSession struct {
 	// The timestamp when the identity source session was created
@@ -41,7 +44,7 @@ type IdentitySourceSession struct {
 	// The timestamp when the identity source session was created
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	// The current status of the identity source session
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -66,7 +69,7 @@ func NewIdentitySourceSessionWithDefaults() *IdentitySourceSession {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *IdentitySourceSession) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -76,7 +79,7 @@ func (o *IdentitySourceSession) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentitySourceSession) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -84,7 +87,7 @@ func (o *IdentitySourceSession) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *IdentitySourceSession) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -98,7 +101,7 @@ func (o *IdentitySourceSession) SetCreated(v time.Time) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *IdentitySourceSession) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -108,7 +111,7 @@ func (o *IdentitySourceSession) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentitySourceSession) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -116,7 +119,7 @@ func (o *IdentitySourceSession) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *IdentitySourceSession) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -130,7 +133,7 @@ func (o *IdentitySourceSession) SetId(v string) {
 
 // GetIdentitySourceId returns the IdentitySourceId field value if set, zero value otherwise.
 func (o *IdentitySourceSession) GetIdentitySourceId() string {
-	if o == nil || o.IdentitySourceId == nil {
+	if o == nil || IsNil(o.IdentitySourceId) {
 		var ret string
 		return ret
 	}
@@ -140,7 +143,7 @@ func (o *IdentitySourceSession) GetIdentitySourceId() string {
 // GetIdentitySourceIdOk returns a tuple with the IdentitySourceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentitySourceSession) GetIdentitySourceIdOk() (*string, bool) {
-	if o == nil || o.IdentitySourceId == nil {
+	if o == nil || IsNil(o.IdentitySourceId) {
 		return nil, false
 	}
 	return o.IdentitySourceId, true
@@ -148,7 +151,7 @@ func (o *IdentitySourceSession) GetIdentitySourceIdOk() (*string, bool) {
 
 // HasIdentitySourceId returns a boolean if a field has been set.
 func (o *IdentitySourceSession) HasIdentitySourceId() bool {
-	if o != nil && o.IdentitySourceId != nil {
+	if o != nil && !IsNil(o.IdentitySourceId) {
 		return true
 	}
 
@@ -162,7 +165,7 @@ func (o *IdentitySourceSession) SetIdentitySourceId(v string) {
 
 // GetImportType returns the ImportType field value if set, zero value otherwise.
 func (o *IdentitySourceSession) GetImportType() string {
-	if o == nil || o.ImportType == nil {
+	if o == nil || IsNil(o.ImportType) {
 		var ret string
 		return ret
 	}
@@ -172,7 +175,7 @@ func (o *IdentitySourceSession) GetImportType() string {
 // GetImportTypeOk returns a tuple with the ImportType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentitySourceSession) GetImportTypeOk() (*string, bool) {
-	if o == nil || o.ImportType == nil {
+	if o == nil || IsNil(o.ImportType) {
 		return nil, false
 	}
 	return o.ImportType, true
@@ -180,7 +183,7 @@ func (o *IdentitySourceSession) GetImportTypeOk() (*string, bool) {
 
 // HasImportType returns a boolean if a field has been set.
 func (o *IdentitySourceSession) HasImportType() bool {
-	if o != nil && o.ImportType != nil {
+	if o != nil && !IsNil(o.ImportType) {
 		return true
 	}
 
@@ -194,7 +197,7 @@ func (o *IdentitySourceSession) SetImportType(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *IdentitySourceSession) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -204,7 +207,7 @@ func (o *IdentitySourceSession) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentitySourceSession) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -212,7 +215,7 @@ func (o *IdentitySourceSession) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *IdentitySourceSession) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -226,7 +229,7 @@ func (o *IdentitySourceSession) SetLastUpdated(v time.Time) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *IdentitySourceSession) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -236,7 +239,7 @@ func (o *IdentitySourceSession) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentitySourceSession) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -244,7 +247,7 @@ func (o *IdentitySourceSession) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *IdentitySourceSession) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -257,23 +260,31 @@ func (o *IdentitySourceSession) SetStatus(v string) {
 }
 
 func (o IdentitySourceSession) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IdentitySourceSession) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.IdentitySourceId != nil {
+	if !IsNil(o.IdentitySourceId) {
 		toSerialize["identitySourceId"] = o.IdentitySourceId
 	}
-	if o.ImportType != nil {
+	if !IsNil(o.ImportType) {
 		toSerialize["importType"] = o.ImportType
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
 
@@ -281,23 +292,23 @@ func (o IdentitySourceSession) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *IdentitySourceSession) UnmarshalJSON(bytes []byte) (err error) {
+func (o *IdentitySourceSession) UnmarshalJSON(data []byte) (err error) {
 	varIdentitySourceSession := _IdentitySourceSession{}
 
-	err = json.Unmarshal(bytes, &varIdentitySourceSession)
-	if err == nil {
-		*o = IdentitySourceSession(varIdentitySourceSession)
-	} else {
+	err = json.Unmarshal(data, &varIdentitySourceSession)
+
+	if err != nil {
 		return err
 	}
 
+	*o = IdentitySourceSession(varIdentitySourceSession)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "identitySourceId")
@@ -305,8 +316,6 @@ func (o *IdentitySourceSession) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "lastUpdated")
 		delete(additionalProperties, "status")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -347,4 +356,3 @@ func (v *NullableIdentitySourceSession) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

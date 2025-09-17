@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders{}
+
 // DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders Settings for third-party signal providers (based on the `ANDROID` platform)
 type DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders struct {
-	AndroidDeviceTrust *AndroidDeviceTrust `json:"androidDeviceTrust,omitempty"`
-	DevicePostureIdP *DevicePostureIdP `json:"devicePostureIdP,omitempty"`
+	AndroidDeviceTrust   *AndroidDeviceTrust `json:"androidDeviceTrust,omitempty"`
+	DevicePostureIdP     *DevicePostureIdP   `json:"devicePostureIdP,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewDeviceAssuranceAndroidPlatformAllOfThirdPartySignalProvidersWithDefaults
 
 // GetAndroidDeviceTrust returns the AndroidDeviceTrust field value if set, zero value otherwise.
 func (o *DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders) GetAndroidDeviceTrust() AndroidDeviceTrust {
-	if o == nil || o.AndroidDeviceTrust == nil {
+	if o == nil || IsNil(o.AndroidDeviceTrust) {
 		var ret AndroidDeviceTrust
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders) GetAndroi
 // GetAndroidDeviceTrustOk returns a tuple with the AndroidDeviceTrust field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders) GetAndroidDeviceTrustOk() (*AndroidDeviceTrust, bool) {
-	if o == nil || o.AndroidDeviceTrust == nil {
+	if o == nil || IsNil(o.AndroidDeviceTrust) {
 		return nil, false
 	}
 	return o.AndroidDeviceTrust, true
@@ -73,7 +76,7 @@ func (o *DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders) GetAndroi
 
 // HasAndroidDeviceTrust returns a boolean if a field has been set.
 func (o *DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders) HasAndroidDeviceTrust() bool {
-	if o != nil && o.AndroidDeviceTrust != nil {
+	if o != nil && !IsNil(o.AndroidDeviceTrust) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders) SetAndroi
 
 // GetDevicePostureIdP returns the DevicePostureIdP field value if set, zero value otherwise.
 func (o *DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders) GetDevicePostureIdP() DevicePostureIdP {
-	if o == nil || o.DevicePostureIdP == nil {
+	if o == nil || IsNil(o.DevicePostureIdP) {
 		var ret DevicePostureIdP
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders) GetDevice
 // GetDevicePostureIdPOk returns a tuple with the DevicePostureIdP field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders) GetDevicePostureIdPOk() (*DevicePostureIdP, bool) {
-	if o == nil || o.DevicePostureIdP == nil {
+	if o == nil || IsNil(o.DevicePostureIdP) {
 		return nil, false
 	}
 	return o.DevicePostureIdP, true
@@ -105,7 +108,7 @@ func (o *DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders) GetDevice
 
 // HasDevicePostureIdP returns a boolean if a field has been set.
 func (o *DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders) HasDevicePostureIdP() bool {
-	if o != nil && o.DevicePostureIdP != nil {
+	if o != nil && !IsNil(o.DevicePostureIdP) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders) SetDevice
 }
 
 func (o DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AndroidDeviceTrust != nil {
+	if !IsNil(o.AndroidDeviceTrust) {
 		toSerialize["androidDeviceTrust"] = o.AndroidDeviceTrust
 	}
-	if o.DevicePostureIdP != nil {
+	if !IsNil(o.DevicePostureIdP) {
 		toSerialize["devicePostureIdP"] = o.DevicePostureIdP
 	}
 
@@ -130,28 +141,26 @@ func (o DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders) MarshalJSO
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders) UnmarshalJSON(data []byte) (err error) {
 	varDeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders := _DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders{}
 
-	err = json.Unmarshal(bytes, &varDeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders)
-	if err == nil {
-		*o = DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders(varDeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders)
-	} else {
+	err = json.Unmarshal(data, &varDeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders(varDeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "androidDeviceTrust")
 		delete(additionalProperties, "devicePostureIdP")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableDeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders) U
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

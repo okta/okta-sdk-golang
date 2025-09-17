@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the LogSecurityContext type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LogSecurityContext{}
+
 // LogSecurityContext The `securityContext` object provides security information that is directly related to the evaluation of the event's IP reputation. IP reputation is a trustworthiness rating that evaluates how likely a sender is to be malicious and is based on the sender's IP address. As the name implies, the `securityContext` object is useful for security applications-flagging and inspecting suspicious events.
 type LogSecurityContext struct {
 	// The [Autonomous system](https://docs.telemetry.mozilla.org/datasets/other/asn_aggregates/reference) number that's associated with the autonomous system the event request was sourced to
@@ -38,7 +41,7 @@ type LogSecurityContext struct {
 	// The Internet service provider that's used to send the event's request
 	Isp *string `json:"isp,omitempty"`
 	// Specifies whether an event's request is from a known proxy
-	IsProxy *bool `json:"isProxy,omitempty"`
+	IsProxy              *bool `json:"isProxy,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -63,7 +66,7 @@ func NewLogSecurityContextWithDefaults() *LogSecurityContext {
 
 // GetAsNumber returns the AsNumber field value if set, zero value otherwise.
 func (o *LogSecurityContext) GetAsNumber() int32 {
-	if o == nil || o.AsNumber == nil {
+	if o == nil || IsNil(o.AsNumber) {
 		var ret int32
 		return ret
 	}
@@ -73,7 +76,7 @@ func (o *LogSecurityContext) GetAsNumber() int32 {
 // GetAsNumberOk returns a tuple with the AsNumber field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogSecurityContext) GetAsNumberOk() (*int32, bool) {
-	if o == nil || o.AsNumber == nil {
+	if o == nil || IsNil(o.AsNumber) {
 		return nil, false
 	}
 	return o.AsNumber, true
@@ -81,7 +84,7 @@ func (o *LogSecurityContext) GetAsNumberOk() (*int32, bool) {
 
 // HasAsNumber returns a boolean if a field has been set.
 func (o *LogSecurityContext) HasAsNumber() bool {
-	if o != nil && o.AsNumber != nil {
+	if o != nil && !IsNil(o.AsNumber) {
 		return true
 	}
 
@@ -95,7 +98,7 @@ func (o *LogSecurityContext) SetAsNumber(v int32) {
 
 // GetAsOrg returns the AsOrg field value if set, zero value otherwise.
 func (o *LogSecurityContext) GetAsOrg() string {
-	if o == nil || o.AsOrg == nil {
+	if o == nil || IsNil(o.AsOrg) {
 		var ret string
 		return ret
 	}
@@ -105,7 +108,7 @@ func (o *LogSecurityContext) GetAsOrg() string {
 // GetAsOrgOk returns a tuple with the AsOrg field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogSecurityContext) GetAsOrgOk() (*string, bool) {
-	if o == nil || o.AsOrg == nil {
+	if o == nil || IsNil(o.AsOrg) {
 		return nil, false
 	}
 	return o.AsOrg, true
@@ -113,7 +116,7 @@ func (o *LogSecurityContext) GetAsOrgOk() (*string, bool) {
 
 // HasAsOrg returns a boolean if a field has been set.
 func (o *LogSecurityContext) HasAsOrg() bool {
-	if o != nil && o.AsOrg != nil {
+	if o != nil && !IsNil(o.AsOrg) {
 		return true
 	}
 
@@ -127,7 +130,7 @@ func (o *LogSecurityContext) SetAsOrg(v string) {
 
 // GetDomain returns the Domain field value if set, zero value otherwise.
 func (o *LogSecurityContext) GetDomain() string {
-	if o == nil || o.Domain == nil {
+	if o == nil || IsNil(o.Domain) {
 		var ret string
 		return ret
 	}
@@ -137,7 +140,7 @@ func (o *LogSecurityContext) GetDomain() string {
 // GetDomainOk returns a tuple with the Domain field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogSecurityContext) GetDomainOk() (*string, bool) {
-	if o == nil || o.Domain == nil {
+	if o == nil || IsNil(o.Domain) {
 		return nil, false
 	}
 	return o.Domain, true
@@ -145,7 +148,7 @@ func (o *LogSecurityContext) GetDomainOk() (*string, bool) {
 
 // HasDomain returns a boolean if a field has been set.
 func (o *LogSecurityContext) HasDomain() bool {
-	if o != nil && o.Domain != nil {
+	if o != nil && !IsNil(o.Domain) {
 		return true
 	}
 
@@ -159,7 +162,7 @@ func (o *LogSecurityContext) SetDomain(v string) {
 
 // GetIsp returns the Isp field value if set, zero value otherwise.
 func (o *LogSecurityContext) GetIsp() string {
-	if o == nil || o.Isp == nil {
+	if o == nil || IsNil(o.Isp) {
 		var ret string
 		return ret
 	}
@@ -169,7 +172,7 @@ func (o *LogSecurityContext) GetIsp() string {
 // GetIspOk returns a tuple with the Isp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogSecurityContext) GetIspOk() (*string, bool) {
-	if o == nil || o.Isp == nil {
+	if o == nil || IsNil(o.Isp) {
 		return nil, false
 	}
 	return o.Isp, true
@@ -177,7 +180,7 @@ func (o *LogSecurityContext) GetIspOk() (*string, bool) {
 
 // HasIsp returns a boolean if a field has been set.
 func (o *LogSecurityContext) HasIsp() bool {
-	if o != nil && o.Isp != nil {
+	if o != nil && !IsNil(o.Isp) {
 		return true
 	}
 
@@ -191,7 +194,7 @@ func (o *LogSecurityContext) SetIsp(v string) {
 
 // GetIsProxy returns the IsProxy field value if set, zero value otherwise.
 func (o *LogSecurityContext) GetIsProxy() bool {
-	if o == nil || o.IsProxy == nil {
+	if o == nil || IsNil(o.IsProxy) {
 		var ret bool
 		return ret
 	}
@@ -201,7 +204,7 @@ func (o *LogSecurityContext) GetIsProxy() bool {
 // GetIsProxyOk returns a tuple with the IsProxy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogSecurityContext) GetIsProxyOk() (*bool, bool) {
-	if o == nil || o.IsProxy == nil {
+	if o == nil || IsNil(o.IsProxy) {
 		return nil, false
 	}
 	return o.IsProxy, true
@@ -209,7 +212,7 @@ func (o *LogSecurityContext) GetIsProxyOk() (*bool, bool) {
 
 // HasIsProxy returns a boolean if a field has been set.
 func (o *LogSecurityContext) HasIsProxy() bool {
-	if o != nil && o.IsProxy != nil {
+	if o != nil && !IsNil(o.IsProxy) {
 		return true
 	}
 
@@ -222,20 +225,28 @@ func (o *LogSecurityContext) SetIsProxy(v bool) {
 }
 
 func (o LogSecurityContext) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LogSecurityContext) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AsNumber != nil {
+	if !IsNil(o.AsNumber) {
 		toSerialize["asNumber"] = o.AsNumber
 	}
-	if o.AsOrg != nil {
+	if !IsNil(o.AsOrg) {
 		toSerialize["asOrg"] = o.AsOrg
 	}
-	if o.Domain != nil {
+	if !IsNil(o.Domain) {
 		toSerialize["domain"] = o.Domain
 	}
-	if o.Isp != nil {
+	if !IsNil(o.Isp) {
 		toSerialize["isp"] = o.Isp
 	}
-	if o.IsProxy != nil {
+	if !IsNil(o.IsProxy) {
 		toSerialize["isProxy"] = o.IsProxy
 	}
 
@@ -243,31 +254,29 @@ func (o LogSecurityContext) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LogSecurityContext) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LogSecurityContext) UnmarshalJSON(data []byte) (err error) {
 	varLogSecurityContext := _LogSecurityContext{}
 
-	err = json.Unmarshal(bytes, &varLogSecurityContext)
-	if err == nil {
-		*o = LogSecurityContext(varLogSecurityContext)
-	} else {
+	err = json.Unmarshal(data, &varLogSecurityContext)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LogSecurityContext(varLogSecurityContext)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "asNumber")
 		delete(additionalProperties, "asOrg")
 		delete(additionalProperties, "domain")
 		delete(additionalProperties, "isp")
 		delete(additionalProperties, "isProxy")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -308,4 +317,3 @@ func (v *NullableLogSecurityContext) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

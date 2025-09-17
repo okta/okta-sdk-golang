@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the StandardRoleEmbeddedTargets type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StandardRoleEmbeddedTargets{}
+
 // StandardRoleEmbeddedTargets Targets configured for the role assignment
 type StandardRoleEmbeddedTargets struct {
 	// Group targets
-	Groups []Group `json:"groups,omitempty"`
-	Catalog *StandardRoleEmbeddedTargetsCatalog `json:"catalog,omitempty"`
+	Groups               []Group                             `json:"groups,omitempty"`
+	Catalog              *StandardRoleEmbeddedTargetsCatalog `json:"catalog,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewStandardRoleEmbeddedTargetsWithDefaults() *StandardRoleEmbeddedTargets {
 
 // GetGroups returns the Groups field value if set, zero value otherwise.
 func (o *StandardRoleEmbeddedTargets) GetGroups() []Group {
-	if o == nil || o.Groups == nil {
+	if o == nil || IsNil(o.Groups) {
 		var ret []Group
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *StandardRoleEmbeddedTargets) GetGroups() []Group {
 // GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StandardRoleEmbeddedTargets) GetGroupsOk() ([]Group, bool) {
-	if o == nil || o.Groups == nil {
+	if o == nil || IsNil(o.Groups) {
 		return nil, false
 	}
 	return o.Groups, true
@@ -74,7 +77,7 @@ func (o *StandardRoleEmbeddedTargets) GetGroupsOk() ([]Group, bool) {
 
 // HasGroups returns a boolean if a field has been set.
 func (o *StandardRoleEmbeddedTargets) HasGroups() bool {
-	if o != nil && o.Groups != nil {
+	if o != nil && !IsNil(o.Groups) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *StandardRoleEmbeddedTargets) SetGroups(v []Group) {
 
 // GetCatalog returns the Catalog field value if set, zero value otherwise.
 func (o *StandardRoleEmbeddedTargets) GetCatalog() StandardRoleEmbeddedTargetsCatalog {
-	if o == nil || o.Catalog == nil {
+	if o == nil || IsNil(o.Catalog) {
 		var ret StandardRoleEmbeddedTargetsCatalog
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *StandardRoleEmbeddedTargets) GetCatalog() StandardRoleEmbeddedTargetsCa
 // GetCatalogOk returns a tuple with the Catalog field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StandardRoleEmbeddedTargets) GetCatalogOk() (*StandardRoleEmbeddedTargetsCatalog, bool) {
-	if o == nil || o.Catalog == nil {
+	if o == nil || IsNil(o.Catalog) {
 		return nil, false
 	}
 	return o.Catalog, true
@@ -106,7 +109,7 @@ func (o *StandardRoleEmbeddedTargets) GetCatalogOk() (*StandardRoleEmbeddedTarge
 
 // HasCatalog returns a boolean if a field has been set.
 func (o *StandardRoleEmbeddedTargets) HasCatalog() bool {
-	if o != nil && o.Catalog != nil {
+	if o != nil && !IsNil(o.Catalog) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *StandardRoleEmbeddedTargets) SetCatalog(v StandardRoleEmbeddedTargetsCa
 }
 
 func (o StandardRoleEmbeddedTargets) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o StandardRoleEmbeddedTargets) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Groups != nil {
+	if !IsNil(o.Groups) {
 		toSerialize["groups"] = o.Groups
 	}
-	if o.Catalog != nil {
+	if !IsNil(o.Catalog) {
 		toSerialize["catalog"] = o.Catalog
 	}
 
@@ -131,28 +142,26 @@ func (o StandardRoleEmbeddedTargets) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *StandardRoleEmbeddedTargets) UnmarshalJSON(bytes []byte) (err error) {
+func (o *StandardRoleEmbeddedTargets) UnmarshalJSON(data []byte) (err error) {
 	varStandardRoleEmbeddedTargets := _StandardRoleEmbeddedTargets{}
 
-	err = json.Unmarshal(bytes, &varStandardRoleEmbeddedTargets)
-	if err == nil {
-		*o = StandardRoleEmbeddedTargets(varStandardRoleEmbeddedTargets)
-	} else {
+	err = json.Unmarshal(data, &varStandardRoleEmbeddedTargets)
+
+	if err != nil {
 		return err
 	}
 
+	*o = StandardRoleEmbeddedTargets(varStandardRoleEmbeddedTargets)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "groups")
 		delete(additionalProperties, "catalog")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableStandardRoleEmbeddedTargets) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

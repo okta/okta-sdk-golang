@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserFactorEmailProfile type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserFactorEmailProfile{}
+
 // UserFactorEmailProfile struct for UserFactorEmailProfile
 type UserFactorEmailProfile struct {
 	// Email address of the user. This must be either the primary or secondary email address associated with the Okta user account.
-	Email *string `json:"email,omitempty"`
+	Email                *string `json:"email,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewUserFactorEmailProfileWithDefaults() *UserFactorEmailProfile {
 
 // GetEmail returns the Email field value if set, zero value otherwise.
 func (o *UserFactorEmailProfile) GetEmail() string {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *UserFactorEmailProfile) GetEmail() string {
 // GetEmailOk returns a tuple with the Email field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorEmailProfile) GetEmailOk() (*string, bool) {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		return nil, false
 	}
 	return o.Email, true
@@ -73,7 +76,7 @@ func (o *UserFactorEmailProfile) GetEmailOk() (*string, bool) {
 
 // HasEmail returns a boolean if a field has been set.
 func (o *UserFactorEmailProfile) HasEmail() bool {
-	if o != nil && o.Email != nil {
+	if o != nil && !IsNil(o.Email) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *UserFactorEmailProfile) SetEmail(v string) {
 }
 
 func (o UserFactorEmailProfile) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserFactorEmailProfile) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Email != nil {
+	if !IsNil(o.Email) {
 		toSerialize["email"] = o.Email
 	}
 
@@ -95,27 +106,25 @@ func (o UserFactorEmailProfile) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserFactorEmailProfile) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserFactorEmailProfile) UnmarshalJSON(data []byte) (err error) {
 	varUserFactorEmailProfile := _UserFactorEmailProfile{}
 
-	err = json.Unmarshal(bytes, &varUserFactorEmailProfile)
-	if err == nil {
-		*o = UserFactorEmailProfile(varUserFactorEmailProfile)
-	} else {
+	err = json.Unmarshal(data, &varUserFactorEmailProfile)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserFactorEmailProfile(varUserFactorEmailProfile)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "email")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableUserFactorEmailProfile) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

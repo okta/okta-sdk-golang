@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import (
 	"time"
 )
 
+// checks if the JsonWebKey type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &JsonWebKey{}
+
 // JsonWebKey struct for JsonWebKey
 type JsonWebKey struct {
 	// Timestamp when the object was created
@@ -49,7 +52,7 @@ type JsonWebKey struct {
 	// X.509 certificate chain that contains a chain of one or more certificates
 	X5c []string `json:"x5c,omitempty"`
 	// X.509 certificate SHA-256 thumbprint, which is the base64url-encoded SHA-256 thumbprint (digest) of the DER encoding of an X.509 certificate
-	X5tS256 *string `json:"x5t#S256,omitempty"`
+	X5tS256              *string `json:"x5t#S256,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -74,7 +77,7 @@ func NewJsonWebKeyWithDefaults() *JsonWebKey {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *JsonWebKey) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *JsonWebKey) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *JsonWebKey) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -92,7 +95,7 @@ func (o *JsonWebKey) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *JsonWebKey) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *JsonWebKey) SetCreated(v time.Time) {
 
 // GetE returns the E field value if set, zero value otherwise.
 func (o *JsonWebKey) GetE() string {
-	if o == nil || o.E == nil {
+	if o == nil || IsNil(o.E) {
 		var ret string
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *JsonWebKey) GetE() string {
 // GetEOk returns a tuple with the E field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *JsonWebKey) GetEOk() (*string, bool) {
-	if o == nil || o.E == nil {
+	if o == nil || IsNil(o.E) {
 		return nil, false
 	}
 	return o.E, true
@@ -124,7 +127,7 @@ func (o *JsonWebKey) GetEOk() (*string, bool) {
 
 // HasE returns a boolean if a field has been set.
 func (o *JsonWebKey) HasE() bool {
-	if o != nil && o.E != nil {
+	if o != nil && !IsNil(o.E) {
 		return true
 	}
 
@@ -138,7 +141,7 @@ func (o *JsonWebKey) SetE(v string) {
 
 // GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
 func (o *JsonWebKey) GetExpiresAt() time.Time {
-	if o == nil || o.ExpiresAt == nil {
+	if o == nil || IsNil(o.ExpiresAt) {
 		var ret time.Time
 		return ret
 	}
@@ -148,7 +151,7 @@ func (o *JsonWebKey) GetExpiresAt() time.Time {
 // GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *JsonWebKey) GetExpiresAtOk() (*time.Time, bool) {
-	if o == nil || o.ExpiresAt == nil {
+	if o == nil || IsNil(o.ExpiresAt) {
 		return nil, false
 	}
 	return o.ExpiresAt, true
@@ -156,7 +159,7 @@ func (o *JsonWebKey) GetExpiresAtOk() (*time.Time, bool) {
 
 // HasExpiresAt returns a boolean if a field has been set.
 func (o *JsonWebKey) HasExpiresAt() bool {
-	if o != nil && o.ExpiresAt != nil {
+	if o != nil && !IsNil(o.ExpiresAt) {
 		return true
 	}
 
@@ -170,7 +173,7 @@ func (o *JsonWebKey) SetExpiresAt(v time.Time) {
 
 // GetKid returns the Kid field value if set, zero value otherwise.
 func (o *JsonWebKey) GetKid() string {
-	if o == nil || o.Kid == nil {
+	if o == nil || IsNil(o.Kid) {
 		var ret string
 		return ret
 	}
@@ -180,7 +183,7 @@ func (o *JsonWebKey) GetKid() string {
 // GetKidOk returns a tuple with the Kid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *JsonWebKey) GetKidOk() (*string, bool) {
-	if o == nil || o.Kid == nil {
+	if o == nil || IsNil(o.Kid) {
 		return nil, false
 	}
 	return o.Kid, true
@@ -188,7 +191,7 @@ func (o *JsonWebKey) GetKidOk() (*string, bool) {
 
 // HasKid returns a boolean if a field has been set.
 func (o *JsonWebKey) HasKid() bool {
-	if o != nil && o.Kid != nil {
+	if o != nil && !IsNil(o.Kid) {
 		return true
 	}
 
@@ -202,7 +205,7 @@ func (o *JsonWebKey) SetKid(v string) {
 
 // GetKty returns the Kty field value if set, zero value otherwise.
 func (o *JsonWebKey) GetKty() string {
-	if o == nil || o.Kty == nil {
+	if o == nil || IsNil(o.Kty) {
 		var ret string
 		return ret
 	}
@@ -212,7 +215,7 @@ func (o *JsonWebKey) GetKty() string {
 // GetKtyOk returns a tuple with the Kty field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *JsonWebKey) GetKtyOk() (*string, bool) {
-	if o == nil || o.Kty == nil {
+	if o == nil || IsNil(o.Kty) {
 		return nil, false
 	}
 	return o.Kty, true
@@ -220,7 +223,7 @@ func (o *JsonWebKey) GetKtyOk() (*string, bool) {
 
 // HasKty returns a boolean if a field has been set.
 func (o *JsonWebKey) HasKty() bool {
-	if o != nil && o.Kty != nil {
+	if o != nil && !IsNil(o.Kty) {
 		return true
 	}
 
@@ -234,7 +237,7 @@ func (o *JsonWebKey) SetKty(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *JsonWebKey) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -244,7 +247,7 @@ func (o *JsonWebKey) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *JsonWebKey) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -252,7 +255,7 @@ func (o *JsonWebKey) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *JsonWebKey) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -266,7 +269,7 @@ func (o *JsonWebKey) SetLastUpdated(v time.Time) {
 
 // GetN returns the N field value if set, zero value otherwise.
 func (o *JsonWebKey) GetN() string {
-	if o == nil || o.N == nil {
+	if o == nil || IsNil(o.N) {
 		var ret string
 		return ret
 	}
@@ -276,7 +279,7 @@ func (o *JsonWebKey) GetN() string {
 // GetNOk returns a tuple with the N field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *JsonWebKey) GetNOk() (*string, bool) {
-	if o == nil || o.N == nil {
+	if o == nil || IsNil(o.N) {
 		return nil, false
 	}
 	return o.N, true
@@ -284,7 +287,7 @@ func (o *JsonWebKey) GetNOk() (*string, bool) {
 
 // HasN returns a boolean if a field has been set.
 func (o *JsonWebKey) HasN() bool {
-	if o != nil && o.N != nil {
+	if o != nil && !IsNil(o.N) {
 		return true
 	}
 
@@ -298,7 +301,7 @@ func (o *JsonWebKey) SetN(v string) {
 
 // GetUse returns the Use field value if set, zero value otherwise.
 func (o *JsonWebKey) GetUse() string {
-	if o == nil || o.Use == nil {
+	if o == nil || IsNil(o.Use) {
 		var ret string
 		return ret
 	}
@@ -308,7 +311,7 @@ func (o *JsonWebKey) GetUse() string {
 // GetUseOk returns a tuple with the Use field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *JsonWebKey) GetUseOk() (*string, bool) {
-	if o == nil || o.Use == nil {
+	if o == nil || IsNil(o.Use) {
 		return nil, false
 	}
 	return o.Use, true
@@ -316,7 +319,7 @@ func (o *JsonWebKey) GetUseOk() (*string, bool) {
 
 // HasUse returns a boolean if a field has been set.
 func (o *JsonWebKey) HasUse() bool {
-	if o != nil && o.Use != nil {
+	if o != nil && !IsNil(o.Use) {
 		return true
 	}
 
@@ -330,7 +333,7 @@ func (o *JsonWebKey) SetUse(v string) {
 
 // GetX5c returns the X5c field value if set, zero value otherwise.
 func (o *JsonWebKey) GetX5c() []string {
-	if o == nil || o.X5c == nil {
+	if o == nil || IsNil(o.X5c) {
 		var ret []string
 		return ret
 	}
@@ -340,7 +343,7 @@ func (o *JsonWebKey) GetX5c() []string {
 // GetX5cOk returns a tuple with the X5c field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *JsonWebKey) GetX5cOk() ([]string, bool) {
-	if o == nil || o.X5c == nil {
+	if o == nil || IsNil(o.X5c) {
 		return nil, false
 	}
 	return o.X5c, true
@@ -348,7 +351,7 @@ func (o *JsonWebKey) GetX5cOk() ([]string, bool) {
 
 // HasX5c returns a boolean if a field has been set.
 func (o *JsonWebKey) HasX5c() bool {
-	if o != nil && o.X5c != nil {
+	if o != nil && !IsNil(o.X5c) {
 		return true
 	}
 
@@ -362,7 +365,7 @@ func (o *JsonWebKey) SetX5c(v []string) {
 
 // GetX5tS256 returns the X5tS256 field value if set, zero value otherwise.
 func (o *JsonWebKey) GetX5tS256() string {
-	if o == nil || o.X5tS256 == nil {
+	if o == nil || IsNil(o.X5tS256) {
 		var ret string
 		return ret
 	}
@@ -372,7 +375,7 @@ func (o *JsonWebKey) GetX5tS256() string {
 // GetX5tS256Ok returns a tuple with the X5tS256 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *JsonWebKey) GetX5tS256Ok() (*string, bool) {
-	if o == nil || o.X5tS256 == nil {
+	if o == nil || IsNil(o.X5tS256) {
 		return nil, false
 	}
 	return o.X5tS256, true
@@ -380,7 +383,7 @@ func (o *JsonWebKey) GetX5tS256Ok() (*string, bool) {
 
 // HasX5tS256 returns a boolean if a field has been set.
 func (o *JsonWebKey) HasX5tS256() bool {
-	if o != nil && o.X5tS256 != nil {
+	if o != nil && !IsNil(o.X5tS256) {
 		return true
 	}
 
@@ -393,35 +396,43 @@ func (o *JsonWebKey) SetX5tS256(v string) {
 }
 
 func (o JsonWebKey) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o JsonWebKey) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.E != nil {
+	if !IsNil(o.E) {
 		toSerialize["e"] = o.E
 	}
-	if o.ExpiresAt != nil {
+	if !IsNil(o.ExpiresAt) {
 		toSerialize["expiresAt"] = o.ExpiresAt
 	}
-	if o.Kid != nil {
+	if !IsNil(o.Kid) {
 		toSerialize["kid"] = o.Kid
 	}
-	if o.Kty != nil {
+	if !IsNil(o.Kty) {
 		toSerialize["kty"] = o.Kty
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.N != nil {
+	if !IsNil(o.N) {
 		toSerialize["n"] = o.N
 	}
-	if o.Use != nil {
+	if !IsNil(o.Use) {
 		toSerialize["use"] = o.Use
 	}
-	if o.X5c != nil {
+	if !IsNil(o.X5c) {
 		toSerialize["x5c"] = o.X5c
 	}
-	if o.X5tS256 != nil {
+	if !IsNil(o.X5tS256) {
 		toSerialize["x5t#S256"] = o.X5tS256
 	}
 
@@ -429,23 +440,23 @@ func (o JsonWebKey) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *JsonWebKey) UnmarshalJSON(bytes []byte) (err error) {
+func (o *JsonWebKey) UnmarshalJSON(data []byte) (err error) {
 	varJsonWebKey := _JsonWebKey{}
 
-	err = json.Unmarshal(bytes, &varJsonWebKey)
-	if err == nil {
-		*o = JsonWebKey(varJsonWebKey)
-	} else {
+	err = json.Unmarshal(data, &varJsonWebKey)
+
+	if err != nil {
 		return err
 	}
 
+	*o = JsonWebKey(varJsonWebKey)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "e")
 		delete(additionalProperties, "expiresAt")
@@ -457,8 +468,6 @@ func (o *JsonWebKey) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "x5c")
 		delete(additionalProperties, "x5t#S256")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -499,4 +508,3 @@ func (v *NullableJsonWebKey) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

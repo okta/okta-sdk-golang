@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the MtlsEndpoints type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MtlsEndpoints{}
+
 // MtlsEndpoints struct for MtlsEndpoints
 type MtlsEndpoints struct {
-	Sso *MtlsSsoEndpoint `json:"sso,omitempty"`
+	Sso                  *MtlsSsoEndpoint `json:"sso,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewMtlsEndpointsWithDefaults() *MtlsEndpoints {
 
 // GetSso returns the Sso field value if set, zero value otherwise.
 func (o *MtlsEndpoints) GetSso() MtlsSsoEndpoint {
-	if o == nil || o.Sso == nil {
+	if o == nil || IsNil(o.Sso) {
 		var ret MtlsSsoEndpoint
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *MtlsEndpoints) GetSso() MtlsSsoEndpoint {
 // GetSsoOk returns a tuple with the Sso field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MtlsEndpoints) GetSsoOk() (*MtlsSsoEndpoint, bool) {
-	if o == nil || o.Sso == nil {
+	if o == nil || IsNil(o.Sso) {
 		return nil, false
 	}
 	return o.Sso, true
@@ -72,7 +75,7 @@ func (o *MtlsEndpoints) GetSsoOk() (*MtlsSsoEndpoint, bool) {
 
 // HasSso returns a boolean if a field has been set.
 func (o *MtlsEndpoints) HasSso() bool {
-	if o != nil && o.Sso != nil {
+	if o != nil && !IsNil(o.Sso) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *MtlsEndpoints) SetSso(v MtlsSsoEndpoint) {
 }
 
 func (o MtlsEndpoints) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o MtlsEndpoints) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Sso != nil {
+	if !IsNil(o.Sso) {
 		toSerialize["sso"] = o.Sso
 	}
 
@@ -94,27 +105,25 @@ func (o MtlsEndpoints) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *MtlsEndpoints) UnmarshalJSON(bytes []byte) (err error) {
+func (o *MtlsEndpoints) UnmarshalJSON(data []byte) (err error) {
 	varMtlsEndpoints := _MtlsEndpoints{}
 
-	err = json.Unmarshal(bytes, &varMtlsEndpoints)
-	if err == nil {
-		*o = MtlsEndpoints(varMtlsEndpoints)
-	} else {
+	err = json.Unmarshal(data, &varMtlsEndpoints)
+
+	if err != nil {
 		return err
 	}
 
+	*o = MtlsEndpoints(varMtlsEndpoints)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "sso")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableMtlsEndpoints) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

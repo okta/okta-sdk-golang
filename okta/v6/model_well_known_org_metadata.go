@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the WellKnownOrgMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WellKnownOrgMetadata{}
+
 // WellKnownOrgMetadata struct for WellKnownOrgMetadata
 type WellKnownOrgMetadata struct {
 	// Org unique identifier
 	Id *string `json:"id,omitempty"`
 	// The Okta authentication pipeline of the org
-	Pipeline *string `json:"pipeline,omitempty"`
-	Links *WellKnownOrgMetadataLinks `json:"_links,omitempty"`
+	Pipeline             *string                    `json:"pipeline,omitempty"`
+	Links                *WellKnownOrgMetadataLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewWellKnownOrgMetadataWithDefaults() *WellKnownOrgMetadata {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *WellKnownOrgMetadata) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *WellKnownOrgMetadata) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownOrgMetadata) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -76,7 +79,7 @@ func (o *WellKnownOrgMetadata) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *WellKnownOrgMetadata) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *WellKnownOrgMetadata) SetId(v string) {
 
 // GetPipeline returns the Pipeline field value if set, zero value otherwise.
 func (o *WellKnownOrgMetadata) GetPipeline() string {
-	if o == nil || o.Pipeline == nil {
+	if o == nil || IsNil(o.Pipeline) {
 		var ret string
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *WellKnownOrgMetadata) GetPipeline() string {
 // GetPipelineOk returns a tuple with the Pipeline field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownOrgMetadata) GetPipelineOk() (*string, bool) {
-	if o == nil || o.Pipeline == nil {
+	if o == nil || IsNil(o.Pipeline) {
 		return nil, false
 	}
 	return o.Pipeline, true
@@ -108,7 +111,7 @@ func (o *WellKnownOrgMetadata) GetPipelineOk() (*string, bool) {
 
 // HasPipeline returns a boolean if a field has been set.
 func (o *WellKnownOrgMetadata) HasPipeline() bool {
-	if o != nil && o.Pipeline != nil {
+	if o != nil && !IsNil(o.Pipeline) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *WellKnownOrgMetadata) SetPipeline(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *WellKnownOrgMetadata) GetLinks() WellKnownOrgMetadataLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret WellKnownOrgMetadataLinks
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *WellKnownOrgMetadata) GetLinks() WellKnownOrgMetadataLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownOrgMetadata) GetLinksOk() (*WellKnownOrgMetadataLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -140,7 +143,7 @@ func (o *WellKnownOrgMetadata) GetLinksOk() (*WellKnownOrgMetadataLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *WellKnownOrgMetadata) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -153,14 +156,22 @@ func (o *WellKnownOrgMetadata) SetLinks(v WellKnownOrgMetadataLinks) {
 }
 
 func (o WellKnownOrgMetadata) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o WellKnownOrgMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Pipeline != nil {
+	if !IsNil(o.Pipeline) {
 		toSerialize["pipeline"] = o.Pipeline
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -168,29 +179,27 @@ func (o WellKnownOrgMetadata) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *WellKnownOrgMetadata) UnmarshalJSON(bytes []byte) (err error) {
+func (o *WellKnownOrgMetadata) UnmarshalJSON(data []byte) (err error) {
 	varWellKnownOrgMetadata := _WellKnownOrgMetadata{}
 
-	err = json.Unmarshal(bytes, &varWellKnownOrgMetadata)
-	if err == nil {
-		*o = WellKnownOrgMetadata(varWellKnownOrgMetadata)
-	} else {
+	err = json.Unmarshal(data, &varWellKnownOrgMetadata)
+
+	if err != nil {
 		return err
 	}
 
+	*o = WellKnownOrgMetadata(varWellKnownOrgMetadata)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "pipeline")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -231,4 +240,3 @@ func (v *NullableWellKnownOrgMetadata) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

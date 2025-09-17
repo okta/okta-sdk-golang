@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the PasswordCredentialHook type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordCredentialHook{}
+
 // PasswordCredentialHook Specify a [password import inline hook](/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createPasswordImportInlineHook) to trigger verification of the user's password the first time the user signs in. This allows an existing password to be imported into Okta directly from some other store.
 type PasswordCredentialHook struct {
 	// The type of password inline hook. Currently, must be set to default.
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewPasswordCredentialHookWithDefaults() *PasswordCredentialHook {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *PasswordCredentialHook) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *PasswordCredentialHook) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordCredentialHook) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -73,7 +76,7 @@ func (o *PasswordCredentialHook) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *PasswordCredentialHook) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *PasswordCredentialHook) SetType(v string) {
 }
 
 func (o PasswordCredentialHook) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordCredentialHook) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -95,27 +106,25 @@ func (o PasswordCredentialHook) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordCredentialHook) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordCredentialHook) UnmarshalJSON(data []byte) (err error) {
 	varPasswordCredentialHook := _PasswordCredentialHook{}
 
-	err = json.Unmarshal(bytes, &varPasswordCredentialHook)
-	if err == nil {
-		*o = PasswordCredentialHook(varPasswordCredentialHook)
-	} else {
+	err = json.Unmarshal(data, &varPasswordCredentialHook)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PasswordCredentialHook(varPasswordCredentialHook)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullablePasswordCredentialHook) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

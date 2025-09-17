@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,13 +28,16 @@ import (
 	"fmt"
 )
 
+// checks if the OSVersionConstraint type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OSVersionConstraint{}
+
 // OSVersionConstraint struct for OSVersionConstraint
 type OSVersionConstraint struct {
 	DynamicVersionRequirement *OSVersionConstraintDynamicVersionRequirement `json:"dynamicVersionRequirement,omitempty"`
 	// Indicates the Windows major version
 	MajorVersionConstraint string `json:"majorVersionConstraint"`
 	// The Windows device version must be equal to or newer than the specified version
-	Minimum *string `json:"minimum,omitempty"`
+	Minimum              *string `json:"minimum,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +63,7 @@ func NewOSVersionConstraintWithDefaults() *OSVersionConstraint {
 
 // GetDynamicVersionRequirement returns the DynamicVersionRequirement field value if set, zero value otherwise.
 func (o *OSVersionConstraint) GetDynamicVersionRequirement() OSVersionConstraintDynamicVersionRequirement {
-	if o == nil || o.DynamicVersionRequirement == nil {
+	if o == nil || IsNil(o.DynamicVersionRequirement) {
 		var ret OSVersionConstraintDynamicVersionRequirement
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *OSVersionConstraint) GetDynamicVersionRequirement() OSVersionConstraint
 // GetDynamicVersionRequirementOk returns a tuple with the DynamicVersionRequirement field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OSVersionConstraint) GetDynamicVersionRequirementOk() (*OSVersionConstraintDynamicVersionRequirement, bool) {
-	if o == nil || o.DynamicVersionRequirement == nil {
+	if o == nil || IsNil(o.DynamicVersionRequirement) {
 		return nil, false
 	}
 	return o.DynamicVersionRequirement, true
@@ -78,7 +81,7 @@ func (o *OSVersionConstraint) GetDynamicVersionRequirementOk() (*OSVersionConstr
 
 // HasDynamicVersionRequirement returns a boolean if a field has been set.
 func (o *OSVersionConstraint) HasDynamicVersionRequirement() bool {
-	if o != nil && o.DynamicVersionRequirement != nil {
+	if o != nil && !IsNil(o.DynamicVersionRequirement) {
 		return true
 	}
 
@@ -116,7 +119,7 @@ func (o *OSVersionConstraint) SetMajorVersionConstraint(v string) {
 
 // GetMinimum returns the Minimum field value if set, zero value otherwise.
 func (o *OSVersionConstraint) GetMinimum() string {
-	if o == nil || o.Minimum == nil {
+	if o == nil || IsNil(o.Minimum) {
 		var ret string
 		return ret
 	}
@@ -126,7 +129,7 @@ func (o *OSVersionConstraint) GetMinimum() string {
 // GetMinimumOk returns a tuple with the Minimum field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OSVersionConstraint) GetMinimumOk() (*string, bool) {
-	if o == nil || o.Minimum == nil {
+	if o == nil || IsNil(o.Minimum) {
 		return nil, false
 	}
 	return o.Minimum, true
@@ -134,7 +137,7 @@ func (o *OSVersionConstraint) GetMinimumOk() (*string, bool) {
 
 // HasMinimum returns a boolean if a field has been set.
 func (o *OSVersionConstraint) HasMinimum() bool {
-	if o != nil && o.Minimum != nil {
+	if o != nil && !IsNil(o.Minimum) {
 		return true
 	}
 
@@ -147,14 +150,20 @@ func (o *OSVersionConstraint) SetMinimum(v string) {
 }
 
 func (o OSVersionConstraint) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OSVersionConstraint) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.DynamicVersionRequirement != nil {
+	if !IsNil(o.DynamicVersionRequirement) {
 		toSerialize["dynamicVersionRequirement"] = o.DynamicVersionRequirement
 	}
-	if true {
-		toSerialize["majorVersionConstraint"] = o.MajorVersionConstraint
-	}
-	if o.Minimum != nil {
+	toSerialize["majorVersionConstraint"] = o.MajorVersionConstraint
+	if !IsNil(o.Minimum) {
 		toSerialize["minimum"] = o.Minimum
 	}
 
@@ -162,29 +171,48 @@ func (o OSVersionConstraint) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OSVersionConstraint) UnmarshalJSON(bytes []byte) (err error) {
-	varOSVersionConstraint := _OSVersionConstraint{}
+func (o *OSVersionConstraint) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"majorVersionConstraint",
+	}
 
-	err = json.Unmarshal(bytes, &varOSVersionConstraint)
-	if err == nil {
-		*o = OSVersionConstraint(varOSVersionConstraint)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varOSVersionConstraint := _OSVersionConstraint{}
+
+	err = json.Unmarshal(data, &varOSVersionConstraint)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OSVersionConstraint(varOSVersionConstraint)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "dynamicVersionRequirement")
 		delete(additionalProperties, "majorVersionConstraint")
 		delete(additionalProperties, "minimum")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -225,4 +253,3 @@ func (v *NullableOSVersionConstraint) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthenticatorKeyCustomAppAllOfSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorKeyCustomAppAllOfSettings{}
+
 // AuthenticatorKeyCustomAppAllOfSettings struct for AuthenticatorKeyCustomAppAllOfSettings
 type AuthenticatorKeyCustomAppAllOfSettings struct {
 	// User verification setting
 	UserVerification *string `json:"userVerification,omitempty"`
 	// The application instance ID. For custom_app, you need to create an OIDC native app using the [Apps API](https://developer.okta.com/docs/reference/api/apps/) with `Authorization Code` and `Refresh Token` grant types. You can leave both `Sign-in redirect URIs` and `Sign-out redirect URIs` as the default values.
-	AppInstanceId *string `json:"appInstanceId,omitempty"`
+	AppInstanceId        *string `json:"appInstanceId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewAuthenticatorKeyCustomAppAllOfSettingsWithDefaults() *AuthenticatorKeyCu
 
 // GetUserVerification returns the UserVerification field value if set, zero value otherwise.
 func (o *AuthenticatorKeyCustomAppAllOfSettings) GetUserVerification() string {
-	if o == nil || o.UserVerification == nil {
+	if o == nil || IsNil(o.UserVerification) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *AuthenticatorKeyCustomAppAllOfSettings) GetUserVerification() string {
 // GetUserVerificationOk returns a tuple with the UserVerification field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorKeyCustomAppAllOfSettings) GetUserVerificationOk() (*string, bool) {
-	if o == nil || o.UserVerification == nil {
+	if o == nil || IsNil(o.UserVerification) {
 		return nil, false
 	}
 	return o.UserVerification, true
@@ -75,7 +78,7 @@ func (o *AuthenticatorKeyCustomAppAllOfSettings) GetUserVerificationOk() (*strin
 
 // HasUserVerification returns a boolean if a field has been set.
 func (o *AuthenticatorKeyCustomAppAllOfSettings) HasUserVerification() bool {
-	if o != nil && o.UserVerification != nil {
+	if o != nil && !IsNil(o.UserVerification) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *AuthenticatorKeyCustomAppAllOfSettings) SetUserVerification(v string) {
 
 // GetAppInstanceId returns the AppInstanceId field value if set, zero value otherwise.
 func (o *AuthenticatorKeyCustomAppAllOfSettings) GetAppInstanceId() string {
-	if o == nil || o.AppInstanceId == nil {
+	if o == nil || IsNil(o.AppInstanceId) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *AuthenticatorKeyCustomAppAllOfSettings) GetAppInstanceId() string {
 // GetAppInstanceIdOk returns a tuple with the AppInstanceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorKeyCustomAppAllOfSettings) GetAppInstanceIdOk() (*string, bool) {
-	if o == nil || o.AppInstanceId == nil {
+	if o == nil || IsNil(o.AppInstanceId) {
 		return nil, false
 	}
 	return o.AppInstanceId, true
@@ -107,7 +110,7 @@ func (o *AuthenticatorKeyCustomAppAllOfSettings) GetAppInstanceIdOk() (*string, 
 
 // HasAppInstanceId returns a boolean if a field has been set.
 func (o *AuthenticatorKeyCustomAppAllOfSettings) HasAppInstanceId() bool {
-	if o != nil && o.AppInstanceId != nil {
+	if o != nil && !IsNil(o.AppInstanceId) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *AuthenticatorKeyCustomAppAllOfSettings) SetAppInstanceId(v string) {
 }
 
 func (o AuthenticatorKeyCustomAppAllOfSettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorKeyCustomAppAllOfSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.UserVerification != nil {
+	if !IsNil(o.UserVerification) {
 		toSerialize["userVerification"] = o.UserVerification
 	}
-	if o.AppInstanceId != nil {
+	if !IsNil(o.AppInstanceId) {
 		toSerialize["appInstanceId"] = o.AppInstanceId
 	}
 
@@ -132,28 +143,26 @@ func (o AuthenticatorKeyCustomAppAllOfSettings) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorKeyCustomAppAllOfSettings) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorKeyCustomAppAllOfSettings) UnmarshalJSON(data []byte) (err error) {
 	varAuthenticatorKeyCustomAppAllOfSettings := _AuthenticatorKeyCustomAppAllOfSettings{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorKeyCustomAppAllOfSettings)
-	if err == nil {
-		*o = AuthenticatorKeyCustomAppAllOfSettings(varAuthenticatorKeyCustomAppAllOfSettings)
-	} else {
+	err = json.Unmarshal(data, &varAuthenticatorKeyCustomAppAllOfSettings)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthenticatorKeyCustomAppAllOfSettings(varAuthenticatorKeyCustomAppAllOfSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "userVerification")
 		delete(additionalProperties, "appInstanceId")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableAuthenticatorKeyCustomAppAllOfSettings) UnmarshalJSON(src []byt
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

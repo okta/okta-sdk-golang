@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the RoleGovernance type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RoleGovernance{}
+
 // RoleGovernance List of all user role governance sources
 type RoleGovernance struct {
-	Grants []RoleGovernanceSource `json:"grants,omitempty"`
-	Links *LinksGovernanceSources `json:"_links,omitempty"`
+	Grants               []RoleGovernanceSource  `json:"grants,omitempty"`
+	Links                *LinksGovernanceSources `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewRoleGovernanceWithDefaults() *RoleGovernance {
 
 // GetGrants returns the Grants field value if set, zero value otherwise.
 func (o *RoleGovernance) GetGrants() []RoleGovernanceSource {
-	if o == nil || o.Grants == nil {
+	if o == nil || IsNil(o.Grants) {
 		var ret []RoleGovernanceSource
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *RoleGovernance) GetGrants() []RoleGovernanceSource {
 // GetGrantsOk returns a tuple with the Grants field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RoleGovernance) GetGrantsOk() ([]RoleGovernanceSource, bool) {
-	if o == nil || o.Grants == nil {
+	if o == nil || IsNil(o.Grants) {
 		return nil, false
 	}
 	return o.Grants, true
@@ -73,7 +76,7 @@ func (o *RoleGovernance) GetGrantsOk() ([]RoleGovernanceSource, bool) {
 
 // HasGrants returns a boolean if a field has been set.
 func (o *RoleGovernance) HasGrants() bool {
-	if o != nil && o.Grants != nil {
+	if o != nil && !IsNil(o.Grants) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *RoleGovernance) SetGrants(v []RoleGovernanceSource) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *RoleGovernance) GetLinks() LinksGovernanceSources {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksGovernanceSources
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *RoleGovernance) GetLinks() LinksGovernanceSources {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RoleGovernance) GetLinksOk() (*LinksGovernanceSources, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -105,7 +108,7 @@ func (o *RoleGovernance) GetLinksOk() (*LinksGovernanceSources, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *RoleGovernance) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *RoleGovernance) SetLinks(v LinksGovernanceSources) {
 }
 
 func (o RoleGovernance) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RoleGovernance) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Grants != nil {
+	if !IsNil(o.Grants) {
 		toSerialize["grants"] = o.Grants
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -130,28 +141,26 @@ func (o RoleGovernance) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RoleGovernance) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RoleGovernance) UnmarshalJSON(data []byte) (err error) {
 	varRoleGovernance := _RoleGovernance{}
 
-	err = json.Unmarshal(bytes, &varRoleGovernance)
-	if err == nil {
-		*o = RoleGovernance(varRoleGovernance)
-	} else {
+	err = json.Unmarshal(data, &varRoleGovernance)
+
+	if err != nil {
 		return err
 	}
 
+	*o = RoleGovernance(varRoleGovernance)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "grants")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableRoleGovernance) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

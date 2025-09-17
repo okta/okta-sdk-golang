@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the SAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributes type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributes{}
+
 // SAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributes struct for SAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributes
 type SAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributes struct {
 	// Used to derive the type of the attribute
-	XsiType *string `json:"xsi:type,omitempty"`
+	XsiType              *string `json:"xsi:type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewSAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributesWithDef
 
 // GetXsiType returns the XsiType field value if set, zero value otherwise.
 func (o *SAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributes) GetXsiType() string {
-	if o == nil || o.XsiType == nil {
+	if o == nil || IsNil(o.XsiType) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *SAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributes) GetX
 // GetXsiTypeOk returns a tuple with the XsiType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributes) GetXsiTypeOk() (*string, bool) {
-	if o == nil || o.XsiType == nil {
+	if o == nil || IsNil(o.XsiType) {
 		return nil, false
 	}
 	return o.XsiType, true
@@ -73,7 +76,7 @@ func (o *SAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributes) GetX
 
 // HasXsiType returns a boolean if a field has been set.
 func (o *SAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributes) HasXsiType() bool {
-	if o != nil && o.XsiType != nil {
+	if o != nil && !IsNil(o.XsiType) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *SAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributes) SetX
 }
 
 func (o SAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributes) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributes) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.XsiType != nil {
+	if !IsNil(o.XsiType) {
 		toSerialize["xsi:type"] = o.XsiType
 	}
 
@@ -95,27 +106,25 @@ func (o SAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributes) Marsh
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributes) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributes) UnmarshalJSON(data []byte) (err error) {
 	varSAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributes := _SAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributes{}
 
-	err = json.Unmarshal(bytes, &varSAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributes)
-	if err == nil {
-		*o = SAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributes(varSAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributes)
-	} else {
+	err = json.Unmarshal(data, &varSAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributes)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributes(varSAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttributes)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "xsi:type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableSAMLPayLoadDataAssertionClaimsValueAttributeValuesInnerAttribut
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

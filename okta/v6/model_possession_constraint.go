@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package okta
 import (
 	"encoding/json"
 )
+
+// checks if the PossessionConstraint type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PossessionConstraint{}
 
 // PossessionConstraint struct for PossessionConstraint
 type PossessionConstraint struct {
@@ -53,7 +56,7 @@ type PossessionConstraint struct {
 	UserVerification *string `json:"userVerification,omitempty"`
 	// Indicates which methods can be used for user verification. `userVerificationMethods` can only be used when `userVerification` is `REQUIRED`. `BIOMETRICS` is currently the only supported method.
 	UserVerificationMethods []string `json:"userVerificationMethods,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties    map[string]interface{}
 }
 
 type _PossessionConstraint PossessionConstraint
@@ -97,7 +100,7 @@ func NewPossessionConstraintWithDefaults() *PossessionConstraint {
 
 // GetAuthenticationMethods returns the AuthenticationMethods field value if set, zero value otherwise.
 func (o *PossessionConstraint) GetAuthenticationMethods() []AuthenticationMethodObject {
-	if o == nil || o.AuthenticationMethods == nil {
+	if o == nil || IsNil(o.AuthenticationMethods) {
 		var ret []AuthenticationMethodObject
 		return ret
 	}
@@ -107,7 +110,7 @@ func (o *PossessionConstraint) GetAuthenticationMethods() []AuthenticationMethod
 // GetAuthenticationMethodsOk returns a tuple with the AuthenticationMethods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PossessionConstraint) GetAuthenticationMethodsOk() ([]AuthenticationMethodObject, bool) {
-	if o == nil || o.AuthenticationMethods == nil {
+	if o == nil || IsNil(o.AuthenticationMethods) {
 		return nil, false
 	}
 	return o.AuthenticationMethods, true
@@ -115,7 +118,7 @@ func (o *PossessionConstraint) GetAuthenticationMethodsOk() ([]AuthenticationMet
 
 // HasAuthenticationMethods returns a boolean if a field has been set.
 func (o *PossessionConstraint) HasAuthenticationMethods() bool {
-	if o != nil && o.AuthenticationMethods != nil {
+	if o != nil && !IsNil(o.AuthenticationMethods) {
 		return true
 	}
 
@@ -129,7 +132,7 @@ func (o *PossessionConstraint) SetAuthenticationMethods(v []AuthenticationMethod
 
 // GetExcludedAuthenticationMethods returns the ExcludedAuthenticationMethods field value if set, zero value otherwise.
 func (o *PossessionConstraint) GetExcludedAuthenticationMethods() []AuthenticationMethodObject {
-	if o == nil || o.ExcludedAuthenticationMethods == nil {
+	if o == nil || IsNil(o.ExcludedAuthenticationMethods) {
 		var ret []AuthenticationMethodObject
 		return ret
 	}
@@ -139,7 +142,7 @@ func (o *PossessionConstraint) GetExcludedAuthenticationMethods() []Authenticati
 // GetExcludedAuthenticationMethodsOk returns a tuple with the ExcludedAuthenticationMethods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PossessionConstraint) GetExcludedAuthenticationMethodsOk() ([]AuthenticationMethodObject, bool) {
-	if o == nil || o.ExcludedAuthenticationMethods == nil {
+	if o == nil || IsNil(o.ExcludedAuthenticationMethods) {
 		return nil, false
 	}
 	return o.ExcludedAuthenticationMethods, true
@@ -147,7 +150,7 @@ func (o *PossessionConstraint) GetExcludedAuthenticationMethodsOk() ([]Authentic
 
 // HasExcludedAuthenticationMethods returns a boolean if a field has been set.
 func (o *PossessionConstraint) HasExcludedAuthenticationMethods() bool {
-	if o != nil && o.ExcludedAuthenticationMethods != nil {
+	if o != nil && !IsNil(o.ExcludedAuthenticationMethods) {
 		return true
 	}
 
@@ -161,7 +164,7 @@ func (o *PossessionConstraint) SetExcludedAuthenticationMethods(v []Authenticati
 
 // GetMethods returns the Methods field value if set, zero value otherwise.
 func (o *PossessionConstraint) GetMethods() []string {
-	if o == nil || o.Methods == nil {
+	if o == nil || IsNil(o.Methods) {
 		var ret []string
 		return ret
 	}
@@ -171,7 +174,7 @@ func (o *PossessionConstraint) GetMethods() []string {
 // GetMethodsOk returns a tuple with the Methods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PossessionConstraint) GetMethodsOk() ([]string, bool) {
-	if o == nil || o.Methods == nil {
+	if o == nil || IsNil(o.Methods) {
 		return nil, false
 	}
 	return o.Methods, true
@@ -179,7 +182,7 @@ func (o *PossessionConstraint) GetMethodsOk() ([]string, bool) {
 
 // HasMethods returns a boolean if a field has been set.
 func (o *PossessionConstraint) HasMethods() bool {
-	if o != nil && o.Methods != nil {
+	if o != nil && !IsNil(o.Methods) {
 		return true
 	}
 
@@ -193,7 +196,7 @@ func (o *PossessionConstraint) SetMethods(v []string) {
 
 // GetReauthenticateIn returns the ReauthenticateIn field value if set, zero value otherwise.
 func (o *PossessionConstraint) GetReauthenticateIn() string {
-	if o == nil || o.ReauthenticateIn == nil {
+	if o == nil || IsNil(o.ReauthenticateIn) {
 		var ret string
 		return ret
 	}
@@ -203,7 +206,7 @@ func (o *PossessionConstraint) GetReauthenticateIn() string {
 // GetReauthenticateInOk returns a tuple with the ReauthenticateIn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PossessionConstraint) GetReauthenticateInOk() (*string, bool) {
-	if o == nil || o.ReauthenticateIn == nil {
+	if o == nil || IsNil(o.ReauthenticateIn) {
 		return nil, false
 	}
 	return o.ReauthenticateIn, true
@@ -211,7 +214,7 @@ func (o *PossessionConstraint) GetReauthenticateInOk() (*string, bool) {
 
 // HasReauthenticateIn returns a boolean if a field has been set.
 func (o *PossessionConstraint) HasReauthenticateIn() bool {
-	if o != nil && o.ReauthenticateIn != nil {
+	if o != nil && !IsNil(o.ReauthenticateIn) {
 		return true
 	}
 
@@ -225,7 +228,7 @@ func (o *PossessionConstraint) SetReauthenticateIn(v string) {
 
 // GetRequired returns the Required field value if set, zero value otherwise.
 func (o *PossessionConstraint) GetRequired() bool {
-	if o == nil || o.Required == nil {
+	if o == nil || IsNil(o.Required) {
 		var ret bool
 		return ret
 	}
@@ -235,7 +238,7 @@ func (o *PossessionConstraint) GetRequired() bool {
 // GetRequiredOk returns a tuple with the Required field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PossessionConstraint) GetRequiredOk() (*bool, bool) {
-	if o == nil || o.Required == nil {
+	if o == nil || IsNil(o.Required) {
 		return nil, false
 	}
 	return o.Required, true
@@ -243,7 +246,7 @@ func (o *PossessionConstraint) GetRequiredOk() (*bool, bool) {
 
 // HasRequired returns a boolean if a field has been set.
 func (o *PossessionConstraint) HasRequired() bool {
-	if o != nil && o.Required != nil {
+	if o != nil && !IsNil(o.Required) {
 		return true
 	}
 
@@ -257,7 +260,7 @@ func (o *PossessionConstraint) SetRequired(v bool) {
 
 // GetTypes returns the Types field value if set, zero value otherwise.
 func (o *PossessionConstraint) GetTypes() []string {
-	if o == nil || o.Types == nil {
+	if o == nil || IsNil(o.Types) {
 		var ret []string
 		return ret
 	}
@@ -267,7 +270,7 @@ func (o *PossessionConstraint) GetTypes() []string {
 // GetTypesOk returns a tuple with the Types field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PossessionConstraint) GetTypesOk() ([]string, bool) {
-	if o == nil || o.Types == nil {
+	if o == nil || IsNil(o.Types) {
 		return nil, false
 	}
 	return o.Types, true
@@ -275,7 +278,7 @@ func (o *PossessionConstraint) GetTypesOk() ([]string, bool) {
 
 // HasTypes returns a boolean if a field has been set.
 func (o *PossessionConstraint) HasTypes() bool {
-	if o != nil && o.Types != nil {
+	if o != nil && !IsNil(o.Types) {
 		return true
 	}
 
@@ -289,7 +292,7 @@ func (o *PossessionConstraint) SetTypes(v []string) {
 
 // GetDeviceBound returns the DeviceBound field value if set, zero value otherwise.
 func (o *PossessionConstraint) GetDeviceBound() string {
-	if o == nil || o.DeviceBound == nil {
+	if o == nil || IsNil(o.DeviceBound) {
 		var ret string
 		return ret
 	}
@@ -299,7 +302,7 @@ func (o *PossessionConstraint) GetDeviceBound() string {
 // GetDeviceBoundOk returns a tuple with the DeviceBound field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PossessionConstraint) GetDeviceBoundOk() (*string, bool) {
-	if o == nil || o.DeviceBound == nil {
+	if o == nil || IsNil(o.DeviceBound) {
 		return nil, false
 	}
 	return o.DeviceBound, true
@@ -307,7 +310,7 @@ func (o *PossessionConstraint) GetDeviceBoundOk() (*string, bool) {
 
 // HasDeviceBound returns a boolean if a field has been set.
 func (o *PossessionConstraint) HasDeviceBound() bool {
-	if o != nil && o.DeviceBound != nil {
+	if o != nil && !IsNil(o.DeviceBound) {
 		return true
 	}
 
@@ -321,7 +324,7 @@ func (o *PossessionConstraint) SetDeviceBound(v string) {
 
 // GetHardwareProtection returns the HardwareProtection field value if set, zero value otherwise.
 func (o *PossessionConstraint) GetHardwareProtection() string {
-	if o == nil || o.HardwareProtection == nil {
+	if o == nil || IsNil(o.HardwareProtection) {
 		var ret string
 		return ret
 	}
@@ -331,7 +334,7 @@ func (o *PossessionConstraint) GetHardwareProtection() string {
 // GetHardwareProtectionOk returns a tuple with the HardwareProtection field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PossessionConstraint) GetHardwareProtectionOk() (*string, bool) {
-	if o == nil || o.HardwareProtection == nil {
+	if o == nil || IsNil(o.HardwareProtection) {
 		return nil, false
 	}
 	return o.HardwareProtection, true
@@ -339,7 +342,7 @@ func (o *PossessionConstraint) GetHardwareProtectionOk() (*string, bool) {
 
 // HasHardwareProtection returns a boolean if a field has been set.
 func (o *PossessionConstraint) HasHardwareProtection() bool {
-	if o != nil && o.HardwareProtection != nil {
+	if o != nil && !IsNil(o.HardwareProtection) {
 		return true
 	}
 
@@ -353,7 +356,7 @@ func (o *PossessionConstraint) SetHardwareProtection(v string) {
 
 // GetPhishingResistant returns the PhishingResistant field value if set, zero value otherwise.
 func (o *PossessionConstraint) GetPhishingResistant() string {
-	if o == nil || o.PhishingResistant == nil {
+	if o == nil || IsNil(o.PhishingResistant) {
 		var ret string
 		return ret
 	}
@@ -363,7 +366,7 @@ func (o *PossessionConstraint) GetPhishingResistant() string {
 // GetPhishingResistantOk returns a tuple with the PhishingResistant field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PossessionConstraint) GetPhishingResistantOk() (*string, bool) {
-	if o == nil || o.PhishingResistant == nil {
+	if o == nil || IsNil(o.PhishingResistant) {
 		return nil, false
 	}
 	return o.PhishingResistant, true
@@ -371,7 +374,7 @@ func (o *PossessionConstraint) GetPhishingResistantOk() (*string, bool) {
 
 // HasPhishingResistant returns a boolean if a field has been set.
 func (o *PossessionConstraint) HasPhishingResistant() bool {
-	if o != nil && o.PhishingResistant != nil {
+	if o != nil && !IsNil(o.PhishingResistant) {
 		return true
 	}
 
@@ -385,7 +388,7 @@ func (o *PossessionConstraint) SetPhishingResistant(v string) {
 
 // GetUserPresence returns the UserPresence field value if set, zero value otherwise.
 func (o *PossessionConstraint) GetUserPresence() string {
-	if o == nil || o.UserPresence == nil {
+	if o == nil || IsNil(o.UserPresence) {
 		var ret string
 		return ret
 	}
@@ -395,7 +398,7 @@ func (o *PossessionConstraint) GetUserPresence() string {
 // GetUserPresenceOk returns a tuple with the UserPresence field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PossessionConstraint) GetUserPresenceOk() (*string, bool) {
-	if o == nil || o.UserPresence == nil {
+	if o == nil || IsNil(o.UserPresence) {
 		return nil, false
 	}
 	return o.UserPresence, true
@@ -403,7 +406,7 @@ func (o *PossessionConstraint) GetUserPresenceOk() (*string, bool) {
 
 // HasUserPresence returns a boolean if a field has been set.
 func (o *PossessionConstraint) HasUserPresence() bool {
-	if o != nil && o.UserPresence != nil {
+	if o != nil && !IsNil(o.UserPresence) {
 		return true
 	}
 
@@ -417,7 +420,7 @@ func (o *PossessionConstraint) SetUserPresence(v string) {
 
 // GetUserVerification returns the UserVerification field value if set, zero value otherwise.
 func (o *PossessionConstraint) GetUserVerification() string {
-	if o == nil || o.UserVerification == nil {
+	if o == nil || IsNil(o.UserVerification) {
 		var ret string
 		return ret
 	}
@@ -427,7 +430,7 @@ func (o *PossessionConstraint) GetUserVerification() string {
 // GetUserVerificationOk returns a tuple with the UserVerification field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PossessionConstraint) GetUserVerificationOk() (*string, bool) {
-	if o == nil || o.UserVerification == nil {
+	if o == nil || IsNil(o.UserVerification) {
 		return nil, false
 	}
 	return o.UserVerification, true
@@ -435,7 +438,7 @@ func (o *PossessionConstraint) GetUserVerificationOk() (*string, bool) {
 
 // HasUserVerification returns a boolean if a field has been set.
 func (o *PossessionConstraint) HasUserVerification() bool {
-	if o != nil && o.UserVerification != nil {
+	if o != nil && !IsNil(o.UserVerification) {
 		return true
 	}
 
@@ -449,7 +452,7 @@ func (o *PossessionConstraint) SetUserVerification(v string) {
 
 // GetUserVerificationMethods returns the UserVerificationMethods field value if set, zero value otherwise.
 func (o *PossessionConstraint) GetUserVerificationMethods() []string {
-	if o == nil || o.UserVerificationMethods == nil {
+	if o == nil || IsNil(o.UserVerificationMethods) {
 		var ret []string
 		return ret
 	}
@@ -459,7 +462,7 @@ func (o *PossessionConstraint) GetUserVerificationMethods() []string {
 // GetUserVerificationMethodsOk returns a tuple with the UserVerificationMethods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PossessionConstraint) GetUserVerificationMethodsOk() ([]string, bool) {
-	if o == nil || o.UserVerificationMethods == nil {
+	if o == nil || IsNil(o.UserVerificationMethods) {
 		return nil, false
 	}
 	return o.UserVerificationMethods, true
@@ -467,7 +470,7 @@ func (o *PossessionConstraint) GetUserVerificationMethodsOk() ([]string, bool) {
 
 // HasUserVerificationMethods returns a boolean if a field has been set.
 func (o *PossessionConstraint) HasUserVerificationMethods() bool {
-	if o != nil && o.UserVerificationMethods != nil {
+	if o != nil && !IsNil(o.UserVerificationMethods) {
 		return true
 	}
 
@@ -480,41 +483,49 @@ func (o *PossessionConstraint) SetUserVerificationMethods(v []string) {
 }
 
 func (o PossessionConstraint) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PossessionConstraint) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AuthenticationMethods != nil {
+	if !IsNil(o.AuthenticationMethods) {
 		toSerialize["authenticationMethods"] = o.AuthenticationMethods
 	}
-	if o.ExcludedAuthenticationMethods != nil {
+	if !IsNil(o.ExcludedAuthenticationMethods) {
 		toSerialize["excludedAuthenticationMethods"] = o.ExcludedAuthenticationMethods
 	}
-	if o.Methods != nil {
+	if !IsNil(o.Methods) {
 		toSerialize["methods"] = o.Methods
 	}
-	if o.ReauthenticateIn != nil {
+	if !IsNil(o.ReauthenticateIn) {
 		toSerialize["reauthenticateIn"] = o.ReauthenticateIn
 	}
-	if o.Required != nil {
+	if !IsNil(o.Required) {
 		toSerialize["required"] = o.Required
 	}
-	if o.Types != nil {
+	if !IsNil(o.Types) {
 		toSerialize["types"] = o.Types
 	}
-	if o.DeviceBound != nil {
+	if !IsNil(o.DeviceBound) {
 		toSerialize["deviceBound"] = o.DeviceBound
 	}
-	if o.HardwareProtection != nil {
+	if !IsNil(o.HardwareProtection) {
 		toSerialize["hardwareProtection"] = o.HardwareProtection
 	}
-	if o.PhishingResistant != nil {
+	if !IsNil(o.PhishingResistant) {
 		toSerialize["phishingResistant"] = o.PhishingResistant
 	}
-	if o.UserPresence != nil {
+	if !IsNil(o.UserPresence) {
 		toSerialize["userPresence"] = o.UserPresence
 	}
-	if o.UserVerification != nil {
+	if !IsNil(o.UserVerification) {
 		toSerialize["userVerification"] = o.UserVerification
 	}
-	if o.UserVerificationMethods != nil {
+	if !IsNil(o.UserVerificationMethods) {
 		toSerialize["userVerificationMethods"] = o.UserVerificationMethods
 	}
 
@@ -522,23 +533,23 @@ func (o PossessionConstraint) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PossessionConstraint) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PossessionConstraint) UnmarshalJSON(data []byte) (err error) {
 	varPossessionConstraint := _PossessionConstraint{}
 
-	err = json.Unmarshal(bytes, &varPossessionConstraint)
-	if err == nil {
-		*o = PossessionConstraint(varPossessionConstraint)
-	} else {
+	err = json.Unmarshal(data, &varPossessionConstraint)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PossessionConstraint(varPossessionConstraint)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "authenticationMethods")
 		delete(additionalProperties, "excludedAuthenticationMethods")
 		delete(additionalProperties, "methods")
@@ -552,8 +563,6 @@ func (o *PossessionConstraint) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "userVerification")
 		delete(additionalProperties, "userVerificationMethods")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -594,4 +603,3 @@ func (v *NullablePossessionConstraint) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

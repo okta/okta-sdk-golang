@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the Question type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Question{}
+
 // Question Verifies an answer to a `question` factor
 type Question struct {
 	// Answer to the question
-	Answer *string `json:"answer,omitempty"`
+	Answer               *string `json:"answer,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewQuestionWithDefaults() *Question {
 
 // GetAnswer returns the Answer field value if set, zero value otherwise.
 func (o *Question) GetAnswer() string {
-	if o == nil || o.Answer == nil {
+	if o == nil || IsNil(o.Answer) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *Question) GetAnswer() string {
 // GetAnswerOk returns a tuple with the Answer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Question) GetAnswerOk() (*string, bool) {
-	if o == nil || o.Answer == nil {
+	if o == nil || IsNil(o.Answer) {
 		return nil, false
 	}
 	return o.Answer, true
@@ -73,7 +76,7 @@ func (o *Question) GetAnswerOk() (*string, bool) {
 
 // HasAnswer returns a boolean if a field has been set.
 func (o *Question) HasAnswer() bool {
-	if o != nil && o.Answer != nil {
+	if o != nil && !IsNil(o.Answer) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *Question) SetAnswer(v string) {
 }
 
 func (o Question) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Question) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Answer != nil {
+	if !IsNil(o.Answer) {
 		toSerialize["answer"] = o.Answer
 	}
 
@@ -95,27 +106,25 @@ func (o Question) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Question) UnmarshalJSON(bytes []byte) (err error) {
+func (o *Question) UnmarshalJSON(data []byte) (err error) {
 	varQuestion := _Question{}
 
-	err = json.Unmarshal(bytes, &varQuestion)
-	if err == nil {
-		*o = Question(varQuestion)
-	} else {
+	err = json.Unmarshal(data, &varQuestion)
+
+	if err != nil {
 		return err
 	}
 
+	*o = Question(varQuestion)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "answer")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableQuestion) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

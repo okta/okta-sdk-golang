@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,11 +28,9 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
 // DeviceIntegrationsMetadata - The metadata of the device integration
 type DeviceIntegrationsMetadata struct {
-	DeviceIntegrationsMetadataOneOf *DeviceIntegrationsMetadataOneOf
+	DeviceIntegrationsMetadataOneOf  *DeviceIntegrationsMetadataOneOf
 	DeviceIntegrationsMetadataOneOf1 *DeviceIntegrationsMetadataOneOf1
 	DeviceIntegrationsMetadataOneOf2 *DeviceIntegrationsMetadataOneOf2
 }
@@ -58,62 +56,61 @@ func DeviceIntegrationsMetadataOneOf2AsDeviceIntegrationsMetadata(v *DeviceInteg
 	}
 }
 
-
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *DeviceIntegrationsMetadata) UnmarshalJSON(data []byte) error {
 	var err error
-        match := 0
-        // try to unmarshal data into DeviceIntegrationsMetadataOneOf
-        err = json.Unmarshal(data, &dst.DeviceIntegrationsMetadataOneOf)
-        if err == nil {
-                jsonDeviceIntegrationsMetadataOneOf, _ := json.Marshal(dst.DeviceIntegrationsMetadataOneOf)
-                if string(jsonDeviceIntegrationsMetadataOneOf) == "{}" { // empty struct
-                        dst.DeviceIntegrationsMetadataOneOf = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.DeviceIntegrationsMetadataOneOf = nil
-        }
+	match := 0
+	// try to unmarshal data into DeviceIntegrationsMetadataOneOf
+	err = json.Unmarshal(data, &dst.DeviceIntegrationsMetadataOneOf)
+	if err == nil {
+		jsonDeviceIntegrationsMetadataOneOf, _ := json.Marshal(dst.DeviceIntegrationsMetadataOneOf)
+		if string(jsonDeviceIntegrationsMetadataOneOf) == "{}" { // empty struct
+			dst.DeviceIntegrationsMetadataOneOf = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.DeviceIntegrationsMetadataOneOf = nil
+	}
 
-        // try to unmarshal data into DeviceIntegrationsMetadataOneOf1
-        err = json.Unmarshal(data, &dst.DeviceIntegrationsMetadataOneOf1)
-        if err == nil {
-                jsonDeviceIntegrationsMetadataOneOf1, _ := json.Marshal(dst.DeviceIntegrationsMetadataOneOf1)
-                if string(jsonDeviceIntegrationsMetadataOneOf1) == "{}" { // empty struct
-                        dst.DeviceIntegrationsMetadataOneOf1 = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.DeviceIntegrationsMetadataOneOf1 = nil
-        }
+	// try to unmarshal data into DeviceIntegrationsMetadataOneOf1
+	err = json.Unmarshal(data, &dst.DeviceIntegrationsMetadataOneOf1)
+	if err == nil {
+		jsonDeviceIntegrationsMetadataOneOf1, _ := json.Marshal(dst.DeviceIntegrationsMetadataOneOf1)
+		if string(jsonDeviceIntegrationsMetadataOneOf1) == "{}" { // empty struct
+			dst.DeviceIntegrationsMetadataOneOf1 = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.DeviceIntegrationsMetadataOneOf1 = nil
+	}
 
-        // try to unmarshal data into DeviceIntegrationsMetadataOneOf2
-        err = json.Unmarshal(data, &dst.DeviceIntegrationsMetadataOneOf2)
-        if err == nil {
-                jsonDeviceIntegrationsMetadataOneOf2, _ := json.Marshal(dst.DeviceIntegrationsMetadataOneOf2)
-                if string(jsonDeviceIntegrationsMetadataOneOf2) == "{}" { // empty struct
-                        dst.DeviceIntegrationsMetadataOneOf2 = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.DeviceIntegrationsMetadataOneOf2 = nil
-        }
+	// try to unmarshal data into DeviceIntegrationsMetadataOneOf2
+	err = json.Unmarshal(data, &dst.DeviceIntegrationsMetadataOneOf2)
+	if err == nil {
+		jsonDeviceIntegrationsMetadataOneOf2, _ := json.Marshal(dst.DeviceIntegrationsMetadataOneOf2)
+		if string(jsonDeviceIntegrationsMetadataOneOf2) == "{}" { // empty struct
+			dst.DeviceIntegrationsMetadataOneOf2 = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.DeviceIntegrationsMetadataOneOf2 = nil
+	}
 
-        if match > 1 { // more than 1 match
-                // reset to nil
-                dst.DeviceIntegrationsMetadataOneOf = nil
-                dst.DeviceIntegrationsMetadataOneOf1 = nil
-                dst.DeviceIntegrationsMetadataOneOf2 = nil
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.DeviceIntegrationsMetadataOneOf = nil
+		dst.DeviceIntegrationsMetadataOneOf1 = nil
+		dst.DeviceIntegrationsMetadataOneOf2 = nil
 
-                return fmt.Errorf("Data matches more than one schema in oneOf(DeviceIntegrationsMetadata)")
-        } else if match == 1 {
-                return nil // exactly one match
-        } else { // no match
-                return fmt.Errorf("Data failed to match schemas in oneOf(DeviceIntegrationsMetadata)")
-        }
+		return fmt.Errorf("data matches more than one schema in oneOf(DeviceIntegrationsMetadata)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("data failed to match schemas in oneOf(DeviceIntegrationsMetadata)")
+	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -134,7 +131,7 @@ func (src DeviceIntegrationsMetadata) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *DeviceIntegrationsMetadata) GetActualInstance() (interface{}) {
+func (obj *DeviceIntegrationsMetadata) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -148,6 +145,24 @@ func (obj *DeviceIntegrationsMetadata) GetActualInstance() (interface{}) {
 
 	if obj.DeviceIntegrationsMetadataOneOf2 != nil {
 		return obj.DeviceIntegrationsMetadataOneOf2
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj DeviceIntegrationsMetadata) GetActualInstanceValue() interface{} {
+	if obj.DeviceIntegrationsMetadataOneOf != nil {
+		return *obj.DeviceIntegrationsMetadataOneOf
+	}
+
+	if obj.DeviceIntegrationsMetadataOneOf1 != nil {
+		return *obj.DeviceIntegrationsMetadataOneOf1
+	}
+
+	if obj.DeviceIntegrationsMetadataOneOf2 != nil {
+		return *obj.DeviceIntegrationsMetadataOneOf2
 	}
 
 	// all schemas are nil
@@ -189,5 +204,3 @@ func (v *NullableDeviceIntegrationsMetadata) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

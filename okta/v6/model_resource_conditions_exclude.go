@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the ResourceConditionsExclude type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceConditionsExclude{}
+
 // ResourceConditionsExclude Specific resources to exclude
 type ResourceConditionsExclude struct {
 	// List of specific resources to exclude in ORN format
-	OktaORN []string `json:"okta:ORN,omitempty"`
+	OktaORN              []string `json:"okta:ORN,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewResourceConditionsExcludeWithDefaults() *ResourceConditionsExclude {
 
 // GetOktaORN returns the OktaORN field value if set, zero value otherwise.
 func (o *ResourceConditionsExclude) GetOktaORN() []string {
-	if o == nil || o.OktaORN == nil {
+	if o == nil || IsNil(o.OktaORN) {
 		var ret []string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *ResourceConditionsExclude) GetOktaORN() []string {
 // GetOktaORNOk returns a tuple with the OktaORN field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceConditionsExclude) GetOktaORNOk() ([]string, bool) {
-	if o == nil || o.OktaORN == nil {
+	if o == nil || IsNil(o.OktaORN) {
 		return nil, false
 	}
 	return o.OktaORN, true
@@ -73,7 +76,7 @@ func (o *ResourceConditionsExclude) GetOktaORNOk() ([]string, bool) {
 
 // HasOktaORN returns a boolean if a field has been set.
 func (o *ResourceConditionsExclude) HasOktaORN() bool {
-	if o != nil && o.OktaORN != nil {
+	if o != nil && !IsNil(o.OktaORN) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *ResourceConditionsExclude) SetOktaORN(v []string) {
 }
 
 func (o ResourceConditionsExclude) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ResourceConditionsExclude) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.OktaORN != nil {
+	if !IsNil(o.OktaORN) {
 		toSerialize["okta:ORN"] = o.OktaORN
 	}
 
@@ -95,27 +106,25 @@ func (o ResourceConditionsExclude) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResourceConditionsExclude) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ResourceConditionsExclude) UnmarshalJSON(data []byte) (err error) {
 	varResourceConditionsExclude := _ResourceConditionsExclude{}
 
-	err = json.Unmarshal(bytes, &varResourceConditionsExclude)
-	if err == nil {
-		*o = ResourceConditionsExclude(varResourceConditionsExclude)
-	} else {
+	err = json.Unmarshal(data, &varResourceConditionsExclude)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ResourceConditionsExclude(varResourceConditionsExclude)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "okta:ORN")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableResourceConditionsExclude) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

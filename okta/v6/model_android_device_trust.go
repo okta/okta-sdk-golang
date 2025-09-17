@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AndroidDeviceTrust type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AndroidDeviceTrust{}
+
 // AndroidDeviceTrust <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Android Device Trust integration provider
 type AndroidDeviceTrust struct {
 	// Indicates how well a device can enforce app integrity
@@ -35,14 +38,14 @@ type AndroidDeviceTrust struct {
 	NetworkProxyDisabled *bool `json:"networkProxyDisabled,omitempty"`
 	// Indicates if Google Play Protect is enabled on the device and whether it has found known malware
 	PlayProtectVerdict *string `json:"playProtectVerdict,omitempty"`
-	// Indicates whether the device needs to be on the latest major version available to the device  **Note:** This option requires an `osVersion.dynamicVersionRequirement` value to be supplied with the `osVersion.dynamicVersionRequirement.type` as either `MINIMUM` or `EXACT`. 
+	// Indicates whether the device needs to be on the latest major version available to the device  **Note:** This option requires an `osVersion.dynamicVersionRequirement` value to be supplied with the `osVersion.dynamicVersionRequirement.type` as either `MINIMUM` or `EXACT`.
 	RequireMajorVersionUpdate *bool `json:"requireMajorVersionUpdate,omitempty"`
-	// Indicates whether a device has a screen lock set, and the type or complexity of the screen lock  **Note:** This option requires a `screenLockType.include` value. 
+	// Indicates whether a device has a screen lock set, and the type or complexity of the screen lock  **Note:** This option requires a `screenLockType.include` value.
 	ScreenLockComplexity *string `json:"screenLockComplexity,omitempty"`
 	// Indicates whether Android Debug Bridge (adb) over USB is disabled
 	UsbDebuggingDisabled *bool `json:"usbDebuggingDisabled,omitempty"`
 	// Indicates whether a device is on a password-protected Wi-Fi network
-	WifiSecured *bool `json:"wifiSecured,omitempty"`
+	WifiSecured          *bool `json:"wifiSecured,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -67,7 +70,7 @@ func NewAndroidDeviceTrustWithDefaults() *AndroidDeviceTrust {
 
 // GetDeviceIntegrityLevel returns the DeviceIntegrityLevel field value if set, zero value otherwise.
 func (o *AndroidDeviceTrust) GetDeviceIntegrityLevel() string {
-	if o == nil || o.DeviceIntegrityLevel == nil {
+	if o == nil || IsNil(o.DeviceIntegrityLevel) {
 		var ret string
 		return ret
 	}
@@ -77,7 +80,7 @@ func (o *AndroidDeviceTrust) GetDeviceIntegrityLevel() string {
 // GetDeviceIntegrityLevelOk returns a tuple with the DeviceIntegrityLevel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AndroidDeviceTrust) GetDeviceIntegrityLevelOk() (*string, bool) {
-	if o == nil || o.DeviceIntegrityLevel == nil {
+	if o == nil || IsNil(o.DeviceIntegrityLevel) {
 		return nil, false
 	}
 	return o.DeviceIntegrityLevel, true
@@ -85,7 +88,7 @@ func (o *AndroidDeviceTrust) GetDeviceIntegrityLevelOk() (*string, bool) {
 
 // HasDeviceIntegrityLevel returns a boolean if a field has been set.
 func (o *AndroidDeviceTrust) HasDeviceIntegrityLevel() bool {
-	if o != nil && o.DeviceIntegrityLevel != nil {
+	if o != nil && !IsNil(o.DeviceIntegrityLevel) {
 		return true
 	}
 
@@ -99,7 +102,7 @@ func (o *AndroidDeviceTrust) SetDeviceIntegrityLevel(v string) {
 
 // GetNetworkProxyDisabled returns the NetworkProxyDisabled field value if set, zero value otherwise.
 func (o *AndroidDeviceTrust) GetNetworkProxyDisabled() bool {
-	if o == nil || o.NetworkProxyDisabled == nil {
+	if o == nil || IsNil(o.NetworkProxyDisabled) {
 		var ret bool
 		return ret
 	}
@@ -109,7 +112,7 @@ func (o *AndroidDeviceTrust) GetNetworkProxyDisabled() bool {
 // GetNetworkProxyDisabledOk returns a tuple with the NetworkProxyDisabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AndroidDeviceTrust) GetNetworkProxyDisabledOk() (*bool, bool) {
-	if o == nil || o.NetworkProxyDisabled == nil {
+	if o == nil || IsNil(o.NetworkProxyDisabled) {
 		return nil, false
 	}
 	return o.NetworkProxyDisabled, true
@@ -117,7 +120,7 @@ func (o *AndroidDeviceTrust) GetNetworkProxyDisabledOk() (*bool, bool) {
 
 // HasNetworkProxyDisabled returns a boolean if a field has been set.
 func (o *AndroidDeviceTrust) HasNetworkProxyDisabled() bool {
-	if o != nil && o.NetworkProxyDisabled != nil {
+	if o != nil && !IsNil(o.NetworkProxyDisabled) {
 		return true
 	}
 
@@ -131,7 +134,7 @@ func (o *AndroidDeviceTrust) SetNetworkProxyDisabled(v bool) {
 
 // GetPlayProtectVerdict returns the PlayProtectVerdict field value if set, zero value otherwise.
 func (o *AndroidDeviceTrust) GetPlayProtectVerdict() string {
-	if o == nil || o.PlayProtectVerdict == nil {
+	if o == nil || IsNil(o.PlayProtectVerdict) {
 		var ret string
 		return ret
 	}
@@ -141,7 +144,7 @@ func (o *AndroidDeviceTrust) GetPlayProtectVerdict() string {
 // GetPlayProtectVerdictOk returns a tuple with the PlayProtectVerdict field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AndroidDeviceTrust) GetPlayProtectVerdictOk() (*string, bool) {
-	if o == nil || o.PlayProtectVerdict == nil {
+	if o == nil || IsNil(o.PlayProtectVerdict) {
 		return nil, false
 	}
 	return o.PlayProtectVerdict, true
@@ -149,7 +152,7 @@ func (o *AndroidDeviceTrust) GetPlayProtectVerdictOk() (*string, bool) {
 
 // HasPlayProtectVerdict returns a boolean if a field has been set.
 func (o *AndroidDeviceTrust) HasPlayProtectVerdict() bool {
-	if o != nil && o.PlayProtectVerdict != nil {
+	if o != nil && !IsNil(o.PlayProtectVerdict) {
 		return true
 	}
 
@@ -163,7 +166,7 @@ func (o *AndroidDeviceTrust) SetPlayProtectVerdict(v string) {
 
 // GetRequireMajorVersionUpdate returns the RequireMajorVersionUpdate field value if set, zero value otherwise.
 func (o *AndroidDeviceTrust) GetRequireMajorVersionUpdate() bool {
-	if o == nil || o.RequireMajorVersionUpdate == nil {
+	if o == nil || IsNil(o.RequireMajorVersionUpdate) {
 		var ret bool
 		return ret
 	}
@@ -173,7 +176,7 @@ func (o *AndroidDeviceTrust) GetRequireMajorVersionUpdate() bool {
 // GetRequireMajorVersionUpdateOk returns a tuple with the RequireMajorVersionUpdate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AndroidDeviceTrust) GetRequireMajorVersionUpdateOk() (*bool, bool) {
-	if o == nil || o.RequireMajorVersionUpdate == nil {
+	if o == nil || IsNil(o.RequireMajorVersionUpdate) {
 		return nil, false
 	}
 	return o.RequireMajorVersionUpdate, true
@@ -181,7 +184,7 @@ func (o *AndroidDeviceTrust) GetRequireMajorVersionUpdateOk() (*bool, bool) {
 
 // HasRequireMajorVersionUpdate returns a boolean if a field has been set.
 func (o *AndroidDeviceTrust) HasRequireMajorVersionUpdate() bool {
-	if o != nil && o.RequireMajorVersionUpdate != nil {
+	if o != nil && !IsNil(o.RequireMajorVersionUpdate) {
 		return true
 	}
 
@@ -195,7 +198,7 @@ func (o *AndroidDeviceTrust) SetRequireMajorVersionUpdate(v bool) {
 
 // GetScreenLockComplexity returns the ScreenLockComplexity field value if set, zero value otherwise.
 func (o *AndroidDeviceTrust) GetScreenLockComplexity() string {
-	if o == nil || o.ScreenLockComplexity == nil {
+	if o == nil || IsNil(o.ScreenLockComplexity) {
 		var ret string
 		return ret
 	}
@@ -205,7 +208,7 @@ func (o *AndroidDeviceTrust) GetScreenLockComplexity() string {
 // GetScreenLockComplexityOk returns a tuple with the ScreenLockComplexity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AndroidDeviceTrust) GetScreenLockComplexityOk() (*string, bool) {
-	if o == nil || o.ScreenLockComplexity == nil {
+	if o == nil || IsNil(o.ScreenLockComplexity) {
 		return nil, false
 	}
 	return o.ScreenLockComplexity, true
@@ -213,7 +216,7 @@ func (o *AndroidDeviceTrust) GetScreenLockComplexityOk() (*string, bool) {
 
 // HasScreenLockComplexity returns a boolean if a field has been set.
 func (o *AndroidDeviceTrust) HasScreenLockComplexity() bool {
-	if o != nil && o.ScreenLockComplexity != nil {
+	if o != nil && !IsNil(o.ScreenLockComplexity) {
 		return true
 	}
 
@@ -227,7 +230,7 @@ func (o *AndroidDeviceTrust) SetScreenLockComplexity(v string) {
 
 // GetUsbDebuggingDisabled returns the UsbDebuggingDisabled field value if set, zero value otherwise.
 func (o *AndroidDeviceTrust) GetUsbDebuggingDisabled() bool {
-	if o == nil || o.UsbDebuggingDisabled == nil {
+	if o == nil || IsNil(o.UsbDebuggingDisabled) {
 		var ret bool
 		return ret
 	}
@@ -237,7 +240,7 @@ func (o *AndroidDeviceTrust) GetUsbDebuggingDisabled() bool {
 // GetUsbDebuggingDisabledOk returns a tuple with the UsbDebuggingDisabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AndroidDeviceTrust) GetUsbDebuggingDisabledOk() (*bool, bool) {
-	if o == nil || o.UsbDebuggingDisabled == nil {
+	if o == nil || IsNil(o.UsbDebuggingDisabled) {
 		return nil, false
 	}
 	return o.UsbDebuggingDisabled, true
@@ -245,7 +248,7 @@ func (o *AndroidDeviceTrust) GetUsbDebuggingDisabledOk() (*bool, bool) {
 
 // HasUsbDebuggingDisabled returns a boolean if a field has been set.
 func (o *AndroidDeviceTrust) HasUsbDebuggingDisabled() bool {
-	if o != nil && o.UsbDebuggingDisabled != nil {
+	if o != nil && !IsNil(o.UsbDebuggingDisabled) {
 		return true
 	}
 
@@ -259,7 +262,7 @@ func (o *AndroidDeviceTrust) SetUsbDebuggingDisabled(v bool) {
 
 // GetWifiSecured returns the WifiSecured field value if set, zero value otherwise.
 func (o *AndroidDeviceTrust) GetWifiSecured() bool {
-	if o == nil || o.WifiSecured == nil {
+	if o == nil || IsNil(o.WifiSecured) {
 		var ret bool
 		return ret
 	}
@@ -269,7 +272,7 @@ func (o *AndroidDeviceTrust) GetWifiSecured() bool {
 // GetWifiSecuredOk returns a tuple with the WifiSecured field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AndroidDeviceTrust) GetWifiSecuredOk() (*bool, bool) {
-	if o == nil || o.WifiSecured == nil {
+	if o == nil || IsNil(o.WifiSecured) {
 		return nil, false
 	}
 	return o.WifiSecured, true
@@ -277,7 +280,7 @@ func (o *AndroidDeviceTrust) GetWifiSecuredOk() (*bool, bool) {
 
 // HasWifiSecured returns a boolean if a field has been set.
 func (o *AndroidDeviceTrust) HasWifiSecured() bool {
-	if o != nil && o.WifiSecured != nil {
+	if o != nil && !IsNil(o.WifiSecured) {
 		return true
 	}
 
@@ -290,26 +293,34 @@ func (o *AndroidDeviceTrust) SetWifiSecured(v bool) {
 }
 
 func (o AndroidDeviceTrust) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AndroidDeviceTrust) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.DeviceIntegrityLevel != nil {
+	if !IsNil(o.DeviceIntegrityLevel) {
 		toSerialize["deviceIntegrityLevel"] = o.DeviceIntegrityLevel
 	}
-	if o.NetworkProxyDisabled != nil {
+	if !IsNil(o.NetworkProxyDisabled) {
 		toSerialize["networkProxyDisabled"] = o.NetworkProxyDisabled
 	}
-	if o.PlayProtectVerdict != nil {
+	if !IsNil(o.PlayProtectVerdict) {
 		toSerialize["playProtectVerdict"] = o.PlayProtectVerdict
 	}
-	if o.RequireMajorVersionUpdate != nil {
+	if !IsNil(o.RequireMajorVersionUpdate) {
 		toSerialize["requireMajorVersionUpdate"] = o.RequireMajorVersionUpdate
 	}
-	if o.ScreenLockComplexity != nil {
+	if !IsNil(o.ScreenLockComplexity) {
 		toSerialize["screenLockComplexity"] = o.ScreenLockComplexity
 	}
-	if o.UsbDebuggingDisabled != nil {
+	if !IsNil(o.UsbDebuggingDisabled) {
 		toSerialize["usbDebuggingDisabled"] = o.UsbDebuggingDisabled
 	}
-	if o.WifiSecured != nil {
+	if !IsNil(o.WifiSecured) {
 		toSerialize["wifiSecured"] = o.WifiSecured
 	}
 
@@ -317,23 +328,23 @@ func (o AndroidDeviceTrust) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AndroidDeviceTrust) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AndroidDeviceTrust) UnmarshalJSON(data []byte) (err error) {
 	varAndroidDeviceTrust := _AndroidDeviceTrust{}
 
-	err = json.Unmarshal(bytes, &varAndroidDeviceTrust)
-	if err == nil {
-		*o = AndroidDeviceTrust(varAndroidDeviceTrust)
-	} else {
+	err = json.Unmarshal(data, &varAndroidDeviceTrust)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AndroidDeviceTrust(varAndroidDeviceTrust)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "deviceIntegrityLevel")
 		delete(additionalProperties, "networkProxyDisabled")
 		delete(additionalProperties, "playProtectVerdict")
@@ -342,8 +353,6 @@ func (o *AndroidDeviceTrust) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "usbDebuggingDisabled")
 		delete(additionalProperties, "wifiSecured")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -384,4 +393,3 @@ func (v *NullableAndroidDeviceTrust) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

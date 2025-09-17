@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ServiceAccountForUpdate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ServiceAccountForUpdate{}
+
 // ServiceAccountForUpdate struct for ServiceAccountForUpdate
 type ServiceAccountForUpdate struct {
 	// The description of the service account
@@ -36,7 +39,7 @@ type ServiceAccountForUpdate struct {
 	// A list of IDs of the Okta groups who own the service account
 	OwnerGroupIds []string `json:"ownerGroupIds,omitempty"`
 	// A list of IDs of the Okta users who own the service account
-	OwnerUserIds []string `json:"ownerUserIds,omitempty"`
+	OwnerUserIds         []string `json:"ownerUserIds,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewServiceAccountForUpdateWithDefaults() *ServiceAccountForUpdate {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *ServiceAccountForUpdate) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *ServiceAccountForUpdate) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServiceAccountForUpdate) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -79,7 +82,7 @@ func (o *ServiceAccountForUpdate) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *ServiceAccountForUpdate) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *ServiceAccountForUpdate) SetDescription(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *ServiceAccountForUpdate) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *ServiceAccountForUpdate) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServiceAccountForUpdate) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -111,7 +114,7 @@ func (o *ServiceAccountForUpdate) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *ServiceAccountForUpdate) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *ServiceAccountForUpdate) SetName(v string) {
 
 // GetOwnerGroupIds returns the OwnerGroupIds field value if set, zero value otherwise.
 func (o *ServiceAccountForUpdate) GetOwnerGroupIds() []string {
-	if o == nil || o.OwnerGroupIds == nil {
+	if o == nil || IsNil(o.OwnerGroupIds) {
 		var ret []string
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *ServiceAccountForUpdate) GetOwnerGroupIds() []string {
 // GetOwnerGroupIdsOk returns a tuple with the OwnerGroupIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServiceAccountForUpdate) GetOwnerGroupIdsOk() ([]string, bool) {
-	if o == nil || o.OwnerGroupIds == nil {
+	if o == nil || IsNil(o.OwnerGroupIds) {
 		return nil, false
 	}
 	return o.OwnerGroupIds, true
@@ -143,7 +146,7 @@ func (o *ServiceAccountForUpdate) GetOwnerGroupIdsOk() ([]string, bool) {
 
 // HasOwnerGroupIds returns a boolean if a field has been set.
 func (o *ServiceAccountForUpdate) HasOwnerGroupIds() bool {
-	if o != nil && o.OwnerGroupIds != nil {
+	if o != nil && !IsNil(o.OwnerGroupIds) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *ServiceAccountForUpdate) SetOwnerGroupIds(v []string) {
 
 // GetOwnerUserIds returns the OwnerUserIds field value if set, zero value otherwise.
 func (o *ServiceAccountForUpdate) GetOwnerUserIds() []string {
-	if o == nil || o.OwnerUserIds == nil {
+	if o == nil || IsNil(o.OwnerUserIds) {
 		var ret []string
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *ServiceAccountForUpdate) GetOwnerUserIds() []string {
 // GetOwnerUserIdsOk returns a tuple with the OwnerUserIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServiceAccountForUpdate) GetOwnerUserIdsOk() ([]string, bool) {
-	if o == nil || o.OwnerUserIds == nil {
+	if o == nil || IsNil(o.OwnerUserIds) {
 		return nil, false
 	}
 	return o.OwnerUserIds, true
@@ -175,7 +178,7 @@ func (o *ServiceAccountForUpdate) GetOwnerUserIdsOk() ([]string, bool) {
 
 // HasOwnerUserIds returns a boolean if a field has been set.
 func (o *ServiceAccountForUpdate) HasOwnerUserIds() bool {
-	if o != nil && o.OwnerUserIds != nil {
+	if o != nil && !IsNil(o.OwnerUserIds) {
 		return true
 	}
 
@@ -188,17 +191,25 @@ func (o *ServiceAccountForUpdate) SetOwnerUserIds(v []string) {
 }
 
 func (o ServiceAccountForUpdate) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ServiceAccountForUpdate) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.OwnerGroupIds != nil {
+	if !IsNil(o.OwnerGroupIds) {
 		toSerialize["ownerGroupIds"] = o.OwnerGroupIds
 	}
-	if o.OwnerUserIds != nil {
+	if !IsNil(o.OwnerUserIds) {
 		toSerialize["ownerUserIds"] = o.OwnerUserIds
 	}
 
@@ -206,30 +217,28 @@ func (o ServiceAccountForUpdate) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ServiceAccountForUpdate) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ServiceAccountForUpdate) UnmarshalJSON(data []byte) (err error) {
 	varServiceAccountForUpdate := _ServiceAccountForUpdate{}
 
-	err = json.Unmarshal(bytes, &varServiceAccountForUpdate)
-	if err == nil {
-		*o = ServiceAccountForUpdate(varServiceAccountForUpdate)
-	} else {
+	err = json.Unmarshal(data, &varServiceAccountForUpdate)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ServiceAccountForUpdate(varServiceAccountForUpdate)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "ownerGroupIds")
 		delete(additionalProperties, "ownerUserIds")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -270,4 +279,3 @@ func (v *NullableServiceAccountForUpdate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
