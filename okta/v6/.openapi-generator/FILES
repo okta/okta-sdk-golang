@@ -396,6 +396,8 @@ docs/BundleEntitlementLinks.md
 docs/BundleEntitlementsResponse.md
 docs/BundleEntitlementsResponseLinks.md
 docs/ByDateTimeAuthenticatorGracePeriodExpiry.md
+docs/ByDateTimeExpiry.md
+docs/ByDurationExpiry.md
 docs/CAPTCHAAPI.md
 docs/CAPTCHAInstance.md
 docs/CSRLinks.md
@@ -1868,6 +1870,8 @@ model_bundle_entitlement__links.go
 model_bundle_entitlements_response.go
 model_bundle_entitlements_response__links.go
 model_by_date_time_authenticator_grace_period_expiry.go
+model_by_date_time_expiry.go
+model_by_duration_expiry.go
 model_caep_credential_change_event.go
 model_caep_credential_change_event_reason_admin.go
 model_caep_credential_change_event_reason_user.go

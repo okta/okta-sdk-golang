@@ -1034,6 +1034,8 @@ Class | Method | HTTP request | Description
  - [BundleEntitlementsResponse](docs/BundleEntitlementsResponse.md)
  - [BundleEntitlementsResponseLinks](docs/BundleEntitlementsResponseLinks.md)
  - [ByDateTimeAuthenticatorGracePeriodExpiry](docs/ByDateTimeAuthenticatorGracePeriodExpiry.md)
+ - [ByDateTimeExpiry](docs/ByDateTimeExpiry.md)
+ - [ByDurationExpiry](docs/ByDurationExpiry.md)
  - [CAPTCHAInstance](docs/CAPTCHAInstance.md)
  - [CSRLinks](docs/CSRLinks.md)
  - [CaepCredentialChangeEvent](docs/CaepCredentialChangeEvent.md)

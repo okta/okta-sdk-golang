@@ -59657,10 +59657,10 @@ components:
                 For example, `2025-01-01T18:30:45.000Z`
     ByDateTimeExpiry:
       allOf:
-        - $ref: '#/components/schemas/DateTime'
+        - $ref: '#/components/schemas/ByDateTimeExpiry'
     ByDurationExpiry:
       allOf:
-        - $ref: '#/components/schemas/TimeDuration'
+        - $ref: '#/components/schemas/ByDurationExpiry'
       description: |-
         A time duration specified as an [ISO 8601 duration](https://en.wikipedia.org/wiki/ISO_8601#Durations).
         Must be between 1 and 180 days inclusive.
