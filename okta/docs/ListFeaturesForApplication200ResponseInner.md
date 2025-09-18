@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Description** | Pointer to **string** | Description of the feature | [optional] [readonly] 
-**Name** | Pointer to **string** | Identifying name of the feature  | Value | Description   | | --------- | ------------- | | USER_PROVISIONING  | Represents the **To App** provisioning feature setting in the Admin Console | | INBOUND_PROVISIONING | Represents the **To Okta** provisioning feature setting in the Admin Console |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**Links** | Pointer to [**ApplicationFeatureLinks**](ApplicationFeatureLinks.md) |  | [optional] 
+**Name** | Pointer to **string** | Key name of the feature  | Feature name | Description   | | --------- | ------------- | | USER_PROVISIONING  | User profiles are pushed from Okta to the third-party app. Represents the **To App** provisioning feature setting in the Admin Console. | | INBOUND_PROVISIONING | User profiles are imported from the third-party app into Okta. This feature represents the **To Okta** provisioning feature setting in the Admin Console. |  Select the feature:  | [optional] 
+**Status** | Pointer to **string** | Setting status | [optional] [readonly] [default to "DISABLED"]
+**Links** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] [readonly] 
 **Capabilities** | Pointer to [**CapabilitiesInboundProvisioningObject**](CapabilitiesInboundProvisioningObject.md) |  | [optional] 
 
 ## Methods
@@ -106,20 +106,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *ListFeaturesForApplication200ResponseInner) GetLinks() ApplicationFeatureLinks`
+`func (o *ListFeaturesForApplication200ResponseInner) GetLinks() LinksSelf`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *ListFeaturesForApplication200ResponseInner) GetLinksOk() (*ApplicationFeatureLinks, bool)`
+`func (o *ListFeaturesForApplication200ResponseInner) GetLinksOk() (*LinksSelf, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *ListFeaturesForApplication200ResponseInner) SetLinks(v ApplicationFeatureLinks)`
+`func (o *ListFeaturesForApplication200ResponseInner) SetLinks(v LinksSelf)`
 
 SetLinks sets Links field to given value.
 

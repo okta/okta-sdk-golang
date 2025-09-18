@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,13 +25,17 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
-// ProvisioningConnectionProfileOauth The app provisioning connection profile used to configure the method of authentication and the credentials. Currently, token-based and OAuth 2.0-based authentication are supported. 
+// checks if the ProvisioningConnectionProfileOauth type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ProvisioningConnectionProfileOauth{}
+
+// ProvisioningConnectionProfileOauth The app provisioning connection profile used to configure the method of authentication and the credentials. Currently, token-based and OAuth 2.0-based authentication are supported.
 type ProvisioningConnectionProfileOauth struct {
 	// OAuth 2.0 is used to authenticate with the app.
-	AuthScheme string `json:"authScheme"`
-	ClientId *string `json:"clientId,omitempty"`
+	AuthScheme           string  `json:"authScheme"`
+	ClientId             *string `json:"clientId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -81,7 +85,7 @@ func (o *ProvisioningConnectionProfileOauth) SetAuthScheme(v string) {
 
 // GetClientId returns the ClientId field value if set, zero value otherwise.
 func (o *ProvisioningConnectionProfileOauth) GetClientId() string {
-	if o == nil || o.ClientId == nil {
+	if o == nil || IsNil(o.ClientId) {
 		var ret string
 		return ret
 	}
@@ -91,7 +95,7 @@ func (o *ProvisioningConnectionProfileOauth) GetClientId() string {
 // GetClientIdOk returns a tuple with the ClientId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProvisioningConnectionProfileOauth) GetClientIdOk() (*string, bool) {
-	if o == nil || o.ClientId == nil {
+	if o == nil || IsNil(o.ClientId) {
 		return nil, false
 	}
 	return o.ClientId, true
@@ -99,7 +103,7 @@ func (o *ProvisioningConnectionProfileOauth) GetClientIdOk() (*string, bool) {
 
 // HasClientId returns a boolean if a field has been set.
 func (o *ProvisioningConnectionProfileOauth) HasClientId() bool {
-	if o != nil && o.ClientId != nil {
+	if o != nil && !IsNil(o.ClientId) {
 		return true
 	}
 
@@ -112,11 +116,17 @@ func (o *ProvisioningConnectionProfileOauth) SetClientId(v string) {
 }
 
 func (o ProvisioningConnectionProfileOauth) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["authScheme"] = o.AuthScheme
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.ClientId != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o ProvisioningConnectionProfileOauth) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["authScheme"] = o.AuthScheme
+	if !IsNil(o.ClientId) {
 		toSerialize["clientId"] = o.ClientId
 	}
 
@@ -124,28 +134,47 @@ func (o ProvisioningConnectionProfileOauth) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ProvisioningConnectionProfileOauth) UnmarshalJSON(bytes []byte) (err error) {
-	varProvisioningConnectionProfileOauth := _ProvisioningConnectionProfileOauth{}
+func (o *ProvisioningConnectionProfileOauth) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"authScheme",
+	}
 
-	err = json.Unmarshal(bytes, &varProvisioningConnectionProfileOauth)
-	if err == nil {
-		*o = ProvisioningConnectionProfileOauth(varProvisioningConnectionProfileOauth)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varProvisioningConnectionProfileOauth := _ProvisioningConnectionProfileOauth{}
+
+	err = json.Unmarshal(data, &varProvisioningConnectionProfileOauth)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ProvisioningConnectionProfileOauth(varProvisioningConnectionProfileOauth)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "authScheme")
 		delete(additionalProperties, "clientId")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -186,4 +215,3 @@ func (v *NullableProvisioningConnectionProfileOauth) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

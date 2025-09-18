@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserSchemaAttributeItems type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserSchemaAttributeItems{}
+
 // UserSchemaAttributeItems struct for UserSchemaAttributeItems
 type UserSchemaAttributeItems struct {
-	Enum []string `json:"enum,omitempty"`
-	OneOf []UserSchemaAttributeEnum `json:"oneOf,omitempty"`
-	Type *string `json:"type,omitempty"`
+	Enum                 []string                  `json:"enum,omitempty"`
+	OneOf                []UserSchemaAttributeEnum `json:"oneOf,omitempty"`
+	Type                 *string                   `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewUserSchemaAttributeItemsWithDefaults() *UserSchemaAttributeItems {
 
 // GetEnum returns the Enum field value if set, zero value otherwise.
 func (o *UserSchemaAttributeItems) GetEnum() []string {
-	if o == nil || o.Enum == nil {
+	if o == nil || IsNil(o.Enum) {
 		var ret []string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *UserSchemaAttributeItems) GetEnum() []string {
 // GetEnumOk returns a tuple with the Enum field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaAttributeItems) GetEnumOk() ([]string, bool) {
-	if o == nil || o.Enum == nil {
+	if o == nil || IsNil(o.Enum) {
 		return nil, false
 	}
 	return o.Enum, true
@@ -74,7 +77,7 @@ func (o *UserSchemaAttributeItems) GetEnumOk() ([]string, bool) {
 
 // HasEnum returns a boolean if a field has been set.
 func (o *UserSchemaAttributeItems) HasEnum() bool {
-	if o != nil && o.Enum != nil {
+	if o != nil && !IsNil(o.Enum) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *UserSchemaAttributeItems) SetEnum(v []string) {
 
 // GetOneOf returns the OneOf field value if set, zero value otherwise.
 func (o *UserSchemaAttributeItems) GetOneOf() []UserSchemaAttributeEnum {
-	if o == nil || o.OneOf == nil {
+	if o == nil || IsNil(o.OneOf) {
 		var ret []UserSchemaAttributeEnum
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *UserSchemaAttributeItems) GetOneOf() []UserSchemaAttributeEnum {
 // GetOneOfOk returns a tuple with the OneOf field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaAttributeItems) GetOneOfOk() ([]UserSchemaAttributeEnum, bool) {
-	if o == nil || o.OneOf == nil {
+	if o == nil || IsNil(o.OneOf) {
 		return nil, false
 	}
 	return o.OneOf, true
@@ -106,7 +109,7 @@ func (o *UserSchemaAttributeItems) GetOneOfOk() ([]UserSchemaAttributeEnum, bool
 
 // HasOneOf returns a boolean if a field has been set.
 func (o *UserSchemaAttributeItems) HasOneOf() bool {
-	if o != nil && o.OneOf != nil {
+	if o != nil && !IsNil(o.OneOf) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *UserSchemaAttributeItems) SetOneOf(v []UserSchemaAttributeEnum) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *UserSchemaAttributeItems) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *UserSchemaAttributeItems) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaAttributeItems) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -138,7 +141,7 @@ func (o *UserSchemaAttributeItems) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *UserSchemaAttributeItems) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *UserSchemaAttributeItems) SetType(v string) {
 }
 
 func (o UserSchemaAttributeItems) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserSchemaAttributeItems) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Enum != nil {
+	if !IsNil(o.Enum) {
 		toSerialize["enum"] = o.Enum
 	}
-	if o.OneOf != nil {
+	if !IsNil(o.OneOf) {
 		toSerialize["oneOf"] = o.OneOf
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -166,29 +177,27 @@ func (o UserSchemaAttributeItems) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserSchemaAttributeItems) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserSchemaAttributeItems) UnmarshalJSON(data []byte) (err error) {
 	varUserSchemaAttributeItems := _UserSchemaAttributeItems{}
 
-	err = json.Unmarshal(bytes, &varUserSchemaAttributeItems)
-	if err == nil {
-		*o = UserSchemaAttributeItems(varUserSchemaAttributeItems)
-	} else {
+	err = json.Unmarshal(data, &varUserSchemaAttributeItems)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserSchemaAttributeItems(varUserSchemaAttributeItems)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "enum")
 		delete(additionalProperties, "oneOf")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullableUserSchemaAttributeItems) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,14 +25,18 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the GoogleApplicationSettingsApplication type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GoogleApplicationSettingsApplication{}
 
 // GoogleApplicationSettingsApplication Google app instance properties
 type GoogleApplicationSettingsApplication struct {
 	// Your Google company domain
 	Domain string `json:"domain"`
 	// RPID
-	RpId *string `json:"rpId,omitempty"`
+	RpId                 *string `json:"rpId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -82,7 +86,7 @@ func (o *GoogleApplicationSettingsApplication) SetDomain(v string) {
 
 // GetRpId returns the RpId field value if set, zero value otherwise.
 func (o *GoogleApplicationSettingsApplication) GetRpId() string {
-	if o == nil || o.RpId == nil {
+	if o == nil || IsNil(o.RpId) {
 		var ret string
 		return ret
 	}
@@ -92,7 +96,7 @@ func (o *GoogleApplicationSettingsApplication) GetRpId() string {
 // GetRpIdOk returns a tuple with the RpId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GoogleApplicationSettingsApplication) GetRpIdOk() (*string, bool) {
-	if o == nil || o.RpId == nil {
+	if o == nil || IsNil(o.RpId) {
 		return nil, false
 	}
 	return o.RpId, true
@@ -100,7 +104,7 @@ func (o *GoogleApplicationSettingsApplication) GetRpIdOk() (*string, bool) {
 
 // HasRpId returns a boolean if a field has been set.
 func (o *GoogleApplicationSettingsApplication) HasRpId() bool {
-	if o != nil && o.RpId != nil {
+	if o != nil && !IsNil(o.RpId) {
 		return true
 	}
 
@@ -113,11 +117,17 @@ func (o *GoogleApplicationSettingsApplication) SetRpId(v string) {
 }
 
 func (o GoogleApplicationSettingsApplication) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["domain"] = o.Domain
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.RpId != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o GoogleApplicationSettingsApplication) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["domain"] = o.Domain
+	if !IsNil(o.RpId) {
 		toSerialize["rpId"] = o.RpId
 	}
 
@@ -125,28 +135,47 @@ func (o GoogleApplicationSettingsApplication) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *GoogleApplicationSettingsApplication) UnmarshalJSON(bytes []byte) (err error) {
-	varGoogleApplicationSettingsApplication := _GoogleApplicationSettingsApplication{}
+func (o *GoogleApplicationSettingsApplication) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"domain",
+	}
 
-	err = json.Unmarshal(bytes, &varGoogleApplicationSettingsApplication)
-	if err == nil {
-		*o = GoogleApplicationSettingsApplication(varGoogleApplicationSettingsApplication)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varGoogleApplicationSettingsApplication := _GoogleApplicationSettingsApplication{}
+
+	err = json.Unmarshal(data, &varGoogleApplicationSettingsApplication)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GoogleApplicationSettingsApplication(varGoogleApplicationSettingsApplication)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "domain")
 		delete(additionalProperties, "rpId")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -187,4 +216,3 @@ func (v *NullableGoogleApplicationSettingsApplication) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

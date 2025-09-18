@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
-// PasswordPolicyRecoveryFactors struct for PasswordPolicyRecoveryFactors
+// checks if the PasswordPolicyRecoveryFactors type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordPolicyRecoveryFactors{}
+
+// PasswordPolicyRecoveryFactors Settings for the factors that can be used for recovery
 type PasswordPolicyRecoveryFactors struct {
-	OktaCall *PasswordPolicyRecoveryFactorSettings `json:"okta_call,omitempty"`
-	OktaEmail *PasswordPolicyRecoveryEmail `json:"okta_email,omitempty"`
-	OktaSms *PasswordPolicyRecoveryFactorSettings `json:"okta_sms,omitempty"`
-	RecoveryQuestion *PasswordPolicyRecoveryQuestion `json:"recovery_question,omitempty"`
+	OktaCall             *PasswordPolicyRecoveryFactorSettings `json:"okta_call,omitempty"`
+	OktaEmail            *PasswordPolicyRecoveryEmail          `json:"okta_email,omitempty"`
+	OktaSms              *PasswordPolicyRecoveryFactorSettings `json:"okta_sms,omitempty"`
+	RecoveryQuestion     *PasswordPolicyRecoveryQuestion       `json:"recovery_question,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewPasswordPolicyRecoveryFactorsWithDefaults() *PasswordPolicyRecoveryFacto
 
 // GetOktaCall returns the OktaCall field value if set, zero value otherwise.
 func (o *PasswordPolicyRecoveryFactors) GetOktaCall() PasswordPolicyRecoveryFactorSettings {
-	if o == nil || o.OktaCall == nil {
+	if o == nil || IsNil(o.OktaCall) {
 		var ret PasswordPolicyRecoveryFactorSettings
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *PasswordPolicyRecoveryFactors) GetOktaCall() PasswordPolicyRecoveryFact
 // GetOktaCallOk returns a tuple with the OktaCall field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyRecoveryFactors) GetOktaCallOk() (*PasswordPolicyRecoveryFactorSettings, bool) {
-	if o == nil || o.OktaCall == nil {
+	if o == nil || IsNil(o.OktaCall) {
 		return nil, false
 	}
 	return o.OktaCall, true
@@ -75,7 +78,7 @@ func (o *PasswordPolicyRecoveryFactors) GetOktaCallOk() (*PasswordPolicyRecovery
 
 // HasOktaCall returns a boolean if a field has been set.
 func (o *PasswordPolicyRecoveryFactors) HasOktaCall() bool {
-	if o != nil && o.OktaCall != nil {
+	if o != nil && !IsNil(o.OktaCall) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *PasswordPolicyRecoveryFactors) SetOktaCall(v PasswordPolicyRecoveryFact
 
 // GetOktaEmail returns the OktaEmail field value if set, zero value otherwise.
 func (o *PasswordPolicyRecoveryFactors) GetOktaEmail() PasswordPolicyRecoveryEmail {
-	if o == nil || o.OktaEmail == nil {
+	if o == nil || IsNil(o.OktaEmail) {
 		var ret PasswordPolicyRecoveryEmail
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *PasswordPolicyRecoveryFactors) GetOktaEmail() PasswordPolicyRecoveryEma
 // GetOktaEmailOk returns a tuple with the OktaEmail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyRecoveryFactors) GetOktaEmailOk() (*PasswordPolicyRecoveryEmail, bool) {
-	if o == nil || o.OktaEmail == nil {
+	if o == nil || IsNil(o.OktaEmail) {
 		return nil, false
 	}
 	return o.OktaEmail, true
@@ -107,7 +110,7 @@ func (o *PasswordPolicyRecoveryFactors) GetOktaEmailOk() (*PasswordPolicyRecover
 
 // HasOktaEmail returns a boolean if a field has been set.
 func (o *PasswordPolicyRecoveryFactors) HasOktaEmail() bool {
-	if o != nil && o.OktaEmail != nil {
+	if o != nil && !IsNil(o.OktaEmail) {
 		return true
 	}
 
@@ -121,7 +124,7 @@ func (o *PasswordPolicyRecoveryFactors) SetOktaEmail(v PasswordPolicyRecoveryEma
 
 // GetOktaSms returns the OktaSms field value if set, zero value otherwise.
 func (o *PasswordPolicyRecoveryFactors) GetOktaSms() PasswordPolicyRecoveryFactorSettings {
-	if o == nil || o.OktaSms == nil {
+	if o == nil || IsNil(o.OktaSms) {
 		var ret PasswordPolicyRecoveryFactorSettings
 		return ret
 	}
@@ -131,7 +134,7 @@ func (o *PasswordPolicyRecoveryFactors) GetOktaSms() PasswordPolicyRecoveryFacto
 // GetOktaSmsOk returns a tuple with the OktaSms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyRecoveryFactors) GetOktaSmsOk() (*PasswordPolicyRecoveryFactorSettings, bool) {
-	if o == nil || o.OktaSms == nil {
+	if o == nil || IsNil(o.OktaSms) {
 		return nil, false
 	}
 	return o.OktaSms, true
@@ -139,7 +142,7 @@ func (o *PasswordPolicyRecoveryFactors) GetOktaSmsOk() (*PasswordPolicyRecoveryF
 
 // HasOktaSms returns a boolean if a field has been set.
 func (o *PasswordPolicyRecoveryFactors) HasOktaSms() bool {
-	if o != nil && o.OktaSms != nil {
+	if o != nil && !IsNil(o.OktaSms) {
 		return true
 	}
 
@@ -153,7 +156,7 @@ func (o *PasswordPolicyRecoveryFactors) SetOktaSms(v PasswordPolicyRecoveryFacto
 
 // GetRecoveryQuestion returns the RecoveryQuestion field value if set, zero value otherwise.
 func (o *PasswordPolicyRecoveryFactors) GetRecoveryQuestion() PasswordPolicyRecoveryQuestion {
-	if o == nil || o.RecoveryQuestion == nil {
+	if o == nil || IsNil(o.RecoveryQuestion) {
 		var ret PasswordPolicyRecoveryQuestion
 		return ret
 	}
@@ -163,7 +166,7 @@ func (o *PasswordPolicyRecoveryFactors) GetRecoveryQuestion() PasswordPolicyReco
 // GetRecoveryQuestionOk returns a tuple with the RecoveryQuestion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyRecoveryFactors) GetRecoveryQuestionOk() (*PasswordPolicyRecoveryQuestion, bool) {
-	if o == nil || o.RecoveryQuestion == nil {
+	if o == nil || IsNil(o.RecoveryQuestion) {
 		return nil, false
 	}
 	return o.RecoveryQuestion, true
@@ -171,7 +174,7 @@ func (o *PasswordPolicyRecoveryFactors) GetRecoveryQuestionOk() (*PasswordPolicy
 
 // HasRecoveryQuestion returns a boolean if a field has been set.
 func (o *PasswordPolicyRecoveryFactors) HasRecoveryQuestion() bool {
-	if o != nil && o.RecoveryQuestion != nil {
+	if o != nil && !IsNil(o.RecoveryQuestion) {
 		return true
 	}
 
@@ -184,17 +187,25 @@ func (o *PasswordPolicyRecoveryFactors) SetRecoveryQuestion(v PasswordPolicyReco
 }
 
 func (o PasswordPolicyRecoveryFactors) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordPolicyRecoveryFactors) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.OktaCall != nil {
+	if !IsNil(o.OktaCall) {
 		toSerialize["okta_call"] = o.OktaCall
 	}
-	if o.OktaEmail != nil {
+	if !IsNil(o.OktaEmail) {
 		toSerialize["okta_email"] = o.OktaEmail
 	}
-	if o.OktaSms != nil {
+	if !IsNil(o.OktaSms) {
 		toSerialize["okta_sms"] = o.OktaSms
 	}
-	if o.RecoveryQuestion != nil {
+	if !IsNil(o.RecoveryQuestion) {
 		toSerialize["recovery_question"] = o.RecoveryQuestion
 	}
 
@@ -202,30 +213,28 @@ func (o PasswordPolicyRecoveryFactors) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordPolicyRecoveryFactors) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordPolicyRecoveryFactors) UnmarshalJSON(data []byte) (err error) {
 	varPasswordPolicyRecoveryFactors := _PasswordPolicyRecoveryFactors{}
 
-	err = json.Unmarshal(bytes, &varPasswordPolicyRecoveryFactors)
-	if err == nil {
-		*o = PasswordPolicyRecoveryFactors(varPasswordPolicyRecoveryFactors)
-	} else {
+	err = json.Unmarshal(data, &varPasswordPolicyRecoveryFactors)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PasswordPolicyRecoveryFactors(varPasswordPolicyRecoveryFactors)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "okta_call")
 		delete(additionalProperties, "okta_email")
 		delete(additionalProperties, "okta_sms")
 		delete(additionalProperties, "recovery_question")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -266,4 +275,3 @@ func (v *NullablePasswordPolicyRecoveryFactors) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

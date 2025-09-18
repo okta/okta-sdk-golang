@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,23 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the CaepSessionRevokedEvent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CaepSessionRevokedEvent{}
+
 // CaepSessionRevokedEvent The session of the subject was revoked
 type CaepSessionRevokedEvent struct {
-	// Current IP of the session
-	CurrentIp *string `json:"current_ip,omitempty"`
-	// Current User Agent of the session
-	CurrentUserAgent *string `json:"current_user_agent,omitempty"`
 	// The time of the event (UNIX timestamp)
-	EventTimestamp int64 `json:"event_timestamp"`
-	// The entity that initiated the event
-	InitiatingEntity *string `json:"initiating_entity,omitempty"`
-	// Last known IP of the session
-	LastKnownIp *string `json:"last_known_ip,omitempty"`
-	// Last known User Agent of the session
-	LastKnownUserAgent *string `json:"last_known_user_agent,omitempty"`
-	ReasonAdmin *CaepDeviceComplianceChangeEventReasonAdmin `json:"reason_admin,omitempty"`
-	ReasonUser *CaepDeviceComplianceChangeEventReasonUser `json:"reason_user,omitempty"`
-	Subjects SecurityEventSubject `json:"subjects"`
+	EventTimestamp       *int64                                `json:"event_timestamp,omitempty"`
+	ReasonAdmin          *CaepCredentialChangeEventReasonAdmin `json:"reason_admin,omitempty"`
+	ReasonUser           *CaepCredentialChangeEventReasonUser  `json:"reason_user,omitempty"`
+	Subject              *SecurityEventSubject                 `json:"subject,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -53,10 +46,8 @@ type _CaepSessionRevokedEvent CaepSessionRevokedEvent
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCaepSessionRevokedEvent(eventTimestamp int64, subjects SecurityEventSubject) *CaepSessionRevokedEvent {
+func NewCaepSessionRevokedEvent() *CaepSessionRevokedEvent {
 	this := CaepSessionRevokedEvent{}
-	this.EventTimestamp = eventTimestamp
-	this.Subjects = subjects
 	return &this
 }
 
@@ -68,194 +59,42 @@ func NewCaepSessionRevokedEventWithDefaults() *CaepSessionRevokedEvent {
 	return &this
 }
 
-// GetCurrentIp returns the CurrentIp field value if set, zero value otherwise.
-func (o *CaepSessionRevokedEvent) GetCurrentIp() string {
-	if o == nil || o.CurrentIp == nil {
-		var ret string
-		return ret
-	}
-	return *o.CurrentIp
-}
-
-// GetCurrentIpOk returns a tuple with the CurrentIp field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CaepSessionRevokedEvent) GetCurrentIpOk() (*string, bool) {
-	if o == nil || o.CurrentIp == nil {
-		return nil, false
-	}
-	return o.CurrentIp, true
-}
-
-// HasCurrentIp returns a boolean if a field has been set.
-func (o *CaepSessionRevokedEvent) HasCurrentIp() bool {
-	if o != nil && o.CurrentIp != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCurrentIp gets a reference to the given string and assigns it to the CurrentIp field.
-func (o *CaepSessionRevokedEvent) SetCurrentIp(v string) {
-	o.CurrentIp = &v
-}
-
-// GetCurrentUserAgent returns the CurrentUserAgent field value if set, zero value otherwise.
-func (o *CaepSessionRevokedEvent) GetCurrentUserAgent() string {
-	if o == nil || o.CurrentUserAgent == nil {
-		var ret string
-		return ret
-	}
-	return *o.CurrentUserAgent
-}
-
-// GetCurrentUserAgentOk returns a tuple with the CurrentUserAgent field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CaepSessionRevokedEvent) GetCurrentUserAgentOk() (*string, bool) {
-	if o == nil || o.CurrentUserAgent == nil {
-		return nil, false
-	}
-	return o.CurrentUserAgent, true
-}
-
-// HasCurrentUserAgent returns a boolean if a field has been set.
-func (o *CaepSessionRevokedEvent) HasCurrentUserAgent() bool {
-	if o != nil && o.CurrentUserAgent != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCurrentUserAgent gets a reference to the given string and assigns it to the CurrentUserAgent field.
-func (o *CaepSessionRevokedEvent) SetCurrentUserAgent(v string) {
-	o.CurrentUserAgent = &v
-}
-
-// GetEventTimestamp returns the EventTimestamp field value
+// GetEventTimestamp returns the EventTimestamp field value if set, zero value otherwise.
 func (o *CaepSessionRevokedEvent) GetEventTimestamp() int64 {
-	if o == nil {
+	if o == nil || IsNil(o.EventTimestamp) {
 		var ret int64
 		return ret
 	}
-
-	return o.EventTimestamp
+	return *o.EventTimestamp
 }
 
-// GetEventTimestampOk returns a tuple with the EventTimestamp field value
+// GetEventTimestampOk returns a tuple with the EventTimestamp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CaepSessionRevokedEvent) GetEventTimestampOk() (*int64, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.EventTimestamp) {
 		return nil, false
 	}
-	return &o.EventTimestamp, true
+	return o.EventTimestamp, true
 }
 
-// SetEventTimestamp sets field value
+// HasEventTimestamp returns a boolean if a field has been set.
+func (o *CaepSessionRevokedEvent) HasEventTimestamp() bool {
+	if o != nil && !IsNil(o.EventTimestamp) {
+		return true
+	}
+
+	return false
+}
+
+// SetEventTimestamp gets a reference to the given int64 and assigns it to the EventTimestamp field.
 func (o *CaepSessionRevokedEvent) SetEventTimestamp(v int64) {
-	o.EventTimestamp = v
-}
-
-// GetInitiatingEntity returns the InitiatingEntity field value if set, zero value otherwise.
-func (o *CaepSessionRevokedEvent) GetInitiatingEntity() string {
-	if o == nil || o.InitiatingEntity == nil {
-		var ret string
-		return ret
-	}
-	return *o.InitiatingEntity
-}
-
-// GetInitiatingEntityOk returns a tuple with the InitiatingEntity field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CaepSessionRevokedEvent) GetInitiatingEntityOk() (*string, bool) {
-	if o == nil || o.InitiatingEntity == nil {
-		return nil, false
-	}
-	return o.InitiatingEntity, true
-}
-
-// HasInitiatingEntity returns a boolean if a field has been set.
-func (o *CaepSessionRevokedEvent) HasInitiatingEntity() bool {
-	if o != nil && o.InitiatingEntity != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetInitiatingEntity gets a reference to the given string and assigns it to the InitiatingEntity field.
-func (o *CaepSessionRevokedEvent) SetInitiatingEntity(v string) {
-	o.InitiatingEntity = &v
-}
-
-// GetLastKnownIp returns the LastKnownIp field value if set, zero value otherwise.
-func (o *CaepSessionRevokedEvent) GetLastKnownIp() string {
-	if o == nil || o.LastKnownIp == nil {
-		var ret string
-		return ret
-	}
-	return *o.LastKnownIp
-}
-
-// GetLastKnownIpOk returns a tuple with the LastKnownIp field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CaepSessionRevokedEvent) GetLastKnownIpOk() (*string, bool) {
-	if o == nil || o.LastKnownIp == nil {
-		return nil, false
-	}
-	return o.LastKnownIp, true
-}
-
-// HasLastKnownIp returns a boolean if a field has been set.
-func (o *CaepSessionRevokedEvent) HasLastKnownIp() bool {
-	if o != nil && o.LastKnownIp != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLastKnownIp gets a reference to the given string and assigns it to the LastKnownIp field.
-func (o *CaepSessionRevokedEvent) SetLastKnownIp(v string) {
-	o.LastKnownIp = &v
-}
-
-// GetLastKnownUserAgent returns the LastKnownUserAgent field value if set, zero value otherwise.
-func (o *CaepSessionRevokedEvent) GetLastKnownUserAgent() string {
-	if o == nil || o.LastKnownUserAgent == nil {
-		var ret string
-		return ret
-	}
-	return *o.LastKnownUserAgent
-}
-
-// GetLastKnownUserAgentOk returns a tuple with the LastKnownUserAgent field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CaepSessionRevokedEvent) GetLastKnownUserAgentOk() (*string, bool) {
-	if o == nil || o.LastKnownUserAgent == nil {
-		return nil, false
-	}
-	return o.LastKnownUserAgent, true
-}
-
-// HasLastKnownUserAgent returns a boolean if a field has been set.
-func (o *CaepSessionRevokedEvent) HasLastKnownUserAgent() bool {
-	if o != nil && o.LastKnownUserAgent != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLastKnownUserAgent gets a reference to the given string and assigns it to the LastKnownUserAgent field.
-func (o *CaepSessionRevokedEvent) SetLastKnownUserAgent(v string) {
-	o.LastKnownUserAgent = &v
+	o.EventTimestamp = &v
 }
 
 // GetReasonAdmin returns the ReasonAdmin field value if set, zero value otherwise.
-func (o *CaepSessionRevokedEvent) GetReasonAdmin() CaepDeviceComplianceChangeEventReasonAdmin {
-	if o == nil || o.ReasonAdmin == nil {
-		var ret CaepDeviceComplianceChangeEventReasonAdmin
+func (o *CaepSessionRevokedEvent) GetReasonAdmin() CaepCredentialChangeEventReasonAdmin {
+	if o == nil || IsNil(o.ReasonAdmin) {
+		var ret CaepCredentialChangeEventReasonAdmin
 		return ret
 	}
 	return *o.ReasonAdmin
@@ -263,8 +102,8 @@ func (o *CaepSessionRevokedEvent) GetReasonAdmin() CaepDeviceComplianceChangeEve
 
 // GetReasonAdminOk returns a tuple with the ReasonAdmin field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaepSessionRevokedEvent) GetReasonAdminOk() (*CaepDeviceComplianceChangeEventReasonAdmin, bool) {
-	if o == nil || o.ReasonAdmin == nil {
+func (o *CaepSessionRevokedEvent) GetReasonAdminOk() (*CaepCredentialChangeEventReasonAdmin, bool) {
+	if o == nil || IsNil(o.ReasonAdmin) {
 		return nil, false
 	}
 	return o.ReasonAdmin, true
@@ -272,22 +111,22 @@ func (o *CaepSessionRevokedEvent) GetReasonAdminOk() (*CaepDeviceComplianceChang
 
 // HasReasonAdmin returns a boolean if a field has been set.
 func (o *CaepSessionRevokedEvent) HasReasonAdmin() bool {
-	if o != nil && o.ReasonAdmin != nil {
+	if o != nil && !IsNil(o.ReasonAdmin) {
 		return true
 	}
 
 	return false
 }
 
-// SetReasonAdmin gets a reference to the given CaepDeviceComplianceChangeEventReasonAdmin and assigns it to the ReasonAdmin field.
-func (o *CaepSessionRevokedEvent) SetReasonAdmin(v CaepDeviceComplianceChangeEventReasonAdmin) {
+// SetReasonAdmin gets a reference to the given CaepCredentialChangeEventReasonAdmin and assigns it to the ReasonAdmin field.
+func (o *CaepSessionRevokedEvent) SetReasonAdmin(v CaepCredentialChangeEventReasonAdmin) {
 	o.ReasonAdmin = &v
 }
 
 // GetReasonUser returns the ReasonUser field value if set, zero value otherwise.
-func (o *CaepSessionRevokedEvent) GetReasonUser() CaepDeviceComplianceChangeEventReasonUser {
-	if o == nil || o.ReasonUser == nil {
-		var ret CaepDeviceComplianceChangeEventReasonUser
+func (o *CaepSessionRevokedEvent) GetReasonUser() CaepCredentialChangeEventReasonUser {
+	if o == nil || IsNil(o.ReasonUser) {
+		var ret CaepCredentialChangeEventReasonUser
 		return ret
 	}
 	return *o.ReasonUser
@@ -295,8 +134,8 @@ func (o *CaepSessionRevokedEvent) GetReasonUser() CaepDeviceComplianceChangeEven
 
 // GetReasonUserOk returns a tuple with the ReasonUser field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaepSessionRevokedEvent) GetReasonUserOk() (*CaepDeviceComplianceChangeEventReasonUser, bool) {
-	if o == nil || o.ReasonUser == nil {
+func (o *CaepSessionRevokedEvent) GetReasonUserOk() (*CaepCredentialChangeEventReasonUser, bool) {
+	if o == nil || IsNil(o.ReasonUser) {
 		return nil, false
 	}
 	return o.ReasonUser, true
@@ -304,105 +143,99 @@ func (o *CaepSessionRevokedEvent) GetReasonUserOk() (*CaepDeviceComplianceChange
 
 // HasReasonUser returns a boolean if a field has been set.
 func (o *CaepSessionRevokedEvent) HasReasonUser() bool {
-	if o != nil && o.ReasonUser != nil {
+	if o != nil && !IsNil(o.ReasonUser) {
 		return true
 	}
 
 	return false
 }
 
-// SetReasonUser gets a reference to the given CaepDeviceComplianceChangeEventReasonUser and assigns it to the ReasonUser field.
-func (o *CaepSessionRevokedEvent) SetReasonUser(v CaepDeviceComplianceChangeEventReasonUser) {
+// SetReasonUser gets a reference to the given CaepCredentialChangeEventReasonUser and assigns it to the ReasonUser field.
+func (o *CaepSessionRevokedEvent) SetReasonUser(v CaepCredentialChangeEventReasonUser) {
 	o.ReasonUser = &v
 }
 
-// GetSubjects returns the Subjects field value
-func (o *CaepSessionRevokedEvent) GetSubjects() SecurityEventSubject {
-	if o == nil {
+// GetSubject returns the Subject field value if set, zero value otherwise.
+func (o *CaepSessionRevokedEvent) GetSubject() SecurityEventSubject {
+	if o == nil || IsNil(o.Subject) {
 		var ret SecurityEventSubject
 		return ret
 	}
-
-	return o.Subjects
+	return *o.Subject
 }
 
-// GetSubjectsOk returns a tuple with the Subjects field value
+// GetSubjectOk returns a tuple with the Subject field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaepSessionRevokedEvent) GetSubjectsOk() (*SecurityEventSubject, bool) {
-	if o == nil {
+func (o *CaepSessionRevokedEvent) GetSubjectOk() (*SecurityEventSubject, bool) {
+	if o == nil || IsNil(o.Subject) {
 		return nil, false
 	}
-	return &o.Subjects, true
+	return o.Subject, true
 }
 
-// SetSubjects sets field value
-func (o *CaepSessionRevokedEvent) SetSubjects(v SecurityEventSubject) {
-	o.Subjects = v
+// HasSubject returns a boolean if a field has been set.
+func (o *CaepSessionRevokedEvent) HasSubject() bool {
+	if o != nil && !IsNil(o.Subject) {
+		return true
+	}
+
+	return false
+}
+
+// SetSubject gets a reference to the given SecurityEventSubject and assigns it to the Subject field.
+func (o *CaepSessionRevokedEvent) SetSubject(v SecurityEventSubject) {
+	o.Subject = &v
 }
 
 func (o CaepSessionRevokedEvent) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CaepSessionRevokedEvent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.CurrentIp != nil {
-		toSerialize["current_ip"] = o.CurrentIp
-	}
-	if o.CurrentUserAgent != nil {
-		toSerialize["current_user_agent"] = o.CurrentUserAgent
-	}
-	if true {
+	if !IsNil(o.EventTimestamp) {
 		toSerialize["event_timestamp"] = o.EventTimestamp
 	}
-	if o.InitiatingEntity != nil {
-		toSerialize["initiating_entity"] = o.InitiatingEntity
-	}
-	if o.LastKnownIp != nil {
-		toSerialize["last_known_ip"] = o.LastKnownIp
-	}
-	if o.LastKnownUserAgent != nil {
-		toSerialize["last_known_user_agent"] = o.LastKnownUserAgent
-	}
-	if o.ReasonAdmin != nil {
+	if !IsNil(o.ReasonAdmin) {
 		toSerialize["reason_admin"] = o.ReasonAdmin
 	}
-	if o.ReasonUser != nil {
+	if !IsNil(o.ReasonUser) {
 		toSerialize["reason_user"] = o.ReasonUser
 	}
-	if true {
-		toSerialize["subjects"] = o.Subjects
+	if !IsNil(o.Subject) {
+		toSerialize["subject"] = o.Subject
 	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CaepSessionRevokedEvent) UnmarshalJSON(bytes []byte) (err error) {
+func (o *CaepSessionRevokedEvent) UnmarshalJSON(data []byte) (err error) {
 	varCaepSessionRevokedEvent := _CaepSessionRevokedEvent{}
 
-	err = json.Unmarshal(bytes, &varCaepSessionRevokedEvent)
-	if err == nil {
-		*o = CaepSessionRevokedEvent(varCaepSessionRevokedEvent)
-	} else {
+	err = json.Unmarshal(data, &varCaepSessionRevokedEvent)
+
+	if err != nil {
 		return err
 	}
 
+	*o = CaepSessionRevokedEvent(varCaepSessionRevokedEvent)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
-		delete(additionalProperties, "current_ip")
-		delete(additionalProperties, "current_user_agent")
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "event_timestamp")
-		delete(additionalProperties, "initiating_entity")
-		delete(additionalProperties, "last_known_ip")
-		delete(additionalProperties, "last_known_user_agent")
 		delete(additionalProperties, "reason_admin")
 		delete(additionalProperties, "reason_user")
-		delete(additionalProperties, "subjects")
+		delete(additionalProperties, "subject")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -443,4 +276,3 @@ func (v *NullableCaepSessionRevokedEvent) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

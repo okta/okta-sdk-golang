@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the PerClientRateLimitSettingsUseCaseModeOverrides type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PerClientRateLimitSettingsUseCaseModeOverrides{}
+
 // PerClientRateLimitSettingsUseCaseModeOverrides A map of Per-Client Rate Limit Use Case to the applicable PerClientRateLimitMode. Overrides the `defaultMode` property for the specified use cases.
 type PerClientRateLimitSettingsUseCaseModeOverrides struct {
-	LOGIN_PAGE *string `json:"LOGIN_PAGE,omitempty"`
-	OAUTH2AUTHORIZE *string `json:"OAUTH2_AUTHORIZE,omitempty"`
-	OIE_APP_INTENT *string `json:"OIE_APP_INTENT,omitempty"`
+	LOGIN_PAGE           *string `json:"LOGIN_PAGE,omitempty"`
+	OAUTH2AUTHORIZE      *string `json:"OAUTH2_AUTHORIZE,omitempty"`
+	OIE_APP_INTENT       *string `json:"OIE_APP_INTENT,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewPerClientRateLimitSettingsUseCaseModeOverridesWithDefaults() *PerClientR
 
 // GetLOGIN_PAGE returns the LOGIN_PAGE field value if set, zero value otherwise.
 func (o *PerClientRateLimitSettingsUseCaseModeOverrides) GetLOGIN_PAGE() string {
-	if o == nil || o.LOGIN_PAGE == nil {
+	if o == nil || IsNil(o.LOGIN_PAGE) {
 		var ret string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *PerClientRateLimitSettingsUseCaseModeOverrides) GetLOGIN_PAGE() string 
 // GetLOGIN_PAGEOk returns a tuple with the LOGIN_PAGE field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PerClientRateLimitSettingsUseCaseModeOverrides) GetLOGIN_PAGEOk() (*string, bool) {
-	if o == nil || o.LOGIN_PAGE == nil {
+	if o == nil || IsNil(o.LOGIN_PAGE) {
 		return nil, false
 	}
 	return o.LOGIN_PAGE, true
@@ -74,7 +77,7 @@ func (o *PerClientRateLimitSettingsUseCaseModeOverrides) GetLOGIN_PAGEOk() (*str
 
 // HasLOGIN_PAGE returns a boolean if a field has been set.
 func (o *PerClientRateLimitSettingsUseCaseModeOverrides) HasLOGIN_PAGE() bool {
-	if o != nil && o.LOGIN_PAGE != nil {
+	if o != nil && !IsNil(o.LOGIN_PAGE) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *PerClientRateLimitSettingsUseCaseModeOverrides) SetLOGIN_PAGE(v string)
 
 // GetOAUTH2AUTHORIZE returns the OAUTH2AUTHORIZE field value if set, zero value otherwise.
 func (o *PerClientRateLimitSettingsUseCaseModeOverrides) GetOAUTH2AUTHORIZE() string {
-	if o == nil || o.OAUTH2AUTHORIZE == nil {
+	if o == nil || IsNil(o.OAUTH2AUTHORIZE) {
 		var ret string
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *PerClientRateLimitSettingsUseCaseModeOverrides) GetOAUTH2AUTHORIZE() st
 // GetOAUTH2AUTHORIZEOk returns a tuple with the OAUTH2AUTHORIZE field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PerClientRateLimitSettingsUseCaseModeOverrides) GetOAUTH2AUTHORIZEOk() (*string, bool) {
-	if o == nil || o.OAUTH2AUTHORIZE == nil {
+	if o == nil || IsNil(o.OAUTH2AUTHORIZE) {
 		return nil, false
 	}
 	return o.OAUTH2AUTHORIZE, true
@@ -106,7 +109,7 @@ func (o *PerClientRateLimitSettingsUseCaseModeOverrides) GetOAUTH2AUTHORIZEOk() 
 
 // HasOAUTH2AUTHORIZE returns a boolean if a field has been set.
 func (o *PerClientRateLimitSettingsUseCaseModeOverrides) HasOAUTH2AUTHORIZE() bool {
-	if o != nil && o.OAUTH2AUTHORIZE != nil {
+	if o != nil && !IsNil(o.OAUTH2AUTHORIZE) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *PerClientRateLimitSettingsUseCaseModeOverrides) SetOAUTH2AUTHORIZE(v st
 
 // GetOIE_APP_INTENT returns the OIE_APP_INTENT field value if set, zero value otherwise.
 func (o *PerClientRateLimitSettingsUseCaseModeOverrides) GetOIE_APP_INTENT() string {
-	if o == nil || o.OIE_APP_INTENT == nil {
+	if o == nil || IsNil(o.OIE_APP_INTENT) {
 		var ret string
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *PerClientRateLimitSettingsUseCaseModeOverrides) GetOIE_APP_INTENT() str
 // GetOIE_APP_INTENTOk returns a tuple with the OIE_APP_INTENT field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PerClientRateLimitSettingsUseCaseModeOverrides) GetOIE_APP_INTENTOk() (*string, bool) {
-	if o == nil || o.OIE_APP_INTENT == nil {
+	if o == nil || IsNil(o.OIE_APP_INTENT) {
 		return nil, false
 	}
 	return o.OIE_APP_INTENT, true
@@ -138,7 +141,7 @@ func (o *PerClientRateLimitSettingsUseCaseModeOverrides) GetOIE_APP_INTENTOk() (
 
 // HasOIE_APP_INTENT returns a boolean if a field has been set.
 func (o *PerClientRateLimitSettingsUseCaseModeOverrides) HasOIE_APP_INTENT() bool {
-	if o != nil && o.OIE_APP_INTENT != nil {
+	if o != nil && !IsNil(o.OIE_APP_INTENT) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *PerClientRateLimitSettingsUseCaseModeOverrides) SetOIE_APP_INTENT(v str
 }
 
 func (o PerClientRateLimitSettingsUseCaseModeOverrides) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PerClientRateLimitSettingsUseCaseModeOverrides) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.LOGIN_PAGE != nil {
+	if !IsNil(o.LOGIN_PAGE) {
 		toSerialize["LOGIN_PAGE"] = o.LOGIN_PAGE
 	}
-	if o.OAUTH2AUTHORIZE != nil {
+	if !IsNil(o.OAUTH2AUTHORIZE) {
 		toSerialize["OAUTH2_AUTHORIZE"] = o.OAUTH2AUTHORIZE
 	}
-	if o.OIE_APP_INTENT != nil {
+	if !IsNil(o.OIE_APP_INTENT) {
 		toSerialize["OIE_APP_INTENT"] = o.OIE_APP_INTENT
 	}
 
@@ -166,29 +177,27 @@ func (o PerClientRateLimitSettingsUseCaseModeOverrides) MarshalJSON() ([]byte, e
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PerClientRateLimitSettingsUseCaseModeOverrides) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PerClientRateLimitSettingsUseCaseModeOverrides) UnmarshalJSON(data []byte) (err error) {
 	varPerClientRateLimitSettingsUseCaseModeOverrides := _PerClientRateLimitSettingsUseCaseModeOverrides{}
 
-	err = json.Unmarshal(bytes, &varPerClientRateLimitSettingsUseCaseModeOverrides)
-	if err == nil {
-		*o = PerClientRateLimitSettingsUseCaseModeOverrides(varPerClientRateLimitSettingsUseCaseModeOverrides)
-	} else {
+	err = json.Unmarshal(data, &varPerClientRateLimitSettingsUseCaseModeOverrides)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PerClientRateLimitSettingsUseCaseModeOverrides(varPerClientRateLimitSettingsUseCaseModeOverrides)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "LOGIN_PAGE")
 		delete(additionalProperties, "OAUTH2_AUTHORIZE")
 		delete(additionalProperties, "OIE_APP_INTENT")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullablePerClientRateLimitSettingsUseCaseModeOverrides) UnmarshalJSON(s
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -6,12 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Actions** | Pointer to [**Actions**](Actions.md) |  | [optional] 
 **Conditions** | Pointer to [**Conditions**](Conditions.md) |  | [optional] 
-**Created** | Pointer to **time.Time** |  | [optional] [readonly] 
-**Id** | Pointer to **string** |  | [optional] [readonly] 
-**IsDefault** | Pointer to **bool** |  | [optional] [readonly] 
-**LastUpdated** | Pointer to **time.Time** |  | [optional] [readonly] 
-**Name** | Pointer to **string** |  | [optional] 
-**Priority** | Pointer to **int32** |  | [optional] 
+**Created** | Pointer to **time.Time** | Timestamp when the realm assignment was created | [optional] [readonly] 
+**Domains** | Pointer to **[]string** | Array of allowed domains. No user in this realm can be created or updated unless they have a username and email from one of these domains.  The following characters aren&#39;t allowed in the domain name: &#x60;!$%^&amp;()&#x3D;*+,:;&lt;&gt;&#39;[]|/?\\&#x60; | [optional] 
+**Id** | Pointer to **string** | Unique ID of the realm assignment | [optional] [readonly] 
+**IsDefault** | Pointer to **bool** | Indicates the default realm. Existing users will start out in the default realm and can be moved individually to other realms. | [optional] [readonly] 
+**LastUpdated** | Pointer to **time.Time** | Timestamp of when the realm assignment was updated | [optional] [readonly] 
+**Name** | Pointer to **string** | Name of the realm | [optional] 
+**Priority** | Pointer to **int32** | The priority of the realm assignment. The lower the number, the higher the priority. This helps resolve conflicts between realm assignments. &gt; **Note:** When you create realm assignments in bulk, realm assignment priorities must be unique. | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
 **Links** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
 
@@ -108,6 +109,31 @@ SetCreated sets Created field to given value.
 `func (o *RealmAssignment) HasCreated() bool`
 
 HasCreated returns a boolean if a field has been set.
+
+### GetDomains
+
+`func (o *RealmAssignment) GetDomains() []string`
+
+GetDomains returns the Domains field if non-nil, zero value otherwise.
+
+### GetDomainsOk
+
+`func (o *RealmAssignment) GetDomainsOk() (*[]string, bool)`
+
+GetDomainsOk returns a tuple with the Domains field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDomains
+
+`func (o *RealmAssignment) SetDomains(v []string)`
+
+SetDomains sets Domains field to given value.
+
+### HasDomains
+
+`func (o *RealmAssignment) HasDomains() bool`
+
+HasDomains returns a boolean if a field has been set.
 
 ### GetId
 

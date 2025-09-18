@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the EntityRiskPolicyRuleActionRunWorkflow type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EntityRiskPolicyRuleActionRunWorkflow{}
+
 // EntityRiskPolicyRuleActionRunWorkflow struct for EntityRiskPolicyRuleActionRunWorkflow
 type EntityRiskPolicyRuleActionRunWorkflow struct {
-	Action *string `json:"action,omitempty"`
-	Workflow *ContinuousAccessPolicyRuleRunWorkflowWorkflow `json:"workflow,omitempty"`
+	Action               *string                                        `json:"action,omitempty"`
+	Workflow             *EntityRiskPolicyRuleActionRunWorkflowWorkflow `json:"workflow,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewEntityRiskPolicyRuleActionRunWorkflowWithDefaults() *EntityRiskPolicyRul
 
 // GetAction returns the Action field value if set, zero value otherwise.
 func (o *EntityRiskPolicyRuleActionRunWorkflow) GetAction() string {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *EntityRiskPolicyRuleActionRunWorkflow) GetAction() string {
 // GetActionOk returns a tuple with the Action field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntityRiskPolicyRuleActionRunWorkflow) GetActionOk() (*string, bool) {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		return nil, false
 	}
 	return o.Action, true
@@ -73,7 +76,7 @@ func (o *EntityRiskPolicyRuleActionRunWorkflow) GetActionOk() (*string, bool) {
 
 // HasAction returns a boolean if a field has been set.
 func (o *EntityRiskPolicyRuleActionRunWorkflow) HasAction() bool {
-	if o != nil && o.Action != nil {
+	if o != nil && !IsNil(o.Action) {
 		return true
 	}
 
@@ -86,9 +89,9 @@ func (o *EntityRiskPolicyRuleActionRunWorkflow) SetAction(v string) {
 }
 
 // GetWorkflow returns the Workflow field value if set, zero value otherwise.
-func (o *EntityRiskPolicyRuleActionRunWorkflow) GetWorkflow() ContinuousAccessPolicyRuleRunWorkflowWorkflow {
-	if o == nil || o.Workflow == nil {
-		var ret ContinuousAccessPolicyRuleRunWorkflowWorkflow
+func (o *EntityRiskPolicyRuleActionRunWorkflow) GetWorkflow() EntityRiskPolicyRuleActionRunWorkflowWorkflow {
+	if o == nil || IsNil(o.Workflow) {
+		var ret EntityRiskPolicyRuleActionRunWorkflowWorkflow
 		return ret
 	}
 	return *o.Workflow
@@ -96,8 +99,8 @@ func (o *EntityRiskPolicyRuleActionRunWorkflow) GetWorkflow() ContinuousAccessPo
 
 // GetWorkflowOk returns a tuple with the Workflow field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EntityRiskPolicyRuleActionRunWorkflow) GetWorkflowOk() (*ContinuousAccessPolicyRuleRunWorkflowWorkflow, bool) {
-	if o == nil || o.Workflow == nil {
+func (o *EntityRiskPolicyRuleActionRunWorkflow) GetWorkflowOk() (*EntityRiskPolicyRuleActionRunWorkflowWorkflow, bool) {
+	if o == nil || IsNil(o.Workflow) {
 		return nil, false
 	}
 	return o.Workflow, true
@@ -105,24 +108,32 @@ func (o *EntityRiskPolicyRuleActionRunWorkflow) GetWorkflowOk() (*ContinuousAcce
 
 // HasWorkflow returns a boolean if a field has been set.
 func (o *EntityRiskPolicyRuleActionRunWorkflow) HasWorkflow() bool {
-	if o != nil && o.Workflow != nil {
+	if o != nil && !IsNil(o.Workflow) {
 		return true
 	}
 
 	return false
 }
 
-// SetWorkflow gets a reference to the given ContinuousAccessPolicyRuleRunWorkflowWorkflow and assigns it to the Workflow field.
-func (o *EntityRiskPolicyRuleActionRunWorkflow) SetWorkflow(v ContinuousAccessPolicyRuleRunWorkflowWorkflow) {
+// SetWorkflow gets a reference to the given EntityRiskPolicyRuleActionRunWorkflowWorkflow and assigns it to the Workflow field.
+func (o *EntityRiskPolicyRuleActionRunWorkflow) SetWorkflow(v EntityRiskPolicyRuleActionRunWorkflowWorkflow) {
 	o.Workflow = &v
 }
 
 func (o EntityRiskPolicyRuleActionRunWorkflow) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EntityRiskPolicyRuleActionRunWorkflow) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Action != nil {
+	if !IsNil(o.Action) {
 		toSerialize["action"] = o.Action
 	}
-	if o.Workflow != nil {
+	if !IsNil(o.Workflow) {
 		toSerialize["workflow"] = o.Workflow
 	}
 
@@ -130,28 +141,26 @@ func (o EntityRiskPolicyRuleActionRunWorkflow) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EntityRiskPolicyRuleActionRunWorkflow) UnmarshalJSON(bytes []byte) (err error) {
+func (o *EntityRiskPolicyRuleActionRunWorkflow) UnmarshalJSON(data []byte) (err error) {
 	varEntityRiskPolicyRuleActionRunWorkflow := _EntityRiskPolicyRuleActionRunWorkflow{}
 
-	err = json.Unmarshal(bytes, &varEntityRiskPolicyRuleActionRunWorkflow)
-	if err == nil {
-		*o = EntityRiskPolicyRuleActionRunWorkflow(varEntityRiskPolicyRuleActionRunWorkflow)
-	} else {
+	err = json.Unmarshal(data, &varEntityRiskPolicyRuleActionRunWorkflow)
+
+	if err != nil {
 		return err
 	}
 
+	*o = EntityRiskPolicyRuleActionRunWorkflow(varEntityRiskPolicyRuleActionRunWorkflow)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "action")
 		delete(additionalProperties, "workflow")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableEntityRiskPolicyRuleActionRunWorkflow) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

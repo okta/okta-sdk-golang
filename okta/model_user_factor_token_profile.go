@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserFactorTokenProfile type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserFactorTokenProfile{}
+
 // UserFactorTokenProfile struct for UserFactorTokenProfile
 type UserFactorTokenProfile struct {
-	// ID for the Factor credential
-	CredentialId *string `json:"credentialId,omitempty"`
+	// ID for the factor credential
+	CredentialId         *string `json:"credentialId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewUserFactorTokenProfileWithDefaults() *UserFactorTokenProfile {
 
 // GetCredentialId returns the CredentialId field value if set, zero value otherwise.
 func (o *UserFactorTokenProfile) GetCredentialId() string {
-	if o == nil || o.CredentialId == nil {
+	if o == nil || IsNil(o.CredentialId) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *UserFactorTokenProfile) GetCredentialId() string {
 // GetCredentialIdOk returns a tuple with the CredentialId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorTokenProfile) GetCredentialIdOk() (*string, bool) {
-	if o == nil || o.CredentialId == nil {
+	if o == nil || IsNil(o.CredentialId) {
 		return nil, false
 	}
 	return o.CredentialId, true
@@ -73,7 +76,7 @@ func (o *UserFactorTokenProfile) GetCredentialIdOk() (*string, bool) {
 
 // HasCredentialId returns a boolean if a field has been set.
 func (o *UserFactorTokenProfile) HasCredentialId() bool {
-	if o != nil && o.CredentialId != nil {
+	if o != nil && !IsNil(o.CredentialId) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *UserFactorTokenProfile) SetCredentialId(v string) {
 }
 
 func (o UserFactorTokenProfile) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserFactorTokenProfile) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.CredentialId != nil {
+	if !IsNil(o.CredentialId) {
 		toSerialize["credentialId"] = o.CredentialId
 	}
 
@@ -95,27 +106,25 @@ func (o UserFactorTokenProfile) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserFactorTokenProfile) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserFactorTokenProfile) UnmarshalJSON(data []byte) (err error) {
 	varUserFactorTokenProfile := _UserFactorTokenProfile{}
 
-	err = json.Unmarshal(bytes, &varUserFactorTokenProfile)
-	if err == nil {
-		*o = UserFactorTokenProfile(varUserFactorTokenProfile)
-	} else {
+	err = json.Unmarshal(data, &varUserFactorTokenProfile)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserFactorTokenProfile(varUserFactorTokenProfile)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "credentialId")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableUserFactorTokenProfile) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

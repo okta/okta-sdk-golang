@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Alias** | **string** | Human-readable name for your SMTP server | 
+**Alias** | Pointer to **string** | Human-readable name for your SMTP server | [optional] 
 **Enabled** | Pointer to **bool** | If &#x60;true&#x60;, routes all email traffic through your SMTP server | [optional] 
-**Host** | **string** | Hostname or IP address of your SMTP server | 
-**Port** | **int32** | Port number of your SMTP server | 
-**Username** | **string** | Username used to access your SMTP server | 
-**Password** | **string** | Password used to access your SMTP server | 
+**Host** | Pointer to **string** | Hostname or IP address of your SMTP server | [optional] 
+**Port** | Pointer to **int32** | Port number of your SMTP server | [optional] 
+**Username** | Pointer to **string** | Username used to access your SMTP server | [optional] 
+**Password** | Pointer to **string** | Password used to access your SMTP server | [optional] 
 
 ## Methods
 
 ### NewEmailServerPost
 
-`func NewEmailServerPost(alias string, host string, port int32, username string, password string, ) *EmailServerPost`
+`func NewEmailServerPost() *EmailServerPost`
 
 NewEmailServerPost instantiates a new EmailServerPost object
 This constructor will assign default values to properties that have it defined,
@@ -49,6 +49,11 @@ and a boolean to check if the value has been set.
 
 SetAlias sets Alias field to given value.
 
+### HasAlias
+
+`func (o *EmailServerPost) HasAlias() bool`
+
+HasAlias returns a boolean if a field has been set.
 
 ### GetEnabled
 
@@ -94,6 +99,11 @@ and a boolean to check if the value has been set.
 
 SetHost sets Host field to given value.
 
+### HasHost
+
+`func (o *EmailServerPost) HasHost() bool`
+
+HasHost returns a boolean if a field has been set.
 
 ### GetPort
 
@@ -114,6 +124,11 @@ and a boolean to check if the value has been set.
 
 SetPort sets Port field to given value.
 
+### HasPort
+
+`func (o *EmailServerPost) HasPort() bool`
+
+HasPort returns a boolean if a field has been set.
 
 ### GetUsername
 
@@ -134,6 +149,11 @@ and a boolean to check if the value has been set.
 
 SetUsername sets Username field to given value.
 
+### HasUsername
+
+`func (o *EmailServerPost) HasUsername() bool`
+
+HasUsername returns a boolean if a field has been set.
 
 ### GetPassword
 
@@ -154,6 +174,11 @@ and a boolean to check if the value has been set.
 
 SetPassword sets Password field to given value.
 
+### HasPassword
+
+`func (o *EmailServerPost) HasPassword() bool`
+
+HasPassword returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

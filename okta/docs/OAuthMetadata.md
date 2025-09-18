@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AuthorizationEndpoint** | Pointer to **string** | URL of the authorization server&#39;s authorization endpoint. | [optional] 
-**BackchannelAuthenticationRequestSigningAlgValuesSupported** | Pointer to **[]string** | &lt;div class&#x3D;\&quot;x-lifecycle-container\&quot;&gt;&lt;x-lifecycle class&#x3D;\&quot;lea\&quot;&gt;&lt;/x-lifecycle&gt; &lt;x-lifecycle class&#x3D;\&quot;oie\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/div&gt;A list of signing algorithms that this authorization server supports for signed requests. | [optional] 
-**BackchannelTokenDeliveryModesSupported** | Pointer to **[]string** | &lt;div class&#x3D;\&quot;x-lifecycle-container\&quot;&gt;&lt;x-lifecycle class&#x3D;\&quot;lea\&quot;&gt;&lt;/x-lifecycle&gt; &lt;x-lifecycle class&#x3D;\&quot;oie\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/div&gt;The delivery modes that this authorization server supports for Client-Initiated Backchannel Authentication. | [optional] 
+**BackchannelAuthenticationRequestSigningAlgValuesSupported** | Pointer to **[]string** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;oie\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;A list of signing algorithms that this authorization server supports for signed requests. | [optional] 
+**BackchannelTokenDeliveryModesSupported** | Pointer to **[]string** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;oie\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;The delivery modes that this authorization server supports for Client-Initiated Backchannel Authentication. | [optional] 
 **ClaimsSupported** | Pointer to **[]string** | A list of the claims supported by this authorization server. | [optional] 
 **CodeChallengeMethodsSupported** | Pointer to **[]string** | A list of PKCE code challenge methods supported by this authorization server. | [optional] 
 **DeviceAuthorizationEndpoint** | Pointer to **string** |  | [optional] 

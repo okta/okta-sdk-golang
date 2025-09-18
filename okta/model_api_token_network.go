@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ApiTokenNetwork type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApiTokenNetwork{}
+
 // ApiTokenNetwork The Network Condition of the API Token
 type ApiTokenNetwork struct {
 	// The connection type of the Network Condition
@@ -34,7 +37,7 @@ type ApiTokenNetwork struct {
 	// List of included IP network zones
 	Include []string `json:"include,omitempty"`
 	// List of excluded IP network zones
-	Exclude []string `json:"exclude,omitempty"`
+	Exclude              []string `json:"exclude,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewApiTokenNetworkWithDefaults() *ApiTokenNetwork {
 
 // GetConnection returns the Connection field value if set, zero value otherwise.
 func (o *ApiTokenNetwork) GetConnection() string {
-	if o == nil || o.Connection == nil {
+	if o == nil || IsNil(o.Connection) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *ApiTokenNetwork) GetConnection() string {
 // GetConnectionOk returns a tuple with the Connection field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiTokenNetwork) GetConnectionOk() (*string, bool) {
-	if o == nil || o.Connection == nil {
+	if o == nil || IsNil(o.Connection) {
 		return nil, false
 	}
 	return o.Connection, true
@@ -77,7 +80,7 @@ func (o *ApiTokenNetwork) GetConnectionOk() (*string, bool) {
 
 // HasConnection returns a boolean if a field has been set.
 func (o *ApiTokenNetwork) HasConnection() bool {
-	if o != nil && o.Connection != nil {
+	if o != nil && !IsNil(o.Connection) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *ApiTokenNetwork) SetConnection(v string) {
 
 // GetInclude returns the Include field value if set, zero value otherwise.
 func (o *ApiTokenNetwork) GetInclude() []string {
-	if o == nil || o.Include == nil {
+	if o == nil || IsNil(o.Include) {
 		var ret []string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *ApiTokenNetwork) GetInclude() []string {
 // GetIncludeOk returns a tuple with the Include field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiTokenNetwork) GetIncludeOk() ([]string, bool) {
-	if o == nil || o.Include == nil {
+	if o == nil || IsNil(o.Include) {
 		return nil, false
 	}
 	return o.Include, true
@@ -109,7 +112,7 @@ func (o *ApiTokenNetwork) GetIncludeOk() ([]string, bool) {
 
 // HasInclude returns a boolean if a field has been set.
 func (o *ApiTokenNetwork) HasInclude() bool {
-	if o != nil && o.Include != nil {
+	if o != nil && !IsNil(o.Include) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *ApiTokenNetwork) SetInclude(v []string) {
 
 // GetExclude returns the Exclude field value if set, zero value otherwise.
 func (o *ApiTokenNetwork) GetExclude() []string {
-	if o == nil || o.Exclude == nil {
+	if o == nil || IsNil(o.Exclude) {
 		var ret []string
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *ApiTokenNetwork) GetExclude() []string {
 // GetExcludeOk returns a tuple with the Exclude field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiTokenNetwork) GetExcludeOk() ([]string, bool) {
-	if o == nil || o.Exclude == nil {
+	if o == nil || IsNil(o.Exclude) {
 		return nil, false
 	}
 	return o.Exclude, true
@@ -141,7 +144,7 @@ func (o *ApiTokenNetwork) GetExcludeOk() ([]string, bool) {
 
 // HasExclude returns a boolean if a field has been set.
 func (o *ApiTokenNetwork) HasExclude() bool {
-	if o != nil && o.Exclude != nil {
+	if o != nil && !IsNil(o.Exclude) {
 		return true
 	}
 
@@ -154,14 +157,22 @@ func (o *ApiTokenNetwork) SetExclude(v []string) {
 }
 
 func (o ApiTokenNetwork) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApiTokenNetwork) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Connection != nil {
+	if !IsNil(o.Connection) {
 		toSerialize["connection"] = o.Connection
 	}
-	if o.Include != nil {
+	if !IsNil(o.Include) {
 		toSerialize["include"] = o.Include
 	}
-	if o.Exclude != nil {
+	if !IsNil(o.Exclude) {
 		toSerialize["exclude"] = o.Exclude
 	}
 
@@ -169,29 +180,27 @@ func (o ApiTokenNetwork) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ApiTokenNetwork) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ApiTokenNetwork) UnmarshalJSON(data []byte) (err error) {
 	varApiTokenNetwork := _ApiTokenNetwork{}
 
-	err = json.Unmarshal(bytes, &varApiTokenNetwork)
-	if err == nil {
-		*o = ApiTokenNetwork(varApiTokenNetwork)
-	} else {
+	err = json.Unmarshal(data, &varApiTokenNetwork)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ApiTokenNetwork(varApiTokenNetwork)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "connection")
 		delete(additionalProperties, "include")
 		delete(additionalProperties, "exclude")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -232,4 +241,3 @@ func (v *NullableApiTokenNetwork) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

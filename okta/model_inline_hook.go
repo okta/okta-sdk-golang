@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -28,19 +28,26 @@ import (
 	"time"
 )
 
-// InlineHook struct for InlineHook
+// checks if the InlineHook type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InlineHook{}
+
+// InlineHook An inline hook object that specifies the details of the inline hook
 type InlineHook struct {
 	Channel *InlineHookChannel `json:"channel,omitempty"`
+	// Date of the inline hook creation
 	Created *time.Time `json:"created,omitempty"`
+	// The unique identifier for the inline hook
 	Id *string `json:"id,omitempty"`
+	// Date of the last inline hook update
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	// Specific properties for the inline hook configuration, for example, `optOutServiceProtectionRateLimit` to opt-out of Telephony Service Protection Rate Limits when using the Telephony inline hook.
-	Metadata *map[string]string `json:"metadata,omitempty"`
-	Name *string `json:"name,omitempty"`
+	// The display name of the inline hook
+	Name   *string `json:"name,omitempty"`
 	Status *string `json:"status,omitempty"`
+	// One of the inline hook types
 	Type *string `json:"type,omitempty"`
-	Version *string `json:"version,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	// Version of the inline hook type. The currently supported version is `1.0.0`.
+	Version              *string          `json:"version,omitempty"`
+	Links                *InlineHookLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -65,7 +72,7 @@ func NewInlineHookWithDefaults() *InlineHook {
 
 // GetChannel returns the Channel field value if set, zero value otherwise.
 func (o *InlineHook) GetChannel() InlineHookChannel {
-	if o == nil || o.Channel == nil {
+	if o == nil || IsNil(o.Channel) {
 		var ret InlineHookChannel
 		return ret
 	}
@@ -75,7 +82,7 @@ func (o *InlineHook) GetChannel() InlineHookChannel {
 // GetChannelOk returns a tuple with the Channel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHook) GetChannelOk() (*InlineHookChannel, bool) {
-	if o == nil || o.Channel == nil {
+	if o == nil || IsNil(o.Channel) {
 		return nil, false
 	}
 	return o.Channel, true
@@ -83,7 +90,7 @@ func (o *InlineHook) GetChannelOk() (*InlineHookChannel, bool) {
 
 // HasChannel returns a boolean if a field has been set.
 func (o *InlineHook) HasChannel() bool {
-	if o != nil && o.Channel != nil {
+	if o != nil && !IsNil(o.Channel) {
 		return true
 	}
 
@@ -97,7 +104,7 @@ func (o *InlineHook) SetChannel(v InlineHookChannel) {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *InlineHook) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -107,7 +114,7 @@ func (o *InlineHook) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHook) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -115,7 +122,7 @@ func (o *InlineHook) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *InlineHook) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -129,7 +136,7 @@ func (o *InlineHook) SetCreated(v time.Time) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *InlineHook) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -139,7 +146,7 @@ func (o *InlineHook) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHook) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -147,7 +154,7 @@ func (o *InlineHook) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *InlineHook) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -161,7 +168,7 @@ func (o *InlineHook) SetId(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *InlineHook) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -171,7 +178,7 @@ func (o *InlineHook) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHook) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -179,7 +186,7 @@ func (o *InlineHook) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *InlineHook) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -191,41 +198,9 @@ func (o *InlineHook) SetLastUpdated(v time.Time) {
 	o.LastUpdated = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *InlineHook) GetMetadata() map[string]string {
-	if o == nil || o.Metadata == nil {
-		var ret map[string]string
-		return ret
-	}
-	return *o.Metadata
-}
-
-// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *InlineHook) GetMetadataOk() (*map[string]string, bool) {
-	if o == nil || o.Metadata == nil {
-		return nil, false
-	}
-	return o.Metadata, true
-}
-
-// HasMetadata returns a boolean if a field has been set.
-func (o *InlineHook) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetMetadata gets a reference to the given map[string]string and assigns it to the Metadata field.
-func (o *InlineHook) SetMetadata(v map[string]string) {
-	o.Metadata = &v
-}
-
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *InlineHook) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -235,7 +210,7 @@ func (o *InlineHook) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHook) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -243,7 +218,7 @@ func (o *InlineHook) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *InlineHook) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -257,7 +232,7 @@ func (o *InlineHook) SetName(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *InlineHook) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -267,7 +242,7 @@ func (o *InlineHook) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHook) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -275,7 +250,7 @@ func (o *InlineHook) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *InlineHook) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -289,7 +264,7 @@ func (o *InlineHook) SetStatus(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *InlineHook) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -299,7 +274,7 @@ func (o *InlineHook) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHook) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -307,7 +282,7 @@ func (o *InlineHook) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *InlineHook) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -321,7 +296,7 @@ func (o *InlineHook) SetType(v string) {
 
 // GetVersion returns the Version field value if set, zero value otherwise.
 func (o *InlineHook) GetVersion() string {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		var ret string
 		return ret
 	}
@@ -331,7 +306,7 @@ func (o *InlineHook) GetVersion() string {
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHook) GetVersionOk() (*string, bool) {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
 	return o.Version, true
@@ -339,7 +314,7 @@ func (o *InlineHook) GetVersionOk() (*string, bool) {
 
 // HasVersion returns a boolean if a field has been set.
 func (o *InlineHook) HasVersion() bool {
-	if o != nil && o.Version != nil {
+	if o != nil && !IsNil(o.Version) {
 		return true
 	}
 
@@ -352,9 +327,9 @@ func (o *InlineHook) SetVersion(v string) {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *InlineHook) GetLinks() LinksSelf {
-	if o == nil || o.Links == nil {
-		var ret LinksSelf
+func (o *InlineHook) GetLinks() InlineHookLinks {
+	if o == nil || IsNil(o.Links) {
+		var ret InlineHookLinks
 		return ret
 	}
 	return *o.Links
@@ -362,8 +337,8 @@ func (o *InlineHook) GetLinks() LinksSelf {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InlineHook) GetLinksOk() (*LinksSelf, bool) {
-	if o == nil || o.Links == nil {
+func (o *InlineHook) GetLinksOk() (*InlineHookLinks, bool) {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -371,48 +346,53 @@ func (o *InlineHook) GetLinksOk() (*LinksSelf, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *InlineHook) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
 	return false
 }
 
-// SetLinks gets a reference to the given LinksSelf and assigns it to the Links field.
-func (o *InlineHook) SetLinks(v LinksSelf) {
+// SetLinks gets a reference to the given InlineHookLinks and assigns it to the Links field.
+func (o *InlineHook) SetLinks(v InlineHookLinks) {
 	o.Links = &v
 }
 
 func (o InlineHook) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o InlineHook) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Channel != nil {
+	if !IsNil(o.Channel) {
 		toSerialize["channel"] = o.Channel
 	}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Metadata != nil {
-		toSerialize["metadata"] = o.Metadata
-	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Version != nil {
+	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -420,36 +400,33 @@ func (o InlineHook) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *InlineHook) UnmarshalJSON(bytes []byte) (err error) {
+func (o *InlineHook) UnmarshalJSON(data []byte) (err error) {
 	varInlineHook := _InlineHook{}
 
-	err = json.Unmarshal(bytes, &varInlineHook)
-	if err == nil {
-		*o = InlineHook(varInlineHook)
-	} else {
+	err = json.Unmarshal(data, &varInlineHook)
+
+	if err != nil {
 		return err
 	}
 
+	*o = InlineHook(varInlineHook)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "channel")
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "lastUpdated")
-		delete(additionalProperties, "metadata")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "version")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -490,4 +467,3 @@ func (v *NullableInlineHook) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

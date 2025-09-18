@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the PageRootEmbedded type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PageRootEmbedded{}
+
 // PageRootEmbedded struct for PageRootEmbedded
 type PageRootEmbedded struct {
-	Default *CustomizablePage `json:"default,omitempty"`
-	Customized *CustomizablePage `json:"customized,omitempty"`
-	CustomizedUrl *string `json:"customizedUrl,omitempty"`
-	Preview *CustomizablePage `json:"preview,omitempty"`
-	PreviewUrl *string `json:"previewUrl,omitempty"`
+	Default              *CustomizablePage `json:"default,omitempty"`
+	Customized           *CustomizablePage `json:"customized,omitempty"`
+	CustomizedUrl        *string           `json:"customizedUrl,omitempty"`
+	Preview              *CustomizablePage `json:"preview,omitempty"`
+	PreviewUrl           *string           `json:"previewUrl,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewPageRootEmbeddedWithDefaults() *PageRootEmbedded {
 
 // GetDefault returns the Default field value if set, zero value otherwise.
 func (o *PageRootEmbedded) GetDefault() CustomizablePage {
-	if o == nil || o.Default == nil {
+	if o == nil || IsNil(o.Default) {
 		var ret CustomizablePage
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *PageRootEmbedded) GetDefault() CustomizablePage {
 // GetDefaultOk returns a tuple with the Default field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PageRootEmbedded) GetDefaultOk() (*CustomizablePage, bool) {
-	if o == nil || o.Default == nil {
+	if o == nil || IsNil(o.Default) {
 		return nil, false
 	}
 	return o.Default, true
@@ -76,7 +79,7 @@ func (o *PageRootEmbedded) GetDefaultOk() (*CustomizablePage, bool) {
 
 // HasDefault returns a boolean if a field has been set.
 func (o *PageRootEmbedded) HasDefault() bool {
-	if o != nil && o.Default != nil {
+	if o != nil && !IsNil(o.Default) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *PageRootEmbedded) SetDefault(v CustomizablePage) {
 
 // GetCustomized returns the Customized field value if set, zero value otherwise.
 func (o *PageRootEmbedded) GetCustomized() CustomizablePage {
-	if o == nil || o.Customized == nil {
+	if o == nil || IsNil(o.Customized) {
 		var ret CustomizablePage
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *PageRootEmbedded) GetCustomized() CustomizablePage {
 // GetCustomizedOk returns a tuple with the Customized field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PageRootEmbedded) GetCustomizedOk() (*CustomizablePage, bool) {
-	if o == nil || o.Customized == nil {
+	if o == nil || IsNil(o.Customized) {
 		return nil, false
 	}
 	return o.Customized, true
@@ -108,7 +111,7 @@ func (o *PageRootEmbedded) GetCustomizedOk() (*CustomizablePage, bool) {
 
 // HasCustomized returns a boolean if a field has been set.
 func (o *PageRootEmbedded) HasCustomized() bool {
-	if o != nil && o.Customized != nil {
+	if o != nil && !IsNil(o.Customized) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *PageRootEmbedded) SetCustomized(v CustomizablePage) {
 
 // GetCustomizedUrl returns the CustomizedUrl field value if set, zero value otherwise.
 func (o *PageRootEmbedded) GetCustomizedUrl() string {
-	if o == nil || o.CustomizedUrl == nil {
+	if o == nil || IsNil(o.CustomizedUrl) {
 		var ret string
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *PageRootEmbedded) GetCustomizedUrl() string {
 // GetCustomizedUrlOk returns a tuple with the CustomizedUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PageRootEmbedded) GetCustomizedUrlOk() (*string, bool) {
-	if o == nil || o.CustomizedUrl == nil {
+	if o == nil || IsNil(o.CustomizedUrl) {
 		return nil, false
 	}
 	return o.CustomizedUrl, true
@@ -140,7 +143,7 @@ func (o *PageRootEmbedded) GetCustomizedUrlOk() (*string, bool) {
 
 // HasCustomizedUrl returns a boolean if a field has been set.
 func (o *PageRootEmbedded) HasCustomizedUrl() bool {
-	if o != nil && o.CustomizedUrl != nil {
+	if o != nil && !IsNil(o.CustomizedUrl) {
 		return true
 	}
 
@@ -154,7 +157,7 @@ func (o *PageRootEmbedded) SetCustomizedUrl(v string) {
 
 // GetPreview returns the Preview field value if set, zero value otherwise.
 func (o *PageRootEmbedded) GetPreview() CustomizablePage {
-	if o == nil || o.Preview == nil {
+	if o == nil || IsNil(o.Preview) {
 		var ret CustomizablePage
 		return ret
 	}
@@ -164,7 +167,7 @@ func (o *PageRootEmbedded) GetPreview() CustomizablePage {
 // GetPreviewOk returns a tuple with the Preview field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PageRootEmbedded) GetPreviewOk() (*CustomizablePage, bool) {
-	if o == nil || o.Preview == nil {
+	if o == nil || IsNil(o.Preview) {
 		return nil, false
 	}
 	return o.Preview, true
@@ -172,7 +175,7 @@ func (o *PageRootEmbedded) GetPreviewOk() (*CustomizablePage, bool) {
 
 // HasPreview returns a boolean if a field has been set.
 func (o *PageRootEmbedded) HasPreview() bool {
-	if o != nil && o.Preview != nil {
+	if o != nil && !IsNil(o.Preview) {
 		return true
 	}
 
@@ -186,7 +189,7 @@ func (o *PageRootEmbedded) SetPreview(v CustomizablePage) {
 
 // GetPreviewUrl returns the PreviewUrl field value if set, zero value otherwise.
 func (o *PageRootEmbedded) GetPreviewUrl() string {
-	if o == nil || o.PreviewUrl == nil {
+	if o == nil || IsNil(o.PreviewUrl) {
 		var ret string
 		return ret
 	}
@@ -196,7 +199,7 @@ func (o *PageRootEmbedded) GetPreviewUrl() string {
 // GetPreviewUrlOk returns a tuple with the PreviewUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PageRootEmbedded) GetPreviewUrlOk() (*string, bool) {
-	if o == nil || o.PreviewUrl == nil {
+	if o == nil || IsNil(o.PreviewUrl) {
 		return nil, false
 	}
 	return o.PreviewUrl, true
@@ -204,7 +207,7 @@ func (o *PageRootEmbedded) GetPreviewUrlOk() (*string, bool) {
 
 // HasPreviewUrl returns a boolean if a field has been set.
 func (o *PageRootEmbedded) HasPreviewUrl() bool {
-	if o != nil && o.PreviewUrl != nil {
+	if o != nil && !IsNil(o.PreviewUrl) {
 		return true
 	}
 
@@ -217,20 +220,28 @@ func (o *PageRootEmbedded) SetPreviewUrl(v string) {
 }
 
 func (o PageRootEmbedded) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PageRootEmbedded) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Default != nil {
+	if !IsNil(o.Default) {
 		toSerialize["default"] = o.Default
 	}
-	if o.Customized != nil {
+	if !IsNil(o.Customized) {
 		toSerialize["customized"] = o.Customized
 	}
-	if o.CustomizedUrl != nil {
+	if !IsNil(o.CustomizedUrl) {
 		toSerialize["customizedUrl"] = o.CustomizedUrl
 	}
-	if o.Preview != nil {
+	if !IsNil(o.Preview) {
 		toSerialize["preview"] = o.Preview
 	}
-	if o.PreviewUrl != nil {
+	if !IsNil(o.PreviewUrl) {
 		toSerialize["previewUrl"] = o.PreviewUrl
 	}
 
@@ -238,31 +249,29 @@ func (o PageRootEmbedded) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PageRootEmbedded) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PageRootEmbedded) UnmarshalJSON(data []byte) (err error) {
 	varPageRootEmbedded := _PageRootEmbedded{}
 
-	err = json.Unmarshal(bytes, &varPageRootEmbedded)
-	if err == nil {
-		*o = PageRootEmbedded(varPageRootEmbedded)
-	} else {
+	err = json.Unmarshal(data, &varPageRootEmbedded)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PageRootEmbedded(varPageRootEmbedded)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "default")
 		delete(additionalProperties, "customized")
 		delete(additionalProperties, "customizedUrl")
 		delete(additionalProperties, "preview")
 		delete(additionalProperties, "previewUrl")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -303,4 +312,3 @@ func (v *NullablePageRootEmbedded) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

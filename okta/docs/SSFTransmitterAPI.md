@@ -4,12 +4,14 @@ All URIs are relative to *https://subdomain.okta.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSsfStream**](SSFTransmitterAPI.md#CreateSsfStream) | **Post** /api/v1/ssf/stream | Create an SSF Stream
-[**DeleteSsfStream**](SSFTransmitterAPI.md#DeleteSsfStream) | **Delete** /api/v1/ssf/stream | Delete an SSF Stream
-[**GetSsfStreams**](SSFTransmitterAPI.md#GetSsfStreams) | **Get** /api/v1/ssf/stream | Retrieve the SSF Stream configuration(s)
-[**GetWellknownSsfMetadata**](SSFTransmitterAPI.md#GetWellknownSsfMetadata) | **Get** /.well-known/ssf-configuration | Retrieve the SSF Transmitter metadata
-[**ReplaceSsfStream**](SSFTransmitterAPI.md#ReplaceSsfStream) | **Put** /api/v1/ssf/stream | Replace an SSF Stream
-[**UpdateSsfStream**](SSFTransmitterAPI.md#UpdateSsfStream) | **Patch** /api/v1/ssf/stream | Update an SSF Stream
+[**CreateSsfStream**](SSFTransmitterAPI.md#CreateSsfStream) | **Post** /api/v1/ssf/stream | Create an SSF stream
+[**DeleteSsfStream**](SSFTransmitterAPI.md#DeleteSsfStream) | **Delete** /api/v1/ssf/stream | Delete an SSF stream
+[**GetSsfStreamStatus**](SSFTransmitterAPI.md#GetSsfStreamStatus) | **Get** /api/v1/ssf/stream/status | Retrieve the SSF Stream status
+[**GetSsfStreams**](SSFTransmitterAPI.md#GetSsfStreams) | **Get** /api/v1/ssf/stream | Retrieve the SSF stream configuration(s)
+[**GetWellknownSsfMetadata**](SSFTransmitterAPI.md#GetWellknownSsfMetadata) | **Get** /.well-known/ssf-configuration | Retrieve the SSF transmitter metadata
+[**ReplaceSsfStream**](SSFTransmitterAPI.md#ReplaceSsfStream) | **Put** /api/v1/ssf/stream | Replace an SSF stream
+[**UpdateSsfStream**](SSFTransmitterAPI.md#UpdateSsfStream) | **Patch** /api/v1/ssf/stream | Update an SSF stream
+[**VerifySsfStream**](SSFTransmitterAPI.md#VerifySsfStream) | **Post** /api/v1/ssf/stream/verification | Verify an SSF stream
 
 
 
@@ -17,7 +19,7 @@ Method | HTTP request | Description
 
 > StreamConfiguration CreateSsfStream(ctx).Instance(instance).Execute()
 
-Create an SSF Stream
+Create an SSF stream
 
 
 
@@ -27,24 +29,24 @@ Create an SSF Stream
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    instance := *openapiclient.NewStreamConfigurationCreateRequest(*openapiclient.NewStreamConfigurationDelivery("https://example.com/", "Method_example"), []string{"EventsRequested_example"}) // StreamConfigurationCreateRequest | 
+	instance := *openapiclient.NewStreamConfigurationCreateRequest(*openapiclient.NewStreamConfigurationDelivery("https://example.com/", "Method_example"), []string{"EventsRequested_example"}) // StreamConfigurationCreateRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SSFTransmitterAPI.CreateSsfStream(context.Background()).Instance(instance).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SSFTransmitterAPI.CreateSsfStream``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateSsfStream`: StreamConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `SSFTransmitterAPI.CreateSsfStream`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SSFTransmitterAPI.CreateSsfStream(context.Background()).Instance(instance).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SSFTransmitterAPI.CreateSsfStream``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateSsfStream`: StreamConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `SSFTransmitterAPI.CreateSsfStream`: %v\n", resp)
 }
 ```
 
@@ -83,7 +85,7 @@ Name | Type | Description  | Notes
 
 > DeleteSsfStream(ctx).StreamId(streamId).Execute()
 
-Delete an SSF Stream
+Delete an SSF stream
 
 
 
@@ -93,22 +95,22 @@ Delete an SSF Stream
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    streamId := "esc1k235GIIztAuGK0g5" // string | The ID of the specified SSF Stream configuration (optional)
+	streamId := "esc1k235GIIztAuGK0g5" // string | The ID of the specified SSF Stream configuration (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.SSFTransmitterAPI.DeleteSsfStream(context.Background()).StreamId(streamId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SSFTransmitterAPI.DeleteSsfStream``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SSFTransmitterAPI.DeleteSsfStream(context.Background()).StreamId(streamId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SSFTransmitterAPI.DeleteSsfStream``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -143,11 +145,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetSsfStreams
+## GetSsfStreamStatus
 
-> GetSsfStreams200Response GetSsfStreams(ctx).StreamId(streamId).Execute()
+> StreamStatus GetSsfStreamStatus(ctx).StreamId(streamId).Execute()
 
-Retrieve the SSF Stream configuration(s)
+Retrieve the SSF Stream status
 
 
 
@@ -157,24 +159,90 @@ Retrieve the SSF Stream configuration(s)
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    streamId := "esc1k235GIIztAuGK0g5" // string | The ID of the specified SSF Stream configuration (optional)
+	streamId := "esc1k235GIIztAuGK0g5" // string | The ID of the specified SSF Stream configuration
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SSFTransmitterAPI.GetSsfStreams(context.Background()).StreamId(streamId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SSFTransmitterAPI.GetSsfStreams``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSsfStreams`: GetSsfStreams200Response
-    fmt.Fprintf(os.Stdout, "Response from `SSFTransmitterAPI.GetSsfStreams`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SSFTransmitterAPI.GetSsfStreamStatus(context.Background()).StreamId(streamId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SSFTransmitterAPI.GetSsfStreamStatus``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSsfStreamStatus`: StreamStatus
+	fmt.Fprintf(os.Stdout, "Response from `SSFTransmitterAPI.GetSsfStreamStatus`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSsfStreamStatusRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **streamId** | **string** | The ID of the specified SSF Stream configuration | 
+
+### Return type
+
+[**StreamStatus**](StreamStatus.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetSsfStreams
+
+> GetSsfStreams200Response GetSsfStreams(ctx).StreamId(streamId).Execute()
+
+Retrieve the SSF stream configuration(s)
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
+)
+
+func main() {
+	streamId := "esc1k235GIIztAuGK0g5" // string | The ID of the specified SSF Stream configuration (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SSFTransmitterAPI.GetSsfStreams(context.Background()).StreamId(streamId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SSFTransmitterAPI.GetSsfStreams``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSsfStreams`: GetSsfStreams200Response
+	fmt.Fprintf(os.Stdout, "Response from `SSFTransmitterAPI.GetSsfStreams`: %v\n", resp)
 }
 ```
 
@@ -213,7 +281,7 @@ Name | Type | Description  | Notes
 
 > WellKnownSSFMetadata GetWellknownSsfMetadata(ctx).Execute()
 
-Retrieve the SSF Transmitter metadata
+Retrieve the SSF transmitter metadata
 
 
 
@@ -223,23 +291,23 @@ Retrieve the SSF Transmitter metadata
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SSFTransmitterAPI.GetWellknownSsfMetadata(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SSFTransmitterAPI.GetWellknownSsfMetadata``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetWellknownSsfMetadata`: WellKnownSSFMetadata
-    fmt.Fprintf(os.Stdout, "Response from `SSFTransmitterAPI.GetWellknownSsfMetadata`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SSFTransmitterAPI.GetWellknownSsfMetadata(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SSFTransmitterAPI.GetWellknownSsfMetadata``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetWellknownSsfMetadata`: WellKnownSSFMetadata
+	fmt.Fprintf(os.Stdout, "Response from `SSFTransmitterAPI.GetWellknownSsfMetadata`: %v\n", resp)
 }
 ```
 
@@ -274,7 +342,7 @@ No authorization required
 
 > StreamConfiguration ReplaceSsfStream(ctx).Instance(instance).Execute()
 
-Replace an SSF Stream
+Replace an SSF stream
 
 
 
@@ -284,24 +352,24 @@ Replace an SSF Stream
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    instance := *openapiclient.NewStreamConfiguration(*openapiclient.NewStreamConfigurationDelivery("https://example.com/", "Method_example"), []string{"EventsRequested_example"}) // StreamConfiguration | 
+	instance := *openapiclient.NewStreamConfiguration(*openapiclient.NewStreamConfigurationDelivery("https://example.com/", "Method_example"), []string{"EventsRequested_example"}) // StreamConfiguration | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SSFTransmitterAPI.ReplaceSsfStream(context.Background()).Instance(instance).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SSFTransmitterAPI.ReplaceSsfStream``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceSsfStream`: StreamConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `SSFTransmitterAPI.ReplaceSsfStream`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SSFTransmitterAPI.ReplaceSsfStream(context.Background()).Instance(instance).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SSFTransmitterAPI.ReplaceSsfStream``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceSsfStream`: StreamConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `SSFTransmitterAPI.ReplaceSsfStream`: %v\n", resp)
 }
 ```
 
@@ -340,7 +408,7 @@ Name | Type | Description  | Notes
 
 > StreamConfiguration UpdateSsfStream(ctx).Instance(instance).Execute()
 
-Update an SSF Stream
+Update an SSF stream
 
 
 
@@ -350,24 +418,24 @@ Update an SSF Stream
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    instance := *openapiclient.NewStreamConfiguration(*openapiclient.NewStreamConfigurationDelivery("https://example.com/", "Method_example"), []string{"EventsRequested_example"}) // StreamConfiguration | 
+	instance := *openapiclient.NewStreamConfiguration(*openapiclient.NewStreamConfigurationDelivery("https://example.com/", "Method_example"), []string{"EventsRequested_example"}) // StreamConfiguration | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SSFTransmitterAPI.UpdateSsfStream(context.Background()).Instance(instance).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SSFTransmitterAPI.UpdateSsfStream``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateSsfStream`: StreamConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `SSFTransmitterAPI.UpdateSsfStream`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SSFTransmitterAPI.UpdateSsfStream(context.Background()).Instance(instance).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SSFTransmitterAPI.UpdateSsfStream``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateSsfStream`: StreamConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `SSFTransmitterAPI.UpdateSsfStream`: %v\n", resp)
 }
 ```
 
@@ -387,6 +455,70 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**StreamConfiguration**](StreamConfiguration.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## VerifySsfStream
+
+> VerifySsfStream(ctx).Instance(instance).Execute()
+
+Verify an SSF stream
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
+)
+
+func main() {
+	instance := *openapiclient.NewStreamVerificationRequest("esc1k235GIIztAuGK0g5") // StreamVerificationRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SSFTransmitterAPI.VerifySsfStream(context.Background()).Instance(instance).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SSFTransmitterAPI.VerifySsfStream``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiVerifySsfStreamRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **instance** | [**StreamVerificationRequest**](StreamVerificationRequest.md) |  | 
+
+### Return type
+
+ (empty response body)
 
 ### Authorization
 

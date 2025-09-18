@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Change** | Pointer to **string** | Determines whether a change in a user&#39;s password also updates the user&#39;s password in the application | [optional] [default to "KEEP_EXISTING"]
+**Change** | Pointer to **string** | Determines whether a change in a user&#39;s password also updates the user&#39;s password in the app | [optional] [default to "KEEP_EXISTING"]
 **Seed** | Pointer to **string** | Determines whether the generated password is the user&#39;s Okta password or a randomly generated password | [optional] [default to "RANDOM"]
-**Status** | Pointer to **string** |  | [optional] 
+**Status** | Pointer to **string** | Setting status | [optional] [default to "DISABLED"]
 
 ## Methods
 

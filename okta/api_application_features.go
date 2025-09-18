@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -26,25 +26,24 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type ApplicationFeaturesAPI interface {
 
 	/*
-	GetFeatureForApplication Retrieve a Feature
+		GetFeatureForApplication Retrieve a feature
 
-	Retrieves a Feature object for an application
+		Retrieves a Feature object for an app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param featureName Name of the Feature
-	@return ApiGetFeatureForApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param featureName Name of the Feature
+		@return ApiGetFeatureForApplicationRequest
 	*/
 	GetFeatureForApplication(ctx context.Context, appId string, featureName string) ApiGetFeatureForApplicationRequest
 
@@ -53,16 +52,16 @@ type ApplicationFeaturesAPI interface {
 	GetFeatureForApplicationExecute(r ApiGetFeatureForApplicationRequest) (*ListFeaturesForApplication200ResponseInner, *APIResponse, error)
 
 	/*
-	ListFeaturesForApplication List all Features
+			ListFeaturesForApplication List all features
 
-	Lists all features for an application
-> **Note:** This request returns an error if provisioning isn't enabled for the application.
-> To set up provisioning, see [Update the default Provisioning Connection](/openapi/okta-management/management/tag/ApplicationConnections/#tag/ApplicationConnections/operation/updateDefaultProvisioningConnectionForApplication).
+			Lists all features for an app
+		> **Note:** This request returns an error if provisioning isn't enabled for the app.
+		> To set up provisioning, see [Update the default provisioning connection](/openapi/okta-management/management/tag/ApplicationConnections/#tag/ApplicationConnections/operation/updateDefaultProvisioningConnectionForApplication).
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiListFeaturesForApplicationRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appId Application ID
+			@return ApiListFeaturesForApplicationRequest
 	*/
 	ListFeaturesForApplication(ctx context.Context, appId string) ApiListFeaturesForApplicationRequest
 
@@ -71,16 +70,16 @@ type ApplicationFeaturesAPI interface {
 	ListFeaturesForApplicationExecute(r ApiListFeaturesForApplicationRequest) ([]ListFeaturesForApplication200ResponseInner, *APIResponse, error)
 
 	/*
-	UpdateFeatureForApplication Update a Feature
+			UpdateFeatureForApplication Update a feature
 
-	Updates a Feature object for an application
-> **Note:** This endpoint supports partial updates.
+			Updates a Feature object for an app
+		> **Note:** This endpoint supports partial updates.
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param featureName Name of the Feature
-	@return ApiUpdateFeatureForApplicationRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appId Application ID
+			@param featureName Name of the Feature
+			@return ApiUpdateFeatureForApplicationRequest
 	*/
 	UpdateFeatureForApplication(ctx context.Context, appId string, featureName string) ApiUpdateFeatureForApplicationRequest
 
@@ -93,11 +92,11 @@ type ApplicationFeaturesAPI interface {
 type ApplicationFeaturesAPIService service
 
 type ApiGetFeatureForApplicationRequest struct {
-	ctx context.Context
-	ApiService ApplicationFeaturesAPI
-	appId string
+	ctx         context.Context
+	ApiService  ApplicationFeaturesAPI
+	appId       string
 	featureName string
-	retryCount int32
+	retryCount  int32
 }
 
 func (r ApiGetFeatureForApplicationRequest) Execute() (*ListFeaturesForApplication200ResponseInner, *APIResponse, error) {
@@ -105,27 +104,28 @@ func (r ApiGetFeatureForApplicationRequest) Execute() (*ListFeaturesForApplicati
 }
 
 /*
-GetFeatureForApplication Retrieve a Feature
+GetFeatureForApplication Retrieve a feature
 
-Retrieves a Feature object for an application
+Retrieves a Feature object for an app
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param featureName Name of the Feature
- @return ApiGetFeatureForApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param featureName Name of the Feature
+	@return ApiGetFeatureForApplicationRequest
 */
 func (a *ApplicationFeaturesAPIService) GetFeatureForApplication(ctx context.Context, appId string, featureName string) ApiGetFeatureForApplicationRequest {
 	return ApiGetFeatureForApplicationRequest{
-		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ApiService:  a,
+		ctx:         ctx,
+		appId:       appId,
 		featureName: featureName,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
 // Execute executes the request
-//  @return ListFeaturesForApplication200ResponseInner
+//
+//	@return ListFeaturesForApplication200ResponseInner
 func (a *ApplicationFeaturesAPIService) GetFeatureForApplicationExecute(r ApiGetFeatureForApplicationRequest) (*ListFeaturesForApplication200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -134,7 +134,7 @@ func (a *ApplicationFeaturesAPIService) GetFeatureForApplicationExecute(r ApiGet
 		localVarReturnValue  *ListFeaturesForApplication200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -196,9 +196,9 @@ func (a *ApplicationFeaturesAPIService) GetFeatureForApplicationExecute(r ApiGet
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -256,15 +256,15 @@ func (a *ApplicationFeaturesAPIService) GetFeatureForApplicationExecute(r ApiGet
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListFeaturesForApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationFeaturesAPI
-	appId string
+	appId      string
 	retryCount int32
 }
 
@@ -273,28 +273,28 @@ func (r ApiListFeaturesForApplicationRequest) Execute() ([]ListFeaturesForApplic
 }
 
 /*
-ListFeaturesForApplication List all Features
+ListFeaturesForApplication List all features
 
-Lists all features for an application
-> **Note:** This request returns an error if provisioning isn't enabled for the application.
-> To set up provisioning, see [Update the default Provisioning Connection](/openapi/okta-management/management/tag/ApplicationConnections/#tag/ApplicationConnections/operation/updateDefaultProvisioningConnectionForApplication).
+Lists all features for an app
+> **Note:** This request returns an error if provisioning isn't enabled for the app.
+> To set up provisioning, see [Update the default provisioning connection](/openapi/okta-management/management/tag/ApplicationConnections/#tag/ApplicationConnections/operation/updateDefaultProvisioningConnectionForApplication).
 
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiListFeaturesForApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiListFeaturesForApplicationRequest
 */
 func (a *ApplicationFeaturesAPIService) ListFeaturesForApplication(ctx context.Context, appId string) ApiListFeaturesForApplicationRequest {
 	return ApiListFeaturesForApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []ListFeaturesForApplication200ResponseInner
+//
+//	@return []ListFeaturesForApplication200ResponseInner
 func (a *ApplicationFeaturesAPIService) ListFeaturesForApplicationExecute(r ApiListFeaturesForApplicationRequest) ([]ListFeaturesForApplication200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -303,7 +303,7 @@ func (a *ApplicationFeaturesAPIService) ListFeaturesForApplicationExecute(r ApiL
 		localVarReturnValue  []ListFeaturesForApplication200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -364,9 +364,9 @@ func (a *ApplicationFeaturesAPIService) ListFeaturesForApplicationExecute(r ApiL
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -436,18 +436,18 @@ func (a *ApplicationFeaturesAPIService) ListFeaturesForApplicationExecute(r ApiL
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateFeatureForApplicationRequest struct {
-	ctx context.Context
-	ApiService ApplicationFeaturesAPI
-	appId string
-	featureName string
+	ctx                                context.Context
+	ApiService                         ApplicationFeaturesAPI
+	appId                              string
+	featureName                        string
 	updateFeatureForApplicationRequest *UpdateFeatureForApplicationRequest
-	retryCount int32
+	retryCount                         int32
 }
 
 func (r ApiUpdateFeatureForApplicationRequest) UpdateFeatureForApplicationRequest(updateFeatureForApplicationRequest UpdateFeatureForApplicationRequest) ApiUpdateFeatureForApplicationRequest {
@@ -460,29 +460,29 @@ func (r ApiUpdateFeatureForApplicationRequest) Execute() (*ListFeaturesForApplic
 }
 
 /*
-UpdateFeatureForApplication Update a Feature
+UpdateFeatureForApplication Update a feature
 
-Updates a Feature object for an application
+Updates a Feature object for an app
 > **Note:** This endpoint supports partial updates.
 
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param featureName Name of the Feature
- @return ApiUpdateFeatureForApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param featureName Name of the Feature
+	@return ApiUpdateFeatureForApplicationRequest
 */
 func (a *ApplicationFeaturesAPIService) UpdateFeatureForApplication(ctx context.Context, appId string, featureName string) ApiUpdateFeatureForApplicationRequest {
 	return ApiUpdateFeatureForApplicationRequest{
-		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ApiService:  a,
+		ctx:         ctx,
+		appId:       appId,
 		featureName: featureName,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
 // Execute executes the request
-//  @return ListFeaturesForApplication200ResponseInner
+//
+//	@return ListFeaturesForApplication200ResponseInner
 func (a *ApplicationFeaturesAPIService) UpdateFeatureForApplicationExecute(r ApiUpdateFeatureForApplicationRequest) (*ListFeaturesForApplication200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -491,7 +491,7 @@ func (a *ApplicationFeaturesAPIService) UpdateFeatureForApplicationExecute(r Api
 		localVarReturnValue  *ListFeaturesForApplication200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -558,9 +558,9 @@ func (a *ApplicationFeaturesAPIService) UpdateFeatureForApplicationExecute(r Api
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -630,7 +630,7 @@ func (a *ApplicationFeaturesAPIService) UpdateFeatureForApplicationExecute(r Api
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

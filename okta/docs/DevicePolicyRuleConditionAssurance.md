@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Include** | Pointer to **[]string** |  | [optional] 
+**Include** | Pointer to **[]string** | Specifies the device assurance policy ID | [optional] 
 
 ## Methods
 

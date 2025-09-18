@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -26,24 +26,25 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type SchemaAPI interface {
 
 	/*
-	GetApplicationUserSchema Retrieve the default Application User Schema for an Application
+			GetApplicationUserSchema Retrieve the default app user schema for an app
 
-	Retrieves the Schema for an App User
+			Retrieves the default schema for an app user.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiGetApplicationUserSchemaRequest
+		The [User Types](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserType/) feature does not extend to apps. All users assigned to a given app use the same app user schema. Therefore, unlike the user schema operations, the app user schema operations all specify `default` and don't accept a schema ID.
+
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appId Application ID
+			@return ApiGetApplicationUserSchemaRequest
 	*/
 	GetApplicationUserSchema(ctx context.Context, appId string) ApiGetApplicationUserSchemaRequest
 
@@ -52,12 +53,14 @@ type SchemaAPI interface {
 	GetApplicationUserSchemaExecute(r ApiGetApplicationUserSchemaRequest) (*UserSchema, *APIResponse, error)
 
 	/*
-	GetGroupSchema Retrieve the default Group Schema
+			GetGroupSchema Retrieve the default group schema
 
-	Retrieves the group schema
+			Retrieves the group schema
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetGroupSchemaRequest
+		The [User Types](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserType/) feature does not extend to groups. All groups use the same group schema. Unlike user schema operations, group schema operations all specify `default` and don't accept a schema ID.
+
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiGetGroupSchemaRequest
 	*/
 	GetGroupSchema(ctx context.Context) ApiGetGroupSchemaRequest
 
@@ -66,13 +69,13 @@ type SchemaAPI interface {
 	GetGroupSchemaExecute(r ApiGetGroupSchemaRequest) (*GroupSchema, *APIResponse, error)
 
 	/*
-	GetLogStreamSchema Retrieve the Log Stream Schema for the schema type
+		GetLogStreamSchema Retrieve the log stream schema for the schema type
 
-	Retrieves the schema for a Log Stream type. The `logStreamType` element in the URL specifies the Log Stream type, which is either `aws_eventbridge` or `splunk_cloud_logstreaming`. Use the `aws_eventbridge` literal to retrieve the AWS EventBridge type schema, and use the `splunk_cloud_logstreaming` literal retrieve the Splunk Cloud type schema.
+		Retrieves the schema for a log stream type. The `logStreamType` element in the URL specifies the log stream type, which is either `aws_eventbridge` or `splunk_cloud_logstreaming`. Use the `aws_eventbridge` literal to retrieve the AWS EventBridge type schema, and use the `splunk_cloud_logstreaming` literal retrieve the Splunk Cloud type schema.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param logStreamType
-	@return ApiGetLogStreamSchemaRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param logStreamType
+		@return ApiGetLogStreamSchemaRequest
 	*/
 	GetLogStreamSchema(ctx context.Context, logStreamType string) ApiGetLogStreamSchemaRequest
 
@@ -81,13 +84,13 @@ type SchemaAPI interface {
 	GetLogStreamSchemaExecute(r ApiGetLogStreamSchemaRequest) (*LogStreamSchema, *APIResponse, error)
 
 	/*
-	GetUserSchema Retrieve a User Schema
+		GetUserSchema Retrieve a user schema
 
-	Retrieves the schema for a Schema Id
+		Retrieves the schema for a user type
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param schemaId
-	@return ApiGetUserSchemaRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param schemaId Schema ID. You can also use `default` to refer to the default user type schema.
+		@return ApiGetUserSchemaRequest
 	*/
 	GetUserSchema(ctx context.Context, schemaId string) ApiGetUserSchemaRequest
 
@@ -96,12 +99,12 @@ type SchemaAPI interface {
 	GetUserSchemaExecute(r ApiGetUserSchemaRequest) (*UserSchema, *APIResponse, error)
 
 	/*
-	ListLogStreamSchemas List the Log Stream Schemas
+		ListLogStreamSchemas List the log stream schemas
 
-	Lists the schema for all log stream types visible for this org
+		Lists the schema for all log stream types visible for this org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListLogStreamSchemasRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListLogStreamSchemasRequest
 	*/
 	ListLogStreamSchemas(ctx context.Context) ApiListLogStreamSchemasRequest
 
@@ -110,13 +113,17 @@ type SchemaAPI interface {
 	ListLogStreamSchemasExecute(r ApiListLogStreamSchemasRequest) ([]LogStreamSchema, *APIResponse, error)
 
 	/*
-	UpdateApplicationUserProfile Update the default Application User Schema for an Application
+			UpdateApplicationUserProfile Update the app user profile schema for an app
 
-	Partially updates on the User Profile properties of the Application User Schema
+			Updates the app user schema. This updates, adds, or removes one or more custom profile properties or the nullability of a base property in the app user schema for an app. Changing a base property's nullability (for example, the value of its `required` field) is allowed only if it is nullable in the default predefined schema for the app.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiUpdateApplicationUserProfileRequest
+		> **Note:** You must set properties explicitly to `null` to remove them from the schema; otherwise, `POST` is interpreted as a partial update.
+
+		The [User Types](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserType/) feature does not extend to apps. All users assigned to a given app use the same app user schema. Therefore, unlike the user schema operations, the app user schema operations all specify `default` and don't accept a schema ID.
+
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appId Application ID
+			@return ApiUpdateApplicationUserProfileRequest
 	*/
 	UpdateApplicationUserProfile(ctx context.Context, appId string) ApiUpdateApplicationUserProfileRequest
 
@@ -125,12 +132,16 @@ type SchemaAPI interface {
 	UpdateApplicationUserProfileExecute(r ApiUpdateApplicationUserProfileRequest) (*UserSchema, *APIResponse, error)
 
 	/*
-	UpdateGroupSchema Update the default Group Schema
+			UpdateGroupSchema Update the group profile schema
 
-	Updates the default group schema. This updates, adds, or removes one or more custom Group Profile properties in the schema.
+			Updates the group profile schema. This updates, adds, or removes one or more custom profile properties in a group schema. Currently Okta does not support changing base group profile properties.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiUpdateGroupSchemaRequest
+		> **Note:** You must set properties explicitly to `null` to remove them from the schema; otherwise, `POST` is interpreted as a partial update.
+
+		The [User Types](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserType/) feature does not extend to groups. All groups use the same group schema. Unlike user schema operations, group schema operations all specify `default` and don't accept a schema ID.
+
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiUpdateGroupSchemaRequest
 	*/
 	UpdateGroupSchema(ctx context.Context) ApiUpdateGroupSchemaRequest
 
@@ -139,13 +150,19 @@ type SchemaAPI interface {
 	UpdateGroupSchemaExecute(r ApiUpdateGroupSchemaRequest) (*GroupSchema, *APIResponse, error)
 
 	/*
-	UpdateUserProfile Update a User Schema
+			UpdateUserProfile Update a user schema
 
-	Partially updates on the User Profile properties of the user schema
+			Updates a user schema. Use this request to update, add, or remove one or more profile properties in a user schema. If you specify `default` for the `schemaId`, updates will apply to the default user type.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param schemaId
-	@return ApiUpdateUserProfileRequest
+		Unlike custom user profile properties, limited changes are allowed to base user profile properties (permissions, nullability of the `firstName` and `lastName` properties, or pattern for `login`).
+		You can't remove a property from the default schema if it's being referenced as a [`matchAttribute`](/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/createIdentityProvider!path=policy/subject/matchAttribute&t=request) in `SAML2` IdPs.
+		Currently, all validation of SAML assertions are only performed against the default user type.
+
+		> **Note:** You must set properties explicitly to `null` to remove them from the schema; otherwise, `POST` is interpreted as a partial update.
+
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param schemaId Schema ID. You can also use `default` to refer to the default user type schema.
+			@return ApiUpdateUserProfileRequest
 	*/
 	UpdateUserProfile(ctx context.Context, schemaId string) ApiUpdateUserProfileRequest
 
@@ -158,9 +175,9 @@ type SchemaAPI interface {
 type SchemaAPIService service
 
 type ApiGetApplicationUserSchemaRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SchemaAPI
-	appId string
+	appId      string
 	retryCount int32
 }
 
@@ -169,25 +186,28 @@ func (r ApiGetApplicationUserSchemaRequest) Execute() (*UserSchema, *APIResponse
 }
 
 /*
-GetApplicationUserSchema Retrieve the default Application User Schema for an Application
+GetApplicationUserSchema Retrieve the default app user schema for an app
 
-Retrieves the Schema for an App User
+Retrieves the default schema for an app user.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiGetApplicationUserSchemaRequest
+The [User Types](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserType/) feature does not extend to apps. All users assigned to a given app use the same app user schema. Therefore, unlike the user schema operations, the app user schema operations all specify `default` and don't accept a schema ID.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiGetApplicationUserSchemaRequest
 */
 func (a *SchemaAPIService) GetApplicationUserSchema(ctx context.Context, appId string) ApiGetApplicationUserSchemaRequest {
 	return ApiGetApplicationUserSchemaRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserSchema
+//
+//	@return UserSchema
 func (a *SchemaAPIService) GetApplicationUserSchemaExecute(r ApiGetApplicationUserSchemaRequest) (*UserSchema, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -196,7 +216,7 @@ func (a *SchemaAPIService) GetApplicationUserSchemaExecute(r ApiGetApplicationUs
 		localVarReturnValue  *UserSchema
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -257,9 +277,9 @@ func (a *SchemaAPIService) GetApplicationUserSchemaExecute(r ApiGetApplicationUs
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -317,13 +337,13 @@ func (a *SchemaAPIService) GetApplicationUserSchemaExecute(r ApiGetApplicationUs
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetGroupSchemaRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SchemaAPI
 	retryCount int32
 }
@@ -333,23 +353,26 @@ func (r ApiGetGroupSchemaRequest) Execute() (*GroupSchema, *APIResponse, error) 
 }
 
 /*
-GetGroupSchema Retrieve the default Group Schema
+GetGroupSchema Retrieve the default group schema
 
-Retrieves the group schema
+# Retrieves the group schema
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetGroupSchemaRequest
+The [User Types](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserType/) feature does not extend to groups. All groups use the same group schema. Unlike user schema operations, group schema operations all specify `default` and don't accept a schema ID.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetGroupSchemaRequest
 */
 func (a *SchemaAPIService) GetGroupSchema(ctx context.Context) ApiGetGroupSchemaRequest {
 	return ApiGetGroupSchemaRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return GroupSchema
+//
+//	@return GroupSchema
 func (a *SchemaAPIService) GetGroupSchemaExecute(r ApiGetGroupSchemaRequest) (*GroupSchema, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -358,7 +381,7 @@ func (a *SchemaAPIService) GetGroupSchemaExecute(r ApiGetGroupSchemaRequest) (*G
 		localVarReturnValue  *GroupSchema
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -418,9 +441,9 @@ func (a *SchemaAPIService) GetGroupSchemaExecute(r ApiGetGroupSchemaRequest) (*G
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -466,16 +489,16 @@ func (a *SchemaAPIService) GetGroupSchemaExecute(r ApiGetGroupSchemaRequest) (*G
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetLogStreamSchemaRequest struct {
-	ctx context.Context
-	ApiService SchemaAPI
+	ctx           context.Context
+	ApiService    SchemaAPI
 	logStreamType string
-	retryCount int32
+	retryCount    int32
 }
 
 func (r ApiGetLogStreamSchemaRequest) Execute() (*LogStreamSchema, *APIResponse, error) {
@@ -483,25 +506,26 @@ func (r ApiGetLogStreamSchemaRequest) Execute() (*LogStreamSchema, *APIResponse,
 }
 
 /*
-GetLogStreamSchema Retrieve the Log Stream Schema for the schema type
+GetLogStreamSchema Retrieve the log stream schema for the schema type
 
-Retrieves the schema for a Log Stream type. The `logStreamType` element in the URL specifies the Log Stream type, which is either `aws_eventbridge` or `splunk_cloud_logstreaming`. Use the `aws_eventbridge` literal to retrieve the AWS EventBridge type schema, and use the `splunk_cloud_logstreaming` literal retrieve the Splunk Cloud type schema.
+Retrieves the schema for a log stream type. The `logStreamType` element in the URL specifies the log stream type, which is either `aws_eventbridge` or `splunk_cloud_logstreaming`. Use the `aws_eventbridge` literal to retrieve the AWS EventBridge type schema, and use the `splunk_cloud_logstreaming` literal retrieve the Splunk Cloud type schema.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param logStreamType
- @return ApiGetLogStreamSchemaRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param logStreamType
+	@return ApiGetLogStreamSchemaRequest
 */
 func (a *SchemaAPIService) GetLogStreamSchema(ctx context.Context, logStreamType string) ApiGetLogStreamSchemaRequest {
 	return ApiGetLogStreamSchemaRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		logStreamType: logStreamType,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
 // Execute executes the request
-//  @return LogStreamSchema
+//
+//	@return LogStreamSchema
 func (a *SchemaAPIService) GetLogStreamSchemaExecute(r ApiGetLogStreamSchemaRequest) (*LogStreamSchema, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -510,7 +534,7 @@ func (a *SchemaAPIService) GetLogStreamSchemaExecute(r ApiGetLogStreamSchemaRequ
 		localVarReturnValue  *LogStreamSchema
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -571,9 +595,9 @@ func (a *SchemaAPIService) GetLogStreamSchemaExecute(r ApiGetLogStreamSchemaRequ
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -631,15 +655,15 @@ func (a *SchemaAPIService) GetLogStreamSchemaExecute(r ApiGetLogStreamSchemaRequ
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetUserSchemaRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SchemaAPI
-	schemaId string
+	schemaId   string
 	retryCount int32
 }
 
@@ -648,25 +672,26 @@ func (r ApiGetUserSchemaRequest) Execute() (*UserSchema, *APIResponse, error) {
 }
 
 /*
-GetUserSchema Retrieve a User Schema
+GetUserSchema Retrieve a user schema
 
-Retrieves the schema for a Schema Id
+Retrieves the schema for a user type
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param schemaId
- @return ApiGetUserSchemaRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param schemaId Schema ID. You can also use `default` to refer to the default user type schema.
+	@return ApiGetUserSchemaRequest
 */
 func (a *SchemaAPIService) GetUserSchema(ctx context.Context, schemaId string) ApiGetUserSchemaRequest {
 	return ApiGetUserSchemaRequest{
 		ApiService: a,
-		ctx: ctx,
-		schemaId: schemaId,
+		ctx:        ctx,
+		schemaId:   schemaId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserSchema
+//
+//	@return UserSchema
 func (a *SchemaAPIService) GetUserSchemaExecute(r ApiGetUserSchemaRequest) (*UserSchema, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -675,7 +700,7 @@ func (a *SchemaAPIService) GetUserSchemaExecute(r ApiGetUserSchemaRequest) (*Use
 		localVarReturnValue  *UserSchema
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -736,9 +761,9 @@ func (a *SchemaAPIService) GetUserSchemaExecute(r ApiGetUserSchemaRequest) (*Use
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -796,13 +821,13 @@ func (a *SchemaAPIService) GetUserSchemaExecute(r ApiGetUserSchemaRequest) (*Use
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListLogStreamSchemasRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SchemaAPI
 	retryCount int32
 }
@@ -812,23 +837,24 @@ func (r ApiListLogStreamSchemasRequest) Execute() ([]LogStreamSchema, *APIRespon
 }
 
 /*
-ListLogStreamSchemas List the Log Stream Schemas
+ListLogStreamSchemas List the log stream schemas
 
 Lists the schema for all log stream types visible for this org
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListLogStreamSchemasRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListLogStreamSchemasRequest
 */
 func (a *SchemaAPIService) ListLogStreamSchemas(ctx context.Context) ApiListLogStreamSchemasRequest {
 	return ApiListLogStreamSchemasRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []LogStreamSchema
+//
+//	@return []LogStreamSchema
 func (a *SchemaAPIService) ListLogStreamSchemasExecute(r ApiListLogStreamSchemasRequest) ([]LogStreamSchema, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -837,7 +863,7 @@ func (a *SchemaAPIService) ListLogStreamSchemasExecute(r ApiListLogStreamSchemas
 		localVarReturnValue  []LogStreamSchema
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -897,9 +923,9 @@ func (a *SchemaAPIService) ListLogStreamSchemasExecute(r ApiListLogStreamSchemas
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -945,16 +971,16 @@ func (a *SchemaAPIService) ListLogStreamSchemasExecute(r ApiListLogStreamSchemas
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateApplicationUserProfileRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SchemaAPI
-	appId string
-	body *UserSchema
+	appId      string
+	body       *UserSchema
 	retryCount int32
 }
 
@@ -968,25 +994,30 @@ func (r ApiUpdateApplicationUserProfileRequest) Execute() (*UserSchema, *APIResp
 }
 
 /*
-UpdateApplicationUserProfile Update the default Application User Schema for an Application
+UpdateApplicationUserProfile Update the app user profile schema for an app
 
-Partially updates on the User Profile properties of the Application User Schema
+Updates the app user schema. This updates, adds, or removes one or more custom profile properties or the nullability of a base property in the app user schema for an app. Changing a base property's nullability (for example, the value of its `required` field) is allowed only if it is nullable in the default predefined schema for the app.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiUpdateApplicationUserProfileRequest
+> **Note:** You must set properties explicitly to `null` to remove them from the schema; otherwise, `POST` is interpreted as a partial update.
+
+The [User Types](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserType/) feature does not extend to apps. All users assigned to a given app use the same app user schema. Therefore, unlike the user schema operations, the app user schema operations all specify `default` and don't accept a schema ID.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiUpdateApplicationUserProfileRequest
 */
 func (a *SchemaAPIService) UpdateApplicationUserProfile(ctx context.Context, appId string) ApiUpdateApplicationUserProfileRequest {
 	return ApiUpdateApplicationUserProfileRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserSchema
+//
+//	@return UserSchema
 func (a *SchemaAPIService) UpdateApplicationUserProfileExecute(r ApiUpdateApplicationUserProfileRequest) (*UserSchema, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -995,7 +1026,7 @@ func (a *SchemaAPIService) UpdateApplicationUserProfileExecute(r ApiUpdateApplic
 		localVarReturnValue  *UserSchema
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1058,9 +1089,9 @@ func (a *SchemaAPIService) UpdateApplicationUserProfileExecute(r ApiUpdateApplic
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1130,16 +1161,16 @@ func (a *SchemaAPIService) UpdateApplicationUserProfileExecute(r ApiUpdateApplic
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateGroupSchemaRequest struct {
-	ctx context.Context
-	ApiService SchemaAPI
+	ctx         context.Context
+	ApiService  SchemaAPI
 	groupSchema *GroupSchema
-	retryCount int32
+	retryCount  int32
 }
 
 func (r ApiUpdateGroupSchemaRequest) GroupSchema(groupSchema GroupSchema) ApiUpdateGroupSchemaRequest {
@@ -1152,23 +1183,28 @@ func (r ApiUpdateGroupSchemaRequest) Execute() (*GroupSchema, *APIResponse, erro
 }
 
 /*
-UpdateGroupSchema Update the default Group Schema
+UpdateGroupSchema Update the group profile schema
 
-Updates the default group schema. This updates, adds, or removes one or more custom Group Profile properties in the schema.
+Updates the group profile schema. This updates, adds, or removes one or more custom profile properties in a group schema. Currently Okta does not support changing base group profile properties.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiUpdateGroupSchemaRequest
+> **Note:** You must set properties explicitly to `null` to remove them from the schema; otherwise, `POST` is interpreted as a partial update.
+
+The [User Types](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserType/) feature does not extend to groups. All groups use the same group schema. Unlike user schema operations, group schema operations all specify `default` and don't accept a schema ID.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUpdateGroupSchemaRequest
 */
 func (a *SchemaAPIService) UpdateGroupSchema(ctx context.Context) ApiUpdateGroupSchemaRequest {
 	return ApiUpdateGroupSchemaRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return GroupSchema
+//
+//	@return GroupSchema
 func (a *SchemaAPIService) UpdateGroupSchemaExecute(r ApiUpdateGroupSchemaRequest) (*GroupSchema, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1177,7 +1213,7 @@ func (a *SchemaAPIService) UpdateGroupSchemaExecute(r ApiUpdateGroupSchemaReques
 		localVarReturnValue  *GroupSchema
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1239,9 +1275,9 @@ func (a *SchemaAPIService) UpdateGroupSchemaExecute(r ApiUpdateGroupSchemaReques
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1299,15 +1335,15 @@ func (a *SchemaAPIService) UpdateGroupSchemaExecute(r ApiUpdateGroupSchemaReques
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateUserProfileRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SchemaAPI
-	schemaId string
+	schemaId   string
 	userSchema *UserSchema
 	retryCount int32
 }
@@ -1322,25 +1358,32 @@ func (r ApiUpdateUserProfileRequest) Execute() (*UserSchema, *APIResponse, error
 }
 
 /*
-UpdateUserProfile Update a User Schema
+UpdateUserProfile Update a user schema
 
-Partially updates on the User Profile properties of the user schema
+Updates a user schema. Use this request to update, add, or remove one or more profile properties in a user schema. If you specify `default` for the `schemaId`, updates will apply to the default user type.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param schemaId
- @return ApiUpdateUserProfileRequest
+Unlike custom user profile properties, limited changes are allowed to base user profile properties (permissions, nullability of the `firstName` and `lastName` properties, or pattern for `login`).
+You can't remove a property from the default schema if it's being referenced as a [`matchAttribute`](/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/createIdentityProvider!path=policy/subject/matchAttribute&t=request) in `SAML2` IdPs.
+Currently, all validation of SAML assertions are only performed against the default user type.
+
+> **Note:** You must set properties explicitly to `null` to remove them from the schema; otherwise, `POST` is interpreted as a partial update.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param schemaId Schema ID. You can also use `default` to refer to the default user type schema.
+	@return ApiUpdateUserProfileRequest
 */
 func (a *SchemaAPIService) UpdateUserProfile(ctx context.Context, schemaId string) ApiUpdateUserProfileRequest {
 	return ApiUpdateUserProfileRequest{
 		ApiService: a,
-		ctx: ctx,
-		schemaId: schemaId,
+		ctx:        ctx,
+		schemaId:   schemaId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserSchema
+//
+//	@return UserSchema
 func (a *SchemaAPIService) UpdateUserProfileExecute(r ApiUpdateUserProfileRequest) (*UserSchema, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1349,7 +1392,7 @@ func (a *SchemaAPIService) UpdateUserProfileExecute(r ApiUpdateUserProfileReques
 		localVarReturnValue  *UserSchema
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1415,9 +1458,9 @@ func (a *SchemaAPIService) UpdateUserProfileExecute(r ApiUpdateUserProfileReques
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1487,7 +1530,7 @@ func (a *SchemaAPIService) UpdateUserProfileExecute(r ApiUpdateUserProfileReques
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

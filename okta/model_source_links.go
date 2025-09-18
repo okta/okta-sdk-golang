@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the SourceLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SourceLinks{}
+
 // SourceLinks struct for SourceLinks
 type SourceLinks struct {
 	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Schema *SourceLinksAllOfSchema `json:"schema,omitempty"`
+	// The associated schema
+	Schema               *HrefObject `json:"schema,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +59,7 @@ func NewSourceLinksWithDefaults() *SourceLinks {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *SourceLinks) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -65,7 +69,7 @@ func (o *SourceLinks) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -73,7 +77,7 @@ func (o *SourceLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *SourceLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -86,9 +90,9 @@ func (o *SourceLinks) SetSelf(v HrefObjectSelfLink) {
 }
 
 // GetSchema returns the Schema field value if set, zero value otherwise.
-func (o *SourceLinks) GetSchema() SourceLinksAllOfSchema {
-	if o == nil || o.Schema == nil {
-		var ret SourceLinksAllOfSchema
+func (o *SourceLinks) GetSchema() HrefObject {
+	if o == nil || IsNil(o.Schema) {
+		var ret HrefObject
 		return ret
 	}
 	return *o.Schema
@@ -96,8 +100,8 @@ func (o *SourceLinks) GetSchema() SourceLinksAllOfSchema {
 
 // GetSchemaOk returns a tuple with the Schema field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SourceLinks) GetSchemaOk() (*SourceLinksAllOfSchema, bool) {
-	if o == nil || o.Schema == nil {
+func (o *SourceLinks) GetSchemaOk() (*HrefObject, bool) {
+	if o == nil || IsNil(o.Schema) {
 		return nil, false
 	}
 	return o.Schema, true
@@ -105,24 +109,32 @@ func (o *SourceLinks) GetSchemaOk() (*SourceLinksAllOfSchema, bool) {
 
 // HasSchema returns a boolean if a field has been set.
 func (o *SourceLinks) HasSchema() bool {
-	if o != nil && o.Schema != nil {
+	if o != nil && !IsNil(o.Schema) {
 		return true
 	}
 
 	return false
 }
 
-// SetSchema gets a reference to the given SourceLinksAllOfSchema and assigns it to the Schema field.
-func (o *SourceLinks) SetSchema(v SourceLinksAllOfSchema) {
+// SetSchema gets a reference to the given HrefObject and assigns it to the Schema field.
+func (o *SourceLinks) SetSchema(v HrefObject) {
 	o.Schema = &v
 }
 
 func (o SourceLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SourceLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.Schema != nil {
+	if !IsNil(o.Schema) {
 		toSerialize["schema"] = o.Schema
 	}
 
@@ -130,28 +142,26 @@ func (o SourceLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SourceLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SourceLinks) UnmarshalJSON(data []byte) (err error) {
 	varSourceLinks := _SourceLinks{}
 
-	err = json.Unmarshal(bytes, &varSourceLinks)
-	if err == nil {
-		*o = SourceLinks(varSourceLinks)
-	} else {
+	err = json.Unmarshal(data, &varSourceLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SourceLinks(varSourceLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "schema")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +202,3 @@ func (v *NullableSourceLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

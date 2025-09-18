@@ -5,8 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountLink** | Pointer to [**PolicyAccountLink**](PolicyAccountLink.md) |  | [optional] 
-**MapAMRClaims** | Pointer to **bool** | &lt;div class&#x3D;\&quot;x-lifecycle-container\&quot;&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &lt;x-lifecycle class&#x3D;\&quot;oie\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/div&gt;Enable mapping AMR from IdP to Okta to downstream apps | [optional] [default to false]
-**MaxClockSkew** | Pointer to **int32** |  | [optional] 
+**MaxClockSkew** | Pointer to **int32** | Maximum allowable clock skew when processing messages from the IdP | [optional] 
 **Provisioning** | Pointer to [**Provisioning**](Provisioning.md) |  | [optional] 
 **Subject** | Pointer to [**PolicySubject**](PolicySubject.md) |  | [optional] 
 
@@ -53,31 +52,6 @@ SetAccountLink sets AccountLink field to given value.
 `func (o *IdentityProviderPolicy) HasAccountLink() bool`
 
 HasAccountLink returns a boolean if a field has been set.
-
-### GetMapAMRClaims
-
-`func (o *IdentityProviderPolicy) GetMapAMRClaims() bool`
-
-GetMapAMRClaims returns the MapAMRClaims field if non-nil, zero value otherwise.
-
-### GetMapAMRClaimsOk
-
-`func (o *IdentityProviderPolicy) GetMapAMRClaimsOk() (*bool, bool)`
-
-GetMapAMRClaimsOk returns a tuple with the MapAMRClaims field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMapAMRClaims
-
-`func (o *IdentityProviderPolicy) SetMapAMRClaims(v bool)`
-
-SetMapAMRClaims sets MapAMRClaims field to given value.
-
-### HasMapAMRClaims
-
-`func (o *IdentityProviderPolicy) HasMapAMRClaims() bool`
-
-HasMapAMRClaims returns a boolean if a field has been set.
 
 ### GetMaxClockSkew
 

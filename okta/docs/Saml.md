@@ -5,8 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Acs** | [**[]SamlAcsInner**](SamlAcsInner.md) | List of Assertion Consumer Service (ACS) URLs. The default ACS URL is required and is indicated by a null &#x60;index&#x60; value. You can use the org-level variables you defined in the &#x60;config&#x60; array in the URL. For example: &#x60;https://${org.subdomain}.example.com/saml/login&#x60; | 
+**Claims** | Pointer to [**[]SamlClaimsInner**](SamlClaimsInner.md) | Attribute statements to appear in the Okta SAML assertion | [optional] 
 **Doc** | **string** | The URL to your customer-facing instructions for configuring your SAML integration. See [Customer configuration document guidelines](https://developer.okta.com/docs/guides/submit-app-prereq/main/#customer-configuration-document-guidelines). | 
 **EntityId** | **string** | Globally unique name for your SAML entity. For instance, your Identity Provider (IdP) or Service Provider (SP) URL. | 
+**Groups** | Pointer to **[]string** | Defines the group attribute names for the SAML assertion statement. Okta inserts the list of Okta user groups into the attribute names in the statement. | [optional] 
 
 ## Methods
 
@@ -47,6 +49,31 @@ and a boolean to check if the value has been set.
 SetAcs sets Acs field to given value.
 
 
+### GetClaims
+
+`func (o *Saml) GetClaims() []SamlClaimsInner`
+
+GetClaims returns the Claims field if non-nil, zero value otherwise.
+
+### GetClaimsOk
+
+`func (o *Saml) GetClaimsOk() (*[]SamlClaimsInner, bool)`
+
+GetClaimsOk returns a tuple with the Claims field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClaims
+
+`func (o *Saml) SetClaims(v []SamlClaimsInner)`
+
+SetClaims sets Claims field to given value.
+
+### HasClaims
+
+`func (o *Saml) HasClaims() bool`
+
+HasClaims returns a boolean if a field has been set.
+
 ### GetDoc
 
 `func (o *Saml) GetDoc() string`
@@ -86,6 +113,31 @@ and a boolean to check if the value has been set.
 
 SetEntityId sets EntityId field to given value.
 
+
+### GetGroups
+
+`func (o *Saml) GetGroups() []string`
+
+GetGroups returns the Groups field if non-nil, zero value otherwise.
+
+### GetGroupsOk
+
+`func (o *Saml) GetGroupsOk() (*[]string, bool)`
+
+GetGroupsOk returns a tuple with the Groups field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGroups
+
+`func (o *Saml) SetGroups(v []string)`
+
+SetGroups sets Groups field to given value.
+
+### HasGroups
+
+`func (o *Saml) HasGroups() bool`
+
+HasGroups returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

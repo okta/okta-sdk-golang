@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DisplayName** | Pointer to **string** |  | [optional] 
-**UserName** | Pointer to **string** |  | [optional] 
+**Embedded** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
 **DnsValidationRecords** | Pointer to [**[]EmailDomainDNSRecord**](EmailDomainDNSRecord.md) |  | [optional] 
 **Domain** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **ValidationStatus** | Pointer to **string** |  | [optional] 
 **ValidationSubdomain** | Pointer to **string** | The subdomain for the email sender&#39;s custom mail domain | [optional] [default to "mail"]
-**Embedded** | Pointer to [**EmailDomainResponseWithEmbeddedEmbedded**](EmailDomainResponseWithEmbeddedEmbedded.md) |  | [optional] 
+**DisplayName** | **string** |  | 
+**UserName** | **string** |  | 
 
 ## Methods
 
 ### NewEmailDomainResponseWithEmbedded
 
-`func NewEmailDomainResponseWithEmbedded() *EmailDomainResponseWithEmbedded`
+`func NewEmailDomainResponseWithEmbedded(displayName string, userName string, ) *EmailDomainResponseWithEmbedded`
 
 NewEmailDomainResponseWithEmbedded instantiates a new EmailDomainResponseWithEmbedded object
 This constructor will assign default values to properties that have it defined,
@@ -32,55 +32,30 @@ NewEmailDomainResponseWithEmbeddedWithDefaults instantiates a new EmailDomainRes
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetDisplayName
+### GetEmbedded
 
-`func (o *EmailDomainResponseWithEmbedded) GetDisplayName() string`
+`func (o *EmailDomainResponseWithEmbedded) GetEmbedded() map[string]interface{}`
 
-GetDisplayName returns the DisplayName field if non-nil, zero value otherwise.
+GetEmbedded returns the Embedded field if non-nil, zero value otherwise.
 
-### GetDisplayNameOk
+### GetEmbeddedOk
 
-`func (o *EmailDomainResponseWithEmbedded) GetDisplayNameOk() (*string, bool)`
+`func (o *EmailDomainResponseWithEmbedded) GetEmbeddedOk() (*map[string]interface{}, bool)`
 
-GetDisplayNameOk returns a tuple with the DisplayName field if it's non-nil, zero value otherwise
+GetEmbeddedOk returns a tuple with the Embedded field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetDisplayName
+### SetEmbedded
 
-`func (o *EmailDomainResponseWithEmbedded) SetDisplayName(v string)`
+`func (o *EmailDomainResponseWithEmbedded) SetEmbedded(v map[string]interface{})`
 
-SetDisplayName sets DisplayName field to given value.
+SetEmbedded sets Embedded field to given value.
 
-### HasDisplayName
+### HasEmbedded
 
-`func (o *EmailDomainResponseWithEmbedded) HasDisplayName() bool`
+`func (o *EmailDomainResponseWithEmbedded) HasEmbedded() bool`
 
-HasDisplayName returns a boolean if a field has been set.
-
-### GetUserName
-
-`func (o *EmailDomainResponseWithEmbedded) GetUserName() string`
-
-GetUserName returns the UserName field if non-nil, zero value otherwise.
-
-### GetUserNameOk
-
-`func (o *EmailDomainResponseWithEmbedded) GetUserNameOk() (*string, bool)`
-
-GetUserNameOk returns a tuple with the UserName field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUserName
-
-`func (o *EmailDomainResponseWithEmbedded) SetUserName(v string)`
-
-SetUserName sets UserName field to given value.
-
-### HasUserName
-
-`func (o *EmailDomainResponseWithEmbedded) HasUserName() bool`
-
-HasUserName returns a boolean if a field has been set.
+HasEmbedded returns a boolean if a field has been set.
 
 ### GetDnsValidationRecords
 
@@ -207,30 +182,45 @@ SetValidationSubdomain sets ValidationSubdomain field to given value.
 
 HasValidationSubdomain returns a boolean if a field has been set.
 
-### GetEmbedded
+### GetDisplayName
 
-`func (o *EmailDomainResponseWithEmbedded) GetEmbedded() EmailDomainResponseWithEmbeddedEmbedded`
+`func (o *EmailDomainResponseWithEmbedded) GetDisplayName() string`
 
-GetEmbedded returns the Embedded field if non-nil, zero value otherwise.
+GetDisplayName returns the DisplayName field if non-nil, zero value otherwise.
 
-### GetEmbeddedOk
+### GetDisplayNameOk
 
-`func (o *EmailDomainResponseWithEmbedded) GetEmbeddedOk() (*EmailDomainResponseWithEmbeddedEmbedded, bool)`
+`func (o *EmailDomainResponseWithEmbedded) GetDisplayNameOk() (*string, bool)`
 
-GetEmbeddedOk returns a tuple with the Embedded field if it's non-nil, zero value otherwise
+GetDisplayNameOk returns a tuple with the DisplayName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetEmbedded
+### SetDisplayName
 
-`func (o *EmailDomainResponseWithEmbedded) SetEmbedded(v EmailDomainResponseWithEmbeddedEmbedded)`
+`func (o *EmailDomainResponseWithEmbedded) SetDisplayName(v string)`
 
-SetEmbedded sets Embedded field to given value.
+SetDisplayName sets DisplayName field to given value.
 
-### HasEmbedded
 
-`func (o *EmailDomainResponseWithEmbedded) HasEmbedded() bool`
+### GetUserName
 
-HasEmbedded returns a boolean if a field has been set.
+`func (o *EmailDomainResponseWithEmbedded) GetUserName() string`
+
+GetUserName returns the UserName field if non-nil, zero value otherwise.
+
+### GetUserNameOk
+
+`func (o *EmailDomainResponseWithEmbedded) GetUserNameOk() (*string, bool)`
+
+GetUserNameOk returns a tuple with the UserName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUserName
+
+`func (o *EmailDomainResponseWithEmbedded) SetUserName(v string)`
+
+SetUserName sets UserName field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

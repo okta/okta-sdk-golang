@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the PolicyContextRisk type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PolicyContextRisk{}
+
 // PolicyContextRisk The risk rule condition level
 type PolicyContextRisk struct {
-	Level *string `json:"level,omitempty"`
+	Level                *string `json:"level,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewPolicyContextRiskWithDefaults() *PolicyContextRisk {
 
 // GetLevel returns the Level field value if set, zero value otherwise.
 func (o *PolicyContextRisk) GetLevel() string {
-	if o == nil || o.Level == nil {
+	if o == nil || IsNil(o.Level) {
 		var ret string
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *PolicyContextRisk) GetLevel() string {
 // GetLevelOk returns a tuple with the Level field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyContextRisk) GetLevelOk() (*string, bool) {
-	if o == nil || o.Level == nil {
+	if o == nil || IsNil(o.Level) {
 		return nil, false
 	}
 	return o.Level, true
@@ -72,7 +75,7 @@ func (o *PolicyContextRisk) GetLevelOk() (*string, bool) {
 
 // HasLevel returns a boolean if a field has been set.
 func (o *PolicyContextRisk) HasLevel() bool {
-	if o != nil && o.Level != nil {
+	if o != nil && !IsNil(o.Level) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *PolicyContextRisk) SetLevel(v string) {
 }
 
 func (o PolicyContextRisk) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PolicyContextRisk) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Level != nil {
+	if !IsNil(o.Level) {
 		toSerialize["level"] = o.Level
 	}
 
@@ -94,27 +105,25 @@ func (o PolicyContextRisk) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PolicyContextRisk) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PolicyContextRisk) UnmarshalJSON(data []byte) (err error) {
 	varPolicyContextRisk := _PolicyContextRisk{}
 
-	err = json.Unmarshal(bytes, &varPolicyContextRisk)
-	if err == nil {
-		*o = PolicyContextRisk(varPolicyContextRisk)
-	} else {
+	err = json.Unmarshal(data, &varPolicyContextRisk)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PolicyContextRisk(varPolicyContextRisk)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "level")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullablePolicyContextRisk) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

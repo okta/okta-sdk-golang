@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,13 +27,21 @@ import (
 	"encoding/json"
 )
 
-// LogActor struct for LogActor
+// checks if the LogActor type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LogActor{}
+
+// LogActor Describes the user, app, client, or other entity (actor) who performs an action on a target. The actor is dependent on the action that is performed. All events have actors.
 type LogActor struct {
+	// Alternative ID of the actor
 	AlternateId *string `json:"alternateId,omitempty"`
+	// Further details about the actor
 	DetailEntry map[string]interface{} `json:"detailEntry,omitempty"`
+	// Display name of the actor
 	DisplayName *string `json:"displayName,omitempty"`
+	// ID of the actor
 	Id *string `json:"id,omitempty"`
-	Type *string `json:"type,omitempty"`
+	// Type of actor
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +66,7 @@ func NewLogActorWithDefaults() *LogActor {
 
 // GetAlternateId returns the AlternateId field value if set, zero value otherwise.
 func (o *LogActor) GetAlternateId() string {
-	if o == nil || o.AlternateId == nil {
+	if o == nil || IsNil(o.AlternateId) {
 		var ret string
 		return ret
 	}
@@ -68,7 +76,7 @@ func (o *LogActor) GetAlternateId() string {
 // GetAlternateIdOk returns a tuple with the AlternateId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogActor) GetAlternateIdOk() (*string, bool) {
-	if o == nil || o.AlternateId == nil {
+	if o == nil || IsNil(o.AlternateId) {
 		return nil, false
 	}
 	return o.AlternateId, true
@@ -76,7 +84,7 @@ func (o *LogActor) GetAlternateIdOk() (*string, bool) {
 
 // HasAlternateId returns a boolean if a field has been set.
 func (o *LogActor) HasAlternateId() bool {
-	if o != nil && o.AlternateId != nil {
+	if o != nil && !IsNil(o.AlternateId) {
 		return true
 	}
 
@@ -90,7 +98,7 @@ func (o *LogActor) SetAlternateId(v string) {
 
 // GetDetailEntry returns the DetailEntry field value if set, zero value otherwise.
 func (o *LogActor) GetDetailEntry() map[string]interface{} {
-	if o == nil || o.DetailEntry == nil {
+	if o == nil || IsNil(o.DetailEntry) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -100,15 +108,15 @@ func (o *LogActor) GetDetailEntry() map[string]interface{} {
 // GetDetailEntryOk returns a tuple with the DetailEntry field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogActor) GetDetailEntryOk() (map[string]interface{}, bool) {
-	if o == nil || o.DetailEntry == nil {
-		return nil, false
+	if o == nil || IsNil(o.DetailEntry) {
+		return map[string]interface{}{}, false
 	}
 	return o.DetailEntry, true
 }
 
 // HasDetailEntry returns a boolean if a field has been set.
 func (o *LogActor) HasDetailEntry() bool {
-	if o != nil && o.DetailEntry != nil {
+	if o != nil && !IsNil(o.DetailEntry) {
 		return true
 	}
 
@@ -122,7 +130,7 @@ func (o *LogActor) SetDetailEntry(v map[string]interface{}) {
 
 // GetDisplayName returns the DisplayName field value if set, zero value otherwise.
 func (o *LogActor) GetDisplayName() string {
-	if o == nil || o.DisplayName == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		var ret string
 		return ret
 	}
@@ -132,7 +140,7 @@ func (o *LogActor) GetDisplayName() string {
 // GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogActor) GetDisplayNameOk() (*string, bool) {
-	if o == nil || o.DisplayName == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		return nil, false
 	}
 	return o.DisplayName, true
@@ -140,7 +148,7 @@ func (o *LogActor) GetDisplayNameOk() (*string, bool) {
 
 // HasDisplayName returns a boolean if a field has been set.
 func (o *LogActor) HasDisplayName() bool {
-	if o != nil && o.DisplayName != nil {
+	if o != nil && !IsNil(o.DisplayName) {
 		return true
 	}
 
@@ -154,7 +162,7 @@ func (o *LogActor) SetDisplayName(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *LogActor) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -164,7 +172,7 @@ func (o *LogActor) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogActor) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -172,7 +180,7 @@ func (o *LogActor) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *LogActor) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -186,7 +194,7 @@ func (o *LogActor) SetId(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *LogActor) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -196,7 +204,7 @@ func (o *LogActor) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogActor) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -204,7 +212,7 @@ func (o *LogActor) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *LogActor) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -217,20 +225,28 @@ func (o *LogActor) SetType(v string) {
 }
 
 func (o LogActor) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LogActor) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AlternateId != nil {
+	if !IsNil(o.AlternateId) {
 		toSerialize["alternateId"] = o.AlternateId
 	}
-	if o.DetailEntry != nil {
+	if !IsNil(o.DetailEntry) {
 		toSerialize["detailEntry"] = o.DetailEntry
 	}
-	if o.DisplayName != nil {
+	if !IsNil(o.DisplayName) {
 		toSerialize["displayName"] = o.DisplayName
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -238,31 +254,29 @@ func (o LogActor) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LogActor) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LogActor) UnmarshalJSON(data []byte) (err error) {
 	varLogActor := _LogActor{}
 
-	err = json.Unmarshal(bytes, &varLogActor)
-	if err == nil {
-		*o = LogActor(varLogActor)
-	} else {
+	err = json.Unmarshal(data, &varLogActor)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LogActor(varLogActor)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "alternateId")
 		delete(additionalProperties, "detailEntry")
 		delete(additionalProperties, "displayName")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -303,4 +317,3 @@ func (v *NullableLogActor) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

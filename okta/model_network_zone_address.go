@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the NetworkZoneAddress type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NetworkZoneAddress{}
+
 // NetworkZoneAddress Specifies the value of an IP address expressed using either `range` or `CIDR` form.
 type NetworkZoneAddress struct {
 	// Format of the IP addresses
 	Type *string `json:"type,omitempty"`
 	// Value in CIDR/range form, depending on the `type` specified
-	Value *string `json:"value,omitempty"`
+	Value                *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewNetworkZoneAddressWithDefaults() *NetworkZoneAddress {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *NetworkZoneAddress) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *NetworkZoneAddress) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NetworkZoneAddress) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -75,7 +78,7 @@ func (o *NetworkZoneAddress) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *NetworkZoneAddress) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *NetworkZoneAddress) SetType(v string) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *NetworkZoneAddress) GetValue() string {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *NetworkZoneAddress) GetValue() string {
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NetworkZoneAddress) GetValueOk() (*string, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -107,7 +110,7 @@ func (o *NetworkZoneAddress) GetValueOk() (*string, bool) {
 
 // HasValue returns a boolean if a field has been set.
 func (o *NetworkZoneAddress) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *NetworkZoneAddress) SetValue(v string) {
 }
 
 func (o NetworkZoneAddress) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o NetworkZoneAddress) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Value != nil {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
 
@@ -132,28 +143,26 @@ func (o NetworkZoneAddress) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *NetworkZoneAddress) UnmarshalJSON(bytes []byte) (err error) {
+func (o *NetworkZoneAddress) UnmarshalJSON(data []byte) (err error) {
 	varNetworkZoneAddress := _NetworkZoneAddress{}
 
-	err = json.Unmarshal(bytes, &varNetworkZoneAddress)
-	if err == nil {
-		*o = NetworkZoneAddress(varNetworkZoneAddress)
-	} else {
+	err = json.Unmarshal(data, &varNetworkZoneAddress)
+
+	if err != nil {
 		return err
 	}
 
+	*o = NetworkZoneAddress(varNetworkZoneAddress)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "value")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableNetworkZoneAddress) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

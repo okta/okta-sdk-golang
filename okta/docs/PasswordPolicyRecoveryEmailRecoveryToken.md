@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TokenLifetimeMinutes** | Pointer to **int32** |  | [optional] 
+**TokenLifetimeMinutes** | Pointer to **int32** | Lifetime (in minutes) of the recovery token | [optional] [default to 10080]
 
 ## Methods
 

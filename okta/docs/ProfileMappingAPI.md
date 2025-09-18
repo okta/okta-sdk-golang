@@ -4,9 +4,9 @@ All URIs are relative to *https://subdomain.okta.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetProfileMapping**](ProfileMappingAPI.md#GetProfileMapping) | **Get** /api/v1/mappings/{mappingId} | Retrieve a Profile Mapping
-[**ListProfileMappings**](ProfileMappingAPI.md#ListProfileMappings) | **Get** /api/v1/mappings | List all Profile Mappings
-[**UpdateProfileMapping**](ProfileMappingAPI.md#UpdateProfileMapping) | **Post** /api/v1/mappings/{mappingId} | Update a Profile Mapping
+[**GetProfileMapping**](ProfileMappingAPI.md#GetProfileMapping) | **Get** /api/v1/mappings/{mappingId} | Retrieve a profile mapping
+[**ListProfileMappings**](ProfileMappingAPI.md#ListProfileMappings) | **Get** /api/v1/mappings | List all profile mappings
+[**UpdateProfileMapping**](ProfileMappingAPI.md#UpdateProfileMapping) | **Post** /api/v1/mappings/{mappingId} | Update a profile mapping
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > ProfileMapping GetProfileMapping(ctx, mappingId).Execute()
 
-Retrieve a Profile Mapping
+Retrieve a profile mapping
 
 
 
@@ -24,24 +24,24 @@ Retrieve a Profile Mapping
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    mappingId := "cB6u7X8mptebWkffatKA" // string | `id` of the Mapping
+	mappingId := "cB6u7X8mptebWkffatKA" // string | `id` of the Mapping
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProfileMappingAPI.GetProfileMapping(context.Background(), mappingId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProfileMappingAPI.GetProfileMapping``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetProfileMapping`: ProfileMapping
-    fmt.Fprintf(os.Stdout, "Response from `ProfileMappingAPI.GetProfileMapping`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProfileMappingAPI.GetProfileMapping(context.Background(), mappingId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProfileMappingAPI.GetProfileMapping``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetProfileMapping`: ProfileMapping
+	fmt.Fprintf(os.Stdout, "Response from `ProfileMappingAPI.GetProfileMapping`: %v\n", resp)
 }
 ```
 
@@ -84,7 +84,7 @@ Name | Type | Description  | Notes
 
 > []ListProfileMappings ListProfileMappings(ctx).After(after).Limit(limit).SourceId(sourceId).TargetId(targetId).Execute()
 
-List all Profile Mappings
+List all profile mappings
 
 
 
@@ -94,27 +94,27 @@ List all Profile Mappings
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    after := "after_example" // string | Mapping `id` that specifies the pagination cursor for the next page of mappings (optional)
-    limit := int32(56) // int32 | Specifies the number of results per page (maximum 200) (optional) (default to 20)
-    sourceId := "sourceId_example" // string | The UserType or App Instance `id` that acts as the source of expressions in a mapping. If this parameter is included, all returned mappings have this as their `source.id`. (optional)
-    targetId := "targetId_example" // string | The UserType or App Instance `id` that acts as the target of expressions in a mapping. If this parameter is included, all returned mappings have this as their `target.id`. (optional)
+	after := "after_example" // string | Mapping `id` that specifies the pagination cursor for the next page of mappings (optional)
+	limit := int32(56) // int32 | Specifies the number of results per page (optional) (default to 20)
+	sourceId := "sourceId_example" // string | The user type or app instance ID that acts as the source of expressions in a mapping. If this parameter is included, all returned mappings have this as their `source.id`. (optional)
+	targetId := "targetId_example" // string | The user type or app instance ID that acts as the target of expressions in a mapping. If this parameter is included, all returned mappings have this as their `target.id`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProfileMappingAPI.ListProfileMappings(context.Background()).After(after).Limit(limit).SourceId(sourceId).TargetId(targetId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProfileMappingAPI.ListProfileMappings``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListProfileMappings`: []ListProfileMappings
-    fmt.Fprintf(os.Stdout, "Response from `ProfileMappingAPI.ListProfileMappings`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProfileMappingAPI.ListProfileMappings(context.Background()).After(after).Limit(limit).SourceId(sourceId).TargetId(targetId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProfileMappingAPI.ListProfileMappings``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListProfileMappings`: []ListProfileMappings
+	fmt.Fprintf(os.Stdout, "Response from `ProfileMappingAPI.ListProfileMappings`: %v\n", resp)
 }
 ```
 
@@ -130,9 +130,9 @@ Other parameters are passed through a pointer to a apiListProfileMappingsRequest
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **after** | **string** | Mapping &#x60;id&#x60; that specifies the pagination cursor for the next page of mappings | 
- **limit** | **int32** | Specifies the number of results per page (maximum 200) | [default to 20]
- **sourceId** | **string** | The UserType or App Instance &#x60;id&#x60; that acts as the source of expressions in a mapping. If this parameter is included, all returned mappings have this as their &#x60;source.id&#x60;. | 
- **targetId** | **string** | The UserType or App Instance &#x60;id&#x60; that acts as the target of expressions in a mapping. If this parameter is included, all returned mappings have this as their &#x60;target.id&#x60;. | 
+ **limit** | **int32** | Specifies the number of results per page | [default to 20]
+ **sourceId** | **string** | The user type or app instance ID that acts as the source of expressions in a mapping. If this parameter is included, all returned mappings have this as their &#x60;source.id&#x60;. | 
+ **targetId** | **string** | The user type or app instance ID that acts as the target of expressions in a mapping. If this parameter is included, all returned mappings have this as their &#x60;target.id&#x60;. | 
 
 ### Return type
 
@@ -156,7 +156,7 @@ Name | Type | Description  | Notes
 
 > ProfileMapping UpdateProfileMapping(ctx, mappingId).ProfileMapping(profileMapping).Execute()
 
-Update a Profile Mapping
+Update a profile mapping
 
 
 
@@ -166,25 +166,25 @@ Update a Profile Mapping
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    mappingId := "cB6u7X8mptebWkffatKA" // string | `id` of the Mapping
-    profileMapping := *openapiclient.NewProfileMappingRequest(map[string]ProfileMappingProperty{"key": *openapiclient.NewProfileMappingProperty()}) // ProfileMappingRequest | 
+	mappingId := "cB6u7X8mptebWkffatKA" // string | `id` of the Mapping
+	profileMapping := *openapiclient.NewProfileMappingRequest(*openapiclient.NewProfileMappingProperty()) // ProfileMappingRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProfileMappingAPI.UpdateProfileMapping(context.Background(), mappingId).ProfileMapping(profileMapping).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProfileMappingAPI.UpdateProfileMapping``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateProfileMapping`: ProfileMapping
-    fmt.Fprintf(os.Stdout, "Response from `ProfileMappingAPI.UpdateProfileMapping`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProfileMappingAPI.UpdateProfileMapping(context.Background(), mappingId).ProfileMapping(profileMapping).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProfileMappingAPI.UpdateProfileMapping``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateProfileMapping`: ProfileMapping
+	fmt.Fprintf(os.Stdout, "Response from `ProfileMappingAPI.UpdateProfileMapping`: %v\n", resp)
 }
 ```
 

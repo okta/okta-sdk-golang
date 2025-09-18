@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -26,26 +26,25 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type ApplicationGroupsAPI interface {
 
 	/*
-	AssignGroupToApplication Assign an Application Group
+			AssignGroupToApplication Assign an application group
 
-	Assigns a [Group](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Group/) to an app, which in turn assigns the app to each [User](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/User/) that belongs to the group.
-The resulting Application User [scope](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/ApplicationUsers/#tag/ApplicationUsers/operation/listApplicationUsers!c=200&path=scope&t=response) is `GROUP` since the assignment was from the group membership.
+			Assigns a [Group](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Group/) to an app, which in turn assigns the app to each [User](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/User/) that belongs to the group.
+		The resulting application user [scope](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/ApplicationUsers/#tag/ApplicationUsers/operation/listApplicationUsers!c=200&path=scope&t=response) is `GROUP` since the assignment was from the group membership.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param groupId The `id` of the group
-	@return ApiAssignGroupToApplicationRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appId Application ID
+			@param groupId The `id` of the group
+			@return ApiAssignGroupToApplicationRequest
 	*/
 	AssignGroupToApplication(ctx context.Context, appId string, groupId string) ApiAssignGroupToApplicationRequest
 
@@ -54,14 +53,14 @@ The resulting Application User [scope](https://developer.okta.com/docs/api/opena
 	AssignGroupToApplicationExecute(r ApiAssignGroupToApplicationRequest) (*ApplicationGroupAssignment, *APIResponse, error)
 
 	/*
-	GetApplicationGroupAssignment Retrieve an Application Group
+		GetApplicationGroupAssignment Retrieve an application group
 
-	Retrieves an app group assignment
+		Retrieves an app group assignment
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param groupId The `id` of the group
-	@return ApiGetApplicationGroupAssignmentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param groupId The `id` of the group
+		@return ApiGetApplicationGroupAssignmentRequest
 	*/
 	GetApplicationGroupAssignment(ctx context.Context, appId string, groupId string) ApiGetApplicationGroupAssignmentRequest
 
@@ -70,13 +69,13 @@ The resulting Application User [scope](https://developer.okta.com/docs/api/opena
 	GetApplicationGroupAssignmentExecute(r ApiGetApplicationGroupAssignmentRequest) (*ApplicationGroupAssignment, *APIResponse, error)
 
 	/*
-	ListApplicationGroupAssignments List all Application Groups
+		ListApplicationGroupAssignments List all application groups
 
-	Lists all app group assignments
+		Lists all app group assignments
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiListApplicationGroupAssignmentsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiListApplicationGroupAssignmentsRequest
 	*/
 	ListApplicationGroupAssignments(ctx context.Context, appId string) ApiListApplicationGroupAssignmentsRequest
 
@@ -85,14 +84,14 @@ The resulting Application User [scope](https://developer.okta.com/docs/api/opena
 	ListApplicationGroupAssignmentsExecute(r ApiListApplicationGroupAssignmentsRequest) ([]ApplicationGroupAssignment, *APIResponse, error)
 
 	/*
-	UnassignApplicationFromGroup Unassign an Application Group
+		UnassignApplicationFromGroup Unassign an application group
 
-	Unassigns a Group from an app
+		Unassigns a Group from an app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param groupId The `id` of the group
-	@return ApiUnassignApplicationFromGroupRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param groupId The `id` of the group
+		@return ApiUnassignApplicationFromGroupRequest
 	*/
 	UnassignApplicationFromGroup(ctx context.Context, appId string, groupId string) ApiUnassignApplicationFromGroupRequest
 
@@ -100,14 +99,14 @@ The resulting Application User [scope](https://developer.okta.com/docs/api/opena
 	UnassignApplicationFromGroupExecute(r ApiUnassignApplicationFromGroupRequest) (*APIResponse, error)
 
 	/*
-	UpdateGroupAssignmentToApplication Update an Application Group
+		UpdateGroupAssignmentToApplication Update an application group
 
-	Updates a group assignment to an app
+		Updates a group assignment to an app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param groupId The `id` of the group
-	@return ApiUpdateGroupAssignmentToApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param groupId The `id` of the group
+		@return ApiUpdateGroupAssignmentToApplicationRequest
 	*/
 	UpdateGroupAssignmentToApplication(ctx context.Context, appId string, groupId string) ApiUpdateGroupAssignmentToApplicationRequest
 
@@ -120,12 +119,12 @@ The resulting Application User [scope](https://developer.okta.com/docs/api/opena
 type ApplicationGroupsAPIService service
 
 type ApiAssignGroupToApplicationRequest struct {
-	ctx context.Context
-	ApiService ApplicationGroupsAPI
-	appId string
-	groupId string
+	ctx                        context.Context
+	ApiService                 ApplicationGroupsAPI
+	appId                      string
+	groupId                    string
 	applicationGroupAssignment *ApplicationGroupAssignment
-	retryCount int32
+	retryCount                 int32
 }
 
 func (r ApiAssignGroupToApplicationRequest) ApplicationGroupAssignment(applicationGroupAssignment ApplicationGroupAssignment) ApiAssignGroupToApplicationRequest {
@@ -138,28 +137,29 @@ func (r ApiAssignGroupToApplicationRequest) Execute() (*ApplicationGroupAssignme
 }
 
 /*
-AssignGroupToApplication Assign an Application Group
+AssignGroupToApplication Assign an application group
 
 Assigns a [Group](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Group/) to an app, which in turn assigns the app to each [User](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/User/) that belongs to the group.
-The resulting Application User [scope](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/ApplicationUsers/#tag/ApplicationUsers/operation/listApplicationUsers!c=200&path=scope&t=response) is `GROUP` since the assignment was from the group membership.
+The resulting application user [scope](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/ApplicationUsers/#tag/ApplicationUsers/operation/listApplicationUsers!c=200&path=scope&t=response) is `GROUP` since the assignment was from the group membership.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param groupId The `id` of the group
- @return ApiAssignGroupToApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param groupId The `id` of the group
+	@return ApiAssignGroupToApplicationRequest
 */
 func (a *ApplicationGroupsAPIService) AssignGroupToApplication(ctx context.Context, appId string, groupId string) ApiAssignGroupToApplicationRequest {
 	return ApiAssignGroupToApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		groupId: groupId,
+		ctx:        ctx,
+		appId:      appId,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ApplicationGroupAssignment
+//
+//	@return ApplicationGroupAssignment
 func (a *ApplicationGroupsAPIService) AssignGroupToApplicationExecute(r ApiAssignGroupToApplicationRequest) (*ApplicationGroupAssignment, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -168,7 +168,7 @@ func (a *ApplicationGroupsAPIService) AssignGroupToApplicationExecute(r ApiAssig
 		localVarReturnValue  *ApplicationGroupAssignment
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -232,9 +232,9 @@ func (a *ApplicationGroupsAPIService) AssignGroupToApplicationExecute(r ApiAssig
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -304,21 +304,21 @@ func (a *ApplicationGroupsAPIService) AssignGroupToApplicationExecute(r ApiAssig
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetApplicationGroupAssignmentRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationGroupsAPI
-	appId string
-	groupId string
-	expand *string
+	appId      string
+	groupId    string
+	expand     *string
 	retryCount int32
 }
 
-// An optional query parameter to return the corresponding assigned [Group](/openapi/okta-management/management/tag/Group/) or the group assignment metadata details in the &#x60;_embedded&#x60; property.
+// An optional query parameter to return the corresponding assigned [group](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Group/) or the group assignment metadata details in the &#x60;_embedded&#x60; property.
 func (r ApiGetApplicationGroupAssignmentRequest) Expand(expand string) ApiGetApplicationGroupAssignmentRequest {
 	r.expand = &expand
 	return r
@@ -329,27 +329,28 @@ func (r ApiGetApplicationGroupAssignmentRequest) Execute() (*ApplicationGroupAss
 }
 
 /*
-GetApplicationGroupAssignment Retrieve an Application Group
+GetApplicationGroupAssignment Retrieve an application group
 
 Retrieves an app group assignment
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param groupId The `id` of the group
- @return ApiGetApplicationGroupAssignmentRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param groupId The `id` of the group
+	@return ApiGetApplicationGroupAssignmentRequest
 */
 func (a *ApplicationGroupsAPIService) GetApplicationGroupAssignment(ctx context.Context, appId string, groupId string) ApiGetApplicationGroupAssignmentRequest {
 	return ApiGetApplicationGroupAssignmentRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		groupId: groupId,
+		ctx:        ctx,
+		appId:      appId,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ApplicationGroupAssignment
+//
+//	@return ApplicationGroupAssignment
 func (a *ApplicationGroupsAPIService) GetApplicationGroupAssignmentExecute(r ApiGetApplicationGroupAssignmentRequest) (*ApplicationGroupAssignment, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -358,7 +359,7 @@ func (a *ApplicationGroupsAPIService) GetApplicationGroupAssignmentExecute(r Api
 		localVarReturnValue  *ApplicationGroupAssignment
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -423,9 +424,9 @@ func (a *ApplicationGroupsAPIService) GetApplicationGroupAssignmentExecute(r Api
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -483,23 +484,23 @@ func (a *ApplicationGroupsAPIService) GetApplicationGroupAssignmentExecute(r Api
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListApplicationGroupAssignmentsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationGroupsAPI
-	appId string
-	q *string
-	after *string
-	limit *int32
-	expand *string
+	appId      string
+	q          *string
+	after      *string
+	limit      *int32
+	expand     *string
 	retryCount int32
 }
 
-// Specifies a filter for a list of assigned groups returned based on their names. The value of &#x60;q&#x60; is matched against the group &#x60;name&#x60;. This filter only supports the &#x60;startsWith&#x60; operation that matches the &#x60;q&#x60; string against the beginning of the [Group name](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Group/#tag/Group/operation/listGroups!c&#x3D;200&amp;path&#x3D;profile/name&amp;t&#x3D;response).
+// Specifies a filter for a list of assigned groups returned based on their names. The value of &#x60;q&#x60; is matched against the group &#x60;name&#x60;. This filter only supports the &#x60;startsWith&#x60; operation that matches the &#x60;q&#x60; string against the beginning of the [group name](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Group/#tag/Group/operation/listGroups!c&#x3D;200&amp;path&#x3D;profile/name&amp;t&#x3D;response).
 func (r ApiListApplicationGroupAssignmentsRequest) Q(q string) ApiListApplicationGroupAssignmentsRequest {
 	r.q = &q
 	return r
@@ -517,7 +518,7 @@ func (r ApiListApplicationGroupAssignmentsRequest) Limit(limit int32) ApiListApp
 	return r
 }
 
-// An optional query parameter to return the corresponding assigned [Group](/openapi/okta-management/management/tag/Group/) or the group assignment metadata details in the &#x60;_embedded&#x60; property.
+// An optional query parameter to return the corresponding assigned [group](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Group/) or the group assignment metadata details in the &#x60;_embedded&#x60; property.
 func (r ApiListApplicationGroupAssignmentsRequest) Expand(expand string) ApiListApplicationGroupAssignmentsRequest {
 	r.expand = &expand
 	return r
@@ -528,25 +529,26 @@ func (r ApiListApplicationGroupAssignmentsRequest) Execute() ([]ApplicationGroup
 }
 
 /*
-ListApplicationGroupAssignments List all Application Groups
+ListApplicationGroupAssignments List all application groups
 
 Lists all app group assignments
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiListApplicationGroupAssignmentsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiListApplicationGroupAssignmentsRequest
 */
 func (a *ApplicationGroupsAPIService) ListApplicationGroupAssignments(ctx context.Context, appId string) ApiListApplicationGroupAssignmentsRequest {
 	return ApiListApplicationGroupAssignmentsRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []ApplicationGroupAssignment
+//
+//	@return []ApplicationGroupAssignment
 func (a *ApplicationGroupsAPIService) ListApplicationGroupAssignmentsExecute(r ApiListApplicationGroupAssignmentsRequest) ([]ApplicationGroupAssignment, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -555,7 +557,7 @@ func (a *ApplicationGroupsAPIService) ListApplicationGroupAssignmentsExecute(r A
 		localVarReturnValue  []ApplicationGroupAssignment
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -628,9 +630,9 @@ func (a *ApplicationGroupsAPIService) ListApplicationGroupAssignmentsExecute(r A
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -688,16 +690,16 @@ func (a *ApplicationGroupsAPIService) ListApplicationGroupAssignmentsExecute(r A
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUnassignApplicationFromGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationGroupsAPI
-	appId string
-	groupId string
+	appId      string
+	groupId    string
 	retryCount int32
 }
 
@@ -706,21 +708,21 @@ func (r ApiUnassignApplicationFromGroupRequest) Execute() (*APIResponse, error) 
 }
 
 /*
-UnassignApplicationFromGroup Unassign an Application Group
+UnassignApplicationFromGroup Unassign an application group
 
 Unassigns a Group from an app
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param groupId The `id` of the group
- @return ApiUnassignApplicationFromGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param groupId The `id` of the group
+	@return ApiUnassignApplicationFromGroupRequest
 */
 func (a *ApplicationGroupsAPIService) UnassignApplicationFromGroup(ctx context.Context, appId string, groupId string) ApiUnassignApplicationFromGroupRequest {
 	return ApiUnassignApplicationFromGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		groupId: groupId,
+		ctx:        ctx,
+		appId:      appId,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
@@ -733,7 +735,7 @@ func (a *ApplicationGroupsAPIService) UnassignApplicationFromGroupExecute(r ApiU
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -795,9 +797,9 @@ func (a *ApplicationGroupsAPIService) UnassignApplicationFromGroupExecute(r ApiU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -851,12 +853,12 @@ func (a *ApplicationGroupsAPIService) UnassignApplicationFromGroupExecute(r ApiU
 }
 
 type ApiUpdateGroupAssignmentToApplicationRequest struct {
-	ctx context.Context
-	ApiService ApplicationGroupsAPI
-	appId string
-	groupId string
+	ctx                context.Context
+	ApiService         ApplicationGroupsAPI
+	appId              string
+	groupId            string
 	jsonPatchOperation *[]JsonPatchOperation
-	retryCount int32
+	retryCount         int32
 }
 
 func (r ApiUpdateGroupAssignmentToApplicationRequest) JsonPatchOperation(jsonPatchOperation []JsonPatchOperation) ApiUpdateGroupAssignmentToApplicationRequest {
@@ -869,27 +871,28 @@ func (r ApiUpdateGroupAssignmentToApplicationRequest) Execute() (*ApplicationGro
 }
 
 /*
-UpdateGroupAssignmentToApplication Update an Application Group
+UpdateGroupAssignmentToApplication Update an application group
 
 Updates a group assignment to an app
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param groupId The `id` of the group
- @return ApiUpdateGroupAssignmentToApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param groupId The `id` of the group
+	@return ApiUpdateGroupAssignmentToApplicationRequest
 */
 func (a *ApplicationGroupsAPIService) UpdateGroupAssignmentToApplication(ctx context.Context, appId string, groupId string) ApiUpdateGroupAssignmentToApplicationRequest {
 	return ApiUpdateGroupAssignmentToApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		groupId: groupId,
+		ctx:        ctx,
+		appId:      appId,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ApplicationGroupAssignment
+//
+//	@return ApplicationGroupAssignment
 func (a *ApplicationGroupsAPIService) UpdateGroupAssignmentToApplicationExecute(r ApiUpdateGroupAssignmentToApplicationRequest) (*ApplicationGroupAssignment, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
@@ -898,7 +901,7 @@ func (a *ApplicationGroupsAPIService) UpdateGroupAssignmentToApplicationExecute(
 		localVarReturnValue  *ApplicationGroupAssignment
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -962,9 +965,9 @@ func (a *ApplicationGroupsAPIService) UpdateGroupAssignmentToApplicationExecute(
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1034,7 +1037,7 @@ func (a *ApplicationGroupsAPIService) UpdateGroupAssignmentToApplicationExecute(
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

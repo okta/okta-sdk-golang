@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ShowEndUserFooter** | Pointer to **bool** |  | [optional] [readonly] 
-**Links** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
+**ShowEndUserFooter** | Pointer to **bool** | Indicates if the footer is shown on the End-User Dashboard | [optional] [readonly] 
+**Links** | Pointer to [**OrgPreferencesLinks**](OrgPreferencesLinks.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasShowEndUserFooter returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *OrgPreferences) GetLinks() LinksSelf`
+`func (o *OrgPreferences) GetLinks() OrgPreferencesLinks`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *OrgPreferences) GetLinksOk() (*LinksSelf, bool)`
+`func (o *OrgPreferences) GetLinksOk() (*OrgPreferencesLinks, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *OrgPreferences) SetLinks(v LinksSelf)`
+`func (o *OrgPreferences) SetLinks(v OrgPreferencesLinks)`
 
 SetLinks sets Links field to given value.
 

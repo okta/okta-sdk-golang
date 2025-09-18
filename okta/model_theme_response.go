@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,20 +27,23 @@ import (
 	"encoding/json"
 )
 
+// checks if the ThemeResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ThemeResponse{}
+
 // ThemeResponse struct for ThemeResponse
 type ThemeResponse struct {
 	BackgroundImage *string `json:"backgroundImage,omitempty"`
-	// Variant for email templates. You can publish a theme for email templates with different combinations of assets. Variants are preset combinations of those assets. 
+	// Variant for email templates. You can publish a theme for email templates with different combinations of assets. Variants are preset combinations of those assets.
 	EmailTemplateTouchPointVariant *string `json:"emailTemplateTouchPointVariant,omitempty"`
-	// Variant for the Okta End-User Dashboard. You can publish a theme for end-user dashboard with different combinations of assets. Variants are preset combinations of those assets. 
+	// Variant for the Okta End-User Dashboard. You can publish a theme for end-user dashboard with different combinations of assets. Variants are preset combinations of those assets.
 	EndUserDashboardTouchPointVariant *string `json:"endUserDashboardTouchPointVariant,omitempty"`
-	// Variant for the error page. You can publish a theme for error page with different combinations of assets. Variants are preset combinations of those assets. 
+	// Variant for the error page. You can publish a theme for error page with different combinations of assets. Variants are preset combinations of those assets.
 	ErrorPageTouchPointVariant *string `json:"errorPageTouchPointVariant,omitempty"`
-	Favicon *string `json:"favicon,omitempty"`
-	Id *string `json:"id,omitempty"`
-	// Variant for the Okta loading page. You can publish a theme for Okta loading page with different combinations of assets. Variants are preset combinations of those assets. 
+	Favicon                    *string `json:"favicon,omitempty"`
+	Id                         *string `json:"id,omitempty"`
+	// Variant for the Okta loading page. You can publish a theme for Okta loading page with different combinations of assets. Variants are preset combinations of those assets.
 	LoadingPageTouchPointVariant *string `json:"loadingPageTouchPointVariant,omitempty"`
-	Logo *string `json:"logo,omitempty"`
+	Logo                         *string `json:"logo,omitempty"`
 	// Primary color contrast hex code
 	PrimaryColorContrastHex *string `json:"primaryColorContrastHex,omitempty"`
 	// Primary color hex code
@@ -49,10 +52,10 @@ type ThemeResponse struct {
 	SecondaryColorContrastHex *string `json:"secondaryColorContrastHex,omitempty"`
 	// Secondary color hex code
 	SecondaryColorHex *string `json:"secondaryColorHex,omitempty"`
-	// Variant for the Okta sign-in page. You can publish a theme for sign-in page with different combinations of assets. Variants are preset combinations of those assets. > **Note:**  For a non-`OKTA_DEFAULT` variant, `primaryColorHex` is used for button background color and `primaryColorContrastHex` is used to optimize the opacity for button text. 
-	SignInPageTouchPointVariant *string `json:"signInPageTouchPointVariant,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
-	AdditionalProperties map[string]interface{}
+	// Variant for the Okta sign-in page. You can publish a theme for sign-in page with different combinations of assets. Variants are preset combinations of those assets. > **Note:**  For a non-`OKTA_DEFAULT` variant, `primaryColorHex` is used for button background color and `primaryColorContrastHex` is used to optimize the opacity for button text.
+	SignInPageTouchPointVariant *string    `json:"signInPageTouchPointVariant,omitempty"`
+	Links                       *LinksSelf `json:"_links,omitempty"`
+	AdditionalProperties        map[string]interface{}
 }
 
 type _ThemeResponse ThemeResponse
@@ -92,7 +95,7 @@ func NewThemeResponseWithDefaults() *ThemeResponse {
 
 // GetBackgroundImage returns the BackgroundImage field value if set, zero value otherwise.
 func (o *ThemeResponse) GetBackgroundImage() string {
-	if o == nil || o.BackgroundImage == nil {
+	if o == nil || IsNil(o.BackgroundImage) {
 		var ret string
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *ThemeResponse) GetBackgroundImage() string {
 // GetBackgroundImageOk returns a tuple with the BackgroundImage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ThemeResponse) GetBackgroundImageOk() (*string, bool) {
-	if o == nil || o.BackgroundImage == nil {
+	if o == nil || IsNil(o.BackgroundImage) {
 		return nil, false
 	}
 	return o.BackgroundImage, true
@@ -110,7 +113,7 @@ func (o *ThemeResponse) GetBackgroundImageOk() (*string, bool) {
 
 // HasBackgroundImage returns a boolean if a field has been set.
 func (o *ThemeResponse) HasBackgroundImage() bool {
-	if o != nil && o.BackgroundImage != nil {
+	if o != nil && !IsNil(o.BackgroundImage) {
 		return true
 	}
 
@@ -124,7 +127,7 @@ func (o *ThemeResponse) SetBackgroundImage(v string) {
 
 // GetEmailTemplateTouchPointVariant returns the EmailTemplateTouchPointVariant field value if set, zero value otherwise.
 func (o *ThemeResponse) GetEmailTemplateTouchPointVariant() string {
-	if o == nil || o.EmailTemplateTouchPointVariant == nil {
+	if o == nil || IsNil(o.EmailTemplateTouchPointVariant) {
 		var ret string
 		return ret
 	}
@@ -134,7 +137,7 @@ func (o *ThemeResponse) GetEmailTemplateTouchPointVariant() string {
 // GetEmailTemplateTouchPointVariantOk returns a tuple with the EmailTemplateTouchPointVariant field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ThemeResponse) GetEmailTemplateTouchPointVariantOk() (*string, bool) {
-	if o == nil || o.EmailTemplateTouchPointVariant == nil {
+	if o == nil || IsNil(o.EmailTemplateTouchPointVariant) {
 		return nil, false
 	}
 	return o.EmailTemplateTouchPointVariant, true
@@ -142,7 +145,7 @@ func (o *ThemeResponse) GetEmailTemplateTouchPointVariantOk() (*string, bool) {
 
 // HasEmailTemplateTouchPointVariant returns a boolean if a field has been set.
 func (o *ThemeResponse) HasEmailTemplateTouchPointVariant() bool {
-	if o != nil && o.EmailTemplateTouchPointVariant != nil {
+	if o != nil && !IsNil(o.EmailTemplateTouchPointVariant) {
 		return true
 	}
 
@@ -156,7 +159,7 @@ func (o *ThemeResponse) SetEmailTemplateTouchPointVariant(v string) {
 
 // GetEndUserDashboardTouchPointVariant returns the EndUserDashboardTouchPointVariant field value if set, zero value otherwise.
 func (o *ThemeResponse) GetEndUserDashboardTouchPointVariant() string {
-	if o == nil || o.EndUserDashboardTouchPointVariant == nil {
+	if o == nil || IsNil(o.EndUserDashboardTouchPointVariant) {
 		var ret string
 		return ret
 	}
@@ -166,7 +169,7 @@ func (o *ThemeResponse) GetEndUserDashboardTouchPointVariant() string {
 // GetEndUserDashboardTouchPointVariantOk returns a tuple with the EndUserDashboardTouchPointVariant field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ThemeResponse) GetEndUserDashboardTouchPointVariantOk() (*string, bool) {
-	if o == nil || o.EndUserDashboardTouchPointVariant == nil {
+	if o == nil || IsNil(o.EndUserDashboardTouchPointVariant) {
 		return nil, false
 	}
 	return o.EndUserDashboardTouchPointVariant, true
@@ -174,7 +177,7 @@ func (o *ThemeResponse) GetEndUserDashboardTouchPointVariantOk() (*string, bool)
 
 // HasEndUserDashboardTouchPointVariant returns a boolean if a field has been set.
 func (o *ThemeResponse) HasEndUserDashboardTouchPointVariant() bool {
-	if o != nil && o.EndUserDashboardTouchPointVariant != nil {
+	if o != nil && !IsNil(o.EndUserDashboardTouchPointVariant) {
 		return true
 	}
 
@@ -188,7 +191,7 @@ func (o *ThemeResponse) SetEndUserDashboardTouchPointVariant(v string) {
 
 // GetErrorPageTouchPointVariant returns the ErrorPageTouchPointVariant field value if set, zero value otherwise.
 func (o *ThemeResponse) GetErrorPageTouchPointVariant() string {
-	if o == nil || o.ErrorPageTouchPointVariant == nil {
+	if o == nil || IsNil(o.ErrorPageTouchPointVariant) {
 		var ret string
 		return ret
 	}
@@ -198,7 +201,7 @@ func (o *ThemeResponse) GetErrorPageTouchPointVariant() string {
 // GetErrorPageTouchPointVariantOk returns a tuple with the ErrorPageTouchPointVariant field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ThemeResponse) GetErrorPageTouchPointVariantOk() (*string, bool) {
-	if o == nil || o.ErrorPageTouchPointVariant == nil {
+	if o == nil || IsNil(o.ErrorPageTouchPointVariant) {
 		return nil, false
 	}
 	return o.ErrorPageTouchPointVariant, true
@@ -206,7 +209,7 @@ func (o *ThemeResponse) GetErrorPageTouchPointVariantOk() (*string, bool) {
 
 // HasErrorPageTouchPointVariant returns a boolean if a field has been set.
 func (o *ThemeResponse) HasErrorPageTouchPointVariant() bool {
-	if o != nil && o.ErrorPageTouchPointVariant != nil {
+	if o != nil && !IsNil(o.ErrorPageTouchPointVariant) {
 		return true
 	}
 
@@ -220,7 +223,7 @@ func (o *ThemeResponse) SetErrorPageTouchPointVariant(v string) {
 
 // GetFavicon returns the Favicon field value if set, zero value otherwise.
 func (o *ThemeResponse) GetFavicon() string {
-	if o == nil || o.Favicon == nil {
+	if o == nil || IsNil(o.Favicon) {
 		var ret string
 		return ret
 	}
@@ -230,7 +233,7 @@ func (o *ThemeResponse) GetFavicon() string {
 // GetFaviconOk returns a tuple with the Favicon field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ThemeResponse) GetFaviconOk() (*string, bool) {
-	if o == nil || o.Favicon == nil {
+	if o == nil || IsNil(o.Favicon) {
 		return nil, false
 	}
 	return o.Favicon, true
@@ -238,7 +241,7 @@ func (o *ThemeResponse) GetFaviconOk() (*string, bool) {
 
 // HasFavicon returns a boolean if a field has been set.
 func (o *ThemeResponse) HasFavicon() bool {
-	if o != nil && o.Favicon != nil {
+	if o != nil && !IsNil(o.Favicon) {
 		return true
 	}
 
@@ -252,7 +255,7 @@ func (o *ThemeResponse) SetFavicon(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *ThemeResponse) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -262,7 +265,7 @@ func (o *ThemeResponse) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ThemeResponse) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -270,7 +273,7 @@ func (o *ThemeResponse) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *ThemeResponse) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -284,7 +287,7 @@ func (o *ThemeResponse) SetId(v string) {
 
 // GetLoadingPageTouchPointVariant returns the LoadingPageTouchPointVariant field value if set, zero value otherwise.
 func (o *ThemeResponse) GetLoadingPageTouchPointVariant() string {
-	if o == nil || o.LoadingPageTouchPointVariant == nil {
+	if o == nil || IsNil(o.LoadingPageTouchPointVariant) {
 		var ret string
 		return ret
 	}
@@ -294,7 +297,7 @@ func (o *ThemeResponse) GetLoadingPageTouchPointVariant() string {
 // GetLoadingPageTouchPointVariantOk returns a tuple with the LoadingPageTouchPointVariant field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ThemeResponse) GetLoadingPageTouchPointVariantOk() (*string, bool) {
-	if o == nil || o.LoadingPageTouchPointVariant == nil {
+	if o == nil || IsNil(o.LoadingPageTouchPointVariant) {
 		return nil, false
 	}
 	return o.LoadingPageTouchPointVariant, true
@@ -302,7 +305,7 @@ func (o *ThemeResponse) GetLoadingPageTouchPointVariantOk() (*string, bool) {
 
 // HasLoadingPageTouchPointVariant returns a boolean if a field has been set.
 func (o *ThemeResponse) HasLoadingPageTouchPointVariant() bool {
-	if o != nil && o.LoadingPageTouchPointVariant != nil {
+	if o != nil && !IsNil(o.LoadingPageTouchPointVariant) {
 		return true
 	}
 
@@ -316,7 +319,7 @@ func (o *ThemeResponse) SetLoadingPageTouchPointVariant(v string) {
 
 // GetLogo returns the Logo field value if set, zero value otherwise.
 func (o *ThemeResponse) GetLogo() string {
-	if o == nil || o.Logo == nil {
+	if o == nil || IsNil(o.Logo) {
 		var ret string
 		return ret
 	}
@@ -326,7 +329,7 @@ func (o *ThemeResponse) GetLogo() string {
 // GetLogoOk returns a tuple with the Logo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ThemeResponse) GetLogoOk() (*string, bool) {
-	if o == nil || o.Logo == nil {
+	if o == nil || IsNil(o.Logo) {
 		return nil, false
 	}
 	return o.Logo, true
@@ -334,7 +337,7 @@ func (o *ThemeResponse) GetLogoOk() (*string, bool) {
 
 // HasLogo returns a boolean if a field has been set.
 func (o *ThemeResponse) HasLogo() bool {
-	if o != nil && o.Logo != nil {
+	if o != nil && !IsNil(o.Logo) {
 		return true
 	}
 
@@ -348,7 +351,7 @@ func (o *ThemeResponse) SetLogo(v string) {
 
 // GetPrimaryColorContrastHex returns the PrimaryColorContrastHex field value if set, zero value otherwise.
 func (o *ThemeResponse) GetPrimaryColorContrastHex() string {
-	if o == nil || o.PrimaryColorContrastHex == nil {
+	if o == nil || IsNil(o.PrimaryColorContrastHex) {
 		var ret string
 		return ret
 	}
@@ -358,7 +361,7 @@ func (o *ThemeResponse) GetPrimaryColorContrastHex() string {
 // GetPrimaryColorContrastHexOk returns a tuple with the PrimaryColorContrastHex field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ThemeResponse) GetPrimaryColorContrastHexOk() (*string, bool) {
-	if o == nil || o.PrimaryColorContrastHex == nil {
+	if o == nil || IsNil(o.PrimaryColorContrastHex) {
 		return nil, false
 	}
 	return o.PrimaryColorContrastHex, true
@@ -366,7 +369,7 @@ func (o *ThemeResponse) GetPrimaryColorContrastHexOk() (*string, bool) {
 
 // HasPrimaryColorContrastHex returns a boolean if a field has been set.
 func (o *ThemeResponse) HasPrimaryColorContrastHex() bool {
-	if o != nil && o.PrimaryColorContrastHex != nil {
+	if o != nil && !IsNil(o.PrimaryColorContrastHex) {
 		return true
 	}
 
@@ -380,7 +383,7 @@ func (o *ThemeResponse) SetPrimaryColorContrastHex(v string) {
 
 // GetPrimaryColorHex returns the PrimaryColorHex field value if set, zero value otherwise.
 func (o *ThemeResponse) GetPrimaryColorHex() string {
-	if o == nil || o.PrimaryColorHex == nil {
+	if o == nil || IsNil(o.PrimaryColorHex) {
 		var ret string
 		return ret
 	}
@@ -390,7 +393,7 @@ func (o *ThemeResponse) GetPrimaryColorHex() string {
 // GetPrimaryColorHexOk returns a tuple with the PrimaryColorHex field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ThemeResponse) GetPrimaryColorHexOk() (*string, bool) {
-	if o == nil || o.PrimaryColorHex == nil {
+	if o == nil || IsNil(o.PrimaryColorHex) {
 		return nil, false
 	}
 	return o.PrimaryColorHex, true
@@ -398,7 +401,7 @@ func (o *ThemeResponse) GetPrimaryColorHexOk() (*string, bool) {
 
 // HasPrimaryColorHex returns a boolean if a field has been set.
 func (o *ThemeResponse) HasPrimaryColorHex() bool {
-	if o != nil && o.PrimaryColorHex != nil {
+	if o != nil && !IsNil(o.PrimaryColorHex) {
 		return true
 	}
 
@@ -412,7 +415,7 @@ func (o *ThemeResponse) SetPrimaryColorHex(v string) {
 
 // GetSecondaryColorContrastHex returns the SecondaryColorContrastHex field value if set, zero value otherwise.
 func (o *ThemeResponse) GetSecondaryColorContrastHex() string {
-	if o == nil || o.SecondaryColorContrastHex == nil {
+	if o == nil || IsNil(o.SecondaryColorContrastHex) {
 		var ret string
 		return ret
 	}
@@ -422,7 +425,7 @@ func (o *ThemeResponse) GetSecondaryColorContrastHex() string {
 // GetSecondaryColorContrastHexOk returns a tuple with the SecondaryColorContrastHex field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ThemeResponse) GetSecondaryColorContrastHexOk() (*string, bool) {
-	if o == nil || o.SecondaryColorContrastHex == nil {
+	if o == nil || IsNil(o.SecondaryColorContrastHex) {
 		return nil, false
 	}
 	return o.SecondaryColorContrastHex, true
@@ -430,7 +433,7 @@ func (o *ThemeResponse) GetSecondaryColorContrastHexOk() (*string, bool) {
 
 // HasSecondaryColorContrastHex returns a boolean if a field has been set.
 func (o *ThemeResponse) HasSecondaryColorContrastHex() bool {
-	if o != nil && o.SecondaryColorContrastHex != nil {
+	if o != nil && !IsNil(o.SecondaryColorContrastHex) {
 		return true
 	}
 
@@ -444,7 +447,7 @@ func (o *ThemeResponse) SetSecondaryColorContrastHex(v string) {
 
 // GetSecondaryColorHex returns the SecondaryColorHex field value if set, zero value otherwise.
 func (o *ThemeResponse) GetSecondaryColorHex() string {
-	if o == nil || o.SecondaryColorHex == nil {
+	if o == nil || IsNil(o.SecondaryColorHex) {
 		var ret string
 		return ret
 	}
@@ -454,7 +457,7 @@ func (o *ThemeResponse) GetSecondaryColorHex() string {
 // GetSecondaryColorHexOk returns a tuple with the SecondaryColorHex field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ThemeResponse) GetSecondaryColorHexOk() (*string, bool) {
-	if o == nil || o.SecondaryColorHex == nil {
+	if o == nil || IsNil(o.SecondaryColorHex) {
 		return nil, false
 	}
 	return o.SecondaryColorHex, true
@@ -462,7 +465,7 @@ func (o *ThemeResponse) GetSecondaryColorHexOk() (*string, bool) {
 
 // HasSecondaryColorHex returns a boolean if a field has been set.
 func (o *ThemeResponse) HasSecondaryColorHex() bool {
-	if o != nil && o.SecondaryColorHex != nil {
+	if o != nil && !IsNil(o.SecondaryColorHex) {
 		return true
 	}
 
@@ -476,7 +479,7 @@ func (o *ThemeResponse) SetSecondaryColorHex(v string) {
 
 // GetSignInPageTouchPointVariant returns the SignInPageTouchPointVariant field value if set, zero value otherwise.
 func (o *ThemeResponse) GetSignInPageTouchPointVariant() string {
-	if o == nil || o.SignInPageTouchPointVariant == nil {
+	if o == nil || IsNil(o.SignInPageTouchPointVariant) {
 		var ret string
 		return ret
 	}
@@ -486,7 +489,7 @@ func (o *ThemeResponse) GetSignInPageTouchPointVariant() string {
 // GetSignInPageTouchPointVariantOk returns a tuple with the SignInPageTouchPointVariant field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ThemeResponse) GetSignInPageTouchPointVariantOk() (*string, bool) {
-	if o == nil || o.SignInPageTouchPointVariant == nil {
+	if o == nil || IsNil(o.SignInPageTouchPointVariant) {
 		return nil, false
 	}
 	return o.SignInPageTouchPointVariant, true
@@ -494,7 +497,7 @@ func (o *ThemeResponse) GetSignInPageTouchPointVariantOk() (*string, bool) {
 
 // HasSignInPageTouchPointVariant returns a boolean if a field has been set.
 func (o *ThemeResponse) HasSignInPageTouchPointVariant() bool {
-	if o != nil && o.SignInPageTouchPointVariant != nil {
+	if o != nil && !IsNil(o.SignInPageTouchPointVariant) {
 		return true
 	}
 
@@ -508,7 +511,7 @@ func (o *ThemeResponse) SetSignInPageTouchPointVariant(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *ThemeResponse) GetLinks() LinksSelf {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksSelf
 		return ret
 	}
@@ -518,7 +521,7 @@ func (o *ThemeResponse) GetLinks() LinksSelf {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ThemeResponse) GetLinksOk() (*LinksSelf, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -526,7 +529,7 @@ func (o *ThemeResponse) GetLinksOk() (*LinksSelf, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *ThemeResponse) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -539,47 +542,55 @@ func (o *ThemeResponse) SetLinks(v LinksSelf) {
 }
 
 func (o ThemeResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ThemeResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.BackgroundImage != nil {
+	if !IsNil(o.BackgroundImage) {
 		toSerialize["backgroundImage"] = o.BackgroundImage
 	}
-	if o.EmailTemplateTouchPointVariant != nil {
+	if !IsNil(o.EmailTemplateTouchPointVariant) {
 		toSerialize["emailTemplateTouchPointVariant"] = o.EmailTemplateTouchPointVariant
 	}
-	if o.EndUserDashboardTouchPointVariant != nil {
+	if !IsNil(o.EndUserDashboardTouchPointVariant) {
 		toSerialize["endUserDashboardTouchPointVariant"] = o.EndUserDashboardTouchPointVariant
 	}
-	if o.ErrorPageTouchPointVariant != nil {
+	if !IsNil(o.ErrorPageTouchPointVariant) {
 		toSerialize["errorPageTouchPointVariant"] = o.ErrorPageTouchPointVariant
 	}
-	if o.Favicon != nil {
+	if !IsNil(o.Favicon) {
 		toSerialize["favicon"] = o.Favicon
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LoadingPageTouchPointVariant != nil {
+	if !IsNil(o.LoadingPageTouchPointVariant) {
 		toSerialize["loadingPageTouchPointVariant"] = o.LoadingPageTouchPointVariant
 	}
-	if o.Logo != nil {
+	if !IsNil(o.Logo) {
 		toSerialize["logo"] = o.Logo
 	}
-	if o.PrimaryColorContrastHex != nil {
+	if !IsNil(o.PrimaryColorContrastHex) {
 		toSerialize["primaryColorContrastHex"] = o.PrimaryColorContrastHex
 	}
-	if o.PrimaryColorHex != nil {
+	if !IsNil(o.PrimaryColorHex) {
 		toSerialize["primaryColorHex"] = o.PrimaryColorHex
 	}
-	if o.SecondaryColorContrastHex != nil {
+	if !IsNil(o.SecondaryColorContrastHex) {
 		toSerialize["secondaryColorContrastHex"] = o.SecondaryColorContrastHex
 	}
-	if o.SecondaryColorHex != nil {
+	if !IsNil(o.SecondaryColorHex) {
 		toSerialize["secondaryColorHex"] = o.SecondaryColorHex
 	}
-	if o.SignInPageTouchPointVariant != nil {
+	if !IsNil(o.SignInPageTouchPointVariant) {
 		toSerialize["signInPageTouchPointVariant"] = o.SignInPageTouchPointVariant
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -587,23 +598,23 @@ func (o ThemeResponse) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ThemeResponse) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ThemeResponse) UnmarshalJSON(data []byte) (err error) {
 	varThemeResponse := _ThemeResponse{}
 
-	err = json.Unmarshal(bytes, &varThemeResponse)
-	if err == nil {
-		*o = ThemeResponse(varThemeResponse)
-	} else {
+	err = json.Unmarshal(data, &varThemeResponse)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ThemeResponse(varThemeResponse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "backgroundImage")
 		delete(additionalProperties, "emailTemplateTouchPointVariant")
 		delete(additionalProperties, "endUserDashboardTouchPointVariant")
@@ -619,8 +630,6 @@ func (o *ThemeResponse) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "signInPageTouchPointVariant")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -661,4 +670,3 @@ func (v *NullableThemeResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

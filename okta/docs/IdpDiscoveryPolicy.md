@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Conditions** | Pointer to **map[string]interface{}** |  | [optional] 
+**Conditions** | Pointer to **NullableString** | Policy conditions aren&#39;t supported for this policy type. | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetConditions
 
-`func (o *IdpDiscoveryPolicy) GetConditions() map[string]interface{}`
+`func (o *IdpDiscoveryPolicy) GetConditions() string`
 
 GetConditions returns the Conditions field if non-nil, zero value otherwise.
 
 ### GetConditionsOk
 
-`func (o *IdpDiscoveryPolicy) GetConditionsOk() (*map[string]interface{}, bool)`
+`func (o *IdpDiscoveryPolicy) GetConditionsOk() (*string, bool)`
 
 GetConditionsOk returns a tuple with the Conditions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConditions
 
-`func (o *IdpDiscoveryPolicy) SetConditions(v map[string]interface{})`
+`func (o *IdpDiscoveryPolicy) SetConditions(v string)`
 
 SetConditions sets Conditions field to given value.
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AuthType** | Pointer to **string** |  | [optional] 
+**AuthType** | Pointer to **string** | Specifies how the user is authenticated | [optional] 
 
 ## Methods
 

@@ -6,14 +6,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AppAuthenticatorEnrollEndpoint** | Pointer to **string** | The authenticator enrollment endpoint | [optional] 
 **AuthenticatorId** | Pointer to **string** | The unique identifier of the app authenticator | [optional] 
-**CreatedDate** | Pointer to **time.Time** | Timestamp when the Authenticator was created | [optional] 
-**Key** | Pointer to **string** | A human-readable string that identifies the Authenticator | [optional] 
-**LastUpdated** | Pointer to **time.Time** | Timestamp when the Authenticator was last modified | [optional] 
+**CreatedDate** | Pointer to **time.Time** | Timestamp when the authenticator was created | [optional] 
+**Key** | Pointer to **string** | A human-readable string that identifies the authenticator | [optional] 
+**LastUpdated** | Pointer to **time.Time** | Timestamp when the authenticator was last modified | [optional] 
 **Name** | Pointer to **string** | The authenticator display name | [optional] 
 **OrgId** | Pointer to **string** | The &#x60;id&#x60; of the Okta Org | [optional] 
 **Settings** | Pointer to [**WellKnownAppAuthenticatorConfigurationSettings**](WellKnownAppAuthenticatorConfigurationSettings.md) |  | [optional] 
 **SupportedMethods** | Pointer to [**[]SupportedMethods**](SupportedMethods.md) |  | [optional] 
-**Type** | Pointer to **string** | The type of Authenticator | [optional] 
+**Type** | Pointer to **string** | The type of authenticator | [optional] 
 
 ## Methods
 

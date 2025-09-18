@@ -4,8 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Description** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
+**Description** | Pointer to **string** | Description of the Windows group | [optional] 
+**Name** | Pointer to **string** | Name of the Windows group | [optional] 
+**Dn** | Pointer to **string** | The distinguished name of the Windows group | [optional] 
+**ExternalId** | Pointer to **string** | Base-64 encoded GUID (&#x60;objectGUID&#x60;) of the Windows group | [optional] 
+**SamAccountName** | Pointer to **string** | Pre-Windows 2000 name of the Windows group | [optional] 
+**WindowsDomainQualifiedName** | Pointer to **string** | Fully qualified name of the Windows group | [optional] 
 
 ## Methods
 
@@ -75,6 +79,106 @@ SetName sets Name field to given value.
 `func (o *GroupProfile) HasName() bool`
 
 HasName returns a boolean if a field has been set.
+
+### GetDn
+
+`func (o *GroupProfile) GetDn() string`
+
+GetDn returns the Dn field if non-nil, zero value otherwise.
+
+### GetDnOk
+
+`func (o *GroupProfile) GetDnOk() (*string, bool)`
+
+GetDnOk returns a tuple with the Dn field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDn
+
+`func (o *GroupProfile) SetDn(v string)`
+
+SetDn sets Dn field to given value.
+
+### HasDn
+
+`func (o *GroupProfile) HasDn() bool`
+
+HasDn returns a boolean if a field has been set.
+
+### GetExternalId
+
+`func (o *GroupProfile) GetExternalId() string`
+
+GetExternalId returns the ExternalId field if non-nil, zero value otherwise.
+
+### GetExternalIdOk
+
+`func (o *GroupProfile) GetExternalIdOk() (*string, bool)`
+
+GetExternalIdOk returns a tuple with the ExternalId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExternalId
+
+`func (o *GroupProfile) SetExternalId(v string)`
+
+SetExternalId sets ExternalId field to given value.
+
+### HasExternalId
+
+`func (o *GroupProfile) HasExternalId() bool`
+
+HasExternalId returns a boolean if a field has been set.
+
+### GetSamAccountName
+
+`func (o *GroupProfile) GetSamAccountName() string`
+
+GetSamAccountName returns the SamAccountName field if non-nil, zero value otherwise.
+
+### GetSamAccountNameOk
+
+`func (o *GroupProfile) GetSamAccountNameOk() (*string, bool)`
+
+GetSamAccountNameOk returns a tuple with the SamAccountName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSamAccountName
+
+`func (o *GroupProfile) SetSamAccountName(v string)`
+
+SetSamAccountName sets SamAccountName field to given value.
+
+### HasSamAccountName
+
+`func (o *GroupProfile) HasSamAccountName() bool`
+
+HasSamAccountName returns a boolean if a field has been set.
+
+### GetWindowsDomainQualifiedName
+
+`func (o *GroupProfile) GetWindowsDomainQualifiedName() string`
+
+GetWindowsDomainQualifiedName returns the WindowsDomainQualifiedName field if non-nil, zero value otherwise.
+
+### GetWindowsDomainQualifiedNameOk
+
+`func (o *GroupProfile) GetWindowsDomainQualifiedNameOk() (*string, bool)`
+
+GetWindowsDomainQualifiedNameOk returns a tuple with the WindowsDomainQualifiedName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWindowsDomainQualifiedName
+
+`func (o *GroupProfile) SetWindowsDomainQualifiedName(v string)`
+
+SetWindowsDomainQualifiedName sets WindowsDomainQualifiedName field to given value.
+
+### HasWindowsDomainQualifiedName
+
+`func (o *GroupProfile) HasWindowsDomainQualifiedName() bool`
+
+HasWindowsDomainQualifiedName returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the TelephonyRequestData type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TelephonyRequestData{}
+
 // TelephonyRequestData struct for TelephonyRequestData
 type TelephonyRequestData struct {
-	Context *TelephonyRequestDataContext `json:"context,omitempty"`
-	MessageProfile *TelephonyRequestDataMessageProfile `json:"messageProfile,omitempty"`
-	UserProfile *TelephonyRequestDataUserProfile `json:"userProfile,omitempty"`
+	Context              *RegistrationInlineHookSSRDataAllOfDataContext `json:"context,omitempty"`
+	MessageProfile       *TelephonyRequestDataMessageProfile            `json:"messageProfile,omitempty"`
+	UserProfile          *TelephonyRequestDataUserProfile               `json:"userProfile,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,9 +58,9 @@ func NewTelephonyRequestDataWithDefaults() *TelephonyRequestData {
 }
 
 // GetContext returns the Context field value if set, zero value otherwise.
-func (o *TelephonyRequestData) GetContext() TelephonyRequestDataContext {
-	if o == nil || o.Context == nil {
-		var ret TelephonyRequestDataContext
+func (o *TelephonyRequestData) GetContext() RegistrationInlineHookSSRDataAllOfDataContext {
+	if o == nil || IsNil(o.Context) {
+		var ret RegistrationInlineHookSSRDataAllOfDataContext
 		return ret
 	}
 	return *o.Context
@@ -65,8 +68,8 @@ func (o *TelephonyRequestData) GetContext() TelephonyRequestDataContext {
 
 // GetContextOk returns a tuple with the Context field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TelephonyRequestData) GetContextOk() (*TelephonyRequestDataContext, bool) {
-	if o == nil || o.Context == nil {
+func (o *TelephonyRequestData) GetContextOk() (*RegistrationInlineHookSSRDataAllOfDataContext, bool) {
+	if o == nil || IsNil(o.Context) {
 		return nil, false
 	}
 	return o.Context, true
@@ -74,21 +77,21 @@ func (o *TelephonyRequestData) GetContextOk() (*TelephonyRequestDataContext, boo
 
 // HasContext returns a boolean if a field has been set.
 func (o *TelephonyRequestData) HasContext() bool {
-	if o != nil && o.Context != nil {
+	if o != nil && !IsNil(o.Context) {
 		return true
 	}
 
 	return false
 }
 
-// SetContext gets a reference to the given TelephonyRequestDataContext and assigns it to the Context field.
-func (o *TelephonyRequestData) SetContext(v TelephonyRequestDataContext) {
+// SetContext gets a reference to the given RegistrationInlineHookSSRDataAllOfDataContext and assigns it to the Context field.
+func (o *TelephonyRequestData) SetContext(v RegistrationInlineHookSSRDataAllOfDataContext) {
 	o.Context = &v
 }
 
 // GetMessageProfile returns the MessageProfile field value if set, zero value otherwise.
 func (o *TelephonyRequestData) GetMessageProfile() TelephonyRequestDataMessageProfile {
-	if o == nil || o.MessageProfile == nil {
+	if o == nil || IsNil(o.MessageProfile) {
 		var ret TelephonyRequestDataMessageProfile
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *TelephonyRequestData) GetMessageProfile() TelephonyRequestDataMessagePr
 // GetMessageProfileOk returns a tuple with the MessageProfile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TelephonyRequestData) GetMessageProfileOk() (*TelephonyRequestDataMessageProfile, bool) {
-	if o == nil || o.MessageProfile == nil {
+	if o == nil || IsNil(o.MessageProfile) {
 		return nil, false
 	}
 	return o.MessageProfile, true
@@ -106,7 +109,7 @@ func (o *TelephonyRequestData) GetMessageProfileOk() (*TelephonyRequestDataMessa
 
 // HasMessageProfile returns a boolean if a field has been set.
 func (o *TelephonyRequestData) HasMessageProfile() bool {
-	if o != nil && o.MessageProfile != nil {
+	if o != nil && !IsNil(o.MessageProfile) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *TelephonyRequestData) SetMessageProfile(v TelephonyRequestDataMessagePr
 
 // GetUserProfile returns the UserProfile field value if set, zero value otherwise.
 func (o *TelephonyRequestData) GetUserProfile() TelephonyRequestDataUserProfile {
-	if o == nil || o.UserProfile == nil {
+	if o == nil || IsNil(o.UserProfile) {
 		var ret TelephonyRequestDataUserProfile
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *TelephonyRequestData) GetUserProfile() TelephonyRequestDataUserProfile 
 // GetUserProfileOk returns a tuple with the UserProfile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TelephonyRequestData) GetUserProfileOk() (*TelephonyRequestDataUserProfile, bool) {
-	if o == nil || o.UserProfile == nil {
+	if o == nil || IsNil(o.UserProfile) {
 		return nil, false
 	}
 	return o.UserProfile, true
@@ -138,7 +141,7 @@ func (o *TelephonyRequestData) GetUserProfileOk() (*TelephonyRequestDataUserProf
 
 // HasUserProfile returns a boolean if a field has been set.
 func (o *TelephonyRequestData) HasUserProfile() bool {
-	if o != nil && o.UserProfile != nil {
+	if o != nil && !IsNil(o.UserProfile) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *TelephonyRequestData) SetUserProfile(v TelephonyRequestDataUserProfile)
 }
 
 func (o TelephonyRequestData) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TelephonyRequestData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Context != nil {
+	if !IsNil(o.Context) {
 		toSerialize["context"] = o.Context
 	}
-	if o.MessageProfile != nil {
+	if !IsNil(o.MessageProfile) {
 		toSerialize["messageProfile"] = o.MessageProfile
 	}
-	if o.UserProfile != nil {
+	if !IsNil(o.UserProfile) {
 		toSerialize["userProfile"] = o.UserProfile
 	}
 
@@ -166,29 +177,27 @@ func (o TelephonyRequestData) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *TelephonyRequestData) UnmarshalJSON(bytes []byte) (err error) {
+func (o *TelephonyRequestData) UnmarshalJSON(data []byte) (err error) {
 	varTelephonyRequestData := _TelephonyRequestData{}
 
-	err = json.Unmarshal(bytes, &varTelephonyRequestData)
-	if err == nil {
-		*o = TelephonyRequestData(varTelephonyRequestData)
-	} else {
+	err = json.Unmarshal(data, &varTelephonyRequestData)
+
+	if err != nil {
 		return err
 	}
 
+	*o = TelephonyRequestData(varTelephonyRequestData)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "context")
 		delete(additionalProperties, "messageProfile")
 		delete(additionalProperties, "userProfile")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullableTelephonyRequestData) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

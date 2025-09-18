@@ -5,12 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AppName** | Pointer to **string** | The application name | [optional] [readonly] 
-**ContainerId** | **string** | The application ID associated with the privileged account | 
+**ContainerId** | **string** | The app ID associated with the privileged resource | 
 **DisplayName** | Pointer to **string** | Human-readable name of the container that owns the privileged resource | [optional] [readonly] 
 **GlobalAppId** | Pointer to **string** | The application global ID | [optional] [readonly] 
 **PasswordPushSupported** | Pointer to **bool** | Indicates if the application supports password push | [optional] [readonly] 
 **ProvisioningEnabled** | Pointer to **bool** | Indicates if provisioning is enabled for this application | [optional] [readonly] 
-**Links** | Pointer to [**AppLink**](AppLink.md) |  | [optional] 
+**Status** | Pointer to **string** | Current status of the application instance | [optional] [readonly] 
+**Links** | Pointer to [**AppAccountContainerLink**](AppAccountContainerLink.md) |  | [optional] 
 
 ## Methods
 
@@ -176,22 +177,47 @@ SetProvisioningEnabled sets ProvisioningEnabled field to given value.
 
 HasProvisioningEnabled returns a boolean if a field has been set.
 
+### GetStatus
+
+`func (o *AppAccountContainerDetails) GetStatus() string`
+
+GetStatus returns the Status field if non-nil, zero value otherwise.
+
+### GetStatusOk
+
+`func (o *AppAccountContainerDetails) GetStatusOk() (*string, bool)`
+
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatus
+
+`func (o *AppAccountContainerDetails) SetStatus(v string)`
+
+SetStatus sets Status field to given value.
+
+### HasStatus
+
+`func (o *AppAccountContainerDetails) HasStatus() bool`
+
+HasStatus returns a boolean if a field has been set.
+
 ### GetLinks
 
-`func (o *AppAccountContainerDetails) GetLinks() AppLink`
+`func (o *AppAccountContainerDetails) GetLinks() AppAccountContainerLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *AppAccountContainerDetails) GetLinksOk() (*AppLink, bool)`
+`func (o *AppAccountContainerDetails) GetLinksOk() (*AppAccountContainerLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *AppAccountContainerDetails) SetLinks(v AppLink)`
+`func (o *AppAccountContainerDetails) SetLinks(v AppAccountContainerLink)`
 
 SetLinks sets Links field to given value.
 

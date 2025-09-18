@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the EnrollmentActivationRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EnrollmentActivationRequest{}
+
 // EnrollmentActivationRequest Enrollment Initialization Request
 type EnrollmentActivationRequest struct {
 	// List of credential responses from the fulfillment provider
 	CredResponses []WebAuthnCredResponse `json:"credResponses,omitempty"`
-	// Name of the fulfillment provider for the WebAuthn Preregistration Factor
+	// Name of the fulfillment provider for the WebAuthn preregistration factor
 	FulfillmentProvider *string `json:"fulfillmentProvider,omitempty"`
-	// Encrypted JWE of PIN response from the fulfillment provider
+	// Encrypted JWE of the PIN response from the fulfillment provider
 	PinResponseJwe *string `json:"pinResponseJwe,omitempty"`
 	// Serial number of the YubiKey
 	Serial *string `json:"serial,omitempty"`
@@ -41,8 +44,8 @@ type EnrollmentActivationRequest struct {
 	UserId *string `json:"userId,omitempty"`
 	// Firmware version of the YubiKey
 	Version *string `json:"version,omitempty"`
-	// List of usable signing keys from Yubico (in JWKS format) used to verify the JWS inside the JWE
-	YubicoSigningJwks []ECKeyJWK `json:"yubicoSigningJwks,omitempty"`
+	// List of usable signing keys from Yubico (in JSON Web Key Sets (JWKS) format). The signing keys are used to verify the JSON Web Signature (JWS) inside the JWE.
+	YubicoSigningJwks    []ECKeyJWK `json:"yubicoSigningJwks,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -67,7 +70,7 @@ func NewEnrollmentActivationRequestWithDefaults() *EnrollmentActivationRequest {
 
 // GetCredResponses returns the CredResponses field value if set, zero value otherwise.
 func (o *EnrollmentActivationRequest) GetCredResponses() []WebAuthnCredResponse {
-	if o == nil || o.CredResponses == nil {
+	if o == nil || IsNil(o.CredResponses) {
 		var ret []WebAuthnCredResponse
 		return ret
 	}
@@ -77,7 +80,7 @@ func (o *EnrollmentActivationRequest) GetCredResponses() []WebAuthnCredResponse 
 // GetCredResponsesOk returns a tuple with the CredResponses field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnrollmentActivationRequest) GetCredResponsesOk() ([]WebAuthnCredResponse, bool) {
-	if o == nil || o.CredResponses == nil {
+	if o == nil || IsNil(o.CredResponses) {
 		return nil, false
 	}
 	return o.CredResponses, true
@@ -85,7 +88,7 @@ func (o *EnrollmentActivationRequest) GetCredResponsesOk() ([]WebAuthnCredRespon
 
 // HasCredResponses returns a boolean if a field has been set.
 func (o *EnrollmentActivationRequest) HasCredResponses() bool {
-	if o != nil && o.CredResponses != nil {
+	if o != nil && !IsNil(o.CredResponses) {
 		return true
 	}
 
@@ -99,7 +102,7 @@ func (o *EnrollmentActivationRequest) SetCredResponses(v []WebAuthnCredResponse)
 
 // GetFulfillmentProvider returns the FulfillmentProvider field value if set, zero value otherwise.
 func (o *EnrollmentActivationRequest) GetFulfillmentProvider() string {
-	if o == nil || o.FulfillmentProvider == nil {
+	if o == nil || IsNil(o.FulfillmentProvider) {
 		var ret string
 		return ret
 	}
@@ -109,7 +112,7 @@ func (o *EnrollmentActivationRequest) GetFulfillmentProvider() string {
 // GetFulfillmentProviderOk returns a tuple with the FulfillmentProvider field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnrollmentActivationRequest) GetFulfillmentProviderOk() (*string, bool) {
-	if o == nil || o.FulfillmentProvider == nil {
+	if o == nil || IsNil(o.FulfillmentProvider) {
 		return nil, false
 	}
 	return o.FulfillmentProvider, true
@@ -117,7 +120,7 @@ func (o *EnrollmentActivationRequest) GetFulfillmentProviderOk() (*string, bool)
 
 // HasFulfillmentProvider returns a boolean if a field has been set.
 func (o *EnrollmentActivationRequest) HasFulfillmentProvider() bool {
-	if o != nil && o.FulfillmentProvider != nil {
+	if o != nil && !IsNil(o.FulfillmentProvider) {
 		return true
 	}
 
@@ -131,7 +134,7 @@ func (o *EnrollmentActivationRequest) SetFulfillmentProvider(v string) {
 
 // GetPinResponseJwe returns the PinResponseJwe field value if set, zero value otherwise.
 func (o *EnrollmentActivationRequest) GetPinResponseJwe() string {
-	if o == nil || o.PinResponseJwe == nil {
+	if o == nil || IsNil(o.PinResponseJwe) {
 		var ret string
 		return ret
 	}
@@ -141,7 +144,7 @@ func (o *EnrollmentActivationRequest) GetPinResponseJwe() string {
 // GetPinResponseJweOk returns a tuple with the PinResponseJwe field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnrollmentActivationRequest) GetPinResponseJweOk() (*string, bool) {
-	if o == nil || o.PinResponseJwe == nil {
+	if o == nil || IsNil(o.PinResponseJwe) {
 		return nil, false
 	}
 	return o.PinResponseJwe, true
@@ -149,7 +152,7 @@ func (o *EnrollmentActivationRequest) GetPinResponseJweOk() (*string, bool) {
 
 // HasPinResponseJwe returns a boolean if a field has been set.
 func (o *EnrollmentActivationRequest) HasPinResponseJwe() bool {
-	if o != nil && o.PinResponseJwe != nil {
+	if o != nil && !IsNil(o.PinResponseJwe) {
 		return true
 	}
 
@@ -163,7 +166,7 @@ func (o *EnrollmentActivationRequest) SetPinResponseJwe(v string) {
 
 // GetSerial returns the Serial field value if set, zero value otherwise.
 func (o *EnrollmentActivationRequest) GetSerial() string {
-	if o == nil || o.Serial == nil {
+	if o == nil || IsNil(o.Serial) {
 		var ret string
 		return ret
 	}
@@ -173,7 +176,7 @@ func (o *EnrollmentActivationRequest) GetSerial() string {
 // GetSerialOk returns a tuple with the Serial field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnrollmentActivationRequest) GetSerialOk() (*string, bool) {
-	if o == nil || o.Serial == nil {
+	if o == nil || IsNil(o.Serial) {
 		return nil, false
 	}
 	return o.Serial, true
@@ -181,7 +184,7 @@ func (o *EnrollmentActivationRequest) GetSerialOk() (*string, bool) {
 
 // HasSerial returns a boolean if a field has been set.
 func (o *EnrollmentActivationRequest) HasSerial() bool {
-	if o != nil && o.Serial != nil {
+	if o != nil && !IsNil(o.Serial) {
 		return true
 	}
 
@@ -195,7 +198,7 @@ func (o *EnrollmentActivationRequest) SetSerial(v string) {
 
 // GetUserId returns the UserId field value if set, zero value otherwise.
 func (o *EnrollmentActivationRequest) GetUserId() string {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		var ret string
 		return ret
 	}
@@ -205,7 +208,7 @@ func (o *EnrollmentActivationRequest) GetUserId() string {
 // GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnrollmentActivationRequest) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		return nil, false
 	}
 	return o.UserId, true
@@ -213,7 +216,7 @@ func (o *EnrollmentActivationRequest) GetUserIdOk() (*string, bool) {
 
 // HasUserId returns a boolean if a field has been set.
 func (o *EnrollmentActivationRequest) HasUserId() bool {
-	if o != nil && o.UserId != nil {
+	if o != nil && !IsNil(o.UserId) {
 		return true
 	}
 
@@ -227,7 +230,7 @@ func (o *EnrollmentActivationRequest) SetUserId(v string) {
 
 // GetVersion returns the Version field value if set, zero value otherwise.
 func (o *EnrollmentActivationRequest) GetVersion() string {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		var ret string
 		return ret
 	}
@@ -237,7 +240,7 @@ func (o *EnrollmentActivationRequest) GetVersion() string {
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnrollmentActivationRequest) GetVersionOk() (*string, bool) {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
 	return o.Version, true
@@ -245,7 +248,7 @@ func (o *EnrollmentActivationRequest) GetVersionOk() (*string, bool) {
 
 // HasVersion returns a boolean if a field has been set.
 func (o *EnrollmentActivationRequest) HasVersion() bool {
-	if o != nil && o.Version != nil {
+	if o != nil && !IsNil(o.Version) {
 		return true
 	}
 
@@ -259,7 +262,7 @@ func (o *EnrollmentActivationRequest) SetVersion(v string) {
 
 // GetYubicoSigningJwks returns the YubicoSigningJwks field value if set, zero value otherwise.
 func (o *EnrollmentActivationRequest) GetYubicoSigningJwks() []ECKeyJWK {
-	if o == nil || o.YubicoSigningJwks == nil {
+	if o == nil || IsNil(o.YubicoSigningJwks) {
 		var ret []ECKeyJWK
 		return ret
 	}
@@ -269,7 +272,7 @@ func (o *EnrollmentActivationRequest) GetYubicoSigningJwks() []ECKeyJWK {
 // GetYubicoSigningJwksOk returns a tuple with the YubicoSigningJwks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnrollmentActivationRequest) GetYubicoSigningJwksOk() ([]ECKeyJWK, bool) {
-	if o == nil || o.YubicoSigningJwks == nil {
+	if o == nil || IsNil(o.YubicoSigningJwks) {
 		return nil, false
 	}
 	return o.YubicoSigningJwks, true
@@ -277,7 +280,7 @@ func (o *EnrollmentActivationRequest) GetYubicoSigningJwksOk() ([]ECKeyJWK, bool
 
 // HasYubicoSigningJwks returns a boolean if a field has been set.
 func (o *EnrollmentActivationRequest) HasYubicoSigningJwks() bool {
-	if o != nil && o.YubicoSigningJwks != nil {
+	if o != nil && !IsNil(o.YubicoSigningJwks) {
 		return true
 	}
 
@@ -290,26 +293,34 @@ func (o *EnrollmentActivationRequest) SetYubicoSigningJwks(v []ECKeyJWK) {
 }
 
 func (o EnrollmentActivationRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EnrollmentActivationRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.CredResponses != nil {
+	if !IsNil(o.CredResponses) {
 		toSerialize["credResponses"] = o.CredResponses
 	}
-	if o.FulfillmentProvider != nil {
+	if !IsNil(o.FulfillmentProvider) {
 		toSerialize["fulfillmentProvider"] = o.FulfillmentProvider
 	}
-	if o.PinResponseJwe != nil {
+	if !IsNil(o.PinResponseJwe) {
 		toSerialize["pinResponseJwe"] = o.PinResponseJwe
 	}
-	if o.Serial != nil {
+	if !IsNil(o.Serial) {
 		toSerialize["serial"] = o.Serial
 	}
-	if o.UserId != nil {
+	if !IsNil(o.UserId) {
 		toSerialize["userId"] = o.UserId
 	}
-	if o.Version != nil {
+	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
-	if o.YubicoSigningJwks != nil {
+	if !IsNil(o.YubicoSigningJwks) {
 		toSerialize["yubicoSigningJwks"] = o.YubicoSigningJwks
 	}
 
@@ -317,23 +328,23 @@ func (o EnrollmentActivationRequest) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EnrollmentActivationRequest) UnmarshalJSON(bytes []byte) (err error) {
+func (o *EnrollmentActivationRequest) UnmarshalJSON(data []byte) (err error) {
 	varEnrollmentActivationRequest := _EnrollmentActivationRequest{}
 
-	err = json.Unmarshal(bytes, &varEnrollmentActivationRequest)
-	if err == nil {
-		*o = EnrollmentActivationRequest(varEnrollmentActivationRequest)
-	} else {
+	err = json.Unmarshal(data, &varEnrollmentActivationRequest)
+
+	if err != nil {
 		return err
 	}
 
+	*o = EnrollmentActivationRequest(varEnrollmentActivationRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "credResponses")
 		delete(additionalProperties, "fulfillmentProvider")
 		delete(additionalProperties, "pinResponseJwe")
@@ -342,8 +353,6 @@ func (o *EnrollmentActivationRequest) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "version")
 		delete(additionalProperties, "yubicoSigningJwks")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -384,4 +393,3 @@ func (v *NullableEnrollmentActivationRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

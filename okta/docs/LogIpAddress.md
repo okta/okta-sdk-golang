@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **GeographicalContext** | Pointer to [**LogGeographicalContext**](LogGeographicalContext.md) |  | [optional] 
-**Ip** | Pointer to **string** |  | [optional] [readonly] 
-**Source** | Pointer to **string** |  | [optional] [readonly] 
-**Version** | Pointer to **string** |  | [optional] [readonly] 
+**Ip** | Pointer to **string** | IP address | [optional] [readonly] 
+**Source** | Pointer to **string** | Details regarding the source | [optional] [readonly] 
+**Version** | Pointer to **string** | IP address version | [optional] [readonly] 
 
 ## Methods
 

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -29,11 +29,14 @@ import (
 	"strings"
 )
 
+// checks if the OktaSignOnPolicyRule type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OktaSignOnPolicyRule{}
+
 // OktaSignOnPolicyRule struct for OktaSignOnPolicyRule
 type OktaSignOnPolicyRule struct {
 	PolicyRule
-	Actions *OktaSignOnPolicyRuleActions `json:"actions,omitempty"`
-	Conditions *OktaSignOnPolicyRuleConditions `json:"conditions,omitempty"`
+	Actions              *OktaSignOnPolicyRuleActions    `json:"actions,omitempty"`
+	Conditions           *OktaSignOnPolicyRuleConditions `json:"conditions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +63,7 @@ func NewOktaSignOnPolicyRuleWithDefaults() *OktaSignOnPolicyRule {
 
 // GetActions returns the Actions field value if set, zero value otherwise.
 func (o *OktaSignOnPolicyRule) GetActions() OktaSignOnPolicyRuleActions {
-	if o == nil || o.Actions == nil {
+	if o == nil || IsNil(o.Actions) {
 		var ret OktaSignOnPolicyRuleActions
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *OktaSignOnPolicyRule) GetActions() OktaSignOnPolicyRuleActions {
 // GetActionsOk returns a tuple with the Actions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaSignOnPolicyRule) GetActionsOk() (*OktaSignOnPolicyRuleActions, bool) {
-	if o == nil || o.Actions == nil {
+	if o == nil || IsNil(o.Actions) {
 		return nil, false
 	}
 	return o.Actions, true
@@ -78,7 +81,7 @@ func (o *OktaSignOnPolicyRule) GetActionsOk() (*OktaSignOnPolicyRuleActions, boo
 
 // HasActions returns a boolean if a field has been set.
 func (o *OktaSignOnPolicyRule) HasActions() bool {
-	if o != nil && o.Actions != nil {
+	if o != nil && !IsNil(o.Actions) {
 		return true
 	}
 
@@ -92,7 +95,7 @@ func (o *OktaSignOnPolicyRule) SetActions(v OktaSignOnPolicyRuleActions) {
 
 // GetConditions returns the Conditions field value if set, zero value otherwise.
 func (o *OktaSignOnPolicyRule) GetConditions() OktaSignOnPolicyRuleConditions {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		var ret OktaSignOnPolicyRuleConditions
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *OktaSignOnPolicyRule) GetConditions() OktaSignOnPolicyRuleConditions {
 // GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaSignOnPolicyRule) GetConditionsOk() (*OktaSignOnPolicyRuleConditions, bool) {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		return nil, false
 	}
 	return o.Conditions, true
@@ -110,7 +113,7 @@ func (o *OktaSignOnPolicyRule) GetConditionsOk() (*OktaSignOnPolicyRuleCondition
 
 // HasConditions returns a boolean if a field has been set.
 func (o *OktaSignOnPolicyRule) HasConditions() bool {
-	if o != nil && o.Conditions != nil {
+	if o != nil && !IsNil(o.Conditions) {
 		return true
 	}
 
@@ -123,19 +126,27 @@ func (o *OktaSignOnPolicyRule) SetConditions(v OktaSignOnPolicyRuleConditions) {
 }
 
 func (o OktaSignOnPolicyRule) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OktaSignOnPolicyRule) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedPolicyRule, errPolicyRule := json.Marshal(o.PolicyRule)
 	if errPolicyRule != nil {
-		return []byte{}, errPolicyRule
+		return map[string]interface{}{}, errPolicyRule
 	}
 	errPolicyRule = json.Unmarshal([]byte(serializedPolicyRule), &toSerialize)
 	if errPolicyRule != nil {
-		return []byte{}, errPolicyRule
+		return map[string]interface{}{}, errPolicyRule
 	}
-	if o.Actions != nil {
+	if !IsNil(o.Actions) {
 		toSerialize["actions"] = o.Actions
 	}
-	if o.Conditions != nil {
+	if !IsNil(o.Conditions) {
 		toSerialize["conditions"] = o.Conditions
 	}
 
@@ -143,18 +154,18 @@ func (o OktaSignOnPolicyRule) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OktaSignOnPolicyRule) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OktaSignOnPolicyRule) UnmarshalJSON(data []byte) (err error) {
 	type OktaSignOnPolicyRuleWithoutEmbeddedStruct struct {
-		Actions *OktaSignOnPolicyRuleActions `json:"actions,omitempty"`
+		Actions    *OktaSignOnPolicyRuleActions    `json:"actions,omitempty"`
 		Conditions *OktaSignOnPolicyRuleConditions `json:"conditions,omitempty"`
 	}
 
 	varOktaSignOnPolicyRuleWithoutEmbeddedStruct := OktaSignOnPolicyRuleWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varOktaSignOnPolicyRuleWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varOktaSignOnPolicyRuleWithoutEmbeddedStruct)
 	if err == nil {
 		varOktaSignOnPolicyRule := _OktaSignOnPolicyRule{}
 		varOktaSignOnPolicyRule.Actions = varOktaSignOnPolicyRuleWithoutEmbeddedStruct.Actions
@@ -166,7 +177,7 @@ func (o *OktaSignOnPolicyRule) UnmarshalJSON(bytes []byte) (err error) {
 
 	varOktaSignOnPolicyRule := _OktaSignOnPolicyRule{}
 
-	err = json.Unmarshal(bytes, &varOktaSignOnPolicyRule)
+	err = json.Unmarshal(data, &varOktaSignOnPolicyRule)
 	if err == nil {
 		o.PolicyRule = varOktaSignOnPolicyRule.PolicyRule
 	} else {
@@ -175,8 +186,7 @@ func (o *OktaSignOnPolicyRule) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "actions")
 		delete(additionalProperties, "conditions")
 
@@ -199,8 +209,6 @@ func (o *OktaSignOnPolicyRule) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -241,4 +249,3 @@ func (v *NullableOktaSignOnPolicyRule) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

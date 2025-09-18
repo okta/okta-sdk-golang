@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Value** | Pointer to **string** |  | [optional] 
-**Links** | Pointer to **map[string]interface{}** |  | [optional] 
+**Links** | Pointer to [**EntitlementValueLinks**](EntitlementValueLinks.md) |  | [optional] 
 
 ## Methods
 
@@ -105,20 +105,20 @@ HasValue returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *EntitlementValue) GetLinks() map[string]interface{}`
+`func (o *EntitlementValue) GetLinks() EntitlementValueLinks`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *EntitlementValue) GetLinksOk() (*map[string]interface{}, bool)`
+`func (o *EntitlementValue) GetLinksOk() (*EntitlementValueLinks, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *EntitlementValue) SetLinks(v map[string]interface{})`
+`func (o *EntitlementValue) SetLinks(v EntitlementValueLinks)`
 
 SetLinks sets Links field to given value.
 

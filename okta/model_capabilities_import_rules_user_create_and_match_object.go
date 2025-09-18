@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -26,6 +26,9 @@ package okta
 import (
 	"encoding/json"
 )
+
+// checks if the CapabilitiesImportRulesUserCreateAndMatchObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CapabilitiesImportRulesUserCreateAndMatchObject{}
 
 // CapabilitiesImportRulesUserCreateAndMatchObject Rules for matching and creating users
 type CapabilitiesImportRulesUserCreateAndMatchObject struct {
@@ -40,7 +43,7 @@ type CapabilitiesImportRulesUserCreateAndMatchObject struct {
 	// If set to `true`, partially matched users are automatically confirmed on activation. If set to `false`, partially matched users need to be confirmed manually.
 	AutoConfirmPartialMatch *bool `json:"autoConfirmPartialMatch,omitempty"`
 	// Determines the attribute to match users
-	ExactMatchCriteria *string `json:"exactMatchCriteria,omitempty"`
+	ExactMatchCriteria   *string `json:"exactMatchCriteria,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -65,7 +68,7 @@ func NewCapabilitiesImportRulesUserCreateAndMatchObjectWithDefaults() *Capabilit
 
 // GetAllowPartialMatch returns the AllowPartialMatch field value if set, zero value otherwise.
 func (o *CapabilitiesImportRulesUserCreateAndMatchObject) GetAllowPartialMatch() bool {
-	if o == nil || o.AllowPartialMatch == nil {
+	if o == nil || IsNil(o.AllowPartialMatch) {
 		var ret bool
 		return ret
 	}
@@ -75,7 +78,7 @@ func (o *CapabilitiesImportRulesUserCreateAndMatchObject) GetAllowPartialMatch()
 // GetAllowPartialMatchOk returns a tuple with the AllowPartialMatch field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CapabilitiesImportRulesUserCreateAndMatchObject) GetAllowPartialMatchOk() (*bool, bool) {
-	if o == nil || o.AllowPartialMatch == nil {
+	if o == nil || IsNil(o.AllowPartialMatch) {
 		return nil, false
 	}
 	return o.AllowPartialMatch, true
@@ -83,7 +86,7 @@ func (o *CapabilitiesImportRulesUserCreateAndMatchObject) GetAllowPartialMatchOk
 
 // HasAllowPartialMatch returns a boolean if a field has been set.
 func (o *CapabilitiesImportRulesUserCreateAndMatchObject) HasAllowPartialMatch() bool {
-	if o != nil && o.AllowPartialMatch != nil {
+	if o != nil && !IsNil(o.AllowPartialMatch) {
 		return true
 	}
 
@@ -97,7 +100,7 @@ func (o *CapabilitiesImportRulesUserCreateAndMatchObject) SetAllowPartialMatch(v
 
 // GetAutoActivateNewUsers returns the AutoActivateNewUsers field value if set, zero value otherwise.
 func (o *CapabilitiesImportRulesUserCreateAndMatchObject) GetAutoActivateNewUsers() bool {
-	if o == nil || o.AutoActivateNewUsers == nil {
+	if o == nil || IsNil(o.AutoActivateNewUsers) {
 		var ret bool
 		return ret
 	}
@@ -107,7 +110,7 @@ func (o *CapabilitiesImportRulesUserCreateAndMatchObject) GetAutoActivateNewUser
 // GetAutoActivateNewUsersOk returns a tuple with the AutoActivateNewUsers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CapabilitiesImportRulesUserCreateAndMatchObject) GetAutoActivateNewUsersOk() (*bool, bool) {
-	if o == nil || o.AutoActivateNewUsers == nil {
+	if o == nil || IsNil(o.AutoActivateNewUsers) {
 		return nil, false
 	}
 	return o.AutoActivateNewUsers, true
@@ -115,7 +118,7 @@ func (o *CapabilitiesImportRulesUserCreateAndMatchObject) GetAutoActivateNewUser
 
 // HasAutoActivateNewUsers returns a boolean if a field has been set.
 func (o *CapabilitiesImportRulesUserCreateAndMatchObject) HasAutoActivateNewUsers() bool {
-	if o != nil && o.AutoActivateNewUsers != nil {
+	if o != nil && !IsNil(o.AutoActivateNewUsers) {
 		return true
 	}
 
@@ -129,7 +132,7 @@ func (o *CapabilitiesImportRulesUserCreateAndMatchObject) SetAutoActivateNewUser
 
 // GetAutoConfirmExactMatch returns the AutoConfirmExactMatch field value if set, zero value otherwise.
 func (o *CapabilitiesImportRulesUserCreateAndMatchObject) GetAutoConfirmExactMatch() bool {
-	if o == nil || o.AutoConfirmExactMatch == nil {
+	if o == nil || IsNil(o.AutoConfirmExactMatch) {
 		var ret bool
 		return ret
 	}
@@ -139,7 +142,7 @@ func (o *CapabilitiesImportRulesUserCreateAndMatchObject) GetAutoConfirmExactMat
 // GetAutoConfirmExactMatchOk returns a tuple with the AutoConfirmExactMatch field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CapabilitiesImportRulesUserCreateAndMatchObject) GetAutoConfirmExactMatchOk() (*bool, bool) {
-	if o == nil || o.AutoConfirmExactMatch == nil {
+	if o == nil || IsNil(o.AutoConfirmExactMatch) {
 		return nil, false
 	}
 	return o.AutoConfirmExactMatch, true
@@ -147,7 +150,7 @@ func (o *CapabilitiesImportRulesUserCreateAndMatchObject) GetAutoConfirmExactMat
 
 // HasAutoConfirmExactMatch returns a boolean if a field has been set.
 func (o *CapabilitiesImportRulesUserCreateAndMatchObject) HasAutoConfirmExactMatch() bool {
-	if o != nil && o.AutoConfirmExactMatch != nil {
+	if o != nil && !IsNil(o.AutoConfirmExactMatch) {
 		return true
 	}
 
@@ -161,7 +164,7 @@ func (o *CapabilitiesImportRulesUserCreateAndMatchObject) SetAutoConfirmExactMat
 
 // GetAutoConfirmNewUsers returns the AutoConfirmNewUsers field value if set, zero value otherwise.
 func (o *CapabilitiesImportRulesUserCreateAndMatchObject) GetAutoConfirmNewUsers() bool {
-	if o == nil || o.AutoConfirmNewUsers == nil {
+	if o == nil || IsNil(o.AutoConfirmNewUsers) {
 		var ret bool
 		return ret
 	}
@@ -171,7 +174,7 @@ func (o *CapabilitiesImportRulesUserCreateAndMatchObject) GetAutoConfirmNewUsers
 // GetAutoConfirmNewUsersOk returns a tuple with the AutoConfirmNewUsers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CapabilitiesImportRulesUserCreateAndMatchObject) GetAutoConfirmNewUsersOk() (*bool, bool) {
-	if o == nil || o.AutoConfirmNewUsers == nil {
+	if o == nil || IsNil(o.AutoConfirmNewUsers) {
 		return nil, false
 	}
 	return o.AutoConfirmNewUsers, true
@@ -179,7 +182,7 @@ func (o *CapabilitiesImportRulesUserCreateAndMatchObject) GetAutoConfirmNewUsers
 
 // HasAutoConfirmNewUsers returns a boolean if a field has been set.
 func (o *CapabilitiesImportRulesUserCreateAndMatchObject) HasAutoConfirmNewUsers() bool {
-	if o != nil && o.AutoConfirmNewUsers != nil {
+	if o != nil && !IsNil(o.AutoConfirmNewUsers) {
 		return true
 	}
 
@@ -193,7 +196,7 @@ func (o *CapabilitiesImportRulesUserCreateAndMatchObject) SetAutoConfirmNewUsers
 
 // GetAutoConfirmPartialMatch returns the AutoConfirmPartialMatch field value if set, zero value otherwise.
 func (o *CapabilitiesImportRulesUserCreateAndMatchObject) GetAutoConfirmPartialMatch() bool {
-	if o == nil || o.AutoConfirmPartialMatch == nil {
+	if o == nil || IsNil(o.AutoConfirmPartialMatch) {
 		var ret bool
 		return ret
 	}
@@ -203,7 +206,7 @@ func (o *CapabilitiesImportRulesUserCreateAndMatchObject) GetAutoConfirmPartialM
 // GetAutoConfirmPartialMatchOk returns a tuple with the AutoConfirmPartialMatch field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CapabilitiesImportRulesUserCreateAndMatchObject) GetAutoConfirmPartialMatchOk() (*bool, bool) {
-	if o == nil || o.AutoConfirmPartialMatch == nil {
+	if o == nil || IsNil(o.AutoConfirmPartialMatch) {
 		return nil, false
 	}
 	return o.AutoConfirmPartialMatch, true
@@ -211,7 +214,7 @@ func (o *CapabilitiesImportRulesUserCreateAndMatchObject) GetAutoConfirmPartialM
 
 // HasAutoConfirmPartialMatch returns a boolean if a field has been set.
 func (o *CapabilitiesImportRulesUserCreateAndMatchObject) HasAutoConfirmPartialMatch() bool {
-	if o != nil && o.AutoConfirmPartialMatch != nil {
+	if o != nil && !IsNil(o.AutoConfirmPartialMatch) {
 		return true
 	}
 
@@ -225,7 +228,7 @@ func (o *CapabilitiesImportRulesUserCreateAndMatchObject) SetAutoConfirmPartialM
 
 // GetExactMatchCriteria returns the ExactMatchCriteria field value if set, zero value otherwise.
 func (o *CapabilitiesImportRulesUserCreateAndMatchObject) GetExactMatchCriteria() string {
-	if o == nil || o.ExactMatchCriteria == nil {
+	if o == nil || IsNil(o.ExactMatchCriteria) {
 		var ret string
 		return ret
 	}
@@ -235,7 +238,7 @@ func (o *CapabilitiesImportRulesUserCreateAndMatchObject) GetExactMatchCriteria(
 // GetExactMatchCriteriaOk returns a tuple with the ExactMatchCriteria field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CapabilitiesImportRulesUserCreateAndMatchObject) GetExactMatchCriteriaOk() (*string, bool) {
-	if o == nil || o.ExactMatchCriteria == nil {
+	if o == nil || IsNil(o.ExactMatchCriteria) {
 		return nil, false
 	}
 	return o.ExactMatchCriteria, true
@@ -243,7 +246,7 @@ func (o *CapabilitiesImportRulesUserCreateAndMatchObject) GetExactMatchCriteriaO
 
 // HasExactMatchCriteria returns a boolean if a field has been set.
 func (o *CapabilitiesImportRulesUserCreateAndMatchObject) HasExactMatchCriteria() bool {
-	if o != nil && o.ExactMatchCriteria != nil {
+	if o != nil && !IsNil(o.ExactMatchCriteria) {
 		return true
 	}
 
@@ -256,23 +259,31 @@ func (o *CapabilitiesImportRulesUserCreateAndMatchObject) SetExactMatchCriteria(
 }
 
 func (o CapabilitiesImportRulesUserCreateAndMatchObject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CapabilitiesImportRulesUserCreateAndMatchObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AllowPartialMatch != nil {
+	if !IsNil(o.AllowPartialMatch) {
 		toSerialize["allowPartialMatch"] = o.AllowPartialMatch
 	}
-	if o.AutoActivateNewUsers != nil {
+	if !IsNil(o.AutoActivateNewUsers) {
 		toSerialize["autoActivateNewUsers"] = o.AutoActivateNewUsers
 	}
-	if o.AutoConfirmExactMatch != nil {
+	if !IsNil(o.AutoConfirmExactMatch) {
 		toSerialize["autoConfirmExactMatch"] = o.AutoConfirmExactMatch
 	}
-	if o.AutoConfirmNewUsers != nil {
+	if !IsNil(o.AutoConfirmNewUsers) {
 		toSerialize["autoConfirmNewUsers"] = o.AutoConfirmNewUsers
 	}
-	if o.AutoConfirmPartialMatch != nil {
+	if !IsNil(o.AutoConfirmPartialMatch) {
 		toSerialize["autoConfirmPartialMatch"] = o.AutoConfirmPartialMatch
 	}
-	if o.ExactMatchCriteria != nil {
+	if !IsNil(o.ExactMatchCriteria) {
 		toSerialize["exactMatchCriteria"] = o.ExactMatchCriteria
 	}
 
@@ -280,23 +291,23 @@ func (o CapabilitiesImportRulesUserCreateAndMatchObject) MarshalJSON() ([]byte, 
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CapabilitiesImportRulesUserCreateAndMatchObject) UnmarshalJSON(bytes []byte) (err error) {
+func (o *CapabilitiesImportRulesUserCreateAndMatchObject) UnmarshalJSON(data []byte) (err error) {
 	varCapabilitiesImportRulesUserCreateAndMatchObject := _CapabilitiesImportRulesUserCreateAndMatchObject{}
 
-	err = json.Unmarshal(bytes, &varCapabilitiesImportRulesUserCreateAndMatchObject)
-	if err == nil {
-		*o = CapabilitiesImportRulesUserCreateAndMatchObject(varCapabilitiesImportRulesUserCreateAndMatchObject)
-	} else {
+	err = json.Unmarshal(data, &varCapabilitiesImportRulesUserCreateAndMatchObject)
+
+	if err != nil {
 		return err
 	}
 
+	*o = CapabilitiesImportRulesUserCreateAndMatchObject(varCapabilitiesImportRulesUserCreateAndMatchObject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "allowPartialMatch")
 		delete(additionalProperties, "autoActivateNewUsers")
 		delete(additionalProperties, "autoConfirmExactMatch")
@@ -304,8 +315,6 @@ func (o *CapabilitiesImportRulesUserCreateAndMatchObject) UnmarshalJSON(bytes []
 		delete(additionalProperties, "autoConfirmPartialMatch")
 		delete(additionalProperties, "exactMatchCriteria")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -346,4 +355,3 @@ func (v *NullableCapabilitiesImportRulesUserCreateAndMatchObject) UnmarshalJSON(
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

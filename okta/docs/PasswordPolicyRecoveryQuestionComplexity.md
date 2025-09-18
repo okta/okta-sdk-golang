@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**MinLength** | Pointer to **int32** |  | [optional] [readonly] 
+**MinLength** | Pointer to **int32** | Minimum length of the password recovery question answer | [optional] [readonly] [default to 4]
 
 ## Methods
 

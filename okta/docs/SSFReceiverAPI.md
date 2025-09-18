@@ -4,13 +4,13 @@ All URIs are relative to *https://subdomain.okta.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ActivateSecurityEventsProviderInstance**](SSFReceiverAPI.md#ActivateSecurityEventsProviderInstance) | **Post** /api/v1/security-events-providers/{securityEventProviderId}/lifecycle/activate | Activate a Security Events Provider
-[**CreateSecurityEventsProviderInstance**](SSFReceiverAPI.md#CreateSecurityEventsProviderInstance) | **Post** /api/v1/security-events-providers | Create a Security Events Provider
-[**DeactivateSecurityEventsProviderInstance**](SSFReceiverAPI.md#DeactivateSecurityEventsProviderInstance) | **Post** /api/v1/security-events-providers/{securityEventProviderId}/lifecycle/deactivate | Deactivate a Security Events Provider
-[**DeleteSecurityEventsProviderInstance**](SSFReceiverAPI.md#DeleteSecurityEventsProviderInstance) | **Delete** /api/v1/security-events-providers/{securityEventProviderId} | Delete a Security Events Provider
-[**GetSecurityEventsProviderInstance**](SSFReceiverAPI.md#GetSecurityEventsProviderInstance) | **Get** /api/v1/security-events-providers/{securityEventProviderId} | Retrieve the Security Events Provider
-[**ListSecurityEventsProviderInstances**](SSFReceiverAPI.md#ListSecurityEventsProviderInstances) | **Get** /api/v1/security-events-providers | List all Security Events Providers
-[**ReplaceSecurityEventsProviderInstance**](SSFReceiverAPI.md#ReplaceSecurityEventsProviderInstance) | **Put** /api/v1/security-events-providers/{securityEventProviderId} | Replace a Security Events Provider
+[**ActivateSecurityEventsProviderInstance**](SSFReceiverAPI.md#ActivateSecurityEventsProviderInstance) | **Post** /api/v1/security-events-providers/{securityEventProviderId}/lifecycle/activate | Activate a security events provider
+[**CreateSecurityEventsProviderInstance**](SSFReceiverAPI.md#CreateSecurityEventsProviderInstance) | **Post** /api/v1/security-events-providers | Create a security events provider
+[**DeactivateSecurityEventsProviderInstance**](SSFReceiverAPI.md#DeactivateSecurityEventsProviderInstance) | **Post** /api/v1/security-events-providers/{securityEventProviderId}/lifecycle/deactivate | Deactivate a security events provider
+[**DeleteSecurityEventsProviderInstance**](SSFReceiverAPI.md#DeleteSecurityEventsProviderInstance) | **Delete** /api/v1/security-events-providers/{securityEventProviderId} | Delete a security events provider
+[**GetSecurityEventsProviderInstance**](SSFReceiverAPI.md#GetSecurityEventsProviderInstance) | **Get** /api/v1/security-events-providers/{securityEventProviderId} | Retrieve the security events provider
+[**ListSecurityEventsProviderInstances**](SSFReceiverAPI.md#ListSecurityEventsProviderInstances) | **Get** /api/v1/security-events-providers | List all security events providers
+[**ReplaceSecurityEventsProviderInstance**](SSFReceiverAPI.md#ReplaceSecurityEventsProviderInstance) | **Put** /api/v1/security-events-providers/{securityEventProviderId} | Replace a security events provider
 
 
 
@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 > SecurityEventsProviderResponse ActivateSecurityEventsProviderInstance(ctx, securityEventProviderId).Execute()
 
-Activate a Security Events Provider
+Activate a security events provider
 
 
 
@@ -28,24 +28,24 @@ Activate a Security Events Provider
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    securityEventProviderId := "sse1qg25RpusjUP6m0g5" // string | `id` of the Security Events Provider instance
+	securityEventProviderId := "sse1qg25RpusjUP6m0g5" // string | `id` of the Security Events Provider instance
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SSFReceiverAPI.ActivateSecurityEventsProviderInstance(context.Background(), securityEventProviderId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SSFReceiverAPI.ActivateSecurityEventsProviderInstance``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ActivateSecurityEventsProviderInstance`: SecurityEventsProviderResponse
-    fmt.Fprintf(os.Stdout, "Response from `SSFReceiverAPI.ActivateSecurityEventsProviderInstance`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SSFReceiverAPI.ActivateSecurityEventsProviderInstance(context.Background(), securityEventProviderId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SSFReceiverAPI.ActivateSecurityEventsProviderInstance``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ActivateSecurityEventsProviderInstance`: SecurityEventsProviderResponse
+	fmt.Fprintf(os.Stdout, "Response from `SSFReceiverAPI.ActivateSecurityEventsProviderInstance`: %v\n", resp)
 }
 ```
 
@@ -88,7 +88,7 @@ Name | Type | Description  | Notes
 
 > SecurityEventsProviderResponse CreateSecurityEventsProviderInstance(ctx).Instance(instance).Execute()
 
-Create a Security Events Provider
+Create a security events provider
 
 
 
@@ -98,24 +98,24 @@ Create a Security Events Provider
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    instance := *openapiclient.NewSecurityEventsProviderRequest("Target SSF Provider", openapiclient.SecurityEventsProviderRequest_settings{SecurityEventsProviderSettingsNonSSFCompliant: openapiclient.NewSecurityEventsProviderSettingsNonSSFCompliant("example.okta.com", "https://example.okta.com/oauth2/v1/keys")}, "okta") // SecurityEventsProviderRequest | 
+	instance := *openapiclient.NewSecurityEventsProviderRequest("Target SSF Provider", openapiclient.SecurityEventsProviderRequest_settings{SecurityEventsProviderSettingsNonSSFCompliant: openapiclient.NewSecurityEventsProviderSettingsNonSSFCompliant("example.okta.com", "https://example.okta.com/oauth2/v1/keys")}, "okta") // SecurityEventsProviderRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SSFReceiverAPI.CreateSecurityEventsProviderInstance(context.Background()).Instance(instance).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SSFReceiverAPI.CreateSecurityEventsProviderInstance``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateSecurityEventsProviderInstance`: SecurityEventsProviderResponse
-    fmt.Fprintf(os.Stdout, "Response from `SSFReceiverAPI.CreateSecurityEventsProviderInstance`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SSFReceiverAPI.CreateSecurityEventsProviderInstance(context.Background()).Instance(instance).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SSFReceiverAPI.CreateSecurityEventsProviderInstance``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateSecurityEventsProviderInstance`: SecurityEventsProviderResponse
+	fmt.Fprintf(os.Stdout, "Response from `SSFReceiverAPI.CreateSecurityEventsProviderInstance`: %v\n", resp)
 }
 ```
 
@@ -154,7 +154,7 @@ Name | Type | Description  | Notes
 
 > SecurityEventsProviderResponse DeactivateSecurityEventsProviderInstance(ctx, securityEventProviderId).Execute()
 
-Deactivate a Security Events Provider
+Deactivate a security events provider
 
 
 
@@ -164,24 +164,24 @@ Deactivate a Security Events Provider
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    securityEventProviderId := "sse1qg25RpusjUP6m0g5" // string | `id` of the Security Events Provider instance
+	securityEventProviderId := "sse1qg25RpusjUP6m0g5" // string | `id` of the Security Events Provider instance
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SSFReceiverAPI.DeactivateSecurityEventsProviderInstance(context.Background(), securityEventProviderId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SSFReceiverAPI.DeactivateSecurityEventsProviderInstance``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `DeactivateSecurityEventsProviderInstance`: SecurityEventsProviderResponse
-    fmt.Fprintf(os.Stdout, "Response from `SSFReceiverAPI.DeactivateSecurityEventsProviderInstance`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SSFReceiverAPI.DeactivateSecurityEventsProviderInstance(context.Background(), securityEventProviderId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SSFReceiverAPI.DeactivateSecurityEventsProviderInstance``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeactivateSecurityEventsProviderInstance`: SecurityEventsProviderResponse
+	fmt.Fprintf(os.Stdout, "Response from `SSFReceiverAPI.DeactivateSecurityEventsProviderInstance`: %v\n", resp)
 }
 ```
 
@@ -224,7 +224,7 @@ Name | Type | Description  | Notes
 
 > DeleteSecurityEventsProviderInstance(ctx, securityEventProviderId).Execute()
 
-Delete a Security Events Provider
+Delete a security events provider
 
 
 
@@ -234,22 +234,22 @@ Delete a Security Events Provider
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    securityEventProviderId := "sse1qg25RpusjUP6m0g5" // string | `id` of the Security Events Provider instance
+	securityEventProviderId := "sse1qg25RpusjUP6m0g5" // string | `id` of the Security Events Provider instance
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.SSFReceiverAPI.DeleteSecurityEventsProviderInstance(context.Background(), securityEventProviderId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SSFReceiverAPI.DeleteSecurityEventsProviderInstance``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SSFReceiverAPI.DeleteSecurityEventsProviderInstance(context.Background(), securityEventProviderId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SSFReceiverAPI.DeleteSecurityEventsProviderInstance``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -292,7 +292,7 @@ Name | Type | Description  | Notes
 
 > SecurityEventsProviderResponse GetSecurityEventsProviderInstance(ctx, securityEventProviderId).Execute()
 
-Retrieve the Security Events Provider
+Retrieve the security events provider
 
 
 
@@ -302,24 +302,24 @@ Retrieve the Security Events Provider
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    securityEventProviderId := "sse1qg25RpusjUP6m0g5" // string | `id` of the Security Events Provider instance
+	securityEventProviderId := "sse1qg25RpusjUP6m0g5" // string | `id` of the Security Events Provider instance
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SSFReceiverAPI.GetSecurityEventsProviderInstance(context.Background(), securityEventProviderId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SSFReceiverAPI.GetSecurityEventsProviderInstance``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSecurityEventsProviderInstance`: SecurityEventsProviderResponse
-    fmt.Fprintf(os.Stdout, "Response from `SSFReceiverAPI.GetSecurityEventsProviderInstance`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SSFReceiverAPI.GetSecurityEventsProviderInstance(context.Background(), securityEventProviderId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SSFReceiverAPI.GetSecurityEventsProviderInstance``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSecurityEventsProviderInstance`: SecurityEventsProviderResponse
+	fmt.Fprintf(os.Stdout, "Response from `SSFReceiverAPI.GetSecurityEventsProviderInstance`: %v\n", resp)
 }
 ```
 
@@ -362,7 +362,7 @@ Name | Type | Description  | Notes
 
 > []SecurityEventsProviderResponse ListSecurityEventsProviderInstances(ctx).Execute()
 
-List all Security Events Providers
+List all security events providers
 
 
 
@@ -372,23 +372,23 @@ List all Security Events Providers
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SSFReceiverAPI.ListSecurityEventsProviderInstances(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SSFReceiverAPI.ListSecurityEventsProviderInstances``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListSecurityEventsProviderInstances`: []SecurityEventsProviderResponse
-    fmt.Fprintf(os.Stdout, "Response from `SSFReceiverAPI.ListSecurityEventsProviderInstances`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SSFReceiverAPI.ListSecurityEventsProviderInstances(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SSFReceiverAPI.ListSecurityEventsProviderInstances``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListSecurityEventsProviderInstances`: []SecurityEventsProviderResponse
+	fmt.Fprintf(os.Stdout, "Response from `SSFReceiverAPI.ListSecurityEventsProviderInstances`: %v\n", resp)
 }
 ```
 
@@ -423,7 +423,7 @@ Other parameters are passed through a pointer to a apiListSecurityEventsProvider
 
 > SecurityEventsProviderResponse ReplaceSecurityEventsProviderInstance(ctx, securityEventProviderId).Instance(instance).Execute()
 
-Replace a Security Events Provider
+Replace a security events provider
 
 
 
@@ -433,25 +433,25 @@ Replace a Security Events Provider
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    securityEventProviderId := "sse1qg25RpusjUP6m0g5" // string | `id` of the Security Events Provider instance
-    instance := *openapiclient.NewSecurityEventsProviderRequest("Target SSF Provider", openapiclient.SecurityEventsProviderRequest_settings{SecurityEventsProviderSettingsNonSSFCompliant: openapiclient.NewSecurityEventsProviderSettingsNonSSFCompliant("example.okta.com", "https://example.okta.com/oauth2/v1/keys")}, "okta") // SecurityEventsProviderRequest | 
+	securityEventProviderId := "sse1qg25RpusjUP6m0g5" // string | `id` of the Security Events Provider instance
+	instance := *openapiclient.NewSecurityEventsProviderRequest("Target SSF Provider", openapiclient.SecurityEventsProviderRequest_settings{SecurityEventsProviderSettingsNonSSFCompliant: openapiclient.NewSecurityEventsProviderSettingsNonSSFCompliant("example.okta.com", "https://example.okta.com/oauth2/v1/keys")}, "okta") // SecurityEventsProviderRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SSFReceiverAPI.ReplaceSecurityEventsProviderInstance(context.Background(), securityEventProviderId).Instance(instance).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SSFReceiverAPI.ReplaceSecurityEventsProviderInstance``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceSecurityEventsProviderInstance`: SecurityEventsProviderResponse
-    fmt.Fprintf(os.Stdout, "Response from `SSFReceiverAPI.ReplaceSecurityEventsProviderInstance`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SSFReceiverAPI.ReplaceSecurityEventsProviderInstance(context.Background(), securityEventProviderId).Instance(instance).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SSFReceiverAPI.ReplaceSecurityEventsProviderInstance``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceSecurityEventsProviderInstance`: SecurityEventsProviderResponse
+	fmt.Fprintf(os.Stdout, "Response from `SSFReceiverAPI.ReplaceSecurityEventsProviderInstance`: %v\n", resp)
 }
 ```
 

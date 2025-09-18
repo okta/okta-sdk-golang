@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,11 +27,17 @@ import (
 	"encoding/json"
 )
 
-// SingleLogout struct for SingleLogout
+// checks if the SingleLogout type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SingleLogout{}
+
+// SingleLogout Determines if the app supports Single Logout (SLO)
 type SingleLogout struct {
+	// Whether the application supports SLO
 	Enabled *bool `json:"enabled,omitempty"`
+	// The issuer of the Service Provider that generates the SLO request
 	Issuer *string `json:"issuer,omitempty"`
-	LogoutUrl *string `json:"logoutUrl,omitempty"`
+	// The location where the logout response is sent
+	LogoutUrl            *string `json:"logoutUrl,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +62,7 @@ func NewSingleLogoutWithDefaults() *SingleLogout {
 
 // GetEnabled returns the Enabled field value if set, zero value otherwise.
 func (o *SingleLogout) GetEnabled() bool {
-	if o == nil || o.Enabled == nil {
+	if o == nil || IsNil(o.Enabled) {
 		var ret bool
 		return ret
 	}
@@ -66,7 +72,7 @@ func (o *SingleLogout) GetEnabled() bool {
 // GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SingleLogout) GetEnabledOk() (*bool, bool) {
-	if o == nil || o.Enabled == nil {
+	if o == nil || IsNil(o.Enabled) {
 		return nil, false
 	}
 	return o.Enabled, true
@@ -74,7 +80,7 @@ func (o *SingleLogout) GetEnabledOk() (*bool, bool) {
 
 // HasEnabled returns a boolean if a field has been set.
 func (o *SingleLogout) HasEnabled() bool {
-	if o != nil && o.Enabled != nil {
+	if o != nil && !IsNil(o.Enabled) {
 		return true
 	}
 
@@ -88,7 +94,7 @@ func (o *SingleLogout) SetEnabled(v bool) {
 
 // GetIssuer returns the Issuer field value if set, zero value otherwise.
 func (o *SingleLogout) GetIssuer() string {
-	if o == nil || o.Issuer == nil {
+	if o == nil || IsNil(o.Issuer) {
 		var ret string
 		return ret
 	}
@@ -98,7 +104,7 @@ func (o *SingleLogout) GetIssuer() string {
 // GetIssuerOk returns a tuple with the Issuer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SingleLogout) GetIssuerOk() (*string, bool) {
-	if o == nil || o.Issuer == nil {
+	if o == nil || IsNil(o.Issuer) {
 		return nil, false
 	}
 	return o.Issuer, true
@@ -106,7 +112,7 @@ func (o *SingleLogout) GetIssuerOk() (*string, bool) {
 
 // HasIssuer returns a boolean if a field has been set.
 func (o *SingleLogout) HasIssuer() bool {
-	if o != nil && o.Issuer != nil {
+	if o != nil && !IsNil(o.Issuer) {
 		return true
 	}
 
@@ -120,7 +126,7 @@ func (o *SingleLogout) SetIssuer(v string) {
 
 // GetLogoutUrl returns the LogoutUrl field value if set, zero value otherwise.
 func (o *SingleLogout) GetLogoutUrl() string {
-	if o == nil || o.LogoutUrl == nil {
+	if o == nil || IsNil(o.LogoutUrl) {
 		var ret string
 		return ret
 	}
@@ -130,7 +136,7 @@ func (o *SingleLogout) GetLogoutUrl() string {
 // GetLogoutUrlOk returns a tuple with the LogoutUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SingleLogout) GetLogoutUrlOk() (*string, bool) {
-	if o == nil || o.LogoutUrl == nil {
+	if o == nil || IsNil(o.LogoutUrl) {
 		return nil, false
 	}
 	return o.LogoutUrl, true
@@ -138,7 +144,7 @@ func (o *SingleLogout) GetLogoutUrlOk() (*string, bool) {
 
 // HasLogoutUrl returns a boolean if a field has been set.
 func (o *SingleLogout) HasLogoutUrl() bool {
-	if o != nil && o.LogoutUrl != nil {
+	if o != nil && !IsNil(o.LogoutUrl) {
 		return true
 	}
 
@@ -151,14 +157,22 @@ func (o *SingleLogout) SetLogoutUrl(v string) {
 }
 
 func (o SingleLogout) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SingleLogout) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Enabled != nil {
+	if !IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
 	}
-	if o.Issuer != nil {
+	if !IsNil(o.Issuer) {
 		toSerialize["issuer"] = o.Issuer
 	}
-	if o.LogoutUrl != nil {
+	if !IsNil(o.LogoutUrl) {
 		toSerialize["logoutUrl"] = o.LogoutUrl
 	}
 
@@ -166,29 +180,27 @@ func (o SingleLogout) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SingleLogout) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SingleLogout) UnmarshalJSON(data []byte) (err error) {
 	varSingleLogout := _SingleLogout{}
 
-	err = json.Unmarshal(bytes, &varSingleLogout)
-	if err == nil {
-		*o = SingleLogout(varSingleLogout)
-	} else {
+	err = json.Unmarshal(data, &varSingleLogout)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SingleLogout(varSingleLogout)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "enabled")
 		delete(additionalProperties, "issuer")
 		delete(additionalProperties, "logoutUrl")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +241,3 @@ func (v *NullableSingleLogout) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

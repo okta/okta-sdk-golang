@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,22 +25,26 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
+// checks if the ApiToken type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApiToken{}
+
 // ApiToken An API token for an Okta User. This token is NOT scoped any further and can be used for any API the user has permissions to call.
 type ApiToken struct {
-	ClientName *string `json:"clientName,omitempty"`
-	Created *time.Time `json:"created,omitempty"`
-	ExpiresAt *time.Time `json:"expiresAt,omitempty"`
-	Id *string `json:"id,omitempty"`
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Name string `json:"name"`
-	Network *ApiTokenNetwork `json:"network,omitempty"`
-	// A time duration specified as an [ISO-8601 duration](https://en.wikipedia.org/wiki/ISO_8601#Durations).
-	TokenWindow *string `json:"tokenWindow,omitempty"`
-	UserId *string `json:"userId,omitempty"`
-	Link *LinksSelf `json:"_link,omitempty"`
+	ClientName  *string          `json:"clientName,omitempty"`
+	Created     *time.Time       `json:"created,omitempty"`
+	ExpiresAt   *time.Time       `json:"expiresAt,omitempty"`
+	Id          *string          `json:"id,omitempty"`
+	LastUpdated *time.Time       `json:"lastUpdated,omitempty"`
+	Name        string           `json:"name"`
+	Network     *ApiTokenNetwork `json:"network,omitempty"`
+	// A time duration specified as an [ISO 8601 duration](https://en.wikipedia.org/wiki/ISO_8601#Durations).
+	TokenWindow          *string    `json:"tokenWindow,omitempty" validate:"regexp=^P(?:$)(\\\\d+Y)?(\\\\d+M)?(\\\\d+W)?(\\\\d+D)?(T(?:\\\\d)(\\\\d+H)?(\\\\d+M)?(\\\\d+S)?)?$"`
+	UserId               *string    `json:"userId,omitempty"`
+	Link                 *LinksSelf `json:"_link,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -66,7 +70,7 @@ func NewApiTokenWithDefaults() *ApiToken {
 
 // GetClientName returns the ClientName field value if set, zero value otherwise.
 func (o *ApiToken) GetClientName() string {
-	if o == nil || o.ClientName == nil {
+	if o == nil || IsNil(o.ClientName) {
 		var ret string
 		return ret
 	}
@@ -76,7 +80,7 @@ func (o *ApiToken) GetClientName() string {
 // GetClientNameOk returns a tuple with the ClientName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiToken) GetClientNameOk() (*string, bool) {
-	if o == nil || o.ClientName == nil {
+	if o == nil || IsNil(o.ClientName) {
 		return nil, false
 	}
 	return o.ClientName, true
@@ -84,7 +88,7 @@ func (o *ApiToken) GetClientNameOk() (*string, bool) {
 
 // HasClientName returns a boolean if a field has been set.
 func (o *ApiToken) HasClientName() bool {
-	if o != nil && o.ClientName != nil {
+	if o != nil && !IsNil(o.ClientName) {
 		return true
 	}
 
@@ -98,7 +102,7 @@ func (o *ApiToken) SetClientName(v string) {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *ApiToken) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -108,7 +112,7 @@ func (o *ApiToken) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiToken) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -116,7 +120,7 @@ func (o *ApiToken) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *ApiToken) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -130,7 +134,7 @@ func (o *ApiToken) SetCreated(v time.Time) {
 
 // GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
 func (o *ApiToken) GetExpiresAt() time.Time {
-	if o == nil || o.ExpiresAt == nil {
+	if o == nil || IsNil(o.ExpiresAt) {
 		var ret time.Time
 		return ret
 	}
@@ -140,7 +144,7 @@ func (o *ApiToken) GetExpiresAt() time.Time {
 // GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiToken) GetExpiresAtOk() (*time.Time, bool) {
-	if o == nil || o.ExpiresAt == nil {
+	if o == nil || IsNil(o.ExpiresAt) {
 		return nil, false
 	}
 	return o.ExpiresAt, true
@@ -148,7 +152,7 @@ func (o *ApiToken) GetExpiresAtOk() (*time.Time, bool) {
 
 // HasExpiresAt returns a boolean if a field has been set.
 func (o *ApiToken) HasExpiresAt() bool {
-	if o != nil && o.ExpiresAt != nil {
+	if o != nil && !IsNil(o.ExpiresAt) {
 		return true
 	}
 
@@ -162,7 +166,7 @@ func (o *ApiToken) SetExpiresAt(v time.Time) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *ApiToken) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -172,7 +176,7 @@ func (o *ApiToken) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiToken) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -180,7 +184,7 @@ func (o *ApiToken) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *ApiToken) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -194,7 +198,7 @@ func (o *ApiToken) SetId(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *ApiToken) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -204,7 +208,7 @@ func (o *ApiToken) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiToken) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -212,7 +216,7 @@ func (o *ApiToken) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *ApiToken) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -250,7 +254,7 @@ func (o *ApiToken) SetName(v string) {
 
 // GetNetwork returns the Network field value if set, zero value otherwise.
 func (o *ApiToken) GetNetwork() ApiTokenNetwork {
-	if o == nil || o.Network == nil {
+	if o == nil || IsNil(o.Network) {
 		var ret ApiTokenNetwork
 		return ret
 	}
@@ -260,7 +264,7 @@ func (o *ApiToken) GetNetwork() ApiTokenNetwork {
 // GetNetworkOk returns a tuple with the Network field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiToken) GetNetworkOk() (*ApiTokenNetwork, bool) {
-	if o == nil || o.Network == nil {
+	if o == nil || IsNil(o.Network) {
 		return nil, false
 	}
 	return o.Network, true
@@ -268,7 +272,7 @@ func (o *ApiToken) GetNetworkOk() (*ApiTokenNetwork, bool) {
 
 // HasNetwork returns a boolean if a field has been set.
 func (o *ApiToken) HasNetwork() bool {
-	if o != nil && o.Network != nil {
+	if o != nil && !IsNil(o.Network) {
 		return true
 	}
 
@@ -282,7 +286,7 @@ func (o *ApiToken) SetNetwork(v ApiTokenNetwork) {
 
 // GetTokenWindow returns the TokenWindow field value if set, zero value otherwise.
 func (o *ApiToken) GetTokenWindow() string {
-	if o == nil || o.TokenWindow == nil {
+	if o == nil || IsNil(o.TokenWindow) {
 		var ret string
 		return ret
 	}
@@ -292,7 +296,7 @@ func (o *ApiToken) GetTokenWindow() string {
 // GetTokenWindowOk returns a tuple with the TokenWindow field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiToken) GetTokenWindowOk() (*string, bool) {
-	if o == nil || o.TokenWindow == nil {
+	if o == nil || IsNil(o.TokenWindow) {
 		return nil, false
 	}
 	return o.TokenWindow, true
@@ -300,7 +304,7 @@ func (o *ApiToken) GetTokenWindowOk() (*string, bool) {
 
 // HasTokenWindow returns a boolean if a field has been set.
 func (o *ApiToken) HasTokenWindow() bool {
-	if o != nil && o.TokenWindow != nil {
+	if o != nil && !IsNil(o.TokenWindow) {
 		return true
 	}
 
@@ -314,7 +318,7 @@ func (o *ApiToken) SetTokenWindow(v string) {
 
 // GetUserId returns the UserId field value if set, zero value otherwise.
 func (o *ApiToken) GetUserId() string {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		var ret string
 		return ret
 	}
@@ -324,7 +328,7 @@ func (o *ApiToken) GetUserId() string {
 // GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiToken) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		return nil, false
 	}
 	return o.UserId, true
@@ -332,7 +336,7 @@ func (o *ApiToken) GetUserIdOk() (*string, bool) {
 
 // HasUserId returns a boolean if a field has been set.
 func (o *ApiToken) HasUserId() bool {
-	if o != nil && o.UserId != nil {
+	if o != nil && !IsNil(o.UserId) {
 		return true
 	}
 
@@ -346,7 +350,7 @@ func (o *ApiToken) SetUserId(v string) {
 
 // GetLink returns the Link field value if set, zero value otherwise.
 func (o *ApiToken) GetLink() LinksSelf {
-	if o == nil || o.Link == nil {
+	if o == nil || IsNil(o.Link) {
 		var ret LinksSelf
 		return ret
 	}
@@ -356,7 +360,7 @@ func (o *ApiToken) GetLink() LinksSelf {
 // GetLinkOk returns a tuple with the Link field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiToken) GetLinkOk() (*LinksSelf, bool) {
-	if o == nil || o.Link == nil {
+	if o == nil || IsNil(o.Link) {
 		return nil, false
 	}
 	return o.Link, true
@@ -364,7 +368,7 @@ func (o *ApiToken) GetLinkOk() (*LinksSelf, bool) {
 
 // HasLink returns a boolean if a field has been set.
 func (o *ApiToken) HasLink() bool {
-	if o != nil && o.Link != nil {
+	if o != nil && !IsNil(o.Link) {
 		return true
 	}
 
@@ -377,35 +381,41 @@ func (o *ApiToken) SetLink(v LinksSelf) {
 }
 
 func (o ApiToken) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApiToken) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ClientName != nil {
+	if !IsNil(o.ClientName) {
 		toSerialize["clientName"] = o.ClientName
 	}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.ExpiresAt != nil {
+	if !IsNil(o.ExpiresAt) {
 		toSerialize["expiresAt"] = o.ExpiresAt
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Network != nil {
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Network) {
 		toSerialize["network"] = o.Network
 	}
-	if o.TokenWindow != nil {
+	if !IsNil(o.TokenWindow) {
 		toSerialize["tokenWindow"] = o.TokenWindow
 	}
-	if o.UserId != nil {
+	if !IsNil(o.UserId) {
 		toSerialize["userId"] = o.UserId
 	}
-	if o.Link != nil {
+	if !IsNil(o.Link) {
 		toSerialize["_link"] = o.Link
 	}
 
@@ -413,23 +423,44 @@ func (o ApiToken) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ApiToken) UnmarshalJSON(bytes []byte) (err error) {
-	varApiToken := _ApiToken{}
+func (o *ApiToken) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+	}
 
-	err = json.Unmarshal(bytes, &varApiToken)
-	if err == nil {
-		*o = ApiToken(varApiToken)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varApiToken := _ApiToken{}
+
+	err = json.Unmarshal(data, &varApiToken)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ApiToken(varApiToken)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "clientName")
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "expiresAt")
@@ -441,8 +472,6 @@ func (o *ApiToken) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "userId")
 		delete(additionalProperties, "_link")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -483,4 +512,3 @@ func (v *NullableApiToken) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

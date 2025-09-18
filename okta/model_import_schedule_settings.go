@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,14 +25,18 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ImportScheduleSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImportScheduleSettings{}
 
 // ImportScheduleSettings struct for ImportScheduleSettings
 type ImportScheduleSettings struct {
 	// The import schedule in UNIX cron format
 	Expression string `json:"expression"`
 	// The import schedule time zone in Internet Assigned Numbers Authority (IANA) time zone name format
-	Timezone *string `json:"timezone,omitempty"`
+	Timezone             *string `json:"timezone,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -82,7 +86,7 @@ func (o *ImportScheduleSettings) SetExpression(v string) {
 
 // GetTimezone returns the Timezone field value if set, zero value otherwise.
 func (o *ImportScheduleSettings) GetTimezone() string {
-	if o == nil || o.Timezone == nil {
+	if o == nil || IsNil(o.Timezone) {
 		var ret string
 		return ret
 	}
@@ -92,7 +96,7 @@ func (o *ImportScheduleSettings) GetTimezone() string {
 // GetTimezoneOk returns a tuple with the Timezone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImportScheduleSettings) GetTimezoneOk() (*string, bool) {
-	if o == nil || o.Timezone == nil {
+	if o == nil || IsNil(o.Timezone) {
 		return nil, false
 	}
 	return o.Timezone, true
@@ -100,7 +104,7 @@ func (o *ImportScheduleSettings) GetTimezoneOk() (*string, bool) {
 
 // HasTimezone returns a boolean if a field has been set.
 func (o *ImportScheduleSettings) HasTimezone() bool {
-	if o != nil && o.Timezone != nil {
+	if o != nil && !IsNil(o.Timezone) {
 		return true
 	}
 
@@ -113,11 +117,17 @@ func (o *ImportScheduleSettings) SetTimezone(v string) {
 }
 
 func (o ImportScheduleSettings) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["expression"] = o.Expression
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Timezone != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o ImportScheduleSettings) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["expression"] = o.Expression
+	if !IsNil(o.Timezone) {
 		toSerialize["timezone"] = o.Timezone
 	}
 
@@ -125,28 +135,47 @@ func (o ImportScheduleSettings) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ImportScheduleSettings) UnmarshalJSON(bytes []byte) (err error) {
-	varImportScheduleSettings := _ImportScheduleSettings{}
+func (o *ImportScheduleSettings) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"expression",
+	}
 
-	err = json.Unmarshal(bytes, &varImportScheduleSettings)
-	if err == nil {
-		*o = ImportScheduleSettings(varImportScheduleSettings)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varImportScheduleSettings := _ImportScheduleSettings{}
+
+	err = json.Unmarshal(data, &varImportScheduleSettings)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ImportScheduleSettings(varImportScheduleSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "expression")
 		delete(additionalProperties, "timezone")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -187,4 +216,3 @@ func (v *NullableImportScheduleSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

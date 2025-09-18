@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** | Unique name for the Trusted Origin | [optional] 
-**Origin** | Pointer to **string** | Unique origin URL for the Trusted Origin. The supported schemes for this attribute are HTTP, HTTPS, FTP, Ionic 2, and Capacitor. | [optional] 
-**Scopes** | Pointer to [**[]TrustedOriginScope**](TrustedOriginScope.md) | Array of Scope types that this Trusted Origin is used for | [optional] 
+**Name** | Pointer to **string** | Unique name for the trusted origin | [optional] 
+**Origin** | Pointer to **string** | Unique origin URL for the trusted origin. The supported schemes for this attribute are HTTP, HTTPS, FTP, Ionic 2, and Capacitor. | [optional] 
+**Scopes** | Pointer to [**[]TrustedOriginScope**](TrustedOriginScope.md) | Array of scope types that this trusted origin is used for | [optional] 
 
 ## Methods
 

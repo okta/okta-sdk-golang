@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,15 +27,18 @@ import (
 	"encoding/json"
 )
 
+// checks if the SimulatePolicyEvaluations type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SimulatePolicyEvaluations{}
+
 // SimulatePolicyEvaluations struct for SimulatePolicyEvaluations
 type SimulatePolicyEvaluations struct {
 	Evaluated *SimulatePolicyEvaluationsEvaluated `json:"evaluated,omitempty"`
 	// The policy type of the simulate operation
-	PolicyType []string `json:"policyType,omitempty"`
-	Result *SimulatePolicyResult `json:"result,omitempty"`
+	PolicyType []string              `json:"policyType,omitempty"`
+	Result     *SimulatePolicyResult `json:"result,omitempty"`
 	// The result of this entity evaluation
-	Status *string `json:"status,omitempty"`
-	Undefined *SimulatePolicyEvaluationsUndefined `json:"undefined,omitempty"`
+	Status               *string                             `json:"status,omitempty"`
+	Undefined            *SimulatePolicyEvaluationsUndefined `json:"undefined,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +63,7 @@ func NewSimulatePolicyEvaluationsWithDefaults() *SimulatePolicyEvaluations {
 
 // GetEvaluated returns the Evaluated field value if set, zero value otherwise.
 func (o *SimulatePolicyEvaluations) GetEvaluated() SimulatePolicyEvaluationsEvaluated {
-	if o == nil || o.Evaluated == nil {
+	if o == nil || IsNil(o.Evaluated) {
 		var ret SimulatePolicyEvaluationsEvaluated
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *SimulatePolicyEvaluations) GetEvaluated() SimulatePolicyEvaluationsEval
 // GetEvaluatedOk returns a tuple with the Evaluated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SimulatePolicyEvaluations) GetEvaluatedOk() (*SimulatePolicyEvaluationsEvaluated, bool) {
-	if o == nil || o.Evaluated == nil {
+	if o == nil || IsNil(o.Evaluated) {
 		return nil, false
 	}
 	return o.Evaluated, true
@@ -78,7 +81,7 @@ func (o *SimulatePolicyEvaluations) GetEvaluatedOk() (*SimulatePolicyEvaluations
 
 // HasEvaluated returns a boolean if a field has been set.
 func (o *SimulatePolicyEvaluations) HasEvaluated() bool {
-	if o != nil && o.Evaluated != nil {
+	if o != nil && !IsNil(o.Evaluated) {
 		return true
 	}
 
@@ -92,7 +95,7 @@ func (o *SimulatePolicyEvaluations) SetEvaluated(v SimulatePolicyEvaluationsEval
 
 // GetPolicyType returns the PolicyType field value if set, zero value otherwise.
 func (o *SimulatePolicyEvaluations) GetPolicyType() []string {
-	if o == nil || o.PolicyType == nil {
+	if o == nil || IsNil(o.PolicyType) {
 		var ret []string
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *SimulatePolicyEvaluations) GetPolicyType() []string {
 // GetPolicyTypeOk returns a tuple with the PolicyType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SimulatePolicyEvaluations) GetPolicyTypeOk() ([]string, bool) {
-	if o == nil || o.PolicyType == nil {
+	if o == nil || IsNil(o.PolicyType) {
 		return nil, false
 	}
 	return o.PolicyType, true
@@ -110,7 +113,7 @@ func (o *SimulatePolicyEvaluations) GetPolicyTypeOk() ([]string, bool) {
 
 // HasPolicyType returns a boolean if a field has been set.
 func (o *SimulatePolicyEvaluations) HasPolicyType() bool {
-	if o != nil && o.PolicyType != nil {
+	if o != nil && !IsNil(o.PolicyType) {
 		return true
 	}
 
@@ -124,7 +127,7 @@ func (o *SimulatePolicyEvaluations) SetPolicyType(v []string) {
 
 // GetResult returns the Result field value if set, zero value otherwise.
 func (o *SimulatePolicyEvaluations) GetResult() SimulatePolicyResult {
-	if o == nil || o.Result == nil {
+	if o == nil || IsNil(o.Result) {
 		var ret SimulatePolicyResult
 		return ret
 	}
@@ -134,7 +137,7 @@ func (o *SimulatePolicyEvaluations) GetResult() SimulatePolicyResult {
 // GetResultOk returns a tuple with the Result field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SimulatePolicyEvaluations) GetResultOk() (*SimulatePolicyResult, bool) {
-	if o == nil || o.Result == nil {
+	if o == nil || IsNil(o.Result) {
 		return nil, false
 	}
 	return o.Result, true
@@ -142,7 +145,7 @@ func (o *SimulatePolicyEvaluations) GetResultOk() (*SimulatePolicyResult, bool) 
 
 // HasResult returns a boolean if a field has been set.
 func (o *SimulatePolicyEvaluations) HasResult() bool {
-	if o != nil && o.Result != nil {
+	if o != nil && !IsNil(o.Result) {
 		return true
 	}
 
@@ -156,7 +159,7 @@ func (o *SimulatePolicyEvaluations) SetResult(v SimulatePolicyResult) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *SimulatePolicyEvaluations) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -166,7 +169,7 @@ func (o *SimulatePolicyEvaluations) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SimulatePolicyEvaluations) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -174,7 +177,7 @@ func (o *SimulatePolicyEvaluations) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *SimulatePolicyEvaluations) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -188,7 +191,7 @@ func (o *SimulatePolicyEvaluations) SetStatus(v string) {
 
 // GetUndefined returns the Undefined field value if set, zero value otherwise.
 func (o *SimulatePolicyEvaluations) GetUndefined() SimulatePolicyEvaluationsUndefined {
-	if o == nil || o.Undefined == nil {
+	if o == nil || IsNil(o.Undefined) {
 		var ret SimulatePolicyEvaluationsUndefined
 		return ret
 	}
@@ -198,7 +201,7 @@ func (o *SimulatePolicyEvaluations) GetUndefined() SimulatePolicyEvaluationsUnde
 // GetUndefinedOk returns a tuple with the Undefined field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SimulatePolicyEvaluations) GetUndefinedOk() (*SimulatePolicyEvaluationsUndefined, bool) {
-	if o == nil || o.Undefined == nil {
+	if o == nil || IsNil(o.Undefined) {
 		return nil, false
 	}
 	return o.Undefined, true
@@ -206,7 +209,7 @@ func (o *SimulatePolicyEvaluations) GetUndefinedOk() (*SimulatePolicyEvaluations
 
 // HasUndefined returns a boolean if a field has been set.
 func (o *SimulatePolicyEvaluations) HasUndefined() bool {
-	if o != nil && o.Undefined != nil {
+	if o != nil && !IsNil(o.Undefined) {
 		return true
 	}
 
@@ -219,20 +222,28 @@ func (o *SimulatePolicyEvaluations) SetUndefined(v SimulatePolicyEvaluationsUnde
 }
 
 func (o SimulatePolicyEvaluations) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SimulatePolicyEvaluations) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Evaluated != nil {
+	if !IsNil(o.Evaluated) {
 		toSerialize["evaluated"] = o.Evaluated
 	}
-	if o.PolicyType != nil {
+	if !IsNil(o.PolicyType) {
 		toSerialize["policyType"] = o.PolicyType
 	}
-	if o.Result != nil {
+	if !IsNil(o.Result) {
 		toSerialize["result"] = o.Result
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Undefined != nil {
+	if !IsNil(o.Undefined) {
 		toSerialize["undefined"] = o.Undefined
 	}
 
@@ -240,31 +251,29 @@ func (o SimulatePolicyEvaluations) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SimulatePolicyEvaluations) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SimulatePolicyEvaluations) UnmarshalJSON(data []byte) (err error) {
 	varSimulatePolicyEvaluations := _SimulatePolicyEvaluations{}
 
-	err = json.Unmarshal(bytes, &varSimulatePolicyEvaluations)
-	if err == nil {
-		*o = SimulatePolicyEvaluations(varSimulatePolicyEvaluations)
-	} else {
+	err = json.Unmarshal(data, &varSimulatePolicyEvaluations)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SimulatePolicyEvaluations(varSimulatePolicyEvaluations)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "evaluated")
 		delete(additionalProperties, "policyType")
 		delete(additionalProperties, "result")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "undefined")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -305,4 +314,3 @@ func (v *NullableSimulatePolicyEvaluations) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

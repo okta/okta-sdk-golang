@@ -5,17 +5,19 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Accessibility** | Pointer to [**ApplicationAccessibility**](ApplicationAccessibility.md) |  | [optional] 
-**Created** | Pointer to **time.Time** | Timestamp when the Application object was created | [optional] [readonly] 
-**Features** | Pointer to **[]string** | Enabled app features | [optional] 
+**Created** | Pointer to **time.Time** | Timestamp when the application object was created | [optional] [readonly] 
+**Features** | Pointer to **[]string** | Enabled app features &gt; **Note:** See [Application Features](/openapi/okta-management/management/tag/ApplicationFeatures/) for app provisioning features.  | [optional] [readonly] 
 **Id** | Pointer to **string** | Unique ID for the app instance | [optional] [readonly] 
 **Label** | **string** | User-defined display name for app | 
-**LastUpdated** | Pointer to **time.Time** | Timestamp when the Application object was last updated | [optional] [readonly] 
+**LastUpdated** | Pointer to **time.Time** | Timestamp when the application object was last updated | [optional] [readonly] 
 **Licensing** | Pointer to [**ApplicationLicensing**](ApplicationLicensing.md) |  | [optional] 
-**Profile** | Pointer to **map[string]interface{}** | Contains any valid JSON schema for specifying properties that can be referenced from a request (only available to OAuth 2.0 client apps) | [optional] 
-**SignOnMode** | **string** | Authentication mode for the app | 
+**Orn** | Pointer to **string** | The Okta resource name (ORN) for the current app instance | [optional] [readonly] 
+**Profile** | Pointer to **map[string]interface{}** | Contains any valid JSON schema for specifying properties that can be referenced from a request (only available to OAuth 2.0 client apps). For example, add an app manager contact email address or define an allowlist of groups that you can then reference using the Okta Expression Language &#x60;getFilteredGroups&#x60; function.  &gt; **Notes:** &gt; * &#x60;profile&#x60; isn&#39;t encrypted, so don&#39;t store sensitive data in it. &gt; * &#x60;profile&#x60; doesn&#39;t limit the level of nesting in the JSON schema you created, but there is a practical size limit. Okta recommends a JSON schema size of 1 MB or less for best performance. | [optional] 
+**SignOnMode** | **string** | Authentication mode for the app  | signOnMode | Description | | ---------- | ----------- | | AUTO_LOGIN | Secure Web Authentication (SWA) | | BASIC_AUTH | HTTP Basic Authentication with Okta Browser Plugin | | BOOKMARK | Just a bookmark (no-authentication) | | BROWSER_PLUGIN | Secure Web Authentication (SWA) with Okta Browser Plugin | | OPENID_CONNECT | Federated Authentication with OpenID Connect (OIDC) | | SAML_1_1 | Federated Authentication with SAML 1.1 WebSSO (not supported for custom apps) | | SAML_2_0 | Federated Authentication with SAML 2.0 WebSSO | | SECURE_PASSWORD_STORE | Secure Web Authentication (SWA) with POST (plugin not required) | | WS_FEDERATION | Federated Authentication with WS-Federation Passive Requestor Profile |  Select the &#x60;signOnMode&#x60; for your custom app:  | 
 **Status** | Pointer to **string** | App instance status | [optional] [readonly] 
+**UniversalLogout** | Pointer to [**ApplicationUniversalLogout**](ApplicationUniversalLogout.md) |  | [optional] 
 **Visibility** | Pointer to [**ApplicationVisibility**](ApplicationVisibility.md) |  | [optional] 
-**Embedded** | Pointer to **map[string]map[string]interface{}** |  | [optional] [readonly] 
+**Embedded** | Pointer to [**ApplicationEmbedded**](ApplicationEmbedded.md) |  | [optional] 
 **Links** | Pointer to [**ApplicationLinks**](ApplicationLinks.md) |  | [optional] 
 **Credentials** | [**ApplicationCredentials**](ApplicationCredentials.md) |  | 
 **Name** | **string** | &#x60;template_wsfed&#x60; is the key name for a WS-Federated app instance with a SAML 2.0 token | 
@@ -210,6 +212,31 @@ SetLicensing sets Licensing field to given value.
 
 HasLicensing returns a boolean if a field has been set.
 
+### GetOrn
+
+`func (o *ListApplications200ResponseInner) GetOrn() string`
+
+GetOrn returns the Orn field if non-nil, zero value otherwise.
+
+### GetOrnOk
+
+`func (o *ListApplications200ResponseInner) GetOrnOk() (*string, bool)`
+
+GetOrnOk returns a tuple with the Orn field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOrn
+
+`func (o *ListApplications200ResponseInner) SetOrn(v string)`
+
+SetOrn sets Orn field to given value.
+
+### HasOrn
+
+`func (o *ListApplications200ResponseInner) HasOrn() bool`
+
+HasOrn returns a boolean if a field has been set.
+
 ### GetProfile
 
 `func (o *ListApplications200ResponseInner) GetProfile() map[string]interface{}`
@@ -280,6 +307,31 @@ SetStatus sets Status field to given value.
 
 HasStatus returns a boolean if a field has been set.
 
+### GetUniversalLogout
+
+`func (o *ListApplications200ResponseInner) GetUniversalLogout() ApplicationUniversalLogout`
+
+GetUniversalLogout returns the UniversalLogout field if non-nil, zero value otherwise.
+
+### GetUniversalLogoutOk
+
+`func (o *ListApplications200ResponseInner) GetUniversalLogoutOk() (*ApplicationUniversalLogout, bool)`
+
+GetUniversalLogoutOk returns a tuple with the UniversalLogout field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUniversalLogout
+
+`func (o *ListApplications200ResponseInner) SetUniversalLogout(v ApplicationUniversalLogout)`
+
+SetUniversalLogout sets UniversalLogout field to given value.
+
+### HasUniversalLogout
+
+`func (o *ListApplications200ResponseInner) HasUniversalLogout() bool`
+
+HasUniversalLogout returns a boolean if a field has been set.
+
 ### GetVisibility
 
 `func (o *ListApplications200ResponseInner) GetVisibility() ApplicationVisibility`
@@ -307,20 +359,20 @@ HasVisibility returns a boolean if a field has been set.
 
 ### GetEmbedded
 
-`func (o *ListApplications200ResponseInner) GetEmbedded() map[string]map[string]interface{}`
+`func (o *ListApplications200ResponseInner) GetEmbedded() ApplicationEmbedded`
 
 GetEmbedded returns the Embedded field if non-nil, zero value otherwise.
 
 ### GetEmbeddedOk
 
-`func (o *ListApplications200ResponseInner) GetEmbeddedOk() (*map[string]map[string]interface{}, bool)`
+`func (o *ListApplications200ResponseInner) GetEmbeddedOk() (*ApplicationEmbedded, bool)`
 
 GetEmbeddedOk returns a tuple with the Embedded field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEmbedded
 
-`func (o *ListApplications200ResponseInner) SetEmbedded(v map[string]map[string]interface{})`
+`func (o *ListApplications200ResponseInner) SetEmbedded(v ApplicationEmbedded)`
 
 SetEmbedded sets Embedded field to given value.
 

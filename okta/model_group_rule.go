@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -28,16 +28,25 @@ import (
 	"time"
 )
 
+// checks if the GroupRule type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GroupRule{}
+
 // GroupRule struct for GroupRule
 type GroupRule struct {
-	Actions *GroupRuleAction `json:"actions,omitempty"`
+	Actions    *GroupRuleAction     `json:"actions,omitempty"`
 	Conditions *GroupRuleConditions `json:"conditions,omitempty"`
+	// Creation date for group rule
 	Created *time.Time `json:"created,omitempty"`
+	// ID of the group rule
 	Id *string `json:"id,omitempty"`
+	// Date group rule was last updated
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
+	// Name of the group rule
 	Name *string `json:"name,omitempty"`
+	// Status of group rule
 	Status *string `json:"status,omitempty"`
-	Type *string `json:"type,omitempty"`
+	// Type to indicate a group rule operation. Only `group_rule` is allowed.
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -62,7 +71,7 @@ func NewGroupRuleWithDefaults() *GroupRule {
 
 // GetActions returns the Actions field value if set, zero value otherwise.
 func (o *GroupRule) GetActions() GroupRuleAction {
-	if o == nil || o.Actions == nil {
+	if o == nil || IsNil(o.Actions) {
 		var ret GroupRuleAction
 		return ret
 	}
@@ -72,7 +81,7 @@ func (o *GroupRule) GetActions() GroupRuleAction {
 // GetActionsOk returns a tuple with the Actions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupRule) GetActionsOk() (*GroupRuleAction, bool) {
-	if o == nil || o.Actions == nil {
+	if o == nil || IsNil(o.Actions) {
 		return nil, false
 	}
 	return o.Actions, true
@@ -80,7 +89,7 @@ func (o *GroupRule) GetActionsOk() (*GroupRuleAction, bool) {
 
 // HasActions returns a boolean if a field has been set.
 func (o *GroupRule) HasActions() bool {
-	if o != nil && o.Actions != nil {
+	if o != nil && !IsNil(o.Actions) {
 		return true
 	}
 
@@ -94,7 +103,7 @@ func (o *GroupRule) SetActions(v GroupRuleAction) {
 
 // GetConditions returns the Conditions field value if set, zero value otherwise.
 func (o *GroupRule) GetConditions() GroupRuleConditions {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		var ret GroupRuleConditions
 		return ret
 	}
@@ -104,7 +113,7 @@ func (o *GroupRule) GetConditions() GroupRuleConditions {
 // GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupRule) GetConditionsOk() (*GroupRuleConditions, bool) {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		return nil, false
 	}
 	return o.Conditions, true
@@ -112,7 +121,7 @@ func (o *GroupRule) GetConditionsOk() (*GroupRuleConditions, bool) {
 
 // HasConditions returns a boolean if a field has been set.
 func (o *GroupRule) HasConditions() bool {
-	if o != nil && o.Conditions != nil {
+	if o != nil && !IsNil(o.Conditions) {
 		return true
 	}
 
@@ -126,7 +135,7 @@ func (o *GroupRule) SetConditions(v GroupRuleConditions) {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *GroupRule) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -136,7 +145,7 @@ func (o *GroupRule) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupRule) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -144,7 +153,7 @@ func (o *GroupRule) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *GroupRule) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -158,7 +167,7 @@ func (o *GroupRule) SetCreated(v time.Time) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *GroupRule) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -168,7 +177,7 @@ func (o *GroupRule) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupRule) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -176,7 +185,7 @@ func (o *GroupRule) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *GroupRule) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -190,7 +199,7 @@ func (o *GroupRule) SetId(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *GroupRule) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -200,7 +209,7 @@ func (o *GroupRule) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupRule) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -208,7 +217,7 @@ func (o *GroupRule) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *GroupRule) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -222,7 +231,7 @@ func (o *GroupRule) SetLastUpdated(v time.Time) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *GroupRule) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -232,7 +241,7 @@ func (o *GroupRule) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupRule) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -240,7 +249,7 @@ func (o *GroupRule) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *GroupRule) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -254,7 +263,7 @@ func (o *GroupRule) SetName(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *GroupRule) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -264,7 +273,7 @@ func (o *GroupRule) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupRule) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -272,7 +281,7 @@ func (o *GroupRule) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *GroupRule) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -286,7 +295,7 @@ func (o *GroupRule) SetStatus(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *GroupRule) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -296,7 +305,7 @@ func (o *GroupRule) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupRule) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -304,7 +313,7 @@ func (o *GroupRule) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *GroupRule) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -317,29 +326,37 @@ func (o *GroupRule) SetType(v string) {
 }
 
 func (o GroupRule) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o GroupRule) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Actions != nil {
+	if !IsNil(o.Actions) {
 		toSerialize["actions"] = o.Actions
 	}
-	if o.Conditions != nil {
+	if !IsNil(o.Conditions) {
 		toSerialize["conditions"] = o.Conditions
 	}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -347,23 +364,23 @@ func (o GroupRule) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *GroupRule) UnmarshalJSON(bytes []byte) (err error) {
+func (o *GroupRule) UnmarshalJSON(data []byte) (err error) {
 	varGroupRule := _GroupRule{}
 
-	err = json.Unmarshal(bytes, &varGroupRule)
-	if err == nil {
-		*o = GroupRule(varGroupRule)
-	} else {
+	err = json.Unmarshal(data, &varGroupRule)
+
+	if err != nil {
 		return err
 	}
 
+	*o = GroupRule(varGroupRule)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "actions")
 		delete(additionalProperties, "conditions")
 		delete(additionalProperties, "created")
@@ -373,8 +390,6 @@ func (o *GroupRule) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -415,4 +430,3 @@ func (v *NullableGroupRule) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

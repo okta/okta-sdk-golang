@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Expression** | Pointer to [**Expression**](Expression.md) |  | [optional] 
-**ProfileSourceId** | Pointer to **string** |  | [optional] 
+**ProfileSourceId** | Pointer to **string** | ID of the profile source | [optional] 
 
 ## Methods
 

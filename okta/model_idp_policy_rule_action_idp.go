@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,13 +27,17 @@ import (
 	"encoding/json"
 )
 
-// IdpPolicyRuleActionIdp struct for IdpPolicyRuleActionIdp
+// checks if the IdpPolicyRuleActionIdp type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IdpPolicyRuleActionIdp{}
+
+// IdpPolicyRuleActionIdp Specifies IdP settings
 type IdpPolicyRuleActionIdp struct {
-	// List of configured Identity Providers that a given Rule can route to. Ability to define multiple providers is a part of the Okta Identity Engine. This allows users to choose a Provider when they sign in. Contact support for information on the Identity Engine.
+	// List of configured identity providers that a given rule can route to. Ability to define multiple providers is a part of the Identity Engine. This allows users to choose a provider when they sign in. Contact support for information on the Identity Engine.
 	Providers []IdpPolicyRuleActionProvider `json:"providers,omitempty"`
+	// Determines whether the rule should use expression language or a specific IdP
 	IdpSelectionType *string `json:"idpSelectionType,omitempty"`
 	// Required if `idpSelectionType` is set to `DYNAMIC`
-	MatchCriteria []IdpPolicyRuleActionMatchCriteria `json:"matchCriteria,omitempty"`
+	MatchCriteria        []IdpPolicyRuleActionMatchCriteria `json:"matchCriteria,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +62,7 @@ func NewIdpPolicyRuleActionIdpWithDefaults() *IdpPolicyRuleActionIdp {
 
 // GetProviders returns the Providers field value if set, zero value otherwise.
 func (o *IdpPolicyRuleActionIdp) GetProviders() []IdpPolicyRuleActionProvider {
-	if o == nil || o.Providers == nil {
+	if o == nil || IsNil(o.Providers) {
 		var ret []IdpPolicyRuleActionProvider
 		return ret
 	}
@@ -68,7 +72,7 @@ func (o *IdpPolicyRuleActionIdp) GetProviders() []IdpPolicyRuleActionProvider {
 // GetProvidersOk returns a tuple with the Providers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdpPolicyRuleActionIdp) GetProvidersOk() ([]IdpPolicyRuleActionProvider, bool) {
-	if o == nil || o.Providers == nil {
+	if o == nil || IsNil(o.Providers) {
 		return nil, false
 	}
 	return o.Providers, true
@@ -76,7 +80,7 @@ func (o *IdpPolicyRuleActionIdp) GetProvidersOk() ([]IdpPolicyRuleActionProvider
 
 // HasProviders returns a boolean if a field has been set.
 func (o *IdpPolicyRuleActionIdp) HasProviders() bool {
-	if o != nil && o.Providers != nil {
+	if o != nil && !IsNil(o.Providers) {
 		return true
 	}
 
@@ -90,7 +94,7 @@ func (o *IdpPolicyRuleActionIdp) SetProviders(v []IdpPolicyRuleActionProvider) {
 
 // GetIdpSelectionType returns the IdpSelectionType field value if set, zero value otherwise.
 func (o *IdpPolicyRuleActionIdp) GetIdpSelectionType() string {
-	if o == nil || o.IdpSelectionType == nil {
+	if o == nil || IsNil(o.IdpSelectionType) {
 		var ret string
 		return ret
 	}
@@ -100,7 +104,7 @@ func (o *IdpPolicyRuleActionIdp) GetIdpSelectionType() string {
 // GetIdpSelectionTypeOk returns a tuple with the IdpSelectionType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdpPolicyRuleActionIdp) GetIdpSelectionTypeOk() (*string, bool) {
-	if o == nil || o.IdpSelectionType == nil {
+	if o == nil || IsNil(o.IdpSelectionType) {
 		return nil, false
 	}
 	return o.IdpSelectionType, true
@@ -108,7 +112,7 @@ func (o *IdpPolicyRuleActionIdp) GetIdpSelectionTypeOk() (*string, bool) {
 
 // HasIdpSelectionType returns a boolean if a field has been set.
 func (o *IdpPolicyRuleActionIdp) HasIdpSelectionType() bool {
-	if o != nil && o.IdpSelectionType != nil {
+	if o != nil && !IsNil(o.IdpSelectionType) {
 		return true
 	}
 
@@ -122,7 +126,7 @@ func (o *IdpPolicyRuleActionIdp) SetIdpSelectionType(v string) {
 
 // GetMatchCriteria returns the MatchCriteria field value if set, zero value otherwise.
 func (o *IdpPolicyRuleActionIdp) GetMatchCriteria() []IdpPolicyRuleActionMatchCriteria {
-	if o == nil || o.MatchCriteria == nil {
+	if o == nil || IsNil(o.MatchCriteria) {
 		var ret []IdpPolicyRuleActionMatchCriteria
 		return ret
 	}
@@ -132,7 +136,7 @@ func (o *IdpPolicyRuleActionIdp) GetMatchCriteria() []IdpPolicyRuleActionMatchCr
 // GetMatchCriteriaOk returns a tuple with the MatchCriteria field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdpPolicyRuleActionIdp) GetMatchCriteriaOk() ([]IdpPolicyRuleActionMatchCriteria, bool) {
-	if o == nil || o.MatchCriteria == nil {
+	if o == nil || IsNil(o.MatchCriteria) {
 		return nil, false
 	}
 	return o.MatchCriteria, true
@@ -140,7 +144,7 @@ func (o *IdpPolicyRuleActionIdp) GetMatchCriteriaOk() ([]IdpPolicyRuleActionMatc
 
 // HasMatchCriteria returns a boolean if a field has been set.
 func (o *IdpPolicyRuleActionIdp) HasMatchCriteria() bool {
-	if o != nil && o.MatchCriteria != nil {
+	if o != nil && !IsNil(o.MatchCriteria) {
 		return true
 	}
 
@@ -153,14 +157,22 @@ func (o *IdpPolicyRuleActionIdp) SetMatchCriteria(v []IdpPolicyRuleActionMatchCr
 }
 
 func (o IdpPolicyRuleActionIdp) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IdpPolicyRuleActionIdp) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Providers != nil {
+	if !IsNil(o.Providers) {
 		toSerialize["providers"] = o.Providers
 	}
-	if o.IdpSelectionType != nil {
+	if !IsNil(o.IdpSelectionType) {
 		toSerialize["idpSelectionType"] = o.IdpSelectionType
 	}
-	if o.MatchCriteria != nil {
+	if !IsNil(o.MatchCriteria) {
 		toSerialize["matchCriteria"] = o.MatchCriteria
 	}
 
@@ -168,29 +180,27 @@ func (o IdpPolicyRuleActionIdp) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *IdpPolicyRuleActionIdp) UnmarshalJSON(bytes []byte) (err error) {
+func (o *IdpPolicyRuleActionIdp) UnmarshalJSON(data []byte) (err error) {
 	varIdpPolicyRuleActionIdp := _IdpPolicyRuleActionIdp{}
 
-	err = json.Unmarshal(bytes, &varIdpPolicyRuleActionIdp)
-	if err == nil {
-		*o = IdpPolicyRuleActionIdp(varIdpPolicyRuleActionIdp)
-	} else {
+	err = json.Unmarshal(data, &varIdpPolicyRuleActionIdp)
+
+	if err != nil {
 		return err
 	}
 
+	*o = IdpPolicyRuleActionIdp(varIdpPolicyRuleActionIdp)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "providers")
 		delete(additionalProperties, "idpSelectionType")
 		delete(additionalProperties, "matchCriteria")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -231,4 +241,3 @@ func (v *NullableIdpPolicyRuleActionIdp) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

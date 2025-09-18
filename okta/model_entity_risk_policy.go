@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,15 +25,19 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 	"reflect"
 	"strings"
 )
 
+// checks if the EntityRiskPolicy type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EntityRiskPolicy{}
+
 // EntityRiskPolicy struct for EntityRiskPolicy
 type EntityRiskPolicy struct {
 	Policy
-	// Policy conditions aren't supported for this policy types.
-	Conditions NullableString `json:"conditions,omitempty"`
+	// Policy conditions aren't supported for this policy type.
+	Conditions           NullableString `json:"conditions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -43,8 +47,12 @@ type _EntityRiskPolicy EntityRiskPolicy
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEntityRiskPolicy() *EntityRiskPolicy {
+func NewEntityRiskPolicy(name string, type_ string) *EntityRiskPolicy {
 	this := EntityRiskPolicy{}
+	this.Name = name
+	var system bool = false
+	this.System = &system
+	this.Type = type_
 	return &this
 }
 
@@ -58,7 +66,7 @@ func NewEntityRiskPolicyWithDefaults() *EntityRiskPolicy {
 
 // GetConditions returns the Conditions field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *EntityRiskPolicy) GetConditions() string {
-	if o == nil || o.Conditions.Get() == nil {
+	if o == nil || IsNil(o.Conditions.Get()) {
 		var ret string
 		return ret
 	}
@@ -88,6 +96,7 @@ func (o *EntityRiskPolicy) HasConditions() bool {
 func (o *EntityRiskPolicy) SetConditions(v string) {
 	o.Conditions.Set(&v)
 }
+
 // SetConditionsNil sets the value for Conditions to be an explicit nil
 func (o *EntityRiskPolicy) SetConditionsNil() {
 	o.Conditions.Set(nil)
@@ -99,14 +108,22 @@ func (o *EntityRiskPolicy) UnsetConditions() {
 }
 
 func (o EntityRiskPolicy) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EntityRiskPolicy) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedPolicy, errPolicy := json.Marshal(o.Policy)
 	if errPolicy != nil {
-		return []byte{}, errPolicy
+		return map[string]interface{}{}, errPolicy
 	}
 	errPolicy = json.Unmarshal([]byte(serializedPolicy), &toSerialize)
 	if errPolicy != nil {
-		return []byte{}, errPolicy
+		return map[string]interface{}{}, errPolicy
 	}
 	if o.Conditions.IsSet() {
 		toSerialize["conditions"] = o.Conditions.Get()
@@ -116,18 +133,40 @@ func (o EntityRiskPolicy) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EntityRiskPolicy) UnmarshalJSON(bytes []byte) (err error) {
+func (o *EntityRiskPolicy) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	type EntityRiskPolicyWithoutEmbeddedStruct struct {
-		// Policy conditions aren't supported for this policy types.
+		// Policy conditions aren't supported for this policy type.
 		Conditions NullableString `json:"conditions,omitempty"`
 	}
 
 	varEntityRiskPolicyWithoutEmbeddedStruct := EntityRiskPolicyWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varEntityRiskPolicyWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varEntityRiskPolicyWithoutEmbeddedStruct)
 	if err == nil {
 		varEntityRiskPolicy := _EntityRiskPolicy{}
 		varEntityRiskPolicy.Conditions = varEntityRiskPolicyWithoutEmbeddedStruct.Conditions
@@ -138,7 +177,7 @@ func (o *EntityRiskPolicy) UnmarshalJSON(bytes []byte) (err error) {
 
 	varEntityRiskPolicy := _EntityRiskPolicy{}
 
-	err = json.Unmarshal(bytes, &varEntityRiskPolicy)
+	err = json.Unmarshal(data, &varEntityRiskPolicy)
 	if err == nil {
 		o.Policy = varEntityRiskPolicy.Policy
 	} else {
@@ -147,8 +186,7 @@ func (o *EntityRiskPolicy) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "conditions")
 
 		// remove fields from embedded structs
@@ -170,8 +208,6 @@ func (o *EntityRiskPolicy) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -212,4 +248,3 @@ func (v *NullableEntityRiskPolicy) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

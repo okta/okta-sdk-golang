@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,14 +25,18 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 	"reflect"
 	"strings"
 )
 
+// checks if the OktaSignOnPolicy type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OktaSignOnPolicy{}
+
 // OktaSignOnPolicy struct for OktaSignOnPolicy
 type OktaSignOnPolicy struct {
 	Policy
-	Conditions *OktaSignOnPolicyConditions `json:"conditions,omitempty"`
+	Conditions           *OktaSignOnPolicyConditions `json:"conditions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -42,8 +46,12 @@ type _OktaSignOnPolicy OktaSignOnPolicy
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOktaSignOnPolicy() *OktaSignOnPolicy {
+func NewOktaSignOnPolicy(name string, type_ string) *OktaSignOnPolicy {
 	this := OktaSignOnPolicy{}
+	this.Name = name
+	var system bool = false
+	this.System = &system
+	this.Type = type_
 	return &this
 }
 
@@ -57,7 +65,7 @@ func NewOktaSignOnPolicyWithDefaults() *OktaSignOnPolicy {
 
 // GetConditions returns the Conditions field value if set, zero value otherwise.
 func (o *OktaSignOnPolicy) GetConditions() OktaSignOnPolicyConditions {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		var ret OktaSignOnPolicyConditions
 		return ret
 	}
@@ -67,7 +75,7 @@ func (o *OktaSignOnPolicy) GetConditions() OktaSignOnPolicyConditions {
 // GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaSignOnPolicy) GetConditionsOk() (*OktaSignOnPolicyConditions, bool) {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		return nil, false
 	}
 	return o.Conditions, true
@@ -75,7 +83,7 @@ func (o *OktaSignOnPolicy) GetConditionsOk() (*OktaSignOnPolicyConditions, bool)
 
 // HasConditions returns a boolean if a field has been set.
 func (o *OktaSignOnPolicy) HasConditions() bool {
-	if o != nil && o.Conditions != nil {
+	if o != nil && !IsNil(o.Conditions) {
 		return true
 	}
 
@@ -88,16 +96,24 @@ func (o *OktaSignOnPolicy) SetConditions(v OktaSignOnPolicyConditions) {
 }
 
 func (o OktaSignOnPolicy) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OktaSignOnPolicy) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedPolicy, errPolicy := json.Marshal(o.Policy)
 	if errPolicy != nil {
-		return []byte{}, errPolicy
+		return map[string]interface{}{}, errPolicy
 	}
 	errPolicy = json.Unmarshal([]byte(serializedPolicy), &toSerialize)
 	if errPolicy != nil {
-		return []byte{}, errPolicy
+		return map[string]interface{}{}, errPolicy
 	}
-	if o.Conditions != nil {
+	if !IsNil(o.Conditions) {
 		toSerialize["conditions"] = o.Conditions
 	}
 
@@ -105,17 +121,39 @@ func (o OktaSignOnPolicy) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OktaSignOnPolicy) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OktaSignOnPolicy) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	type OktaSignOnPolicyWithoutEmbeddedStruct struct {
 		Conditions *OktaSignOnPolicyConditions `json:"conditions,omitempty"`
 	}
 
 	varOktaSignOnPolicyWithoutEmbeddedStruct := OktaSignOnPolicyWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varOktaSignOnPolicyWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varOktaSignOnPolicyWithoutEmbeddedStruct)
 	if err == nil {
 		varOktaSignOnPolicy := _OktaSignOnPolicy{}
 		varOktaSignOnPolicy.Conditions = varOktaSignOnPolicyWithoutEmbeddedStruct.Conditions
@@ -126,7 +164,7 @@ func (o *OktaSignOnPolicy) UnmarshalJSON(bytes []byte) (err error) {
 
 	varOktaSignOnPolicy := _OktaSignOnPolicy{}
 
-	err = json.Unmarshal(bytes, &varOktaSignOnPolicy)
+	err = json.Unmarshal(data, &varOktaSignOnPolicy)
 	if err == nil {
 		o.Policy = varOktaSignOnPolicy.Policy
 	} else {
@@ -135,8 +173,7 @@ func (o *OktaSignOnPolicy) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "conditions")
 
 		// remove fields from embedded structs
@@ -158,8 +195,6 @@ func (o *OktaSignOnPolicy) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -200,4 +235,3 @@ func (v *NullableOktaSignOnPolicy) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

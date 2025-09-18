@@ -4,13 +4,13 @@ All URIs are relative to *https://subdomain.okta.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ActivateNetworkZone**](NetworkZoneAPI.md#ActivateNetworkZone) | **Post** /api/v1/zones/{zoneId}/lifecycle/activate | Activate a Network Zone
-[**CreateNetworkZone**](NetworkZoneAPI.md#CreateNetworkZone) | **Post** /api/v1/zones | Create a Network Zone
-[**DeactivateNetworkZone**](NetworkZoneAPI.md#DeactivateNetworkZone) | **Post** /api/v1/zones/{zoneId}/lifecycle/deactivate | Deactivate a Network Zone
-[**DeleteNetworkZone**](NetworkZoneAPI.md#DeleteNetworkZone) | **Delete** /api/v1/zones/{zoneId} | Delete a Network Zone
-[**GetNetworkZone**](NetworkZoneAPI.md#GetNetworkZone) | **Get** /api/v1/zones/{zoneId} | Retrieve a Network Zone
-[**ListNetworkZones**](NetworkZoneAPI.md#ListNetworkZones) | **Get** /api/v1/zones | List all Network Zones
-[**ReplaceNetworkZone**](NetworkZoneAPI.md#ReplaceNetworkZone) | **Put** /api/v1/zones/{zoneId} | Replace a Network Zone
+[**ActivateNetworkZone**](NetworkZoneAPI.md#ActivateNetworkZone) | **Post** /api/v1/zones/{zoneId}/lifecycle/activate | Activate a network zone
+[**CreateNetworkZone**](NetworkZoneAPI.md#CreateNetworkZone) | **Post** /api/v1/zones | Create a network zone
+[**DeactivateNetworkZone**](NetworkZoneAPI.md#DeactivateNetworkZone) | **Post** /api/v1/zones/{zoneId}/lifecycle/deactivate | Deactivate a network zone
+[**DeleteNetworkZone**](NetworkZoneAPI.md#DeleteNetworkZone) | **Delete** /api/v1/zones/{zoneId} | Delete a network zone
+[**GetNetworkZone**](NetworkZoneAPI.md#GetNetworkZone) | **Get** /api/v1/zones/{zoneId} | Retrieve a network zone
+[**ListNetworkZones**](NetworkZoneAPI.md#ListNetworkZones) | **Get** /api/v1/zones | List all network zones
+[**ReplaceNetworkZone**](NetworkZoneAPI.md#ReplaceNetworkZone) | **Put** /api/v1/zones/{zoneId} | Replace a network zone
 
 
 
@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 > ListNetworkZones200ResponseInner ActivateNetworkZone(ctx, zoneId).Execute()
 
-Activate a Network Zone
+Activate a network zone
 
 
 
@@ -28,24 +28,24 @@ Activate a Network Zone
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    zoneId := "nzowc1U5Jh5xuAK0o0g3" // string | `id` of the Network Zone
+	zoneId := "nzowc1U5Jh5xuAK0o0g3" // string | `id` of the Network Zone
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NetworkZoneAPI.ActivateNetworkZone(context.Background(), zoneId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NetworkZoneAPI.ActivateNetworkZone``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ActivateNetworkZone`: ListNetworkZones200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `NetworkZoneAPI.ActivateNetworkZone`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NetworkZoneAPI.ActivateNetworkZone(context.Background(), zoneId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NetworkZoneAPI.ActivateNetworkZone``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ActivateNetworkZone`: ListNetworkZones200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `NetworkZoneAPI.ActivateNetworkZone`: %v\n", resp)
 }
 ```
 
@@ -88,7 +88,7 @@ Name | Type | Description  | Notes
 
 > ListNetworkZones200ResponseInner CreateNetworkZone(ctx).Zone(zone).Execute()
 
-Create a Network Zone
+Create a network zone
 
 
 
@@ -98,24 +98,24 @@ Create a Network Zone
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    zone := openapiclient.listNetworkZones_200_response_inner{DynamicNetworkZone: openapiclient.NewDynamicNetworkZone("Name_example", "Type_example")} // ListNetworkZones200ResponseInner | 
+	zone := openapiclient.listNetworkZones_200_response_inner{DynamicNetworkZone: openapiclient.NewDynamicNetworkZone("Name_example", "Type_example")} // ListNetworkZones200ResponseInner | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NetworkZoneAPI.CreateNetworkZone(context.Background()).Zone(zone).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NetworkZoneAPI.CreateNetworkZone``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateNetworkZone`: ListNetworkZones200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `NetworkZoneAPI.CreateNetworkZone`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NetworkZoneAPI.CreateNetworkZone(context.Background()).Zone(zone).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NetworkZoneAPI.CreateNetworkZone``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateNetworkZone`: ListNetworkZones200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `NetworkZoneAPI.CreateNetworkZone`: %v\n", resp)
 }
 ```
 
@@ -154,7 +154,7 @@ Name | Type | Description  | Notes
 
 > ListNetworkZones200ResponseInner DeactivateNetworkZone(ctx, zoneId).Execute()
 
-Deactivate a Network Zone
+Deactivate a network zone
 
 
 
@@ -164,24 +164,24 @@ Deactivate a Network Zone
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    zoneId := "nzowc1U5Jh5xuAK0o0g3" // string | `id` of the Network Zone
+	zoneId := "nzowc1U5Jh5xuAK0o0g3" // string | `id` of the Network Zone
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NetworkZoneAPI.DeactivateNetworkZone(context.Background(), zoneId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NetworkZoneAPI.DeactivateNetworkZone``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `DeactivateNetworkZone`: ListNetworkZones200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `NetworkZoneAPI.DeactivateNetworkZone`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NetworkZoneAPI.DeactivateNetworkZone(context.Background(), zoneId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NetworkZoneAPI.DeactivateNetworkZone``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeactivateNetworkZone`: ListNetworkZones200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `NetworkZoneAPI.DeactivateNetworkZone`: %v\n", resp)
 }
 ```
 
@@ -224,7 +224,7 @@ Name | Type | Description  | Notes
 
 > DeleteNetworkZone(ctx, zoneId).Execute()
 
-Delete a Network Zone
+Delete a network zone
 
 
 
@@ -234,22 +234,22 @@ Delete a Network Zone
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    zoneId := "nzowc1U5Jh5xuAK0o0g3" // string | `id` of the Network Zone
+	zoneId := "nzowc1U5Jh5xuAK0o0g3" // string | `id` of the Network Zone
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.NetworkZoneAPI.DeleteNetworkZone(context.Background(), zoneId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NetworkZoneAPI.DeleteNetworkZone``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.NetworkZoneAPI.DeleteNetworkZone(context.Background(), zoneId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NetworkZoneAPI.DeleteNetworkZone``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -292,7 +292,7 @@ Name | Type | Description  | Notes
 
 > ListNetworkZones200ResponseInner GetNetworkZone(ctx, zoneId).Execute()
 
-Retrieve a Network Zone
+Retrieve a network zone
 
 
 
@@ -302,24 +302,24 @@ Retrieve a Network Zone
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    zoneId := "nzowc1U5Jh5xuAK0o0g3" // string | `id` of the Network Zone
+	zoneId := "nzowc1U5Jh5xuAK0o0g3" // string | `id` of the Network Zone
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NetworkZoneAPI.GetNetworkZone(context.Background(), zoneId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NetworkZoneAPI.GetNetworkZone``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetNetworkZone`: ListNetworkZones200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `NetworkZoneAPI.GetNetworkZone`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NetworkZoneAPI.GetNetworkZone(context.Background(), zoneId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NetworkZoneAPI.GetNetworkZone``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetNetworkZone`: ListNetworkZones200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `NetworkZoneAPI.GetNetworkZone`: %v\n", resp)
 }
 ```
 
@@ -362,7 +362,7 @@ Name | Type | Description  | Notes
 
 > []ListNetworkZones200ResponseInner ListNetworkZones(ctx).After(after).Limit(limit).Filter(filter).Execute()
 
-List all Network Zones
+List all network zones
 
 
 
@@ -372,26 +372,26 @@ List all Network Zones
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    after := "BlockedIpZones" // string |  (optional)
-    limit := int32(5) // int32 |  (optional) (default to -1)
-    filter := "id eq "nzowc1U5Jh5xuAK0o0g3"" // string |  (optional)
+	after := "BlockedIpZones" // string |  (optional)
+	limit := int32(5) // int32 |  (optional) (default to -1)
+	filter := "id eq "nzowc1U5Jh5xuAK0o0g3"" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NetworkZoneAPI.ListNetworkZones(context.Background()).After(after).Limit(limit).Filter(filter).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NetworkZoneAPI.ListNetworkZones``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListNetworkZones`: []ListNetworkZones200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `NetworkZoneAPI.ListNetworkZones`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NetworkZoneAPI.ListNetworkZones(context.Background()).After(after).Limit(limit).Filter(filter).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NetworkZoneAPI.ListNetworkZones``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListNetworkZones`: []ListNetworkZones200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `NetworkZoneAPI.ListNetworkZones`: %v\n", resp)
 }
 ```
 
@@ -432,7 +432,7 @@ Name | Type | Description  | Notes
 
 > ListNetworkZones200ResponseInner ReplaceNetworkZone(ctx, zoneId).Zone(zone).Execute()
 
-Replace a Network Zone
+Replace a network zone
 
 
 
@@ -442,25 +442,25 @@ Replace a Network Zone
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    zoneId := "nzowc1U5Jh5xuAK0o0g3" // string | `id` of the Network Zone
-    zone := openapiclient.listNetworkZones_200_response_inner{DynamicNetworkZone: openapiclient.NewDynamicNetworkZone("Name_example", "Type_example")} // ListNetworkZones200ResponseInner | 
+	zoneId := "nzowc1U5Jh5xuAK0o0g3" // string | `id` of the Network Zone
+	zone := openapiclient.listNetworkZones_200_response_inner{DynamicNetworkZone: openapiclient.NewDynamicNetworkZone("Name_example", "Type_example")} // ListNetworkZones200ResponseInner | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NetworkZoneAPI.ReplaceNetworkZone(context.Background(), zoneId).Zone(zone).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NetworkZoneAPI.ReplaceNetworkZone``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceNetworkZone`: ListNetworkZones200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `NetworkZoneAPI.ReplaceNetworkZone`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NetworkZoneAPI.ReplaceNetworkZone(context.Background(), zoneId).Zone(zone).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NetworkZoneAPI.ReplaceNetworkZone``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceNetworkZone`: ListNetworkZones200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `NetworkZoneAPI.ReplaceNetworkZone`: %v\n", resp)
 }
 ```
 

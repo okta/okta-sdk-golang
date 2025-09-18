@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,14 +25,18 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
-// Office365ProvisioningSettings Settings required for the Microsoft Office 365 Provisioning Connection
+// checks if the Office365ProvisioningSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Office365ProvisioningSettings{}
+
+// Office365ProvisioningSettings Settings required for the Microsoft Office 365 provisioning connection
 type Office365ProvisioningSettings struct {
 	// Microsoft Office 365 global administrator password
 	AdminPassword string `json:"adminPassword"`
 	// Microsoft Office 365 global administrator username
-	AdminUsername string `json:"adminUsername"`
+	AdminUsername        string `json:"adminUsername"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -106,40 +110,64 @@ func (o *Office365ProvisioningSettings) SetAdminUsername(v string) {
 }
 
 func (o Office365ProvisioningSettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Office365ProvisioningSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["adminPassword"] = o.AdminPassword
-	}
-	if true {
-		toSerialize["adminUsername"] = o.AdminUsername
-	}
+	toSerialize["adminPassword"] = o.AdminPassword
+	toSerialize["adminUsername"] = o.AdminUsername
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Office365ProvisioningSettings) UnmarshalJSON(bytes []byte) (err error) {
-	varOffice365ProvisioningSettings := _Office365ProvisioningSettings{}
+func (o *Office365ProvisioningSettings) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"adminPassword",
+		"adminUsername",
+	}
 
-	err = json.Unmarshal(bytes, &varOffice365ProvisioningSettings)
-	if err == nil {
-		*o = Office365ProvisioningSettings(varOffice365ProvisioningSettings)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varOffice365ProvisioningSettings := _Office365ProvisioningSettings{}
+
+	err = json.Unmarshal(data, &varOffice365ProvisioningSettings)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Office365ProvisioningSettings(varOffice365ProvisioningSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "adminPassword")
 		delete(additionalProperties, "adminUsername")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -180,4 +208,3 @@ func (v *NullableOffice365ProvisioningSettings) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

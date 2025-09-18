@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the ResourceSetBindingAddMembersRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceSetBindingAddMembersRequest{}
+
 // ResourceSetBindingAddMembersRequest struct for ResourceSetBindingAddMembersRequest
 type ResourceSetBindingAddMembersRequest struct {
-	Additions []string `json:"additions,omitempty"`
+	// A list of member resources to add to the role resource set binding
+	Additions            []string `json:"additions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +58,7 @@ func NewResourceSetBindingAddMembersRequestWithDefaults() *ResourceSetBindingAdd
 
 // GetAdditions returns the Additions field value if set, zero value otherwise.
 func (o *ResourceSetBindingAddMembersRequest) GetAdditions() []string {
-	if o == nil || o.Additions == nil {
+	if o == nil || IsNil(o.Additions) {
 		var ret []string
 		return ret
 	}
@@ -64,7 +68,7 @@ func (o *ResourceSetBindingAddMembersRequest) GetAdditions() []string {
 // GetAdditionsOk returns a tuple with the Additions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSetBindingAddMembersRequest) GetAdditionsOk() ([]string, bool) {
-	if o == nil || o.Additions == nil {
+	if o == nil || IsNil(o.Additions) {
 		return nil, false
 	}
 	return o.Additions, true
@@ -72,7 +76,7 @@ func (o *ResourceSetBindingAddMembersRequest) GetAdditionsOk() ([]string, bool) 
 
 // HasAdditions returns a boolean if a field has been set.
 func (o *ResourceSetBindingAddMembersRequest) HasAdditions() bool {
-	if o != nil && o.Additions != nil {
+	if o != nil && !IsNil(o.Additions) {
 		return true
 	}
 
@@ -85,8 +89,16 @@ func (o *ResourceSetBindingAddMembersRequest) SetAdditions(v []string) {
 }
 
 func (o ResourceSetBindingAddMembersRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ResourceSetBindingAddMembersRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Additions != nil {
+	if !IsNil(o.Additions) {
 		toSerialize["additions"] = o.Additions
 	}
 
@@ -94,27 +106,25 @@ func (o ResourceSetBindingAddMembersRequest) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResourceSetBindingAddMembersRequest) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ResourceSetBindingAddMembersRequest) UnmarshalJSON(data []byte) (err error) {
 	varResourceSetBindingAddMembersRequest := _ResourceSetBindingAddMembersRequest{}
 
-	err = json.Unmarshal(bytes, &varResourceSetBindingAddMembersRequest)
-	if err == nil {
-		*o = ResourceSetBindingAddMembersRequest(varResourceSetBindingAddMembersRequest)
-	} else {
+	err = json.Unmarshal(data, &varResourceSetBindingAddMembersRequest)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ResourceSetBindingAddMembersRequest(varResourceSetBindingAddMembersRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "additions")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +165,3 @@ func (v *NullableResourceSetBindingAddMembersRequest) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

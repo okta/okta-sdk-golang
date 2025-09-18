@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the TrustedOriginScope type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TrustedOriginScope{}
+
 // TrustedOriginScope struct for TrustedOriginScope
 type TrustedOriginScope struct {
-	// The allowed Okta apps for the Trusted Origin scope
+	// The allowed Okta apps for the trusted origin scope
 	AllowedOktaApps []string `json:"allowedOktaApps,omitempty"`
-	// The scope type. Supported values: When you use `IFRAME_EMBED` as the scope type, leave the allowedOktaApps property empty to allow iFrame embedding of only Okta sign-in pages. Include `OKTA_ENDUSER` as a value for the allowedOktaApps property to allow iFrame embedding of both Okta sign-in pages and the Okta End-User Dashboard. 
-	Type *string `json:"type,omitempty"`
+	// The scope type. Supported values: When you use `IFRAME_EMBED` as the scope type, leave the `allowedOktaApps` property empty to allow iFrame embedding of only Okta sign-in pages. Include `OKTA_ENDUSER` as a value for the `allowedOktaApps` property to allow iFrame embedding of both Okta sign-in pages and the Okta End-User Dashboard.
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewTrustedOriginScopeWithDefaults() *TrustedOriginScope {
 
 // GetAllowedOktaApps returns the AllowedOktaApps field value if set, zero value otherwise.
 func (o *TrustedOriginScope) GetAllowedOktaApps() []string {
-	if o == nil || o.AllowedOktaApps == nil {
+	if o == nil || IsNil(o.AllowedOktaApps) {
 		var ret []string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *TrustedOriginScope) GetAllowedOktaApps() []string {
 // GetAllowedOktaAppsOk returns a tuple with the AllowedOktaApps field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TrustedOriginScope) GetAllowedOktaAppsOk() ([]string, bool) {
-	if o == nil || o.AllowedOktaApps == nil {
+	if o == nil || IsNil(o.AllowedOktaApps) {
 		return nil, false
 	}
 	return o.AllowedOktaApps, true
@@ -75,7 +78,7 @@ func (o *TrustedOriginScope) GetAllowedOktaAppsOk() ([]string, bool) {
 
 // HasAllowedOktaApps returns a boolean if a field has been set.
 func (o *TrustedOriginScope) HasAllowedOktaApps() bool {
-	if o != nil && o.AllowedOktaApps != nil {
+	if o != nil && !IsNil(o.AllowedOktaApps) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *TrustedOriginScope) SetAllowedOktaApps(v []string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *TrustedOriginScope) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *TrustedOriginScope) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TrustedOriginScope) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -107,7 +110,7 @@ func (o *TrustedOriginScope) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *TrustedOriginScope) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *TrustedOriginScope) SetType(v string) {
 }
 
 func (o TrustedOriginScope) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TrustedOriginScope) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AllowedOktaApps != nil {
+	if !IsNil(o.AllowedOktaApps) {
 		toSerialize["allowedOktaApps"] = o.AllowedOktaApps
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -132,28 +143,26 @@ func (o TrustedOriginScope) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *TrustedOriginScope) UnmarshalJSON(bytes []byte) (err error) {
+func (o *TrustedOriginScope) UnmarshalJSON(data []byte) (err error) {
 	varTrustedOriginScope := _TrustedOriginScope{}
 
-	err = json.Unmarshal(bytes, &varTrustedOriginScope)
-	if err == nil {
-		*o = TrustedOriginScope(varTrustedOriginScope)
-	} else {
+	err = json.Unmarshal(data, &varTrustedOriginScope)
+
+	if err != nil {
 		return err
 	}
 
+	*o = TrustedOriginScope(varTrustedOriginScope)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "allowedOktaApps")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableTrustedOriginScope) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

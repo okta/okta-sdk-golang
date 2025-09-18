@@ -4,13 +4,13 @@ All URIs are relative to *https://subdomain.okta.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ActivateAuthorizationServerPolicyRule**](AuthorizationServerRulesAPI.md#ActivateAuthorizationServerPolicyRule) | **Post** /api/v1/authorizationServers/{authServerId}/policies/{policyId}/rules/{ruleId}/lifecycle/activate | Activate a Policy Rule
-[**CreateAuthorizationServerPolicyRule**](AuthorizationServerRulesAPI.md#CreateAuthorizationServerPolicyRule) | **Post** /api/v1/authorizationServers/{authServerId}/policies/{policyId}/rules | Create a Policy Rule
-[**DeactivateAuthorizationServerPolicyRule**](AuthorizationServerRulesAPI.md#DeactivateAuthorizationServerPolicyRule) | **Post** /api/v1/authorizationServers/{authServerId}/policies/{policyId}/rules/{ruleId}/lifecycle/deactivate | Deactivate a Policy Rule
-[**DeleteAuthorizationServerPolicyRule**](AuthorizationServerRulesAPI.md#DeleteAuthorizationServerPolicyRule) | **Delete** /api/v1/authorizationServers/{authServerId}/policies/{policyId}/rules/{ruleId} | Delete a Policy Rule
-[**GetAuthorizationServerPolicyRule**](AuthorizationServerRulesAPI.md#GetAuthorizationServerPolicyRule) | **Get** /api/v1/authorizationServers/{authServerId}/policies/{policyId}/rules/{ruleId} | Retrieve a Policy Rule
-[**ListAuthorizationServerPolicyRules**](AuthorizationServerRulesAPI.md#ListAuthorizationServerPolicyRules) | **Get** /api/v1/authorizationServers/{authServerId}/policies/{policyId}/rules | List all Policy Rules
-[**ReplaceAuthorizationServerPolicyRule**](AuthorizationServerRulesAPI.md#ReplaceAuthorizationServerPolicyRule) | **Put** /api/v1/authorizationServers/{authServerId}/policies/{policyId}/rules/{ruleId} | Replace a Policy Rule
+[**ActivateAuthorizationServerPolicyRule**](AuthorizationServerRulesAPI.md#ActivateAuthorizationServerPolicyRule) | **Post** /api/v1/authorizationServers/{authServerId}/policies/{policyId}/rules/{ruleId}/lifecycle/activate | Activate a policy rule
+[**CreateAuthorizationServerPolicyRule**](AuthorizationServerRulesAPI.md#CreateAuthorizationServerPolicyRule) | **Post** /api/v1/authorizationServers/{authServerId}/policies/{policyId}/rules | Create a policy rule
+[**DeactivateAuthorizationServerPolicyRule**](AuthorizationServerRulesAPI.md#DeactivateAuthorizationServerPolicyRule) | **Post** /api/v1/authorizationServers/{authServerId}/policies/{policyId}/rules/{ruleId}/lifecycle/deactivate | Deactivate a policy rule
+[**DeleteAuthorizationServerPolicyRule**](AuthorizationServerRulesAPI.md#DeleteAuthorizationServerPolicyRule) | **Delete** /api/v1/authorizationServers/{authServerId}/policies/{policyId}/rules/{ruleId} | Delete a policy rule
+[**GetAuthorizationServerPolicyRule**](AuthorizationServerRulesAPI.md#GetAuthorizationServerPolicyRule) | **Get** /api/v1/authorizationServers/{authServerId}/policies/{policyId}/rules/{ruleId} | Retrieve a policy rule
+[**ListAuthorizationServerPolicyRules**](AuthorizationServerRulesAPI.md#ListAuthorizationServerPolicyRules) | **Get** /api/v1/authorizationServers/{authServerId}/policies/{policyId}/rules | List all policy rules
+[**ReplaceAuthorizationServerPolicyRule**](AuthorizationServerRulesAPI.md#ReplaceAuthorizationServerPolicyRule) | **Put** /api/v1/authorizationServers/{authServerId}/policies/{policyId}/rules/{ruleId} | Replace a policy rule
 
 
 
@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 > ActivateAuthorizationServerPolicyRule(ctx, authServerId, policyId, ruleId).Execute()
 
-Activate a Policy Rule
+Activate a policy rule
 
 
 
@@ -28,24 +28,24 @@ Activate a Policy Rule
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-    policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
-    ruleId := "ruld3hJ7jZh4fn0st0g3" // string | `id` of the Policy Rule
+	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	ruleId := "ruld3hJ7jZh4fn0st0g3" // string | `id` of the policy rule
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.AuthorizationServerRulesAPI.ActivateAuthorizationServerPolicyRule(context.Background(), authServerId, policyId, ruleId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerRulesAPI.ActivateAuthorizationServerPolicyRule``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AuthorizationServerRulesAPI.ActivateAuthorizationServerPolicyRule(context.Background(), authServerId, policyId, ruleId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerRulesAPI.ActivateAuthorizationServerPolicyRule``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -57,7 +57,7 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **authServerId** | **string** | &#x60;id&#x60; of the Authorization Server | 
 **policyId** | **string** | &#x60;id&#x60; of the Policy | 
-**ruleId** | **string** | &#x60;id&#x60; of the Policy Rule | 
+**ruleId** | **string** | &#x60;id&#x60; of the policy rule | 
 
 ### Other Parameters
 
@@ -92,7 +92,7 @@ Name | Type | Description  | Notes
 
 > AuthorizationServerPolicyRule CreateAuthorizationServerPolicyRule(ctx, authServerId, policyId).PolicyRule(policyRule).Execute()
 
-Create a Policy Rule
+Create a policy rule
 
 
 
@@ -102,26 +102,26 @@ Create a Policy Rule
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-    policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
-    policyRule := *openapiclient.NewAuthorizationServerPolicyRule() // AuthorizationServerPolicyRule | 
+	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyRule := *openapiclient.NewAuthorizationServerPolicyRuleRequest(*openapiclient.NewAuthorizationServerPolicyRuleConditions(), "Name_example", "Type_example") // AuthorizationServerPolicyRuleRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthorizationServerRulesAPI.CreateAuthorizationServerPolicyRule(context.Background(), authServerId, policyId).PolicyRule(policyRule).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerRulesAPI.CreateAuthorizationServerPolicyRule``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateAuthorizationServerPolicyRule`: AuthorizationServerPolicyRule
-    fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerRulesAPI.CreateAuthorizationServerPolicyRule`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthorizationServerRulesAPI.CreateAuthorizationServerPolicyRule(context.Background(), authServerId, policyId).PolicyRule(policyRule).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerRulesAPI.CreateAuthorizationServerPolicyRule``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateAuthorizationServerPolicyRule`: AuthorizationServerPolicyRule
+	fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerRulesAPI.CreateAuthorizationServerPolicyRule`: %v\n", resp)
 }
 ```
 
@@ -143,7 +143,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **policyRule** | [**AuthorizationServerPolicyRule**](AuthorizationServerPolicyRule.md) |  | 
+ **policyRule** | [**AuthorizationServerPolicyRuleRequest**](AuthorizationServerPolicyRuleRequest.md) |  | 
 
 ### Return type
 
@@ -167,7 +167,7 @@ Name | Type | Description  | Notes
 
 > DeactivateAuthorizationServerPolicyRule(ctx, authServerId, policyId, ruleId).Execute()
 
-Deactivate a Policy Rule
+Deactivate a policy rule
 
 
 
@@ -177,24 +177,24 @@ Deactivate a Policy Rule
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-    policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
-    ruleId := "ruld3hJ7jZh4fn0st0g3" // string | `id` of the Policy Rule
+	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	ruleId := "ruld3hJ7jZh4fn0st0g3" // string | `id` of the policy rule
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.AuthorizationServerRulesAPI.DeactivateAuthorizationServerPolicyRule(context.Background(), authServerId, policyId, ruleId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerRulesAPI.DeactivateAuthorizationServerPolicyRule``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AuthorizationServerRulesAPI.DeactivateAuthorizationServerPolicyRule(context.Background(), authServerId, policyId, ruleId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerRulesAPI.DeactivateAuthorizationServerPolicyRule``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -206,7 +206,7 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **authServerId** | **string** | &#x60;id&#x60; of the Authorization Server | 
 **policyId** | **string** | &#x60;id&#x60; of the Policy | 
-**ruleId** | **string** | &#x60;id&#x60; of the Policy Rule | 
+**ruleId** | **string** | &#x60;id&#x60; of the policy rule | 
 
 ### Other Parameters
 
@@ -241,7 +241,7 @@ Name | Type | Description  | Notes
 
 > DeleteAuthorizationServerPolicyRule(ctx, authServerId, policyId, ruleId).Execute()
 
-Delete a Policy Rule
+Delete a policy rule
 
 
 
@@ -251,24 +251,24 @@ Delete a Policy Rule
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-    policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
-    ruleId := "ruld3hJ7jZh4fn0st0g3" // string | `id` of the Policy Rule
+	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	ruleId := "ruld3hJ7jZh4fn0st0g3" // string | `id` of the policy rule
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.AuthorizationServerRulesAPI.DeleteAuthorizationServerPolicyRule(context.Background(), authServerId, policyId, ruleId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerRulesAPI.DeleteAuthorizationServerPolicyRule``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AuthorizationServerRulesAPI.DeleteAuthorizationServerPolicyRule(context.Background(), authServerId, policyId, ruleId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerRulesAPI.DeleteAuthorizationServerPolicyRule``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -280,7 +280,7 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **authServerId** | **string** | &#x60;id&#x60; of the Authorization Server | 
 **policyId** | **string** | &#x60;id&#x60; of the Policy | 
-**ruleId** | **string** | &#x60;id&#x60; of the Policy Rule | 
+**ruleId** | **string** | &#x60;id&#x60; of the policy rule | 
 
 ### Other Parameters
 
@@ -315,7 +315,7 @@ Name | Type | Description  | Notes
 
 > AuthorizationServerPolicyRule GetAuthorizationServerPolicyRule(ctx, authServerId, policyId, ruleId).Execute()
 
-Retrieve a Policy Rule
+Retrieve a policy rule
 
 
 
@@ -325,26 +325,26 @@ Retrieve a Policy Rule
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-    policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
-    ruleId := "ruld3hJ7jZh4fn0st0g3" // string | `id` of the Policy Rule
+	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	ruleId := "ruld3hJ7jZh4fn0st0g3" // string | `id` of the policy rule
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthorizationServerRulesAPI.GetAuthorizationServerPolicyRule(context.Background(), authServerId, policyId, ruleId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerRulesAPI.GetAuthorizationServerPolicyRule``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAuthorizationServerPolicyRule`: AuthorizationServerPolicyRule
-    fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerRulesAPI.GetAuthorizationServerPolicyRule`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthorizationServerRulesAPI.GetAuthorizationServerPolicyRule(context.Background(), authServerId, policyId, ruleId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerRulesAPI.GetAuthorizationServerPolicyRule``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAuthorizationServerPolicyRule`: AuthorizationServerPolicyRule
+	fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerRulesAPI.GetAuthorizationServerPolicyRule`: %v\n", resp)
 }
 ```
 
@@ -356,7 +356,7 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **authServerId** | **string** | &#x60;id&#x60; of the Authorization Server | 
 **policyId** | **string** | &#x60;id&#x60; of the Policy | 
-**ruleId** | **string** | &#x60;id&#x60; of the Policy Rule | 
+**ruleId** | **string** | &#x60;id&#x60; of the policy rule | 
 
 ### Other Parameters
 
@@ -391,7 +391,7 @@ Name | Type | Description  | Notes
 
 > []AuthorizationServerPolicyRule ListAuthorizationServerPolicyRules(ctx, authServerId, policyId).Execute()
 
-List all Policy Rules
+List all policy rules
 
 
 
@@ -401,25 +401,25 @@ List all Policy Rules
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-    policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthorizationServerRulesAPI.ListAuthorizationServerPolicyRules(context.Background(), authServerId, policyId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerRulesAPI.ListAuthorizationServerPolicyRules``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListAuthorizationServerPolicyRules`: []AuthorizationServerPolicyRule
-    fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerRulesAPI.ListAuthorizationServerPolicyRules`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthorizationServerRulesAPI.ListAuthorizationServerPolicyRules(context.Background(), authServerId, policyId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerRulesAPI.ListAuthorizationServerPolicyRules``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListAuthorizationServerPolicyRules`: []AuthorizationServerPolicyRule
+	fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerRulesAPI.ListAuthorizationServerPolicyRules`: %v\n", resp)
 }
 ```
 
@@ -464,7 +464,7 @@ Name | Type | Description  | Notes
 
 > AuthorizationServerPolicyRule ReplaceAuthorizationServerPolicyRule(ctx, authServerId, policyId, ruleId).PolicyRule(policyRule).Execute()
 
-Replace a Policy Rule
+Replace a policy rule
 
 
 
@@ -474,27 +474,27 @@ Replace a Policy Rule
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-    policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
-    ruleId := "ruld3hJ7jZh4fn0st0g3" // string | `id` of the Policy Rule
-    policyRule := *openapiclient.NewAuthorizationServerPolicyRule() // AuthorizationServerPolicyRule | 
+	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	ruleId := "ruld3hJ7jZh4fn0st0g3" // string | `id` of the policy rule
+	policyRule := *openapiclient.NewAuthorizationServerPolicyRuleRequest(*openapiclient.NewAuthorizationServerPolicyRuleConditions(), "Name_example", "Type_example") // AuthorizationServerPolicyRuleRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthorizationServerRulesAPI.ReplaceAuthorizationServerPolicyRule(context.Background(), authServerId, policyId, ruleId).PolicyRule(policyRule).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerRulesAPI.ReplaceAuthorizationServerPolicyRule``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceAuthorizationServerPolicyRule`: AuthorizationServerPolicyRule
-    fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerRulesAPI.ReplaceAuthorizationServerPolicyRule`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthorizationServerRulesAPI.ReplaceAuthorizationServerPolicyRule(context.Background(), authServerId, policyId, ruleId).PolicyRule(policyRule).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerRulesAPI.ReplaceAuthorizationServerPolicyRule``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceAuthorizationServerPolicyRule`: AuthorizationServerPolicyRule
+	fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerRulesAPI.ReplaceAuthorizationServerPolicyRule`: %v\n", resp)
 }
 ```
 
@@ -506,7 +506,7 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **authServerId** | **string** | &#x60;id&#x60; of the Authorization Server | 
 **policyId** | **string** | &#x60;id&#x60; of the Policy | 
-**ruleId** | **string** | &#x60;id&#x60; of the Policy Rule | 
+**ruleId** | **string** | &#x60;id&#x60; of the policy rule | 
 
 ### Other Parameters
 
@@ -518,7 +518,7 @@ Name | Type | Description  | Notes
 
 
 
- **policyRule** | [**AuthorizationServerPolicyRule**](AuthorizationServerPolicyRule.md) |  | 
+ **policyRule** | [**AuthorizationServerPolicyRuleRequest**](AuthorizationServerPolicyRuleRequest.md) |  | 
 
 ### Return type
 

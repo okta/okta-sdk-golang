@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserSchemaAttributePermission type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserSchemaAttributePermission{}
+
 // UserSchemaAttributePermission struct for UserSchemaAttributePermission
 type UserSchemaAttributePermission struct {
+	// Determines whether the principal can view or modify the property
 	Action *string `json:"action,omitempty"`
-	Principal *string `json:"principal,omitempty"`
+	// Security principal
+	Principal            *string `json:"principal,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +60,7 @@ func NewUserSchemaAttributePermissionWithDefaults() *UserSchemaAttributePermissi
 
 // GetAction returns the Action field value if set, zero value otherwise.
 func (o *UserSchemaAttributePermission) GetAction() string {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		var ret string
 		return ret
 	}
@@ -65,7 +70,7 @@ func (o *UserSchemaAttributePermission) GetAction() string {
 // GetActionOk returns a tuple with the Action field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaAttributePermission) GetActionOk() (*string, bool) {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		return nil, false
 	}
 	return o.Action, true
@@ -73,7 +78,7 @@ func (o *UserSchemaAttributePermission) GetActionOk() (*string, bool) {
 
 // HasAction returns a boolean if a field has been set.
 func (o *UserSchemaAttributePermission) HasAction() bool {
-	if o != nil && o.Action != nil {
+	if o != nil && !IsNil(o.Action) {
 		return true
 	}
 
@@ -87,7 +92,7 @@ func (o *UserSchemaAttributePermission) SetAction(v string) {
 
 // GetPrincipal returns the Principal field value if set, zero value otherwise.
 func (o *UserSchemaAttributePermission) GetPrincipal() string {
-	if o == nil || o.Principal == nil {
+	if o == nil || IsNil(o.Principal) {
 		var ret string
 		return ret
 	}
@@ -97,7 +102,7 @@ func (o *UserSchemaAttributePermission) GetPrincipal() string {
 // GetPrincipalOk returns a tuple with the Principal field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaAttributePermission) GetPrincipalOk() (*string, bool) {
-	if o == nil || o.Principal == nil {
+	if o == nil || IsNil(o.Principal) {
 		return nil, false
 	}
 	return o.Principal, true
@@ -105,7 +110,7 @@ func (o *UserSchemaAttributePermission) GetPrincipalOk() (*string, bool) {
 
 // HasPrincipal returns a boolean if a field has been set.
 func (o *UserSchemaAttributePermission) HasPrincipal() bool {
-	if o != nil && o.Principal != nil {
+	if o != nil && !IsNil(o.Principal) {
 		return true
 	}
 
@@ -118,11 +123,19 @@ func (o *UserSchemaAttributePermission) SetPrincipal(v string) {
 }
 
 func (o UserSchemaAttributePermission) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserSchemaAttributePermission) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Action != nil {
+	if !IsNil(o.Action) {
 		toSerialize["action"] = o.Action
 	}
-	if o.Principal != nil {
+	if !IsNil(o.Principal) {
 		toSerialize["principal"] = o.Principal
 	}
 
@@ -130,28 +143,26 @@ func (o UserSchemaAttributePermission) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserSchemaAttributePermission) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserSchemaAttributePermission) UnmarshalJSON(data []byte) (err error) {
 	varUserSchemaAttributePermission := _UserSchemaAttributePermission{}
 
-	err = json.Unmarshal(bytes, &varUserSchemaAttributePermission)
-	if err == nil {
-		*o = UserSchemaAttributePermission(varUserSchemaAttributePermission)
-	} else {
+	err = json.Unmarshal(data, &varUserSchemaAttributePermission)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserSchemaAttributePermission(varUserSchemaAttributePermission)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "action")
 		delete(additionalProperties, "principal")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +203,3 @@ func (v *NullableUserSchemaAttributePermission) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

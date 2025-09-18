@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Description** | Pointer to **string** | Description of the Resource Set | [optional] 
-**Label** | Pointer to **string** | Unique name for the Resource Set | [optional] 
-**Resources** | Pointer to **[]string** | The endpoint (URL) that references all resource objects included in the Resource Set. Resources are identified by either an Okta Resource Name (ORN) or by a REST URL format. See [Okta Resource Name](/openapi/okta-management/guides/roles/#okta-resource-name-orn). | [optional] 
+**Description** | **string** | Description of the resource set | 
+**Label** | **string** | Unique name for the resource set | 
+**Resources** | **[]string** | The endpoint (URL) that references all resource objects included in the resource set. Resources are identified by either an Okta Resource Name (ORN) or by a REST URL format. See [Okta Resource Name](/openapi/okta-management/guides/roles/#okta-resource-name-orn). | 
 
 ## Methods
 
 ### NewCreateResourceSetRequest
 
-`func NewCreateResourceSetRequest() *CreateResourceSetRequest`
+`func NewCreateResourceSetRequest(description string, label string, resources []string, ) *CreateResourceSetRequest`
 
 NewCreateResourceSetRequest instantiates a new CreateResourceSetRequest object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
-### HasDescription
-
-`func (o *CreateResourceSetRequest) HasDescription() bool`
-
-HasDescription returns a boolean if a field has been set.
 
 ### GetLabel
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetLabel sets Label field to given value.
 
-### HasLabel
-
-`func (o *CreateResourceSetRequest) HasLabel() bool`
-
-HasLabel returns a boolean if a field has been set.
 
 ### GetResources
 
@@ -96,11 +86,6 @@ and a boolean to check if the value has been set.
 
 SetResources sets Resources field to given value.
 
-### HasResources
-
-`func (o *CreateResourceSetRequest) HasResources() bool`
-
-HasResources returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

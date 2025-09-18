@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **AuthScheme** | Pointer to **string** | A token is used to authenticate with the app. This property is only returned for the &#x60;TOKEN&#x60; authentication scheme. | [optional] 
 **BaseUrl** | Pointer to **string** | Base URL | [optional] 
 **Profile** | [**ProvisioningConnectionResponseProfile**](ProvisioningConnectionResponseProfile.md) |  | 
-**Status** | **string** | Provisioning Connection status | [default to "DISABLED"]
+**Status** | **string** | Provisioning connection status | [default to "DISABLED"]
 **Links** | Pointer to [**LinksSelfLifecycleAndAuthorize**](LinksSelfLifecycleAndAuthorize.md) |  | [optional] 
 
 ## Methods

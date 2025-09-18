@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -26,89 +26,98 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type HookKeyAPI interface {
 
 	/*
-	CreateHookKey Create a key
+			CreateHookKey Create a key
 
-	Creates a key for use with other parts of the application, such as inline hooks
+			Creates a key for use with other parts of the application, such as inline hooks
 
-Use the key name to access this key for inline hook operations.
+		> **Note:**  Use the key name to access this key for inline hook operations.
 
-The total number of keys that you can create in an Okta org is limited to 50.
+		The total number of keys that you can create in an Okta org is limited to 50.
 
+		 The response is a [Key object](https://developer.okta.com/docs/reference/api/hook-keys/#key-object) that represents the
+		 key that you create. The `id` property in the response serves as the unique ID for the key, which you can specify when
+		 invoking other CRUD operations. The `keyId` provided in the response is the alias of the public key that you can use to get
+		 details of the public key data in a separate call.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateHookKeyRequest
+		> **Note:** The keyId is the alias of the public key that you can use to retrieve the public key.
+
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiCreateHookKeyRequest
 	*/
 	CreateHookKey(ctx context.Context) ApiCreateHookKeyRequest
 
 	// CreateHookKeyExecute executes the request
-	//  @return HookKey
-	CreateHookKeyExecute(r ApiCreateHookKeyRequest) (*HookKey, *APIResponse, error)
+	//  @return DetailedHookKeyInstance
+	CreateHookKeyExecute(r ApiCreateHookKeyRequest) (*DetailedHookKeyInstance, *APIResponse, error)
 
 	/*
-	DeleteHookKey Delete a key
+			DeleteHookKey Delete a key
 
-	Deletes a key by `hookKeyId`. After being deleted, the key is unrecoverable.
+			Deletes a key by `id`. After being deleted, the key is unrecoverable.
 
-As a safety precaution, only keys that aren't being used are eligible for deletion.
+		As a safety precaution, only keys that aren't being used are eligible for deletion.
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param hookKeyId `id` of the Hook Key
-	@return ApiDeleteHookKeyRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param id ID of the Hook Key
+			@return ApiDeleteHookKeyRequest
 	*/
-	DeleteHookKey(ctx context.Context, hookKeyId string) ApiDeleteHookKeyRequest
+	DeleteHookKey(ctx context.Context, id string) ApiDeleteHookKeyRequest
 
 	// DeleteHookKeyExecute executes the request
 	DeleteHookKeyExecute(r ApiDeleteHookKeyRequest) (*APIResponse, error)
 
 	/*
-	GetHookKey Retrieve a key
+			GetHookKey Retrieve a key by ID
 
-	Retrieves a key by `hookKeyId`
+			Retrieves the public portion of the Key object using the `id` parameter
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param hookKeyId `id` of the Hook Key
-	@return ApiGetHookKeyRequest
+		>**Note:** The `?expand=publickey` query parameter optionally returns the full object including the details of the public key in the response body's `_embedded` property.
+
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param id ID of the Hook Key
+			@return ApiGetHookKeyRequest
 	*/
-	GetHookKey(ctx context.Context, hookKeyId string) ApiGetHookKeyRequest
+	GetHookKey(ctx context.Context, id string) ApiGetHookKeyRequest
 
 	// GetHookKeyExecute executes the request
 	//  @return HookKey
 	GetHookKeyExecute(r ApiGetHookKeyRequest) (*HookKey, *APIResponse, error)
 
 	/*
-	GetPublicKey Retrieve a public key
+			GetPublicKey Retrieve a public key
 
-	Retrieves a public key by `keyId`
+			Retrieves a public key by `keyId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param publicKeyId `id` of the Public Key
-	@return ApiGetPublicKeyRequest
+		>**Note:** keyId is the alias of the public key.
+
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param keyId id\" of the Public Key
+			@return ApiGetPublicKeyRequest
 	*/
-	GetPublicKey(ctx context.Context, publicKeyId string) ApiGetPublicKeyRequest
+	GetPublicKey(ctx context.Context, keyId string) ApiGetPublicKeyRequest
 
 	// GetPublicKeyExecute executes the request
-	//  @return JsonWebKey
-	GetPublicKeyExecute(r ApiGetPublicKeyRequest) (*JsonWebKey, *APIResponse, error)
+	//  @return Embedded
+	GetPublicKeyExecute(r ApiGetPublicKeyRequest) (*Embedded, *APIResponse, error)
 
 	/*
-	ListHookKeys List all keys
+		ListHookKeys List all keys
 
-	Lists all keys
+		Lists all keys
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListHookKeysRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListHookKeysRequest
 	*/
 	ListHookKeys(ctx context.Context) ApiListHookKeysRequest
 
@@ -117,31 +126,30 @@ As a safety precaution, only keys that aren't being used are eligible for deleti
 	ListHookKeysExecute(r ApiListHookKeysRequest) ([]HookKey, *APIResponse, error)
 
 	/*
-	ReplaceHookKey Replace a key
+			ReplaceHookKey Replace a key
 
-	Replaces a key by `hookKeyId`
+			Replaces a key by `id`
 
-This request replaces existing properties after passing validation.
+		This request replaces existing properties after passing validation.
 
-Note: The only parameter that you can update is the name of the key, which must be unique at all times.
+		> **Note:** The only parameter that you can update is the name of the key, which must be unique at all times.
 
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param hookKeyId `id` of the Hook Key
-	@return ApiReplaceHookKeyRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param id ID of the Hook Key
+			@return ApiReplaceHookKeyRequest
 	*/
-	ReplaceHookKey(ctx context.Context, hookKeyId string) ApiReplaceHookKeyRequest
+	ReplaceHookKey(ctx context.Context, id string) ApiReplaceHookKeyRequest
 
 	// ReplaceHookKeyExecute executes the request
-	//  @return HookKey
-	ReplaceHookKeyExecute(r ApiReplaceHookKeyRequest) (*HookKey, *APIResponse, error)
+	//  @return DetailedHookKeyInstance
+	ReplaceHookKeyExecute(r ApiReplaceHookKeyRequest) (*DetailedHookKeyInstance, *APIResponse, error)
 }
 
 // HookKeyAPIService HookKeyAPI service
 type HookKeyAPIService service
 
 type ApiCreateHookKeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService HookKeyAPI
 	keyRequest *KeyRequest
 	retryCount int32
@@ -152,42 +160,49 @@ func (r ApiCreateHookKeyRequest) KeyRequest(keyRequest KeyRequest) ApiCreateHook
 	return r
 }
 
-func (r ApiCreateHookKeyRequest) Execute() (*HookKey, *APIResponse, error) {
+func (r ApiCreateHookKeyRequest) Execute() (*DetailedHookKeyInstance, *APIResponse, error) {
 	return r.ApiService.CreateHookKeyExecute(r)
 }
 
 /*
 CreateHookKey Create a key
 
-Creates a key for use with other parts of the application, such as inline hooks
+# Creates a key for use with other parts of the application, such as inline hooks
 
-Use the key name to access this key for inline hook operations.
+> **Note:**  Use the key name to access this key for inline hook operations.
 
 The total number of keys that you can create in an Okta org is limited to 50.
 
+	The response is a [Key object](https://developer.okta.com/docs/reference/api/hook-keys/#key-object) that represents the
+	key that you create. The `id` property in the response serves as the unique ID for the key, which you can specify when
+	invoking other CRUD operations. The `keyId` provided in the response is the alias of the public key that you can use to get
+	details of the public key data in a separate call.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateHookKeyRequest
+> **Note:** The keyId is the alias of the public key that you can use to retrieve the public key.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateHookKeyRequest
 */
 func (a *HookKeyAPIService) CreateHookKey(ctx context.Context) ApiCreateHookKeyRequest {
 	return ApiCreateHookKeyRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return HookKey
-func (a *HookKeyAPIService) CreateHookKeyExecute(r ApiCreateHookKeyRequest) (*HookKey, *APIResponse, error) {
+//
+//	@return DetailedHookKeyInstance
+func (a *HookKeyAPIService) CreateHookKeyExecute(r ApiCreateHookKeyRequest) (*DetailedHookKeyInstance, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *HookKey
+		localVarReturnValue  *DetailedHookKeyInstance
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -252,9 +267,9 @@ func (a *HookKeyAPIService) CreateHookKeyExecute(r ApiCreateHookKeyRequest) (*Ho
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -312,15 +327,15 @@ func (a *HookKeyAPIService) CreateHookKeyExecute(r ApiCreateHookKeyRequest) (*Ho
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteHookKeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService HookKeyAPI
-	hookKeyId string
+	id         string
 	retryCount int32
 }
 
@@ -331,20 +346,19 @@ func (r ApiDeleteHookKeyRequest) Execute() (*APIResponse, error) {
 /*
 DeleteHookKey Delete a key
 
-Deletes a key by `hookKeyId`. After being deleted, the key is unrecoverable.
+Deletes a key by `id`. After being deleted, the key is unrecoverable.
 
 As a safety precaution, only keys that aren't being used are eligible for deletion.
 
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param hookKeyId `id` of the Hook Key
- @return ApiDeleteHookKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID of the Hook Key
+	@return ApiDeleteHookKeyRequest
 */
-func (a *HookKeyAPIService) DeleteHookKey(ctx context.Context, hookKeyId string) ApiDeleteHookKeyRequest {
+func (a *HookKeyAPIService) DeleteHookKey(ctx context.Context, id string) ApiDeleteHookKeyRequest {
 	return ApiDeleteHookKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		hookKeyId: hookKeyId,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
@@ -357,7 +371,7 @@ func (a *HookKeyAPIService) DeleteHookKeyExecute(r ApiDeleteHookKeyRequest) (*AP
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -370,8 +384,8 @@ func (a *HookKeyAPIService) DeleteHookKeyExecute(r ApiDeleteHookKeyRequest) (*AP
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/hook-keys/{hookKeyId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"hookKeyId"+"}", url.PathEscape(parameterToString(r.hookKeyId, "")), -1)
+	localVarPath := localBasePath + "/api/v1/hook-keys/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(r.id, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -418,9 +432,9 @@ func (a *HookKeyAPIService) DeleteHookKeyExecute(r ApiDeleteHookKeyRequest) (*AP
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -474,9 +488,9 @@ func (a *HookKeyAPIService) DeleteHookKeyExecute(r ApiDeleteHookKeyRequest) (*AP
 }
 
 type ApiGetHookKeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService HookKeyAPI
-	hookKeyId string
+	id         string
 	retryCount int32
 }
 
@@ -485,25 +499,28 @@ func (r ApiGetHookKeyRequest) Execute() (*HookKey, *APIResponse, error) {
 }
 
 /*
-GetHookKey Retrieve a key
+GetHookKey Retrieve a key by ID
 
-Retrieves a key by `hookKeyId`
+# Retrieves the public portion of the Key object using the `id` parameter
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param hookKeyId `id` of the Hook Key
- @return ApiGetHookKeyRequest
+>**Note:** The `?expand=publickey` query parameter optionally returns the full object including the details of the public key in the response body's `_embedded` property.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID of the Hook Key
+	@return ApiGetHookKeyRequest
 */
-func (a *HookKeyAPIService) GetHookKey(ctx context.Context, hookKeyId string) ApiGetHookKeyRequest {
+func (a *HookKeyAPIService) GetHookKey(ctx context.Context, id string) ApiGetHookKeyRequest {
 	return ApiGetHookKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		hookKeyId: hookKeyId,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return HookKey
+//
+//	@return HookKey
 func (a *HookKeyAPIService) GetHookKeyExecute(r ApiGetHookKeyRequest) (*HookKey, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -512,7 +529,7 @@ func (a *HookKeyAPIService) GetHookKeyExecute(r ApiGetHookKeyRequest) (*HookKey,
 		localVarReturnValue  *HookKey
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -525,8 +542,8 @@ func (a *HookKeyAPIService) GetHookKeyExecute(r ApiGetHookKeyRequest) (*HookKey,
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/hook-keys/{hookKeyId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"hookKeyId"+"}", url.PathEscape(parameterToString(r.hookKeyId, "")), -1)
+	localVarPath := localBasePath + "/api/v1/hook-keys/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(r.id, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -573,9 +590,9 @@ func (a *HookKeyAPIService) GetHookKeyExecute(r ApiGetHookKeyRequest) (*HookKey,
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -633,19 +650,19 @@ func (a *HookKeyAPIService) GetHookKeyExecute(r ApiGetHookKeyRequest) (*HookKey,
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetPublicKeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService HookKeyAPI
-	publicKeyId string
+	keyId      string
 	retryCount int32
 }
 
-func (r ApiGetPublicKeyRequest) Execute() (*JsonWebKey, *APIResponse, error) {
+func (r ApiGetPublicKeyRequest) Execute() (*Embedded, *APIResponse, error) {
 	return r.ApiService.GetPublicKeyExecute(r)
 }
 
@@ -654,30 +671,33 @@ GetPublicKey Retrieve a public key
 
 Retrieves a public key by `keyId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param publicKeyId `id` of the Public Key
- @return ApiGetPublicKeyRequest
+>**Note:** keyId is the alias of the public key.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param keyId id\" of the Public Key
+	@return ApiGetPublicKeyRequest
 */
-func (a *HookKeyAPIService) GetPublicKey(ctx context.Context, publicKeyId string) ApiGetPublicKeyRequest {
+func (a *HookKeyAPIService) GetPublicKey(ctx context.Context, keyId string) ApiGetPublicKeyRequest {
 	return ApiGetPublicKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		publicKeyId: publicKeyId,
+		ctx:        ctx,
+		keyId:      keyId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return JsonWebKey
-func (a *HookKeyAPIService) GetPublicKeyExecute(r ApiGetPublicKeyRequest) (*JsonWebKey, *APIResponse, error) {
+//
+//	@return Embedded
+func (a *HookKeyAPIService) GetPublicKeyExecute(r ApiGetPublicKeyRequest) (*Embedded, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *JsonWebKey
+		localVarReturnValue  *Embedded
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -690,8 +710,8 @@ func (a *HookKeyAPIService) GetPublicKeyExecute(r ApiGetPublicKeyRequest) (*Json
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/hook-keys/public/{publicKeyId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"publicKeyId"+"}", url.PathEscape(parameterToString(r.publicKeyId, "")), -1)
+	localVarPath := localBasePath + "/api/v1/hook-keys/public/{keyId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"keyId"+"}", url.PathEscape(parameterToString(r.keyId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -738,9 +758,9 @@ func (a *HookKeyAPIService) GetPublicKeyExecute(r ApiGetPublicKeyRequest) (*Json
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -798,13 +818,13 @@ func (a *HookKeyAPIService) GetPublicKeyExecute(r ApiGetPublicKeyRequest) (*Json
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListHookKeysRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService HookKeyAPI
 	retryCount int32
 }
@@ -818,19 +838,20 @@ ListHookKeys List all keys
 
 Lists all keys
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListHookKeysRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListHookKeysRequest
 */
 func (a *HookKeyAPIService) ListHookKeys(ctx context.Context) ApiListHookKeysRequest {
 	return ApiListHookKeysRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []HookKey
+//
+//	@return []HookKey
 func (a *HookKeyAPIService) ListHookKeysExecute(r ApiListHookKeysRequest) ([]HookKey, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -839,7 +860,7 @@ func (a *HookKeyAPIService) ListHookKeysExecute(r ApiListHookKeysRequest) ([]Hoo
 		localVarReturnValue  []HookKey
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -899,9 +920,9 @@ func (a *HookKeyAPIService) ListHookKeysExecute(r ApiListHookKeysRequest) ([]Hoo
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -947,15 +968,15 @@ func (a *HookKeyAPIService) ListHookKeysExecute(r ApiListHookKeysRequest) ([]Hoo
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceHookKeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService HookKeyAPI
-	hookKeyId string
+	id         string
 	keyRequest *KeyRequest
 	retryCount int32
 }
@@ -965,44 +986,44 @@ func (r ApiReplaceHookKeyRequest) KeyRequest(keyRequest KeyRequest) ApiReplaceHo
 	return r
 }
 
-func (r ApiReplaceHookKeyRequest) Execute() (*HookKey, *APIResponse, error) {
+func (r ApiReplaceHookKeyRequest) Execute() (*DetailedHookKeyInstance, *APIResponse, error) {
 	return r.ApiService.ReplaceHookKeyExecute(r)
 }
 
 /*
 ReplaceHookKey Replace a key
 
-Replaces a key by `hookKeyId`
+Replaces a key by `id`
 
 This request replaces existing properties after passing validation.
 
-Note: The only parameter that you can update is the name of the key, which must be unique at all times.
+> **Note:** The only parameter that you can update is the name of the key, which must be unique at all times.
 
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param hookKeyId `id` of the Hook Key
- @return ApiReplaceHookKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID of the Hook Key
+	@return ApiReplaceHookKeyRequest
 */
-func (a *HookKeyAPIService) ReplaceHookKey(ctx context.Context, hookKeyId string) ApiReplaceHookKeyRequest {
+func (a *HookKeyAPIService) ReplaceHookKey(ctx context.Context, id string) ApiReplaceHookKeyRequest {
 	return ApiReplaceHookKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		hookKeyId: hookKeyId,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return HookKey
-func (a *HookKeyAPIService) ReplaceHookKeyExecute(r ApiReplaceHookKeyRequest) (*HookKey, *APIResponse, error) {
+//
+//	@return DetailedHookKeyInstance
+func (a *HookKeyAPIService) ReplaceHookKeyExecute(r ApiReplaceHookKeyRequest) (*DetailedHookKeyInstance, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *HookKey
+		localVarReturnValue  *DetailedHookKeyInstance
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1015,8 +1036,8 @@ func (a *HookKeyAPIService) ReplaceHookKeyExecute(r ApiReplaceHookKeyRequest) (*
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/hook-keys/{hookKeyId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"hookKeyId"+"}", url.PathEscape(parameterToString(r.hookKeyId, "")), -1)
+	localVarPath := localBasePath + "/api/v1/hook-keys/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(r.id, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1068,9 +1089,9 @@ func (a *HookKeyAPIService) ReplaceHookKeyExecute(r ApiReplaceHookKeyRequest) (*
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1140,7 +1161,7 @@ func (a *HookKeyAPIService) ReplaceHookKeyExecute(r ApiReplaceHookKeyRequest) (*
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

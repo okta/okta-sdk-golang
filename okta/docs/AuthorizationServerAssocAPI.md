@@ -4,9 +4,9 @@ All URIs are relative to *https://subdomain.okta.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateAssociatedServers**](AuthorizationServerAssocAPI.md#CreateAssociatedServers) | **Post** /api/v1/authorizationServers/{authServerId}/associatedServers | Create an associated Authorization Server
-[**DeleteAssociatedServer**](AuthorizationServerAssocAPI.md#DeleteAssociatedServer) | **Delete** /api/v1/authorizationServers/{authServerId}/associatedServers/{associatedServerId} | Delete an associated Authorization Server
-[**ListAssociatedServersByTrustedType**](AuthorizationServerAssocAPI.md#ListAssociatedServersByTrustedType) | **Get** /api/v1/authorizationServers/{authServerId}/associatedServers | List all associated Authorization Servers
+[**CreateAssociatedServers**](AuthorizationServerAssocAPI.md#CreateAssociatedServers) | **Post** /api/v1/authorizationServers/{authServerId}/associatedServers | Create an associated authorization server
+[**DeleteAssociatedServer**](AuthorizationServerAssocAPI.md#DeleteAssociatedServer) | **Delete** /api/v1/authorizationServers/{authServerId}/associatedServers/{associatedServerId} | Delete an associated authorization server
+[**ListAssociatedServersByTrustedType**](AuthorizationServerAssocAPI.md#ListAssociatedServersByTrustedType) | **Get** /api/v1/authorizationServers/{authServerId}/associatedServers | List all associated authorization servers
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > []AuthorizationServer CreateAssociatedServers(ctx, authServerId).AssociatedServerMediated(associatedServerMediated).Execute()
 
-Create an associated Authorization Server
+Create an associated authorization server
 
 
 
@@ -24,25 +24,25 @@ Create an associated Authorization Server
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-    associatedServerMediated := *openapiclient.NewAssociatedServerMediated() // AssociatedServerMediated | 
+	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+	associatedServerMediated := *openapiclient.NewAssociatedServerMediated() // AssociatedServerMediated | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthorizationServerAssocAPI.CreateAssociatedServers(context.Background(), authServerId).AssociatedServerMediated(associatedServerMediated).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerAssocAPI.CreateAssociatedServers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateAssociatedServers`: []AuthorizationServer
-    fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerAssocAPI.CreateAssociatedServers`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthorizationServerAssocAPI.CreateAssociatedServers(context.Background(), authServerId).AssociatedServerMediated(associatedServerMediated).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerAssocAPI.CreateAssociatedServers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateAssociatedServers`: []AuthorizationServer
+	fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerAssocAPI.CreateAssociatedServers`: %v\n", resp)
 }
 ```
 
@@ -86,7 +86,7 @@ Name | Type | Description  | Notes
 
 > DeleteAssociatedServer(ctx, authServerId, associatedServerId).Execute()
 
-Delete an associated Authorization Server
+Delete an associated authorization server
 
 
 
@@ -96,23 +96,23 @@ Delete an associated Authorization Server
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-    associatedServerId := "aus6xt9jKPmCyn6kg0g4" // string | `id` of the associated Authorization Server
+	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+	associatedServerId := "aus6xt9jKPmCyn6kg0g4" // string | `id` of the associated Authorization Server
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.AuthorizationServerAssocAPI.DeleteAssociatedServer(context.Background(), authServerId, associatedServerId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerAssocAPI.DeleteAssociatedServer``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AuthorizationServerAssocAPI.DeleteAssociatedServer(context.Background(), authServerId, associatedServerId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerAssocAPI.DeleteAssociatedServer``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -157,7 +157,7 @@ Name | Type | Description  | Notes
 
 > []AuthorizationServer ListAssociatedServersByTrustedType(ctx, authServerId).Trusted(trusted).Q(q).Limit(limit).After(after).Execute()
 
-List all associated Authorization Servers
+List all associated authorization servers
 
 
 
@@ -167,28 +167,28 @@ List all associated Authorization Servers
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-    trusted := true // bool | Searches trusted authorization servers when `true` or searches untrusted authorization servers when `false` (optional)
-    q := "customasone" // string | Searches for the name or audience of the associated authorization servers (optional)
-    limit := int32(56) // int32 | Specifies the number of results for a page (optional) (default to 200)
-    after := "after_example" // string | Specifies the pagination cursor for the next page of the associated authorization servers (optional)
+	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+	trusted := true // bool | Searches trusted authorization servers when `true` or searches untrusted authorization servers when `false` (optional)
+	q := "customasone" // string | Searches for the name or audience of the associated authorization servers (optional)
+	limit := int32(56) // int32 | Specifies the number of results for a page (optional) (default to 200)
+	after := "after_example" // string | Specifies the pagination cursor for the next page of the associated authorization servers (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthorizationServerAssocAPI.ListAssociatedServersByTrustedType(context.Background(), authServerId).Trusted(trusted).Q(q).Limit(limit).After(after).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerAssocAPI.ListAssociatedServersByTrustedType``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListAssociatedServersByTrustedType`: []AuthorizationServer
-    fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerAssocAPI.ListAssociatedServersByTrustedType`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthorizationServerAssocAPI.ListAssociatedServersByTrustedType(context.Background(), authServerId).Trusted(trusted).Q(q).Limit(limit).After(after).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerAssocAPI.ListAssociatedServersByTrustedType``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListAssociatedServersByTrustedType`: []AuthorizationServer
+	fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerAssocAPI.ListAssociatedServersByTrustedType`: %v\n", resp)
 }
 ```
 

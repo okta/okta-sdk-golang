@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Self** | Pointer to [**HrefObjectSelfLink**](HrefObjectSelfLink.md) |  | [optional] 
-**Brand** | Pointer to [**DomainLinksAllOfBrand**](DomainLinksAllOfBrand.md) |  | [optional] 
-**Certificate** | Pointer to [**DomainLinksAllOfCertificate**](DomainLinksAllOfCertificate.md) |  | [optional] 
-**Verify** | Pointer to [**DomainLinksAllOfVerify**](DomainLinksAllOfVerify.md) |  | [optional] 
+**Brand** | Pointer to [**HrefObject**](HrefObject.md) | The associated brand | [optional] 
+**Certificate** | Pointer to [**HrefObject**](HrefObject.md) | The certificate link references the domain certificate | [optional] 
+**Verify** | Pointer to [**HrefObject**](HrefObject.md) | The verify link verifies the domain and transitions the domain status to &#x60;VERIFIED&#x60; | [optional] 
 
 ## Methods
 
@@ -55,20 +55,20 @@ HasSelf returns a boolean if a field has been set.
 
 ### GetBrand
 
-`func (o *DomainLinks) GetBrand() DomainLinksAllOfBrand`
+`func (o *DomainLinks) GetBrand() HrefObject`
 
 GetBrand returns the Brand field if non-nil, zero value otherwise.
 
 ### GetBrandOk
 
-`func (o *DomainLinks) GetBrandOk() (*DomainLinksAllOfBrand, bool)`
+`func (o *DomainLinks) GetBrandOk() (*HrefObject, bool)`
 
 GetBrandOk returns a tuple with the Brand field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBrand
 
-`func (o *DomainLinks) SetBrand(v DomainLinksAllOfBrand)`
+`func (o *DomainLinks) SetBrand(v HrefObject)`
 
 SetBrand sets Brand field to given value.
 
@@ -80,20 +80,20 @@ HasBrand returns a boolean if a field has been set.
 
 ### GetCertificate
 
-`func (o *DomainLinks) GetCertificate() DomainLinksAllOfCertificate`
+`func (o *DomainLinks) GetCertificate() HrefObject`
 
 GetCertificate returns the Certificate field if non-nil, zero value otherwise.
 
 ### GetCertificateOk
 
-`func (o *DomainLinks) GetCertificateOk() (*DomainLinksAllOfCertificate, bool)`
+`func (o *DomainLinks) GetCertificateOk() (*HrefObject, bool)`
 
 GetCertificateOk returns a tuple with the Certificate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCertificate
 
-`func (o *DomainLinks) SetCertificate(v DomainLinksAllOfCertificate)`
+`func (o *DomainLinks) SetCertificate(v HrefObject)`
 
 SetCertificate sets Certificate field to given value.
 
@@ -105,20 +105,20 @@ HasCertificate returns a boolean if a field has been set.
 
 ### GetVerify
 
-`func (o *DomainLinks) GetVerify() DomainLinksAllOfVerify`
+`func (o *DomainLinks) GetVerify() HrefObject`
 
 GetVerify returns the Verify field if non-nil, zero value otherwise.
 
 ### GetVerifyOk
 
-`func (o *DomainLinks) GetVerifyOk() (*DomainLinksAllOfVerify, bool)`
+`func (o *DomainLinks) GetVerifyOk() (*HrefObject, bool)`
 
 GetVerifyOk returns a tuple with the Verify field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVerify
 
-`func (o *DomainLinks) SetVerify(v DomainLinksAllOfVerify)`
+`func (o *DomainLinks) SetVerify(v HrefObject)`
 
 SetVerify sets Verify field to given value.
 

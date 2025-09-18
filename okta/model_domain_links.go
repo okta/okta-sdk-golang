@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,18 @@ import (
 	"encoding/json"
 )
 
+// checks if the DomainLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DomainLinks{}
+
 // DomainLinks struct for DomainLinks
 type DomainLinks struct {
 	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Brand *DomainLinksAllOfBrand `json:"brand,omitempty"`
-	Certificate *DomainLinksAllOfCertificate `json:"certificate,omitempty"`
-	Verify *DomainLinksAllOfVerify `json:"verify,omitempty"`
+	// The associated brand
+	Brand *HrefObject `json:"brand,omitempty"`
+	// The certificate link references the domain certificate
+	Certificate *HrefObject `json:"certificate,omitempty"`
+	// The verify link verifies the domain and transitions the domain status to `VERIFIED`
+	Verify               *HrefObject `json:"verify,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +63,7 @@ func NewDomainLinksWithDefaults() *DomainLinks {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *DomainLinks) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -67,7 +73,7 @@ func (o *DomainLinks) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DomainLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -75,7 +81,7 @@ func (o *DomainLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *DomainLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -88,9 +94,9 @@ func (o *DomainLinks) SetSelf(v HrefObjectSelfLink) {
 }
 
 // GetBrand returns the Brand field value if set, zero value otherwise.
-func (o *DomainLinks) GetBrand() DomainLinksAllOfBrand {
-	if o == nil || o.Brand == nil {
-		var ret DomainLinksAllOfBrand
+func (o *DomainLinks) GetBrand() HrefObject {
+	if o == nil || IsNil(o.Brand) {
+		var ret HrefObject
 		return ret
 	}
 	return *o.Brand
@@ -98,8 +104,8 @@ func (o *DomainLinks) GetBrand() DomainLinksAllOfBrand {
 
 // GetBrandOk returns a tuple with the Brand field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DomainLinks) GetBrandOk() (*DomainLinksAllOfBrand, bool) {
-	if o == nil || o.Brand == nil {
+func (o *DomainLinks) GetBrandOk() (*HrefObject, bool) {
+	if o == nil || IsNil(o.Brand) {
 		return nil, false
 	}
 	return o.Brand, true
@@ -107,22 +113,22 @@ func (o *DomainLinks) GetBrandOk() (*DomainLinksAllOfBrand, bool) {
 
 // HasBrand returns a boolean if a field has been set.
 func (o *DomainLinks) HasBrand() bool {
-	if o != nil && o.Brand != nil {
+	if o != nil && !IsNil(o.Brand) {
 		return true
 	}
 
 	return false
 }
 
-// SetBrand gets a reference to the given DomainLinksAllOfBrand and assigns it to the Brand field.
-func (o *DomainLinks) SetBrand(v DomainLinksAllOfBrand) {
+// SetBrand gets a reference to the given HrefObject and assigns it to the Brand field.
+func (o *DomainLinks) SetBrand(v HrefObject) {
 	o.Brand = &v
 }
 
 // GetCertificate returns the Certificate field value if set, zero value otherwise.
-func (o *DomainLinks) GetCertificate() DomainLinksAllOfCertificate {
-	if o == nil || o.Certificate == nil {
-		var ret DomainLinksAllOfCertificate
+func (o *DomainLinks) GetCertificate() HrefObject {
+	if o == nil || IsNil(o.Certificate) {
+		var ret HrefObject
 		return ret
 	}
 	return *o.Certificate
@@ -130,8 +136,8 @@ func (o *DomainLinks) GetCertificate() DomainLinksAllOfCertificate {
 
 // GetCertificateOk returns a tuple with the Certificate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DomainLinks) GetCertificateOk() (*DomainLinksAllOfCertificate, bool) {
-	if o == nil || o.Certificate == nil {
+func (o *DomainLinks) GetCertificateOk() (*HrefObject, bool) {
+	if o == nil || IsNil(o.Certificate) {
 		return nil, false
 	}
 	return o.Certificate, true
@@ -139,22 +145,22 @@ func (o *DomainLinks) GetCertificateOk() (*DomainLinksAllOfCertificate, bool) {
 
 // HasCertificate returns a boolean if a field has been set.
 func (o *DomainLinks) HasCertificate() bool {
-	if o != nil && o.Certificate != nil {
+	if o != nil && !IsNil(o.Certificate) {
 		return true
 	}
 
 	return false
 }
 
-// SetCertificate gets a reference to the given DomainLinksAllOfCertificate and assigns it to the Certificate field.
-func (o *DomainLinks) SetCertificate(v DomainLinksAllOfCertificate) {
+// SetCertificate gets a reference to the given HrefObject and assigns it to the Certificate field.
+func (o *DomainLinks) SetCertificate(v HrefObject) {
 	o.Certificate = &v
 }
 
 // GetVerify returns the Verify field value if set, zero value otherwise.
-func (o *DomainLinks) GetVerify() DomainLinksAllOfVerify {
-	if o == nil || o.Verify == nil {
-		var ret DomainLinksAllOfVerify
+func (o *DomainLinks) GetVerify() HrefObject {
+	if o == nil || IsNil(o.Verify) {
+		var ret HrefObject
 		return ret
 	}
 	return *o.Verify
@@ -162,8 +168,8 @@ func (o *DomainLinks) GetVerify() DomainLinksAllOfVerify {
 
 // GetVerifyOk returns a tuple with the Verify field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DomainLinks) GetVerifyOk() (*DomainLinksAllOfVerify, bool) {
-	if o == nil || o.Verify == nil {
+func (o *DomainLinks) GetVerifyOk() (*HrefObject, bool) {
+	if o == nil || IsNil(o.Verify) {
 		return nil, false
 	}
 	return o.Verify, true
@@ -171,30 +177,38 @@ func (o *DomainLinks) GetVerifyOk() (*DomainLinksAllOfVerify, bool) {
 
 // HasVerify returns a boolean if a field has been set.
 func (o *DomainLinks) HasVerify() bool {
-	if o != nil && o.Verify != nil {
+	if o != nil && !IsNil(o.Verify) {
 		return true
 	}
 
 	return false
 }
 
-// SetVerify gets a reference to the given DomainLinksAllOfVerify and assigns it to the Verify field.
-func (o *DomainLinks) SetVerify(v DomainLinksAllOfVerify) {
+// SetVerify gets a reference to the given HrefObject and assigns it to the Verify field.
+func (o *DomainLinks) SetVerify(v HrefObject) {
 	o.Verify = &v
 }
 
 func (o DomainLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DomainLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.Brand != nil {
+	if !IsNil(o.Brand) {
 		toSerialize["brand"] = o.Brand
 	}
-	if o.Certificate != nil {
+	if !IsNil(o.Certificate) {
 		toSerialize["certificate"] = o.Certificate
 	}
-	if o.Verify != nil {
+	if !IsNil(o.Verify) {
 		toSerialize["verify"] = o.Verify
 	}
 
@@ -202,30 +216,28 @@ func (o DomainLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DomainLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DomainLinks) UnmarshalJSON(data []byte) (err error) {
 	varDomainLinks := _DomainLinks{}
 
-	err = json.Unmarshal(bytes, &varDomainLinks)
-	if err == nil {
-		*o = DomainLinks(varDomainLinks)
-	} else {
+	err = json.Unmarshal(data, &varDomainLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DomainLinks(varDomainLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "brand")
 		delete(additionalProperties, "certificate")
 		delete(additionalProperties, "verify")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -266,4 +278,3 @@ func (v *NullableDomainLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

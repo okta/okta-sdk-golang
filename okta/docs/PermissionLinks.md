@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Self** | Pointer to [**HrefObjectSelfLink**](HrefObjectSelfLink.md) |  | [optional] 
-**Role** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**Role** | Pointer to [**HrefObjectRoleLink**](HrefObjectRoleLink.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasSelf returns a boolean if a field has been set.
 
 ### GetRole
 
-`func (o *PermissionLinks) GetRole() HrefObject`
+`func (o *PermissionLinks) GetRole() HrefObjectRoleLink`
 
 GetRole returns the Role field if non-nil, zero value otherwise.
 
 ### GetRoleOk
 
-`func (o *PermissionLinks) GetRoleOk() (*HrefObject, bool)`
+`func (o *PermissionLinks) GetRoleOk() (*HrefObjectRoleLink, bool)`
 
 GetRoleOk returns a tuple with the Role field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRole
 
-`func (o *PermissionLinks) SetRole(v HrefObject)`
+`func (o *PermissionLinks) SetRole(v HrefObjectRoleLink)`
 
 SetRole sets Role field to given value.
 

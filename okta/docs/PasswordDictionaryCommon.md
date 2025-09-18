@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Exclude** | Pointer to **bool** |  | [optional] [default to false]
+**Exclude** | Pointer to **bool** | Indicates whether to check passwords against the common password dictionary | [optional] [default to false]
 
 ## Methods
 

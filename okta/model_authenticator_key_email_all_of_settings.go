@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthenticatorKeyEmailAllOfSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorKeyEmailAllOfSettings{}
+
 // AuthenticatorKeyEmailAllOfSettings struct for AuthenticatorKeyEmailAllOfSettings
 type AuthenticatorKeyEmailAllOfSettings struct {
-	// The allowed types of uses for the Authenticator
+	// The allowed types of uses for the authenticator
 	AllowedFor *string `json:"allowedFor,omitempty"`
 	// Specifies the lifetime of an email token. Default value is 5 minutes.
 	TokenLifetimeInMinutes *float32 `json:"tokenLifetimeInMinutes,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties   map[string]interface{}
 }
 
 type _AuthenticatorKeyEmailAllOfSettings AuthenticatorKeyEmailAllOfSettings
@@ -61,7 +64,7 @@ func NewAuthenticatorKeyEmailAllOfSettingsWithDefaults() *AuthenticatorKeyEmailA
 
 // GetAllowedFor returns the AllowedFor field value if set, zero value otherwise.
 func (o *AuthenticatorKeyEmailAllOfSettings) GetAllowedFor() string {
-	if o == nil || o.AllowedFor == nil {
+	if o == nil || IsNil(o.AllowedFor) {
 		var ret string
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *AuthenticatorKeyEmailAllOfSettings) GetAllowedFor() string {
 // GetAllowedForOk returns a tuple with the AllowedFor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorKeyEmailAllOfSettings) GetAllowedForOk() (*string, bool) {
-	if o == nil || o.AllowedFor == nil {
+	if o == nil || IsNil(o.AllowedFor) {
 		return nil, false
 	}
 	return o.AllowedFor, true
@@ -79,7 +82,7 @@ func (o *AuthenticatorKeyEmailAllOfSettings) GetAllowedForOk() (*string, bool) {
 
 // HasAllowedFor returns a boolean if a field has been set.
 func (o *AuthenticatorKeyEmailAllOfSettings) HasAllowedFor() bool {
-	if o != nil && o.AllowedFor != nil {
+	if o != nil && !IsNil(o.AllowedFor) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *AuthenticatorKeyEmailAllOfSettings) SetAllowedFor(v string) {
 
 // GetTokenLifetimeInMinutes returns the TokenLifetimeInMinutes field value if set, zero value otherwise.
 func (o *AuthenticatorKeyEmailAllOfSettings) GetTokenLifetimeInMinutes() float32 {
-	if o == nil || o.TokenLifetimeInMinutes == nil {
+	if o == nil || IsNil(o.TokenLifetimeInMinutes) {
 		var ret float32
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *AuthenticatorKeyEmailAllOfSettings) GetTokenLifetimeInMinutes() float32
 // GetTokenLifetimeInMinutesOk returns a tuple with the TokenLifetimeInMinutes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorKeyEmailAllOfSettings) GetTokenLifetimeInMinutesOk() (*float32, bool) {
-	if o == nil || o.TokenLifetimeInMinutes == nil {
+	if o == nil || IsNil(o.TokenLifetimeInMinutes) {
 		return nil, false
 	}
 	return o.TokenLifetimeInMinutes, true
@@ -111,7 +114,7 @@ func (o *AuthenticatorKeyEmailAllOfSettings) GetTokenLifetimeInMinutesOk() (*flo
 
 // HasTokenLifetimeInMinutes returns a boolean if a field has been set.
 func (o *AuthenticatorKeyEmailAllOfSettings) HasTokenLifetimeInMinutes() bool {
-	if o != nil && o.TokenLifetimeInMinutes != nil {
+	if o != nil && !IsNil(o.TokenLifetimeInMinutes) {
 		return true
 	}
 
@@ -124,11 +127,19 @@ func (o *AuthenticatorKeyEmailAllOfSettings) SetTokenLifetimeInMinutes(v float32
 }
 
 func (o AuthenticatorKeyEmailAllOfSettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorKeyEmailAllOfSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AllowedFor != nil {
+	if !IsNil(o.AllowedFor) {
 		toSerialize["allowedFor"] = o.AllowedFor
 	}
-	if o.TokenLifetimeInMinutes != nil {
+	if !IsNil(o.TokenLifetimeInMinutes) {
 		toSerialize["tokenLifetimeInMinutes"] = o.TokenLifetimeInMinutes
 	}
 
@@ -136,28 +147,26 @@ func (o AuthenticatorKeyEmailAllOfSettings) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorKeyEmailAllOfSettings) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorKeyEmailAllOfSettings) UnmarshalJSON(data []byte) (err error) {
 	varAuthenticatorKeyEmailAllOfSettings := _AuthenticatorKeyEmailAllOfSettings{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorKeyEmailAllOfSettings)
-	if err == nil {
-		*o = AuthenticatorKeyEmailAllOfSettings(varAuthenticatorKeyEmailAllOfSettings)
-	} else {
+	err = json.Unmarshal(data, &varAuthenticatorKeyEmailAllOfSettings)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthenticatorKeyEmailAllOfSettings(varAuthenticatorKeyEmailAllOfSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "allowedFor")
 		delete(additionalProperties, "tokenLifetimeInMinutes")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -198,4 +207,3 @@ func (v *NullableAuthenticatorKeyEmailAllOfSettings) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

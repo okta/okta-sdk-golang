@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | Pointer to **string** | The location where you specify the command. For the password import inline hook, there&#39;s only one command, &#x60;com.okta.action.update&#x60;. | [optional] 
+**Type** | Pointer to **interface{}** | The location where you specify the command. For the password import inline hook, there&#39;s only one command, &#x60;com.okta.action.update&#x60;. | [optional] 
 **Value** | Pointer to [**PasswordImportResponseCommandsInnerValue**](PasswordImportResponseCommandsInnerValue.md) |  | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetType
 
-`func (o *PasswordImportResponseCommandsInner) GetType() string`
+`func (o *PasswordImportResponseCommandsInner) GetType() interface{}`
 
 GetType returns the Type field if non-nil, zero value otherwise.
 
 ### GetTypeOk
 
-`func (o *PasswordImportResponseCommandsInner) GetTypeOk() (*string, bool)`
+`func (o *PasswordImportResponseCommandsInner) GetTypeOk() (*interface{}, bool)`
 
 GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetType
 
-`func (o *PasswordImportResponseCommandsInner) SetType(v string)`
+`func (o *PasswordImportResponseCommandsInner) SetType(v interface{})`
 
 SetType sets Type field to given value.
 
@@ -51,6 +51,16 @@ SetType sets Type field to given value.
 
 HasType returns a boolean if a field has been set.
 
+### SetTypeNil
+
+`func (o *PasswordImportResponseCommandsInner) SetTypeNil(b bool)`
+
+ SetTypeNil sets the value for Type to be an explicit nil
+
+### UnsetType
+`func (o *PasswordImportResponseCommandsInner) UnsetType()`
+
+UnsetType ensures that no value is present for Type, not even an explicit nil
 ### GetValue
 
 `func (o *PasswordImportResponseCommandsInner) GetValue() PasswordImportResponseCommandsInnerValue`

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Username** | Pointer to **string** | The &#x60;username&#x60; that the end user supplied when attempting to sign in to Okta. | [optional] 
-**Password** | Pointer to **string** | The &#x60;password&#x60; that the end user supplied when attempting to sign in to Okta. | [optional] 
+**Username** | Pointer to **string** | The &#x60;username&#x60; that the user supplied when attempting to sign in to Okta. | [optional] 
+**Password** | Pointer to **string** | The &#x60;password&#x60; that the user supplied when attempting to sign in to Okta. | [optional] 
 
 ## Methods
 

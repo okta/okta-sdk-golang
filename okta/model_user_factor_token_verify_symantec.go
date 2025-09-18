@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserFactorTokenVerifySymantec type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserFactorTokenVerifySymantec{}
+
 // UserFactorTokenVerifySymantec struct for UserFactorTokenVerifySymantec
 type UserFactorTokenVerifySymantec struct {
 	// OTP for the next time window
 	NextPassCode *int32 `json:"nextPassCode,omitempty"`
 	// OTP for the current time window
-	PassCode *string `json:"passCode,omitempty"`
+	PassCode             *string `json:"passCode,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewUserFactorTokenVerifySymantecWithDefaults() *UserFactorTokenVerifySymant
 
 // GetNextPassCode returns the NextPassCode field value if set, zero value otherwise.
 func (o *UserFactorTokenVerifySymantec) GetNextPassCode() int32 {
-	if o == nil || o.NextPassCode == nil {
+	if o == nil || IsNil(o.NextPassCode) {
 		var ret int32
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *UserFactorTokenVerifySymantec) GetNextPassCode() int32 {
 // GetNextPassCodeOk returns a tuple with the NextPassCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorTokenVerifySymantec) GetNextPassCodeOk() (*int32, bool) {
-	if o == nil || o.NextPassCode == nil {
+	if o == nil || IsNil(o.NextPassCode) {
 		return nil, false
 	}
 	return o.NextPassCode, true
@@ -75,7 +78,7 @@ func (o *UserFactorTokenVerifySymantec) GetNextPassCodeOk() (*int32, bool) {
 
 // HasNextPassCode returns a boolean if a field has been set.
 func (o *UserFactorTokenVerifySymantec) HasNextPassCode() bool {
-	if o != nil && o.NextPassCode != nil {
+	if o != nil && !IsNil(o.NextPassCode) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *UserFactorTokenVerifySymantec) SetNextPassCode(v int32) {
 
 // GetPassCode returns the PassCode field value if set, zero value otherwise.
 func (o *UserFactorTokenVerifySymantec) GetPassCode() string {
-	if o == nil || o.PassCode == nil {
+	if o == nil || IsNil(o.PassCode) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *UserFactorTokenVerifySymantec) GetPassCode() string {
 // GetPassCodeOk returns a tuple with the PassCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorTokenVerifySymantec) GetPassCodeOk() (*string, bool) {
-	if o == nil || o.PassCode == nil {
+	if o == nil || IsNil(o.PassCode) {
 		return nil, false
 	}
 	return o.PassCode, true
@@ -107,7 +110,7 @@ func (o *UserFactorTokenVerifySymantec) GetPassCodeOk() (*string, bool) {
 
 // HasPassCode returns a boolean if a field has been set.
 func (o *UserFactorTokenVerifySymantec) HasPassCode() bool {
-	if o != nil && o.PassCode != nil {
+	if o != nil && !IsNil(o.PassCode) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *UserFactorTokenVerifySymantec) SetPassCode(v string) {
 }
 
 func (o UserFactorTokenVerifySymantec) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserFactorTokenVerifySymantec) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.NextPassCode != nil {
+	if !IsNil(o.NextPassCode) {
 		toSerialize["nextPassCode"] = o.NextPassCode
 	}
-	if o.PassCode != nil {
+	if !IsNil(o.PassCode) {
 		toSerialize["passCode"] = o.PassCode
 	}
 
@@ -132,28 +143,26 @@ func (o UserFactorTokenVerifySymantec) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserFactorTokenVerifySymantec) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserFactorTokenVerifySymantec) UnmarshalJSON(data []byte) (err error) {
 	varUserFactorTokenVerifySymantec := _UserFactorTokenVerifySymantec{}
 
-	err = json.Unmarshal(bytes, &varUserFactorTokenVerifySymantec)
-	if err == nil {
-		*o = UserFactorTokenVerifySymantec(varUserFactorTokenVerifySymantec)
-	} else {
+	err = json.Unmarshal(data, &varUserFactorTokenVerifySymantec)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserFactorTokenVerifySymantec(varUserFactorTokenVerifySymantec)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "nextPassCode")
 		delete(additionalProperties, "passCode")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableUserFactorTokenVerifySymantec) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## PreviewSAMLmetadataForApplication
 
-> string PreviewSAMLmetadataForApplication(ctx, appId).Execute()
+> string PreviewSAMLmetadataForApplication(ctx, appId).Kid(kid).Execute()
 
 Preview the application SAML metadata
 
@@ -22,24 +22,25 @@ Preview the application SAML metadata
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+	kid := "mXtzOtml09Dg1ZCeKxTRBo3KrQuBWFkJ5oxhVagjTzo" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApplicationSSOAPI.PreviewSAMLmetadataForApplication(context.Background(), appId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationSSOAPI.PreviewSAMLmetadataForApplication``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PreviewSAMLmetadataForApplication`: string
-    fmt.Fprintf(os.Stdout, "Response from `ApplicationSSOAPI.PreviewSAMLmetadataForApplication`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApplicationSSOAPI.PreviewSAMLmetadataForApplication(context.Background(), appId).Kid(kid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationSSOAPI.PreviewSAMLmetadataForApplication``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PreviewSAMLmetadataForApplication`: string
+	fmt.Fprintf(os.Stdout, "Response from `ApplicationSSOAPI.PreviewSAMLmetadataForApplication`: %v\n", resp)
 }
 ```
 
@@ -59,6 +60,7 @@ Other parameters are passed through a pointer to a apiPreviewSAMLmetadataForAppl
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **kid** | **string** |  | 
 
 ### Return type
 

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserSchemaPropertiesProfile type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserSchemaPropertiesProfile{}
+
 // UserSchemaPropertiesProfile struct for UserSchemaPropertiesProfile
 type UserSchemaPropertiesProfile struct {
-	AllOf []UserSchemaPropertiesProfileItem `json:"allOf,omitempty"`
+	AllOf                []UserSchemaPropertiesProfileItem `json:"allOf,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewUserSchemaPropertiesProfileWithDefaults() *UserSchemaPropertiesProfile {
 
 // GetAllOf returns the AllOf field value if set, zero value otherwise.
 func (o *UserSchemaPropertiesProfile) GetAllOf() []UserSchemaPropertiesProfileItem {
-	if o == nil || o.AllOf == nil {
+	if o == nil || IsNil(o.AllOf) {
 		var ret []UserSchemaPropertiesProfileItem
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *UserSchemaPropertiesProfile) GetAllOf() []UserSchemaPropertiesProfileIt
 // GetAllOfOk returns a tuple with the AllOf field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaPropertiesProfile) GetAllOfOk() ([]UserSchemaPropertiesProfileItem, bool) {
-	if o == nil || o.AllOf == nil {
+	if o == nil || IsNil(o.AllOf) {
 		return nil, false
 	}
 	return o.AllOf, true
@@ -72,7 +75,7 @@ func (o *UserSchemaPropertiesProfile) GetAllOfOk() ([]UserSchemaPropertiesProfil
 
 // HasAllOf returns a boolean if a field has been set.
 func (o *UserSchemaPropertiesProfile) HasAllOf() bool {
-	if o != nil && o.AllOf != nil {
+	if o != nil && !IsNil(o.AllOf) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *UserSchemaPropertiesProfile) SetAllOf(v []UserSchemaPropertiesProfileIt
 }
 
 func (o UserSchemaPropertiesProfile) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserSchemaPropertiesProfile) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AllOf != nil {
+	if !IsNil(o.AllOf) {
 		toSerialize["allOf"] = o.AllOf
 	}
 
@@ -94,27 +105,25 @@ func (o UserSchemaPropertiesProfile) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserSchemaPropertiesProfile) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserSchemaPropertiesProfile) UnmarshalJSON(data []byte) (err error) {
 	varUserSchemaPropertiesProfile := _UserSchemaPropertiesProfile{}
 
-	err = json.Unmarshal(bytes, &varUserSchemaPropertiesProfile)
-	if err == nil {
-		*o = UserSchemaPropertiesProfile(varUserSchemaPropertiesProfile)
-	} else {
+	err = json.Unmarshal(data, &varUserSchemaPropertiesProfile)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserSchemaPropertiesProfile(varUserSchemaPropertiesProfile)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "allOf")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableUserSchemaPropertiesProfile) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,13 @@ import (
 	"encoding/json"
 )
 
-// ProfileSettingObject This setting determines whether a user in the application gets updated when they're updated in Okta.  If enabled, Okta updates a user's attributes in the application when the application is assigned. Future changes made to the Okta user's profile automatically overwrite the corresponding attribute value in the application. 
+// checks if the ProfileSettingObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ProfileSettingObject{}
+
+// ProfileSettingObject This setting determines whether a user in the app gets updated when they're updated in Okta.  If enabled, Okta updates a user's attributes in the app when the app is assigned. Future changes made to the Okta user's profile automatically overwrite the corresponding attribute value in the app.
 type ProfileSettingObject struct {
-	Status *string `json:"status,omitempty"`
+	// Setting status
+	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -41,6 +45,8 @@ type _ProfileSettingObject ProfileSettingObject
 // will change when the set of required properties is changed
 func NewProfileSettingObject() *ProfileSettingObject {
 	this := ProfileSettingObject{}
+	var status string = "DISABLED"
+	this.Status = &status
 	return &this
 }
 
@@ -49,12 +55,14 @@ func NewProfileSettingObject() *ProfileSettingObject {
 // but it doesn't guarantee that properties required by API are set
 func NewProfileSettingObjectWithDefaults() *ProfileSettingObject {
 	this := ProfileSettingObject{}
+	var status string = "DISABLED"
+	this.Status = &status
 	return &this
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *ProfileSettingObject) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -64,7 +72,7 @@ func (o *ProfileSettingObject) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProfileSettingObject) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -72,7 +80,7 @@ func (o *ProfileSettingObject) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *ProfileSettingObject) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -85,8 +93,16 @@ func (o *ProfileSettingObject) SetStatus(v string) {
 }
 
 func (o ProfileSettingObject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ProfileSettingObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
 
@@ -94,27 +110,25 @@ func (o ProfileSettingObject) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ProfileSettingObject) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ProfileSettingObject) UnmarshalJSON(data []byte) (err error) {
 	varProfileSettingObject := _ProfileSettingObject{}
 
-	err = json.Unmarshal(bytes, &varProfileSettingObject)
-	if err == nil {
-		*o = ProfileSettingObject(varProfileSettingObject)
-	} else {
+	err = json.Unmarshal(data, &varProfileSettingObject)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ProfileSettingObject(varProfileSettingObject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "status")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +169,3 @@ func (v *NullableProfileSettingObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

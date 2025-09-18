@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,17 +25,21 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 	"reflect"
 	"strings"
 )
+
+// checks if the AutoLoginApplication type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AutoLoginApplication{}
 
 // AutoLoginApplication struct for AutoLoginApplication
 type AutoLoginApplication struct {
 	Application
 	Credentials *SchemeApplicationCredentials `json:"credentials,omitempty"`
 	// A unique key is generated for the custom SWA app instance when you use AUTO_LOGIN `signOnMode`.
-	Name *string `json:"name,omitempty"`
-	Settings *AutoLoginApplicationSettings `json:"settings,omitempty"`
+	Name                 *string                       `json:"name,omitempty"`
+	Settings             *AutoLoginApplicationSettings `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -62,7 +66,7 @@ func NewAutoLoginApplicationWithDefaults() *AutoLoginApplication {
 
 // GetCredentials returns the Credentials field value if set, zero value otherwise.
 func (o *AutoLoginApplication) GetCredentials() SchemeApplicationCredentials {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		var ret SchemeApplicationCredentials
 		return ret
 	}
@@ -72,7 +76,7 @@ func (o *AutoLoginApplication) GetCredentials() SchemeApplicationCredentials {
 // GetCredentialsOk returns a tuple with the Credentials field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AutoLoginApplication) GetCredentialsOk() (*SchemeApplicationCredentials, bool) {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		return nil, false
 	}
 	return o.Credentials, true
@@ -80,7 +84,7 @@ func (o *AutoLoginApplication) GetCredentialsOk() (*SchemeApplicationCredentials
 
 // HasCredentials returns a boolean if a field has been set.
 func (o *AutoLoginApplication) HasCredentials() bool {
-	if o != nil && o.Credentials != nil {
+	if o != nil && !IsNil(o.Credentials) {
 		return true
 	}
 
@@ -94,7 +98,7 @@ func (o *AutoLoginApplication) SetCredentials(v SchemeApplicationCredentials) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *AutoLoginApplication) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -104,7 +108,7 @@ func (o *AutoLoginApplication) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AutoLoginApplication) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -112,7 +116,7 @@ func (o *AutoLoginApplication) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *AutoLoginApplication) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -126,7 +130,7 @@ func (o *AutoLoginApplication) SetName(v string) {
 
 // GetSettings returns the Settings field value if set, zero value otherwise.
 func (o *AutoLoginApplication) GetSettings() AutoLoginApplicationSettings {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		var ret AutoLoginApplicationSettings
 		return ret
 	}
@@ -136,7 +140,7 @@ func (o *AutoLoginApplication) GetSettings() AutoLoginApplicationSettings {
 // GetSettingsOk returns a tuple with the Settings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AutoLoginApplication) GetSettingsOk() (*AutoLoginApplicationSettings, bool) {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		return nil, false
 	}
 	return o.Settings, true
@@ -144,7 +148,7 @@ func (o *AutoLoginApplication) GetSettingsOk() (*AutoLoginApplicationSettings, b
 
 // HasSettings returns a boolean if a field has been set.
 func (o *AutoLoginApplication) HasSettings() bool {
-	if o != nil && o.Settings != nil {
+	if o != nil && !IsNil(o.Settings) {
 		return true
 	}
 
@@ -157,22 +161,30 @@ func (o *AutoLoginApplication) SetSettings(v AutoLoginApplicationSettings) {
 }
 
 func (o AutoLoginApplication) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AutoLoginApplication) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedApplication, errApplication := json.Marshal(o.Application)
 	if errApplication != nil {
-		return []byte{}, errApplication
+		return map[string]interface{}{}, errApplication
 	}
 	errApplication = json.Unmarshal([]byte(serializedApplication), &toSerialize)
 	if errApplication != nil {
-		return []byte{}, errApplication
+		return map[string]interface{}{}, errApplication
 	}
-	if o.Credentials != nil {
+	if !IsNil(o.Credentials) {
 		toSerialize["credentials"] = o.Credentials
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Settings != nil {
+	if !IsNil(o.Settings) {
 		toSerialize["settings"] = o.Settings
 	}
 
@@ -180,20 +192,42 @@ func (o AutoLoginApplication) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AutoLoginApplication) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AutoLoginApplication) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"label",
+		"signOnMode",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	type AutoLoginApplicationWithoutEmbeddedStruct struct {
 		Credentials *SchemeApplicationCredentials `json:"credentials,omitempty"`
 		// A unique key is generated for the custom SWA app instance when you use AUTO_LOGIN `signOnMode`.
-		Name *string `json:"name,omitempty"`
+		Name     *string                       `json:"name,omitempty"`
 		Settings *AutoLoginApplicationSettings `json:"settings,omitempty"`
 	}
 
 	varAutoLoginApplicationWithoutEmbeddedStruct := AutoLoginApplicationWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varAutoLoginApplicationWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varAutoLoginApplicationWithoutEmbeddedStruct)
 	if err == nil {
 		varAutoLoginApplication := _AutoLoginApplication{}
 		varAutoLoginApplication.Credentials = varAutoLoginApplicationWithoutEmbeddedStruct.Credentials
@@ -206,7 +240,7 @@ func (o *AutoLoginApplication) UnmarshalJSON(bytes []byte) (err error) {
 
 	varAutoLoginApplication := _AutoLoginApplication{}
 
-	err = json.Unmarshal(bytes, &varAutoLoginApplication)
+	err = json.Unmarshal(data, &varAutoLoginApplication)
 	if err == nil {
 		o.Application = varAutoLoginApplication.Application
 	} else {
@@ -215,8 +249,7 @@ func (o *AutoLoginApplication) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "credentials")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "settings")
@@ -240,8 +273,6 @@ func (o *AutoLoginApplication) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -282,4 +313,3 @@ func (v *NullableAutoLoginApplication) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

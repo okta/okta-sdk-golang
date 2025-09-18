@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,14 +27,21 @@ import (
 	"encoding/json"
 )
 
-// LogClient struct for LogClient
+// checks if the LogClient type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LogClient{}
+
+// LogClient When an event is triggered by an HTTP request, the `client` object describes the [client](https://datatracker.ietf.org/doc/html/rfc2616) that issues the HTTP request. For instance, the web browser is the client when a user accesses Okta. When this request is received and processed, a sign-in event is fired. When the event isn't sourced to an HTTP request, such as an automatic update, the `client` object field is blank.
 type LogClient struct {
-	Device *string `json:"device,omitempty"`
+	// Type of device that the client operates from (for example, computer)
+	Device              *string                 `json:"device,omitempty"`
 	GeographicalContext *LogGeographicalContext `json:"geographicalContext,omitempty"`
+	// For OAuth requests, this is the ID of the OAuth [client](https://datatracker.ietf.org/doc/html/rfc6749#section-1.1) making the request. For SSWS token requests, this is the ID of the agent making the request.
 	Id *string `json:"id,omitempty"`
-	IpAddress *string `json:"ipAddress,omitempty"`
+	// IP address that the client is making its request from
+	IpAddress *string       `json:"ipAddress,omitempty"`
 	UserAgent *LogUserAgent `json:"userAgent,omitempty"`
-	Zone *string `json:"zone,omitempty"`
+	// The `name` of the [Zone](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/NetworkZone/#tag/NetworkZone/operation/getNetworkZone) that the client's location is mapped to
+	Zone                 *string `json:"zone,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +66,7 @@ func NewLogClientWithDefaults() *LogClient {
 
 // GetDevice returns the Device field value if set, zero value otherwise.
 func (o *LogClient) GetDevice() string {
-	if o == nil || o.Device == nil {
+	if o == nil || IsNil(o.Device) {
 		var ret string
 		return ret
 	}
@@ -69,7 +76,7 @@ func (o *LogClient) GetDevice() string {
 // GetDeviceOk returns a tuple with the Device field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogClient) GetDeviceOk() (*string, bool) {
-	if o == nil || o.Device == nil {
+	if o == nil || IsNil(o.Device) {
 		return nil, false
 	}
 	return o.Device, true
@@ -77,7 +84,7 @@ func (o *LogClient) GetDeviceOk() (*string, bool) {
 
 // HasDevice returns a boolean if a field has been set.
 func (o *LogClient) HasDevice() bool {
-	if o != nil && o.Device != nil {
+	if o != nil && !IsNil(o.Device) {
 		return true
 	}
 
@@ -91,7 +98,7 @@ func (o *LogClient) SetDevice(v string) {
 
 // GetGeographicalContext returns the GeographicalContext field value if set, zero value otherwise.
 func (o *LogClient) GetGeographicalContext() LogGeographicalContext {
-	if o == nil || o.GeographicalContext == nil {
+	if o == nil || IsNil(o.GeographicalContext) {
 		var ret LogGeographicalContext
 		return ret
 	}
@@ -101,7 +108,7 @@ func (o *LogClient) GetGeographicalContext() LogGeographicalContext {
 // GetGeographicalContextOk returns a tuple with the GeographicalContext field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogClient) GetGeographicalContextOk() (*LogGeographicalContext, bool) {
-	if o == nil || o.GeographicalContext == nil {
+	if o == nil || IsNil(o.GeographicalContext) {
 		return nil, false
 	}
 	return o.GeographicalContext, true
@@ -109,7 +116,7 @@ func (o *LogClient) GetGeographicalContextOk() (*LogGeographicalContext, bool) {
 
 // HasGeographicalContext returns a boolean if a field has been set.
 func (o *LogClient) HasGeographicalContext() bool {
-	if o != nil && o.GeographicalContext != nil {
+	if o != nil && !IsNil(o.GeographicalContext) {
 		return true
 	}
 
@@ -123,7 +130,7 @@ func (o *LogClient) SetGeographicalContext(v LogGeographicalContext) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *LogClient) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -133,7 +140,7 @@ func (o *LogClient) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogClient) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -141,7 +148,7 @@ func (o *LogClient) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *LogClient) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -155,7 +162,7 @@ func (o *LogClient) SetId(v string) {
 
 // GetIpAddress returns the IpAddress field value if set, zero value otherwise.
 func (o *LogClient) GetIpAddress() string {
-	if o == nil || o.IpAddress == nil {
+	if o == nil || IsNil(o.IpAddress) {
 		var ret string
 		return ret
 	}
@@ -165,7 +172,7 @@ func (o *LogClient) GetIpAddress() string {
 // GetIpAddressOk returns a tuple with the IpAddress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogClient) GetIpAddressOk() (*string, bool) {
-	if o == nil || o.IpAddress == nil {
+	if o == nil || IsNil(o.IpAddress) {
 		return nil, false
 	}
 	return o.IpAddress, true
@@ -173,7 +180,7 @@ func (o *LogClient) GetIpAddressOk() (*string, bool) {
 
 // HasIpAddress returns a boolean if a field has been set.
 func (o *LogClient) HasIpAddress() bool {
-	if o != nil && o.IpAddress != nil {
+	if o != nil && !IsNil(o.IpAddress) {
 		return true
 	}
 
@@ -187,7 +194,7 @@ func (o *LogClient) SetIpAddress(v string) {
 
 // GetUserAgent returns the UserAgent field value if set, zero value otherwise.
 func (o *LogClient) GetUserAgent() LogUserAgent {
-	if o == nil || o.UserAgent == nil {
+	if o == nil || IsNil(o.UserAgent) {
 		var ret LogUserAgent
 		return ret
 	}
@@ -197,7 +204,7 @@ func (o *LogClient) GetUserAgent() LogUserAgent {
 // GetUserAgentOk returns a tuple with the UserAgent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogClient) GetUserAgentOk() (*LogUserAgent, bool) {
-	if o == nil || o.UserAgent == nil {
+	if o == nil || IsNil(o.UserAgent) {
 		return nil, false
 	}
 	return o.UserAgent, true
@@ -205,7 +212,7 @@ func (o *LogClient) GetUserAgentOk() (*LogUserAgent, bool) {
 
 // HasUserAgent returns a boolean if a field has been set.
 func (o *LogClient) HasUserAgent() bool {
-	if o != nil && o.UserAgent != nil {
+	if o != nil && !IsNil(o.UserAgent) {
 		return true
 	}
 
@@ -219,7 +226,7 @@ func (o *LogClient) SetUserAgent(v LogUserAgent) {
 
 // GetZone returns the Zone field value if set, zero value otherwise.
 func (o *LogClient) GetZone() string {
-	if o == nil || o.Zone == nil {
+	if o == nil || IsNil(o.Zone) {
 		var ret string
 		return ret
 	}
@@ -229,7 +236,7 @@ func (o *LogClient) GetZone() string {
 // GetZoneOk returns a tuple with the Zone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogClient) GetZoneOk() (*string, bool) {
-	if o == nil || o.Zone == nil {
+	if o == nil || IsNil(o.Zone) {
 		return nil, false
 	}
 	return o.Zone, true
@@ -237,7 +244,7 @@ func (o *LogClient) GetZoneOk() (*string, bool) {
 
 // HasZone returns a boolean if a field has been set.
 func (o *LogClient) HasZone() bool {
-	if o != nil && o.Zone != nil {
+	if o != nil && !IsNil(o.Zone) {
 		return true
 	}
 
@@ -250,23 +257,31 @@ func (o *LogClient) SetZone(v string) {
 }
 
 func (o LogClient) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LogClient) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Device != nil {
+	if !IsNil(o.Device) {
 		toSerialize["device"] = o.Device
 	}
-	if o.GeographicalContext != nil {
+	if !IsNil(o.GeographicalContext) {
 		toSerialize["geographicalContext"] = o.GeographicalContext
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.IpAddress != nil {
+	if !IsNil(o.IpAddress) {
 		toSerialize["ipAddress"] = o.IpAddress
 	}
-	if o.UserAgent != nil {
+	if !IsNil(o.UserAgent) {
 		toSerialize["userAgent"] = o.UserAgent
 	}
-	if o.Zone != nil {
+	if !IsNil(o.Zone) {
 		toSerialize["zone"] = o.Zone
 	}
 
@@ -274,23 +289,23 @@ func (o LogClient) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LogClient) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LogClient) UnmarshalJSON(data []byte) (err error) {
 	varLogClient := _LogClient{}
 
-	err = json.Unmarshal(bytes, &varLogClient)
-	if err == nil {
-		*o = LogClient(varLogClient)
-	} else {
+	err = json.Unmarshal(data, &varLogClient)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LogClient(varLogClient)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "device")
 		delete(additionalProperties, "geographicalContext")
 		delete(additionalProperties, "id")
@@ -298,8 +313,6 @@ func (o *LogClient) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "userAgent")
 		delete(additionalProperties, "zone")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -340,4 +353,3 @@ func (v *NullableLogClient) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

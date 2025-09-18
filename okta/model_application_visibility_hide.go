@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the ApplicationVisibilityHide type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApplicationVisibilityHide{}
+
 // ApplicationVisibilityHide Hides the app for specific end-user apps
 type ApplicationVisibilityHide struct {
+	// Okta Mobile for iOS or Android (pre-dates Android)
 	IOS *bool `json:"iOS,omitempty"`
-	Web *bool `json:"web,omitempty"`
+	// Okta End-User Dashboard on a web browser
+	Web                  *bool `json:"web,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -42,6 +47,10 @@ type _ApplicationVisibilityHide ApplicationVisibilityHide
 // will change when the set of required properties is changed
 func NewApplicationVisibilityHide() *ApplicationVisibilityHide {
 	this := ApplicationVisibilityHide{}
+	var iOS bool = false
+	this.IOS = &iOS
+	var web bool = false
+	this.Web = &web
 	return &this
 }
 
@@ -50,12 +59,16 @@ func NewApplicationVisibilityHide() *ApplicationVisibilityHide {
 // but it doesn't guarantee that properties required by API are set
 func NewApplicationVisibilityHideWithDefaults() *ApplicationVisibilityHide {
 	this := ApplicationVisibilityHide{}
+	var iOS bool = false
+	this.IOS = &iOS
+	var web bool = false
+	this.Web = &web
 	return &this
 }
 
 // GetIOS returns the IOS field value if set, zero value otherwise.
 func (o *ApplicationVisibilityHide) GetIOS() bool {
-	if o == nil || o.IOS == nil {
+	if o == nil || IsNil(o.IOS) {
 		var ret bool
 		return ret
 	}
@@ -65,7 +78,7 @@ func (o *ApplicationVisibilityHide) GetIOS() bool {
 // GetIOSOk returns a tuple with the IOS field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationVisibilityHide) GetIOSOk() (*bool, bool) {
-	if o == nil || o.IOS == nil {
+	if o == nil || IsNil(o.IOS) {
 		return nil, false
 	}
 	return o.IOS, true
@@ -73,7 +86,7 @@ func (o *ApplicationVisibilityHide) GetIOSOk() (*bool, bool) {
 
 // HasIOS returns a boolean if a field has been set.
 func (o *ApplicationVisibilityHide) HasIOS() bool {
-	if o != nil && o.IOS != nil {
+	if o != nil && !IsNil(o.IOS) {
 		return true
 	}
 
@@ -87,7 +100,7 @@ func (o *ApplicationVisibilityHide) SetIOS(v bool) {
 
 // GetWeb returns the Web field value if set, zero value otherwise.
 func (o *ApplicationVisibilityHide) GetWeb() bool {
-	if o == nil || o.Web == nil {
+	if o == nil || IsNil(o.Web) {
 		var ret bool
 		return ret
 	}
@@ -97,7 +110,7 @@ func (o *ApplicationVisibilityHide) GetWeb() bool {
 // GetWebOk returns a tuple with the Web field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationVisibilityHide) GetWebOk() (*bool, bool) {
-	if o == nil || o.Web == nil {
+	if o == nil || IsNil(o.Web) {
 		return nil, false
 	}
 	return o.Web, true
@@ -105,7 +118,7 @@ func (o *ApplicationVisibilityHide) GetWebOk() (*bool, bool) {
 
 // HasWeb returns a boolean if a field has been set.
 func (o *ApplicationVisibilityHide) HasWeb() bool {
-	if o != nil && o.Web != nil {
+	if o != nil && !IsNil(o.Web) {
 		return true
 	}
 
@@ -118,11 +131,19 @@ func (o *ApplicationVisibilityHide) SetWeb(v bool) {
 }
 
 func (o ApplicationVisibilityHide) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApplicationVisibilityHide) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.IOS != nil {
+	if !IsNil(o.IOS) {
 		toSerialize["iOS"] = o.IOS
 	}
-	if o.Web != nil {
+	if !IsNil(o.Web) {
 		toSerialize["web"] = o.Web
 	}
 
@@ -130,28 +151,26 @@ func (o ApplicationVisibilityHide) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ApplicationVisibilityHide) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ApplicationVisibilityHide) UnmarshalJSON(data []byte) (err error) {
 	varApplicationVisibilityHide := _ApplicationVisibilityHide{}
 
-	err = json.Unmarshal(bytes, &varApplicationVisibilityHide)
-	if err == nil {
-		*o = ApplicationVisibilityHide(varApplicationVisibilityHide)
-	} else {
+	err = json.Unmarshal(data, &varApplicationVisibilityHide)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ApplicationVisibilityHide(varApplicationVisibilityHide)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "iOS")
 		delete(additionalProperties, "web")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +211,3 @@ func (v *NullableApplicationVisibilityHide) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Credentials** | Pointer to [**SchemeApplicationCredentials**](SchemeApplicationCredentials.md) |  | [optional] 
-**Name** | **string** | &#x60;template_basic_auth&#x60; is the key name for a basic authentication scheme app instance | 
+**Name** | **string** | &#x60;template_basic_auth&#x60; is the key name for a Basic Authentication scheme app instance | 
 **Settings** | [**BasicApplicationSettings**](BasicApplicationSettings.md) |  | 
 
 ## Methods

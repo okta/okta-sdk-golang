@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **EventTimestamp** | **int64** | The time of the event (UNIX timestamp) | 
-**Subjects** | [**SecurityEventSubject**](SecurityEventSubject.md) |  | 
+**Subject** | [**SecurityEventSubject**](SecurityEventSubject.md) |  | 
 
 ## Methods
 
 ### NewSecurityEvent
 
-`func NewSecurityEvent(eventTimestamp int64, subjects SecurityEventSubject, ) *SecurityEvent`
+`func NewSecurityEvent(eventTimestamp int64, subject SecurityEventSubject, ) *SecurityEvent`
 
 NewSecurityEvent instantiates a new SecurityEvent object
 This constructor will assign default values to properties that have it defined,
@@ -46,24 +46,24 @@ and a boolean to check if the value has been set.
 SetEventTimestamp sets EventTimestamp field to given value.
 
 
-### GetSubjects
+### GetSubject
 
-`func (o *SecurityEvent) GetSubjects() SecurityEventSubject`
+`func (o *SecurityEvent) GetSubject() SecurityEventSubject`
 
-GetSubjects returns the Subjects field if non-nil, zero value otherwise.
+GetSubject returns the Subject field if non-nil, zero value otherwise.
 
-### GetSubjectsOk
+### GetSubjectOk
 
-`func (o *SecurityEvent) GetSubjectsOk() (*SecurityEventSubject, bool)`
+`func (o *SecurityEvent) GetSubjectOk() (*SecurityEventSubject, bool)`
 
-GetSubjectsOk returns a tuple with the Subjects field if it's non-nil, zero value otherwise
+GetSubjectOk returns a tuple with the Subject field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetSubjects
+### SetSubject
 
-`func (o *SecurityEvent) SetSubjects(v SecurityEventSubject)`
+`func (o *SecurityEvent) SetSubject(v SecurityEventSubject)`
 
-SetSubjects sets Subjects field to given value.
+SetSubject sets Subject field to given value.
 
 
 

@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to **time.Time** | Timestamp when the role was created | [optional] [readonly] 
-**Id** | Pointer to **string** | Unique key for the role | [optional] [readonly] 
-**LastUpdated** | Pointer to **time.Time** | Timestamp when the role was last updated | [optional] [readonly] 
+**Created** | Pointer to **time.Time** | Timestamp when the member was created | [optional] [readonly] 
+**Id** | Pointer to **string** | Role resource set binding member ID | [optional] [readonly] 
+**LastUpdated** | Pointer to **time.Time** | Timestamp when the member was last updated | [optional] [readonly] 
 **Links** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
 
 ## Methods

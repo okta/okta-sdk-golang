@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**FilterType** | Pointer to **string** |  | [optional] 
-**FilterValue** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Namespace** | Pointer to **string** |  | [optional] 
-**Type** | Pointer to **string** |  | [optional] 
-**Values** | Pointer to **[]string** |  | [optional] 
+**Type** | Pointer to **string** | The type of attribute statements object | [optional] 
+**Name** | Pointer to **string** | The name of the group attribute in your app. The attribute name must be unique across all user and group attribute statements. | [optional] 
+**Namespace** | Pointer to **string** | The name format of the group attribute. Supported values: | [optional] 
+**Values** | Pointer to **[]string** | The attribute values (supports [Okta Expression Language](https://developer.okta.com/docs/reference/okta-expression-language/)) | [optional] 
+**FilterType** | Pointer to **string** | The operation to filter groups based on &#x60;filterValue&#x60; | [optional] 
+**FilterValue** | Pointer to **string** | Filter the groups based on a specific value. | [optional] 
 
 ## Methods
 
@@ -30,55 +30,30 @@ NewSamlAttributeStatementWithDefaults instantiates a new SamlAttributeStatement 
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetFilterType
+### GetType
 
-`func (o *SamlAttributeStatement) GetFilterType() string`
+`func (o *SamlAttributeStatement) GetType() string`
 
-GetFilterType returns the FilterType field if non-nil, zero value otherwise.
+GetType returns the Type field if non-nil, zero value otherwise.
 
-### GetFilterTypeOk
+### GetTypeOk
 
-`func (o *SamlAttributeStatement) GetFilterTypeOk() (*string, bool)`
+`func (o *SamlAttributeStatement) GetTypeOk() (*string, bool)`
 
-GetFilterTypeOk returns a tuple with the FilterType field if it's non-nil, zero value otherwise
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetFilterType
+### SetType
 
-`func (o *SamlAttributeStatement) SetFilterType(v string)`
+`func (o *SamlAttributeStatement) SetType(v string)`
 
-SetFilterType sets FilterType field to given value.
+SetType sets Type field to given value.
 
-### HasFilterType
+### HasType
 
-`func (o *SamlAttributeStatement) HasFilterType() bool`
+`func (o *SamlAttributeStatement) HasType() bool`
 
-HasFilterType returns a boolean if a field has been set.
-
-### GetFilterValue
-
-`func (o *SamlAttributeStatement) GetFilterValue() string`
-
-GetFilterValue returns the FilterValue field if non-nil, zero value otherwise.
-
-### GetFilterValueOk
-
-`func (o *SamlAttributeStatement) GetFilterValueOk() (*string, bool)`
-
-GetFilterValueOk returns a tuple with the FilterValue field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetFilterValue
-
-`func (o *SamlAttributeStatement) SetFilterValue(v string)`
-
-SetFilterValue sets FilterValue field to given value.
-
-### HasFilterValue
-
-`func (o *SamlAttributeStatement) HasFilterValue() bool`
-
-HasFilterValue returns a boolean if a field has been set.
+HasType returns a boolean if a field has been set.
 
 ### GetName
 
@@ -130,31 +105,6 @@ SetNamespace sets Namespace field to given value.
 
 HasNamespace returns a boolean if a field has been set.
 
-### GetType
-
-`func (o *SamlAttributeStatement) GetType() string`
-
-GetType returns the Type field if non-nil, zero value otherwise.
-
-### GetTypeOk
-
-`func (o *SamlAttributeStatement) GetTypeOk() (*string, bool)`
-
-GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetType
-
-`func (o *SamlAttributeStatement) SetType(v string)`
-
-SetType sets Type field to given value.
-
-### HasType
-
-`func (o *SamlAttributeStatement) HasType() bool`
-
-HasType returns a boolean if a field has been set.
-
 ### GetValues
 
 `func (o *SamlAttributeStatement) GetValues() []string`
@@ -179,6 +129,56 @@ SetValues sets Values field to given value.
 `func (o *SamlAttributeStatement) HasValues() bool`
 
 HasValues returns a boolean if a field has been set.
+
+### GetFilterType
+
+`func (o *SamlAttributeStatement) GetFilterType() string`
+
+GetFilterType returns the FilterType field if non-nil, zero value otherwise.
+
+### GetFilterTypeOk
+
+`func (o *SamlAttributeStatement) GetFilterTypeOk() (*string, bool)`
+
+GetFilterTypeOk returns a tuple with the FilterType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFilterType
+
+`func (o *SamlAttributeStatement) SetFilterType(v string)`
+
+SetFilterType sets FilterType field to given value.
+
+### HasFilterType
+
+`func (o *SamlAttributeStatement) HasFilterType() bool`
+
+HasFilterType returns a boolean if a field has been set.
+
+### GetFilterValue
+
+`func (o *SamlAttributeStatement) GetFilterValue() string`
+
+GetFilterValue returns the FilterValue field if non-nil, zero value otherwise.
+
+### GetFilterValueOk
+
+`func (o *SamlAttributeStatement) GetFilterValueOk() (*string, bool)`
+
+GetFilterValueOk returns a tuple with the FilterValue field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFilterValue
+
+`func (o *SamlAttributeStatement) SetFilterValue(v string)`
+
+SetFilterValue sets FilterValue field to given value.
+
+### HasFilterValue
+
+`func (o *SamlAttributeStatement) HasFilterValue() bool`
+
+HasFilterValue returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

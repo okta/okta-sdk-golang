@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -28,19 +28,23 @@ import (
 	"time"
 )
 
+// checks if the Role type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Role{}
+
 // Role struct for Role
 type Role struct {
-	AssignmentType *string `json:"assignmentType,omitempty"`
-	Created *time.Time `json:"created,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Label *string `json:"label,omitempty"`
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Status *string `json:"status,omitempty"`
+	// Role assignment type
+	AssignmentType *string    `json:"assignmentType,omitempty"`
+	Created        *time.Time `json:"created,omitempty"`
+	Description    *string    `json:"description,omitempty"`
+	Id             *string    `json:"id,omitempty"`
+	Label          *string    `json:"label,omitempty"`
+	LastUpdated    *time.Time `json:"lastUpdated,omitempty"`
+	Status         *string    `json:"status,omitempty"`
 	// Standard role type
-	Type *string `json:"type,omitempty"`
-	Embedded map[string]map[string]interface{} `json:"_embedded,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	Type                 *string                           `json:"type,omitempty"`
+	Embedded             map[string]map[string]interface{} `json:"_embedded,omitempty"`
+	Links                *LinksSelf                        `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -65,7 +69,7 @@ func NewRoleWithDefaults() *Role {
 
 // GetAssignmentType returns the AssignmentType field value if set, zero value otherwise.
 func (o *Role) GetAssignmentType() string {
-	if o == nil || o.AssignmentType == nil {
+	if o == nil || IsNil(o.AssignmentType) {
 		var ret string
 		return ret
 	}
@@ -75,7 +79,7 @@ func (o *Role) GetAssignmentType() string {
 // GetAssignmentTypeOk returns a tuple with the AssignmentType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Role) GetAssignmentTypeOk() (*string, bool) {
-	if o == nil || o.AssignmentType == nil {
+	if o == nil || IsNil(o.AssignmentType) {
 		return nil, false
 	}
 	return o.AssignmentType, true
@@ -83,7 +87,7 @@ func (o *Role) GetAssignmentTypeOk() (*string, bool) {
 
 // HasAssignmentType returns a boolean if a field has been set.
 func (o *Role) HasAssignmentType() bool {
-	if o != nil && o.AssignmentType != nil {
+	if o != nil && !IsNil(o.AssignmentType) {
 		return true
 	}
 
@@ -97,7 +101,7 @@ func (o *Role) SetAssignmentType(v string) {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *Role) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -107,7 +111,7 @@ func (o *Role) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Role) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -115,7 +119,7 @@ func (o *Role) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *Role) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -129,7 +133,7 @@ func (o *Role) SetCreated(v time.Time) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *Role) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -139,7 +143,7 @@ func (o *Role) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Role) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -147,7 +151,7 @@ func (o *Role) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *Role) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -161,7 +165,7 @@ func (o *Role) SetDescription(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *Role) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -171,7 +175,7 @@ func (o *Role) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Role) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -179,7 +183,7 @@ func (o *Role) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *Role) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -193,7 +197,7 @@ func (o *Role) SetId(v string) {
 
 // GetLabel returns the Label field value if set, zero value otherwise.
 func (o *Role) GetLabel() string {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		var ret string
 		return ret
 	}
@@ -203,7 +207,7 @@ func (o *Role) GetLabel() string {
 // GetLabelOk returns a tuple with the Label field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Role) GetLabelOk() (*string, bool) {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		return nil, false
 	}
 	return o.Label, true
@@ -211,7 +215,7 @@ func (o *Role) GetLabelOk() (*string, bool) {
 
 // HasLabel returns a boolean if a field has been set.
 func (o *Role) HasLabel() bool {
-	if o != nil && o.Label != nil {
+	if o != nil && !IsNil(o.Label) {
 		return true
 	}
 
@@ -225,7 +229,7 @@ func (o *Role) SetLabel(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *Role) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -235,7 +239,7 @@ func (o *Role) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Role) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -243,7 +247,7 @@ func (o *Role) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *Role) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -257,7 +261,7 @@ func (o *Role) SetLastUpdated(v time.Time) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *Role) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -267,7 +271,7 @@ func (o *Role) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Role) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -275,7 +279,7 @@ func (o *Role) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *Role) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -289,7 +293,7 @@ func (o *Role) SetStatus(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *Role) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -299,7 +303,7 @@ func (o *Role) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Role) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -307,7 +311,7 @@ func (o *Role) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *Role) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -321,7 +325,7 @@ func (o *Role) SetType(v string) {
 
 // GetEmbedded returns the Embedded field value if set, zero value otherwise.
 func (o *Role) GetEmbedded() map[string]map[string]interface{} {
-	if o == nil || o.Embedded == nil {
+	if o == nil || IsNil(o.Embedded) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
@@ -331,15 +335,15 @@ func (o *Role) GetEmbedded() map[string]map[string]interface{} {
 // GetEmbeddedOk returns a tuple with the Embedded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Role) GetEmbeddedOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || o.Embedded == nil {
-		return nil, false
+	if o == nil || IsNil(o.Embedded) {
+		return map[string]map[string]interface{}{}, false
 	}
 	return o.Embedded, true
 }
 
 // HasEmbedded returns a boolean if a field has been set.
 func (o *Role) HasEmbedded() bool {
-	if o != nil && o.Embedded != nil {
+	if o != nil && !IsNil(o.Embedded) {
 		return true
 	}
 
@@ -353,7 +357,7 @@ func (o *Role) SetEmbedded(v map[string]map[string]interface{}) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *Role) GetLinks() LinksSelf {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksSelf
 		return ret
 	}
@@ -363,7 +367,7 @@ func (o *Role) GetLinks() LinksSelf {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Role) GetLinksOk() (*LinksSelf, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -371,7 +375,7 @@ func (o *Role) GetLinksOk() (*LinksSelf, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *Role) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -384,35 +388,43 @@ func (o *Role) SetLinks(v LinksSelf) {
 }
 
 func (o Role) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Role) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AssignmentType != nil {
+	if !IsNil(o.AssignmentType) {
 		toSerialize["assignmentType"] = o.AssignmentType
 	}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Label != nil {
+	if !IsNil(o.Label) {
 		toSerialize["label"] = o.Label
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Embedded != nil {
+	if !IsNil(o.Embedded) {
 		toSerialize["_embedded"] = o.Embedded
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -420,23 +432,23 @@ func (o Role) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Role) UnmarshalJSON(bytes []byte) (err error) {
+func (o *Role) UnmarshalJSON(data []byte) (err error) {
 	varRole := _Role{}
 
-	err = json.Unmarshal(bytes, &varRole)
-	if err == nil {
-		*o = Role(varRole)
-	} else {
+	err = json.Unmarshal(data, &varRole)
+
+	if err != nil {
 		return err
 	}
 
+	*o = Role(varRole)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "assignmentType")
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "description")
@@ -448,8 +460,6 @@ func (o *Role) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "_embedded")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -490,4 +500,3 @@ func (v *NullableRole) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

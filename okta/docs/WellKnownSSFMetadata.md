@@ -4,10 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**AuthorizationSchemes** | Pointer to [**[]WellKnownSSFMetadataSpecUrn**](WellKnownSSFMetadataSpecUrn.md) | An array of JSON objects that specify the authorization scheme properties supported by the transmitter | [optional] 
 **ConfigurationEndpoint** | Pointer to **string** | The URL of the SSF Stream configuration endpoint | [optional] 
+**DefaultSubjects** | Pointer to **string** | A string that indicates the default behavior of newly created streams | [optional] 
 **DeliveryMethodsSupported** | Pointer to **[]string** | An array of supported SET delivery methods | [optional] 
 **Issuer** | Pointer to **string** | The issuer used in Security Event Tokens. This value is set as &#x60;iss&#x60; in the claim. | [optional] 
 **JwksUri** | Pointer to **string** | The URL of the JSON Web Key Set (JWKS) that contains the signing keys for validating the signatures of Security Event Tokens (SETs) | [optional] 
+**SpecVersion** | Pointer to **string** | The version identifying the implementer&#39;s draft or final specification implemented by the transmitter | [optional] 
+**VerificationEndpoint** | Pointer to **string** | The URL of the SSF Stream verification endpoint | [optional] 
 
 ## Methods
 
@@ -27,6 +31,31 @@ will change when the set of required properties is changed
 NewWellKnownSSFMetadataWithDefaults instantiates a new WellKnownSSFMetadata object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAuthorizationSchemes
+
+`func (o *WellKnownSSFMetadata) GetAuthorizationSchemes() []WellKnownSSFMetadataSpecUrn`
+
+GetAuthorizationSchemes returns the AuthorizationSchemes field if non-nil, zero value otherwise.
+
+### GetAuthorizationSchemesOk
+
+`func (o *WellKnownSSFMetadata) GetAuthorizationSchemesOk() (*[]WellKnownSSFMetadataSpecUrn, bool)`
+
+GetAuthorizationSchemesOk returns a tuple with the AuthorizationSchemes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAuthorizationSchemes
+
+`func (o *WellKnownSSFMetadata) SetAuthorizationSchemes(v []WellKnownSSFMetadataSpecUrn)`
+
+SetAuthorizationSchemes sets AuthorizationSchemes field to given value.
+
+### HasAuthorizationSchemes
+
+`func (o *WellKnownSSFMetadata) HasAuthorizationSchemes() bool`
+
+HasAuthorizationSchemes returns a boolean if a field has been set.
 
 ### GetConfigurationEndpoint
 
@@ -52,6 +81,31 @@ SetConfigurationEndpoint sets ConfigurationEndpoint field to given value.
 `func (o *WellKnownSSFMetadata) HasConfigurationEndpoint() bool`
 
 HasConfigurationEndpoint returns a boolean if a field has been set.
+
+### GetDefaultSubjects
+
+`func (o *WellKnownSSFMetadata) GetDefaultSubjects() string`
+
+GetDefaultSubjects returns the DefaultSubjects field if non-nil, zero value otherwise.
+
+### GetDefaultSubjectsOk
+
+`func (o *WellKnownSSFMetadata) GetDefaultSubjectsOk() (*string, bool)`
+
+GetDefaultSubjectsOk returns a tuple with the DefaultSubjects field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDefaultSubjects
+
+`func (o *WellKnownSSFMetadata) SetDefaultSubjects(v string)`
+
+SetDefaultSubjects sets DefaultSubjects field to given value.
+
+### HasDefaultSubjects
+
+`func (o *WellKnownSSFMetadata) HasDefaultSubjects() bool`
+
+HasDefaultSubjects returns a boolean if a field has been set.
 
 ### GetDeliveryMethodsSupported
 
@@ -127,6 +181,56 @@ SetJwksUri sets JwksUri field to given value.
 `func (o *WellKnownSSFMetadata) HasJwksUri() bool`
 
 HasJwksUri returns a boolean if a field has been set.
+
+### GetSpecVersion
+
+`func (o *WellKnownSSFMetadata) GetSpecVersion() string`
+
+GetSpecVersion returns the SpecVersion field if non-nil, zero value otherwise.
+
+### GetSpecVersionOk
+
+`func (o *WellKnownSSFMetadata) GetSpecVersionOk() (*string, bool)`
+
+GetSpecVersionOk returns a tuple with the SpecVersion field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSpecVersion
+
+`func (o *WellKnownSSFMetadata) SetSpecVersion(v string)`
+
+SetSpecVersion sets SpecVersion field to given value.
+
+### HasSpecVersion
+
+`func (o *WellKnownSSFMetadata) HasSpecVersion() bool`
+
+HasSpecVersion returns a boolean if a field has been set.
+
+### GetVerificationEndpoint
+
+`func (o *WellKnownSSFMetadata) GetVerificationEndpoint() string`
+
+GetVerificationEndpoint returns the VerificationEndpoint field if non-nil, zero value otherwise.
+
+### GetVerificationEndpointOk
+
+`func (o *WellKnownSSFMetadata) GetVerificationEndpointOk() (*string, bool)`
+
+GetVerificationEndpointOk returns a tuple with the VerificationEndpoint field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVerificationEndpoint
+
+`func (o *WellKnownSSFMetadata) SetVerificationEndpoint(v string)`
+
+SetVerificationEndpoint sets VerificationEndpoint field to given value.
+
+### HasVerificationEndpoint
+
+`func (o *WellKnownSSFMetadata) HasVerificationEndpoint() bool`
+
+HasVerificationEndpoint returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

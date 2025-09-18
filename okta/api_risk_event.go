@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -26,28 +26,30 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"time"
 )
 
-
 type RiskEventAPI interface {
 
 	/*
-	SendRiskEvents Send multiple Risk Events
+			SendRiskEvents Send multiple risk events
 
-	Sends multiple IP risk events to Okta.
-This request is used by a third-party risk provider to send IP risk events to Okta. The third-party risk provider needs to be registered with Okta before they can send events to Okta. See [Risk Providers](/openapi/okta-management/management/tag/RiskProvider/).
-This API has a rate limit of 30 requests per minute. You can include multiple risk events (up to a maximum of 20 events) in a single payload to reduce the number of API calls. Prioritize sending high risk signals if you have a burst of signals to send that would exceed the maximum request limits.
+			Sends multiple IP risk events to Okta.
+		This request is used by a third-party risk provider to send IP risk events to Okta. The third-party risk provider needs to be registered with Okta before they can send events to Okta. See [Risk Providers](/openapi/okta-management/management/tag/RiskProvider/).
+		This API has a rate limit of 30 requests per minute. You can include multiple risk events (up to a maximum of 20 events) in a single payload to reduce the number of API calls. Prioritize sending high risk signals if you have a burst of signals to send that would exceed the maximum request limits.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiSendRiskEventsRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiSendRiskEventsRequest
+
+			Deprecated
 	*/
 	SendRiskEvents(ctx context.Context) ApiSendRiskEventsRequest
 
 	// SendRiskEventsExecute executes the request
+	// Deprecated
 	SendRiskEventsExecute(r ApiSendRiskEventsRequest) (*APIResponse, error)
 }
 
@@ -55,9 +57,9 @@ This API has a rate limit of 30 requests per minute. You can include multiple ri
 type RiskEventAPIService service
 
 type ApiSendRiskEventsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RiskEventAPI
-	instance *[]RiskEvent
+	instance   *[]RiskEvent
 	retryCount int32
 }
 
@@ -71,24 +73,27 @@ func (r ApiSendRiskEventsRequest) Execute() (*APIResponse, error) {
 }
 
 /*
-SendRiskEvents Send multiple Risk Events
+SendRiskEvents Send multiple risk events
 
 Sends multiple IP risk events to Okta.
 This request is used by a third-party risk provider to send IP risk events to Okta. The third-party risk provider needs to be registered with Okta before they can send events to Okta. See [Risk Providers](/openapi/okta-management/management/tag/RiskProvider/).
 This API has a rate limit of 30 requests per minute. You can include multiple risk events (up to a maximum of 20 events) in a single payload to reduce the number of API calls. Prioritize sending high risk signals if you have a burst of signals to send that would exceed the maximum request limits.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSendRiskEventsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSendRiskEventsRequest
+
+Deprecated
 */
 func (a *RiskEventAPIService) SendRiskEvents(ctx context.Context) ApiSendRiskEventsRequest {
 	return ApiSendRiskEventsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
+// Deprecated
 func (a *RiskEventAPIService) SendRiskEventsExecute(r ApiSendRiskEventsRequest) (*APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -96,7 +101,7 @@ func (a *RiskEventAPIService) SendRiskEventsExecute(r ApiSendRiskEventsRequest) 
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -161,9 +166,9 @@ func (a *RiskEventAPIService) SendRiskEventsExecute(r ApiSendRiskEventsRequest) 
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err

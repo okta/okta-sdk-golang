@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,15 +27,18 @@ import (
 	"encoding/json"
 )
 
-// SloParticipate struct for SloParticipate
+// checks if the SloParticipate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SloParticipate{}
+
+// SloParticipate Determines if the app participates in Single Logout (SLO)
 type SloParticipate struct {
 	// Request binding type
 	BindingType *string `json:"bindingType,omitempty"`
-	// Allows the app to participate in front-channel single logout.
+	// Indicates whether the app is allowed to participate in front-channel SLO
 	Enabled *bool `json:"enabled,omitempty"`
-	// URL where Okta sends the logout request.
+	// URL where Okta sends the logout request
 	LogoutRequestUrl *string `json:"logoutRequestUrl,omitempty"`
-	// Include user session details.
+	// Determines whether Okta sends the `SessionIndex` elements in the logout request
 	SessionIndexRequired *bool `json:"sessionIndexRequired,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -61,7 +64,7 @@ func NewSloParticipateWithDefaults() *SloParticipate {
 
 // GetBindingType returns the BindingType field value if set, zero value otherwise.
 func (o *SloParticipate) GetBindingType() string {
-	if o == nil || o.BindingType == nil {
+	if o == nil || IsNil(o.BindingType) {
 		var ret string
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *SloParticipate) GetBindingType() string {
 // GetBindingTypeOk returns a tuple with the BindingType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SloParticipate) GetBindingTypeOk() (*string, bool) {
-	if o == nil || o.BindingType == nil {
+	if o == nil || IsNil(o.BindingType) {
 		return nil, false
 	}
 	return o.BindingType, true
@@ -79,7 +82,7 @@ func (o *SloParticipate) GetBindingTypeOk() (*string, bool) {
 
 // HasBindingType returns a boolean if a field has been set.
 func (o *SloParticipate) HasBindingType() bool {
-	if o != nil && o.BindingType != nil {
+	if o != nil && !IsNil(o.BindingType) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *SloParticipate) SetBindingType(v string) {
 
 // GetEnabled returns the Enabled field value if set, zero value otherwise.
 func (o *SloParticipate) GetEnabled() bool {
-	if o == nil || o.Enabled == nil {
+	if o == nil || IsNil(o.Enabled) {
 		var ret bool
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *SloParticipate) GetEnabled() bool {
 // GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SloParticipate) GetEnabledOk() (*bool, bool) {
-	if o == nil || o.Enabled == nil {
+	if o == nil || IsNil(o.Enabled) {
 		return nil, false
 	}
 	return o.Enabled, true
@@ -111,7 +114,7 @@ func (o *SloParticipate) GetEnabledOk() (*bool, bool) {
 
 // HasEnabled returns a boolean if a field has been set.
 func (o *SloParticipate) HasEnabled() bool {
-	if o != nil && o.Enabled != nil {
+	if o != nil && !IsNil(o.Enabled) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *SloParticipate) SetEnabled(v bool) {
 
 // GetLogoutRequestUrl returns the LogoutRequestUrl field value if set, zero value otherwise.
 func (o *SloParticipate) GetLogoutRequestUrl() string {
-	if o == nil || o.LogoutRequestUrl == nil {
+	if o == nil || IsNil(o.LogoutRequestUrl) {
 		var ret string
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *SloParticipate) GetLogoutRequestUrl() string {
 // GetLogoutRequestUrlOk returns a tuple with the LogoutRequestUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SloParticipate) GetLogoutRequestUrlOk() (*string, bool) {
-	if o == nil || o.LogoutRequestUrl == nil {
+	if o == nil || IsNil(o.LogoutRequestUrl) {
 		return nil, false
 	}
 	return o.LogoutRequestUrl, true
@@ -143,7 +146,7 @@ func (o *SloParticipate) GetLogoutRequestUrlOk() (*string, bool) {
 
 // HasLogoutRequestUrl returns a boolean if a field has been set.
 func (o *SloParticipate) HasLogoutRequestUrl() bool {
-	if o != nil && o.LogoutRequestUrl != nil {
+	if o != nil && !IsNil(o.LogoutRequestUrl) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *SloParticipate) SetLogoutRequestUrl(v string) {
 
 // GetSessionIndexRequired returns the SessionIndexRequired field value if set, zero value otherwise.
 func (o *SloParticipate) GetSessionIndexRequired() bool {
-	if o == nil || o.SessionIndexRequired == nil {
+	if o == nil || IsNil(o.SessionIndexRequired) {
 		var ret bool
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *SloParticipate) GetSessionIndexRequired() bool {
 // GetSessionIndexRequiredOk returns a tuple with the SessionIndexRequired field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SloParticipate) GetSessionIndexRequiredOk() (*bool, bool) {
-	if o == nil || o.SessionIndexRequired == nil {
+	if o == nil || IsNil(o.SessionIndexRequired) {
 		return nil, false
 	}
 	return o.SessionIndexRequired, true
@@ -175,7 +178,7 @@ func (o *SloParticipate) GetSessionIndexRequiredOk() (*bool, bool) {
 
 // HasSessionIndexRequired returns a boolean if a field has been set.
 func (o *SloParticipate) HasSessionIndexRequired() bool {
-	if o != nil && o.SessionIndexRequired != nil {
+	if o != nil && !IsNil(o.SessionIndexRequired) {
 		return true
 	}
 
@@ -188,17 +191,25 @@ func (o *SloParticipate) SetSessionIndexRequired(v bool) {
 }
 
 func (o SloParticipate) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SloParticipate) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.BindingType != nil {
+	if !IsNil(o.BindingType) {
 		toSerialize["bindingType"] = o.BindingType
 	}
-	if o.Enabled != nil {
+	if !IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
 	}
-	if o.LogoutRequestUrl != nil {
+	if !IsNil(o.LogoutRequestUrl) {
 		toSerialize["logoutRequestUrl"] = o.LogoutRequestUrl
 	}
-	if o.SessionIndexRequired != nil {
+	if !IsNil(o.SessionIndexRequired) {
 		toSerialize["sessionIndexRequired"] = o.SessionIndexRequired
 	}
 
@@ -206,30 +217,28 @@ func (o SloParticipate) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SloParticipate) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SloParticipate) UnmarshalJSON(data []byte) (err error) {
 	varSloParticipate := _SloParticipate{}
 
-	err = json.Unmarshal(bytes, &varSloParticipate)
-	if err == nil {
-		*o = SloParticipate(varSloParticipate)
-	} else {
+	err = json.Unmarshal(data, &varSloParticipate)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SloParticipate(varSloParticipate)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "bindingType")
 		delete(additionalProperties, "enabled")
 		delete(additionalProperties, "logoutRequestUrl")
 		delete(additionalProperties, "sessionIndexRequired")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -270,4 +279,3 @@ func (v *NullableSloParticipate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

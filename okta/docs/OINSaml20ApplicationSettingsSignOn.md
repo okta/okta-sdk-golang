@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AudienceOverride** | Pointer to **string** | Audience override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm). | [optional] 
-**ConfiguredAttributeStatements** | Pointer to [**[]SamlAttributeStatement**](SamlAttributeStatement.md) |  | [optional] 
-**DefaultRelayState** | Pointer to **string** | Identifies a specific application resource in an IdP-initiated SSO scenario | [optional] 
-**DestinationOverride** | Pointer to **string** | Destination override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm). | [optional] 
-**RecipientOverride** | Pointer to **string** | Recipient override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm). | [optional] 
+**AttributeStatements** | Pointer to [**[]SamlAttributeStatement**](SamlAttributeStatement.md) | A list of custom attribute statements for the app&#39;s SAML assertion. See [SAML 2.0 Technical Overview](https://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0-cd-02.html).  There are two types of attribute statements: | Type | Description | | ---- | ----------- | | EXPRESSION | Generic attribute statement that can be dynamic and supports [Okta Expression Language](https://developer.okta.com/docs/reference/okta-expression-language/) | | GROUP | Group attribute statement |  | [optional] 
+**AudienceOverride** | Pointer to **NullableString** | Audience override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm). | [optional] 
+**DefaultRelayState** | Pointer to **NullableString** | Identifies a specific application resource in an IdP-initiated SSO scenario | [optional] 
+**DestinationOverride** | Pointer to **NullableString** | Destination override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm). | [optional] 
+**RecipientOverride** | Pointer to **NullableString** | Recipient override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm). | [optional] 
 **SamlAssertionLifetimeSeconds** | Pointer to **int32** | Determines the SAML app session lifetimes with Okta | [optional] 
-**SsoAcsUrlOverride** | Pointer to **string** | Assertion Consumer Service (ACS) URL override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm). | [optional] 
+**SsoAcsUrlOverride** | Pointer to **NullableString** | Assertion Consumer Service (ACS) URL override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm). | [optional] 
 
 ## Methods
 
@@ -30,6 +30,31 @@ will change when the set of required properties is changed
 NewOINSaml20ApplicationSettingsSignOnWithDefaults instantiates a new OINSaml20ApplicationSettingsSignOn object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAttributeStatements
+
+`func (o *OINSaml20ApplicationSettingsSignOn) GetAttributeStatements() []SamlAttributeStatement`
+
+GetAttributeStatements returns the AttributeStatements field if non-nil, zero value otherwise.
+
+### GetAttributeStatementsOk
+
+`func (o *OINSaml20ApplicationSettingsSignOn) GetAttributeStatementsOk() (*[]SamlAttributeStatement, bool)`
+
+GetAttributeStatementsOk returns a tuple with the AttributeStatements field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAttributeStatements
+
+`func (o *OINSaml20ApplicationSettingsSignOn) SetAttributeStatements(v []SamlAttributeStatement)`
+
+SetAttributeStatements sets AttributeStatements field to given value.
+
+### HasAttributeStatements
+
+`func (o *OINSaml20ApplicationSettingsSignOn) HasAttributeStatements() bool`
+
+HasAttributeStatements returns a boolean if a field has been set.
 
 ### GetAudienceOverride
 
@@ -56,31 +81,16 @@ SetAudienceOverride sets AudienceOverride field to given value.
 
 HasAudienceOverride returns a boolean if a field has been set.
 
-### GetConfiguredAttributeStatements
+### SetAudienceOverrideNil
 
-`func (o *OINSaml20ApplicationSettingsSignOn) GetConfiguredAttributeStatements() []SamlAttributeStatement`
+`func (o *OINSaml20ApplicationSettingsSignOn) SetAudienceOverrideNil(b bool)`
 
-GetConfiguredAttributeStatements returns the ConfiguredAttributeStatements field if non-nil, zero value otherwise.
+ SetAudienceOverrideNil sets the value for AudienceOverride to be an explicit nil
 
-### GetConfiguredAttributeStatementsOk
+### UnsetAudienceOverride
+`func (o *OINSaml20ApplicationSettingsSignOn) UnsetAudienceOverride()`
 
-`func (o *OINSaml20ApplicationSettingsSignOn) GetConfiguredAttributeStatementsOk() (*[]SamlAttributeStatement, bool)`
-
-GetConfiguredAttributeStatementsOk returns a tuple with the ConfiguredAttributeStatements field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetConfiguredAttributeStatements
-
-`func (o *OINSaml20ApplicationSettingsSignOn) SetConfiguredAttributeStatements(v []SamlAttributeStatement)`
-
-SetConfiguredAttributeStatements sets ConfiguredAttributeStatements field to given value.
-
-### HasConfiguredAttributeStatements
-
-`func (o *OINSaml20ApplicationSettingsSignOn) HasConfiguredAttributeStatements() bool`
-
-HasConfiguredAttributeStatements returns a boolean if a field has been set.
-
+UnsetAudienceOverride ensures that no value is present for AudienceOverride, not even an explicit nil
 ### GetDefaultRelayState
 
 `func (o *OINSaml20ApplicationSettingsSignOn) GetDefaultRelayState() string`
@@ -106,6 +116,16 @@ SetDefaultRelayState sets DefaultRelayState field to given value.
 
 HasDefaultRelayState returns a boolean if a field has been set.
 
+### SetDefaultRelayStateNil
+
+`func (o *OINSaml20ApplicationSettingsSignOn) SetDefaultRelayStateNil(b bool)`
+
+ SetDefaultRelayStateNil sets the value for DefaultRelayState to be an explicit nil
+
+### UnsetDefaultRelayState
+`func (o *OINSaml20ApplicationSettingsSignOn) UnsetDefaultRelayState()`
+
+UnsetDefaultRelayState ensures that no value is present for DefaultRelayState, not even an explicit nil
 ### GetDestinationOverride
 
 `func (o *OINSaml20ApplicationSettingsSignOn) GetDestinationOverride() string`
@@ -131,6 +151,16 @@ SetDestinationOverride sets DestinationOverride field to given value.
 
 HasDestinationOverride returns a boolean if a field has been set.
 
+### SetDestinationOverrideNil
+
+`func (o *OINSaml20ApplicationSettingsSignOn) SetDestinationOverrideNil(b bool)`
+
+ SetDestinationOverrideNil sets the value for DestinationOverride to be an explicit nil
+
+### UnsetDestinationOverride
+`func (o *OINSaml20ApplicationSettingsSignOn) UnsetDestinationOverride()`
+
+UnsetDestinationOverride ensures that no value is present for DestinationOverride, not even an explicit nil
 ### GetRecipientOverride
 
 `func (o *OINSaml20ApplicationSettingsSignOn) GetRecipientOverride() string`
@@ -156,6 +186,16 @@ SetRecipientOverride sets RecipientOverride field to given value.
 
 HasRecipientOverride returns a boolean if a field has been set.
 
+### SetRecipientOverrideNil
+
+`func (o *OINSaml20ApplicationSettingsSignOn) SetRecipientOverrideNil(b bool)`
+
+ SetRecipientOverrideNil sets the value for RecipientOverride to be an explicit nil
+
+### UnsetRecipientOverride
+`func (o *OINSaml20ApplicationSettingsSignOn) UnsetRecipientOverride()`
+
+UnsetRecipientOverride ensures that no value is present for RecipientOverride, not even an explicit nil
 ### GetSamlAssertionLifetimeSeconds
 
 `func (o *OINSaml20ApplicationSettingsSignOn) GetSamlAssertionLifetimeSeconds() int32`
@@ -206,6 +246,16 @@ SetSsoAcsUrlOverride sets SsoAcsUrlOverride field to given value.
 
 HasSsoAcsUrlOverride returns a boolean if a field has been set.
 
+### SetSsoAcsUrlOverrideNil
+
+`func (o *OINSaml20ApplicationSettingsSignOn) SetSsoAcsUrlOverrideNil(b bool)`
+
+ SetSsoAcsUrlOverrideNil sets the value for SsoAcsUrlOverride to be an explicit nil
+
+### UnsetSsoAcsUrlOverride
+`func (o *OINSaml20ApplicationSettingsSignOn) UnsetSsoAcsUrlOverride()`
+
+UnsetSsoAcsUrlOverride ensures that no value is present for SsoAcsUrlOverride, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

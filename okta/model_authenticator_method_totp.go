@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -29,10 +29,13 @@ import (
 	"strings"
 )
 
+// checks if the AuthenticatorMethodTotp type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorMethodTotp{}
+
 // AuthenticatorMethodTotp struct for AuthenticatorMethodTotp
 type AuthenticatorMethodTotp struct {
 	AuthenticatorMethodBase
-	Settings *AuthenticatorMethodTotpAllOfSettings `json:"settings,omitempty"`
+	Settings             *AuthenticatorMethodTotpAllOfSettings `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewAuthenticatorMethodTotpWithDefaults() *AuthenticatorMethodTotp {
 
 // GetSettings returns the Settings field value if set, zero value otherwise.
 func (o *AuthenticatorMethodTotp) GetSettings() AuthenticatorMethodTotpAllOfSettings {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		var ret AuthenticatorMethodTotpAllOfSettings
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *AuthenticatorMethodTotp) GetSettings() AuthenticatorMethodTotpAllOfSett
 // GetSettingsOk returns a tuple with the Settings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorMethodTotp) GetSettingsOk() (*AuthenticatorMethodTotpAllOfSettings, bool) {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		return nil, false
 	}
 	return o.Settings, true
@@ -75,7 +78,7 @@ func (o *AuthenticatorMethodTotp) GetSettingsOk() (*AuthenticatorMethodTotpAllOf
 
 // HasSettings returns a boolean if a field has been set.
 func (o *AuthenticatorMethodTotp) HasSettings() bool {
-	if o != nil && o.Settings != nil {
+	if o != nil && !IsNil(o.Settings) {
 		return true
 	}
 
@@ -88,16 +91,24 @@ func (o *AuthenticatorMethodTotp) SetSettings(v AuthenticatorMethodTotpAllOfSett
 }
 
 func (o AuthenticatorMethodTotp) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorMethodTotp) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedAuthenticatorMethodBase, errAuthenticatorMethodBase := json.Marshal(o.AuthenticatorMethodBase)
 	if errAuthenticatorMethodBase != nil {
-		return []byte{}, errAuthenticatorMethodBase
+		return map[string]interface{}{}, errAuthenticatorMethodBase
 	}
 	errAuthenticatorMethodBase = json.Unmarshal([]byte(serializedAuthenticatorMethodBase), &toSerialize)
 	if errAuthenticatorMethodBase != nil {
-		return []byte{}, errAuthenticatorMethodBase
+		return map[string]interface{}{}, errAuthenticatorMethodBase
 	}
-	if o.Settings != nil {
+	if !IsNil(o.Settings) {
 		toSerialize["settings"] = o.Settings
 	}
 
@@ -105,17 +116,17 @@ func (o AuthenticatorMethodTotp) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorMethodTotp) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorMethodTotp) UnmarshalJSON(data []byte) (err error) {
 	type AuthenticatorMethodTotpWithoutEmbeddedStruct struct {
 		Settings *AuthenticatorMethodTotpAllOfSettings `json:"settings,omitempty"`
 	}
 
 	varAuthenticatorMethodTotpWithoutEmbeddedStruct := AuthenticatorMethodTotpWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorMethodTotpWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varAuthenticatorMethodTotpWithoutEmbeddedStruct)
 	if err == nil {
 		varAuthenticatorMethodTotp := _AuthenticatorMethodTotp{}
 		varAuthenticatorMethodTotp.Settings = varAuthenticatorMethodTotpWithoutEmbeddedStruct.Settings
@@ -126,7 +137,7 @@ func (o *AuthenticatorMethodTotp) UnmarshalJSON(bytes []byte) (err error) {
 
 	varAuthenticatorMethodTotp := _AuthenticatorMethodTotp{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorMethodTotp)
+	err = json.Unmarshal(data, &varAuthenticatorMethodTotp)
 	if err == nil {
 		o.AuthenticatorMethodBase = varAuthenticatorMethodTotp.AuthenticatorMethodBase
 	} else {
@@ -135,8 +146,7 @@ func (o *AuthenticatorMethodTotp) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "settings")
 
 		// remove fields from embedded structs
@@ -158,8 +168,6 @@ func (o *AuthenticatorMethodTotp) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -200,4 +208,3 @@ func (v *NullableAuthenticatorMethodTotp) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

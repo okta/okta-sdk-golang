@@ -6,12 +6,12 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Actions** | Pointer to [**GroupRuleAction**](GroupRuleAction.md) |  | [optional] 
 **Conditions** | Pointer to [**GroupRuleConditions**](GroupRuleConditions.md) |  | [optional] 
-**Created** | Pointer to **time.Time** |  | [optional] [readonly] 
-**Id** | Pointer to **string** |  | [optional] [readonly] 
-**LastUpdated** | Pointer to **time.Time** |  | [optional] [readonly] 
-**Name** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**Type** | Pointer to **string** |  | [optional] 
+**Created** | Pointer to **time.Time** | Creation date for group rule | [optional] [readonly] 
+**Id** | Pointer to **string** | ID of the group rule | [optional] [readonly] 
+**LastUpdated** | Pointer to **time.Time** | Date group rule was last updated | [optional] [readonly] 
+**Name** | Pointer to **string** | Name of the group rule | [optional] 
+**Status** | Pointer to **string** | Status of group rule | [optional] 
+**Type** | Pointer to **string** | Type to indicate a group rule operation. Only &#x60;group_rule&#x60; is allowed. | [optional] 
 
 ## Methods
 

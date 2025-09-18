@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,23 +25,27 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
-// TrendMicroApexOneServiceApplication Schema for Trend Micro Apex One as a Service app (key name: `trendmicroapexoneservice`)  To create a Trend Micro Apex One as a Service app, use the [Create an Application](/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication) request with the following parameters in the request body. > **Note:** The Trend Micro Apex One as a Service app only supports `SAML_2_0` sign-on mode. 
+// checks if the TrendMicroApexOneServiceApplication type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TrendMicroApexOneServiceApplication{}
+
+// TrendMicroApexOneServiceApplication Schema for Trend Micro Apex One as a Service app (key name: `trendmicroapexoneservice`)  To create a Trend Micro Apex One as a Service app, use the [Create an Application](/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication) request with the following parameters in the request body. > **Note:** The Trend Micro Apex One as a Service app only supports `SAML_2_0` sign-on mode.
 type TrendMicroApexOneServiceApplication struct {
-	Accessibility *ApplicationAccessibility `json:"accessibility,omitempty"`
-	Credentials *SchemeApplicationCredentials `json:"credentials,omitempty"`
+	Accessibility *ApplicationAccessibility     `json:"accessibility,omitempty"`
+	Credentials   *SchemeApplicationCredentials `json:"credentials,omitempty"`
 	// User-defined display name for app
-	Label string `json:"label"`
+	Label     string                `json:"label"`
 	Licensing *ApplicationLicensing `json:"licensing,omitempty"`
-	Name string `json:"name"`
+	Name      string                `json:"name"`
 	// Contains any valid JSON schema for specifying properties that can be referenced from a request (only available to OAuth 2.0 client apps)
-	Profile map[string]map[string]interface{} `json:"profile,omitempty"`
-	SignOnMode *string `json:"signOnMode,omitempty"`
+	Profile    map[string]map[string]interface{} `json:"profile,omitempty"`
+	SignOnMode *string                           `json:"signOnMode,omitempty"`
 	// App instance status
-	Status *string `json:"status,omitempty"`
-	Visibility *ApplicationVisibility `json:"visibility,omitempty"`
-	Settings TrendMicroApexOneServiceApplicationSettings `json:"settings"`
+	Status               *string                                     `json:"status,omitempty"`
+	Visibility           *ApplicationVisibility                      `json:"visibility,omitempty"`
+	Settings             TrendMicroApexOneServiceApplicationSettings `json:"settings"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -69,7 +73,7 @@ func NewTrendMicroApexOneServiceApplicationWithDefaults() *TrendMicroApexOneServ
 
 // GetAccessibility returns the Accessibility field value if set, zero value otherwise.
 func (o *TrendMicroApexOneServiceApplication) GetAccessibility() ApplicationAccessibility {
-	if o == nil || o.Accessibility == nil {
+	if o == nil || IsNil(o.Accessibility) {
 		var ret ApplicationAccessibility
 		return ret
 	}
@@ -79,7 +83,7 @@ func (o *TrendMicroApexOneServiceApplication) GetAccessibility() ApplicationAcce
 // GetAccessibilityOk returns a tuple with the Accessibility field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TrendMicroApexOneServiceApplication) GetAccessibilityOk() (*ApplicationAccessibility, bool) {
-	if o == nil || o.Accessibility == nil {
+	if o == nil || IsNil(o.Accessibility) {
 		return nil, false
 	}
 	return o.Accessibility, true
@@ -87,7 +91,7 @@ func (o *TrendMicroApexOneServiceApplication) GetAccessibilityOk() (*Application
 
 // HasAccessibility returns a boolean if a field has been set.
 func (o *TrendMicroApexOneServiceApplication) HasAccessibility() bool {
-	if o != nil && o.Accessibility != nil {
+	if o != nil && !IsNil(o.Accessibility) {
 		return true
 	}
 
@@ -101,7 +105,7 @@ func (o *TrendMicroApexOneServiceApplication) SetAccessibility(v ApplicationAcce
 
 // GetCredentials returns the Credentials field value if set, zero value otherwise.
 func (o *TrendMicroApexOneServiceApplication) GetCredentials() SchemeApplicationCredentials {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		var ret SchemeApplicationCredentials
 		return ret
 	}
@@ -111,7 +115,7 @@ func (o *TrendMicroApexOneServiceApplication) GetCredentials() SchemeApplication
 // GetCredentialsOk returns a tuple with the Credentials field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TrendMicroApexOneServiceApplication) GetCredentialsOk() (*SchemeApplicationCredentials, bool) {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		return nil, false
 	}
 	return o.Credentials, true
@@ -119,7 +123,7 @@ func (o *TrendMicroApexOneServiceApplication) GetCredentialsOk() (*SchemeApplica
 
 // HasCredentials returns a boolean if a field has been set.
 func (o *TrendMicroApexOneServiceApplication) HasCredentials() bool {
-	if o != nil && o.Credentials != nil {
+	if o != nil && !IsNil(o.Credentials) {
 		return true
 	}
 
@@ -157,7 +161,7 @@ func (o *TrendMicroApexOneServiceApplication) SetLabel(v string) {
 
 // GetLicensing returns the Licensing field value if set, zero value otherwise.
 func (o *TrendMicroApexOneServiceApplication) GetLicensing() ApplicationLicensing {
-	if o == nil || o.Licensing == nil {
+	if o == nil || IsNil(o.Licensing) {
 		var ret ApplicationLicensing
 		return ret
 	}
@@ -167,7 +171,7 @@ func (o *TrendMicroApexOneServiceApplication) GetLicensing() ApplicationLicensin
 // GetLicensingOk returns a tuple with the Licensing field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TrendMicroApexOneServiceApplication) GetLicensingOk() (*ApplicationLicensing, bool) {
-	if o == nil || o.Licensing == nil {
+	if o == nil || IsNil(o.Licensing) {
 		return nil, false
 	}
 	return o.Licensing, true
@@ -175,7 +179,7 @@ func (o *TrendMicroApexOneServiceApplication) GetLicensingOk() (*ApplicationLice
 
 // HasLicensing returns a boolean if a field has been set.
 func (o *TrendMicroApexOneServiceApplication) HasLicensing() bool {
-	if o != nil && o.Licensing != nil {
+	if o != nil && !IsNil(o.Licensing) {
 		return true
 	}
 
@@ -213,7 +217,7 @@ func (o *TrendMicroApexOneServiceApplication) SetName(v string) {
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *TrendMicroApexOneServiceApplication) GetProfile() map[string]map[string]interface{} {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
@@ -223,15 +227,15 @@ func (o *TrendMicroApexOneServiceApplication) GetProfile() map[string]map[string
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TrendMicroApexOneServiceApplication) GetProfileOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || o.Profile == nil {
-		return nil, false
+	if o == nil || IsNil(o.Profile) {
+		return map[string]map[string]interface{}{}, false
 	}
 	return o.Profile, true
 }
 
 // HasProfile returns a boolean if a field has been set.
 func (o *TrendMicroApexOneServiceApplication) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -245,7 +249,7 @@ func (o *TrendMicroApexOneServiceApplication) SetProfile(v map[string]map[string
 
 // GetSignOnMode returns the SignOnMode field value if set, zero value otherwise.
 func (o *TrendMicroApexOneServiceApplication) GetSignOnMode() string {
-	if o == nil || o.SignOnMode == nil {
+	if o == nil || IsNil(o.SignOnMode) {
 		var ret string
 		return ret
 	}
@@ -255,7 +259,7 @@ func (o *TrendMicroApexOneServiceApplication) GetSignOnMode() string {
 // GetSignOnModeOk returns a tuple with the SignOnMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TrendMicroApexOneServiceApplication) GetSignOnModeOk() (*string, bool) {
-	if o == nil || o.SignOnMode == nil {
+	if o == nil || IsNil(o.SignOnMode) {
 		return nil, false
 	}
 	return o.SignOnMode, true
@@ -263,7 +267,7 @@ func (o *TrendMicroApexOneServiceApplication) GetSignOnModeOk() (*string, bool) 
 
 // HasSignOnMode returns a boolean if a field has been set.
 func (o *TrendMicroApexOneServiceApplication) HasSignOnMode() bool {
-	if o != nil && o.SignOnMode != nil {
+	if o != nil && !IsNil(o.SignOnMode) {
 		return true
 	}
 
@@ -277,7 +281,7 @@ func (o *TrendMicroApexOneServiceApplication) SetSignOnMode(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *TrendMicroApexOneServiceApplication) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -287,7 +291,7 @@ func (o *TrendMicroApexOneServiceApplication) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TrendMicroApexOneServiceApplication) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -295,7 +299,7 @@ func (o *TrendMicroApexOneServiceApplication) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *TrendMicroApexOneServiceApplication) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -309,7 +313,7 @@ func (o *TrendMicroApexOneServiceApplication) SetStatus(v string) {
 
 // GetVisibility returns the Visibility field value if set, zero value otherwise.
 func (o *TrendMicroApexOneServiceApplication) GetVisibility() ApplicationVisibility {
-	if o == nil || o.Visibility == nil {
+	if o == nil || IsNil(o.Visibility) {
 		var ret ApplicationVisibility
 		return ret
 	}
@@ -319,7 +323,7 @@ func (o *TrendMicroApexOneServiceApplication) GetVisibility() ApplicationVisibil
 // GetVisibilityOk returns a tuple with the Visibility field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TrendMicroApexOneServiceApplication) GetVisibilityOk() (*ApplicationVisibility, bool) {
-	if o == nil || o.Visibility == nil {
+	if o == nil || IsNil(o.Visibility) {
 		return nil, false
 	}
 	return o.Visibility, true
@@ -327,7 +331,7 @@ func (o *TrendMicroApexOneServiceApplication) GetVisibilityOk() (*ApplicationVis
 
 // HasVisibility returns a boolean if a field has been set.
 func (o *TrendMicroApexOneServiceApplication) HasVisibility() bool {
-	if o != nil && o.Visibility != nil {
+	if o != nil && !IsNil(o.Visibility) {
 		return true
 	}
 
@@ -364,59 +368,84 @@ func (o *TrendMicroApexOneServiceApplication) SetSettings(v TrendMicroApexOneSer
 }
 
 func (o TrendMicroApexOneServiceApplication) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TrendMicroApexOneServiceApplication) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Accessibility != nil {
+	if !IsNil(o.Accessibility) {
 		toSerialize["accessibility"] = o.Accessibility
 	}
-	if o.Credentials != nil {
+	if !IsNil(o.Credentials) {
 		toSerialize["credentials"] = o.Credentials
 	}
-	if true {
-		toSerialize["label"] = o.Label
-	}
-	if o.Licensing != nil {
+	toSerialize["label"] = o.Label
+	if !IsNil(o.Licensing) {
 		toSerialize["licensing"] = o.Licensing
 	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Profile != nil {
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
-	if o.SignOnMode != nil {
+	if !IsNil(o.SignOnMode) {
 		toSerialize["signOnMode"] = o.SignOnMode
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Visibility != nil {
+	if !IsNil(o.Visibility) {
 		toSerialize["visibility"] = o.Visibility
 	}
-	if true {
-		toSerialize["settings"] = o.Settings
-	}
+	toSerialize["settings"] = o.Settings
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *TrendMicroApexOneServiceApplication) UnmarshalJSON(bytes []byte) (err error) {
-	varTrendMicroApexOneServiceApplication := _TrendMicroApexOneServiceApplication{}
+func (o *TrendMicroApexOneServiceApplication) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"label",
+		"name",
+		"settings",
+	}
 
-	err = json.Unmarshal(bytes, &varTrendMicroApexOneServiceApplication)
-	if err == nil {
-		*o = TrendMicroApexOneServiceApplication(varTrendMicroApexOneServiceApplication)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varTrendMicroApexOneServiceApplication := _TrendMicroApexOneServiceApplication{}
+
+	err = json.Unmarshal(data, &varTrendMicroApexOneServiceApplication)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TrendMicroApexOneServiceApplication(varTrendMicroApexOneServiceApplication)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "accessibility")
 		delete(additionalProperties, "credentials")
 		delete(additionalProperties, "label")
@@ -428,8 +457,6 @@ func (o *TrendMicroApexOneServiceApplication) UnmarshalJSON(bytes []byte) (err e
 		delete(additionalProperties, "visibility")
 		delete(additionalProperties, "settings")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -470,4 +497,3 @@ func (v *NullableTrendMicroApexOneServiceApplication) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

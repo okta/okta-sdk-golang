@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the ApplicationLayoutRuleCondition type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApplicationLayoutRuleCondition{}
+
 // ApplicationLayoutRuleCondition struct for ApplicationLayoutRuleCondition
 type ApplicationLayoutRuleCondition struct {
-	Schema map[string]interface{} `json:"schema,omitempty"`
-	Scope *string `json:"scope,omitempty"`
+	Schema               map[string]interface{} `json:"schema,omitempty"`
+	Scope                *string                `json:"scope,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewApplicationLayoutRuleConditionWithDefaults() *ApplicationLayoutRuleCondi
 
 // GetSchema returns the Schema field value if set, zero value otherwise.
 func (o *ApplicationLayoutRuleCondition) GetSchema() map[string]interface{} {
-	if o == nil || o.Schema == nil {
+	if o == nil || IsNil(o.Schema) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -65,15 +68,15 @@ func (o *ApplicationLayoutRuleCondition) GetSchema() map[string]interface{} {
 // GetSchemaOk returns a tuple with the Schema field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationLayoutRuleCondition) GetSchemaOk() (map[string]interface{}, bool) {
-	if o == nil || o.Schema == nil {
-		return nil, false
+	if o == nil || IsNil(o.Schema) {
+		return map[string]interface{}{}, false
 	}
 	return o.Schema, true
 }
 
 // HasSchema returns a boolean if a field has been set.
 func (o *ApplicationLayoutRuleCondition) HasSchema() bool {
-	if o != nil && o.Schema != nil {
+	if o != nil && !IsNil(o.Schema) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *ApplicationLayoutRuleCondition) SetSchema(v map[string]interface{}) {
 
 // GetScope returns the Scope field value if set, zero value otherwise.
 func (o *ApplicationLayoutRuleCondition) GetScope() string {
-	if o == nil || o.Scope == nil {
+	if o == nil || IsNil(o.Scope) {
 		var ret string
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *ApplicationLayoutRuleCondition) GetScope() string {
 // GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationLayoutRuleCondition) GetScopeOk() (*string, bool) {
-	if o == nil || o.Scope == nil {
+	if o == nil || IsNil(o.Scope) {
 		return nil, false
 	}
 	return o.Scope, true
@@ -105,7 +108,7 @@ func (o *ApplicationLayoutRuleCondition) GetScopeOk() (*string, bool) {
 
 // HasScope returns a boolean if a field has been set.
 func (o *ApplicationLayoutRuleCondition) HasScope() bool {
-	if o != nil && o.Scope != nil {
+	if o != nil && !IsNil(o.Scope) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *ApplicationLayoutRuleCondition) SetScope(v string) {
 }
 
 func (o ApplicationLayoutRuleCondition) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApplicationLayoutRuleCondition) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Schema != nil {
+	if !IsNil(o.Schema) {
 		toSerialize["schema"] = o.Schema
 	}
-	if o.Scope != nil {
+	if !IsNil(o.Scope) {
 		toSerialize["scope"] = o.Scope
 	}
 
@@ -130,28 +141,26 @@ func (o ApplicationLayoutRuleCondition) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ApplicationLayoutRuleCondition) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ApplicationLayoutRuleCondition) UnmarshalJSON(data []byte) (err error) {
 	varApplicationLayoutRuleCondition := _ApplicationLayoutRuleCondition{}
 
-	err = json.Unmarshal(bytes, &varApplicationLayoutRuleCondition)
-	if err == nil {
-		*o = ApplicationLayoutRuleCondition(varApplicationLayoutRuleCondition)
-	} else {
+	err = json.Unmarshal(data, &varApplicationLayoutRuleCondition)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ApplicationLayoutRuleCondition(varApplicationLayoutRuleCondition)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "schema")
 		delete(additionalProperties, "scope")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableApplicationLayoutRuleCondition) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

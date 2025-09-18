@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the EventHookChannelConfigHeader type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EventHookChannelConfigHeader{}
+
 // EventHookChannelConfigHeader struct for EventHookChannelConfigHeader
 type EventHookChannelConfigHeader struct {
 	// The optional field or header name
 	Key *string `json:"key,omitempty"`
 	// The value for the key
-	Value *string `json:"value,omitempty"`
+	Value                *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewEventHookChannelConfigHeaderWithDefaults() *EventHookChannelConfigHeader
 
 // GetKey returns the Key field value if set, zero value otherwise.
 func (o *EventHookChannelConfigHeader) GetKey() string {
-	if o == nil || o.Key == nil {
+	if o == nil || IsNil(o.Key) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *EventHookChannelConfigHeader) GetKey() string {
 // GetKeyOk returns a tuple with the Key field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventHookChannelConfigHeader) GetKeyOk() (*string, bool) {
-	if o == nil || o.Key == nil {
+	if o == nil || IsNil(o.Key) {
 		return nil, false
 	}
 	return o.Key, true
@@ -75,7 +78,7 @@ func (o *EventHookChannelConfigHeader) GetKeyOk() (*string, bool) {
 
 // HasKey returns a boolean if a field has been set.
 func (o *EventHookChannelConfigHeader) HasKey() bool {
-	if o != nil && o.Key != nil {
+	if o != nil && !IsNil(o.Key) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *EventHookChannelConfigHeader) SetKey(v string) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *EventHookChannelConfigHeader) GetValue() string {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *EventHookChannelConfigHeader) GetValue() string {
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventHookChannelConfigHeader) GetValueOk() (*string, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -107,7 +110,7 @@ func (o *EventHookChannelConfigHeader) GetValueOk() (*string, bool) {
 
 // HasValue returns a boolean if a field has been set.
 func (o *EventHookChannelConfigHeader) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *EventHookChannelConfigHeader) SetValue(v string) {
 }
 
 func (o EventHookChannelConfigHeader) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EventHookChannelConfigHeader) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Key != nil {
+	if !IsNil(o.Key) {
 		toSerialize["key"] = o.Key
 	}
-	if o.Value != nil {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
 
@@ -132,28 +143,26 @@ func (o EventHookChannelConfigHeader) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EventHookChannelConfigHeader) UnmarshalJSON(bytes []byte) (err error) {
+func (o *EventHookChannelConfigHeader) UnmarshalJSON(data []byte) (err error) {
 	varEventHookChannelConfigHeader := _EventHookChannelConfigHeader{}
 
-	err = json.Unmarshal(bytes, &varEventHookChannelConfigHeader)
-	if err == nil {
-		*o = EventHookChannelConfigHeader(varEventHookChannelConfigHeader)
-	} else {
+	err = json.Unmarshal(data, &varEventHookChannelConfigHeader)
+
+	if err != nil {
 		return err
 	}
 
+	*o = EventHookChannelConfigHeader(varEventHookChannelConfigHeader)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "key")
 		delete(additionalProperties, "value")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableEventHookChannelConfigHeader) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

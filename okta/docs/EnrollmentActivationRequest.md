@@ -5,12 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CredResponses** | Pointer to [**[]WebAuthnCredResponse**](WebAuthnCredResponse.md) | List of credential responses from the fulfillment provider | [optional] 
-**FulfillmentProvider** | Pointer to **string** | Name of the fulfillment provider for the WebAuthn Preregistration Factor | [optional] 
-**PinResponseJwe** | Pointer to **string** | Encrypted JWE of PIN response from the fulfillment provider | [optional] 
+**FulfillmentProvider** | Pointer to **string** | Name of the fulfillment provider for the WebAuthn preregistration factor | [optional] 
+**PinResponseJwe** | Pointer to **string** | Encrypted JWE of the PIN response from the fulfillment provider | [optional] 
 **Serial** | Pointer to **string** | Serial number of the YubiKey | [optional] 
 **UserId** | Pointer to **string** | ID of an existing Okta user | [optional] 
 **Version** | Pointer to **string** | Firmware version of the YubiKey | [optional] 
-**YubicoSigningJwks** | Pointer to [**[]ECKeyJWK**](ECKeyJWK.md) | List of usable signing keys from Yubico (in JWKS format) used to verify the JWS inside the JWE | [optional] 
+**YubicoSigningJwks** | Pointer to [**[]ECKeyJWK**](ECKeyJWK.md) | List of usable signing keys from Yubico (in JSON Web Key Sets (JWKS) format). The signing keys are used to verify the JSON Web Signature (JWS) inside the JWE. | [optional] 
 
 ## Methods
 

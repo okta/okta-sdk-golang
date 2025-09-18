@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
-// PlatformPolicyRuleCondition struct for PlatformPolicyRuleCondition
+// checks if the PlatformPolicyRuleCondition type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PlatformPolicyRuleCondition{}
+
+// PlatformPolicyRuleCondition Specifies a particular platform or device to match on
 type PlatformPolicyRuleCondition struct {
-	Exclude []PlatformConditionEvaluatorPlatform `json:"exclude,omitempty"`
-	Include []PlatformConditionEvaluatorPlatform `json:"include,omitempty"`
+	Exclude              []PlatformConditionEvaluatorPlatform `json:"exclude,omitempty"`
+	Include              []PlatformConditionEvaluatorPlatform `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewPlatformPolicyRuleConditionWithDefaults() *PlatformPolicyRuleCondition {
 
 // GetExclude returns the Exclude field value if set, zero value otherwise.
 func (o *PlatformPolicyRuleCondition) GetExclude() []PlatformConditionEvaluatorPlatform {
-	if o == nil || o.Exclude == nil {
+	if o == nil || IsNil(o.Exclude) {
 		var ret []PlatformConditionEvaluatorPlatform
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *PlatformPolicyRuleCondition) GetExclude() []PlatformConditionEvaluatorP
 // GetExcludeOk returns a tuple with the Exclude field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PlatformPolicyRuleCondition) GetExcludeOk() ([]PlatformConditionEvaluatorPlatform, bool) {
-	if o == nil || o.Exclude == nil {
+	if o == nil || IsNil(o.Exclude) {
 		return nil, false
 	}
 	return o.Exclude, true
@@ -73,7 +76,7 @@ func (o *PlatformPolicyRuleCondition) GetExcludeOk() ([]PlatformConditionEvaluat
 
 // HasExclude returns a boolean if a field has been set.
 func (o *PlatformPolicyRuleCondition) HasExclude() bool {
-	if o != nil && o.Exclude != nil {
+	if o != nil && !IsNil(o.Exclude) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *PlatformPolicyRuleCondition) SetExclude(v []PlatformConditionEvaluatorP
 
 // GetInclude returns the Include field value if set, zero value otherwise.
 func (o *PlatformPolicyRuleCondition) GetInclude() []PlatformConditionEvaluatorPlatform {
-	if o == nil || o.Include == nil {
+	if o == nil || IsNil(o.Include) {
 		var ret []PlatformConditionEvaluatorPlatform
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *PlatformPolicyRuleCondition) GetInclude() []PlatformConditionEvaluatorP
 // GetIncludeOk returns a tuple with the Include field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PlatformPolicyRuleCondition) GetIncludeOk() ([]PlatformConditionEvaluatorPlatform, bool) {
-	if o == nil || o.Include == nil {
+	if o == nil || IsNil(o.Include) {
 		return nil, false
 	}
 	return o.Include, true
@@ -105,7 +108,7 @@ func (o *PlatformPolicyRuleCondition) GetIncludeOk() ([]PlatformConditionEvaluat
 
 // HasInclude returns a boolean if a field has been set.
 func (o *PlatformPolicyRuleCondition) HasInclude() bool {
-	if o != nil && o.Include != nil {
+	if o != nil && !IsNil(o.Include) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *PlatformPolicyRuleCondition) SetInclude(v []PlatformConditionEvaluatorP
 }
 
 func (o PlatformPolicyRuleCondition) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PlatformPolicyRuleCondition) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Exclude != nil {
+	if !IsNil(o.Exclude) {
 		toSerialize["exclude"] = o.Exclude
 	}
-	if o.Include != nil {
+	if !IsNil(o.Include) {
 		toSerialize["include"] = o.Include
 	}
 
@@ -130,28 +141,26 @@ func (o PlatformPolicyRuleCondition) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PlatformPolicyRuleCondition) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PlatformPolicyRuleCondition) UnmarshalJSON(data []byte) (err error) {
 	varPlatformPolicyRuleCondition := _PlatformPolicyRuleCondition{}
 
-	err = json.Unmarshal(bytes, &varPlatformPolicyRuleCondition)
-	if err == nil {
-		*o = PlatformPolicyRuleCondition(varPlatformPolicyRuleCondition)
-	} else {
+	err = json.Unmarshal(data, &varPlatformPolicyRuleCondition)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PlatformPolicyRuleCondition(varPlatformPolicyRuleCondition)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "exclude")
 		delete(additionalProperties, "include")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullablePlatformPolicyRuleCondition) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

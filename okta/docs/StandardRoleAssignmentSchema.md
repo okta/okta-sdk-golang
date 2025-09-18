@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | Pointer to **string** | Standard role type | [optional] 
+**Type** | Pointer to **string** | Specify the standard or IAM-based role type. See [standard roles](/openapi/okta-management/guides/roles/#standard-roles). | [optional] 
 
 ## Methods
 

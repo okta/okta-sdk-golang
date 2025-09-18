@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ContactType** | Pointer to **string** |  | [optional] 
-**Links** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
+**ContactType** | Pointer to **string** | Type of contact | [optional] 
+**Links** | Pointer to [**OrgTechnicalContactTypeLinks**](OrgTechnicalContactTypeLinks.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasContactType returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *OrgContactTypeObj) GetLinks() LinksSelf`
+`func (o *OrgContactTypeObj) GetLinks() OrgTechnicalContactTypeLinks`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *OrgContactTypeObj) GetLinksOk() (*LinksSelf, bool)`
+`func (o *OrgContactTypeObj) GetLinksOk() (*OrgTechnicalContactTypeLinks, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *OrgContactTypeObj) SetLinks(v LinksSelf)`
+`func (o *OrgContactTypeObj) SetLinks(v OrgTechnicalContactTypeLinks)`
 
 SetLinks sets Links field to given value.
 

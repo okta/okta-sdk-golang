@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -26,24 +26,23 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type LogStreamAPI interface {
 
 	/*
-	ActivateLogStream Activate a Log Stream
+		ActivateLogStream Activate a log stream
 
-	Activates a log stream by `logStreamId`
+		Activates a log stream by `logStreamId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param logStreamId Unique identifier for the Log Stream
-	@return ApiActivateLogStreamRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param logStreamId Unique identifier for the log stream
+		@return ApiActivateLogStreamRequest
 	*/
 	ActivateLogStream(ctx context.Context, logStreamId string) ApiActivateLogStreamRequest
 
@@ -52,12 +51,12 @@ type LogStreamAPI interface {
 	ActivateLogStreamExecute(r ApiActivateLogStreamRequest) (*ListLogStreams200ResponseInner, *APIResponse, error)
 
 	/*
-	CreateLogStream Create a Log Stream
+		CreateLogStream Create a log stream
 
-	Creates a new Log Stream object
+		Creates a new log stream object
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateLogStreamRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateLogStreamRequest
 	*/
 	CreateLogStream(ctx context.Context) ApiCreateLogStreamRequest
 
@@ -66,13 +65,13 @@ type LogStreamAPI interface {
 	CreateLogStreamExecute(r ApiCreateLogStreamRequest) (*ListLogStreams200ResponseInner, *APIResponse, error)
 
 	/*
-	DeactivateLogStream Deactivate a Log Stream
+		DeactivateLogStream Deactivate a log stream
 
-	Deactivates a log stream by `logStreamId`
+		Deactivates a log stream by `logStreamId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param logStreamId Unique identifier for the Log Stream
-	@return ApiDeactivateLogStreamRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param logStreamId Unique identifier for the log stream
+		@return ApiDeactivateLogStreamRequest
 	*/
 	DeactivateLogStream(ctx context.Context, logStreamId string) ApiDeactivateLogStreamRequest
 
@@ -81,13 +80,13 @@ type LogStreamAPI interface {
 	DeactivateLogStreamExecute(r ApiDeactivateLogStreamRequest) (*ListLogStreams200ResponseInner, *APIResponse, error)
 
 	/*
-	DeleteLogStream Delete a Log Stream
+		DeleteLogStream Delete a log stream
 
-	Deletes a Log Stream object from your org by ID
+		Deletes a log stream object from your org by ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param logStreamId Unique identifier for the Log Stream
-	@return ApiDeleteLogStreamRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param logStreamId Unique identifier for the log stream
+		@return ApiDeleteLogStreamRequest
 	*/
 	DeleteLogStream(ctx context.Context, logStreamId string) ApiDeleteLogStreamRequest
 
@@ -95,13 +94,13 @@ type LogStreamAPI interface {
 	DeleteLogStreamExecute(r ApiDeleteLogStreamRequest) (*APIResponse, error)
 
 	/*
-	GetLogStream Retrieve a Log Stream
+		GetLogStream Retrieve a log stream
 
-	Retrieves a Log Stream object by ID
+		Retrieves a log stream object by ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param logStreamId Unique identifier for the Log Stream
-	@return ApiGetLogStreamRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param logStreamId Unique identifier for the log stream
+		@return ApiGetLogStreamRequest
 	*/
 	GetLogStream(ctx context.Context, logStreamId string) ApiGetLogStreamRequest
 
@@ -110,12 +109,12 @@ type LogStreamAPI interface {
 	GetLogStreamExecute(r ApiGetLogStreamRequest) (*ListLogStreams200ResponseInner, *APIResponse, error)
 
 	/*
-	ListLogStreams List all Log Streams
+		ListLogStreams List all log streams
 
-	Lists all Log Stream objects in your org. You can request a paginated list or a subset of Log Streams that match a supported filter expression.
+		Lists all log stream objects in your org. You can request a paginated list or a subset of log streams that match a supported filter expression.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListLogStreamsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListLogStreamsRequest
 	*/
 	ListLogStreams(ctx context.Context) ApiListLogStreamsRequest
 
@@ -124,21 +123,21 @@ type LogStreamAPI interface {
 	ListLogStreamsExecute(r ApiListLogStreamsRequest) ([]ListLogStreams200ResponseInner, *APIResponse, error)
 
 	/*
-	ReplaceLogStream Replace a Log Stream
+			ReplaceLogStream Replace a log stream
 
-	Replaces the Log Stream object properties for a given ID.
+			Replaces the log stream object properties for a given ID.
 
-This operation is typically used to update the configuration of a Log Stream.
-Depending on the type of Log Stream you want to update, certain properties can't be modified after the Log Stream is initially created.
-Use the [Retrieve the Log Stream Schema for the schema type](/openapi/okta-management/management/tag/Schema/#tag/Schema/operation/getLogStreamSchema) request to determine which properties you can update for the specific Log Stream type.
-Log Stream properties with the `"writeOnce" : true` attribute can't be updated after creation.
-You must still specify these `writeOnce` properties in the request body with the original values in the PUT request.
+		This operation is typically used to update the configuration of a log stream.
+		Depending on the type of log stream you want to update, certain properties can't be modified after the log stream is initially created.
+		Use the [Retrieve the log stream schema for the schema type](/openapi/okta-management/management/tag/Schema/#tag/Schema/operation/getLogStreamSchema) request to determine which properties you can update for the specific log stream type.
+		Log stream properties with the `"writeOnce" : true` attribute can't be updated after creation.
+		You must still specify these `writeOnce` properties in the request body with the original values in the PUT request.
 
-> **Note:** You don't have to specify properties that have both the `"writeOnce": true` and the `"writeOnly": true` attributes in the PUT request body. These property values are ignored even if you add them in the PUT request body.
+		> **Note:** You don't have to specify properties that have both the `"writeOnce": true` and the `"writeOnly": true` attributes in the PUT request body. These property values are ignored even if you add them in the PUT request body.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param logStreamId Unique identifier for the Log Stream
-	@return ApiReplaceLogStreamRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param logStreamId Unique identifier for the log stream
+			@return ApiReplaceLogStreamRequest
 	*/
 	ReplaceLogStream(ctx context.Context, logStreamId string) ApiReplaceLogStreamRequest
 
@@ -151,10 +150,10 @@ You must still specify these `writeOnce` properties in the request body with the
 type LogStreamAPIService service
 
 type ApiActivateLogStreamRequest struct {
-	ctx context.Context
-	ApiService LogStreamAPI
+	ctx         context.Context
+	ApiService  LogStreamAPI
 	logStreamId string
-	retryCount int32
+	retryCount  int32
 }
 
 func (r ApiActivateLogStreamRequest) Execute() (*ListLogStreams200ResponseInner, *APIResponse, error) {
@@ -162,25 +161,26 @@ func (r ApiActivateLogStreamRequest) Execute() (*ListLogStreams200ResponseInner,
 }
 
 /*
-ActivateLogStream Activate a Log Stream
+ActivateLogStream Activate a log stream
 
 Activates a log stream by `logStreamId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param logStreamId Unique identifier for the Log Stream
- @return ApiActivateLogStreamRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param logStreamId Unique identifier for the log stream
+	@return ApiActivateLogStreamRequest
 */
 func (a *LogStreamAPIService) ActivateLogStream(ctx context.Context, logStreamId string) ApiActivateLogStreamRequest {
 	return ApiActivateLogStreamRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		logStreamId: logStreamId,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
 // Execute executes the request
-//  @return ListLogStreams200ResponseInner
+//
+//	@return ListLogStreams200ResponseInner
 func (a *LogStreamAPIService) ActivateLogStreamExecute(r ApiActivateLogStreamRequest) (*ListLogStreams200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -189,7 +189,7 @@ func (a *LogStreamAPIService) ActivateLogStreamExecute(r ApiActivateLogStreamReq
 		localVarReturnValue  *ListLogStreams200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -250,9 +250,9 @@ func (a *LogStreamAPIService) ActivateLogStreamExecute(r ApiActivateLogStreamReq
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -310,15 +310,15 @@ func (a *LogStreamAPIService) ActivateLogStreamExecute(r ApiActivateLogStreamReq
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiCreateLogStreamRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService LogStreamAPI
-	instance *ListLogStreams200ResponseInner
+	instance   *ListLogStreams200ResponseInner
 	retryCount int32
 }
 
@@ -332,23 +332,24 @@ func (r ApiCreateLogStreamRequest) Execute() (*ListLogStreams200ResponseInner, *
 }
 
 /*
-CreateLogStream Create a Log Stream
+CreateLogStream Create a log stream
 
-Creates a new Log Stream object
+Creates a new log stream object
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateLogStreamRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateLogStreamRequest
 */
 func (a *LogStreamAPIService) CreateLogStream(ctx context.Context) ApiCreateLogStreamRequest {
 	return ApiCreateLogStreamRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListLogStreams200ResponseInner
+//
+//	@return ListLogStreams200ResponseInner
 func (a *LogStreamAPIService) CreateLogStreamExecute(r ApiCreateLogStreamRequest) (*ListLogStreams200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -357,7 +358,7 @@ func (a *LogStreamAPIService) CreateLogStreamExecute(r ApiCreateLogStreamRequest
 		localVarReturnValue  *ListLogStreams200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -422,9 +423,9 @@ func (a *LogStreamAPIService) CreateLogStreamExecute(r ApiCreateLogStreamRequest
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -482,16 +483,16 @@ func (a *LogStreamAPIService) CreateLogStreamExecute(r ApiCreateLogStreamRequest
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeactivateLogStreamRequest struct {
-	ctx context.Context
-	ApiService LogStreamAPI
+	ctx         context.Context
+	ApiService  LogStreamAPI
 	logStreamId string
-	retryCount int32
+	retryCount  int32
 }
 
 func (r ApiDeactivateLogStreamRequest) Execute() (*ListLogStreams200ResponseInner, *APIResponse, error) {
@@ -499,25 +500,26 @@ func (r ApiDeactivateLogStreamRequest) Execute() (*ListLogStreams200ResponseInne
 }
 
 /*
-DeactivateLogStream Deactivate a Log Stream
+DeactivateLogStream Deactivate a log stream
 
 Deactivates a log stream by `logStreamId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param logStreamId Unique identifier for the Log Stream
- @return ApiDeactivateLogStreamRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param logStreamId Unique identifier for the log stream
+	@return ApiDeactivateLogStreamRequest
 */
 func (a *LogStreamAPIService) DeactivateLogStream(ctx context.Context, logStreamId string) ApiDeactivateLogStreamRequest {
 	return ApiDeactivateLogStreamRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		logStreamId: logStreamId,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
 // Execute executes the request
-//  @return ListLogStreams200ResponseInner
+//
+//	@return ListLogStreams200ResponseInner
 func (a *LogStreamAPIService) DeactivateLogStreamExecute(r ApiDeactivateLogStreamRequest) (*ListLogStreams200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -526,7 +528,7 @@ func (a *LogStreamAPIService) DeactivateLogStreamExecute(r ApiDeactivateLogStrea
 		localVarReturnValue  *ListLogStreams200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -587,9 +589,9 @@ func (a *LogStreamAPIService) DeactivateLogStreamExecute(r ApiDeactivateLogStrea
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -647,16 +649,16 @@ func (a *LogStreamAPIService) DeactivateLogStreamExecute(r ApiDeactivateLogStrea
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteLogStreamRequest struct {
-	ctx context.Context
-	ApiService LogStreamAPI
+	ctx         context.Context
+	ApiService  LogStreamAPI
 	logStreamId string
-	retryCount int32
+	retryCount  int32
 }
 
 func (r ApiDeleteLogStreamRequest) Execute() (*APIResponse, error) {
@@ -664,20 +666,20 @@ func (r ApiDeleteLogStreamRequest) Execute() (*APIResponse, error) {
 }
 
 /*
-DeleteLogStream Delete a Log Stream
+DeleteLogStream Delete a log stream
 
-Deletes a Log Stream object from your org by ID
+Deletes a log stream object from your org by ID
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param logStreamId Unique identifier for the Log Stream
- @return ApiDeleteLogStreamRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param logStreamId Unique identifier for the log stream
+	@return ApiDeleteLogStreamRequest
 */
 func (a *LogStreamAPIService) DeleteLogStream(ctx context.Context, logStreamId string) ApiDeleteLogStreamRequest {
 	return ApiDeleteLogStreamRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		logStreamId: logStreamId,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
@@ -689,7 +691,7 @@ func (a *LogStreamAPIService) DeleteLogStreamExecute(r ApiDeleteLogStreamRequest
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -750,9 +752,9 @@ func (a *LogStreamAPIService) DeleteLogStreamExecute(r ApiDeleteLogStreamRequest
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -806,10 +808,10 @@ func (a *LogStreamAPIService) DeleteLogStreamExecute(r ApiDeleteLogStreamRequest
 }
 
 type ApiGetLogStreamRequest struct {
-	ctx context.Context
-	ApiService LogStreamAPI
+	ctx         context.Context
+	ApiService  LogStreamAPI
 	logStreamId string
-	retryCount int32
+	retryCount  int32
 }
 
 func (r ApiGetLogStreamRequest) Execute() (*ListLogStreams200ResponseInner, *APIResponse, error) {
@@ -817,25 +819,26 @@ func (r ApiGetLogStreamRequest) Execute() (*ListLogStreams200ResponseInner, *API
 }
 
 /*
-GetLogStream Retrieve a Log Stream
+GetLogStream Retrieve a log stream
 
-Retrieves a Log Stream object by ID
+Retrieves a log stream object by ID
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param logStreamId Unique identifier for the Log Stream
- @return ApiGetLogStreamRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param logStreamId Unique identifier for the log stream
+	@return ApiGetLogStreamRequest
 */
 func (a *LogStreamAPIService) GetLogStream(ctx context.Context, logStreamId string) ApiGetLogStreamRequest {
 	return ApiGetLogStreamRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		logStreamId: logStreamId,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
 // Execute executes the request
-//  @return ListLogStreams200ResponseInner
+//
+//	@return ListLogStreams200ResponseInner
 func (a *LogStreamAPIService) GetLogStreamExecute(r ApiGetLogStreamRequest) (*ListLogStreams200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -844,7 +847,7 @@ func (a *LogStreamAPIService) GetLogStreamExecute(r ApiGetLogStreamRequest) (*Li
 		localVarReturnValue  *ListLogStreams200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -905,9 +908,9 @@ func (a *LogStreamAPIService) GetLogStreamExecute(r ApiGetLogStreamRequest) (*Li
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -965,21 +968,21 @@ func (a *LogStreamAPIService) GetLogStreamExecute(r ApiGetLogStreamRequest) (*Li
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListLogStreamsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService LogStreamAPI
-	after *string
-	limit *int32
-	filter *string
+	after      *string
+	limit      *int32
+	filter     *string
 	retryCount int32
 }
 
-// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](/#pagination).
+// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination).
 func (r ApiListLogStreamsRequest) After(after string) ApiListLogStreamsRequest {
 	r.after = &after
 	return r
@@ -1002,23 +1005,24 @@ func (r ApiListLogStreamsRequest) Execute() ([]ListLogStreams200ResponseInner, *
 }
 
 /*
-ListLogStreams List all Log Streams
+ListLogStreams List all log streams
 
-Lists all Log Stream objects in your org. You can request a paginated list or a subset of Log Streams that match a supported filter expression.
+Lists all log stream objects in your org. You can request a paginated list or a subset of log streams that match a supported filter expression.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListLogStreamsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListLogStreamsRequest
 */
 func (a *LogStreamAPIService) ListLogStreams(ctx context.Context) ApiListLogStreamsRequest {
 	return ApiListLogStreamsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []ListLogStreams200ResponseInner
+//
+//	@return []ListLogStreams200ResponseInner
 func (a *LogStreamAPIService) ListLogStreamsExecute(r ApiListLogStreamsRequest) ([]ListLogStreams200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1027,7 +1031,7 @@ func (a *LogStreamAPIService) ListLogStreamsExecute(r ApiListLogStreamsRequest) 
 		localVarReturnValue  []ListLogStreams200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1096,9 +1100,9 @@ func (a *LogStreamAPIService) ListLogStreamsExecute(r ApiListLogStreamsRequest) 
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1144,17 +1148,17 @@ func (a *LogStreamAPIService) ListLogStreamsExecute(r ApiListLogStreamsRequest) 
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceLogStreamRequest struct {
-	ctx context.Context
-	ApiService LogStreamAPI
+	ctx         context.Context
+	ApiService  LogStreamAPI
 	logStreamId string
-	instance *ReplaceLogStreamRequest
-	retryCount int32
+	instance    *ReplaceLogStreamRequest
+	retryCount  int32
 }
 
 func (r ApiReplaceLogStreamRequest) Instance(instance ReplaceLogStreamRequest) ApiReplaceLogStreamRequest {
@@ -1167,33 +1171,34 @@ func (r ApiReplaceLogStreamRequest) Execute() (*ListLogStreams200ResponseInner, 
 }
 
 /*
-ReplaceLogStream Replace a Log Stream
+ReplaceLogStream Replace a log stream
 
-Replaces the Log Stream object properties for a given ID.
+Replaces the log stream object properties for a given ID.
 
-This operation is typically used to update the configuration of a Log Stream.
-Depending on the type of Log Stream you want to update, certain properties can't be modified after the Log Stream is initially created.
-Use the [Retrieve the Log Stream Schema for the schema type](/openapi/okta-management/management/tag/Schema/#tag/Schema/operation/getLogStreamSchema) request to determine which properties you can update for the specific Log Stream type.
-Log Stream properties with the `"writeOnce" : true` attribute can't be updated after creation.
+This operation is typically used to update the configuration of a log stream.
+Depending on the type of log stream you want to update, certain properties can't be modified after the log stream is initially created.
+Use the [Retrieve the log stream schema for the schema type](/openapi/okta-management/management/tag/Schema/#tag/Schema/operation/getLogStreamSchema) request to determine which properties you can update for the specific log stream type.
+Log stream properties with the `"writeOnce" : true` attribute can't be updated after creation.
 You must still specify these `writeOnce` properties in the request body with the original values in the PUT request.
 
 > **Note:** You don't have to specify properties that have both the `"writeOnce": true` and the `"writeOnly": true` attributes in the PUT request body. These property values are ignored even if you add them in the PUT request body.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param logStreamId Unique identifier for the Log Stream
- @return ApiReplaceLogStreamRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param logStreamId Unique identifier for the log stream
+	@return ApiReplaceLogStreamRequest
 */
 func (a *LogStreamAPIService) ReplaceLogStream(ctx context.Context, logStreamId string) ApiReplaceLogStreamRequest {
 	return ApiReplaceLogStreamRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		logStreamId: logStreamId,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
 // Execute executes the request
-//  @return ListLogStreams200ResponseInner
+//
+//	@return ListLogStreams200ResponseInner
 func (a *LogStreamAPIService) ReplaceLogStreamExecute(r ApiReplaceLogStreamRequest) (*ListLogStreams200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -1202,7 +1207,7 @@ func (a *LogStreamAPIService) ReplaceLogStreamExecute(r ApiReplaceLogStreamReque
 		localVarReturnValue  *ListLogStreams200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1268,9 +1273,9 @@ func (a *LogStreamAPIService) ReplaceLogStreamExecute(r ApiReplaceLogStreamReque
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1340,7 +1345,7 @@ func (a *LogStreamAPIService) ReplaceLogStreamExecute(r ApiReplaceLogStreamReque
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

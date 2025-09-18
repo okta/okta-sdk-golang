@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Detail** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
-**Id** | Pointer to **string** |  | [optional] [readonly] 
-**Type** | Pointer to **string** |  | [optional] [readonly] 
+**Detail** | Pointer to **map[string]interface{}** | Details for this transaction. | [optional] [readonly] 
+**Id** | Pointer to **string** | Unique identifier for this transaction. | [optional] [readonly] 
+**Type** | Pointer to **string** | Describes the kind of transaction. &#x60;WEB&#x60; indicates a web request. &#x60;JOB&#x60; indicates an asynchronous task. | [optional] [readonly] 
 
 ## Methods
 

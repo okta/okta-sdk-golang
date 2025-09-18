@@ -6,15 +6,15 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Agents** | Pointer to [**[]Agent**](Agent.md) |  | [optional] 
 **AgentType** | Pointer to **string** | Agent types that are being monitored | [optional] 
-**Enabled** | Pointer to **bool** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] [readonly] 
-**Name** | Pointer to **string** |  | [optional] 
-**NotifyAdmin** | Pointer to **bool** |  | [optional] 
-**Reason** | Pointer to **string** |  | [optional] 
+**Enabled** | Pointer to **bool** | Indicates if auto-update is enabled for the agent pool | [optional] 
+**Id** | Pointer to **string** | ID of the agent pool update | [optional] [readonly] 
+**Name** | Pointer to **string** | Name of the agent pool update | [optional] 
+**NotifyAdmin** | Pointer to **bool** | Indicates if the admin is notified about the update | [optional] 
+**Reason** | Pointer to **string** | Reason for the update | [optional] 
 **Schedule** | Pointer to [**AutoUpdateSchedule**](AutoUpdateSchedule.md) |  | [optional] 
-**SortOrder** | Pointer to **int32** |  | [optional] 
-**Status** | Pointer to **string** | Overall state for the auto-update job from admin perspective | [optional] 
-**TargetVersion** | Pointer to **string** |  | [optional] 
+**SortOrder** | Pointer to **int32** | Specifies the sort order | [optional] 
+**Status** | Pointer to **string** | Overall state for the auto-update job from the admin perspective | [optional] 
+**TargetVersion** | Pointer to **string** | The agent version to update to | [optional] 
 **Links** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
 
 ## Methods

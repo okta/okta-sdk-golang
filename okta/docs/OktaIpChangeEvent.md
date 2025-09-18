@@ -10,13 +10,13 @@ Name | Type | Description | Notes
 **PreviousIpAddress** | **string** | Previous IP address of the subject | 
 **ReasonAdmin** | Pointer to [**CaepDeviceComplianceChangeEventReasonAdmin**](CaepDeviceComplianceChangeEventReasonAdmin.md) |  | [optional] 
 **ReasonUser** | Pointer to [**CaepDeviceComplianceChangeEventReasonUser**](CaepDeviceComplianceChangeEventReasonUser.md) |  | [optional] 
-**Subjects** | [**SecurityEventSubject**](SecurityEventSubject.md) |  | 
+**Subject** | [**SecurityEventSubject**](SecurityEventSubject.md) |  | 
 
 ## Methods
 
 ### NewOktaIpChangeEvent
 
-`func NewOktaIpChangeEvent(currentIpAddress string, eventTimestamp int64, previousIpAddress string, subjects SecurityEventSubject, ) *OktaIpChangeEvent`
+`func NewOktaIpChangeEvent(currentIpAddress string, eventTimestamp int64, previousIpAddress string, subject SecurityEventSubject, ) *OktaIpChangeEvent`
 
 NewOktaIpChangeEvent instantiates a new OktaIpChangeEvent object
 This constructor will assign default values to properties that have it defined,
@@ -166,24 +166,24 @@ SetReasonUser sets ReasonUser field to given value.
 
 HasReasonUser returns a boolean if a field has been set.
 
-### GetSubjects
+### GetSubject
 
-`func (o *OktaIpChangeEvent) GetSubjects() SecurityEventSubject`
+`func (o *OktaIpChangeEvent) GetSubject() SecurityEventSubject`
 
-GetSubjects returns the Subjects field if non-nil, zero value otherwise.
+GetSubject returns the Subject field if non-nil, zero value otherwise.
 
-### GetSubjectsOk
+### GetSubjectOk
 
-`func (o *OktaIpChangeEvent) GetSubjectsOk() (*SecurityEventSubject, bool)`
+`func (o *OktaIpChangeEvent) GetSubjectOk() (*SecurityEventSubject, bool)`
 
-GetSubjectsOk returns a tuple with the Subjects field if it's non-nil, zero value otherwise
+GetSubjectOk returns a tuple with the Subject field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetSubjects
+### SetSubject
 
-`func (o *OktaIpChangeEvent) SetSubjects(v SecurityEventSubject)`
+`func (o *OktaIpChangeEvent) SetSubject(v SecurityEventSubject)`
 
-SetSubjects sets Subjects field to given value.
+SetSubject sets Subject field to given value.
 
 
 

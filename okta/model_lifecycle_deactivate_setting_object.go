@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the LifecycleDeactivateSettingObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LifecycleDeactivateSettingObject{}
+
 // LifecycleDeactivateSettingObject Determines whether deprovisioning occurs when the app is unassigned
 type LifecycleDeactivateSettingObject struct {
-	Status *string `json:"status,omitempty"`
+	// Setting status
+	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -41,6 +45,8 @@ type _LifecycleDeactivateSettingObject LifecycleDeactivateSettingObject
 // will change when the set of required properties is changed
 func NewLifecycleDeactivateSettingObject() *LifecycleDeactivateSettingObject {
 	this := LifecycleDeactivateSettingObject{}
+	var status string = "DISABLED"
+	this.Status = &status
 	return &this
 }
 
@@ -49,12 +55,14 @@ func NewLifecycleDeactivateSettingObject() *LifecycleDeactivateSettingObject {
 // but it doesn't guarantee that properties required by API are set
 func NewLifecycleDeactivateSettingObjectWithDefaults() *LifecycleDeactivateSettingObject {
 	this := LifecycleDeactivateSettingObject{}
+	var status string = "DISABLED"
+	this.Status = &status
 	return &this
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *LifecycleDeactivateSettingObject) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -64,7 +72,7 @@ func (o *LifecycleDeactivateSettingObject) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LifecycleDeactivateSettingObject) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -72,7 +80,7 @@ func (o *LifecycleDeactivateSettingObject) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *LifecycleDeactivateSettingObject) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -85,8 +93,16 @@ func (o *LifecycleDeactivateSettingObject) SetStatus(v string) {
 }
 
 func (o LifecycleDeactivateSettingObject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LifecycleDeactivateSettingObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
 
@@ -94,27 +110,25 @@ func (o LifecycleDeactivateSettingObject) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LifecycleDeactivateSettingObject) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LifecycleDeactivateSettingObject) UnmarshalJSON(data []byte) (err error) {
 	varLifecycleDeactivateSettingObject := _LifecycleDeactivateSettingObject{}
 
-	err = json.Unmarshal(bytes, &varLifecycleDeactivateSettingObject)
-	if err == nil {
-		*o = LifecycleDeactivateSettingObject(varLifecycleDeactivateSettingObject)
-	} else {
+	err = json.Unmarshal(data, &varLifecycleDeactivateSettingObject)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LifecycleDeactivateSettingObject(varLifecycleDeactivateSettingObject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "status")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +169,3 @@ func (v *NullableLifecycleDeactivateSettingObject) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

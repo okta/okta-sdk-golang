@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] [readonly] 
-**IsHidden** | Pointer to **bool** |  | [optional] 
-**IsLatestGAedVersion** | Pointer to **bool** |  | [optional] 
-**LastConnection** | Pointer to **time.Time** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | Unique identifier for the agent that&#39;s generated during installation | [optional] [readonly] 
+**IsHidden** | Pointer to **bool** | Determines if an agent is hidden from the Admin Console | [optional] 
+**IsLatestGAedVersion** | Pointer to **bool** | Determines if the agent is on the latest generally available version | [optional] 
+**LastConnection** | Pointer to **time.Time** | Timestamp when the agent last connected to Okta | [optional] 
+**Name** | Pointer to **string** | Agent name | [optional] 
 **OperationalStatus** | Pointer to **string** | Operational status of a given agent | [optional] 
-**PoolId** | Pointer to **string** |  | [optional] 
+**PoolId** | Pointer to **string** | Pool ID | [optional] 
 **Type** | Pointer to **string** | Agent types that are being monitored | [optional] 
-**UpdateMessage** | Pointer to **string** |  | [optional] 
+**UpdateMessage** | Pointer to **string** | Status message of the agent | [optional] 
 **UpdateStatus** | Pointer to **string** | Status for one agent regarding the status to auto-update that agent | [optional] 
-**Version** | Pointer to **string** |  | [optional] 
+**Version** | Pointer to **string** | Agent version number | [optional] 
 **Links** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
 
 ## Methods

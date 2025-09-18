@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserTypePostRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserTypePostRequest{}
+
 // UserTypePostRequest struct for UserTypePostRequest
 type UserTypePostRequest struct {
-	// The updated human-readable description of the User Type
+	// The updated human-readable description of the user type
 	Description *string `json:"description,omitempty"`
-	// The updated human-readable display name for the User Type
-	DisplayName *string `json:"displayName,omitempty"`
+	// The updated human-readable display name for the user type
+	DisplayName          *string `json:"displayName,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewUserTypePostRequestWithDefaults() *UserTypePostRequest {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *UserTypePostRequest) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *UserTypePostRequest) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserTypePostRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -75,7 +78,7 @@ func (o *UserTypePostRequest) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *UserTypePostRequest) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *UserTypePostRequest) SetDescription(v string) {
 
 // GetDisplayName returns the DisplayName field value if set, zero value otherwise.
 func (o *UserTypePostRequest) GetDisplayName() string {
-	if o == nil || o.DisplayName == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *UserTypePostRequest) GetDisplayName() string {
 // GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserTypePostRequest) GetDisplayNameOk() (*string, bool) {
-	if o == nil || o.DisplayName == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		return nil, false
 	}
 	return o.DisplayName, true
@@ -107,7 +110,7 @@ func (o *UserTypePostRequest) GetDisplayNameOk() (*string, bool) {
 
 // HasDisplayName returns a boolean if a field has been set.
 func (o *UserTypePostRequest) HasDisplayName() bool {
-	if o != nil && o.DisplayName != nil {
+	if o != nil && !IsNil(o.DisplayName) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *UserTypePostRequest) SetDisplayName(v string) {
 }
 
 func (o UserTypePostRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserTypePostRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.DisplayName != nil {
+	if !IsNil(o.DisplayName) {
 		toSerialize["displayName"] = o.DisplayName
 	}
 
@@ -132,28 +143,26 @@ func (o UserTypePostRequest) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserTypePostRequest) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserTypePostRequest) UnmarshalJSON(data []byte) (err error) {
 	varUserTypePostRequest := _UserTypePostRequest{}
 
-	err = json.Unmarshal(bytes, &varUserTypePostRequest)
-	if err == nil {
-		*o = UserTypePostRequest(varUserTypePostRequest)
-	} else {
+	err = json.Unmarshal(data, &varUserTypePostRequest)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserTypePostRequest(varUserTypePostRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "displayName")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableUserTypePostRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the WellKnownAppAuthenticatorConfigurationSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WellKnownAppAuthenticatorConfigurationSettings{}
+
 // WellKnownAppAuthenticatorConfigurationSettings struct for WellKnownAppAuthenticatorConfigurationSettings
 type WellKnownAppAuthenticatorConfigurationSettings struct {
 	// User verification setting
-	UserVerification *string `json:"userVerification,omitempty"`
+	UserVerification     *string `json:"userVerification,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewWellKnownAppAuthenticatorConfigurationSettingsWithDefaults() *WellKnownA
 
 // GetUserVerification returns the UserVerification field value if set, zero value otherwise.
 func (o *WellKnownAppAuthenticatorConfigurationSettings) GetUserVerification() string {
-	if o == nil || o.UserVerification == nil {
+	if o == nil || IsNil(o.UserVerification) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *WellKnownAppAuthenticatorConfigurationSettings) GetUserVerification() s
 // GetUserVerificationOk returns a tuple with the UserVerification field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WellKnownAppAuthenticatorConfigurationSettings) GetUserVerificationOk() (*string, bool) {
-	if o == nil || o.UserVerification == nil {
+	if o == nil || IsNil(o.UserVerification) {
 		return nil, false
 	}
 	return o.UserVerification, true
@@ -73,7 +76,7 @@ func (o *WellKnownAppAuthenticatorConfigurationSettings) GetUserVerificationOk()
 
 // HasUserVerification returns a boolean if a field has been set.
 func (o *WellKnownAppAuthenticatorConfigurationSettings) HasUserVerification() bool {
-	if o != nil && o.UserVerification != nil {
+	if o != nil && !IsNil(o.UserVerification) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *WellKnownAppAuthenticatorConfigurationSettings) SetUserVerification(v s
 }
 
 func (o WellKnownAppAuthenticatorConfigurationSettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o WellKnownAppAuthenticatorConfigurationSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.UserVerification != nil {
+	if !IsNil(o.UserVerification) {
 		toSerialize["userVerification"] = o.UserVerification
 	}
 
@@ -95,27 +106,25 @@ func (o WellKnownAppAuthenticatorConfigurationSettings) MarshalJSON() ([]byte, e
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *WellKnownAppAuthenticatorConfigurationSettings) UnmarshalJSON(bytes []byte) (err error) {
+func (o *WellKnownAppAuthenticatorConfigurationSettings) UnmarshalJSON(data []byte) (err error) {
 	varWellKnownAppAuthenticatorConfigurationSettings := _WellKnownAppAuthenticatorConfigurationSettings{}
 
-	err = json.Unmarshal(bytes, &varWellKnownAppAuthenticatorConfigurationSettings)
-	if err == nil {
-		*o = WellKnownAppAuthenticatorConfigurationSettings(varWellKnownAppAuthenticatorConfigurationSettings)
-	} else {
+	err = json.Unmarshal(data, &varWellKnownAppAuthenticatorConfigurationSettings)
+
+	if err != nil {
 		return err
 	}
 
+	*o = WellKnownAppAuthenticatorConfigurationSettings(varWellKnownAppAuthenticatorConfigurationSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "userVerification")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableWellKnownAppAuthenticatorConfigurationSettings) UnmarshalJSON(s
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

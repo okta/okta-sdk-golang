@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the LinkedObjectLinksSelf type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LinkedObjectLinksSelf{}
+
 // LinkedObjectLinksSelf Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available for the current status of an application using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification. This object is used for dynamic discovery of related resources and lifecycle operations.
 type LinkedObjectLinksSelf struct {
-	Self *LinkedHrefObject `json:"self,omitempty"`
+	Self                 *LinkedHrefObject `json:"self,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewLinkedObjectLinksSelfWithDefaults() *LinkedObjectLinksSelf {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *LinkedObjectLinksSelf) GetSelf() LinkedHrefObject {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret LinkedHrefObject
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *LinkedObjectLinksSelf) GetSelf() LinkedHrefObject {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkedObjectLinksSelf) GetSelfOk() (*LinkedHrefObject, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -72,7 +75,7 @@ func (o *LinkedObjectLinksSelf) GetSelfOk() (*LinkedHrefObject, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *LinkedObjectLinksSelf) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *LinkedObjectLinksSelf) SetSelf(v LinkedHrefObject) {
 }
 
 func (o LinkedObjectLinksSelf) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LinkedObjectLinksSelf) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
 
@@ -94,27 +105,25 @@ func (o LinkedObjectLinksSelf) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LinkedObjectLinksSelf) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LinkedObjectLinksSelf) UnmarshalJSON(data []byte) (err error) {
 	varLinkedObjectLinksSelf := _LinkedObjectLinksSelf{}
 
-	err = json.Unmarshal(bytes, &varLinkedObjectLinksSelf)
-	if err == nil {
-		*o = LinkedObjectLinksSelf(varLinkedObjectLinksSelf)
-	} else {
+	err = json.Unmarshal(data, &varLinkedObjectLinksSelf)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LinkedObjectLinksSelf(varLinkedObjectLinksSelf)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableLinkedObjectLinksSelf) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

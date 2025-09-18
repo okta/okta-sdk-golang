@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the EntityRiskPolicyRuleAllOfActionsEntityRisk type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EntityRiskPolicyRuleAllOfActionsEntityRisk{}
+
 // EntityRiskPolicyRuleAllOfActionsEntityRisk The object that contains the `actions` array
 type EntityRiskPolicyRuleAllOfActionsEntityRisk struct {
 	// The `entityRisk` object's `actions` array can be empty or contain one of two `action` object value pairs. This object determines the specific response to a risk event.
-	Actions []EntityRiskPolicyRuleActionsObject `json:"actions,omitempty"`
+	Actions              []EntityRiskPolicyRuleActionsObject `json:"actions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewEntityRiskPolicyRuleAllOfActionsEntityRiskWithDefaults() *EntityRiskPoli
 
 // GetActions returns the Actions field value if set, zero value otherwise.
 func (o *EntityRiskPolicyRuleAllOfActionsEntityRisk) GetActions() []EntityRiskPolicyRuleActionsObject {
-	if o == nil || o.Actions == nil {
+	if o == nil || IsNil(o.Actions) {
 		var ret []EntityRiskPolicyRuleActionsObject
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *EntityRiskPolicyRuleAllOfActionsEntityRisk) GetActions() []EntityRiskPo
 // GetActionsOk returns a tuple with the Actions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntityRiskPolicyRuleAllOfActionsEntityRisk) GetActionsOk() ([]EntityRiskPolicyRuleActionsObject, bool) {
-	if o == nil || o.Actions == nil {
+	if o == nil || IsNil(o.Actions) {
 		return nil, false
 	}
 	return o.Actions, true
@@ -73,7 +76,7 @@ func (o *EntityRiskPolicyRuleAllOfActionsEntityRisk) GetActionsOk() ([]EntityRis
 
 // HasActions returns a boolean if a field has been set.
 func (o *EntityRiskPolicyRuleAllOfActionsEntityRisk) HasActions() bool {
-	if o != nil && o.Actions != nil {
+	if o != nil && !IsNil(o.Actions) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *EntityRiskPolicyRuleAllOfActionsEntityRisk) SetActions(v []EntityRiskPo
 }
 
 func (o EntityRiskPolicyRuleAllOfActionsEntityRisk) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EntityRiskPolicyRuleAllOfActionsEntityRisk) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Actions != nil {
+	if !IsNil(o.Actions) {
 		toSerialize["actions"] = o.Actions
 	}
 
@@ -95,27 +106,25 @@ func (o EntityRiskPolicyRuleAllOfActionsEntityRisk) MarshalJSON() ([]byte, error
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EntityRiskPolicyRuleAllOfActionsEntityRisk) UnmarshalJSON(bytes []byte) (err error) {
+func (o *EntityRiskPolicyRuleAllOfActionsEntityRisk) UnmarshalJSON(data []byte) (err error) {
 	varEntityRiskPolicyRuleAllOfActionsEntityRisk := _EntityRiskPolicyRuleAllOfActionsEntityRisk{}
 
-	err = json.Unmarshal(bytes, &varEntityRiskPolicyRuleAllOfActionsEntityRisk)
-	if err == nil {
-		*o = EntityRiskPolicyRuleAllOfActionsEntityRisk(varEntityRiskPolicyRuleAllOfActionsEntityRisk)
-	} else {
+	err = json.Unmarshal(data, &varEntityRiskPolicyRuleAllOfActionsEntityRisk)
+
+	if err != nil {
 		return err
 	}
 
+	*o = EntityRiskPolicyRuleAllOfActionsEntityRisk(varEntityRiskPolicyRuleAllOfActionsEntityRisk)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "actions")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableEntityRiskPolicyRuleAllOfActionsEntityRisk) UnmarshalJSON(src [
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

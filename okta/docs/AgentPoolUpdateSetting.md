@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AgentType** | Pointer to **string** | Agent types that are being monitored | [optional] 
-**ContinueOnError** | Pointer to **bool** |  | [optional] 
-**LatestVersion** | Pointer to **string** |  | [optional] 
-**MinimalSupportedVersion** | Pointer to **string** |  | [optional] 
-**PoolId** | Pointer to **string** |  | [optional] [readonly] 
-**PoolName** | Pointer to **string** |  | [optional] 
+**ContinueOnError** | Pointer to **bool** | Continues the update even if some agents fail to update | [optional] 
+**LatestVersion** | Pointer to **string** | Latest version of the agent | [optional] 
+**MinimalSupportedVersion** | Pointer to **string** | Minimal version of the agent | [optional] 
+**PoolId** | Pointer to **string** | ID of the agent pool that the settings apply to | [optional] [readonly] 
+**PoolName** | Pointer to **string** | Pool name | [optional] 
 **ReleaseChannel** | Pointer to **string** | Release channel for auto-update | [optional] 
 
 ## Methods

@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Self** | Pointer to [**HrefObjectSelfLink**](HrefObjectSelfLink.md) |  | [optional] 
-**User** | Pointer to [**LinksUserUser**](LinksUserUser.md) |  | [optional] 
-**Verify** | Pointer to [**LinksVerifyVerify**](LinksVerifyVerify.md) |  | [optional] 
+**User** | Pointer to [**HrefObject**](HrefObject.md) | Returns information on the specified user | [optional] 
+**Verify** | Pointer to [**HrefObject**](HrefObject.md) | Verifies the factor resource. See [Verify a factor](/openapi/okta-management/management/tag/UserFactor/#tag/UserFactor/operation/verifyFactor). | [optional] 
 
 ## Methods
 
@@ -54,20 +54,20 @@ HasSelf returns a boolean if a field has been set.
 
 ### GetUser
 
-`func (o *UserFactorActivateResponseLinks) GetUser() LinksUserUser`
+`func (o *UserFactorActivateResponseLinks) GetUser() HrefObject`
 
 GetUser returns the User field if non-nil, zero value otherwise.
 
 ### GetUserOk
 
-`func (o *UserFactorActivateResponseLinks) GetUserOk() (*LinksUserUser, bool)`
+`func (o *UserFactorActivateResponseLinks) GetUserOk() (*HrefObject, bool)`
 
 GetUserOk returns a tuple with the User field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUser
 
-`func (o *UserFactorActivateResponseLinks) SetUser(v LinksUserUser)`
+`func (o *UserFactorActivateResponseLinks) SetUser(v HrefObject)`
 
 SetUser sets User field to given value.
 
@@ -79,20 +79,20 @@ HasUser returns a boolean if a field has been set.
 
 ### GetVerify
 
-`func (o *UserFactorActivateResponseLinks) GetVerify() LinksVerifyVerify`
+`func (o *UserFactorActivateResponseLinks) GetVerify() HrefObject`
 
 GetVerify returns the Verify field if non-nil, zero value otherwise.
 
 ### GetVerifyOk
 
-`func (o *UserFactorActivateResponseLinks) GetVerifyOk() (*LinksVerifyVerify, bool)`
+`func (o *UserFactorActivateResponseLinks) GetVerifyOk() (*HrefObject, bool)`
 
 GetVerifyOk returns a tuple with the Verify field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVerify
 
-`func (o *UserFactorActivateResponseLinks) SetVerify(v LinksVerifyVerify)`
+`func (o *UserFactorActivateResponseLinks) SetVerify(v HrefObject)`
 
 SetVerify sets Verify field to given value.
 

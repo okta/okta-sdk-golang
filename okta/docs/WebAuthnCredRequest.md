@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AuthenticatorEnrollmentId** | Pointer to **string** | ID for a WebAuthn Preregistration Factor in Okta | [optional] 
+**AuthenticatorEnrollmentId** | Pointer to **string** | ID for a WebAuthn preregistration factor in Okta | [optional] 
 **CredRequestJwe** | Pointer to **string** | Encrypted JWE of credential request for the fulfillment provider | [optional] 
 **KeyId** | Pointer to **string** | ID for the Okta response key-pair used to encrypt and decrypt credential requests and responses | [optional] 
 

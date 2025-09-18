@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the SamlAcsInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SamlAcsInner{}
+
 // SamlAcsInner struct for SamlAcsInner
 type SamlAcsInner struct {
 	// Index of ACS URL. You can't reuse the same index in the ACS URL array.
 	Index *float32 `json:"index,omitempty"`
 	// Assertion Consumer Service (ACS) URL
-	Url *string `json:"url,omitempty"`
+	Url                  *string `json:"url,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewSamlAcsInnerWithDefaults() *SamlAcsInner {
 
 // GetIndex returns the Index field value if set, zero value otherwise.
 func (o *SamlAcsInner) GetIndex() float32 {
-	if o == nil || o.Index == nil {
+	if o == nil || IsNil(o.Index) {
 		var ret float32
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *SamlAcsInner) GetIndex() float32 {
 // GetIndexOk returns a tuple with the Index field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlAcsInner) GetIndexOk() (*float32, bool) {
-	if o == nil || o.Index == nil {
+	if o == nil || IsNil(o.Index) {
 		return nil, false
 	}
 	return o.Index, true
@@ -75,7 +78,7 @@ func (o *SamlAcsInner) GetIndexOk() (*float32, bool) {
 
 // HasIndex returns a boolean if a field has been set.
 func (o *SamlAcsInner) HasIndex() bool {
-	if o != nil && o.Index != nil {
+	if o != nil && !IsNil(o.Index) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *SamlAcsInner) SetIndex(v float32) {
 
 // GetUrl returns the Url field value if set, zero value otherwise.
 func (o *SamlAcsInner) GetUrl() string {
-	if o == nil || o.Url == nil {
+	if o == nil || IsNil(o.Url) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *SamlAcsInner) GetUrl() string {
 // GetUrlOk returns a tuple with the Url field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlAcsInner) GetUrlOk() (*string, bool) {
-	if o == nil || o.Url == nil {
+	if o == nil || IsNil(o.Url) {
 		return nil, false
 	}
 	return o.Url, true
@@ -107,7 +110,7 @@ func (o *SamlAcsInner) GetUrlOk() (*string, bool) {
 
 // HasUrl returns a boolean if a field has been set.
 func (o *SamlAcsInner) HasUrl() bool {
-	if o != nil && o.Url != nil {
+	if o != nil && !IsNil(o.Url) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *SamlAcsInner) SetUrl(v string) {
 }
 
 func (o SamlAcsInner) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SamlAcsInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Index != nil {
+	if !IsNil(o.Index) {
 		toSerialize["index"] = o.Index
 	}
-	if o.Url != nil {
+	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
 	}
 
@@ -132,28 +143,26 @@ func (o SamlAcsInner) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SamlAcsInner) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SamlAcsInner) UnmarshalJSON(data []byte) (err error) {
 	varSamlAcsInner := _SamlAcsInner{}
 
-	err = json.Unmarshal(bytes, &varSamlAcsInner)
-	if err == nil {
-		*o = SamlAcsInner(varSamlAcsInner)
-	} else {
+	err = json.Unmarshal(data, &varSamlAcsInner)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SamlAcsInner(varSamlAcsInner)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "index")
 		delete(additionalProperties, "url")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableSamlAcsInner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

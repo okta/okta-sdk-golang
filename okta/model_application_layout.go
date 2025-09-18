@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,14 +27,17 @@ import (
 	"encoding/json"
 )
 
+// checks if the ApplicationLayout type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApplicationLayout{}
+
 // ApplicationLayout struct for ApplicationLayout
 type ApplicationLayout struct {
-	Elements []map[string]interface{} `json:"elements,omitempty"`
-	Label *string `json:"label,omitempty"`
-	Options map[string]interface{} `json:"options,omitempty"`
-	Rule *ApplicationLayoutRule `json:"rule,omitempty"`
-	Scope *string `json:"scope,omitempty"`
-	Type *string `json:"type,omitempty"`
+	Elements             []map[string]interface{} `json:"elements,omitempty"`
+	Label                *string                  `json:"label,omitempty"`
+	Options              map[string]interface{}   `json:"options,omitempty"`
+	Rule                 *ApplicationLayoutRule   `json:"rule,omitempty"`
+	Scope                *string                  `json:"scope,omitempty"`
+	Type                 *string                  `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewApplicationLayoutWithDefaults() *ApplicationLayout {
 
 // GetElements returns the Elements field value if set, zero value otherwise.
 func (o *ApplicationLayout) GetElements() []map[string]interface{} {
-	if o == nil || o.Elements == nil {
+	if o == nil || IsNil(o.Elements) {
 		var ret []map[string]interface{}
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *ApplicationLayout) GetElements() []map[string]interface{} {
 // GetElementsOk returns a tuple with the Elements field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationLayout) GetElementsOk() ([]map[string]interface{}, bool) {
-	if o == nil || o.Elements == nil {
+	if o == nil || IsNil(o.Elements) {
 		return nil, false
 	}
 	return o.Elements, true
@@ -77,7 +80,7 @@ func (o *ApplicationLayout) GetElementsOk() ([]map[string]interface{}, bool) {
 
 // HasElements returns a boolean if a field has been set.
 func (o *ApplicationLayout) HasElements() bool {
-	if o != nil && o.Elements != nil {
+	if o != nil && !IsNil(o.Elements) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *ApplicationLayout) SetElements(v []map[string]interface{}) {
 
 // GetLabel returns the Label field value if set, zero value otherwise.
 func (o *ApplicationLayout) GetLabel() string {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		var ret string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *ApplicationLayout) GetLabel() string {
 // GetLabelOk returns a tuple with the Label field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationLayout) GetLabelOk() (*string, bool) {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		return nil, false
 	}
 	return o.Label, true
@@ -109,7 +112,7 @@ func (o *ApplicationLayout) GetLabelOk() (*string, bool) {
 
 // HasLabel returns a boolean if a field has been set.
 func (o *ApplicationLayout) HasLabel() bool {
-	if o != nil && o.Label != nil {
+	if o != nil && !IsNil(o.Label) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *ApplicationLayout) SetLabel(v string) {
 
 // GetOptions returns the Options field value if set, zero value otherwise.
 func (o *ApplicationLayout) GetOptions() map[string]interface{} {
-	if o == nil || o.Options == nil {
+	if o == nil || IsNil(o.Options) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -133,15 +136,15 @@ func (o *ApplicationLayout) GetOptions() map[string]interface{} {
 // GetOptionsOk returns a tuple with the Options field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationLayout) GetOptionsOk() (map[string]interface{}, bool) {
-	if o == nil || o.Options == nil {
-		return nil, false
+	if o == nil || IsNil(o.Options) {
+		return map[string]interface{}{}, false
 	}
 	return o.Options, true
 }
 
 // HasOptions returns a boolean if a field has been set.
 func (o *ApplicationLayout) HasOptions() bool {
-	if o != nil && o.Options != nil {
+	if o != nil && !IsNil(o.Options) {
 		return true
 	}
 
@@ -155,7 +158,7 @@ func (o *ApplicationLayout) SetOptions(v map[string]interface{}) {
 
 // GetRule returns the Rule field value if set, zero value otherwise.
 func (o *ApplicationLayout) GetRule() ApplicationLayoutRule {
-	if o == nil || o.Rule == nil {
+	if o == nil || IsNil(o.Rule) {
 		var ret ApplicationLayoutRule
 		return ret
 	}
@@ -165,7 +168,7 @@ func (o *ApplicationLayout) GetRule() ApplicationLayoutRule {
 // GetRuleOk returns a tuple with the Rule field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationLayout) GetRuleOk() (*ApplicationLayoutRule, bool) {
-	if o == nil || o.Rule == nil {
+	if o == nil || IsNil(o.Rule) {
 		return nil, false
 	}
 	return o.Rule, true
@@ -173,7 +176,7 @@ func (o *ApplicationLayout) GetRuleOk() (*ApplicationLayoutRule, bool) {
 
 // HasRule returns a boolean if a field has been set.
 func (o *ApplicationLayout) HasRule() bool {
-	if o != nil && o.Rule != nil {
+	if o != nil && !IsNil(o.Rule) {
 		return true
 	}
 
@@ -187,7 +190,7 @@ func (o *ApplicationLayout) SetRule(v ApplicationLayoutRule) {
 
 // GetScope returns the Scope field value if set, zero value otherwise.
 func (o *ApplicationLayout) GetScope() string {
-	if o == nil || o.Scope == nil {
+	if o == nil || IsNil(o.Scope) {
 		var ret string
 		return ret
 	}
@@ -197,7 +200,7 @@ func (o *ApplicationLayout) GetScope() string {
 // GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationLayout) GetScopeOk() (*string, bool) {
-	if o == nil || o.Scope == nil {
+	if o == nil || IsNil(o.Scope) {
 		return nil, false
 	}
 	return o.Scope, true
@@ -205,7 +208,7 @@ func (o *ApplicationLayout) GetScopeOk() (*string, bool) {
 
 // HasScope returns a boolean if a field has been set.
 func (o *ApplicationLayout) HasScope() bool {
-	if o != nil && o.Scope != nil {
+	if o != nil && !IsNil(o.Scope) {
 		return true
 	}
 
@@ -219,7 +222,7 @@ func (o *ApplicationLayout) SetScope(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *ApplicationLayout) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -229,7 +232,7 @@ func (o *ApplicationLayout) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationLayout) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -237,7 +240,7 @@ func (o *ApplicationLayout) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *ApplicationLayout) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -250,23 +253,31 @@ func (o *ApplicationLayout) SetType(v string) {
 }
 
 func (o ApplicationLayout) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApplicationLayout) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Elements != nil {
+	if !IsNil(o.Elements) {
 		toSerialize["elements"] = o.Elements
 	}
-	if o.Label != nil {
+	if !IsNil(o.Label) {
 		toSerialize["label"] = o.Label
 	}
-	if o.Options != nil {
+	if !IsNil(o.Options) {
 		toSerialize["options"] = o.Options
 	}
-	if o.Rule != nil {
+	if !IsNil(o.Rule) {
 		toSerialize["rule"] = o.Rule
 	}
-	if o.Scope != nil {
+	if !IsNil(o.Scope) {
 		toSerialize["scope"] = o.Scope
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -274,23 +285,23 @@ func (o ApplicationLayout) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ApplicationLayout) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ApplicationLayout) UnmarshalJSON(data []byte) (err error) {
 	varApplicationLayout := _ApplicationLayout{}
 
-	err = json.Unmarshal(bytes, &varApplicationLayout)
-	if err == nil {
-		*o = ApplicationLayout(varApplicationLayout)
-	} else {
+	err = json.Unmarshal(data, &varApplicationLayout)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ApplicationLayout(varApplicationLayout)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "elements")
 		delete(additionalProperties, "label")
 		delete(additionalProperties, "options")
@@ -298,8 +309,6 @@ func (o *ApplicationLayout) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "scope")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -340,4 +349,3 @@ func (v *NullableApplicationLayout) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

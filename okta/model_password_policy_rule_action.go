@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
-// PasswordPolicyRuleAction struct for PasswordPolicyRuleAction
+// checks if the PasswordPolicyRuleAction type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordPolicyRuleAction{}
+
+// PasswordPolicyRuleAction Indicates if a password can be changed
 type PasswordPolicyRuleAction struct {
-	Access *string `json:"access,omitempty"`
+	Access               *string `json:"access,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewPasswordPolicyRuleActionWithDefaults() *PasswordPolicyRuleAction {
 
 // GetAccess returns the Access field value if set, zero value otherwise.
 func (o *PasswordPolicyRuleAction) GetAccess() string {
-	if o == nil || o.Access == nil {
+	if o == nil || IsNil(o.Access) {
 		var ret string
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *PasswordPolicyRuleAction) GetAccess() string {
 // GetAccessOk returns a tuple with the Access field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyRuleAction) GetAccessOk() (*string, bool) {
-	if o == nil || o.Access == nil {
+	if o == nil || IsNil(o.Access) {
 		return nil, false
 	}
 	return o.Access, true
@@ -72,7 +75,7 @@ func (o *PasswordPolicyRuleAction) GetAccessOk() (*string, bool) {
 
 // HasAccess returns a boolean if a field has been set.
 func (o *PasswordPolicyRuleAction) HasAccess() bool {
-	if o != nil && o.Access != nil {
+	if o != nil && !IsNil(o.Access) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *PasswordPolicyRuleAction) SetAccess(v string) {
 }
 
 func (o PasswordPolicyRuleAction) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordPolicyRuleAction) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Access != nil {
+	if !IsNil(o.Access) {
 		toSerialize["access"] = o.Access
 	}
 
@@ -94,27 +105,25 @@ func (o PasswordPolicyRuleAction) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordPolicyRuleAction) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordPolicyRuleAction) UnmarshalJSON(data []byte) (err error) {
 	varPasswordPolicyRuleAction := _PasswordPolicyRuleAction{}
 
-	err = json.Unmarshal(bytes, &varPasswordPolicyRuleAction)
-	if err == nil {
-		*o = PasswordPolicyRuleAction(varPasswordPolicyRuleAction)
-	} else {
+	err = json.Unmarshal(data, &varPasswordPolicyRuleAction)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PasswordPolicyRuleAction(varPasswordPolicyRuleAction)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "access")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullablePasswordPolicyRuleAction) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -26,25 +26,24 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type AgentPoolsAPI interface {
 
 	/*
-	ActivateAgentPoolsUpdate Activate an Agent Pool update
+		ActivateAgentPoolsUpdate Activate an agent pool update
 
-	Activates scheduled Agent pool update
+		Activates a scheduled agent pool update
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param poolId Id of the agent pool for which the settings will apply
-	@param updateId Id of the update
-	@return ApiActivateAgentPoolsUpdateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param poolId ID of the agent pool for which the settings apply to
+		@param updateId ID of the update
+		@return ApiActivateAgentPoolsUpdateRequest
 	*/
 	ActivateAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiActivateAgentPoolsUpdateRequest
 
@@ -53,13 +52,13 @@ type AgentPoolsAPI interface {
 	ActivateAgentPoolsUpdateExecute(r ApiActivateAgentPoolsUpdateRequest) (*AgentPoolUpdate, *APIResponse, error)
 
 	/*
-	CreateAgentPoolsUpdate Create an Agent Pool update
+		CreateAgentPoolsUpdate Create an agent pool update
 
-	Creates an Agent pool update \n For user flow 2 manual update, starts the update immediately. \n For user flow 3, schedules the update based on the configured update window and delay.
+		Creates an agent pool update
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param poolId Id of the agent pool for which the settings will apply
-	@return ApiCreateAgentPoolsUpdateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param poolId ID of the agent pool for which the settings apply to
+		@return ApiCreateAgentPoolsUpdateRequest
 	*/
 	CreateAgentPoolsUpdate(ctx context.Context, poolId string) ApiCreateAgentPoolsUpdateRequest
 
@@ -68,14 +67,14 @@ type AgentPoolsAPI interface {
 	CreateAgentPoolsUpdateExecute(r ApiCreateAgentPoolsUpdateRequest) (*AgentPoolUpdate, *APIResponse, error)
 
 	/*
-	DeactivateAgentPoolsUpdate Deactivate an Agent Pool update
+		DeactivateAgentPoolsUpdate Deactivate an agent pool update
 
-	Deactivates scheduled Agent pool update
+		Deactivates scheduled agent pool update
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param poolId Id of the agent pool for which the settings will apply
-	@param updateId Id of the update
-	@return ApiDeactivateAgentPoolsUpdateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param poolId ID of the agent pool for which the settings apply to
+		@param updateId ID of the update
+		@return ApiDeactivateAgentPoolsUpdateRequest
 	*/
 	DeactivateAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiDeactivateAgentPoolsUpdateRequest
 
@@ -84,14 +83,14 @@ type AgentPoolsAPI interface {
 	DeactivateAgentPoolsUpdateExecute(r ApiDeactivateAgentPoolsUpdateRequest) (*AgentPoolUpdate, *APIResponse, error)
 
 	/*
-	DeleteAgentPoolsUpdate Delete an Agent Pool update
+		DeleteAgentPoolsUpdate Delete an agent pool update
 
-	Deletes Agent pool update
+		Deletes agent pool update
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param poolId Id of the agent pool for which the settings will apply
-	@param updateId Id of the update
-	@return ApiDeleteAgentPoolsUpdateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param poolId ID of the agent pool for which the settings apply to
+		@param updateId ID of the update
+		@return ApiDeleteAgentPoolsUpdateRequest
 	*/
 	DeleteAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiDeleteAgentPoolsUpdateRequest
 
@@ -99,14 +98,14 @@ type AgentPoolsAPI interface {
 	DeleteAgentPoolsUpdateExecute(r ApiDeleteAgentPoolsUpdateRequest) (*APIResponse, error)
 
 	/*
-	GetAgentPoolsUpdateInstance Retrieve an Agent Pool update by id
+		GetAgentPoolsUpdateInstance Retrieve an agent pool update by ID
 
-	Retrieves Agent pool update from updateId
+		Retrieves an agent pool update by its `updateId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param poolId Id of the agent pool for which the settings will apply
-	@param updateId Id of the update
-	@return ApiGetAgentPoolsUpdateInstanceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param poolId ID of the agent pool for which the settings apply to
+		@param updateId ID of the update
+		@return ApiGetAgentPoolsUpdateInstanceRequest
 	*/
 	GetAgentPoolsUpdateInstance(ctx context.Context, poolId string, updateId string) ApiGetAgentPoolsUpdateInstanceRequest
 
@@ -115,13 +114,13 @@ type AgentPoolsAPI interface {
 	GetAgentPoolsUpdateInstanceExecute(r ApiGetAgentPoolsUpdateInstanceRequest) (*AgentPoolUpdate, *APIResponse, error)
 
 	/*
-	GetAgentPoolsUpdateSettings Retrieve an Agent Pool update's settings
+		GetAgentPoolsUpdateSettings Retrieve an agent pool update's settings
 
-	Retrieves the current state of the agent pool update instance settings
+		Retrieves the current state of the agent pool update instance settings
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param poolId Id of the agent pool for which the settings will apply
-	@return ApiGetAgentPoolsUpdateSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param poolId ID of the agent pool for which the settings apply to
+		@return ApiGetAgentPoolsUpdateSettingsRequest
 	*/
 	GetAgentPoolsUpdateSettings(ctx context.Context, poolId string) ApiGetAgentPoolsUpdateSettingsRequest
 
@@ -130,12 +129,12 @@ type AgentPoolsAPI interface {
 	GetAgentPoolsUpdateSettingsExecute(r ApiGetAgentPoolsUpdateSettingsRequest) (*AgentPoolUpdateSetting, *APIResponse, error)
 
 	/*
-	ListAgentPools List all Agent Pools
+		ListAgentPools List all agent pools
 
-	Lists all agent pools with pagination support
+		Lists all agent pools with pagination support
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListAgentPoolsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListAgentPoolsRequest
 	*/
 	ListAgentPools(ctx context.Context) ApiListAgentPoolsRequest
 
@@ -144,13 +143,13 @@ type AgentPoolsAPI interface {
 	ListAgentPoolsExecute(r ApiListAgentPoolsRequest) ([]AgentPool, *APIResponse, error)
 
 	/*
-	ListAgentPoolsUpdates List all Agent Pool updates
+		ListAgentPoolsUpdates List all agent pool updates
 
-	Lists all agent pool updates
+		Lists all agent pool updates
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param poolId Id of the agent pool for which the settings will apply
-	@return ApiListAgentPoolsUpdatesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param poolId ID of the agent pool for which the settings apply to
+		@return ApiListAgentPoolsUpdatesRequest
 	*/
 	ListAgentPoolsUpdates(ctx context.Context, poolId string) ApiListAgentPoolsUpdatesRequest
 
@@ -159,14 +158,14 @@ type AgentPoolsAPI interface {
 	ListAgentPoolsUpdatesExecute(r ApiListAgentPoolsUpdatesRequest) ([]AgentPoolUpdate, *APIResponse, error)
 
 	/*
-	PauseAgentPoolsUpdate Pause an Agent Pool update
+		PauseAgentPoolsUpdate Pause an agent pool update
 
-	Pauses running or queued Agent pool update
+		Pauses a running or queued agent pool update
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param poolId Id of the agent pool for which the settings will apply
-	@param updateId Id of the update
-	@return ApiPauseAgentPoolsUpdateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param poolId ID of the agent pool for which the settings apply to
+		@param updateId ID of the update
+		@return ApiPauseAgentPoolsUpdateRequest
 	*/
 	PauseAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiPauseAgentPoolsUpdateRequest
 
@@ -175,14 +174,14 @@ type AgentPoolsAPI interface {
 	PauseAgentPoolsUpdateExecute(r ApiPauseAgentPoolsUpdateRequest) (*AgentPoolUpdate, *APIResponse, error)
 
 	/*
-	ResumeAgentPoolsUpdate Resume an Agent Pool update
+		ResumeAgentPoolsUpdate Resume an agent pool update
 
-	Resumes running or queued Agent pool update
+		Resumes a running or queued agent pool update
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param poolId Id of the agent pool for which the settings will apply
-	@param updateId Id of the update
-	@return ApiResumeAgentPoolsUpdateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param poolId ID of the agent pool for which the settings apply to
+		@param updateId ID of the update
+		@return ApiResumeAgentPoolsUpdateRequest
 	*/
 	ResumeAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiResumeAgentPoolsUpdateRequest
 
@@ -191,14 +190,14 @@ type AgentPoolsAPI interface {
 	ResumeAgentPoolsUpdateExecute(r ApiResumeAgentPoolsUpdateRequest) (*AgentPoolUpdate, *APIResponse, error)
 
 	/*
-	RetryAgentPoolsUpdate Retry an Agent Pool update
+		RetryAgentPoolsUpdate Retry an agent pool update
 
-	Retries Agent pool update
+		Retries an agent pool update if the update is unsuccessful or communication with Okta was interrupted during an agent auto-update
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param poolId Id of the agent pool for which the settings will apply
-	@param updateId Id of the update
-	@return ApiRetryAgentPoolsUpdateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param poolId ID of the agent pool for which the settings apply to
+		@param updateId ID of the update
+		@return ApiRetryAgentPoolsUpdateRequest
 	*/
 	RetryAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiRetryAgentPoolsUpdateRequest
 
@@ -207,14 +206,14 @@ type AgentPoolsAPI interface {
 	RetryAgentPoolsUpdateExecute(r ApiRetryAgentPoolsUpdateRequest) (*AgentPoolUpdate, *APIResponse, error)
 
 	/*
-	StopAgentPoolsUpdate Stop an Agent Pool update
+		StopAgentPoolsUpdate Stop an agent pool update
 
-	Stops Agent pool update
+		Stops an agent pool update
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param poolId Id of the agent pool for which the settings will apply
-	@param updateId Id of the update
-	@return ApiStopAgentPoolsUpdateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param poolId ID of the agent pool for which the settings apply to
+		@param updateId ID of the update
+		@return ApiStopAgentPoolsUpdateRequest
 	*/
 	StopAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiStopAgentPoolsUpdateRequest
 
@@ -223,14 +222,14 @@ type AgentPoolsAPI interface {
 	StopAgentPoolsUpdateExecute(r ApiStopAgentPoolsUpdateRequest) (*AgentPoolUpdate, *APIResponse, error)
 
 	/*
-	UpdateAgentPoolsUpdate Update an Agent Pool update by id
+		UpdateAgentPoolsUpdate Update an agent pool update by ID
 
-	Updates Agent pool update and return latest agent pool update
+		Updates an agent pool update instance and returns the latest agent pool update
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param poolId Id of the agent pool for which the settings will apply
-	@param updateId Id of the update
-	@return ApiUpdateAgentPoolsUpdateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param poolId ID of the agent pool for which the settings apply to
+		@param updateId ID of the update
+		@return ApiUpdateAgentPoolsUpdateRequest
 	*/
 	UpdateAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiUpdateAgentPoolsUpdateRequest
 
@@ -239,13 +238,13 @@ type AgentPoolsAPI interface {
 	UpdateAgentPoolsUpdateExecute(r ApiUpdateAgentPoolsUpdateRequest) (*AgentPoolUpdate, *APIResponse, error)
 
 	/*
-	UpdateAgentPoolsUpdateSettings Update an Agent Pool update settings
+		UpdateAgentPoolsUpdateSettings Update an agent pool update settings
 
-	Updates an agent pool update settings
+		Updates an agent pool update instance settings
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param poolId Id of the agent pool for which the settings will apply
-	@return ApiUpdateAgentPoolsUpdateSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param poolId ID of the agent pool for which the settings apply to
+		@return ApiUpdateAgentPoolsUpdateSettingsRequest
 	*/
 	UpdateAgentPoolsUpdateSettings(ctx context.Context, poolId string) ApiUpdateAgentPoolsUpdateSettingsRequest
 
@@ -258,10 +257,10 @@ type AgentPoolsAPI interface {
 type AgentPoolsAPIService service
 
 type ApiActivateAgentPoolsUpdateRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AgentPoolsAPI
-	poolId string
-	updateId string
+	poolId     string
+	updateId   string
 	retryCount int32
 }
 
@@ -270,27 +269,28 @@ func (r ApiActivateAgentPoolsUpdateRequest) Execute() (*AgentPoolUpdate, *APIRes
 }
 
 /*
-ActivateAgentPoolsUpdate Activate an Agent Pool update
+ActivateAgentPoolsUpdate Activate an agent pool update
 
-Activates scheduled Agent pool update
+Activates a scheduled agent pool update
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param poolId Id of the agent pool for which the settings will apply
- @param updateId Id of the update
- @return ApiActivateAgentPoolsUpdateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param poolId ID of the agent pool for which the settings apply to
+	@param updateId ID of the update
+	@return ApiActivateAgentPoolsUpdateRequest
 */
 func (a *AgentPoolsAPIService) ActivateAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiActivateAgentPoolsUpdateRequest {
 	return ApiActivateAgentPoolsUpdateRequest{
 		ApiService: a,
-		ctx: ctx,
-		poolId: poolId,
-		updateId: updateId,
+		ctx:        ctx,
+		poolId:     poolId,
+		updateId:   updateId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return AgentPoolUpdate
+//
+//	@return AgentPoolUpdate
 func (a *AgentPoolsAPIService) ActivateAgentPoolsUpdateExecute(r ApiActivateAgentPoolsUpdateRequest) (*AgentPoolUpdate, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -299,7 +299,7 @@ func (a *AgentPoolsAPIService) ActivateAgentPoolsUpdateExecute(r ApiActivateAgen
 		localVarReturnValue  *AgentPoolUpdate
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -361,9 +361,9 @@ func (a *AgentPoolsAPIService) ActivateAgentPoolsUpdateExecute(r ApiActivateAgen
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -421,17 +421,17 @@ func (a *AgentPoolsAPIService) ActivateAgentPoolsUpdateExecute(r ApiActivateAgen
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiCreateAgentPoolsUpdateRequest struct {
-	ctx context.Context
-	ApiService AgentPoolsAPI
-	poolId string
+	ctx             context.Context
+	ApiService      AgentPoolsAPI
+	poolId          string
 	agentPoolUpdate *AgentPoolUpdate
-	retryCount int32
+	retryCount      int32
 }
 
 func (r ApiCreateAgentPoolsUpdateRequest) AgentPoolUpdate(agentPoolUpdate AgentPoolUpdate) ApiCreateAgentPoolsUpdateRequest {
@@ -444,25 +444,26 @@ func (r ApiCreateAgentPoolsUpdateRequest) Execute() (*AgentPoolUpdate, *APIRespo
 }
 
 /*
-CreateAgentPoolsUpdate Create an Agent Pool update
+CreateAgentPoolsUpdate Create an agent pool update
 
-Creates an Agent pool update \n For user flow 2 manual update, starts the update immediately. \n For user flow 3, schedules the update based on the configured update window and delay.
+Creates an agent pool update
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param poolId Id of the agent pool for which the settings will apply
- @return ApiCreateAgentPoolsUpdateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param poolId ID of the agent pool for which the settings apply to
+	@return ApiCreateAgentPoolsUpdateRequest
 */
 func (a *AgentPoolsAPIService) CreateAgentPoolsUpdate(ctx context.Context, poolId string) ApiCreateAgentPoolsUpdateRequest {
 	return ApiCreateAgentPoolsUpdateRequest{
 		ApiService: a,
-		ctx: ctx,
-		poolId: poolId,
+		ctx:        ctx,
+		poolId:     poolId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return AgentPoolUpdate
+//
+//	@return AgentPoolUpdate
 func (a *AgentPoolsAPIService) CreateAgentPoolsUpdateExecute(r ApiCreateAgentPoolsUpdateRequest) (*AgentPoolUpdate, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -471,7 +472,7 @@ func (a *AgentPoolsAPIService) CreateAgentPoolsUpdateExecute(r ApiCreateAgentPoo
 		localVarReturnValue  *AgentPoolUpdate
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -537,9 +538,9 @@ func (a *AgentPoolsAPIService) CreateAgentPoolsUpdateExecute(r ApiCreateAgentPoo
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -609,16 +610,16 @@ func (a *AgentPoolsAPIService) CreateAgentPoolsUpdateExecute(r ApiCreateAgentPoo
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeactivateAgentPoolsUpdateRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AgentPoolsAPI
-	poolId string
-	updateId string
+	poolId     string
+	updateId   string
 	retryCount int32
 }
 
@@ -627,27 +628,28 @@ func (r ApiDeactivateAgentPoolsUpdateRequest) Execute() (*AgentPoolUpdate, *APIR
 }
 
 /*
-DeactivateAgentPoolsUpdate Deactivate an Agent Pool update
+DeactivateAgentPoolsUpdate Deactivate an agent pool update
 
-Deactivates scheduled Agent pool update
+Deactivates scheduled agent pool update
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param poolId Id of the agent pool for which the settings will apply
- @param updateId Id of the update
- @return ApiDeactivateAgentPoolsUpdateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param poolId ID of the agent pool for which the settings apply to
+	@param updateId ID of the update
+	@return ApiDeactivateAgentPoolsUpdateRequest
 */
 func (a *AgentPoolsAPIService) DeactivateAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiDeactivateAgentPoolsUpdateRequest {
 	return ApiDeactivateAgentPoolsUpdateRequest{
 		ApiService: a,
-		ctx: ctx,
-		poolId: poolId,
-		updateId: updateId,
+		ctx:        ctx,
+		poolId:     poolId,
+		updateId:   updateId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return AgentPoolUpdate
+//
+//	@return AgentPoolUpdate
 func (a *AgentPoolsAPIService) DeactivateAgentPoolsUpdateExecute(r ApiDeactivateAgentPoolsUpdateRequest) (*AgentPoolUpdate, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -656,7 +658,7 @@ func (a *AgentPoolsAPIService) DeactivateAgentPoolsUpdateExecute(r ApiDeactivate
 		localVarReturnValue  *AgentPoolUpdate
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -718,9 +720,9 @@ func (a *AgentPoolsAPIService) DeactivateAgentPoolsUpdateExecute(r ApiDeactivate
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -778,16 +780,16 @@ func (a *AgentPoolsAPIService) DeactivateAgentPoolsUpdateExecute(r ApiDeactivate
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteAgentPoolsUpdateRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AgentPoolsAPI
-	poolId string
-	updateId string
+	poolId     string
+	updateId   string
 	retryCount int32
 }
 
@@ -796,21 +798,21 @@ func (r ApiDeleteAgentPoolsUpdateRequest) Execute() (*APIResponse, error) {
 }
 
 /*
-DeleteAgentPoolsUpdate Delete an Agent Pool update
+DeleteAgentPoolsUpdate Delete an agent pool update
 
-Deletes Agent pool update
+Deletes agent pool update
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param poolId Id of the agent pool for which the settings will apply
- @param updateId Id of the update
- @return ApiDeleteAgentPoolsUpdateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param poolId ID of the agent pool for which the settings apply to
+	@param updateId ID of the update
+	@return ApiDeleteAgentPoolsUpdateRequest
 */
 func (a *AgentPoolsAPIService) DeleteAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiDeleteAgentPoolsUpdateRequest {
 	return ApiDeleteAgentPoolsUpdateRequest{
 		ApiService: a,
-		ctx: ctx,
-		poolId: poolId,
-		updateId: updateId,
+		ctx:        ctx,
+		poolId:     poolId,
+		updateId:   updateId,
 		retryCount: 0,
 	}
 }
@@ -823,7 +825,7 @@ func (a *AgentPoolsAPIService) DeleteAgentPoolsUpdateExecute(r ApiDeleteAgentPoo
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -885,9 +887,9 @@ func (a *AgentPoolsAPIService) DeleteAgentPoolsUpdateExecute(r ApiDeleteAgentPoo
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -941,10 +943,10 @@ func (a *AgentPoolsAPIService) DeleteAgentPoolsUpdateExecute(r ApiDeleteAgentPoo
 }
 
 type ApiGetAgentPoolsUpdateInstanceRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AgentPoolsAPI
-	poolId string
-	updateId string
+	poolId     string
+	updateId   string
 	retryCount int32
 }
 
@@ -953,27 +955,28 @@ func (r ApiGetAgentPoolsUpdateInstanceRequest) Execute() (*AgentPoolUpdate, *API
 }
 
 /*
-GetAgentPoolsUpdateInstance Retrieve an Agent Pool update by id
+GetAgentPoolsUpdateInstance Retrieve an agent pool update by ID
 
-Retrieves Agent pool update from updateId
+Retrieves an agent pool update by its `updateId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param poolId Id of the agent pool for which the settings will apply
- @param updateId Id of the update
- @return ApiGetAgentPoolsUpdateInstanceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param poolId ID of the agent pool for which the settings apply to
+	@param updateId ID of the update
+	@return ApiGetAgentPoolsUpdateInstanceRequest
 */
 func (a *AgentPoolsAPIService) GetAgentPoolsUpdateInstance(ctx context.Context, poolId string, updateId string) ApiGetAgentPoolsUpdateInstanceRequest {
 	return ApiGetAgentPoolsUpdateInstanceRequest{
 		ApiService: a,
-		ctx: ctx,
-		poolId: poolId,
-		updateId: updateId,
+		ctx:        ctx,
+		poolId:     poolId,
+		updateId:   updateId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return AgentPoolUpdate
+//
+//	@return AgentPoolUpdate
 func (a *AgentPoolsAPIService) GetAgentPoolsUpdateInstanceExecute(r ApiGetAgentPoolsUpdateInstanceRequest) (*AgentPoolUpdate, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -982,7 +985,7 @@ func (a *AgentPoolsAPIService) GetAgentPoolsUpdateInstanceExecute(r ApiGetAgentP
 		localVarReturnValue  *AgentPoolUpdate
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1044,9 +1047,9 @@ func (a *AgentPoolsAPIService) GetAgentPoolsUpdateInstanceExecute(r ApiGetAgentP
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1104,15 +1107,15 @@ func (a *AgentPoolsAPIService) GetAgentPoolsUpdateInstanceExecute(r ApiGetAgentP
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetAgentPoolsUpdateSettingsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AgentPoolsAPI
-	poolId string
+	poolId     string
 	retryCount int32
 }
 
@@ -1121,25 +1124,26 @@ func (r ApiGetAgentPoolsUpdateSettingsRequest) Execute() (*AgentPoolUpdateSettin
 }
 
 /*
-GetAgentPoolsUpdateSettings Retrieve an Agent Pool update's settings
+GetAgentPoolsUpdateSettings Retrieve an agent pool update's settings
 
 Retrieves the current state of the agent pool update instance settings
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param poolId Id of the agent pool for which the settings will apply
- @return ApiGetAgentPoolsUpdateSettingsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param poolId ID of the agent pool for which the settings apply to
+	@return ApiGetAgentPoolsUpdateSettingsRequest
 */
 func (a *AgentPoolsAPIService) GetAgentPoolsUpdateSettings(ctx context.Context, poolId string) ApiGetAgentPoolsUpdateSettingsRequest {
 	return ApiGetAgentPoolsUpdateSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
-		poolId: poolId,
+		ctx:        ctx,
+		poolId:     poolId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return AgentPoolUpdateSetting
+//
+//	@return AgentPoolUpdateSetting
 func (a *AgentPoolsAPIService) GetAgentPoolsUpdateSettingsExecute(r ApiGetAgentPoolsUpdateSettingsRequest) (*AgentPoolUpdateSetting, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1148,7 +1152,7 @@ func (a *AgentPoolsAPIService) GetAgentPoolsUpdateSettingsExecute(r ApiGetAgentP
 		localVarReturnValue  *AgentPoolUpdateSetting
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1209,9 +1213,9 @@ func (a *AgentPoolsAPIService) GetAgentPoolsUpdateSettingsExecute(r ApiGetAgentP
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1269,21 +1273,21 @@ func (a *AgentPoolsAPIService) GetAgentPoolsUpdateSettingsExecute(r ApiGetAgentP
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListAgentPoolsRequest struct {
-	ctx context.Context
-	ApiService AgentPoolsAPI
+	ctx              context.Context
+	ApiService       AgentPoolsAPI
 	limitPerPoolType *int32
-	poolType *string
-	after *string
-	retryCount int32
+	poolType         *string
+	after            *string
+	retryCount       int32
 }
 
-// Maximum number of AgentPools being returned
+// Maximum number of agent pools returned
 func (r ApiListAgentPoolsRequest) LimitPerPoolType(limitPerPoolType int32) ApiListAgentPoolsRequest {
 	r.limitPerPoolType = &limitPerPoolType
 	return r
@@ -1295,7 +1299,7 @@ func (r ApiListAgentPoolsRequest) PoolType(poolType string) ApiListAgentPoolsReq
 	return r
 }
 
-// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](/#pagination).
+// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination).
 func (r ApiListAgentPoolsRequest) After(after string) ApiListAgentPoolsRequest {
 	r.after = &after
 	return r
@@ -1306,23 +1310,24 @@ func (r ApiListAgentPoolsRequest) Execute() ([]AgentPool, *APIResponse, error) {
 }
 
 /*
-ListAgentPools List all Agent Pools
+ListAgentPools List all agent pools
 
 Lists all agent pools with pagination support
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListAgentPoolsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListAgentPoolsRequest
 */
 func (a *AgentPoolsAPIService) ListAgentPools(ctx context.Context) ApiListAgentPoolsRequest {
 	return ApiListAgentPoolsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []AgentPool
+//
+//	@return []AgentPool
 func (a *AgentPoolsAPIService) ListAgentPoolsExecute(r ApiListAgentPoolsRequest) ([]AgentPool, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1331,7 +1336,7 @@ func (a *AgentPoolsAPIService) ListAgentPoolsExecute(r ApiListAgentPoolsRequest)
 		localVarReturnValue  []AgentPool
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1400,9 +1405,9 @@ func (a *AgentPoolsAPIService) ListAgentPoolsExecute(r ApiListAgentPoolsRequest)
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1448,20 +1453,20 @@ func (a *AgentPoolsAPIService) ListAgentPoolsExecute(r ApiListAgentPoolsRequest)
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListAgentPoolsUpdatesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AgentPoolsAPI
-	poolId string
-	scheduled *bool
+	poolId     string
+	scheduled  *bool
 	retryCount int32
 }
 
-// Scope the list only to scheduled or ad-hoc updates. If the parameter is not provided we will return the whole list of updates.
+// Return only scheduled or ad-hoc updates. If this parameter isn&#39;t provided, Okta returns the entire list of updates.
 func (r ApiListAgentPoolsUpdatesRequest) Scheduled(scheduled bool) ApiListAgentPoolsUpdatesRequest {
 	r.scheduled = &scheduled
 	return r
@@ -1472,25 +1477,26 @@ func (r ApiListAgentPoolsUpdatesRequest) Execute() ([]AgentPoolUpdate, *APIRespo
 }
 
 /*
-ListAgentPoolsUpdates List all Agent Pool updates
+ListAgentPoolsUpdates List all agent pool updates
 
 Lists all agent pool updates
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param poolId Id of the agent pool for which the settings will apply
- @return ApiListAgentPoolsUpdatesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param poolId ID of the agent pool for which the settings apply to
+	@return ApiListAgentPoolsUpdatesRequest
 */
 func (a *AgentPoolsAPIService) ListAgentPoolsUpdates(ctx context.Context, poolId string) ApiListAgentPoolsUpdatesRequest {
 	return ApiListAgentPoolsUpdatesRequest{
 		ApiService: a,
-		ctx: ctx,
-		poolId: poolId,
+		ctx:        ctx,
+		poolId:     poolId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []AgentPoolUpdate
+//
+//	@return []AgentPoolUpdate
 func (a *AgentPoolsAPIService) ListAgentPoolsUpdatesExecute(r ApiListAgentPoolsUpdatesRequest) ([]AgentPoolUpdate, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1499,7 +1505,7 @@ func (a *AgentPoolsAPIService) ListAgentPoolsUpdatesExecute(r ApiListAgentPoolsU
 		localVarReturnValue  []AgentPoolUpdate
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1563,9 +1569,9 @@ func (a *AgentPoolsAPIService) ListAgentPoolsUpdatesExecute(r ApiListAgentPoolsU
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1623,16 +1629,16 @@ func (a *AgentPoolsAPIService) ListAgentPoolsUpdatesExecute(r ApiListAgentPoolsU
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiPauseAgentPoolsUpdateRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AgentPoolsAPI
-	poolId string
-	updateId string
+	poolId     string
+	updateId   string
 	retryCount int32
 }
 
@@ -1641,27 +1647,28 @@ func (r ApiPauseAgentPoolsUpdateRequest) Execute() (*AgentPoolUpdate, *APIRespon
 }
 
 /*
-PauseAgentPoolsUpdate Pause an Agent Pool update
+PauseAgentPoolsUpdate Pause an agent pool update
 
-Pauses running or queued Agent pool update
+Pauses a running or queued agent pool update
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param poolId Id of the agent pool for which the settings will apply
- @param updateId Id of the update
- @return ApiPauseAgentPoolsUpdateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param poolId ID of the agent pool for which the settings apply to
+	@param updateId ID of the update
+	@return ApiPauseAgentPoolsUpdateRequest
 */
 func (a *AgentPoolsAPIService) PauseAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiPauseAgentPoolsUpdateRequest {
 	return ApiPauseAgentPoolsUpdateRequest{
 		ApiService: a,
-		ctx: ctx,
-		poolId: poolId,
-		updateId: updateId,
+		ctx:        ctx,
+		poolId:     poolId,
+		updateId:   updateId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return AgentPoolUpdate
+//
+//	@return AgentPoolUpdate
 func (a *AgentPoolsAPIService) PauseAgentPoolsUpdateExecute(r ApiPauseAgentPoolsUpdateRequest) (*AgentPoolUpdate, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1670,7 +1677,7 @@ func (a *AgentPoolsAPIService) PauseAgentPoolsUpdateExecute(r ApiPauseAgentPools
 		localVarReturnValue  *AgentPoolUpdate
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1732,9 +1739,9 @@ func (a *AgentPoolsAPIService) PauseAgentPoolsUpdateExecute(r ApiPauseAgentPools
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1792,16 +1799,16 @@ func (a *AgentPoolsAPIService) PauseAgentPoolsUpdateExecute(r ApiPauseAgentPools
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiResumeAgentPoolsUpdateRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AgentPoolsAPI
-	poolId string
-	updateId string
+	poolId     string
+	updateId   string
 	retryCount int32
 }
 
@@ -1810,27 +1817,28 @@ func (r ApiResumeAgentPoolsUpdateRequest) Execute() (*AgentPoolUpdate, *APIRespo
 }
 
 /*
-ResumeAgentPoolsUpdate Resume an Agent Pool update
+ResumeAgentPoolsUpdate Resume an agent pool update
 
-Resumes running or queued Agent pool update
+Resumes a running or queued agent pool update
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param poolId Id of the agent pool for which the settings will apply
- @param updateId Id of the update
- @return ApiResumeAgentPoolsUpdateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param poolId ID of the agent pool for which the settings apply to
+	@param updateId ID of the update
+	@return ApiResumeAgentPoolsUpdateRequest
 */
 func (a *AgentPoolsAPIService) ResumeAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiResumeAgentPoolsUpdateRequest {
 	return ApiResumeAgentPoolsUpdateRequest{
 		ApiService: a,
-		ctx: ctx,
-		poolId: poolId,
-		updateId: updateId,
+		ctx:        ctx,
+		poolId:     poolId,
+		updateId:   updateId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return AgentPoolUpdate
+//
+//	@return AgentPoolUpdate
 func (a *AgentPoolsAPIService) ResumeAgentPoolsUpdateExecute(r ApiResumeAgentPoolsUpdateRequest) (*AgentPoolUpdate, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1839,7 +1847,7 @@ func (a *AgentPoolsAPIService) ResumeAgentPoolsUpdateExecute(r ApiResumeAgentPoo
 		localVarReturnValue  *AgentPoolUpdate
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1901,9 +1909,9 @@ func (a *AgentPoolsAPIService) ResumeAgentPoolsUpdateExecute(r ApiResumeAgentPoo
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1961,16 +1969,16 @@ func (a *AgentPoolsAPIService) ResumeAgentPoolsUpdateExecute(r ApiResumeAgentPoo
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiRetryAgentPoolsUpdateRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AgentPoolsAPI
-	poolId string
-	updateId string
+	poolId     string
+	updateId   string
 	retryCount int32
 }
 
@@ -1979,27 +1987,28 @@ func (r ApiRetryAgentPoolsUpdateRequest) Execute() (*AgentPoolUpdate, *APIRespon
 }
 
 /*
-RetryAgentPoolsUpdate Retry an Agent Pool update
+RetryAgentPoolsUpdate Retry an agent pool update
 
-Retries Agent pool update
+Retries an agent pool update if the update is unsuccessful or communication with Okta was interrupted during an agent auto-update
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param poolId Id of the agent pool for which the settings will apply
- @param updateId Id of the update
- @return ApiRetryAgentPoolsUpdateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param poolId ID of the agent pool for which the settings apply to
+	@param updateId ID of the update
+	@return ApiRetryAgentPoolsUpdateRequest
 */
 func (a *AgentPoolsAPIService) RetryAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiRetryAgentPoolsUpdateRequest {
 	return ApiRetryAgentPoolsUpdateRequest{
 		ApiService: a,
-		ctx: ctx,
-		poolId: poolId,
-		updateId: updateId,
+		ctx:        ctx,
+		poolId:     poolId,
+		updateId:   updateId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return AgentPoolUpdate
+//
+//	@return AgentPoolUpdate
 func (a *AgentPoolsAPIService) RetryAgentPoolsUpdateExecute(r ApiRetryAgentPoolsUpdateRequest) (*AgentPoolUpdate, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -2008,7 +2017,7 @@ func (a *AgentPoolsAPIService) RetryAgentPoolsUpdateExecute(r ApiRetryAgentPools
 		localVarReturnValue  *AgentPoolUpdate
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2070,9 +2079,9 @@ func (a *AgentPoolsAPIService) RetryAgentPoolsUpdateExecute(r ApiRetryAgentPools
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -2130,16 +2139,16 @@ func (a *AgentPoolsAPIService) RetryAgentPoolsUpdateExecute(r ApiRetryAgentPools
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiStopAgentPoolsUpdateRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AgentPoolsAPI
-	poolId string
-	updateId string
+	poolId     string
+	updateId   string
 	retryCount int32
 }
 
@@ -2148,27 +2157,28 @@ func (r ApiStopAgentPoolsUpdateRequest) Execute() (*AgentPoolUpdate, *APIRespons
 }
 
 /*
-StopAgentPoolsUpdate Stop an Agent Pool update
+StopAgentPoolsUpdate Stop an agent pool update
 
-Stops Agent pool update
+Stops an agent pool update
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param poolId Id of the agent pool for which the settings will apply
- @param updateId Id of the update
- @return ApiStopAgentPoolsUpdateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param poolId ID of the agent pool for which the settings apply to
+	@param updateId ID of the update
+	@return ApiStopAgentPoolsUpdateRequest
 */
 func (a *AgentPoolsAPIService) StopAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiStopAgentPoolsUpdateRequest {
 	return ApiStopAgentPoolsUpdateRequest{
 		ApiService: a,
-		ctx: ctx,
-		poolId: poolId,
-		updateId: updateId,
+		ctx:        ctx,
+		poolId:     poolId,
+		updateId:   updateId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return AgentPoolUpdate
+//
+//	@return AgentPoolUpdate
 func (a *AgentPoolsAPIService) StopAgentPoolsUpdateExecute(r ApiStopAgentPoolsUpdateRequest) (*AgentPoolUpdate, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -2177,7 +2187,7 @@ func (a *AgentPoolsAPIService) StopAgentPoolsUpdateExecute(r ApiStopAgentPoolsUp
 		localVarReturnValue  *AgentPoolUpdate
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2239,9 +2249,9 @@ func (a *AgentPoolsAPIService) StopAgentPoolsUpdateExecute(r ApiStopAgentPoolsUp
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -2299,18 +2309,18 @@ func (a *AgentPoolsAPIService) StopAgentPoolsUpdateExecute(r ApiStopAgentPoolsUp
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateAgentPoolsUpdateRequest struct {
-	ctx context.Context
-	ApiService AgentPoolsAPI
-	poolId string
-	updateId string
+	ctx             context.Context
+	ApiService      AgentPoolsAPI
+	poolId          string
+	updateId        string
 	agentPoolUpdate *AgentPoolUpdate
-	retryCount int32
+	retryCount      int32
 }
 
 func (r ApiUpdateAgentPoolsUpdateRequest) AgentPoolUpdate(agentPoolUpdate AgentPoolUpdate) ApiUpdateAgentPoolsUpdateRequest {
@@ -2323,27 +2333,28 @@ func (r ApiUpdateAgentPoolsUpdateRequest) Execute() (*AgentPoolUpdate, *APIRespo
 }
 
 /*
-UpdateAgentPoolsUpdate Update an Agent Pool update by id
+UpdateAgentPoolsUpdate Update an agent pool update by ID
 
-Updates Agent pool update and return latest agent pool update
+Updates an agent pool update instance and returns the latest agent pool update
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param poolId Id of the agent pool for which the settings will apply
- @param updateId Id of the update
- @return ApiUpdateAgentPoolsUpdateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param poolId ID of the agent pool for which the settings apply to
+	@param updateId ID of the update
+	@return ApiUpdateAgentPoolsUpdateRequest
 */
 func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiUpdateAgentPoolsUpdateRequest {
 	return ApiUpdateAgentPoolsUpdateRequest{
 		ApiService: a,
-		ctx: ctx,
-		poolId: poolId,
-		updateId: updateId,
+		ctx:        ctx,
+		poolId:     poolId,
+		updateId:   updateId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return AgentPoolUpdate
+//
+//	@return AgentPoolUpdate
 func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateExecute(r ApiUpdateAgentPoolsUpdateRequest) (*AgentPoolUpdate, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -2352,7 +2363,7 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateExecute(r ApiUpdateAgentPoo
 		localVarReturnValue  *AgentPoolUpdate
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2419,9 +2430,9 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateExecute(r ApiUpdateAgentPoo
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -2491,17 +2502,17 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateExecute(r ApiUpdateAgentPoo
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateAgentPoolsUpdateSettingsRequest struct {
-	ctx context.Context
-	ApiService AgentPoolsAPI
-	poolId string
+	ctx                    context.Context
+	ApiService             AgentPoolsAPI
+	poolId                 string
 	agentPoolUpdateSetting *AgentPoolUpdateSetting
-	retryCount int32
+	retryCount             int32
 }
 
 func (r ApiUpdateAgentPoolsUpdateSettingsRequest) AgentPoolUpdateSetting(agentPoolUpdateSetting AgentPoolUpdateSetting) ApiUpdateAgentPoolsUpdateSettingsRequest {
@@ -2514,25 +2525,26 @@ func (r ApiUpdateAgentPoolsUpdateSettingsRequest) Execute() (*AgentPoolUpdateSet
 }
 
 /*
-UpdateAgentPoolsUpdateSettings Update an Agent Pool update settings
+UpdateAgentPoolsUpdateSettings Update an agent pool update settings
 
-Updates an agent pool update settings
+Updates an agent pool update instance settings
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param poolId Id of the agent pool for which the settings will apply
- @return ApiUpdateAgentPoolsUpdateSettingsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param poolId ID of the agent pool for which the settings apply to
+	@return ApiUpdateAgentPoolsUpdateSettingsRequest
 */
 func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateSettings(ctx context.Context, poolId string) ApiUpdateAgentPoolsUpdateSettingsRequest {
 	return ApiUpdateAgentPoolsUpdateSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
-		poolId: poolId,
+		ctx:        ctx,
+		poolId:     poolId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return AgentPoolUpdateSetting
+//
+//	@return AgentPoolUpdateSetting
 func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateSettingsExecute(r ApiUpdateAgentPoolsUpdateSettingsRequest) (*AgentPoolUpdateSetting, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -2541,7 +2553,7 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateSettingsExecute(r ApiUpdate
 		localVarReturnValue  *AgentPoolUpdateSetting
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2607,9 +2619,9 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateSettingsExecute(r ApiUpdate
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -2679,7 +2691,7 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateSettingsExecute(r ApiUpdate
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

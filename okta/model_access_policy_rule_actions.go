@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the AccessPolicyRuleActions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AccessPolicyRuleActions{}
+
 // AccessPolicyRuleActions struct for AccessPolicyRuleActions
 type AccessPolicyRuleActions struct {
-	AppSignOn *AccessPolicyRuleApplicationSignOn `json:"appSignOn,omitempty"`
+	AppSignOn            *AccessPolicyRuleApplicationSignOn `json:"appSignOn,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewAccessPolicyRuleActionsWithDefaults() *AccessPolicyRuleActions {
 
 // GetAppSignOn returns the AppSignOn field value if set, zero value otherwise.
 func (o *AccessPolicyRuleActions) GetAppSignOn() AccessPolicyRuleApplicationSignOn {
-	if o == nil || o.AppSignOn == nil {
+	if o == nil || IsNil(o.AppSignOn) {
 		var ret AccessPolicyRuleApplicationSignOn
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *AccessPolicyRuleActions) GetAppSignOn() AccessPolicyRuleApplicationSign
 // GetAppSignOnOk returns a tuple with the AppSignOn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccessPolicyRuleActions) GetAppSignOnOk() (*AccessPolicyRuleApplicationSignOn, bool) {
-	if o == nil || o.AppSignOn == nil {
+	if o == nil || IsNil(o.AppSignOn) {
 		return nil, false
 	}
 	return o.AppSignOn, true
@@ -72,7 +75,7 @@ func (o *AccessPolicyRuleActions) GetAppSignOnOk() (*AccessPolicyRuleApplication
 
 // HasAppSignOn returns a boolean if a field has been set.
 func (o *AccessPolicyRuleActions) HasAppSignOn() bool {
-	if o != nil && o.AppSignOn != nil {
+	if o != nil && !IsNil(o.AppSignOn) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *AccessPolicyRuleActions) SetAppSignOn(v AccessPolicyRuleApplicationSign
 }
 
 func (o AccessPolicyRuleActions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AccessPolicyRuleActions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AppSignOn != nil {
+	if !IsNil(o.AppSignOn) {
 		toSerialize["appSignOn"] = o.AppSignOn
 	}
 
@@ -94,27 +105,25 @@ func (o AccessPolicyRuleActions) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AccessPolicyRuleActions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AccessPolicyRuleActions) UnmarshalJSON(data []byte) (err error) {
 	varAccessPolicyRuleActions := _AccessPolicyRuleActions{}
 
-	err = json.Unmarshal(bytes, &varAccessPolicyRuleActions)
-	if err == nil {
-		*o = AccessPolicyRuleActions(varAccessPolicyRuleActions)
-	} else {
+	err = json.Unmarshal(data, &varAccessPolicyRuleActions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AccessPolicyRuleActions(varAccessPolicyRuleActions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "appSignOn")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableAccessPolicyRuleActions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

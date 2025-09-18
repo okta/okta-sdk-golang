@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**UseAsExemptList** | Pointer to **bool** | You can **only** use this parameter when making a request to the Replace the network zone endpoint (&#x60;/api/v1/zones/{zoneId}&#x60;). Set this parameter to &#x60;true&#x60; in your request when you update the &#x60;DefaultExemptIpZone&#x60; to allow IPs through the blocklist. | [optional] 
 **Gateways** | Pointer to [**[]NetworkZoneAddress**](NetworkZoneAddress.md) | The IP addresses (range or CIDR form) for an IP Network Zone. The maximum array length is 150 entries for admin-created IP zones, 1000 entries for IP blocklist zones, and 5000 entries for the default system IP Zone. | [optional] 
 **Proxies** | Pointer to [**[]NetworkZoneAddress**](NetworkZoneAddress.md) | The IP addresses (range or CIDR form) that are allowed to forward a request from gateway addresses for an IP Network Zone. These proxies are automatically trusted by Threat Insights and used to identify the client IP of a request. The maximum array length is 150 entries for admin-created zones and 5000 entries for the default system IP Zone. | [optional] 
 
@@ -25,6 +26,31 @@ will change when the set of required properties is changed
 NewIPNetworkZoneWithDefaults instantiates a new IPNetworkZone object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetUseAsExemptList
+
+`func (o *IPNetworkZone) GetUseAsExemptList() bool`
+
+GetUseAsExemptList returns the UseAsExemptList field if non-nil, zero value otherwise.
+
+### GetUseAsExemptListOk
+
+`func (o *IPNetworkZone) GetUseAsExemptListOk() (*bool, bool)`
+
+GetUseAsExemptListOk returns a tuple with the UseAsExemptList field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUseAsExemptList
+
+`func (o *IPNetworkZone) SetUseAsExemptList(v bool)`
+
+SetUseAsExemptList sets UseAsExemptList field to given value.
+
+### HasUseAsExemptList
+
+`func (o *IPNetworkZone) HasUseAsExemptList() bool`
+
+HasUseAsExemptList returns a boolean if a field has been set.
 
 ### GetGateways
 

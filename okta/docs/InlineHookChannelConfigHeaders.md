@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | Pointer to **string** |  | [optional] 
-**Value** | Pointer to **string** |  | [optional] 
+**Key** | Pointer to **string** | The optional field or header name | [optional] 
+**Value** | Pointer to **string** | The value for the key | [optional] 
 
 ## Methods
 

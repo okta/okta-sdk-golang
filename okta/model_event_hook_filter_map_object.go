@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the EventHookFilterMapObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EventHookFilterMapObject{}
+
 // EventHookFilterMapObject struct for EventHookFilterMapObject
 type EventHookFilterMapObject struct {
 	Condition *EventHookFilterMapObjectCondition `json:"condition,omitempty"`
 	// The filtered event type
-	Event *string `json:"event,omitempty"`
+	Event                *string `json:"event,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewEventHookFilterMapObjectWithDefaults() *EventHookFilterMapObject {
 
 // GetCondition returns the Condition field value if set, zero value otherwise.
 func (o *EventHookFilterMapObject) GetCondition() EventHookFilterMapObjectCondition {
-	if o == nil || o.Condition == nil {
+	if o == nil || IsNil(o.Condition) {
 		var ret EventHookFilterMapObjectCondition
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *EventHookFilterMapObject) GetCondition() EventHookFilterMapObjectCondit
 // GetConditionOk returns a tuple with the Condition field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventHookFilterMapObject) GetConditionOk() (*EventHookFilterMapObjectCondition, bool) {
-	if o == nil || o.Condition == nil {
+	if o == nil || IsNil(o.Condition) {
 		return nil, false
 	}
 	return o.Condition, true
@@ -74,7 +77,7 @@ func (o *EventHookFilterMapObject) GetConditionOk() (*EventHookFilterMapObjectCo
 
 // HasCondition returns a boolean if a field has been set.
 func (o *EventHookFilterMapObject) HasCondition() bool {
-	if o != nil && o.Condition != nil {
+	if o != nil && !IsNil(o.Condition) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *EventHookFilterMapObject) SetCondition(v EventHookFilterMapObjectCondit
 
 // GetEvent returns the Event field value if set, zero value otherwise.
 func (o *EventHookFilterMapObject) GetEvent() string {
-	if o == nil || o.Event == nil {
+	if o == nil || IsNil(o.Event) {
 		var ret string
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *EventHookFilterMapObject) GetEvent() string {
 // GetEventOk returns a tuple with the Event field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventHookFilterMapObject) GetEventOk() (*string, bool) {
-	if o == nil || o.Event == nil {
+	if o == nil || IsNil(o.Event) {
 		return nil, false
 	}
 	return o.Event, true
@@ -106,7 +109,7 @@ func (o *EventHookFilterMapObject) GetEventOk() (*string, bool) {
 
 // HasEvent returns a boolean if a field has been set.
 func (o *EventHookFilterMapObject) HasEvent() bool {
-	if o != nil && o.Event != nil {
+	if o != nil && !IsNil(o.Event) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *EventHookFilterMapObject) SetEvent(v string) {
 }
 
 func (o EventHookFilterMapObject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EventHookFilterMapObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Condition != nil {
+	if !IsNil(o.Condition) {
 		toSerialize["condition"] = o.Condition
 	}
-	if o.Event != nil {
+	if !IsNil(o.Event) {
 		toSerialize["event"] = o.Event
 	}
 
@@ -131,28 +142,26 @@ func (o EventHookFilterMapObject) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EventHookFilterMapObject) UnmarshalJSON(bytes []byte) (err error) {
+func (o *EventHookFilterMapObject) UnmarshalJSON(data []byte) (err error) {
 	varEventHookFilterMapObject := _EventHookFilterMapObject{}
 
-	err = json.Unmarshal(bytes, &varEventHookFilterMapObject)
-	if err == nil {
-		*o = EventHookFilterMapObject(varEventHookFilterMapObject)
-	} else {
+	err = json.Unmarshal(data, &varEventHookFilterMapObject)
+
+	if err != nil {
 		return err
 	}
 
+	*o = EventHookFilterMapObject(varEventHookFilterMapObject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "condition")
 		delete(additionalProperties, "event")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableEventHookFilterMapObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

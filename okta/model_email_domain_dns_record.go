@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the EmailDomainDNSRecord type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EmailDomainDNSRecord{}
+
 // EmailDomainDNSRecord struct for EmailDomainDNSRecord
 type EmailDomainDNSRecord struct {
-	Fqdn *string `json:"fqdn,omitempty"`
-	RecordType *string `json:"recordType,omitempty"`
-	VerificationValue *string `json:"verificationValue,omitempty"`
+	Fqdn                 *string `json:"fqdn,omitempty"`
+	RecordType           *string `json:"recordType,omitempty"`
+	VerificationValue    *string `json:"verificationValue,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewEmailDomainDNSRecordWithDefaults() *EmailDomainDNSRecord {
 
 // GetFqdn returns the Fqdn field value if set, zero value otherwise.
 func (o *EmailDomainDNSRecord) GetFqdn() string {
-	if o == nil || o.Fqdn == nil {
+	if o == nil || IsNil(o.Fqdn) {
 		var ret string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *EmailDomainDNSRecord) GetFqdn() string {
 // GetFqdnOk returns a tuple with the Fqdn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EmailDomainDNSRecord) GetFqdnOk() (*string, bool) {
-	if o == nil || o.Fqdn == nil {
+	if o == nil || IsNil(o.Fqdn) {
 		return nil, false
 	}
 	return o.Fqdn, true
@@ -74,7 +77,7 @@ func (o *EmailDomainDNSRecord) GetFqdnOk() (*string, bool) {
 
 // HasFqdn returns a boolean if a field has been set.
 func (o *EmailDomainDNSRecord) HasFqdn() bool {
-	if o != nil && o.Fqdn != nil {
+	if o != nil && !IsNil(o.Fqdn) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *EmailDomainDNSRecord) SetFqdn(v string) {
 
 // GetRecordType returns the RecordType field value if set, zero value otherwise.
 func (o *EmailDomainDNSRecord) GetRecordType() string {
-	if o == nil || o.RecordType == nil {
+	if o == nil || IsNil(o.RecordType) {
 		var ret string
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *EmailDomainDNSRecord) GetRecordType() string {
 // GetRecordTypeOk returns a tuple with the RecordType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EmailDomainDNSRecord) GetRecordTypeOk() (*string, bool) {
-	if o == nil || o.RecordType == nil {
+	if o == nil || IsNil(o.RecordType) {
 		return nil, false
 	}
 	return o.RecordType, true
@@ -106,7 +109,7 @@ func (o *EmailDomainDNSRecord) GetRecordTypeOk() (*string, bool) {
 
 // HasRecordType returns a boolean if a field has been set.
 func (o *EmailDomainDNSRecord) HasRecordType() bool {
-	if o != nil && o.RecordType != nil {
+	if o != nil && !IsNil(o.RecordType) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *EmailDomainDNSRecord) SetRecordType(v string) {
 
 // GetVerificationValue returns the VerificationValue field value if set, zero value otherwise.
 func (o *EmailDomainDNSRecord) GetVerificationValue() string {
-	if o == nil || o.VerificationValue == nil {
+	if o == nil || IsNil(o.VerificationValue) {
 		var ret string
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *EmailDomainDNSRecord) GetVerificationValue() string {
 // GetVerificationValueOk returns a tuple with the VerificationValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EmailDomainDNSRecord) GetVerificationValueOk() (*string, bool) {
-	if o == nil || o.VerificationValue == nil {
+	if o == nil || IsNil(o.VerificationValue) {
 		return nil, false
 	}
 	return o.VerificationValue, true
@@ -138,7 +141,7 @@ func (o *EmailDomainDNSRecord) GetVerificationValueOk() (*string, bool) {
 
 // HasVerificationValue returns a boolean if a field has been set.
 func (o *EmailDomainDNSRecord) HasVerificationValue() bool {
-	if o != nil && o.VerificationValue != nil {
+	if o != nil && !IsNil(o.VerificationValue) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *EmailDomainDNSRecord) SetVerificationValue(v string) {
 }
 
 func (o EmailDomainDNSRecord) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EmailDomainDNSRecord) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Fqdn != nil {
+	if !IsNil(o.Fqdn) {
 		toSerialize["fqdn"] = o.Fqdn
 	}
-	if o.RecordType != nil {
+	if !IsNil(o.RecordType) {
 		toSerialize["recordType"] = o.RecordType
 	}
-	if o.VerificationValue != nil {
+	if !IsNil(o.VerificationValue) {
 		toSerialize["verificationValue"] = o.VerificationValue
 	}
 
@@ -166,29 +177,27 @@ func (o EmailDomainDNSRecord) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EmailDomainDNSRecord) UnmarshalJSON(bytes []byte) (err error) {
+func (o *EmailDomainDNSRecord) UnmarshalJSON(data []byte) (err error) {
 	varEmailDomainDNSRecord := _EmailDomainDNSRecord{}
 
-	err = json.Unmarshal(bytes, &varEmailDomainDNSRecord)
-	if err == nil {
-		*o = EmailDomainDNSRecord(varEmailDomainDNSRecord)
-	} else {
+	err = json.Unmarshal(data, &varEmailDomainDNSRecord)
+
+	if err != nil {
 		return err
 	}
 
+	*o = EmailDomainDNSRecord(varEmailDomainDNSRecord)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "fqdn")
 		delete(additionalProperties, "recordType")
 		delete(additionalProperties, "verificationValue")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullableEmailDomainDNSRecord) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

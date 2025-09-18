@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the BeforeScheduledActionPolicyRuleCondition type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BeforeScheduledActionPolicyRuleCondition{}
+
 // BeforeScheduledActionPolicyRuleCondition struct for BeforeScheduledActionPolicyRuleCondition
 type BeforeScheduledActionPolicyRuleCondition struct {
-	Duration *Duration `json:"duration,omitempty"`
-	LifecycleAction *ScheduledUserLifecycleAction `json:"lifecycleAction,omitempty"`
+	Duration             *Duration                     `json:"duration,omitempty"`
+	LifecycleAction      *ScheduledUserLifecycleAction `json:"lifecycleAction,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewBeforeScheduledActionPolicyRuleConditionWithDefaults() *BeforeScheduledA
 
 // GetDuration returns the Duration field value if set, zero value otherwise.
 func (o *BeforeScheduledActionPolicyRuleCondition) GetDuration() Duration {
-	if o == nil || o.Duration == nil {
+	if o == nil || IsNil(o.Duration) {
 		var ret Duration
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *BeforeScheduledActionPolicyRuleCondition) GetDuration() Duration {
 // GetDurationOk returns a tuple with the Duration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BeforeScheduledActionPolicyRuleCondition) GetDurationOk() (*Duration, bool) {
-	if o == nil || o.Duration == nil {
+	if o == nil || IsNil(o.Duration) {
 		return nil, false
 	}
 	return o.Duration, true
@@ -73,7 +76,7 @@ func (o *BeforeScheduledActionPolicyRuleCondition) GetDurationOk() (*Duration, b
 
 // HasDuration returns a boolean if a field has been set.
 func (o *BeforeScheduledActionPolicyRuleCondition) HasDuration() bool {
-	if o != nil && o.Duration != nil {
+	if o != nil && !IsNil(o.Duration) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *BeforeScheduledActionPolicyRuleCondition) SetDuration(v Duration) {
 
 // GetLifecycleAction returns the LifecycleAction field value if set, zero value otherwise.
 func (o *BeforeScheduledActionPolicyRuleCondition) GetLifecycleAction() ScheduledUserLifecycleAction {
-	if o == nil || o.LifecycleAction == nil {
+	if o == nil || IsNil(o.LifecycleAction) {
 		var ret ScheduledUserLifecycleAction
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *BeforeScheduledActionPolicyRuleCondition) GetLifecycleAction() Schedule
 // GetLifecycleActionOk returns a tuple with the LifecycleAction field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BeforeScheduledActionPolicyRuleCondition) GetLifecycleActionOk() (*ScheduledUserLifecycleAction, bool) {
-	if o == nil || o.LifecycleAction == nil {
+	if o == nil || IsNil(o.LifecycleAction) {
 		return nil, false
 	}
 	return o.LifecycleAction, true
@@ -105,7 +108,7 @@ func (o *BeforeScheduledActionPolicyRuleCondition) GetLifecycleActionOk() (*Sche
 
 // HasLifecycleAction returns a boolean if a field has been set.
 func (o *BeforeScheduledActionPolicyRuleCondition) HasLifecycleAction() bool {
-	if o != nil && o.LifecycleAction != nil {
+	if o != nil && !IsNil(o.LifecycleAction) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *BeforeScheduledActionPolicyRuleCondition) SetLifecycleAction(v Schedule
 }
 
 func (o BeforeScheduledActionPolicyRuleCondition) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BeforeScheduledActionPolicyRuleCondition) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Duration != nil {
+	if !IsNil(o.Duration) {
 		toSerialize["duration"] = o.Duration
 	}
-	if o.LifecycleAction != nil {
+	if !IsNil(o.LifecycleAction) {
 		toSerialize["lifecycleAction"] = o.LifecycleAction
 	}
 
@@ -130,28 +141,26 @@ func (o BeforeScheduledActionPolicyRuleCondition) MarshalJSON() ([]byte, error) 
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *BeforeScheduledActionPolicyRuleCondition) UnmarshalJSON(bytes []byte) (err error) {
+func (o *BeforeScheduledActionPolicyRuleCondition) UnmarshalJSON(data []byte) (err error) {
 	varBeforeScheduledActionPolicyRuleCondition := _BeforeScheduledActionPolicyRuleCondition{}
 
-	err = json.Unmarshal(bytes, &varBeforeScheduledActionPolicyRuleCondition)
-	if err == nil {
-		*o = BeforeScheduledActionPolicyRuleCondition(varBeforeScheduledActionPolicyRuleCondition)
-	} else {
+	err = json.Unmarshal(data, &varBeforeScheduledActionPolicyRuleCondition)
+
+	if err != nil {
 		return err
 	}
 
+	*o = BeforeScheduledActionPolicyRuleCondition(varBeforeScheduledActionPolicyRuleCondition)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "duration")
 		delete(additionalProperties, "lifecycleAction")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableBeforeScheduledActionPolicyRuleCondition) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

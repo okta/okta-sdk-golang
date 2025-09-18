@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,16 +27,19 @@ import (
 	"encoding/json"
 )
 
+// checks if the TokenAuthorizationServerPolicyRuleAction type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TokenAuthorizationServerPolicyRuleAction{}
+
 // TokenAuthorizationServerPolicyRuleAction struct for TokenAuthorizationServerPolicyRuleAction
 type TokenAuthorizationServerPolicyRuleAction struct {
 	// Lifetime of the access token in minutes. The minimum is five minutes. The maximum is one day.
-	AccessTokenLifetimeMinutes *int32 `json:"accessTokenLifetimeMinutes,omitempty"`
-	InlineHook *TokenAuthorizationServerPolicyRuleActionInlineHook `json:"inlineHook,omitempty"`
+	AccessTokenLifetimeMinutes *int32                                              `json:"accessTokenLifetimeMinutes,omitempty"`
+	InlineHook                 *TokenAuthorizationServerPolicyRuleActionInlineHook `json:"inlineHook,omitempty"`
 	// Lifetime of the refresh token is the minimum access token lifetime.
 	RefreshTokenLifetimeMinutes *int32 `json:"refreshTokenLifetimeMinutes,omitempty"`
 	// Timeframe when the refresh token is valid. The minimum is 10 minutes. The maximum is five years (2,628,000 minutes).
 	RefreshTokenWindowMinutes *int32 `json:"refreshTokenWindowMinutes,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties      map[string]interface{}
 }
 
 type _TokenAuthorizationServerPolicyRuleAction TokenAuthorizationServerPolicyRuleAction
@@ -60,7 +63,7 @@ func NewTokenAuthorizationServerPolicyRuleActionWithDefaults() *TokenAuthorizati
 
 // GetAccessTokenLifetimeMinutes returns the AccessTokenLifetimeMinutes field value if set, zero value otherwise.
 func (o *TokenAuthorizationServerPolicyRuleAction) GetAccessTokenLifetimeMinutes() int32 {
-	if o == nil || o.AccessTokenLifetimeMinutes == nil {
+	if o == nil || IsNil(o.AccessTokenLifetimeMinutes) {
 		var ret int32
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *TokenAuthorizationServerPolicyRuleAction) GetAccessTokenLifetimeMinutes
 // GetAccessTokenLifetimeMinutesOk returns a tuple with the AccessTokenLifetimeMinutes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenAuthorizationServerPolicyRuleAction) GetAccessTokenLifetimeMinutesOk() (*int32, bool) {
-	if o == nil || o.AccessTokenLifetimeMinutes == nil {
+	if o == nil || IsNil(o.AccessTokenLifetimeMinutes) {
 		return nil, false
 	}
 	return o.AccessTokenLifetimeMinutes, true
@@ -78,7 +81,7 @@ func (o *TokenAuthorizationServerPolicyRuleAction) GetAccessTokenLifetimeMinutes
 
 // HasAccessTokenLifetimeMinutes returns a boolean if a field has been set.
 func (o *TokenAuthorizationServerPolicyRuleAction) HasAccessTokenLifetimeMinutes() bool {
-	if o != nil && o.AccessTokenLifetimeMinutes != nil {
+	if o != nil && !IsNil(o.AccessTokenLifetimeMinutes) {
 		return true
 	}
 
@@ -92,7 +95,7 @@ func (o *TokenAuthorizationServerPolicyRuleAction) SetAccessTokenLifetimeMinutes
 
 // GetInlineHook returns the InlineHook field value if set, zero value otherwise.
 func (o *TokenAuthorizationServerPolicyRuleAction) GetInlineHook() TokenAuthorizationServerPolicyRuleActionInlineHook {
-	if o == nil || o.InlineHook == nil {
+	if o == nil || IsNil(o.InlineHook) {
 		var ret TokenAuthorizationServerPolicyRuleActionInlineHook
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *TokenAuthorizationServerPolicyRuleAction) GetInlineHook() TokenAuthoriz
 // GetInlineHookOk returns a tuple with the InlineHook field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenAuthorizationServerPolicyRuleAction) GetInlineHookOk() (*TokenAuthorizationServerPolicyRuleActionInlineHook, bool) {
-	if o == nil || o.InlineHook == nil {
+	if o == nil || IsNil(o.InlineHook) {
 		return nil, false
 	}
 	return o.InlineHook, true
@@ -110,7 +113,7 @@ func (o *TokenAuthorizationServerPolicyRuleAction) GetInlineHookOk() (*TokenAuth
 
 // HasInlineHook returns a boolean if a field has been set.
 func (o *TokenAuthorizationServerPolicyRuleAction) HasInlineHook() bool {
-	if o != nil && o.InlineHook != nil {
+	if o != nil && !IsNil(o.InlineHook) {
 		return true
 	}
 
@@ -124,7 +127,7 @@ func (o *TokenAuthorizationServerPolicyRuleAction) SetInlineHook(v TokenAuthoriz
 
 // GetRefreshTokenLifetimeMinutes returns the RefreshTokenLifetimeMinutes field value if set, zero value otherwise.
 func (o *TokenAuthorizationServerPolicyRuleAction) GetRefreshTokenLifetimeMinutes() int32 {
-	if o == nil || o.RefreshTokenLifetimeMinutes == nil {
+	if o == nil || IsNil(o.RefreshTokenLifetimeMinutes) {
 		var ret int32
 		return ret
 	}
@@ -134,7 +137,7 @@ func (o *TokenAuthorizationServerPolicyRuleAction) GetRefreshTokenLifetimeMinute
 // GetRefreshTokenLifetimeMinutesOk returns a tuple with the RefreshTokenLifetimeMinutes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenAuthorizationServerPolicyRuleAction) GetRefreshTokenLifetimeMinutesOk() (*int32, bool) {
-	if o == nil || o.RefreshTokenLifetimeMinutes == nil {
+	if o == nil || IsNil(o.RefreshTokenLifetimeMinutes) {
 		return nil, false
 	}
 	return o.RefreshTokenLifetimeMinutes, true
@@ -142,7 +145,7 @@ func (o *TokenAuthorizationServerPolicyRuleAction) GetRefreshTokenLifetimeMinute
 
 // HasRefreshTokenLifetimeMinutes returns a boolean if a field has been set.
 func (o *TokenAuthorizationServerPolicyRuleAction) HasRefreshTokenLifetimeMinutes() bool {
-	if o != nil && o.RefreshTokenLifetimeMinutes != nil {
+	if o != nil && !IsNil(o.RefreshTokenLifetimeMinutes) {
 		return true
 	}
 
@@ -156,7 +159,7 @@ func (o *TokenAuthorizationServerPolicyRuleAction) SetRefreshTokenLifetimeMinute
 
 // GetRefreshTokenWindowMinutes returns the RefreshTokenWindowMinutes field value if set, zero value otherwise.
 func (o *TokenAuthorizationServerPolicyRuleAction) GetRefreshTokenWindowMinutes() int32 {
-	if o == nil || o.RefreshTokenWindowMinutes == nil {
+	if o == nil || IsNil(o.RefreshTokenWindowMinutes) {
 		var ret int32
 		return ret
 	}
@@ -166,7 +169,7 @@ func (o *TokenAuthorizationServerPolicyRuleAction) GetRefreshTokenWindowMinutes(
 // GetRefreshTokenWindowMinutesOk returns a tuple with the RefreshTokenWindowMinutes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenAuthorizationServerPolicyRuleAction) GetRefreshTokenWindowMinutesOk() (*int32, bool) {
-	if o == nil || o.RefreshTokenWindowMinutes == nil {
+	if o == nil || IsNil(o.RefreshTokenWindowMinutes) {
 		return nil, false
 	}
 	return o.RefreshTokenWindowMinutes, true
@@ -174,7 +177,7 @@ func (o *TokenAuthorizationServerPolicyRuleAction) GetRefreshTokenWindowMinutesO
 
 // HasRefreshTokenWindowMinutes returns a boolean if a field has been set.
 func (o *TokenAuthorizationServerPolicyRuleAction) HasRefreshTokenWindowMinutes() bool {
-	if o != nil && o.RefreshTokenWindowMinutes != nil {
+	if o != nil && !IsNil(o.RefreshTokenWindowMinutes) {
 		return true
 	}
 
@@ -187,17 +190,25 @@ func (o *TokenAuthorizationServerPolicyRuleAction) SetRefreshTokenWindowMinutes(
 }
 
 func (o TokenAuthorizationServerPolicyRuleAction) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TokenAuthorizationServerPolicyRuleAction) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AccessTokenLifetimeMinutes != nil {
+	if !IsNil(o.AccessTokenLifetimeMinutes) {
 		toSerialize["accessTokenLifetimeMinutes"] = o.AccessTokenLifetimeMinutes
 	}
-	if o.InlineHook != nil {
+	if !IsNil(o.InlineHook) {
 		toSerialize["inlineHook"] = o.InlineHook
 	}
-	if o.RefreshTokenLifetimeMinutes != nil {
+	if !IsNil(o.RefreshTokenLifetimeMinutes) {
 		toSerialize["refreshTokenLifetimeMinutes"] = o.RefreshTokenLifetimeMinutes
 	}
-	if o.RefreshTokenWindowMinutes != nil {
+	if !IsNil(o.RefreshTokenWindowMinutes) {
 		toSerialize["refreshTokenWindowMinutes"] = o.RefreshTokenWindowMinutes
 	}
 
@@ -205,30 +216,28 @@ func (o TokenAuthorizationServerPolicyRuleAction) MarshalJSON() ([]byte, error) 
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *TokenAuthorizationServerPolicyRuleAction) UnmarshalJSON(bytes []byte) (err error) {
+func (o *TokenAuthorizationServerPolicyRuleAction) UnmarshalJSON(data []byte) (err error) {
 	varTokenAuthorizationServerPolicyRuleAction := _TokenAuthorizationServerPolicyRuleAction{}
 
-	err = json.Unmarshal(bytes, &varTokenAuthorizationServerPolicyRuleAction)
-	if err == nil {
-		*o = TokenAuthorizationServerPolicyRuleAction(varTokenAuthorizationServerPolicyRuleAction)
-	} else {
+	err = json.Unmarshal(data, &varTokenAuthorizationServerPolicyRuleAction)
+
+	if err != nil {
 		return err
 	}
 
+	*o = TokenAuthorizationServerPolicyRuleAction(varTokenAuthorizationServerPolicyRuleAction)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "accessTokenLifetimeMinutes")
 		delete(additionalProperties, "inlineHook")
 		delete(additionalProperties, "refreshTokenLifetimeMinutes")
 		delete(additionalProperties, "refreshTokenWindowMinutes")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -269,4 +278,3 @@ func (v *NullableTokenAuthorizationServerPolicyRuleAction) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

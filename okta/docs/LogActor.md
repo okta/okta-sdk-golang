@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AlternateId** | Pointer to **string** |  | [optional] [readonly] 
-**DetailEntry** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
-**DisplayName** | Pointer to **string** |  | [optional] [readonly] 
-**Id** | Pointer to **string** |  | [optional] [readonly] 
-**Type** | Pointer to **string** |  | [optional] [readonly] 
+**AlternateId** | Pointer to **string** | Alternative ID of the actor | [optional] [readonly] 
+**DetailEntry** | Pointer to **map[string]interface{}** | Further details about the actor | [optional] [readonly] 
+**DisplayName** | Pointer to **string** | Display name of the actor | [optional] [readonly] 
+**Id** | Pointer to **string** | ID of the actor | [optional] [readonly] 
+**Type** | Pointer to **string** | Type of actor | [optional] [readonly] 
 
 ## Methods
 

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the ContextPolicyRuleCondition type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ContextPolicyRuleCondition{}
+
 // ContextPolicyRuleCondition struct for ContextPolicyRuleCondition
 type ContextPolicyRuleCondition struct {
-	Migrated *bool `json:"migrated,omitempty"`
-	Platform *DevicePolicyRuleConditionPlatform `json:"platform,omitempty"`
-	Rooted *bool `json:"rooted,omitempty"`
-	TrustLevel *string `json:"trustLevel,omitempty"`
-	Expression *string `json:"expression,omitempty"`
+	Migrated             *bool                              `json:"migrated,omitempty"`
+	Platform             *DevicePolicyRuleConditionPlatform `json:"platform,omitempty"`
+	Rooted               *bool                              `json:"rooted,omitempty"`
+	TrustLevel           *string                            `json:"trustLevel,omitempty"`
+	Expression           *string                            `json:"expression,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewContextPolicyRuleConditionWithDefaults() *ContextPolicyRuleCondition {
 
 // GetMigrated returns the Migrated field value if set, zero value otherwise.
 func (o *ContextPolicyRuleCondition) GetMigrated() bool {
-	if o == nil || o.Migrated == nil {
+	if o == nil || IsNil(o.Migrated) {
 		var ret bool
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *ContextPolicyRuleCondition) GetMigrated() bool {
 // GetMigratedOk returns a tuple with the Migrated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ContextPolicyRuleCondition) GetMigratedOk() (*bool, bool) {
-	if o == nil || o.Migrated == nil {
+	if o == nil || IsNil(o.Migrated) {
 		return nil, false
 	}
 	return o.Migrated, true
@@ -76,7 +79,7 @@ func (o *ContextPolicyRuleCondition) GetMigratedOk() (*bool, bool) {
 
 // HasMigrated returns a boolean if a field has been set.
 func (o *ContextPolicyRuleCondition) HasMigrated() bool {
-	if o != nil && o.Migrated != nil {
+	if o != nil && !IsNil(o.Migrated) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *ContextPolicyRuleCondition) SetMigrated(v bool) {
 
 // GetPlatform returns the Platform field value if set, zero value otherwise.
 func (o *ContextPolicyRuleCondition) GetPlatform() DevicePolicyRuleConditionPlatform {
-	if o == nil || o.Platform == nil {
+	if o == nil || IsNil(o.Platform) {
 		var ret DevicePolicyRuleConditionPlatform
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *ContextPolicyRuleCondition) GetPlatform() DevicePolicyRuleConditionPlat
 // GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ContextPolicyRuleCondition) GetPlatformOk() (*DevicePolicyRuleConditionPlatform, bool) {
-	if o == nil || o.Platform == nil {
+	if o == nil || IsNil(o.Platform) {
 		return nil, false
 	}
 	return o.Platform, true
@@ -108,7 +111,7 @@ func (o *ContextPolicyRuleCondition) GetPlatformOk() (*DevicePolicyRuleCondition
 
 // HasPlatform returns a boolean if a field has been set.
 func (o *ContextPolicyRuleCondition) HasPlatform() bool {
-	if o != nil && o.Platform != nil {
+	if o != nil && !IsNil(o.Platform) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *ContextPolicyRuleCondition) SetPlatform(v DevicePolicyRuleConditionPlat
 
 // GetRooted returns the Rooted field value if set, zero value otherwise.
 func (o *ContextPolicyRuleCondition) GetRooted() bool {
-	if o == nil || o.Rooted == nil {
+	if o == nil || IsNil(o.Rooted) {
 		var ret bool
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *ContextPolicyRuleCondition) GetRooted() bool {
 // GetRootedOk returns a tuple with the Rooted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ContextPolicyRuleCondition) GetRootedOk() (*bool, bool) {
-	if o == nil || o.Rooted == nil {
+	if o == nil || IsNil(o.Rooted) {
 		return nil, false
 	}
 	return o.Rooted, true
@@ -140,7 +143,7 @@ func (o *ContextPolicyRuleCondition) GetRootedOk() (*bool, bool) {
 
 // HasRooted returns a boolean if a field has been set.
 func (o *ContextPolicyRuleCondition) HasRooted() bool {
-	if o != nil && o.Rooted != nil {
+	if o != nil && !IsNil(o.Rooted) {
 		return true
 	}
 
@@ -154,7 +157,7 @@ func (o *ContextPolicyRuleCondition) SetRooted(v bool) {
 
 // GetTrustLevel returns the TrustLevel field value if set, zero value otherwise.
 func (o *ContextPolicyRuleCondition) GetTrustLevel() string {
-	if o == nil || o.TrustLevel == nil {
+	if o == nil || IsNil(o.TrustLevel) {
 		var ret string
 		return ret
 	}
@@ -164,7 +167,7 @@ func (o *ContextPolicyRuleCondition) GetTrustLevel() string {
 // GetTrustLevelOk returns a tuple with the TrustLevel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ContextPolicyRuleCondition) GetTrustLevelOk() (*string, bool) {
-	if o == nil || o.TrustLevel == nil {
+	if o == nil || IsNil(o.TrustLevel) {
 		return nil, false
 	}
 	return o.TrustLevel, true
@@ -172,7 +175,7 @@ func (o *ContextPolicyRuleCondition) GetTrustLevelOk() (*string, bool) {
 
 // HasTrustLevel returns a boolean if a field has been set.
 func (o *ContextPolicyRuleCondition) HasTrustLevel() bool {
-	if o != nil && o.TrustLevel != nil {
+	if o != nil && !IsNil(o.TrustLevel) {
 		return true
 	}
 
@@ -186,7 +189,7 @@ func (o *ContextPolicyRuleCondition) SetTrustLevel(v string) {
 
 // GetExpression returns the Expression field value if set, zero value otherwise.
 func (o *ContextPolicyRuleCondition) GetExpression() string {
-	if o == nil || o.Expression == nil {
+	if o == nil || IsNil(o.Expression) {
 		var ret string
 		return ret
 	}
@@ -196,7 +199,7 @@ func (o *ContextPolicyRuleCondition) GetExpression() string {
 // GetExpressionOk returns a tuple with the Expression field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ContextPolicyRuleCondition) GetExpressionOk() (*string, bool) {
-	if o == nil || o.Expression == nil {
+	if o == nil || IsNil(o.Expression) {
 		return nil, false
 	}
 	return o.Expression, true
@@ -204,7 +207,7 @@ func (o *ContextPolicyRuleCondition) GetExpressionOk() (*string, bool) {
 
 // HasExpression returns a boolean if a field has been set.
 func (o *ContextPolicyRuleCondition) HasExpression() bool {
-	if o != nil && o.Expression != nil {
+	if o != nil && !IsNil(o.Expression) {
 		return true
 	}
 
@@ -217,20 +220,28 @@ func (o *ContextPolicyRuleCondition) SetExpression(v string) {
 }
 
 func (o ContextPolicyRuleCondition) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ContextPolicyRuleCondition) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Migrated != nil {
+	if !IsNil(o.Migrated) {
 		toSerialize["migrated"] = o.Migrated
 	}
-	if o.Platform != nil {
+	if !IsNil(o.Platform) {
 		toSerialize["platform"] = o.Platform
 	}
-	if o.Rooted != nil {
+	if !IsNil(o.Rooted) {
 		toSerialize["rooted"] = o.Rooted
 	}
-	if o.TrustLevel != nil {
+	if !IsNil(o.TrustLevel) {
 		toSerialize["trustLevel"] = o.TrustLevel
 	}
-	if o.Expression != nil {
+	if !IsNil(o.Expression) {
 		toSerialize["expression"] = o.Expression
 	}
 
@@ -238,31 +249,29 @@ func (o ContextPolicyRuleCondition) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ContextPolicyRuleCondition) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ContextPolicyRuleCondition) UnmarshalJSON(data []byte) (err error) {
 	varContextPolicyRuleCondition := _ContextPolicyRuleCondition{}
 
-	err = json.Unmarshal(bytes, &varContextPolicyRuleCondition)
-	if err == nil {
-		*o = ContextPolicyRuleCondition(varContextPolicyRuleCondition)
-	} else {
+	err = json.Unmarshal(data, &varContextPolicyRuleCondition)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ContextPolicyRuleCondition(varContextPolicyRuleCondition)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "migrated")
 		delete(additionalProperties, "platform")
 		delete(additionalProperties, "rooted")
 		delete(additionalProperties, "trustLevel")
 		delete(additionalProperties, "expression")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -303,4 +312,3 @@ func (v *NullableContextPolicyRuleCondition) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

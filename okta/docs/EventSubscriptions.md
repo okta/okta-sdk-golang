@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Filter** | Pointer to [**NullableEventHookFilters**](EventHookFilters.md) |  | [optional] 
-**Items** | **[]string** | The subscribed event types that trigger the event hook. When you register an event hook you need to specify which events you want to subscribe to. To see the list of event types currently eligible for use in event hooks, use the [Event Types catalog](/docs/reference/api/event-types/#catalog) and search with the parameter &#x60;event-hook-eligible&#x60;. | 
+**Items** | **[]string** | The subscribed event types that trigger the event hook. When you register an event hook you need to specify which events you want to subscribe to. To see the list of event types currently eligible for use in event hooks, use the [Event Types catalog](https://developer.okta.com/docs/reference/api/event-types/#catalog) and search with the parameter &#x60;event-hook-eligible&#x60;. | 
 **Type** | **string** | The events object type. Currently supports &#x60;EVENT_TYPE&#x60;. | 
 
 ## Methods

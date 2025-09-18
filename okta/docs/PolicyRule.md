@@ -5,13 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Created** | Pointer to **NullableTime** | Timestamp when the rule was created | [optional] [readonly] 
-**Id** | Pointer to **string** | Identifier for the rule | [optional] 
+**Id** | Pointer to **string** | Identifier for the rule | [optional] [readonly] 
 **LastUpdated** | Pointer to **NullableTime** | Timestamp when the rule was last modified | [optional] [readonly] 
 **Name** | Pointer to **string** | Name of the rule | [optional] 
-**Priority** | Pointer to **int32** | Priority of the rule | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**System** | Pointer to **bool** | Specifies whether Okta created the Policy Rule (&#x60;system&#x3D;true&#x60;). You can&#39;t delete Policy Rules that have &#x60;system&#x60; set to &#x60;true&#x60;. | [optional] [default to false]
+**Priority** | Pointer to **NullableInt32** | Priority of the rule | [optional] 
+**Status** | Pointer to **string** | Whether or not the rule is active. Use the &#x60;activate&#x60; query parameter to set the status of a rule. | [optional] 
+**System** | Pointer to **bool** | Specifies whether Okta created the policy rule (&#x60;system&#x3D;true&#x60;). You can&#39;t delete policy rules that have &#x60;system&#x60; set to &#x60;true&#x60;. | [optional] [default to false]
 **Type** | Pointer to **string** | Rule type | [optional] 
+**Links** | Pointer to [**PolicyLinks**](PolicyLinks.md) |  | [optional] 
 
 ## Methods
 
@@ -177,6 +178,16 @@ SetPriority sets Priority field to given value.
 
 HasPriority returns a boolean if a field has been set.
 
+### SetPriorityNil
+
+`func (o *PolicyRule) SetPriorityNil(b bool)`
+
+ SetPriorityNil sets the value for Priority to be an explicit nil
+
+### UnsetPriority
+`func (o *PolicyRule) UnsetPriority()`
+
+UnsetPriority ensures that no value is present for Priority, not even an explicit nil
 ### GetStatus
 
 `func (o *PolicyRule) GetStatus() string`
@@ -251,6 +262,31 @@ SetType sets Type field to given value.
 `func (o *PolicyRule) HasType() bool`
 
 HasType returns a boolean if a field has been set.
+
+### GetLinks
+
+`func (o *PolicyRule) GetLinks() PolicyLinks`
+
+GetLinks returns the Links field if non-nil, zero value otherwise.
+
+### GetLinksOk
+
+`func (o *PolicyRule) GetLinksOk() (*PolicyLinks, bool)`
+
+GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLinks
+
+`func (o *PolicyRule) SetLinks(v PolicyLinks)`
+
+SetLinks sets Links field to given value.
+
+### HasLinks
+
+`func (o *PolicyRule) HasLinks() bool`
+
+HasLinks returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

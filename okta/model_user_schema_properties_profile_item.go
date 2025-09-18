@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserSchemaPropertiesProfileItem type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserSchemaPropertiesProfileItem{}
+
 // UserSchemaPropertiesProfileItem struct for UserSchemaPropertiesProfileItem
 type UserSchemaPropertiesProfileItem struct {
-	Ref *string `json:"$ref,omitempty"`
+	Ref                  *string `json:"$ref,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewUserSchemaPropertiesProfileItemWithDefaults() *UserSchemaPropertiesProfi
 
 // GetRef returns the Ref field value if set, zero value otherwise.
 func (o *UserSchemaPropertiesProfileItem) GetRef() string {
-	if o == nil || o.Ref == nil {
+	if o == nil || IsNil(o.Ref) {
 		var ret string
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *UserSchemaPropertiesProfileItem) GetRef() string {
 // GetRefOk returns a tuple with the Ref field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaPropertiesProfileItem) GetRefOk() (*string, bool) {
-	if o == nil || o.Ref == nil {
+	if o == nil || IsNil(o.Ref) {
 		return nil, false
 	}
 	return o.Ref, true
@@ -72,7 +75,7 @@ func (o *UserSchemaPropertiesProfileItem) GetRefOk() (*string, bool) {
 
 // HasRef returns a boolean if a field has been set.
 func (o *UserSchemaPropertiesProfileItem) HasRef() bool {
-	if o != nil && o.Ref != nil {
+	if o != nil && !IsNil(o.Ref) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *UserSchemaPropertiesProfileItem) SetRef(v string) {
 }
 
 func (o UserSchemaPropertiesProfileItem) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserSchemaPropertiesProfileItem) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Ref != nil {
+	if !IsNil(o.Ref) {
 		toSerialize["$ref"] = o.Ref
 	}
 
@@ -94,27 +105,25 @@ func (o UserSchemaPropertiesProfileItem) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserSchemaPropertiesProfileItem) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserSchemaPropertiesProfileItem) UnmarshalJSON(data []byte) (err error) {
 	varUserSchemaPropertiesProfileItem := _UserSchemaPropertiesProfileItem{}
 
-	err = json.Unmarshal(bytes, &varUserSchemaPropertiesProfileItem)
-	if err == nil {
-		*o = UserSchemaPropertiesProfileItem(varUserSchemaPropertiesProfileItem)
-	} else {
+	err = json.Unmarshal(data, &varUserSchemaPropertiesProfileItem)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserSchemaPropertiesProfileItem(varUserSchemaPropertiesProfileItem)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "$ref")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableUserSchemaPropertiesProfileItem) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

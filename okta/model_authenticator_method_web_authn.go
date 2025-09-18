@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -29,10 +29,13 @@ import (
 	"strings"
 )
 
+// checks if the AuthenticatorMethodWebAuthn type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorMethodWebAuthn{}
+
 // AuthenticatorMethodWebAuthn struct for AuthenticatorMethodWebAuthn
 type AuthenticatorMethodWebAuthn struct {
 	AuthenticatorMethodBase
-	Settings *AuthenticatorMethodWebAuthnAllOfSettings `json:"settings,omitempty"`
+	Settings             *AuthenticatorMethodWebAuthnAllOfSettings `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewAuthenticatorMethodWebAuthnWithDefaults() *AuthenticatorMethodWebAuthn {
 
 // GetSettings returns the Settings field value if set, zero value otherwise.
 func (o *AuthenticatorMethodWebAuthn) GetSettings() AuthenticatorMethodWebAuthnAllOfSettings {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		var ret AuthenticatorMethodWebAuthnAllOfSettings
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *AuthenticatorMethodWebAuthn) GetSettings() AuthenticatorMethodWebAuthnA
 // GetSettingsOk returns a tuple with the Settings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorMethodWebAuthn) GetSettingsOk() (*AuthenticatorMethodWebAuthnAllOfSettings, bool) {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		return nil, false
 	}
 	return o.Settings, true
@@ -75,7 +78,7 @@ func (o *AuthenticatorMethodWebAuthn) GetSettingsOk() (*AuthenticatorMethodWebAu
 
 // HasSettings returns a boolean if a field has been set.
 func (o *AuthenticatorMethodWebAuthn) HasSettings() bool {
-	if o != nil && o.Settings != nil {
+	if o != nil && !IsNil(o.Settings) {
 		return true
 	}
 
@@ -88,16 +91,24 @@ func (o *AuthenticatorMethodWebAuthn) SetSettings(v AuthenticatorMethodWebAuthnA
 }
 
 func (o AuthenticatorMethodWebAuthn) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorMethodWebAuthn) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedAuthenticatorMethodBase, errAuthenticatorMethodBase := json.Marshal(o.AuthenticatorMethodBase)
 	if errAuthenticatorMethodBase != nil {
-		return []byte{}, errAuthenticatorMethodBase
+		return map[string]interface{}{}, errAuthenticatorMethodBase
 	}
 	errAuthenticatorMethodBase = json.Unmarshal([]byte(serializedAuthenticatorMethodBase), &toSerialize)
 	if errAuthenticatorMethodBase != nil {
-		return []byte{}, errAuthenticatorMethodBase
+		return map[string]interface{}{}, errAuthenticatorMethodBase
 	}
-	if o.Settings != nil {
+	if !IsNil(o.Settings) {
 		toSerialize["settings"] = o.Settings
 	}
 
@@ -105,17 +116,17 @@ func (o AuthenticatorMethodWebAuthn) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorMethodWebAuthn) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorMethodWebAuthn) UnmarshalJSON(data []byte) (err error) {
 	type AuthenticatorMethodWebAuthnWithoutEmbeddedStruct struct {
 		Settings *AuthenticatorMethodWebAuthnAllOfSettings `json:"settings,omitempty"`
 	}
 
 	varAuthenticatorMethodWebAuthnWithoutEmbeddedStruct := AuthenticatorMethodWebAuthnWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorMethodWebAuthnWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varAuthenticatorMethodWebAuthnWithoutEmbeddedStruct)
 	if err == nil {
 		varAuthenticatorMethodWebAuthn := _AuthenticatorMethodWebAuthn{}
 		varAuthenticatorMethodWebAuthn.Settings = varAuthenticatorMethodWebAuthnWithoutEmbeddedStruct.Settings
@@ -126,7 +137,7 @@ func (o *AuthenticatorMethodWebAuthn) UnmarshalJSON(bytes []byte) (err error) {
 
 	varAuthenticatorMethodWebAuthn := _AuthenticatorMethodWebAuthn{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorMethodWebAuthn)
+	err = json.Unmarshal(data, &varAuthenticatorMethodWebAuthn)
 	if err == nil {
 		o.AuthenticatorMethodBase = varAuthenticatorMethodWebAuthn.AuthenticatorMethodBase
 	} else {
@@ -135,8 +146,7 @@ func (o *AuthenticatorMethodWebAuthn) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "settings")
 
 		// remove fields from embedded structs
@@ -158,8 +168,6 @@ func (o *AuthenticatorMethodWebAuthn) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -200,4 +208,3 @@ func (v *NullableAuthenticatorMethodWebAuthn) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**EntityType** | Pointer to **string** |  | [optional] 
-**Profiles** | Pointer to [**[]IdentitySourceUserProfileForDelete**](IdentitySourceUserProfileForDelete.md) |  | [optional] 
+**EntityType** | Pointer to **string** | The type of data to bulk delete in a session. Currently, only &#x60;USERS&#x60; is supported. | [optional] 
+**Profiles** | Pointer to [**[]IdentitySourceUserProfileForDelete**](IdentitySourceUserProfileForDelete.md) | Array of profiles to be deleted | [optional] 
 
 ## Methods
 

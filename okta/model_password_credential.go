@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
-// PasswordCredential When a user has a valid password, imported hashed password, or password hook, and a response object contains a password credential, then the password object is a bare object without the value property defined (for example, `password: {}`). This indicates that a password value exists. You can modify password policy requirements in the Admin Console by editing the Password authenticator:  **Security** > **Authenticators** > **Password** (or for Okta Classic orgs, use **Security** > **Authentication** > **Password**).
+// checks if the PasswordCredential type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordCredential{}
+
+// PasswordCredential Specifies a password for a user.  When a user has a valid password, imported hashed password, or password hook, and a response object contains a password credential, then the password object is a bare object without the value property defined (for example, `password: {}`). This indicates that a password value exists. You can modify password policy requirements in the Admin Console by editing the Password authenticator:  **Security** > **Authenticators** > **Password** (or for Okta Classic orgs, use **Security** > **Authentication** > **Password**).  For information on defaults and configuring your password policies, see [Configure the password authenticator](https://help.okta.com/okta_help.htm?type=oie&id=ext-configure-password) in the help documentation.
 type PasswordCredential struct {
 	Hash *PasswordCredentialHash `json:"hash,omitempty"`
 	Hook *PasswordCredentialHook `json:"hook,omitempty"`
-	// Specifies the password for a user. The Password Policy validates this password.
-	Value *string `json:"value,omitempty"`
+	// Specifies the password for a user. The password policy validates this password.
+	Value                *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewPasswordCredentialWithDefaults() *PasswordCredential {
 
 // GetHash returns the Hash field value if set, zero value otherwise.
 func (o *PasswordCredential) GetHash() PasswordCredentialHash {
-	if o == nil || o.Hash == nil {
+	if o == nil || IsNil(o.Hash) {
 		var ret PasswordCredentialHash
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *PasswordCredential) GetHash() PasswordCredentialHash {
 // GetHashOk returns a tuple with the Hash field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordCredential) GetHashOk() (*PasswordCredentialHash, bool) {
-	if o == nil || o.Hash == nil {
+	if o == nil || IsNil(o.Hash) {
 		return nil, false
 	}
 	return o.Hash, true
@@ -75,7 +78,7 @@ func (o *PasswordCredential) GetHashOk() (*PasswordCredentialHash, bool) {
 
 // HasHash returns a boolean if a field has been set.
 func (o *PasswordCredential) HasHash() bool {
-	if o != nil && o.Hash != nil {
+	if o != nil && !IsNil(o.Hash) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *PasswordCredential) SetHash(v PasswordCredentialHash) {
 
 // GetHook returns the Hook field value if set, zero value otherwise.
 func (o *PasswordCredential) GetHook() PasswordCredentialHook {
-	if o == nil || o.Hook == nil {
+	if o == nil || IsNil(o.Hook) {
 		var ret PasswordCredentialHook
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *PasswordCredential) GetHook() PasswordCredentialHook {
 // GetHookOk returns a tuple with the Hook field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordCredential) GetHookOk() (*PasswordCredentialHook, bool) {
-	if o == nil || o.Hook == nil {
+	if o == nil || IsNil(o.Hook) {
 		return nil, false
 	}
 	return o.Hook, true
@@ -107,7 +110,7 @@ func (o *PasswordCredential) GetHookOk() (*PasswordCredentialHook, bool) {
 
 // HasHook returns a boolean if a field has been set.
 func (o *PasswordCredential) HasHook() bool {
-	if o != nil && o.Hook != nil {
+	if o != nil && !IsNil(o.Hook) {
 		return true
 	}
 
@@ -121,7 +124,7 @@ func (o *PasswordCredential) SetHook(v PasswordCredentialHook) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *PasswordCredential) GetValue() string {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret string
 		return ret
 	}
@@ -131,7 +134,7 @@ func (o *PasswordCredential) GetValue() string {
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordCredential) GetValueOk() (*string, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -139,7 +142,7 @@ func (o *PasswordCredential) GetValueOk() (*string, bool) {
 
 // HasValue returns a boolean if a field has been set.
 func (o *PasswordCredential) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -152,14 +155,22 @@ func (o *PasswordCredential) SetValue(v string) {
 }
 
 func (o PasswordCredential) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordCredential) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Hash != nil {
+	if !IsNil(o.Hash) {
 		toSerialize["hash"] = o.Hash
 	}
-	if o.Hook != nil {
+	if !IsNil(o.Hook) {
 		toSerialize["hook"] = o.Hook
 	}
-	if o.Value != nil {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
 
@@ -167,29 +178,27 @@ func (o PasswordCredential) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordCredential) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordCredential) UnmarshalJSON(data []byte) (err error) {
 	varPasswordCredential := _PasswordCredential{}
 
-	err = json.Unmarshal(bytes, &varPasswordCredential)
-	if err == nil {
-		*o = PasswordCredential(varPasswordCredential)
-	} else {
+	err = json.Unmarshal(data, &varPasswordCredential)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PasswordCredential(varPasswordCredential)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "hash")
 		delete(additionalProperties, "hook")
 		delete(additionalProperties, "value")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -230,4 +239,3 @@ func (v *NullablePasswordCredential) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -6,10 +6,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DisplayName** | Pointer to **string** | The display name of the group owner | [optional] [readonly] 
 **Id** | Pointer to **string** | The &#x60;id&#x60; of the group owner | [optional] 
-**LastUpdated** | Pointer to **string** | Timestamp when the group owner was last updated | [optional] [readonly] 
+**LastUpdated** | Pointer to **time.Time** | Timestamp when the group owner was last updated | [optional] [readonly] 
 **OriginId** | Pointer to **string** | The ID of the app instance if the &#x60;originType&#x60; is &#x60;APPLICATION&#x60;. This value is &#x60;NULL&#x60; if &#x60;originType&#x60; is &#x60;OKTA_DIRECTORY&#x60;. | [optional] 
 **OriginType** | Pointer to **string** | The source where group ownership is managed | [optional] 
-**Resolved** | Pointer to **bool** | If &#x60;originType&#x60;is APPLICATION, this parameter is set to &#x60;FALSE&#x60; until the owner’s &#x60;originId&#x60; is reconciled with an associated Okta ID. | [optional] 
+**Resolved** | Pointer to **bool** | If &#x60;originType&#x60;is APPLICATION, this parameter is set to &#x60;FALSE&#x60; until the owner&#39;s &#x60;originId&#x60; is reconciled with an associated Okta ID. | [optional] 
 **Type** | Pointer to **string** | The entity type of the owner | [optional] 
 
 ## Methods
@@ -83,20 +83,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetLastUpdated
 
-`func (o *GroupOwner) GetLastUpdated() string`
+`func (o *GroupOwner) GetLastUpdated() time.Time`
 
 GetLastUpdated returns the LastUpdated field if non-nil, zero value otherwise.
 
 ### GetLastUpdatedOk
 
-`func (o *GroupOwner) GetLastUpdatedOk() (*string, bool)`
+`func (o *GroupOwner) GetLastUpdatedOk() (*time.Time, bool)`
 
 GetLastUpdatedOk returns a tuple with the LastUpdated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastUpdated
 
-`func (o *GroupOwner) SetLastUpdated(v string)`
+`func (o *GroupOwner) SetLastUpdated(v time.Time)`
 
 SetLastUpdated sets LastUpdated field to given value.
 

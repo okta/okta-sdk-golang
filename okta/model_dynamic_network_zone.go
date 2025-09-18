@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,9 +25,13 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 	"reflect"
 	"strings"
 )
+
+// checks if the DynamicNetworkZone type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DynamicNetworkZone{}
 
 // DynamicNetworkZone struct for DynamicNetworkZone
 type DynamicNetworkZone struct {
@@ -37,7 +41,7 @@ type DynamicNetworkZone struct {
 	// The proxy type used for a Dynamic Network Zone
 	ProxyType *string `json:"proxyType,omitempty"`
 	// An array of geolocations for a Dynamic Network Zone
-	Locations []NetworkZoneLocation `json:"locations,omitempty"`
+	Locations            []NetworkZoneLocation `json:"locations,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -64,7 +68,7 @@ func NewDynamicNetworkZoneWithDefaults() *DynamicNetworkZone {
 
 // GetAsns returns the Asns field value if set, zero value otherwise.
 func (o *DynamicNetworkZone) GetAsns() []string {
-	if o == nil || o.Asns == nil {
+	if o == nil || IsNil(o.Asns) {
 		var ret []string
 		return ret
 	}
@@ -74,7 +78,7 @@ func (o *DynamicNetworkZone) GetAsns() []string {
 // GetAsnsOk returns a tuple with the Asns field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DynamicNetworkZone) GetAsnsOk() ([]string, bool) {
-	if o == nil || o.Asns == nil {
+	if o == nil || IsNil(o.Asns) {
 		return nil, false
 	}
 	return o.Asns, true
@@ -82,7 +86,7 @@ func (o *DynamicNetworkZone) GetAsnsOk() ([]string, bool) {
 
 // HasAsns returns a boolean if a field has been set.
 func (o *DynamicNetworkZone) HasAsns() bool {
-	if o != nil && o.Asns != nil {
+	if o != nil && !IsNil(o.Asns) {
 		return true
 	}
 
@@ -96,7 +100,7 @@ func (o *DynamicNetworkZone) SetAsns(v []string) {
 
 // GetProxyType returns the ProxyType field value if set, zero value otherwise.
 func (o *DynamicNetworkZone) GetProxyType() string {
-	if o == nil || o.ProxyType == nil {
+	if o == nil || IsNil(o.ProxyType) {
 		var ret string
 		return ret
 	}
@@ -106,7 +110,7 @@ func (o *DynamicNetworkZone) GetProxyType() string {
 // GetProxyTypeOk returns a tuple with the ProxyType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DynamicNetworkZone) GetProxyTypeOk() (*string, bool) {
-	if o == nil || o.ProxyType == nil {
+	if o == nil || IsNil(o.ProxyType) {
 		return nil, false
 	}
 	return o.ProxyType, true
@@ -114,7 +118,7 @@ func (o *DynamicNetworkZone) GetProxyTypeOk() (*string, bool) {
 
 // HasProxyType returns a boolean if a field has been set.
 func (o *DynamicNetworkZone) HasProxyType() bool {
-	if o != nil && o.ProxyType != nil {
+	if o != nil && !IsNil(o.ProxyType) {
 		return true
 	}
 
@@ -139,7 +143,7 @@ func (o *DynamicNetworkZone) GetLocations() []NetworkZoneLocation {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DynamicNetworkZone) GetLocationsOk() ([]NetworkZoneLocation, bool) {
-	if o == nil || o.Locations == nil {
+	if o == nil || IsNil(o.Locations) {
 		return nil, false
 	}
 	return o.Locations, true
@@ -147,7 +151,7 @@ func (o *DynamicNetworkZone) GetLocationsOk() ([]NetworkZoneLocation, bool) {
 
 // HasLocations returns a boolean if a field has been set.
 func (o *DynamicNetworkZone) HasLocations() bool {
-	if o != nil && o.Locations != nil {
+	if o != nil && !IsNil(o.Locations) {
 		return true
 	}
 
@@ -160,19 +164,27 @@ func (o *DynamicNetworkZone) SetLocations(v []NetworkZoneLocation) {
 }
 
 func (o DynamicNetworkZone) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DynamicNetworkZone) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedNetworkZone, errNetworkZone := json.Marshal(o.NetworkZone)
 	if errNetworkZone != nil {
-		return []byte{}, errNetworkZone
+		return map[string]interface{}{}, errNetworkZone
 	}
 	errNetworkZone = json.Unmarshal([]byte(serializedNetworkZone), &toSerialize)
 	if errNetworkZone != nil {
-		return []byte{}, errNetworkZone
+		return map[string]interface{}{}, errNetworkZone
 	}
-	if o.Asns != nil {
+	if !IsNil(o.Asns) {
 		toSerialize["asns"] = o.Asns
 	}
-	if o.ProxyType != nil {
+	if !IsNil(o.ProxyType) {
 		toSerialize["proxyType"] = o.ProxyType
 	}
 	if o.Locations != nil {
@@ -183,10 +195,32 @@ func (o DynamicNetworkZone) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DynamicNetworkZone) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DynamicNetworkZone) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	type DynamicNetworkZoneWithoutEmbeddedStruct struct {
 		// An array of ASNs for a Network Zone
 		Asns []string `json:"asns,omitempty"`
@@ -198,7 +232,7 @@ func (o *DynamicNetworkZone) UnmarshalJSON(bytes []byte) (err error) {
 
 	varDynamicNetworkZoneWithoutEmbeddedStruct := DynamicNetworkZoneWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varDynamicNetworkZoneWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varDynamicNetworkZoneWithoutEmbeddedStruct)
 	if err == nil {
 		varDynamicNetworkZone := _DynamicNetworkZone{}
 		varDynamicNetworkZone.Asns = varDynamicNetworkZoneWithoutEmbeddedStruct.Asns
@@ -211,7 +245,7 @@ func (o *DynamicNetworkZone) UnmarshalJSON(bytes []byte) (err error) {
 
 	varDynamicNetworkZone := _DynamicNetworkZone{}
 
-	err = json.Unmarshal(bytes, &varDynamicNetworkZone)
+	err = json.Unmarshal(data, &varDynamicNetworkZone)
 	if err == nil {
 		o.NetworkZone = varDynamicNetworkZone.NetworkZone
 	} else {
@@ -220,8 +254,7 @@ func (o *DynamicNetworkZone) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "asns")
 		delete(additionalProperties, "proxyType")
 		delete(additionalProperties, "locations")
@@ -245,8 +278,6 @@ func (o *DynamicNetworkZone) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -287,4 +318,3 @@ func (v *NullableDynamicNetworkZone) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

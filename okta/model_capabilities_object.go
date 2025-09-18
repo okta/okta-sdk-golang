@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the CapabilitiesObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CapabilitiesObject{}
+
 // CapabilitiesObject Defines the configurations for the USER_PROVISIONING feature
 type CapabilitiesObject struct {
-	Create *CapabilitiesCreateObject `json:"create,omitempty"`
-	Update *CapabilitiesUpdateObject `json:"update,omitempty"`
+	Create               *CapabilitiesCreateObject `json:"create,omitempty"`
+	Update               *CapabilitiesUpdateObject `json:"update,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewCapabilitiesObjectWithDefaults() *CapabilitiesObject {
 
 // GetCreate returns the Create field value if set, zero value otherwise.
 func (o *CapabilitiesObject) GetCreate() CapabilitiesCreateObject {
-	if o == nil || o.Create == nil {
+	if o == nil || IsNil(o.Create) {
 		var ret CapabilitiesCreateObject
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *CapabilitiesObject) GetCreate() CapabilitiesCreateObject {
 // GetCreateOk returns a tuple with the Create field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CapabilitiesObject) GetCreateOk() (*CapabilitiesCreateObject, bool) {
-	if o == nil || o.Create == nil {
+	if o == nil || IsNil(o.Create) {
 		return nil, false
 	}
 	return o.Create, true
@@ -73,7 +76,7 @@ func (o *CapabilitiesObject) GetCreateOk() (*CapabilitiesCreateObject, bool) {
 
 // HasCreate returns a boolean if a field has been set.
 func (o *CapabilitiesObject) HasCreate() bool {
-	if o != nil && o.Create != nil {
+	if o != nil && !IsNil(o.Create) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *CapabilitiesObject) SetCreate(v CapabilitiesCreateObject) {
 
 // GetUpdate returns the Update field value if set, zero value otherwise.
 func (o *CapabilitiesObject) GetUpdate() CapabilitiesUpdateObject {
-	if o == nil || o.Update == nil {
+	if o == nil || IsNil(o.Update) {
 		var ret CapabilitiesUpdateObject
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *CapabilitiesObject) GetUpdate() CapabilitiesUpdateObject {
 // GetUpdateOk returns a tuple with the Update field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CapabilitiesObject) GetUpdateOk() (*CapabilitiesUpdateObject, bool) {
-	if o == nil || o.Update == nil {
+	if o == nil || IsNil(o.Update) {
 		return nil, false
 	}
 	return o.Update, true
@@ -105,7 +108,7 @@ func (o *CapabilitiesObject) GetUpdateOk() (*CapabilitiesUpdateObject, bool) {
 
 // HasUpdate returns a boolean if a field has been set.
 func (o *CapabilitiesObject) HasUpdate() bool {
-	if o != nil && o.Update != nil {
+	if o != nil && !IsNil(o.Update) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *CapabilitiesObject) SetUpdate(v CapabilitiesUpdateObject) {
 }
 
 func (o CapabilitiesObject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CapabilitiesObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Create != nil {
+	if !IsNil(o.Create) {
 		toSerialize["create"] = o.Create
 	}
-	if o.Update != nil {
+	if !IsNil(o.Update) {
 		toSerialize["update"] = o.Update
 	}
 
@@ -130,28 +141,26 @@ func (o CapabilitiesObject) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CapabilitiesObject) UnmarshalJSON(bytes []byte) (err error) {
+func (o *CapabilitiesObject) UnmarshalJSON(data []byte) (err error) {
 	varCapabilitiesObject := _CapabilitiesObject{}
 
-	err = json.Unmarshal(bytes, &varCapabilitiesObject)
-	if err == nil {
-		*o = CapabilitiesObject(varCapabilitiesObject)
-	} else {
+	err = json.Unmarshal(data, &varCapabilitiesObject)
+
+	if err != nil {
 		return err
 	}
 
+	*o = CapabilitiesObject(varCapabilitiesObject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "create")
 		delete(additionalProperties, "update")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableCapabilitiesObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

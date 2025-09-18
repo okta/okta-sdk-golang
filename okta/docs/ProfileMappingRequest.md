@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Properties** | [**map[string]ProfileMappingProperty**](ProfileMappingProperty.md) |  | 
+**Properties** | [**ProfileMappingProperty**](ProfileMappingProperty.md) |  | 
 
 ## Methods
 
 ### NewProfileMappingRequest
 
-`func NewProfileMappingRequest(properties map[string]ProfileMappingProperty, ) *ProfileMappingRequest`
+`func NewProfileMappingRequest(properties ProfileMappingProperty, ) *ProfileMappingRequest`
 
 NewProfileMappingRequest instantiates a new ProfileMappingRequest object
 This constructor will assign default values to properties that have it defined,
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetProperties
 
-`func (o *ProfileMappingRequest) GetProperties() map[string]ProfileMappingProperty`
+`func (o *ProfileMappingRequest) GetProperties() ProfileMappingProperty`
 
 GetProperties returns the Properties field if non-nil, zero value otherwise.
 
 ### GetPropertiesOk
 
-`func (o *ProfileMappingRequest) GetPropertiesOk() (*map[string]ProfileMappingProperty, bool)`
+`func (o *ProfileMappingRequest) GetPropertiesOk() (*ProfileMappingProperty, bool)`
 
 GetPropertiesOk returns a tuple with the Properties field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProperties
 
-`func (o *ProfileMappingRequest) SetProperties(v map[string]ProfileMappingProperty)`
+`func (o *ProfileMappingRequest) SetProperties(v ProfileMappingProperty)`
 
 SetProperties sets Properties field to given value.
 

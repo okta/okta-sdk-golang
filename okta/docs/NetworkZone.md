@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **LastUpdated** | Pointer to **time.Time** | Timestamp when the object was last modified | [optional] [readonly] 
 **Name** | **string** | Unique name for this Network Zone | 
 **Status** | Pointer to **string** | Network Zone status | [optional] 
-**System** | Pointer to **bool** | Indicates a system Network Zone: * &#x60;true&#x60; for system Network Zones * &#x60;false&#x60; for custom Network Zones  The Okta org provides the following default system Network Zones: * &#x60;LegacyIpZone&#x60; * &#x60;BlockedIpZone&#x60; * &lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &#x60;DefaultEnhancedDynamicZone&#x60;  Admins can modify the name of the default system Network Zone and add up to 5000 gateway or proxy IP entries.  | [optional] [readonly] 
+**System** | Pointer to **bool** | Indicates a system Network Zone: * &#x60;true&#x60; for system Network Zones * &#x60;false&#x60; for custom Network Zones  The Okta org provides the following default system Network Zones: * &#x60;LegacyIpZone&#x60; * &#x60;BlockedIpZone&#x60; * &#x60;DefaultEnhancedDynamicZone&#x60; * &#x60;DefaultExemptIpZone&#x60;  Admins can modify the name of the default system Network Zone and add up to 5000 gateway or proxy IP entries.  | [optional] [readonly] 
 **Type** | **string** | The type of Network Zone | 
 **Usage** | Pointer to **string** | The usage of the Network Zone | [optional] 
 **Links** | Pointer to [**LinksSelfAndLifecycle**](LinksSelfAndLifecycle.md) |  | [optional] 

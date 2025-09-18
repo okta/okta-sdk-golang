@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AllowedFor** | Pointer to **string** | The allowed types of uses for the Authenticator | [optional] 
+**AllowedFor** | Pointer to **string** | The allowed types of uses for the authenticator | [optional] 
 **TokenLifetimeInMinutes** | Pointer to **float32** | Specifies the lifetime of an email token. Default value is 5 minutes. | [optional] [default to 5]
 
 ## Methods

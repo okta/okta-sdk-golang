@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -38,7 +38,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"mime/multipart"
 	"net/http"
@@ -69,7 +68,7 @@ var (
 )
 
 const (
-	VERSION                   = "5.0.0"
+	VERSION                   = "6.0.0"
 	AccessTokenCacheKey       = "OKTA_ACCESS_TOKEN"
 	DpopAccessTokenNonce      = "DPOP_OKTA_ACCESS_TOKEN_NONCE"
 	DpopAccessTokenPrivateKey = "DPOP_OKTA_ACCESS_TOKEN_PRIVATE_KEY"
@@ -81,7 +80,7 @@ type RateLimit struct {
 	Reset     int64
 }
 
-// APIClient manages communication with the Okta Admin Management API v2024.06.1
+// APIClient manages communication with the Okta Admin Management API v5.1.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg           *Configuration
@@ -104,7 +103,7 @@ type APIClient struct {
 
 	ApplicationConnectionsAPI ApplicationConnectionsAPI
 
-	ApplicationCredentialsAPI ApplicationCredentialsAPI
+	ApplicationCrossAppAccessConnectionsAPI ApplicationCrossAppAccessConnectionsAPI
 
 	ApplicationFeaturesAPI ApplicationFeaturesAPI
 
@@ -118,9 +117,17 @@ type APIClient struct {
 
 	ApplicationSSOAPI ApplicationSSOAPI
 
+	ApplicationSSOCredentialKeyAPI ApplicationSSOCredentialKeyAPI
+
+	ApplicationSSOFederatedClaimsAPI ApplicationSSOFederatedClaimsAPI
+
+	ApplicationSSOPublicKeysAPI ApplicationSSOPublicKeysAPI
+
 	ApplicationTokensAPI ApplicationTokensAPI
 
 	ApplicationUsersAPI ApplicationUsersAPI
+
+	AssociatedDomainCustomizationsAPI AssociatedDomainCustomizationsAPI
 
 	AttackProtectionAPI AttackProtectionAPI
 
@@ -156,9 +163,17 @@ type APIClient struct {
 
 	DeviceAPI DeviceAPI
 
+	DeviceAccessAPI DeviceAccessAPI
+
 	DeviceAssuranceAPI DeviceAssuranceAPI
 
+	DeviceIntegrationsAPI DeviceIntegrationsAPI
+
+	DevicePostureCheckAPI DevicePostureCheckAPI
+
 	DirectoriesIntegrationAPI DirectoriesIntegrationAPI
+
+	EmailCustomizationAPI EmailCustomizationAPI
 
 	EmailDomainAPI EmailDomainAPI
 
@@ -168,13 +183,25 @@ type APIClient struct {
 
 	FeatureAPI FeatureAPI
 
+	GovernanceBundleAPI GovernanceBundleAPI
+
 	GroupAPI GroupAPI
 
 	GroupOwnerAPI GroupOwnerAPI
 
+	GroupPushMappingAPI GroupPushMappingAPI
+
+	GroupRuleAPI GroupRuleAPI
+
 	HookKeyAPI HookKeyAPI
 
 	IdentityProviderAPI IdentityProviderAPI
+
+	IdentityProviderKeysAPI IdentityProviderKeysAPI
+
+	IdentityProviderSigningKeysAPI IdentityProviderSigningKeysAPI
+
+	IdentityProviderUsersAPI IdentityProviderUsersAPI
 
 	IdentitySourceAPI IdentitySourceAPI
 
@@ -186,9 +213,27 @@ type APIClient struct {
 
 	NetworkZoneAPI NetworkZoneAPI
 
+	OAuth2ResourceServerCredentialsKeysAPI OAuth2ResourceServerCredentialsKeysAPI
+
 	OktaApplicationSettingsAPI OktaApplicationSettingsAPI
 
-	OrgSettingAPI OrgSettingAPI
+	OktaPersonalSettingsAPI OktaPersonalSettingsAPI
+
+	OrgCreatorAPI OrgCreatorAPI
+
+	OrgSettingAdminAPI OrgSettingAdminAPI
+
+	OrgSettingCommunicationAPI OrgSettingCommunicationAPI
+
+	OrgSettingContactAPI OrgSettingContactAPI
+
+	OrgSettingCustomizationAPI OrgSettingCustomizationAPI
+
+	OrgSettingGeneralAPI OrgSettingGeneralAPI
+
+	OrgSettingMetadataAPI OrgSettingMetadataAPI
+
+	OrgSettingSupportAPI OrgSettingSupportAPI
 
 	PolicyAPI PolicyAPI
 
@@ -204,17 +249,33 @@ type APIClient struct {
 
 	RealmAssignmentAPI RealmAssignmentAPI
 
-	ResourceSetAPI ResourceSetAPI
-
 	RiskEventAPI RiskEventAPI
 
 	RiskProviderAPI RiskProviderAPI
 
-	RoleAPI RoleAPI
+	RoleAssignmentAUserAPI RoleAssignmentAUserAPI
 
-	RoleAssignmentAPI RoleAssignmentAPI
+	RoleAssignmentBGroupAPI RoleAssignmentBGroupAPI
 
-	RoleTargetAPI RoleTargetAPI
+	RoleAssignmentClientAPI RoleAssignmentClientAPI
+
+	RoleBTargetAdminAPI RoleBTargetAdminAPI
+
+	RoleBTargetBGroupAPI RoleBTargetBGroupAPI
+
+	RoleBTargetClientAPI RoleBTargetClientAPI
+
+	RoleCResourceSetAPI RoleCResourceSetAPI
+
+	RoleCResourceSetResourceAPI RoleCResourceSetResourceAPI
+
+	RoleDResourceSetBindingAPI RoleDResourceSetBindingAPI
+
+	RoleDResourceSetBindingMemberAPI RoleDResourceSetBindingMemberAPI
+
+	RoleECustomAPI RoleECustomAPI
+
+	RoleECustomPermissionAPI RoleECustomPermissionAPI
 
 	SSFReceiverAPI SSFReceiverAPI
 
@@ -223,6 +284,8 @@ type APIClient struct {
 	SSFTransmitterAPI SSFTransmitterAPI
 
 	SchemaAPI SchemaAPI
+
+	ServiceAccountAPI ServiceAccountAPI
 
 	SessionAPI SessionAPI
 
@@ -242,9 +305,31 @@ type APIClient struct {
 
 	UserAPI UserAPI
 
+	UserAuthenticatorEnrollmentsAPI UserAuthenticatorEnrollmentsAPI
+
+	UserClassificationAPI UserClassificationAPI
+
+	UserCredAPI UserCredAPI
+
 	UserFactorAPI UserFactorAPI
 
+	UserGrantAPI UserGrantAPI
+
+	UserLifecycleAPI UserLifecycleAPI
+
+	UserLinkedObjectAPI UserLinkedObjectAPI
+
+	UserOAuthAPI UserOAuthAPI
+
+	UserResourcesAPI UserResourcesAPI
+
+	UserRiskAPI UserRiskAPI
+
+	UserSessionsAPI UserSessionsAPI
+
 	UserTypeAPI UserTypeAPI
+
+	WebAuthnPreregistrationAPI WebAuthnPreregistrationAPI
 }
 
 type service struct {
@@ -845,15 +930,19 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ApiTokenAPI = (*ApiTokenAPIService)(&c.common)
 	c.ApplicationAPI = (*ApplicationAPIService)(&c.common)
 	c.ApplicationConnectionsAPI = (*ApplicationConnectionsAPIService)(&c.common)
-	c.ApplicationCredentialsAPI = (*ApplicationCredentialsAPIService)(&c.common)
+	c.ApplicationCrossAppAccessConnectionsAPI = (*ApplicationCrossAppAccessConnectionsAPIService)(&c.common)
 	c.ApplicationFeaturesAPI = (*ApplicationFeaturesAPIService)(&c.common)
 	c.ApplicationGrantsAPI = (*ApplicationGrantsAPIService)(&c.common)
 	c.ApplicationGroupsAPI = (*ApplicationGroupsAPIService)(&c.common)
 	c.ApplicationLogosAPI = (*ApplicationLogosAPIService)(&c.common)
 	c.ApplicationPoliciesAPI = (*ApplicationPoliciesAPIService)(&c.common)
 	c.ApplicationSSOAPI = (*ApplicationSSOAPIService)(&c.common)
+	c.ApplicationSSOCredentialKeyAPI = (*ApplicationSSOCredentialKeyAPIService)(&c.common)
+	c.ApplicationSSOFederatedClaimsAPI = (*ApplicationSSOFederatedClaimsAPIService)(&c.common)
+	c.ApplicationSSOPublicKeysAPI = (*ApplicationSSOPublicKeysAPIService)(&c.common)
 	c.ApplicationTokensAPI = (*ApplicationTokensAPIService)(&c.common)
 	c.ApplicationUsersAPI = (*ApplicationUsersAPIService)(&c.common)
+	c.AssociatedDomainCustomizationsAPI = (*AssociatedDomainCustomizationsAPIService)(&c.common)
 	c.AttackProtectionAPI = (*AttackProtectionAPIService)(&c.common)
 	c.AuthenticatorAPI = (*AuthenticatorAPIService)(&c.common)
 	c.AuthorizationServerAPI = (*AuthorizationServerAPIService)(&c.common)
@@ -871,23 +960,42 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.CustomPagesAPI = (*CustomPagesAPIService)(&c.common)
 	c.CustomTemplatesAPI = (*CustomTemplatesAPIService)(&c.common)
 	c.DeviceAPI = (*DeviceAPIService)(&c.common)
+	c.DeviceAccessAPI = (*DeviceAccessAPIService)(&c.common)
 	c.DeviceAssuranceAPI = (*DeviceAssuranceAPIService)(&c.common)
+	c.DeviceIntegrationsAPI = (*DeviceIntegrationsAPIService)(&c.common)
+	c.DevicePostureCheckAPI = (*DevicePostureCheckAPIService)(&c.common)
 	c.DirectoriesIntegrationAPI = (*DirectoriesIntegrationAPIService)(&c.common)
+	c.EmailCustomizationAPI = (*EmailCustomizationAPIService)(&c.common)
 	c.EmailDomainAPI = (*EmailDomainAPIService)(&c.common)
 	c.EmailServerAPI = (*EmailServerAPIService)(&c.common)
 	c.EventHookAPI = (*EventHookAPIService)(&c.common)
 	c.FeatureAPI = (*FeatureAPIService)(&c.common)
+	c.GovernanceBundleAPI = (*GovernanceBundleAPIService)(&c.common)
 	c.GroupAPI = (*GroupAPIService)(&c.common)
 	c.GroupOwnerAPI = (*GroupOwnerAPIService)(&c.common)
+	c.GroupPushMappingAPI = (*GroupPushMappingAPIService)(&c.common)
+	c.GroupRuleAPI = (*GroupRuleAPIService)(&c.common)
 	c.HookKeyAPI = (*HookKeyAPIService)(&c.common)
 	c.IdentityProviderAPI = (*IdentityProviderAPIService)(&c.common)
+	c.IdentityProviderKeysAPI = (*IdentityProviderKeysAPIService)(&c.common)
+	c.IdentityProviderSigningKeysAPI = (*IdentityProviderSigningKeysAPIService)(&c.common)
+	c.IdentityProviderUsersAPI = (*IdentityProviderUsersAPIService)(&c.common)
 	c.IdentitySourceAPI = (*IdentitySourceAPIService)(&c.common)
 	c.InlineHookAPI = (*InlineHookAPIService)(&c.common)
 	c.LinkedObjectAPI = (*LinkedObjectAPIService)(&c.common)
 	c.LogStreamAPI = (*LogStreamAPIService)(&c.common)
 	c.NetworkZoneAPI = (*NetworkZoneAPIService)(&c.common)
+	c.OAuth2ResourceServerCredentialsKeysAPI = (*OAuth2ResourceServerCredentialsKeysAPIService)(&c.common)
 	c.OktaApplicationSettingsAPI = (*OktaApplicationSettingsAPIService)(&c.common)
-	c.OrgSettingAPI = (*OrgSettingAPIService)(&c.common)
+	c.OktaPersonalSettingsAPI = (*OktaPersonalSettingsAPIService)(&c.common)
+	c.OrgCreatorAPI = (*OrgCreatorAPIService)(&c.common)
+	c.OrgSettingAdminAPI = (*OrgSettingAdminAPIService)(&c.common)
+	c.OrgSettingCommunicationAPI = (*OrgSettingCommunicationAPIService)(&c.common)
+	c.OrgSettingContactAPI = (*OrgSettingContactAPIService)(&c.common)
+	c.OrgSettingCustomizationAPI = (*OrgSettingCustomizationAPIService)(&c.common)
+	c.OrgSettingGeneralAPI = (*OrgSettingGeneralAPIService)(&c.common)
+	c.OrgSettingMetadataAPI = (*OrgSettingMetadataAPIService)(&c.common)
+	c.OrgSettingSupportAPI = (*OrgSettingSupportAPIService)(&c.common)
 	c.PolicyAPI = (*PolicyAPIService)(&c.common)
 	c.PrincipalRateLimitAPI = (*PrincipalRateLimitAPIService)(&c.common)
 	c.ProfileMappingAPI = (*ProfileMappingAPIService)(&c.common)
@@ -895,16 +1003,25 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.RateLimitSettingsAPI = (*RateLimitSettingsAPIService)(&c.common)
 	c.RealmAPI = (*RealmAPIService)(&c.common)
 	c.RealmAssignmentAPI = (*RealmAssignmentAPIService)(&c.common)
-	c.ResourceSetAPI = (*ResourceSetAPIService)(&c.common)
 	c.RiskEventAPI = (*RiskEventAPIService)(&c.common)
 	c.RiskProviderAPI = (*RiskProviderAPIService)(&c.common)
-	c.RoleAPI = (*RoleAPIService)(&c.common)
-	c.RoleAssignmentAPI = (*RoleAssignmentAPIService)(&c.common)
-	c.RoleTargetAPI = (*RoleTargetAPIService)(&c.common)
+	c.RoleAssignmentAUserAPI = (*RoleAssignmentAUserAPIService)(&c.common)
+	c.RoleAssignmentBGroupAPI = (*RoleAssignmentBGroupAPIService)(&c.common)
+	c.RoleAssignmentClientAPI = (*RoleAssignmentClientAPIService)(&c.common)
+	c.RoleBTargetAdminAPI = (*RoleBTargetAdminAPIService)(&c.common)
+	c.RoleBTargetBGroupAPI = (*RoleBTargetBGroupAPIService)(&c.common)
+	c.RoleBTargetClientAPI = (*RoleBTargetClientAPIService)(&c.common)
+	c.RoleCResourceSetAPI = (*RoleCResourceSetAPIService)(&c.common)
+	c.RoleCResourceSetResourceAPI = (*RoleCResourceSetResourceAPIService)(&c.common)
+	c.RoleDResourceSetBindingAPI = (*RoleDResourceSetBindingAPIService)(&c.common)
+	c.RoleDResourceSetBindingMemberAPI = (*RoleDResourceSetBindingMemberAPIService)(&c.common)
+	c.RoleECustomAPI = (*RoleECustomAPIService)(&c.common)
+	c.RoleECustomPermissionAPI = (*RoleECustomPermissionAPIService)(&c.common)
 	c.SSFReceiverAPI = (*SSFReceiverAPIService)(&c.common)
 	c.SSFSecurityEventTokenAPI = (*SSFSecurityEventTokenAPIService)(&c.common)
 	c.SSFTransmitterAPI = (*SSFTransmitterAPIService)(&c.common)
 	c.SchemaAPI = (*SchemaAPIService)(&c.common)
+	c.ServiceAccountAPI = (*ServiceAccountAPIService)(&c.common)
 	c.SessionAPI = (*SessionAPIService)(&c.common)
 	c.SubscriptionAPI = (*SubscriptionAPIService)(&c.common)
 	c.SystemLogAPI = (*SystemLogAPIService)(&c.common)
@@ -914,14 +1031,21 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.TrustedOriginAPI = (*TrustedOriginAPIService)(&c.common)
 	c.UISchemaAPI = (*UISchemaAPIService)(&c.common)
 	c.UserAPI = (*UserAPIService)(&c.common)
+	c.UserAuthenticatorEnrollmentsAPI = (*UserAuthenticatorEnrollmentsAPIService)(&c.common)
+	c.UserClassificationAPI = (*UserClassificationAPIService)(&c.common)
+	c.UserCredAPI = (*UserCredAPIService)(&c.common)
 	c.UserFactorAPI = (*UserFactorAPIService)(&c.common)
+	c.UserGrantAPI = (*UserGrantAPIService)(&c.common)
+	c.UserLifecycleAPI = (*UserLifecycleAPIService)(&c.common)
+	c.UserLinkedObjectAPI = (*UserLinkedObjectAPIService)(&c.common)
+	c.UserOAuthAPI = (*UserOAuthAPIService)(&c.common)
+	c.UserResourcesAPI = (*UserResourcesAPIService)(&c.common)
+	c.UserRiskAPI = (*UserRiskAPIService)(&c.common)
+	c.UserSessionsAPI = (*UserSessionsAPIService)(&c.common)
 	c.UserTypeAPI = (*UserTypeAPIService)(&c.common)
+	c.WebAuthnPreregistrationAPI = (*WebAuthnPreregistrationAPIService)(&c.common)
 
 	return c
-}
-
-func atoi(in string) (int, error) {
-	return strconv.Atoi(in)
 }
 
 // selectHeaderContentType select a content type from the available list.
@@ -941,10 +1065,6 @@ func selectHeaderAccept(accepts []string) string {
 		return ""
 	}
 
-	//if contains(accepts, "application/json") {
-	//	return "application/json"
-	//}
-
 	return strings.Join(accepts, ",")
 }
 
@@ -956,20 +1076,6 @@ func contains(haystack []string, needle string) bool {
 		}
 	}
 	return false
-}
-
-// Verify optional parameters are of the correct type.
-func typeCheckParameter(obj interface{}, expected string, name string) error {
-	// Make sure there is an object.
-	if obj == nil {
-		return nil
-	}
-
-	// Check the type is as expected.
-	if reflect.TypeOf(obj).String() != expected {
-		return fmt.Errorf("Expected %s to be of type %s but received %s.", name, expected, reflect.TypeOf(obj).String())
-	}
-	return nil
 }
 
 // parameterToString convert interface{} parameters to string, using a delimiter if format is provided.
@@ -994,15 +1100,6 @@ func parameterToString(obj interface{}, collectionFormat string) string {
 	}
 
 	return fmt.Sprintf("%v", obj)
-}
-
-// helper for converting interface{} parameters to json strings
-func parameterToJson(obj interface{}) (string, error) {
-	jsonBuf, err := json.Marshal(obj)
-	if err != nil {
-		return "", err
-	}
-	return string(jsonBuf), err
 }
 
 // callAPI do the request.
@@ -1273,7 +1370,7 @@ func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err err
 		return nil
 	}
 	if f, ok := v.(**os.File); ok {
-		*f, err = ioutil.TempFile("", "HttpClientFile")
+		*f, err = os.CreateTemp("", "HttpClientFile")
 		if err != nil {
 			return
 		}
@@ -1363,12 +1460,12 @@ func (c *APIClient) do(ctx context.Context, req *http.Request) (*http.Response, 
 func (c *APIClient) doWithRetries(ctx context.Context, req *http.Request) (*http.Response, error) {
 	var bodyReader func() io.ReadCloser
 	if req.Body != nil {
-		buf, err := ioutil.ReadAll(req.Body)
+		buf, err := io.ReadAll(req.Body)
 		if err != nil {
 			return nil, err
 		}
 		bodyReader = func() io.ReadCloser {
-			return ioutil.NopCloser(bytes.NewReader(buf))
+			return io.NopCloser(bytes.NewReader(buf))
 		}
 	}
 	var (
@@ -1430,18 +1527,6 @@ func addFile(w *multipart.Writer, fieldName, path string) error {
 	_, err = io.Copy(part, file)
 
 	return err
-}
-
-// Prevent trying to import "fmt"
-func reportError(format string, a ...interface{}) error {
-	return fmt.Errorf(format, a...)
-}
-
-// A wrapper for strict JSON decoding
-func newStrictDecoder(data []byte) *json.Decoder {
-	dec := json.NewDecoder(bytes.NewBuffer(data))
-	dec.DisallowUnknownFields()
-	return dec
 }
 
 // Set request body from an interface{}
@@ -1548,10 +1633,6 @@ func CacheExpires(r *http.Response) time.Time {
 	return expires
 }
 
-func strlen(s string) int {
-	return utf8.RuneCountInString(s)
-}
-
 // GenericOpenAPIError Provides access to the body, error and model on returned errors.
 type GenericOpenAPIError struct {
 	body  []byte
@@ -1604,7 +1685,7 @@ func tooManyRequests(resp *http.Response) bool {
 
 func tryDrainBody(body io.ReadCloser) error {
 	defer body.Close()
-	_, err := io.Copy(ioutil.Discard, io.LimitReader(body, 4096))
+	_, err := io.Copy(io.Discard, io.LimitReader(body, 4096))
 	return err
 }
 
@@ -1655,16 +1736,6 @@ func privateKeyToBytes(priv *rsa.PrivateKey) []byte {
 		&pem.Block{
 			Type:  "RSA PRIVATE KEY",
 			Bytes: x509.MarshalPKCS1PrivateKey(priv),
-		},
-	)
-	return privBytes
-}
-
-func publicKeyToBytes(priv *rsa.PrivateKey) []byte {
-	privBytes := pem.EncodeToMemory(
-		&pem.Block{
-			Type:  "RSA PUBLIC KEY",
-			Bytes: x509.MarshalPKCS1PublicKey(&priv.PublicKey),
 		},
 	)
 	return privBytes

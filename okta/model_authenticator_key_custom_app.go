@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -29,13 +29,16 @@ import (
 	"strings"
 )
 
+// checks if the AuthenticatorKeyCustomApp type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorKeyCustomApp{}
+
 // AuthenticatorKeyCustomApp struct for AuthenticatorKeyCustomApp
 type AuthenticatorKeyCustomApp struct {
 	AuthenticatorSimple
-	// A value of `true` indicates that the administrator accepts the [terms](https://www.okta.com/privacy-policy/)for creating a new authenticator. Okta requires that you accept the terms when creating a new `custom_app` authenticator. Other authenticators don't require this field.
-	AgreeToTerms *bool `json:"agreeToTerms,omitempty"`
-	Provider *AuthenticatorKeyCustomAppAllOfProvider `json:"provider,omitempty"`
-	Settings *AuthenticatorKeyCustomAppAllOfSettings `json:"settings,omitempty"`
+	// A value of `true` indicates that the administrator accepts the [terms](https://www.okta.com/privacy-policy/) for creating a new authenticator. Okta requires that you accept the terms when creating a new `custom_app` authenticator. Other authenticators don't require this field.
+	AgreeToTerms         *bool                                   `json:"agreeToTerms,omitempty"`
+	Provider             *AuthenticatorKeyCustomAppAllOfProvider `json:"provider,omitempty"`
+	Settings             *AuthenticatorKeyCustomAppAllOfSettings `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +63,7 @@ func NewAuthenticatorKeyCustomAppWithDefaults() *AuthenticatorKeyCustomApp {
 
 // GetAgreeToTerms returns the AgreeToTerms field value if set, zero value otherwise.
 func (o *AuthenticatorKeyCustomApp) GetAgreeToTerms() bool {
-	if o == nil || o.AgreeToTerms == nil {
+	if o == nil || IsNil(o.AgreeToTerms) {
 		var ret bool
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *AuthenticatorKeyCustomApp) GetAgreeToTerms() bool {
 // GetAgreeToTermsOk returns a tuple with the AgreeToTerms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorKeyCustomApp) GetAgreeToTermsOk() (*bool, bool) {
-	if o == nil || o.AgreeToTerms == nil {
+	if o == nil || IsNil(o.AgreeToTerms) {
 		return nil, false
 	}
 	return o.AgreeToTerms, true
@@ -78,7 +81,7 @@ func (o *AuthenticatorKeyCustomApp) GetAgreeToTermsOk() (*bool, bool) {
 
 // HasAgreeToTerms returns a boolean if a field has been set.
 func (o *AuthenticatorKeyCustomApp) HasAgreeToTerms() bool {
-	if o != nil && o.AgreeToTerms != nil {
+	if o != nil && !IsNil(o.AgreeToTerms) {
 		return true
 	}
 
@@ -92,7 +95,7 @@ func (o *AuthenticatorKeyCustomApp) SetAgreeToTerms(v bool) {
 
 // GetProvider returns the Provider field value if set, zero value otherwise.
 func (o *AuthenticatorKeyCustomApp) GetProvider() AuthenticatorKeyCustomAppAllOfProvider {
-	if o == nil || o.Provider == nil {
+	if o == nil || IsNil(o.Provider) {
 		var ret AuthenticatorKeyCustomAppAllOfProvider
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *AuthenticatorKeyCustomApp) GetProvider() AuthenticatorKeyCustomAppAllOf
 // GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorKeyCustomApp) GetProviderOk() (*AuthenticatorKeyCustomAppAllOfProvider, bool) {
-	if o == nil || o.Provider == nil {
+	if o == nil || IsNil(o.Provider) {
 		return nil, false
 	}
 	return o.Provider, true
@@ -110,7 +113,7 @@ func (o *AuthenticatorKeyCustomApp) GetProviderOk() (*AuthenticatorKeyCustomAppA
 
 // HasProvider returns a boolean if a field has been set.
 func (o *AuthenticatorKeyCustomApp) HasProvider() bool {
-	if o != nil && o.Provider != nil {
+	if o != nil && !IsNil(o.Provider) {
 		return true
 	}
 
@@ -124,7 +127,7 @@ func (o *AuthenticatorKeyCustomApp) SetProvider(v AuthenticatorKeyCustomAppAllOf
 
 // GetSettings returns the Settings field value if set, zero value otherwise.
 func (o *AuthenticatorKeyCustomApp) GetSettings() AuthenticatorKeyCustomAppAllOfSettings {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		var ret AuthenticatorKeyCustomAppAllOfSettings
 		return ret
 	}
@@ -134,7 +137,7 @@ func (o *AuthenticatorKeyCustomApp) GetSettings() AuthenticatorKeyCustomAppAllOf
 // GetSettingsOk returns a tuple with the Settings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorKeyCustomApp) GetSettingsOk() (*AuthenticatorKeyCustomAppAllOfSettings, bool) {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		return nil, false
 	}
 	return o.Settings, true
@@ -142,7 +145,7 @@ func (o *AuthenticatorKeyCustomApp) GetSettingsOk() (*AuthenticatorKeyCustomAppA
 
 // HasSettings returns a boolean if a field has been set.
 func (o *AuthenticatorKeyCustomApp) HasSettings() bool {
-	if o != nil && o.Settings != nil {
+	if o != nil && !IsNil(o.Settings) {
 		return true
 	}
 
@@ -155,22 +158,30 @@ func (o *AuthenticatorKeyCustomApp) SetSettings(v AuthenticatorKeyCustomAppAllOf
 }
 
 func (o AuthenticatorKeyCustomApp) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorKeyCustomApp) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedAuthenticatorSimple, errAuthenticatorSimple := json.Marshal(o.AuthenticatorSimple)
 	if errAuthenticatorSimple != nil {
-		return []byte{}, errAuthenticatorSimple
+		return map[string]interface{}{}, errAuthenticatorSimple
 	}
 	errAuthenticatorSimple = json.Unmarshal([]byte(serializedAuthenticatorSimple), &toSerialize)
 	if errAuthenticatorSimple != nil {
-		return []byte{}, errAuthenticatorSimple
+		return map[string]interface{}{}, errAuthenticatorSimple
 	}
-	if o.AgreeToTerms != nil {
+	if !IsNil(o.AgreeToTerms) {
 		toSerialize["agreeToTerms"] = o.AgreeToTerms
 	}
-	if o.Provider != nil {
+	if !IsNil(o.Provider) {
 		toSerialize["provider"] = o.Provider
 	}
-	if o.Settings != nil {
+	if !IsNil(o.Settings) {
 		toSerialize["settings"] = o.Settings
 	}
 
@@ -178,20 +189,20 @@ func (o AuthenticatorKeyCustomApp) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorKeyCustomApp) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorKeyCustomApp) UnmarshalJSON(data []byte) (err error) {
 	type AuthenticatorKeyCustomAppWithoutEmbeddedStruct struct {
-		// A value of `true` indicates that the administrator accepts the [terms](https://www.okta.com/privacy-policy/)for creating a new authenticator. Okta requires that you accept the terms when creating a new `custom_app` authenticator. Other authenticators don't require this field.
-		AgreeToTerms *bool `json:"agreeToTerms,omitempty"`
-		Provider *AuthenticatorKeyCustomAppAllOfProvider `json:"provider,omitempty"`
-		Settings *AuthenticatorKeyCustomAppAllOfSettings `json:"settings,omitempty"`
+		// A value of `true` indicates that the administrator accepts the [terms](https://www.okta.com/privacy-policy/) for creating a new authenticator. Okta requires that you accept the terms when creating a new `custom_app` authenticator. Other authenticators don't require this field.
+		AgreeToTerms *bool                                   `json:"agreeToTerms,omitempty"`
+		Provider     *AuthenticatorKeyCustomAppAllOfProvider `json:"provider,omitempty"`
+		Settings     *AuthenticatorKeyCustomAppAllOfSettings `json:"settings,omitempty"`
 	}
 
 	varAuthenticatorKeyCustomAppWithoutEmbeddedStruct := AuthenticatorKeyCustomAppWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorKeyCustomAppWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varAuthenticatorKeyCustomAppWithoutEmbeddedStruct)
 	if err == nil {
 		varAuthenticatorKeyCustomApp := _AuthenticatorKeyCustomApp{}
 		varAuthenticatorKeyCustomApp.AgreeToTerms = varAuthenticatorKeyCustomAppWithoutEmbeddedStruct.AgreeToTerms
@@ -204,7 +215,7 @@ func (o *AuthenticatorKeyCustomApp) UnmarshalJSON(bytes []byte) (err error) {
 
 	varAuthenticatorKeyCustomApp := _AuthenticatorKeyCustomApp{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorKeyCustomApp)
+	err = json.Unmarshal(data, &varAuthenticatorKeyCustomApp)
 	if err == nil {
 		o.AuthenticatorSimple = varAuthenticatorKeyCustomApp.AuthenticatorSimple
 	} else {
@@ -213,8 +224,7 @@ func (o *AuthenticatorKeyCustomApp) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "agreeToTerms")
 		delete(additionalProperties, "provider")
 		delete(additionalProperties, "settings")
@@ -238,8 +248,6 @@ func (o *AuthenticatorKeyCustomApp) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -280,4 +288,3 @@ func (v *NullableAuthenticatorKeyCustomApp) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

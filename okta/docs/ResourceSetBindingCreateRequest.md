@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Members** | Pointer to **[]string** |  | [optional] 
+**Members** | Pointer to **[]string** | URLs to user and/or group instances that are assigned to the role | [optional] 
 **Role** | Pointer to **string** | Unique key for the role | [optional] 
 
 ## Methods

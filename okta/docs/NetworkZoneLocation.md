@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Country** | Pointer to **string** | The two-character ISO-3166-1 country code. Don&#39;t use continent codes since they are treated as generic codes for undesignated countries. &lt;br&gt;For example: &#x60;US&#x60; | [optional] 
-**Region** | Pointer to **string** | (Optional) The ISO-3166-2 region code appended to the country code (&#x60;countryCode-regionCode&#x60;), or &#x60;null&#x60; if empty. Don&#39;t use continent codes since they are treated as generic codes for undesignated regions. &lt;br&gt;For example: &#x60;CA&#x60; (for &#x60;US-CA&#x60; country and region code) | [optional] 
+**Country** | Pointer to **string** | The two-character ISO 3166-1 country code. Don&#39;t use continent codes since they are treated as generic codes for undesignated countries. &lt;br&gt;For example: &#x60;US&#x60; | [optional] 
+**Region** | Pointer to **string** | (Optional) The ISO 3166-2 region code appended to the country code (&#x60;countryCode-regionCode&#x60;), or &#x60;null&#x60; if empty. Don&#39;t use continent codes since they are treated as generic codes for undesignated regions. &lt;br&gt;For example: &#x60;CA&#x60; (for &#x60;US-CA&#x60; country and region code) | [optional] 
 
 ## Methods
 

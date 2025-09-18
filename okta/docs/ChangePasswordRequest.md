@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **NewPassword** | Pointer to [**PasswordCredential**](PasswordCredential.md) |  | [optional] 
 **OldPassword** | Pointer to [**PasswordCredential**](PasswordCredential.md) |  | [optional] 
-**RevokeSessions** | Pointer to **bool** |  | [optional] 
+**RevokeSessions** | Pointer to **bool** | When set to &#x60;true&#x60;, revokes all user sessions, except for the current session | [optional] [default to false]
 
 ## Methods
 

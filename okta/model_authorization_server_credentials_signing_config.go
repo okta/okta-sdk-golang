@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 	"time"
 )
+
+// checks if the AuthorizationServerCredentialsSigningConfig type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthorizationServerCredentialsSigningConfig{}
 
 // AuthorizationServerCredentialsSigningConfig struct for AuthorizationServerCredentialsSigningConfig
 type AuthorizationServerCredentialsSigningConfig struct {
@@ -39,7 +42,7 @@ type AuthorizationServerCredentialsSigningConfig struct {
 	// The Key rotation mode for the authorization server
 	RotationMode *string `json:"rotationMode,omitempty"`
 	// How the key is used
-	Use *string `json:"use,omitempty"`
+	Use                  *string `json:"use,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -64,7 +67,7 @@ func NewAuthorizationServerCredentialsSigningConfigWithDefaults() *Authorization
 
 // GetKid returns the Kid field value if set, zero value otherwise.
 func (o *AuthorizationServerCredentialsSigningConfig) GetKid() string {
-	if o == nil || o.Kid == nil {
+	if o == nil || IsNil(o.Kid) {
 		var ret string
 		return ret
 	}
@@ -74,7 +77,7 @@ func (o *AuthorizationServerCredentialsSigningConfig) GetKid() string {
 // GetKidOk returns a tuple with the Kid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerCredentialsSigningConfig) GetKidOk() (*string, bool) {
-	if o == nil || o.Kid == nil {
+	if o == nil || IsNil(o.Kid) {
 		return nil, false
 	}
 	return o.Kid, true
@@ -82,7 +85,7 @@ func (o *AuthorizationServerCredentialsSigningConfig) GetKidOk() (*string, bool)
 
 // HasKid returns a boolean if a field has been set.
 func (o *AuthorizationServerCredentialsSigningConfig) HasKid() bool {
-	if o != nil && o.Kid != nil {
+	if o != nil && !IsNil(o.Kid) {
 		return true
 	}
 
@@ -96,7 +99,7 @@ func (o *AuthorizationServerCredentialsSigningConfig) SetKid(v string) {
 
 // GetLastRotated returns the LastRotated field value if set, zero value otherwise.
 func (o *AuthorizationServerCredentialsSigningConfig) GetLastRotated() time.Time {
-	if o == nil || o.LastRotated == nil {
+	if o == nil || IsNil(o.LastRotated) {
 		var ret time.Time
 		return ret
 	}
@@ -106,7 +109,7 @@ func (o *AuthorizationServerCredentialsSigningConfig) GetLastRotated() time.Time
 // GetLastRotatedOk returns a tuple with the LastRotated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerCredentialsSigningConfig) GetLastRotatedOk() (*time.Time, bool) {
-	if o == nil || o.LastRotated == nil {
+	if o == nil || IsNil(o.LastRotated) {
 		return nil, false
 	}
 	return o.LastRotated, true
@@ -114,7 +117,7 @@ func (o *AuthorizationServerCredentialsSigningConfig) GetLastRotatedOk() (*time.
 
 // HasLastRotated returns a boolean if a field has been set.
 func (o *AuthorizationServerCredentialsSigningConfig) HasLastRotated() bool {
-	if o != nil && o.LastRotated != nil {
+	if o != nil && !IsNil(o.LastRotated) {
 		return true
 	}
 
@@ -128,7 +131,7 @@ func (o *AuthorizationServerCredentialsSigningConfig) SetLastRotated(v time.Time
 
 // GetNextRotation returns the NextRotation field value if set, zero value otherwise.
 func (o *AuthorizationServerCredentialsSigningConfig) GetNextRotation() time.Time {
-	if o == nil || o.NextRotation == nil {
+	if o == nil || IsNil(o.NextRotation) {
 		var ret time.Time
 		return ret
 	}
@@ -138,7 +141,7 @@ func (o *AuthorizationServerCredentialsSigningConfig) GetNextRotation() time.Tim
 // GetNextRotationOk returns a tuple with the NextRotation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerCredentialsSigningConfig) GetNextRotationOk() (*time.Time, bool) {
-	if o == nil || o.NextRotation == nil {
+	if o == nil || IsNil(o.NextRotation) {
 		return nil, false
 	}
 	return o.NextRotation, true
@@ -146,7 +149,7 @@ func (o *AuthorizationServerCredentialsSigningConfig) GetNextRotationOk() (*time
 
 // HasNextRotation returns a boolean if a field has been set.
 func (o *AuthorizationServerCredentialsSigningConfig) HasNextRotation() bool {
-	if o != nil && o.NextRotation != nil {
+	if o != nil && !IsNil(o.NextRotation) {
 		return true
 	}
 
@@ -160,7 +163,7 @@ func (o *AuthorizationServerCredentialsSigningConfig) SetNextRotation(v time.Tim
 
 // GetRotationMode returns the RotationMode field value if set, zero value otherwise.
 func (o *AuthorizationServerCredentialsSigningConfig) GetRotationMode() string {
-	if o == nil || o.RotationMode == nil {
+	if o == nil || IsNil(o.RotationMode) {
 		var ret string
 		return ret
 	}
@@ -170,7 +173,7 @@ func (o *AuthorizationServerCredentialsSigningConfig) GetRotationMode() string {
 // GetRotationModeOk returns a tuple with the RotationMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerCredentialsSigningConfig) GetRotationModeOk() (*string, bool) {
-	if o == nil || o.RotationMode == nil {
+	if o == nil || IsNil(o.RotationMode) {
 		return nil, false
 	}
 	return o.RotationMode, true
@@ -178,7 +181,7 @@ func (o *AuthorizationServerCredentialsSigningConfig) GetRotationModeOk() (*stri
 
 // HasRotationMode returns a boolean if a field has been set.
 func (o *AuthorizationServerCredentialsSigningConfig) HasRotationMode() bool {
-	if o != nil && o.RotationMode != nil {
+	if o != nil && !IsNil(o.RotationMode) {
 		return true
 	}
 
@@ -192,7 +195,7 @@ func (o *AuthorizationServerCredentialsSigningConfig) SetRotationMode(v string) 
 
 // GetUse returns the Use field value if set, zero value otherwise.
 func (o *AuthorizationServerCredentialsSigningConfig) GetUse() string {
-	if o == nil || o.Use == nil {
+	if o == nil || IsNil(o.Use) {
 		var ret string
 		return ret
 	}
@@ -202,7 +205,7 @@ func (o *AuthorizationServerCredentialsSigningConfig) GetUse() string {
 // GetUseOk returns a tuple with the Use field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerCredentialsSigningConfig) GetUseOk() (*string, bool) {
-	if o == nil || o.Use == nil {
+	if o == nil || IsNil(o.Use) {
 		return nil, false
 	}
 	return o.Use, true
@@ -210,7 +213,7 @@ func (o *AuthorizationServerCredentialsSigningConfig) GetUseOk() (*string, bool)
 
 // HasUse returns a boolean if a field has been set.
 func (o *AuthorizationServerCredentialsSigningConfig) HasUse() bool {
-	if o != nil && o.Use != nil {
+	if o != nil && !IsNil(o.Use) {
 		return true
 	}
 
@@ -223,20 +226,28 @@ func (o *AuthorizationServerCredentialsSigningConfig) SetUse(v string) {
 }
 
 func (o AuthorizationServerCredentialsSigningConfig) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthorizationServerCredentialsSigningConfig) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Kid != nil {
+	if !IsNil(o.Kid) {
 		toSerialize["kid"] = o.Kid
 	}
-	if o.LastRotated != nil {
+	if !IsNil(o.LastRotated) {
 		toSerialize["lastRotated"] = o.LastRotated
 	}
-	if o.NextRotation != nil {
+	if !IsNil(o.NextRotation) {
 		toSerialize["nextRotation"] = o.NextRotation
 	}
-	if o.RotationMode != nil {
+	if !IsNil(o.RotationMode) {
 		toSerialize["rotationMode"] = o.RotationMode
 	}
-	if o.Use != nil {
+	if !IsNil(o.Use) {
 		toSerialize["use"] = o.Use
 	}
 
@@ -244,31 +255,29 @@ func (o AuthorizationServerCredentialsSigningConfig) MarshalJSON() ([]byte, erro
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthorizationServerCredentialsSigningConfig) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthorizationServerCredentialsSigningConfig) UnmarshalJSON(data []byte) (err error) {
 	varAuthorizationServerCredentialsSigningConfig := _AuthorizationServerCredentialsSigningConfig{}
 
-	err = json.Unmarshal(bytes, &varAuthorizationServerCredentialsSigningConfig)
-	if err == nil {
-		*o = AuthorizationServerCredentialsSigningConfig(varAuthorizationServerCredentialsSigningConfig)
-	} else {
+	err = json.Unmarshal(data, &varAuthorizationServerCredentialsSigningConfig)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthorizationServerCredentialsSigningConfig(varAuthorizationServerCredentialsSigningConfig)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "kid")
 		delete(additionalProperties, "lastRotated")
 		delete(additionalProperties, "nextRotation")
 		delete(additionalProperties, "rotationMode")
 		delete(additionalProperties, "use")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -309,4 +318,3 @@ func (v *NullableAuthorizationServerCredentialsSigningConfig) UnmarshalJSON(src 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the IdentitySourceUserProfileForDelete type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IdentitySourceUserProfileForDelete{}
+
 // IdentitySourceUserProfileForDelete struct for IdentitySourceUserProfileForDelete
 type IdentitySourceUserProfileForDelete struct {
-	ExternalId *string `json:"externalId,omitempty"`
+	// The external ID of the entity that needs to be deleted in Okta
+	ExternalId           *string `json:"externalId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +58,7 @@ func NewIdentitySourceUserProfileForDeleteWithDefaults() *IdentitySourceUserProf
 
 // GetExternalId returns the ExternalId field value if set, zero value otherwise.
 func (o *IdentitySourceUserProfileForDelete) GetExternalId() string {
-	if o == nil || o.ExternalId == nil {
+	if o == nil || IsNil(o.ExternalId) {
 		var ret string
 		return ret
 	}
@@ -64,7 +68,7 @@ func (o *IdentitySourceUserProfileForDelete) GetExternalId() string {
 // GetExternalIdOk returns a tuple with the ExternalId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentitySourceUserProfileForDelete) GetExternalIdOk() (*string, bool) {
-	if o == nil || o.ExternalId == nil {
+	if o == nil || IsNil(o.ExternalId) {
 		return nil, false
 	}
 	return o.ExternalId, true
@@ -72,7 +76,7 @@ func (o *IdentitySourceUserProfileForDelete) GetExternalIdOk() (*string, bool) {
 
 // HasExternalId returns a boolean if a field has been set.
 func (o *IdentitySourceUserProfileForDelete) HasExternalId() bool {
-	if o != nil && o.ExternalId != nil {
+	if o != nil && !IsNil(o.ExternalId) {
 		return true
 	}
 
@@ -85,8 +89,16 @@ func (o *IdentitySourceUserProfileForDelete) SetExternalId(v string) {
 }
 
 func (o IdentitySourceUserProfileForDelete) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IdentitySourceUserProfileForDelete) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ExternalId != nil {
+	if !IsNil(o.ExternalId) {
 		toSerialize["externalId"] = o.ExternalId
 	}
 
@@ -94,27 +106,25 @@ func (o IdentitySourceUserProfileForDelete) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *IdentitySourceUserProfileForDelete) UnmarshalJSON(bytes []byte) (err error) {
+func (o *IdentitySourceUserProfileForDelete) UnmarshalJSON(data []byte) (err error) {
 	varIdentitySourceUserProfileForDelete := _IdentitySourceUserProfileForDelete{}
 
-	err = json.Unmarshal(bytes, &varIdentitySourceUserProfileForDelete)
-	if err == nil {
-		*o = IdentitySourceUserProfileForDelete(varIdentitySourceUserProfileForDelete)
-	} else {
+	err = json.Unmarshal(data, &varIdentitySourceUserProfileForDelete)
+
+	if err != nil {
 		return err
 	}
 
+	*o = IdentitySourceUserProfileForDelete(varIdentitySourceUserProfileForDelete)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "externalId")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +165,3 @@ func (v *NullableIdentitySourceUserProfileForDelete) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

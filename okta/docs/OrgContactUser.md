@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**UserId** | Pointer to **string** |  | [optional] 
-**Links** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
+**UserId** | Pointer to **string** | Contact user ID | [optional] 
+**Links** | Pointer to [**OrgContactUserLinks**](OrgContactUserLinks.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasUserId returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *OrgContactUser) GetLinks() LinksSelf`
+`func (o *OrgContactUser) GetLinks() OrgContactUserLinks`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *OrgContactUser) GetLinksOk() (*LinksSelf, bool)`
+`func (o *OrgContactUser) GetLinksOk() (*OrgContactUserLinks, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *OrgContactUser) SetLinks(v LinksSelf)`
+`func (o *OrgContactUser) SetLinks(v OrgContactUserLinks)`
 
 SetLinks sets Links field to given value.
 

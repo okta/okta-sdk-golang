@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AllowedFor** | Pointer to **string** | The allowed types of uses for the Authenticator | [optional] 
+**AllowedFor** | Pointer to **string** | The allowed types of uses for the authenticator | [optional] 
 
 ## Methods
 

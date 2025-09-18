@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the LinksResend type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LinksResend{}
+
 // LinksResend struct for LinksResend
 type LinksResend struct {
-	Resend *LinksResendResend `json:"resend,omitempty"`
+	// Resends the factor enrollment challenge. See [Resend a factor enrollment](/openapi/okta-management/management/tag/UserFactor/#tag/UserFactor/operation/resendEnrollFactor).
+	Resend               *HrefObject `json:"resend,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -53,9 +57,9 @@ func NewLinksResendWithDefaults() *LinksResend {
 }
 
 // GetResend returns the Resend field value if set, zero value otherwise.
-func (o *LinksResend) GetResend() LinksResendResend {
-	if o == nil || o.Resend == nil {
-		var ret LinksResendResend
+func (o *LinksResend) GetResend() HrefObject {
+	if o == nil || IsNil(o.Resend) {
+		var ret HrefObject
 		return ret
 	}
 	return *o.Resend
@@ -63,8 +67,8 @@ func (o *LinksResend) GetResend() LinksResendResend {
 
 // GetResendOk returns a tuple with the Resend field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LinksResend) GetResendOk() (*LinksResendResend, bool) {
-	if o == nil || o.Resend == nil {
+func (o *LinksResend) GetResendOk() (*HrefObject, bool) {
+	if o == nil || IsNil(o.Resend) {
 		return nil, false
 	}
 	return o.Resend, true
@@ -72,21 +76,29 @@ func (o *LinksResend) GetResendOk() (*LinksResendResend, bool) {
 
 // HasResend returns a boolean if a field has been set.
 func (o *LinksResend) HasResend() bool {
-	if o != nil && o.Resend != nil {
+	if o != nil && !IsNil(o.Resend) {
 		return true
 	}
 
 	return false
 }
 
-// SetResend gets a reference to the given LinksResendResend and assigns it to the Resend field.
-func (o *LinksResend) SetResend(v LinksResendResend) {
+// SetResend gets a reference to the given HrefObject and assigns it to the Resend field.
+func (o *LinksResend) SetResend(v HrefObject) {
 	o.Resend = &v
 }
 
 func (o LinksResend) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LinksResend) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Resend != nil {
+	if !IsNil(o.Resend) {
 		toSerialize["resend"] = o.Resend
 	}
 
@@ -94,27 +106,25 @@ func (o LinksResend) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LinksResend) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LinksResend) UnmarshalJSON(data []byte) (err error) {
 	varLinksResend := _LinksResend{}
 
-	err = json.Unmarshal(bytes, &varLinksResend)
-	if err == nil {
-		*o = LinksResend(varLinksResend)
-	} else {
+	err = json.Unmarshal(data, &varLinksResend)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LinksResend(varLinksResend)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "resend")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +165,3 @@ func (v *NullableLinksResend) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

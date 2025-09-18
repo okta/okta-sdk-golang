@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,14 +25,18 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 	"reflect"
 	"strings"
 )
 
+// checks if the BehaviorRuleAnomalousIP type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BehaviorRuleAnomalousIP{}
+
 // BehaviorRuleAnomalousIP struct for BehaviorRuleAnomalousIP
 type BehaviorRuleAnomalousIP struct {
 	BehaviorRule
-	Settings *BehaviorRuleSettingsAnomalousIP `json:"settings,omitempty"`
+	Settings             *BehaviorRuleSettingsAnomalousIP `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +63,7 @@ func NewBehaviorRuleAnomalousIPWithDefaults() *BehaviorRuleAnomalousIP {
 
 // GetSettings returns the Settings field value if set, zero value otherwise.
 func (o *BehaviorRuleAnomalousIP) GetSettings() BehaviorRuleSettingsAnomalousIP {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		var ret BehaviorRuleSettingsAnomalousIP
 		return ret
 	}
@@ -69,7 +73,7 @@ func (o *BehaviorRuleAnomalousIP) GetSettings() BehaviorRuleSettingsAnomalousIP 
 // GetSettingsOk returns a tuple with the Settings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BehaviorRuleAnomalousIP) GetSettingsOk() (*BehaviorRuleSettingsAnomalousIP, bool) {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		return nil, false
 	}
 	return o.Settings, true
@@ -77,7 +81,7 @@ func (o *BehaviorRuleAnomalousIP) GetSettingsOk() (*BehaviorRuleSettingsAnomalou
 
 // HasSettings returns a boolean if a field has been set.
 func (o *BehaviorRuleAnomalousIP) HasSettings() bool {
-	if o != nil && o.Settings != nil {
+	if o != nil && !IsNil(o.Settings) {
 		return true
 	}
 
@@ -90,16 +94,24 @@ func (o *BehaviorRuleAnomalousIP) SetSettings(v BehaviorRuleSettingsAnomalousIP)
 }
 
 func (o BehaviorRuleAnomalousIP) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BehaviorRuleAnomalousIP) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedBehaviorRule, errBehaviorRule := json.Marshal(o.BehaviorRule)
 	if errBehaviorRule != nil {
-		return []byte{}, errBehaviorRule
+		return map[string]interface{}{}, errBehaviorRule
 	}
 	errBehaviorRule = json.Unmarshal([]byte(serializedBehaviorRule), &toSerialize)
 	if errBehaviorRule != nil {
-		return []byte{}, errBehaviorRule
+		return map[string]interface{}{}, errBehaviorRule
 	}
-	if o.Settings != nil {
+	if !IsNil(o.Settings) {
 		toSerialize["settings"] = o.Settings
 	}
 
@@ -107,17 +119,39 @@ func (o BehaviorRuleAnomalousIP) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *BehaviorRuleAnomalousIP) UnmarshalJSON(bytes []byte) (err error) {
+func (o *BehaviorRuleAnomalousIP) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	type BehaviorRuleAnomalousIPWithoutEmbeddedStruct struct {
 		Settings *BehaviorRuleSettingsAnomalousIP `json:"settings,omitempty"`
 	}
 
 	varBehaviorRuleAnomalousIPWithoutEmbeddedStruct := BehaviorRuleAnomalousIPWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varBehaviorRuleAnomalousIPWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varBehaviorRuleAnomalousIPWithoutEmbeddedStruct)
 	if err == nil {
 		varBehaviorRuleAnomalousIP := _BehaviorRuleAnomalousIP{}
 		varBehaviorRuleAnomalousIP.Settings = varBehaviorRuleAnomalousIPWithoutEmbeddedStruct.Settings
@@ -128,7 +162,7 @@ func (o *BehaviorRuleAnomalousIP) UnmarshalJSON(bytes []byte) (err error) {
 
 	varBehaviorRuleAnomalousIP := _BehaviorRuleAnomalousIP{}
 
-	err = json.Unmarshal(bytes, &varBehaviorRuleAnomalousIP)
+	err = json.Unmarshal(data, &varBehaviorRuleAnomalousIP)
 	if err == nil {
 		o.BehaviorRule = varBehaviorRuleAnomalousIP.BehaviorRule
 	} else {
@@ -137,8 +171,7 @@ func (o *BehaviorRuleAnomalousIP) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "settings")
 
 		// remove fields from embedded structs
@@ -160,8 +193,6 @@ func (o *BehaviorRuleAnomalousIP) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -202,4 +233,3 @@ func (v *NullableBehaviorRuleAnomalousIP) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

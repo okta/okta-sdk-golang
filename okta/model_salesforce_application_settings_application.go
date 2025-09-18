@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,7 +25,11 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the SalesforceApplicationSettingsApplication type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SalesforceApplicationSettingsApplication{}
 
 // SalesforceApplicationSettingsApplication Salesforce app instance properties
 type SalesforceApplicationSettingsApplication struct {
@@ -36,7 +40,7 @@ type SalesforceApplicationSettingsApplication struct {
 	// The Login URL specified in your Salesforce Single Sign-On settings
 	LoginUrl *string `json:"loginUrl,omitempty"`
 	// Salesforce Logout URL
-	LogoutUrl *string `json:"logoutUrl,omitempty"`
+	LogoutUrl            *string `json:"logoutUrl,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -111,7 +115,7 @@ func (o *SalesforceApplicationSettingsApplication) SetIntegrationType(v string) 
 
 // GetLoginUrl returns the LoginUrl field value if set, zero value otherwise.
 func (o *SalesforceApplicationSettingsApplication) GetLoginUrl() string {
-	if o == nil || o.LoginUrl == nil {
+	if o == nil || IsNil(o.LoginUrl) {
 		var ret string
 		return ret
 	}
@@ -121,7 +125,7 @@ func (o *SalesforceApplicationSettingsApplication) GetLoginUrl() string {
 // GetLoginUrlOk returns a tuple with the LoginUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SalesforceApplicationSettingsApplication) GetLoginUrlOk() (*string, bool) {
-	if o == nil || o.LoginUrl == nil {
+	if o == nil || IsNil(o.LoginUrl) {
 		return nil, false
 	}
 	return o.LoginUrl, true
@@ -129,7 +133,7 @@ func (o *SalesforceApplicationSettingsApplication) GetLoginUrlOk() (*string, boo
 
 // HasLoginUrl returns a boolean if a field has been set.
 func (o *SalesforceApplicationSettingsApplication) HasLoginUrl() bool {
-	if o != nil && o.LoginUrl != nil {
+	if o != nil && !IsNil(o.LoginUrl) {
 		return true
 	}
 
@@ -143,7 +147,7 @@ func (o *SalesforceApplicationSettingsApplication) SetLoginUrl(v string) {
 
 // GetLogoutUrl returns the LogoutUrl field value if set, zero value otherwise.
 func (o *SalesforceApplicationSettingsApplication) GetLogoutUrl() string {
-	if o == nil || o.LogoutUrl == nil {
+	if o == nil || IsNil(o.LogoutUrl) {
 		var ret string
 		return ret
 	}
@@ -153,7 +157,7 @@ func (o *SalesforceApplicationSettingsApplication) GetLogoutUrl() string {
 // GetLogoutUrlOk returns a tuple with the LogoutUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SalesforceApplicationSettingsApplication) GetLogoutUrlOk() (*string, bool) {
-	if o == nil || o.LogoutUrl == nil {
+	if o == nil || IsNil(o.LogoutUrl) {
 		return nil, false
 	}
 	return o.LogoutUrl, true
@@ -161,7 +165,7 @@ func (o *SalesforceApplicationSettingsApplication) GetLogoutUrlOk() (*string, bo
 
 // HasLogoutUrl returns a boolean if a field has been set.
 func (o *SalesforceApplicationSettingsApplication) HasLogoutUrl() bool {
-	if o != nil && o.LogoutUrl != nil {
+	if o != nil && !IsNil(o.LogoutUrl) {
 		return true
 	}
 
@@ -174,17 +178,21 @@ func (o *SalesforceApplicationSettingsApplication) SetLogoutUrl(v string) {
 }
 
 func (o SalesforceApplicationSettingsApplication) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SalesforceApplicationSettingsApplication) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["instanceType"] = o.InstanceType
-	}
-	if true {
-		toSerialize["integrationType"] = o.IntegrationType
-	}
-	if o.LoginUrl != nil {
+	toSerialize["instanceType"] = o.InstanceType
+	toSerialize["integrationType"] = o.IntegrationType
+	if !IsNil(o.LoginUrl) {
 		toSerialize["loginUrl"] = o.LoginUrl
 	}
-	if o.LogoutUrl != nil {
+	if !IsNil(o.LogoutUrl) {
 		toSerialize["logoutUrl"] = o.LogoutUrl
 	}
 
@@ -192,30 +200,50 @@ func (o SalesforceApplicationSettingsApplication) MarshalJSON() ([]byte, error) 
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SalesforceApplicationSettingsApplication) UnmarshalJSON(bytes []byte) (err error) {
-	varSalesforceApplicationSettingsApplication := _SalesforceApplicationSettingsApplication{}
+func (o *SalesforceApplicationSettingsApplication) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"instanceType",
+		"integrationType",
+	}
 
-	err = json.Unmarshal(bytes, &varSalesforceApplicationSettingsApplication)
-	if err == nil {
-		*o = SalesforceApplicationSettingsApplication(varSalesforceApplicationSettingsApplication)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSalesforceApplicationSettingsApplication := _SalesforceApplicationSettingsApplication{}
+
+	err = json.Unmarshal(data, &varSalesforceApplicationSettingsApplication)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SalesforceApplicationSettingsApplication(varSalesforceApplicationSettingsApplication)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "instanceType")
 		delete(additionalProperties, "integrationType")
 		delete(additionalProperties, "loginUrl")
 		delete(additionalProperties, "logoutUrl")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -256,4 +284,3 @@ func (v *NullableSalesforceApplicationSettingsApplication) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to **time.Time** | Timestamp indicating when the Factor was enrolled | [optional] [readonly] 
-**FactorType** | Pointer to **string** | Type of Factor | [optional] 
-**Id** | Pointer to **string** | ID of the Factor | [optional] [readonly] 
-**LastUpdated** | Pointer to **time.Time** | Timestamp indicating when the Factor was last updated | [optional] [readonly] 
-**Profile** | Pointer to **map[string]interface{}** | Specific attributes related to the Factor | [optional] 
-**Provider** | Pointer to **string** | Provider for the Factor | [optional] 
-**Status** | Pointer to **string** | Status of the Factor | [optional] [readonly] 
-**VendorName** | Pointer to **string** | Name of the Factor vendor. This is usually the same as the provider. | [optional] [readonly] 
+**Created** | Pointer to **time.Time** | Timestamp indicating when the factor was enrolled | [optional] [readonly] 
+**FactorType** | Pointer to **string** | Type of factor | [optional] 
+**Id** | Pointer to **string** | ID of the factor | [optional] [readonly] 
+**LastUpdated** | Pointer to **time.Time** | Timestamp indicating when the factor was last updated | [optional] [readonly] 
+**Profile** | Pointer to **map[string]interface{}** | Specific attributes related to the factor | [optional] 
+**Provider** | Pointer to **string** |  | [optional] 
+**Status** | Pointer to **string** | Status of the factor | [optional] [readonly] 
+**VendorName** | Pointer to **string** | Name of the factor vendor. This is usually the same as the provider. | [optional] [readonly] 
 **Links** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
 
 ## Methods

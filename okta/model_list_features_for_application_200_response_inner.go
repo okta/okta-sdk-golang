@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -28,12 +28,10 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
 // ListFeaturesForApplication200ResponseInner - struct for ListFeaturesForApplication200ResponseInner
 type ListFeaturesForApplication200ResponseInner struct {
 	InboundProvisioningApplicationFeature *InboundProvisioningApplicationFeature
-	UserProvisioningApplicationFeature *UserProvisioningApplicationFeature
+	UserProvisioningApplicationFeature    *UserProvisioningApplicationFeature
 }
 
 // InboundProvisioningApplicationFeatureAsListFeaturesForApplication200ResponseInner is a convenience function that returns InboundProvisioningApplicationFeature wrapped in ListFeaturesForApplication200ResponseInner
@@ -50,15 +48,14 @@ func UserProvisioningApplicationFeatureAsListFeaturesForApplication200ResponseIn
 	}
 }
 
-
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *ListFeaturesForApplication200ResponseInner) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	// check if the discriminator value is 'INBOUND_PROVISIONING'
@@ -69,19 +66,7 @@ func (dst *ListFeaturesForApplication200ResponseInner) UnmarshalJSON(data []byte
 			return nil // data stored in dst.InboundProvisioningApplicationFeature, return on the first match
 		} else {
 			dst.InboundProvisioningApplicationFeature = nil
-			return fmt.Errorf("Failed to unmarshal ListFeaturesForApplication200ResponseInner as InboundProvisioningApplicationFeature: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'InboundProvisioningApplicationFeature'
-	if jsonDict["name"] == "InboundProvisioningApplicationFeature" {
-		// try to unmarshal JSON data into InboundProvisioningApplicationFeature
-		err = json.Unmarshal(data, &dst.InboundProvisioningApplicationFeature)
-		if err == nil {
-			return nil // data stored in dst.InboundProvisioningApplicationFeature, return on the first match
-		} else {
-			dst.InboundProvisioningApplicationFeature = nil
-			return fmt.Errorf("Failed to unmarshal ListFeaturesForApplication200ResponseInner as InboundProvisioningApplicationFeature: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListFeaturesForApplication200ResponseInner as InboundProvisioningApplicationFeature: %s", err.Error())
 		}
 	}
 
@@ -93,19 +78,7 @@ func (dst *ListFeaturesForApplication200ResponseInner) UnmarshalJSON(data []byte
 			return nil // data stored in dst.UserProvisioningApplicationFeature, return on the first match
 		} else {
 			dst.UserProvisioningApplicationFeature = nil
-			return fmt.Errorf("Failed to unmarshal ListFeaturesForApplication200ResponseInner as UserProvisioningApplicationFeature: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'UserProvisioningApplicationFeature'
-	if jsonDict["name"] == "UserProvisioningApplicationFeature" {
-		// try to unmarshal JSON data into UserProvisioningApplicationFeature
-		err = json.Unmarshal(data, &dst.UserProvisioningApplicationFeature)
-		if err == nil {
-			return nil // data stored in dst.UserProvisioningApplicationFeature, return on the first match
-		} else {
-			dst.UserProvisioningApplicationFeature = nil
-			return fmt.Errorf("Failed to unmarshal ListFeaturesForApplication200ResponseInner as UserProvisioningApplicationFeature: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListFeaturesForApplication200ResponseInner as UserProvisioningApplicationFeature: %s", err.Error())
 		}
 	}
 
@@ -126,7 +99,7 @@ func (src ListFeaturesForApplication200ResponseInner) MarshalJSON() ([]byte, err
 }
 
 // Get the actual instance
-func (obj *ListFeaturesForApplication200ResponseInner) GetActualInstance() (interface{}) {
+func (obj *ListFeaturesForApplication200ResponseInner) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -136,6 +109,20 @@ func (obj *ListFeaturesForApplication200ResponseInner) GetActualInstance() (inte
 
 	if obj.UserProvisioningApplicationFeature != nil {
 		return obj.UserProvisioningApplicationFeature
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj ListFeaturesForApplication200ResponseInner) GetActualInstanceValue() interface{} {
+	if obj.InboundProvisioningApplicationFeature != nil {
+		return *obj.InboundProvisioningApplicationFeature
+	}
+
+	if obj.UserProvisioningApplicationFeature != nil {
+		return *obj.UserProvisioningApplicationFeature
 	}
 
 	// all schemas are nil
@@ -177,5 +164,3 @@ func (v *NullableListFeaturesForApplication200ResponseInner) UnmarshalJSON(src [
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

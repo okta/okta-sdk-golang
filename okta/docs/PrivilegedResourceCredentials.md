@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Password** | Pointer to **string** | The password associated with the privileged resource | [optional] 
-**UserName** | Pointer to **string** | The username associated with the privileged resource | [optional] 
+**UserName** | **string** | The username associated with the privileged resource | 
 
 ## Methods
 
 ### NewPrivilegedResourceCredentials
 
-`func NewPrivilegedResourceCredentials() *PrivilegedResourceCredentials`
+`func NewPrivilegedResourceCredentials(userName string, ) *PrivilegedResourceCredentials`
 
 NewPrivilegedResourceCredentials instantiates a new PrivilegedResourceCredentials object
 This constructor will assign default values to properties that have it defined,
@@ -70,11 +70,6 @@ and a boolean to check if the value has been set.
 
 SetUserName sets UserName field to given value.
 
-### HasUserName
-
-`func (o *PrivilegedResourceCredentials) HasUserName() bool`
-
-HasUserName returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

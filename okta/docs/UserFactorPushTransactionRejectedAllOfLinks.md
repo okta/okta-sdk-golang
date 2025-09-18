@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Verify** | Pointer to [**LinksVerifyVerify**](LinksVerifyVerify.md) |  | [optional] 
+**Verify** | Pointer to [**HrefObject**](HrefObject.md) | Verifies the factor resource. See [Verify a factor](/openapi/okta-management/management/tag/UserFactor/#tag/UserFactor/operation/verifyFactor). | [optional] 
+**Factor** | Pointer to [**UserFactor**](UserFactor.md) |  | [optional] 
 
 ## Methods
 
@@ -27,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetVerify
 
-`func (o *UserFactorPushTransactionRejectedAllOfLinks) GetVerify() LinksVerifyVerify`
+`func (o *UserFactorPushTransactionRejectedAllOfLinks) GetVerify() HrefObject`
 
 GetVerify returns the Verify field if non-nil, zero value otherwise.
 
 ### GetVerifyOk
 
-`func (o *UserFactorPushTransactionRejectedAllOfLinks) GetVerifyOk() (*LinksVerifyVerify, bool)`
+`func (o *UserFactorPushTransactionRejectedAllOfLinks) GetVerifyOk() (*HrefObject, bool)`
 
 GetVerifyOk returns a tuple with the Verify field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVerify
 
-`func (o *UserFactorPushTransactionRejectedAllOfLinks) SetVerify(v LinksVerifyVerify)`
+`func (o *UserFactorPushTransactionRejectedAllOfLinks) SetVerify(v HrefObject)`
 
 SetVerify sets Verify field to given value.
 
@@ -49,6 +50,31 @@ SetVerify sets Verify field to given value.
 `func (o *UserFactorPushTransactionRejectedAllOfLinks) HasVerify() bool`
 
 HasVerify returns a boolean if a field has been set.
+
+### GetFactor
+
+`func (o *UserFactorPushTransactionRejectedAllOfLinks) GetFactor() UserFactor`
+
+GetFactor returns the Factor field if non-nil, zero value otherwise.
+
+### GetFactorOk
+
+`func (o *UserFactorPushTransactionRejectedAllOfLinks) GetFactorOk() (*UserFactor, bool)`
+
+GetFactorOk returns a tuple with the Factor field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFactor
+
+`func (o *UserFactorPushTransactionRejectedAllOfLinks) SetFactor(v UserFactor)`
+
+SetFactor sets Factor field to given value.
+
+### HasFactor
+
+`func (o *UserFactorPushTransactionRejectedAllOfLinks) HasFactor() bool`
+
+HasFactor returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

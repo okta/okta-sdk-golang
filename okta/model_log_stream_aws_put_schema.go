@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,14 +25,18 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 	"reflect"
 	"strings"
 )
 
+// checks if the LogStreamAwsPutSchema type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LogStreamAwsPutSchema{}
+
 // LogStreamAwsPutSchema struct for LogStreamAwsPutSchema
 type LogStreamAwsPutSchema struct {
 	LogStreamPutSchema
-	Settings LogStreamSettingsAws `json:"settings"`
+	Settings             LogStreamSettingsAws `json:"settings"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -83,34 +87,63 @@ func (o *LogStreamAwsPutSchema) SetSettings(v LogStreamSettingsAws) {
 }
 
 func (o LogStreamAwsPutSchema) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LogStreamAwsPutSchema) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedLogStreamPutSchema, errLogStreamPutSchema := json.Marshal(o.LogStreamPutSchema)
 	if errLogStreamPutSchema != nil {
-		return []byte{}, errLogStreamPutSchema
+		return map[string]interface{}{}, errLogStreamPutSchema
 	}
 	errLogStreamPutSchema = json.Unmarshal([]byte(serializedLogStreamPutSchema), &toSerialize)
 	if errLogStreamPutSchema != nil {
-		return []byte{}, errLogStreamPutSchema
+		return map[string]interface{}{}, errLogStreamPutSchema
 	}
-	if true {
-		toSerialize["settings"] = o.Settings
-	}
+	toSerialize["settings"] = o.Settings
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LogStreamAwsPutSchema) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LogStreamAwsPutSchema) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"settings",
+		"name",
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	type LogStreamAwsPutSchemaWithoutEmbeddedStruct struct {
 		Settings LogStreamSettingsAws `json:"settings"`
 	}
 
 	varLogStreamAwsPutSchemaWithoutEmbeddedStruct := LogStreamAwsPutSchemaWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varLogStreamAwsPutSchemaWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varLogStreamAwsPutSchemaWithoutEmbeddedStruct)
 	if err == nil {
 		varLogStreamAwsPutSchema := _LogStreamAwsPutSchema{}
 		varLogStreamAwsPutSchema.Settings = varLogStreamAwsPutSchemaWithoutEmbeddedStruct.Settings
@@ -121,7 +154,7 @@ func (o *LogStreamAwsPutSchema) UnmarshalJSON(bytes []byte) (err error) {
 
 	varLogStreamAwsPutSchema := _LogStreamAwsPutSchema{}
 
-	err = json.Unmarshal(bytes, &varLogStreamAwsPutSchema)
+	err = json.Unmarshal(data, &varLogStreamAwsPutSchema)
 	if err == nil {
 		o.LogStreamPutSchema = varLogStreamAwsPutSchema.LogStreamPutSchema
 	} else {
@@ -130,8 +163,7 @@ func (o *LogStreamAwsPutSchema) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "settings")
 
 		// remove fields from embedded structs
@@ -153,8 +185,6 @@ func (o *LogStreamAwsPutSchema) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -195,4 +225,3 @@ func (v *NullableLogStreamAwsPutSchema) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

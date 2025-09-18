@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to **time.Time** | Timestamp when the Factor was enrolled | [optional] [readonly] 
-**FactorType** | Pointer to **string** | Type of Factor | [optional] 
-**Id** | Pointer to **string** | ID of the Factor | [optional] [readonly] 
-**LastUpdated** | Pointer to **time.Time** | Timestamp when the Factor was last updated | [optional] [readonly] 
-**Profile** | Pointer to **map[string]interface{}** | Specific attributes related to the Factor | [optional] 
-**Provider** | Pointer to **string** | Provider for the Factor | [optional] 
-**Status** | Pointer to **string** | Status of the Factor | [optional] [readonly] 
-**VendorName** | Pointer to **string** | Name of the Factor vendor. This is usually the same as the provider except for On-Prem MFA where it depends on administrator settings. | [optional] [readonly] 
+**Created** | Pointer to **time.Time** | Timestamp when the factor was enrolled | [optional] [readonly] 
+**FactorType** | Pointer to **string** | Type of factor | [optional] 
+**Id** | Pointer to **string** | ID of the factor | [optional] [readonly] 
+**LastUpdated** | Pointer to **time.Time** | Timestamp when the factor was last updated | [optional] [readonly] 
+**Profile** | Pointer to **map[string]interface{}** | Specific attributes related to the factor | [optional] 
+**Provider** | Pointer to **string** | Provider for the factor. Each provider can support a subset of factor types. | [optional] 
+**Status** | Pointer to **string** | Status of the factor | [optional] [readonly] 
+**VendorName** | Pointer to **string** | Name of the factor vendor. This is usually the same as the provider except for On-Prem MFA, which depends on admin settings. | [optional] [readonly] 
 **Embedded** | Pointer to **map[string]map[string]interface{}** |  | [optional] [readonly] 
-**Links** | Pointer to **map[string]interface{}** |  | [optional] 
+**Links** | Pointer to [**UserFactorLinks**](UserFactorLinks.md) |  | [optional] 
 
 ## Methods
 
@@ -261,20 +261,20 @@ HasEmbedded returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *UserFactor) GetLinks() map[string]interface{}`
+`func (o *UserFactor) GetLinks() UserFactorLinks`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *UserFactor) GetLinksOk() (*map[string]interface{}, bool)`
+`func (o *UserFactor) GetLinksOk() (*UserFactorLinks, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *UserFactor) SetLinks(v map[string]interface{})`
+`func (o *UserFactor) SetLinks(v UserFactorLinks)`
 
 SetLinks sets Links field to given value.
 

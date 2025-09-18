@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ThirdPartyAdmin** | Pointer to **bool** |  | [optional] 
+**ThirdPartyAdmin** | Pointer to **bool** | Indicates if the third-party admin functionality is enabled | [optional] 
 
 ## Methods
 

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,17 @@ import (
 	"encoding/json"
 )
 
+// checks if the ImportScheduleObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImportScheduleObject{}
+
 // ImportScheduleObject Import schedule configuration
 type ImportScheduleObject struct {
-	FullImport *ImportScheduleObjectFullImport `json:"fullImport,omitempty"`
-	IncrementalImport *ImportScheduleObjectIncrementalImport `json:"incrementalImport,omitempty"`
+	// Determines the full import schedule
+	FullImport *ImportScheduleSettings `json:"fullImport,omitempty"`
+	// Determines the incremental import schedule
+	IncrementalImport *ImportScheduleSettings `json:"incrementalImport,omitempty"`
 	// Setting status
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,9 +61,9 @@ func NewImportScheduleObjectWithDefaults() *ImportScheduleObject {
 }
 
 // GetFullImport returns the FullImport field value if set, zero value otherwise.
-func (o *ImportScheduleObject) GetFullImport() ImportScheduleObjectFullImport {
-	if o == nil || o.FullImport == nil {
-		var ret ImportScheduleObjectFullImport
+func (o *ImportScheduleObject) GetFullImport() ImportScheduleSettings {
+	if o == nil || IsNil(o.FullImport) {
+		var ret ImportScheduleSettings
 		return ret
 	}
 	return *o.FullImport
@@ -66,8 +71,8 @@ func (o *ImportScheduleObject) GetFullImport() ImportScheduleObjectFullImport {
 
 // GetFullImportOk returns a tuple with the FullImport field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImportScheduleObject) GetFullImportOk() (*ImportScheduleObjectFullImport, bool) {
-	if o == nil || o.FullImport == nil {
+func (o *ImportScheduleObject) GetFullImportOk() (*ImportScheduleSettings, bool) {
+	if o == nil || IsNil(o.FullImport) {
 		return nil, false
 	}
 	return o.FullImport, true
@@ -75,22 +80,22 @@ func (o *ImportScheduleObject) GetFullImportOk() (*ImportScheduleObjectFullImpor
 
 // HasFullImport returns a boolean if a field has been set.
 func (o *ImportScheduleObject) HasFullImport() bool {
-	if o != nil && o.FullImport != nil {
+	if o != nil && !IsNil(o.FullImport) {
 		return true
 	}
 
 	return false
 }
 
-// SetFullImport gets a reference to the given ImportScheduleObjectFullImport and assigns it to the FullImport field.
-func (o *ImportScheduleObject) SetFullImport(v ImportScheduleObjectFullImport) {
+// SetFullImport gets a reference to the given ImportScheduleSettings and assigns it to the FullImport field.
+func (o *ImportScheduleObject) SetFullImport(v ImportScheduleSettings) {
 	o.FullImport = &v
 }
 
 // GetIncrementalImport returns the IncrementalImport field value if set, zero value otherwise.
-func (o *ImportScheduleObject) GetIncrementalImport() ImportScheduleObjectIncrementalImport {
-	if o == nil || o.IncrementalImport == nil {
-		var ret ImportScheduleObjectIncrementalImport
+func (o *ImportScheduleObject) GetIncrementalImport() ImportScheduleSettings {
+	if o == nil || IsNil(o.IncrementalImport) {
+		var ret ImportScheduleSettings
 		return ret
 	}
 	return *o.IncrementalImport
@@ -98,8 +103,8 @@ func (o *ImportScheduleObject) GetIncrementalImport() ImportScheduleObjectIncrem
 
 // GetIncrementalImportOk returns a tuple with the IncrementalImport field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImportScheduleObject) GetIncrementalImportOk() (*ImportScheduleObjectIncrementalImport, bool) {
-	if o == nil || o.IncrementalImport == nil {
+func (o *ImportScheduleObject) GetIncrementalImportOk() (*ImportScheduleSettings, bool) {
+	if o == nil || IsNil(o.IncrementalImport) {
 		return nil, false
 	}
 	return o.IncrementalImport, true
@@ -107,21 +112,21 @@ func (o *ImportScheduleObject) GetIncrementalImportOk() (*ImportScheduleObjectIn
 
 // HasIncrementalImport returns a boolean if a field has been set.
 func (o *ImportScheduleObject) HasIncrementalImport() bool {
-	if o != nil && o.IncrementalImport != nil {
+	if o != nil && !IsNil(o.IncrementalImport) {
 		return true
 	}
 
 	return false
 }
 
-// SetIncrementalImport gets a reference to the given ImportScheduleObjectIncrementalImport and assigns it to the IncrementalImport field.
-func (o *ImportScheduleObject) SetIncrementalImport(v ImportScheduleObjectIncrementalImport) {
+// SetIncrementalImport gets a reference to the given ImportScheduleSettings and assigns it to the IncrementalImport field.
+func (o *ImportScheduleObject) SetIncrementalImport(v ImportScheduleSettings) {
 	o.IncrementalImport = &v
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *ImportScheduleObject) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -131,7 +136,7 @@ func (o *ImportScheduleObject) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImportScheduleObject) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -139,7 +144,7 @@ func (o *ImportScheduleObject) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *ImportScheduleObject) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -152,14 +157,22 @@ func (o *ImportScheduleObject) SetStatus(v string) {
 }
 
 func (o ImportScheduleObject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ImportScheduleObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.FullImport != nil {
+	if !IsNil(o.FullImport) {
 		toSerialize["fullImport"] = o.FullImport
 	}
-	if o.IncrementalImport != nil {
+	if !IsNil(o.IncrementalImport) {
 		toSerialize["incrementalImport"] = o.IncrementalImport
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
 
@@ -167,29 +180,27 @@ func (o ImportScheduleObject) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ImportScheduleObject) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ImportScheduleObject) UnmarshalJSON(data []byte) (err error) {
 	varImportScheduleObject := _ImportScheduleObject{}
 
-	err = json.Unmarshal(bytes, &varImportScheduleObject)
-	if err == nil {
-		*o = ImportScheduleObject(varImportScheduleObject)
-	} else {
+	err = json.Unmarshal(data, &varImportScheduleObject)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ImportScheduleObject(varImportScheduleObject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "fullImport")
 		delete(additionalProperties, "incrementalImport")
 		delete(additionalProperties, "status")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -230,4 +241,3 @@ func (v *NullableImportScheduleObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

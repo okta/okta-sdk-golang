@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the ResetPasswordToken type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResetPasswordToken{}
+
 // ResetPasswordToken struct for ResetPasswordToken
 type ResetPasswordToken struct {
-	ResetPasswordUrl *string `json:"resetPasswordUrl,omitempty"`
+	ResetPasswordUrl     *string `json:"resetPasswordUrl,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewResetPasswordTokenWithDefaults() *ResetPasswordToken {
 
 // GetResetPasswordUrl returns the ResetPasswordUrl field value if set, zero value otherwise.
 func (o *ResetPasswordToken) GetResetPasswordUrl() string {
-	if o == nil || o.ResetPasswordUrl == nil {
+	if o == nil || IsNil(o.ResetPasswordUrl) {
 		var ret string
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *ResetPasswordToken) GetResetPasswordUrl() string {
 // GetResetPasswordUrlOk returns a tuple with the ResetPasswordUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResetPasswordToken) GetResetPasswordUrlOk() (*string, bool) {
-	if o == nil || o.ResetPasswordUrl == nil {
+	if o == nil || IsNil(o.ResetPasswordUrl) {
 		return nil, false
 	}
 	return o.ResetPasswordUrl, true
@@ -72,7 +75,7 @@ func (o *ResetPasswordToken) GetResetPasswordUrlOk() (*string, bool) {
 
 // HasResetPasswordUrl returns a boolean if a field has been set.
 func (o *ResetPasswordToken) HasResetPasswordUrl() bool {
-	if o != nil && o.ResetPasswordUrl != nil {
+	if o != nil && !IsNil(o.ResetPasswordUrl) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *ResetPasswordToken) SetResetPasswordUrl(v string) {
 }
 
 func (o ResetPasswordToken) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ResetPasswordToken) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ResetPasswordUrl != nil {
+	if !IsNil(o.ResetPasswordUrl) {
 		toSerialize["resetPasswordUrl"] = o.ResetPasswordUrl
 	}
 
@@ -94,27 +105,25 @@ func (o ResetPasswordToken) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResetPasswordToken) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ResetPasswordToken) UnmarshalJSON(data []byte) (err error) {
 	varResetPasswordToken := _ResetPasswordToken{}
 
-	err = json.Unmarshal(bytes, &varResetPasswordToken)
-	if err == nil {
-		*o = ResetPasswordToken(varResetPasswordToken)
-	} else {
+	err = json.Unmarshal(data, &varResetPasswordToken)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ResetPasswordToken(varResetPasswordToken)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "resetPasswordUrl")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableResetPasswordToken) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Action** | Pointer to **string** |  | [optional] 
-**Workflow** | Pointer to [**ContinuousAccessPolicyRuleRunWorkflowWorkflow**](ContinuousAccessPolicyRuleRunWorkflowWorkflow.md) |  | [optional] 
+**Workflow** | Pointer to [**EntityRiskPolicyRuleActionRunWorkflowWorkflow**](EntityRiskPolicyRuleActionRunWorkflowWorkflow.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasAction returns a boolean if a field has been set.
 
 ### GetWorkflow
 
-`func (o *EntityRiskPolicyRuleActionRunWorkflow) GetWorkflow() ContinuousAccessPolicyRuleRunWorkflowWorkflow`
+`func (o *EntityRiskPolicyRuleActionRunWorkflow) GetWorkflow() EntityRiskPolicyRuleActionRunWorkflowWorkflow`
 
 GetWorkflow returns the Workflow field if non-nil, zero value otherwise.
 
 ### GetWorkflowOk
 
-`func (o *EntityRiskPolicyRuleActionRunWorkflow) GetWorkflowOk() (*ContinuousAccessPolicyRuleRunWorkflowWorkflow, bool)`
+`func (o *EntityRiskPolicyRuleActionRunWorkflow) GetWorkflowOk() (*EntityRiskPolicyRuleActionRunWorkflowWorkflow, bool)`
 
 GetWorkflowOk returns a tuple with the Workflow field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetWorkflow
 
-`func (o *EntityRiskPolicyRuleActionRunWorkflow) SetWorkflow(v ContinuousAccessPolicyRuleRunWorkflowWorkflow)`
+`func (o *EntityRiskPolicyRuleActionRunWorkflow) SetWorkflow(v EntityRiskPolicyRuleActionRunWorkflowWorkflow)`
 
 SetWorkflow sets Workflow field to given value.
 

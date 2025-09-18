@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,7 +25,11 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the CreateIamRoleRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateIamRoleRequest{}
 
 // CreateIamRoleRequest struct for CreateIamRoleRequest
 type CreateIamRoleRequest struct {
@@ -33,8 +37,8 @@ type CreateIamRoleRequest struct {
 	Description string `json:"description"`
 	// Unique label for the role
 	Label string `json:"label"`
-	// Array of permissions that the role will grant. See [Permissions](/openapi/okta-management/guides/roles/#permission).
-	Permissions []string `json:"permissions"`
+	// Array of permissions that the role grants. See [Permissions](/openapi/okta-management/guides/permissions).
+	Permissions          []string `json:"permissions"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -133,44 +137,67 @@ func (o *CreateIamRoleRequest) SetPermissions(v []string) {
 }
 
 func (o CreateIamRoleRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CreateIamRoleRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["label"] = o.Label
-	}
-	if true {
-		toSerialize["permissions"] = o.Permissions
-	}
+	toSerialize["description"] = o.Description
+	toSerialize["label"] = o.Label
+	toSerialize["permissions"] = o.Permissions
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CreateIamRoleRequest) UnmarshalJSON(bytes []byte) (err error) {
-	varCreateIamRoleRequest := _CreateIamRoleRequest{}
+func (o *CreateIamRoleRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"description",
+		"label",
+		"permissions",
+	}
 
-	err = json.Unmarshal(bytes, &varCreateIamRoleRequest)
-	if err == nil {
-		*o = CreateIamRoleRequest(varCreateIamRoleRequest)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCreateIamRoleRequest := _CreateIamRoleRequest{}
+
+	err = json.Unmarshal(data, &varCreateIamRoleRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreateIamRoleRequest(varCreateIamRoleRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "label")
 		delete(additionalProperties, "permissions")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -211,4 +238,3 @@ func (v *NullableCreateIamRoleRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

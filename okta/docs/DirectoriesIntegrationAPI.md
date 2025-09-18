@@ -4,7 +4,7 @@ All URIs are relative to *https://subdomain.okta.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**UpdateADGroupMembership**](DirectoriesIntegrationAPI.md#UpdateADGroupMembership) | **Post** /api/v1/directories/{appInstanceId}/groups/modify | Update an AD Group membership
+[**UpdateADGroupMembership**](DirectoriesIntegrationAPI.md#UpdateADGroupMembership) | **Post** /api/v1/directories/{appInstanceId}/groups/modify | Update an Active Directory group membership
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > UpdateADGroupMembership(ctx, appInstanceId).AgentAction(agentAction).Execute()
 
-Update an AD Group membership
+Update an Active Directory group membership
 
 
 
@@ -22,23 +22,23 @@ Update an AD Group membership
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    appInstanceId := "appInstanceId_example" // string | ID of the AD AppInstance in Okta
-    agentAction := *openapiclient.NewAgentAction() // AgentAction | 
+	appInstanceId := "appInstanceId_example" // string | ID of the Active Directory app instance in Okta
+	agentAction := *openapiclient.NewAgentAction() // AgentAction | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.DirectoriesIntegrationAPI.UpdateADGroupMembership(context.Background(), appInstanceId).AgentAction(agentAction).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DirectoriesIntegrationAPI.UpdateADGroupMembership``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.DirectoriesIntegrationAPI.UpdateADGroupMembership(context.Background(), appInstanceId).AgentAction(agentAction).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DirectoriesIntegrationAPI.UpdateADGroupMembership``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -48,7 +48,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**appInstanceId** | **string** | ID of the AD AppInstance in Okta | 
+**appInstanceId** | **string** | ID of the Active Directory app instance in Okta | 
 
 ### Other Parameters
 

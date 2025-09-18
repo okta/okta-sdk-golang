@@ -5,15 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Channel** | Pointer to [**InlineHookChannel**](InlineHookChannel.md) |  | [optional] 
-**Created** | Pointer to **time.Time** |  | [optional] [readonly] 
-**Id** | Pointer to **string** |  | [optional] [readonly] 
-**LastUpdated** | Pointer to **time.Time** |  | [optional] [readonly] 
-**Metadata** | Pointer to **map[string]string** | Specific properties for the inline hook configuration, for example, &#x60;optOutServiceProtectionRateLimit&#x60; to opt-out of Telephony Service Protection Rate Limits when using the Telephony inline hook. | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
+**Created** | Pointer to **time.Time** | Date of the inline hook creation | [optional] [readonly] 
+**Id** | Pointer to **string** | The unique identifier for the inline hook | [optional] [readonly] 
+**LastUpdated** | Pointer to **time.Time** | Date of the last inline hook update | [optional] [readonly] 
+**Name** | Pointer to **string** | The display name of the inline hook | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
-**Type** | Pointer to **string** |  | [optional] 
-**Version** | Pointer to **string** |  | [optional] 
-**Links** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
+**Type** | Pointer to **string** | One of the inline hook types | [optional] 
+**Version** | Pointer to **string** | Version of the inline hook type. The currently supported version is &#x60;1.0.0&#x60;. | [optional] [readonly] 
+**Links** | Pointer to [**InlineHookLinks**](InlineHookLinks.md) |  | [optional] 
 
 ## Methods
 
@@ -134,31 +133,6 @@ SetLastUpdated sets LastUpdated field to given value.
 
 HasLastUpdated returns a boolean if a field has been set.
 
-### GetMetadata
-
-`func (o *InlineHook) GetMetadata() map[string]string`
-
-GetMetadata returns the Metadata field if non-nil, zero value otherwise.
-
-### GetMetadataOk
-
-`func (o *InlineHook) GetMetadataOk() (*map[string]string, bool)`
-
-GetMetadataOk returns a tuple with the Metadata field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMetadata
-
-`func (o *InlineHook) SetMetadata(v map[string]string)`
-
-SetMetadata sets Metadata field to given value.
-
-### HasMetadata
-
-`func (o *InlineHook) HasMetadata() bool`
-
-HasMetadata returns a boolean if a field has been set.
-
 ### GetName
 
 `func (o *InlineHook) GetName() string`
@@ -261,20 +235,20 @@ HasVersion returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *InlineHook) GetLinks() LinksSelf`
+`func (o *InlineHook) GetLinks() InlineHookLinks`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *InlineHook) GetLinksOk() (*LinksSelf, bool)`
+`func (o *InlineHook) GetLinksOk() (*InlineHookLinks, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *InlineHook) SetLinks(v LinksSelf)`
+`func (o *InlineHook) SetLinks(v InlineHookLinks)`
 
 SetLinks sets Links field to given value.
 

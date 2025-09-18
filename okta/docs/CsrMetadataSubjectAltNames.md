@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DnsNames** | Pointer to **[]string** |  | [optional] 
+**DnsNames** | Pointer to **[]string** | DNS names of the subject | [optional] 
 
 ## Methods
 

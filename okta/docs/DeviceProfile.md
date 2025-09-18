@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **DisplayName** | **string** | Display name of the device | 
 **Imei** | Pointer to **string** | International Mobile Equipment Identity (IMEI) of the device | [optional] 
 **IntegrityJailbreak** | Pointer to **bool** | Indicates if the device is jailbroken or rooted. Only applicable to &#x60;IOS&#x60; and &#x60;ANDROID&#x60; platforms | [optional] 
+**Managed** | Pointer to **bool** | Indicates if the device is managed by mobile device management (MDM) software | [optional] 
 **Manufacturer** | Pointer to **string** | Name of the manufacturer of the device | [optional] 
 **Meid** | Pointer to **string** | Mobile equipment identifier of the device | [optional] 
 **Model** | Pointer to **string** | Model of the device | [optional] 
@@ -18,7 +19,7 @@ Name | Type | Description | Notes
 **SerialNumber** | Pointer to **string** | Serial number of the device | [optional] 
 **Sid** | Pointer to **string** | Windows Security identifier of the device | [optional] 
 **TpmPublicKeyHash** | Pointer to **string** | Windows Trusted Platform Module hash value | [optional] 
-**Udid** | Pointer to **string** | macOS Unique Device identifier of the device | [optional] 
+**Udid** | Pointer to **string** | macOS Unique device identifier of the device | [optional] 
 
 ## Methods
 
@@ -133,6 +134,31 @@ SetIntegrityJailbreak sets IntegrityJailbreak field to given value.
 `func (o *DeviceProfile) HasIntegrityJailbreak() bool`
 
 HasIntegrityJailbreak returns a boolean if a field has been set.
+
+### GetManaged
+
+`func (o *DeviceProfile) GetManaged() bool`
+
+GetManaged returns the Managed field if non-nil, zero value otherwise.
+
+### GetManagedOk
+
+`func (o *DeviceProfile) GetManagedOk() (*bool, bool)`
+
+GetManagedOk returns a tuple with the Managed field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetManaged
+
+`func (o *DeviceProfile) SetManaged(v bool)`
+
+SetManaged sets Managed field to given value.
+
+### HasManaged
+
+`func (o *DeviceProfile) HasManaged() bool`
+
+HasManaged returns a boolean if a field has been set.
 
 ### GetManufacturer
 

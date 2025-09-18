@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -26,25 +26,24 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type ApplicationGrantsAPI interface {
 
 	/*
-	GetScopeConsentGrant Retrieve an app Grant
+		GetScopeConsentGrant Retrieve an app grant
 
-	Retrieves a single scope consent Grant object for the app
+		Retrieves a single scope consent Grant object for the app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param grantId Grant ID
-	@return ApiGetScopeConsentGrantRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param grantId Grant ID
+		@return ApiGetScopeConsentGrantRequest
 	*/
 	GetScopeConsentGrant(ctx context.Context, appId string, grantId string) ApiGetScopeConsentGrantRequest
 
@@ -53,13 +52,13 @@ type ApplicationGrantsAPI interface {
 	GetScopeConsentGrantExecute(r ApiGetScopeConsentGrantRequest) (*OAuth2ScopeConsentGrant, *APIResponse, error)
 
 	/*
-	GrantConsentToScope Grant consent to scope
+		GrantConsentToScope Grant consent to scope
 
-	Grants consent for the app to request an OAuth 2.0 Okta scope
+		Grants consent for the app to request an OAuth 2.0 Okta scope
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiGrantConsentToScopeRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiGrantConsentToScopeRequest
 	*/
 	GrantConsentToScope(ctx context.Context, appId string) ApiGrantConsentToScopeRequest
 
@@ -68,13 +67,13 @@ type ApplicationGrantsAPI interface {
 	GrantConsentToScopeExecute(r ApiGrantConsentToScopeRequest) (*OAuth2ScopeConsentGrant, *APIResponse, error)
 
 	/*
-	ListScopeConsentGrants List all app Grants
+		ListScopeConsentGrants List all app grants
 
-	Lists all scope consent Grants for the app
+		Lists all scope consent Grants for the app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiListScopeConsentGrantsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiListScopeConsentGrantsRequest
 	*/
 	ListScopeConsentGrants(ctx context.Context, appId string) ApiListScopeConsentGrantsRequest
 
@@ -83,14 +82,14 @@ type ApplicationGrantsAPI interface {
 	ListScopeConsentGrantsExecute(r ApiListScopeConsentGrantsRequest) ([]OAuth2ScopeConsentGrant, *APIResponse, error)
 
 	/*
-	RevokeScopeConsentGrant Revoke an app Grant
+		RevokeScopeConsentGrant Revoke an app grant
 
-	Revokes permission for the app to grant the given scope
+		Revokes permission for the app to grant the given scope
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param grantId Grant ID
-	@return ApiRevokeScopeConsentGrantRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param grantId Grant ID
+		@return ApiRevokeScopeConsentGrantRequest
 	*/
 	RevokeScopeConsentGrant(ctx context.Context, appId string, grantId string) ApiRevokeScopeConsentGrantRequest
 
@@ -102,11 +101,11 @@ type ApplicationGrantsAPI interface {
 type ApplicationGrantsAPIService service
 
 type ApiGetScopeConsentGrantRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationGrantsAPI
-	appId string
-	grantId string
-	expand *string
+	appId      string
+	grantId    string
+	expand     *string
 	retryCount int32
 }
 
@@ -121,27 +120,28 @@ func (r ApiGetScopeConsentGrantRequest) Execute() (*OAuth2ScopeConsentGrant, *AP
 }
 
 /*
-GetScopeConsentGrant Retrieve an app Grant
+GetScopeConsentGrant Retrieve an app grant
 
 Retrieves a single scope consent Grant object for the app
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param grantId Grant ID
- @return ApiGetScopeConsentGrantRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param grantId Grant ID
+	@return ApiGetScopeConsentGrantRequest
 */
 func (a *ApplicationGrantsAPIService) GetScopeConsentGrant(ctx context.Context, appId string, grantId string) ApiGetScopeConsentGrantRequest {
 	return ApiGetScopeConsentGrantRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		grantId: grantId,
+		ctx:        ctx,
+		appId:      appId,
+		grantId:    grantId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OAuth2ScopeConsentGrant
+//
+//	@return OAuth2ScopeConsentGrant
 func (a *ApplicationGrantsAPIService) GetScopeConsentGrantExecute(r ApiGetScopeConsentGrantRequest) (*OAuth2ScopeConsentGrant, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -150,7 +150,7 @@ func (a *ApplicationGrantsAPIService) GetScopeConsentGrantExecute(r ApiGetScopeC
 		localVarReturnValue  *OAuth2ScopeConsentGrant
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -215,9 +215,9 @@ func (a *ApplicationGrantsAPIService) GetScopeConsentGrantExecute(r ApiGetScopeC
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -275,17 +275,17 @@ func (a *ApplicationGrantsAPIService) GetScopeConsentGrantExecute(r ApiGetScopeC
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGrantConsentToScopeRequest struct {
-	ctx context.Context
-	ApiService ApplicationGrantsAPI
-	appId string
+	ctx                     context.Context
+	ApiService              ApplicationGrantsAPI
+	appId                   string
 	oAuth2ScopeConsentGrant *OAuth2ScopeConsentGrant
-	retryCount int32
+	retryCount              int32
 }
 
 func (r ApiGrantConsentToScopeRequest) OAuth2ScopeConsentGrant(oAuth2ScopeConsentGrant OAuth2ScopeConsentGrant) ApiGrantConsentToScopeRequest {
@@ -302,21 +302,22 @@ GrantConsentToScope Grant consent to scope
 
 Grants consent for the app to request an OAuth 2.0 Okta scope
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiGrantConsentToScopeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiGrantConsentToScopeRequest
 */
 func (a *ApplicationGrantsAPIService) GrantConsentToScope(ctx context.Context, appId string) ApiGrantConsentToScopeRequest {
 	return ApiGrantConsentToScopeRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OAuth2ScopeConsentGrant
+//
+//	@return OAuth2ScopeConsentGrant
 func (a *ApplicationGrantsAPIService) GrantConsentToScopeExecute(r ApiGrantConsentToScopeRequest) (*OAuth2ScopeConsentGrant, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -325,7 +326,7 @@ func (a *ApplicationGrantsAPIService) GrantConsentToScopeExecute(r ApiGrantConse
 		localVarReturnValue  *OAuth2ScopeConsentGrant
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -391,9 +392,9 @@ func (a *ApplicationGrantsAPIService) GrantConsentToScopeExecute(r ApiGrantConse
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -463,16 +464,16 @@ func (a *ApplicationGrantsAPIService) GrantConsentToScopeExecute(r ApiGrantConse
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListScopeConsentGrantsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationGrantsAPI
-	appId string
-	expand *string
+	appId      string
+	expand     *string
 	retryCount int32
 }
 
@@ -487,25 +488,26 @@ func (r ApiListScopeConsentGrantsRequest) Execute() ([]OAuth2ScopeConsentGrant, 
 }
 
 /*
-ListScopeConsentGrants List all app Grants
+ListScopeConsentGrants List all app grants
 
 Lists all scope consent Grants for the app
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiListScopeConsentGrantsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiListScopeConsentGrantsRequest
 */
 func (a *ApplicationGrantsAPIService) ListScopeConsentGrants(ctx context.Context, appId string) ApiListScopeConsentGrantsRequest {
 	return ApiListScopeConsentGrantsRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []OAuth2ScopeConsentGrant
+//
+//	@return []OAuth2ScopeConsentGrant
 func (a *ApplicationGrantsAPIService) ListScopeConsentGrantsExecute(r ApiListScopeConsentGrantsRequest) ([]OAuth2ScopeConsentGrant, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -514,7 +516,7 @@ func (a *ApplicationGrantsAPIService) ListScopeConsentGrantsExecute(r ApiListSco
 		localVarReturnValue  []OAuth2ScopeConsentGrant
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -578,9 +580,9 @@ func (a *ApplicationGrantsAPIService) ListScopeConsentGrantsExecute(r ApiListSco
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -638,16 +640,16 @@ func (a *ApplicationGrantsAPIService) ListScopeConsentGrantsExecute(r ApiListSco
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiRevokeScopeConsentGrantRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationGrantsAPI
-	appId string
-	grantId string
+	appId      string
+	grantId    string
 	retryCount int32
 }
 
@@ -656,21 +658,21 @@ func (r ApiRevokeScopeConsentGrantRequest) Execute() (*APIResponse, error) {
 }
 
 /*
-RevokeScopeConsentGrant Revoke an app Grant
+RevokeScopeConsentGrant Revoke an app grant
 
 Revokes permission for the app to grant the given scope
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param grantId Grant ID
- @return ApiRevokeScopeConsentGrantRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param grantId Grant ID
+	@return ApiRevokeScopeConsentGrantRequest
 */
 func (a *ApplicationGrantsAPIService) RevokeScopeConsentGrant(ctx context.Context, appId string, grantId string) ApiRevokeScopeConsentGrantRequest {
 	return ApiRevokeScopeConsentGrantRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		grantId: grantId,
+		ctx:        ctx,
+		appId:      appId,
+		grantId:    grantId,
 		retryCount: 0,
 	}
 }
@@ -683,7 +685,7 @@ func (a *ApplicationGrantsAPIService) RevokeScopeConsentGrantExecute(r ApiRevoke
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -745,9 +747,9 @@ func (a *ApplicationGrantsAPIService) RevokeScopeConsentGrantExecute(r ApiRevoke
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err

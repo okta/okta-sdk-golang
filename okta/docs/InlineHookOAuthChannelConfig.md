@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AuthType** | Pointer to **string** |  | [optional] 
+**AuthType** | Pointer to **string** | The authentication method for the token endpoint | [optional] 
 
 ## Methods
 

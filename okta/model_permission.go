@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -28,17 +28,19 @@ import (
 	"time"
 )
 
+// checks if the Permission type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Permission{}
+
 // Permission struct for Permission
 type Permission struct {
-	// Conditions for further restricting a permission
-	Conditions map[string]interface{} `json:"conditions,omitempty"`
-	// Timestamp when the role was created
+	Conditions NullablePermissionConditions `json:"conditions,omitempty"`
+	// Timestamp when the permission was assigned
 	Created *time.Time `json:"created,omitempty"`
-	// The permission type
+	// The assigned Okta [permission](/openapi/okta-management/guides/permissions)
 	Label *string `json:"label,omitempty"`
-	// Timestamp when the role was last updated
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Links *PermissionLinks `json:"_links,omitempty"`
+	// Timestamp when the permission was last updated
+	LastUpdated          *time.Time       `json:"lastUpdated,omitempty"`
+	Links                *PermissionLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -62,41 +64,51 @@ func NewPermissionWithDefaults() *Permission {
 }
 
 // GetConditions returns the Conditions field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Permission) GetConditions() map[string]interface{} {
-	if o == nil {
-		var ret map[string]interface{}
+func (o *Permission) GetConditions() PermissionConditions {
+	if o == nil || IsNil(o.Conditions.Get()) {
+		var ret PermissionConditions
 		return ret
 	}
-	return o.Conditions
+	return *o.Conditions.Get()
 }
 
 // GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Permission) GetConditionsOk() (map[string]interface{}, bool) {
-	if o == nil || o.Conditions == nil {
+func (o *Permission) GetConditionsOk() (*PermissionConditions, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Conditions, true
+	return o.Conditions.Get(), o.Conditions.IsSet()
 }
 
 // HasConditions returns a boolean if a field has been set.
 func (o *Permission) HasConditions() bool {
-	if o != nil && o.Conditions != nil {
+	if o != nil && o.Conditions.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetConditions gets a reference to the given map[string]interface{} and assigns it to the Conditions field.
-func (o *Permission) SetConditions(v map[string]interface{}) {
-	o.Conditions = v
+// SetConditions gets a reference to the given NullablePermissionConditions and assigns it to the Conditions field.
+func (o *Permission) SetConditions(v PermissionConditions) {
+	o.Conditions.Set(&v)
+}
+
+// SetConditionsNil sets the value for Conditions to be an explicit nil
+func (o *Permission) SetConditionsNil() {
+	o.Conditions.Set(nil)
+}
+
+// UnsetConditions ensures that no value is present for Conditions, not even an explicit nil
+func (o *Permission) UnsetConditions() {
+	o.Conditions.Unset()
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *Permission) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -106,7 +118,7 @@ func (o *Permission) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Permission) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -114,7 +126,7 @@ func (o *Permission) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *Permission) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -128,7 +140,7 @@ func (o *Permission) SetCreated(v time.Time) {
 
 // GetLabel returns the Label field value if set, zero value otherwise.
 func (o *Permission) GetLabel() string {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		var ret string
 		return ret
 	}
@@ -138,7 +150,7 @@ func (o *Permission) GetLabel() string {
 // GetLabelOk returns a tuple with the Label field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Permission) GetLabelOk() (*string, bool) {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		return nil, false
 	}
 	return o.Label, true
@@ -146,7 +158,7 @@ func (o *Permission) GetLabelOk() (*string, bool) {
 
 // HasLabel returns a boolean if a field has been set.
 func (o *Permission) HasLabel() bool {
-	if o != nil && o.Label != nil {
+	if o != nil && !IsNil(o.Label) {
 		return true
 	}
 
@@ -160,7 +172,7 @@ func (o *Permission) SetLabel(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *Permission) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -170,7 +182,7 @@ func (o *Permission) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Permission) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -178,7 +190,7 @@ func (o *Permission) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *Permission) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -192,7 +204,7 @@ func (o *Permission) SetLastUpdated(v time.Time) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *Permission) GetLinks() PermissionLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret PermissionLinks
 		return ret
 	}
@@ -202,7 +214,7 @@ func (o *Permission) GetLinks() PermissionLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Permission) GetLinksOk() (*PermissionLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -210,7 +222,7 @@ func (o *Permission) GetLinksOk() (*PermissionLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *Permission) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -223,20 +235,28 @@ func (o *Permission) SetLinks(v PermissionLinks) {
 }
 
 func (o Permission) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Conditions != nil {
-		toSerialize["conditions"] = o.Conditions
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Created != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o Permission) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if o.Conditions.IsSet() {
+		toSerialize["conditions"] = o.Conditions.Get()
+	}
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Label != nil {
+	if !IsNil(o.Label) {
 		toSerialize["label"] = o.Label
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -244,31 +264,29 @@ func (o Permission) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Permission) UnmarshalJSON(bytes []byte) (err error) {
+func (o *Permission) UnmarshalJSON(data []byte) (err error) {
 	varPermission := _Permission{}
 
-	err = json.Unmarshal(bytes, &varPermission)
-	if err == nil {
-		*o = Permission(varPermission)
-	} else {
+	err = json.Unmarshal(data, &varPermission)
+
+	if err != nil {
 		return err
 	}
 
+	*o = Permission(varPermission)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "conditions")
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "label")
 		delete(additionalProperties, "lastUpdated")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -309,4 +327,3 @@ func (v *NullablePermission) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

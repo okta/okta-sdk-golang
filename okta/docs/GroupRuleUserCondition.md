@@ -4,8 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Exclude** | Pointer to **[]string** |  | [optional] 
-**Include** | Pointer to **[]string** |  | [optional] 
+**Exclude** | Pointer to **[]string** | Excluded &#x60;userIds&#x60; when processing rules | [optional] 
 
 ## Methods
 
@@ -50,31 +49,6 @@ SetExclude sets Exclude field to given value.
 `func (o *GroupRuleUserCondition) HasExclude() bool`
 
 HasExclude returns a boolean if a field has been set.
-
-### GetInclude
-
-`func (o *GroupRuleUserCondition) GetInclude() []string`
-
-GetInclude returns the Include field if non-nil, zero value otherwise.
-
-### GetIncludeOk
-
-`func (o *GroupRuleUserCondition) GetIncludeOk() (*[]string, bool)`
-
-GetIncludeOk returns a tuple with the Include field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetInclude
-
-`func (o *GroupRuleUserCondition) SetInclude(v []string)`
-
-SetInclude sets Include field to given value.
-
-### HasInclude
-
-`func (o *GroupRuleUserCondition) HasInclude() bool`
-
-HasInclude returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

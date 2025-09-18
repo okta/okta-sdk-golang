@@ -6,10 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CreatedBy** | Pointer to **string** |  | [optional] [readonly] 
 **CreatedDate** | Pointer to **string** |  | [optional] [readonly] 
+**DevicePostureChecks** | Pointer to [**DevicePostureChecks**](DevicePostureChecks.md) |  | [optional] 
+**DisplayRemediationMode** | Pointer to **string** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;Represents the remediation mode of this device assurance policy when users are denied access due to device noncompliance | [optional] 
+**GracePeriod** | Pointer to [**GracePeriod**](GracePeriod.md) |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **LastUpdate** | Pointer to **string** |  | [optional] [readonly] 
 **LastUpdatedBy** | Pointer to **string** |  | [optional] [readonly] 
-**Name** | Pointer to **string** | Display name of the Device Assurance Policy | [optional] 
+**Name** | Pointer to **string** | Display name of the device assurance policy | [optional] 
 **Platform** | Pointer to **string** |  | [optional] 
 **Links** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
 
@@ -81,6 +84,81 @@ SetCreatedDate sets CreatedDate field to given value.
 `func (o *DeviceAssurance) HasCreatedDate() bool`
 
 HasCreatedDate returns a boolean if a field has been set.
+
+### GetDevicePostureChecks
+
+`func (o *DeviceAssurance) GetDevicePostureChecks() DevicePostureChecks`
+
+GetDevicePostureChecks returns the DevicePostureChecks field if non-nil, zero value otherwise.
+
+### GetDevicePostureChecksOk
+
+`func (o *DeviceAssurance) GetDevicePostureChecksOk() (*DevicePostureChecks, bool)`
+
+GetDevicePostureChecksOk returns a tuple with the DevicePostureChecks field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDevicePostureChecks
+
+`func (o *DeviceAssurance) SetDevicePostureChecks(v DevicePostureChecks)`
+
+SetDevicePostureChecks sets DevicePostureChecks field to given value.
+
+### HasDevicePostureChecks
+
+`func (o *DeviceAssurance) HasDevicePostureChecks() bool`
+
+HasDevicePostureChecks returns a boolean if a field has been set.
+
+### GetDisplayRemediationMode
+
+`func (o *DeviceAssurance) GetDisplayRemediationMode() string`
+
+GetDisplayRemediationMode returns the DisplayRemediationMode field if non-nil, zero value otherwise.
+
+### GetDisplayRemediationModeOk
+
+`func (o *DeviceAssurance) GetDisplayRemediationModeOk() (*string, bool)`
+
+GetDisplayRemediationModeOk returns a tuple with the DisplayRemediationMode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDisplayRemediationMode
+
+`func (o *DeviceAssurance) SetDisplayRemediationMode(v string)`
+
+SetDisplayRemediationMode sets DisplayRemediationMode field to given value.
+
+### HasDisplayRemediationMode
+
+`func (o *DeviceAssurance) HasDisplayRemediationMode() bool`
+
+HasDisplayRemediationMode returns a boolean if a field has been set.
+
+### GetGracePeriod
+
+`func (o *DeviceAssurance) GetGracePeriod() GracePeriod`
+
+GetGracePeriod returns the GracePeriod field if non-nil, zero value otherwise.
+
+### GetGracePeriodOk
+
+`func (o *DeviceAssurance) GetGracePeriodOk() (*GracePeriod, bool)`
+
+GetGracePeriodOk returns a tuple with the GracePeriod field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGracePeriod
+
+`func (o *DeviceAssurance) SetGracePeriod(v GracePeriod)`
+
+SetGracePeriod sets GracePeriod field to given value.
+
+### HasGracePeriod
+
+`func (o *DeviceAssurance) HasGracePeriod() bool`
+
+HasGracePeriod returns a boolean if a field has been set.
 
 ### GetId
 

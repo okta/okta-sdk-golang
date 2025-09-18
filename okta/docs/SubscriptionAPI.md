@@ -4,14 +4,14 @@ All URIs are relative to *https://subdomain.okta.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetSubscriptionsNotificationTypeRole**](SubscriptionAPI.md#GetSubscriptionsNotificationTypeRole) | **Get** /api/v1/roles/{roleRef}/subscriptions/{notificationType} | Retrieve a Subscription for a Role
-[**GetSubscriptionsNotificationTypeUser**](SubscriptionAPI.md#GetSubscriptionsNotificationTypeUser) | **Get** /api/v1/users/{userId}/subscriptions/{notificationType} | Retrieve a Subscription for a User
-[**ListSubscriptionsRole**](SubscriptionAPI.md#ListSubscriptionsRole) | **Get** /api/v1/roles/{roleRef}/subscriptions | List all Subscriptions for a Role
-[**ListSubscriptionsUser**](SubscriptionAPI.md#ListSubscriptionsUser) | **Get** /api/v1/users/{userId}/subscriptions | List all Subscriptions for a User
-[**SubscribeByNotificationTypeRole**](SubscriptionAPI.md#SubscribeByNotificationTypeRole) | **Post** /api/v1/roles/{roleRef}/subscriptions/{notificationType}/subscribe | Subscribe a Role to a Specific Notification Type
-[**SubscribeByNotificationTypeUser**](SubscriptionAPI.md#SubscribeByNotificationTypeUser) | **Post** /api/v1/users/{userId}/subscriptions/{notificationType}/subscribe | Subscribe a User to a Specific Notification Type
-[**UnsubscribeByNotificationTypeRole**](SubscriptionAPI.md#UnsubscribeByNotificationTypeRole) | **Post** /api/v1/roles/{roleRef}/subscriptions/{notificationType}/unsubscribe | Unsubscribe a Role from a Specific Notification Type
-[**UnsubscribeByNotificationTypeUser**](SubscriptionAPI.md#UnsubscribeByNotificationTypeUser) | **Post** /api/v1/users/{userId}/subscriptions/{notificationType}/unsubscribe | Unsubscribe a User from a Specific Notification Type
+[**GetSubscriptionsNotificationTypeRole**](SubscriptionAPI.md#GetSubscriptionsNotificationTypeRole) | **Get** /api/v1/roles/{roleRef}/subscriptions/{notificationType} | Retrieve a subscription for a role
+[**GetSubscriptionsNotificationTypeUser**](SubscriptionAPI.md#GetSubscriptionsNotificationTypeUser) | **Get** /api/v1/users/{userId}/subscriptions/{notificationType} | Retrieve a subscription for a user
+[**ListSubscriptionsRole**](SubscriptionAPI.md#ListSubscriptionsRole) | **Get** /api/v1/roles/{roleRef}/subscriptions | List all subscriptions for a role
+[**ListSubscriptionsUser**](SubscriptionAPI.md#ListSubscriptionsUser) | **Get** /api/v1/users/{userId}/subscriptions | List all subscriptions for a user
+[**SubscribeByNotificationTypeRole**](SubscriptionAPI.md#SubscribeByNotificationTypeRole) | **Post** /api/v1/roles/{roleRef}/subscriptions/{notificationType}/subscribe | Subscribe a role to a specific notification type
+[**SubscribeByNotificationTypeUser**](SubscriptionAPI.md#SubscribeByNotificationTypeUser) | **Post** /api/v1/users/{userId}/subscriptions/{notificationType}/subscribe | Subscribe a user to a specific notification type
+[**UnsubscribeByNotificationTypeRole**](SubscriptionAPI.md#UnsubscribeByNotificationTypeRole) | **Post** /api/v1/roles/{roleRef}/subscriptions/{notificationType}/unsubscribe | Unsubscribe a role from a specific notification type
+[**UnsubscribeByNotificationTypeUser**](SubscriptionAPI.md#UnsubscribeByNotificationTypeUser) | **Post** /api/v1/users/{userId}/subscriptions/{notificationType}/unsubscribe | Unsubscribe a user from a specific notification type
 
 
 
@@ -19,7 +19,7 @@ Method | HTTP request | Description
 
 > Subscription GetSubscriptionsNotificationTypeRole(ctx, roleRef, notificationType).Execute()
 
-Retrieve a Subscription for a Role
+Retrieve a subscription for a role
 
 
 
@@ -29,25 +29,25 @@ Retrieve a Subscription for a Role
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    roleRef := openapiclient.listSubscriptionsRole_roleRef_parameter{String: new(string)} // ListSubscriptionsRoleRoleRefParameter | A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
-    notificationType := "notificationType_example" // string | 
+	roleRef := openapiclient.listSubscriptionsRole_roleRef_parameter{String: new(string)} // ListSubscriptionsRoleRoleRefParameter | A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
+	notificationType := "notificationType_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SubscriptionAPI.GetSubscriptionsNotificationTypeRole(context.Background(), roleRef, notificationType).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionAPI.GetSubscriptionsNotificationTypeRole``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSubscriptionsNotificationTypeRole`: Subscription
-    fmt.Fprintf(os.Stdout, "Response from `SubscriptionAPI.GetSubscriptionsNotificationTypeRole`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SubscriptionAPI.GetSubscriptionsNotificationTypeRole(context.Background(), roleRef, notificationType).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionAPI.GetSubscriptionsNotificationTypeRole``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSubscriptionsNotificationTypeRole`: Subscription
+	fmt.Fprintf(os.Stdout, "Response from `SubscriptionAPI.GetSubscriptionsNotificationTypeRole`: %v\n", resp)
 }
 ```
 
@@ -92,7 +92,7 @@ Name | Type | Description  | Notes
 
 > Subscription GetSubscriptionsNotificationTypeUser(ctx, notificationType, userId).Execute()
 
-Retrieve a Subscription for a User
+Retrieve a subscription for a user
 
 
 
@@ -102,25 +102,25 @@ Retrieve a Subscription for a User
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    notificationType := "notificationType_example" // string | 
-    userId := "userId_example" // string | ID of an existing Okta user
+	notificationType := "notificationType_example" // string | 
+	userId := "00ub0oNGTSWTBKOLGLNR" // string | ID of an existing Okta user
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SubscriptionAPI.GetSubscriptionsNotificationTypeUser(context.Background(), notificationType, userId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionAPI.GetSubscriptionsNotificationTypeUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSubscriptionsNotificationTypeUser`: Subscription
-    fmt.Fprintf(os.Stdout, "Response from `SubscriptionAPI.GetSubscriptionsNotificationTypeUser`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SubscriptionAPI.GetSubscriptionsNotificationTypeUser(context.Background(), notificationType, userId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionAPI.GetSubscriptionsNotificationTypeUser``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSubscriptionsNotificationTypeUser`: Subscription
+	fmt.Fprintf(os.Stdout, "Response from `SubscriptionAPI.GetSubscriptionsNotificationTypeUser`: %v\n", resp)
 }
 ```
 
@@ -165,7 +165,7 @@ Name | Type | Description  | Notes
 
 > []Subscription ListSubscriptionsRole(ctx, roleRef).Execute()
 
-List all Subscriptions for a Role
+List all subscriptions for a role
 
 
 
@@ -175,24 +175,24 @@ List all Subscriptions for a Role
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    roleRef := openapiclient.listSubscriptionsRole_roleRef_parameter{String: new(string)} // ListSubscriptionsRoleRoleRefParameter | A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
+	roleRef := openapiclient.listSubscriptionsRole_roleRef_parameter{String: new(string)} // ListSubscriptionsRoleRoleRefParameter | A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SubscriptionAPI.ListSubscriptionsRole(context.Background(), roleRef).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionAPI.ListSubscriptionsRole``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListSubscriptionsRole`: []Subscription
-    fmt.Fprintf(os.Stdout, "Response from `SubscriptionAPI.ListSubscriptionsRole`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SubscriptionAPI.ListSubscriptionsRole(context.Background(), roleRef).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionAPI.ListSubscriptionsRole``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListSubscriptionsRole`: []Subscription
+	fmt.Fprintf(os.Stdout, "Response from `SubscriptionAPI.ListSubscriptionsRole`: %v\n", resp)
 }
 ```
 
@@ -235,7 +235,7 @@ Name | Type | Description  | Notes
 
 > []Subscription ListSubscriptionsUser(ctx, userId).Execute()
 
-List all Subscriptions for a User
+List all subscriptions for a user
 
 
 
@@ -245,24 +245,24 @@ List all Subscriptions for a User
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
+	userId := "00ub0oNGTSWTBKOLGLNR" // string | ID of an existing Okta user
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SubscriptionAPI.ListSubscriptionsUser(context.Background(), userId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionAPI.ListSubscriptionsUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListSubscriptionsUser`: []Subscription
-    fmt.Fprintf(os.Stdout, "Response from `SubscriptionAPI.ListSubscriptionsUser`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SubscriptionAPI.ListSubscriptionsUser(context.Background(), userId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionAPI.ListSubscriptionsUser``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListSubscriptionsUser`: []Subscription
+	fmt.Fprintf(os.Stdout, "Response from `SubscriptionAPI.ListSubscriptionsUser`: %v\n", resp)
 }
 ```
 
@@ -305,7 +305,7 @@ Name | Type | Description  | Notes
 
 > SubscribeByNotificationTypeRole(ctx, roleRef, notificationType).Execute()
 
-Subscribe a Role to a Specific Notification Type
+Subscribe a role to a specific notification type
 
 
 
@@ -315,23 +315,23 @@ Subscribe a Role to a Specific Notification Type
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    roleRef := openapiclient.listSubscriptionsRole_roleRef_parameter{String: new(string)} // ListSubscriptionsRoleRoleRefParameter | A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
-    notificationType := "notificationType_example" // string | 
+	roleRef := openapiclient.listSubscriptionsRole_roleRef_parameter{String: new(string)} // ListSubscriptionsRoleRoleRefParameter | A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
+	notificationType := "notificationType_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.SubscriptionAPI.SubscribeByNotificationTypeRole(context.Background(), roleRef, notificationType).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionAPI.SubscribeByNotificationTypeRole``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SubscriptionAPI.SubscribeByNotificationTypeRole(context.Background(), roleRef, notificationType).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionAPI.SubscribeByNotificationTypeRole``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -376,7 +376,7 @@ Name | Type | Description  | Notes
 
 > SubscribeByNotificationTypeUser(ctx, notificationType, userId).Execute()
 
-Subscribe a User to a Specific Notification Type
+Subscribe a user to a specific notification type
 
 
 
@@ -386,23 +386,23 @@ Subscribe a User to a Specific Notification Type
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    notificationType := "notificationType_example" // string | 
-    userId := "userId_example" // string | ID of an existing Okta user
+	notificationType := "notificationType_example" // string | 
+	userId := "00ub0oNGTSWTBKOLGLNR" // string | ID of an existing Okta user
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.SubscriptionAPI.SubscribeByNotificationTypeUser(context.Background(), notificationType, userId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionAPI.SubscribeByNotificationTypeUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SubscriptionAPI.SubscribeByNotificationTypeUser(context.Background(), notificationType, userId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionAPI.SubscribeByNotificationTypeUser``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -447,7 +447,7 @@ Name | Type | Description  | Notes
 
 > UnsubscribeByNotificationTypeRole(ctx, roleRef, notificationType).Execute()
 
-Unsubscribe a Role from a Specific Notification Type
+Unsubscribe a role from a specific notification type
 
 
 
@@ -457,23 +457,23 @@ Unsubscribe a Role from a Specific Notification Type
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    roleRef := openapiclient.listSubscriptionsRole_roleRef_parameter{String: new(string)} // ListSubscriptionsRoleRoleRefParameter | A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
-    notificationType := "notificationType_example" // string | 
+	roleRef := openapiclient.listSubscriptionsRole_roleRef_parameter{String: new(string)} // ListSubscriptionsRoleRoleRefParameter | A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
+	notificationType := "notificationType_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.SubscriptionAPI.UnsubscribeByNotificationTypeRole(context.Background(), roleRef, notificationType).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionAPI.UnsubscribeByNotificationTypeRole``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SubscriptionAPI.UnsubscribeByNotificationTypeRole(context.Background(), roleRef, notificationType).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionAPI.UnsubscribeByNotificationTypeRole``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -518,7 +518,7 @@ Name | Type | Description  | Notes
 
 > UnsubscribeByNotificationTypeUser(ctx, notificationType, userId).Execute()
 
-Unsubscribe a User from a Specific Notification Type
+Unsubscribe a user from a specific notification type
 
 
 
@@ -528,23 +528,23 @@ Unsubscribe a User from a Specific Notification Type
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    notificationType := "notificationType_example" // string | 
-    userId := "userId_example" // string | ID of an existing Okta user
+	notificationType := "notificationType_example" // string | 
+	userId := "00ub0oNGTSWTBKOLGLNR" // string | ID of an existing Okta user
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.SubscriptionAPI.UnsubscribeByNotificationTypeUser(context.Background(), notificationType, userId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionAPI.UnsubscribeByNotificationTypeUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SubscriptionAPI.UnsubscribeByNotificationTypeUser(context.Background(), notificationType, userId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionAPI.UnsubscribeByNotificationTypeUser``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

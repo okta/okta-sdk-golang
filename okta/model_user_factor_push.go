@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,21 +25,18 @@ package okta
 
 import (
 	"encoding/json"
-	"time"
 	"reflect"
 	"strings"
 )
 
+// checks if the UserFactorPush type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserFactorPush{}
+
 // UserFactorPush struct for UserFactorPush
 type UserFactorPush struct {
 	UserFactor
-	// Timestamp when the Factor verification attempt expires
-	ExpiresAt *time.Time `json:"expiresAt,omitempty"`
-	// Result of a Factor verification attempt
-	FactorResult *string `json:"factorResult,omitempty"`
-	FactorType interface{} `json:"factorType,omitempty"`
-	Profile *UserFactorPushProfile `json:"profile,omitempty"`
-	Provider *string `json:"provider,omitempty"`
+	Profile              *UserFactorPushProfile `json:"profile,omitempty"`
+	Provider             *string                `json:"provider,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -62,106 +59,9 @@ func NewUserFactorPushWithDefaults() *UserFactorPush {
 	return &this
 }
 
-// GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
-func (o *UserFactorPush) GetExpiresAt() time.Time {
-	if o == nil || o.ExpiresAt == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.ExpiresAt
-}
-
-// GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UserFactorPush) GetExpiresAtOk() (*time.Time, bool) {
-	if o == nil || o.ExpiresAt == nil {
-		return nil, false
-	}
-	return o.ExpiresAt, true
-}
-
-// HasExpiresAt returns a boolean if a field has been set.
-func (o *UserFactorPush) HasExpiresAt() bool {
-	if o != nil && o.ExpiresAt != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetExpiresAt gets a reference to the given time.Time and assigns it to the ExpiresAt field.
-func (o *UserFactorPush) SetExpiresAt(v time.Time) {
-	o.ExpiresAt = &v
-}
-
-// GetFactorResult returns the FactorResult field value if set, zero value otherwise.
-func (o *UserFactorPush) GetFactorResult() string {
-	if o == nil || o.FactorResult == nil {
-		var ret string
-		return ret
-	}
-	return *o.FactorResult
-}
-
-// GetFactorResultOk returns a tuple with the FactorResult field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UserFactorPush) GetFactorResultOk() (*string, bool) {
-	if o == nil || o.FactorResult == nil {
-		return nil, false
-	}
-	return o.FactorResult, true
-}
-
-// HasFactorResult returns a boolean if a field has been set.
-func (o *UserFactorPush) HasFactorResult() bool {
-	if o != nil && o.FactorResult != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetFactorResult gets a reference to the given string and assigns it to the FactorResult field.
-func (o *UserFactorPush) SetFactorResult(v string) {
-	o.FactorResult = &v
-}
-
-// GetFactorType returns the FactorType field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UserFactorPush) GetFactorType() interface{} {
-	if o == nil {
-		var ret interface{}
-		return ret
-	}
-	return o.FactorType
-}
-
-// GetFactorTypeOk returns a tuple with the FactorType field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UserFactorPush) GetFactorTypeOk() (*interface{}, bool) {
-	if o == nil || o.FactorType == nil {
-		return nil, false
-	}
-	return &o.FactorType, true
-}
-
-// HasFactorType returns a boolean if a field has been set.
-func (o *UserFactorPush) HasFactorType() bool {
-	if o != nil && o.FactorType != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetFactorType gets a reference to the given interface{} and assigns it to the FactorType field.
-func (o *UserFactorPush) SetFactorType(v interface{}) {
-	o.FactorType = v
-}
-
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *UserFactorPush) GetProfile() UserFactorPushProfile {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret UserFactorPushProfile
 		return ret
 	}
@@ -171,7 +71,7 @@ func (o *UserFactorPush) GetProfile() UserFactorPushProfile {
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorPush) GetProfileOk() (*UserFactorPushProfile, bool) {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		return nil, false
 	}
 	return o.Profile, true
@@ -179,7 +79,7 @@ func (o *UserFactorPush) GetProfileOk() (*UserFactorPushProfile, bool) {
 
 // HasProfile returns a boolean if a field has been set.
 func (o *UserFactorPush) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -193,7 +93,7 @@ func (o *UserFactorPush) SetProfile(v UserFactorPushProfile) {
 
 // GetProvider returns the Provider field value if set, zero value otherwise.
 func (o *UserFactorPush) GetProvider() string {
-	if o == nil || o.Provider == nil {
+	if o == nil || IsNil(o.Provider) {
 		var ret string
 		return ret
 	}
@@ -203,7 +103,7 @@ func (o *UserFactorPush) GetProvider() string {
 // GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorPush) GetProviderOk() (*string, bool) {
-	if o == nil || o.Provider == nil {
+	if o == nil || IsNil(o.Provider) {
 		return nil, false
 	}
 	return o.Provider, true
@@ -211,7 +111,7 @@ func (o *UserFactorPush) GetProviderOk() (*string, bool) {
 
 // HasProvider returns a boolean if a field has been set.
 func (o *UserFactorPush) HasProvider() bool {
-	if o != nil && o.Provider != nil {
+	if o != nil && !IsNil(o.Provider) {
 		return true
 	}
 
@@ -224,28 +124,27 @@ func (o *UserFactorPush) SetProvider(v string) {
 }
 
 func (o UserFactorPush) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserFactorPush) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedUserFactor, errUserFactor := json.Marshal(o.UserFactor)
 	if errUserFactor != nil {
-		return []byte{}, errUserFactor
+		return map[string]interface{}{}, errUserFactor
 	}
 	errUserFactor = json.Unmarshal([]byte(serializedUserFactor), &toSerialize)
 	if errUserFactor != nil {
-		return []byte{}, errUserFactor
+		return map[string]interface{}{}, errUserFactor
 	}
-	if o.ExpiresAt != nil {
-		toSerialize["expiresAt"] = o.ExpiresAt
-	}
-	if o.FactorResult != nil {
-		toSerialize["factorResult"] = o.FactorResult
-	}
-	if o.FactorType != nil {
-		toSerialize["factorType"] = o.FactorType
-	}
-	if o.Profile != nil {
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
-	if o.Provider != nil {
+	if !IsNil(o.Provider) {
 		toSerialize["provider"] = o.Provider
 	}
 
@@ -253,28 +152,20 @@ func (o UserFactorPush) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserFactorPush) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserFactorPush) UnmarshalJSON(data []byte) (err error) {
 	type UserFactorPushWithoutEmbeddedStruct struct {
-		// Timestamp when the Factor verification attempt expires
-		ExpiresAt *time.Time `json:"expiresAt,omitempty"`
-		// Result of a Factor verification attempt
-		FactorResult *string `json:"factorResult,omitempty"`
-		FactorType interface{} `json:"factorType,omitempty"`
-		Profile *UserFactorPushProfile `json:"profile,omitempty"`
-		Provider *string `json:"provider,omitempty"`
+		Profile  *UserFactorPushProfile `json:"profile,omitempty"`
+		Provider *string                `json:"provider,omitempty"`
 	}
 
 	varUserFactorPushWithoutEmbeddedStruct := UserFactorPushWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varUserFactorPushWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varUserFactorPushWithoutEmbeddedStruct)
 	if err == nil {
 		varUserFactorPush := _UserFactorPush{}
-		varUserFactorPush.ExpiresAt = varUserFactorPushWithoutEmbeddedStruct.ExpiresAt
-		varUserFactorPush.FactorResult = varUserFactorPushWithoutEmbeddedStruct.FactorResult
-		varUserFactorPush.FactorType = varUserFactorPushWithoutEmbeddedStruct.FactorType
 		varUserFactorPush.Profile = varUserFactorPushWithoutEmbeddedStruct.Profile
 		varUserFactorPush.Provider = varUserFactorPushWithoutEmbeddedStruct.Provider
 		*o = UserFactorPush(varUserFactorPush)
@@ -284,7 +175,7 @@ func (o *UserFactorPush) UnmarshalJSON(bytes []byte) (err error) {
 
 	varUserFactorPush := _UserFactorPush{}
 
-	err = json.Unmarshal(bytes, &varUserFactorPush)
+	err = json.Unmarshal(data, &varUserFactorPush)
 	if err == nil {
 		o.UserFactor = varUserFactorPush.UserFactor
 	} else {
@@ -293,11 +184,7 @@ func (o *UserFactorPush) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
-		delete(additionalProperties, "expiresAt")
-		delete(additionalProperties, "factorResult")
-		delete(additionalProperties, "factorType")
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "profile")
 		delete(additionalProperties, "provider")
 
@@ -320,8 +207,6 @@ func (o *UserFactorPush) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -362,4 +247,3 @@ func (v *NullableUserFactorPush) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

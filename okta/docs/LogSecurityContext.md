@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AsNumber** | Pointer to **int32** |  | [optional] [readonly] 
-**AsOrg** | Pointer to **string** |  | [optional] [readonly] 
-**Domain** | Pointer to **string** |  | [optional] [readonly] 
-**Isp** | Pointer to **string** |  | [optional] [readonly] 
-**IsProxy** | Pointer to **bool** |  | [optional] [readonly] 
+**AsNumber** | Pointer to **int32** | The [Autonomous system](https://docs.telemetry.mozilla.org/datasets/other/asn_aggregates/reference) number that&#39;s associated with the autonomous system the event request was sourced to | [optional] [readonly] 
+**AsOrg** | Pointer to **string** | The organization that is associated with the autonomous system that the event request is sourced to | [optional] [readonly] 
+**Domain** | Pointer to **string** | The domain name that&#39;s associated with the IP address of the inbound event request | [optional] [readonly] 
+**Isp** | Pointer to **string** | The Internet service provider that&#39;s used to send the event&#39;s request | [optional] [readonly] 
+**IsProxy** | Pointer to **bool** | Specifies whether an event&#39;s request is from a known proxy | [optional] [readonly] 
 
 ## Methods
 

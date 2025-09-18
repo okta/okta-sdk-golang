@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
+**Created** | Pointer to **time.Time** | Timestamp when the object was created | [optional] [readonly] 
 **Credentials** | Pointer to [**AppUserCredentials**](AppUserCredentials.md) |  | [optional] 
-**ExternalId** | Pointer to **string** | The ID of the user in the target app that&#39;s linked to the Okta Application User object. This value is the native app-specific identifier or primary key for the user in the target app.  The &#x60;externalId&#x60; is set during import when the user is confirmed (reconciled) or during provisioning when the user is created in the target app. This value isn&#39;t populated for SSO app assignments (for example, SAML or SWA) because it isn&#39;t synchronized with a target app. | [optional] [readonly] 
-**Id** | Pointer to **string** | Unique identifier for the Okta User | [optional] 
+**ExternalId** | Pointer to **string** | The ID of the user in the target app that&#39;s linked to the Okta application user object. This value is the native app-specific identifier or primary key for the user in the target app.  The &#x60;externalId&#x60; is set during import when the user is confirmed (reconciled) or during provisioning when the user is created in the target app. This value isn&#39;t populated for SSO app assignments (for example, SAML or SWA) because it isn&#39;t synchronized with a target app. | [optional] [readonly] 
+**Id** | Pointer to **string** | Unique identifier for the Okta user | [optional] 
 **LastSync** | Pointer to **time.Time** | Timestamp of the last synchronization operation. This value is only updated for apps with the &#x60;IMPORT_PROFILE_UPDATES&#x60; or &#x60;PUSH PROFILE_UPDATES&#x60; feature. | [optional] [readonly] 
-**LastUpdated** | Pointer to [**time.Time**](time.Time.md) |  | [optional] 
-**PasswordChanged** | Pointer to **NullableTime** | Timestamp when the Application User password was last changed | [optional] [readonly] 
+**LastUpdated** | Pointer to **time.Time** | Timestamp when the object was last updated | [optional] [readonly] 
+**PasswordChanged** | Pointer to **NullableTime** | Timestamp when the application user password was last changed | [optional] [readonly] 
 **Profile** | Pointer to **map[string]interface{}** | Specifies the default and custom profile properties for a user. Properties that are visible in the Admin Console for an app assignment can also be assigned through the API. Some properties are reference properties that are imported from the target app and can&#39;t be configured. See [profile](/openapi/okta-management/management/tag/User/#tag/User/operation/getUser!c&#x3D;200&amp;path&#x3D;profile&amp;t&#x3D;response).  | [optional] 
 **Scope** | Pointer to **string** | Indicates if the assignment is direct (&#x60;USER&#x60;) or by group membership (&#x60;GROUP&#x60;). | [optional] 
-**Status** | Pointer to **string** | Status of an Application User | [optional] [readonly] 
-**StatusChanged** | Pointer to **time.Time** | Timestamp when the Application User status was last changed | [optional] [readonly] 
-**SyncState** | Pointer to **string** | The synchronization state for the Application User. The Application User&#39;s &#x60;syncState&#x60; depends on whether the &#x60;PROFILE_MASTERING&#x60; feature is enabled for the app.  &gt; **Note:** User provisioning currently must be configured through the Admin Console. | [optional] [readonly] 
-**Embedded** | Pointer to **map[string]map[string]interface{}** | Embedded resources related to the Application User using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification | [optional] [readonly] 
+**Status** | Pointer to **string** | Status of an application user | [optional] [readonly] 
+**StatusChanged** | Pointer to **time.Time** | Timestamp when the application user status was last changed | [optional] [readonly] 
+**SyncState** | Pointer to **string** | The synchronization state for the application user. The application user&#39;s &#x60;syncState&#x60; depends on whether the &#x60;PROFILE_MASTERING&#x60; feature is enabled for the app.  &gt; **Note:** User provisioning currently must be configured through the Admin Console. | [optional] [readonly] 
+**Embedded** | Pointer to **map[string]map[string]interface{}** | Embedded resources related to the application user using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification | [optional] [readonly] 
 **Links** | Pointer to [**LinksAppAndUser**](LinksAppAndUser.md) |  | [optional] 
 
 ## Methods

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | Pointer to **string** |  | [optional] 
-**Value** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** | Expression type. Only valid value is &#39;&#x60;urn:okta:expression:1.0&#x60;&#39;. | [optional] 
+**Value** | Pointer to **string** | Okta expression that would result in a Boolean value | [optional] 
 
 ## Methods
 

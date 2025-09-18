@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Include** | Pointer to **[]string** |  | [optional] 
+**Include** | Pointer to **[]string** | Specifies the allowlist of Group identifiers to match against. Group memberships are restricted to type &#x60;OKTA_GROUP&#x60;. | [optional] 
 
 ## Methods
 

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -26,29 +26,28 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type ApplicationPoliciesAPI interface {
 
 	/*
-	AssignApplicationPolicy Assign an application to a Policy
+			AssignApplicationPolicy Assign an authentication policy
 
-	Assigns an application to an [authentication policy](/openapi/okta-management/management/tag/Policy/), identified by `policyId`.
-If the application was previously assigned to another policy, this operation replaces that assignment with the updated policy identified by `policyId`.
+			Assigns an app to an [authentication policy](/openapi/okta-management/management/tag/Policy/), identified by `policyId`.
+		If the app was previously assigned to another policy, this operation replaces that assignment with the updated policy identified by `policyId`.
 
-> **Note:** When you [merge duplicate authentication policies](https://help.okta.com/okta_help.htm?type=oie&id=ext-merge-auth-policies),
-the policy and mapping CRUD operations may be unavailable during the consolidation. When the consolidation is complete, you receive an email.
+		> **Note:** When you [merge duplicate authentication policies](https://help.okta.com/okta_help.htm?type=oie&id=ext-merge-auth-policies),
+		the policy and mapping CRUD operations may be unavailable during the consolidation. When the consolidation is complete, you receive an email with merged results.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param policyId `id` of the Policy
-	@return ApiAssignApplicationPolicyRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appId Application ID
+			@param policyId `id` of the Policy
+			@return ApiAssignApplicationPolicyRequest
 	*/
 	AssignApplicationPolicy(ctx context.Context, appId string, policyId string) ApiAssignApplicationPolicyRequest
 
@@ -60,10 +59,10 @@ the policy and mapping CRUD operations may be unavailable during the consolidati
 type ApplicationPoliciesAPIService service
 
 type ApiAssignApplicationPolicyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationPoliciesAPI
-	appId string
-	policyId string
+	appId      string
+	policyId   string
 	retryCount int32
 }
 
@@ -72,25 +71,25 @@ func (r ApiAssignApplicationPolicyRequest) Execute() (*APIResponse, error) {
 }
 
 /*
-AssignApplicationPolicy Assign an application to a Policy
+AssignApplicationPolicy Assign an authentication policy
 
-Assigns an application to an [authentication policy](/openapi/okta-management/management/tag/Policy/), identified by `policyId`.
-If the application was previously assigned to another policy, this operation replaces that assignment with the updated policy identified by `policyId`.
+Assigns an app to an [authentication policy](/openapi/okta-management/management/tag/Policy/), identified by `policyId`.
+If the app was previously assigned to another policy, this operation replaces that assignment with the updated policy identified by `policyId`.
 
 > **Note:** When you [merge duplicate authentication policies](https://help.okta.com/okta_help.htm?type=oie&id=ext-merge-auth-policies),
-the policy and mapping CRUD operations may be unavailable during the consolidation. When the consolidation is complete, you receive an email.
+the policy and mapping CRUD operations may be unavailable during the consolidation. When the consolidation is complete, you receive an email with merged results.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param policyId `id` of the Policy
- @return ApiAssignApplicationPolicyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param policyId `id` of the Policy
+	@return ApiAssignApplicationPolicyRequest
 */
 func (a *ApplicationPoliciesAPIService) AssignApplicationPolicy(ctx context.Context, appId string, policyId string) ApiAssignApplicationPolicyRequest {
 	return ApiAssignApplicationPolicyRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		policyId: policyId,
+		ctx:        ctx,
+		appId:      appId,
+		policyId:   policyId,
 		retryCount: 0,
 	}
 }
@@ -103,7 +102,7 @@ func (a *ApplicationPoliciesAPIService) AssignApplicationPolicyExecute(r ApiAssi
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -165,9 +164,9 @@ func (a *ApplicationPoliciesAPIService) AssignApplicationPolicyExecute(r ApiAssi
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err

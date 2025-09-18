@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -28,6 +28,9 @@ import (
 	"time"
 )
 
+// checks if the ApiTokenUpdate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApiTokenUpdate{}
+
 // ApiTokenUpdate An API Token Update Object for an Okta user. This token is NOT scoped any further and can be used for any API that the user has permissions to call.
 type ApiTokenUpdate struct {
 	// The client name associated with the API Token
@@ -35,10 +38,10 @@ type ApiTokenUpdate struct {
 	// The creation date of the API Token
 	Created *time.Time `json:"created,omitempty"`
 	// The name associated with the API Token
-	Name *string `json:"name,omitempty"`
+	Name    *string          `json:"name,omitempty"`
 	Network *ApiTokenNetwork `json:"network,omitempty"`
 	// The userId of the user who created the API Token
-	UserId *string `json:"userId,omitempty"`
+	UserId               *string `json:"userId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -63,7 +66,7 @@ func NewApiTokenUpdateWithDefaults() *ApiTokenUpdate {
 
 // GetClientName returns the ClientName field value if set, zero value otherwise.
 func (o *ApiTokenUpdate) GetClientName() string {
-	if o == nil || o.ClientName == nil {
+	if o == nil || IsNil(o.ClientName) {
 		var ret string
 		return ret
 	}
@@ -73,7 +76,7 @@ func (o *ApiTokenUpdate) GetClientName() string {
 // GetClientNameOk returns a tuple with the ClientName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiTokenUpdate) GetClientNameOk() (*string, bool) {
-	if o == nil || o.ClientName == nil {
+	if o == nil || IsNil(o.ClientName) {
 		return nil, false
 	}
 	return o.ClientName, true
@@ -81,7 +84,7 @@ func (o *ApiTokenUpdate) GetClientNameOk() (*string, bool) {
 
 // HasClientName returns a boolean if a field has been set.
 func (o *ApiTokenUpdate) HasClientName() bool {
-	if o != nil && o.ClientName != nil {
+	if o != nil && !IsNil(o.ClientName) {
 		return true
 	}
 
@@ -95,7 +98,7 @@ func (o *ApiTokenUpdate) SetClientName(v string) {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *ApiTokenUpdate) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -105,7 +108,7 @@ func (o *ApiTokenUpdate) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiTokenUpdate) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -113,7 +116,7 @@ func (o *ApiTokenUpdate) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *ApiTokenUpdate) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -127,7 +130,7 @@ func (o *ApiTokenUpdate) SetCreated(v time.Time) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *ApiTokenUpdate) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -137,7 +140,7 @@ func (o *ApiTokenUpdate) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiTokenUpdate) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -145,7 +148,7 @@ func (o *ApiTokenUpdate) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *ApiTokenUpdate) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -159,7 +162,7 @@ func (o *ApiTokenUpdate) SetName(v string) {
 
 // GetNetwork returns the Network field value if set, zero value otherwise.
 func (o *ApiTokenUpdate) GetNetwork() ApiTokenNetwork {
-	if o == nil || o.Network == nil {
+	if o == nil || IsNil(o.Network) {
 		var ret ApiTokenNetwork
 		return ret
 	}
@@ -169,7 +172,7 @@ func (o *ApiTokenUpdate) GetNetwork() ApiTokenNetwork {
 // GetNetworkOk returns a tuple with the Network field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiTokenUpdate) GetNetworkOk() (*ApiTokenNetwork, bool) {
-	if o == nil || o.Network == nil {
+	if o == nil || IsNil(o.Network) {
 		return nil, false
 	}
 	return o.Network, true
@@ -177,7 +180,7 @@ func (o *ApiTokenUpdate) GetNetworkOk() (*ApiTokenNetwork, bool) {
 
 // HasNetwork returns a boolean if a field has been set.
 func (o *ApiTokenUpdate) HasNetwork() bool {
-	if o != nil && o.Network != nil {
+	if o != nil && !IsNil(o.Network) {
 		return true
 	}
 
@@ -191,7 +194,7 @@ func (o *ApiTokenUpdate) SetNetwork(v ApiTokenNetwork) {
 
 // GetUserId returns the UserId field value if set, zero value otherwise.
 func (o *ApiTokenUpdate) GetUserId() string {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		var ret string
 		return ret
 	}
@@ -201,7 +204,7 @@ func (o *ApiTokenUpdate) GetUserId() string {
 // GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiTokenUpdate) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		return nil, false
 	}
 	return o.UserId, true
@@ -209,7 +212,7 @@ func (o *ApiTokenUpdate) GetUserIdOk() (*string, bool) {
 
 // HasUserId returns a boolean if a field has been set.
 func (o *ApiTokenUpdate) HasUserId() bool {
-	if o != nil && o.UserId != nil {
+	if o != nil && !IsNil(o.UserId) {
 		return true
 	}
 
@@ -222,20 +225,28 @@ func (o *ApiTokenUpdate) SetUserId(v string) {
 }
 
 func (o ApiTokenUpdate) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApiTokenUpdate) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ClientName != nil {
+	if !IsNil(o.ClientName) {
 		toSerialize["clientName"] = o.ClientName
 	}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Network != nil {
+	if !IsNil(o.Network) {
 		toSerialize["network"] = o.Network
 	}
-	if o.UserId != nil {
+	if !IsNil(o.UserId) {
 		toSerialize["userId"] = o.UserId
 	}
 
@@ -243,31 +254,29 @@ func (o ApiTokenUpdate) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ApiTokenUpdate) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ApiTokenUpdate) UnmarshalJSON(data []byte) (err error) {
 	varApiTokenUpdate := _ApiTokenUpdate{}
 
-	err = json.Unmarshal(bytes, &varApiTokenUpdate)
-	if err == nil {
-		*o = ApiTokenUpdate(varApiTokenUpdate)
-	} else {
+	err = json.Unmarshal(data, &varApiTokenUpdate)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ApiTokenUpdate(varApiTokenUpdate)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "clientName")
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "network")
 		delete(additionalProperties, "userId")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -308,4 +317,3 @@ func (v *NullableApiTokenUpdate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to **time.Time** | Timestamp when the Authenticator was created | [optional] [readonly] 
-**Id** | Pointer to **string** | A unique identifier for the Authenticator | [optional] [readonly] 
-**Key** | Pointer to **string** | A human-readable string that identifies the Authenticator | [optional] 
-**LastUpdated** | Pointer to **time.Time** | Timestamp when the Authenticator was last modified | [optional] [readonly] 
-**Name** | Pointer to **string** | Display name of the Authenticator | [optional] 
+**Created** | Pointer to **time.Time** | Timestamp when the authenticator was created | [optional] [readonly] 
+**Id** | Pointer to **string** | A unique identifier for the authenticator | [optional] [readonly] 
+**Key** | Pointer to **string** | A human-readable string that identifies the authenticator | [optional] 
+**LastUpdated** | Pointer to **time.Time** | Timestamp when the authenticator was last modified | [optional] [readonly] 
+**Name** | Pointer to **string** | Display name of the authenticator | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
-**Type** | Pointer to **string** | The type of Authenticator | [optional] 
+**Type** | Pointer to **string** | The type of authenticator | [optional] 
 **Links** | Pointer to [**AuthenticatorLinks**](AuthenticatorLinks.md) |  | [optional] 
-**Provider** | Pointer to [**AuthenticatorKeyDuoAllOfProvider**](AuthenticatorKeyDuoAllOfProvider.md) |  | [optional] 
+**Provider** | Pointer to [**AuthenticatorKeyTacAllOfProvider**](AuthenticatorKeyTacAllOfProvider.md) |  | [optional] 
 **Settings** | Pointer to [**AuthenticatorKeyPhoneAllOfSettings**](AuthenticatorKeyPhoneAllOfSettings.md) |  | [optional] 
 
 ## Methods
@@ -236,20 +236,20 @@ HasLinks returns a boolean if a field has been set.
 
 ### GetProvider
 
-`func (o *ListAuthenticators200ResponseInner) GetProvider() AuthenticatorKeyDuoAllOfProvider`
+`func (o *ListAuthenticators200ResponseInner) GetProvider() AuthenticatorKeyTacAllOfProvider`
 
 GetProvider returns the Provider field if non-nil, zero value otherwise.
 
 ### GetProviderOk
 
-`func (o *ListAuthenticators200ResponseInner) GetProviderOk() (*AuthenticatorKeyDuoAllOfProvider, bool)`
+`func (o *ListAuthenticators200ResponseInner) GetProviderOk() (*AuthenticatorKeyTacAllOfProvider, bool)`
 
 GetProviderOk returns a tuple with the Provider field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProvider
 
-`func (o *ListAuthenticators200ResponseInner) SetProvider(v AuthenticatorKeyDuoAllOfProvider)`
+`func (o *ListAuthenticators200ResponseInner) SetProvider(v AuthenticatorKeyTacAllOfProvider)`
 
 SetProvider sets Provider field to given value.
 

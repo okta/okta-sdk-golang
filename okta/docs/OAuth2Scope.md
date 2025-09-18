@@ -5,20 +5,21 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Consent** | Pointer to **string** | Indicates whether a consent dialog is needed for the Scope | [optional] [default to "IMPLICIT"]
-**Default** | Pointer to **bool** | Indicates if this Scope is a default scope | [optional] 
+**Default** | Pointer to **bool** | Indicates if this Scope is a default scope | [optional] [default to false]
 **Description** | Pointer to **string** | Description of the Scope | [optional] 
 **DisplayName** | Pointer to **string** | Name of the end user displayed in a consent dialog | [optional] 
 **Id** | Pointer to **string** | Scope object ID | [optional] [readonly] 
 **MetadataPublish** | Pointer to **string** | Indicates whether the Scope is included in the metadata | [optional] [default to "NO_CLIENTS"]
-**Name** | Pointer to **string** | Scope name | [optional] 
-**Optional** | Pointer to **bool** |  | [optional] 
-**System** | Pointer to **bool** | Indicates if Okta created the Scope | [optional] 
+**Name** | **string** | Scope name | 
+**Optional** | Pointer to **bool** | Indicates whether the Scope is optional. When set to &#x60;true&#x60;, the user can skip consent for the scope. | [optional] [default to false]
+**System** | Pointer to **bool** | Indicates if Okta created the Scope | [optional] [default to false]
+**Links** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
 
 ## Methods
 
 ### NewOAuth2Scope
 
-`func NewOAuth2Scope() *OAuth2Scope`
+`func NewOAuth2Scope(name string, ) *OAuth2Scope`
 
 NewOAuth2Scope instantiates a new OAuth2Scope object
 This constructor will assign default values to properties that have it defined,
@@ -202,11 +203,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *OAuth2Scope) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetOptional
 
@@ -257,6 +253,31 @@ SetSystem sets System field to given value.
 `func (o *OAuth2Scope) HasSystem() bool`
 
 HasSystem returns a boolean if a field has been set.
+
+### GetLinks
+
+`func (o *OAuth2Scope) GetLinks() LinksSelf`
+
+GetLinks returns the Links field if non-nil, zero value otherwise.
+
+### GetLinksOk
+
+`func (o *OAuth2Scope) GetLinksOk() (*LinksSelf, bool)`
+
+GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLinks
+
+`func (o *OAuth2Scope) SetLinks(v LinksSelf)`
+
+SetLinks sets Links field to given value.
+
+### HasLinks
+
+`func (o *OAuth2Scope) HasLinks() bool`
+
+HasLinks returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,11 +27,17 @@ import (
 	"encoding/json"
 )
 
-// LogTransaction struct for LogTransaction
+// checks if the LogTransaction type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LogTransaction{}
+
+// LogTransaction A `transaction` object comprises contextual information associated with its respective event. This information is useful for understanding sequences of correlated events. For example, a `transaction` object such as the following: ``` {   \"id\": \"Wn4f-0RQ8D8lTSLkAmkKdQAADqo\",   \"type\": \"WEB\",   \"detail\": null } ``` indicates that a `WEB` request with `id` `Wn4f-0RQ8D8lTSLkAmkKdQAADqo` has created this event.  A `transaction` object with a `requestApiTokenId` in the `detail` object, for example : ``` {   \"id\": \"YjSlblAAqnKY7CdyCkXNBgAAAIU\",   \"type\": \"WEB\",   \"detail\": {     \"requestApiTokenId\": \"00T94e3cn9kSEO3c51s5\"   } } ``` indicates that this event was the result of an action performed through an API using the token identified by 00T94e3cn9kSEO3c51s5. The token ID is visible in the Admin Console, **Security** > **API**. See [API token management](https://help.okta.com/okta_help.htm?id=Security_API). For more information on API tokens, see [Create an API token](https://developer.okta.com/docs/guides/create-an-api-token/).
 type LogTransaction struct {
+	// Details for this transaction.
 	Detail map[string]interface{} `json:"detail,omitempty"`
+	// Unique identifier for this transaction.
 	Id *string `json:"id,omitempty"`
-	Type *string `json:"type,omitempty"`
+	// Describes the kind of transaction. `WEB` indicates a web request. `JOB` indicates an asynchronous task.
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +62,7 @@ func NewLogTransactionWithDefaults() *LogTransaction {
 
 // GetDetail returns the Detail field value if set, zero value otherwise.
 func (o *LogTransaction) GetDetail() map[string]interface{} {
-	if o == nil || o.Detail == nil {
+	if o == nil || IsNil(o.Detail) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -66,15 +72,15 @@ func (o *LogTransaction) GetDetail() map[string]interface{} {
 // GetDetailOk returns a tuple with the Detail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogTransaction) GetDetailOk() (map[string]interface{}, bool) {
-	if o == nil || o.Detail == nil {
-		return nil, false
+	if o == nil || IsNil(o.Detail) {
+		return map[string]interface{}{}, false
 	}
 	return o.Detail, true
 }
 
 // HasDetail returns a boolean if a field has been set.
 func (o *LogTransaction) HasDetail() bool {
-	if o != nil && o.Detail != nil {
+	if o != nil && !IsNil(o.Detail) {
 		return true
 	}
 
@@ -88,7 +94,7 @@ func (o *LogTransaction) SetDetail(v map[string]interface{}) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *LogTransaction) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -98,7 +104,7 @@ func (o *LogTransaction) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogTransaction) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -106,7 +112,7 @@ func (o *LogTransaction) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *LogTransaction) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -120,7 +126,7 @@ func (o *LogTransaction) SetId(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *LogTransaction) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -130,7 +136,7 @@ func (o *LogTransaction) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogTransaction) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -138,7 +144,7 @@ func (o *LogTransaction) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *LogTransaction) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -151,14 +157,22 @@ func (o *LogTransaction) SetType(v string) {
 }
 
 func (o LogTransaction) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LogTransaction) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Detail != nil {
+	if !IsNil(o.Detail) {
 		toSerialize["detail"] = o.Detail
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -166,29 +180,27 @@ func (o LogTransaction) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LogTransaction) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LogTransaction) UnmarshalJSON(data []byte) (err error) {
 	varLogTransaction := _LogTransaction{}
 
-	err = json.Unmarshal(bytes, &varLogTransaction)
-	if err == nil {
-		*o = LogTransaction(varLogTransaction)
-	} else {
+	err = json.Unmarshal(data, &varLogTransaction)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LogTransaction(varLogTransaction)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "detail")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +241,3 @@ func (v *NullableLogTransaction) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

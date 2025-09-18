@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,17 +25,21 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PolicyContext type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PolicyContext{}
 
 // PolicyContext struct for PolicyContext
 type PolicyContext struct {
 	Device *PolicyContextDevice `json:"device,omitempty"`
-	Groups PolicyContextGroups `json:"groups"`
+	Groups PolicyContextGroups  `json:"groups"`
 	// The network rule condition, zone, or IP address
-	Ip *string `json:"ip,omitempty"`
-	Risk *PolicyContextRisk `json:"risk,omitempty"`
-	User PolicyContextUser `json:"user"`
-	Zones *PolicyContextZones `json:"zones,omitempty"`
+	Ip                   *string             `json:"ip,omitempty"`
+	Risk                 *PolicyContextRisk  `json:"risk,omitempty"`
+	User                 PolicyContextUser   `json:"user"`
+	Zones                *PolicyContextZones `json:"zones,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -62,7 +66,7 @@ func NewPolicyContextWithDefaults() *PolicyContext {
 
 // GetDevice returns the Device field value if set, zero value otherwise.
 func (o *PolicyContext) GetDevice() PolicyContextDevice {
-	if o == nil || o.Device == nil {
+	if o == nil || IsNil(o.Device) {
 		var ret PolicyContextDevice
 		return ret
 	}
@@ -72,7 +76,7 @@ func (o *PolicyContext) GetDevice() PolicyContextDevice {
 // GetDeviceOk returns a tuple with the Device field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyContext) GetDeviceOk() (*PolicyContextDevice, bool) {
-	if o == nil || o.Device == nil {
+	if o == nil || IsNil(o.Device) {
 		return nil, false
 	}
 	return o.Device, true
@@ -80,7 +84,7 @@ func (o *PolicyContext) GetDeviceOk() (*PolicyContextDevice, bool) {
 
 // HasDevice returns a boolean if a field has been set.
 func (o *PolicyContext) HasDevice() bool {
-	if o != nil && o.Device != nil {
+	if o != nil && !IsNil(o.Device) {
 		return true
 	}
 
@@ -118,7 +122,7 @@ func (o *PolicyContext) SetGroups(v PolicyContextGroups) {
 
 // GetIp returns the Ip field value if set, zero value otherwise.
 func (o *PolicyContext) GetIp() string {
-	if o == nil || o.Ip == nil {
+	if o == nil || IsNil(o.Ip) {
 		var ret string
 		return ret
 	}
@@ -128,7 +132,7 @@ func (o *PolicyContext) GetIp() string {
 // GetIpOk returns a tuple with the Ip field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyContext) GetIpOk() (*string, bool) {
-	if o == nil || o.Ip == nil {
+	if o == nil || IsNil(o.Ip) {
 		return nil, false
 	}
 	return o.Ip, true
@@ -136,7 +140,7 @@ func (o *PolicyContext) GetIpOk() (*string, bool) {
 
 // HasIp returns a boolean if a field has been set.
 func (o *PolicyContext) HasIp() bool {
-	if o != nil && o.Ip != nil {
+	if o != nil && !IsNil(o.Ip) {
 		return true
 	}
 
@@ -150,7 +154,7 @@ func (o *PolicyContext) SetIp(v string) {
 
 // GetRisk returns the Risk field value if set, zero value otherwise.
 func (o *PolicyContext) GetRisk() PolicyContextRisk {
-	if o == nil || o.Risk == nil {
+	if o == nil || IsNil(o.Risk) {
 		var ret PolicyContextRisk
 		return ret
 	}
@@ -160,7 +164,7 @@ func (o *PolicyContext) GetRisk() PolicyContextRisk {
 // GetRiskOk returns a tuple with the Risk field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyContext) GetRiskOk() (*PolicyContextRisk, bool) {
-	if o == nil || o.Risk == nil {
+	if o == nil || IsNil(o.Risk) {
 		return nil, false
 	}
 	return o.Risk, true
@@ -168,7 +172,7 @@ func (o *PolicyContext) GetRiskOk() (*PolicyContextRisk, bool) {
 
 // HasRisk returns a boolean if a field has been set.
 func (o *PolicyContext) HasRisk() bool {
-	if o != nil && o.Risk != nil {
+	if o != nil && !IsNil(o.Risk) {
 		return true
 	}
 
@@ -206,7 +210,7 @@ func (o *PolicyContext) SetUser(v PolicyContextUser) {
 
 // GetZones returns the Zones field value if set, zero value otherwise.
 func (o *PolicyContext) GetZones() PolicyContextZones {
-	if o == nil || o.Zones == nil {
+	if o == nil || IsNil(o.Zones) {
 		var ret PolicyContextZones
 		return ret
 	}
@@ -216,7 +220,7 @@ func (o *PolicyContext) GetZones() PolicyContextZones {
 // GetZonesOk returns a tuple with the Zones field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyContext) GetZonesOk() (*PolicyContextZones, bool) {
-	if o == nil || o.Zones == nil {
+	if o == nil || IsNil(o.Zones) {
 		return nil, false
 	}
 	return o.Zones, true
@@ -224,7 +228,7 @@ func (o *PolicyContext) GetZonesOk() (*PolicyContextZones, bool) {
 
 // HasZones returns a boolean if a field has been set.
 func (o *PolicyContext) HasZones() bool {
-	if o != nil && o.Zones != nil {
+	if o != nil && !IsNil(o.Zones) {
 		return true
 	}
 
@@ -237,23 +241,27 @@ func (o *PolicyContext) SetZones(v PolicyContextZones) {
 }
 
 func (o PolicyContext) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PolicyContext) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Device != nil {
+	if !IsNil(o.Device) {
 		toSerialize["device"] = o.Device
 	}
-	if true {
-		toSerialize["groups"] = o.Groups
-	}
-	if o.Ip != nil {
+	toSerialize["groups"] = o.Groups
+	if !IsNil(o.Ip) {
 		toSerialize["ip"] = o.Ip
 	}
-	if o.Risk != nil {
+	if !IsNil(o.Risk) {
 		toSerialize["risk"] = o.Risk
 	}
-	if true {
-		toSerialize["user"] = o.User
-	}
-	if o.Zones != nil {
+	toSerialize["user"] = o.User
+	if !IsNil(o.Zones) {
 		toSerialize["zones"] = o.Zones
 	}
 
@@ -261,23 +269,45 @@ func (o PolicyContext) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PolicyContext) UnmarshalJSON(bytes []byte) (err error) {
-	varPolicyContext := _PolicyContext{}
+func (o *PolicyContext) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"groups",
+		"user",
+	}
 
-	err = json.Unmarshal(bytes, &varPolicyContext)
-	if err == nil {
-		*o = PolicyContext(varPolicyContext)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPolicyContext := _PolicyContext{}
+
+	err = json.Unmarshal(data, &varPolicyContext)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PolicyContext(varPolicyContext)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "device")
 		delete(additionalProperties, "groups")
 		delete(additionalProperties, "ip")
@@ -285,8 +315,6 @@ func (o *PolicyContext) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "user")
 		delete(additionalProperties, "zones")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -327,4 +355,3 @@ func (v *NullablePolicyContext) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

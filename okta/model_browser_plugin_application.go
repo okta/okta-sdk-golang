@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,17 +25,21 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 	"reflect"
 	"strings"
 )
+
+// checks if the BrowserPluginApplication type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BrowserPluginApplication{}
 
 // BrowserPluginApplication struct for BrowserPluginApplication
 type BrowserPluginApplication struct {
 	Application
 	Credentials *SchemeApplicationCredentials `json:"credentials,omitempty"`
 	// The key name for the app definition
-	Name string `json:"name"`
-	Settings SwaApplicationSettings `json:"settings"`
+	Name                 string                 `json:"name"`
+	Settings             SwaApplicationSettings `json:"settings"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -64,7 +68,7 @@ func NewBrowserPluginApplicationWithDefaults() *BrowserPluginApplication {
 
 // GetCredentials returns the Credentials field value if set, zero value otherwise.
 func (o *BrowserPluginApplication) GetCredentials() SchemeApplicationCredentials {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		var ret SchemeApplicationCredentials
 		return ret
 	}
@@ -74,7 +78,7 @@ func (o *BrowserPluginApplication) GetCredentials() SchemeApplicationCredentials
 // GetCredentialsOk returns a tuple with the Credentials field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BrowserPluginApplication) GetCredentialsOk() (*SchemeApplicationCredentials, bool) {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		return nil, false
 	}
 	return o.Credentials, true
@@ -82,7 +86,7 @@ func (o *BrowserPluginApplication) GetCredentialsOk() (*SchemeApplicationCredent
 
 // HasCredentials returns a boolean if a field has been set.
 func (o *BrowserPluginApplication) HasCredentials() bool {
-	if o != nil && o.Credentials != nil {
+	if o != nil && !IsNil(o.Credentials) {
 		return true
 	}
 
@@ -143,43 +147,71 @@ func (o *BrowserPluginApplication) SetSettings(v SwaApplicationSettings) {
 }
 
 func (o BrowserPluginApplication) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BrowserPluginApplication) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedApplication, errApplication := json.Marshal(o.Application)
 	if errApplication != nil {
-		return []byte{}, errApplication
+		return map[string]interface{}{}, errApplication
 	}
 	errApplication = json.Unmarshal([]byte(serializedApplication), &toSerialize)
 	if errApplication != nil {
-		return []byte{}, errApplication
+		return map[string]interface{}{}, errApplication
 	}
-	if o.Credentials != nil {
+	if !IsNil(o.Credentials) {
 		toSerialize["credentials"] = o.Credentials
 	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["settings"] = o.Settings
-	}
+	toSerialize["name"] = o.Name
+	toSerialize["settings"] = o.Settings
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *BrowserPluginApplication) UnmarshalJSON(bytes []byte) (err error) {
+func (o *BrowserPluginApplication) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"settings",
+		"label",
+		"signOnMode",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	type BrowserPluginApplicationWithoutEmbeddedStruct struct {
 		Credentials *SchemeApplicationCredentials `json:"credentials,omitempty"`
 		// The key name for the app definition
-		Name string `json:"name"`
+		Name     string                 `json:"name"`
 		Settings SwaApplicationSettings `json:"settings"`
 	}
 
 	varBrowserPluginApplicationWithoutEmbeddedStruct := BrowserPluginApplicationWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varBrowserPluginApplicationWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varBrowserPluginApplicationWithoutEmbeddedStruct)
 	if err == nil {
 		varBrowserPluginApplication := _BrowserPluginApplication{}
 		varBrowserPluginApplication.Credentials = varBrowserPluginApplicationWithoutEmbeddedStruct.Credentials
@@ -192,7 +224,7 @@ func (o *BrowserPluginApplication) UnmarshalJSON(bytes []byte) (err error) {
 
 	varBrowserPluginApplication := _BrowserPluginApplication{}
 
-	err = json.Unmarshal(bytes, &varBrowserPluginApplication)
+	err = json.Unmarshal(data, &varBrowserPluginApplication)
 	if err == nil {
 		o.Application = varBrowserPluginApplication.Application
 	} else {
@@ -201,8 +233,7 @@ func (o *BrowserPluginApplication) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "credentials")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "settings")
@@ -226,8 +257,6 @@ func (o *BrowserPluginApplication) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -268,4 +297,3 @@ func (v *NullableBrowserPluginApplication) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

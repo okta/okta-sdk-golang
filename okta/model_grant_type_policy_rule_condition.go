@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the GrantTypePolicyRuleCondition type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GrantTypePolicyRuleCondition{}
+
 // GrantTypePolicyRuleCondition Array of grant types that this condition includes. Determines the mechanism that Okta uses to authorize the creation of the tokens.
 type GrantTypePolicyRuleCondition struct {
 	// Array of grant types that this condition includes.
-	Include []string `json:"include,omitempty"`
+	Include              []string `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewGrantTypePolicyRuleConditionWithDefaults() *GrantTypePolicyRuleCondition
 
 // GetInclude returns the Include field value if set, zero value otherwise.
 func (o *GrantTypePolicyRuleCondition) GetInclude() []string {
-	if o == nil || o.Include == nil {
+	if o == nil || IsNil(o.Include) {
 		var ret []string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *GrantTypePolicyRuleCondition) GetInclude() []string {
 // GetIncludeOk returns a tuple with the Include field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GrantTypePolicyRuleCondition) GetIncludeOk() ([]string, bool) {
-	if o == nil || o.Include == nil {
+	if o == nil || IsNil(o.Include) {
 		return nil, false
 	}
 	return o.Include, true
@@ -73,7 +76,7 @@ func (o *GrantTypePolicyRuleCondition) GetIncludeOk() ([]string, bool) {
 
 // HasInclude returns a boolean if a field has been set.
 func (o *GrantTypePolicyRuleCondition) HasInclude() bool {
-	if o != nil && o.Include != nil {
+	if o != nil && !IsNil(o.Include) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *GrantTypePolicyRuleCondition) SetInclude(v []string) {
 }
 
 func (o GrantTypePolicyRuleCondition) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o GrantTypePolicyRuleCondition) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Include != nil {
+	if !IsNil(o.Include) {
 		toSerialize["include"] = o.Include
 	}
 
@@ -95,27 +106,25 @@ func (o GrantTypePolicyRuleCondition) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *GrantTypePolicyRuleCondition) UnmarshalJSON(bytes []byte) (err error) {
+func (o *GrantTypePolicyRuleCondition) UnmarshalJSON(data []byte) (err error) {
 	varGrantTypePolicyRuleCondition := _GrantTypePolicyRuleCondition{}
 
-	err = json.Unmarshal(bytes, &varGrantTypePolicyRuleCondition)
-	if err == nil {
-		*o = GrantTypePolicyRuleCondition(varGrantTypePolicyRuleCondition)
-	} else {
+	err = json.Unmarshal(data, &varGrantTypePolicyRuleCondition)
+
+	if err != nil {
 		return err
 	}
 
+	*o = GrantTypePolicyRuleCondition(varGrantTypePolicyRuleCondition)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "include")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableGrantTypePolicyRuleCondition) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

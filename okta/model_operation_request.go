@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the OperationRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OperationRequest{}
+
 // OperationRequest struct for OperationRequest
 type OperationRequest struct {
-	AssignmentId *string `json:"assignmentId,omitempty"`
+	// ID of the realm
+	AssignmentId         *string `json:"assignmentId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +58,7 @@ func NewOperationRequestWithDefaults() *OperationRequest {
 
 // GetAssignmentId returns the AssignmentId field value if set, zero value otherwise.
 func (o *OperationRequest) GetAssignmentId() string {
-	if o == nil || o.AssignmentId == nil {
+	if o == nil || IsNil(o.AssignmentId) {
 		var ret string
 		return ret
 	}
@@ -64,7 +68,7 @@ func (o *OperationRequest) GetAssignmentId() string {
 // GetAssignmentIdOk returns a tuple with the AssignmentId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OperationRequest) GetAssignmentIdOk() (*string, bool) {
-	if o == nil || o.AssignmentId == nil {
+	if o == nil || IsNil(o.AssignmentId) {
 		return nil, false
 	}
 	return o.AssignmentId, true
@@ -72,7 +76,7 @@ func (o *OperationRequest) GetAssignmentIdOk() (*string, bool) {
 
 // HasAssignmentId returns a boolean if a field has been set.
 func (o *OperationRequest) HasAssignmentId() bool {
-	if o != nil && o.AssignmentId != nil {
+	if o != nil && !IsNil(o.AssignmentId) {
 		return true
 	}
 
@@ -85,8 +89,16 @@ func (o *OperationRequest) SetAssignmentId(v string) {
 }
 
 func (o OperationRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OperationRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AssignmentId != nil {
+	if !IsNil(o.AssignmentId) {
 		toSerialize["assignmentId"] = o.AssignmentId
 	}
 
@@ -94,27 +106,25 @@ func (o OperationRequest) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OperationRequest) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OperationRequest) UnmarshalJSON(data []byte) (err error) {
 	varOperationRequest := _OperationRequest{}
 
-	err = json.Unmarshal(bytes, &varOperationRequest)
-	if err == nil {
-		*o = OperationRequest(varOperationRequest)
-	} else {
+	err = json.Unmarshal(data, &varOperationRequest)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OperationRequest(varOperationRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "assignmentId")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +165,3 @@ func (v *NullableOperationRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

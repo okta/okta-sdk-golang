@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -38,7 +38,7 @@ type GovernanceBundlesResponseLinks struct {
 func (dst *GovernanceBundlesResponseLinks) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal JSON data into LinksNext
-	err = json.Unmarshal(data, &dst.LinksNext);
+	err = json.Unmarshal(data, &dst.LinksNext)
 	if err == nil {
 		jsonLinksNext, _ := json.Marshal(dst.LinksNext)
 		if string(jsonLinksNext) == "{}" { // empty struct
@@ -51,7 +51,7 @@ func (dst *GovernanceBundlesResponseLinks) UnmarshalJSON(data []byte) error {
 	}
 
 	// try to unmarshal JSON data into LinksSelf
-	err = json.Unmarshal(data, &dst.LinksSelf);
+	err = json.Unmarshal(data, &dst.LinksSelf)
 	if err == nil {
 		jsonLinksSelf, _ := json.Marshal(dst.LinksSelf)
 		if string(jsonLinksSelf) == "{}" { // empty struct
@@ -67,7 +67,7 @@ func (dst *GovernanceBundlesResponseLinks) UnmarshalJSON(data []byte) error {
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
-func (src *GovernanceBundlesResponseLinks) MarshalJSON() ([]byte, error) {
+func (src GovernanceBundlesResponseLinks) MarshalJSON() ([]byte, error) {
 	if src.LinksNext != nil {
 		return json.Marshal(&src.LinksNext)
 	}
@@ -114,5 +114,3 @@ func (v *NullableGovernanceBundlesResponseLinks) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

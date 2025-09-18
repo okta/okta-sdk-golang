@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Groups** | Pointer to [**GroupCondition**](GroupCondition.md) |  | [optional] 
-**Users** | Pointer to [**UserCondition**](UserCondition.md) |  | [optional] 
+**Groups** | [**GroupCondition**](GroupCondition.md) |  | 
+**Users** | [**UserCondition**](UserCondition.md) |  | 
 
 ## Methods
 
 ### NewPolicyPeopleCondition
 
-`func NewPolicyPeopleCondition() *PolicyPeopleCondition`
+`func NewPolicyPeopleCondition(groups GroupCondition, users UserCondition, ) *PolicyPeopleCondition`
 
 NewPolicyPeopleCondition instantiates a new PolicyPeopleCondition object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetGroups sets Groups field to given value.
 
-### HasGroups
-
-`func (o *PolicyPeopleCondition) HasGroups() bool`
-
-HasGroups returns a boolean if a field has been set.
 
 ### GetUsers
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetUsers sets Users field to given value.
 
-### HasUsers
-
-`func (o *PolicyPeopleCondition) HasUsers() bool`
-
-HasUsers returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AppLinks** | Pointer to **map[string]bool** | Links or icons that appear on the End-User Dashboard when they&#39;re assigned to the app | [optional] 
+**AppLinks** | Pointer to **map[string]bool** | Links or icons that appear on the End-User Dashboard if they&#39;re set to &#x60;true&#x60;. | [optional] 
 **AutoLaunch** | Pointer to **bool** | Automatically signs in to the app when user signs into Okta | [optional] 
 **AutoSubmitToolbar** | Pointer to **bool** | Automatically sign in when user lands on the sign-in page | [optional] 
 **Hide** | Pointer to [**ApplicationVisibilityHide**](ApplicationVisibilityHide.md) |  | [optional] 

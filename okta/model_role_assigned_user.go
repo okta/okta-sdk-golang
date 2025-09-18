@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,11 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the RoleAssignedUser type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RoleAssignedUser{}
+
 // RoleAssignedUser struct for RoleAssignedUser
 type RoleAssignedUser struct {
+	// The ID of the user
 	Id *string `json:"id,omitempty"`
-	Orn *string `json:"orn,omitempty"`
-	Links *LinksSelfAndRoles `json:"_links,omitempty"`
+	// ORN representing the assignee
+	Orn                  *string            `json:"orn,omitempty"`
+	Links                *LinksSelfAndRoles `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +61,7 @@ func NewRoleAssignedUserWithDefaults() *RoleAssignedUser {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *RoleAssignedUser) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -66,7 +71,7 @@ func (o *RoleAssignedUser) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RoleAssignedUser) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -74,7 +79,7 @@ func (o *RoleAssignedUser) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *RoleAssignedUser) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -88,7 +93,7 @@ func (o *RoleAssignedUser) SetId(v string) {
 
 // GetOrn returns the Orn field value if set, zero value otherwise.
 func (o *RoleAssignedUser) GetOrn() string {
-	if o == nil || o.Orn == nil {
+	if o == nil || IsNil(o.Orn) {
 		var ret string
 		return ret
 	}
@@ -98,7 +103,7 @@ func (o *RoleAssignedUser) GetOrn() string {
 // GetOrnOk returns a tuple with the Orn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RoleAssignedUser) GetOrnOk() (*string, bool) {
-	if o == nil || o.Orn == nil {
+	if o == nil || IsNil(o.Orn) {
 		return nil, false
 	}
 	return o.Orn, true
@@ -106,7 +111,7 @@ func (o *RoleAssignedUser) GetOrnOk() (*string, bool) {
 
 // HasOrn returns a boolean if a field has been set.
 func (o *RoleAssignedUser) HasOrn() bool {
-	if o != nil && o.Orn != nil {
+	if o != nil && !IsNil(o.Orn) {
 		return true
 	}
 
@@ -120,7 +125,7 @@ func (o *RoleAssignedUser) SetOrn(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *RoleAssignedUser) GetLinks() LinksSelfAndRoles {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksSelfAndRoles
 		return ret
 	}
@@ -130,7 +135,7 @@ func (o *RoleAssignedUser) GetLinks() LinksSelfAndRoles {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RoleAssignedUser) GetLinksOk() (*LinksSelfAndRoles, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -138,7 +143,7 @@ func (o *RoleAssignedUser) GetLinksOk() (*LinksSelfAndRoles, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *RoleAssignedUser) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -151,14 +156,22 @@ func (o *RoleAssignedUser) SetLinks(v LinksSelfAndRoles) {
 }
 
 func (o RoleAssignedUser) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RoleAssignedUser) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Orn != nil {
+	if !IsNil(o.Orn) {
 		toSerialize["orn"] = o.Orn
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -166,29 +179,27 @@ func (o RoleAssignedUser) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RoleAssignedUser) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RoleAssignedUser) UnmarshalJSON(data []byte) (err error) {
 	varRoleAssignedUser := _RoleAssignedUser{}
 
-	err = json.Unmarshal(bytes, &varRoleAssignedUser)
-	if err == nil {
-		*o = RoleAssignedUser(varRoleAssignedUser)
-	} else {
+	err = json.Unmarshal(data, &varRoleAssignedUser)
+
+	if err != nil {
 		return err
 	}
 
+	*o = RoleAssignedUser(varRoleAssignedUser)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "orn")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +240,3 @@ func (v *NullableRoleAssignedUser) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,17 +25,21 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the CaepSecurityEvent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CaepSecurityEvent{}
 
 // CaepSecurityEvent struct for CaepSecurityEvent
 type CaepSecurityEvent struct {
 	// The time of the event (UNIX timestamp)
 	EventTimestamp int64 `json:"event_timestamp"`
 	// The entity that initiated the event
-	InitiatingEntity *string `json:"initiating_entity,omitempty"`
-	ReasonAdmin *CaepDeviceComplianceChangeEventReasonAdmin `json:"reason_admin,omitempty"`
-	ReasonUser *CaepDeviceComplianceChangeEventReasonUser `json:"reason_user,omitempty"`
-	Subjects SecurityEventSubject `json:"subjects"`
+	InitiatingEntity     *string                                     `json:"initiating_entity,omitempty"`
+	ReasonAdmin          *CaepDeviceComplianceChangeEventReasonAdmin `json:"reason_admin,omitempty"`
+	ReasonUser           *CaepDeviceComplianceChangeEventReasonUser  `json:"reason_user,omitempty"`
+	Subject              SecurityEventSubject                        `json:"subject"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -45,10 +49,10 @@ type _CaepSecurityEvent CaepSecurityEvent
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCaepSecurityEvent(eventTimestamp int64, subjects SecurityEventSubject) *CaepSecurityEvent {
+func NewCaepSecurityEvent(eventTimestamp int64, subject SecurityEventSubject) *CaepSecurityEvent {
 	this := CaepSecurityEvent{}
 	this.EventTimestamp = eventTimestamp
-	this.Subjects = subjects
+	this.Subject = subject
 	return &this
 }
 
@@ -86,7 +90,7 @@ func (o *CaepSecurityEvent) SetEventTimestamp(v int64) {
 
 // GetInitiatingEntity returns the InitiatingEntity field value if set, zero value otherwise.
 func (o *CaepSecurityEvent) GetInitiatingEntity() string {
-	if o == nil || o.InitiatingEntity == nil {
+	if o == nil || IsNil(o.InitiatingEntity) {
 		var ret string
 		return ret
 	}
@@ -96,7 +100,7 @@ func (o *CaepSecurityEvent) GetInitiatingEntity() string {
 // GetInitiatingEntityOk returns a tuple with the InitiatingEntity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CaepSecurityEvent) GetInitiatingEntityOk() (*string, bool) {
-	if o == nil || o.InitiatingEntity == nil {
+	if o == nil || IsNil(o.InitiatingEntity) {
 		return nil, false
 	}
 	return o.InitiatingEntity, true
@@ -104,7 +108,7 @@ func (o *CaepSecurityEvent) GetInitiatingEntityOk() (*string, bool) {
 
 // HasInitiatingEntity returns a boolean if a field has been set.
 func (o *CaepSecurityEvent) HasInitiatingEntity() bool {
-	if o != nil && o.InitiatingEntity != nil {
+	if o != nil && !IsNil(o.InitiatingEntity) {
 		return true
 	}
 
@@ -118,7 +122,7 @@ func (o *CaepSecurityEvent) SetInitiatingEntity(v string) {
 
 // GetReasonAdmin returns the ReasonAdmin field value if set, zero value otherwise.
 func (o *CaepSecurityEvent) GetReasonAdmin() CaepDeviceComplianceChangeEventReasonAdmin {
-	if o == nil || o.ReasonAdmin == nil {
+	if o == nil || IsNil(o.ReasonAdmin) {
 		var ret CaepDeviceComplianceChangeEventReasonAdmin
 		return ret
 	}
@@ -128,7 +132,7 @@ func (o *CaepSecurityEvent) GetReasonAdmin() CaepDeviceComplianceChangeEventReas
 // GetReasonAdminOk returns a tuple with the ReasonAdmin field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CaepSecurityEvent) GetReasonAdminOk() (*CaepDeviceComplianceChangeEventReasonAdmin, bool) {
-	if o == nil || o.ReasonAdmin == nil {
+	if o == nil || IsNil(o.ReasonAdmin) {
 		return nil, false
 	}
 	return o.ReasonAdmin, true
@@ -136,7 +140,7 @@ func (o *CaepSecurityEvent) GetReasonAdminOk() (*CaepDeviceComplianceChangeEvent
 
 // HasReasonAdmin returns a boolean if a field has been set.
 func (o *CaepSecurityEvent) HasReasonAdmin() bool {
-	if o != nil && o.ReasonAdmin != nil {
+	if o != nil && !IsNil(o.ReasonAdmin) {
 		return true
 	}
 
@@ -150,7 +154,7 @@ func (o *CaepSecurityEvent) SetReasonAdmin(v CaepDeviceComplianceChangeEventReas
 
 // GetReasonUser returns the ReasonUser field value if set, zero value otherwise.
 func (o *CaepSecurityEvent) GetReasonUser() CaepDeviceComplianceChangeEventReasonUser {
-	if o == nil || o.ReasonUser == nil {
+	if o == nil || IsNil(o.ReasonUser) {
 		var ret CaepDeviceComplianceChangeEventReasonUser
 		return ret
 	}
@@ -160,7 +164,7 @@ func (o *CaepSecurityEvent) GetReasonUser() CaepDeviceComplianceChangeEventReaso
 // GetReasonUserOk returns a tuple with the ReasonUser field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CaepSecurityEvent) GetReasonUserOk() (*CaepDeviceComplianceChangeEventReasonUser, bool) {
-	if o == nil || o.ReasonUser == nil {
+	if o == nil || IsNil(o.ReasonUser) {
 		return nil, false
 	}
 	return o.ReasonUser, true
@@ -168,7 +172,7 @@ func (o *CaepSecurityEvent) GetReasonUserOk() (*CaepDeviceComplianceChangeEventR
 
 // HasReasonUser returns a boolean if a field has been set.
 func (o *CaepSecurityEvent) HasReasonUser() bool {
-	if o != nil && o.ReasonUser != nil {
+	if o != nil && !IsNil(o.ReasonUser) {
 		return true
 	}
 
@@ -180,77 +184,101 @@ func (o *CaepSecurityEvent) SetReasonUser(v CaepDeviceComplianceChangeEventReaso
 	o.ReasonUser = &v
 }
 
-// GetSubjects returns the Subjects field value
-func (o *CaepSecurityEvent) GetSubjects() SecurityEventSubject {
+// GetSubject returns the Subject field value
+func (o *CaepSecurityEvent) GetSubject() SecurityEventSubject {
 	if o == nil {
 		var ret SecurityEventSubject
 		return ret
 	}
 
-	return o.Subjects
+	return o.Subject
 }
 
-// GetSubjectsOk returns a tuple with the Subjects field value
+// GetSubjectOk returns a tuple with the Subject field value
 // and a boolean to check if the value has been set.
-func (o *CaepSecurityEvent) GetSubjectsOk() (*SecurityEventSubject, bool) {
+func (o *CaepSecurityEvent) GetSubjectOk() (*SecurityEventSubject, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Subjects, true
+	return &o.Subject, true
 }
 
-// SetSubjects sets field value
-func (o *CaepSecurityEvent) SetSubjects(v SecurityEventSubject) {
-	o.Subjects = v
+// SetSubject sets field value
+func (o *CaepSecurityEvent) SetSubject(v SecurityEventSubject) {
+	o.Subject = v
 }
 
 func (o CaepSecurityEvent) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["event_timestamp"] = o.EventTimestamp
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.InitiatingEntity != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o CaepSecurityEvent) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["event_timestamp"] = o.EventTimestamp
+	if !IsNil(o.InitiatingEntity) {
 		toSerialize["initiating_entity"] = o.InitiatingEntity
 	}
-	if o.ReasonAdmin != nil {
+	if !IsNil(o.ReasonAdmin) {
 		toSerialize["reason_admin"] = o.ReasonAdmin
 	}
-	if o.ReasonUser != nil {
+	if !IsNil(o.ReasonUser) {
 		toSerialize["reason_user"] = o.ReasonUser
 	}
-	if true {
-		toSerialize["subjects"] = o.Subjects
-	}
+	toSerialize["subject"] = o.Subject
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CaepSecurityEvent) UnmarshalJSON(bytes []byte) (err error) {
-	varCaepSecurityEvent := _CaepSecurityEvent{}
+func (o *CaepSecurityEvent) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"event_timestamp",
+		"subject",
+	}
 
-	err = json.Unmarshal(bytes, &varCaepSecurityEvent)
-	if err == nil {
-		*o = CaepSecurityEvent(varCaepSecurityEvent)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCaepSecurityEvent := _CaepSecurityEvent{}
+
+	err = json.Unmarshal(data, &varCaepSecurityEvent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CaepSecurityEvent(varCaepSecurityEvent)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "event_timestamp")
 		delete(additionalProperties, "initiating_entity")
 		delete(additionalProperties, "reason_admin")
 		delete(additionalProperties, "reason_user")
-		delete(additionalProperties, "subjects")
+		delete(additionalProperties, "subject")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -291,4 +319,3 @@ func (v *NullableCaepSecurityEvent) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

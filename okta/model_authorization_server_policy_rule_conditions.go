@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthorizationServerPolicyRuleConditions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthorizationServerPolicyRuleConditions{}
+
 // AuthorizationServerPolicyRuleConditions struct for AuthorizationServerPolicyRuleConditions
 type AuthorizationServerPolicyRuleConditions struct {
-	GrantTypes *GrantTypePolicyRuleCondition `json:"grantTypes,omitempty"`
-	People *AuthorizationServerPolicyPeopleCondition `json:"people,omitempty"`
-	Scopes *OAuth2ScopesMediationPolicyRuleCondition `json:"scopes,omitempty"`
+	GrantTypes           *GrantTypePolicyRuleCondition             `json:"grantTypes,omitempty"`
+	People               *AuthorizationServerPolicyPeopleCondition `json:"people,omitempty"`
+	Scopes               *OAuth2ScopesMediationPolicyRuleCondition `json:"scopes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewAuthorizationServerPolicyRuleConditionsWithDefaults() *AuthorizationServ
 
 // GetGrantTypes returns the GrantTypes field value if set, zero value otherwise.
 func (o *AuthorizationServerPolicyRuleConditions) GetGrantTypes() GrantTypePolicyRuleCondition {
-	if o == nil || o.GrantTypes == nil {
+	if o == nil || IsNil(o.GrantTypes) {
 		var ret GrantTypePolicyRuleCondition
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *AuthorizationServerPolicyRuleConditions) GetGrantTypes() GrantTypePolic
 // GetGrantTypesOk returns a tuple with the GrantTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerPolicyRuleConditions) GetGrantTypesOk() (*GrantTypePolicyRuleCondition, bool) {
-	if o == nil || o.GrantTypes == nil {
+	if o == nil || IsNil(o.GrantTypes) {
 		return nil, false
 	}
 	return o.GrantTypes, true
@@ -74,7 +77,7 @@ func (o *AuthorizationServerPolicyRuleConditions) GetGrantTypesOk() (*GrantTypeP
 
 // HasGrantTypes returns a boolean if a field has been set.
 func (o *AuthorizationServerPolicyRuleConditions) HasGrantTypes() bool {
-	if o != nil && o.GrantTypes != nil {
+	if o != nil && !IsNil(o.GrantTypes) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *AuthorizationServerPolicyRuleConditions) SetGrantTypes(v GrantTypePolic
 
 // GetPeople returns the People field value if set, zero value otherwise.
 func (o *AuthorizationServerPolicyRuleConditions) GetPeople() AuthorizationServerPolicyPeopleCondition {
-	if o == nil || o.People == nil {
+	if o == nil || IsNil(o.People) {
 		var ret AuthorizationServerPolicyPeopleCondition
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *AuthorizationServerPolicyRuleConditions) GetPeople() AuthorizationServe
 // GetPeopleOk returns a tuple with the People field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerPolicyRuleConditions) GetPeopleOk() (*AuthorizationServerPolicyPeopleCondition, bool) {
-	if o == nil || o.People == nil {
+	if o == nil || IsNil(o.People) {
 		return nil, false
 	}
 	return o.People, true
@@ -106,7 +109,7 @@ func (o *AuthorizationServerPolicyRuleConditions) GetPeopleOk() (*AuthorizationS
 
 // HasPeople returns a boolean if a field has been set.
 func (o *AuthorizationServerPolicyRuleConditions) HasPeople() bool {
-	if o != nil && o.People != nil {
+	if o != nil && !IsNil(o.People) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *AuthorizationServerPolicyRuleConditions) SetPeople(v AuthorizationServe
 
 // GetScopes returns the Scopes field value if set, zero value otherwise.
 func (o *AuthorizationServerPolicyRuleConditions) GetScopes() OAuth2ScopesMediationPolicyRuleCondition {
-	if o == nil || o.Scopes == nil {
+	if o == nil || IsNil(o.Scopes) {
 		var ret OAuth2ScopesMediationPolicyRuleCondition
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *AuthorizationServerPolicyRuleConditions) GetScopes() OAuth2ScopesMediat
 // GetScopesOk returns a tuple with the Scopes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerPolicyRuleConditions) GetScopesOk() (*OAuth2ScopesMediationPolicyRuleCondition, bool) {
-	if o == nil || o.Scopes == nil {
+	if o == nil || IsNil(o.Scopes) {
 		return nil, false
 	}
 	return o.Scopes, true
@@ -138,7 +141,7 @@ func (o *AuthorizationServerPolicyRuleConditions) GetScopesOk() (*OAuth2ScopesMe
 
 // HasScopes returns a boolean if a field has been set.
 func (o *AuthorizationServerPolicyRuleConditions) HasScopes() bool {
-	if o != nil && o.Scopes != nil {
+	if o != nil && !IsNil(o.Scopes) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *AuthorizationServerPolicyRuleConditions) SetScopes(v OAuth2ScopesMediat
 }
 
 func (o AuthorizationServerPolicyRuleConditions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthorizationServerPolicyRuleConditions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.GrantTypes != nil {
+	if !IsNil(o.GrantTypes) {
 		toSerialize["grantTypes"] = o.GrantTypes
 	}
-	if o.People != nil {
+	if !IsNil(o.People) {
 		toSerialize["people"] = o.People
 	}
-	if o.Scopes != nil {
+	if !IsNil(o.Scopes) {
 		toSerialize["scopes"] = o.Scopes
 	}
 
@@ -166,29 +177,27 @@ func (o AuthorizationServerPolicyRuleConditions) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthorizationServerPolicyRuleConditions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthorizationServerPolicyRuleConditions) UnmarshalJSON(data []byte) (err error) {
 	varAuthorizationServerPolicyRuleConditions := _AuthorizationServerPolicyRuleConditions{}
 
-	err = json.Unmarshal(bytes, &varAuthorizationServerPolicyRuleConditions)
-	if err == nil {
-		*o = AuthorizationServerPolicyRuleConditions(varAuthorizationServerPolicyRuleConditions)
-	} else {
+	err = json.Unmarshal(data, &varAuthorizationServerPolicyRuleConditions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthorizationServerPolicyRuleConditions(varAuthorizationServerPolicyRuleConditions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "grantTypes")
 		delete(additionalProperties, "people")
 		delete(additionalProperties, "scopes")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullableAuthorizationServerPolicyRuleConditions) UnmarshalJSON(src []by
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

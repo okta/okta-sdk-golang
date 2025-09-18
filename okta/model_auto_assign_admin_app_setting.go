@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the AutoAssignAdminAppSetting type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AutoAssignAdminAppSetting{}
+
 // AutoAssignAdminAppSetting The org setting that automatically assigns the Okta Admin Console when an admin role is assigned
 type AutoAssignAdminAppSetting struct {
+	// Automatically assigns the Okta Admin Console to the user when an admin role is assigned
 	AutoAssignAdminAppSetting *bool `json:"autoAssignAdminAppSetting,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties      map[string]interface{}
 }
 
 type _AutoAssignAdminAppSetting AutoAssignAdminAppSetting
@@ -54,7 +58,7 @@ func NewAutoAssignAdminAppSettingWithDefaults() *AutoAssignAdminAppSetting {
 
 // GetAutoAssignAdminAppSetting returns the AutoAssignAdminAppSetting field value if set, zero value otherwise.
 func (o *AutoAssignAdminAppSetting) GetAutoAssignAdminAppSetting() bool {
-	if o == nil || o.AutoAssignAdminAppSetting == nil {
+	if o == nil || IsNil(o.AutoAssignAdminAppSetting) {
 		var ret bool
 		return ret
 	}
@@ -64,7 +68,7 @@ func (o *AutoAssignAdminAppSetting) GetAutoAssignAdminAppSetting() bool {
 // GetAutoAssignAdminAppSettingOk returns a tuple with the AutoAssignAdminAppSetting field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AutoAssignAdminAppSetting) GetAutoAssignAdminAppSettingOk() (*bool, bool) {
-	if o == nil || o.AutoAssignAdminAppSetting == nil {
+	if o == nil || IsNil(o.AutoAssignAdminAppSetting) {
 		return nil, false
 	}
 	return o.AutoAssignAdminAppSetting, true
@@ -72,7 +76,7 @@ func (o *AutoAssignAdminAppSetting) GetAutoAssignAdminAppSettingOk() (*bool, boo
 
 // HasAutoAssignAdminAppSetting returns a boolean if a field has been set.
 func (o *AutoAssignAdminAppSetting) HasAutoAssignAdminAppSetting() bool {
-	if o != nil && o.AutoAssignAdminAppSetting != nil {
+	if o != nil && !IsNil(o.AutoAssignAdminAppSetting) {
 		return true
 	}
 
@@ -85,8 +89,16 @@ func (o *AutoAssignAdminAppSetting) SetAutoAssignAdminAppSetting(v bool) {
 }
 
 func (o AutoAssignAdminAppSetting) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AutoAssignAdminAppSetting) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AutoAssignAdminAppSetting != nil {
+	if !IsNil(o.AutoAssignAdminAppSetting) {
 		toSerialize["autoAssignAdminAppSetting"] = o.AutoAssignAdminAppSetting
 	}
 
@@ -94,27 +106,25 @@ func (o AutoAssignAdminAppSetting) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AutoAssignAdminAppSetting) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AutoAssignAdminAppSetting) UnmarshalJSON(data []byte) (err error) {
 	varAutoAssignAdminAppSetting := _AutoAssignAdminAppSetting{}
 
-	err = json.Unmarshal(bytes, &varAutoAssignAdminAppSetting)
-	if err == nil {
-		*o = AutoAssignAdminAppSetting(varAutoAssignAdminAppSetting)
-	} else {
+	err = json.Unmarshal(data, &varAutoAssignAdminAppSetting)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AutoAssignAdminAppSetting(varAutoAssignAdminAppSetting)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "autoAssignAdminAppSetting")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +165,3 @@ func (v *NullableAutoAssignAdminAppSetting) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

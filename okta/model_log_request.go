@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,13 @@ import (
 	"encoding/json"
 )
 
-// LogRequest struct for LogRequest
+// checks if the LogRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LogRequest{}
+
+// LogRequest The `Request` object describes details that are related to the HTTP request that triggers this event, if available. When the event isn't sourced to an HTTP request, such as an automatic update on the Okta servers, the `Request` object still exists, but the `ipChain` field is empty.
 type LogRequest struct {
-	IpChain []LogIpAddress `json:"ipChain,omitempty"`
+	// If the incoming request passes through any proxies, the IP addresses of those proxies are stored here in the format of clientIp, proxy1, proxy2, and so on. This field is useful when working with trusted proxies.
+	IpChain              []LogIpAddress `json:"ipChain,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +58,7 @@ func NewLogRequestWithDefaults() *LogRequest {
 
 // GetIpChain returns the IpChain field value if set, zero value otherwise.
 func (o *LogRequest) GetIpChain() []LogIpAddress {
-	if o == nil || o.IpChain == nil {
+	if o == nil || IsNil(o.IpChain) {
 		var ret []LogIpAddress
 		return ret
 	}
@@ -64,7 +68,7 @@ func (o *LogRequest) GetIpChain() []LogIpAddress {
 // GetIpChainOk returns a tuple with the IpChain field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogRequest) GetIpChainOk() ([]LogIpAddress, bool) {
-	if o == nil || o.IpChain == nil {
+	if o == nil || IsNil(o.IpChain) {
 		return nil, false
 	}
 	return o.IpChain, true
@@ -72,7 +76,7 @@ func (o *LogRequest) GetIpChainOk() ([]LogIpAddress, bool) {
 
 // HasIpChain returns a boolean if a field has been set.
 func (o *LogRequest) HasIpChain() bool {
-	if o != nil && o.IpChain != nil {
+	if o != nil && !IsNil(o.IpChain) {
 		return true
 	}
 
@@ -85,8 +89,16 @@ func (o *LogRequest) SetIpChain(v []LogIpAddress) {
 }
 
 func (o LogRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LogRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.IpChain != nil {
+	if !IsNil(o.IpChain) {
 		toSerialize["ipChain"] = o.IpChain
 	}
 
@@ -94,27 +106,25 @@ func (o LogRequest) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LogRequest) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LogRequest) UnmarshalJSON(data []byte) (err error) {
 	varLogRequest := _LogRequest{}
 
-	err = json.Unmarshal(bytes, &varLogRequest)
-	if err == nil {
-		*o = LogRequest(varLogRequest)
-	} else {
+	err = json.Unmarshal(data, &varLogRequest)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LogRequest(varLogRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "ipChain")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +165,3 @@ func (v *NullableLogRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

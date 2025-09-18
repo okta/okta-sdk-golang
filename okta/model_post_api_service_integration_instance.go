@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -26,6 +26,9 @@ package okta
 import (
 	"encoding/json"
 )
+
+// checks if the PostAPIServiceIntegrationInstance type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PostAPIServiceIntegrationInstance{}
 
 // PostAPIServiceIntegrationInstance struct for PostAPIServiceIntegrationInstance
 type PostAPIServiceIntegrationInstance struct {
@@ -41,11 +44,13 @@ type PostAPIServiceIntegrationInstance struct {
 	Id *string `json:"id,omitempty"`
 	// The name of the API service integration that corresponds with the `type` property. This is the full name of the API service integration listed in the Okta Integration Network (OIN) catalog.
 	Name *string `json:"name,omitempty"`
+	// App instance properties
+	Properties *map[string]AppPropertiesValue `json:"properties,omitempty"`
 	// The type of the API service integration. This string is an underscore-concatenated, lowercased API service integration name. For example, `my_api_log_integration`.
-	Type *string `json:"type,omitempty"`
+	Type  *string                     `json:"type,omitempty"`
 	Links *APIServiceIntegrationLinks `json:"_links,omitempty"`
 	// The client secret for the API Service Integration instance. This property is only returned in a POST response.
-	ClientSecret *string `json:"clientSecret,omitempty"`
+	ClientSecret         *string `json:"clientSecret,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -70,7 +75,7 @@ func NewPostAPIServiceIntegrationInstanceWithDefaults() *PostAPIServiceIntegrati
 
 // GetConfigGuideUrl returns the ConfigGuideUrl field value if set, zero value otherwise.
 func (o *PostAPIServiceIntegrationInstance) GetConfigGuideUrl() string {
-	if o == nil || o.ConfigGuideUrl == nil {
+	if o == nil || IsNil(o.ConfigGuideUrl) {
 		var ret string
 		return ret
 	}
@@ -80,7 +85,7 @@ func (o *PostAPIServiceIntegrationInstance) GetConfigGuideUrl() string {
 // GetConfigGuideUrlOk returns a tuple with the ConfigGuideUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PostAPIServiceIntegrationInstance) GetConfigGuideUrlOk() (*string, bool) {
-	if o == nil || o.ConfigGuideUrl == nil {
+	if o == nil || IsNil(o.ConfigGuideUrl) {
 		return nil, false
 	}
 	return o.ConfigGuideUrl, true
@@ -88,7 +93,7 @@ func (o *PostAPIServiceIntegrationInstance) GetConfigGuideUrlOk() (*string, bool
 
 // HasConfigGuideUrl returns a boolean if a field has been set.
 func (o *PostAPIServiceIntegrationInstance) HasConfigGuideUrl() bool {
-	if o != nil && o.ConfigGuideUrl != nil {
+	if o != nil && !IsNil(o.ConfigGuideUrl) {
 		return true
 	}
 
@@ -102,7 +107,7 @@ func (o *PostAPIServiceIntegrationInstance) SetConfigGuideUrl(v string) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *PostAPIServiceIntegrationInstance) GetCreatedAt() string {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret string
 		return ret
 	}
@@ -112,7 +117,7 @@ func (o *PostAPIServiceIntegrationInstance) GetCreatedAt() string {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PostAPIServiceIntegrationInstance) GetCreatedAtOk() (*string, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -120,7 +125,7 @@ func (o *PostAPIServiceIntegrationInstance) GetCreatedAtOk() (*string, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *PostAPIServiceIntegrationInstance) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -134,7 +139,7 @@ func (o *PostAPIServiceIntegrationInstance) SetCreatedAt(v string) {
 
 // GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
 func (o *PostAPIServiceIntegrationInstance) GetCreatedBy() string {
-	if o == nil || o.CreatedBy == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		var ret string
 		return ret
 	}
@@ -144,7 +149,7 @@ func (o *PostAPIServiceIntegrationInstance) GetCreatedBy() string {
 // GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PostAPIServiceIntegrationInstance) GetCreatedByOk() (*string, bool) {
-	if o == nil || o.CreatedBy == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		return nil, false
 	}
 	return o.CreatedBy, true
@@ -152,7 +157,7 @@ func (o *PostAPIServiceIntegrationInstance) GetCreatedByOk() (*string, bool) {
 
 // HasCreatedBy returns a boolean if a field has been set.
 func (o *PostAPIServiceIntegrationInstance) HasCreatedBy() bool {
-	if o != nil && o.CreatedBy != nil {
+	if o != nil && !IsNil(o.CreatedBy) {
 		return true
 	}
 
@@ -166,7 +171,7 @@ func (o *PostAPIServiceIntegrationInstance) SetCreatedBy(v string) {
 
 // GetGrantedScopes returns the GrantedScopes field value if set, zero value otherwise.
 func (o *PostAPIServiceIntegrationInstance) GetGrantedScopes() []string {
-	if o == nil || o.GrantedScopes == nil {
+	if o == nil || IsNil(o.GrantedScopes) {
 		var ret []string
 		return ret
 	}
@@ -176,7 +181,7 @@ func (o *PostAPIServiceIntegrationInstance) GetGrantedScopes() []string {
 // GetGrantedScopesOk returns a tuple with the GrantedScopes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PostAPIServiceIntegrationInstance) GetGrantedScopesOk() ([]string, bool) {
-	if o == nil || o.GrantedScopes == nil {
+	if o == nil || IsNil(o.GrantedScopes) {
 		return nil, false
 	}
 	return o.GrantedScopes, true
@@ -184,7 +189,7 @@ func (o *PostAPIServiceIntegrationInstance) GetGrantedScopesOk() ([]string, bool
 
 // HasGrantedScopes returns a boolean if a field has been set.
 func (o *PostAPIServiceIntegrationInstance) HasGrantedScopes() bool {
-	if o != nil && o.GrantedScopes != nil {
+	if o != nil && !IsNil(o.GrantedScopes) {
 		return true
 	}
 
@@ -198,7 +203,7 @@ func (o *PostAPIServiceIntegrationInstance) SetGrantedScopes(v []string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *PostAPIServiceIntegrationInstance) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -208,7 +213,7 @@ func (o *PostAPIServiceIntegrationInstance) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PostAPIServiceIntegrationInstance) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -216,7 +221,7 @@ func (o *PostAPIServiceIntegrationInstance) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *PostAPIServiceIntegrationInstance) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -230,7 +235,7 @@ func (o *PostAPIServiceIntegrationInstance) SetId(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *PostAPIServiceIntegrationInstance) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -240,7 +245,7 @@ func (o *PostAPIServiceIntegrationInstance) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PostAPIServiceIntegrationInstance) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -248,7 +253,7 @@ func (o *PostAPIServiceIntegrationInstance) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *PostAPIServiceIntegrationInstance) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -260,9 +265,41 @@ func (o *PostAPIServiceIntegrationInstance) SetName(v string) {
 	o.Name = &v
 }
 
+// GetProperties returns the Properties field value if set, zero value otherwise.
+func (o *PostAPIServiceIntegrationInstance) GetProperties() map[string]AppPropertiesValue {
+	if o == nil || IsNil(o.Properties) {
+		var ret map[string]AppPropertiesValue
+		return ret
+	}
+	return *o.Properties
+}
+
+// GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PostAPIServiceIntegrationInstance) GetPropertiesOk() (*map[string]AppPropertiesValue, bool) {
+	if o == nil || IsNil(o.Properties) {
+		return nil, false
+	}
+	return o.Properties, true
+}
+
+// HasProperties returns a boolean if a field has been set.
+func (o *PostAPIServiceIntegrationInstance) HasProperties() bool {
+	if o != nil && !IsNil(o.Properties) {
+		return true
+	}
+
+	return false
+}
+
+// SetProperties gets a reference to the given map[string]AppPropertiesValue and assigns it to the Properties field.
+func (o *PostAPIServiceIntegrationInstance) SetProperties(v map[string]AppPropertiesValue) {
+	o.Properties = &v
+}
+
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *PostAPIServiceIntegrationInstance) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -272,7 +309,7 @@ func (o *PostAPIServiceIntegrationInstance) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PostAPIServiceIntegrationInstance) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -280,7 +317,7 @@ func (o *PostAPIServiceIntegrationInstance) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *PostAPIServiceIntegrationInstance) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -294,7 +331,7 @@ func (o *PostAPIServiceIntegrationInstance) SetType(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *PostAPIServiceIntegrationInstance) GetLinks() APIServiceIntegrationLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret APIServiceIntegrationLinks
 		return ret
 	}
@@ -304,7 +341,7 @@ func (o *PostAPIServiceIntegrationInstance) GetLinks() APIServiceIntegrationLink
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PostAPIServiceIntegrationInstance) GetLinksOk() (*APIServiceIntegrationLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -312,7 +349,7 @@ func (o *PostAPIServiceIntegrationInstance) GetLinksOk() (*APIServiceIntegration
 
 // HasLinks returns a boolean if a field has been set.
 func (o *PostAPIServiceIntegrationInstance) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -326,7 +363,7 @@ func (o *PostAPIServiceIntegrationInstance) SetLinks(v APIServiceIntegrationLink
 
 // GetClientSecret returns the ClientSecret field value if set, zero value otherwise.
 func (o *PostAPIServiceIntegrationInstance) GetClientSecret() string {
-	if o == nil || o.ClientSecret == nil {
+	if o == nil || IsNil(o.ClientSecret) {
 		var ret string
 		return ret
 	}
@@ -336,7 +373,7 @@ func (o *PostAPIServiceIntegrationInstance) GetClientSecret() string {
 // GetClientSecretOk returns a tuple with the ClientSecret field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PostAPIServiceIntegrationInstance) GetClientSecretOk() (*string, bool) {
-	if o == nil || o.ClientSecret == nil {
+	if o == nil || IsNil(o.ClientSecret) {
 		return nil, false
 	}
 	return o.ClientSecret, true
@@ -344,7 +381,7 @@ func (o *PostAPIServiceIntegrationInstance) GetClientSecretOk() (*string, bool) 
 
 // HasClientSecret returns a boolean if a field has been set.
 func (o *PostAPIServiceIntegrationInstance) HasClientSecret() bool {
-	if o != nil && o.ClientSecret != nil {
+	if o != nil && !IsNil(o.ClientSecret) {
 		return true
 	}
 
@@ -357,32 +394,43 @@ func (o *PostAPIServiceIntegrationInstance) SetClientSecret(v string) {
 }
 
 func (o PostAPIServiceIntegrationInstance) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PostAPIServiceIntegrationInstance) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ConfigGuideUrl != nil {
+	if !IsNil(o.ConfigGuideUrl) {
 		toSerialize["configGuideUrl"] = o.ConfigGuideUrl
 	}
-	if o.CreatedAt != nil {
+	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
 	}
-	if o.CreatedBy != nil {
+	if !IsNil(o.CreatedBy) {
 		toSerialize["createdBy"] = o.CreatedBy
 	}
-	if o.GrantedScopes != nil {
+	if !IsNil(o.GrantedScopes) {
 		toSerialize["grantedScopes"] = o.GrantedScopes
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Type != nil {
+	if !IsNil(o.Properties) {
+		toSerialize["properties"] = o.Properties
+	}
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
-	if o.ClientSecret != nil {
+	if !IsNil(o.ClientSecret) {
 		toSerialize["clientSecret"] = o.ClientSecret
 	}
 
@@ -390,35 +438,34 @@ func (o PostAPIServiceIntegrationInstance) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PostAPIServiceIntegrationInstance) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PostAPIServiceIntegrationInstance) UnmarshalJSON(data []byte) (err error) {
 	varPostAPIServiceIntegrationInstance := _PostAPIServiceIntegrationInstance{}
 
-	err = json.Unmarshal(bytes, &varPostAPIServiceIntegrationInstance)
-	if err == nil {
-		*o = PostAPIServiceIntegrationInstance(varPostAPIServiceIntegrationInstance)
-	} else {
+	err = json.Unmarshal(data, &varPostAPIServiceIntegrationInstance)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PostAPIServiceIntegrationInstance(varPostAPIServiceIntegrationInstance)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "configGuideUrl")
 		delete(additionalProperties, "createdAt")
 		delete(additionalProperties, "createdBy")
 		delete(additionalProperties, "grantedScopes")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
+		delete(additionalProperties, "properties")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "_links")
 		delete(additionalProperties, "clientSecret")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -459,4 +506,3 @@ func (v *NullablePostAPIServiceIntegrationInstance) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

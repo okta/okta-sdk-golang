@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,13 @@ import (
 	"encoding/json"
 )
 
-// VerificationMethod struct for VerificationMethod
+// checks if the VerificationMethod type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &VerificationMethod{}
+
+// VerificationMethod The method used to verify a user
 type VerificationMethod struct {
-	Constraints []AccessPolicyConstraints `json:"constraints,omitempty"`
-	FactorMode *string `json:"factorMode,omitempty"`
-	ReauthenticateIn *string `json:"reauthenticateIn,omitempty"`
-	Type *string `json:"type,omitempty"`
+	// Verification method type
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,105 +56,9 @@ func NewVerificationMethodWithDefaults() *VerificationMethod {
 	return &this
 }
 
-// GetConstraints returns the Constraints field value if set, zero value otherwise.
-func (o *VerificationMethod) GetConstraints() []AccessPolicyConstraints {
-	if o == nil || o.Constraints == nil {
-		var ret []AccessPolicyConstraints
-		return ret
-	}
-	return o.Constraints
-}
-
-// GetConstraintsOk returns a tuple with the Constraints field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *VerificationMethod) GetConstraintsOk() ([]AccessPolicyConstraints, bool) {
-	if o == nil || o.Constraints == nil {
-		return nil, false
-	}
-	return o.Constraints, true
-}
-
-// HasConstraints returns a boolean if a field has been set.
-func (o *VerificationMethod) HasConstraints() bool {
-	if o != nil && o.Constraints != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetConstraints gets a reference to the given []AccessPolicyConstraints and assigns it to the Constraints field.
-func (o *VerificationMethod) SetConstraints(v []AccessPolicyConstraints) {
-	o.Constraints = v
-}
-
-// GetFactorMode returns the FactorMode field value if set, zero value otherwise.
-func (o *VerificationMethod) GetFactorMode() string {
-	if o == nil || o.FactorMode == nil {
-		var ret string
-		return ret
-	}
-	return *o.FactorMode
-}
-
-// GetFactorModeOk returns a tuple with the FactorMode field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *VerificationMethod) GetFactorModeOk() (*string, bool) {
-	if o == nil || o.FactorMode == nil {
-		return nil, false
-	}
-	return o.FactorMode, true
-}
-
-// HasFactorMode returns a boolean if a field has been set.
-func (o *VerificationMethod) HasFactorMode() bool {
-	if o != nil && o.FactorMode != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetFactorMode gets a reference to the given string and assigns it to the FactorMode field.
-func (o *VerificationMethod) SetFactorMode(v string) {
-	o.FactorMode = &v
-}
-
-// GetReauthenticateIn returns the ReauthenticateIn field value if set, zero value otherwise.
-func (o *VerificationMethod) GetReauthenticateIn() string {
-	if o == nil || o.ReauthenticateIn == nil {
-		var ret string
-		return ret
-	}
-	return *o.ReauthenticateIn
-}
-
-// GetReauthenticateInOk returns a tuple with the ReauthenticateIn field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *VerificationMethod) GetReauthenticateInOk() (*string, bool) {
-	if o == nil || o.ReauthenticateIn == nil {
-		return nil, false
-	}
-	return o.ReauthenticateIn, true
-}
-
-// HasReauthenticateIn returns a boolean if a field has been set.
-func (o *VerificationMethod) HasReauthenticateIn() bool {
-	if o != nil && o.ReauthenticateIn != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetReauthenticateIn gets a reference to the given string and assigns it to the ReauthenticateIn field.
-func (o *VerificationMethod) SetReauthenticateIn(v string) {
-	o.ReauthenticateIn = &v
-}
-
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *VerificationMethod) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -163,7 +68,7 @@ func (o *VerificationMethod) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VerificationMethod) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -171,7 +76,7 @@ func (o *VerificationMethod) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *VerificationMethod) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -184,17 +89,16 @@ func (o *VerificationMethod) SetType(v string) {
 }
 
 func (o VerificationMethod) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o VerificationMethod) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Constraints != nil {
-		toSerialize["constraints"] = o.Constraints
-	}
-	if o.FactorMode != nil {
-		toSerialize["factorMode"] = o.FactorMode
-	}
-	if o.ReauthenticateIn != nil {
-		toSerialize["reauthenticateIn"] = o.ReauthenticateIn
-	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -202,30 +106,25 @@ func (o VerificationMethod) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *VerificationMethod) UnmarshalJSON(bytes []byte) (err error) {
+func (o *VerificationMethod) UnmarshalJSON(data []byte) (err error) {
 	varVerificationMethod := _VerificationMethod{}
 
-	err = json.Unmarshal(bytes, &varVerificationMethod)
-	if err == nil {
-		*o = VerificationMethod(varVerificationMethod)
-	} else {
+	err = json.Unmarshal(data, &varVerificationMethod)
+
+	if err != nil {
 		return err
 	}
 
+	*o = VerificationMethod(varVerificationMethod)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
-		delete(additionalProperties, "constraints")
-		delete(additionalProperties, "factorMode")
-		delete(additionalProperties, "reauthenticateIn")
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -266,4 +165,3 @@ func (v *NullableVerificationMethod) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

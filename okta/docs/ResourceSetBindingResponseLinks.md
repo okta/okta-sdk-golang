@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Self** | Pointer to [**HrefObjectSelfLink**](HrefObjectSelfLink.md) |  | [optional] 
-**Bindings** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
-**ResourceSet** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**ResourceSet** | Pointer to [**HrefObjectResourceSetLink**](HrefObjectResourceSetLink.md) |  | [optional] 
+**Members** | Pointer to [**HrefObjectMembersLink**](HrefObjectMembersLink.md) |  | [optional] 
 
 ## Methods
 
@@ -52,47 +52,22 @@ SetSelf sets Self field to given value.
 
 HasSelf returns a boolean if a field has been set.
 
-### GetBindings
-
-`func (o *ResourceSetBindingResponseLinks) GetBindings() HrefObject`
-
-GetBindings returns the Bindings field if non-nil, zero value otherwise.
-
-### GetBindingsOk
-
-`func (o *ResourceSetBindingResponseLinks) GetBindingsOk() (*HrefObject, bool)`
-
-GetBindingsOk returns a tuple with the Bindings field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetBindings
-
-`func (o *ResourceSetBindingResponseLinks) SetBindings(v HrefObject)`
-
-SetBindings sets Bindings field to given value.
-
-### HasBindings
-
-`func (o *ResourceSetBindingResponseLinks) HasBindings() bool`
-
-HasBindings returns a boolean if a field has been set.
-
 ### GetResourceSet
 
-`func (o *ResourceSetBindingResponseLinks) GetResourceSet() HrefObject`
+`func (o *ResourceSetBindingResponseLinks) GetResourceSet() HrefObjectResourceSetLink`
 
 GetResourceSet returns the ResourceSet field if non-nil, zero value otherwise.
 
 ### GetResourceSetOk
 
-`func (o *ResourceSetBindingResponseLinks) GetResourceSetOk() (*HrefObject, bool)`
+`func (o *ResourceSetBindingResponseLinks) GetResourceSetOk() (*HrefObjectResourceSetLink, bool)`
 
 GetResourceSetOk returns a tuple with the ResourceSet field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResourceSet
 
-`func (o *ResourceSetBindingResponseLinks) SetResourceSet(v HrefObject)`
+`func (o *ResourceSetBindingResponseLinks) SetResourceSet(v HrefObjectResourceSetLink)`
 
 SetResourceSet sets ResourceSet field to given value.
 
@@ -101,6 +76,31 @@ SetResourceSet sets ResourceSet field to given value.
 `func (o *ResourceSetBindingResponseLinks) HasResourceSet() bool`
 
 HasResourceSet returns a boolean if a field has been set.
+
+### GetMembers
+
+`func (o *ResourceSetBindingResponseLinks) GetMembers() HrefObjectMembersLink`
+
+GetMembers returns the Members field if non-nil, zero value otherwise.
+
+### GetMembersOk
+
+`func (o *ResourceSetBindingResponseLinks) GetMembersOk() (*HrefObjectMembersLink, bool)`
+
+GetMembersOk returns a tuple with the Members field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMembers
+
+`func (o *ResourceSetBindingResponseLinks) SetMembers(v HrefObjectMembersLink)`
+
+SetMembers sets Members field to given value.
+
+### HasMembers
+
+`func (o *ResourceSetBindingResponseLinks) HasMembers() bool`
+
+HasMembers returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

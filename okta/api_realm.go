@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -26,23 +26,22 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type RealmAPI interface {
 
 	/*
-	CreateRealm Create a Realm
+		CreateRealm Create a realm
 
-	Creates a new Realm
+		Creates a new realm
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateRealmRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateRealmRequest
 	*/
 	CreateRealm(ctx context.Context) ApiCreateRealmRequest
 
@@ -51,13 +50,13 @@ type RealmAPI interface {
 	CreateRealmExecute(r ApiCreateRealmRequest) (*Realm, *APIResponse, error)
 
 	/*
-	DeleteRealm Delete a Realm
+		DeleteRealm Delete a realm
 
-	Deletes a Realm permanently. This operation can only be performed after disassociating other entities like Users and Identity Providers from a Realm.
+		Deletes a realm permanently. This operation can only be performed after disassociating other entities like users and identity providers from a realm.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param realmId `id` of the Realm
-	@return ApiDeleteRealmRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param realmId ID of the realm
+		@return ApiDeleteRealmRequest
 	*/
 	DeleteRealm(ctx context.Context, realmId string) ApiDeleteRealmRequest
 
@@ -65,13 +64,13 @@ type RealmAPI interface {
 	DeleteRealmExecute(r ApiDeleteRealmRequest) (*APIResponse, error)
 
 	/*
-	GetRealm Retrieve a Realm
+		GetRealm Retrieve a realm
 
-	Retrieves a Realm
+		Retrieves a realm
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param realmId `id` of the Realm
-	@return ApiGetRealmRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param realmId ID of the realm
+		@return ApiGetRealmRequest
 	*/
 	GetRealm(ctx context.Context, realmId string) ApiGetRealmRequest
 
@@ -80,12 +79,12 @@ type RealmAPI interface {
 	GetRealmExecute(r ApiGetRealmRequest) (*Realm, *APIResponse, error)
 
 	/*
-	ListRealms List all Realms
+		ListRealms List all realms
 
-	Lists all Realms
+		Lists all Realms
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListRealmsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListRealmsRequest
 	*/
 	ListRealms(ctx context.Context) ApiListRealmsRequest
 
@@ -94,13 +93,13 @@ type RealmAPI interface {
 	ListRealmsExecute(r ApiListRealmsRequest) ([]Realm, *APIResponse, error)
 
 	/*
-	ReplaceRealm Replace the realm profile
+		ReplaceRealm Replace the realm profile
 
-	Replaces the realm profile
+		Replaces the realm profile
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param realmId `id` of the Realm
-	@return ApiReplaceRealmRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param realmId ID of the realm
+		@return ApiReplaceRealmRequest
 	*/
 	ReplaceRealm(ctx context.Context, realmId string) ApiReplaceRealmRequest
 
@@ -113,9 +112,9 @@ type RealmAPI interface {
 type RealmAPIService service
 
 type ApiCreateRealmRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RealmAPI
-	body *CreateRealmRequest
+	body       *CreateRealmRequest
 	retryCount int32
 }
 
@@ -129,23 +128,24 @@ func (r ApiCreateRealmRequest) Execute() (*Realm, *APIResponse, error) {
 }
 
 /*
-CreateRealm Create a Realm
+CreateRealm Create a realm
 
-Creates a new Realm
+Creates a new realm
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateRealmRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateRealmRequest
 */
 func (a *RealmAPIService) CreateRealm(ctx context.Context) ApiCreateRealmRequest {
 	return ApiCreateRealmRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return Realm
+//
+//	@return Realm
 func (a *RealmAPIService) CreateRealmExecute(r ApiCreateRealmRequest) (*Realm, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -154,7 +154,7 @@ func (a *RealmAPIService) CreateRealmExecute(r ApiCreateRealmRequest) (*Realm, *
 		localVarReturnValue  *Realm
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -219,9 +219,9 @@ func (a *RealmAPIService) CreateRealmExecute(r ApiCreateRealmRequest) (*Realm, *
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -279,15 +279,15 @@ func (a *RealmAPIService) CreateRealmExecute(r ApiCreateRealmRequest) (*Realm, *
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteRealmRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RealmAPI
-	realmId string
+	realmId    string
 	retryCount int32
 }
 
@@ -296,19 +296,19 @@ func (r ApiDeleteRealmRequest) Execute() (*APIResponse, error) {
 }
 
 /*
-DeleteRealm Delete a Realm
+DeleteRealm Delete a realm
 
-Deletes a Realm permanently. This operation can only be performed after disassociating other entities like Users and Identity Providers from a Realm.
+Deletes a realm permanently. This operation can only be performed after disassociating other entities like users and identity providers from a realm.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param realmId `id` of the Realm
- @return ApiDeleteRealmRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param realmId ID of the realm
+	@return ApiDeleteRealmRequest
 */
 func (a *RealmAPIService) DeleteRealm(ctx context.Context, realmId string) ApiDeleteRealmRequest {
 	return ApiDeleteRealmRequest{
 		ApiService: a,
-		ctx: ctx,
-		realmId: realmId,
+		ctx:        ctx,
+		realmId:    realmId,
 		retryCount: 0,
 	}
 }
@@ -321,7 +321,7 @@ func (a *RealmAPIService) DeleteRealmExecute(r ApiDeleteRealmRequest) (*APIRespo
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -382,9 +382,9 @@ func (a *RealmAPIService) DeleteRealmExecute(r ApiDeleteRealmRequest) (*APIRespo
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -450,9 +450,9 @@ func (a *RealmAPIService) DeleteRealmExecute(r ApiDeleteRealmRequest) (*APIRespo
 }
 
 type ApiGetRealmRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RealmAPI
-	realmId string
+	realmId    string
 	retryCount int32
 }
 
@@ -461,25 +461,26 @@ func (r ApiGetRealmRequest) Execute() (*Realm, *APIResponse, error) {
 }
 
 /*
-GetRealm Retrieve a Realm
+GetRealm Retrieve a realm
 
-Retrieves a Realm
+Retrieves a realm
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param realmId `id` of the Realm
- @return ApiGetRealmRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param realmId ID of the realm
+	@return ApiGetRealmRequest
 */
 func (a *RealmAPIService) GetRealm(ctx context.Context, realmId string) ApiGetRealmRequest {
 	return ApiGetRealmRequest{
 		ApiService: a,
-		ctx: ctx,
-		realmId: realmId,
+		ctx:        ctx,
+		realmId:    realmId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return Realm
+//
+//	@return Realm
 func (a *RealmAPIService) GetRealmExecute(r ApiGetRealmRequest) (*Realm, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -488,7 +489,7 @@ func (a *RealmAPIService) GetRealmExecute(r ApiGetRealmRequest) (*Realm, *APIRes
 		localVarReturnValue  *Realm
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -549,9 +550,9 @@ func (a *RealmAPIService) GetRealmExecute(r ApiGetRealmRequest) (*Realm, *APIRes
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -621,19 +622,19 @@ func (a *RealmAPIService) GetRealmExecute(r ApiGetRealmRequest) (*Realm, *APIRes
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListRealmsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RealmAPI
-	limit *int32
-	after *string
-	search *string
-	sortBy *string
-	sortOrder *string
+	limit      *int32
+	after      *string
+	search     *string
+	sortBy     *string
+	sortOrder  *string
 	retryCount int32
 }
 
@@ -643,25 +644,25 @@ func (r ApiListRealmsRequest) Limit(limit int32) ApiListRealmsRequest {
 	return r
 }
 
-// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](/#pagination).
+// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination).
 func (r ApiListRealmsRequest) After(after string) ApiListRealmsRequest {
 	r.after = &after
 	return r
 }
 
-// Searches for Realms with a supported filtering expression for most properties
+// Searches for realms with a supported filtering expression for most properties.  Searches for realms can be filtered by the contains (&#x60;co&#x60;) operator. You can only use &#x60;co&#x60; with the &#x60;profile.name&#x60; property. See [Operators](https://developer.okta.com/docs/api/#operators).
 func (r ApiListRealmsRequest) Search(search string) ApiListRealmsRequest {
 	r.search = &search
 	return r
 }
 
-// Specifies field to sort by and can be any single property (for search queries only).
+// Specifies the field to sort by and can be any single property (for search queries only)
 func (r ApiListRealmsRequest) SortBy(sortBy string) ApiListRealmsRequest {
 	r.sortBy = &sortBy
 	return r
 }
 
-// Specifies sort order &#x60;asc&#x60; or &#x60;desc&#x60; (for search queries only). This parameter is ignored if &#x60;sortBy&#x60; isn&#39;t present.
+// Specifies the sort order: &#x60;asc&#x60; or &#x60;desc&#x60; (for search queries only). This parameter is ignored if &#x60;sortBy&#x60; isn&#39;t present.
 func (r ApiListRealmsRequest) SortOrder(sortOrder string) ApiListRealmsRequest {
 	r.sortOrder = &sortOrder
 	return r
@@ -672,23 +673,24 @@ func (r ApiListRealmsRequest) Execute() ([]Realm, *APIResponse, error) {
 }
 
 /*
-ListRealms List all Realms
+ListRealms List all realms
 
 Lists all Realms
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListRealmsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListRealmsRequest
 */
 func (a *RealmAPIService) ListRealms(ctx context.Context) ApiListRealmsRequest {
 	return ApiListRealmsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []Realm
+//
+//	@return []Realm
 func (a *RealmAPIService) ListRealmsExecute(r ApiListRealmsRequest) ([]Realm, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -697,7 +699,7 @@ func (a *RealmAPIService) ListRealmsExecute(r ApiListRealmsRequest) ([]Realm, *A
 		localVarReturnValue  []Realm
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -772,9 +774,9 @@ func (a *RealmAPIService) ListRealmsExecute(r ApiListRealmsRequest) ([]Realm, *A
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -820,16 +822,16 @@ func (a *RealmAPIService) ListRealmsExecute(r ApiListRealmsRequest) ([]Realm, *A
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceRealmRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RealmAPI
-	realmId string
-	body *UpdateRealmRequest
+	realmId    string
+	body       *UpdateRealmRequest
 	retryCount int32
 }
 
@@ -847,21 +849,22 @@ ReplaceRealm Replace the realm profile
 
 Replaces the realm profile
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param realmId `id` of the Realm
- @return ApiReplaceRealmRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param realmId ID of the realm
+	@return ApiReplaceRealmRequest
 */
 func (a *RealmAPIService) ReplaceRealm(ctx context.Context, realmId string) ApiReplaceRealmRequest {
 	return ApiReplaceRealmRequest{
 		ApiService: a,
-		ctx: ctx,
-		realmId: realmId,
+		ctx:        ctx,
+		realmId:    realmId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return Realm
+//
+//	@return Realm
 func (a *RealmAPIService) ReplaceRealmExecute(r ApiReplaceRealmRequest) (*Realm, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -870,7 +873,7 @@ func (a *RealmAPIService) ReplaceRealmExecute(r ApiReplaceRealmRequest) (*Realm,
 		localVarReturnValue  *Realm
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -936,9 +939,9 @@ func (a *RealmAPIService) ReplaceRealmExecute(r ApiReplaceRealmRequest) (*Realm,
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1008,7 +1011,7 @@ func (a *RealmAPIService) ReplaceRealmExecute(r ApiReplaceRealmRequest) (*Realm,
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

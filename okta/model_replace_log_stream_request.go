@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -28,11 +28,9 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
 // ReplaceLogStreamRequest - struct for ReplaceLogStreamRequest
 type ReplaceLogStreamRequest struct {
-	LogStreamAwsPutSchema *LogStreamAwsPutSchema
+	LogStreamAwsPutSchema    *LogStreamAwsPutSchema
 	LogStreamSplunkPutSchema *LogStreamSplunkPutSchema
 }
 
@@ -50,39 +48,14 @@ func LogStreamSplunkPutSchemaAsReplaceLogStreamRequest(v *LogStreamSplunkPutSche
 	}
 }
 
-
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *ReplaceLogStreamRequest) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
-	}
-
-	// check if the discriminator value is 'LogStreamAwsPutSchema'
-	if jsonDict["type"] == "LogStreamAwsPutSchema" {
-		// try to unmarshal JSON data into LogStreamAwsPutSchema
-		err = json.Unmarshal(data, &dst.LogStreamAwsPutSchema)
-		if err == nil {
-			return nil // data stored in dst.LogStreamAwsPutSchema, return on the first match
-		} else {
-			dst.LogStreamAwsPutSchema = nil
-			return fmt.Errorf("Failed to unmarshal ReplaceLogStreamRequest as LogStreamAwsPutSchema: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'LogStreamSplunkPutSchema'
-	if jsonDict["type"] == "LogStreamSplunkPutSchema" {
-		// try to unmarshal JSON data into LogStreamSplunkPutSchema
-		err = json.Unmarshal(data, &dst.LogStreamSplunkPutSchema)
-		if err == nil {
-			return nil // data stored in dst.LogStreamSplunkPutSchema, return on the first match
-		} else {
-			dst.LogStreamSplunkPutSchema = nil
-			return fmt.Errorf("Failed to unmarshal ReplaceLogStreamRequest as LogStreamSplunkPutSchema: %s", err.Error())
-		}
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	// check if the discriminator value is 'aws_eventbridge'
@@ -93,7 +66,7 @@ func (dst *ReplaceLogStreamRequest) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.LogStreamAwsPutSchema, return on the first match
 		} else {
 			dst.LogStreamAwsPutSchema = nil
-			return fmt.Errorf("Failed to unmarshal ReplaceLogStreamRequest as LogStreamAwsPutSchema: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ReplaceLogStreamRequest as LogStreamAwsPutSchema: %s", err.Error())
 		}
 	}
 
@@ -105,7 +78,7 @@ func (dst *ReplaceLogStreamRequest) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.LogStreamSplunkPutSchema, return on the first match
 		} else {
 			dst.LogStreamSplunkPutSchema = nil
-			return fmt.Errorf("Failed to unmarshal ReplaceLogStreamRequest as LogStreamSplunkPutSchema: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ReplaceLogStreamRequest as LogStreamSplunkPutSchema: %s", err.Error())
 		}
 	}
 
@@ -126,7 +99,7 @@ func (src ReplaceLogStreamRequest) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *ReplaceLogStreamRequest) GetActualInstance() (interface{}) {
+func (obj *ReplaceLogStreamRequest) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -136,6 +109,20 @@ func (obj *ReplaceLogStreamRequest) GetActualInstance() (interface{}) {
 
 	if obj.LogStreamSplunkPutSchema != nil {
 		return obj.LogStreamSplunkPutSchema
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj ReplaceLogStreamRequest) GetActualInstanceValue() interface{} {
+	if obj.LogStreamAwsPutSchema != nil {
+		return *obj.LogStreamAwsPutSchema
+	}
+
+	if obj.LogStreamSplunkPutSchema != nil {
+		return *obj.LogStreamSplunkPutSchema
 	}
 
 	// all schemas are nil
@@ -177,5 +164,3 @@ func (v *NullableReplaceLogStreamRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

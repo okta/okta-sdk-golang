@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **App** | Pointer to [**AppAndInstancePolicyRuleCondition**](AppAndInstancePolicyRuleCondition.md) |  | [optional] 
 **Network** | Pointer to [**PolicyNetworkCondition**](PolicyNetworkCondition.md) |  | [optional] 
-**UserIdentifier** | Pointer to [**UserIdentifierPolicyRuleCondition**](UserIdentifierPolicyRuleCondition.md) |  | [optional] 
 **Platform** | Pointer to [**PlatformPolicyRuleCondition**](PlatformPolicyRuleCondition.md) |  | [optional] 
+**UserIdentifier** | Pointer to [**UserIdentifierPolicyRuleCondition**](UserIdentifierPolicyRuleCondition.md) |  | [optional] 
 
 ## Methods
 
@@ -78,31 +78,6 @@ SetNetwork sets Network field to given value.
 
 HasNetwork returns a boolean if a field has been set.
 
-### GetUserIdentifier
-
-`func (o *IdpDiscoveryPolicyRuleCondition) GetUserIdentifier() UserIdentifierPolicyRuleCondition`
-
-GetUserIdentifier returns the UserIdentifier field if non-nil, zero value otherwise.
-
-### GetUserIdentifierOk
-
-`func (o *IdpDiscoveryPolicyRuleCondition) GetUserIdentifierOk() (*UserIdentifierPolicyRuleCondition, bool)`
-
-GetUserIdentifierOk returns a tuple with the UserIdentifier field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUserIdentifier
-
-`func (o *IdpDiscoveryPolicyRuleCondition) SetUserIdentifier(v UserIdentifierPolicyRuleCondition)`
-
-SetUserIdentifier sets UserIdentifier field to given value.
-
-### HasUserIdentifier
-
-`func (o *IdpDiscoveryPolicyRuleCondition) HasUserIdentifier() bool`
-
-HasUserIdentifier returns a boolean if a field has been set.
-
 ### GetPlatform
 
 `func (o *IdpDiscoveryPolicyRuleCondition) GetPlatform() PlatformPolicyRuleCondition`
@@ -127,6 +102,31 @@ SetPlatform sets Platform field to given value.
 `func (o *IdpDiscoveryPolicyRuleCondition) HasPlatform() bool`
 
 HasPlatform returns a boolean if a field has been set.
+
+### GetUserIdentifier
+
+`func (o *IdpDiscoveryPolicyRuleCondition) GetUserIdentifier() UserIdentifierPolicyRuleCondition`
+
+GetUserIdentifier returns the UserIdentifier field if non-nil, zero value otherwise.
+
+### GetUserIdentifierOk
+
+`func (o *IdpDiscoveryPolicyRuleCondition) GetUserIdentifierOk() (*UserIdentifierPolicyRuleCondition, bool)`
+
+GetUserIdentifierOk returns a tuple with the UserIdentifier field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUserIdentifier
+
+`func (o *IdpDiscoveryPolicyRuleCondition) SetUserIdentifier(v UserIdentifierPolicyRuleCondition)`
+
+SetUserIdentifier sets UserIdentifier field to given value.
+
+### HasUserIdentifier
+
+`func (o *IdpDiscoveryPolicyRuleCondition) HasUserIdentifier() bool`
+
+HasUserIdentifier returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

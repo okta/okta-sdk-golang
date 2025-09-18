@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Permissions** | Pointer to [**[]Permission**](Permission.md) |  | [optional] 
+**Permissions** | Pointer to [**[]Permission**](Permission.md) | Array of permissions assigned to the role. See [Permissions](/openapi/okta-management/guides/permissions). | [optional] 
 
 ## Methods
 

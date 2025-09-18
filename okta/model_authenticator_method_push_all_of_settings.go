@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthenticatorMethodPushAllOfSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorMethodPushAllOfSettings{}
+
 // AuthenticatorMethodPushAllOfSettings struct for AuthenticatorMethodPushAllOfSettings
 type AuthenticatorMethodPushAllOfSettings struct {
 	Algorithms []string `json:"algorithms,omitempty"`
 	// Indicates whether you must use a hardware key store
-	KeyProtection *string `json:"keyProtection,omitempty"`
-	TransactionTypes []string `json:"transactionTypes,omitempty"`
+	KeyProtection        *string  `json:"keyProtection,omitempty"`
+	TransactionTypes     []string `json:"transactionTypes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewAuthenticatorMethodPushAllOfSettingsWithDefaults() *AuthenticatorMethodP
 
 // GetAlgorithms returns the Algorithms field value if set, zero value otherwise.
 func (o *AuthenticatorMethodPushAllOfSettings) GetAlgorithms() []string {
-	if o == nil || o.Algorithms == nil {
+	if o == nil || IsNil(o.Algorithms) {
 		var ret []string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *AuthenticatorMethodPushAllOfSettings) GetAlgorithms() []string {
 // GetAlgorithmsOk returns a tuple with the Algorithms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorMethodPushAllOfSettings) GetAlgorithmsOk() ([]string, bool) {
-	if o == nil || o.Algorithms == nil {
+	if o == nil || IsNil(o.Algorithms) {
 		return nil, false
 	}
 	return o.Algorithms, true
@@ -75,7 +78,7 @@ func (o *AuthenticatorMethodPushAllOfSettings) GetAlgorithmsOk() ([]string, bool
 
 // HasAlgorithms returns a boolean if a field has been set.
 func (o *AuthenticatorMethodPushAllOfSettings) HasAlgorithms() bool {
-	if o != nil && o.Algorithms != nil {
+	if o != nil && !IsNil(o.Algorithms) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *AuthenticatorMethodPushAllOfSettings) SetAlgorithms(v []string) {
 
 // GetKeyProtection returns the KeyProtection field value if set, zero value otherwise.
 func (o *AuthenticatorMethodPushAllOfSettings) GetKeyProtection() string {
-	if o == nil || o.KeyProtection == nil {
+	if o == nil || IsNil(o.KeyProtection) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *AuthenticatorMethodPushAllOfSettings) GetKeyProtection() string {
 // GetKeyProtectionOk returns a tuple with the KeyProtection field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorMethodPushAllOfSettings) GetKeyProtectionOk() (*string, bool) {
-	if o == nil || o.KeyProtection == nil {
+	if o == nil || IsNil(o.KeyProtection) {
 		return nil, false
 	}
 	return o.KeyProtection, true
@@ -107,7 +110,7 @@ func (o *AuthenticatorMethodPushAllOfSettings) GetKeyProtectionOk() (*string, bo
 
 // HasKeyProtection returns a boolean if a field has been set.
 func (o *AuthenticatorMethodPushAllOfSettings) HasKeyProtection() bool {
-	if o != nil && o.KeyProtection != nil {
+	if o != nil && !IsNil(o.KeyProtection) {
 		return true
 	}
 
@@ -121,7 +124,7 @@ func (o *AuthenticatorMethodPushAllOfSettings) SetKeyProtection(v string) {
 
 // GetTransactionTypes returns the TransactionTypes field value if set, zero value otherwise.
 func (o *AuthenticatorMethodPushAllOfSettings) GetTransactionTypes() []string {
-	if o == nil || o.TransactionTypes == nil {
+	if o == nil || IsNil(o.TransactionTypes) {
 		var ret []string
 		return ret
 	}
@@ -131,7 +134,7 @@ func (o *AuthenticatorMethodPushAllOfSettings) GetTransactionTypes() []string {
 // GetTransactionTypesOk returns a tuple with the TransactionTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorMethodPushAllOfSettings) GetTransactionTypesOk() ([]string, bool) {
-	if o == nil || o.TransactionTypes == nil {
+	if o == nil || IsNil(o.TransactionTypes) {
 		return nil, false
 	}
 	return o.TransactionTypes, true
@@ -139,7 +142,7 @@ func (o *AuthenticatorMethodPushAllOfSettings) GetTransactionTypesOk() ([]string
 
 // HasTransactionTypes returns a boolean if a field has been set.
 func (o *AuthenticatorMethodPushAllOfSettings) HasTransactionTypes() bool {
-	if o != nil && o.TransactionTypes != nil {
+	if o != nil && !IsNil(o.TransactionTypes) {
 		return true
 	}
 
@@ -152,14 +155,22 @@ func (o *AuthenticatorMethodPushAllOfSettings) SetTransactionTypes(v []string) {
 }
 
 func (o AuthenticatorMethodPushAllOfSettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorMethodPushAllOfSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Algorithms != nil {
+	if !IsNil(o.Algorithms) {
 		toSerialize["algorithms"] = o.Algorithms
 	}
-	if o.KeyProtection != nil {
+	if !IsNil(o.KeyProtection) {
 		toSerialize["keyProtection"] = o.KeyProtection
 	}
-	if o.TransactionTypes != nil {
+	if !IsNil(o.TransactionTypes) {
 		toSerialize["transactionTypes"] = o.TransactionTypes
 	}
 
@@ -167,29 +178,27 @@ func (o AuthenticatorMethodPushAllOfSettings) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorMethodPushAllOfSettings) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorMethodPushAllOfSettings) UnmarshalJSON(data []byte) (err error) {
 	varAuthenticatorMethodPushAllOfSettings := _AuthenticatorMethodPushAllOfSettings{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorMethodPushAllOfSettings)
-	if err == nil {
-		*o = AuthenticatorMethodPushAllOfSettings(varAuthenticatorMethodPushAllOfSettings)
-	} else {
+	err = json.Unmarshal(data, &varAuthenticatorMethodPushAllOfSettings)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthenticatorMethodPushAllOfSettings(varAuthenticatorMethodPushAllOfSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "algorithms")
 		delete(additionalProperties, "keyProtection")
 		delete(additionalProperties, "transactionTypes")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -230,4 +239,3 @@ func (v *NullableAuthenticatorMethodPushAllOfSettings) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

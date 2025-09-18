@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Browser** | Pointer to **string** |  | [optional] [readonly] 
-**Os** | Pointer to **string** |  | [optional] [readonly] 
-**RawUserAgent** | Pointer to **string** |  | [optional] [readonly] 
+**Browser** | Pointer to **string** | If the client is a web browser, this field identifies the type of web browser (for example, CHROME, FIREFOX) | [optional] [readonly] 
+**Os** | Pointer to **string** | The operating system that the client runs on (for example, Windows 10) | [optional] [readonly] 
+**RawUserAgent** | Pointer to **string** | A raw string representation of the user agent that is formatted according to [section 5.5.3 of HTTP/1.1 Semantics and Content](https://datatracker.ietf.org/doc/html/rfc7231#section-5.5.3). Both the &#x60;browser&#x60; and the &#x60;OS&#x60; fields can be derived from this field. | [optional] [readonly] 
 
 ## Methods
 

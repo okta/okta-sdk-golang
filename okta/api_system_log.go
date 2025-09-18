@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -26,7 +26,7 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"time"
@@ -35,12 +35,19 @@ import (
 type SystemLogAPI interface {
 
 	/*
-		ListLogEvents List all System Log Events
+			ListLogEvents List all System Log events
 
-		Lists all system log events. The Okta System Log API provides read access to your organization’s system log. This API provides more functionality than the Events API
+			Lists all System Log events
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiListLogEventsRequest
+		See [System Log query](https://developer.okta.com/docs/reference/system-log-query/) for further details and examples, and [System Log filters and search](https://help.okta.com/okta_help.htm?type=oie&id=csh-syslog-filters) for common use cases.
+
+		By default, 100 System Log events are returned. If there are more events, see the [header link](https://developer.okta.com/docs/api/#link-header) for the `next` link,
+		or increase the number of returned objects using the `limit` parameter.
+
+		>**Note:** The value of the `clientSecret` property in the System Log is secured by a hashing function, and isn't the value used during authentication.
+
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiListLogEventsRequest
 	*/
 	ListLogEvents(ctx context.Context) ApiListLogEventsRequest
 
@@ -55,48 +62,55 @@ type SystemLogAPIService service
 type ApiListLogEventsRequest struct {
 	ctx        context.Context
 	ApiService SystemLogAPI
-	since      *time.Time
-	until      *time.Time
+	since      *string
+	until      *string
+	after      *string
 	filter     *string
 	q          *string
 	limit      *int32
 	sortOrder  *string
-	after      *string
 	retryCount int32
 }
 
-func (r ApiListLogEventsRequest) Since(since time.Time) ApiListLogEventsRequest {
+// Filters the lower time bound of the log events &#x60;published&#x60; property for bounded queries or persistence time for polling queries
+func (r ApiListLogEventsRequest) Since(since string) ApiListLogEventsRequest {
 	r.since = &since
 	return r
 }
 
-func (r ApiListLogEventsRequest) Until(until time.Time) ApiListLogEventsRequest {
+// Filters the upper time bound of the log events &#x60;published&#x60; property for bounded queries or persistence time for polling queries.
+func (r ApiListLogEventsRequest) Until(until string) ApiListLogEventsRequest {
 	r.until = &until
 	return r
 }
 
+// Retrieves the next page of results. Okta returns a link in the HTTP Header (&#x60;rel&#x3D;next&#x60;) that includes the after query parameter
+func (r ApiListLogEventsRequest) After(after string) ApiListLogEventsRequest {
+	r.after = &after
+	return r
+}
+
+// Filter expression that filters the results. All operators except [ ] are supported. See [Filter](https://developer.okta.com/docs/api/#filter) and [Operators](https://developer.okta.com/docs/api/#operators).
 func (r ApiListLogEventsRequest) Filter(filter string) ApiListLogEventsRequest {
 	r.filter = &filter
 	return r
 }
 
+// Filters log events results by one or more case insensitive keywords.
 func (r ApiListLogEventsRequest) Q(q string) ApiListLogEventsRequest {
 	r.q = &q
 	return r
 }
 
+// Sets the number of results that are returned in the response
 func (r ApiListLogEventsRequest) Limit(limit int32) ApiListLogEventsRequest {
 	r.limit = &limit
 	return r
 }
 
+// The order of the returned events that are sorted by the &#x60;published&#x60; property
 func (r ApiListLogEventsRequest) SortOrder(sortOrder string) ApiListLogEventsRequest {
 	r.sortOrder = &sortOrder
-	return r
-}
-
-func (r ApiListLogEventsRequest) After(after string) ApiListLogEventsRequest {
-	r.after = &after
 	return r
 }
 
@@ -105,9 +119,16 @@ func (r ApiListLogEventsRequest) Execute() ([]LogEvent, *APIResponse, error) {
 }
 
 /*
-ListLogEvents List all System Log Events
+ListLogEvents List all System Log events
 
-Lists all system log events. The Okta System Log API provides read access to your organization’s system log. This API provides more functionality than the Events API
+# Lists all System Log events
+
+See [System Log query](https://developer.okta.com/docs/reference/system-log-query/) for further details and examples, and [System Log filters and search](https://help.okta.com/okta_help.htm?type=oie&id=csh-syslog-filters) for common use cases.
+
+By default, 100 System Log events are returned. If there are more events, see the [header link](https://developer.okta.com/docs/api/#link-header) for the `next` link,
+or increase the number of returned objects using the `limit` parameter.
+
+>**Note:** The value of the `clientSecret` property in the System Log is secured by a hashing function, and isn't the value used during authentication.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiListLogEventsRequest
@@ -156,6 +177,9 @@ func (a *SystemLogAPIService) ListLogEventsExecute(r ApiListLogEventsRequest) ([
 	if r.until != nil {
 		localVarQueryParams.Add("until", parameterToString(*r.until, ""))
 	}
+	if r.after != nil {
+		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
+	}
 	if r.filter != nil {
 		localVarQueryParams.Add("filter", parameterToString(*r.filter, ""))
 	}
@@ -167,9 +191,6 @@ func (a *SystemLogAPIService) ListLogEventsExecute(r ApiListLogEventsRequest) ([
 	}
 	if r.sortOrder != nil {
 		localVarQueryParams.Add("sortOrder", parameterToString(*r.sortOrder, ""))
-	}
-	if r.after != nil {
-		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -212,9 +233,9 @@ func (a *SystemLogAPIService) ListLogEventsExecute(r ApiListLogEventsRequest) ([
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -224,6 +245,18 @@ func (a *SystemLogAPIService) ListLogEventsExecute(r ApiListLogEventsRequest) ([
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+			return localVarReturnValue, localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v Error

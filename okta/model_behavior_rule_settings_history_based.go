@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the BehaviorRuleSettingsHistoryBased type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BehaviorRuleSettingsHistoryBased{}
+
 // BehaviorRuleSettingsHistoryBased struct for BehaviorRuleSettingsHistoryBased
 type BehaviorRuleSettingsHistoryBased struct {
-	MaxEventsUsedForEvaluation *int32 `json:"maxEventsUsedForEvaluation,omitempty"`
+	MaxEventsUsedForEvaluation   *int32 `json:"maxEventsUsedForEvaluation,omitempty"`
 	MinEventsNeededForEvaluation *int32 `json:"minEventsNeededForEvaluation,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties         map[string]interface{}
 }
 
 type _BehaviorRuleSettingsHistoryBased BehaviorRuleSettingsHistoryBased
@@ -63,7 +66,7 @@ func NewBehaviorRuleSettingsHistoryBasedWithDefaults() *BehaviorRuleSettingsHist
 
 // GetMaxEventsUsedForEvaluation returns the MaxEventsUsedForEvaluation field value if set, zero value otherwise.
 func (o *BehaviorRuleSettingsHistoryBased) GetMaxEventsUsedForEvaluation() int32 {
-	if o == nil || o.MaxEventsUsedForEvaluation == nil {
+	if o == nil || IsNil(o.MaxEventsUsedForEvaluation) {
 		var ret int32
 		return ret
 	}
@@ -73,7 +76,7 @@ func (o *BehaviorRuleSettingsHistoryBased) GetMaxEventsUsedForEvaluation() int32
 // GetMaxEventsUsedForEvaluationOk returns a tuple with the MaxEventsUsedForEvaluation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BehaviorRuleSettingsHistoryBased) GetMaxEventsUsedForEvaluationOk() (*int32, bool) {
-	if o == nil || o.MaxEventsUsedForEvaluation == nil {
+	if o == nil || IsNil(o.MaxEventsUsedForEvaluation) {
 		return nil, false
 	}
 	return o.MaxEventsUsedForEvaluation, true
@@ -81,7 +84,7 @@ func (o *BehaviorRuleSettingsHistoryBased) GetMaxEventsUsedForEvaluationOk() (*i
 
 // HasMaxEventsUsedForEvaluation returns a boolean if a field has been set.
 func (o *BehaviorRuleSettingsHistoryBased) HasMaxEventsUsedForEvaluation() bool {
-	if o != nil && o.MaxEventsUsedForEvaluation != nil {
+	if o != nil && !IsNil(o.MaxEventsUsedForEvaluation) {
 		return true
 	}
 
@@ -95,7 +98,7 @@ func (o *BehaviorRuleSettingsHistoryBased) SetMaxEventsUsedForEvaluation(v int32
 
 // GetMinEventsNeededForEvaluation returns the MinEventsNeededForEvaluation field value if set, zero value otherwise.
 func (o *BehaviorRuleSettingsHistoryBased) GetMinEventsNeededForEvaluation() int32 {
-	if o == nil || o.MinEventsNeededForEvaluation == nil {
+	if o == nil || IsNil(o.MinEventsNeededForEvaluation) {
 		var ret int32
 		return ret
 	}
@@ -105,7 +108,7 @@ func (o *BehaviorRuleSettingsHistoryBased) GetMinEventsNeededForEvaluation() int
 // GetMinEventsNeededForEvaluationOk returns a tuple with the MinEventsNeededForEvaluation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BehaviorRuleSettingsHistoryBased) GetMinEventsNeededForEvaluationOk() (*int32, bool) {
-	if o == nil || o.MinEventsNeededForEvaluation == nil {
+	if o == nil || IsNil(o.MinEventsNeededForEvaluation) {
 		return nil, false
 	}
 	return o.MinEventsNeededForEvaluation, true
@@ -113,7 +116,7 @@ func (o *BehaviorRuleSettingsHistoryBased) GetMinEventsNeededForEvaluationOk() (
 
 // HasMinEventsNeededForEvaluation returns a boolean if a field has been set.
 func (o *BehaviorRuleSettingsHistoryBased) HasMinEventsNeededForEvaluation() bool {
-	if o != nil && o.MinEventsNeededForEvaluation != nil {
+	if o != nil && !IsNil(o.MinEventsNeededForEvaluation) {
 		return true
 	}
 
@@ -126,11 +129,19 @@ func (o *BehaviorRuleSettingsHistoryBased) SetMinEventsNeededForEvaluation(v int
 }
 
 func (o BehaviorRuleSettingsHistoryBased) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BehaviorRuleSettingsHistoryBased) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.MaxEventsUsedForEvaluation != nil {
+	if !IsNil(o.MaxEventsUsedForEvaluation) {
 		toSerialize["maxEventsUsedForEvaluation"] = o.MaxEventsUsedForEvaluation
 	}
-	if o.MinEventsNeededForEvaluation != nil {
+	if !IsNil(o.MinEventsNeededForEvaluation) {
 		toSerialize["minEventsNeededForEvaluation"] = o.MinEventsNeededForEvaluation
 	}
 
@@ -138,28 +149,26 @@ func (o BehaviorRuleSettingsHistoryBased) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *BehaviorRuleSettingsHistoryBased) UnmarshalJSON(bytes []byte) (err error) {
+func (o *BehaviorRuleSettingsHistoryBased) UnmarshalJSON(data []byte) (err error) {
 	varBehaviorRuleSettingsHistoryBased := _BehaviorRuleSettingsHistoryBased{}
 
-	err = json.Unmarshal(bytes, &varBehaviorRuleSettingsHistoryBased)
-	if err == nil {
-		*o = BehaviorRuleSettingsHistoryBased(varBehaviorRuleSettingsHistoryBased)
-	} else {
+	err = json.Unmarshal(data, &varBehaviorRuleSettingsHistoryBased)
+
+	if err != nil {
 		return err
 	}
 
+	*o = BehaviorRuleSettingsHistoryBased(varBehaviorRuleSettingsHistoryBased)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "maxEventsUsedForEvaluation")
 		delete(additionalProperties, "minEventsNeededForEvaluation")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -200,4 +209,3 @@ func (v *NullableBehaviorRuleSettingsHistoryBased) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

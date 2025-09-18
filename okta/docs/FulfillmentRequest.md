@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**FulfillmentData** | Pointer to [**FulfillmentData**](FulfillmentData.md) |  | [optional] 
-**FulfillmentProvider** | Pointer to **string** | Name of the fulfillment provider for the WebAuthn Preregistration Factor | [optional] 
+**FulfillmentData** | Pointer to [**[]FulfillmentDataOrderDetails**](FulfillmentDataOrderDetails.md) | List of fulfillment order details | [optional] 
+**FulfillmentProvider** | Pointer to **string** | Name of the fulfillment provider for the WebAuthn preregistration factor | [optional] 
 **UserId** | Pointer to **string** | ID of an existing Okta user | [optional] 
 
 ## Methods
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetFulfillmentData
 
-`func (o *FulfillmentRequest) GetFulfillmentData() FulfillmentData`
+`func (o *FulfillmentRequest) GetFulfillmentData() []FulfillmentDataOrderDetails`
 
 GetFulfillmentData returns the FulfillmentData field if non-nil, zero value otherwise.
 
 ### GetFulfillmentDataOk
 
-`func (o *FulfillmentRequest) GetFulfillmentDataOk() (*FulfillmentData, bool)`
+`func (o *FulfillmentRequest) GetFulfillmentDataOk() (*[]FulfillmentDataOrderDetails, bool)`
 
 GetFulfillmentDataOk returns a tuple with the FulfillmentData field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFulfillmentData
 
-`func (o *FulfillmentRequest) SetFulfillmentData(v FulfillmentData)`
+`func (o *FulfillmentRequest) SetFulfillmentData(v []FulfillmentDataOrderDetails)`
 
 SetFulfillmentData sets FulfillmentData field to given value.
 

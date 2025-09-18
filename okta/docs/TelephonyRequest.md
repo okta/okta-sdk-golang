@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Data** | Pointer to [**TelephonyRequestData**](TelephonyRequestData.md) |  | [optional] 
-**EventType** | Pointer to **string** | The type of inline hook. The Telephony inline hook type is &#x60;com.okta.telephony.provider&#x60;. | [optional] 
+**EventType** | Pointer to **string** | The type of inline hook. The telephony inline hook type is &#x60;com.okta.telephony.provider&#x60;. | [optional] 
 **RequestType** | Pointer to **string** | The type of inline hook request. For example, &#x60;com.okta.user.telephony.pre-enrollment&#x60;. | [optional] 
-**Source** | Pointer to **string** | The ID and URL of the Telephony inline hook | [optional] 
+**Source** | Pointer to **string** | The ID and URL of the telephony inline hook | [optional] 
 
 ## Methods
 

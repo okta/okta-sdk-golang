@@ -4,13 +4,13 @@ All URIs are relative to *https://subdomain.okta.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ActivateAuthorizationServer**](AuthorizationServerAPI.md#ActivateAuthorizationServer) | **Post** /api/v1/authorizationServers/{authServerId}/lifecycle/activate | Activate an Authorization Server
-[**CreateAuthorizationServer**](AuthorizationServerAPI.md#CreateAuthorizationServer) | **Post** /api/v1/authorizationServers | Create an Authorization Server
-[**DeactivateAuthorizationServer**](AuthorizationServerAPI.md#DeactivateAuthorizationServer) | **Post** /api/v1/authorizationServers/{authServerId}/lifecycle/deactivate | Deactivate an Authorization Server
-[**DeleteAuthorizationServer**](AuthorizationServerAPI.md#DeleteAuthorizationServer) | **Delete** /api/v1/authorizationServers/{authServerId} | Delete an Authorization Server
-[**GetAuthorizationServer**](AuthorizationServerAPI.md#GetAuthorizationServer) | **Get** /api/v1/authorizationServers/{authServerId} | Retrieve an Authorization Server
-[**ListAuthorizationServers**](AuthorizationServerAPI.md#ListAuthorizationServers) | **Get** /api/v1/authorizationServers | List all Authorization Servers
-[**ReplaceAuthorizationServer**](AuthorizationServerAPI.md#ReplaceAuthorizationServer) | **Put** /api/v1/authorizationServers/{authServerId} | Replace an Authorization Server
+[**ActivateAuthorizationServer**](AuthorizationServerAPI.md#ActivateAuthorizationServer) | **Post** /api/v1/authorizationServers/{authServerId}/lifecycle/activate | Activate an authorization server
+[**CreateAuthorizationServer**](AuthorizationServerAPI.md#CreateAuthorizationServer) | **Post** /api/v1/authorizationServers | Create an authorization server
+[**DeactivateAuthorizationServer**](AuthorizationServerAPI.md#DeactivateAuthorizationServer) | **Post** /api/v1/authorizationServers/{authServerId}/lifecycle/deactivate | Deactivate an authorization server
+[**DeleteAuthorizationServer**](AuthorizationServerAPI.md#DeleteAuthorizationServer) | **Delete** /api/v1/authorizationServers/{authServerId} | Delete an authorization server
+[**GetAuthorizationServer**](AuthorizationServerAPI.md#GetAuthorizationServer) | **Get** /api/v1/authorizationServers/{authServerId} | Retrieve an authorization server
+[**ListAuthorizationServers**](AuthorizationServerAPI.md#ListAuthorizationServers) | **Get** /api/v1/authorizationServers | List all authorization servers
+[**ReplaceAuthorizationServer**](AuthorizationServerAPI.md#ReplaceAuthorizationServer) | **Put** /api/v1/authorizationServers/{authServerId} | Replace an authorization server
 
 
 
@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 > ActivateAuthorizationServer(ctx, authServerId).Execute()
 
-Activate an Authorization Server
+Activate an authorization server
 
 
 
@@ -28,22 +28,22 @@ Activate an Authorization Server
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.AuthorizationServerAPI.ActivateAuthorizationServer(context.Background(), authServerId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerAPI.ActivateAuthorizationServer``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AuthorizationServerAPI.ActivateAuthorizationServer(context.Background(), authServerId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerAPI.ActivateAuthorizationServer``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -86,7 +86,7 @@ Name | Type | Description  | Notes
 
 > AuthorizationServer CreateAuthorizationServer(ctx).AuthorizationServer(authorizationServer).Execute()
 
-Create an Authorization Server
+Create an authorization server
 
 
 
@@ -96,24 +96,24 @@ Create an Authorization Server
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authorizationServer := *openapiclient.NewAuthorizationServer() // AuthorizationServer | 
+	authorizationServer := *openapiclient.NewAuthorizationServer() // AuthorizationServer | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthorizationServerAPI.CreateAuthorizationServer(context.Background()).AuthorizationServer(authorizationServer).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerAPI.CreateAuthorizationServer``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateAuthorizationServer`: AuthorizationServer
-    fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerAPI.CreateAuthorizationServer`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthorizationServerAPI.CreateAuthorizationServer(context.Background()).AuthorizationServer(authorizationServer).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerAPI.CreateAuthorizationServer``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateAuthorizationServer`: AuthorizationServer
+	fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerAPI.CreateAuthorizationServer`: %v\n", resp)
 }
 ```
 
@@ -152,7 +152,7 @@ Name | Type | Description  | Notes
 
 > DeactivateAuthorizationServer(ctx, authServerId).Execute()
 
-Deactivate an Authorization Server
+Deactivate an authorization server
 
 
 
@@ -162,22 +162,22 @@ Deactivate an Authorization Server
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.AuthorizationServerAPI.DeactivateAuthorizationServer(context.Background(), authServerId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerAPI.DeactivateAuthorizationServer``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AuthorizationServerAPI.DeactivateAuthorizationServer(context.Background(), authServerId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerAPI.DeactivateAuthorizationServer``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 
 > DeleteAuthorizationServer(ctx, authServerId).Execute()
 
-Delete an Authorization Server
+Delete an authorization server
 
 
 
@@ -230,22 +230,22 @@ Delete an Authorization Server
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.AuthorizationServerAPI.DeleteAuthorizationServer(context.Background(), authServerId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerAPI.DeleteAuthorizationServer``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AuthorizationServerAPI.DeleteAuthorizationServer(context.Background(), authServerId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerAPI.DeleteAuthorizationServer``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -288,7 +288,7 @@ Name | Type | Description  | Notes
 
 > AuthorizationServer GetAuthorizationServer(ctx, authServerId).Execute()
 
-Retrieve an Authorization Server
+Retrieve an authorization server
 
 
 
@@ -298,24 +298,24 @@ Retrieve an Authorization Server
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthorizationServerAPI.GetAuthorizationServer(context.Background(), authServerId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerAPI.GetAuthorizationServer``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAuthorizationServer`: AuthorizationServer
-    fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerAPI.GetAuthorizationServer`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthorizationServerAPI.GetAuthorizationServer(context.Background(), authServerId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerAPI.GetAuthorizationServer``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAuthorizationServer`: AuthorizationServer
+	fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerAPI.GetAuthorizationServer`: %v\n", resp)
 }
 ```
 
@@ -358,7 +358,7 @@ Name | Type | Description  | Notes
 
 > []AuthorizationServer ListAuthorizationServers(ctx).Q(q).Limit(limit).After(after).Execute()
 
-List all Authorization Servers
+List all authorization servers
 
 
 
@@ -368,26 +368,26 @@ List all Authorization Servers
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    q := "customasone" // string | Searches the `name` and `audiences` of authorization servers for matching values (optional)
-    limit := int32(56) // int32 | Specifies the number of authorization server results on a page. Maximum value: 200 (optional) (default to 200)
-    after := "after_example" // string | Specifies the pagination cursor for the next page of authorization servers. Treat as an opaque value and obtain through the next link relationship. (optional)
+	q := "customasone" // string | Searches the `name` and `audiences` of authorization servers for matching values (optional)
+	limit := int32(56) // int32 | Specifies the number of authorization server results on a page. Maximum value: 200 (optional) (default to 200)
+	after := "after_example" // string | Specifies the pagination cursor for the next page of authorization servers. Treat as an opaque value and obtain through the next link relationship. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthorizationServerAPI.ListAuthorizationServers(context.Background()).Q(q).Limit(limit).After(after).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerAPI.ListAuthorizationServers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListAuthorizationServers`: []AuthorizationServer
-    fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerAPI.ListAuthorizationServers`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthorizationServerAPI.ListAuthorizationServers(context.Background()).Q(q).Limit(limit).After(after).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerAPI.ListAuthorizationServers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListAuthorizationServers`: []AuthorizationServer
+	fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerAPI.ListAuthorizationServers`: %v\n", resp)
 }
 ```
 
@@ -428,7 +428,7 @@ Name | Type | Description  | Notes
 
 > AuthorizationServer ReplaceAuthorizationServer(ctx, authServerId).AuthorizationServer(authorizationServer).Execute()
 
-Replace an Authorization Server
+Replace an authorization server
 
 
 
@@ -438,25 +438,25 @@ Replace an Authorization Server
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-    authorizationServer := *openapiclient.NewAuthorizationServer() // AuthorizationServer | 
+	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+	authorizationServer := *openapiclient.NewAuthorizationServer() // AuthorizationServer | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthorizationServerAPI.ReplaceAuthorizationServer(context.Background(), authServerId).AuthorizationServer(authorizationServer).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerAPI.ReplaceAuthorizationServer``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceAuthorizationServer`: AuthorizationServer
-    fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerAPI.ReplaceAuthorizationServer`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthorizationServerAPI.ReplaceAuthorizationServer(context.Background(), authServerId).AuthorizationServer(authorizationServer).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerAPI.ReplaceAuthorizationServer``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceAuthorizationServer`: AuthorizationServer
+	fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerAPI.ReplaceAuthorizationServer`: %v\n", resp)
 }
 ```
 

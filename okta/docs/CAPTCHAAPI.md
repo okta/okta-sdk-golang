@@ -5,14 +5,14 @@ All URIs are relative to *https://subdomain.okta.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateCaptchaInstance**](CAPTCHAAPI.md#CreateCaptchaInstance) | **Post** /api/v1/captchas | Create a CAPTCHA instance
-[**DeleteCaptchaInstance**](CAPTCHAAPI.md#DeleteCaptchaInstance) | **Delete** /api/v1/captchas/{captchaId} | Delete a CAPTCHA Instance
-[**DeleteOrgCaptchaSettings**](CAPTCHAAPI.md#DeleteOrgCaptchaSettings) | **Delete** /api/v1/org/captcha | Delete the Org-wide CAPTCHA Settings
-[**GetCaptchaInstance**](CAPTCHAAPI.md#GetCaptchaInstance) | **Get** /api/v1/captchas/{captchaId} | Retrieve a CAPTCHA Instance
-[**GetOrgCaptchaSettings**](CAPTCHAAPI.md#GetOrgCaptchaSettings) | **Get** /api/v1/org/captcha | Retrieve the Org-wide CAPTCHA Settings
-[**ListCaptchaInstances**](CAPTCHAAPI.md#ListCaptchaInstances) | **Get** /api/v1/captchas | List all CAPTCHA Instances
-[**ReplaceCaptchaInstance**](CAPTCHAAPI.md#ReplaceCaptchaInstance) | **Put** /api/v1/captchas/{captchaId} | Replace a CAPTCHA Instance
-[**ReplacesOrgCaptchaSettings**](CAPTCHAAPI.md#ReplacesOrgCaptchaSettings) | **Put** /api/v1/org/captcha | Replace the Org-wide CAPTCHA Settings
-[**UpdateCaptchaInstance**](CAPTCHAAPI.md#UpdateCaptchaInstance) | **Post** /api/v1/captchas/{captchaId} | Update a CAPTCHA Instance
+[**DeleteCaptchaInstance**](CAPTCHAAPI.md#DeleteCaptchaInstance) | **Delete** /api/v1/captchas/{captchaId} | Delete a CAPTCHA instance
+[**DeleteOrgCaptchaSettings**](CAPTCHAAPI.md#DeleteOrgCaptchaSettings) | **Delete** /api/v1/org/captcha | Delete the org-wide CAPTCHA settings
+[**GetCaptchaInstance**](CAPTCHAAPI.md#GetCaptchaInstance) | **Get** /api/v1/captchas/{captchaId} | Retrieve a CAPTCHA instance
+[**GetOrgCaptchaSettings**](CAPTCHAAPI.md#GetOrgCaptchaSettings) | **Get** /api/v1/org/captcha | Retrieve the org-wide CAPTCHA settings
+[**ListCaptchaInstances**](CAPTCHAAPI.md#ListCaptchaInstances) | **Get** /api/v1/captchas | List all CAPTCHA instances
+[**ReplaceCaptchaInstance**](CAPTCHAAPI.md#ReplaceCaptchaInstance) | **Put** /api/v1/captchas/{captchaId} | Replace a CAPTCHA instance
+[**ReplacesOrgCaptchaSettings**](CAPTCHAAPI.md#ReplacesOrgCaptchaSettings) | **Put** /api/v1/org/captcha | Replace the org-wide CAPTCHA settings
+[**UpdateCaptchaInstance**](CAPTCHAAPI.md#UpdateCaptchaInstance) | **Post** /api/v1/captchas/{captchaId} | Update a CAPTCHA instance
 
 
 
@@ -30,24 +30,24 @@ Create a CAPTCHA instance
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    instance := *openapiclient.NewCAPTCHAInstance() // CAPTCHAInstance | 
+	instance := *openapiclient.NewCAPTCHAInstance() // CAPTCHAInstance | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CAPTCHAAPI.CreateCaptchaInstance(context.Background()).Instance(instance).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CAPTCHAAPI.CreateCaptchaInstance``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateCaptchaInstance`: CAPTCHAInstance
-    fmt.Fprintf(os.Stdout, "Response from `CAPTCHAAPI.CreateCaptchaInstance`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CAPTCHAAPI.CreateCaptchaInstance(context.Background()).Instance(instance).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CAPTCHAAPI.CreateCaptchaInstance``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateCaptchaInstance`: CAPTCHAInstance
+	fmt.Fprintf(os.Stdout, "Response from `CAPTCHAAPI.CreateCaptchaInstance`: %v\n", resp)
 }
 ```
 
@@ -86,7 +86,7 @@ Name | Type | Description  | Notes
 
 > DeleteCaptchaInstance(ctx, captchaId).Execute()
 
-Delete a CAPTCHA Instance
+Delete a CAPTCHA instance
 
 
 
@@ -96,22 +96,22 @@ Delete a CAPTCHA Instance
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    captchaId := "captchaId_example" // string | The unique key used to identify your CAPTCHA instance
+	captchaId := "captchaId_example" // string | The unique key used to identify your CAPTCHA instance
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.CAPTCHAAPI.DeleteCaptchaInstance(context.Background(), captchaId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CAPTCHAAPI.DeleteCaptchaInstance``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CAPTCHAAPI.DeleteCaptchaInstance(context.Background(), captchaId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CAPTCHAAPI.DeleteCaptchaInstance``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -154,7 +154,7 @@ Name | Type | Description  | Notes
 
 > DeleteOrgCaptchaSettings(ctx).Execute()
 
-Delete the Org-wide CAPTCHA Settings
+Delete the org-wide CAPTCHA settings
 
 
 
@@ -164,21 +164,21 @@ Delete the Org-wide CAPTCHA Settings
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.CAPTCHAAPI.DeleteOrgCaptchaSettings(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CAPTCHAAPI.DeleteOrgCaptchaSettings``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CAPTCHAAPI.DeleteOrgCaptchaSettings(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CAPTCHAAPI.DeleteOrgCaptchaSettings``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -213,7 +213,7 @@ Other parameters are passed through a pointer to a apiDeleteOrgCaptchaSettingsRe
 
 > CAPTCHAInstance GetCaptchaInstance(ctx, captchaId).Execute()
 
-Retrieve a CAPTCHA Instance
+Retrieve a CAPTCHA instance
 
 
 
@@ -223,24 +223,24 @@ Retrieve a CAPTCHA Instance
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    captchaId := "captchaId_example" // string | The unique key used to identify your CAPTCHA instance
+	captchaId := "captchaId_example" // string | The unique key used to identify your CAPTCHA instance
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CAPTCHAAPI.GetCaptchaInstance(context.Background(), captchaId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CAPTCHAAPI.GetCaptchaInstance``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetCaptchaInstance`: CAPTCHAInstance
-    fmt.Fprintf(os.Stdout, "Response from `CAPTCHAAPI.GetCaptchaInstance`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CAPTCHAAPI.GetCaptchaInstance(context.Background(), captchaId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CAPTCHAAPI.GetCaptchaInstance``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCaptchaInstance`: CAPTCHAInstance
+	fmt.Fprintf(os.Stdout, "Response from `CAPTCHAAPI.GetCaptchaInstance`: %v\n", resp)
 }
 ```
 
@@ -283,7 +283,7 @@ Name | Type | Description  | Notes
 
 > OrgCAPTCHASettings GetOrgCaptchaSettings(ctx).Execute()
 
-Retrieve the Org-wide CAPTCHA Settings
+Retrieve the org-wide CAPTCHA settings
 
 
 
@@ -293,23 +293,23 @@ Retrieve the Org-wide CAPTCHA Settings
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CAPTCHAAPI.GetOrgCaptchaSettings(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CAPTCHAAPI.GetOrgCaptchaSettings``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetOrgCaptchaSettings`: OrgCAPTCHASettings
-    fmt.Fprintf(os.Stdout, "Response from `CAPTCHAAPI.GetOrgCaptchaSettings`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CAPTCHAAPI.GetOrgCaptchaSettings(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CAPTCHAAPI.GetOrgCaptchaSettings``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetOrgCaptchaSettings`: OrgCAPTCHASettings
+	fmt.Fprintf(os.Stdout, "Response from `CAPTCHAAPI.GetOrgCaptchaSettings`: %v\n", resp)
 }
 ```
 
@@ -344,7 +344,7 @@ Other parameters are passed through a pointer to a apiGetOrgCaptchaSettingsReque
 
 > []CAPTCHAInstance ListCaptchaInstances(ctx).Execute()
 
-List all CAPTCHA Instances
+List all CAPTCHA instances
 
 
 
@@ -354,23 +354,23 @@ List all CAPTCHA Instances
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CAPTCHAAPI.ListCaptchaInstances(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CAPTCHAAPI.ListCaptchaInstances``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListCaptchaInstances`: []CAPTCHAInstance
-    fmt.Fprintf(os.Stdout, "Response from `CAPTCHAAPI.ListCaptchaInstances`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CAPTCHAAPI.ListCaptchaInstances(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CAPTCHAAPI.ListCaptchaInstances``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListCaptchaInstances`: []CAPTCHAInstance
+	fmt.Fprintf(os.Stdout, "Response from `CAPTCHAAPI.ListCaptchaInstances`: %v\n", resp)
 }
 ```
 
@@ -405,7 +405,7 @@ Other parameters are passed through a pointer to a apiListCaptchaInstancesReques
 
 > CAPTCHAInstance ReplaceCaptchaInstance(ctx, captchaId).Instance(instance).Execute()
 
-Replace a CAPTCHA Instance
+Replace a CAPTCHA instance
 
 
 
@@ -415,25 +415,25 @@ Replace a CAPTCHA Instance
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    captchaId := "captchaId_example" // string | The unique key used to identify your CAPTCHA instance
-    instance := *openapiclient.NewCAPTCHAInstance() // CAPTCHAInstance | 
+	captchaId := "captchaId_example" // string | The unique key used to identify your CAPTCHA instance
+	instance := *openapiclient.NewCAPTCHAInstance() // CAPTCHAInstance | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CAPTCHAAPI.ReplaceCaptchaInstance(context.Background(), captchaId).Instance(instance).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CAPTCHAAPI.ReplaceCaptchaInstance``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceCaptchaInstance`: CAPTCHAInstance
-    fmt.Fprintf(os.Stdout, "Response from `CAPTCHAAPI.ReplaceCaptchaInstance`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CAPTCHAAPI.ReplaceCaptchaInstance(context.Background(), captchaId).Instance(instance).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CAPTCHAAPI.ReplaceCaptchaInstance``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceCaptchaInstance`: CAPTCHAInstance
+	fmt.Fprintf(os.Stdout, "Response from `CAPTCHAAPI.ReplaceCaptchaInstance`: %v\n", resp)
 }
 ```
 
@@ -477,7 +477,7 @@ Name | Type | Description  | Notes
 
 > OrgCAPTCHASettings ReplacesOrgCaptchaSettings(ctx).OrgCAPTCHASettings(orgCAPTCHASettings).Execute()
 
-Replace the Org-wide CAPTCHA Settings
+Replace the org-wide CAPTCHA settings
 
 
 
@@ -487,24 +487,24 @@ Replace the Org-wide CAPTCHA Settings
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    orgCAPTCHASettings := *openapiclient.NewOrgCAPTCHASettings() // OrgCAPTCHASettings | 
+	orgCAPTCHASettings := *openapiclient.NewOrgCAPTCHASettings() // OrgCAPTCHASettings | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CAPTCHAAPI.ReplacesOrgCaptchaSettings(context.Background()).OrgCAPTCHASettings(orgCAPTCHASettings).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CAPTCHAAPI.ReplacesOrgCaptchaSettings``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplacesOrgCaptchaSettings`: OrgCAPTCHASettings
-    fmt.Fprintf(os.Stdout, "Response from `CAPTCHAAPI.ReplacesOrgCaptchaSettings`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CAPTCHAAPI.ReplacesOrgCaptchaSettings(context.Background()).OrgCAPTCHASettings(orgCAPTCHASettings).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CAPTCHAAPI.ReplacesOrgCaptchaSettings``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplacesOrgCaptchaSettings`: OrgCAPTCHASettings
+	fmt.Fprintf(os.Stdout, "Response from `CAPTCHAAPI.ReplacesOrgCaptchaSettings`: %v\n", resp)
 }
 ```
 
@@ -543,7 +543,7 @@ Name | Type | Description  | Notes
 
 > CAPTCHAInstance UpdateCaptchaInstance(ctx, captchaId).Instance(instance).Execute()
 
-Update a CAPTCHA Instance
+Update a CAPTCHA instance
 
 
 
@@ -553,25 +553,25 @@ Update a CAPTCHA Instance
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    captchaId := "captchaId_example" // string | The unique key used to identify your CAPTCHA instance
-    instance := *openapiclient.NewCAPTCHAInstance() // CAPTCHAInstance | 
+	captchaId := "captchaId_example" // string | The unique key used to identify your CAPTCHA instance
+	instance := *openapiclient.NewCAPTCHAInstance() // CAPTCHAInstance | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CAPTCHAAPI.UpdateCaptchaInstance(context.Background(), captchaId).Instance(instance).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CAPTCHAAPI.UpdateCaptchaInstance``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateCaptchaInstance`: CAPTCHAInstance
-    fmt.Fprintf(os.Stdout, "Response from `CAPTCHAAPI.UpdateCaptchaInstance`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CAPTCHAAPI.UpdateCaptchaInstance(context.Background(), captchaId).Instance(instance).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CAPTCHAAPI.UpdateCaptchaInstance``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateCaptchaInstance`: CAPTCHAInstance
+	fmt.Fprintf(os.Stdout, "Response from `CAPTCHAAPI.UpdateCaptchaInstance`: %v\n", resp)
 }
 ```
 

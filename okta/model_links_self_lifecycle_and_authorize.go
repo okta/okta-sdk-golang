@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the LinksSelfLifecycleAndAuthorize type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LinksSelfLifecycleAndAuthorize{}
+
 // LinksSelfLifecycleAndAuthorize struct for LinksSelfLifecycleAndAuthorize
 type LinksSelfLifecycleAndAuthorize struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Activate *HrefObjectActivateLink `json:"activate,omitempty"`
-	Deactivate *HrefObjectDeactivateLink `json:"deactivate,omitempty"`
-	Authorize *HrefObjectAuthorizeLink `json:"authorize,omitempty"`
+	Self                 *HrefObjectSelfLink       `json:"self,omitempty"`
+	Activate             *HrefObjectActivateLink   `json:"activate,omitempty"`
+	Deactivate           *HrefObjectDeactivateLink `json:"deactivate,omitempty"`
+	Authorize            *HrefObjectAuthorizeLink  `json:"authorize,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewLinksSelfLifecycleAndAuthorizeWithDefaults() *LinksSelfLifecycleAndAutho
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *LinksSelfLifecycleAndAuthorize) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *LinksSelfLifecycleAndAuthorize) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksSelfLifecycleAndAuthorize) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -75,7 +78,7 @@ func (o *LinksSelfLifecycleAndAuthorize) GetSelfOk() (*HrefObjectSelfLink, bool)
 
 // HasSelf returns a boolean if a field has been set.
 func (o *LinksSelfLifecycleAndAuthorize) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *LinksSelfLifecycleAndAuthorize) SetSelf(v HrefObjectSelfLink) {
 
 // GetActivate returns the Activate field value if set, zero value otherwise.
 func (o *LinksSelfLifecycleAndAuthorize) GetActivate() HrefObjectActivateLink {
-	if o == nil || o.Activate == nil {
+	if o == nil || IsNil(o.Activate) {
 		var ret HrefObjectActivateLink
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *LinksSelfLifecycleAndAuthorize) GetActivate() HrefObjectActivateLink {
 // GetActivateOk returns a tuple with the Activate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksSelfLifecycleAndAuthorize) GetActivateOk() (*HrefObjectActivateLink, bool) {
-	if o == nil || o.Activate == nil {
+	if o == nil || IsNil(o.Activate) {
 		return nil, false
 	}
 	return o.Activate, true
@@ -107,7 +110,7 @@ func (o *LinksSelfLifecycleAndAuthorize) GetActivateOk() (*HrefObjectActivateLin
 
 // HasActivate returns a boolean if a field has been set.
 func (o *LinksSelfLifecycleAndAuthorize) HasActivate() bool {
-	if o != nil && o.Activate != nil {
+	if o != nil && !IsNil(o.Activate) {
 		return true
 	}
 
@@ -121,7 +124,7 @@ func (o *LinksSelfLifecycleAndAuthorize) SetActivate(v HrefObjectActivateLink) {
 
 // GetDeactivate returns the Deactivate field value if set, zero value otherwise.
 func (o *LinksSelfLifecycleAndAuthorize) GetDeactivate() HrefObjectDeactivateLink {
-	if o == nil || o.Deactivate == nil {
+	if o == nil || IsNil(o.Deactivate) {
 		var ret HrefObjectDeactivateLink
 		return ret
 	}
@@ -131,7 +134,7 @@ func (o *LinksSelfLifecycleAndAuthorize) GetDeactivate() HrefObjectDeactivateLin
 // GetDeactivateOk returns a tuple with the Deactivate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksSelfLifecycleAndAuthorize) GetDeactivateOk() (*HrefObjectDeactivateLink, bool) {
-	if o == nil || o.Deactivate == nil {
+	if o == nil || IsNil(o.Deactivate) {
 		return nil, false
 	}
 	return o.Deactivate, true
@@ -139,7 +142,7 @@ func (o *LinksSelfLifecycleAndAuthorize) GetDeactivateOk() (*HrefObjectDeactivat
 
 // HasDeactivate returns a boolean if a field has been set.
 func (o *LinksSelfLifecycleAndAuthorize) HasDeactivate() bool {
-	if o != nil && o.Deactivate != nil {
+	if o != nil && !IsNil(o.Deactivate) {
 		return true
 	}
 
@@ -153,7 +156,7 @@ func (o *LinksSelfLifecycleAndAuthorize) SetDeactivate(v HrefObjectDeactivateLin
 
 // GetAuthorize returns the Authorize field value if set, zero value otherwise.
 func (o *LinksSelfLifecycleAndAuthorize) GetAuthorize() HrefObjectAuthorizeLink {
-	if o == nil || o.Authorize == nil {
+	if o == nil || IsNil(o.Authorize) {
 		var ret HrefObjectAuthorizeLink
 		return ret
 	}
@@ -163,7 +166,7 @@ func (o *LinksSelfLifecycleAndAuthorize) GetAuthorize() HrefObjectAuthorizeLink 
 // GetAuthorizeOk returns a tuple with the Authorize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksSelfLifecycleAndAuthorize) GetAuthorizeOk() (*HrefObjectAuthorizeLink, bool) {
-	if o == nil || o.Authorize == nil {
+	if o == nil || IsNil(o.Authorize) {
 		return nil, false
 	}
 	return o.Authorize, true
@@ -171,7 +174,7 @@ func (o *LinksSelfLifecycleAndAuthorize) GetAuthorizeOk() (*HrefObjectAuthorizeL
 
 // HasAuthorize returns a boolean if a field has been set.
 func (o *LinksSelfLifecycleAndAuthorize) HasAuthorize() bool {
-	if o != nil && o.Authorize != nil {
+	if o != nil && !IsNil(o.Authorize) {
 		return true
 	}
 
@@ -184,17 +187,25 @@ func (o *LinksSelfLifecycleAndAuthorize) SetAuthorize(v HrefObjectAuthorizeLink)
 }
 
 func (o LinksSelfLifecycleAndAuthorize) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LinksSelfLifecycleAndAuthorize) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.Activate != nil {
+	if !IsNil(o.Activate) {
 		toSerialize["activate"] = o.Activate
 	}
-	if o.Deactivate != nil {
+	if !IsNil(o.Deactivate) {
 		toSerialize["deactivate"] = o.Deactivate
 	}
-	if o.Authorize != nil {
+	if !IsNil(o.Authorize) {
 		toSerialize["authorize"] = o.Authorize
 	}
 
@@ -202,30 +213,28 @@ func (o LinksSelfLifecycleAndAuthorize) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LinksSelfLifecycleAndAuthorize) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LinksSelfLifecycleAndAuthorize) UnmarshalJSON(data []byte) (err error) {
 	varLinksSelfLifecycleAndAuthorize := _LinksSelfLifecycleAndAuthorize{}
 
-	err = json.Unmarshal(bytes, &varLinksSelfLifecycleAndAuthorize)
-	if err == nil {
-		*o = LinksSelfLifecycleAndAuthorize(varLinksSelfLifecycleAndAuthorize)
-	} else {
+	err = json.Unmarshal(data, &varLinksSelfLifecycleAndAuthorize)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LinksSelfLifecycleAndAuthorize(varLinksSelfLifecycleAndAuthorize)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "activate")
 		delete(additionalProperties, "deactivate")
 		delete(additionalProperties, "authorize")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -266,4 +275,3 @@ func (v *NullableLinksSelfLifecycleAndAuthorize) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

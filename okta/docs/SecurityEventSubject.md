@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Device** | Pointer to **map[string]interface{}** | The device involved with the event | [optional] 
-**Tenant** | Pointer to **map[string]interface{}** | The tenant involved with the event | [optional] 
-**User** | Pointer to **map[string]interface{}** | The user involved with the event | [optional] 
+**Format** | Pointer to **string** | The format of the subject | [optional] 
+**Iss** | Pointer to **string** | An identifier of the actor | [optional] 
+**Sub** | Pointer to **string** | An identifier for the subject that was acted on | [optional] 
 
 ## Methods
 
@@ -27,80 +27,80 @@ NewSecurityEventSubjectWithDefaults instantiates a new SecurityEventSubject obje
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetDevice
+### GetFormat
 
-`func (o *SecurityEventSubject) GetDevice() map[string]interface{}`
+`func (o *SecurityEventSubject) GetFormat() string`
 
-GetDevice returns the Device field if non-nil, zero value otherwise.
+GetFormat returns the Format field if non-nil, zero value otherwise.
 
-### GetDeviceOk
+### GetFormatOk
 
-`func (o *SecurityEventSubject) GetDeviceOk() (*map[string]interface{}, bool)`
+`func (o *SecurityEventSubject) GetFormatOk() (*string, bool)`
 
-GetDeviceOk returns a tuple with the Device field if it's non-nil, zero value otherwise
+GetFormatOk returns a tuple with the Format field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetDevice
+### SetFormat
 
-`func (o *SecurityEventSubject) SetDevice(v map[string]interface{})`
+`func (o *SecurityEventSubject) SetFormat(v string)`
 
-SetDevice sets Device field to given value.
+SetFormat sets Format field to given value.
 
-### HasDevice
+### HasFormat
 
-`func (o *SecurityEventSubject) HasDevice() bool`
+`func (o *SecurityEventSubject) HasFormat() bool`
 
-HasDevice returns a boolean if a field has been set.
+HasFormat returns a boolean if a field has been set.
 
-### GetTenant
+### GetIss
 
-`func (o *SecurityEventSubject) GetTenant() map[string]interface{}`
+`func (o *SecurityEventSubject) GetIss() string`
 
-GetTenant returns the Tenant field if non-nil, zero value otherwise.
+GetIss returns the Iss field if non-nil, zero value otherwise.
 
-### GetTenantOk
+### GetIssOk
 
-`func (o *SecurityEventSubject) GetTenantOk() (*map[string]interface{}, bool)`
+`func (o *SecurityEventSubject) GetIssOk() (*string, bool)`
 
-GetTenantOk returns a tuple with the Tenant field if it's non-nil, zero value otherwise
+GetIssOk returns a tuple with the Iss field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetTenant
+### SetIss
 
-`func (o *SecurityEventSubject) SetTenant(v map[string]interface{})`
+`func (o *SecurityEventSubject) SetIss(v string)`
 
-SetTenant sets Tenant field to given value.
+SetIss sets Iss field to given value.
 
-### HasTenant
+### HasIss
 
-`func (o *SecurityEventSubject) HasTenant() bool`
+`func (o *SecurityEventSubject) HasIss() bool`
 
-HasTenant returns a boolean if a field has been set.
+HasIss returns a boolean if a field has been set.
 
-### GetUser
+### GetSub
 
-`func (o *SecurityEventSubject) GetUser() map[string]interface{}`
+`func (o *SecurityEventSubject) GetSub() string`
 
-GetUser returns the User field if non-nil, zero value otherwise.
+GetSub returns the Sub field if non-nil, zero value otherwise.
 
-### GetUserOk
+### GetSubOk
 
-`func (o *SecurityEventSubject) GetUserOk() (*map[string]interface{}, bool)`
+`func (o *SecurityEventSubject) GetSubOk() (*string, bool)`
 
-GetUserOk returns a tuple with the User field if it's non-nil, zero value otherwise
+GetSubOk returns a tuple with the Sub field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetUser
+### SetSub
 
-`func (o *SecurityEventSubject) SetUser(v map[string]interface{})`
+`func (o *SecurityEventSubject) SetSub(v string)`
 
-SetUser sets User field to given value.
+SetSub sets Sub field to given value.
 
-### HasUser
+### HasSub
 
-`func (o *SecurityEventSubject) HasUser() bool`
+`func (o *SecurityEventSubject) HasSub() bool`
 
-HasUser returns a boolean if a field has been set.
+HasSub returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

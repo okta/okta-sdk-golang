@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,14 +27,23 @@ import (
 	"encoding/json"
 )
 
+// checks if the CsrMetadataSubject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CsrMetadataSubject{}
+
 // CsrMetadataSubject struct for CsrMetadataSubject
 type CsrMetadataSubject struct {
+	// Common name of the subject
 	CommonName *string `json:"commonName,omitempty"`
+	// Country name or code
 	CountryName *string `json:"countryName,omitempty"`
+	// Locality (city) name
 	LocalityName *string `json:"localityName,omitempty"`
+	// Name of the smaller organization, for example, the department or the division
 	OrganizationalUnitName *string `json:"organizationalUnitName,omitempty"`
+	// Large organization name
 	OrganizationName *string `json:"organizationName,omitempty"`
-	StateOrProvinceName *string `json:"stateOrProvinceName,omitempty"`
+	// State or province name
+	StateOrProvinceName  *string `json:"stateOrProvinceName,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +68,7 @@ func NewCsrMetadataSubjectWithDefaults() *CsrMetadataSubject {
 
 // GetCommonName returns the CommonName field value if set, zero value otherwise.
 func (o *CsrMetadataSubject) GetCommonName() string {
-	if o == nil || o.CommonName == nil {
+	if o == nil || IsNil(o.CommonName) {
 		var ret string
 		return ret
 	}
@@ -69,7 +78,7 @@ func (o *CsrMetadataSubject) GetCommonName() string {
 // GetCommonNameOk returns a tuple with the CommonName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CsrMetadataSubject) GetCommonNameOk() (*string, bool) {
-	if o == nil || o.CommonName == nil {
+	if o == nil || IsNil(o.CommonName) {
 		return nil, false
 	}
 	return o.CommonName, true
@@ -77,7 +86,7 @@ func (o *CsrMetadataSubject) GetCommonNameOk() (*string, bool) {
 
 // HasCommonName returns a boolean if a field has been set.
 func (o *CsrMetadataSubject) HasCommonName() bool {
-	if o != nil && o.CommonName != nil {
+	if o != nil && !IsNil(o.CommonName) {
 		return true
 	}
 
@@ -91,7 +100,7 @@ func (o *CsrMetadataSubject) SetCommonName(v string) {
 
 // GetCountryName returns the CountryName field value if set, zero value otherwise.
 func (o *CsrMetadataSubject) GetCountryName() string {
-	if o == nil || o.CountryName == nil {
+	if o == nil || IsNil(o.CountryName) {
 		var ret string
 		return ret
 	}
@@ -101,7 +110,7 @@ func (o *CsrMetadataSubject) GetCountryName() string {
 // GetCountryNameOk returns a tuple with the CountryName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CsrMetadataSubject) GetCountryNameOk() (*string, bool) {
-	if o == nil || o.CountryName == nil {
+	if o == nil || IsNil(o.CountryName) {
 		return nil, false
 	}
 	return o.CountryName, true
@@ -109,7 +118,7 @@ func (o *CsrMetadataSubject) GetCountryNameOk() (*string, bool) {
 
 // HasCountryName returns a boolean if a field has been set.
 func (o *CsrMetadataSubject) HasCountryName() bool {
-	if o != nil && o.CountryName != nil {
+	if o != nil && !IsNil(o.CountryName) {
 		return true
 	}
 
@@ -123,7 +132,7 @@ func (o *CsrMetadataSubject) SetCountryName(v string) {
 
 // GetLocalityName returns the LocalityName field value if set, zero value otherwise.
 func (o *CsrMetadataSubject) GetLocalityName() string {
-	if o == nil || o.LocalityName == nil {
+	if o == nil || IsNil(o.LocalityName) {
 		var ret string
 		return ret
 	}
@@ -133,7 +142,7 @@ func (o *CsrMetadataSubject) GetLocalityName() string {
 // GetLocalityNameOk returns a tuple with the LocalityName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CsrMetadataSubject) GetLocalityNameOk() (*string, bool) {
-	if o == nil || o.LocalityName == nil {
+	if o == nil || IsNil(o.LocalityName) {
 		return nil, false
 	}
 	return o.LocalityName, true
@@ -141,7 +150,7 @@ func (o *CsrMetadataSubject) GetLocalityNameOk() (*string, bool) {
 
 // HasLocalityName returns a boolean if a field has been set.
 func (o *CsrMetadataSubject) HasLocalityName() bool {
-	if o != nil && o.LocalityName != nil {
+	if o != nil && !IsNil(o.LocalityName) {
 		return true
 	}
 
@@ -155,7 +164,7 @@ func (o *CsrMetadataSubject) SetLocalityName(v string) {
 
 // GetOrganizationalUnitName returns the OrganizationalUnitName field value if set, zero value otherwise.
 func (o *CsrMetadataSubject) GetOrganizationalUnitName() string {
-	if o == nil || o.OrganizationalUnitName == nil {
+	if o == nil || IsNil(o.OrganizationalUnitName) {
 		var ret string
 		return ret
 	}
@@ -165,7 +174,7 @@ func (o *CsrMetadataSubject) GetOrganizationalUnitName() string {
 // GetOrganizationalUnitNameOk returns a tuple with the OrganizationalUnitName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CsrMetadataSubject) GetOrganizationalUnitNameOk() (*string, bool) {
-	if o == nil || o.OrganizationalUnitName == nil {
+	if o == nil || IsNil(o.OrganizationalUnitName) {
 		return nil, false
 	}
 	return o.OrganizationalUnitName, true
@@ -173,7 +182,7 @@ func (o *CsrMetadataSubject) GetOrganizationalUnitNameOk() (*string, bool) {
 
 // HasOrganizationalUnitName returns a boolean if a field has been set.
 func (o *CsrMetadataSubject) HasOrganizationalUnitName() bool {
-	if o != nil && o.OrganizationalUnitName != nil {
+	if o != nil && !IsNil(o.OrganizationalUnitName) {
 		return true
 	}
 
@@ -187,7 +196,7 @@ func (o *CsrMetadataSubject) SetOrganizationalUnitName(v string) {
 
 // GetOrganizationName returns the OrganizationName field value if set, zero value otherwise.
 func (o *CsrMetadataSubject) GetOrganizationName() string {
-	if o == nil || o.OrganizationName == nil {
+	if o == nil || IsNil(o.OrganizationName) {
 		var ret string
 		return ret
 	}
@@ -197,7 +206,7 @@ func (o *CsrMetadataSubject) GetOrganizationName() string {
 // GetOrganizationNameOk returns a tuple with the OrganizationName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CsrMetadataSubject) GetOrganizationNameOk() (*string, bool) {
-	if o == nil || o.OrganizationName == nil {
+	if o == nil || IsNil(o.OrganizationName) {
 		return nil, false
 	}
 	return o.OrganizationName, true
@@ -205,7 +214,7 @@ func (o *CsrMetadataSubject) GetOrganizationNameOk() (*string, bool) {
 
 // HasOrganizationName returns a boolean if a field has been set.
 func (o *CsrMetadataSubject) HasOrganizationName() bool {
-	if o != nil && o.OrganizationName != nil {
+	if o != nil && !IsNil(o.OrganizationName) {
 		return true
 	}
 
@@ -219,7 +228,7 @@ func (o *CsrMetadataSubject) SetOrganizationName(v string) {
 
 // GetStateOrProvinceName returns the StateOrProvinceName field value if set, zero value otherwise.
 func (o *CsrMetadataSubject) GetStateOrProvinceName() string {
-	if o == nil || o.StateOrProvinceName == nil {
+	if o == nil || IsNil(o.StateOrProvinceName) {
 		var ret string
 		return ret
 	}
@@ -229,7 +238,7 @@ func (o *CsrMetadataSubject) GetStateOrProvinceName() string {
 // GetStateOrProvinceNameOk returns a tuple with the StateOrProvinceName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CsrMetadataSubject) GetStateOrProvinceNameOk() (*string, bool) {
-	if o == nil || o.StateOrProvinceName == nil {
+	if o == nil || IsNil(o.StateOrProvinceName) {
 		return nil, false
 	}
 	return o.StateOrProvinceName, true
@@ -237,7 +246,7 @@ func (o *CsrMetadataSubject) GetStateOrProvinceNameOk() (*string, bool) {
 
 // HasStateOrProvinceName returns a boolean if a field has been set.
 func (o *CsrMetadataSubject) HasStateOrProvinceName() bool {
-	if o != nil && o.StateOrProvinceName != nil {
+	if o != nil && !IsNil(o.StateOrProvinceName) {
 		return true
 	}
 
@@ -250,23 +259,31 @@ func (o *CsrMetadataSubject) SetStateOrProvinceName(v string) {
 }
 
 func (o CsrMetadataSubject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CsrMetadataSubject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.CommonName != nil {
+	if !IsNil(o.CommonName) {
 		toSerialize["commonName"] = o.CommonName
 	}
-	if o.CountryName != nil {
+	if !IsNil(o.CountryName) {
 		toSerialize["countryName"] = o.CountryName
 	}
-	if o.LocalityName != nil {
+	if !IsNil(o.LocalityName) {
 		toSerialize["localityName"] = o.LocalityName
 	}
-	if o.OrganizationalUnitName != nil {
+	if !IsNil(o.OrganizationalUnitName) {
 		toSerialize["organizationalUnitName"] = o.OrganizationalUnitName
 	}
-	if o.OrganizationName != nil {
+	if !IsNil(o.OrganizationName) {
 		toSerialize["organizationName"] = o.OrganizationName
 	}
-	if o.StateOrProvinceName != nil {
+	if !IsNil(o.StateOrProvinceName) {
 		toSerialize["stateOrProvinceName"] = o.StateOrProvinceName
 	}
 
@@ -274,23 +291,23 @@ func (o CsrMetadataSubject) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CsrMetadataSubject) UnmarshalJSON(bytes []byte) (err error) {
+func (o *CsrMetadataSubject) UnmarshalJSON(data []byte) (err error) {
 	varCsrMetadataSubject := _CsrMetadataSubject{}
 
-	err = json.Unmarshal(bytes, &varCsrMetadataSubject)
-	if err == nil {
-		*o = CsrMetadataSubject(varCsrMetadataSubject)
-	} else {
+	err = json.Unmarshal(data, &varCsrMetadataSubject)
+
+	if err != nil {
 		return err
 	}
 
+	*o = CsrMetadataSubject(varCsrMetadataSubject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "commonName")
 		delete(additionalProperties, "countryName")
 		delete(additionalProperties, "localityName")
@@ -298,8 +315,6 @@ func (o *CsrMetadataSubject) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "organizationName")
 		delete(additionalProperties, "stateOrProvinceName")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -340,4 +355,3 @@ func (v *NullableCsrMetadataSubject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

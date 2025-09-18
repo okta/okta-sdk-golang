@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,11 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the ResourceSetBindingCreateRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceSetBindingCreateRequest{}
+
 // ResourceSetBindingCreateRequest struct for ResourceSetBindingCreateRequest
 type ResourceSetBindingCreateRequest struct {
+	// URLs to user and/or group instances that are assigned to the role
 	Members []string `json:"members,omitempty"`
 	// Unique key for the role
-	Role *string `json:"role,omitempty"`
+	Role                 *string `json:"role,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +60,7 @@ func NewResourceSetBindingCreateRequestWithDefaults() *ResourceSetBindingCreateR
 
 // GetMembers returns the Members field value if set, zero value otherwise.
 func (o *ResourceSetBindingCreateRequest) GetMembers() []string {
-	if o == nil || o.Members == nil {
+	if o == nil || IsNil(o.Members) {
 		var ret []string
 		return ret
 	}
@@ -66,7 +70,7 @@ func (o *ResourceSetBindingCreateRequest) GetMembers() []string {
 // GetMembersOk returns a tuple with the Members field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSetBindingCreateRequest) GetMembersOk() ([]string, bool) {
-	if o == nil || o.Members == nil {
+	if o == nil || IsNil(o.Members) {
 		return nil, false
 	}
 	return o.Members, true
@@ -74,7 +78,7 @@ func (o *ResourceSetBindingCreateRequest) GetMembersOk() ([]string, bool) {
 
 // HasMembers returns a boolean if a field has been set.
 func (o *ResourceSetBindingCreateRequest) HasMembers() bool {
-	if o != nil && o.Members != nil {
+	if o != nil && !IsNil(o.Members) {
 		return true
 	}
 
@@ -88,7 +92,7 @@ func (o *ResourceSetBindingCreateRequest) SetMembers(v []string) {
 
 // GetRole returns the Role field value if set, zero value otherwise.
 func (o *ResourceSetBindingCreateRequest) GetRole() string {
-	if o == nil || o.Role == nil {
+	if o == nil || IsNil(o.Role) {
 		var ret string
 		return ret
 	}
@@ -98,7 +102,7 @@ func (o *ResourceSetBindingCreateRequest) GetRole() string {
 // GetRoleOk returns a tuple with the Role field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSetBindingCreateRequest) GetRoleOk() (*string, bool) {
-	if o == nil || o.Role == nil {
+	if o == nil || IsNil(o.Role) {
 		return nil, false
 	}
 	return o.Role, true
@@ -106,7 +110,7 @@ func (o *ResourceSetBindingCreateRequest) GetRoleOk() (*string, bool) {
 
 // HasRole returns a boolean if a field has been set.
 func (o *ResourceSetBindingCreateRequest) HasRole() bool {
-	if o != nil && o.Role != nil {
+	if o != nil && !IsNil(o.Role) {
 		return true
 	}
 
@@ -119,11 +123,19 @@ func (o *ResourceSetBindingCreateRequest) SetRole(v string) {
 }
 
 func (o ResourceSetBindingCreateRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ResourceSetBindingCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Members != nil {
+	if !IsNil(o.Members) {
 		toSerialize["members"] = o.Members
 	}
-	if o.Role != nil {
+	if !IsNil(o.Role) {
 		toSerialize["role"] = o.Role
 	}
 
@@ -131,28 +143,26 @@ func (o ResourceSetBindingCreateRequest) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResourceSetBindingCreateRequest) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ResourceSetBindingCreateRequest) UnmarshalJSON(data []byte) (err error) {
 	varResourceSetBindingCreateRequest := _ResourceSetBindingCreateRequest{}
 
-	err = json.Unmarshal(bytes, &varResourceSetBindingCreateRequest)
-	if err == nil {
-		*o = ResourceSetBindingCreateRequest(varResourceSetBindingCreateRequest)
-	} else {
+	err = json.Unmarshal(data, &varResourceSetBindingCreateRequest)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ResourceSetBindingCreateRequest(varResourceSetBindingCreateRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "members")
 		delete(additionalProperties, "role")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +203,3 @@ func (v *NullableResourceSetBindingCreateRequest) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

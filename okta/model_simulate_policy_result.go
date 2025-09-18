@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the SimulatePolicyResult type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SimulatePolicyResult{}
+
 // SimulatePolicyResult The result of the policy evaluation
 type SimulatePolicyResult struct {
-	Policies []SimulateResultPoliciesItems `json:"policies,omitempty"`
+	Policies             []SimulateResultPoliciesItems `json:"policies,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewSimulatePolicyResultWithDefaults() *SimulatePolicyResult {
 
 // GetPolicies returns the Policies field value if set, zero value otherwise.
 func (o *SimulatePolicyResult) GetPolicies() []SimulateResultPoliciesItems {
-	if o == nil || o.Policies == nil {
+	if o == nil || IsNil(o.Policies) {
 		var ret []SimulateResultPoliciesItems
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *SimulatePolicyResult) GetPolicies() []SimulateResultPoliciesItems {
 // GetPoliciesOk returns a tuple with the Policies field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SimulatePolicyResult) GetPoliciesOk() ([]SimulateResultPoliciesItems, bool) {
-	if o == nil || o.Policies == nil {
+	if o == nil || IsNil(o.Policies) {
 		return nil, false
 	}
 	return o.Policies, true
@@ -72,7 +75,7 @@ func (o *SimulatePolicyResult) GetPoliciesOk() ([]SimulateResultPoliciesItems, b
 
 // HasPolicies returns a boolean if a field has been set.
 func (o *SimulatePolicyResult) HasPolicies() bool {
-	if o != nil && o.Policies != nil {
+	if o != nil && !IsNil(o.Policies) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *SimulatePolicyResult) SetPolicies(v []SimulateResultPoliciesItems) {
 }
 
 func (o SimulatePolicyResult) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SimulatePolicyResult) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Policies != nil {
+	if !IsNil(o.Policies) {
 		toSerialize["policies"] = o.Policies
 	}
 
@@ -94,27 +105,25 @@ func (o SimulatePolicyResult) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SimulatePolicyResult) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SimulatePolicyResult) UnmarshalJSON(data []byte) (err error) {
 	varSimulatePolicyResult := _SimulatePolicyResult{}
 
-	err = json.Unmarshal(bytes, &varSimulatePolicyResult)
-	if err == nil {
-		*o = SimulatePolicyResult(varSimulatePolicyResult)
-	} else {
+	err = json.Unmarshal(data, &varSimulatePolicyResult)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SimulatePolicyResult(varSimulatePolicyResult)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "policies")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableSimulatePolicyResult) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

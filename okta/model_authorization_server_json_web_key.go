@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -26,6 +26,9 @@ package okta
 import (
 	"encoding/json"
 )
+
+// checks if the AuthorizationServerJsonWebKey type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthorizationServerJsonWebKey{}
 
 // AuthorizationServerJsonWebKey struct for AuthorizationServerJsonWebKey
 type AuthorizationServerJsonWebKey struct {
@@ -42,8 +45,8 @@ type AuthorizationServerJsonWebKey struct {
 	// An `ACTIVE` Key is used to sign tokens issued by the authorization server. Supported values: `ACTIVE`, `NEXT`, or `EXPIRED`<br> A `NEXT` Key is the next Key that the authorization server uses to sign tokens when Keys are rotated. The `NEXT` Key might not be listed if it hasn't been generated. An `EXPIRED` Key is the previous Key that the authorization server used to sign tokens. The `EXPIRED` Key might not be listed if no Key has expired or the expired Key was deleted.
 	Status *string `json:"status,omitempty"`
 	// Acceptable use of the key. Valid value: `sig`
-	Use *string `json:"use,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	Use                  *string    `json:"use,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -68,7 +71,7 @@ func NewAuthorizationServerJsonWebKeyWithDefaults() *AuthorizationServerJsonWebK
 
 // GetAlg returns the Alg field value if set, zero value otherwise.
 func (o *AuthorizationServerJsonWebKey) GetAlg() string {
-	if o == nil || o.Alg == nil {
+	if o == nil || IsNil(o.Alg) {
 		var ret string
 		return ret
 	}
@@ -78,7 +81,7 @@ func (o *AuthorizationServerJsonWebKey) GetAlg() string {
 // GetAlgOk returns a tuple with the Alg field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerJsonWebKey) GetAlgOk() (*string, bool) {
-	if o == nil || o.Alg == nil {
+	if o == nil || IsNil(o.Alg) {
 		return nil, false
 	}
 	return o.Alg, true
@@ -86,7 +89,7 @@ func (o *AuthorizationServerJsonWebKey) GetAlgOk() (*string, bool) {
 
 // HasAlg returns a boolean if a field has been set.
 func (o *AuthorizationServerJsonWebKey) HasAlg() bool {
-	if o != nil && o.Alg != nil {
+	if o != nil && !IsNil(o.Alg) {
 		return true
 	}
 
@@ -100,7 +103,7 @@ func (o *AuthorizationServerJsonWebKey) SetAlg(v string) {
 
 // GetE returns the E field value if set, zero value otherwise.
 func (o *AuthorizationServerJsonWebKey) GetE() string {
-	if o == nil || o.E == nil {
+	if o == nil || IsNil(o.E) {
 		var ret string
 		return ret
 	}
@@ -110,7 +113,7 @@ func (o *AuthorizationServerJsonWebKey) GetE() string {
 // GetEOk returns a tuple with the E field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerJsonWebKey) GetEOk() (*string, bool) {
-	if o == nil || o.E == nil {
+	if o == nil || IsNil(o.E) {
 		return nil, false
 	}
 	return o.E, true
@@ -118,7 +121,7 @@ func (o *AuthorizationServerJsonWebKey) GetEOk() (*string, bool) {
 
 // HasE returns a boolean if a field has been set.
 func (o *AuthorizationServerJsonWebKey) HasE() bool {
-	if o != nil && o.E != nil {
+	if o != nil && !IsNil(o.E) {
 		return true
 	}
 
@@ -132,7 +135,7 @@ func (o *AuthorizationServerJsonWebKey) SetE(v string) {
 
 // GetKid returns the Kid field value if set, zero value otherwise.
 func (o *AuthorizationServerJsonWebKey) GetKid() string {
-	if o == nil || o.Kid == nil {
+	if o == nil || IsNil(o.Kid) {
 		var ret string
 		return ret
 	}
@@ -142,7 +145,7 @@ func (o *AuthorizationServerJsonWebKey) GetKid() string {
 // GetKidOk returns a tuple with the Kid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerJsonWebKey) GetKidOk() (*string, bool) {
-	if o == nil || o.Kid == nil {
+	if o == nil || IsNil(o.Kid) {
 		return nil, false
 	}
 	return o.Kid, true
@@ -150,7 +153,7 @@ func (o *AuthorizationServerJsonWebKey) GetKidOk() (*string, bool) {
 
 // HasKid returns a boolean if a field has been set.
 func (o *AuthorizationServerJsonWebKey) HasKid() bool {
-	if o != nil && o.Kid != nil {
+	if o != nil && !IsNil(o.Kid) {
 		return true
 	}
 
@@ -164,7 +167,7 @@ func (o *AuthorizationServerJsonWebKey) SetKid(v string) {
 
 // GetKty returns the Kty field value if set, zero value otherwise.
 func (o *AuthorizationServerJsonWebKey) GetKty() string {
-	if o == nil || o.Kty == nil {
+	if o == nil || IsNil(o.Kty) {
 		var ret string
 		return ret
 	}
@@ -174,7 +177,7 @@ func (o *AuthorizationServerJsonWebKey) GetKty() string {
 // GetKtyOk returns a tuple with the Kty field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerJsonWebKey) GetKtyOk() (*string, bool) {
-	if o == nil || o.Kty == nil {
+	if o == nil || IsNil(o.Kty) {
 		return nil, false
 	}
 	return o.Kty, true
@@ -182,7 +185,7 @@ func (o *AuthorizationServerJsonWebKey) GetKtyOk() (*string, bool) {
 
 // HasKty returns a boolean if a field has been set.
 func (o *AuthorizationServerJsonWebKey) HasKty() bool {
-	if o != nil && o.Kty != nil {
+	if o != nil && !IsNil(o.Kty) {
 		return true
 	}
 
@@ -196,7 +199,7 @@ func (o *AuthorizationServerJsonWebKey) SetKty(v string) {
 
 // GetN returns the N field value if set, zero value otherwise.
 func (o *AuthorizationServerJsonWebKey) GetN() string {
-	if o == nil || o.N == nil {
+	if o == nil || IsNil(o.N) {
 		var ret string
 		return ret
 	}
@@ -206,7 +209,7 @@ func (o *AuthorizationServerJsonWebKey) GetN() string {
 // GetNOk returns a tuple with the N field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerJsonWebKey) GetNOk() (*string, bool) {
-	if o == nil || o.N == nil {
+	if o == nil || IsNil(o.N) {
 		return nil, false
 	}
 	return o.N, true
@@ -214,7 +217,7 @@ func (o *AuthorizationServerJsonWebKey) GetNOk() (*string, bool) {
 
 // HasN returns a boolean if a field has been set.
 func (o *AuthorizationServerJsonWebKey) HasN() bool {
-	if o != nil && o.N != nil {
+	if o != nil && !IsNil(o.N) {
 		return true
 	}
 
@@ -228,7 +231,7 @@ func (o *AuthorizationServerJsonWebKey) SetN(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *AuthorizationServerJsonWebKey) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -238,7 +241,7 @@ func (o *AuthorizationServerJsonWebKey) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerJsonWebKey) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -246,7 +249,7 @@ func (o *AuthorizationServerJsonWebKey) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *AuthorizationServerJsonWebKey) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -260,7 +263,7 @@ func (o *AuthorizationServerJsonWebKey) SetStatus(v string) {
 
 // GetUse returns the Use field value if set, zero value otherwise.
 func (o *AuthorizationServerJsonWebKey) GetUse() string {
-	if o == nil || o.Use == nil {
+	if o == nil || IsNil(o.Use) {
 		var ret string
 		return ret
 	}
@@ -270,7 +273,7 @@ func (o *AuthorizationServerJsonWebKey) GetUse() string {
 // GetUseOk returns a tuple with the Use field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerJsonWebKey) GetUseOk() (*string, bool) {
-	if o == nil || o.Use == nil {
+	if o == nil || IsNil(o.Use) {
 		return nil, false
 	}
 	return o.Use, true
@@ -278,7 +281,7 @@ func (o *AuthorizationServerJsonWebKey) GetUseOk() (*string, bool) {
 
 // HasUse returns a boolean if a field has been set.
 func (o *AuthorizationServerJsonWebKey) HasUse() bool {
-	if o != nil && o.Use != nil {
+	if o != nil && !IsNil(o.Use) {
 		return true
 	}
 
@@ -292,7 +295,7 @@ func (o *AuthorizationServerJsonWebKey) SetUse(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *AuthorizationServerJsonWebKey) GetLinks() LinksSelf {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksSelf
 		return ret
 	}
@@ -302,7 +305,7 @@ func (o *AuthorizationServerJsonWebKey) GetLinks() LinksSelf {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerJsonWebKey) GetLinksOk() (*LinksSelf, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -310,7 +313,7 @@ func (o *AuthorizationServerJsonWebKey) GetLinksOk() (*LinksSelf, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *AuthorizationServerJsonWebKey) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -323,29 +326,37 @@ func (o *AuthorizationServerJsonWebKey) SetLinks(v LinksSelf) {
 }
 
 func (o AuthorizationServerJsonWebKey) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthorizationServerJsonWebKey) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Alg != nil {
+	if !IsNil(o.Alg) {
 		toSerialize["alg"] = o.Alg
 	}
-	if o.E != nil {
+	if !IsNil(o.E) {
 		toSerialize["e"] = o.E
 	}
-	if o.Kid != nil {
+	if !IsNil(o.Kid) {
 		toSerialize["kid"] = o.Kid
 	}
-	if o.Kty != nil {
+	if !IsNil(o.Kty) {
 		toSerialize["kty"] = o.Kty
 	}
-	if o.N != nil {
+	if !IsNil(o.N) {
 		toSerialize["n"] = o.N
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Use != nil {
+	if !IsNil(o.Use) {
 		toSerialize["use"] = o.Use
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -353,23 +364,23 @@ func (o AuthorizationServerJsonWebKey) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthorizationServerJsonWebKey) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthorizationServerJsonWebKey) UnmarshalJSON(data []byte) (err error) {
 	varAuthorizationServerJsonWebKey := _AuthorizationServerJsonWebKey{}
 
-	err = json.Unmarshal(bytes, &varAuthorizationServerJsonWebKey)
-	if err == nil {
-		*o = AuthorizationServerJsonWebKey(varAuthorizationServerJsonWebKey)
-	} else {
+	err = json.Unmarshal(data, &varAuthorizationServerJsonWebKey)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthorizationServerJsonWebKey(varAuthorizationServerJsonWebKey)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "alg")
 		delete(additionalProperties, "e")
 		delete(additionalProperties, "kid")
@@ -379,8 +390,6 @@ func (o *AuthorizationServerJsonWebKey) UnmarshalJSON(bytes []byte) (err error) 
 		delete(additionalProperties, "use")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -421,4 +430,3 @@ func (v *NullableAuthorizationServerJsonWebKey) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

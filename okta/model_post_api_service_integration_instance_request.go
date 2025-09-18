@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,14 +25,20 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PostAPIServiceIntegrationInstanceRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PostAPIServiceIntegrationInstanceRequest{}
 
 // PostAPIServiceIntegrationInstanceRequest struct for PostAPIServiceIntegrationInstanceRequest
 type PostAPIServiceIntegrationInstanceRequest struct {
 	// The list of Okta management scopes granted to the API Service Integration instance. See [Okta management OAuth 2.0 scopes](/oauth2/#okta-admin-management).
 	GrantedScopes []string `json:"grantedScopes"`
+	// App instance properties
+	Properties *map[string]AppPropertiesValue `json:"properties,omitempty"`
 	// The type of the API service integration. This string is an underscore-concatenated, lowercased API service integration name. For example, `my_api_log_integration`.
-	Type string `json:"type"`
+	Type                 string `json:"type"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -81,6 +87,38 @@ func (o *PostAPIServiceIntegrationInstanceRequest) SetGrantedScopes(v []string) 
 	o.GrantedScopes = v
 }
 
+// GetProperties returns the Properties field value if set, zero value otherwise.
+func (o *PostAPIServiceIntegrationInstanceRequest) GetProperties() map[string]AppPropertiesValue {
+	if o == nil || IsNil(o.Properties) {
+		var ret map[string]AppPropertiesValue
+		return ret
+	}
+	return *o.Properties
+}
+
+// GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PostAPIServiceIntegrationInstanceRequest) GetPropertiesOk() (*map[string]AppPropertiesValue, bool) {
+	if o == nil || IsNil(o.Properties) {
+		return nil, false
+	}
+	return o.Properties, true
+}
+
+// HasProperties returns a boolean if a field has been set.
+func (o *PostAPIServiceIntegrationInstanceRequest) HasProperties() bool {
+	if o != nil && !IsNil(o.Properties) {
+		return true
+	}
+
+	return false
+}
+
+// SetProperties gets a reference to the given map[string]AppPropertiesValue and assigns it to the Properties field.
+func (o *PostAPIServiceIntegrationInstanceRequest) SetProperties(v map[string]AppPropertiesValue) {
+	o.Properties = &v
+}
+
 // GetType returns the Type field value
 func (o *PostAPIServiceIntegrationInstanceRequest) GetType() string {
 	if o == nil {
@@ -106,40 +144,68 @@ func (o *PostAPIServiceIntegrationInstanceRequest) SetType(v string) {
 }
 
 func (o PostAPIServiceIntegrationInstanceRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PostAPIServiceIntegrationInstanceRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["grantedScopes"] = o.GrantedScopes
+	toSerialize["grantedScopes"] = o.GrantedScopes
+	if !IsNil(o.Properties) {
+		toSerialize["properties"] = o.Properties
 	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
+	toSerialize["type"] = o.Type
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PostAPIServiceIntegrationInstanceRequest) UnmarshalJSON(bytes []byte) (err error) {
-	varPostAPIServiceIntegrationInstanceRequest := _PostAPIServiceIntegrationInstanceRequest{}
+func (o *PostAPIServiceIntegrationInstanceRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"grantedScopes",
+		"type",
+	}
 
-	err = json.Unmarshal(bytes, &varPostAPIServiceIntegrationInstanceRequest)
-	if err == nil {
-		*o = PostAPIServiceIntegrationInstanceRequest(varPostAPIServiceIntegrationInstanceRequest)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPostAPIServiceIntegrationInstanceRequest := _PostAPIServiceIntegrationInstanceRequest{}
+
+	err = json.Unmarshal(data, &varPostAPIServiceIntegrationInstanceRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PostAPIServiceIntegrationInstanceRequest(varPostAPIServiceIntegrationInstanceRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "grantedScopes")
+		delete(additionalProperties, "properties")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -180,4 +246,3 @@ func (v *NullablePostAPIServiceIntegrationInstanceRequest) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,14 +25,16 @@ package okta
 
 import (
 	"encoding/json"
-	"reflect"
-	"strings"
 )
+
+// checks if the UserFactorPushTransactionRejectedAllOfLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserFactorPushTransactionRejectedAllOfLinks{}
 
 // UserFactorPushTransactionRejectedAllOfLinks struct for UserFactorPushTransactionRejectedAllOfLinks
 type UserFactorPushTransactionRejectedAllOfLinks struct {
-	UserFactor
-	Verify *LinksVerifyVerify `json:"verify,omitempty"`
+	// Verifies the factor resource. See [Verify a factor](/openapi/okta-management/management/tag/UserFactor/#tag/UserFactor/operation/verifyFactor).
+	Verify               *HrefObject `json:"verify,omitempty"`
+	Factor               *UserFactor `json:"factor,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,9 +58,9 @@ func NewUserFactorPushTransactionRejectedAllOfLinksWithDefaults() *UserFactorPus
 }
 
 // GetVerify returns the Verify field value if set, zero value otherwise.
-func (o *UserFactorPushTransactionRejectedAllOfLinks) GetVerify() LinksVerifyVerify {
-	if o == nil || o.Verify == nil {
-		var ret LinksVerifyVerify
+func (o *UserFactorPushTransactionRejectedAllOfLinks) GetVerify() HrefObject {
+	if o == nil || IsNil(o.Verify) {
+		var ret HrefObject
 		return ret
 	}
 	return *o.Verify
@@ -66,8 +68,8 @@ func (o *UserFactorPushTransactionRejectedAllOfLinks) GetVerify() LinksVerifyVer
 
 // GetVerifyOk returns a tuple with the Verify field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserFactorPushTransactionRejectedAllOfLinks) GetVerifyOk() (*LinksVerifyVerify, bool) {
-	if o == nil || o.Verify == nil {
+func (o *UserFactorPushTransactionRejectedAllOfLinks) GetVerifyOk() (*HrefObject, bool) {
+	if o == nil || IsNil(o.Verify) {
 		return nil, false
 	}
 	return o.Verify, true
@@ -75,91 +77,91 @@ func (o *UserFactorPushTransactionRejectedAllOfLinks) GetVerifyOk() (*LinksVerif
 
 // HasVerify returns a boolean if a field has been set.
 func (o *UserFactorPushTransactionRejectedAllOfLinks) HasVerify() bool {
-	if o != nil && o.Verify != nil {
+	if o != nil && !IsNil(o.Verify) {
 		return true
 	}
 
 	return false
 }
 
-// SetVerify gets a reference to the given LinksVerifyVerify and assigns it to the Verify field.
-func (o *UserFactorPushTransactionRejectedAllOfLinks) SetVerify(v LinksVerifyVerify) {
+// SetVerify gets a reference to the given HrefObject and assigns it to the Verify field.
+func (o *UserFactorPushTransactionRejectedAllOfLinks) SetVerify(v HrefObject) {
 	o.Verify = &v
 }
 
+// GetFactor returns the Factor field value if set, zero value otherwise.
+func (o *UserFactorPushTransactionRejectedAllOfLinks) GetFactor() UserFactor {
+	if o == nil || IsNil(o.Factor) {
+		var ret UserFactor
+		return ret
+	}
+	return *o.Factor
+}
+
+// GetFactorOk returns a tuple with the Factor field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UserFactorPushTransactionRejectedAllOfLinks) GetFactorOk() (*UserFactor, bool) {
+	if o == nil || IsNil(o.Factor) {
+		return nil, false
+	}
+	return o.Factor, true
+}
+
+// HasFactor returns a boolean if a field has been set.
+func (o *UserFactorPushTransactionRejectedAllOfLinks) HasFactor() bool {
+	if o != nil && !IsNil(o.Factor) {
+		return true
+	}
+
+	return false
+}
+
+// SetFactor gets a reference to the given UserFactor and assigns it to the Factor field.
+func (o *UserFactorPushTransactionRejectedAllOfLinks) SetFactor(v UserFactor) {
+	o.Factor = &v
+}
+
 func (o UserFactorPushTransactionRejectedAllOfLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserFactorPushTransactionRejectedAllOfLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	serializedUserFactor, errUserFactor := json.Marshal(o.UserFactor)
-	if errUserFactor != nil {
-		return []byte{}, errUserFactor
-	}
-	errUserFactor = json.Unmarshal([]byte(serializedUserFactor), &toSerialize)
-	if errUserFactor != nil {
-		return []byte{}, errUserFactor
-	}
-	if o.Verify != nil {
+	if !IsNil(o.Verify) {
 		toSerialize["verify"] = o.Verify
+	}
+	if !IsNil(o.Factor) {
+		toSerialize["factor"] = o.Factor
 	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserFactorPushTransactionRejectedAllOfLinks) UnmarshalJSON(bytes []byte) (err error) {
-	type UserFactorPushTransactionRejectedAllOfLinksWithoutEmbeddedStruct struct {
-		Verify *LinksVerifyVerify `json:"verify,omitempty"`
-	}
-
-	varUserFactorPushTransactionRejectedAllOfLinksWithoutEmbeddedStruct := UserFactorPushTransactionRejectedAllOfLinksWithoutEmbeddedStruct{}
-
-	err = json.Unmarshal(bytes, &varUserFactorPushTransactionRejectedAllOfLinksWithoutEmbeddedStruct)
-	if err == nil {
-		varUserFactorPushTransactionRejectedAllOfLinks := _UserFactorPushTransactionRejectedAllOfLinks{}
-		varUserFactorPushTransactionRejectedAllOfLinks.Verify = varUserFactorPushTransactionRejectedAllOfLinksWithoutEmbeddedStruct.Verify
-		*o = UserFactorPushTransactionRejectedAllOfLinks(varUserFactorPushTransactionRejectedAllOfLinks)
-	} else {
-		return err
-	}
-
+func (o *UserFactorPushTransactionRejectedAllOfLinks) UnmarshalJSON(data []byte) (err error) {
 	varUserFactorPushTransactionRejectedAllOfLinks := _UserFactorPushTransactionRejectedAllOfLinks{}
 
-	err = json.Unmarshal(bytes, &varUserFactorPushTransactionRejectedAllOfLinks)
-	if err == nil {
-		o.UserFactor = varUserFactorPushTransactionRejectedAllOfLinks.UserFactor
-	} else {
+	err = json.Unmarshal(data, &varUserFactorPushTransactionRejectedAllOfLinks)
+
+	if err != nil {
 		return err
 	}
+
+	*o = UserFactorPushTransactionRejectedAllOfLinks(varUserFactorPushTransactionRejectedAllOfLinks)
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "verify")
-
-		// remove fields from embedded structs
-		reflectUserFactor := reflect.ValueOf(o.UserFactor)
-		for i := 0; i < reflectUserFactor.Type().NumField(); i++ {
-			t := reflectUserFactor.Type().Field(i)
-
-			if jsonTag := t.Tag.Get("json"); jsonTag != "" {
-				fieldName := ""
-				if commaIdx := strings.Index(jsonTag, ","); commaIdx > 0 {
-					fieldName = jsonTag[:commaIdx]
-				} else {
-					fieldName = jsonTag
-				}
-				if fieldName != "AdditionalProperties" {
-					delete(additionalProperties, fieldName)
-				}
-			}
-		}
-
+		delete(additionalProperties, "factor")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -200,4 +202,3 @@ func (v *NullableUserFactorPushTransactionRejectedAllOfLinks) UnmarshalJSON(src 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

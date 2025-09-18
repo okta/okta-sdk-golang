@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,11 +27,15 @@ import (
 	"encoding/json"
 )
 
-// PasswordPolicyPasswordSettings struct for PasswordPolicyPasswordSettings
+// checks if the PasswordPolicyPasswordSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordPolicyPasswordSettings{}
+
+// PasswordPolicyPasswordSettings Specifies the password settings for the policy
 type PasswordPolicyPasswordSettings struct {
-	Age *PasswordPolicyPasswordSettingsAge `json:"age,omitempty"`
-	Complexity *PasswordPolicyPasswordSettingsComplexity `json:"complexity,omitempty"`
-	Lockout *PasswordPolicyPasswordSettingsLockout `json:"lockout,omitempty"`
+	Age                  *PasswordPolicyPasswordSettingsAge                `json:"age,omitempty"`
+	Complexity           *PasswordPolicyPasswordSettingsComplexity         `json:"complexity,omitempty"`
+	Lockout              *PasswordPolicyPasswordSettingsLockout            `json:"lockout,omitempty"`
+	BreachedProtection   *PasswordPolicyPasswordSettingsBreachedProtection `json:"breachedProtection,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +60,7 @@ func NewPasswordPolicyPasswordSettingsWithDefaults() *PasswordPolicyPasswordSett
 
 // GetAge returns the Age field value if set, zero value otherwise.
 func (o *PasswordPolicyPasswordSettings) GetAge() PasswordPolicyPasswordSettingsAge {
-	if o == nil || o.Age == nil {
+	if o == nil || IsNil(o.Age) {
 		var ret PasswordPolicyPasswordSettingsAge
 		return ret
 	}
@@ -66,7 +70,7 @@ func (o *PasswordPolicyPasswordSettings) GetAge() PasswordPolicyPasswordSettings
 // GetAgeOk returns a tuple with the Age field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyPasswordSettings) GetAgeOk() (*PasswordPolicyPasswordSettingsAge, bool) {
-	if o == nil || o.Age == nil {
+	if o == nil || IsNil(o.Age) {
 		return nil, false
 	}
 	return o.Age, true
@@ -74,7 +78,7 @@ func (o *PasswordPolicyPasswordSettings) GetAgeOk() (*PasswordPolicyPasswordSett
 
 // HasAge returns a boolean if a field has been set.
 func (o *PasswordPolicyPasswordSettings) HasAge() bool {
-	if o != nil && o.Age != nil {
+	if o != nil && !IsNil(o.Age) {
 		return true
 	}
 
@@ -88,7 +92,7 @@ func (o *PasswordPolicyPasswordSettings) SetAge(v PasswordPolicyPasswordSettings
 
 // GetComplexity returns the Complexity field value if set, zero value otherwise.
 func (o *PasswordPolicyPasswordSettings) GetComplexity() PasswordPolicyPasswordSettingsComplexity {
-	if o == nil || o.Complexity == nil {
+	if o == nil || IsNil(o.Complexity) {
 		var ret PasswordPolicyPasswordSettingsComplexity
 		return ret
 	}
@@ -98,7 +102,7 @@ func (o *PasswordPolicyPasswordSettings) GetComplexity() PasswordPolicyPasswordS
 // GetComplexityOk returns a tuple with the Complexity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyPasswordSettings) GetComplexityOk() (*PasswordPolicyPasswordSettingsComplexity, bool) {
-	if o == nil || o.Complexity == nil {
+	if o == nil || IsNil(o.Complexity) {
 		return nil, false
 	}
 	return o.Complexity, true
@@ -106,7 +110,7 @@ func (o *PasswordPolicyPasswordSettings) GetComplexityOk() (*PasswordPolicyPassw
 
 // HasComplexity returns a boolean if a field has been set.
 func (o *PasswordPolicyPasswordSettings) HasComplexity() bool {
-	if o != nil && o.Complexity != nil {
+	if o != nil && !IsNil(o.Complexity) {
 		return true
 	}
 
@@ -120,7 +124,7 @@ func (o *PasswordPolicyPasswordSettings) SetComplexity(v PasswordPolicyPasswordS
 
 // GetLockout returns the Lockout field value if set, zero value otherwise.
 func (o *PasswordPolicyPasswordSettings) GetLockout() PasswordPolicyPasswordSettingsLockout {
-	if o == nil || o.Lockout == nil {
+	if o == nil || IsNil(o.Lockout) {
 		var ret PasswordPolicyPasswordSettingsLockout
 		return ret
 	}
@@ -130,7 +134,7 @@ func (o *PasswordPolicyPasswordSettings) GetLockout() PasswordPolicyPasswordSett
 // GetLockoutOk returns a tuple with the Lockout field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyPasswordSettings) GetLockoutOk() (*PasswordPolicyPasswordSettingsLockout, bool) {
-	if o == nil || o.Lockout == nil {
+	if o == nil || IsNil(o.Lockout) {
 		return nil, false
 	}
 	return o.Lockout, true
@@ -138,7 +142,7 @@ func (o *PasswordPolicyPasswordSettings) GetLockoutOk() (*PasswordPolicyPassword
 
 // HasLockout returns a boolean if a field has been set.
 func (o *PasswordPolicyPasswordSettings) HasLockout() bool {
-	if o != nil && o.Lockout != nil {
+	if o != nil && !IsNil(o.Lockout) {
 		return true
 	}
 
@@ -150,45 +154,87 @@ func (o *PasswordPolicyPasswordSettings) SetLockout(v PasswordPolicyPasswordSett
 	o.Lockout = &v
 }
 
+// GetBreachedProtection returns the BreachedProtection field value if set, zero value otherwise.
+func (o *PasswordPolicyPasswordSettings) GetBreachedProtection() PasswordPolicyPasswordSettingsBreachedProtection {
+	if o == nil || IsNil(o.BreachedProtection) {
+		var ret PasswordPolicyPasswordSettingsBreachedProtection
+		return ret
+	}
+	return *o.BreachedProtection
+}
+
+// GetBreachedProtectionOk returns a tuple with the BreachedProtection field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PasswordPolicyPasswordSettings) GetBreachedProtectionOk() (*PasswordPolicyPasswordSettingsBreachedProtection, bool) {
+	if o == nil || IsNil(o.BreachedProtection) {
+		return nil, false
+	}
+	return o.BreachedProtection, true
+}
+
+// HasBreachedProtection returns a boolean if a field has been set.
+func (o *PasswordPolicyPasswordSettings) HasBreachedProtection() bool {
+	if o != nil && !IsNil(o.BreachedProtection) {
+		return true
+	}
+
+	return false
+}
+
+// SetBreachedProtection gets a reference to the given PasswordPolicyPasswordSettingsBreachedProtection and assigns it to the BreachedProtection field.
+func (o *PasswordPolicyPasswordSettings) SetBreachedProtection(v PasswordPolicyPasswordSettingsBreachedProtection) {
+	o.BreachedProtection = &v
+}
+
 func (o PasswordPolicyPasswordSettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordPolicyPasswordSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Age != nil {
+	if !IsNil(o.Age) {
 		toSerialize["age"] = o.Age
 	}
-	if o.Complexity != nil {
+	if !IsNil(o.Complexity) {
 		toSerialize["complexity"] = o.Complexity
 	}
-	if o.Lockout != nil {
+	if !IsNil(o.Lockout) {
 		toSerialize["lockout"] = o.Lockout
+	}
+	if !IsNil(o.BreachedProtection) {
+		toSerialize["breachedProtection"] = o.BreachedProtection
 	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordPolicyPasswordSettings) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordPolicyPasswordSettings) UnmarshalJSON(data []byte) (err error) {
 	varPasswordPolicyPasswordSettings := _PasswordPolicyPasswordSettings{}
 
-	err = json.Unmarshal(bytes, &varPasswordPolicyPasswordSettings)
-	if err == nil {
-		*o = PasswordPolicyPasswordSettings(varPasswordPolicyPasswordSettings)
-	} else {
+	err = json.Unmarshal(data, &varPasswordPolicyPasswordSettings)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PasswordPolicyPasswordSettings(varPasswordPolicyPasswordSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "age")
 		delete(additionalProperties, "complexity")
 		delete(additionalProperties, "lockout")
+		delete(additionalProperties, "breachedProtection")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +275,3 @@ func (v *NullablePasswordPolicyPasswordSettings) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

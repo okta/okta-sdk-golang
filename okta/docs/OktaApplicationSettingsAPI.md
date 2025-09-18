@@ -4,8 +4,8 @@ All URIs are relative to *https://subdomain.okta.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetFirstPartyAppSettings**](OktaApplicationSettingsAPI.md#GetFirstPartyAppSettings) | **Get** /api/v1/first-party-app-settings/{appName} | Retrieve the Okta Application Settings
-[**ReplaceFirstPartyAppSettings**](OktaApplicationSettingsAPI.md#ReplaceFirstPartyAppSettings) | **Put** /api/v1/first-party-app-settings/{appName} | Replace the Okta Application Settings
+[**GetFirstPartyAppSettings**](OktaApplicationSettingsAPI.md#GetFirstPartyAppSettings) | **Get** /api/v1/first-party-app-settings/{appName} | Retrieve the Okta application settings
+[**ReplaceFirstPartyAppSettings**](OktaApplicationSettingsAPI.md#ReplaceFirstPartyAppSettings) | **Put** /api/v1/first-party-app-settings/{appName} | Replace the Okta application settings
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > AdminConsoleSettings GetFirstPartyAppSettings(ctx, appName).Execute()
 
-Retrieve the Okta Application Settings
+Retrieve the Okta application settings
 
 
 
@@ -23,24 +23,24 @@ Retrieve the Okta Application Settings
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    appName := "admin-console" // string | The key name for the Okta app.<br> Supported apps:   * Okta Admin Console (`admin-console`) 
+	appName := "admin-console" // string | The key name for the Okta app.<br> Supported apps:   * Okta Admin Console (`admin-console`) 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OktaApplicationSettingsAPI.GetFirstPartyAppSettings(context.Background(), appName).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OktaApplicationSettingsAPI.GetFirstPartyAppSettings``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFirstPartyAppSettings`: AdminConsoleSettings
-    fmt.Fprintf(os.Stdout, "Response from `OktaApplicationSettingsAPI.GetFirstPartyAppSettings`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OktaApplicationSettingsAPI.GetFirstPartyAppSettings(context.Background(), appName).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OktaApplicationSettingsAPI.GetFirstPartyAppSettings``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFirstPartyAppSettings`: AdminConsoleSettings
+	fmt.Fprintf(os.Stdout, "Response from `OktaApplicationSettingsAPI.GetFirstPartyAppSettings`: %v\n", resp)
 }
 ```
 
@@ -83,7 +83,7 @@ Name | Type | Description  | Notes
 
 > AdminConsoleSettings ReplaceFirstPartyAppSettings(ctx, appName).AdminConsoleSettings(adminConsoleSettings).Execute()
 
-Replace the Okta Application Settings
+Replace the Okta application settings
 
 
 
@@ -93,25 +93,25 @@ Replace the Okta Application Settings
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    appName := "admin-console" // string | The key name for the Okta app.<br> Supported apps:   * Okta Admin Console (`admin-console`) 
-    adminConsoleSettings := *openapiclient.NewAdminConsoleSettings() // AdminConsoleSettings | 
+	appName := "admin-console" // string | The key name for the Okta app.<br> Supported apps:   * Okta Admin Console (`admin-console`) 
+	adminConsoleSettings := *openapiclient.NewAdminConsoleSettings() // AdminConsoleSettings | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OktaApplicationSettingsAPI.ReplaceFirstPartyAppSettings(context.Background(), appName).AdminConsoleSettings(adminConsoleSettings).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OktaApplicationSettingsAPI.ReplaceFirstPartyAppSettings``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceFirstPartyAppSettings`: AdminConsoleSettings
-    fmt.Fprintf(os.Stdout, "Response from `OktaApplicationSettingsAPI.ReplaceFirstPartyAppSettings`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OktaApplicationSettingsAPI.ReplaceFirstPartyAppSettings(context.Background(), appName).AdminConsoleSettings(adminConsoleSettings).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OktaApplicationSettingsAPI.ReplaceFirstPartyAppSettings``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceFirstPartyAppSettings`: AdminConsoleSettings
+	fmt.Fprintf(os.Stdout, "Response from `OktaApplicationSettingsAPI.ReplaceFirstPartyAppSettings`: %v\n", resp)
 }
 ```
 

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,17 +25,21 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 	"reflect"
 	"strings"
 )
+
+// checks if the SamlApplication type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SamlApplication{}
 
 // SamlApplication struct for SamlApplication
 type SamlApplication struct {
 	Application
 	Credentials *ApplicationCredentials `json:"credentials,omitempty"`
 	// A unique key is generated for the custom app instance when you use SAML_2_0 `signOnMode`.
-	Name *string `json:"name,omitempty"`
-	Settings *SamlApplicationSettings `json:"settings,omitempty"`
+	Name                 *string                  `json:"name,omitempty"`
+	Settings             *SamlApplicationSettings `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -62,7 +66,7 @@ func NewSamlApplicationWithDefaults() *SamlApplication {
 
 // GetCredentials returns the Credentials field value if set, zero value otherwise.
 func (o *SamlApplication) GetCredentials() ApplicationCredentials {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		var ret ApplicationCredentials
 		return ret
 	}
@@ -72,7 +76,7 @@ func (o *SamlApplication) GetCredentials() ApplicationCredentials {
 // GetCredentialsOk returns a tuple with the Credentials field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlApplication) GetCredentialsOk() (*ApplicationCredentials, bool) {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		return nil, false
 	}
 	return o.Credentials, true
@@ -80,7 +84,7 @@ func (o *SamlApplication) GetCredentialsOk() (*ApplicationCredentials, bool) {
 
 // HasCredentials returns a boolean if a field has been set.
 func (o *SamlApplication) HasCredentials() bool {
-	if o != nil && o.Credentials != nil {
+	if o != nil && !IsNil(o.Credentials) {
 		return true
 	}
 
@@ -94,7 +98,7 @@ func (o *SamlApplication) SetCredentials(v ApplicationCredentials) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *SamlApplication) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -104,7 +108,7 @@ func (o *SamlApplication) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlApplication) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -112,7 +116,7 @@ func (o *SamlApplication) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *SamlApplication) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -126,7 +130,7 @@ func (o *SamlApplication) SetName(v string) {
 
 // GetSettings returns the Settings field value if set, zero value otherwise.
 func (o *SamlApplication) GetSettings() SamlApplicationSettings {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		var ret SamlApplicationSettings
 		return ret
 	}
@@ -136,7 +140,7 @@ func (o *SamlApplication) GetSettings() SamlApplicationSettings {
 // GetSettingsOk returns a tuple with the Settings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlApplication) GetSettingsOk() (*SamlApplicationSettings, bool) {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		return nil, false
 	}
 	return o.Settings, true
@@ -144,7 +148,7 @@ func (o *SamlApplication) GetSettingsOk() (*SamlApplicationSettings, bool) {
 
 // HasSettings returns a boolean if a field has been set.
 func (o *SamlApplication) HasSettings() bool {
-	if o != nil && o.Settings != nil {
+	if o != nil && !IsNil(o.Settings) {
 		return true
 	}
 
@@ -157,22 +161,30 @@ func (o *SamlApplication) SetSettings(v SamlApplicationSettings) {
 }
 
 func (o SamlApplication) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SamlApplication) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedApplication, errApplication := json.Marshal(o.Application)
 	if errApplication != nil {
-		return []byte{}, errApplication
+		return map[string]interface{}{}, errApplication
 	}
 	errApplication = json.Unmarshal([]byte(serializedApplication), &toSerialize)
 	if errApplication != nil {
-		return []byte{}, errApplication
+		return map[string]interface{}{}, errApplication
 	}
-	if o.Credentials != nil {
+	if !IsNil(o.Credentials) {
 		toSerialize["credentials"] = o.Credentials
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Settings != nil {
+	if !IsNil(o.Settings) {
 		toSerialize["settings"] = o.Settings
 	}
 
@@ -180,20 +192,42 @@ func (o SamlApplication) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SamlApplication) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SamlApplication) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"label",
+		"signOnMode",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	type SamlApplicationWithoutEmbeddedStruct struct {
 		Credentials *ApplicationCredentials `json:"credentials,omitempty"`
 		// A unique key is generated for the custom app instance when you use SAML_2_0 `signOnMode`.
-		Name *string `json:"name,omitempty"`
+		Name     *string                  `json:"name,omitempty"`
 		Settings *SamlApplicationSettings `json:"settings,omitempty"`
 	}
 
 	varSamlApplicationWithoutEmbeddedStruct := SamlApplicationWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varSamlApplicationWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varSamlApplicationWithoutEmbeddedStruct)
 	if err == nil {
 		varSamlApplication := _SamlApplication{}
 		varSamlApplication.Credentials = varSamlApplicationWithoutEmbeddedStruct.Credentials
@@ -206,7 +240,7 @@ func (o *SamlApplication) UnmarshalJSON(bytes []byte) (err error) {
 
 	varSamlApplication := _SamlApplication{}
 
-	err = json.Unmarshal(bytes, &varSamlApplication)
+	err = json.Unmarshal(data, &varSamlApplication)
 	if err == nil {
 		o.Application = varSamlApplication.Application
 	} else {
@@ -215,8 +249,7 @@ func (o *SamlApplication) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "credentials")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "settings")
@@ -240,8 +273,6 @@ func (o *SamlApplication) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -282,4 +313,3 @@ func (v *NullableSamlApplication) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

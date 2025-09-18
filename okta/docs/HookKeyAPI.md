@@ -5,17 +5,17 @@ All URIs are relative to *https://subdomain.okta.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateHookKey**](HookKeyAPI.md#CreateHookKey) | **Post** /api/v1/hook-keys | Create a key
-[**DeleteHookKey**](HookKeyAPI.md#DeleteHookKey) | **Delete** /api/v1/hook-keys/{hookKeyId} | Delete a key
-[**GetHookKey**](HookKeyAPI.md#GetHookKey) | **Get** /api/v1/hook-keys/{hookKeyId} | Retrieve a key
-[**GetPublicKey**](HookKeyAPI.md#GetPublicKey) | **Get** /api/v1/hook-keys/public/{publicKeyId} | Retrieve a public key
+[**DeleteHookKey**](HookKeyAPI.md#DeleteHookKey) | **Delete** /api/v1/hook-keys/{id} | Delete a key
+[**GetHookKey**](HookKeyAPI.md#GetHookKey) | **Get** /api/v1/hook-keys/{id} | Retrieve a key by ID
+[**GetPublicKey**](HookKeyAPI.md#GetPublicKey) | **Get** /api/v1/hook-keys/public/{keyId} | Retrieve a public key
 [**ListHookKeys**](HookKeyAPI.md#ListHookKeys) | **Get** /api/v1/hook-keys | List all keys
-[**ReplaceHookKey**](HookKeyAPI.md#ReplaceHookKey) | **Put** /api/v1/hook-keys/{hookKeyId} | Replace a key
+[**ReplaceHookKey**](HookKeyAPI.md#ReplaceHookKey) | **Put** /api/v1/hook-keys/{id} | Replace a key
 
 
 
 ## CreateHookKey
 
-> HookKey CreateHookKey(ctx).KeyRequest(keyRequest).Execute()
+> DetailedHookKeyInstance CreateHookKey(ctx).KeyRequest(keyRequest).Execute()
 
 Create a key
 
@@ -27,24 +27,24 @@ Create a key
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    keyRequest := *openapiclient.NewKeyRequest() // KeyRequest | 
+	keyRequest := *openapiclient.NewKeyRequest() // KeyRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.HookKeyAPI.CreateHookKey(context.Background()).KeyRequest(keyRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `HookKeyAPI.CreateHookKey``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateHookKey`: HookKey
-    fmt.Fprintf(os.Stdout, "Response from `HookKeyAPI.CreateHookKey`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HookKeyAPI.CreateHookKey(context.Background()).KeyRequest(keyRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HookKeyAPI.CreateHookKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateHookKey`: DetailedHookKeyInstance
+	fmt.Fprintf(os.Stdout, "Response from `HookKeyAPI.CreateHookKey`: %v\n", resp)
 }
 ```
 
@@ -63,7 +63,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**HookKey**](HookKey.md)
+[**DetailedHookKeyInstance**](DetailedHookKeyInstance.md)
 
 ### Authorization
 
@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 
 ## DeleteHookKey
 
-> DeleteHookKey(ctx, hookKeyId).Execute()
+> DeleteHookKey(ctx, id).Execute()
 
 Delete a key
 
@@ -93,22 +93,22 @@ Delete a key
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    hookKeyId := "XreKU5laGwBkjOTehusG" // string | `id` of the Hook Key
+	id := "XreKU5laGwBkjOTehusG" // string | ID of the Hook Key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.HookKeyAPI.DeleteHookKey(context.Background(), hookKeyId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `HookKeyAPI.DeleteHookKey``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.HookKeyAPI.DeleteHookKey(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HookKeyAPI.DeleteHookKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -118,7 +118,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**hookKeyId** | **string** | &#x60;id&#x60; of the Hook Key | 
+**id** | **string** | ID of the Hook Key | 
 
 ### Other Parameters
 
@@ -149,9 +149,9 @@ Name | Type | Description  | Notes
 
 ## GetHookKey
 
-> HookKey GetHookKey(ctx, hookKeyId).Execute()
+> HookKey GetHookKey(ctx, id).Execute()
 
-Retrieve a key
+Retrieve a key by ID
 
 
 
@@ -161,24 +161,24 @@ Retrieve a key
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    hookKeyId := "XreKU5laGwBkjOTehusG" // string | `id` of the Hook Key
+	id := "XreKU5laGwBkjOTehusG" // string | ID of the Hook Key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.HookKeyAPI.GetHookKey(context.Background(), hookKeyId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `HookKeyAPI.GetHookKey``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetHookKey`: HookKey
-    fmt.Fprintf(os.Stdout, "Response from `HookKeyAPI.GetHookKey`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HookKeyAPI.GetHookKey(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HookKeyAPI.GetHookKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetHookKey`: HookKey
+	fmt.Fprintf(os.Stdout, "Response from `HookKeyAPI.GetHookKey`: %v\n", resp)
 }
 ```
 
@@ -188,7 +188,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**hookKeyId** | **string** | &#x60;id&#x60; of the Hook Key | 
+**id** | **string** | ID of the Hook Key | 
 
 ### Other Parameters
 
@@ -219,7 +219,7 @@ Name | Type | Description  | Notes
 
 ## GetPublicKey
 
-> JsonWebKey GetPublicKey(ctx, publicKeyId).Execute()
+> Embedded GetPublicKey(ctx, keyId).Execute()
 
 Retrieve a public key
 
@@ -231,24 +231,24 @@ Retrieve a public key
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    publicKeyId := "FcH2P9Eg7wr0o8N2FuV0" // string | `id` of the Public Key
+	keyId := "FcH2P9Eg7wr0o8N2FuV0" // string | id\" of the Public Key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.HookKeyAPI.GetPublicKey(context.Background(), publicKeyId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `HookKeyAPI.GetPublicKey``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetPublicKey`: JsonWebKey
-    fmt.Fprintf(os.Stdout, "Response from `HookKeyAPI.GetPublicKey`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HookKeyAPI.GetPublicKey(context.Background(), keyId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HookKeyAPI.GetPublicKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPublicKey`: Embedded
+	fmt.Fprintf(os.Stdout, "Response from `HookKeyAPI.GetPublicKey`: %v\n", resp)
 }
 ```
 
@@ -258,7 +258,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**publicKeyId** | **string** | &#x60;id&#x60; of the Public Key | 
+**keyId** | **string** | id\&quot; of the Public Key | 
 
 ### Other Parameters
 
@@ -271,7 +271,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**JsonWebKey**](JsonWebKey.md)
+[**Embedded**](Embedded.md)
 
 ### Authorization
 
@@ -301,23 +301,23 @@ List all keys
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.HookKeyAPI.ListHookKeys(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `HookKeyAPI.ListHookKeys``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListHookKeys`: []HookKey
-    fmt.Fprintf(os.Stdout, "Response from `HookKeyAPI.ListHookKeys`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HookKeyAPI.ListHookKeys(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HookKeyAPI.ListHookKeys``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListHookKeys`: []HookKey
+	fmt.Fprintf(os.Stdout, "Response from `HookKeyAPI.ListHookKeys`: %v\n", resp)
 }
 ```
 
@@ -350,7 +350,7 @@ Other parameters are passed through a pointer to a apiListHookKeysRequest struct
 
 ## ReplaceHookKey
 
-> HookKey ReplaceHookKey(ctx, hookKeyId).KeyRequest(keyRequest).Execute()
+> DetailedHookKeyInstance ReplaceHookKey(ctx, id).KeyRequest(keyRequest).Execute()
 
 Replace a key
 
@@ -362,25 +362,25 @@ Replace a key
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    hookKeyId := "XreKU5laGwBkjOTehusG" // string | `id` of the Hook Key
-    keyRequest := *openapiclient.NewKeyRequest() // KeyRequest | 
+	id := "XreKU5laGwBkjOTehusG" // string | ID of the Hook Key
+	keyRequest := *openapiclient.NewKeyRequest() // KeyRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.HookKeyAPI.ReplaceHookKey(context.Background(), hookKeyId).KeyRequest(keyRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `HookKeyAPI.ReplaceHookKey``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceHookKey`: HookKey
-    fmt.Fprintf(os.Stdout, "Response from `HookKeyAPI.ReplaceHookKey`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HookKeyAPI.ReplaceHookKey(context.Background(), id).KeyRequest(keyRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HookKeyAPI.ReplaceHookKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceHookKey`: DetailedHookKeyInstance
+	fmt.Fprintf(os.Stdout, "Response from `HookKeyAPI.ReplaceHookKey`: %v\n", resp)
 }
 ```
 
@@ -390,7 +390,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**hookKeyId** | **string** | &#x60;id&#x60; of the Hook Key | 
+**id** | **string** | ID of the Hook Key | 
 
 ### Other Parameters
 
@@ -404,7 +404,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**HookKey**](HookKey.md)
+[**DetailedHookKeyInstance**](DetailedHookKeyInstance.md)
 
 ### Authorization
 

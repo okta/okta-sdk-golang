@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the EventHookFilters type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EventHookFilters{}
+
 // EventHookFilters The optional filter defined on a specific event type  > **Note:** Event hook filters is a [self-service Early Access (EA)](/openapi/okta-management/guides/release-lifecycle/#early-access-ea) to enable. If you want to disable this feature, it's recommended to first remove all event filters.
 type EventHookFilters struct {
 	// The object that maps the filter to the event type
 	EventFilterMap []EventHookFilterMapObject `json:"eventFilterMap,omitempty"`
 	// The type of filter. Currently only supports `EXPRESSION_LANGUAGE`
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewEventHookFiltersWithDefaults() *EventHookFilters {
 
 // GetEventFilterMap returns the EventFilterMap field value if set, zero value otherwise.
 func (o *EventHookFilters) GetEventFilterMap() []EventHookFilterMapObject {
-	if o == nil || o.EventFilterMap == nil {
+	if o == nil || IsNil(o.EventFilterMap) {
 		var ret []EventHookFilterMapObject
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *EventHookFilters) GetEventFilterMap() []EventHookFilterMapObject {
 // GetEventFilterMapOk returns a tuple with the EventFilterMap field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventHookFilters) GetEventFilterMapOk() ([]EventHookFilterMapObject, bool) {
-	if o == nil || o.EventFilterMap == nil {
+	if o == nil || IsNil(o.EventFilterMap) {
 		return nil, false
 	}
 	return o.EventFilterMap, true
@@ -75,7 +78,7 @@ func (o *EventHookFilters) GetEventFilterMapOk() ([]EventHookFilterMapObject, bo
 
 // HasEventFilterMap returns a boolean if a field has been set.
 func (o *EventHookFilters) HasEventFilterMap() bool {
-	if o != nil && o.EventFilterMap != nil {
+	if o != nil && !IsNil(o.EventFilterMap) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *EventHookFilters) SetEventFilterMap(v []EventHookFilterMapObject) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *EventHookFilters) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *EventHookFilters) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventHookFilters) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -107,7 +110,7 @@ func (o *EventHookFilters) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *EventHookFilters) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *EventHookFilters) SetType(v string) {
 }
 
 func (o EventHookFilters) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EventHookFilters) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.EventFilterMap != nil {
+	if !IsNil(o.EventFilterMap) {
 		toSerialize["eventFilterMap"] = o.EventFilterMap
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -132,28 +143,26 @@ func (o EventHookFilters) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EventHookFilters) UnmarshalJSON(bytes []byte) (err error) {
+func (o *EventHookFilters) UnmarshalJSON(data []byte) (err error) {
 	varEventHookFilters := _EventHookFilters{}
 
-	err = json.Unmarshal(bytes, &varEventHookFilters)
-	if err == nil {
-		*o = EventHookFilters(varEventHookFilters)
-	} else {
+	err = json.Unmarshal(data, &varEventHookFilters)
+
+	if err != nil {
 		return err
 	}
 
+	*o = EventHookFilters(varEventHookFilters)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "eventFilterMap")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableEventHookFilters) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

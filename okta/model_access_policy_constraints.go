@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
-// AccessPolicyConstraints struct for AccessPolicyConstraints
+// checks if the AccessPolicyConstraints type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AccessPolicyConstraints{}
+
+// AccessPolicyConstraints Specifies constraints for the authenticator. Constraints are logically evaluated such that only one constraint object needs to be satisfied. But, within a constraint object, each constraint property must be satisfied.
 type AccessPolicyConstraints struct {
-	Knowledge *KnowledgeConstraint `json:"knowledge,omitempty"`
-	Possession *PossessionConstraint `json:"possession,omitempty"`
+	Knowledge            *KnowledgeConstraint  `json:"knowledge,omitempty"`
+	Possession           *PossessionConstraint `json:"possession,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewAccessPolicyConstraintsWithDefaults() *AccessPolicyConstraints {
 
 // GetKnowledge returns the Knowledge field value if set, zero value otherwise.
 func (o *AccessPolicyConstraints) GetKnowledge() KnowledgeConstraint {
-	if o == nil || o.Knowledge == nil {
+	if o == nil || IsNil(o.Knowledge) {
 		var ret KnowledgeConstraint
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *AccessPolicyConstraints) GetKnowledge() KnowledgeConstraint {
 // GetKnowledgeOk returns a tuple with the Knowledge field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccessPolicyConstraints) GetKnowledgeOk() (*KnowledgeConstraint, bool) {
-	if o == nil || o.Knowledge == nil {
+	if o == nil || IsNil(o.Knowledge) {
 		return nil, false
 	}
 	return o.Knowledge, true
@@ -73,7 +76,7 @@ func (o *AccessPolicyConstraints) GetKnowledgeOk() (*KnowledgeConstraint, bool) 
 
 // HasKnowledge returns a boolean if a field has been set.
 func (o *AccessPolicyConstraints) HasKnowledge() bool {
-	if o != nil && o.Knowledge != nil {
+	if o != nil && !IsNil(o.Knowledge) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *AccessPolicyConstraints) SetKnowledge(v KnowledgeConstraint) {
 
 // GetPossession returns the Possession field value if set, zero value otherwise.
 func (o *AccessPolicyConstraints) GetPossession() PossessionConstraint {
-	if o == nil || o.Possession == nil {
+	if o == nil || IsNil(o.Possession) {
 		var ret PossessionConstraint
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *AccessPolicyConstraints) GetPossession() PossessionConstraint {
 // GetPossessionOk returns a tuple with the Possession field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccessPolicyConstraints) GetPossessionOk() (*PossessionConstraint, bool) {
-	if o == nil || o.Possession == nil {
+	if o == nil || IsNil(o.Possession) {
 		return nil, false
 	}
 	return o.Possession, true
@@ -105,7 +108,7 @@ func (o *AccessPolicyConstraints) GetPossessionOk() (*PossessionConstraint, bool
 
 // HasPossession returns a boolean if a field has been set.
 func (o *AccessPolicyConstraints) HasPossession() bool {
-	if o != nil && o.Possession != nil {
+	if o != nil && !IsNil(o.Possession) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *AccessPolicyConstraints) SetPossession(v PossessionConstraint) {
 }
 
 func (o AccessPolicyConstraints) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AccessPolicyConstraints) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Knowledge != nil {
+	if !IsNil(o.Knowledge) {
 		toSerialize["knowledge"] = o.Knowledge
 	}
-	if o.Possession != nil {
+	if !IsNil(o.Possession) {
 		toSerialize["possession"] = o.Possession
 	}
 
@@ -130,28 +141,26 @@ func (o AccessPolicyConstraints) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AccessPolicyConstraints) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AccessPolicyConstraints) UnmarshalJSON(data []byte) (err error) {
 	varAccessPolicyConstraints := _AccessPolicyConstraints{}
 
-	err = json.Unmarshal(bytes, &varAccessPolicyConstraints)
-	if err == nil {
-		*o = AccessPolicyConstraints(varAccessPolicyConstraints)
-	} else {
+	err = json.Unmarshal(data, &varAccessPolicyConstraints)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AccessPolicyConstraints(varAccessPolicyConstraints)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "knowledge")
 		delete(additionalProperties, "possession")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableAccessPolicyConstraints) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -29,11 +29,14 @@ import (
 	"strings"
 )
 
+// checks if the UserFactorPushTransactionRejected type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserFactorPushTransactionRejected{}
+
 // UserFactorPushTransactionRejected struct for UserFactorPushTransactionRejected
 type UserFactorPushTransactionRejected struct {
 	UserFactorPushTransaction
-	Profile *UserFactorPushTransactionRejectedAllOfProfile `json:"profile,omitempty"`
-	Links *UserFactorPushTransactionRejectedAllOfLinks `json:"_links,omitempty"`
+	Profile              *UserFactorPushTransactionRejectedAllOfProfile `json:"profile,omitempty"`
+	Links                *UserFactorPushTransactionRejectedAllOfLinks   `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewUserFactorPushTransactionRejectedWithDefaults() *UserFactorPushTransacti
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *UserFactorPushTransactionRejected) GetProfile() UserFactorPushTransactionRejectedAllOfProfile {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret UserFactorPushTransactionRejectedAllOfProfile
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *UserFactorPushTransactionRejected) GetProfile() UserFactorPushTransacti
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorPushTransactionRejected) GetProfileOk() (*UserFactorPushTransactionRejectedAllOfProfile, bool) {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		return nil, false
 	}
 	return o.Profile, true
@@ -76,7 +79,7 @@ func (o *UserFactorPushTransactionRejected) GetProfileOk() (*UserFactorPushTrans
 
 // HasProfile returns a boolean if a field has been set.
 func (o *UserFactorPushTransactionRejected) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *UserFactorPushTransactionRejected) SetProfile(v UserFactorPushTransacti
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *UserFactorPushTransactionRejected) GetLinks() UserFactorPushTransactionRejectedAllOfLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret UserFactorPushTransactionRejectedAllOfLinks
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *UserFactorPushTransactionRejected) GetLinks() UserFactorPushTransaction
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorPushTransactionRejected) GetLinksOk() (*UserFactorPushTransactionRejectedAllOfLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -108,7 +111,7 @@ func (o *UserFactorPushTransactionRejected) GetLinksOk() (*UserFactorPushTransac
 
 // HasLinks returns a boolean if a field has been set.
 func (o *UserFactorPushTransactionRejected) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -121,19 +124,27 @@ func (o *UserFactorPushTransactionRejected) SetLinks(v UserFactorPushTransaction
 }
 
 func (o UserFactorPushTransactionRejected) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserFactorPushTransactionRejected) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedUserFactorPushTransaction, errUserFactorPushTransaction := json.Marshal(o.UserFactorPushTransaction)
 	if errUserFactorPushTransaction != nil {
-		return []byte{}, errUserFactorPushTransaction
+		return map[string]interface{}{}, errUserFactorPushTransaction
 	}
 	errUserFactorPushTransaction = json.Unmarshal([]byte(serializedUserFactorPushTransaction), &toSerialize)
 	if errUserFactorPushTransaction != nil {
-		return []byte{}, errUserFactorPushTransaction
+		return map[string]interface{}{}, errUserFactorPushTransaction
 	}
-	if o.Profile != nil {
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -141,18 +152,18 @@ func (o UserFactorPushTransactionRejected) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserFactorPushTransactionRejected) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserFactorPushTransactionRejected) UnmarshalJSON(data []byte) (err error) {
 	type UserFactorPushTransactionRejectedWithoutEmbeddedStruct struct {
 		Profile *UserFactorPushTransactionRejectedAllOfProfile `json:"profile,omitempty"`
-		Links *UserFactorPushTransactionRejectedAllOfLinks `json:"_links,omitempty"`
+		Links   *UserFactorPushTransactionRejectedAllOfLinks   `json:"_links,omitempty"`
 	}
 
 	varUserFactorPushTransactionRejectedWithoutEmbeddedStruct := UserFactorPushTransactionRejectedWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varUserFactorPushTransactionRejectedWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varUserFactorPushTransactionRejectedWithoutEmbeddedStruct)
 	if err == nil {
 		varUserFactorPushTransactionRejected := _UserFactorPushTransactionRejected{}
 		varUserFactorPushTransactionRejected.Profile = varUserFactorPushTransactionRejectedWithoutEmbeddedStruct.Profile
@@ -164,7 +175,7 @@ func (o *UserFactorPushTransactionRejected) UnmarshalJSON(bytes []byte) (err err
 
 	varUserFactorPushTransactionRejected := _UserFactorPushTransactionRejected{}
 
-	err = json.Unmarshal(bytes, &varUserFactorPushTransactionRejected)
+	err = json.Unmarshal(data, &varUserFactorPushTransactionRejected)
 	if err == nil {
 		o.UserFactorPushTransaction = varUserFactorPushTransactionRejected.UserFactorPushTransaction
 	} else {
@@ -173,8 +184,7 @@ func (o *UserFactorPushTransactionRejected) UnmarshalJSON(bytes []byte) (err err
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "profile")
 		delete(additionalProperties, "_links")
 
@@ -197,8 +207,6 @@ func (o *UserFactorPushTransactionRejected) UnmarshalJSON(bytes []byte) (err err
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -239,4 +247,3 @@ func (v *NullableUserFactorPushTransactionRejected) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

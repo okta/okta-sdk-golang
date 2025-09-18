@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Answer** | Pointer to **string** | The recovery question answer | [optional] 
+**Answer** | Pointer to **string** | The answer to the recovery question | [optional] 
 **Question** | Pointer to **string** | The recovery question | [optional] 
 
 ## Methods

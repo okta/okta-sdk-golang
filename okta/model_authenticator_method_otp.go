@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -28,6 +28,9 @@ import (
 	"reflect"
 	"strings"
 )
+
+// checks if the AuthenticatorMethodOtp type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorMethodOtp{}
 
 // AuthenticatorMethodOtp struct for AuthenticatorMethodOtp
 type AuthenticatorMethodOtp struct {
@@ -46,7 +49,7 @@ type AuthenticatorMethodOtp struct {
 	Protocol *string `json:"protocol,omitempty"`
 	// Time interval for TOTP in seconds
 	TimeIntervalInSeconds *int32 `json:"timeIntervalInSeconds,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties  map[string]interface{}
 }
 
 type _AuthenticatorMethodOtp AuthenticatorMethodOtp
@@ -70,7 +73,7 @@ func NewAuthenticatorMethodOtpWithDefaults() *AuthenticatorMethodOtp {
 
 // GetAcceptableAdjacentIntervals returns the AcceptableAdjacentIntervals field value if set, zero value otherwise.
 func (o *AuthenticatorMethodOtp) GetAcceptableAdjacentIntervals() int32 {
-	if o == nil || o.AcceptableAdjacentIntervals == nil {
+	if o == nil || IsNil(o.AcceptableAdjacentIntervals) {
 		var ret int32
 		return ret
 	}
@@ -80,7 +83,7 @@ func (o *AuthenticatorMethodOtp) GetAcceptableAdjacentIntervals() int32 {
 // GetAcceptableAdjacentIntervalsOk returns a tuple with the AcceptableAdjacentIntervals field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorMethodOtp) GetAcceptableAdjacentIntervalsOk() (*int32, bool) {
-	if o == nil || o.AcceptableAdjacentIntervals == nil {
+	if o == nil || IsNil(o.AcceptableAdjacentIntervals) {
 		return nil, false
 	}
 	return o.AcceptableAdjacentIntervals, true
@@ -88,7 +91,7 @@ func (o *AuthenticatorMethodOtp) GetAcceptableAdjacentIntervalsOk() (*int32, boo
 
 // HasAcceptableAdjacentIntervals returns a boolean if a field has been set.
 func (o *AuthenticatorMethodOtp) HasAcceptableAdjacentIntervals() bool {
-	if o != nil && o.AcceptableAdjacentIntervals != nil {
+	if o != nil && !IsNil(o.AcceptableAdjacentIntervals) {
 		return true
 	}
 
@@ -102,7 +105,7 @@ func (o *AuthenticatorMethodOtp) SetAcceptableAdjacentIntervals(v int32) {
 
 // GetAlgorithm returns the Algorithm field value if set, zero value otherwise.
 func (o *AuthenticatorMethodOtp) GetAlgorithm() string {
-	if o == nil || o.Algorithm == nil {
+	if o == nil || IsNil(o.Algorithm) {
 		var ret string
 		return ret
 	}
@@ -112,7 +115,7 @@ func (o *AuthenticatorMethodOtp) GetAlgorithm() string {
 // GetAlgorithmOk returns a tuple with the Algorithm field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorMethodOtp) GetAlgorithmOk() (*string, bool) {
-	if o == nil || o.Algorithm == nil {
+	if o == nil || IsNil(o.Algorithm) {
 		return nil, false
 	}
 	return o.Algorithm, true
@@ -120,7 +123,7 @@ func (o *AuthenticatorMethodOtp) GetAlgorithmOk() (*string, bool) {
 
 // HasAlgorithm returns a boolean if a field has been set.
 func (o *AuthenticatorMethodOtp) HasAlgorithm() bool {
-	if o != nil && o.Algorithm != nil {
+	if o != nil && !IsNil(o.Algorithm) {
 		return true
 	}
 
@@ -134,7 +137,7 @@ func (o *AuthenticatorMethodOtp) SetAlgorithm(v string) {
 
 // GetEncoding returns the Encoding field value if set, zero value otherwise.
 func (o *AuthenticatorMethodOtp) GetEncoding() string {
-	if o == nil || o.Encoding == nil {
+	if o == nil || IsNil(o.Encoding) {
 		var ret string
 		return ret
 	}
@@ -144,7 +147,7 @@ func (o *AuthenticatorMethodOtp) GetEncoding() string {
 // GetEncodingOk returns a tuple with the Encoding field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorMethodOtp) GetEncodingOk() (*string, bool) {
-	if o == nil || o.Encoding == nil {
+	if o == nil || IsNil(o.Encoding) {
 		return nil, false
 	}
 	return o.Encoding, true
@@ -152,7 +155,7 @@ func (o *AuthenticatorMethodOtp) GetEncodingOk() (*string, bool) {
 
 // HasEncoding returns a boolean if a field has been set.
 func (o *AuthenticatorMethodOtp) HasEncoding() bool {
-	if o != nil && o.Encoding != nil {
+	if o != nil && !IsNil(o.Encoding) {
 		return true
 	}
 
@@ -166,7 +169,7 @@ func (o *AuthenticatorMethodOtp) SetEncoding(v string) {
 
 // GetFactorProfileId returns the FactorProfileId field value if set, zero value otherwise.
 func (o *AuthenticatorMethodOtp) GetFactorProfileId() string {
-	if o == nil || o.FactorProfileId == nil {
+	if o == nil || IsNil(o.FactorProfileId) {
 		var ret string
 		return ret
 	}
@@ -176,7 +179,7 @@ func (o *AuthenticatorMethodOtp) GetFactorProfileId() string {
 // GetFactorProfileIdOk returns a tuple with the FactorProfileId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorMethodOtp) GetFactorProfileIdOk() (*string, bool) {
-	if o == nil || o.FactorProfileId == nil {
+	if o == nil || IsNil(o.FactorProfileId) {
 		return nil, false
 	}
 	return o.FactorProfileId, true
@@ -184,7 +187,7 @@ func (o *AuthenticatorMethodOtp) GetFactorProfileIdOk() (*string, bool) {
 
 // HasFactorProfileId returns a boolean if a field has been set.
 func (o *AuthenticatorMethodOtp) HasFactorProfileId() bool {
-	if o != nil && o.FactorProfileId != nil {
+	if o != nil && !IsNil(o.FactorProfileId) {
 		return true
 	}
 
@@ -198,7 +201,7 @@ func (o *AuthenticatorMethodOtp) SetFactorProfileId(v string) {
 
 // GetPassCodeLength returns the PassCodeLength field value if set, zero value otherwise.
 func (o *AuthenticatorMethodOtp) GetPassCodeLength() int32 {
-	if o == nil || o.PassCodeLength == nil {
+	if o == nil || IsNil(o.PassCodeLength) {
 		var ret int32
 		return ret
 	}
@@ -208,7 +211,7 @@ func (o *AuthenticatorMethodOtp) GetPassCodeLength() int32 {
 // GetPassCodeLengthOk returns a tuple with the PassCodeLength field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorMethodOtp) GetPassCodeLengthOk() (*int32, bool) {
-	if o == nil || o.PassCodeLength == nil {
+	if o == nil || IsNil(o.PassCodeLength) {
 		return nil, false
 	}
 	return o.PassCodeLength, true
@@ -216,7 +219,7 @@ func (o *AuthenticatorMethodOtp) GetPassCodeLengthOk() (*int32, bool) {
 
 // HasPassCodeLength returns a boolean if a field has been set.
 func (o *AuthenticatorMethodOtp) HasPassCodeLength() bool {
-	if o != nil && o.PassCodeLength != nil {
+	if o != nil && !IsNil(o.PassCodeLength) {
 		return true
 	}
 
@@ -230,7 +233,7 @@ func (o *AuthenticatorMethodOtp) SetPassCodeLength(v int32) {
 
 // GetProtocol returns the Protocol field value if set, zero value otherwise.
 func (o *AuthenticatorMethodOtp) GetProtocol() string {
-	if o == nil || o.Protocol == nil {
+	if o == nil || IsNil(o.Protocol) {
 		var ret string
 		return ret
 	}
@@ -240,7 +243,7 @@ func (o *AuthenticatorMethodOtp) GetProtocol() string {
 // GetProtocolOk returns a tuple with the Protocol field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorMethodOtp) GetProtocolOk() (*string, bool) {
-	if o == nil || o.Protocol == nil {
+	if o == nil || IsNil(o.Protocol) {
 		return nil, false
 	}
 	return o.Protocol, true
@@ -248,7 +251,7 @@ func (o *AuthenticatorMethodOtp) GetProtocolOk() (*string, bool) {
 
 // HasProtocol returns a boolean if a field has been set.
 func (o *AuthenticatorMethodOtp) HasProtocol() bool {
-	if o != nil && o.Protocol != nil {
+	if o != nil && !IsNil(o.Protocol) {
 		return true
 	}
 
@@ -262,7 +265,7 @@ func (o *AuthenticatorMethodOtp) SetProtocol(v string) {
 
 // GetTimeIntervalInSeconds returns the TimeIntervalInSeconds field value if set, zero value otherwise.
 func (o *AuthenticatorMethodOtp) GetTimeIntervalInSeconds() int32 {
-	if o == nil || o.TimeIntervalInSeconds == nil {
+	if o == nil || IsNil(o.TimeIntervalInSeconds) {
 		var ret int32
 		return ret
 	}
@@ -272,7 +275,7 @@ func (o *AuthenticatorMethodOtp) GetTimeIntervalInSeconds() int32 {
 // GetTimeIntervalInSecondsOk returns a tuple with the TimeIntervalInSeconds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorMethodOtp) GetTimeIntervalInSecondsOk() (*int32, bool) {
-	if o == nil || o.TimeIntervalInSeconds == nil {
+	if o == nil || IsNil(o.TimeIntervalInSeconds) {
 		return nil, false
 	}
 	return o.TimeIntervalInSeconds, true
@@ -280,7 +283,7 @@ func (o *AuthenticatorMethodOtp) GetTimeIntervalInSecondsOk() (*int32, bool) {
 
 // HasTimeIntervalInSeconds returns a boolean if a field has been set.
 func (o *AuthenticatorMethodOtp) HasTimeIntervalInSeconds() bool {
-	if o != nil && o.TimeIntervalInSeconds != nil {
+	if o != nil && !IsNil(o.TimeIntervalInSeconds) {
 		return true
 	}
 
@@ -293,34 +296,42 @@ func (o *AuthenticatorMethodOtp) SetTimeIntervalInSeconds(v int32) {
 }
 
 func (o AuthenticatorMethodOtp) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorMethodOtp) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedAuthenticatorMethodWithVerifiableProperties, errAuthenticatorMethodWithVerifiableProperties := json.Marshal(o.AuthenticatorMethodWithVerifiableProperties)
 	if errAuthenticatorMethodWithVerifiableProperties != nil {
-		return []byte{}, errAuthenticatorMethodWithVerifiableProperties
+		return map[string]interface{}{}, errAuthenticatorMethodWithVerifiableProperties
 	}
 	errAuthenticatorMethodWithVerifiableProperties = json.Unmarshal([]byte(serializedAuthenticatorMethodWithVerifiableProperties), &toSerialize)
 	if errAuthenticatorMethodWithVerifiableProperties != nil {
-		return []byte{}, errAuthenticatorMethodWithVerifiableProperties
+		return map[string]interface{}{}, errAuthenticatorMethodWithVerifiableProperties
 	}
-	if o.AcceptableAdjacentIntervals != nil {
+	if !IsNil(o.AcceptableAdjacentIntervals) {
 		toSerialize["acceptableAdjacentIntervals"] = o.AcceptableAdjacentIntervals
 	}
-	if o.Algorithm != nil {
+	if !IsNil(o.Algorithm) {
 		toSerialize["algorithm"] = o.Algorithm
 	}
-	if o.Encoding != nil {
+	if !IsNil(o.Encoding) {
 		toSerialize["encoding"] = o.Encoding
 	}
-	if o.FactorProfileId != nil {
+	if !IsNil(o.FactorProfileId) {
 		toSerialize["factorProfileId"] = o.FactorProfileId
 	}
-	if o.PassCodeLength != nil {
+	if !IsNil(o.PassCodeLength) {
 		toSerialize["passCodeLength"] = o.PassCodeLength
 	}
-	if o.Protocol != nil {
+	if !IsNil(o.Protocol) {
 		toSerialize["protocol"] = o.Protocol
 	}
-	if o.TimeIntervalInSeconds != nil {
+	if !IsNil(o.TimeIntervalInSeconds) {
 		toSerialize["timeIntervalInSeconds"] = o.TimeIntervalInSeconds
 	}
 
@@ -328,10 +339,10 @@ func (o AuthenticatorMethodOtp) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorMethodOtp) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorMethodOtp) UnmarshalJSON(data []byte) (err error) {
 	type AuthenticatorMethodOtpWithoutEmbeddedStruct struct {
 		// The number of acceptable adjacent intervals, also known as the clock drift interval. This setting allows you to build in tolerance for any time difference between the token and the server. For example, with a `timeIntervalInSeconds` of 60 seconds and an `acceptableAdjacentIntervals` value of 5, Okta accepts passcodes within 300 seconds (60 * 5) before or after the end user enters their code.
 		AcceptableAdjacentIntervals *int32 `json:"acceptableAdjacentIntervals,omitempty"`
@@ -351,7 +362,7 @@ func (o *AuthenticatorMethodOtp) UnmarshalJSON(bytes []byte) (err error) {
 
 	varAuthenticatorMethodOtpWithoutEmbeddedStruct := AuthenticatorMethodOtpWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorMethodOtpWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varAuthenticatorMethodOtpWithoutEmbeddedStruct)
 	if err == nil {
 		varAuthenticatorMethodOtp := _AuthenticatorMethodOtp{}
 		varAuthenticatorMethodOtp.AcceptableAdjacentIntervals = varAuthenticatorMethodOtpWithoutEmbeddedStruct.AcceptableAdjacentIntervals
@@ -368,7 +379,7 @@ func (o *AuthenticatorMethodOtp) UnmarshalJSON(bytes []byte) (err error) {
 
 	varAuthenticatorMethodOtp := _AuthenticatorMethodOtp{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorMethodOtp)
+	err = json.Unmarshal(data, &varAuthenticatorMethodOtp)
 	if err == nil {
 		o.AuthenticatorMethodWithVerifiableProperties = varAuthenticatorMethodOtp.AuthenticatorMethodWithVerifiableProperties
 	} else {
@@ -377,8 +388,7 @@ func (o *AuthenticatorMethodOtp) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "acceptableAdjacentIntervals")
 		delete(additionalProperties, "algorithm")
 		delete(additionalProperties, "encoding")
@@ -406,8 +416,6 @@ func (o *AuthenticatorMethodOtp) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -448,4 +456,3 @@ func (v *NullableAuthenticatorMethodOtp) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

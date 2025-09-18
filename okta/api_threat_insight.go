@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -26,22 +26,21 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"time"
 )
 
-
 type ThreatInsightAPI interface {
 
 	/*
-	GetCurrentConfiguration Retrieve the ThreatInsight Configuration
+		GetCurrentConfiguration Retrieve the ThreatInsight configuration
 
-	Retrieves the ThreatInsight configuration for the org
+		Retrieves the ThreatInsight configuration for the org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetCurrentConfigurationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetCurrentConfigurationRequest
 	*/
 	GetCurrentConfiguration(ctx context.Context) ApiGetCurrentConfigurationRequest
 
@@ -50,12 +49,12 @@ type ThreatInsightAPI interface {
 	GetCurrentConfigurationExecute(r ApiGetCurrentConfigurationRequest) (*ThreatInsightConfiguration, *APIResponse, error)
 
 	/*
-	UpdateConfiguration Update the ThreatInsight Configuration
+		UpdateConfiguration Update the ThreatInsight configuration
 
-	Updates the ThreatInsight configuration for the org
+		Updates the ThreatInsight configuration for the org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiUpdateConfigurationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiUpdateConfigurationRequest
 	*/
 	UpdateConfiguration(ctx context.Context) ApiUpdateConfigurationRequest
 
@@ -68,7 +67,7 @@ type ThreatInsightAPI interface {
 type ThreatInsightAPIService service
 
 type ApiGetCurrentConfigurationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ThreatInsightAPI
 	retryCount int32
 }
@@ -78,23 +77,24 @@ func (r ApiGetCurrentConfigurationRequest) Execute() (*ThreatInsightConfiguratio
 }
 
 /*
-GetCurrentConfiguration Retrieve the ThreatInsight Configuration
+GetCurrentConfiguration Retrieve the ThreatInsight configuration
 
 Retrieves the ThreatInsight configuration for the org
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetCurrentConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetCurrentConfigurationRequest
 */
 func (a *ThreatInsightAPIService) GetCurrentConfiguration(ctx context.Context) ApiGetCurrentConfigurationRequest {
 	return ApiGetCurrentConfigurationRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ThreatInsightConfiguration
+//
+//	@return ThreatInsightConfiguration
 func (a *ThreatInsightAPIService) GetCurrentConfigurationExecute(r ApiGetCurrentConfigurationRequest) (*ThreatInsightConfiguration, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -103,7 +103,7 @@ func (a *ThreatInsightAPIService) GetCurrentConfigurationExecute(r ApiGetCurrent
 		localVarReturnValue  *ThreatInsightConfiguration
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -163,9 +163,9 @@ func (a *ThreatInsightAPIService) GetCurrentConfigurationExecute(r ApiGetCurrent
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -211,16 +211,16 @@ func (a *ThreatInsightAPIService) GetCurrentConfigurationExecute(r ApiGetCurrent
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateConfigurationRequest struct {
-	ctx context.Context
-	ApiService ThreatInsightAPI
+	ctx                        context.Context
+	ApiService                 ThreatInsightAPI
 	threatInsightConfiguration *ThreatInsightConfiguration
-	retryCount int32
+	retryCount                 int32
 }
 
 func (r ApiUpdateConfigurationRequest) ThreatInsightConfiguration(threatInsightConfiguration ThreatInsightConfiguration) ApiUpdateConfigurationRequest {
@@ -233,23 +233,24 @@ func (r ApiUpdateConfigurationRequest) Execute() (*ThreatInsightConfiguration, *
 }
 
 /*
-UpdateConfiguration Update the ThreatInsight Configuration
+UpdateConfiguration Update the ThreatInsight configuration
 
 Updates the ThreatInsight configuration for the org
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiUpdateConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUpdateConfigurationRequest
 */
 func (a *ThreatInsightAPIService) UpdateConfiguration(ctx context.Context) ApiUpdateConfigurationRequest {
 	return ApiUpdateConfigurationRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ThreatInsightConfiguration
+//
+//	@return ThreatInsightConfiguration
 func (a *ThreatInsightAPIService) UpdateConfigurationExecute(r ApiUpdateConfigurationRequest) (*ThreatInsightConfiguration, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -258,7 +259,7 @@ func (a *ThreatInsightAPIService) UpdateConfigurationExecute(r ApiUpdateConfigur
 		localVarReturnValue  *ThreatInsightConfiguration
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -323,9 +324,9 @@ func (a *ThreatInsightAPIService) UpdateConfigurationExecute(r ApiUpdateConfigur
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -383,7 +384,7 @@ func (a *ThreatInsightAPIService) UpdateConfigurationExecute(r ApiUpdateConfigur
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

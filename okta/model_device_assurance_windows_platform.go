@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -29,17 +29,20 @@ import (
 	"strings"
 )
 
+// checks if the DeviceAssuranceWindowsPlatform type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeviceAssuranceWindowsPlatform{}
+
 // DeviceAssuranceWindowsPlatform struct for DeviceAssuranceWindowsPlatform
 type DeviceAssuranceWindowsPlatform struct {
 	DeviceAssurance
 	DiskEncryptionType *DeviceAssuranceMacOSPlatformAllOfDiskEncryptionType `json:"diskEncryptionType,omitempty"`
-	OsVersion *OSVersionFourComponents `json:"osVersion,omitempty"`
-	// <div class=\"x-lifecycle-container\"><x-lifecycle class=\"ea\"></x-lifecycle></div>Specifies the Windows version requirements for the assurance policy. Each requirement must correspond to a different major version (Windows 11 or Windows 10). If a requirement isn't specified for a major version, then devices on that major version satisfy the condition.  There are two types of OS requirements: * **Static**: A specific Windows version requirement that doesn't change until you update the policy. A static OS Windows requirement is specified with `majorVersionConstraint` and `minimum`. * **Dynamic**: A Windows version requirement that is relative to the latest major release and security patch. A dynamic OS Windows requirement is specified with `majorVersionConstraint` and `dynamicVersionRequirement`.  > **Note:** Dynamic OS requirements are available only if the **Dynamic OS version compliance** [self-service EA](/openapi/okta-management/guides/release-lifecycle/#early-access-ea) feature is enabled. The `osVersionConstraints` property is only supported for the Windows platform. You can't specify both `osVersion.minimum` and `osVersionConstraints` properties at the same time. 
-	OsVersionConstraints []OSVersionConstraint `json:"osVersionConstraints,omitempty"`
-	ScreenLockType *DeviceAssuranceAndroidPlatformAllOfScreenLockType `json:"screenLockType,omitempty"`
-	SecureHardwarePresent *bool `json:"secureHardwarePresent,omitempty"`
+	OsVersion          *OSVersionFourComponents                             `json:"osVersion,omitempty"`
+	// <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Specifies the Windows version requirements for the assurance policy. Each requirement must correspond to a different major version (Windows 11 or Windows 10). If a requirement isn't specified for a major version, then devices on that major version satisfy the condition.  There are two types of OS requirements: * **Static**: A specific Windows version requirement that doesn't change until you update the policy. A static OS Windows requirement is specified with `majorVersionConstraint` and `minimum`. * **Dynamic**: A Windows version requirement that is relative to the latest major release and security patch. A dynamic OS Windows requirement is specified with `majorVersionConstraint` and `dynamicVersionRequirement`.  > **Note:** Dynamic OS requirements are available only if the **Dynamic OS version compliance** [self-service EA](/openapi/okta-management/guides/release-lifecycle/#early-access-ea) feature is enabled. The `osVersionConstraints` property is only supported for the Windows platform. You can't specify both `osVersion.minimum` and `osVersionConstraints` properties at the same time.
+	OsVersionConstraints      []OSVersionConstraint                                         `json:"osVersionConstraints,omitempty"`
+	ScreenLockType            *DeviceAssuranceAndroidPlatformAllOfScreenLockType            `json:"screenLockType,omitempty"`
+	SecureHardwarePresent     *bool                                                         `json:"secureHardwarePresent,omitempty"`
 	ThirdPartySignalProviders *DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders `json:"thirdPartySignalProviders,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties      map[string]interface{}
 }
 
 type _DeviceAssuranceWindowsPlatform DeviceAssuranceWindowsPlatform
@@ -63,7 +66,7 @@ func NewDeviceAssuranceWindowsPlatformWithDefaults() *DeviceAssuranceWindowsPlat
 
 // GetDiskEncryptionType returns the DiskEncryptionType field value if set, zero value otherwise.
 func (o *DeviceAssuranceWindowsPlatform) GetDiskEncryptionType() DeviceAssuranceMacOSPlatformAllOfDiskEncryptionType {
-	if o == nil || o.DiskEncryptionType == nil {
+	if o == nil || IsNil(o.DiskEncryptionType) {
 		var ret DeviceAssuranceMacOSPlatformAllOfDiskEncryptionType
 		return ret
 	}
@@ -73,7 +76,7 @@ func (o *DeviceAssuranceWindowsPlatform) GetDiskEncryptionType() DeviceAssurance
 // GetDiskEncryptionTypeOk returns a tuple with the DiskEncryptionType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceAssuranceWindowsPlatform) GetDiskEncryptionTypeOk() (*DeviceAssuranceMacOSPlatformAllOfDiskEncryptionType, bool) {
-	if o == nil || o.DiskEncryptionType == nil {
+	if o == nil || IsNil(o.DiskEncryptionType) {
 		return nil, false
 	}
 	return o.DiskEncryptionType, true
@@ -81,7 +84,7 @@ func (o *DeviceAssuranceWindowsPlatform) GetDiskEncryptionTypeOk() (*DeviceAssur
 
 // HasDiskEncryptionType returns a boolean if a field has been set.
 func (o *DeviceAssuranceWindowsPlatform) HasDiskEncryptionType() bool {
-	if o != nil && o.DiskEncryptionType != nil {
+	if o != nil && !IsNil(o.DiskEncryptionType) {
 		return true
 	}
 
@@ -95,7 +98,7 @@ func (o *DeviceAssuranceWindowsPlatform) SetDiskEncryptionType(v DeviceAssurance
 
 // GetOsVersion returns the OsVersion field value if set, zero value otherwise.
 func (o *DeviceAssuranceWindowsPlatform) GetOsVersion() OSVersionFourComponents {
-	if o == nil || o.OsVersion == nil {
+	if o == nil || IsNil(o.OsVersion) {
 		var ret OSVersionFourComponents
 		return ret
 	}
@@ -105,7 +108,7 @@ func (o *DeviceAssuranceWindowsPlatform) GetOsVersion() OSVersionFourComponents 
 // GetOsVersionOk returns a tuple with the OsVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceAssuranceWindowsPlatform) GetOsVersionOk() (*OSVersionFourComponents, bool) {
-	if o == nil || o.OsVersion == nil {
+	if o == nil || IsNil(o.OsVersion) {
 		return nil, false
 	}
 	return o.OsVersion, true
@@ -113,7 +116,7 @@ func (o *DeviceAssuranceWindowsPlatform) GetOsVersionOk() (*OSVersionFourCompone
 
 // HasOsVersion returns a boolean if a field has been set.
 func (o *DeviceAssuranceWindowsPlatform) HasOsVersion() bool {
-	if o != nil && o.OsVersion != nil {
+	if o != nil && !IsNil(o.OsVersion) {
 		return true
 	}
 
@@ -127,7 +130,7 @@ func (o *DeviceAssuranceWindowsPlatform) SetOsVersion(v OSVersionFourComponents)
 
 // GetOsVersionConstraints returns the OsVersionConstraints field value if set, zero value otherwise.
 func (o *DeviceAssuranceWindowsPlatform) GetOsVersionConstraints() []OSVersionConstraint {
-	if o == nil || o.OsVersionConstraints == nil {
+	if o == nil || IsNil(o.OsVersionConstraints) {
 		var ret []OSVersionConstraint
 		return ret
 	}
@@ -137,7 +140,7 @@ func (o *DeviceAssuranceWindowsPlatform) GetOsVersionConstraints() []OSVersionCo
 // GetOsVersionConstraintsOk returns a tuple with the OsVersionConstraints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceAssuranceWindowsPlatform) GetOsVersionConstraintsOk() ([]OSVersionConstraint, bool) {
-	if o == nil || o.OsVersionConstraints == nil {
+	if o == nil || IsNil(o.OsVersionConstraints) {
 		return nil, false
 	}
 	return o.OsVersionConstraints, true
@@ -145,7 +148,7 @@ func (o *DeviceAssuranceWindowsPlatform) GetOsVersionConstraintsOk() ([]OSVersio
 
 // HasOsVersionConstraints returns a boolean if a field has been set.
 func (o *DeviceAssuranceWindowsPlatform) HasOsVersionConstraints() bool {
-	if o != nil && o.OsVersionConstraints != nil {
+	if o != nil && !IsNil(o.OsVersionConstraints) {
 		return true
 	}
 
@@ -159,7 +162,7 @@ func (o *DeviceAssuranceWindowsPlatform) SetOsVersionConstraints(v []OSVersionCo
 
 // GetScreenLockType returns the ScreenLockType field value if set, zero value otherwise.
 func (o *DeviceAssuranceWindowsPlatform) GetScreenLockType() DeviceAssuranceAndroidPlatformAllOfScreenLockType {
-	if o == nil || o.ScreenLockType == nil {
+	if o == nil || IsNil(o.ScreenLockType) {
 		var ret DeviceAssuranceAndroidPlatformAllOfScreenLockType
 		return ret
 	}
@@ -169,7 +172,7 @@ func (o *DeviceAssuranceWindowsPlatform) GetScreenLockType() DeviceAssuranceAndr
 // GetScreenLockTypeOk returns a tuple with the ScreenLockType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceAssuranceWindowsPlatform) GetScreenLockTypeOk() (*DeviceAssuranceAndroidPlatformAllOfScreenLockType, bool) {
-	if o == nil || o.ScreenLockType == nil {
+	if o == nil || IsNil(o.ScreenLockType) {
 		return nil, false
 	}
 	return o.ScreenLockType, true
@@ -177,7 +180,7 @@ func (o *DeviceAssuranceWindowsPlatform) GetScreenLockTypeOk() (*DeviceAssurance
 
 // HasScreenLockType returns a boolean if a field has been set.
 func (o *DeviceAssuranceWindowsPlatform) HasScreenLockType() bool {
-	if o != nil && o.ScreenLockType != nil {
+	if o != nil && !IsNil(o.ScreenLockType) {
 		return true
 	}
 
@@ -191,7 +194,7 @@ func (o *DeviceAssuranceWindowsPlatform) SetScreenLockType(v DeviceAssuranceAndr
 
 // GetSecureHardwarePresent returns the SecureHardwarePresent field value if set, zero value otherwise.
 func (o *DeviceAssuranceWindowsPlatform) GetSecureHardwarePresent() bool {
-	if o == nil || o.SecureHardwarePresent == nil {
+	if o == nil || IsNil(o.SecureHardwarePresent) {
 		var ret bool
 		return ret
 	}
@@ -201,7 +204,7 @@ func (o *DeviceAssuranceWindowsPlatform) GetSecureHardwarePresent() bool {
 // GetSecureHardwarePresentOk returns a tuple with the SecureHardwarePresent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceAssuranceWindowsPlatform) GetSecureHardwarePresentOk() (*bool, bool) {
-	if o == nil || o.SecureHardwarePresent == nil {
+	if o == nil || IsNil(o.SecureHardwarePresent) {
 		return nil, false
 	}
 	return o.SecureHardwarePresent, true
@@ -209,7 +212,7 @@ func (o *DeviceAssuranceWindowsPlatform) GetSecureHardwarePresentOk() (*bool, bo
 
 // HasSecureHardwarePresent returns a boolean if a field has been set.
 func (o *DeviceAssuranceWindowsPlatform) HasSecureHardwarePresent() bool {
-	if o != nil && o.SecureHardwarePresent != nil {
+	if o != nil && !IsNil(o.SecureHardwarePresent) {
 		return true
 	}
 
@@ -223,7 +226,7 @@ func (o *DeviceAssuranceWindowsPlatform) SetSecureHardwarePresent(v bool) {
 
 // GetThirdPartySignalProviders returns the ThirdPartySignalProviders field value if set, zero value otherwise.
 func (o *DeviceAssuranceWindowsPlatform) GetThirdPartySignalProviders() DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders {
-	if o == nil || o.ThirdPartySignalProviders == nil {
+	if o == nil || IsNil(o.ThirdPartySignalProviders) {
 		var ret DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders
 		return ret
 	}
@@ -233,7 +236,7 @@ func (o *DeviceAssuranceWindowsPlatform) GetThirdPartySignalProviders() DeviceAs
 // GetThirdPartySignalProvidersOk returns a tuple with the ThirdPartySignalProviders field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceAssuranceWindowsPlatform) GetThirdPartySignalProvidersOk() (*DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders, bool) {
-	if o == nil || o.ThirdPartySignalProviders == nil {
+	if o == nil || IsNil(o.ThirdPartySignalProviders) {
 		return nil, false
 	}
 	return o.ThirdPartySignalProviders, true
@@ -241,7 +244,7 @@ func (o *DeviceAssuranceWindowsPlatform) GetThirdPartySignalProvidersOk() (*Devi
 
 // HasThirdPartySignalProviders returns a boolean if a field has been set.
 func (o *DeviceAssuranceWindowsPlatform) HasThirdPartySignalProviders() bool {
-	if o != nil && o.ThirdPartySignalProviders != nil {
+	if o != nil && !IsNil(o.ThirdPartySignalProviders) {
 		return true
 	}
 
@@ -254,31 +257,39 @@ func (o *DeviceAssuranceWindowsPlatform) SetThirdPartySignalProviders(v DeviceAs
 }
 
 func (o DeviceAssuranceWindowsPlatform) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DeviceAssuranceWindowsPlatform) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedDeviceAssurance, errDeviceAssurance := json.Marshal(o.DeviceAssurance)
 	if errDeviceAssurance != nil {
-		return []byte{}, errDeviceAssurance
+		return map[string]interface{}{}, errDeviceAssurance
 	}
 	errDeviceAssurance = json.Unmarshal([]byte(serializedDeviceAssurance), &toSerialize)
 	if errDeviceAssurance != nil {
-		return []byte{}, errDeviceAssurance
+		return map[string]interface{}{}, errDeviceAssurance
 	}
-	if o.DiskEncryptionType != nil {
+	if !IsNil(o.DiskEncryptionType) {
 		toSerialize["diskEncryptionType"] = o.DiskEncryptionType
 	}
-	if o.OsVersion != nil {
+	if !IsNil(o.OsVersion) {
 		toSerialize["osVersion"] = o.OsVersion
 	}
-	if o.OsVersionConstraints != nil {
+	if !IsNil(o.OsVersionConstraints) {
 		toSerialize["osVersionConstraints"] = o.OsVersionConstraints
 	}
-	if o.ScreenLockType != nil {
+	if !IsNil(o.ScreenLockType) {
 		toSerialize["screenLockType"] = o.ScreenLockType
 	}
-	if o.SecureHardwarePresent != nil {
+	if !IsNil(o.SecureHardwarePresent) {
 		toSerialize["secureHardwarePresent"] = o.SecureHardwarePresent
 	}
-	if o.ThirdPartySignalProviders != nil {
+	if !IsNil(o.ThirdPartySignalProviders) {
 		toSerialize["thirdPartySignalProviders"] = o.ThirdPartySignalProviders
 	}
 
@@ -286,23 +297,23 @@ func (o DeviceAssuranceWindowsPlatform) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DeviceAssuranceWindowsPlatform) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DeviceAssuranceWindowsPlatform) UnmarshalJSON(data []byte) (err error) {
 	type DeviceAssuranceWindowsPlatformWithoutEmbeddedStruct struct {
 		DiskEncryptionType *DeviceAssuranceMacOSPlatformAllOfDiskEncryptionType `json:"diskEncryptionType,omitempty"`
-		OsVersion *OSVersionFourComponents `json:"osVersion,omitempty"`
-		// <div class=\"x-lifecycle-container\"><x-lifecycle class=\"ea\"></x-lifecycle></div>Specifies the Windows version requirements for the assurance policy. Each requirement must correspond to a different major version (Windows 11 or Windows 10). If a requirement isn't specified for a major version, then devices on that major version satisfy the condition.  There are two types of OS requirements: * **Static**: A specific Windows version requirement that doesn't change until you update the policy. A static OS Windows requirement is specified with `majorVersionConstraint` and `minimum`. * **Dynamic**: A Windows version requirement that is relative to the latest major release and security patch. A dynamic OS Windows requirement is specified with `majorVersionConstraint` and `dynamicVersionRequirement`.  > **Note:** Dynamic OS requirements are available only if the **Dynamic OS version compliance** [self-service EA](/openapi/okta-management/guides/release-lifecycle/#early-access-ea) feature is enabled. The `osVersionConstraints` property is only supported for the Windows platform. You can't specify both `osVersion.minimum` and `osVersionConstraints` properties at the same time. 
-		OsVersionConstraints []OSVersionConstraint `json:"osVersionConstraints,omitempty"`
-		ScreenLockType *DeviceAssuranceAndroidPlatformAllOfScreenLockType `json:"screenLockType,omitempty"`
-		SecureHardwarePresent *bool `json:"secureHardwarePresent,omitempty"`
+		OsVersion          *OSVersionFourComponents                             `json:"osVersion,omitempty"`
+		// <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Specifies the Windows version requirements for the assurance policy. Each requirement must correspond to a different major version (Windows 11 or Windows 10). If a requirement isn't specified for a major version, then devices on that major version satisfy the condition.  There are two types of OS requirements: * **Static**: A specific Windows version requirement that doesn't change until you update the policy. A static OS Windows requirement is specified with `majorVersionConstraint` and `minimum`. * **Dynamic**: A Windows version requirement that is relative to the latest major release and security patch. A dynamic OS Windows requirement is specified with `majorVersionConstraint` and `dynamicVersionRequirement`.  > **Note:** Dynamic OS requirements are available only if the **Dynamic OS version compliance** [self-service EA](/openapi/okta-management/guides/release-lifecycle/#early-access-ea) feature is enabled. The `osVersionConstraints` property is only supported for the Windows platform. You can't specify both `osVersion.minimum` and `osVersionConstraints` properties at the same time.
+		OsVersionConstraints      []OSVersionConstraint                                         `json:"osVersionConstraints,omitempty"`
+		ScreenLockType            *DeviceAssuranceAndroidPlatformAllOfScreenLockType            `json:"screenLockType,omitempty"`
+		SecureHardwarePresent     *bool                                                         `json:"secureHardwarePresent,omitempty"`
 		ThirdPartySignalProviders *DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders `json:"thirdPartySignalProviders,omitempty"`
 	}
 
 	varDeviceAssuranceWindowsPlatformWithoutEmbeddedStruct := DeviceAssuranceWindowsPlatformWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varDeviceAssuranceWindowsPlatformWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varDeviceAssuranceWindowsPlatformWithoutEmbeddedStruct)
 	if err == nil {
 		varDeviceAssuranceWindowsPlatform := _DeviceAssuranceWindowsPlatform{}
 		varDeviceAssuranceWindowsPlatform.DiskEncryptionType = varDeviceAssuranceWindowsPlatformWithoutEmbeddedStruct.DiskEncryptionType
@@ -318,7 +329,7 @@ func (o *DeviceAssuranceWindowsPlatform) UnmarshalJSON(bytes []byte) (err error)
 
 	varDeviceAssuranceWindowsPlatform := _DeviceAssuranceWindowsPlatform{}
 
-	err = json.Unmarshal(bytes, &varDeviceAssuranceWindowsPlatform)
+	err = json.Unmarshal(data, &varDeviceAssuranceWindowsPlatform)
 	if err == nil {
 		o.DeviceAssurance = varDeviceAssuranceWindowsPlatform.DeviceAssurance
 	} else {
@@ -327,8 +338,7 @@ func (o *DeviceAssuranceWindowsPlatform) UnmarshalJSON(bytes []byte) (err error)
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "diskEncryptionType")
 		delete(additionalProperties, "osVersion")
 		delete(additionalProperties, "osVersionConstraints")
@@ -355,8 +365,6 @@ func (o *DeviceAssuranceWindowsPlatform) UnmarshalJSON(bytes []byte) (err error)
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -397,4 +405,3 @@ func (v *NullableDeviceAssuranceWindowsPlatform) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

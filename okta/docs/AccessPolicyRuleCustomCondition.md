@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Condition** | Pointer to **string** |  | [optional] 
+**Condition** | **string** | expression to match | 
 
 ## Methods
 
 ### NewAccessPolicyRuleCustomCondition
 
-`func NewAccessPolicyRuleCustomCondition() *AccessPolicyRuleCustomCondition`
+`func NewAccessPolicyRuleCustomCondition(condition string, ) *AccessPolicyRuleCustomCondition`
 
 NewAccessPolicyRuleCustomCondition instantiates a new AccessPolicyRuleCustomCondition object
 This constructor will assign default values to properties that have it defined,
@@ -44,11 +44,6 @@ and a boolean to check if the value has been set.
 
 SetCondition sets Condition field to given value.
 
-### HasCondition
-
-`func (o *AccessPolicyRuleCustomCondition) HasCondition() bool`
-
-HasCondition returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

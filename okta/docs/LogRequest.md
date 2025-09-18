@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**IpChain** | Pointer to [**[]LogIpAddress**](LogIpAddress.md) |  | [optional] [readonly] 
+**IpChain** | Pointer to [**[]LogIpAddress**](LogIpAddress.md) | If the incoming request passes through any proxies, the IP addresses of those proxies are stored here in the format of clientIp, proxy1, proxy2, and so on. This field is useful when working with trusted proxies. | [optional] [readonly] 
 
 ## Methods
 

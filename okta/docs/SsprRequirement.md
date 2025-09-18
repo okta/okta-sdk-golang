@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**AccessControl** | Pointer to **string** | Determines which authentication requirements a user needs to perform self-service operations. &#x60;AUTH_POLICY&#x60; defers conditions and authentication requirements to the [Okta account management policy](https://developer.okta.com/docs/guides/okta-account-management-policy/main/). &#x60;LEGACY&#x60; refers to the requirements described by this rule. | [optional] 
 **Primary** | Pointer to [**SsprPrimaryRequirement**](SsprPrimaryRequirement.md) |  | [optional] 
 **StepUp** | Pointer to [**SsprStepUpRequirement**](SsprStepUpRequirement.md) |  | [optional] 
 
@@ -25,6 +26,31 @@ will change when the set of required properties is changed
 NewSsprRequirementWithDefaults instantiates a new SsprRequirement object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAccessControl
+
+`func (o *SsprRequirement) GetAccessControl() string`
+
+GetAccessControl returns the AccessControl field if non-nil, zero value otherwise.
+
+### GetAccessControlOk
+
+`func (o *SsprRequirement) GetAccessControlOk() (*string, bool)`
+
+GetAccessControlOk returns a tuple with the AccessControl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAccessControl
+
+`func (o *SsprRequirement) SetAccessControl(v string)`
+
+SetAccessControl sets AccessControl field to given value.
+
+### HasAccessControl
+
+`func (o *SsprRequirement) HasAccessControl() bool`
+
+HasAccessControl returns a boolean if a field has been set.
 
 ### GetPrimary
 

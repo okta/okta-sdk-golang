@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Kid** | Pointer to **string** |  | [optional] 
-**LastRotated** | Pointer to **time.Time** |  | [optional] [readonly] 
-**NextRotation** | Pointer to **time.Time** |  | [optional] [readonly] 
-**RotationMode** | Pointer to **string** |  | [optional] 
-**Use** | Pointer to **string** |  | [optional] 
+**Kid** | Pointer to **string** | Key identifier used for signing assertions &gt; **Note:** Currently, only the X.509 JWK format is supported for apps with SAML_2_0 &#x60;signOnMode&#x60;. | [optional] 
+**LastRotated** | Pointer to **time.Time** | Timestamp when the signing key was last rotated | [optional] [readonly] 
+**NextRotation** | Pointer to **time.Time** | The scheduled time for the next signing key rotation | [optional] [readonly] 
+**RotationMode** | Pointer to **string** | The mode of key rotation | [optional] 
+**Use** | Pointer to **string** | Specifies the intended use of the key | [optional] 
 
 ## Methods
 

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,13 +27,20 @@ import (
 	"encoding/json"
 )
 
-// LogGeographicalContext struct for LogGeographicalContext
+// checks if the LogGeographicalContext type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LogGeographicalContext{}
+
+// LogGeographicalContext Geographical context describes a set of geographic coordinates. In addition to containing latitude and longitude data, the `GeographicalContext` object also contains address data of postal code-level granularity. Within the `Client` object, the geographical context refers to the physical location of the client when it sends the request that triggers this event. All `Transaction` events with `type` equal to `WEB` have a geographical context set. `Transaction` events with `type` equal to `JOB` don't have a geographical context set. The geographical context data can be missing if the geographical data for a request can't be resolved.
 type LogGeographicalContext struct {
+	// The city that encompasses the area that contains the geolocation coordinates, if available (for example, Seattle, San Francisco)
 	City *string `json:"city,omitempty"`
-	Country *string `json:"country,omitempty"`
+	// Full name of the country that encompasses the area that contains the geolocation coordinates (for example, France, Uganda)
+	Country     *string         `json:"country,omitempty"`
 	Geolocation *LogGeolocation `json:"geolocation,omitempty"`
+	// Postal code of the area that encompasses the geolocation coordinates
 	PostalCode *string `json:"postalCode,omitempty"`
-	State *string `json:"state,omitempty"`
+	// Full name of the state or province that encompasses the area that contains the geolocation coordinates (for example, Montana, Ontario)
+	State                *string `json:"state,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +65,7 @@ func NewLogGeographicalContextWithDefaults() *LogGeographicalContext {
 
 // GetCity returns the City field value if set, zero value otherwise.
 func (o *LogGeographicalContext) GetCity() string {
-	if o == nil || o.City == nil {
+	if o == nil || IsNil(o.City) {
 		var ret string
 		return ret
 	}
@@ -68,7 +75,7 @@ func (o *LogGeographicalContext) GetCity() string {
 // GetCityOk returns a tuple with the City field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogGeographicalContext) GetCityOk() (*string, bool) {
-	if o == nil || o.City == nil {
+	if o == nil || IsNil(o.City) {
 		return nil, false
 	}
 	return o.City, true
@@ -76,7 +83,7 @@ func (o *LogGeographicalContext) GetCityOk() (*string, bool) {
 
 // HasCity returns a boolean if a field has been set.
 func (o *LogGeographicalContext) HasCity() bool {
-	if o != nil && o.City != nil {
+	if o != nil && !IsNil(o.City) {
 		return true
 	}
 
@@ -90,7 +97,7 @@ func (o *LogGeographicalContext) SetCity(v string) {
 
 // GetCountry returns the Country field value if set, zero value otherwise.
 func (o *LogGeographicalContext) GetCountry() string {
-	if o == nil || o.Country == nil {
+	if o == nil || IsNil(o.Country) {
 		var ret string
 		return ret
 	}
@@ -100,7 +107,7 @@ func (o *LogGeographicalContext) GetCountry() string {
 // GetCountryOk returns a tuple with the Country field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogGeographicalContext) GetCountryOk() (*string, bool) {
-	if o == nil || o.Country == nil {
+	if o == nil || IsNil(o.Country) {
 		return nil, false
 	}
 	return o.Country, true
@@ -108,7 +115,7 @@ func (o *LogGeographicalContext) GetCountryOk() (*string, bool) {
 
 // HasCountry returns a boolean if a field has been set.
 func (o *LogGeographicalContext) HasCountry() bool {
-	if o != nil && o.Country != nil {
+	if o != nil && !IsNil(o.Country) {
 		return true
 	}
 
@@ -122,7 +129,7 @@ func (o *LogGeographicalContext) SetCountry(v string) {
 
 // GetGeolocation returns the Geolocation field value if set, zero value otherwise.
 func (o *LogGeographicalContext) GetGeolocation() LogGeolocation {
-	if o == nil || o.Geolocation == nil {
+	if o == nil || IsNil(o.Geolocation) {
 		var ret LogGeolocation
 		return ret
 	}
@@ -132,7 +139,7 @@ func (o *LogGeographicalContext) GetGeolocation() LogGeolocation {
 // GetGeolocationOk returns a tuple with the Geolocation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogGeographicalContext) GetGeolocationOk() (*LogGeolocation, bool) {
-	if o == nil || o.Geolocation == nil {
+	if o == nil || IsNil(o.Geolocation) {
 		return nil, false
 	}
 	return o.Geolocation, true
@@ -140,7 +147,7 @@ func (o *LogGeographicalContext) GetGeolocationOk() (*LogGeolocation, bool) {
 
 // HasGeolocation returns a boolean if a field has been set.
 func (o *LogGeographicalContext) HasGeolocation() bool {
-	if o != nil && o.Geolocation != nil {
+	if o != nil && !IsNil(o.Geolocation) {
 		return true
 	}
 
@@ -154,7 +161,7 @@ func (o *LogGeographicalContext) SetGeolocation(v LogGeolocation) {
 
 // GetPostalCode returns the PostalCode field value if set, zero value otherwise.
 func (o *LogGeographicalContext) GetPostalCode() string {
-	if o == nil || o.PostalCode == nil {
+	if o == nil || IsNil(o.PostalCode) {
 		var ret string
 		return ret
 	}
@@ -164,7 +171,7 @@ func (o *LogGeographicalContext) GetPostalCode() string {
 // GetPostalCodeOk returns a tuple with the PostalCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogGeographicalContext) GetPostalCodeOk() (*string, bool) {
-	if o == nil || o.PostalCode == nil {
+	if o == nil || IsNil(o.PostalCode) {
 		return nil, false
 	}
 	return o.PostalCode, true
@@ -172,7 +179,7 @@ func (o *LogGeographicalContext) GetPostalCodeOk() (*string, bool) {
 
 // HasPostalCode returns a boolean if a field has been set.
 func (o *LogGeographicalContext) HasPostalCode() bool {
-	if o != nil && o.PostalCode != nil {
+	if o != nil && !IsNil(o.PostalCode) {
 		return true
 	}
 
@@ -186,7 +193,7 @@ func (o *LogGeographicalContext) SetPostalCode(v string) {
 
 // GetState returns the State field value if set, zero value otherwise.
 func (o *LogGeographicalContext) GetState() string {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		var ret string
 		return ret
 	}
@@ -196,7 +203,7 @@ func (o *LogGeographicalContext) GetState() string {
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogGeographicalContext) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
 	return o.State, true
@@ -204,7 +211,7 @@ func (o *LogGeographicalContext) GetStateOk() (*string, bool) {
 
 // HasState returns a boolean if a field has been set.
 func (o *LogGeographicalContext) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && !IsNil(o.State) {
 		return true
 	}
 
@@ -217,20 +224,28 @@ func (o *LogGeographicalContext) SetState(v string) {
 }
 
 func (o LogGeographicalContext) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LogGeographicalContext) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.City != nil {
+	if !IsNil(o.City) {
 		toSerialize["city"] = o.City
 	}
-	if o.Country != nil {
+	if !IsNil(o.Country) {
 		toSerialize["country"] = o.Country
 	}
-	if o.Geolocation != nil {
+	if !IsNil(o.Geolocation) {
 		toSerialize["geolocation"] = o.Geolocation
 	}
-	if o.PostalCode != nil {
+	if !IsNil(o.PostalCode) {
 		toSerialize["postalCode"] = o.PostalCode
 	}
-	if o.State != nil {
+	if !IsNil(o.State) {
 		toSerialize["state"] = o.State
 	}
 
@@ -238,31 +253,29 @@ func (o LogGeographicalContext) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LogGeographicalContext) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LogGeographicalContext) UnmarshalJSON(data []byte) (err error) {
 	varLogGeographicalContext := _LogGeographicalContext{}
 
-	err = json.Unmarshal(bytes, &varLogGeographicalContext)
-	if err == nil {
-		*o = LogGeographicalContext(varLogGeographicalContext)
-	} else {
+	err = json.Unmarshal(data, &varLogGeographicalContext)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LogGeographicalContext(varLogGeographicalContext)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "city")
 		delete(additionalProperties, "country")
 		delete(additionalProperties, "geolocation")
 		delete(additionalProperties, "postalCode")
 		delete(additionalProperties, "state")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -303,4 +316,3 @@ func (v *NullableLogGeographicalContext) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Self** | Pointer to [**HrefObjectSelfLink**](HrefObjectSelfLink.md) |  | [optional] 
-**Acs** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
-**Authorize** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
-**ClientRedirectUri** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
-**Metadata** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
-**Users** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
-**Deactivate** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
-**Activate** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
-**Keys** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**Acs** | Pointer to [**HrefObject**](HrefObject.md) | SAML 2.0 Assertion Consumer Service URL for the Okta SP | [optional] 
+**Authorize** | Pointer to [**HrefObject**](HrefObject.md) | OAuth 2.0 authorization endpoint for the IdP OAuth 2.0 Authorization Code flow | [optional] 
+**ClientRedirectUri** | Pointer to [**HrefObject**](HrefObject.md) | Redirect URI for the OAuth 2.0 Authorization Code flow | [optional] 
+**Metadata** | Pointer to [**HrefObject**](HrefObject.md) | Federation metadata document for the IdP (for example: SAML 2.0 Metadata) | [optional] 
+**Users** | Pointer to [**HrefObject**](HrefObject.md) | IdP users | [optional] 
+**Deactivate** | Pointer to [**HrefObject**](HrefObject.md) | Deactivate IdP | [optional] 
+**Activate** | Pointer to [**HrefObject**](HrefObject.md) | Activate IdP | [optional] 
+**Keys** | Pointer to [**HrefObject**](HrefObject.md) | IdP keys | [optional] 
 
 ## Methods
 

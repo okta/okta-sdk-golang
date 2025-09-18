@@ -4,271 +4,21 @@ All URIs are relative to *https://subdomain.okta.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ActivateUser**](UserAPI.md#ActivateUser) | **Post** /api/v1/users/{userId}/lifecycle/activate | Activate a User
-[**ChangePassword**](UserAPI.md#ChangePassword) | **Post** /api/v1/users/{userId}/credentials/change_password | Change Password
-[**ChangeRecoveryQuestion**](UserAPI.md#ChangeRecoveryQuestion) | **Post** /api/v1/users/{userId}/credentials/change_recovery_question | Change Recovery Question
-[**CreateUser**](UserAPI.md#CreateUser) | **Post** /api/v1/users | Create a User
-[**DeactivateUser**](UserAPI.md#DeactivateUser) | **Post** /api/v1/users/{userId}/lifecycle/deactivate | Deactivate a User
-[**DeleteLinkedObjectForUser**](UserAPI.md#DeleteLinkedObjectForUser) | **Delete** /api/v1/users/{userIdOrLogin}/linkedObjects/{relationshipName} | Delete a Linked Object
-[**DeleteUser**](UserAPI.md#DeleteUser) | **Delete** /api/v1/users/{userId} | Delete a User
-[**ExpirePassword**](UserAPI.md#ExpirePassword) | **Post** /api/v1/users/{userId}/lifecycle/expire_password | Expire Password
-[**ExpirePasswordAndGetTemporaryPassword**](UserAPI.md#ExpirePasswordAndGetTemporaryPassword) | **Post** /api/v1/users/{userId}/lifecycle/expire_password_with_temp_password | Expire Password and Set Temporary Password
-[**ForgotPassword**](UserAPI.md#ForgotPassword) | **Post** /api/v1/users/{userId}/credentials/forgot_password | Initiate Forgot Password
-[**ForgotPasswordSetNewPassword**](UserAPI.md#ForgotPasswordSetNewPassword) | **Post** /api/v1/users/{userId}/credentials/forgot_password_recovery_question | Reset Password with Recovery Question
-[**GenerateResetPasswordToken**](UserAPI.md#GenerateResetPasswordToken) | **Post** /api/v1/users/{userId}/lifecycle/reset_password | Generate a Reset Password Token
-[**GetRefreshTokenForUserAndClient**](UserAPI.md#GetRefreshTokenForUserAndClient) | **Get** /api/v1/users/{userId}/clients/{clientId}/tokens/{tokenId} | Retrieve a Refresh Token for a Client
-[**GetUser**](UserAPI.md#GetUser) | **Get** /api/v1/users/{userId} | Retrieve a User
-[**GetUserGrant**](UserAPI.md#GetUserGrant) | **Get** /api/v1/users/{userId}/grants/{grantId} | Retrieve a User Grant
-[**ListAppLinks**](UserAPI.md#ListAppLinks) | **Get** /api/v1/users/{userId}/appLinks | List all Assigned Application Links
-[**ListGrantsForUserAndClient**](UserAPI.md#ListGrantsForUserAndClient) | **Get** /api/v1/users/{userId}/clients/{clientId}/grants | List all Grants for a Client
-[**ListLinkedObjectsForUser**](UserAPI.md#ListLinkedObjectsForUser) | **Get** /api/v1/users/{userIdOrLogin}/linkedObjects/{relationshipName} | List the primary or all of the associated Linked Object values
-[**ListRefreshTokensForUserAndClient**](UserAPI.md#ListRefreshTokensForUserAndClient) | **Get** /api/v1/users/{userId}/clients/{clientId}/tokens | List all Refresh Tokens for a Client
-[**ListUserBlocks**](UserAPI.md#ListUserBlocks) | **Get** /api/v1/users/{userId}/blocks | List all User Blocks
-[**ListUserClients**](UserAPI.md#ListUserClients) | **Get** /api/v1/users/{userId}/clients | List all Clients
-[**ListUserGrants**](UserAPI.md#ListUserGrants) | **Get** /api/v1/users/{userId}/grants | List all User Grants
-[**ListUserGroups**](UserAPI.md#ListUserGroups) | **Get** /api/v1/users/{userId}/groups | List all Groups
-[**ListUserIdentityProviders**](UserAPI.md#ListUserIdentityProviders) | **Get** /api/v1/users/{userId}/idps | List all Identity Providers
-[**ListUsers**](UserAPI.md#ListUsers) | **Get** /api/v1/users | List all Users
-[**ReactivateUser**](UserAPI.md#ReactivateUser) | **Post** /api/v1/users/{userId}/lifecycle/reactivate | Reactivate a User
-[**ReplaceLinkedObjectForUser**](UserAPI.md#ReplaceLinkedObjectForUser) | **Put** /api/v1/users/{userIdOrLogin}/linkedObjects/{primaryRelationshipName}/{primaryUserId} | Replace the Linked Object value for &#x60;primary&#x60;
-[**ReplaceUser**](UserAPI.md#ReplaceUser) | **Put** /api/v1/users/{userId} | Replace a User
-[**ResetFactors**](UserAPI.md#ResetFactors) | **Post** /api/v1/users/{userId}/lifecycle/reset_factors | Reset all Factors
-[**RevokeGrantsForUserAndClient**](UserAPI.md#RevokeGrantsForUserAndClient) | **Delete** /api/v1/users/{userId}/clients/{clientId}/grants | Revoke all Grants for a Client
-[**RevokeTokenForUserAndClient**](UserAPI.md#RevokeTokenForUserAndClient) | **Delete** /api/v1/users/{userId}/clients/{clientId}/tokens/{tokenId} | Revoke a Token for a Client
-[**RevokeTokensForUserAndClient**](UserAPI.md#RevokeTokensForUserAndClient) | **Delete** /api/v1/users/{userId}/clients/{clientId}/tokens | Revoke all Refresh Tokens for a Client
-[**RevokeUserGrant**](UserAPI.md#RevokeUserGrant) | **Delete** /api/v1/users/{userId}/grants/{grantId} | Revoke a User Grant
-[**RevokeUserGrants**](UserAPI.md#RevokeUserGrants) | **Delete** /api/v1/users/{userId}/grants | Revoke all User Grants
-[**RevokeUserSessions**](UserAPI.md#RevokeUserSessions) | **Delete** /api/v1/users/{userId}/sessions | Revoke all User Sessions
-[**SuspendUser**](UserAPI.md#SuspendUser) | **Post** /api/v1/users/{userId}/lifecycle/suspend | Suspend a User
-[**UnlockUser**](UserAPI.md#UnlockUser) | **Post** /api/v1/users/{userId}/lifecycle/unlock | Unlock a User
-[**UnsuspendUser**](UserAPI.md#UnsuspendUser) | **Post** /api/v1/users/{userId}/lifecycle/unsuspend | Unsuspend a User
-[**UpdateUser**](UserAPI.md#UpdateUser) | **Post** /api/v1/users/{userId} | Update a User
+[**CreateUser**](UserAPI.md#CreateUser) | **Post** /api/v1/users | Create a user
+[**DeleteUser**](UserAPI.md#DeleteUser) | **Delete** /api/v1/users/{id} | Delete a user
+[**GetUser**](UserAPI.md#GetUser) | **Get** /api/v1/users/{id} | Retrieve a user
+[**ListUserBlocks**](UserAPI.md#ListUserBlocks) | **Get** /api/v1/users/{id}/blocks | List all user blocks
+[**ListUsers**](UserAPI.md#ListUsers) | **Get** /api/v1/users | List all users
+[**ReplaceUser**](UserAPI.md#ReplaceUser) | **Put** /api/v1/users/{id} | Replace a user
+[**UpdateUser**](UserAPI.md#UpdateUser) | **Post** /api/v1/users/{id} | Update a user
 
-
-
-## ActivateUser
-
-> UserActivationToken ActivateUser(ctx, userId).SendEmail(sendEmail).Execute()
-
-Activate a User
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-    sendEmail := true // bool | Sends an activation email to the user if true (default to true)
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserAPI.ActivateUser(context.Background(), userId).SendEmail(sendEmail).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ActivateUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ActivateUser`: UserActivationToken
-    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ActivateUser`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiActivateUserRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **sendEmail** | **bool** | Sends an activation email to the user if true | [default to true]
-
-### Return type
-
-[**UserActivationToken**](UserActivationToken.md)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ChangePassword
-
-> UserCredentials ChangePassword(ctx, userId).ChangePasswordRequest(changePasswordRequest).Strict(strict).Execute()
-
-Change Password
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-    changePasswordRequest := *openapiclient.NewChangePasswordRequest() // ChangePasswordRequest | 
-    strict := true // bool |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserAPI.ChangePassword(context.Background(), userId).ChangePasswordRequest(changePasswordRequest).Strict(strict).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ChangePassword``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ChangePassword`: UserCredentials
-    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ChangePassword`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiChangePasswordRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **changePasswordRequest** | [**ChangePasswordRequest**](ChangePasswordRequest.md) |  | 
- **strict** | **bool** |  | 
-
-### Return type
-
-[**UserCredentials**](UserCredentials.md)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ChangeRecoveryQuestion
-
-> UserCredentials ChangeRecoveryQuestion(ctx, userId).UserCredentials(userCredentials).Execute()
-
-Change Recovery Question
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-    userCredentials := *openapiclient.NewUserCredentials() // UserCredentials | 
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserAPI.ChangeRecoveryQuestion(context.Background(), userId).UserCredentials(userCredentials).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ChangeRecoveryQuestion``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ChangeRecoveryQuestion`: UserCredentials
-    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ChangeRecoveryQuestion`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiChangeRecoveryQuestionRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **userCredentials** | [**UserCredentials**](UserCredentials.md) |  | 
-
-### Return type
-
-[**UserCredentials**](UserCredentials.md)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
 
 
 ## CreateUser
 
 > User CreateUser(ctx).Body(body).Activate(activate).Provider(provider).NextLogin(nextLogin).Execute()
 
-Create a User
+Create a user
 
 
 
@@ -278,27 +28,27 @@ Create a User
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    body := *openapiclient.NewCreateUserRequest(*openapiclient.NewUserProfile()) // CreateUserRequest | 
-    activate := true // bool | Executes activation lifecycle operation when creating the user (optional) (default to true)
-    provider := true // bool | Indicates whether to create a user with a specified authentication provider (optional) (default to false)
-    nextLogin := "nextLogin_example" // string | With activate=true, set nextLogin to \"changePassword\" to have the password be EXPIRED, so user must change it the next time they log in. (optional)
+	body := *openapiclient.NewCreateUserRequest(*openapiclient.NewUserProfile()) // CreateUserRequest | 
+	activate := true // bool | Executes an [activation lifecycle](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserLifecycle/#tag/UserLifecycle/operation/activateUser) operation when creating the user (optional) (default to true)
+	provider := true // bool | Indicates whether to create a user with a specified authentication provider (optional) (default to false)
+	nextLogin := "nextLogin_example" // string | With `activate=true`, if `nextLogin=changePassword`, a user is created, activated, and the password is set to `EXPIRED`. The user must change it the next time they sign in. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserAPI.CreateUser(context.Background()).Body(body).Activate(activate).Provider(provider).NextLogin(nextLogin).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.CreateUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateUser`: User
-    fmt.Fprintf(os.Stdout, "Response from `UserAPI.CreateUser`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserAPI.CreateUser(context.Background()).Body(body).Activate(activate).Provider(provider).NextLogin(nextLogin).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.CreateUser``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateUser`: User
+	fmt.Fprintf(os.Stdout, "Response from `UserAPI.CreateUser`: %v\n", resp)
 }
 ```
 
@@ -314,9 +64,9 @@ Other parameters are passed through a pointer to a apiCreateUserRequest struct v
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **body** | [**CreateUserRequest**](CreateUserRequest.md) |  | 
- **activate** | **bool** | Executes activation lifecycle operation when creating the user | [default to true]
+ **activate** | **bool** | Executes an [activation lifecycle](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserLifecycle/#tag/UserLifecycle/operation/activateUser) operation when creating the user | [default to true]
  **provider** | **bool** | Indicates whether to create a user with a specified authentication provider | [default to false]
- **nextLogin** | **string** | With activate&#x3D;true, set nextLogin to \&quot;changePassword\&quot; to have the password be EXPIRED, so user must change it the next time they log in. | 
+ **nextLogin** | **string** | With &#x60;activate&#x3D;true&#x60;, if &#x60;nextLogin&#x3D;changePassword&#x60;, a user is created, activated, and the password is set to &#x60;EXPIRED&#x60;. The user must change it the next time they sign in. | 
 
 ### Return type
 
@@ -329,147 +79,6 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## DeactivateUser
-
-> DeactivateUser(ctx, userId).SendEmail(sendEmail).Execute()
-
-Deactivate a User
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-    sendEmail := true // bool |  (optional) (default to false)
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.UserAPI.DeactivateUser(context.Background(), userId).SendEmail(sendEmail).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.DeactivateUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeactivateUserRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **sendEmail** | **bool** |  | [default to false]
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## DeleteLinkedObjectForUser
-
-> DeleteLinkedObjectForUser(ctx, userIdOrLogin, relationshipName).Execute()
-
-Delete a Linked Object
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userIdOrLogin := "userIdOrLogin_example" // string | User ID or login value of the user assigned the `associated` relationship
-    relationshipName := "relationshipName_example" // string | Name of the `primary` or `associated` relationship being queried
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.UserAPI.DeleteLinkedObjectForUser(context.Background(), userIdOrLogin, relationshipName).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.DeleteLinkedObjectForUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userIdOrLogin** | **string** | User ID or login value of the user assigned the &#x60;associated&#x60; relationship | 
-**relationshipName** | **string** | Name of the &#x60;primary&#x60; or &#x60;associated&#x60; relationship being queried | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteLinkedObjectForUserRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -479,9 +88,9 @@ Name | Type | Description  | Notes
 
 ## DeleteUser
 
-> DeleteUser(ctx, userId).SendEmail(sendEmail).Execute()
+> DeleteUser(ctx, id).SendEmail(sendEmail).Prefer(prefer).Execute()
 
-Delete a User
+Delete a user
 
 
 
@@ -491,23 +100,24 @@ Delete a User
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-    sendEmail := true // bool |  (optional) (default to false)
+	id := "id_example" // string | An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+	sendEmail := true // bool | Sends a deactivation email to the admin if `true` (optional) (default to false)
+	prefer := "prefer_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.UserAPI.DeleteUser(context.Background(), userId).SendEmail(sendEmail).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.DeleteUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.UserAPI.DeleteUser(context.Background(), id).SendEmail(sendEmail).Prefer(prefer).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.DeleteUser``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -517,7 +127,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
+**id** | **string** | An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user | 
 
 ### Other Parameters
 
@@ -527,455 +137,12 @@ Other parameters are passed through a pointer to a apiDeleteUserRequest struct v
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **sendEmail** | **bool** |  | [default to false]
+ **sendEmail** | **bool** | Sends a deactivation email to the admin if &#x60;true&#x60; | [default to false]
+ **prefer** | **string** |  | 
 
 ### Return type
 
  (empty response body)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ExpirePassword
-
-> User ExpirePassword(ctx, userId).Execute()
-
-Expire Password
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserAPI.ExpirePassword(context.Background(), userId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ExpirePassword``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ExpirePassword`: User
-    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ExpirePassword`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiExpirePasswordRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**User**](User.md)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ExpirePasswordAndGetTemporaryPassword
-
-> TempPassword ExpirePasswordAndGetTemporaryPassword(ctx, userId).RevokeSessions(revokeSessions).Execute()
-
-Expire Password and Set Temporary Password
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-    revokeSessions := true // bool | When set to `true` (and the session is a user session), all user sessions are revoked except the current session. (optional) (default to false)
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserAPI.ExpirePasswordAndGetTemporaryPassword(context.Background(), userId).RevokeSessions(revokeSessions).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ExpirePasswordAndGetTemporaryPassword``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ExpirePasswordAndGetTemporaryPassword`: TempPassword
-    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ExpirePasswordAndGetTemporaryPassword`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiExpirePasswordAndGetTemporaryPasswordRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **revokeSessions** | **bool** | When set to &#x60;true&#x60; (and the session is a user session), all user sessions are revoked except the current session. | [default to false]
-
-### Return type
-
-[**TempPassword**](TempPassword.md)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ForgotPassword
-
-> ForgotPasswordResponse ForgotPassword(ctx, userId).SendEmail(sendEmail).Execute()
-
-Initiate Forgot Password
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-    sendEmail := true // bool |  (optional) (default to true)
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserAPI.ForgotPassword(context.Background(), userId).SendEmail(sendEmail).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ForgotPassword``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ForgotPassword`: ForgotPasswordResponse
-    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ForgotPassword`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiForgotPasswordRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **sendEmail** | **bool** |  | [default to true]
-
-### Return type
-
-[**ForgotPasswordResponse**](ForgotPasswordResponse.md)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ForgotPasswordSetNewPassword
-
-> UserCredentials ForgotPasswordSetNewPassword(ctx, userId).UserCredentials(userCredentials).SendEmail(sendEmail).Execute()
-
-Reset Password with Recovery Question
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-    userCredentials := *openapiclient.NewUserCredentials() // UserCredentials | 
-    sendEmail := true // bool |  (optional) (default to true)
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserAPI.ForgotPasswordSetNewPassword(context.Background(), userId).UserCredentials(userCredentials).SendEmail(sendEmail).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ForgotPasswordSetNewPassword``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ForgotPasswordSetNewPassword`: UserCredentials
-    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ForgotPasswordSetNewPassword`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiForgotPasswordSetNewPasswordRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **userCredentials** | [**UserCredentials**](UserCredentials.md) |  | 
- **sendEmail** | **bool** |  | [default to true]
-
-### Return type
-
-[**UserCredentials**](UserCredentials.md)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GenerateResetPasswordToken
-
-> ResetPasswordToken GenerateResetPasswordToken(ctx, userId).SendEmail(sendEmail).RevokeSessions(revokeSessions).Execute()
-
-Generate a Reset Password Token
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-    sendEmail := true // bool | 
-    revokeSessions := true // bool | When set to `true` (and the session is a user session), all user sessions are revoked except the current session. (optional) (default to false)
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserAPI.GenerateResetPasswordToken(context.Background(), userId).SendEmail(sendEmail).RevokeSessions(revokeSessions).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.GenerateResetPasswordToken``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GenerateResetPasswordToken`: ResetPasswordToken
-    fmt.Fprintf(os.Stdout, "Response from `UserAPI.GenerateResetPasswordToken`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGenerateResetPasswordTokenRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **sendEmail** | **bool** |  | 
- **revokeSessions** | **bool** | When set to &#x60;true&#x60; (and the session is a user session), all user sessions are revoked except the current session. | [default to false]
-
-### Return type
-
-[**ResetPasswordToken**](ResetPasswordToken.md)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetRefreshTokenForUserAndClient
-
-> OAuth2RefreshToken GetRefreshTokenForUserAndClient(ctx, userId, clientId, tokenId).Expand(expand).Limit(limit).After(after).Execute()
-
-Retrieve a Refresh Token for a Client
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-    clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
-    tokenId := "sHHSth53yJAyNSTQKDJZ" // string | `id` of Token
-    expand := "expand_example" // string |  (optional)
-    limit := int32(56) // int32 |  (optional) (default to 20)
-    after := "after_example" // string |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserAPI.GetRefreshTokenForUserAndClient(context.Background(), userId, clientId, tokenId).Expand(expand).Limit(limit).After(after).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.GetRefreshTokenForUserAndClient``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetRefreshTokenForUserAndClient`: OAuth2RefreshToken
-    fmt.Fprintf(os.Stdout, "Response from `UserAPI.GetRefreshTokenForUserAndClient`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-**clientId** | **string** | &#x60;client_id&#x60; of the app | 
-**tokenId** | **string** | &#x60;id&#x60; of Token | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetRefreshTokenForUserAndClientRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
- **expand** | **string** |  | 
- **limit** | **int32** |  | [default to 20]
- **after** | **string** |  | 
-
-### Return type
-
-[**OAuth2RefreshToken**](OAuth2RefreshToken.md)
 
 ### Authorization
 
@@ -993,9 +160,9 @@ Name | Type | Description  | Notes
 
 ## GetUser
 
-> UserGetSingleton GetUser(ctx, userId).Expand(expand).Execute()
+> UserGetSingleton GetUser(ctx, id).ContentType(contentType).Expand(expand).Execute()
 
-Retrieve a User
+Retrieve a user
 
 
 
@@ -1005,25 +172,26 @@ Retrieve a User
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-    expand := "blocks" // string | An optional parameter to include metadata in the `_embedded` attribute. Valid value: `blocks` (optional)
+	id := "id_example" // string | An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+	contentType := "application/json; okta-response=omitCredentials,omitCredentialsLinks" // string | Specifies the media type of the resource. Optional `okta-response` value can be included for performance optimization.  Complex DelAuth configurations may degrade performance when fetching specific parts of the response, and passing this parameter can omit these parts, bypassing the bottleneck.  Enum values for `okta-response`:   * `omitCredentials`: Omits the credentials subobject from the response.   * `omitCredentialsLinks`: Omits the following HAL links from the response: Update password, Change recovery question, Start forgot password flow, Reset password, Reset factors, Unlock.   * `omitTransitioningToStatus`: Omits the `transitioningToStatus` field from the response. (optional)
+	expand := "blocks" // string | An optional parameter to include metadata in the `_embedded` attribute. Valid values: `blocks` or <x-lifecycle class=\"ea\"></x-lifecycle> `classification`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserAPI.GetUser(context.Background(), userId).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.GetUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetUser`: UserGetSingleton
-    fmt.Fprintf(os.Stdout, "Response from `UserAPI.GetUser`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserAPI.GetUser(context.Background(), id).ContentType(contentType).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.GetUser``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetUser`: UserGetSingleton
+	fmt.Fprintf(os.Stdout, "Response from `UserAPI.GetUser`: %v\n", resp)
 }
 ```
 
@@ -1033,7 +201,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
+**id** | **string** | An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user | 
 
 ### Other Parameters
 
@@ -1043,7 +211,8 @@ Other parameters are passed through a pointer to a apiGetUserRequest struct via 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **expand** | **string** | An optional parameter to include metadata in the &#x60;_embedded&#x60; attribute. Valid value: &#x60;blocks&#x60; | 
+ **contentType** | **string** | Specifies the media type of the resource. Optional &#x60;okta-response&#x60; value can be included for performance optimization.  Complex DelAuth configurations may degrade performance when fetching specific parts of the response, and passing this parameter can omit these parts, bypassing the bottleneck.  Enum values for &#x60;okta-response&#x60;:   * &#x60;omitCredentials&#x60;: Omits the credentials subobject from the response.   * &#x60;omitCredentialsLinks&#x60;: Omits the following HAL links from the response: Update password, Change recovery question, Start forgot password flow, Reset password, Reset factors, Unlock.   * &#x60;omitTransitioningToStatus&#x60;: Omits the &#x60;transitioningToStatus&#x60; field from the response. | 
+ **expand** | **string** | An optional parameter to include metadata in the &#x60;_embedded&#x60; attribute. Valid values: &#x60;blocks&#x60; or &lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &#x60;classification&#x60;. | 
 
 ### Return type
 
@@ -1063,391 +232,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetUserGrant
-
-> OAuth2ScopeConsentGrant GetUserGrant(ctx, userId, grantId).Expand(expand).Execute()
-
-Retrieve a User Grant
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-    grantId := "iJoqkwx50mrgX4T9LcaH" // string | Grant ID
-    expand := "expand_example" // string |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserAPI.GetUserGrant(context.Background(), userId, grantId).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.GetUserGrant``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetUserGrant`: OAuth2ScopeConsentGrant
-    fmt.Fprintf(os.Stdout, "Response from `UserAPI.GetUserGrant`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-**grantId** | **string** | Grant ID | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetUserGrantRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **expand** | **string** |  | 
-
-### Return type
-
-[**OAuth2ScopeConsentGrant**](OAuth2ScopeConsentGrant.md)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ListAppLinks
-
-> []AppLink ListAppLinks(ctx, userId).Execute()
-
-List all Assigned Application Links
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserAPI.ListAppLinks(context.Background(), userId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListAppLinks``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListAppLinks`: []AppLink
-    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListAppLinks`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListAppLinksRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**[]AppLink**](AppLink.md)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ListGrantsForUserAndClient
-
-> []OAuth2ScopeConsentGrant ListGrantsForUserAndClient(ctx, userId, clientId).Expand(expand).After(after).Limit(limit).Execute()
-
-List all Grants for a Client
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-    clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
-    expand := "expand_example" // string |  (optional)
-    after := "after_example" // string |  (optional)
-    limit := int32(56) // int32 |  (optional) (default to 20)
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserAPI.ListGrantsForUserAndClient(context.Background(), userId, clientId).Expand(expand).After(after).Limit(limit).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListGrantsForUserAndClient``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListGrantsForUserAndClient`: []OAuth2ScopeConsentGrant
-    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListGrantsForUserAndClient`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-**clientId** | **string** | &#x60;client_id&#x60; of the app | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListGrantsForUserAndClientRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **expand** | **string** |  | 
- **after** | **string** |  | 
- **limit** | **int32** |  | [default to 20]
-
-### Return type
-
-[**[]OAuth2ScopeConsentGrant**](OAuth2ScopeConsentGrant.md)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ListLinkedObjectsForUser
-
-> []map[string]interface{} ListLinkedObjectsForUser(ctx, userIdOrLogin, relationshipName).After(after).Limit(limit).Execute()
-
-List the primary or all of the associated Linked Object values
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userIdOrLogin := "userIdOrLogin_example" // string | User ID or login value of the user assigned the `associated` relationship
-    relationshipName := "relationshipName_example" // string | Name of the `primary` or `associated` relationship being queried
-    after := "after_example" // string |  (optional)
-    limit := int32(56) // int32 |  (optional) (default to -1)
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserAPI.ListLinkedObjectsForUser(context.Background(), userIdOrLogin, relationshipName).After(after).Limit(limit).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListLinkedObjectsForUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListLinkedObjectsForUser`: []map[string]interface{}
-    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListLinkedObjectsForUser`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userIdOrLogin** | **string** | User ID or login value of the user assigned the &#x60;associated&#x60; relationship | 
-**relationshipName** | **string** | Name of the &#x60;primary&#x60; or &#x60;associated&#x60; relationship being queried | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListLinkedObjectsForUserRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **after** | **string** |  | 
- **limit** | **int32** |  | [default to -1]
-
-### Return type
-
-**[]map[string]interface{}**
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ListRefreshTokensForUserAndClient
-
-> []OAuth2RefreshToken ListRefreshTokensForUserAndClient(ctx, userId, clientId).Expand(expand).After(after).Limit(limit).Execute()
-
-List all Refresh Tokens for a Client
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-    clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
-    expand := "expand_example" // string |  (optional)
-    after := "after_example" // string |  (optional)
-    limit := int32(56) // int32 |  (optional) (default to 20)
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserAPI.ListRefreshTokensForUserAndClient(context.Background(), userId, clientId).Expand(expand).After(after).Limit(limit).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListRefreshTokensForUserAndClient``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListRefreshTokensForUserAndClient`: []OAuth2RefreshToken
-    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListRefreshTokensForUserAndClient`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-**clientId** | **string** | &#x60;client_id&#x60; of the app | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListRefreshTokensForUserAndClientRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **expand** | **string** |  | 
- **after** | **string** |  | 
- **limit** | **int32** |  | [default to 20]
-
-### Return type
-
-[**[]OAuth2RefreshToken**](OAuth2RefreshToken.md)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## ListUserBlocks
 
-> []UserBlock ListUserBlocks(ctx, userId).Execute()
+> []UserBlock ListUserBlocks(ctx, id).Execute()
 
-List all User Blocks
+List all user blocks
 
 
 
@@ -1457,24 +246,24 @@ List all User Blocks
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
+	id := "id_example" // string | An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserAPI.ListUserBlocks(context.Background(), userId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListUserBlocks``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListUserBlocks`: []UserBlock
-    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListUserBlocks`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserAPI.ListUserBlocks(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListUserBlocks``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListUserBlocks`: []UserBlock
+	fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListUserBlocks`: %v\n", resp)
 }
 ```
 
@@ -1484,7 +273,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
+**id** | **string** | An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user | 
 
 ### Other Parameters
 
@@ -1513,303 +302,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## ListUserClients
-
-> []OAuth2Client ListUserClients(ctx, userId).Execute()
-
-List all Clients
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserAPI.ListUserClients(context.Background(), userId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListUserClients``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListUserClients`: []OAuth2Client
-    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListUserClients`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListUserClientsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**[]OAuth2Client**](OAuth2Client.md)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ListUserGrants
-
-> []OAuth2ScopeConsentGrant ListUserGrants(ctx, userId).ScopeId(scopeId).Expand(expand).After(after).Limit(limit).Execute()
-
-List all User Grants
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-    scopeId := "scopeId_example" // string |  (optional)
-    expand := "expand_example" // string |  (optional)
-    after := "after_example" // string |  (optional)
-    limit := int32(56) // int32 |  (optional) (default to 20)
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserAPI.ListUserGrants(context.Background(), userId).ScopeId(scopeId).Expand(expand).After(after).Limit(limit).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListUserGrants``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListUserGrants`: []OAuth2ScopeConsentGrant
-    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListUserGrants`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListUserGrantsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **scopeId** | **string** |  | 
- **expand** | **string** |  | 
- **after** | **string** |  | 
- **limit** | **int32** |  | [default to 20]
-
-### Return type
-
-[**[]OAuth2ScopeConsentGrant**](OAuth2ScopeConsentGrant.md)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ListUserGroups
-
-> []Group ListUserGroups(ctx, userId).After(after).Limit(limit).Execute()
-
-List all Groups
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-    after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
-    limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserAPI.ListUserGroups(context.Background(), userId).After(after).Limit(limit).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListUserGroups``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListUserGroups`: []Group
-    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListUserGroups`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListUserGroupsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **after** | **string** | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](/#pagination). | 
- **limit** | **int32** | A limit on the number of objects to return | [default to 20]
-
-### Return type
-
-[**[]Group**](Group.md)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ListUserIdentityProviders
-
-> []IdentityProvider ListUserIdentityProviders(ctx, userId).Execute()
-
-List all Identity Providers
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserAPI.ListUserIdentityProviders(context.Background(), userId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListUserIdentityProviders``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListUserIdentityProviders`: []IdentityProvider
-    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListUserIdentityProviders`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListUserIdentityProvidersRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**[]IdentityProvider**](IdentityProvider.md)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## ListUsers
 
-> []User ListUsers(ctx).Q(q).After(after).Limit(limit).Filter(filter).Search(search).SortBy(sortBy).SortOrder(sortOrder).Execute()
+> []User ListUsers(ctx).ContentType(contentType).Search(search).Filter(filter).Q(q).After(after).Limit(limit).SortBy(sortBy).SortOrder(sortOrder).Expand(expand).Execute()
 
-List all Users
+List all users
 
 
 
@@ -1819,30 +316,32 @@ List all Users
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    q := "q_example" // string | Finds a user that matches firstName, lastName, and email properties (optional)
-    after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
-    limit := int32(56) // int32 | Specifies the number of results returned. Defaults to 10 if `q` is provided. (optional) (default to 200)
-    filter := "filter_example" // string | Filters users with a supported expression for a subset of properties (optional)
-    search := "search_example" // string | Searches for users with a supported filtering expression for most properties. Okta recommends using this parameter for search for best performance. (optional)
-    sortBy := "sortBy_example" // string |  (optional)
-    sortOrder := "sortOrder_example" // string | Sorting is done in ASCII sort order (that is, by ASCII character value), but isn't case sensitive. (optional)
+	contentType := "application/json; okta-response=omitCredentials,omitCredentialsLinks" // string | Specifies the media type of the resource. Optional `okta-response` value can be included for performance optimization.  Complex DelAuth configurations may degrade performance when fetching specific parts of the response, and passing this parameter can omit these parts, bypassing the bottleneck.  Enum values for `okta-response`:   * `omitCredentials`: Omits the credentials subobject from the response.   * `omitCredentialsLinks`: Omits the following HAL links from the response: Update password, Change recovery question, Start forgot password flow, Reset password, Reset factors, Unlock.   * `omitTransitioningToStatus`: Omits the `transitioningToStatus` field from the response. (optional)
+	search := "status%20eq%20%22STAGED%22" // string | Searches for users with a supported filtering expression for most properties. Okta recommends using this parameter for optimal search performance.  > **Note:** Using an overly complex or long search query can result in an error.  This operation supports [pagination](https://developer.okta.com/docs/api/#pagination). Use an ID lookup for records that you update to ensure your results contain the latest data. Returned users include those with the `DEPROVISIONED` status.  Property names in the search parameter are case sensitive, whereas operators (`eq`, `sw`, and so on) and string values are case insensitive. Unlike with user logins, diacritical marks are significant in search string values: a search for `isaac.brock` finds `Isaac.Brock`, but doesn't find a property whose value is `isáàc.bröck`.  This operation requires [URL encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding). For example, `search=profile.department eq \"Engineering\"` is encoded as `search=profile.department%20eq%20%22Engineering%22`. If you use the special character `\"` within a quoted string, it must also be escaped `\\` and encoded. For example, `search=profile.lastName eq \"bob\"smith\"` is encoded as `search=profile.lastName%20eq%20%22bob%5C%22smith%22`. See [Special Characters](https://developer.okta.com/docs/api/#special-characters).  This operation searches many properties:   * Any user profile attribute, including custom-defined attributes   * The top-level properties: `id`, `status`, `created`, `activated`, `statusChanged`, and `lastUpdated`   * The [user type](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserType/#tag/UserType/operation/updateUserType) accessed as `type.id`  > **Note:** <x-lifecycle class=\"ea\"></x-lifecycle> The ability to search by user classification is available as an [Early Access](https://developer.okta.com/docs/api/openapi/okta-management/guides/release-lifecycle/#early-access-ea) feature. The `classification.type` property cannot be used in conjunction with other search terms. You can search using `classification.type eq \"LITE\"` or `classification.type eq \"STANDARD\"`.  You can also use `sortBy` and `sortOrder` parameters. The `ne` (not equal) operator isn't supported, but you can obtain the same result by using `lt ... or ... gt`. For example, to see all users except those that have a status of `STAGED`, use `(status lt \"STAGED\" or status gt \"STAGED\")`.  You can search properties that are arrays. If any element matches the search term, the entire array (object) is returned. Okta follows the [SCIM Protocol Specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) for searching arrays. You can search multiple arrays, multiple values in an array, as well as using the standard logical and filtering operators. See [Filter](https://developer.okta.com/docs/reference/core-okta-api/#filter).  Searches for users can be filtered by the following operators: `sw`, `eq`, and `co`. You can only use `co` with these select user profile attributes: `profile.firstName`, `profile.lastName`, `profile.email`, and `profile.login`. See [Operators](https://developer.okta.com/docs/api/#operators). (optional)
+	filter := "status%20eq%20%22LOCKED_OUT%22" // string | Filters users with a supported expression for a subset of properties.  > **Note:** Returned users include those with the `DEPROVISIONED` status.  This requires [URL encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding). For example, `filter=lastUpdated gt \"2013-06-01T00:00:00.000Z\"` is encoded as `filter=lastUpdated%20gt%20%222013-06-01T00:00:00.000Z%22`. Filtering is case-sensitive for property names and query values, while operators are case-insensitive.  Filtering supports the following limited number of properties: `status`, `lastUpdated`, `id`, `profile.login`, `profile.email`, `profile.firstName`, and `profile.lastName`.  Additionally, filtering supports only the equal `eq` operator from the standard Okta API filtering semantics, except in the case of the `lastUpdated` property. This property can also use the inequality operators (`gt`, `ge`, `lt`, and `le`). For logical operators, only the logical operators `and` and `or` are supported. The `not` operator isn't supported. See [Filter](https://developer.okta.com/docs/api/#filter) and [Operators](https://developer.okta.com/docs/api/#operators). (optional)
+	q := "q_example" // string | Finds users who match the specified query. This doesn't support pagination.  > **Note:** For optimal performance, use the `search` parameter instead.  Use the `q` parameter for simple queries, such as a lookup of users by name when creating a people picker.  The value of `q` is matched against `firstName`, `lastName`, or `email`. This performs a `startsWith` match, but this is an implementation detail and can change without notice. You don't need to specify `firstName`, `lastName`, or `email`.  > **Note:** Using the `q` parameter in a request omits users that have a status of `DEPROVISIONED`. To return all users, use a filter or search query instead. (optional)
+	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/api/#pagination). (optional)
+	limit := int32(56) // int32 | Specifies the number of results returned. Defaults to 10 if `q` is provided. (optional) (default to 200)
+	sortBy := "sortBy_example" // string | Specifies field to sort by (for search queries only). This can be any single property, for example `sortBy=profile.lastName`. Users with the same value for the `sortBy` property will be ordered by `id`. (optional)
+	sortOrder := "sortOrder_example" // string | Specifies the sort order: `asc` or `desc` (for search queries only). Sorting is done in ASCII sort order (that is, by ASCII character value), but isn't case sensitive. `sortOrder` is ignored if `sortBy` isn't present. (optional)
+	expand := "classification" // string | <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>A parameter to include metadata in the `_embedded` property. Supported value: `classification`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserAPI.ListUsers(context.Background()).Q(q).After(after).Limit(limit).Filter(filter).Search(search).SortBy(sortBy).SortOrder(sortOrder).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListUsers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListUsers`: []User
-    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListUsers`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserAPI.ListUsers(context.Background()).ContentType(contentType).Search(search).Filter(filter).Q(q).After(after).Limit(limit).SortBy(sortBy).SortOrder(sortOrder).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListUsers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListUsers`: []User
+	fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListUsers`: %v\n", resp)
 }
 ```
 
@@ -1857,13 +356,15 @@ Other parameters are passed through a pointer to a apiListUsersRequest struct vi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **q** | **string** | Finds a user that matches firstName, lastName, and email properties | 
- **after** | **string** | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](/#pagination). | 
+ **contentType** | **string** | Specifies the media type of the resource. Optional &#x60;okta-response&#x60; value can be included for performance optimization.  Complex DelAuth configurations may degrade performance when fetching specific parts of the response, and passing this parameter can omit these parts, bypassing the bottleneck.  Enum values for &#x60;okta-response&#x60;:   * &#x60;omitCredentials&#x60;: Omits the credentials subobject from the response.   * &#x60;omitCredentialsLinks&#x60;: Omits the following HAL links from the response: Update password, Change recovery question, Start forgot password flow, Reset password, Reset factors, Unlock.   * &#x60;omitTransitioningToStatus&#x60;: Omits the &#x60;transitioningToStatus&#x60; field from the response. | 
+ **search** | **string** | Searches for users with a supported filtering expression for most properties. Okta recommends using this parameter for optimal search performance.  &gt; **Note:** Using an overly complex or long search query can result in an error.  This operation supports [pagination](https://developer.okta.com/docs/api/#pagination). Use an ID lookup for records that you update to ensure your results contain the latest data. Returned users include those with the &#x60;DEPROVISIONED&#x60; status.  Property names in the search parameter are case sensitive, whereas operators (&#x60;eq&#x60;, &#x60;sw&#x60;, and so on) and string values are case insensitive. Unlike with user logins, diacritical marks are significant in search string values: a search for &#x60;isaac.brock&#x60; finds &#x60;Isaac.Brock&#x60;, but doesn&#39;t find a property whose value is &#x60;isáàc.bröck&#x60;.  This operation requires [URL encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding). For example, &#x60;search&#x3D;profile.department eq \&quot;Engineering\&quot;&#x60; is encoded as &#x60;search&#x3D;profile.department%20eq%20%22Engineering%22&#x60;. If you use the special character &#x60;\&quot;&#x60; within a quoted string, it must also be escaped &#x60;\\&#x60; and encoded. For example, &#x60;search&#x3D;profile.lastName eq \&quot;bob\&quot;smith\&quot;&#x60; is encoded as &#x60;search&#x3D;profile.lastName%20eq%20%22bob%5C%22smith%22&#x60;. See [Special Characters](https://developer.okta.com/docs/api/#special-characters).  This operation searches many properties:   * Any user profile attribute, including custom-defined attributes   * The top-level properties: &#x60;id&#x60;, &#x60;status&#x60;, &#x60;created&#x60;, &#x60;activated&#x60;, &#x60;statusChanged&#x60;, and &#x60;lastUpdated&#x60;   * The [user type](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserType/#tag/UserType/operation/updateUserType) accessed as &#x60;type.id&#x60;  &gt; **Note:** &lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; The ability to search by user classification is available as an [Early Access](https://developer.okta.com/docs/api/openapi/okta-management/guides/release-lifecycle/#early-access-ea) feature. The &#x60;classification.type&#x60; property cannot be used in conjunction with other search terms. You can search using &#x60;classification.type eq \&quot;LITE\&quot;&#x60; or &#x60;classification.type eq \&quot;STANDARD\&quot;&#x60;.  You can also use &#x60;sortBy&#x60; and &#x60;sortOrder&#x60; parameters. The &#x60;ne&#x60; (not equal) operator isn&#39;t supported, but you can obtain the same result by using &#x60;lt ... or ... gt&#x60;. For example, to see all users except those that have a status of &#x60;STAGED&#x60;, use &#x60;(status lt \&quot;STAGED\&quot; or status gt \&quot;STAGED\&quot;)&#x60;.  You can search properties that are arrays. If any element matches the search term, the entire array (object) is returned. Okta follows the [SCIM Protocol Specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) for searching arrays. You can search multiple arrays, multiple values in an array, as well as using the standard logical and filtering operators. See [Filter](https://developer.okta.com/docs/reference/core-okta-api/#filter).  Searches for users can be filtered by the following operators: &#x60;sw&#x60;, &#x60;eq&#x60;, and &#x60;co&#x60;. You can only use &#x60;co&#x60; with these select user profile attributes: &#x60;profile.firstName&#x60;, &#x60;profile.lastName&#x60;, &#x60;profile.email&#x60;, and &#x60;profile.login&#x60;. See [Operators](https://developer.okta.com/docs/api/#operators). | 
+ **filter** | **string** | Filters users with a supported expression for a subset of properties.  &gt; **Note:** Returned users include those with the &#x60;DEPROVISIONED&#x60; status.  This requires [URL encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding). For example, &#x60;filter&#x3D;lastUpdated gt \&quot;2013-06-01T00:00:00.000Z\&quot;&#x60; is encoded as &#x60;filter&#x3D;lastUpdated%20gt%20%222013-06-01T00:00:00.000Z%22&#x60;. Filtering is case-sensitive for property names and query values, while operators are case-insensitive.  Filtering supports the following limited number of properties: &#x60;status&#x60;, &#x60;lastUpdated&#x60;, &#x60;id&#x60;, &#x60;profile.login&#x60;, &#x60;profile.email&#x60;, &#x60;profile.firstName&#x60;, and &#x60;profile.lastName&#x60;.  Additionally, filtering supports only the equal &#x60;eq&#x60; operator from the standard Okta API filtering semantics, except in the case of the &#x60;lastUpdated&#x60; property. This property can also use the inequality operators (&#x60;gt&#x60;, &#x60;ge&#x60;, &#x60;lt&#x60;, and &#x60;le&#x60;). For logical operators, only the logical operators &#x60;and&#x60; and &#x60;or&#x60; are supported. The &#x60;not&#x60; operator isn&#39;t supported. See [Filter](https://developer.okta.com/docs/api/#filter) and [Operators](https://developer.okta.com/docs/api/#operators). | 
+ **q** | **string** | Finds users who match the specified query. This doesn&#39;t support pagination.  &gt; **Note:** For optimal performance, use the &#x60;search&#x60; parameter instead.  Use the &#x60;q&#x60; parameter for simple queries, such as a lookup of users by name when creating a people picker.  The value of &#x60;q&#x60; is matched against &#x60;firstName&#x60;, &#x60;lastName&#x60;, or &#x60;email&#x60;. This performs a &#x60;startsWith&#x60; match, but this is an implementation detail and can change without notice. You don&#39;t need to specify &#x60;firstName&#x60;, &#x60;lastName&#x60;, or &#x60;email&#x60;.  &gt; **Note:** Using the &#x60;q&#x60; parameter in a request omits users that have a status of &#x60;DEPROVISIONED&#x60;. To return all users, use a filter or search query instead. | 
+ **after** | **string** | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination). | 
  **limit** | **int32** | Specifies the number of results returned. Defaults to 10 if &#x60;q&#x60; is provided. | [default to 200]
- **filter** | **string** | Filters users with a supported expression for a subset of properties | 
- **search** | **string** | Searches for users with a supported filtering expression for most properties. Okta recommends using this parameter for search for best performance. | 
- **sortBy** | **string** |  | 
- **sortOrder** | **string** | Sorting is done in ASCII sort order (that is, by ASCII character value), but isn&#39;t case sensitive. | 
+ **sortBy** | **string** | Specifies field to sort by (for search queries only). This can be any single property, for example &#x60;sortBy&#x3D;profile.lastName&#x60;. Users with the same value for the &#x60;sortBy&#x60; property will be ordered by &#x60;id&#x60;. | 
+ **sortOrder** | **string** | Specifies the sort order: &#x60;asc&#x60; or &#x60;desc&#x60; (for search queries only). Sorting is done in ASCII sort order (that is, by ASCII character value), but isn&#39;t case sensitive. &#x60;sortOrder&#x60; is ignored if &#x60;sortBy&#x60; isn&#39;t present. | 
+ **expand** | **string** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;A parameter to include metadata in the &#x60;_embedded&#x60; property. Supported value: &#x60;classification&#x60;. | 
 
 ### Return type
 
@@ -1883,157 +384,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## ReactivateUser
-
-> UserActivationToken ReactivateUser(ctx, userId).SendEmail(sendEmail).Execute()
-
-Reactivate a User
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-    sendEmail := true // bool | Sends an activation email to the user if true (optional) (default to false)
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserAPI.ReactivateUser(context.Background(), userId).SendEmail(sendEmail).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ReactivateUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReactivateUser`: UserActivationToken
-    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ReactivateUser`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiReactivateUserRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **sendEmail** | **bool** | Sends an activation email to the user if true | [default to false]
-
-### Return type
-
-[**UserActivationToken**](UserActivationToken.md)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ReplaceLinkedObjectForUser
-
-> ReplaceLinkedObjectForUser(ctx, userIdOrLogin, primaryRelationshipName, primaryUserId).Execute()
-
-Replace the Linked Object value for `primary`
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userIdOrLogin := "userIdOrLogin_example" // string | User ID or login value of the user assigned the `associated` relationship
-    primaryRelationshipName := "primaryRelationshipName_example" // string | Name of the `primary` relationship being assigned
-    primaryUserId := "ctxeQ5JnAVdGFBB7Zr7W" // string | User ID to be assigned to the `primary` relationship for the `associated` user
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.UserAPI.ReplaceLinkedObjectForUser(context.Background(), userIdOrLogin, primaryRelationshipName, primaryUserId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ReplaceLinkedObjectForUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userIdOrLogin** | **string** | User ID or login value of the user assigned the &#x60;associated&#x60; relationship | 
-**primaryRelationshipName** | **string** | Name of the &#x60;primary&#x60; relationship being assigned | 
-**primaryUserId** | **string** | User ID to be assigned to the &#x60;primary&#x60; relationship for the &#x60;associated&#x60; user | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiReplaceLinkedObjectForUserRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## ReplaceUser
 
-> User ReplaceUser(ctx, userId).User(user).Strict(strict).Execute()
+> User ReplaceUser(ctx, id).User(user).Strict(strict).IfMatch(ifMatch).Execute()
 
-Replace a User
+Replace a user
 
 
 
@@ -2043,26 +398,27 @@ Replace a User
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-    user := *openapiclient.NewUser() // User | 
-    strict := true // bool |  (optional)
+	id := "id_example" // string | An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+	user := *openapiclient.NewUpdateUserRequest() // UpdateUserRequest | 
+	strict := true // bool | If `true`, validates against minimum age and history password policy (optional)
+	ifMatch := "W/"1234567890abcdef"" // string | The ETag value of the user's expected current state. This becomes a conditional request used for concurrency control. See [Conditional Requests and Entity Tags](/#conditional-requests-and-entity-tags). (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserAPI.ReplaceUser(context.Background(), userId).User(user).Strict(strict).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ReplaceUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceUser`: User
-    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ReplaceUser`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserAPI.ReplaceUser(context.Background(), id).User(user).Strict(strict).IfMatch(ifMatch).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ReplaceUser``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceUser`: User
+	fmt.Fprintf(os.Stdout, "Response from `UserAPI.ReplaceUser`: %v\n", resp)
 }
 ```
 
@@ -2072,7 +428,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
+**id** | **string** | An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user | 
 
 ### Other Parameters
 
@@ -2082,8 +438,9 @@ Other parameters are passed through a pointer to a apiReplaceUserRequest struct 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **user** | [**User**](User.md) |  | 
- **strict** | **bool** |  | 
+ **user** | [**UpdateUserRequest**](UpdateUserRequest.md) |  | 
+ **strict** | **bool** | If &#x60;true&#x60;, validates against minimum age and history password policy | 
+ **ifMatch** | **string** | The ETag value of the user&#39;s expected current state. This becomes a conditional request used for concurrency control. See [Conditional Requests and Entity Tags](/#conditional-requests-and-entity-tags). | 
 
 ### Return type
 
@@ -2103,710 +460,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## ResetFactors
-
-> ResetFactors(ctx, userId).RemoveRecoveryEnrollment(removeRecoveryEnrollment).Execute()
-
-Reset all Factors
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-    removeRecoveryEnrollment := true // bool | If `true`, removes the phone number as both a recovery method and a Factor. Supported Factors: `sms` and `call` (optional) (default to false)
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.UserAPI.ResetFactors(context.Background(), userId).RemoveRecoveryEnrollment(removeRecoveryEnrollment).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ResetFactors``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiResetFactorsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **removeRecoveryEnrollment** | **bool** | If &#x60;true&#x60;, removes the phone number as both a recovery method and a Factor. Supported Factors: &#x60;sms&#x60; and &#x60;call&#x60; | [default to false]
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## RevokeGrantsForUserAndClient
-
-> RevokeGrantsForUserAndClient(ctx, userId, clientId).Execute()
-
-Revoke all Grants for a Client
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-    clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.UserAPI.RevokeGrantsForUserAndClient(context.Background(), userId, clientId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.RevokeGrantsForUserAndClient``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-**clientId** | **string** | &#x60;client_id&#x60; of the app | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiRevokeGrantsForUserAndClientRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## RevokeTokenForUserAndClient
-
-> RevokeTokenForUserAndClient(ctx, userId, clientId, tokenId).Execute()
-
-Revoke a Token for a Client
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-    clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
-    tokenId := "sHHSth53yJAyNSTQKDJZ" // string | `id` of Token
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.UserAPI.RevokeTokenForUserAndClient(context.Background(), userId, clientId, tokenId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.RevokeTokenForUserAndClient``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-**clientId** | **string** | &#x60;client_id&#x60; of the app | 
-**tokenId** | **string** | &#x60;id&#x60; of Token | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiRevokeTokenForUserAndClientRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## RevokeTokensForUserAndClient
-
-> RevokeTokensForUserAndClient(ctx, userId, clientId).Execute()
-
-Revoke all Refresh Tokens for a Client
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-    clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.UserAPI.RevokeTokensForUserAndClient(context.Background(), userId, clientId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.RevokeTokensForUserAndClient``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-**clientId** | **string** | &#x60;client_id&#x60; of the app | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiRevokeTokensForUserAndClientRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## RevokeUserGrant
-
-> RevokeUserGrant(ctx, userId, grantId).Execute()
-
-Revoke a User Grant
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-    grantId := "iJoqkwx50mrgX4T9LcaH" // string | Grant ID
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.UserAPI.RevokeUserGrant(context.Background(), userId, grantId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.RevokeUserGrant``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-**grantId** | **string** | Grant ID | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiRevokeUserGrantRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## RevokeUserGrants
-
-> RevokeUserGrants(ctx, userId).Execute()
-
-Revoke all User Grants
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.UserAPI.RevokeUserGrants(context.Background(), userId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.RevokeUserGrants``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiRevokeUserGrantsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## RevokeUserSessions
-
-> RevokeUserSessions(ctx, userId).OauthTokens(oauthTokens).Execute()
-
-Revoke all User Sessions
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-    oauthTokens := true // bool | Revoke issued OpenID Connect and OAuth refresh and access tokens (optional) (default to false)
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.UserAPI.RevokeUserSessions(context.Background(), userId).OauthTokens(oauthTokens).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.RevokeUserSessions``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiRevokeUserSessionsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **oauthTokens** | **bool** | Revoke issued OpenID Connect and OAuth refresh and access tokens | [default to false]
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## SuspendUser
-
-> SuspendUser(ctx, userId).Execute()
-
-Suspend a User
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.UserAPI.SuspendUser(context.Background(), userId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.SuspendUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiSuspendUserRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## UnlockUser
-
-> UnlockUser(ctx, userId).Execute()
-
-Unlock a User
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.UserAPI.UnlockUser(context.Background(), userId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.UnlockUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiUnlockUserRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## UnsuspendUser
-
-> UnsuspendUser(ctx, userId).Execute()
-
-Unsuspend a User
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.UserAPI.UnsuspendUser(context.Background(), userId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.UnsuspendUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiUnsuspendUserRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## UpdateUser
 
-> User UpdateUser(ctx, userId).User(user).Strict(strict).Execute()
+> User UpdateUser(ctx, id).User(user).Strict(strict).IfMatch(ifMatch).Execute()
 
-Update a User
+Update a user
 
 
 
@@ -2816,26 +474,27 @@ Update a User
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    userId := "userId_example" // string | ID of an existing Okta user
-    user := *openapiclient.NewUpdateUserRequest() // UpdateUserRequest | 
-    strict := true // bool |  (optional)
+	id := "id_example" // string | An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+	user := *openapiclient.NewUpdateUserRequest() // UpdateUserRequest | 
+	strict := true // bool | If true, validates against minimum age and history password policy (optional)
+	ifMatch := "W/"1234567890abcdef"" // string | The ETag value of the user's expected current state. This becomes a conditional request used for concurrency control. See [Conditional Requests and Entity Tags](/#conditional-requests-and-entity-tags). (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserAPI.UpdateUser(context.Background(), userId).User(user).Strict(strict).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.UpdateUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateUser`: User
-    fmt.Fprintf(os.Stdout, "Response from `UserAPI.UpdateUser`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserAPI.UpdateUser(context.Background(), id).User(user).Strict(strict).IfMatch(ifMatch).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.UpdateUser``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateUser`: User
+	fmt.Fprintf(os.Stdout, "Response from `UserAPI.UpdateUser`: %v\n", resp)
 }
 ```
 
@@ -2845,7 +504,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | ID of an existing Okta user | 
+**id** | **string** | An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user | 
 
 ### Other Parameters
 
@@ -2856,7 +515,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **user** | [**UpdateUserRequest**](UpdateUserRequest.md) |  | 
- **strict** | **bool** |  | 
+ **strict** | **bool** | If true, validates against minimum age and history password policy | 
+ **ifMatch** | **string** | The ETag value of the user&#39;s expected current state. This becomes a conditional request used for concurrency control. See [Conditional Requests and Entity Tags](/#conditional-requests-and-entity-tags). | 
 
 ### Return type
 

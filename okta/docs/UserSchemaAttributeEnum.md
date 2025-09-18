@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Const** | Pointer to **string** |  | [optional] 
-**Title** | Pointer to **string** |  | [optional] 
+**Const** | Pointer to **string** | The enumerated value | [optional] 
+**Title** | Pointer to **string** | The display label for the enumerated value | [optional] 
 
 ## Methods
 

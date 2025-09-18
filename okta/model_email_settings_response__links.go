@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the EmailSettingsResponseLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EmailSettingsResponseLinks{}
+
 // EmailSettingsResponseLinks struct for EmailSettingsResponseLinks
 type EmailSettingsResponseLinks struct {
-	Self *HrefObject `json:"self,omitempty"`
-	Template *HrefObject `json:"template,omitempty"`
+	Self                 *HrefObject `json:"self,omitempty"`
+	Template             *HrefObject `json:"template,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewEmailSettingsResponseLinksWithDefaults() *EmailSettingsResponseLinks {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *EmailSettingsResponseLinks) GetSelf() HrefObject {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObject
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *EmailSettingsResponseLinks) GetSelf() HrefObject {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EmailSettingsResponseLinks) GetSelfOk() (*HrefObject, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -73,7 +76,7 @@ func (o *EmailSettingsResponseLinks) GetSelfOk() (*HrefObject, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *EmailSettingsResponseLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *EmailSettingsResponseLinks) SetSelf(v HrefObject) {
 
 // GetTemplate returns the Template field value if set, zero value otherwise.
 func (o *EmailSettingsResponseLinks) GetTemplate() HrefObject {
-	if o == nil || o.Template == nil {
+	if o == nil || IsNil(o.Template) {
 		var ret HrefObject
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *EmailSettingsResponseLinks) GetTemplate() HrefObject {
 // GetTemplateOk returns a tuple with the Template field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EmailSettingsResponseLinks) GetTemplateOk() (*HrefObject, bool) {
-	if o == nil || o.Template == nil {
+	if o == nil || IsNil(o.Template) {
 		return nil, false
 	}
 	return o.Template, true
@@ -105,7 +108,7 @@ func (o *EmailSettingsResponseLinks) GetTemplateOk() (*HrefObject, bool) {
 
 // HasTemplate returns a boolean if a field has been set.
 func (o *EmailSettingsResponseLinks) HasTemplate() bool {
-	if o != nil && o.Template != nil {
+	if o != nil && !IsNil(o.Template) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *EmailSettingsResponseLinks) SetTemplate(v HrefObject) {
 }
 
 func (o EmailSettingsResponseLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EmailSettingsResponseLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.Template != nil {
+	if !IsNil(o.Template) {
 		toSerialize["template"] = o.Template
 	}
 
@@ -130,28 +141,26 @@ func (o EmailSettingsResponseLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EmailSettingsResponseLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *EmailSettingsResponseLinks) UnmarshalJSON(data []byte) (err error) {
 	varEmailSettingsResponseLinks := _EmailSettingsResponseLinks{}
 
-	err = json.Unmarshal(bytes, &varEmailSettingsResponseLinks)
-	if err == nil {
-		*o = EmailSettingsResponseLinks(varEmailSettingsResponseLinks)
-	} else {
+	err = json.Unmarshal(data, &varEmailSettingsResponseLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = EmailSettingsResponseLinks(varEmailSettingsResponseLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "template")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableEmailSettingsResponseLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

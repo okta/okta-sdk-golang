@@ -4,9 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** | The unique identifier of the Org | [optional] 
-**Pipeline** | Pointer to **string** | The authentication pipeline of the org. &#x60;idx&#x60; means the org is using the Identity Engine, while &#x60;v1&#x60; means the org is using the Classic authentication pipeline. | [optional] 
-**Settings** | Pointer to [**WellKnownOrgMetadataSettings**](WellKnownOrgMetadataSettings.md) |  | [optional] 
+**Id** | Pointer to **string** | Org unique identifier | [optional] 
+**Pipeline** | Pointer to **string** | The Okta authentication pipeline of the org | [optional] 
 **Links** | Pointer to [**WellKnownOrgMetadataLinks**](WellKnownOrgMetadataLinks.md) |  | [optional] 
 
 ## Methods
@@ -77,31 +76,6 @@ SetPipeline sets Pipeline field to given value.
 `func (o *WellKnownOrgMetadata) HasPipeline() bool`
 
 HasPipeline returns a boolean if a field has been set.
-
-### GetSettings
-
-`func (o *WellKnownOrgMetadata) GetSettings() WellKnownOrgMetadataSettings`
-
-GetSettings returns the Settings field if non-nil, zero value otherwise.
-
-### GetSettingsOk
-
-`func (o *WellKnownOrgMetadata) GetSettingsOk() (*WellKnownOrgMetadataSettings, bool)`
-
-GetSettingsOk returns a tuple with the Settings field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSettings
-
-`func (o *WellKnownOrgMetadata) SetSettings(v WellKnownOrgMetadataSettings)`
-
-SetSettings sets Settings field to given value.
-
-### HasSettings
-
-`func (o *WellKnownOrgMetadata) HasSettings() bool`
-
-HasSettings returns a boolean if a field has been set.
 
 ### GetLinks
 

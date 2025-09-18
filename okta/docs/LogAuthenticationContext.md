@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AuthenticationProvider** | Pointer to **string** |  | [optional] 
-**AuthenticationStep** | Pointer to **int32** |  | [optional] [readonly] 
-**CredentialProvider** | Pointer to **string** |  | [optional] 
-**CredentialType** | Pointer to **string** |  | [optional] 
-**ExternalSessionId** | Pointer to **string** |  | [optional] [readonly] 
-**Interface** | Pointer to **string** |  | [optional] [readonly] 
+**AuthenticationProvider** | Pointer to **string** | The system that proves the identity of an actor using the credentials provided to it | [optional] 
+**AuthenticationStep** | Pointer to **int32** | The zero-based step number in the authentication pipeline. Currently unused and always set to &#x60;0&#x60;. | [optional] [readonly] 
+**CredentialProvider** | Pointer to **string** | A credential provider is a software service that manages identities and their associated credentials. When authentication occurs through credentials provided by a credential provider, the credential provider is recorded here. | [optional] 
+**CredentialType** | Pointer to **string** | The underlying technology/scheme used in the credential | [optional] 
+**ExternalSessionId** | Pointer to **string** | A proxy for the actor&#39;s [session ID](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html) | [optional] [readonly] 
+**Interface** | Pointer to **string** | The third-party user interface that the actor authenticates through, if any. | [optional] [readonly] 
 **Issuer** | Pointer to [**LogIssuer**](LogIssuer.md) |  | [optional] 
 
 ## Methods

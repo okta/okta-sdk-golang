@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Self** | Pointer to [**HrefObjectSelfLink**](HrefObjectSelfLink.md) |  | [optional] 
-**App** | Pointer to [**AppCustomHrefObject**](AppCustomHrefObject.md) |  | [optional] 
+**App** | Pointer to [**AppResourceHrefObject**](AppResourceHrefObject.md) | Link to the app resource | [optional] 
 **Revoke** | Pointer to [**OAuth2RefreshTokenLinksAllOfRevoke**](OAuth2RefreshTokenLinksAllOfRevoke.md) |  | [optional] 
-**Client** | Pointer to [**AppCustomHrefObject**](AppCustomHrefObject.md) |  | [optional] 
-**User** | Pointer to [**AppCustomHrefObject**](AppCustomHrefObject.md) |  | [optional] 
-**AuthorizationServer** | Pointer to [**AppCustomHrefObject**](AppCustomHrefObject.md) |  | [optional] 
+**Client** | Pointer to [**AppResourceHrefObject**](AppResourceHrefObject.md) | Link to the client resource | [optional] 
+**User** | Pointer to [**UserResourceHrefObject**](UserResourceHrefObject.md) | Link to the user resource | [optional] 
+**AuthorizationServer** | Pointer to [**AuthorizationServerResourceHrefObject**](AuthorizationServerResourceHrefObject.md) | Link to the Token authorization server resource | [optional] 
 
 ## Methods
 
@@ -57,20 +57,20 @@ HasSelf returns a boolean if a field has been set.
 
 ### GetApp
 
-`func (o *OAuth2RefreshTokenLinks) GetApp() AppCustomHrefObject`
+`func (o *OAuth2RefreshTokenLinks) GetApp() AppResourceHrefObject`
 
 GetApp returns the App field if non-nil, zero value otherwise.
 
 ### GetAppOk
 
-`func (o *OAuth2RefreshTokenLinks) GetAppOk() (*AppCustomHrefObject, bool)`
+`func (o *OAuth2RefreshTokenLinks) GetAppOk() (*AppResourceHrefObject, bool)`
 
 GetAppOk returns a tuple with the App field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetApp
 
-`func (o *OAuth2RefreshTokenLinks) SetApp(v AppCustomHrefObject)`
+`func (o *OAuth2RefreshTokenLinks) SetApp(v AppResourceHrefObject)`
 
 SetApp sets App field to given value.
 
@@ -107,20 +107,20 @@ HasRevoke returns a boolean if a field has been set.
 
 ### GetClient
 
-`func (o *OAuth2RefreshTokenLinks) GetClient() AppCustomHrefObject`
+`func (o *OAuth2RefreshTokenLinks) GetClient() AppResourceHrefObject`
 
 GetClient returns the Client field if non-nil, zero value otherwise.
 
 ### GetClientOk
 
-`func (o *OAuth2RefreshTokenLinks) GetClientOk() (*AppCustomHrefObject, bool)`
+`func (o *OAuth2RefreshTokenLinks) GetClientOk() (*AppResourceHrefObject, bool)`
 
 GetClientOk returns a tuple with the Client field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetClient
 
-`func (o *OAuth2RefreshTokenLinks) SetClient(v AppCustomHrefObject)`
+`func (o *OAuth2RefreshTokenLinks) SetClient(v AppResourceHrefObject)`
 
 SetClient sets Client field to given value.
 
@@ -132,20 +132,20 @@ HasClient returns a boolean if a field has been set.
 
 ### GetUser
 
-`func (o *OAuth2RefreshTokenLinks) GetUser() AppCustomHrefObject`
+`func (o *OAuth2RefreshTokenLinks) GetUser() UserResourceHrefObject`
 
 GetUser returns the User field if non-nil, zero value otherwise.
 
 ### GetUserOk
 
-`func (o *OAuth2RefreshTokenLinks) GetUserOk() (*AppCustomHrefObject, bool)`
+`func (o *OAuth2RefreshTokenLinks) GetUserOk() (*UserResourceHrefObject, bool)`
 
 GetUserOk returns a tuple with the User field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUser
 
-`func (o *OAuth2RefreshTokenLinks) SetUser(v AppCustomHrefObject)`
+`func (o *OAuth2RefreshTokenLinks) SetUser(v UserResourceHrefObject)`
 
 SetUser sets User field to given value.
 
@@ -157,20 +157,20 @@ HasUser returns a boolean if a field has been set.
 
 ### GetAuthorizationServer
 
-`func (o *OAuth2RefreshTokenLinks) GetAuthorizationServer() AppCustomHrefObject`
+`func (o *OAuth2RefreshTokenLinks) GetAuthorizationServer() AuthorizationServerResourceHrefObject`
 
 GetAuthorizationServer returns the AuthorizationServer field if non-nil, zero value otherwise.
 
 ### GetAuthorizationServerOk
 
-`func (o *OAuth2RefreshTokenLinks) GetAuthorizationServerOk() (*AppCustomHrefObject, bool)`
+`func (o *OAuth2RefreshTokenLinks) GetAuthorizationServerOk() (*AuthorizationServerResourceHrefObject, bool)`
 
 GetAuthorizationServerOk returns a tuple with the AuthorizationServer field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAuthorizationServer
 
-`func (o *OAuth2RefreshTokenLinks) SetAuthorizationServer(v AppCustomHrefObject)`
+`func (o *OAuth2RefreshTokenLinks) SetAuthorizationServer(v AuthorizationServerResourceHrefObject)`
 
 SetAuthorizationServer sets AuthorizationServer field to given value.
 

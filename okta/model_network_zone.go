@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,8 +25,12 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the NetworkZone type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NetworkZone{}
 
 // NetworkZone struct for NetworkZone
 type NetworkZone struct {
@@ -40,13 +44,13 @@ type NetworkZone struct {
 	Name string `json:"name"`
 	// Network Zone status
 	Status *string `json:"status,omitempty"`
-	// Indicates a system Network Zone: * `true` for system Network Zones * `false` for custom Network Zones  The Okta org provides the following default system Network Zones: * `LegacyIpZone` * `BlockedIpZone` * <x-lifecycle class=\"ea\"></x-lifecycle> `DefaultEnhancedDynamicZone`  Admins can modify the name of the default system Network Zone and add up to 5000 gateway or proxy IP entries. 
+	// Indicates a system Network Zone: * `true` for system Network Zones * `false` for custom Network Zones  The Okta org provides the following default system Network Zones: * `LegacyIpZone` * `BlockedIpZone` * `DefaultEnhancedDynamicZone` * `DefaultExemptIpZone`  Admins can modify the name of the default system Network Zone and add up to 5000 gateway or proxy IP entries.
 	System *bool `json:"system,omitempty"`
 	// The type of Network Zone
 	Type string `json:"type"`
 	// The usage of the Network Zone
-	Usage *string `json:"usage,omitempty"`
-	Links *LinksSelfAndLifecycle `json:"_links,omitempty"`
+	Usage                *string                `json:"usage,omitempty"`
+	Links                *LinksSelfAndLifecycle `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -73,7 +77,7 @@ func NewNetworkZoneWithDefaults() *NetworkZone {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *NetworkZone) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -83,7 +87,7 @@ func (o *NetworkZone) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NetworkZone) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -91,7 +95,7 @@ func (o *NetworkZone) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *NetworkZone) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -105,7 +109,7 @@ func (o *NetworkZone) SetCreated(v time.Time) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *NetworkZone) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -115,7 +119,7 @@ func (o *NetworkZone) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NetworkZone) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -123,7 +127,7 @@ func (o *NetworkZone) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *NetworkZone) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -137,7 +141,7 @@ func (o *NetworkZone) SetId(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *NetworkZone) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -147,7 +151,7 @@ func (o *NetworkZone) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NetworkZone) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -155,7 +159,7 @@ func (o *NetworkZone) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *NetworkZone) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -193,7 +197,7 @@ func (o *NetworkZone) SetName(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *NetworkZone) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -203,7 +207,7 @@ func (o *NetworkZone) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NetworkZone) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -211,7 +215,7 @@ func (o *NetworkZone) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *NetworkZone) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -225,7 +229,7 @@ func (o *NetworkZone) SetStatus(v string) {
 
 // GetSystem returns the System field value if set, zero value otherwise.
 func (o *NetworkZone) GetSystem() bool {
-	if o == nil || o.System == nil {
+	if o == nil || IsNil(o.System) {
 		var ret bool
 		return ret
 	}
@@ -235,7 +239,7 @@ func (o *NetworkZone) GetSystem() bool {
 // GetSystemOk returns a tuple with the System field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NetworkZone) GetSystemOk() (*bool, bool) {
-	if o == nil || o.System == nil {
+	if o == nil || IsNil(o.System) {
 		return nil, false
 	}
 	return o.System, true
@@ -243,7 +247,7 @@ func (o *NetworkZone) GetSystemOk() (*bool, bool) {
 
 // HasSystem returns a boolean if a field has been set.
 func (o *NetworkZone) HasSystem() bool {
-	if o != nil && o.System != nil {
+	if o != nil && !IsNil(o.System) {
 		return true
 	}
 
@@ -281,7 +285,7 @@ func (o *NetworkZone) SetType(v string) {
 
 // GetUsage returns the Usage field value if set, zero value otherwise.
 func (o *NetworkZone) GetUsage() string {
-	if o == nil || o.Usage == nil {
+	if o == nil || IsNil(o.Usage) {
 		var ret string
 		return ret
 	}
@@ -291,7 +295,7 @@ func (o *NetworkZone) GetUsage() string {
 // GetUsageOk returns a tuple with the Usage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NetworkZone) GetUsageOk() (*string, bool) {
-	if o == nil || o.Usage == nil {
+	if o == nil || IsNil(o.Usage) {
 		return nil, false
 	}
 	return o.Usage, true
@@ -299,7 +303,7 @@ func (o *NetworkZone) GetUsageOk() (*string, bool) {
 
 // HasUsage returns a boolean if a field has been set.
 func (o *NetworkZone) HasUsage() bool {
-	if o != nil && o.Usage != nil {
+	if o != nil && !IsNil(o.Usage) {
 		return true
 	}
 
@@ -313,7 +317,7 @@ func (o *NetworkZone) SetUsage(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *NetworkZone) GetLinks() LinksSelfAndLifecycle {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksSelfAndLifecycle
 		return ret
 	}
@@ -323,7 +327,7 @@ func (o *NetworkZone) GetLinks() LinksSelfAndLifecycle {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NetworkZone) GetLinksOk() (*LinksSelfAndLifecycle, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -331,7 +335,7 @@ func (o *NetworkZone) GetLinksOk() (*LinksSelfAndLifecycle, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *NetworkZone) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -344,32 +348,36 @@ func (o *NetworkZone) SetLinks(v LinksSelfAndLifecycle) {
 }
 
 func (o NetworkZone) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o NetworkZone) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Status != nil {
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.System != nil {
+	if !IsNil(o.System) {
 		toSerialize["system"] = o.System
 	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if o.Usage != nil {
+	toSerialize["type"] = o.Type
+	if !IsNil(o.Usage) {
 		toSerialize["usage"] = o.Usage
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -377,23 +385,45 @@ func (o NetworkZone) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *NetworkZone) UnmarshalJSON(bytes []byte) (err error) {
-	varNetworkZone := _NetworkZone{}
+func (o *NetworkZone) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"type",
+	}
 
-	err = json.Unmarshal(bytes, &varNetworkZone)
-	if err == nil {
-		*o = NetworkZone(varNetworkZone)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varNetworkZone := _NetworkZone{}
+
+	err = json.Unmarshal(data, &varNetworkZone)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NetworkZone(varNetworkZone)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "lastUpdated")
@@ -404,8 +434,6 @@ func (o *NetworkZone) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "usage")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -446,4 +474,3 @@ func (v *NullableNetworkZone) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

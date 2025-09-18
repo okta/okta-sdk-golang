@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,11 +25,15 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
-// PerClientRateLimitSettings 
+// checks if the PerClientRateLimitSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PerClientRateLimitSettings{}
+
+// PerClientRateLimitSettings
 type PerClientRateLimitSettings struct {
-	DefaultMode string `json:"defaultMode"`
+	DefaultMode          string                                          `json:"defaultMode"`
 	UseCaseModeOverrides *PerClientRateLimitSettingsUseCaseModeOverrides `json:"useCaseModeOverrides,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -80,7 +84,7 @@ func (o *PerClientRateLimitSettings) SetDefaultMode(v string) {
 
 // GetUseCaseModeOverrides returns the UseCaseModeOverrides field value if set, zero value otherwise.
 func (o *PerClientRateLimitSettings) GetUseCaseModeOverrides() PerClientRateLimitSettingsUseCaseModeOverrides {
-	if o == nil || o.UseCaseModeOverrides == nil {
+	if o == nil || IsNil(o.UseCaseModeOverrides) {
 		var ret PerClientRateLimitSettingsUseCaseModeOverrides
 		return ret
 	}
@@ -90,7 +94,7 @@ func (o *PerClientRateLimitSettings) GetUseCaseModeOverrides() PerClientRateLimi
 // GetUseCaseModeOverridesOk returns a tuple with the UseCaseModeOverrides field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PerClientRateLimitSettings) GetUseCaseModeOverridesOk() (*PerClientRateLimitSettingsUseCaseModeOverrides, bool) {
-	if o == nil || o.UseCaseModeOverrides == nil {
+	if o == nil || IsNil(o.UseCaseModeOverrides) {
 		return nil, false
 	}
 	return o.UseCaseModeOverrides, true
@@ -98,7 +102,7 @@ func (o *PerClientRateLimitSettings) GetUseCaseModeOverridesOk() (*PerClientRate
 
 // HasUseCaseModeOverrides returns a boolean if a field has been set.
 func (o *PerClientRateLimitSettings) HasUseCaseModeOverrides() bool {
-	if o != nil && o.UseCaseModeOverrides != nil {
+	if o != nil && !IsNil(o.UseCaseModeOverrides) {
 		return true
 	}
 
@@ -111,11 +115,17 @@ func (o *PerClientRateLimitSettings) SetUseCaseModeOverrides(v PerClientRateLimi
 }
 
 func (o PerClientRateLimitSettings) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["defaultMode"] = o.DefaultMode
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.UseCaseModeOverrides != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o PerClientRateLimitSettings) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["defaultMode"] = o.DefaultMode
+	if !IsNil(o.UseCaseModeOverrides) {
 		toSerialize["useCaseModeOverrides"] = o.UseCaseModeOverrides
 	}
 
@@ -123,28 +133,47 @@ func (o PerClientRateLimitSettings) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PerClientRateLimitSettings) UnmarshalJSON(bytes []byte) (err error) {
-	varPerClientRateLimitSettings := _PerClientRateLimitSettings{}
+func (o *PerClientRateLimitSettings) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"defaultMode",
+	}
 
-	err = json.Unmarshal(bytes, &varPerClientRateLimitSettings)
-	if err == nil {
-		*o = PerClientRateLimitSettings(varPerClientRateLimitSettings)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPerClientRateLimitSettings := _PerClientRateLimitSettings{}
+
+	err = json.Unmarshal(data, &varPerClientRateLimitSettings)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PerClientRateLimitSettings(varPerClientRateLimitSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "defaultMode")
 		delete(additionalProperties, "useCaseModeOverrides")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -185,4 +214,3 @@ func (v *NullablePerClientRateLimitSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

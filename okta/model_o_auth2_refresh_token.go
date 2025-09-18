@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 	"time"
 )
+
+// checks if the OAuth2RefreshToken type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OAuth2RefreshToken{}
 
 // OAuth2RefreshToken struct for OAuth2RefreshToken
 type OAuth2RefreshToken struct {
@@ -47,9 +50,9 @@ type OAuth2RefreshToken struct {
 	// Status
 	Status *string `json:"status,omitempty"`
 	// The ID of the user associated with the Token
-	UserId *string `json:"userId,omitempty"`
-	Embedded *OAuth2RefreshTokenEmbedded `json:"_embedded,omitempty"`
-	Links *OAuth2RefreshTokenLinks `json:"_links,omitempty"`
+	UserId               *string                     `json:"userId,omitempty"`
+	Embedded             *OAuth2RefreshTokenEmbedded `json:"_embedded,omitempty"`
+	Links                *OAuth2RefreshTokenLinks    `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -74,7 +77,7 @@ func NewOAuth2RefreshTokenWithDefaults() *OAuth2RefreshToken {
 
 // GetClientId returns the ClientId field value if set, zero value otherwise.
 func (o *OAuth2RefreshToken) GetClientId() string {
-	if o == nil || o.ClientId == nil {
+	if o == nil || IsNil(o.ClientId) {
 		var ret string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *OAuth2RefreshToken) GetClientId() string {
 // GetClientIdOk returns a tuple with the ClientId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2RefreshToken) GetClientIdOk() (*string, bool) {
-	if o == nil || o.ClientId == nil {
+	if o == nil || IsNil(o.ClientId) {
 		return nil, false
 	}
 	return o.ClientId, true
@@ -92,7 +95,7 @@ func (o *OAuth2RefreshToken) GetClientIdOk() (*string, bool) {
 
 // HasClientId returns a boolean if a field has been set.
 func (o *OAuth2RefreshToken) HasClientId() bool {
-	if o != nil && o.ClientId != nil {
+	if o != nil && !IsNil(o.ClientId) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *OAuth2RefreshToken) SetClientId(v string) {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *OAuth2RefreshToken) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *OAuth2RefreshToken) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2RefreshToken) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -124,7 +127,7 @@ func (o *OAuth2RefreshToken) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *OAuth2RefreshToken) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -138,7 +141,7 @@ func (o *OAuth2RefreshToken) SetCreated(v time.Time) {
 
 // GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
 func (o *OAuth2RefreshToken) GetExpiresAt() time.Time {
-	if o == nil || o.ExpiresAt == nil {
+	if o == nil || IsNil(o.ExpiresAt) {
 		var ret time.Time
 		return ret
 	}
@@ -148,7 +151,7 @@ func (o *OAuth2RefreshToken) GetExpiresAt() time.Time {
 // GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2RefreshToken) GetExpiresAtOk() (*time.Time, bool) {
-	if o == nil || o.ExpiresAt == nil {
+	if o == nil || IsNil(o.ExpiresAt) {
 		return nil, false
 	}
 	return o.ExpiresAt, true
@@ -156,7 +159,7 @@ func (o *OAuth2RefreshToken) GetExpiresAtOk() (*time.Time, bool) {
 
 // HasExpiresAt returns a boolean if a field has been set.
 func (o *OAuth2RefreshToken) HasExpiresAt() bool {
-	if o != nil && o.ExpiresAt != nil {
+	if o != nil && !IsNil(o.ExpiresAt) {
 		return true
 	}
 
@@ -170,7 +173,7 @@ func (o *OAuth2RefreshToken) SetExpiresAt(v time.Time) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *OAuth2RefreshToken) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -180,7 +183,7 @@ func (o *OAuth2RefreshToken) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2RefreshToken) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -188,7 +191,7 @@ func (o *OAuth2RefreshToken) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *OAuth2RefreshToken) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -202,7 +205,7 @@ func (o *OAuth2RefreshToken) SetId(v string) {
 
 // GetIssuer returns the Issuer field value if set, zero value otherwise.
 func (o *OAuth2RefreshToken) GetIssuer() string {
-	if o == nil || o.Issuer == nil {
+	if o == nil || IsNil(o.Issuer) {
 		var ret string
 		return ret
 	}
@@ -212,7 +215,7 @@ func (o *OAuth2RefreshToken) GetIssuer() string {
 // GetIssuerOk returns a tuple with the Issuer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2RefreshToken) GetIssuerOk() (*string, bool) {
-	if o == nil || o.Issuer == nil {
+	if o == nil || IsNil(o.Issuer) {
 		return nil, false
 	}
 	return o.Issuer, true
@@ -220,7 +223,7 @@ func (o *OAuth2RefreshToken) GetIssuerOk() (*string, bool) {
 
 // HasIssuer returns a boolean if a field has been set.
 func (o *OAuth2RefreshToken) HasIssuer() bool {
-	if o != nil && o.Issuer != nil {
+	if o != nil && !IsNil(o.Issuer) {
 		return true
 	}
 
@@ -234,7 +237,7 @@ func (o *OAuth2RefreshToken) SetIssuer(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *OAuth2RefreshToken) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -244,7 +247,7 @@ func (o *OAuth2RefreshToken) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2RefreshToken) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -252,7 +255,7 @@ func (o *OAuth2RefreshToken) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *OAuth2RefreshToken) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -266,7 +269,7 @@ func (o *OAuth2RefreshToken) SetLastUpdated(v time.Time) {
 
 // GetScopes returns the Scopes field value if set, zero value otherwise.
 func (o *OAuth2RefreshToken) GetScopes() []string {
-	if o == nil || o.Scopes == nil {
+	if o == nil || IsNil(o.Scopes) {
 		var ret []string
 		return ret
 	}
@@ -276,7 +279,7 @@ func (o *OAuth2RefreshToken) GetScopes() []string {
 // GetScopesOk returns a tuple with the Scopes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2RefreshToken) GetScopesOk() ([]string, bool) {
-	if o == nil || o.Scopes == nil {
+	if o == nil || IsNil(o.Scopes) {
 		return nil, false
 	}
 	return o.Scopes, true
@@ -284,7 +287,7 @@ func (o *OAuth2RefreshToken) GetScopesOk() ([]string, bool) {
 
 // HasScopes returns a boolean if a field has been set.
 func (o *OAuth2RefreshToken) HasScopes() bool {
-	if o != nil && o.Scopes != nil {
+	if o != nil && !IsNil(o.Scopes) {
 		return true
 	}
 
@@ -298,7 +301,7 @@ func (o *OAuth2RefreshToken) SetScopes(v []string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *OAuth2RefreshToken) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -308,7 +311,7 @@ func (o *OAuth2RefreshToken) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2RefreshToken) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -316,7 +319,7 @@ func (o *OAuth2RefreshToken) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *OAuth2RefreshToken) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -330,7 +333,7 @@ func (o *OAuth2RefreshToken) SetStatus(v string) {
 
 // GetUserId returns the UserId field value if set, zero value otherwise.
 func (o *OAuth2RefreshToken) GetUserId() string {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		var ret string
 		return ret
 	}
@@ -340,7 +343,7 @@ func (o *OAuth2RefreshToken) GetUserId() string {
 // GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2RefreshToken) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		return nil, false
 	}
 	return o.UserId, true
@@ -348,7 +351,7 @@ func (o *OAuth2RefreshToken) GetUserIdOk() (*string, bool) {
 
 // HasUserId returns a boolean if a field has been set.
 func (o *OAuth2RefreshToken) HasUserId() bool {
-	if o != nil && o.UserId != nil {
+	if o != nil && !IsNil(o.UserId) {
 		return true
 	}
 
@@ -362,7 +365,7 @@ func (o *OAuth2RefreshToken) SetUserId(v string) {
 
 // GetEmbedded returns the Embedded field value if set, zero value otherwise.
 func (o *OAuth2RefreshToken) GetEmbedded() OAuth2RefreshTokenEmbedded {
-	if o == nil || o.Embedded == nil {
+	if o == nil || IsNil(o.Embedded) {
 		var ret OAuth2RefreshTokenEmbedded
 		return ret
 	}
@@ -372,7 +375,7 @@ func (o *OAuth2RefreshToken) GetEmbedded() OAuth2RefreshTokenEmbedded {
 // GetEmbeddedOk returns a tuple with the Embedded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2RefreshToken) GetEmbeddedOk() (*OAuth2RefreshTokenEmbedded, bool) {
-	if o == nil || o.Embedded == nil {
+	if o == nil || IsNil(o.Embedded) {
 		return nil, false
 	}
 	return o.Embedded, true
@@ -380,7 +383,7 @@ func (o *OAuth2RefreshToken) GetEmbeddedOk() (*OAuth2RefreshTokenEmbedded, bool)
 
 // HasEmbedded returns a boolean if a field has been set.
 func (o *OAuth2RefreshToken) HasEmbedded() bool {
-	if o != nil && o.Embedded != nil {
+	if o != nil && !IsNil(o.Embedded) {
 		return true
 	}
 
@@ -394,7 +397,7 @@ func (o *OAuth2RefreshToken) SetEmbedded(v OAuth2RefreshTokenEmbedded) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *OAuth2RefreshToken) GetLinks() OAuth2RefreshTokenLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret OAuth2RefreshTokenLinks
 		return ret
 	}
@@ -404,7 +407,7 @@ func (o *OAuth2RefreshToken) GetLinks() OAuth2RefreshTokenLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2RefreshToken) GetLinksOk() (*OAuth2RefreshTokenLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -412,7 +415,7 @@ func (o *OAuth2RefreshToken) GetLinksOk() (*OAuth2RefreshTokenLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *OAuth2RefreshToken) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -425,38 +428,46 @@ func (o *OAuth2RefreshToken) SetLinks(v OAuth2RefreshTokenLinks) {
 }
 
 func (o OAuth2RefreshToken) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OAuth2RefreshToken) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ClientId != nil {
+	if !IsNil(o.ClientId) {
 		toSerialize["clientId"] = o.ClientId
 	}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.ExpiresAt != nil {
+	if !IsNil(o.ExpiresAt) {
 		toSerialize["expiresAt"] = o.ExpiresAt
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Issuer != nil {
+	if !IsNil(o.Issuer) {
 		toSerialize["issuer"] = o.Issuer
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Scopes != nil {
+	if !IsNil(o.Scopes) {
 		toSerialize["scopes"] = o.Scopes
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.UserId != nil {
+	if !IsNil(o.UserId) {
 		toSerialize["userId"] = o.UserId
 	}
-	if o.Embedded != nil {
+	if !IsNil(o.Embedded) {
 		toSerialize["_embedded"] = o.Embedded
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -464,23 +475,23 @@ func (o OAuth2RefreshToken) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OAuth2RefreshToken) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OAuth2RefreshToken) UnmarshalJSON(data []byte) (err error) {
 	varOAuth2RefreshToken := _OAuth2RefreshToken{}
 
-	err = json.Unmarshal(bytes, &varOAuth2RefreshToken)
-	if err == nil {
-		*o = OAuth2RefreshToken(varOAuth2RefreshToken)
-	} else {
+	err = json.Unmarshal(data, &varOAuth2RefreshToken)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OAuth2RefreshToken(varOAuth2RefreshToken)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "clientId")
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "expiresAt")
@@ -493,8 +504,6 @@ func (o *OAuth2RefreshToken) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "_embedded")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -535,4 +544,3 @@ func (v *NullableOAuth2RefreshToken) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

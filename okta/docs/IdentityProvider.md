@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to **NullableTime** |  | [optional] [readonly] 
-**Id** | Pointer to **string** |  | [optional] [readonly] 
-**IssuerMode** | Pointer to **string** |  | [optional] 
-**LastUpdated** | Pointer to **time.Time** |  | [optional] [readonly] 
-**Name** | Pointer to **string** |  | [optional] 
+**Created** | Pointer to **time.Time** | Timestamp when the object was created | [optional] [readonly] 
+**Id** | Pointer to **string** | Unique key for the IdP | [optional] [readonly] 
+**IssuerMode** | Pointer to **string** | Indicates whether Okta uses the original Okta org domain URL or a custom domain URL in the request to the social IdP | [optional] [default to "DYNAMIC"]
+**LastUpdated** | Pointer to **time.Time** | Timestamp when the object was last updated | [optional] [readonly] 
+**Name** | Pointer to **string** | Unique name for the IdP | [optional] 
 **Policy** | Pointer to [**IdentityProviderPolicy**](IdentityProviderPolicy.md) |  | [optional] 
 **Properties** | Pointer to [**NullableIdentityProviderProperties**](IdentityProviderProperties.md) |  | [optional] 
-**Protocol** | Pointer to [**Protocol**](Protocol.md) |  | [optional] 
+**Protocol** | Pointer to [**IdentityProviderProtocol**](IdentityProviderProtocol.md) |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
-**Type** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** | The IdP object&#39;s &#x60;type&#x60; property identifies the social or enterprise IdP used for authentication. Each IdP uses a specific protocol, therefore the &#x60;protocol&#x60; object must correspond with the IdP &#x60;type&#x60;. If the protocol is OAuth 2.0-based, the &#x60;protocol&#x60; object&#39;s &#x60;scopes&#x60; property must also correspond with the scopes supported by the IdP &#x60;type&#x60;. For policy actions supported by each IdP type, see [IdP type policy actions](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/createIdentityProvider!path&#x3D;policy&amp;t&#x3D;request).  | Type               | Description                                                                                                                                           | Corresponding protocol | Corresponding protocol scopes                                         | | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- | --------------------------------------------------------------------  | | &#x60;AMAZON&#x60;           | [Amazon](https://developer.amazon.com/settings/console/registration?return_to&#x3D;/)&amp;nbsp;as the IdP                                        | OpenID Connect         | &#x60;profile&#x60;, &#x60;profile:user_id&#x60;                                          | | &#x60;APPLE&#x60;            | [Apple](https://developer.apple.com/sign-in-with-apple/)&amp;nbsp;as the IdP                                                                | OpenID Connect         | &#x60;names&#x60;, &#x60;email&#x60;, &#x60;openid&#x60;                                            | | &#x60;DISCORD&#x60;          | [Discord](https://discord.com/login)&amp;nbsp;as the IdP                                                                                    | OAuth 2.0              | &#x60;identify&#x60;, &#x60;email&#x60;                                                   | | &#x60;FACEBOOK&#x60;         | [Facebook](https://developers.facebook.com)&amp;nbsp;as the IdP                                                                             | OAuth 2.0              | &#x60;public_profile&#x60;, &#x60;email&#x60;                                             | | &#x60;GITHUB&#x60;           | [GitHub](https://github.com/join)&amp;nbsp;as the IdP                                                                                       | OAuth 2.0              | &#x60;user&#x60;                                                                | | &#x60;GITLAB&#x60;           | [GitLab](https://gitlab.com/users/sign_in)&amp;nbsp;as the IdP                                                                              | OpenID Connect         | &#x60;openid&#x60;, &#x60;read_user&#x60;, &#x60;profile&#x60;, &#x60;email&#x60;                             | | &#x60;GOOGLE&#x60;           | [Google](https://accounts.google.com/signup)&amp;nbsp;as the IdP                                                                            | OpenID Connect         | &#x60;openid&#x60;, &#x60;email&#x60;, &#x60;profile&#x60;                                          | | &#x60;IDV_PERSONA&#x60;      | [Persona](https://app.withpersona.com/dashboard/login)&amp;nbsp;as the IDV IdP                                                              | ID verification        |                                                                       | | &#x60;IDV_CLEAR&#x60;        | [CLEAR Verified](https://www.clearme.com/)&amp;nbsp;as the IDV IdP                                                                          | ID verification        | &#x60;openid&#x60;, &#x60;profile&#x60;, &#x60;identity_assurance&#x60;                             | | &#x60;IDV_INCODE&#x60;       | [Incode](https://incode.com/)&amp;nbsp;as the IDV IdP                                                                                       | ID verification        | &#x60;openid&#x60;, &#x60;profile&#x60;, &#x60;identity_assurance&#x60;                             | | &#x60;LINKEDIN&#x60;         | [LinkedIn](https://developer.linkedin.com/)&amp;nbsp;as the IdP                                                                             | OAuth 2.0              | &#x60;r_emailaddress&#x60;, &#x60;r_liteprofile&#x60;                                     | | &#x60;LOGINGOV&#x60;         | [Login.gov](https://developers.login.gov/)&amp;nbsp;as the IdP                                                                              | OpenID Connect         | &#x60;email&#x60;, &#x60;profile&#x60;, &#x60;profile:name&#x60;                                    | | &#x60;LOGINGOV_SANDBOX&#x60; | [Login.gov&#39;s identity sandbox](https://developers.login.gov/testing/)&amp;nbsp;as the IdP                                                   | OpenID Connect         | &#x60;email&#x60;, &#x60;profile&#x60;, &#x60;profile:name&#x60;                                    | | &#x60;MICROSOFT&#x60;        | [Microsoft Enterprise SSO](https://azure.microsoft.com/)&amp;nbsp;as the IdP                                                                | OpenID Connect         | &#x60;openid&#x60;, &#x60;email&#x60;, &#x60;profile&#x60;, &#x60;https://graph.microsoft.com/User.Read&#x60; | | &#x60;OIDC&#x60;             | IdP that supports [OpenID Connect](https://openid.net/specs/openid-connect-core-1_0.html)                                               | OpenID Connect         | &#x60;openid&#x60;, &#x60;email&#x60;, &#x60;profile&#x60;                                          | | &#x60;PAYPAL&#x60;           | [Paypal](https://www.paypal.com/signin)&amp;nbsp;as the IdP                                                                                 | OpenID Connect         | &#x60;openid&#x60;, &#x60;email&#x60;, &#x60;profile&#x60;                                          | | &#x60;PAYPAL_SANDBOX&#x60;   | [Paypal Sandbox](https://developer.paypal.com/tools/sandbox/)&amp;nbsp;as the IdP                                                           | OpenID Connect         | &#x60;openid&#x60;, &#x60;email&#x60;, &#x60;profile&#x60;                                          | | &#x60;SALESFORCE&#x60;       | [SalesForce](https://login.salesforce.com/)&amp;nbsp;as the IdP                                                                             | OAuth 2.0              | &#x60;id&#x60;, &#x60;email&#x60;, &#x60;profile&#x60;                                              | | &#x60;SAML2&#x60;            | Enterprise IdP that supports the [SAML 2.0 Web Browser SSO Profile](https://docs.oasis-open.org/security/saml/v2.0/saml-profiles-2.0-os.pdf)| SAML 2.0  |                                                                                | | &#x60;SPOTIFY&#x60;          | [Spotify](https://developer.spotify.com/)&amp;nbsp;as the IdP                                                                               | OpenID Connect         | &#x60;user-read-email&#x60;, &#x60;user-read-private&#x60;                                | | &#x60;X509&#x60;             | [Smart Card IdP](https://tools.ietf.org/html/rfc5280)                                                                                   | Mutual TLS             |                                                                       | | &#x60;XERO&#x60;             | [Xero](https://www.xero.com/us/signup/api/)&amp;nbsp;as the IdP                                                                             | OpenID Connect         | &#x60;openid&#x60;, &#x60;profile&#x60;, &#x60;email&#x60;                                          | | &#x60;YAHOO&#x60;            | [Yahoo](https://login.yahoo.com/)&amp;nbsp;as the IdP                                                                                       | OpenID Connect         | &#x60;openid&#x60;, &#x60;profile&#x60;, &#x60;email&#x60;                                          | | &#x60;YAHOOJP&#x60;          | [Yahoo Japan](https://login.yahoo.co.jp/config/login)&amp;nbsp;as the IdP                                                                   | OpenID Connect         | &#x60;openid&#x60;, &#x60;profile&#x60;, &#x60;email&#x60;                                          | | &#x60;OKTA_INTEGRATION&#x60;             | IdP that supports the [OpenID Connect](https://openid.net/specs/openid-connect-core-1_0.html) Org2Org IdP                                               | OpenID Connect         | &#x60;openid&#x60;, &#x60;email&#x60;, &#x60;profile&#x60;                                          | | [optional] 
 **Links** | Pointer to [**IdentityProviderLinks**](IdentityProviderLinks.md) |  | [optional] 
 
 ## Methods
@@ -60,16 +60,6 @@ SetCreated sets Created field to given value.
 
 HasCreated returns a boolean if a field has been set.
 
-### SetCreatedNil
-
-`func (o *IdentityProvider) SetCreatedNil(b bool)`
-
- SetCreatedNil sets the value for Created to be an explicit nil
-
-### UnsetCreated
-`func (o *IdentityProvider) UnsetCreated()`
-
-UnsetCreated ensures that no value is present for Created, not even an explicit nil
 ### GetId
 
 `func (o *IdentityProvider) GetId() string`
@@ -232,20 +222,20 @@ HasProperties returns a boolean if a field has been set.
 UnsetProperties ensures that no value is present for Properties, not even an explicit nil
 ### GetProtocol
 
-`func (o *IdentityProvider) GetProtocol() Protocol`
+`func (o *IdentityProvider) GetProtocol() IdentityProviderProtocol`
 
 GetProtocol returns the Protocol field if non-nil, zero value otherwise.
 
 ### GetProtocolOk
 
-`func (o *IdentityProvider) GetProtocolOk() (*Protocol, bool)`
+`func (o *IdentityProvider) GetProtocolOk() (*IdentityProviderProtocol, bool)`
 
 GetProtocolOk returns a tuple with the Protocol field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProtocol
 
-`func (o *IdentityProvider) SetProtocol(v Protocol)`
+`func (o *IdentityProvider) SetProtocol(v IdentityProviderProtocol)`
 
 SetProtocol sets Protocol field to given value.
 

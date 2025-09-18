@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -28,8 +28,6 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
 // ListSubscriptionsRoleRoleRefParameter - struct for ListSubscriptionsRoleRoleRefParameter
 type ListSubscriptionsRoleRoleRefParameter struct {
 	String *string
@@ -42,34 +40,33 @@ func StringAsListSubscriptionsRoleRoleRefParameter(v *string) ListSubscriptionsR
 	}
 }
 
-
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *ListSubscriptionsRoleRoleRefParameter) UnmarshalJSON(data []byte) error {
 	var err error
-        match := 0
-        // try to unmarshal data into String
-        err = json.Unmarshal(data, &dst.String)
-        if err == nil {
-                jsonString, _ := json.Marshal(dst.String)
-                if string(jsonString) == "{}" { // empty struct
-                        dst.String = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.String = nil
-        }
+	match := 0
+	// try to unmarshal data into String
+	err = json.Unmarshal(data, &dst.String)
+	if err == nil {
+		jsonString, _ := json.Marshal(dst.String)
+		if string(jsonString) == "{}" { // empty struct
+			dst.String = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.String = nil
+	}
 
-        if match > 1 { // more than 1 match
-                // reset to nil
-                dst.String = nil
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.String = nil
 
-                return fmt.Errorf("Data matches more than one schema in oneOf(ListSubscriptionsRoleRoleRefParameter)")
-        } else if match == 1 {
-                return nil // exactly one match
-        } else { // no match
-                return fmt.Errorf("Data failed to match schemas in oneOf(ListSubscriptionsRoleRoleRefParameter)")
-        }
+		return fmt.Errorf("data matches more than one schema in oneOf(ListSubscriptionsRoleRoleRefParameter)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("data failed to match schemas in oneOf(ListSubscriptionsRoleRoleRefParameter)")
+	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -82,12 +79,22 @@ func (src ListSubscriptionsRoleRoleRefParameter) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *ListSubscriptionsRoleRoleRefParameter) GetActualInstance() (interface{}) {
+func (obj *ListSubscriptionsRoleRoleRefParameter) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
 	if obj.String != nil {
 		return obj.String
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj ListSubscriptionsRoleRoleRefParameter) GetActualInstanceValue() interface{} {
+	if obj.String != nil {
+		return *obj.String
 	}
 
 	// all schemas are nil
@@ -129,5 +136,3 @@ func (v *NullableListSubscriptionsRoleRoleRefParameter) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

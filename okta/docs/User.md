@@ -12,12 +12,12 @@ Name | Type | Description | Notes
 **LastUpdated** | Pointer to **time.Time** | The timestamp when the user was last updated | [optional] [readonly] 
 **PasswordChanged** | Pointer to **NullableTime** | The timestamp when the user&#39;s password was last updated | [optional] [readonly] 
 **Profile** | Pointer to [**UserProfile**](UserProfile.md) |  | [optional] 
-**RealmId** | Pointer to **string** | &lt;div class&#x3D;\&quot;x-lifecycle-container\&quot;&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/div&gt;The ID of the Realm in which the user is residing | [optional] [readonly] 
-**Status** | Pointer to **string** | The current status of the user | [optional] [readonly] 
+**RealmId** | Pointer to **string** | The ID of the realm in which the user is residing. See [Realms](/openapi/okta-management/management/tag/Realm/). | [optional] [readonly] 
+**Status** | Pointer to **string** | The current status of the user.  The status of a user changes in response to explicit events, such as admin-driven lifecycle changes, user login, or self-service password recovery. Okta doesn&#39;t asynchronously sweep through users and update their password expiry state, for example. Instead, Okta evaluates password policy at login time, notices the password has expired, and moves the user to the expired state. When running reports, remember that the data is valid as of the last login or lifecycle event for that user. | [optional] [readonly] 
 **StatusChanged** | Pointer to **NullableTime** | The timestamp when the status of the user last changed | [optional] [readonly] 
 **TransitioningToStatus** | Pointer to **NullableString** | The target status of an in-progress asynchronous status transition. This property is only returned if the user&#39;s state is transitioning. | [optional] [readonly] 
 **Type** | Pointer to [**UserType**](UserType.md) |  | [optional] 
-**Embedded** | Pointer to **map[string]map[string]interface{}** | If specified, includes embedded resources related to the user | [optional] [readonly] 
+**Embedded** | Pointer to **map[string]map[string]interface{}** | Embedded resources related to the user using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification | [optional] [readonly] 
 **Links** | Pointer to [**UserLinks**](UserLinks.md) |  | [optional] 
 
 ## Methods

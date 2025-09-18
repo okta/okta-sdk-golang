@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -28,6 +28,9 @@ import (
 	"reflect"
 	"strings"
 )
+
+// checks if the AuthenticatorMethodSimple type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorMethodSimple{}
 
 // AuthenticatorMethodSimple struct for AuthenticatorMethodSimple
 type AuthenticatorMethodSimple struct {
@@ -55,30 +58,38 @@ func NewAuthenticatorMethodSimpleWithDefaults() *AuthenticatorMethodSimple {
 }
 
 func (o AuthenticatorMethodSimple) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorMethodSimple) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedAuthenticatorMethodBase, errAuthenticatorMethodBase := json.Marshal(o.AuthenticatorMethodBase)
 	if errAuthenticatorMethodBase != nil {
-		return []byte{}, errAuthenticatorMethodBase
+		return map[string]interface{}{}, errAuthenticatorMethodBase
 	}
 	errAuthenticatorMethodBase = json.Unmarshal([]byte(serializedAuthenticatorMethodBase), &toSerialize)
 	if errAuthenticatorMethodBase != nil {
-		return []byte{}, errAuthenticatorMethodBase
+		return map[string]interface{}{}, errAuthenticatorMethodBase
 	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorMethodSimple) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorMethodSimple) UnmarshalJSON(data []byte) (err error) {
 	type AuthenticatorMethodSimpleWithoutEmbeddedStruct struct {
 	}
 
 	varAuthenticatorMethodSimpleWithoutEmbeddedStruct := AuthenticatorMethodSimpleWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorMethodSimpleWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varAuthenticatorMethodSimpleWithoutEmbeddedStruct)
 	if err == nil {
 		varAuthenticatorMethodSimple := _AuthenticatorMethodSimple{}
 		*o = AuthenticatorMethodSimple(varAuthenticatorMethodSimple)
@@ -88,7 +99,7 @@ func (o *AuthenticatorMethodSimple) UnmarshalJSON(bytes []byte) (err error) {
 
 	varAuthenticatorMethodSimple := _AuthenticatorMethodSimple{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorMethodSimple)
+	err = json.Unmarshal(data, &varAuthenticatorMethodSimple)
 	if err == nil {
 		o.AuthenticatorMethodBase = varAuthenticatorMethodSimple.AuthenticatorMethodBase
 	} else {
@@ -97,8 +108,7 @@ func (o *AuthenticatorMethodSimple) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 
 		// remove fields from embedded structs
 		reflectAuthenticatorMethodBase := reflect.ValueOf(o.AuthenticatorMethodBase)
@@ -119,8 +129,6 @@ func (o *AuthenticatorMethodSimple) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -161,4 +169,3 @@ func (v *NullableAuthenticatorMethodSimple) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

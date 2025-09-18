@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the PasswordPolicyRecoveryQuestion type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordPolicyRecoveryQuestion{}
+
 // PasswordPolicyRecoveryQuestion struct for PasswordPolicyRecoveryQuestion
 type PasswordPolicyRecoveryQuestion struct {
 	Properties *PasswordPolicyRecoveryQuestionProperties `json:"properties,omitempty"`
-	Status *string `json:"status,omitempty"`
+	// Whether or not the factor is active
+	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +59,7 @@ func NewPasswordPolicyRecoveryQuestionWithDefaults() *PasswordPolicyRecoveryQues
 
 // GetProperties returns the Properties field value if set, zero value otherwise.
 func (o *PasswordPolicyRecoveryQuestion) GetProperties() PasswordPolicyRecoveryQuestionProperties {
-	if o == nil || o.Properties == nil {
+	if o == nil || IsNil(o.Properties) {
 		var ret PasswordPolicyRecoveryQuestionProperties
 		return ret
 	}
@@ -65,7 +69,7 @@ func (o *PasswordPolicyRecoveryQuestion) GetProperties() PasswordPolicyRecoveryQ
 // GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyRecoveryQuestion) GetPropertiesOk() (*PasswordPolicyRecoveryQuestionProperties, bool) {
-	if o == nil || o.Properties == nil {
+	if o == nil || IsNil(o.Properties) {
 		return nil, false
 	}
 	return o.Properties, true
@@ -73,7 +77,7 @@ func (o *PasswordPolicyRecoveryQuestion) GetPropertiesOk() (*PasswordPolicyRecov
 
 // HasProperties returns a boolean if a field has been set.
 func (o *PasswordPolicyRecoveryQuestion) HasProperties() bool {
-	if o != nil && o.Properties != nil {
+	if o != nil && !IsNil(o.Properties) {
 		return true
 	}
 
@@ -87,7 +91,7 @@ func (o *PasswordPolicyRecoveryQuestion) SetProperties(v PasswordPolicyRecoveryQ
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *PasswordPolicyRecoveryQuestion) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -97,7 +101,7 @@ func (o *PasswordPolicyRecoveryQuestion) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyRecoveryQuestion) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -105,7 +109,7 @@ func (o *PasswordPolicyRecoveryQuestion) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *PasswordPolicyRecoveryQuestion) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -118,11 +122,19 @@ func (o *PasswordPolicyRecoveryQuestion) SetStatus(v string) {
 }
 
 func (o PasswordPolicyRecoveryQuestion) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordPolicyRecoveryQuestion) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Properties != nil {
+	if !IsNil(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
 
@@ -130,28 +142,26 @@ func (o PasswordPolicyRecoveryQuestion) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordPolicyRecoveryQuestion) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordPolicyRecoveryQuestion) UnmarshalJSON(data []byte) (err error) {
 	varPasswordPolicyRecoveryQuestion := _PasswordPolicyRecoveryQuestion{}
 
-	err = json.Unmarshal(bytes, &varPasswordPolicyRecoveryQuestion)
-	if err == nil {
-		*o = PasswordPolicyRecoveryQuestion(varPasswordPolicyRecoveryQuestion)
-	} else {
+	err = json.Unmarshal(data, &varPasswordPolicyRecoveryQuestion)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PasswordPolicyRecoveryQuestion(varPasswordPolicyRecoveryQuestion)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "properties")
 		delete(additionalProperties, "status")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +202,3 @@ func (v *NullablePasswordPolicyRecoveryQuestion) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

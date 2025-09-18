@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthenticatorLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorLinks{}
+
 // AuthenticatorLinks struct for AuthenticatorLinks
 type AuthenticatorLinks struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Activate *HrefObjectActivateLink `json:"activate,omitempty"`
+	Self       *HrefObjectSelfLink       `json:"self,omitempty"`
+	Activate   *HrefObjectActivateLink   `json:"activate,omitempty"`
 	Deactivate *HrefObjectDeactivateLink `json:"deactivate,omitempty"`
-	Methods *HrefObject `json:"methods,omitempty"`
+	// Link to authenticator methods
+	Methods              *HrefObject `json:"methods,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +61,7 @@ func NewAuthenticatorLinksWithDefaults() *AuthenticatorLinks {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *AuthenticatorLinks) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -67,7 +71,7 @@ func (o *AuthenticatorLinks) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -75,7 +79,7 @@ func (o *AuthenticatorLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *AuthenticatorLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -89,7 +93,7 @@ func (o *AuthenticatorLinks) SetSelf(v HrefObjectSelfLink) {
 
 // GetActivate returns the Activate field value if set, zero value otherwise.
 func (o *AuthenticatorLinks) GetActivate() HrefObjectActivateLink {
-	if o == nil || o.Activate == nil {
+	if o == nil || IsNil(o.Activate) {
 		var ret HrefObjectActivateLink
 		return ret
 	}
@@ -99,7 +103,7 @@ func (o *AuthenticatorLinks) GetActivate() HrefObjectActivateLink {
 // GetActivateOk returns a tuple with the Activate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorLinks) GetActivateOk() (*HrefObjectActivateLink, bool) {
-	if o == nil || o.Activate == nil {
+	if o == nil || IsNil(o.Activate) {
 		return nil, false
 	}
 	return o.Activate, true
@@ -107,7 +111,7 @@ func (o *AuthenticatorLinks) GetActivateOk() (*HrefObjectActivateLink, bool) {
 
 // HasActivate returns a boolean if a field has been set.
 func (o *AuthenticatorLinks) HasActivate() bool {
-	if o != nil && o.Activate != nil {
+	if o != nil && !IsNil(o.Activate) {
 		return true
 	}
 
@@ -121,7 +125,7 @@ func (o *AuthenticatorLinks) SetActivate(v HrefObjectActivateLink) {
 
 // GetDeactivate returns the Deactivate field value if set, zero value otherwise.
 func (o *AuthenticatorLinks) GetDeactivate() HrefObjectDeactivateLink {
-	if o == nil || o.Deactivate == nil {
+	if o == nil || IsNil(o.Deactivate) {
 		var ret HrefObjectDeactivateLink
 		return ret
 	}
@@ -131,7 +135,7 @@ func (o *AuthenticatorLinks) GetDeactivate() HrefObjectDeactivateLink {
 // GetDeactivateOk returns a tuple with the Deactivate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorLinks) GetDeactivateOk() (*HrefObjectDeactivateLink, bool) {
-	if o == nil || o.Deactivate == nil {
+	if o == nil || IsNil(o.Deactivate) {
 		return nil, false
 	}
 	return o.Deactivate, true
@@ -139,7 +143,7 @@ func (o *AuthenticatorLinks) GetDeactivateOk() (*HrefObjectDeactivateLink, bool)
 
 // HasDeactivate returns a boolean if a field has been set.
 func (o *AuthenticatorLinks) HasDeactivate() bool {
-	if o != nil && o.Deactivate != nil {
+	if o != nil && !IsNil(o.Deactivate) {
 		return true
 	}
 
@@ -153,7 +157,7 @@ func (o *AuthenticatorLinks) SetDeactivate(v HrefObjectDeactivateLink) {
 
 // GetMethods returns the Methods field value if set, zero value otherwise.
 func (o *AuthenticatorLinks) GetMethods() HrefObject {
-	if o == nil || o.Methods == nil {
+	if o == nil || IsNil(o.Methods) {
 		var ret HrefObject
 		return ret
 	}
@@ -163,7 +167,7 @@ func (o *AuthenticatorLinks) GetMethods() HrefObject {
 // GetMethodsOk returns a tuple with the Methods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorLinks) GetMethodsOk() (*HrefObject, bool) {
-	if o == nil || o.Methods == nil {
+	if o == nil || IsNil(o.Methods) {
 		return nil, false
 	}
 	return o.Methods, true
@@ -171,7 +175,7 @@ func (o *AuthenticatorLinks) GetMethodsOk() (*HrefObject, bool) {
 
 // HasMethods returns a boolean if a field has been set.
 func (o *AuthenticatorLinks) HasMethods() bool {
-	if o != nil && o.Methods != nil {
+	if o != nil && !IsNil(o.Methods) {
 		return true
 	}
 
@@ -184,17 +188,25 @@ func (o *AuthenticatorLinks) SetMethods(v HrefObject) {
 }
 
 func (o AuthenticatorLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.Activate != nil {
+	if !IsNil(o.Activate) {
 		toSerialize["activate"] = o.Activate
 	}
-	if o.Deactivate != nil {
+	if !IsNil(o.Deactivate) {
 		toSerialize["deactivate"] = o.Deactivate
 	}
-	if o.Methods != nil {
+	if !IsNil(o.Methods) {
 		toSerialize["methods"] = o.Methods
 	}
 
@@ -202,30 +214,28 @@ func (o AuthenticatorLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorLinks) UnmarshalJSON(data []byte) (err error) {
 	varAuthenticatorLinks := _AuthenticatorLinks{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorLinks)
-	if err == nil {
-		*o = AuthenticatorLinks(varAuthenticatorLinks)
-	} else {
+	err = json.Unmarshal(data, &varAuthenticatorLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthenticatorLinks(varAuthenticatorLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "activate")
 		delete(additionalProperties, "deactivate")
 		delete(additionalProperties, "methods")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -266,4 +276,3 @@ func (v *NullableAuthenticatorLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

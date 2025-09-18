@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,7 +25,11 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the EventHookChannelConfig type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EventHookChannelConfig{}
 
 // EventHookChannelConfig struct for EventHookChannelConfig
 type EventHookChannelConfig struct {
@@ -35,7 +39,7 @@ type EventHookChannelConfig struct {
 	// The method of the Okta event hook request
 	Method *string `json:"method,omitempty"`
 	// The external service endpoint called to execute the event hook handler
-	Uri string `json:"uri"`
+	Uri                  string `json:"uri"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +65,7 @@ func NewEventHookChannelConfigWithDefaults() *EventHookChannelConfig {
 
 // GetAuthScheme returns the AuthScheme field value if set, zero value otherwise.
 func (o *EventHookChannelConfig) GetAuthScheme() EventHookChannelConfigAuthScheme {
-	if o == nil || o.AuthScheme == nil {
+	if o == nil || IsNil(o.AuthScheme) {
 		var ret EventHookChannelConfigAuthScheme
 		return ret
 	}
@@ -71,7 +75,7 @@ func (o *EventHookChannelConfig) GetAuthScheme() EventHookChannelConfigAuthSchem
 // GetAuthSchemeOk returns a tuple with the AuthScheme field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventHookChannelConfig) GetAuthSchemeOk() (*EventHookChannelConfigAuthScheme, bool) {
-	if o == nil || o.AuthScheme == nil {
+	if o == nil || IsNil(o.AuthScheme) {
 		return nil, false
 	}
 	return o.AuthScheme, true
@@ -79,7 +83,7 @@ func (o *EventHookChannelConfig) GetAuthSchemeOk() (*EventHookChannelConfigAuthS
 
 // HasAuthScheme returns a boolean if a field has been set.
 func (o *EventHookChannelConfig) HasAuthScheme() bool {
-	if o != nil && o.AuthScheme != nil {
+	if o != nil && !IsNil(o.AuthScheme) {
 		return true
 	}
 
@@ -93,7 +97,7 @@ func (o *EventHookChannelConfig) SetAuthScheme(v EventHookChannelConfigAuthSchem
 
 // GetHeaders returns the Headers field value if set, zero value otherwise.
 func (o *EventHookChannelConfig) GetHeaders() []EventHookChannelConfigHeader {
-	if o == nil || o.Headers == nil {
+	if o == nil || IsNil(o.Headers) {
 		var ret []EventHookChannelConfigHeader
 		return ret
 	}
@@ -103,7 +107,7 @@ func (o *EventHookChannelConfig) GetHeaders() []EventHookChannelConfigHeader {
 // GetHeadersOk returns a tuple with the Headers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventHookChannelConfig) GetHeadersOk() ([]EventHookChannelConfigHeader, bool) {
-	if o == nil || o.Headers == nil {
+	if o == nil || IsNil(o.Headers) {
 		return nil, false
 	}
 	return o.Headers, true
@@ -111,7 +115,7 @@ func (o *EventHookChannelConfig) GetHeadersOk() ([]EventHookChannelConfigHeader,
 
 // HasHeaders returns a boolean if a field has been set.
 func (o *EventHookChannelConfig) HasHeaders() bool {
-	if o != nil && o.Headers != nil {
+	if o != nil && !IsNil(o.Headers) {
 		return true
 	}
 
@@ -125,7 +129,7 @@ func (o *EventHookChannelConfig) SetHeaders(v []EventHookChannelConfigHeader) {
 
 // GetMethod returns the Method field value if set, zero value otherwise.
 func (o *EventHookChannelConfig) GetMethod() string {
-	if o == nil || o.Method == nil {
+	if o == nil || IsNil(o.Method) {
 		var ret string
 		return ret
 	}
@@ -135,7 +139,7 @@ func (o *EventHookChannelConfig) GetMethod() string {
 // GetMethodOk returns a tuple with the Method field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventHookChannelConfig) GetMethodOk() (*string, bool) {
-	if o == nil || o.Method == nil {
+	if o == nil || IsNil(o.Method) {
 		return nil, false
 	}
 	return o.Method, true
@@ -143,7 +147,7 @@ func (o *EventHookChannelConfig) GetMethodOk() (*string, bool) {
 
 // HasMethod returns a boolean if a field has been set.
 func (o *EventHookChannelConfig) HasMethod() bool {
-	if o != nil && o.Method != nil {
+	if o != nil && !IsNil(o.Method) {
 		return true
 	}
 
@@ -180,48 +184,73 @@ func (o *EventHookChannelConfig) SetUri(v string) {
 }
 
 func (o EventHookChannelConfig) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EventHookChannelConfig) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AuthScheme != nil {
+	if !IsNil(o.AuthScheme) {
 		toSerialize["authScheme"] = o.AuthScheme
 	}
-	if o.Headers != nil {
+	if !IsNil(o.Headers) {
 		toSerialize["headers"] = o.Headers
 	}
-	if o.Method != nil {
+	if !IsNil(o.Method) {
 		toSerialize["method"] = o.Method
 	}
-	if true {
-		toSerialize["uri"] = o.Uri
-	}
+	toSerialize["uri"] = o.Uri
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EventHookChannelConfig) UnmarshalJSON(bytes []byte) (err error) {
-	varEventHookChannelConfig := _EventHookChannelConfig{}
+func (o *EventHookChannelConfig) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"uri",
+	}
 
-	err = json.Unmarshal(bytes, &varEventHookChannelConfig)
-	if err == nil {
-		*o = EventHookChannelConfig(varEventHookChannelConfig)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varEventHookChannelConfig := _EventHookChannelConfig{}
+
+	err = json.Unmarshal(data, &varEventHookChannelConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EventHookChannelConfig(varEventHookChannelConfig)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "authScheme")
 		delete(additionalProperties, "headers")
 		delete(additionalProperties, "method")
 		delete(additionalProperties, "uri")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -262,4 +291,3 @@ func (v *NullableEventHookChannelConfig) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

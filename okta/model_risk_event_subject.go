@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,16 +25,20 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RiskEventSubject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RiskEventSubject{}
 
 // RiskEventSubject struct for RiskEventSubject
 type RiskEventSubject struct {
 	// The risk event subject IP address (either an IPv4 or IPv6 address)
 	Ip string `json:"ip"`
 	// Additional reasons for the risk level of the IP
-	Message *string `json:"message,omitempty"`
+	Message *string `json:"message,omitempty" validate:"regexp=^[a-zA-Z0-9 .\\\\-_]*$"`
 	// The risk level associated with the IP
-	RiskLevel string `json:"riskLevel"`
+	RiskLevel            string `json:"riskLevel"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -85,7 +89,7 @@ func (o *RiskEventSubject) SetIp(v string) {
 
 // GetMessage returns the Message field value if set, zero value otherwise.
 func (o *RiskEventSubject) GetMessage() string {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
 	}
@@ -95,7 +99,7 @@ func (o *RiskEventSubject) GetMessage() string {
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskEventSubject) GetMessageOk() (*string, bool) {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
 	return o.Message, true
@@ -103,7 +107,7 @@ func (o *RiskEventSubject) GetMessageOk() (*string, bool) {
 
 // HasMessage returns a boolean if a field has been set.
 func (o *RiskEventSubject) HasMessage() bool {
-	if o != nil && o.Message != nil {
+	if o != nil && !IsNil(o.Message) {
 		return true
 	}
 
@@ -140,44 +144,68 @@ func (o *RiskEventSubject) SetRiskLevel(v string) {
 }
 
 func (o RiskEventSubject) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["ip"] = o.Ip
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Message != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o RiskEventSubject) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["ip"] = o.Ip
+	if !IsNil(o.Message) {
 		toSerialize["message"] = o.Message
 	}
-	if true {
-		toSerialize["riskLevel"] = o.RiskLevel
-	}
+	toSerialize["riskLevel"] = o.RiskLevel
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RiskEventSubject) UnmarshalJSON(bytes []byte) (err error) {
-	varRiskEventSubject := _RiskEventSubject{}
+func (o *RiskEventSubject) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"ip",
+		"riskLevel",
+	}
 
-	err = json.Unmarshal(bytes, &varRiskEventSubject)
-	if err == nil {
-		*o = RiskEventSubject(varRiskEventSubject)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRiskEventSubject := _RiskEventSubject{}
+
+	err = json.Unmarshal(data, &varRiskEventSubject)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RiskEventSubject(varRiskEventSubject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "ip")
 		delete(additionalProperties, "message")
 		delete(additionalProperties, "riskLevel")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -218,4 +246,3 @@ func (v *NullableRiskEventSubject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

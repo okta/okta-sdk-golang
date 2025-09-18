@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -28,22 +28,25 @@ import (
 	"time"
 )
 
+// checks if the AuthenticatorBase type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorBase{}
+
 // AuthenticatorBase struct for AuthenticatorBase
 type AuthenticatorBase struct {
-	// Timestamp when the Authenticator was created
+	// Timestamp when the authenticator was created
 	Created *time.Time `json:"created,omitempty"`
-	// A unique identifier for the Authenticator
+	// A unique identifier for the authenticator
 	Id *string `json:"id,omitempty"`
-	// A human-readable string that identifies the Authenticator
+	// A human-readable string that identifies the authenticator
 	Key *string `json:"key,omitempty"`
-	// Timestamp when the Authenticator was last modified
+	// Timestamp when the authenticator was last modified
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	// Display name of the Authenticator
-	Name *string `json:"name,omitempty"`
+	// Display name of the authenticator
+	Name   *string `json:"name,omitempty"`
 	Status *string `json:"status,omitempty"`
-	// The type of Authenticator
-	Type *string `json:"type,omitempty"`
-	Links *AuthenticatorLinks `json:"_links,omitempty"`
+	// The type of authenticator
+	Type                 *string             `json:"type,omitempty"`
+	Links                *AuthenticatorLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -68,7 +71,7 @@ func NewAuthenticatorBaseWithDefaults() *AuthenticatorBase {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *AuthenticatorBase) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -78,7 +81,7 @@ func (o *AuthenticatorBase) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorBase) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -86,7 +89,7 @@ func (o *AuthenticatorBase) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *AuthenticatorBase) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -100,7 +103,7 @@ func (o *AuthenticatorBase) SetCreated(v time.Time) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *AuthenticatorBase) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -110,7 +113,7 @@ func (o *AuthenticatorBase) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorBase) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -118,7 +121,7 @@ func (o *AuthenticatorBase) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *AuthenticatorBase) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -132,7 +135,7 @@ func (o *AuthenticatorBase) SetId(v string) {
 
 // GetKey returns the Key field value if set, zero value otherwise.
 func (o *AuthenticatorBase) GetKey() string {
-	if o == nil || o.Key == nil {
+	if o == nil || IsNil(o.Key) {
 		var ret string
 		return ret
 	}
@@ -142,7 +145,7 @@ func (o *AuthenticatorBase) GetKey() string {
 // GetKeyOk returns a tuple with the Key field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorBase) GetKeyOk() (*string, bool) {
-	if o == nil || o.Key == nil {
+	if o == nil || IsNil(o.Key) {
 		return nil, false
 	}
 	return o.Key, true
@@ -150,7 +153,7 @@ func (o *AuthenticatorBase) GetKeyOk() (*string, bool) {
 
 // HasKey returns a boolean if a field has been set.
 func (o *AuthenticatorBase) HasKey() bool {
-	if o != nil && o.Key != nil {
+	if o != nil && !IsNil(o.Key) {
 		return true
 	}
 
@@ -164,7 +167,7 @@ func (o *AuthenticatorBase) SetKey(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *AuthenticatorBase) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -174,7 +177,7 @@ func (o *AuthenticatorBase) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorBase) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -182,7 +185,7 @@ func (o *AuthenticatorBase) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *AuthenticatorBase) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -196,7 +199,7 @@ func (o *AuthenticatorBase) SetLastUpdated(v time.Time) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *AuthenticatorBase) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -206,7 +209,7 @@ func (o *AuthenticatorBase) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorBase) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -214,7 +217,7 @@ func (o *AuthenticatorBase) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *AuthenticatorBase) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -228,7 +231,7 @@ func (o *AuthenticatorBase) SetName(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *AuthenticatorBase) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -238,7 +241,7 @@ func (o *AuthenticatorBase) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorBase) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -246,7 +249,7 @@ func (o *AuthenticatorBase) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *AuthenticatorBase) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -260,7 +263,7 @@ func (o *AuthenticatorBase) SetStatus(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *AuthenticatorBase) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -270,7 +273,7 @@ func (o *AuthenticatorBase) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorBase) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -278,7 +281,7 @@ func (o *AuthenticatorBase) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *AuthenticatorBase) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -292,7 +295,7 @@ func (o *AuthenticatorBase) SetType(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *AuthenticatorBase) GetLinks() AuthenticatorLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret AuthenticatorLinks
 		return ret
 	}
@@ -302,7 +305,7 @@ func (o *AuthenticatorBase) GetLinks() AuthenticatorLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorBase) GetLinksOk() (*AuthenticatorLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -310,7 +313,7 @@ func (o *AuthenticatorBase) GetLinksOk() (*AuthenticatorLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *AuthenticatorBase) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -323,29 +326,37 @@ func (o *AuthenticatorBase) SetLinks(v AuthenticatorLinks) {
 }
 
 func (o AuthenticatorBase) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorBase) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Key != nil {
+	if !IsNil(o.Key) {
 		toSerialize["key"] = o.Key
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -353,23 +364,23 @@ func (o AuthenticatorBase) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorBase) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorBase) UnmarshalJSON(data []byte) (err error) {
 	varAuthenticatorBase := _AuthenticatorBase{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorBase)
-	if err == nil {
-		*o = AuthenticatorBase(varAuthenticatorBase)
-	} else {
+	err = json.Unmarshal(data, &varAuthenticatorBase)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthenticatorBase(varAuthenticatorBase)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "key")
@@ -379,8 +390,6 @@ func (o *AuthenticatorBase) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -421,4 +430,3 @@ func (v *NullableAuthenticatorBase) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

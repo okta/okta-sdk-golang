@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -29,11 +29,14 @@ import (
 	"strings"
 )
 
+// checks if the PasswordPolicyRule type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordPolicyRule{}
+
 // PasswordPolicyRule struct for PasswordPolicyRule
 type PasswordPolicyRule struct {
 	PolicyRule
-	Actions *PasswordPolicyRuleActions `json:"actions,omitempty"`
-	Conditions *PasswordPolicyRuleConditions `json:"conditions,omitempty"`
+	Actions              *PasswordPolicyRuleActions    `json:"actions,omitempty"`
+	Conditions           *PasswordPolicyRuleConditions `json:"conditions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +63,7 @@ func NewPasswordPolicyRuleWithDefaults() *PasswordPolicyRule {
 
 // GetActions returns the Actions field value if set, zero value otherwise.
 func (o *PasswordPolicyRule) GetActions() PasswordPolicyRuleActions {
-	if o == nil || o.Actions == nil {
+	if o == nil || IsNil(o.Actions) {
 		var ret PasswordPolicyRuleActions
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *PasswordPolicyRule) GetActions() PasswordPolicyRuleActions {
 // GetActionsOk returns a tuple with the Actions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyRule) GetActionsOk() (*PasswordPolicyRuleActions, bool) {
-	if o == nil || o.Actions == nil {
+	if o == nil || IsNil(o.Actions) {
 		return nil, false
 	}
 	return o.Actions, true
@@ -78,7 +81,7 @@ func (o *PasswordPolicyRule) GetActionsOk() (*PasswordPolicyRuleActions, bool) {
 
 // HasActions returns a boolean if a field has been set.
 func (o *PasswordPolicyRule) HasActions() bool {
-	if o != nil && o.Actions != nil {
+	if o != nil && !IsNil(o.Actions) {
 		return true
 	}
 
@@ -92,7 +95,7 @@ func (o *PasswordPolicyRule) SetActions(v PasswordPolicyRuleActions) {
 
 // GetConditions returns the Conditions field value if set, zero value otherwise.
 func (o *PasswordPolicyRule) GetConditions() PasswordPolicyRuleConditions {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		var ret PasswordPolicyRuleConditions
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *PasswordPolicyRule) GetConditions() PasswordPolicyRuleConditions {
 // GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyRule) GetConditionsOk() (*PasswordPolicyRuleConditions, bool) {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		return nil, false
 	}
 	return o.Conditions, true
@@ -110,7 +113,7 @@ func (o *PasswordPolicyRule) GetConditionsOk() (*PasswordPolicyRuleConditions, b
 
 // HasConditions returns a boolean if a field has been set.
 func (o *PasswordPolicyRule) HasConditions() bool {
-	if o != nil && o.Conditions != nil {
+	if o != nil && !IsNil(o.Conditions) {
 		return true
 	}
 
@@ -123,19 +126,27 @@ func (o *PasswordPolicyRule) SetConditions(v PasswordPolicyRuleConditions) {
 }
 
 func (o PasswordPolicyRule) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordPolicyRule) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedPolicyRule, errPolicyRule := json.Marshal(o.PolicyRule)
 	if errPolicyRule != nil {
-		return []byte{}, errPolicyRule
+		return map[string]interface{}{}, errPolicyRule
 	}
 	errPolicyRule = json.Unmarshal([]byte(serializedPolicyRule), &toSerialize)
 	if errPolicyRule != nil {
-		return []byte{}, errPolicyRule
+		return map[string]interface{}{}, errPolicyRule
 	}
-	if o.Actions != nil {
+	if !IsNil(o.Actions) {
 		toSerialize["actions"] = o.Actions
 	}
-	if o.Conditions != nil {
+	if !IsNil(o.Conditions) {
 		toSerialize["conditions"] = o.Conditions
 	}
 
@@ -143,18 +154,18 @@ func (o PasswordPolicyRule) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordPolicyRule) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordPolicyRule) UnmarshalJSON(data []byte) (err error) {
 	type PasswordPolicyRuleWithoutEmbeddedStruct struct {
-		Actions *PasswordPolicyRuleActions `json:"actions,omitempty"`
+		Actions    *PasswordPolicyRuleActions    `json:"actions,omitempty"`
 		Conditions *PasswordPolicyRuleConditions `json:"conditions,omitempty"`
 	}
 
 	varPasswordPolicyRuleWithoutEmbeddedStruct := PasswordPolicyRuleWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varPasswordPolicyRuleWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varPasswordPolicyRuleWithoutEmbeddedStruct)
 	if err == nil {
 		varPasswordPolicyRule := _PasswordPolicyRule{}
 		varPasswordPolicyRule.Actions = varPasswordPolicyRuleWithoutEmbeddedStruct.Actions
@@ -166,7 +177,7 @@ func (o *PasswordPolicyRule) UnmarshalJSON(bytes []byte) (err error) {
 
 	varPasswordPolicyRule := _PasswordPolicyRule{}
 
-	err = json.Unmarshal(bytes, &varPasswordPolicyRule)
+	err = json.Unmarshal(data, &varPasswordPolicyRule)
 	if err == nil {
 		o.PolicyRule = varPasswordPolicyRule.PolicyRule
 	} else {
@@ -175,8 +186,7 @@ func (o *PasswordPolicyRule) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "actions")
 		delete(additionalProperties, "conditions")
 
@@ -199,8 +209,6 @@ func (o *PasswordPolicyRule) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -241,4 +249,3 @@ func (v *NullablePasswordPolicyRule) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

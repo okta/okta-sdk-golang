@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Config** | Pointer to [**InlineHookChannelConfig**](InlineHookChannelConfig.md) |  | [optional] 
+**Config** | Pointer to [**InlineHookHttpConfig**](InlineHookHttpConfig.md) |  | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetConfig
 
-`func (o *InlineHookChannelHttp) GetConfig() InlineHookChannelConfig`
+`func (o *InlineHookChannelHttp) GetConfig() InlineHookHttpConfig`
 
 GetConfig returns the Config field if non-nil, zero value otherwise.
 
 ### GetConfigOk
 
-`func (o *InlineHookChannelHttp) GetConfigOk() (*InlineHookChannelConfig, bool)`
+`func (o *InlineHookChannelHttp) GetConfigOk() (*InlineHookHttpConfig, bool)`
 
 GetConfigOk returns a tuple with the Config field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConfig
 
-`func (o *InlineHookChannelHttp) SetConfig(v InlineHookChannelConfig)`
+`func (o *InlineHookChannelHttp) SetConfig(v InlineHookHttpConfig)`
 
 SetConfig sets Config field to given value.
 

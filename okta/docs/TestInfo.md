@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **EscalationSupportContact** | **string** | An email for Okta to contact your company about your integration. This email isn&#39;t shared with customers. | 
 **OidcTestConfiguration** | Pointer to [**TestInfoOidcTestConfiguration**](TestInfoOidcTestConfiguration.md) |  | [optional] 
 **SamlTestConfiguration** | Pointer to [**TestInfoSamlTestConfiguration**](TestInfoSamlTestConfiguration.md) |  | [optional] 
+**ScimTestConfiguration** | Pointer to [**TestInfoScimTestConfiguration**](TestInfoScimTestConfiguration.md) |  | [optional] 
 **TestAccount** | Pointer to [**TestInfoTestAccount**](TestInfoTestAccount.md) |  | [optional] 
 
 ## Methods
@@ -97,6 +98,31 @@ SetSamlTestConfiguration sets SamlTestConfiguration field to given value.
 `func (o *TestInfo) HasSamlTestConfiguration() bool`
 
 HasSamlTestConfiguration returns a boolean if a field has been set.
+
+### GetScimTestConfiguration
+
+`func (o *TestInfo) GetScimTestConfiguration() TestInfoScimTestConfiguration`
+
+GetScimTestConfiguration returns the ScimTestConfiguration field if non-nil, zero value otherwise.
+
+### GetScimTestConfigurationOk
+
+`func (o *TestInfo) GetScimTestConfigurationOk() (*TestInfoScimTestConfiguration, bool)`
+
+GetScimTestConfigurationOk returns a tuple with the ScimTestConfiguration field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetScimTestConfiguration
+
+`func (o *TestInfo) SetScimTestConfiguration(v TestInfoScimTestConfiguration)`
+
+SetScimTestConfiguration sets ScimTestConfiguration field to given value.
+
+### HasScimTestConfiguration
+
+`func (o *TestInfo) HasScimTestConfiguration() bool`
+
+HasScimTestConfiguration returns a boolean if a field has been set.
 
 ### GetTestAccount
 

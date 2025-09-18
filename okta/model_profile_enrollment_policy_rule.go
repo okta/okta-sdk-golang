@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -29,11 +29,15 @@ import (
 	"strings"
 )
 
+// checks if the ProfileEnrollmentPolicyRule type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ProfileEnrollmentPolicyRule{}
+
 // ProfileEnrollmentPolicyRule struct for ProfileEnrollmentPolicyRule
 type ProfileEnrollmentPolicyRule struct {
 	PolicyRule
 	Actions *ProfileEnrollmentPolicyRuleActions `json:"actions,omitempty"`
-	Conditions *PolicyRuleConditions `json:"conditions,omitempty"`
+	// Policy rule conditions aren't supported for this policy type
+	Conditions           NullableString `json:"conditions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +64,7 @@ func NewProfileEnrollmentPolicyRuleWithDefaults() *ProfileEnrollmentPolicyRule {
 
 // GetActions returns the Actions field value if set, zero value otherwise.
 func (o *ProfileEnrollmentPolicyRule) GetActions() ProfileEnrollmentPolicyRuleActions {
-	if o == nil || o.Actions == nil {
+	if o == nil || IsNil(o.Actions) {
 		var ret ProfileEnrollmentPolicyRuleActions
 		return ret
 	}
@@ -70,7 +74,7 @@ func (o *ProfileEnrollmentPolicyRule) GetActions() ProfileEnrollmentPolicyRuleAc
 // GetActionsOk returns a tuple with the Actions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProfileEnrollmentPolicyRule) GetActionsOk() (*ProfileEnrollmentPolicyRuleActions, bool) {
-	if o == nil || o.Actions == nil {
+	if o == nil || IsNil(o.Actions) {
 		return nil, false
 	}
 	return o.Actions, true
@@ -78,7 +82,7 @@ func (o *ProfileEnrollmentPolicyRule) GetActionsOk() (*ProfileEnrollmentPolicyRu
 
 // HasActions returns a boolean if a field has been set.
 func (o *ProfileEnrollmentPolicyRule) HasActions() bool {
-	if o != nil && o.Actions != nil {
+	if o != nil && !IsNil(o.Actions) {
 		return true
 	}
 
@@ -90,71 +94,91 @@ func (o *ProfileEnrollmentPolicyRule) SetActions(v ProfileEnrollmentPolicyRuleAc
 	o.Actions = &v
 }
 
-// GetConditions returns the Conditions field value if set, zero value otherwise.
-func (o *ProfileEnrollmentPolicyRule) GetConditions() PolicyRuleConditions {
-	if o == nil || o.Conditions == nil {
-		var ret PolicyRuleConditions
+// GetConditions returns the Conditions field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ProfileEnrollmentPolicyRule) GetConditions() string {
+	if o == nil || IsNil(o.Conditions.Get()) {
+		var ret string
 		return ret
 	}
-	return *o.Conditions
+	return *o.Conditions.Get()
 }
 
 // GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProfileEnrollmentPolicyRule) GetConditionsOk() (*PolicyRuleConditions, bool) {
-	if o == nil || o.Conditions == nil {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ProfileEnrollmentPolicyRule) GetConditionsOk() (*string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Conditions, true
+	return o.Conditions.Get(), o.Conditions.IsSet()
 }
 
 // HasConditions returns a boolean if a field has been set.
 func (o *ProfileEnrollmentPolicyRule) HasConditions() bool {
-	if o != nil && o.Conditions != nil {
+	if o != nil && o.Conditions.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetConditions gets a reference to the given PolicyRuleConditions and assigns it to the Conditions field.
-func (o *ProfileEnrollmentPolicyRule) SetConditions(v PolicyRuleConditions) {
-	o.Conditions = &v
+// SetConditions gets a reference to the given NullableString and assigns it to the Conditions field.
+func (o *ProfileEnrollmentPolicyRule) SetConditions(v string) {
+	o.Conditions.Set(&v)
+}
+
+// SetConditionsNil sets the value for Conditions to be an explicit nil
+func (o *ProfileEnrollmentPolicyRule) SetConditionsNil() {
+	o.Conditions.Set(nil)
+}
+
+// UnsetConditions ensures that no value is present for Conditions, not even an explicit nil
+func (o *ProfileEnrollmentPolicyRule) UnsetConditions() {
+	o.Conditions.Unset()
 }
 
 func (o ProfileEnrollmentPolicyRule) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ProfileEnrollmentPolicyRule) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedPolicyRule, errPolicyRule := json.Marshal(o.PolicyRule)
 	if errPolicyRule != nil {
-		return []byte{}, errPolicyRule
+		return map[string]interface{}{}, errPolicyRule
 	}
 	errPolicyRule = json.Unmarshal([]byte(serializedPolicyRule), &toSerialize)
 	if errPolicyRule != nil {
-		return []byte{}, errPolicyRule
+		return map[string]interface{}{}, errPolicyRule
 	}
-	if o.Actions != nil {
+	if !IsNil(o.Actions) {
 		toSerialize["actions"] = o.Actions
 	}
-	if o.Conditions != nil {
-		toSerialize["conditions"] = o.Conditions
+	if o.Conditions.IsSet() {
+		toSerialize["conditions"] = o.Conditions.Get()
 	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ProfileEnrollmentPolicyRule) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ProfileEnrollmentPolicyRule) UnmarshalJSON(data []byte) (err error) {
 	type ProfileEnrollmentPolicyRuleWithoutEmbeddedStruct struct {
 		Actions *ProfileEnrollmentPolicyRuleActions `json:"actions,omitempty"`
-		Conditions *PolicyRuleConditions `json:"conditions,omitempty"`
+		// Policy rule conditions aren't supported for this policy type
+		Conditions NullableString `json:"conditions,omitempty"`
 	}
 
 	varProfileEnrollmentPolicyRuleWithoutEmbeddedStruct := ProfileEnrollmentPolicyRuleWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varProfileEnrollmentPolicyRuleWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varProfileEnrollmentPolicyRuleWithoutEmbeddedStruct)
 	if err == nil {
 		varProfileEnrollmentPolicyRule := _ProfileEnrollmentPolicyRule{}
 		varProfileEnrollmentPolicyRule.Actions = varProfileEnrollmentPolicyRuleWithoutEmbeddedStruct.Actions
@@ -166,7 +190,7 @@ func (o *ProfileEnrollmentPolicyRule) UnmarshalJSON(bytes []byte) (err error) {
 
 	varProfileEnrollmentPolicyRule := _ProfileEnrollmentPolicyRule{}
 
-	err = json.Unmarshal(bytes, &varProfileEnrollmentPolicyRule)
+	err = json.Unmarshal(data, &varProfileEnrollmentPolicyRule)
 	if err == nil {
 		o.PolicyRule = varProfileEnrollmentPolicyRule.PolicyRule
 	} else {
@@ -175,8 +199,7 @@ func (o *ProfileEnrollmentPolicyRule) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "actions")
 		delete(additionalProperties, "conditions")
 
@@ -199,8 +222,6 @@ func (o *ProfileEnrollmentPolicyRule) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -241,4 +262,3 @@ func (v *NullableProfileEnrollmentPolicyRule) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

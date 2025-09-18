@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the CapabilitiesImportRulesObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CapabilitiesImportRulesObject{}
+
 // CapabilitiesImportRulesObject Defines user import rules
 type CapabilitiesImportRulesObject struct {
-	UserCreateAndMatch *CapabilitiesImportRulesUserCreateAndMatchObject `json:"userCreateAndMatch,omitempty"`
+	UserCreateAndMatch   *CapabilitiesImportRulesUserCreateAndMatchObject `json:"userCreateAndMatch,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewCapabilitiesImportRulesObjectWithDefaults() *CapabilitiesImportRulesObje
 
 // GetUserCreateAndMatch returns the UserCreateAndMatch field value if set, zero value otherwise.
 func (o *CapabilitiesImportRulesObject) GetUserCreateAndMatch() CapabilitiesImportRulesUserCreateAndMatchObject {
-	if o == nil || o.UserCreateAndMatch == nil {
+	if o == nil || IsNil(o.UserCreateAndMatch) {
 		var ret CapabilitiesImportRulesUserCreateAndMatchObject
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *CapabilitiesImportRulesObject) GetUserCreateAndMatch() CapabilitiesImpo
 // GetUserCreateAndMatchOk returns a tuple with the UserCreateAndMatch field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CapabilitiesImportRulesObject) GetUserCreateAndMatchOk() (*CapabilitiesImportRulesUserCreateAndMatchObject, bool) {
-	if o == nil || o.UserCreateAndMatch == nil {
+	if o == nil || IsNil(o.UserCreateAndMatch) {
 		return nil, false
 	}
 	return o.UserCreateAndMatch, true
@@ -72,7 +75,7 @@ func (o *CapabilitiesImportRulesObject) GetUserCreateAndMatchOk() (*Capabilities
 
 // HasUserCreateAndMatch returns a boolean if a field has been set.
 func (o *CapabilitiesImportRulesObject) HasUserCreateAndMatch() bool {
-	if o != nil && o.UserCreateAndMatch != nil {
+	if o != nil && !IsNil(o.UserCreateAndMatch) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *CapabilitiesImportRulesObject) SetUserCreateAndMatch(v CapabilitiesImpo
 }
 
 func (o CapabilitiesImportRulesObject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CapabilitiesImportRulesObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.UserCreateAndMatch != nil {
+	if !IsNil(o.UserCreateAndMatch) {
 		toSerialize["userCreateAndMatch"] = o.UserCreateAndMatch
 	}
 
@@ -94,27 +105,25 @@ func (o CapabilitiesImportRulesObject) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CapabilitiesImportRulesObject) UnmarshalJSON(bytes []byte) (err error) {
+func (o *CapabilitiesImportRulesObject) UnmarshalJSON(data []byte) (err error) {
 	varCapabilitiesImportRulesObject := _CapabilitiesImportRulesObject{}
 
-	err = json.Unmarshal(bytes, &varCapabilitiesImportRulesObject)
-	if err == nil {
-		*o = CapabilitiesImportRulesObject(varCapabilitiesImportRulesObject)
-	} else {
+	err = json.Unmarshal(data, &varCapabilitiesImportRulesObject)
+
+	if err != nil {
 		return err
 	}
 
+	*o = CapabilitiesImportRulesObject(varCapabilitiesImportRulesObject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "userCreateAndMatch")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableCapabilitiesImportRulesObject) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

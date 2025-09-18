@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the PolicyContextZones type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PolicyContextZones{}
+
 // PolicyContextZones The zone ID under the network rule condition.
 type PolicyContextZones struct {
-	Ids []string `json:"ids,omitempty"`
+	Ids                  []string `json:"ids,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewPolicyContextZonesWithDefaults() *PolicyContextZones {
 
 // GetIds returns the Ids field value if set, zero value otherwise.
 func (o *PolicyContextZones) GetIds() []string {
-	if o == nil || o.Ids == nil {
+	if o == nil || IsNil(o.Ids) {
 		var ret []string
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *PolicyContextZones) GetIds() []string {
 // GetIdsOk returns a tuple with the Ids field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyContextZones) GetIdsOk() ([]string, bool) {
-	if o == nil || o.Ids == nil {
+	if o == nil || IsNil(o.Ids) {
 		return nil, false
 	}
 	return o.Ids, true
@@ -72,7 +75,7 @@ func (o *PolicyContextZones) GetIdsOk() ([]string, bool) {
 
 // HasIds returns a boolean if a field has been set.
 func (o *PolicyContextZones) HasIds() bool {
-	if o != nil && o.Ids != nil {
+	if o != nil && !IsNil(o.Ids) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *PolicyContextZones) SetIds(v []string) {
 }
 
 func (o PolicyContextZones) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PolicyContextZones) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Ids != nil {
+	if !IsNil(o.Ids) {
 		toSerialize["ids"] = o.Ids
 	}
 
@@ -94,27 +105,25 @@ func (o PolicyContextZones) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PolicyContextZones) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PolicyContextZones) UnmarshalJSON(data []byte) (err error) {
 	varPolicyContextZones := _PolicyContextZones{}
 
-	err = json.Unmarshal(bytes, &varPolicyContextZones)
-	if err == nil {
-		*o = PolicyContextZones(varPolicyContextZones)
-	} else {
+	err = json.Unmarshal(data, &varPolicyContextZones)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PolicyContextZones(varPolicyContextZones)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "ids")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullablePolicyContextZones) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

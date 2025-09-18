@@ -4,20 +4,20 @@ All URIs are relative to *https://subdomain.okta.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ActivateAgentPoolsUpdate**](AgentPoolsAPI.md#ActivateAgentPoolsUpdate) | **Post** /api/v1/agentPools/{poolId}/updates/{updateId}/activate | Activate an Agent Pool update
-[**CreateAgentPoolsUpdate**](AgentPoolsAPI.md#CreateAgentPoolsUpdate) | **Post** /api/v1/agentPools/{poolId}/updates | Create an Agent Pool update
-[**DeactivateAgentPoolsUpdate**](AgentPoolsAPI.md#DeactivateAgentPoolsUpdate) | **Post** /api/v1/agentPools/{poolId}/updates/{updateId}/deactivate | Deactivate an Agent Pool update
-[**DeleteAgentPoolsUpdate**](AgentPoolsAPI.md#DeleteAgentPoolsUpdate) | **Delete** /api/v1/agentPools/{poolId}/updates/{updateId} | Delete an Agent Pool update
-[**GetAgentPoolsUpdateInstance**](AgentPoolsAPI.md#GetAgentPoolsUpdateInstance) | **Get** /api/v1/agentPools/{poolId}/updates/{updateId} | Retrieve an Agent Pool update by id
-[**GetAgentPoolsUpdateSettings**](AgentPoolsAPI.md#GetAgentPoolsUpdateSettings) | **Get** /api/v1/agentPools/{poolId}/updates/settings | Retrieve an Agent Pool update&#39;s settings
-[**ListAgentPools**](AgentPoolsAPI.md#ListAgentPools) | **Get** /api/v1/agentPools | List all Agent Pools
-[**ListAgentPoolsUpdates**](AgentPoolsAPI.md#ListAgentPoolsUpdates) | **Get** /api/v1/agentPools/{poolId}/updates | List all Agent Pool updates
-[**PauseAgentPoolsUpdate**](AgentPoolsAPI.md#PauseAgentPoolsUpdate) | **Post** /api/v1/agentPools/{poolId}/updates/{updateId}/pause | Pause an Agent Pool update
-[**ResumeAgentPoolsUpdate**](AgentPoolsAPI.md#ResumeAgentPoolsUpdate) | **Post** /api/v1/agentPools/{poolId}/updates/{updateId}/resume | Resume an Agent Pool update
-[**RetryAgentPoolsUpdate**](AgentPoolsAPI.md#RetryAgentPoolsUpdate) | **Post** /api/v1/agentPools/{poolId}/updates/{updateId}/retry | Retry an Agent Pool update
-[**StopAgentPoolsUpdate**](AgentPoolsAPI.md#StopAgentPoolsUpdate) | **Post** /api/v1/agentPools/{poolId}/updates/{updateId}/stop | Stop an Agent Pool update
-[**UpdateAgentPoolsUpdate**](AgentPoolsAPI.md#UpdateAgentPoolsUpdate) | **Post** /api/v1/agentPools/{poolId}/updates/{updateId} | Update an Agent Pool update by id
-[**UpdateAgentPoolsUpdateSettings**](AgentPoolsAPI.md#UpdateAgentPoolsUpdateSettings) | **Post** /api/v1/agentPools/{poolId}/updates/settings | Update an Agent Pool update settings
+[**ActivateAgentPoolsUpdate**](AgentPoolsAPI.md#ActivateAgentPoolsUpdate) | **Post** /api/v1/agentPools/{poolId}/updates/{updateId}/activate | Activate an agent pool update
+[**CreateAgentPoolsUpdate**](AgentPoolsAPI.md#CreateAgentPoolsUpdate) | **Post** /api/v1/agentPools/{poolId}/updates | Create an agent pool update
+[**DeactivateAgentPoolsUpdate**](AgentPoolsAPI.md#DeactivateAgentPoolsUpdate) | **Post** /api/v1/agentPools/{poolId}/updates/{updateId}/deactivate | Deactivate an agent pool update
+[**DeleteAgentPoolsUpdate**](AgentPoolsAPI.md#DeleteAgentPoolsUpdate) | **Delete** /api/v1/agentPools/{poolId}/updates/{updateId} | Delete an agent pool update
+[**GetAgentPoolsUpdateInstance**](AgentPoolsAPI.md#GetAgentPoolsUpdateInstance) | **Get** /api/v1/agentPools/{poolId}/updates/{updateId} | Retrieve an agent pool update by ID
+[**GetAgentPoolsUpdateSettings**](AgentPoolsAPI.md#GetAgentPoolsUpdateSettings) | **Get** /api/v1/agentPools/{poolId}/updates/settings | Retrieve an agent pool update&#39;s settings
+[**ListAgentPools**](AgentPoolsAPI.md#ListAgentPools) | **Get** /api/v1/agentPools | List all agent pools
+[**ListAgentPoolsUpdates**](AgentPoolsAPI.md#ListAgentPoolsUpdates) | **Get** /api/v1/agentPools/{poolId}/updates | List all agent pool updates
+[**PauseAgentPoolsUpdate**](AgentPoolsAPI.md#PauseAgentPoolsUpdate) | **Post** /api/v1/agentPools/{poolId}/updates/{updateId}/pause | Pause an agent pool update
+[**ResumeAgentPoolsUpdate**](AgentPoolsAPI.md#ResumeAgentPoolsUpdate) | **Post** /api/v1/agentPools/{poolId}/updates/{updateId}/resume | Resume an agent pool update
+[**RetryAgentPoolsUpdate**](AgentPoolsAPI.md#RetryAgentPoolsUpdate) | **Post** /api/v1/agentPools/{poolId}/updates/{updateId}/retry | Retry an agent pool update
+[**StopAgentPoolsUpdate**](AgentPoolsAPI.md#StopAgentPoolsUpdate) | **Post** /api/v1/agentPools/{poolId}/updates/{updateId}/stop | Stop an agent pool update
+[**UpdateAgentPoolsUpdate**](AgentPoolsAPI.md#UpdateAgentPoolsUpdate) | **Post** /api/v1/agentPools/{poolId}/updates/{updateId} | Update an agent pool update by ID
+[**UpdateAgentPoolsUpdateSettings**](AgentPoolsAPI.md#UpdateAgentPoolsUpdateSettings) | **Post** /api/v1/agentPools/{poolId}/updates/settings | Update an agent pool update settings
 
 
 
@@ -25,7 +25,7 @@ Method | HTTP request | Description
 
 > AgentPoolUpdate ActivateAgentPoolsUpdate(ctx, poolId, updateId).Execute()
 
-Activate an Agent Pool update
+Activate an agent pool update
 
 
 
@@ -35,25 +35,25 @@ Activate an Agent Pool update
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    poolId := "poolId_example" // string | Id of the agent pool for which the settings will apply
-    updateId := "updateId_example" // string | Id of the update
+	poolId := "poolId_example" // string | ID of the agent pool for which the settings apply to
+	updateId := "updateId_example" // string | ID of the update
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AgentPoolsAPI.ActivateAgentPoolsUpdate(context.Background(), poolId, updateId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.ActivateAgentPoolsUpdate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ActivateAgentPoolsUpdate`: AgentPoolUpdate
-    fmt.Fprintf(os.Stdout, "Response from `AgentPoolsAPI.ActivateAgentPoolsUpdate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentPoolsAPI.ActivateAgentPoolsUpdate(context.Background(), poolId, updateId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.ActivateAgentPoolsUpdate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ActivateAgentPoolsUpdate`: AgentPoolUpdate
+	fmt.Fprintf(os.Stdout, "Response from `AgentPoolsAPI.ActivateAgentPoolsUpdate`: %v\n", resp)
 }
 ```
 
@@ -63,8 +63,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**poolId** | **string** | Id of the agent pool for which the settings will apply | 
-**updateId** | **string** | Id of the update | 
+**poolId** | **string** | ID of the agent pool for which the settings apply to | 
+**updateId** | **string** | ID of the update | 
 
 ### Other Parameters
 
@@ -98,7 +98,7 @@ Name | Type | Description  | Notes
 
 > AgentPoolUpdate CreateAgentPoolsUpdate(ctx, poolId).AgentPoolUpdate(agentPoolUpdate).Execute()
 
-Create an Agent Pool update
+Create an agent pool update
 
 
 
@@ -108,25 +108,25 @@ Create an Agent Pool update
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    poolId := "poolId_example" // string | Id of the agent pool for which the settings will apply
-    agentPoolUpdate := *openapiclient.NewAgentPoolUpdate() // AgentPoolUpdate | 
+	poolId := "poolId_example" // string | ID of the agent pool for which the settings apply to
+	agentPoolUpdate := *openapiclient.NewAgentPoolUpdate() // AgentPoolUpdate | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AgentPoolsAPI.CreateAgentPoolsUpdate(context.Background(), poolId).AgentPoolUpdate(agentPoolUpdate).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.CreateAgentPoolsUpdate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateAgentPoolsUpdate`: AgentPoolUpdate
-    fmt.Fprintf(os.Stdout, "Response from `AgentPoolsAPI.CreateAgentPoolsUpdate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentPoolsAPI.CreateAgentPoolsUpdate(context.Background(), poolId).AgentPoolUpdate(agentPoolUpdate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.CreateAgentPoolsUpdate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateAgentPoolsUpdate`: AgentPoolUpdate
+	fmt.Fprintf(os.Stdout, "Response from `AgentPoolsAPI.CreateAgentPoolsUpdate`: %v\n", resp)
 }
 ```
 
@@ -136,7 +136,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**poolId** | **string** | Id of the agent pool for which the settings will apply | 
+**poolId** | **string** | ID of the agent pool for which the settings apply to | 
 
 ### Other Parameters
 
@@ -170,7 +170,7 @@ Name | Type | Description  | Notes
 
 > AgentPoolUpdate DeactivateAgentPoolsUpdate(ctx, poolId, updateId).Execute()
 
-Deactivate an Agent Pool update
+Deactivate an agent pool update
 
 
 
@@ -180,25 +180,25 @@ Deactivate an Agent Pool update
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    poolId := "poolId_example" // string | Id of the agent pool for which the settings will apply
-    updateId := "updateId_example" // string | Id of the update
+	poolId := "poolId_example" // string | ID of the agent pool for which the settings apply to
+	updateId := "updateId_example" // string | ID of the update
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AgentPoolsAPI.DeactivateAgentPoolsUpdate(context.Background(), poolId, updateId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.DeactivateAgentPoolsUpdate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `DeactivateAgentPoolsUpdate`: AgentPoolUpdate
-    fmt.Fprintf(os.Stdout, "Response from `AgentPoolsAPI.DeactivateAgentPoolsUpdate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentPoolsAPI.DeactivateAgentPoolsUpdate(context.Background(), poolId, updateId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.DeactivateAgentPoolsUpdate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeactivateAgentPoolsUpdate`: AgentPoolUpdate
+	fmt.Fprintf(os.Stdout, "Response from `AgentPoolsAPI.DeactivateAgentPoolsUpdate`: %v\n", resp)
 }
 ```
 
@@ -208,8 +208,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**poolId** | **string** | Id of the agent pool for which the settings will apply | 
-**updateId** | **string** | Id of the update | 
+**poolId** | **string** | ID of the agent pool for which the settings apply to | 
+**updateId** | **string** | ID of the update | 
 
 ### Other Parameters
 
@@ -243,7 +243,7 @@ Name | Type | Description  | Notes
 
 > DeleteAgentPoolsUpdate(ctx, poolId, updateId).Execute()
 
-Delete an Agent Pool update
+Delete an agent pool update
 
 
 
@@ -253,23 +253,23 @@ Delete an Agent Pool update
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    poolId := "poolId_example" // string | Id of the agent pool for which the settings will apply
-    updateId := "updateId_example" // string | Id of the update
+	poolId := "poolId_example" // string | ID of the agent pool for which the settings apply to
+	updateId := "updateId_example" // string | ID of the update
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.AgentPoolsAPI.DeleteAgentPoolsUpdate(context.Background(), poolId, updateId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.DeleteAgentPoolsUpdate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AgentPoolsAPI.DeleteAgentPoolsUpdate(context.Background(), poolId, updateId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.DeleteAgentPoolsUpdate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -279,8 +279,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**poolId** | **string** | Id of the agent pool for which the settings will apply | 
-**updateId** | **string** | Id of the update | 
+**poolId** | **string** | ID of the agent pool for which the settings apply to | 
+**updateId** | **string** | ID of the update | 
 
 ### Other Parameters
 
@@ -314,7 +314,7 @@ Name | Type | Description  | Notes
 
 > AgentPoolUpdate GetAgentPoolsUpdateInstance(ctx, poolId, updateId).Execute()
 
-Retrieve an Agent Pool update by id
+Retrieve an agent pool update by ID
 
 
 
@@ -324,25 +324,25 @@ Retrieve an Agent Pool update by id
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    poolId := "poolId_example" // string | Id of the agent pool for which the settings will apply
-    updateId := "updateId_example" // string | Id of the update
+	poolId := "poolId_example" // string | ID of the agent pool for which the settings apply to
+	updateId := "updateId_example" // string | ID of the update
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AgentPoolsAPI.GetAgentPoolsUpdateInstance(context.Background(), poolId, updateId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.GetAgentPoolsUpdateInstance``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAgentPoolsUpdateInstance`: AgentPoolUpdate
-    fmt.Fprintf(os.Stdout, "Response from `AgentPoolsAPI.GetAgentPoolsUpdateInstance`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentPoolsAPI.GetAgentPoolsUpdateInstance(context.Background(), poolId, updateId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.GetAgentPoolsUpdateInstance``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAgentPoolsUpdateInstance`: AgentPoolUpdate
+	fmt.Fprintf(os.Stdout, "Response from `AgentPoolsAPI.GetAgentPoolsUpdateInstance`: %v\n", resp)
 }
 ```
 
@@ -352,8 +352,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**poolId** | **string** | Id of the agent pool for which the settings will apply | 
-**updateId** | **string** | Id of the update | 
+**poolId** | **string** | ID of the agent pool for which the settings apply to | 
+**updateId** | **string** | ID of the update | 
 
 ### Other Parameters
 
@@ -387,7 +387,7 @@ Name | Type | Description  | Notes
 
 > AgentPoolUpdateSetting GetAgentPoolsUpdateSettings(ctx, poolId).Execute()
 
-Retrieve an Agent Pool update's settings
+Retrieve an agent pool update's settings
 
 
 
@@ -397,24 +397,24 @@ Retrieve an Agent Pool update's settings
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    poolId := "poolId_example" // string | Id of the agent pool for which the settings will apply
+	poolId := "poolId_example" // string | ID of the agent pool for which the settings apply to
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AgentPoolsAPI.GetAgentPoolsUpdateSettings(context.Background(), poolId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.GetAgentPoolsUpdateSettings``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAgentPoolsUpdateSettings`: AgentPoolUpdateSetting
-    fmt.Fprintf(os.Stdout, "Response from `AgentPoolsAPI.GetAgentPoolsUpdateSettings`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentPoolsAPI.GetAgentPoolsUpdateSettings(context.Background(), poolId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.GetAgentPoolsUpdateSettings``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAgentPoolsUpdateSettings`: AgentPoolUpdateSetting
+	fmt.Fprintf(os.Stdout, "Response from `AgentPoolsAPI.GetAgentPoolsUpdateSettings`: %v\n", resp)
 }
 ```
 
@@ -424,7 +424,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**poolId** | **string** | Id of the agent pool for which the settings will apply | 
+**poolId** | **string** | ID of the agent pool for which the settings apply to | 
 
 ### Other Parameters
 
@@ -457,7 +457,7 @@ Name | Type | Description  | Notes
 
 > []AgentPool ListAgentPools(ctx).LimitPerPoolType(limitPerPoolType).PoolType(poolType).After(after).Execute()
 
-List all Agent Pools
+List all agent pools
 
 
 
@@ -467,26 +467,26 @@ List all Agent Pools
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    limitPerPoolType := int32(56) // int32 | Maximum number of AgentPools being returned (optional) (default to 5)
-    poolType := "poolType_example" // string | Agent type to search for (optional)
-    after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
+	limitPerPoolType := int32(56) // int32 | Maximum number of agent pools returned (optional) (default to 5)
+	poolType := "poolType_example" // string | Agent type to search for (optional)
+	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/api/#pagination). (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AgentPoolsAPI.ListAgentPools(context.Background()).LimitPerPoolType(limitPerPoolType).PoolType(poolType).After(after).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.ListAgentPools``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListAgentPools`: []AgentPool
-    fmt.Fprintf(os.Stdout, "Response from `AgentPoolsAPI.ListAgentPools`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentPoolsAPI.ListAgentPools(context.Background()).LimitPerPoolType(limitPerPoolType).PoolType(poolType).After(after).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.ListAgentPools``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListAgentPools`: []AgentPool
+	fmt.Fprintf(os.Stdout, "Response from `AgentPoolsAPI.ListAgentPools`: %v\n", resp)
 }
 ```
 
@@ -501,9 +501,9 @@ Other parameters are passed through a pointer to a apiListAgentPoolsRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limitPerPoolType** | **int32** | Maximum number of AgentPools being returned | [default to 5]
+ **limitPerPoolType** | **int32** | Maximum number of agent pools returned | [default to 5]
  **poolType** | **string** | Agent type to search for | 
- **after** | **string** | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](/#pagination). | 
+ **after** | **string** | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination). | 
 
 ### Return type
 
@@ -527,7 +527,7 @@ Name | Type | Description  | Notes
 
 > []AgentPoolUpdate ListAgentPoolsUpdates(ctx, poolId).Scheduled(scheduled).Execute()
 
-List all Agent Pool updates
+List all agent pool updates
 
 
 
@@ -537,25 +537,25 @@ List all Agent Pool updates
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    poolId := "poolId_example" // string | Id of the agent pool for which the settings will apply
-    scheduled := true // bool | Scope the list only to scheduled or ad-hoc updates. If the parameter is not provided we will return the whole list of updates. (optional)
+	poolId := "poolId_example" // string | ID of the agent pool for which the settings apply to
+	scheduled := true // bool | Return only scheduled or ad-hoc updates. If this parameter isn't provided, Okta returns the entire list of updates. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AgentPoolsAPI.ListAgentPoolsUpdates(context.Background(), poolId).Scheduled(scheduled).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.ListAgentPoolsUpdates``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListAgentPoolsUpdates`: []AgentPoolUpdate
-    fmt.Fprintf(os.Stdout, "Response from `AgentPoolsAPI.ListAgentPoolsUpdates`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentPoolsAPI.ListAgentPoolsUpdates(context.Background(), poolId).Scheduled(scheduled).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.ListAgentPoolsUpdates``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListAgentPoolsUpdates`: []AgentPoolUpdate
+	fmt.Fprintf(os.Stdout, "Response from `AgentPoolsAPI.ListAgentPoolsUpdates`: %v\n", resp)
 }
 ```
 
@@ -565,7 +565,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**poolId** | **string** | Id of the agent pool for which the settings will apply | 
+**poolId** | **string** | ID of the agent pool for which the settings apply to | 
 
 ### Other Parameters
 
@@ -575,7 +575,7 @@ Other parameters are passed through a pointer to a apiListAgentPoolsUpdatesReque
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **scheduled** | **bool** | Scope the list only to scheduled or ad-hoc updates. If the parameter is not provided we will return the whole list of updates. | 
+ **scheduled** | **bool** | Return only scheduled or ad-hoc updates. If this parameter isn&#39;t provided, Okta returns the entire list of updates. | 
 
 ### Return type
 
@@ -599,7 +599,7 @@ Name | Type | Description  | Notes
 
 > AgentPoolUpdate PauseAgentPoolsUpdate(ctx, poolId, updateId).Execute()
 
-Pause an Agent Pool update
+Pause an agent pool update
 
 
 
@@ -609,25 +609,25 @@ Pause an Agent Pool update
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    poolId := "poolId_example" // string | Id of the agent pool for which the settings will apply
-    updateId := "updateId_example" // string | Id of the update
+	poolId := "poolId_example" // string | ID of the agent pool for which the settings apply to
+	updateId := "updateId_example" // string | ID of the update
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AgentPoolsAPI.PauseAgentPoolsUpdate(context.Background(), poolId, updateId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.PauseAgentPoolsUpdate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PauseAgentPoolsUpdate`: AgentPoolUpdate
-    fmt.Fprintf(os.Stdout, "Response from `AgentPoolsAPI.PauseAgentPoolsUpdate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentPoolsAPI.PauseAgentPoolsUpdate(context.Background(), poolId, updateId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.PauseAgentPoolsUpdate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PauseAgentPoolsUpdate`: AgentPoolUpdate
+	fmt.Fprintf(os.Stdout, "Response from `AgentPoolsAPI.PauseAgentPoolsUpdate`: %v\n", resp)
 }
 ```
 
@@ -637,8 +637,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**poolId** | **string** | Id of the agent pool for which the settings will apply | 
-**updateId** | **string** | Id of the update | 
+**poolId** | **string** | ID of the agent pool for which the settings apply to | 
+**updateId** | **string** | ID of the update | 
 
 ### Other Parameters
 
@@ -672,7 +672,7 @@ Name | Type | Description  | Notes
 
 > AgentPoolUpdate ResumeAgentPoolsUpdate(ctx, poolId, updateId).Execute()
 
-Resume an Agent Pool update
+Resume an agent pool update
 
 
 
@@ -682,25 +682,25 @@ Resume an Agent Pool update
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    poolId := "poolId_example" // string | Id of the agent pool for which the settings will apply
-    updateId := "updateId_example" // string | Id of the update
+	poolId := "poolId_example" // string | ID of the agent pool for which the settings apply to
+	updateId := "updateId_example" // string | ID of the update
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AgentPoolsAPI.ResumeAgentPoolsUpdate(context.Background(), poolId, updateId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.ResumeAgentPoolsUpdate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ResumeAgentPoolsUpdate`: AgentPoolUpdate
-    fmt.Fprintf(os.Stdout, "Response from `AgentPoolsAPI.ResumeAgentPoolsUpdate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentPoolsAPI.ResumeAgentPoolsUpdate(context.Background(), poolId, updateId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.ResumeAgentPoolsUpdate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ResumeAgentPoolsUpdate`: AgentPoolUpdate
+	fmt.Fprintf(os.Stdout, "Response from `AgentPoolsAPI.ResumeAgentPoolsUpdate`: %v\n", resp)
 }
 ```
 
@@ -710,8 +710,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**poolId** | **string** | Id of the agent pool for which the settings will apply | 
-**updateId** | **string** | Id of the update | 
+**poolId** | **string** | ID of the agent pool for which the settings apply to | 
+**updateId** | **string** | ID of the update | 
 
 ### Other Parameters
 
@@ -745,7 +745,7 @@ Name | Type | Description  | Notes
 
 > AgentPoolUpdate RetryAgentPoolsUpdate(ctx, poolId, updateId).Execute()
 
-Retry an Agent Pool update
+Retry an agent pool update
 
 
 
@@ -755,25 +755,25 @@ Retry an Agent Pool update
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    poolId := "poolId_example" // string | Id of the agent pool for which the settings will apply
-    updateId := "updateId_example" // string | Id of the update
+	poolId := "poolId_example" // string | ID of the agent pool for which the settings apply to
+	updateId := "updateId_example" // string | ID of the update
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AgentPoolsAPI.RetryAgentPoolsUpdate(context.Background(), poolId, updateId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.RetryAgentPoolsUpdate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `RetryAgentPoolsUpdate`: AgentPoolUpdate
-    fmt.Fprintf(os.Stdout, "Response from `AgentPoolsAPI.RetryAgentPoolsUpdate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentPoolsAPI.RetryAgentPoolsUpdate(context.Background(), poolId, updateId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.RetryAgentPoolsUpdate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `RetryAgentPoolsUpdate`: AgentPoolUpdate
+	fmt.Fprintf(os.Stdout, "Response from `AgentPoolsAPI.RetryAgentPoolsUpdate`: %v\n", resp)
 }
 ```
 
@@ -783,8 +783,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**poolId** | **string** | Id of the agent pool for which the settings will apply | 
-**updateId** | **string** | Id of the update | 
+**poolId** | **string** | ID of the agent pool for which the settings apply to | 
+**updateId** | **string** | ID of the update | 
 
 ### Other Parameters
 
@@ -818,7 +818,7 @@ Name | Type | Description  | Notes
 
 > AgentPoolUpdate StopAgentPoolsUpdate(ctx, poolId, updateId).Execute()
 
-Stop an Agent Pool update
+Stop an agent pool update
 
 
 
@@ -828,25 +828,25 @@ Stop an Agent Pool update
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    poolId := "poolId_example" // string | Id of the agent pool for which the settings will apply
-    updateId := "updateId_example" // string | Id of the update
+	poolId := "poolId_example" // string | ID of the agent pool for which the settings apply to
+	updateId := "updateId_example" // string | ID of the update
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AgentPoolsAPI.StopAgentPoolsUpdate(context.Background(), poolId, updateId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.StopAgentPoolsUpdate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `StopAgentPoolsUpdate`: AgentPoolUpdate
-    fmt.Fprintf(os.Stdout, "Response from `AgentPoolsAPI.StopAgentPoolsUpdate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentPoolsAPI.StopAgentPoolsUpdate(context.Background(), poolId, updateId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.StopAgentPoolsUpdate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `StopAgentPoolsUpdate`: AgentPoolUpdate
+	fmt.Fprintf(os.Stdout, "Response from `AgentPoolsAPI.StopAgentPoolsUpdate`: %v\n", resp)
 }
 ```
 
@@ -856,8 +856,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**poolId** | **string** | Id of the agent pool for which the settings will apply | 
-**updateId** | **string** | Id of the update | 
+**poolId** | **string** | ID of the agent pool for which the settings apply to | 
+**updateId** | **string** | ID of the update | 
 
 ### Other Parameters
 
@@ -891,7 +891,7 @@ Name | Type | Description  | Notes
 
 > AgentPoolUpdate UpdateAgentPoolsUpdate(ctx, poolId, updateId).AgentPoolUpdate(agentPoolUpdate).Execute()
 
-Update an Agent Pool update by id
+Update an agent pool update by ID
 
 
 
@@ -901,26 +901,26 @@ Update an Agent Pool update by id
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    poolId := "poolId_example" // string | Id of the agent pool for which the settings will apply
-    updateId := "updateId_example" // string | Id of the update
-    agentPoolUpdate := *openapiclient.NewAgentPoolUpdate() // AgentPoolUpdate | 
+	poolId := "poolId_example" // string | ID of the agent pool for which the settings apply to
+	updateId := "updateId_example" // string | ID of the update
+	agentPoolUpdate := *openapiclient.NewAgentPoolUpdate() // AgentPoolUpdate | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AgentPoolsAPI.UpdateAgentPoolsUpdate(context.Background(), poolId, updateId).AgentPoolUpdate(agentPoolUpdate).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.UpdateAgentPoolsUpdate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateAgentPoolsUpdate`: AgentPoolUpdate
-    fmt.Fprintf(os.Stdout, "Response from `AgentPoolsAPI.UpdateAgentPoolsUpdate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentPoolsAPI.UpdateAgentPoolsUpdate(context.Background(), poolId, updateId).AgentPoolUpdate(agentPoolUpdate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.UpdateAgentPoolsUpdate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateAgentPoolsUpdate`: AgentPoolUpdate
+	fmt.Fprintf(os.Stdout, "Response from `AgentPoolsAPI.UpdateAgentPoolsUpdate`: %v\n", resp)
 }
 ```
 
@@ -930,8 +930,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**poolId** | **string** | Id of the agent pool for which the settings will apply | 
-**updateId** | **string** | Id of the update | 
+**poolId** | **string** | ID of the agent pool for which the settings apply to | 
+**updateId** | **string** | ID of the update | 
 
 ### Other Parameters
 
@@ -966,7 +966,7 @@ Name | Type | Description  | Notes
 
 > AgentPoolUpdateSetting UpdateAgentPoolsUpdateSettings(ctx, poolId).AgentPoolUpdateSetting(agentPoolUpdateSetting).Execute()
 
-Update an Agent Pool update settings
+Update an agent pool update settings
 
 
 
@@ -976,25 +976,25 @@ Update an Agent Pool update settings
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    poolId := "poolId_example" // string | Id of the agent pool for which the settings will apply
-    agentPoolUpdateSetting := *openapiclient.NewAgentPoolUpdateSetting() // AgentPoolUpdateSetting | 
+	poolId := "poolId_example" // string | ID of the agent pool for which the settings apply to
+	agentPoolUpdateSetting := *openapiclient.NewAgentPoolUpdateSetting() // AgentPoolUpdateSetting | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AgentPoolsAPI.UpdateAgentPoolsUpdateSettings(context.Background(), poolId).AgentPoolUpdateSetting(agentPoolUpdateSetting).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.UpdateAgentPoolsUpdateSettings``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateAgentPoolsUpdateSettings`: AgentPoolUpdateSetting
-    fmt.Fprintf(os.Stdout, "Response from `AgentPoolsAPI.UpdateAgentPoolsUpdateSettings`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentPoolsAPI.UpdateAgentPoolsUpdateSettings(context.Background(), poolId).AgentPoolUpdateSetting(agentPoolUpdateSetting).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.UpdateAgentPoolsUpdateSettings``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateAgentPoolsUpdateSettings`: AgentPoolUpdateSetting
+	fmt.Fprintf(os.Stdout, "Response from `AgentPoolsAPI.UpdateAgentPoolsUpdateSettings`: %v\n", resp)
 }
 ```
 
@@ -1004,7 +1004,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**poolId** | **string** | Id of the agent pool for which the settings will apply | 
+**poolId** | **string** | ID of the agent pool for which the settings apply to | 
 
 ### Other Parameters
 

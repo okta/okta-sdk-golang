@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -28,26 +28,29 @@ import (
 	"time"
 )
 
+// checks if the UserFactor type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserFactor{}
+
 // UserFactor struct for UserFactor
 type UserFactor struct {
-	// Timestamp when the Factor was enrolled
+	// Timestamp when the factor was enrolled
 	Created *time.Time `json:"created,omitempty"`
-	// Type of Factor
+	// Type of factor
 	FactorType *string `json:"factorType,omitempty"`
-	// ID of the Factor
+	// ID of the factor
 	Id *string `json:"id,omitempty"`
-	// Timestamp when the Factor was last updated
+	// Timestamp when the factor was last updated
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	// Specific attributes related to the Factor
+	// Specific attributes related to the factor
 	Profile map[string]interface{} `json:"profile,omitempty"`
-	// Provider for the Factor
+	// Provider for the factor. Each provider can support a subset of factor types.
 	Provider *string `json:"provider,omitempty"`
-	// Status of the Factor
+	// Status of the factor
 	Status *string `json:"status,omitempty"`
-	// Name of the Factor vendor. This is usually the same as the provider except for On-Prem MFA where it depends on administrator settings.
-	VendorName *string `json:"vendorName,omitempty"`
-	Embedded map[string]map[string]interface{} `json:"_embedded,omitempty"`
-	Links map[string]interface{} `json:"_links,omitempty"`
+	// Name of the factor vendor. This is usually the same as the provider except for On-Prem MFA, which depends on admin settings.
+	VendorName           *string                           `json:"vendorName,omitempty"`
+	Embedded             map[string]map[string]interface{} `json:"_embedded,omitempty"`
+	Links                *UserFactorLinks                  `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -72,7 +75,7 @@ func NewUserFactorWithDefaults() *UserFactor {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *UserFactor) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *UserFactor) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactor) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -90,7 +93,7 @@ func (o *UserFactor) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *UserFactor) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -104,7 +107,7 @@ func (o *UserFactor) SetCreated(v time.Time) {
 
 // GetFactorType returns the FactorType field value if set, zero value otherwise.
 func (o *UserFactor) GetFactorType() string {
-	if o == nil || o.FactorType == nil {
+	if o == nil || IsNil(o.FactorType) {
 		var ret string
 		return ret
 	}
@@ -114,7 +117,7 @@ func (o *UserFactor) GetFactorType() string {
 // GetFactorTypeOk returns a tuple with the FactorType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactor) GetFactorTypeOk() (*string, bool) {
-	if o == nil || o.FactorType == nil {
+	if o == nil || IsNil(o.FactorType) {
 		return nil, false
 	}
 	return o.FactorType, true
@@ -122,7 +125,7 @@ func (o *UserFactor) GetFactorTypeOk() (*string, bool) {
 
 // HasFactorType returns a boolean if a field has been set.
 func (o *UserFactor) HasFactorType() bool {
-	if o != nil && o.FactorType != nil {
+	if o != nil && !IsNil(o.FactorType) {
 		return true
 	}
 
@@ -136,7 +139,7 @@ func (o *UserFactor) SetFactorType(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *UserFactor) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -146,7 +149,7 @@ func (o *UserFactor) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactor) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -154,7 +157,7 @@ func (o *UserFactor) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *UserFactor) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -168,7 +171,7 @@ func (o *UserFactor) SetId(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *UserFactor) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -178,7 +181,7 @@ func (o *UserFactor) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactor) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -186,7 +189,7 @@ func (o *UserFactor) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *UserFactor) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -200,7 +203,7 @@ func (o *UserFactor) SetLastUpdated(v time.Time) {
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *UserFactor) GetProfile() map[string]interface{} {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -210,15 +213,15 @@ func (o *UserFactor) GetProfile() map[string]interface{} {
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactor) GetProfileOk() (map[string]interface{}, bool) {
-	if o == nil || o.Profile == nil {
-		return nil, false
+	if o == nil || IsNil(o.Profile) {
+		return map[string]interface{}{}, false
 	}
 	return o.Profile, true
 }
 
 // HasProfile returns a boolean if a field has been set.
 func (o *UserFactor) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -232,7 +235,7 @@ func (o *UserFactor) SetProfile(v map[string]interface{}) {
 
 // GetProvider returns the Provider field value if set, zero value otherwise.
 func (o *UserFactor) GetProvider() string {
-	if o == nil || o.Provider == nil {
+	if o == nil || IsNil(o.Provider) {
 		var ret string
 		return ret
 	}
@@ -242,7 +245,7 @@ func (o *UserFactor) GetProvider() string {
 // GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactor) GetProviderOk() (*string, bool) {
-	if o == nil || o.Provider == nil {
+	if o == nil || IsNil(o.Provider) {
 		return nil, false
 	}
 	return o.Provider, true
@@ -250,7 +253,7 @@ func (o *UserFactor) GetProviderOk() (*string, bool) {
 
 // HasProvider returns a boolean if a field has been set.
 func (o *UserFactor) HasProvider() bool {
-	if o != nil && o.Provider != nil {
+	if o != nil && !IsNil(o.Provider) {
 		return true
 	}
 
@@ -264,7 +267,7 @@ func (o *UserFactor) SetProvider(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *UserFactor) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -274,7 +277,7 @@ func (o *UserFactor) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactor) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -282,7 +285,7 @@ func (o *UserFactor) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *UserFactor) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -296,7 +299,7 @@ func (o *UserFactor) SetStatus(v string) {
 
 // GetVendorName returns the VendorName field value if set, zero value otherwise.
 func (o *UserFactor) GetVendorName() string {
-	if o == nil || o.VendorName == nil {
+	if o == nil || IsNil(o.VendorName) {
 		var ret string
 		return ret
 	}
@@ -306,7 +309,7 @@ func (o *UserFactor) GetVendorName() string {
 // GetVendorNameOk returns a tuple with the VendorName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactor) GetVendorNameOk() (*string, bool) {
-	if o == nil || o.VendorName == nil {
+	if o == nil || IsNil(o.VendorName) {
 		return nil, false
 	}
 	return o.VendorName, true
@@ -314,7 +317,7 @@ func (o *UserFactor) GetVendorNameOk() (*string, bool) {
 
 // HasVendorName returns a boolean if a field has been set.
 func (o *UserFactor) HasVendorName() bool {
-	if o != nil && o.VendorName != nil {
+	if o != nil && !IsNil(o.VendorName) {
 		return true
 	}
 
@@ -328,7 +331,7 @@ func (o *UserFactor) SetVendorName(v string) {
 
 // GetEmbedded returns the Embedded field value if set, zero value otherwise.
 func (o *UserFactor) GetEmbedded() map[string]map[string]interface{} {
-	if o == nil || o.Embedded == nil {
+	if o == nil || IsNil(o.Embedded) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
@@ -338,15 +341,15 @@ func (o *UserFactor) GetEmbedded() map[string]map[string]interface{} {
 // GetEmbeddedOk returns a tuple with the Embedded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactor) GetEmbeddedOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || o.Embedded == nil {
-		return nil, false
+	if o == nil || IsNil(o.Embedded) {
+		return map[string]map[string]interface{}{}, false
 	}
 	return o.Embedded, true
 }
 
 // HasEmbedded returns a boolean if a field has been set.
 func (o *UserFactor) HasEmbedded() bool {
-	if o != nil && o.Embedded != nil {
+	if o != nil && !IsNil(o.Embedded) {
 		return true
 	}
 
@@ -359,18 +362,18 @@ func (o *UserFactor) SetEmbedded(v map[string]map[string]interface{}) {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *UserFactor) GetLinks() map[string]interface{} {
-	if o == nil || o.Links == nil {
-		var ret map[string]interface{}
+func (o *UserFactor) GetLinks() UserFactorLinks {
+	if o == nil || IsNil(o.Links) {
+		var ret UserFactorLinks
 		return ret
 	}
-	return o.Links
+	return *o.Links
 }
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserFactor) GetLinksOk() (map[string]interface{}, bool) {
-	if o == nil || o.Links == nil {
+func (o *UserFactor) GetLinksOk() (*UserFactorLinks, bool) {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -378,48 +381,56 @@ func (o *UserFactor) GetLinksOk() (map[string]interface{}, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *UserFactor) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
 	return false
 }
 
-// SetLinks gets a reference to the given map[string]interface{} and assigns it to the Links field.
-func (o *UserFactor) SetLinks(v map[string]interface{}) {
-	o.Links = v
+// SetLinks gets a reference to the given UserFactorLinks and assigns it to the Links field.
+func (o *UserFactor) SetLinks(v UserFactorLinks) {
+	o.Links = &v
 }
 
 func (o UserFactor) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserFactor) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.FactorType != nil {
+	if !IsNil(o.FactorType) {
 		toSerialize["factorType"] = o.FactorType
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Profile != nil {
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
-	if o.Provider != nil {
+	if !IsNil(o.Provider) {
 		toSerialize["provider"] = o.Provider
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.VendorName != nil {
+	if !IsNil(o.VendorName) {
 		toSerialize["vendorName"] = o.VendorName
 	}
-	if o.Embedded != nil {
+	if !IsNil(o.Embedded) {
 		toSerialize["_embedded"] = o.Embedded
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -427,23 +438,23 @@ func (o UserFactor) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserFactor) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserFactor) UnmarshalJSON(data []byte) (err error) {
 	varUserFactor := _UserFactor{}
 
-	err = json.Unmarshal(bytes, &varUserFactor)
-	if err == nil {
-		*o = UserFactor(varUserFactor)
-	} else {
+	err = json.Unmarshal(data, &varUserFactor)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserFactor(varUserFactor)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "factorType")
 		delete(additionalProperties, "id")
@@ -455,8 +466,6 @@ func (o *UserFactor) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "_embedded")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -497,4 +506,3 @@ func (v *NullableUserFactor) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

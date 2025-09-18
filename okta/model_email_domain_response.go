@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,18 +25,22 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the EmailDomainResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EmailDomainResponse{}
 
 // EmailDomainResponse struct for EmailDomainResponse
 type EmailDomainResponse struct {
 	DnsValidationRecords []EmailDomainDNSRecord `json:"dnsValidationRecords,omitempty"`
-	Domain *string `json:"domain,omitempty"`
-	Id *string `json:"id,omitempty"`
-	ValidationStatus *string `json:"validationStatus,omitempty"`
+	Domain               *string                `json:"domain,omitempty"`
+	Id                   *string                `json:"id,omitempty"`
+	ValidationStatus     *string                `json:"validationStatus,omitempty"`
 	// The subdomain for the email sender's custom mail domain
-	ValidationSubdomain *string `json:"validationSubdomain,omitempty"`
-	DisplayName string `json:"displayName"`
-	UserName string `json:"userName"`
+	ValidationSubdomain  *string `json:"validationSubdomain,omitempty"`
+	DisplayName          string  `json:"displayName"`
+	UserName             string  `json:"userName"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -65,7 +69,7 @@ func NewEmailDomainResponseWithDefaults() *EmailDomainResponse {
 
 // GetDnsValidationRecords returns the DnsValidationRecords field value if set, zero value otherwise.
 func (o *EmailDomainResponse) GetDnsValidationRecords() []EmailDomainDNSRecord {
-	if o == nil || o.DnsValidationRecords == nil {
+	if o == nil || IsNil(o.DnsValidationRecords) {
 		var ret []EmailDomainDNSRecord
 		return ret
 	}
@@ -75,7 +79,7 @@ func (o *EmailDomainResponse) GetDnsValidationRecords() []EmailDomainDNSRecord {
 // GetDnsValidationRecordsOk returns a tuple with the DnsValidationRecords field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EmailDomainResponse) GetDnsValidationRecordsOk() ([]EmailDomainDNSRecord, bool) {
-	if o == nil || o.DnsValidationRecords == nil {
+	if o == nil || IsNil(o.DnsValidationRecords) {
 		return nil, false
 	}
 	return o.DnsValidationRecords, true
@@ -83,7 +87,7 @@ func (o *EmailDomainResponse) GetDnsValidationRecordsOk() ([]EmailDomainDNSRecor
 
 // HasDnsValidationRecords returns a boolean if a field has been set.
 func (o *EmailDomainResponse) HasDnsValidationRecords() bool {
-	if o != nil && o.DnsValidationRecords != nil {
+	if o != nil && !IsNil(o.DnsValidationRecords) {
 		return true
 	}
 
@@ -97,7 +101,7 @@ func (o *EmailDomainResponse) SetDnsValidationRecords(v []EmailDomainDNSRecord) 
 
 // GetDomain returns the Domain field value if set, zero value otherwise.
 func (o *EmailDomainResponse) GetDomain() string {
-	if o == nil || o.Domain == nil {
+	if o == nil || IsNil(o.Domain) {
 		var ret string
 		return ret
 	}
@@ -107,7 +111,7 @@ func (o *EmailDomainResponse) GetDomain() string {
 // GetDomainOk returns a tuple with the Domain field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EmailDomainResponse) GetDomainOk() (*string, bool) {
-	if o == nil || o.Domain == nil {
+	if o == nil || IsNil(o.Domain) {
 		return nil, false
 	}
 	return o.Domain, true
@@ -115,7 +119,7 @@ func (o *EmailDomainResponse) GetDomainOk() (*string, bool) {
 
 // HasDomain returns a boolean if a field has been set.
 func (o *EmailDomainResponse) HasDomain() bool {
-	if o != nil && o.Domain != nil {
+	if o != nil && !IsNil(o.Domain) {
 		return true
 	}
 
@@ -129,7 +133,7 @@ func (o *EmailDomainResponse) SetDomain(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *EmailDomainResponse) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -139,7 +143,7 @@ func (o *EmailDomainResponse) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EmailDomainResponse) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -147,7 +151,7 @@ func (o *EmailDomainResponse) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *EmailDomainResponse) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -161,7 +165,7 @@ func (o *EmailDomainResponse) SetId(v string) {
 
 // GetValidationStatus returns the ValidationStatus field value if set, zero value otherwise.
 func (o *EmailDomainResponse) GetValidationStatus() string {
-	if o == nil || o.ValidationStatus == nil {
+	if o == nil || IsNil(o.ValidationStatus) {
 		var ret string
 		return ret
 	}
@@ -171,7 +175,7 @@ func (o *EmailDomainResponse) GetValidationStatus() string {
 // GetValidationStatusOk returns a tuple with the ValidationStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EmailDomainResponse) GetValidationStatusOk() (*string, bool) {
-	if o == nil || o.ValidationStatus == nil {
+	if o == nil || IsNil(o.ValidationStatus) {
 		return nil, false
 	}
 	return o.ValidationStatus, true
@@ -179,7 +183,7 @@ func (o *EmailDomainResponse) GetValidationStatusOk() (*string, bool) {
 
 // HasValidationStatus returns a boolean if a field has been set.
 func (o *EmailDomainResponse) HasValidationStatus() bool {
-	if o != nil && o.ValidationStatus != nil {
+	if o != nil && !IsNil(o.ValidationStatus) {
 		return true
 	}
 
@@ -193,7 +197,7 @@ func (o *EmailDomainResponse) SetValidationStatus(v string) {
 
 // GetValidationSubdomain returns the ValidationSubdomain field value if set, zero value otherwise.
 func (o *EmailDomainResponse) GetValidationSubdomain() string {
-	if o == nil || o.ValidationSubdomain == nil {
+	if o == nil || IsNil(o.ValidationSubdomain) {
 		var ret string
 		return ret
 	}
@@ -203,7 +207,7 @@ func (o *EmailDomainResponse) GetValidationSubdomain() string {
 // GetValidationSubdomainOk returns a tuple with the ValidationSubdomain field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EmailDomainResponse) GetValidationSubdomainOk() (*string, bool) {
-	if o == nil || o.ValidationSubdomain == nil {
+	if o == nil || IsNil(o.ValidationSubdomain) {
 		return nil, false
 	}
 	return o.ValidationSubdomain, true
@@ -211,7 +215,7 @@ func (o *EmailDomainResponse) GetValidationSubdomainOk() (*string, bool) {
 
 // HasValidationSubdomain returns a boolean if a field has been set.
 func (o *EmailDomainResponse) HasValidationSubdomain() bool {
-	if o != nil && o.ValidationSubdomain != nil {
+	if o != nil && !IsNil(o.ValidationSubdomain) {
 		return true
 	}
 
@@ -272,50 +276,76 @@ func (o *EmailDomainResponse) SetUserName(v string) {
 }
 
 func (o EmailDomainResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EmailDomainResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.DnsValidationRecords != nil {
+	if !IsNil(o.DnsValidationRecords) {
 		toSerialize["dnsValidationRecords"] = o.DnsValidationRecords
 	}
-	if o.Domain != nil {
+	if !IsNil(o.Domain) {
 		toSerialize["domain"] = o.Domain
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.ValidationStatus != nil {
+	if !IsNil(o.ValidationStatus) {
 		toSerialize["validationStatus"] = o.ValidationStatus
 	}
-	if o.ValidationSubdomain != nil {
+	if !IsNil(o.ValidationSubdomain) {
 		toSerialize["validationSubdomain"] = o.ValidationSubdomain
 	}
-	if true {
-		toSerialize["displayName"] = o.DisplayName
-	}
-	if true {
-		toSerialize["userName"] = o.UserName
-	}
+	toSerialize["displayName"] = o.DisplayName
+	toSerialize["userName"] = o.UserName
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EmailDomainResponse) UnmarshalJSON(bytes []byte) (err error) {
-	varEmailDomainResponse := _EmailDomainResponse{}
+func (o *EmailDomainResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"displayName",
+		"userName",
+	}
 
-	err = json.Unmarshal(bytes, &varEmailDomainResponse)
-	if err == nil {
-		*o = EmailDomainResponse(varEmailDomainResponse)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varEmailDomainResponse := _EmailDomainResponse{}
+
+	err = json.Unmarshal(data, &varEmailDomainResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EmailDomainResponse(varEmailDomainResponse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "dnsValidationRecords")
 		delete(additionalProperties, "domain")
 		delete(additionalProperties, "id")
@@ -324,8 +354,6 @@ func (o *EmailDomainResponse) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "displayName")
 		delete(additionalProperties, "userName")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -366,4 +394,3 @@ func (v *NullableEmailDomainResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

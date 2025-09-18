@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AutoAssignAdminAppSetting** | Pointer to **bool** |  | [optional] 
+**AutoAssignAdminAppSetting** | Pointer to **bool** | Automatically assigns the Okta Admin Console to the user when an admin role is assigned | [optional] 
 
 ## Methods
 

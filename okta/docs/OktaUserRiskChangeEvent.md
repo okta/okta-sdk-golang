@@ -10,13 +10,13 @@ Name | Type | Description | Notes
 **PreviousLevel** | **string** | Previous risk level of the user | 
 **ReasonAdmin** | Pointer to [**CaepDeviceComplianceChangeEventReasonAdmin**](CaepDeviceComplianceChangeEventReasonAdmin.md) |  | [optional] 
 **ReasonUser** | Pointer to [**CaepDeviceComplianceChangeEventReasonUser**](CaepDeviceComplianceChangeEventReasonUser.md) |  | [optional] 
-**Subjects** | [**SecurityEventSubject**](SecurityEventSubject.md) |  | 
+**Subject** | [**SecurityEventSubject**](SecurityEventSubject.md) |  | 
 
 ## Methods
 
 ### NewOktaUserRiskChangeEvent
 
-`func NewOktaUserRiskChangeEvent(currentLevel string, eventTimestamp int64, previousLevel string, subjects SecurityEventSubject, ) *OktaUserRiskChangeEvent`
+`func NewOktaUserRiskChangeEvent(currentLevel string, eventTimestamp int64, previousLevel string, subject SecurityEventSubject, ) *OktaUserRiskChangeEvent`
 
 NewOktaUserRiskChangeEvent instantiates a new OktaUserRiskChangeEvent object
 This constructor will assign default values to properties that have it defined,
@@ -166,24 +166,24 @@ SetReasonUser sets ReasonUser field to given value.
 
 HasReasonUser returns a boolean if a field has been set.
 
-### GetSubjects
+### GetSubject
 
-`func (o *OktaUserRiskChangeEvent) GetSubjects() SecurityEventSubject`
+`func (o *OktaUserRiskChangeEvent) GetSubject() SecurityEventSubject`
 
-GetSubjects returns the Subjects field if non-nil, zero value otherwise.
+GetSubject returns the Subject field if non-nil, zero value otherwise.
 
-### GetSubjectsOk
+### GetSubjectOk
 
-`func (o *OktaUserRiskChangeEvent) GetSubjectsOk() (*SecurityEventSubject, bool)`
+`func (o *OktaUserRiskChangeEvent) GetSubjectOk() (*SecurityEventSubject, bool)`
 
-GetSubjectsOk returns a tuple with the Subjects field if it's non-nil, zero value otherwise
+GetSubjectOk returns a tuple with the Subject field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetSubjects
+### SetSubject
 
-`func (o *OktaUserRiskChangeEvent) SetSubjects(v SecurityEventSubject)`
+`func (o *OktaUserRiskChangeEvent) SetSubject(v SecurityEventSubject)`
 
-SetSubjects sets Subjects field to given value.
+SetSubject sets Subject field to given value.
 
 
 

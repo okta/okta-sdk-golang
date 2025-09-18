@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ExpiresAt** | Pointer to **time.Time** |  | [optional] [readonly] 
-**Id** | Pointer to **string** |  | [optional] [readonly] 
-**Scopes** | Pointer to **[]string** |  | [optional] 
-**Token** | Pointer to **string** |  | [optional] 
-**TokenAuthScheme** | Pointer to **string** |  | [optional] 
-**TokenType** | Pointer to **string** |  | [optional] 
+**ExpiresAt** | Pointer to **time.Time** | Timestamp when the object expires | [optional] [readonly] 
+**Id** | Pointer to **string** | Unique identifier for the token | [optional] [readonly] 
+**Scopes** | Pointer to **[]string** | The scopes that the token is good for | [optional] [readonly] 
+**Token** | Pointer to **string** | The raw token | [optional] [readonly] 
+**TokenAuthScheme** | Pointer to **string** | The token authentication scheme as defined by the social provider | [optional] [readonly] 
+**TokenType** | Pointer to **string** | The type of token defined by the [OAuth Token Exchange Spec](https://tools.ietf.org/html/draft-ietf-oauth-token-exchange-07#section-3) | [optional] [readonly] 
 
 ## Methods
 

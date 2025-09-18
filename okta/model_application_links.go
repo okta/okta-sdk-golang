@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,16 +27,23 @@ import (
 	"encoding/json"
 )
 
+// checks if the ApplicationLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApplicationLinks{}
+
 // ApplicationLinks Discoverable resources related to the app
 type ApplicationLinks struct {
-	AccessPolicy *HrefObject `json:"accessPolicy,omitempty"`
-	Activate *HrefObjectActivateLink `json:"activate,omitempty"`
+	AccessPolicy *AccessPolicyLink       `json:"accessPolicy,omitempty"`
+	Activate     *HrefObjectActivateLink `json:"activate,omitempty"`
+	// List of app link resources
+	AppLinks   []HrefObject              `json:"appLinks,omitempty"`
 	Deactivate *HrefObjectDeactivateLink `json:"deactivate,omitempty"`
-	Groups *HrefObject `json:"groups,omitempty"`
-	Logo []HrefObject `json:"logo,omitempty"`
-	Metadata *HrefObject `json:"metadata,omitempty"`
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Users *HrefObject `json:"users,omitempty"`
+	Groups     *GroupsLink               `json:"groups,omitempty"`
+	Help       *HelpLink                 `json:"help,omitempty"`
+	// List of app logo resources
+	Logo                 []HrefObject        `json:"logo,omitempty"`
+	Metadata             *MetadataLink       `json:"metadata,omitempty"`
+	Self                 *HrefObjectSelfLink `json:"self,omitempty"`
+	Users                *UsersLink          `json:"users,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,9 +67,9 @@ func NewApplicationLinksWithDefaults() *ApplicationLinks {
 }
 
 // GetAccessPolicy returns the AccessPolicy field value if set, zero value otherwise.
-func (o *ApplicationLinks) GetAccessPolicy() HrefObject {
-	if o == nil || o.AccessPolicy == nil {
-		var ret HrefObject
+func (o *ApplicationLinks) GetAccessPolicy() AccessPolicyLink {
+	if o == nil || IsNil(o.AccessPolicy) {
+		var ret AccessPolicyLink
 		return ret
 	}
 	return *o.AccessPolicy
@@ -70,8 +77,8 @@ func (o *ApplicationLinks) GetAccessPolicy() HrefObject {
 
 // GetAccessPolicyOk returns a tuple with the AccessPolicy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApplicationLinks) GetAccessPolicyOk() (*HrefObject, bool) {
-	if o == nil || o.AccessPolicy == nil {
+func (o *ApplicationLinks) GetAccessPolicyOk() (*AccessPolicyLink, bool) {
+	if o == nil || IsNil(o.AccessPolicy) {
 		return nil, false
 	}
 	return o.AccessPolicy, true
@@ -79,21 +86,21 @@ func (o *ApplicationLinks) GetAccessPolicyOk() (*HrefObject, bool) {
 
 // HasAccessPolicy returns a boolean if a field has been set.
 func (o *ApplicationLinks) HasAccessPolicy() bool {
-	if o != nil && o.AccessPolicy != nil {
+	if o != nil && !IsNil(o.AccessPolicy) {
 		return true
 	}
 
 	return false
 }
 
-// SetAccessPolicy gets a reference to the given HrefObject and assigns it to the AccessPolicy field.
-func (o *ApplicationLinks) SetAccessPolicy(v HrefObject) {
+// SetAccessPolicy gets a reference to the given AccessPolicyLink and assigns it to the AccessPolicy field.
+func (o *ApplicationLinks) SetAccessPolicy(v AccessPolicyLink) {
 	o.AccessPolicy = &v
 }
 
 // GetActivate returns the Activate field value if set, zero value otherwise.
 func (o *ApplicationLinks) GetActivate() HrefObjectActivateLink {
-	if o == nil || o.Activate == nil {
+	if o == nil || IsNil(o.Activate) {
 		var ret HrefObjectActivateLink
 		return ret
 	}
@@ -103,7 +110,7 @@ func (o *ApplicationLinks) GetActivate() HrefObjectActivateLink {
 // GetActivateOk returns a tuple with the Activate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationLinks) GetActivateOk() (*HrefObjectActivateLink, bool) {
-	if o == nil || o.Activate == nil {
+	if o == nil || IsNil(o.Activate) {
 		return nil, false
 	}
 	return o.Activate, true
@@ -111,7 +118,7 @@ func (o *ApplicationLinks) GetActivateOk() (*HrefObjectActivateLink, bool) {
 
 // HasActivate returns a boolean if a field has been set.
 func (o *ApplicationLinks) HasActivate() bool {
-	if o != nil && o.Activate != nil {
+	if o != nil && !IsNil(o.Activate) {
 		return true
 	}
 
@@ -123,9 +130,41 @@ func (o *ApplicationLinks) SetActivate(v HrefObjectActivateLink) {
 	o.Activate = &v
 }
 
+// GetAppLinks returns the AppLinks field value if set, zero value otherwise.
+func (o *ApplicationLinks) GetAppLinks() []HrefObject {
+	if o == nil || IsNil(o.AppLinks) {
+		var ret []HrefObject
+		return ret
+	}
+	return o.AppLinks
+}
+
+// GetAppLinksOk returns a tuple with the AppLinks field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApplicationLinks) GetAppLinksOk() ([]HrefObject, bool) {
+	if o == nil || IsNil(o.AppLinks) {
+		return nil, false
+	}
+	return o.AppLinks, true
+}
+
+// HasAppLinks returns a boolean if a field has been set.
+func (o *ApplicationLinks) HasAppLinks() bool {
+	if o != nil && !IsNil(o.AppLinks) {
+		return true
+	}
+
+	return false
+}
+
+// SetAppLinks gets a reference to the given []HrefObject and assigns it to the AppLinks field.
+func (o *ApplicationLinks) SetAppLinks(v []HrefObject) {
+	o.AppLinks = v
+}
+
 // GetDeactivate returns the Deactivate field value if set, zero value otherwise.
 func (o *ApplicationLinks) GetDeactivate() HrefObjectDeactivateLink {
-	if o == nil || o.Deactivate == nil {
+	if o == nil || IsNil(o.Deactivate) {
 		var ret HrefObjectDeactivateLink
 		return ret
 	}
@@ -135,7 +174,7 @@ func (o *ApplicationLinks) GetDeactivate() HrefObjectDeactivateLink {
 // GetDeactivateOk returns a tuple with the Deactivate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationLinks) GetDeactivateOk() (*HrefObjectDeactivateLink, bool) {
-	if o == nil || o.Deactivate == nil {
+	if o == nil || IsNil(o.Deactivate) {
 		return nil, false
 	}
 	return o.Deactivate, true
@@ -143,7 +182,7 @@ func (o *ApplicationLinks) GetDeactivateOk() (*HrefObjectDeactivateLink, bool) {
 
 // HasDeactivate returns a boolean if a field has been set.
 func (o *ApplicationLinks) HasDeactivate() bool {
-	if o != nil && o.Deactivate != nil {
+	if o != nil && !IsNil(o.Deactivate) {
 		return true
 	}
 
@@ -156,9 +195,9 @@ func (o *ApplicationLinks) SetDeactivate(v HrefObjectDeactivateLink) {
 }
 
 // GetGroups returns the Groups field value if set, zero value otherwise.
-func (o *ApplicationLinks) GetGroups() HrefObject {
-	if o == nil || o.Groups == nil {
-		var ret HrefObject
+func (o *ApplicationLinks) GetGroups() GroupsLink {
+	if o == nil || IsNil(o.Groups) {
+		var ret GroupsLink
 		return ret
 	}
 	return *o.Groups
@@ -166,8 +205,8 @@ func (o *ApplicationLinks) GetGroups() HrefObject {
 
 // GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApplicationLinks) GetGroupsOk() (*HrefObject, bool) {
-	if o == nil || o.Groups == nil {
+func (o *ApplicationLinks) GetGroupsOk() (*GroupsLink, bool) {
+	if o == nil || IsNil(o.Groups) {
 		return nil, false
 	}
 	return o.Groups, true
@@ -175,21 +214,53 @@ func (o *ApplicationLinks) GetGroupsOk() (*HrefObject, bool) {
 
 // HasGroups returns a boolean if a field has been set.
 func (o *ApplicationLinks) HasGroups() bool {
-	if o != nil && o.Groups != nil {
+	if o != nil && !IsNil(o.Groups) {
 		return true
 	}
 
 	return false
 }
 
-// SetGroups gets a reference to the given HrefObject and assigns it to the Groups field.
-func (o *ApplicationLinks) SetGroups(v HrefObject) {
+// SetGroups gets a reference to the given GroupsLink and assigns it to the Groups field.
+func (o *ApplicationLinks) SetGroups(v GroupsLink) {
 	o.Groups = &v
+}
+
+// GetHelp returns the Help field value if set, zero value otherwise.
+func (o *ApplicationLinks) GetHelp() HelpLink {
+	if o == nil || IsNil(o.Help) {
+		var ret HelpLink
+		return ret
+	}
+	return *o.Help
+}
+
+// GetHelpOk returns a tuple with the Help field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApplicationLinks) GetHelpOk() (*HelpLink, bool) {
+	if o == nil || IsNil(o.Help) {
+		return nil, false
+	}
+	return o.Help, true
+}
+
+// HasHelp returns a boolean if a field has been set.
+func (o *ApplicationLinks) HasHelp() bool {
+	if o != nil && !IsNil(o.Help) {
+		return true
+	}
+
+	return false
+}
+
+// SetHelp gets a reference to the given HelpLink and assigns it to the Help field.
+func (o *ApplicationLinks) SetHelp(v HelpLink) {
+	o.Help = &v
 }
 
 // GetLogo returns the Logo field value if set, zero value otherwise.
 func (o *ApplicationLinks) GetLogo() []HrefObject {
-	if o == nil || o.Logo == nil {
+	if o == nil || IsNil(o.Logo) {
 		var ret []HrefObject
 		return ret
 	}
@@ -199,7 +270,7 @@ func (o *ApplicationLinks) GetLogo() []HrefObject {
 // GetLogoOk returns a tuple with the Logo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationLinks) GetLogoOk() ([]HrefObject, bool) {
-	if o == nil || o.Logo == nil {
+	if o == nil || IsNil(o.Logo) {
 		return nil, false
 	}
 	return o.Logo, true
@@ -207,7 +278,7 @@ func (o *ApplicationLinks) GetLogoOk() ([]HrefObject, bool) {
 
 // HasLogo returns a boolean if a field has been set.
 func (o *ApplicationLinks) HasLogo() bool {
-	if o != nil && o.Logo != nil {
+	if o != nil && !IsNil(o.Logo) {
 		return true
 	}
 
@@ -220,9 +291,9 @@ func (o *ApplicationLinks) SetLogo(v []HrefObject) {
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *ApplicationLinks) GetMetadata() HrefObject {
-	if o == nil || o.Metadata == nil {
-		var ret HrefObject
+func (o *ApplicationLinks) GetMetadata() MetadataLink {
+	if o == nil || IsNil(o.Metadata) {
+		var ret MetadataLink
 		return ret
 	}
 	return *o.Metadata
@@ -230,8 +301,8 @@ func (o *ApplicationLinks) GetMetadata() HrefObject {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApplicationLinks) GetMetadataOk() (*HrefObject, bool) {
-	if o == nil || o.Metadata == nil {
+func (o *ApplicationLinks) GetMetadataOk() (*MetadataLink, bool) {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -239,21 +310,21 @@ func (o *ApplicationLinks) GetMetadataOk() (*HrefObject, bool) {
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *ApplicationLinks) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
 	return false
 }
 
-// SetMetadata gets a reference to the given HrefObject and assigns it to the Metadata field.
-func (o *ApplicationLinks) SetMetadata(v HrefObject) {
+// SetMetadata gets a reference to the given MetadataLink and assigns it to the Metadata field.
+func (o *ApplicationLinks) SetMetadata(v MetadataLink) {
 	o.Metadata = &v
 }
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *ApplicationLinks) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -263,7 +334,7 @@ func (o *ApplicationLinks) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -271,7 +342,7 @@ func (o *ApplicationLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *ApplicationLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -284,9 +355,9 @@ func (o *ApplicationLinks) SetSelf(v HrefObjectSelfLink) {
 }
 
 // GetUsers returns the Users field value if set, zero value otherwise.
-func (o *ApplicationLinks) GetUsers() HrefObject {
-	if o == nil || o.Users == nil {
-		var ret HrefObject
+func (o *ApplicationLinks) GetUsers() UsersLink {
+	if o == nil || IsNil(o.Users) {
+		var ret UsersLink
 		return ret
 	}
 	return *o.Users
@@ -294,8 +365,8 @@ func (o *ApplicationLinks) GetUsers() HrefObject {
 
 // GetUsersOk returns a tuple with the Users field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApplicationLinks) GetUsersOk() (*HrefObject, bool) {
-	if o == nil || o.Users == nil {
+func (o *ApplicationLinks) GetUsersOk() (*UsersLink, bool) {
+	if o == nil || IsNil(o.Users) {
 		return nil, false
 	}
 	return o.Users, true
@@ -303,42 +374,56 @@ func (o *ApplicationLinks) GetUsersOk() (*HrefObject, bool) {
 
 // HasUsers returns a boolean if a field has been set.
 func (o *ApplicationLinks) HasUsers() bool {
-	if o != nil && o.Users != nil {
+	if o != nil && !IsNil(o.Users) {
 		return true
 	}
 
 	return false
 }
 
-// SetUsers gets a reference to the given HrefObject and assigns it to the Users field.
-func (o *ApplicationLinks) SetUsers(v HrefObject) {
+// SetUsers gets a reference to the given UsersLink and assigns it to the Users field.
+func (o *ApplicationLinks) SetUsers(v UsersLink) {
 	o.Users = &v
 }
 
 func (o ApplicationLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApplicationLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AccessPolicy != nil {
+	if !IsNil(o.AccessPolicy) {
 		toSerialize["accessPolicy"] = o.AccessPolicy
 	}
-	if o.Activate != nil {
+	if !IsNil(o.Activate) {
 		toSerialize["activate"] = o.Activate
 	}
-	if o.Deactivate != nil {
+	if !IsNil(o.AppLinks) {
+		toSerialize["appLinks"] = o.AppLinks
+	}
+	if !IsNil(o.Deactivate) {
 		toSerialize["deactivate"] = o.Deactivate
 	}
-	if o.Groups != nil {
+	if !IsNil(o.Groups) {
 		toSerialize["groups"] = o.Groups
 	}
-	if o.Logo != nil {
+	if !IsNil(o.Help) {
+		toSerialize["help"] = o.Help
+	}
+	if !IsNil(o.Logo) {
 		toSerialize["logo"] = o.Logo
 	}
-	if o.Metadata != nil {
+	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.Users != nil {
+	if !IsNil(o.Users) {
 		toSerialize["users"] = o.Users
 	}
 
@@ -346,34 +431,34 @@ func (o ApplicationLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ApplicationLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ApplicationLinks) UnmarshalJSON(data []byte) (err error) {
 	varApplicationLinks := _ApplicationLinks{}
 
-	err = json.Unmarshal(bytes, &varApplicationLinks)
-	if err == nil {
-		*o = ApplicationLinks(varApplicationLinks)
-	} else {
+	err = json.Unmarshal(data, &varApplicationLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ApplicationLinks(varApplicationLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "accessPolicy")
 		delete(additionalProperties, "activate")
+		delete(additionalProperties, "appLinks")
 		delete(additionalProperties, "deactivate")
 		delete(additionalProperties, "groups")
+		delete(additionalProperties, "help")
 		delete(additionalProperties, "logo")
 		delete(additionalProperties, "metadata")
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "users")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -414,4 +499,3 @@ func (v *NullableApplicationLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SecurityEventsProviderSettingsResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SecurityEventsProviderSettingsResponse{}
+
 // SecurityEventsProviderSettingsResponse Security Events Provider settings
 type SecurityEventsProviderSettingsResponse struct {
 	// Issuer URL
@@ -34,7 +37,7 @@ type SecurityEventsProviderSettingsResponse struct {
 	// The public URL where the JWKS public key is uploaded
 	JwksUrl *string `json:"jwks_url,omitempty"`
 	// The well-known URL of the Security Events Provider (the SSF transmitter)
-	WellKnownUrl NullableString `json:"well_known_url,omitempty"`
+	WellKnownUrl         NullableString `json:"well_known_url,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewSecurityEventsProviderSettingsResponseWithDefaults() *SecurityEventsProv
 
 // GetIssuer returns the Issuer field value if set, zero value otherwise.
 func (o *SecurityEventsProviderSettingsResponse) GetIssuer() string {
-	if o == nil || o.Issuer == nil {
+	if o == nil || IsNil(o.Issuer) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *SecurityEventsProviderSettingsResponse) GetIssuer() string {
 // GetIssuerOk returns a tuple with the Issuer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityEventsProviderSettingsResponse) GetIssuerOk() (*string, bool) {
-	if o == nil || o.Issuer == nil {
+	if o == nil || IsNil(o.Issuer) {
 		return nil, false
 	}
 	return o.Issuer, true
@@ -77,7 +80,7 @@ func (o *SecurityEventsProviderSettingsResponse) GetIssuerOk() (*string, bool) {
 
 // HasIssuer returns a boolean if a field has been set.
 func (o *SecurityEventsProviderSettingsResponse) HasIssuer() bool {
-	if o != nil && o.Issuer != nil {
+	if o != nil && !IsNil(o.Issuer) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *SecurityEventsProviderSettingsResponse) SetIssuer(v string) {
 
 // GetJwksUrl returns the JwksUrl field value if set, zero value otherwise.
 func (o *SecurityEventsProviderSettingsResponse) GetJwksUrl() string {
-	if o == nil || o.JwksUrl == nil {
+	if o == nil || IsNil(o.JwksUrl) {
 		var ret string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *SecurityEventsProviderSettingsResponse) GetJwksUrl() string {
 // GetJwksUrlOk returns a tuple with the JwksUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityEventsProviderSettingsResponse) GetJwksUrlOk() (*string, bool) {
-	if o == nil || o.JwksUrl == nil {
+	if o == nil || IsNil(o.JwksUrl) {
 		return nil, false
 	}
 	return o.JwksUrl, true
@@ -109,7 +112,7 @@ func (o *SecurityEventsProviderSettingsResponse) GetJwksUrlOk() (*string, bool) 
 
 // HasJwksUrl returns a boolean if a field has been set.
 func (o *SecurityEventsProviderSettingsResponse) HasJwksUrl() bool {
-	if o != nil && o.JwksUrl != nil {
+	if o != nil && !IsNil(o.JwksUrl) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *SecurityEventsProviderSettingsResponse) SetJwksUrl(v string) {
 
 // GetWellKnownUrl returns the WellKnownUrl field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *SecurityEventsProviderSettingsResponse) GetWellKnownUrl() string {
-	if o == nil || o.WellKnownUrl.Get() == nil {
+	if o == nil || IsNil(o.WellKnownUrl.Get()) {
 		var ret string
 		return ret
 	}
@@ -153,6 +156,7 @@ func (o *SecurityEventsProviderSettingsResponse) HasWellKnownUrl() bool {
 func (o *SecurityEventsProviderSettingsResponse) SetWellKnownUrl(v string) {
 	o.WellKnownUrl.Set(&v)
 }
+
 // SetWellKnownUrlNil sets the value for WellKnownUrl to be an explicit nil
 func (o *SecurityEventsProviderSettingsResponse) SetWellKnownUrlNil() {
 	o.WellKnownUrl.Set(nil)
@@ -164,11 +168,19 @@ func (o *SecurityEventsProviderSettingsResponse) UnsetWellKnownUrl() {
 }
 
 func (o SecurityEventsProviderSettingsResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SecurityEventsProviderSettingsResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Issuer != nil {
+	if !IsNil(o.Issuer) {
 		toSerialize["issuer"] = o.Issuer
 	}
-	if o.JwksUrl != nil {
+	if !IsNil(o.JwksUrl) {
 		toSerialize["jwks_url"] = o.JwksUrl
 	}
 	if o.WellKnownUrl.IsSet() {
@@ -179,29 +191,27 @@ func (o SecurityEventsProviderSettingsResponse) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SecurityEventsProviderSettingsResponse) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SecurityEventsProviderSettingsResponse) UnmarshalJSON(data []byte) (err error) {
 	varSecurityEventsProviderSettingsResponse := _SecurityEventsProviderSettingsResponse{}
 
-	err = json.Unmarshal(bytes, &varSecurityEventsProviderSettingsResponse)
-	if err == nil {
-		*o = SecurityEventsProviderSettingsResponse(varSecurityEventsProviderSettingsResponse)
-	} else {
+	err = json.Unmarshal(data, &varSecurityEventsProviderSettingsResponse)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SecurityEventsProviderSettingsResponse(varSecurityEventsProviderSettingsResponse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "issuer")
 		delete(additionalProperties, "jwks_url")
 		delete(additionalProperties, "well_known_url")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -242,4 +252,3 @@ func (v *NullableSecurityEventsProviderSettingsResponse) UnmarshalJSON(src []byt
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Reason** | Pointer to **string** |  | [optional] [readonly] 
-**Result** | Pointer to **string** |  | [optional] [readonly] 
+**Reason** | Pointer to **string** | Reason for the result, for example, &#x60;INVALID_CREDENTIALS&#x60; | [optional] [readonly] 
+**Result** | Pointer to **string** | Result of the action | [optional] [readonly] 
 
 ## Methods
 

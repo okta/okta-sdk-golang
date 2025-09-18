@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,21 +27,25 @@ import (
 	"encoding/json"
 )
 
+// checks if the OINSaml20ApplicationSettingsSignOn type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OINSaml20ApplicationSettingsSignOn{}
+
 // OINSaml20ApplicationSettingsSignOn Contains SAML 2.0 sign-on mode attributes. > **Note:** Set `destinationOverride` to configure any other SAML 2.0 attributes in this section.
 type OINSaml20ApplicationSettingsSignOn struct {
+	// A list of custom attribute statements for the app's SAML assertion. See [SAML 2.0 Technical Overview](https://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0-cd-02.html).  There are two types of attribute statements: | Type | Description | | ---- | ----------- | | EXPRESSION | Generic attribute statement that can be dynamic and supports [Okta Expression Language](https://developer.okta.com/docs/reference/okta-expression-language/) | | GROUP | Group attribute statement |
+	AttributeStatements []SamlAttributeStatement `json:"attributeStatements,omitempty"`
 	// Audience override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm).
-	AudienceOverride *string `json:"audienceOverride,omitempty"`
-	ConfiguredAttributeStatements []SamlAttributeStatement `json:"configuredAttributeStatements,omitempty"`
+	AudienceOverride NullableString `json:"audienceOverride,omitempty"`
 	// Identifies a specific application resource in an IdP-initiated SSO scenario
-	DefaultRelayState *string `json:"defaultRelayState,omitempty"`
+	DefaultRelayState NullableString `json:"defaultRelayState,omitempty"`
 	// Destination override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm).
-	DestinationOverride *string `json:"destinationOverride,omitempty"`
+	DestinationOverride NullableString `json:"destinationOverride,omitempty"`
 	// Recipient override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm).
-	RecipientOverride *string `json:"recipientOverride,omitempty"`
+	RecipientOverride NullableString `json:"recipientOverride,omitempty"`
 	// Determines the SAML app session lifetimes with Okta
 	SamlAssertionLifetimeSeconds *int32 `json:"samlAssertionLifetimeSeconds,omitempty"`
 	// Assertion Consumer Service (ACS) URL override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm).
-	SsoAcsUrlOverride *string `json:"ssoAcsUrlOverride,omitempty"`
+	SsoAcsUrlOverride    NullableString `json:"ssoAcsUrlOverride,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -64,169 +68,213 @@ func NewOINSaml20ApplicationSettingsSignOnWithDefaults() *OINSaml20ApplicationSe
 	return &this
 }
 
-// GetAudienceOverride returns the AudienceOverride field value if set, zero value otherwise.
+// GetAttributeStatements returns the AttributeStatements field value if set, zero value otherwise.
+func (o *OINSaml20ApplicationSettingsSignOn) GetAttributeStatements() []SamlAttributeStatement {
+	if o == nil || IsNil(o.AttributeStatements) {
+		var ret []SamlAttributeStatement
+		return ret
+	}
+	return o.AttributeStatements
+}
+
+// GetAttributeStatementsOk returns a tuple with the AttributeStatements field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OINSaml20ApplicationSettingsSignOn) GetAttributeStatementsOk() ([]SamlAttributeStatement, bool) {
+	if o == nil || IsNil(o.AttributeStatements) {
+		return nil, false
+	}
+	return o.AttributeStatements, true
+}
+
+// HasAttributeStatements returns a boolean if a field has been set.
+func (o *OINSaml20ApplicationSettingsSignOn) HasAttributeStatements() bool {
+	if o != nil && !IsNil(o.AttributeStatements) {
+		return true
+	}
+
+	return false
+}
+
+// SetAttributeStatements gets a reference to the given []SamlAttributeStatement and assigns it to the AttributeStatements field.
+func (o *OINSaml20ApplicationSettingsSignOn) SetAttributeStatements(v []SamlAttributeStatement) {
+	o.AttributeStatements = v
+}
+
+// GetAudienceOverride returns the AudienceOverride field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *OINSaml20ApplicationSettingsSignOn) GetAudienceOverride() string {
-	if o == nil || o.AudienceOverride == nil {
+	if o == nil || IsNil(o.AudienceOverride.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.AudienceOverride
+	return *o.AudienceOverride.Get()
 }
 
 // GetAudienceOverrideOk returns a tuple with the AudienceOverride field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *OINSaml20ApplicationSettingsSignOn) GetAudienceOverrideOk() (*string, bool) {
-	if o == nil || o.AudienceOverride == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.AudienceOverride, true
+	return o.AudienceOverride.Get(), o.AudienceOverride.IsSet()
 }
 
 // HasAudienceOverride returns a boolean if a field has been set.
 func (o *OINSaml20ApplicationSettingsSignOn) HasAudienceOverride() bool {
-	if o != nil && o.AudienceOverride != nil {
+	if o != nil && o.AudienceOverride.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetAudienceOverride gets a reference to the given string and assigns it to the AudienceOverride field.
+// SetAudienceOverride gets a reference to the given NullableString and assigns it to the AudienceOverride field.
 func (o *OINSaml20ApplicationSettingsSignOn) SetAudienceOverride(v string) {
-	o.AudienceOverride = &v
+	o.AudienceOverride.Set(&v)
 }
 
-// GetConfiguredAttributeStatements returns the ConfiguredAttributeStatements field value if set, zero value otherwise.
-func (o *OINSaml20ApplicationSettingsSignOn) GetConfiguredAttributeStatements() []SamlAttributeStatement {
-	if o == nil || o.ConfiguredAttributeStatements == nil {
-		var ret []SamlAttributeStatement
-		return ret
-	}
-	return o.ConfiguredAttributeStatements
+// SetAudienceOverrideNil sets the value for AudienceOverride to be an explicit nil
+func (o *OINSaml20ApplicationSettingsSignOn) SetAudienceOverrideNil() {
+	o.AudienceOverride.Set(nil)
 }
 
-// GetConfiguredAttributeStatementsOk returns a tuple with the ConfiguredAttributeStatements field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *OINSaml20ApplicationSettingsSignOn) GetConfiguredAttributeStatementsOk() ([]SamlAttributeStatement, bool) {
-	if o == nil || o.ConfiguredAttributeStatements == nil {
-		return nil, false
-	}
-	return o.ConfiguredAttributeStatements, true
+// UnsetAudienceOverride ensures that no value is present for AudienceOverride, not even an explicit nil
+func (o *OINSaml20ApplicationSettingsSignOn) UnsetAudienceOverride() {
+	o.AudienceOverride.Unset()
 }
 
-// HasConfiguredAttributeStatements returns a boolean if a field has been set.
-func (o *OINSaml20ApplicationSettingsSignOn) HasConfiguredAttributeStatements() bool {
-	if o != nil && o.ConfiguredAttributeStatements != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetConfiguredAttributeStatements gets a reference to the given []SamlAttributeStatement and assigns it to the ConfiguredAttributeStatements field.
-func (o *OINSaml20ApplicationSettingsSignOn) SetConfiguredAttributeStatements(v []SamlAttributeStatement) {
-	o.ConfiguredAttributeStatements = v
-}
-
-// GetDefaultRelayState returns the DefaultRelayState field value if set, zero value otherwise.
+// GetDefaultRelayState returns the DefaultRelayState field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *OINSaml20ApplicationSettingsSignOn) GetDefaultRelayState() string {
-	if o == nil || o.DefaultRelayState == nil {
+	if o == nil || IsNil(o.DefaultRelayState.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.DefaultRelayState
+	return *o.DefaultRelayState.Get()
 }
 
 // GetDefaultRelayStateOk returns a tuple with the DefaultRelayState field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *OINSaml20ApplicationSettingsSignOn) GetDefaultRelayStateOk() (*string, bool) {
-	if o == nil || o.DefaultRelayState == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.DefaultRelayState, true
+	return o.DefaultRelayState.Get(), o.DefaultRelayState.IsSet()
 }
 
 // HasDefaultRelayState returns a boolean if a field has been set.
 func (o *OINSaml20ApplicationSettingsSignOn) HasDefaultRelayState() bool {
-	if o != nil && o.DefaultRelayState != nil {
+	if o != nil && o.DefaultRelayState.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDefaultRelayState gets a reference to the given string and assigns it to the DefaultRelayState field.
+// SetDefaultRelayState gets a reference to the given NullableString and assigns it to the DefaultRelayState field.
 func (o *OINSaml20ApplicationSettingsSignOn) SetDefaultRelayState(v string) {
-	o.DefaultRelayState = &v
+	o.DefaultRelayState.Set(&v)
 }
 
-// GetDestinationOverride returns the DestinationOverride field value if set, zero value otherwise.
+// SetDefaultRelayStateNil sets the value for DefaultRelayState to be an explicit nil
+func (o *OINSaml20ApplicationSettingsSignOn) SetDefaultRelayStateNil() {
+	o.DefaultRelayState.Set(nil)
+}
+
+// UnsetDefaultRelayState ensures that no value is present for DefaultRelayState, not even an explicit nil
+func (o *OINSaml20ApplicationSettingsSignOn) UnsetDefaultRelayState() {
+	o.DefaultRelayState.Unset()
+}
+
+// GetDestinationOverride returns the DestinationOverride field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *OINSaml20ApplicationSettingsSignOn) GetDestinationOverride() string {
-	if o == nil || o.DestinationOverride == nil {
+	if o == nil || IsNil(o.DestinationOverride.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.DestinationOverride
+	return *o.DestinationOverride.Get()
 }
 
 // GetDestinationOverrideOk returns a tuple with the DestinationOverride field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *OINSaml20ApplicationSettingsSignOn) GetDestinationOverrideOk() (*string, bool) {
-	if o == nil || o.DestinationOverride == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.DestinationOverride, true
+	return o.DestinationOverride.Get(), o.DestinationOverride.IsSet()
 }
 
 // HasDestinationOverride returns a boolean if a field has been set.
 func (o *OINSaml20ApplicationSettingsSignOn) HasDestinationOverride() bool {
-	if o != nil && o.DestinationOverride != nil {
+	if o != nil && o.DestinationOverride.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDestinationOverride gets a reference to the given string and assigns it to the DestinationOverride field.
+// SetDestinationOverride gets a reference to the given NullableString and assigns it to the DestinationOverride field.
 func (o *OINSaml20ApplicationSettingsSignOn) SetDestinationOverride(v string) {
-	o.DestinationOverride = &v
+	o.DestinationOverride.Set(&v)
 }
 
-// GetRecipientOverride returns the RecipientOverride field value if set, zero value otherwise.
+// SetDestinationOverrideNil sets the value for DestinationOverride to be an explicit nil
+func (o *OINSaml20ApplicationSettingsSignOn) SetDestinationOverrideNil() {
+	o.DestinationOverride.Set(nil)
+}
+
+// UnsetDestinationOverride ensures that no value is present for DestinationOverride, not even an explicit nil
+func (o *OINSaml20ApplicationSettingsSignOn) UnsetDestinationOverride() {
+	o.DestinationOverride.Unset()
+}
+
+// GetRecipientOverride returns the RecipientOverride field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *OINSaml20ApplicationSettingsSignOn) GetRecipientOverride() string {
-	if o == nil || o.RecipientOverride == nil {
+	if o == nil || IsNil(o.RecipientOverride.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.RecipientOverride
+	return *o.RecipientOverride.Get()
 }
 
 // GetRecipientOverrideOk returns a tuple with the RecipientOverride field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *OINSaml20ApplicationSettingsSignOn) GetRecipientOverrideOk() (*string, bool) {
-	if o == nil || o.RecipientOverride == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.RecipientOverride, true
+	return o.RecipientOverride.Get(), o.RecipientOverride.IsSet()
 }
 
 // HasRecipientOverride returns a boolean if a field has been set.
 func (o *OINSaml20ApplicationSettingsSignOn) HasRecipientOverride() bool {
-	if o != nil && o.RecipientOverride != nil {
+	if o != nil && o.RecipientOverride.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetRecipientOverride gets a reference to the given string and assigns it to the RecipientOverride field.
+// SetRecipientOverride gets a reference to the given NullableString and assigns it to the RecipientOverride field.
 func (o *OINSaml20ApplicationSettingsSignOn) SetRecipientOverride(v string) {
-	o.RecipientOverride = &v
+	o.RecipientOverride.Set(&v)
+}
+
+// SetRecipientOverrideNil sets the value for RecipientOverride to be an explicit nil
+func (o *OINSaml20ApplicationSettingsSignOn) SetRecipientOverrideNil() {
+	o.RecipientOverride.Set(nil)
+}
+
+// UnsetRecipientOverride ensures that no value is present for RecipientOverride, not even an explicit nil
+func (o *OINSaml20ApplicationSettingsSignOn) UnsetRecipientOverride() {
+	o.RecipientOverride.Unset()
 }
 
 // GetSamlAssertionLifetimeSeconds returns the SamlAssertionLifetimeSeconds field value if set, zero value otherwise.
 func (o *OINSaml20ApplicationSettingsSignOn) GetSamlAssertionLifetimeSeconds() int32 {
-	if o == nil || o.SamlAssertionLifetimeSeconds == nil {
+	if o == nil || IsNil(o.SamlAssertionLifetimeSeconds) {
 		var ret int32
 		return ret
 	}
@@ -236,7 +284,7 @@ func (o *OINSaml20ApplicationSettingsSignOn) GetSamlAssertionLifetimeSeconds() i
 // GetSamlAssertionLifetimeSecondsOk returns a tuple with the SamlAssertionLifetimeSeconds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OINSaml20ApplicationSettingsSignOn) GetSamlAssertionLifetimeSecondsOk() (*int32, bool) {
-	if o == nil || o.SamlAssertionLifetimeSeconds == nil {
+	if o == nil || IsNil(o.SamlAssertionLifetimeSeconds) {
 		return nil, false
 	}
 	return o.SamlAssertionLifetimeSeconds, true
@@ -244,7 +292,7 @@ func (o *OINSaml20ApplicationSettingsSignOn) GetSamlAssertionLifetimeSecondsOk()
 
 // HasSamlAssertionLifetimeSeconds returns a boolean if a field has been set.
 func (o *OINSaml20ApplicationSettingsSignOn) HasSamlAssertionLifetimeSeconds() bool {
-	if o != nil && o.SamlAssertionLifetimeSeconds != nil {
+	if o != nil && !IsNil(o.SamlAssertionLifetimeSeconds) {
 		return true
 	}
 
@@ -256,93 +304,110 @@ func (o *OINSaml20ApplicationSettingsSignOn) SetSamlAssertionLifetimeSeconds(v i
 	o.SamlAssertionLifetimeSeconds = &v
 }
 
-// GetSsoAcsUrlOverride returns the SsoAcsUrlOverride field value if set, zero value otherwise.
+// GetSsoAcsUrlOverride returns the SsoAcsUrlOverride field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *OINSaml20ApplicationSettingsSignOn) GetSsoAcsUrlOverride() string {
-	if o == nil || o.SsoAcsUrlOverride == nil {
+	if o == nil || IsNil(o.SsoAcsUrlOverride.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.SsoAcsUrlOverride
+	return *o.SsoAcsUrlOverride.Get()
 }
 
 // GetSsoAcsUrlOverrideOk returns a tuple with the SsoAcsUrlOverride field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *OINSaml20ApplicationSettingsSignOn) GetSsoAcsUrlOverrideOk() (*string, bool) {
-	if o == nil || o.SsoAcsUrlOverride == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.SsoAcsUrlOverride, true
+	return o.SsoAcsUrlOverride.Get(), o.SsoAcsUrlOverride.IsSet()
 }
 
 // HasSsoAcsUrlOverride returns a boolean if a field has been set.
 func (o *OINSaml20ApplicationSettingsSignOn) HasSsoAcsUrlOverride() bool {
-	if o != nil && o.SsoAcsUrlOverride != nil {
+	if o != nil && o.SsoAcsUrlOverride.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetSsoAcsUrlOverride gets a reference to the given string and assigns it to the SsoAcsUrlOverride field.
+// SetSsoAcsUrlOverride gets a reference to the given NullableString and assigns it to the SsoAcsUrlOverride field.
 func (o *OINSaml20ApplicationSettingsSignOn) SetSsoAcsUrlOverride(v string) {
-	o.SsoAcsUrlOverride = &v
+	o.SsoAcsUrlOverride.Set(&v)
+}
+
+// SetSsoAcsUrlOverrideNil sets the value for SsoAcsUrlOverride to be an explicit nil
+func (o *OINSaml20ApplicationSettingsSignOn) SetSsoAcsUrlOverrideNil() {
+	o.SsoAcsUrlOverride.Set(nil)
+}
+
+// UnsetSsoAcsUrlOverride ensures that no value is present for SsoAcsUrlOverride, not even an explicit nil
+func (o *OINSaml20ApplicationSettingsSignOn) UnsetSsoAcsUrlOverride() {
+	o.SsoAcsUrlOverride.Unset()
 }
 
 func (o OINSaml20ApplicationSettingsSignOn) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OINSaml20ApplicationSettingsSignOn) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AudienceOverride != nil {
-		toSerialize["audienceOverride"] = o.AudienceOverride
+	if !IsNil(o.AttributeStatements) {
+		toSerialize["attributeStatements"] = o.AttributeStatements
 	}
-	if o.ConfiguredAttributeStatements != nil {
-		toSerialize["configuredAttributeStatements"] = o.ConfiguredAttributeStatements
+	if o.AudienceOverride.IsSet() {
+		toSerialize["audienceOverride"] = o.AudienceOverride.Get()
 	}
-	if o.DefaultRelayState != nil {
-		toSerialize["defaultRelayState"] = o.DefaultRelayState
+	if o.DefaultRelayState.IsSet() {
+		toSerialize["defaultRelayState"] = o.DefaultRelayState.Get()
 	}
-	if o.DestinationOverride != nil {
-		toSerialize["destinationOverride"] = o.DestinationOverride
+	if o.DestinationOverride.IsSet() {
+		toSerialize["destinationOverride"] = o.DestinationOverride.Get()
 	}
-	if o.RecipientOverride != nil {
-		toSerialize["recipientOverride"] = o.RecipientOverride
+	if o.RecipientOverride.IsSet() {
+		toSerialize["recipientOverride"] = o.RecipientOverride.Get()
 	}
-	if o.SamlAssertionLifetimeSeconds != nil {
+	if !IsNil(o.SamlAssertionLifetimeSeconds) {
 		toSerialize["samlAssertionLifetimeSeconds"] = o.SamlAssertionLifetimeSeconds
 	}
-	if o.SsoAcsUrlOverride != nil {
-		toSerialize["ssoAcsUrlOverride"] = o.SsoAcsUrlOverride
+	if o.SsoAcsUrlOverride.IsSet() {
+		toSerialize["ssoAcsUrlOverride"] = o.SsoAcsUrlOverride.Get()
 	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OINSaml20ApplicationSettingsSignOn) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OINSaml20ApplicationSettingsSignOn) UnmarshalJSON(data []byte) (err error) {
 	varOINSaml20ApplicationSettingsSignOn := _OINSaml20ApplicationSettingsSignOn{}
 
-	err = json.Unmarshal(bytes, &varOINSaml20ApplicationSettingsSignOn)
-	if err == nil {
-		*o = OINSaml20ApplicationSettingsSignOn(varOINSaml20ApplicationSettingsSignOn)
-	} else {
+	err = json.Unmarshal(data, &varOINSaml20ApplicationSettingsSignOn)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OINSaml20ApplicationSettingsSignOn(varOINSaml20ApplicationSettingsSignOn)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "attributeStatements")
 		delete(additionalProperties, "audienceOverride")
-		delete(additionalProperties, "configuredAttributeStatements")
 		delete(additionalProperties, "defaultRelayState")
 		delete(additionalProperties, "destinationOverride")
 		delete(additionalProperties, "recipientOverride")
 		delete(additionalProperties, "samlAssertionLifetimeSeconds")
 		delete(additionalProperties, "ssoAcsUrlOverride")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -383,4 +448,3 @@ func (v *NullableOINSaml20ApplicationSettingsSignOn) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

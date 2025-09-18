@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -26,86 +26,100 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type RiskProviderAPI interface {
 
 	/*
-	CreateRiskProvider Create a Risk Provider
+		CreateRiskProvider Create a risk provider
 
-	Creates a Risk Provider object. A maximum of three Risk Provider objects can be created.
+		Creates a risk provider object. You can create a maximum of three risk provider objects.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateRiskProviderRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateRiskProviderRequest
+
+		Deprecated
 	*/
 	CreateRiskProvider(ctx context.Context) ApiCreateRiskProviderRequest
 
 	// CreateRiskProviderExecute executes the request
 	//  @return RiskProvider
+	// Deprecated
 	CreateRiskProviderExecute(r ApiCreateRiskProviderRequest) (*RiskProvider, *APIResponse, error)
 
 	/*
-	DeleteRiskProvider Delete a Risk Provider
+		DeleteRiskProvider Delete a risk provider
 
-	Deletes a Risk Provider object by its ID
+		Deletes a risk provider object by its ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param riskProviderId `id` of the Risk Provider object
-	@return ApiDeleteRiskProviderRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param riskProviderId `id` of the risk provider object
+		@return ApiDeleteRiskProviderRequest
+
+		Deprecated
 	*/
 	DeleteRiskProvider(ctx context.Context, riskProviderId string) ApiDeleteRiskProviderRequest
 
 	// DeleteRiskProviderExecute executes the request
+	// Deprecated
 	DeleteRiskProviderExecute(r ApiDeleteRiskProviderRequest) (*APIResponse, error)
 
 	/*
-	GetRiskProvider Retrieve a Risk Provider
+		GetRiskProvider Retrieve a risk provider
 
-	Retrieves a Risk Provider object by ID
+		Retrieves a risk provider object by ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param riskProviderId `id` of the Risk Provider object
-	@return ApiGetRiskProviderRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param riskProviderId `id` of the risk provider object
+		@return ApiGetRiskProviderRequest
+
+		Deprecated
 	*/
 	GetRiskProvider(ctx context.Context, riskProviderId string) ApiGetRiskProviderRequest
 
 	// GetRiskProviderExecute executes the request
 	//  @return RiskProvider
+	// Deprecated
 	GetRiskProviderExecute(r ApiGetRiskProviderRequest) (*RiskProvider, *APIResponse, error)
 
 	/*
-	ListRiskProviders List all Risk Providers
+		ListRiskProviders List all risk providers
 
-	Lists all Risk Provider objects
+		Lists all risk provider objects
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListRiskProvidersRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListRiskProvidersRequest
+
+		Deprecated
 	*/
 	ListRiskProviders(ctx context.Context) ApiListRiskProvidersRequest
 
 	// ListRiskProvidersExecute executes the request
 	//  @return []RiskProvider
+	// Deprecated
 	ListRiskProvidersExecute(r ApiListRiskProvidersRequest) ([]RiskProvider, *APIResponse, error)
 
 	/*
-	ReplaceRiskProvider Replace a Risk Provider
+		ReplaceRiskProvider Replace a risk provider
 
-	Replaces the properties for a given Risk Provider object ID
+		Replaces the properties for a given risk provider object ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param riskProviderId `id` of the Risk Provider object
-	@return ApiReplaceRiskProviderRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param riskProviderId `id` of the risk provider object
+		@return ApiReplaceRiskProviderRequest
+
+		Deprecated
 	*/
 	ReplaceRiskProvider(ctx context.Context, riskProviderId string) ApiReplaceRiskProviderRequest
 
 	// ReplaceRiskProviderExecute executes the request
 	//  @return RiskProvider
+	// Deprecated
 	ReplaceRiskProviderExecute(r ApiReplaceRiskProviderRequest) (*RiskProvider, *APIResponse, error)
 }
 
@@ -113,9 +127,9 @@ type RiskProviderAPI interface {
 type RiskProviderAPIService service
 
 type ApiCreateRiskProviderRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RiskProviderAPI
-	instance *RiskProvider
+	instance   *RiskProvider
 	retryCount int32
 }
 
@@ -129,23 +143,28 @@ func (r ApiCreateRiskProviderRequest) Execute() (*RiskProvider, *APIResponse, er
 }
 
 /*
-CreateRiskProvider Create a Risk Provider
+CreateRiskProvider Create a risk provider
 
-Creates a Risk Provider object. A maximum of three Risk Provider objects can be created.
+Creates a risk provider object. You can create a maximum of three risk provider objects.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateRiskProviderRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateRiskProviderRequest
+
+Deprecated
 */
 func (a *RiskProviderAPIService) CreateRiskProvider(ctx context.Context) ApiCreateRiskProviderRequest {
 	return ApiCreateRiskProviderRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return RiskProvider
+//
+//	@return RiskProvider
+//
+// Deprecated
 func (a *RiskProviderAPIService) CreateRiskProviderExecute(r ApiCreateRiskProviderRequest) (*RiskProvider, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -154,7 +173,7 @@ func (a *RiskProviderAPIService) CreateRiskProviderExecute(r ApiCreateRiskProvid
 		localVarReturnValue  *RiskProvider
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -219,9 +238,9 @@ func (a *RiskProviderAPIService) CreateRiskProviderExecute(r ApiCreateRiskProvid
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -279,16 +298,16 @@ func (a *RiskProviderAPIService) CreateRiskProviderExecute(r ApiCreateRiskProvid
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteRiskProviderRequest struct {
-	ctx context.Context
-	ApiService RiskProviderAPI
+	ctx            context.Context
+	ApiService     RiskProviderAPI
 	riskProviderId string
-	retryCount int32
+	retryCount     int32
 }
 
 func (r ApiDeleteRiskProviderRequest) Execute() (*APIResponse, error) {
@@ -296,24 +315,27 @@ func (r ApiDeleteRiskProviderRequest) Execute() (*APIResponse, error) {
 }
 
 /*
-DeleteRiskProvider Delete a Risk Provider
+DeleteRiskProvider Delete a risk provider
 
-Deletes a Risk Provider object by its ID
+Deletes a risk provider object by its ID
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param riskProviderId `id` of the Risk Provider object
- @return ApiDeleteRiskProviderRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param riskProviderId `id` of the risk provider object
+	@return ApiDeleteRiskProviderRequest
+
+Deprecated
 */
 func (a *RiskProviderAPIService) DeleteRiskProvider(ctx context.Context, riskProviderId string) ApiDeleteRiskProviderRequest {
 	return ApiDeleteRiskProviderRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:     a,
+		ctx:            ctx,
 		riskProviderId: riskProviderId,
-		retryCount: 0,
+		retryCount:     0,
 	}
 }
 
 // Execute executes the request
+// Deprecated
 func (a *RiskProviderAPIService) DeleteRiskProviderExecute(r ApiDeleteRiskProviderRequest) (*APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
@@ -321,7 +343,7 @@ func (a *RiskProviderAPIService) DeleteRiskProviderExecute(r ApiDeleteRiskProvid
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -382,9 +404,9 @@ func (a *RiskProviderAPIService) DeleteRiskProviderExecute(r ApiDeleteRiskProvid
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -438,10 +460,10 @@ func (a *RiskProviderAPIService) DeleteRiskProviderExecute(r ApiDeleteRiskProvid
 }
 
 type ApiGetRiskProviderRequest struct {
-	ctx context.Context
-	ApiService RiskProviderAPI
+	ctx            context.Context
+	ApiService     RiskProviderAPI
 	riskProviderId string
-	retryCount int32
+	retryCount     int32
 }
 
 func (r ApiGetRiskProviderRequest) Execute() (*RiskProvider, *APIResponse, error) {
@@ -449,25 +471,30 @@ func (r ApiGetRiskProviderRequest) Execute() (*RiskProvider, *APIResponse, error
 }
 
 /*
-GetRiskProvider Retrieve a Risk Provider
+GetRiskProvider Retrieve a risk provider
 
-Retrieves a Risk Provider object by ID
+Retrieves a risk provider object by ID
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param riskProviderId `id` of the Risk Provider object
- @return ApiGetRiskProviderRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param riskProviderId `id` of the risk provider object
+	@return ApiGetRiskProviderRequest
+
+Deprecated
 */
 func (a *RiskProviderAPIService) GetRiskProvider(ctx context.Context, riskProviderId string) ApiGetRiskProviderRequest {
 	return ApiGetRiskProviderRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:     a,
+		ctx:            ctx,
 		riskProviderId: riskProviderId,
-		retryCount: 0,
+		retryCount:     0,
 	}
 }
 
 // Execute executes the request
-//  @return RiskProvider
+//
+//	@return RiskProvider
+//
+// Deprecated
 func (a *RiskProviderAPIService) GetRiskProviderExecute(r ApiGetRiskProviderRequest) (*RiskProvider, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -476,7 +503,7 @@ func (a *RiskProviderAPIService) GetRiskProviderExecute(r ApiGetRiskProviderRequ
 		localVarReturnValue  *RiskProvider
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -537,9 +564,9 @@ func (a *RiskProviderAPIService) GetRiskProviderExecute(r ApiGetRiskProviderRequ
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -597,13 +624,13 @@ func (a *RiskProviderAPIService) GetRiskProviderExecute(r ApiGetRiskProviderRequ
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListRiskProvidersRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RiskProviderAPI
 	retryCount int32
 }
@@ -613,23 +640,28 @@ func (r ApiListRiskProvidersRequest) Execute() ([]RiskProvider, *APIResponse, er
 }
 
 /*
-ListRiskProviders List all Risk Providers
+ListRiskProviders List all risk providers
 
-Lists all Risk Provider objects
+Lists all risk provider objects
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListRiskProvidersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListRiskProvidersRequest
+
+Deprecated
 */
 func (a *RiskProviderAPIService) ListRiskProviders(ctx context.Context) ApiListRiskProvidersRequest {
 	return ApiListRiskProvidersRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []RiskProvider
+//
+//	@return []RiskProvider
+//
+// Deprecated
 func (a *RiskProviderAPIService) ListRiskProvidersExecute(r ApiListRiskProvidersRequest) ([]RiskProvider, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -638,7 +670,7 @@ func (a *RiskProviderAPIService) ListRiskProvidersExecute(r ApiListRiskProviders
 		localVarReturnValue  []RiskProvider
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -698,9 +730,9 @@ func (a *RiskProviderAPIService) ListRiskProvidersExecute(r ApiListRiskProviders
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -746,17 +778,17 @@ func (a *RiskProviderAPIService) ListRiskProvidersExecute(r ApiListRiskProviders
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceRiskProviderRequest struct {
-	ctx context.Context
-	ApiService RiskProviderAPI
+	ctx            context.Context
+	ApiService     RiskProviderAPI
 	riskProviderId string
-	instance *RiskProvider
-	retryCount int32
+	instance       *RiskProvider
+	retryCount     int32
 }
 
 func (r ApiReplaceRiskProviderRequest) Instance(instance RiskProvider) ApiReplaceRiskProviderRequest {
@@ -769,25 +801,30 @@ func (r ApiReplaceRiskProviderRequest) Execute() (*RiskProvider, *APIResponse, e
 }
 
 /*
-ReplaceRiskProvider Replace a Risk Provider
+ReplaceRiskProvider Replace a risk provider
 
-Replaces the properties for a given Risk Provider object ID
+Replaces the properties for a given risk provider object ID
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param riskProviderId `id` of the Risk Provider object
- @return ApiReplaceRiskProviderRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param riskProviderId `id` of the risk provider object
+	@return ApiReplaceRiskProviderRequest
+
+Deprecated
 */
 func (a *RiskProviderAPIService) ReplaceRiskProvider(ctx context.Context, riskProviderId string) ApiReplaceRiskProviderRequest {
 	return ApiReplaceRiskProviderRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:     a,
+		ctx:            ctx,
 		riskProviderId: riskProviderId,
-		retryCount: 0,
+		retryCount:     0,
 	}
 }
 
 // Execute executes the request
-//  @return RiskProvider
+//
+//	@return RiskProvider
+//
+// Deprecated
 func (a *RiskProviderAPIService) ReplaceRiskProviderExecute(r ApiReplaceRiskProviderRequest) (*RiskProvider, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -796,7 +833,7 @@ func (a *RiskProviderAPIService) ReplaceRiskProviderExecute(r ApiReplaceRiskProv
 		localVarReturnValue  *RiskProvider
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -862,9 +899,9 @@ func (a *RiskProviderAPIService) ReplaceRiskProviderExecute(r ApiReplaceRiskProv
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -934,7 +971,7 @@ func (a *RiskProviderAPIService) ReplaceRiskProviderExecute(r ApiReplaceRiskProv
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

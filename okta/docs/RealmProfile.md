@@ -4,8 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | Name of a Realm | 
-**RealmType** | Pointer to **string** | Used to store partner users. This must be set to Partner to access Okta&#39;s external partner portal. | [optional] 
+**Domains** | Pointer to **[]string** | Array of allowed domains. No user in this realm can be created or updated unless they have a username and email from one of these domains.  The following characters aren&#39;t allowed in the domain name: &#x60;!$%^&amp;()&#x3D;*+,:;&lt;&gt;&#39;[]|/?\\&#x60; | [optional] 
+**Name** | **string** | Name of a realm | 
+**RealmType** | Pointer to **string** | Used to store partner users. This property must be set to &#x60;PARTNER&#x60; to access Okta&#39;s external partner portal. | [optional] 
 
 ## Methods
 
@@ -25,6 +26,31 @@ will change when the set of required properties is changed
 NewRealmProfileWithDefaults instantiates a new RealmProfile object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetDomains
+
+`func (o *RealmProfile) GetDomains() []string`
+
+GetDomains returns the Domains field if non-nil, zero value otherwise.
+
+### GetDomainsOk
+
+`func (o *RealmProfile) GetDomainsOk() (*[]string, bool)`
+
+GetDomainsOk returns a tuple with the Domains field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDomains
+
+`func (o *RealmProfile) SetDomains(v []string)`
+
+SetDomains sets Domains field to given value.
+
+### HasDomains
+
+`func (o *RealmProfile) HasDomains() bool`
+
+HasDomains returns a boolean if a field has been set.
 
 ### GetName
 

@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to **time.Time** | Timestamp when the Realm was created | [optional] [readonly] 
-**Id** | Pointer to **string** | Unique key for the Realm | [optional] [readonly] 
-**IsDefault** | Pointer to **bool** | Conveys whether the Realm is the default | [optional] [readonly] 
-**LastUpdated** | Pointer to **time.Time** | Timestamp when the Realm was last updated | [optional] [readonly] 
+**Created** | Pointer to **time.Time** | Timestamp when the realm was created | [optional] [readonly] 
+**Id** | Pointer to **string** | Unique ID for the realm | [optional] [readonly] 
+**IsDefault** | Pointer to **bool** | Indicates the default realm. Existing users will start out in the default realm and can be moved to other realms individually or through realm assignments. See [Realms Assignments API](/openapi/okta-management/management/tag/RealmAssignment/). | [optional] [readonly] 
+**LastUpdated** | Pointer to **time.Time** | Timestamp when the realm was updated | [optional] [readonly] 
 **Profile** | Pointer to [**RealmProfile**](RealmProfile.md) |  | [optional] 
 **Links** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
 

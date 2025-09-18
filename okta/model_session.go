@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -28,26 +28,29 @@ import (
 	"time"
 )
 
+// checks if the Session type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Session{}
+
 // Session struct for Session
 type Session struct {
 	// Authentication method reference
-	Amr []string `json:"amr,omitempty"`
+	Amr       []string   `json:"amr,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	// A timestamp when the Session expires
 	ExpiresAt *time.Time `json:"expiresAt,omitempty"`
 	// A unique key for the Session
-	Id *string `json:"id,omitempty"`
+	Id  *string                  `json:"id,omitempty"`
 	Idp *SessionIdentityProvider `json:"idp,omitempty"`
 	// A timestamp when the user last performed multifactor authentication
 	LastFactorVerification *time.Time `json:"lastFactorVerification,omitempty"`
 	// A timestamp when the user last performed the primary or step-up authentication with a password
 	LastPasswordVerification *time.Time `json:"lastPasswordVerification,omitempty"`
 	// A unique identifier for the user (username)
-	Login *string `json:"login,omitempty"`
+	Login  *string `json:"login,omitempty"`
 	Status *string `json:"status,omitempty"`
 	// A unique key for the user
-	UserId *string `json:"userId,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	UserId               *string    `json:"userId,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -72,7 +75,7 @@ func NewSessionWithDefaults() *Session {
 
 // GetAmr returns the Amr field value if set, zero value otherwise.
 func (o *Session) GetAmr() []string {
-	if o == nil || o.Amr == nil {
+	if o == nil || IsNil(o.Amr) {
 		var ret []string
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *Session) GetAmr() []string {
 // GetAmrOk returns a tuple with the Amr field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Session) GetAmrOk() ([]string, bool) {
-	if o == nil || o.Amr == nil {
+	if o == nil || IsNil(o.Amr) {
 		return nil, false
 	}
 	return o.Amr, true
@@ -90,7 +93,7 @@ func (o *Session) GetAmrOk() ([]string, bool) {
 
 // HasAmr returns a boolean if a field has been set.
 func (o *Session) HasAmr() bool {
-	if o != nil && o.Amr != nil {
+	if o != nil && !IsNil(o.Amr) {
 		return true
 	}
 
@@ -104,7 +107,7 @@ func (o *Session) SetAmr(v []string) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *Session) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -114,7 +117,7 @@ func (o *Session) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Session) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -122,7 +125,7 @@ func (o *Session) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *Session) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -136,7 +139,7 @@ func (o *Session) SetCreatedAt(v time.Time) {
 
 // GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
 func (o *Session) GetExpiresAt() time.Time {
-	if o == nil || o.ExpiresAt == nil {
+	if o == nil || IsNil(o.ExpiresAt) {
 		var ret time.Time
 		return ret
 	}
@@ -146,7 +149,7 @@ func (o *Session) GetExpiresAt() time.Time {
 // GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Session) GetExpiresAtOk() (*time.Time, bool) {
-	if o == nil || o.ExpiresAt == nil {
+	if o == nil || IsNil(o.ExpiresAt) {
 		return nil, false
 	}
 	return o.ExpiresAt, true
@@ -154,7 +157,7 @@ func (o *Session) GetExpiresAtOk() (*time.Time, bool) {
 
 // HasExpiresAt returns a boolean if a field has been set.
 func (o *Session) HasExpiresAt() bool {
-	if o != nil && o.ExpiresAt != nil {
+	if o != nil && !IsNil(o.ExpiresAt) {
 		return true
 	}
 
@@ -168,7 +171,7 @@ func (o *Session) SetExpiresAt(v time.Time) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *Session) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -178,7 +181,7 @@ func (o *Session) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Session) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -186,7 +189,7 @@ func (o *Session) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *Session) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -200,7 +203,7 @@ func (o *Session) SetId(v string) {
 
 // GetIdp returns the Idp field value if set, zero value otherwise.
 func (o *Session) GetIdp() SessionIdentityProvider {
-	if o == nil || o.Idp == nil {
+	if o == nil || IsNil(o.Idp) {
 		var ret SessionIdentityProvider
 		return ret
 	}
@@ -210,7 +213,7 @@ func (o *Session) GetIdp() SessionIdentityProvider {
 // GetIdpOk returns a tuple with the Idp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Session) GetIdpOk() (*SessionIdentityProvider, bool) {
-	if o == nil || o.Idp == nil {
+	if o == nil || IsNil(o.Idp) {
 		return nil, false
 	}
 	return o.Idp, true
@@ -218,7 +221,7 @@ func (o *Session) GetIdpOk() (*SessionIdentityProvider, bool) {
 
 // HasIdp returns a boolean if a field has been set.
 func (o *Session) HasIdp() bool {
-	if o != nil && o.Idp != nil {
+	if o != nil && !IsNil(o.Idp) {
 		return true
 	}
 
@@ -232,7 +235,7 @@ func (o *Session) SetIdp(v SessionIdentityProvider) {
 
 // GetLastFactorVerification returns the LastFactorVerification field value if set, zero value otherwise.
 func (o *Session) GetLastFactorVerification() time.Time {
-	if o == nil || o.LastFactorVerification == nil {
+	if o == nil || IsNil(o.LastFactorVerification) {
 		var ret time.Time
 		return ret
 	}
@@ -242,7 +245,7 @@ func (o *Session) GetLastFactorVerification() time.Time {
 // GetLastFactorVerificationOk returns a tuple with the LastFactorVerification field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Session) GetLastFactorVerificationOk() (*time.Time, bool) {
-	if o == nil || o.LastFactorVerification == nil {
+	if o == nil || IsNil(o.LastFactorVerification) {
 		return nil, false
 	}
 	return o.LastFactorVerification, true
@@ -250,7 +253,7 @@ func (o *Session) GetLastFactorVerificationOk() (*time.Time, bool) {
 
 // HasLastFactorVerification returns a boolean if a field has been set.
 func (o *Session) HasLastFactorVerification() bool {
-	if o != nil && o.LastFactorVerification != nil {
+	if o != nil && !IsNil(o.LastFactorVerification) {
 		return true
 	}
 
@@ -264,7 +267,7 @@ func (o *Session) SetLastFactorVerification(v time.Time) {
 
 // GetLastPasswordVerification returns the LastPasswordVerification field value if set, zero value otherwise.
 func (o *Session) GetLastPasswordVerification() time.Time {
-	if o == nil || o.LastPasswordVerification == nil {
+	if o == nil || IsNil(o.LastPasswordVerification) {
 		var ret time.Time
 		return ret
 	}
@@ -274,7 +277,7 @@ func (o *Session) GetLastPasswordVerification() time.Time {
 // GetLastPasswordVerificationOk returns a tuple with the LastPasswordVerification field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Session) GetLastPasswordVerificationOk() (*time.Time, bool) {
-	if o == nil || o.LastPasswordVerification == nil {
+	if o == nil || IsNil(o.LastPasswordVerification) {
 		return nil, false
 	}
 	return o.LastPasswordVerification, true
@@ -282,7 +285,7 @@ func (o *Session) GetLastPasswordVerificationOk() (*time.Time, bool) {
 
 // HasLastPasswordVerification returns a boolean if a field has been set.
 func (o *Session) HasLastPasswordVerification() bool {
-	if o != nil && o.LastPasswordVerification != nil {
+	if o != nil && !IsNil(o.LastPasswordVerification) {
 		return true
 	}
 
@@ -296,7 +299,7 @@ func (o *Session) SetLastPasswordVerification(v time.Time) {
 
 // GetLogin returns the Login field value if set, zero value otherwise.
 func (o *Session) GetLogin() string {
-	if o == nil || o.Login == nil {
+	if o == nil || IsNil(o.Login) {
 		var ret string
 		return ret
 	}
@@ -306,7 +309,7 @@ func (o *Session) GetLogin() string {
 // GetLoginOk returns a tuple with the Login field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Session) GetLoginOk() (*string, bool) {
-	if o == nil || o.Login == nil {
+	if o == nil || IsNil(o.Login) {
 		return nil, false
 	}
 	return o.Login, true
@@ -314,7 +317,7 @@ func (o *Session) GetLoginOk() (*string, bool) {
 
 // HasLogin returns a boolean if a field has been set.
 func (o *Session) HasLogin() bool {
-	if o != nil && o.Login != nil {
+	if o != nil && !IsNil(o.Login) {
 		return true
 	}
 
@@ -328,7 +331,7 @@ func (o *Session) SetLogin(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *Session) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -338,7 +341,7 @@ func (o *Session) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Session) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -346,7 +349,7 @@ func (o *Session) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *Session) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -360,7 +363,7 @@ func (o *Session) SetStatus(v string) {
 
 // GetUserId returns the UserId field value if set, zero value otherwise.
 func (o *Session) GetUserId() string {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		var ret string
 		return ret
 	}
@@ -370,7 +373,7 @@ func (o *Session) GetUserId() string {
 // GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Session) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		return nil, false
 	}
 	return o.UserId, true
@@ -378,7 +381,7 @@ func (o *Session) GetUserIdOk() (*string, bool) {
 
 // HasUserId returns a boolean if a field has been set.
 func (o *Session) HasUserId() bool {
-	if o != nil && o.UserId != nil {
+	if o != nil && !IsNil(o.UserId) {
 		return true
 	}
 
@@ -392,7 +395,7 @@ func (o *Session) SetUserId(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *Session) GetLinks() LinksSelf {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksSelf
 		return ret
 	}
@@ -402,7 +405,7 @@ func (o *Session) GetLinks() LinksSelf {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Session) GetLinksOk() (*LinksSelf, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -410,7 +413,7 @@ func (o *Session) GetLinksOk() (*LinksSelf, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *Session) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -423,38 +426,46 @@ func (o *Session) SetLinks(v LinksSelf) {
 }
 
 func (o Session) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Session) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Amr != nil {
+	if !IsNil(o.Amr) {
 		toSerialize["amr"] = o.Amr
 	}
-	if o.CreatedAt != nil {
+	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
 	}
-	if o.ExpiresAt != nil {
+	if !IsNil(o.ExpiresAt) {
 		toSerialize["expiresAt"] = o.ExpiresAt
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Idp != nil {
+	if !IsNil(o.Idp) {
 		toSerialize["idp"] = o.Idp
 	}
-	if o.LastFactorVerification != nil {
+	if !IsNil(o.LastFactorVerification) {
 		toSerialize["lastFactorVerification"] = o.LastFactorVerification
 	}
-	if o.LastPasswordVerification != nil {
+	if !IsNil(o.LastPasswordVerification) {
 		toSerialize["lastPasswordVerification"] = o.LastPasswordVerification
 	}
-	if o.Login != nil {
+	if !IsNil(o.Login) {
 		toSerialize["login"] = o.Login
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.UserId != nil {
+	if !IsNil(o.UserId) {
 		toSerialize["userId"] = o.UserId
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -462,23 +473,23 @@ func (o Session) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Session) UnmarshalJSON(bytes []byte) (err error) {
+func (o *Session) UnmarshalJSON(data []byte) (err error) {
 	varSession := _Session{}
 
-	err = json.Unmarshal(bytes, &varSession)
-	if err == nil {
-		*o = Session(varSession)
-	} else {
+	err = json.Unmarshal(data, &varSession)
+
+	if err != nil {
 		return err
 	}
 
+	*o = Session(varSession)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "amr")
 		delete(additionalProperties, "createdAt")
 		delete(additionalProperties, "expiresAt")
@@ -491,8 +502,6 @@ func (o *Session) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "userId")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -533,4 +542,3 @@ func (v *NullableSession) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

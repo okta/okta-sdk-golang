@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AssignmentType** | Pointer to **string** |  | [optional] 
+**AssignmentType** | Pointer to **string** | Role assignment type | [optional] 
 **Created** | Pointer to **time.Time** |  | [optional] [readonly] 
 **Description** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] [readonly] 

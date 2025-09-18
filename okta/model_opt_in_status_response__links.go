@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the OptInStatusResponseLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OptInStatusResponseLinks{}
+
 // OptInStatusResponseLinks struct for OptInStatusResponseLinks
 type OptInStatusResponseLinks struct {
-	OptInStatus *HrefObject `json:"optInStatus,omitempty"`
+	OptInStatus          *HrefObject `json:"optInStatus,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewOptInStatusResponseLinksWithDefaults() *OptInStatusResponseLinks {
 
 // GetOptInStatus returns the OptInStatus field value if set, zero value otherwise.
 func (o *OptInStatusResponseLinks) GetOptInStatus() HrefObject {
-	if o == nil || o.OptInStatus == nil {
+	if o == nil || IsNil(o.OptInStatus) {
 		var ret HrefObject
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *OptInStatusResponseLinks) GetOptInStatus() HrefObject {
 // GetOptInStatusOk returns a tuple with the OptInStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OptInStatusResponseLinks) GetOptInStatusOk() (*HrefObject, bool) {
-	if o == nil || o.OptInStatus == nil {
+	if o == nil || IsNil(o.OptInStatus) {
 		return nil, false
 	}
 	return o.OptInStatus, true
@@ -72,7 +75,7 @@ func (o *OptInStatusResponseLinks) GetOptInStatusOk() (*HrefObject, bool) {
 
 // HasOptInStatus returns a boolean if a field has been set.
 func (o *OptInStatusResponseLinks) HasOptInStatus() bool {
-	if o != nil && o.OptInStatus != nil {
+	if o != nil && !IsNil(o.OptInStatus) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *OptInStatusResponseLinks) SetOptInStatus(v HrefObject) {
 }
 
 func (o OptInStatusResponseLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OptInStatusResponseLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.OptInStatus != nil {
+	if !IsNil(o.OptInStatus) {
 		toSerialize["optInStatus"] = o.OptInStatus
 	}
 
@@ -94,27 +105,25 @@ func (o OptInStatusResponseLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OptInStatusResponseLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OptInStatusResponseLinks) UnmarshalJSON(data []byte) (err error) {
 	varOptInStatusResponseLinks := _OptInStatusResponseLinks{}
 
-	err = json.Unmarshal(bytes, &varOptInStatusResponseLinks)
-	if err == nil {
-		*o = OptInStatusResponseLinks(varOptInStatusResponseLinks)
-	} else {
+	err = json.Unmarshal(data, &varOptInStatusResponseLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OptInStatusResponseLinks(varOptInStatusResponseLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "optInStatus")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableOptInStatusResponseLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

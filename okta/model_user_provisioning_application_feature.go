@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -29,10 +29,13 @@ import (
 	"strings"
 )
 
+// checks if the UserProvisioningApplicationFeature type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserProvisioningApplicationFeature{}
+
 // UserProvisioningApplicationFeature struct for UserProvisioningApplicationFeature
 type UserProvisioningApplicationFeature struct {
 	ApplicationFeature
-	Capabilities *CapabilitiesObject `json:"capabilities,omitempty"`
+	Capabilities         *CapabilitiesObject `json:"capabilities,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewUserProvisioningApplicationFeatureWithDefaults() *UserProvisioningApplic
 
 // GetCapabilities returns the Capabilities field value if set, zero value otherwise.
 func (o *UserProvisioningApplicationFeature) GetCapabilities() CapabilitiesObject {
-	if o == nil || o.Capabilities == nil {
+	if o == nil || IsNil(o.Capabilities) {
 		var ret CapabilitiesObject
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *UserProvisioningApplicationFeature) GetCapabilities() CapabilitiesObjec
 // GetCapabilitiesOk returns a tuple with the Capabilities field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserProvisioningApplicationFeature) GetCapabilitiesOk() (*CapabilitiesObject, bool) {
-	if o == nil || o.Capabilities == nil {
+	if o == nil || IsNil(o.Capabilities) {
 		return nil, false
 	}
 	return o.Capabilities, true
@@ -75,7 +78,7 @@ func (o *UserProvisioningApplicationFeature) GetCapabilitiesOk() (*CapabilitiesO
 
 // HasCapabilities returns a boolean if a field has been set.
 func (o *UserProvisioningApplicationFeature) HasCapabilities() bool {
-	if o != nil && o.Capabilities != nil {
+	if o != nil && !IsNil(o.Capabilities) {
 		return true
 	}
 
@@ -88,16 +91,24 @@ func (o *UserProvisioningApplicationFeature) SetCapabilities(v CapabilitiesObjec
 }
 
 func (o UserProvisioningApplicationFeature) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserProvisioningApplicationFeature) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedApplicationFeature, errApplicationFeature := json.Marshal(o.ApplicationFeature)
 	if errApplicationFeature != nil {
-		return []byte{}, errApplicationFeature
+		return map[string]interface{}{}, errApplicationFeature
 	}
 	errApplicationFeature = json.Unmarshal([]byte(serializedApplicationFeature), &toSerialize)
 	if errApplicationFeature != nil {
-		return []byte{}, errApplicationFeature
+		return map[string]interface{}{}, errApplicationFeature
 	}
-	if o.Capabilities != nil {
+	if !IsNil(o.Capabilities) {
 		toSerialize["capabilities"] = o.Capabilities
 	}
 
@@ -105,17 +116,17 @@ func (o UserProvisioningApplicationFeature) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserProvisioningApplicationFeature) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserProvisioningApplicationFeature) UnmarshalJSON(data []byte) (err error) {
 	type UserProvisioningApplicationFeatureWithoutEmbeddedStruct struct {
 		Capabilities *CapabilitiesObject `json:"capabilities,omitempty"`
 	}
 
 	varUserProvisioningApplicationFeatureWithoutEmbeddedStruct := UserProvisioningApplicationFeatureWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varUserProvisioningApplicationFeatureWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varUserProvisioningApplicationFeatureWithoutEmbeddedStruct)
 	if err == nil {
 		varUserProvisioningApplicationFeature := _UserProvisioningApplicationFeature{}
 		varUserProvisioningApplicationFeature.Capabilities = varUserProvisioningApplicationFeatureWithoutEmbeddedStruct.Capabilities
@@ -126,7 +137,7 @@ func (o *UserProvisioningApplicationFeature) UnmarshalJSON(bytes []byte) (err er
 
 	varUserProvisioningApplicationFeature := _UserProvisioningApplicationFeature{}
 
-	err = json.Unmarshal(bytes, &varUserProvisioningApplicationFeature)
+	err = json.Unmarshal(data, &varUserProvisioningApplicationFeature)
 	if err == nil {
 		o.ApplicationFeature = varUserProvisioningApplicationFeature.ApplicationFeature
 	} else {
@@ -135,8 +146,7 @@ func (o *UserProvisioningApplicationFeature) UnmarshalJSON(bytes []byte) (err er
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "capabilities")
 
 		// remove fields from embedded structs
@@ -158,8 +168,6 @@ func (o *UserProvisioningApplicationFeature) UnmarshalJSON(bytes []byte) (err er
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -200,4 +208,3 @@ func (v *NullableUserProvisioningApplicationFeature) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -28,23 +28,34 @@ import (
 	"time"
 )
 
+// checks if the Agent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Agent{}
+
 // Agent Agent details
 type Agent struct {
+	// Unique identifier for the agent that's generated during installation
 	Id *string `json:"id,omitempty"`
+	// Determines if an agent is hidden from the Admin Console
 	IsHidden *bool `json:"isHidden,omitempty"`
+	// Determines if the agent is on the latest generally available version
 	IsLatestGAedVersion *bool `json:"isLatestGAedVersion,omitempty"`
+	// Timestamp when the agent last connected to Okta
 	LastConnection *time.Time `json:"lastConnection,omitempty"`
+	// Agent name
 	Name *string `json:"name,omitempty"`
 	// Operational status of a given agent
 	OperationalStatus *string `json:"operationalStatus,omitempty"`
+	// Pool ID
 	PoolId *string `json:"poolId,omitempty"`
 	// Agent types that are being monitored
 	Type *string `json:"type,omitempty"`
+	// Status message of the agent
 	UpdateMessage *string `json:"updateMessage,omitempty"`
 	// Status for one agent regarding the status to auto-update that agent
 	UpdateStatus *string `json:"updateStatus,omitempty"`
-	Version *string `json:"version,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	// Agent version number
+	Version              *string    `json:"version,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -69,7 +80,7 @@ func NewAgentWithDefaults() *Agent {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *Agent) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -79,7 +90,7 @@ func (o *Agent) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Agent) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -87,7 +98,7 @@ func (o *Agent) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *Agent) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -101,7 +112,7 @@ func (o *Agent) SetId(v string) {
 
 // GetIsHidden returns the IsHidden field value if set, zero value otherwise.
 func (o *Agent) GetIsHidden() bool {
-	if o == nil || o.IsHidden == nil {
+	if o == nil || IsNil(o.IsHidden) {
 		var ret bool
 		return ret
 	}
@@ -111,7 +122,7 @@ func (o *Agent) GetIsHidden() bool {
 // GetIsHiddenOk returns a tuple with the IsHidden field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Agent) GetIsHiddenOk() (*bool, bool) {
-	if o == nil || o.IsHidden == nil {
+	if o == nil || IsNil(o.IsHidden) {
 		return nil, false
 	}
 	return o.IsHidden, true
@@ -119,7 +130,7 @@ func (o *Agent) GetIsHiddenOk() (*bool, bool) {
 
 // HasIsHidden returns a boolean if a field has been set.
 func (o *Agent) HasIsHidden() bool {
-	if o != nil && o.IsHidden != nil {
+	if o != nil && !IsNil(o.IsHidden) {
 		return true
 	}
 
@@ -133,7 +144,7 @@ func (o *Agent) SetIsHidden(v bool) {
 
 // GetIsLatestGAedVersion returns the IsLatestGAedVersion field value if set, zero value otherwise.
 func (o *Agent) GetIsLatestGAedVersion() bool {
-	if o == nil || o.IsLatestGAedVersion == nil {
+	if o == nil || IsNil(o.IsLatestGAedVersion) {
 		var ret bool
 		return ret
 	}
@@ -143,7 +154,7 @@ func (o *Agent) GetIsLatestGAedVersion() bool {
 // GetIsLatestGAedVersionOk returns a tuple with the IsLatestGAedVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Agent) GetIsLatestGAedVersionOk() (*bool, bool) {
-	if o == nil || o.IsLatestGAedVersion == nil {
+	if o == nil || IsNil(o.IsLatestGAedVersion) {
 		return nil, false
 	}
 	return o.IsLatestGAedVersion, true
@@ -151,7 +162,7 @@ func (o *Agent) GetIsLatestGAedVersionOk() (*bool, bool) {
 
 // HasIsLatestGAedVersion returns a boolean if a field has been set.
 func (o *Agent) HasIsLatestGAedVersion() bool {
-	if o != nil && o.IsLatestGAedVersion != nil {
+	if o != nil && !IsNil(o.IsLatestGAedVersion) {
 		return true
 	}
 
@@ -165,7 +176,7 @@ func (o *Agent) SetIsLatestGAedVersion(v bool) {
 
 // GetLastConnection returns the LastConnection field value if set, zero value otherwise.
 func (o *Agent) GetLastConnection() time.Time {
-	if o == nil || o.LastConnection == nil {
+	if o == nil || IsNil(o.LastConnection) {
 		var ret time.Time
 		return ret
 	}
@@ -175,7 +186,7 @@ func (o *Agent) GetLastConnection() time.Time {
 // GetLastConnectionOk returns a tuple with the LastConnection field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Agent) GetLastConnectionOk() (*time.Time, bool) {
-	if o == nil || o.LastConnection == nil {
+	if o == nil || IsNil(o.LastConnection) {
 		return nil, false
 	}
 	return o.LastConnection, true
@@ -183,7 +194,7 @@ func (o *Agent) GetLastConnectionOk() (*time.Time, bool) {
 
 // HasLastConnection returns a boolean if a field has been set.
 func (o *Agent) HasLastConnection() bool {
-	if o != nil && o.LastConnection != nil {
+	if o != nil && !IsNil(o.LastConnection) {
 		return true
 	}
 
@@ -197,7 +208,7 @@ func (o *Agent) SetLastConnection(v time.Time) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *Agent) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -207,7 +218,7 @@ func (o *Agent) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Agent) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -215,7 +226,7 @@ func (o *Agent) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *Agent) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -229,7 +240,7 @@ func (o *Agent) SetName(v string) {
 
 // GetOperationalStatus returns the OperationalStatus field value if set, zero value otherwise.
 func (o *Agent) GetOperationalStatus() string {
-	if o == nil || o.OperationalStatus == nil {
+	if o == nil || IsNil(o.OperationalStatus) {
 		var ret string
 		return ret
 	}
@@ -239,7 +250,7 @@ func (o *Agent) GetOperationalStatus() string {
 // GetOperationalStatusOk returns a tuple with the OperationalStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Agent) GetOperationalStatusOk() (*string, bool) {
-	if o == nil || o.OperationalStatus == nil {
+	if o == nil || IsNil(o.OperationalStatus) {
 		return nil, false
 	}
 	return o.OperationalStatus, true
@@ -247,7 +258,7 @@ func (o *Agent) GetOperationalStatusOk() (*string, bool) {
 
 // HasOperationalStatus returns a boolean if a field has been set.
 func (o *Agent) HasOperationalStatus() bool {
-	if o != nil && o.OperationalStatus != nil {
+	if o != nil && !IsNil(o.OperationalStatus) {
 		return true
 	}
 
@@ -261,7 +272,7 @@ func (o *Agent) SetOperationalStatus(v string) {
 
 // GetPoolId returns the PoolId field value if set, zero value otherwise.
 func (o *Agent) GetPoolId() string {
-	if o == nil || o.PoolId == nil {
+	if o == nil || IsNil(o.PoolId) {
 		var ret string
 		return ret
 	}
@@ -271,7 +282,7 @@ func (o *Agent) GetPoolId() string {
 // GetPoolIdOk returns a tuple with the PoolId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Agent) GetPoolIdOk() (*string, bool) {
-	if o == nil || o.PoolId == nil {
+	if o == nil || IsNil(o.PoolId) {
 		return nil, false
 	}
 	return o.PoolId, true
@@ -279,7 +290,7 @@ func (o *Agent) GetPoolIdOk() (*string, bool) {
 
 // HasPoolId returns a boolean if a field has been set.
 func (o *Agent) HasPoolId() bool {
-	if o != nil && o.PoolId != nil {
+	if o != nil && !IsNil(o.PoolId) {
 		return true
 	}
 
@@ -293,7 +304,7 @@ func (o *Agent) SetPoolId(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *Agent) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -303,7 +314,7 @@ func (o *Agent) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Agent) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -311,7 +322,7 @@ func (o *Agent) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *Agent) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -325,7 +336,7 @@ func (o *Agent) SetType(v string) {
 
 // GetUpdateMessage returns the UpdateMessage field value if set, zero value otherwise.
 func (o *Agent) GetUpdateMessage() string {
-	if o == nil || o.UpdateMessage == nil {
+	if o == nil || IsNil(o.UpdateMessage) {
 		var ret string
 		return ret
 	}
@@ -335,7 +346,7 @@ func (o *Agent) GetUpdateMessage() string {
 // GetUpdateMessageOk returns a tuple with the UpdateMessage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Agent) GetUpdateMessageOk() (*string, bool) {
-	if o == nil || o.UpdateMessage == nil {
+	if o == nil || IsNil(o.UpdateMessage) {
 		return nil, false
 	}
 	return o.UpdateMessage, true
@@ -343,7 +354,7 @@ func (o *Agent) GetUpdateMessageOk() (*string, bool) {
 
 // HasUpdateMessage returns a boolean if a field has been set.
 func (o *Agent) HasUpdateMessage() bool {
-	if o != nil && o.UpdateMessage != nil {
+	if o != nil && !IsNil(o.UpdateMessage) {
 		return true
 	}
 
@@ -357,7 +368,7 @@ func (o *Agent) SetUpdateMessage(v string) {
 
 // GetUpdateStatus returns the UpdateStatus field value if set, zero value otherwise.
 func (o *Agent) GetUpdateStatus() string {
-	if o == nil || o.UpdateStatus == nil {
+	if o == nil || IsNil(o.UpdateStatus) {
 		var ret string
 		return ret
 	}
@@ -367,7 +378,7 @@ func (o *Agent) GetUpdateStatus() string {
 // GetUpdateStatusOk returns a tuple with the UpdateStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Agent) GetUpdateStatusOk() (*string, bool) {
-	if o == nil || o.UpdateStatus == nil {
+	if o == nil || IsNil(o.UpdateStatus) {
 		return nil, false
 	}
 	return o.UpdateStatus, true
@@ -375,7 +386,7 @@ func (o *Agent) GetUpdateStatusOk() (*string, bool) {
 
 // HasUpdateStatus returns a boolean if a field has been set.
 func (o *Agent) HasUpdateStatus() bool {
-	if o != nil && o.UpdateStatus != nil {
+	if o != nil && !IsNil(o.UpdateStatus) {
 		return true
 	}
 
@@ -389,7 +400,7 @@ func (o *Agent) SetUpdateStatus(v string) {
 
 // GetVersion returns the Version field value if set, zero value otherwise.
 func (o *Agent) GetVersion() string {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		var ret string
 		return ret
 	}
@@ -399,7 +410,7 @@ func (o *Agent) GetVersion() string {
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Agent) GetVersionOk() (*string, bool) {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
 	return o.Version, true
@@ -407,7 +418,7 @@ func (o *Agent) GetVersionOk() (*string, bool) {
 
 // HasVersion returns a boolean if a field has been set.
 func (o *Agent) HasVersion() bool {
-	if o != nil && o.Version != nil {
+	if o != nil && !IsNil(o.Version) {
 		return true
 	}
 
@@ -421,7 +432,7 @@ func (o *Agent) SetVersion(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *Agent) GetLinks() LinksSelf {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksSelf
 		return ret
 	}
@@ -431,7 +442,7 @@ func (o *Agent) GetLinks() LinksSelf {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Agent) GetLinksOk() (*LinksSelf, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -439,7 +450,7 @@ func (o *Agent) GetLinksOk() (*LinksSelf, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *Agent) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -452,41 +463,49 @@ func (o *Agent) SetLinks(v LinksSelf) {
 }
 
 func (o Agent) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Agent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.IsHidden != nil {
+	if !IsNil(o.IsHidden) {
 		toSerialize["isHidden"] = o.IsHidden
 	}
-	if o.IsLatestGAedVersion != nil {
+	if !IsNil(o.IsLatestGAedVersion) {
 		toSerialize["isLatestGAedVersion"] = o.IsLatestGAedVersion
 	}
-	if o.LastConnection != nil {
+	if !IsNil(o.LastConnection) {
 		toSerialize["lastConnection"] = o.LastConnection
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.OperationalStatus != nil {
+	if !IsNil(o.OperationalStatus) {
 		toSerialize["operationalStatus"] = o.OperationalStatus
 	}
-	if o.PoolId != nil {
+	if !IsNil(o.PoolId) {
 		toSerialize["poolId"] = o.PoolId
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.UpdateMessage != nil {
+	if !IsNil(o.UpdateMessage) {
 		toSerialize["updateMessage"] = o.UpdateMessage
 	}
-	if o.UpdateStatus != nil {
+	if !IsNil(o.UpdateStatus) {
 		toSerialize["updateStatus"] = o.UpdateStatus
 	}
-	if o.Version != nil {
+	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -494,23 +513,23 @@ func (o Agent) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Agent) UnmarshalJSON(bytes []byte) (err error) {
+func (o *Agent) UnmarshalJSON(data []byte) (err error) {
 	varAgent := _Agent{}
 
-	err = json.Unmarshal(bytes, &varAgent)
-	if err == nil {
-		*o = Agent(varAgent)
-	} else {
+	err = json.Unmarshal(data, &varAgent)
+
+	if err != nil {
 		return err
 	}
 
+	*o = Agent(varAgent)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "isHidden")
 		delete(additionalProperties, "isLatestGAedVersion")
@@ -524,8 +543,6 @@ func (o *Agent) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "version")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -566,4 +583,3 @@ func (v *NullableAgent) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

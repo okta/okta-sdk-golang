@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ExpireWarnDays** | Pointer to **int32** |  | [optional] 
-**HistoryCount** | Pointer to **int32** |  | [optional] 
-**MaxAgeDays** | Pointer to **int32** |  | [optional] 
-**MinAgeMinutes** | Pointer to **int32** |  | [optional] 
+**ExpireWarnDays** | Pointer to **int32** | Specifies the number of days prior to password expiration when a User is warned to reset their password: &#x60;0&#x60; indicates no warning | [optional] [default to 0]
+**HistoryCount** | Pointer to **int32** | Specifies the number of distinct passwords that a User must create before they can reuse a previous password: &#x60;0&#x60; indicates none | [optional] [default to 0]
+**MaxAgeDays** | Pointer to **int32** | Specifies how long (in days) a password remains valid before it expires: &#x60;0&#x60; indicates no limit | [optional] [default to 0]
+**MinAgeMinutes** | Pointer to **int32** | Specifies the minimum time interval (in minutes) between password changes: &#x60;0&#x60; indicates no limit | [optional] [default to 0]
 
 ## Methods
 

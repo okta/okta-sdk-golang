@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserFactorSMSProfile type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserFactorSMSProfile{}
+
 // UserFactorSMSProfile struct for UserFactorSMSProfile
 type UserFactorSMSProfile struct {
-	// Phone number of the Factor. You should format phone numbers to use the [E.164 standard](https://www.itu.int/rec/T-REC-E.164/).
-	PhoneNumber *string `json:"phoneNumber,omitempty"`
+	// Phone number of the factor. You should format phone numbers to use the [E.164 standard](https://www.itu.int/rec/T-REC-E.164/).
+	PhoneNumber          *string `json:"phoneNumber,omitempty" validate:"regexp=^\\\\+[1-9]\\\\d{1,14}$"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewUserFactorSMSProfileWithDefaults() *UserFactorSMSProfile {
 
 // GetPhoneNumber returns the PhoneNumber field value if set, zero value otherwise.
 func (o *UserFactorSMSProfile) GetPhoneNumber() string {
-	if o == nil || o.PhoneNumber == nil {
+	if o == nil || IsNil(o.PhoneNumber) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *UserFactorSMSProfile) GetPhoneNumber() string {
 // GetPhoneNumberOk returns a tuple with the PhoneNumber field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorSMSProfile) GetPhoneNumberOk() (*string, bool) {
-	if o == nil || o.PhoneNumber == nil {
+	if o == nil || IsNil(o.PhoneNumber) {
 		return nil, false
 	}
 	return o.PhoneNumber, true
@@ -73,7 +76,7 @@ func (o *UserFactorSMSProfile) GetPhoneNumberOk() (*string, bool) {
 
 // HasPhoneNumber returns a boolean if a field has been set.
 func (o *UserFactorSMSProfile) HasPhoneNumber() bool {
-	if o != nil && o.PhoneNumber != nil {
+	if o != nil && !IsNil(o.PhoneNumber) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *UserFactorSMSProfile) SetPhoneNumber(v string) {
 }
 
 func (o UserFactorSMSProfile) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserFactorSMSProfile) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.PhoneNumber != nil {
+	if !IsNil(o.PhoneNumber) {
 		toSerialize["phoneNumber"] = o.PhoneNumber
 	}
 
@@ -95,27 +106,25 @@ func (o UserFactorSMSProfile) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserFactorSMSProfile) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserFactorSMSProfile) UnmarshalJSON(data []byte) (err error) {
 	varUserFactorSMSProfile := _UserFactorSMSProfile{}
 
-	err = json.Unmarshal(bytes, &varUserFactorSMSProfile)
-	if err == nil {
-		*o = UserFactorSMSProfile(varUserFactorSMSProfile)
-	} else {
+	err = json.Unmarshal(data, &varUserFactorSMSProfile)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserFactorSMSProfile(varUserFactorSMSProfile)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "phoneNumber")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableUserFactorSMSProfile) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

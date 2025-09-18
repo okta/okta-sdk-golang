@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the PolicyLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PolicyLinks{}
+
 // PolicyLinks struct for PolicyLinks
 type PolicyLinks struct {
-	Activate *HrefObjectActivateLink `json:"activate,omitempty"`
-	Deactivate *HrefObjectDeactivateLink `json:"deactivate,omitempty"`
-	Mappings *HrefObjectMappingsLink `json:"mappings,omitempty"`
-	Rules *HrefObjectRulesLink `json:"rules,omitempty"`
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
+	Activate             *HrefObjectActivateLink   `json:"activate,omitempty"`
+	Deactivate           *HrefObjectDeactivateLink `json:"deactivate,omitempty"`
+	Mappings             *HrefObjectMappingsLink   `json:"mappings,omitempty"`
+	Rules                *HrefObjectRulesLink      `json:"rules,omitempty"`
+	Self                 *HrefObjectSelfLink       `json:"self,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewPolicyLinksWithDefaults() *PolicyLinks {
 
 // GetActivate returns the Activate field value if set, zero value otherwise.
 func (o *PolicyLinks) GetActivate() HrefObjectActivateLink {
-	if o == nil || o.Activate == nil {
+	if o == nil || IsNil(o.Activate) {
 		var ret HrefObjectActivateLink
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *PolicyLinks) GetActivate() HrefObjectActivateLink {
 // GetActivateOk returns a tuple with the Activate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyLinks) GetActivateOk() (*HrefObjectActivateLink, bool) {
-	if o == nil || o.Activate == nil {
+	if o == nil || IsNil(o.Activate) {
 		return nil, false
 	}
 	return o.Activate, true
@@ -76,7 +79,7 @@ func (o *PolicyLinks) GetActivateOk() (*HrefObjectActivateLink, bool) {
 
 // HasActivate returns a boolean if a field has been set.
 func (o *PolicyLinks) HasActivate() bool {
-	if o != nil && o.Activate != nil {
+	if o != nil && !IsNil(o.Activate) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *PolicyLinks) SetActivate(v HrefObjectActivateLink) {
 
 // GetDeactivate returns the Deactivate field value if set, zero value otherwise.
 func (o *PolicyLinks) GetDeactivate() HrefObjectDeactivateLink {
-	if o == nil || o.Deactivate == nil {
+	if o == nil || IsNil(o.Deactivate) {
 		var ret HrefObjectDeactivateLink
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *PolicyLinks) GetDeactivate() HrefObjectDeactivateLink {
 // GetDeactivateOk returns a tuple with the Deactivate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyLinks) GetDeactivateOk() (*HrefObjectDeactivateLink, bool) {
-	if o == nil || o.Deactivate == nil {
+	if o == nil || IsNil(o.Deactivate) {
 		return nil, false
 	}
 	return o.Deactivate, true
@@ -108,7 +111,7 @@ func (o *PolicyLinks) GetDeactivateOk() (*HrefObjectDeactivateLink, bool) {
 
 // HasDeactivate returns a boolean if a field has been set.
 func (o *PolicyLinks) HasDeactivate() bool {
-	if o != nil && o.Deactivate != nil {
+	if o != nil && !IsNil(o.Deactivate) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *PolicyLinks) SetDeactivate(v HrefObjectDeactivateLink) {
 
 // GetMappings returns the Mappings field value if set, zero value otherwise.
 func (o *PolicyLinks) GetMappings() HrefObjectMappingsLink {
-	if o == nil || o.Mappings == nil {
+	if o == nil || IsNil(o.Mappings) {
 		var ret HrefObjectMappingsLink
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *PolicyLinks) GetMappings() HrefObjectMappingsLink {
 // GetMappingsOk returns a tuple with the Mappings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyLinks) GetMappingsOk() (*HrefObjectMappingsLink, bool) {
-	if o == nil || o.Mappings == nil {
+	if o == nil || IsNil(o.Mappings) {
 		return nil, false
 	}
 	return o.Mappings, true
@@ -140,7 +143,7 @@ func (o *PolicyLinks) GetMappingsOk() (*HrefObjectMappingsLink, bool) {
 
 // HasMappings returns a boolean if a field has been set.
 func (o *PolicyLinks) HasMappings() bool {
-	if o != nil && o.Mappings != nil {
+	if o != nil && !IsNil(o.Mappings) {
 		return true
 	}
 
@@ -154,7 +157,7 @@ func (o *PolicyLinks) SetMappings(v HrefObjectMappingsLink) {
 
 // GetRules returns the Rules field value if set, zero value otherwise.
 func (o *PolicyLinks) GetRules() HrefObjectRulesLink {
-	if o == nil || o.Rules == nil {
+	if o == nil || IsNil(o.Rules) {
 		var ret HrefObjectRulesLink
 		return ret
 	}
@@ -164,7 +167,7 @@ func (o *PolicyLinks) GetRules() HrefObjectRulesLink {
 // GetRulesOk returns a tuple with the Rules field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyLinks) GetRulesOk() (*HrefObjectRulesLink, bool) {
-	if o == nil || o.Rules == nil {
+	if o == nil || IsNil(o.Rules) {
 		return nil, false
 	}
 	return o.Rules, true
@@ -172,7 +175,7 @@ func (o *PolicyLinks) GetRulesOk() (*HrefObjectRulesLink, bool) {
 
 // HasRules returns a boolean if a field has been set.
 func (o *PolicyLinks) HasRules() bool {
-	if o != nil && o.Rules != nil {
+	if o != nil && !IsNil(o.Rules) {
 		return true
 	}
 
@@ -186,7 +189,7 @@ func (o *PolicyLinks) SetRules(v HrefObjectRulesLink) {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *PolicyLinks) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -196,7 +199,7 @@ func (o *PolicyLinks) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -204,7 +207,7 @@ func (o *PolicyLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *PolicyLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -217,20 +220,28 @@ func (o *PolicyLinks) SetSelf(v HrefObjectSelfLink) {
 }
 
 func (o PolicyLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PolicyLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Activate != nil {
+	if !IsNil(o.Activate) {
 		toSerialize["activate"] = o.Activate
 	}
-	if o.Deactivate != nil {
+	if !IsNil(o.Deactivate) {
 		toSerialize["deactivate"] = o.Deactivate
 	}
-	if o.Mappings != nil {
+	if !IsNil(o.Mappings) {
 		toSerialize["mappings"] = o.Mappings
 	}
-	if o.Rules != nil {
+	if !IsNil(o.Rules) {
 		toSerialize["rules"] = o.Rules
 	}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
 
@@ -238,31 +249,29 @@ func (o PolicyLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PolicyLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PolicyLinks) UnmarshalJSON(data []byte) (err error) {
 	varPolicyLinks := _PolicyLinks{}
 
-	err = json.Unmarshal(bytes, &varPolicyLinks)
-	if err == nil {
-		*o = PolicyLinks(varPolicyLinks)
-	} else {
+	err = json.Unmarshal(data, &varPolicyLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PolicyLinks(varPolicyLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "activate")
 		delete(additionalProperties, "deactivate")
 		delete(additionalProperties, "mappings")
 		delete(additionalProperties, "rules")
 		delete(additionalProperties, "self")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -303,4 +312,3 @@ func (v *NullablePolicyLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

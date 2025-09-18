@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Access** | Pointer to **string** |  | [optional] 
+**KeepMeSignedIn** | Pointer to [**KeepMeSignedIn**](KeepMeSignedIn.md) |  | [optional] 
 **VerificationMethod** | Pointer to [**VerificationMethod**](VerificationMethod.md) |  | [optional] 
 
 ## Methods
@@ -50,6 +51,31 @@ SetAccess sets Access field to given value.
 `func (o *AccessPolicyRuleApplicationSignOn) HasAccess() bool`
 
 HasAccess returns a boolean if a field has been set.
+
+### GetKeepMeSignedIn
+
+`func (o *AccessPolicyRuleApplicationSignOn) GetKeepMeSignedIn() KeepMeSignedIn`
+
+GetKeepMeSignedIn returns the KeepMeSignedIn field if non-nil, zero value otherwise.
+
+### GetKeepMeSignedInOk
+
+`func (o *AccessPolicyRuleApplicationSignOn) GetKeepMeSignedInOk() (*KeepMeSignedIn, bool)`
+
+GetKeepMeSignedInOk returns a tuple with the KeepMeSignedIn field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKeepMeSignedIn
+
+`func (o *AccessPolicyRuleApplicationSignOn) SetKeepMeSignedIn(v KeepMeSignedIn)`
+
+SetKeepMeSignedIn sets KeepMeSignedIn field to given value.
+
+### HasKeepMeSignedIn
+
+`func (o *AccessPolicyRuleApplicationSignOn) HasKeepMeSignedIn() bool`
+
+HasKeepMeSignedIn returns a boolean if a field has been set.
 
 ### GetVerificationMethod
 

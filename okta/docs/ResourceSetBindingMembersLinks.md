@@ -4,8 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Next** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
-**Binding** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**Self** | Pointer to [**HrefObjectSelfLink**](HrefObjectSelfLink.md) |  | [optional] 
+**Next** | Pointer to [**HrefObject**](HrefObject.md) | Link to the next list of binding members for the specified role and resource set | [optional] 
+**Binding** | Pointer to [**HrefObjectBindingLink**](HrefObjectBindingLink.md) |  | [optional] 
 
 ## Methods
 
@@ -25,6 +26,31 @@ will change when the set of required properties is changed
 NewResourceSetBindingMembersLinksWithDefaults instantiates a new ResourceSetBindingMembersLinks object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetSelf
+
+`func (o *ResourceSetBindingMembersLinks) GetSelf() HrefObjectSelfLink`
+
+GetSelf returns the Self field if non-nil, zero value otherwise.
+
+### GetSelfOk
+
+`func (o *ResourceSetBindingMembersLinks) GetSelfOk() (*HrefObjectSelfLink, bool)`
+
+GetSelfOk returns a tuple with the Self field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSelf
+
+`func (o *ResourceSetBindingMembersLinks) SetSelf(v HrefObjectSelfLink)`
+
+SetSelf sets Self field to given value.
+
+### HasSelf
+
+`func (o *ResourceSetBindingMembersLinks) HasSelf() bool`
+
+HasSelf returns a boolean if a field has been set.
 
 ### GetNext
 
@@ -53,20 +79,20 @@ HasNext returns a boolean if a field has been set.
 
 ### GetBinding
 
-`func (o *ResourceSetBindingMembersLinks) GetBinding() HrefObject`
+`func (o *ResourceSetBindingMembersLinks) GetBinding() HrefObjectBindingLink`
 
 GetBinding returns the Binding field if non-nil, zero value otherwise.
 
 ### GetBindingOk
 
-`func (o *ResourceSetBindingMembersLinks) GetBindingOk() (*HrefObject, bool)`
+`func (o *ResourceSetBindingMembersLinks) GetBindingOk() (*HrefObjectBindingLink, bool)`
 
 GetBindingOk returns a tuple with the Binding field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBinding
 
-`func (o *ResourceSetBindingMembersLinks) SetBinding(v HrefObject)`
+`func (o *ResourceSetBindingMembersLinks) SetBinding(v HrefObjectBindingLink)`
 
 SetBinding sets Binding field to given value.
 

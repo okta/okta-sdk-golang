@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,24 +25,28 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the RiskProvider type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RiskProvider{}
 
 // RiskProvider struct for RiskProvider
 type RiskProvider struct {
 	// Action taken by Okta during authentication attempts based on the risk events sent by this provider
 	Action string `json:"action"`
-	// The ID of the [OAuth service app](https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/main/#create-a-service-app-and-grant-scopes) that is used to send risk events to Okta
+	// The ID of the [OAuth 2.0 service app](https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/main/#create-a-service-app-and-grant-scopes) that's used to send risk events to Okta
 	ClientId string `json:"clientId"`
-	// Timestamp when the Risk Provider object was created
+	// Timestamp when the risk provider object was created
 	Created *time.Time `json:"created,omitempty"`
-	// The ID of the Risk Provider object
+	// The ID of the risk provider object
 	Id string `json:"id"`
-	// Timestamp when the Risk Provider object was last updated
+	// Timestamp when the risk provider object was last updated
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	// Name of the risk provider
-	Name string `json:"name"`
-	Links LinksSelf `json:"_links"`
+	Name                 string    `json:"name"`
+	Links                LinksSelf `json:"_links"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -122,7 +126,7 @@ func (o *RiskProvider) SetClientId(v string) {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *RiskProvider) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -132,7 +136,7 @@ func (o *RiskProvider) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskProvider) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -140,7 +144,7 @@ func (o *RiskProvider) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *RiskProvider) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -178,7 +182,7 @@ func (o *RiskProvider) SetId(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *RiskProvider) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -188,7 +192,7 @@ func (o *RiskProvider) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskProvider) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -196,7 +200,7 @@ func (o *RiskProvider) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *RiskProvider) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -257,50 +261,73 @@ func (o *RiskProvider) SetLinks(v LinksSelf) {
 }
 
 func (o RiskProvider) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RiskProvider) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["action"] = o.Action
-	}
-	if true {
-		toSerialize["clientId"] = o.ClientId
-	}
-	if o.Created != nil {
+	toSerialize["action"] = o.Action
+	toSerialize["clientId"] = o.ClientId
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if o.LastUpdated != nil {
+	toSerialize["id"] = o.Id
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["_links"] = o.Links
-	}
+	toSerialize["name"] = o.Name
+	toSerialize["_links"] = o.Links
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RiskProvider) UnmarshalJSON(bytes []byte) (err error) {
-	varRiskProvider := _RiskProvider{}
+func (o *RiskProvider) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"action",
+		"clientId",
+		"id",
+		"name",
+		"_links",
+	}
 
-	err = json.Unmarshal(bytes, &varRiskProvider)
-	if err == nil {
-		*o = RiskProvider(varRiskProvider)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRiskProvider := _RiskProvider{}
+
+	err = json.Unmarshal(data, &varRiskProvider)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RiskProvider(varRiskProvider)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "action")
 		delete(additionalProperties, "clientId")
 		delete(additionalProperties, "created")
@@ -309,8 +336,6 @@ func (o *RiskProvider) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -351,4 +376,3 @@ func (v *NullableRiskProvider) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

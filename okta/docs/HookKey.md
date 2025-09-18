@@ -4,13 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to **time.Time** | Timestamp when the key was created. | [optional] [readonly] 
-**Id** | Pointer to **string** | The unique identifier for the key. | [optional] [readonly] 
-**IsUsed** | Pointer to **bool** | Whether this key is currently in use by other hooks. | [optional] 
-**KeyId** | Pointer to **string** | The alias of the public key. | [optional] [readonly] 
-**LastUpdated** | Pointer to **time.Time** | Timestamp when the key was updated. | [optional] [readonly] 
-**Name** | Pointer to **string** | Display name of the key. | [optional] 
-**Embedded** | Pointer to [**JsonWebKey**](JsonWebKey.md) |  | [optional] 
+**Created** | Pointer to **NullableTime** | Timestamp when the key was created | [optional] [readonly] 
+**Id** | Pointer to **string** | The unique identifier for the key | [optional] [readonly] 
+**IsUsed** | Pointer to **bool** | Whether this key is currently in use by other applications | [optional] [readonly] 
+**KeyId** | Pointer to **string** | The alias of the public key | [optional] [readonly] 
+**LastUpdated** | Pointer to **NullableTime** | Timestamp when the key was updated | [optional] [readonly] 
+**Name** | Pointer to **string** | Display name of the key | [optional] 
 
 ## Methods
 
@@ -56,6 +55,16 @@ SetCreated sets Created field to given value.
 
 HasCreated returns a boolean if a field has been set.
 
+### SetCreatedNil
+
+`func (o *HookKey) SetCreatedNil(b bool)`
+
+ SetCreatedNil sets the value for Created to be an explicit nil
+
+### UnsetCreated
+`func (o *HookKey) UnsetCreated()`
+
+UnsetCreated ensures that no value is present for Created, not even an explicit nil
 ### GetId
 
 `func (o *HookKey) GetId() string`
@@ -156,6 +165,16 @@ SetLastUpdated sets LastUpdated field to given value.
 
 HasLastUpdated returns a boolean if a field has been set.
 
+### SetLastUpdatedNil
+
+`func (o *HookKey) SetLastUpdatedNil(b bool)`
+
+ SetLastUpdatedNil sets the value for LastUpdated to be an explicit nil
+
+### UnsetLastUpdated
+`func (o *HookKey) UnsetLastUpdated()`
+
+UnsetLastUpdated ensures that no value is present for LastUpdated, not even an explicit nil
 ### GetName
 
 `func (o *HookKey) GetName() string`
@@ -180,31 +199,6 @@ SetName sets Name field to given value.
 `func (o *HookKey) HasName() bool`
 
 HasName returns a boolean if a field has been set.
-
-### GetEmbedded
-
-`func (o *HookKey) GetEmbedded() JsonWebKey`
-
-GetEmbedded returns the Embedded field if non-nil, zero value otherwise.
-
-### GetEmbeddedOk
-
-`func (o *HookKey) GetEmbeddedOk() (*JsonWebKey, bool)`
-
-GetEmbeddedOk returns a tuple with the Embedded field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEmbedded
-
-`func (o *HookKey) SetEmbedded(v JsonWebKey)`
-
-SetEmbedded sets Embedded field to given value.
-
-### HasEmbedded
-
-`func (o *HookKey) HasEmbedded() bool`
-
-HasEmbedded returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

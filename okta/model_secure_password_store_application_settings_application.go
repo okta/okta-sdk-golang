@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,19 +25,32 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the SecurePasswordStoreApplicationSettingsApplication type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SecurePasswordStoreApplicationSettingsApplication{}
 
 // SecurePasswordStoreApplicationSettingsApplication struct for SecurePasswordStoreApplicationSettingsApplication
 type SecurePasswordStoreApplicationSettingsApplication struct {
+	// Name of the optional parameter in the sign-in form
 	OptionalField1 *string `json:"optionalField1,omitempty"`
+	// Name of the optional value in the sign-in form
 	OptionalField1Value *string `json:"optionalField1Value,omitempty"`
+	// Name of the optional parameter in the sign-in form
 	OptionalField2 *string `json:"optionalField2,omitempty"`
+	// Name of the optional value in the sign-in form
 	OptionalField2Value *string `json:"optionalField2Value,omitempty"`
+	// Name of the optional parameter in the sign-in form
 	OptionalField3 *string `json:"optionalField3,omitempty"`
+	// Name of the optional value in the sign-in form
 	OptionalField3Value *string `json:"optionalField3Value,omitempty"`
-	PasswordField *string `json:"passwordField,omitempty"`
-	Url *string `json:"url,omitempty"`
-	UsernameField *string `json:"usernameField,omitempty"`
+	// CSS selector for the **Password** field in the sign-in form
+	PasswordField string `json:"passwordField"`
+	// The URL of the sign-in page for this app
+	Url string `json:"url"`
+	// CSS selector for the **Username** field in the sign-in form
+	UsernameField        string `json:"usernameField"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -47,8 +60,11 @@ type _SecurePasswordStoreApplicationSettingsApplication SecurePasswordStoreAppli
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSecurePasswordStoreApplicationSettingsApplication() *SecurePasswordStoreApplicationSettingsApplication {
+func NewSecurePasswordStoreApplicationSettingsApplication(passwordField string, url string, usernameField string) *SecurePasswordStoreApplicationSettingsApplication {
 	this := SecurePasswordStoreApplicationSettingsApplication{}
+	this.PasswordField = passwordField
+	this.Url = url
+	this.UsernameField = usernameField
 	return &this
 }
 
@@ -62,7 +78,7 @@ func NewSecurePasswordStoreApplicationSettingsApplicationWithDefaults() *SecureP
 
 // GetOptionalField1 returns the OptionalField1 field value if set, zero value otherwise.
 func (o *SecurePasswordStoreApplicationSettingsApplication) GetOptionalField1() string {
-	if o == nil || o.OptionalField1 == nil {
+	if o == nil || IsNil(o.OptionalField1) {
 		var ret string
 		return ret
 	}
@@ -72,7 +88,7 @@ func (o *SecurePasswordStoreApplicationSettingsApplication) GetOptionalField1() 
 // GetOptionalField1Ok returns a tuple with the OptionalField1 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurePasswordStoreApplicationSettingsApplication) GetOptionalField1Ok() (*string, bool) {
-	if o == nil || o.OptionalField1 == nil {
+	if o == nil || IsNil(o.OptionalField1) {
 		return nil, false
 	}
 	return o.OptionalField1, true
@@ -80,7 +96,7 @@ func (o *SecurePasswordStoreApplicationSettingsApplication) GetOptionalField1Ok(
 
 // HasOptionalField1 returns a boolean if a field has been set.
 func (o *SecurePasswordStoreApplicationSettingsApplication) HasOptionalField1() bool {
-	if o != nil && o.OptionalField1 != nil {
+	if o != nil && !IsNil(o.OptionalField1) {
 		return true
 	}
 
@@ -94,7 +110,7 @@ func (o *SecurePasswordStoreApplicationSettingsApplication) SetOptionalField1(v 
 
 // GetOptionalField1Value returns the OptionalField1Value field value if set, zero value otherwise.
 func (o *SecurePasswordStoreApplicationSettingsApplication) GetOptionalField1Value() string {
-	if o == nil || o.OptionalField1Value == nil {
+	if o == nil || IsNil(o.OptionalField1Value) {
 		var ret string
 		return ret
 	}
@@ -104,7 +120,7 @@ func (o *SecurePasswordStoreApplicationSettingsApplication) GetOptionalField1Val
 // GetOptionalField1ValueOk returns a tuple with the OptionalField1Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurePasswordStoreApplicationSettingsApplication) GetOptionalField1ValueOk() (*string, bool) {
-	if o == nil || o.OptionalField1Value == nil {
+	if o == nil || IsNil(o.OptionalField1Value) {
 		return nil, false
 	}
 	return o.OptionalField1Value, true
@@ -112,7 +128,7 @@ func (o *SecurePasswordStoreApplicationSettingsApplication) GetOptionalField1Val
 
 // HasOptionalField1Value returns a boolean if a field has been set.
 func (o *SecurePasswordStoreApplicationSettingsApplication) HasOptionalField1Value() bool {
-	if o != nil && o.OptionalField1Value != nil {
+	if o != nil && !IsNil(o.OptionalField1Value) {
 		return true
 	}
 
@@ -126,7 +142,7 @@ func (o *SecurePasswordStoreApplicationSettingsApplication) SetOptionalField1Val
 
 // GetOptionalField2 returns the OptionalField2 field value if set, zero value otherwise.
 func (o *SecurePasswordStoreApplicationSettingsApplication) GetOptionalField2() string {
-	if o == nil || o.OptionalField2 == nil {
+	if o == nil || IsNil(o.OptionalField2) {
 		var ret string
 		return ret
 	}
@@ -136,7 +152,7 @@ func (o *SecurePasswordStoreApplicationSettingsApplication) GetOptionalField2() 
 // GetOptionalField2Ok returns a tuple with the OptionalField2 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurePasswordStoreApplicationSettingsApplication) GetOptionalField2Ok() (*string, bool) {
-	if o == nil || o.OptionalField2 == nil {
+	if o == nil || IsNil(o.OptionalField2) {
 		return nil, false
 	}
 	return o.OptionalField2, true
@@ -144,7 +160,7 @@ func (o *SecurePasswordStoreApplicationSettingsApplication) GetOptionalField2Ok(
 
 // HasOptionalField2 returns a boolean if a field has been set.
 func (o *SecurePasswordStoreApplicationSettingsApplication) HasOptionalField2() bool {
-	if o != nil && o.OptionalField2 != nil {
+	if o != nil && !IsNil(o.OptionalField2) {
 		return true
 	}
 
@@ -158,7 +174,7 @@ func (o *SecurePasswordStoreApplicationSettingsApplication) SetOptionalField2(v 
 
 // GetOptionalField2Value returns the OptionalField2Value field value if set, zero value otherwise.
 func (o *SecurePasswordStoreApplicationSettingsApplication) GetOptionalField2Value() string {
-	if o == nil || o.OptionalField2Value == nil {
+	if o == nil || IsNil(o.OptionalField2Value) {
 		var ret string
 		return ret
 	}
@@ -168,7 +184,7 @@ func (o *SecurePasswordStoreApplicationSettingsApplication) GetOptionalField2Val
 // GetOptionalField2ValueOk returns a tuple with the OptionalField2Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurePasswordStoreApplicationSettingsApplication) GetOptionalField2ValueOk() (*string, bool) {
-	if o == nil || o.OptionalField2Value == nil {
+	if o == nil || IsNil(o.OptionalField2Value) {
 		return nil, false
 	}
 	return o.OptionalField2Value, true
@@ -176,7 +192,7 @@ func (o *SecurePasswordStoreApplicationSettingsApplication) GetOptionalField2Val
 
 // HasOptionalField2Value returns a boolean if a field has been set.
 func (o *SecurePasswordStoreApplicationSettingsApplication) HasOptionalField2Value() bool {
-	if o != nil && o.OptionalField2Value != nil {
+	if o != nil && !IsNil(o.OptionalField2Value) {
 		return true
 	}
 
@@ -190,7 +206,7 @@ func (o *SecurePasswordStoreApplicationSettingsApplication) SetOptionalField2Val
 
 // GetOptionalField3 returns the OptionalField3 field value if set, zero value otherwise.
 func (o *SecurePasswordStoreApplicationSettingsApplication) GetOptionalField3() string {
-	if o == nil || o.OptionalField3 == nil {
+	if o == nil || IsNil(o.OptionalField3) {
 		var ret string
 		return ret
 	}
@@ -200,7 +216,7 @@ func (o *SecurePasswordStoreApplicationSettingsApplication) GetOptionalField3() 
 // GetOptionalField3Ok returns a tuple with the OptionalField3 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurePasswordStoreApplicationSettingsApplication) GetOptionalField3Ok() (*string, bool) {
-	if o == nil || o.OptionalField3 == nil {
+	if o == nil || IsNil(o.OptionalField3) {
 		return nil, false
 	}
 	return o.OptionalField3, true
@@ -208,7 +224,7 @@ func (o *SecurePasswordStoreApplicationSettingsApplication) GetOptionalField3Ok(
 
 // HasOptionalField3 returns a boolean if a field has been set.
 func (o *SecurePasswordStoreApplicationSettingsApplication) HasOptionalField3() bool {
-	if o != nil && o.OptionalField3 != nil {
+	if o != nil && !IsNil(o.OptionalField3) {
 		return true
 	}
 
@@ -222,7 +238,7 @@ func (o *SecurePasswordStoreApplicationSettingsApplication) SetOptionalField3(v 
 
 // GetOptionalField3Value returns the OptionalField3Value field value if set, zero value otherwise.
 func (o *SecurePasswordStoreApplicationSettingsApplication) GetOptionalField3Value() string {
-	if o == nil || o.OptionalField3Value == nil {
+	if o == nil || IsNil(o.OptionalField3Value) {
 		var ret string
 		return ret
 	}
@@ -232,7 +248,7 @@ func (o *SecurePasswordStoreApplicationSettingsApplication) GetOptionalField3Val
 // GetOptionalField3ValueOk returns a tuple with the OptionalField3Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurePasswordStoreApplicationSettingsApplication) GetOptionalField3ValueOk() (*string, bool) {
-	if o == nil || o.OptionalField3Value == nil {
+	if o == nil || IsNil(o.OptionalField3Value) {
 		return nil, false
 	}
 	return o.OptionalField3Value, true
@@ -240,7 +256,7 @@ func (o *SecurePasswordStoreApplicationSettingsApplication) GetOptionalField3Val
 
 // HasOptionalField3Value returns a boolean if a field has been set.
 func (o *SecurePasswordStoreApplicationSettingsApplication) HasOptionalField3Value() bool {
-	if o != nil && o.OptionalField3Value != nil {
+	if o != nil && !IsNil(o.OptionalField3Value) {
 		return true
 	}
 
@@ -252,153 +268,154 @@ func (o *SecurePasswordStoreApplicationSettingsApplication) SetOptionalField3Val
 	o.OptionalField3Value = &v
 }
 
-// GetPasswordField returns the PasswordField field value if set, zero value otherwise.
+// GetPasswordField returns the PasswordField field value
 func (o *SecurePasswordStoreApplicationSettingsApplication) GetPasswordField() string {
-	if o == nil || o.PasswordField == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.PasswordField
+
+	return o.PasswordField
 }
 
-// GetPasswordFieldOk returns a tuple with the PasswordField field value if set, nil otherwise
+// GetPasswordFieldOk returns a tuple with the PasswordField field value
 // and a boolean to check if the value has been set.
 func (o *SecurePasswordStoreApplicationSettingsApplication) GetPasswordFieldOk() (*string, bool) {
-	if o == nil || o.PasswordField == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.PasswordField, true
+	return &o.PasswordField, true
 }
 
-// HasPasswordField returns a boolean if a field has been set.
-func (o *SecurePasswordStoreApplicationSettingsApplication) HasPasswordField() bool {
-	if o != nil && o.PasswordField != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetPasswordField gets a reference to the given string and assigns it to the PasswordField field.
+// SetPasswordField sets field value
 func (o *SecurePasswordStoreApplicationSettingsApplication) SetPasswordField(v string) {
-	o.PasswordField = &v
+	o.PasswordField = v
 }
 
-// GetUrl returns the Url field value if set, zero value otherwise.
+// GetUrl returns the Url field value
 func (o *SecurePasswordStoreApplicationSettingsApplication) GetUrl() string {
-	if o == nil || o.Url == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Url
+
+	return o.Url
 }
 
-// GetUrlOk returns a tuple with the Url field value if set, nil otherwise
+// GetUrlOk returns a tuple with the Url field value
 // and a boolean to check if the value has been set.
 func (o *SecurePasswordStoreApplicationSettingsApplication) GetUrlOk() (*string, bool) {
-	if o == nil || o.Url == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.Url, true
+	return &o.Url, true
 }
 
-// HasUrl returns a boolean if a field has been set.
-func (o *SecurePasswordStoreApplicationSettingsApplication) HasUrl() bool {
-	if o != nil && o.Url != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetUrl gets a reference to the given string and assigns it to the Url field.
+// SetUrl sets field value
 func (o *SecurePasswordStoreApplicationSettingsApplication) SetUrl(v string) {
-	o.Url = &v
+	o.Url = v
 }
 
-// GetUsernameField returns the UsernameField field value if set, zero value otherwise.
+// GetUsernameField returns the UsernameField field value
 func (o *SecurePasswordStoreApplicationSettingsApplication) GetUsernameField() string {
-	if o == nil || o.UsernameField == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.UsernameField
+
+	return o.UsernameField
 }
 
-// GetUsernameFieldOk returns a tuple with the UsernameField field value if set, nil otherwise
+// GetUsernameFieldOk returns a tuple with the UsernameField field value
 // and a boolean to check if the value has been set.
 func (o *SecurePasswordStoreApplicationSettingsApplication) GetUsernameFieldOk() (*string, bool) {
-	if o == nil || o.UsernameField == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.UsernameField, true
+	return &o.UsernameField, true
 }
 
-// HasUsernameField returns a boolean if a field has been set.
-func (o *SecurePasswordStoreApplicationSettingsApplication) HasUsernameField() bool {
-	if o != nil && o.UsernameField != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetUsernameField gets a reference to the given string and assigns it to the UsernameField field.
+// SetUsernameField sets field value
 func (o *SecurePasswordStoreApplicationSettingsApplication) SetUsernameField(v string) {
-	o.UsernameField = &v
+	o.UsernameField = v
 }
 
 func (o SecurePasswordStoreApplicationSettingsApplication) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SecurePasswordStoreApplicationSettingsApplication) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.OptionalField1 != nil {
+	if !IsNil(o.OptionalField1) {
 		toSerialize["optionalField1"] = o.OptionalField1
 	}
-	if o.OptionalField1Value != nil {
+	if !IsNil(o.OptionalField1Value) {
 		toSerialize["optionalField1Value"] = o.OptionalField1Value
 	}
-	if o.OptionalField2 != nil {
+	if !IsNil(o.OptionalField2) {
 		toSerialize["optionalField2"] = o.OptionalField2
 	}
-	if o.OptionalField2Value != nil {
+	if !IsNil(o.OptionalField2Value) {
 		toSerialize["optionalField2Value"] = o.OptionalField2Value
 	}
-	if o.OptionalField3 != nil {
+	if !IsNil(o.OptionalField3) {
 		toSerialize["optionalField3"] = o.OptionalField3
 	}
-	if o.OptionalField3Value != nil {
+	if !IsNil(o.OptionalField3Value) {
 		toSerialize["optionalField3Value"] = o.OptionalField3Value
 	}
-	if o.PasswordField != nil {
-		toSerialize["passwordField"] = o.PasswordField
-	}
-	if o.Url != nil {
-		toSerialize["url"] = o.Url
-	}
-	if o.UsernameField != nil {
-		toSerialize["usernameField"] = o.UsernameField
-	}
+	toSerialize["passwordField"] = o.PasswordField
+	toSerialize["url"] = o.Url
+	toSerialize["usernameField"] = o.UsernameField
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SecurePasswordStoreApplicationSettingsApplication) UnmarshalJSON(bytes []byte) (err error) {
-	varSecurePasswordStoreApplicationSettingsApplication := _SecurePasswordStoreApplicationSettingsApplication{}
+func (o *SecurePasswordStoreApplicationSettingsApplication) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"passwordField",
+		"url",
+		"usernameField",
+	}
 
-	err = json.Unmarshal(bytes, &varSecurePasswordStoreApplicationSettingsApplication)
-	if err == nil {
-		*o = SecurePasswordStoreApplicationSettingsApplication(varSecurePasswordStoreApplicationSettingsApplication)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSecurePasswordStoreApplicationSettingsApplication := _SecurePasswordStoreApplicationSettingsApplication{}
+
+	err = json.Unmarshal(data, &varSecurePasswordStoreApplicationSettingsApplication)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SecurePasswordStoreApplicationSettingsApplication(varSecurePasswordStoreApplicationSettingsApplication)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "optionalField1")
 		delete(additionalProperties, "optionalField1Value")
 		delete(additionalProperties, "optionalField2")
@@ -409,8 +426,6 @@ func (o *SecurePasswordStoreApplicationSettingsApplication) UnmarshalJSON(bytes 
 		delete(additionalProperties, "url")
 		delete(additionalProperties, "usernameField")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -451,4 +466,3 @@ func (v *NullableSecurePasswordStoreApplicationSettingsApplication) UnmarshalJSO
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

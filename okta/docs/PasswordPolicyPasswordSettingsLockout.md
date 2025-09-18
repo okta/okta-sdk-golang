@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AutoUnlockMinutes** | Pointer to **int32** |  | [optional] 
-**MaxAttempts** | Pointer to **int32** |  | [optional] 
-**ShowLockoutFailures** | Pointer to **bool** |  | [optional] 
-**UserLockoutNotificationChannels** | Pointer to **[]string** |  | [optional] 
+**AutoUnlockMinutes** | Pointer to **int32** | Specifies the time interval (in minutes) a locked account remains locked before it is automatically unlocked: &#x60;0&#x60; indicates no limit | [optional] [default to 0]
+**MaxAttempts** | Pointer to **int32** | Specifies the number of times Users can attempt to sign in to their accounts with an invalid password before their accounts are locked: &#x60;0&#x60; indicates no limit | [optional] [default to 10]
+**ShowLockoutFailures** | Pointer to **bool** | Indicates if the User should be informed when their account is locked | [optional] [default to false]
+**UserLockoutNotificationChannels** | Pointer to **[]string** | How the user is notified when their account becomes locked. The only acceptable values are &#x60;[]&#x60; and &#x60;[&#39;EMAIL&#39;]&#x60;. | [optional] [default to []]
 
 ## Methods
 

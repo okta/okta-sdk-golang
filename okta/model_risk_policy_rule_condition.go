@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the RiskPolicyRuleCondition type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RiskPolicyRuleCondition{}
+
 // RiskPolicyRuleCondition struct for RiskPolicyRuleCondition
 type RiskPolicyRuleCondition struct {
-	Behaviors []string `json:"behaviors,omitempty"`
+	Behaviors            []string `json:"behaviors,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewRiskPolicyRuleConditionWithDefaults() *RiskPolicyRuleCondition {
 
 // GetBehaviors returns the Behaviors field value if set, zero value otherwise.
 func (o *RiskPolicyRuleCondition) GetBehaviors() []string {
-	if o == nil || o.Behaviors == nil {
+	if o == nil || IsNil(o.Behaviors) {
 		var ret []string
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *RiskPolicyRuleCondition) GetBehaviors() []string {
 // GetBehaviorsOk returns a tuple with the Behaviors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskPolicyRuleCondition) GetBehaviorsOk() ([]string, bool) {
-	if o == nil || o.Behaviors == nil {
+	if o == nil || IsNil(o.Behaviors) {
 		return nil, false
 	}
 	return o.Behaviors, true
@@ -72,7 +75,7 @@ func (o *RiskPolicyRuleCondition) GetBehaviorsOk() ([]string, bool) {
 
 // HasBehaviors returns a boolean if a field has been set.
 func (o *RiskPolicyRuleCondition) HasBehaviors() bool {
-	if o != nil && o.Behaviors != nil {
+	if o != nil && !IsNil(o.Behaviors) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *RiskPolicyRuleCondition) SetBehaviors(v []string) {
 }
 
 func (o RiskPolicyRuleCondition) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RiskPolicyRuleCondition) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Behaviors != nil {
+	if !IsNil(o.Behaviors) {
 		toSerialize["behaviors"] = o.Behaviors
 	}
 
@@ -94,27 +105,25 @@ func (o RiskPolicyRuleCondition) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RiskPolicyRuleCondition) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RiskPolicyRuleCondition) UnmarshalJSON(data []byte) (err error) {
 	varRiskPolicyRuleCondition := _RiskPolicyRuleCondition{}
 
-	err = json.Unmarshal(bytes, &varRiskPolicyRuleCondition)
-	if err == nil {
-		*o = RiskPolicyRuleCondition(varRiskPolicyRuleCondition)
-	} else {
+	err = json.Unmarshal(data, &varRiskPolicyRuleCondition)
+
+	if err != nil {
 		return err
 	}
 
+	*o = RiskPolicyRuleCondition(varRiskPolicyRuleCondition)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "behaviors")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableRiskPolicyRuleCondition) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

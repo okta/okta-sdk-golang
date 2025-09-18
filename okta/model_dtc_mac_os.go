@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -26,6 +26,9 @@ package okta
 import (
 	"encoding/json"
 )
+
+// checks if the DTCMacOS type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DTCMacOS{}
 
 // DTCMacOS Google Chrome Device Trust Connector provider
 type DTCMacOS struct {
@@ -41,8 +44,8 @@ type DTCMacOS struct {
 	// Represents the attestation strength used by the Chrome Verified Access API
 	KeyTrustLevel *string `json:"keyTrustLevel,omitempty"`
 	// Indicates whether a firewall is enabled at the OS-level on the device
-	OsFirewall *bool `json:"osFirewall,omitempty"`
-	OsVersion *OSVersionThreeComponents `json:"osVersion,omitempty"`
+	OsFirewall *bool                     `json:"osFirewall,omitempty"`
+	OsVersion  *OSVersionThreeComponents `json:"osVersion,omitempty"`
 	// Indicates whether the Password Protection Warning feature is enabled
 	PasswordProtectionWarningTrigger *string `json:"passwordProtectionWarningTrigger,omitempty"`
 	// Indicates whether enterprise-grade (custom) unsafe URL scanning is enabled
@@ -77,7 +80,7 @@ func NewDTCMacOSWithDefaults() *DTCMacOS {
 
 // GetBrowserVersion returns the BrowserVersion field value if set, zero value otherwise.
 func (o *DTCMacOS) GetBrowserVersion() ChromeBrowserVersion {
-	if o == nil || o.BrowserVersion == nil {
+	if o == nil || IsNil(o.BrowserVersion) {
 		var ret ChromeBrowserVersion
 		return ret
 	}
@@ -87,7 +90,7 @@ func (o *DTCMacOS) GetBrowserVersion() ChromeBrowserVersion {
 // GetBrowserVersionOk returns a tuple with the BrowserVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCMacOS) GetBrowserVersionOk() (*ChromeBrowserVersion, bool) {
-	if o == nil || o.BrowserVersion == nil {
+	if o == nil || IsNil(o.BrowserVersion) {
 		return nil, false
 	}
 	return o.BrowserVersion, true
@@ -95,7 +98,7 @@ func (o *DTCMacOS) GetBrowserVersionOk() (*ChromeBrowserVersion, bool) {
 
 // HasBrowserVersion returns a boolean if a field has been set.
 func (o *DTCMacOS) HasBrowserVersion() bool {
-	if o != nil && o.BrowserVersion != nil {
+	if o != nil && !IsNil(o.BrowserVersion) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *DTCMacOS) SetBrowserVersion(v ChromeBrowserVersion) {
 
 // GetBuiltInDnsClientEnabled returns the BuiltInDnsClientEnabled field value if set, zero value otherwise.
 func (o *DTCMacOS) GetBuiltInDnsClientEnabled() bool {
-	if o == nil || o.BuiltInDnsClientEnabled == nil {
+	if o == nil || IsNil(o.BuiltInDnsClientEnabled) {
 		var ret bool
 		return ret
 	}
@@ -119,7 +122,7 @@ func (o *DTCMacOS) GetBuiltInDnsClientEnabled() bool {
 // GetBuiltInDnsClientEnabledOk returns a tuple with the BuiltInDnsClientEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCMacOS) GetBuiltInDnsClientEnabledOk() (*bool, bool) {
-	if o == nil || o.BuiltInDnsClientEnabled == nil {
+	if o == nil || IsNil(o.BuiltInDnsClientEnabled) {
 		return nil, false
 	}
 	return o.BuiltInDnsClientEnabled, true
@@ -127,7 +130,7 @@ func (o *DTCMacOS) GetBuiltInDnsClientEnabledOk() (*bool, bool) {
 
 // HasBuiltInDnsClientEnabled returns a boolean if a field has been set.
 func (o *DTCMacOS) HasBuiltInDnsClientEnabled() bool {
-	if o != nil && o.BuiltInDnsClientEnabled != nil {
+	if o != nil && !IsNil(o.BuiltInDnsClientEnabled) {
 		return true
 	}
 
@@ -141,7 +144,7 @@ func (o *DTCMacOS) SetBuiltInDnsClientEnabled(v bool) {
 
 // GetChromeRemoteDesktopAppBlocked returns the ChromeRemoteDesktopAppBlocked field value if set, zero value otherwise.
 func (o *DTCMacOS) GetChromeRemoteDesktopAppBlocked() bool {
-	if o == nil || o.ChromeRemoteDesktopAppBlocked == nil {
+	if o == nil || IsNil(o.ChromeRemoteDesktopAppBlocked) {
 		var ret bool
 		return ret
 	}
@@ -151,7 +154,7 @@ func (o *DTCMacOS) GetChromeRemoteDesktopAppBlocked() bool {
 // GetChromeRemoteDesktopAppBlockedOk returns a tuple with the ChromeRemoteDesktopAppBlocked field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCMacOS) GetChromeRemoteDesktopAppBlockedOk() (*bool, bool) {
-	if o == nil || o.ChromeRemoteDesktopAppBlocked == nil {
+	if o == nil || IsNil(o.ChromeRemoteDesktopAppBlocked) {
 		return nil, false
 	}
 	return o.ChromeRemoteDesktopAppBlocked, true
@@ -159,7 +162,7 @@ func (o *DTCMacOS) GetChromeRemoteDesktopAppBlockedOk() (*bool, bool) {
 
 // HasChromeRemoteDesktopAppBlocked returns a boolean if a field has been set.
 func (o *DTCMacOS) HasChromeRemoteDesktopAppBlocked() bool {
-	if o != nil && o.ChromeRemoteDesktopAppBlocked != nil {
+	if o != nil && !IsNil(o.ChromeRemoteDesktopAppBlocked) {
 		return true
 	}
 
@@ -173,7 +176,7 @@ func (o *DTCMacOS) SetChromeRemoteDesktopAppBlocked(v bool) {
 
 // GetDeviceEnrollmentDomain returns the DeviceEnrollmentDomain field value if set, zero value otherwise.
 func (o *DTCMacOS) GetDeviceEnrollmentDomain() string {
-	if o == nil || o.DeviceEnrollmentDomain == nil {
+	if o == nil || IsNil(o.DeviceEnrollmentDomain) {
 		var ret string
 		return ret
 	}
@@ -183,7 +186,7 @@ func (o *DTCMacOS) GetDeviceEnrollmentDomain() string {
 // GetDeviceEnrollmentDomainOk returns a tuple with the DeviceEnrollmentDomain field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCMacOS) GetDeviceEnrollmentDomainOk() (*string, bool) {
-	if o == nil || o.DeviceEnrollmentDomain == nil {
+	if o == nil || IsNil(o.DeviceEnrollmentDomain) {
 		return nil, false
 	}
 	return o.DeviceEnrollmentDomain, true
@@ -191,7 +194,7 @@ func (o *DTCMacOS) GetDeviceEnrollmentDomainOk() (*string, bool) {
 
 // HasDeviceEnrollmentDomain returns a boolean if a field has been set.
 func (o *DTCMacOS) HasDeviceEnrollmentDomain() bool {
-	if o != nil && o.DeviceEnrollmentDomain != nil {
+	if o != nil && !IsNil(o.DeviceEnrollmentDomain) {
 		return true
 	}
 
@@ -205,7 +208,7 @@ func (o *DTCMacOS) SetDeviceEnrollmentDomain(v string) {
 
 // GetDiskEncrypted returns the DiskEncrypted field value if set, zero value otherwise.
 func (o *DTCMacOS) GetDiskEncrypted() bool {
-	if o == nil || o.DiskEncrypted == nil {
+	if o == nil || IsNil(o.DiskEncrypted) {
 		var ret bool
 		return ret
 	}
@@ -215,7 +218,7 @@ func (o *DTCMacOS) GetDiskEncrypted() bool {
 // GetDiskEncryptedOk returns a tuple with the DiskEncrypted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCMacOS) GetDiskEncryptedOk() (*bool, bool) {
-	if o == nil || o.DiskEncrypted == nil {
+	if o == nil || IsNil(o.DiskEncrypted) {
 		return nil, false
 	}
 	return o.DiskEncrypted, true
@@ -223,7 +226,7 @@ func (o *DTCMacOS) GetDiskEncryptedOk() (*bool, bool) {
 
 // HasDiskEncrypted returns a boolean if a field has been set.
 func (o *DTCMacOS) HasDiskEncrypted() bool {
-	if o != nil && o.DiskEncrypted != nil {
+	if o != nil && !IsNil(o.DiskEncrypted) {
 		return true
 	}
 
@@ -237,7 +240,7 @@ func (o *DTCMacOS) SetDiskEncrypted(v bool) {
 
 // GetKeyTrustLevel returns the KeyTrustLevel field value if set, zero value otherwise.
 func (o *DTCMacOS) GetKeyTrustLevel() string {
-	if o == nil || o.KeyTrustLevel == nil {
+	if o == nil || IsNil(o.KeyTrustLevel) {
 		var ret string
 		return ret
 	}
@@ -247,7 +250,7 @@ func (o *DTCMacOS) GetKeyTrustLevel() string {
 // GetKeyTrustLevelOk returns a tuple with the KeyTrustLevel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCMacOS) GetKeyTrustLevelOk() (*string, bool) {
-	if o == nil || o.KeyTrustLevel == nil {
+	if o == nil || IsNil(o.KeyTrustLevel) {
 		return nil, false
 	}
 	return o.KeyTrustLevel, true
@@ -255,7 +258,7 @@ func (o *DTCMacOS) GetKeyTrustLevelOk() (*string, bool) {
 
 // HasKeyTrustLevel returns a boolean if a field has been set.
 func (o *DTCMacOS) HasKeyTrustLevel() bool {
-	if o != nil && o.KeyTrustLevel != nil {
+	if o != nil && !IsNil(o.KeyTrustLevel) {
 		return true
 	}
 
@@ -269,7 +272,7 @@ func (o *DTCMacOS) SetKeyTrustLevel(v string) {
 
 // GetOsFirewall returns the OsFirewall field value if set, zero value otherwise.
 func (o *DTCMacOS) GetOsFirewall() bool {
-	if o == nil || o.OsFirewall == nil {
+	if o == nil || IsNil(o.OsFirewall) {
 		var ret bool
 		return ret
 	}
@@ -279,7 +282,7 @@ func (o *DTCMacOS) GetOsFirewall() bool {
 // GetOsFirewallOk returns a tuple with the OsFirewall field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCMacOS) GetOsFirewallOk() (*bool, bool) {
-	if o == nil || o.OsFirewall == nil {
+	if o == nil || IsNil(o.OsFirewall) {
 		return nil, false
 	}
 	return o.OsFirewall, true
@@ -287,7 +290,7 @@ func (o *DTCMacOS) GetOsFirewallOk() (*bool, bool) {
 
 // HasOsFirewall returns a boolean if a field has been set.
 func (o *DTCMacOS) HasOsFirewall() bool {
-	if o != nil && o.OsFirewall != nil {
+	if o != nil && !IsNil(o.OsFirewall) {
 		return true
 	}
 
@@ -301,7 +304,7 @@ func (o *DTCMacOS) SetOsFirewall(v bool) {
 
 // GetOsVersion returns the OsVersion field value if set, zero value otherwise.
 func (o *DTCMacOS) GetOsVersion() OSVersionThreeComponents {
-	if o == nil || o.OsVersion == nil {
+	if o == nil || IsNil(o.OsVersion) {
 		var ret OSVersionThreeComponents
 		return ret
 	}
@@ -311,7 +314,7 @@ func (o *DTCMacOS) GetOsVersion() OSVersionThreeComponents {
 // GetOsVersionOk returns a tuple with the OsVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCMacOS) GetOsVersionOk() (*OSVersionThreeComponents, bool) {
-	if o == nil || o.OsVersion == nil {
+	if o == nil || IsNil(o.OsVersion) {
 		return nil, false
 	}
 	return o.OsVersion, true
@@ -319,7 +322,7 @@ func (o *DTCMacOS) GetOsVersionOk() (*OSVersionThreeComponents, bool) {
 
 // HasOsVersion returns a boolean if a field has been set.
 func (o *DTCMacOS) HasOsVersion() bool {
-	if o != nil && o.OsVersion != nil {
+	if o != nil && !IsNil(o.OsVersion) {
 		return true
 	}
 
@@ -333,7 +336,7 @@ func (o *DTCMacOS) SetOsVersion(v OSVersionThreeComponents) {
 
 // GetPasswordProtectionWarningTrigger returns the PasswordProtectionWarningTrigger field value if set, zero value otherwise.
 func (o *DTCMacOS) GetPasswordProtectionWarningTrigger() string {
-	if o == nil || o.PasswordProtectionWarningTrigger == nil {
+	if o == nil || IsNil(o.PasswordProtectionWarningTrigger) {
 		var ret string
 		return ret
 	}
@@ -343,7 +346,7 @@ func (o *DTCMacOS) GetPasswordProtectionWarningTrigger() string {
 // GetPasswordProtectionWarningTriggerOk returns a tuple with the PasswordProtectionWarningTrigger field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCMacOS) GetPasswordProtectionWarningTriggerOk() (*string, bool) {
-	if o == nil || o.PasswordProtectionWarningTrigger == nil {
+	if o == nil || IsNil(o.PasswordProtectionWarningTrigger) {
 		return nil, false
 	}
 	return o.PasswordProtectionWarningTrigger, true
@@ -351,7 +354,7 @@ func (o *DTCMacOS) GetPasswordProtectionWarningTriggerOk() (*string, bool) {
 
 // HasPasswordProtectionWarningTrigger returns a boolean if a field has been set.
 func (o *DTCMacOS) HasPasswordProtectionWarningTrigger() bool {
-	if o != nil && o.PasswordProtectionWarningTrigger != nil {
+	if o != nil && !IsNil(o.PasswordProtectionWarningTrigger) {
 		return true
 	}
 
@@ -365,7 +368,7 @@ func (o *DTCMacOS) SetPasswordProtectionWarningTrigger(v string) {
 
 // GetRealtimeUrlCheckMode returns the RealtimeUrlCheckMode field value if set, zero value otherwise.
 func (o *DTCMacOS) GetRealtimeUrlCheckMode() bool {
-	if o == nil || o.RealtimeUrlCheckMode == nil {
+	if o == nil || IsNil(o.RealtimeUrlCheckMode) {
 		var ret bool
 		return ret
 	}
@@ -375,7 +378,7 @@ func (o *DTCMacOS) GetRealtimeUrlCheckMode() bool {
 // GetRealtimeUrlCheckModeOk returns a tuple with the RealtimeUrlCheckMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCMacOS) GetRealtimeUrlCheckModeOk() (*bool, bool) {
-	if o == nil || o.RealtimeUrlCheckMode == nil {
+	if o == nil || IsNil(o.RealtimeUrlCheckMode) {
 		return nil, false
 	}
 	return o.RealtimeUrlCheckMode, true
@@ -383,7 +386,7 @@ func (o *DTCMacOS) GetRealtimeUrlCheckModeOk() (*bool, bool) {
 
 // HasRealtimeUrlCheckMode returns a boolean if a field has been set.
 func (o *DTCMacOS) HasRealtimeUrlCheckMode() bool {
-	if o != nil && o.RealtimeUrlCheckMode != nil {
+	if o != nil && !IsNil(o.RealtimeUrlCheckMode) {
 		return true
 	}
 
@@ -397,7 +400,7 @@ func (o *DTCMacOS) SetRealtimeUrlCheckMode(v bool) {
 
 // GetSafeBrowsingProtectionLevel returns the SafeBrowsingProtectionLevel field value if set, zero value otherwise.
 func (o *DTCMacOS) GetSafeBrowsingProtectionLevel() string {
-	if o == nil || o.SafeBrowsingProtectionLevel == nil {
+	if o == nil || IsNil(o.SafeBrowsingProtectionLevel) {
 		var ret string
 		return ret
 	}
@@ -407,7 +410,7 @@ func (o *DTCMacOS) GetSafeBrowsingProtectionLevel() string {
 // GetSafeBrowsingProtectionLevelOk returns a tuple with the SafeBrowsingProtectionLevel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCMacOS) GetSafeBrowsingProtectionLevelOk() (*string, bool) {
-	if o == nil || o.SafeBrowsingProtectionLevel == nil {
+	if o == nil || IsNil(o.SafeBrowsingProtectionLevel) {
 		return nil, false
 	}
 	return o.SafeBrowsingProtectionLevel, true
@@ -415,7 +418,7 @@ func (o *DTCMacOS) GetSafeBrowsingProtectionLevelOk() (*string, bool) {
 
 // HasSafeBrowsingProtectionLevel returns a boolean if a field has been set.
 func (o *DTCMacOS) HasSafeBrowsingProtectionLevel() bool {
-	if o != nil && o.SafeBrowsingProtectionLevel != nil {
+	if o != nil && !IsNil(o.SafeBrowsingProtectionLevel) {
 		return true
 	}
 
@@ -429,7 +432,7 @@ func (o *DTCMacOS) SetSafeBrowsingProtectionLevel(v string) {
 
 // GetScreenLockSecured returns the ScreenLockSecured field value if set, zero value otherwise.
 func (o *DTCMacOS) GetScreenLockSecured() bool {
-	if o == nil || o.ScreenLockSecured == nil {
+	if o == nil || IsNil(o.ScreenLockSecured) {
 		var ret bool
 		return ret
 	}
@@ -439,7 +442,7 @@ func (o *DTCMacOS) GetScreenLockSecured() bool {
 // GetScreenLockSecuredOk returns a tuple with the ScreenLockSecured field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCMacOS) GetScreenLockSecuredOk() (*bool, bool) {
-	if o == nil || o.ScreenLockSecured == nil {
+	if o == nil || IsNil(o.ScreenLockSecured) {
 		return nil, false
 	}
 	return o.ScreenLockSecured, true
@@ -447,7 +450,7 @@ func (o *DTCMacOS) GetScreenLockSecuredOk() (*bool, bool) {
 
 // HasScreenLockSecured returns a boolean if a field has been set.
 func (o *DTCMacOS) HasScreenLockSecured() bool {
-	if o != nil && o.ScreenLockSecured != nil {
+	if o != nil && !IsNil(o.ScreenLockSecured) {
 		return true
 	}
 
@@ -461,7 +464,7 @@ func (o *DTCMacOS) SetScreenLockSecured(v bool) {
 
 // GetSiteIsolationEnabled returns the SiteIsolationEnabled field value if set, zero value otherwise.
 func (o *DTCMacOS) GetSiteIsolationEnabled() bool {
-	if o == nil || o.SiteIsolationEnabled == nil {
+	if o == nil || IsNil(o.SiteIsolationEnabled) {
 		var ret bool
 		return ret
 	}
@@ -471,7 +474,7 @@ func (o *DTCMacOS) GetSiteIsolationEnabled() bool {
 // GetSiteIsolationEnabledOk returns a tuple with the SiteIsolationEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCMacOS) GetSiteIsolationEnabledOk() (*bool, bool) {
-	if o == nil || o.SiteIsolationEnabled == nil {
+	if o == nil || IsNil(o.SiteIsolationEnabled) {
 		return nil, false
 	}
 	return o.SiteIsolationEnabled, true
@@ -479,7 +482,7 @@ func (o *DTCMacOS) GetSiteIsolationEnabledOk() (*bool, bool) {
 
 // HasSiteIsolationEnabled returns a boolean if a field has been set.
 func (o *DTCMacOS) HasSiteIsolationEnabled() bool {
-	if o != nil && o.SiteIsolationEnabled != nil {
+	if o != nil && !IsNil(o.SiteIsolationEnabled) {
 		return true
 	}
 
@@ -492,44 +495,52 @@ func (o *DTCMacOS) SetSiteIsolationEnabled(v bool) {
 }
 
 func (o DTCMacOS) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DTCMacOS) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.BrowserVersion != nil {
+	if !IsNil(o.BrowserVersion) {
 		toSerialize["browserVersion"] = o.BrowserVersion
 	}
-	if o.BuiltInDnsClientEnabled != nil {
+	if !IsNil(o.BuiltInDnsClientEnabled) {
 		toSerialize["builtInDnsClientEnabled"] = o.BuiltInDnsClientEnabled
 	}
-	if o.ChromeRemoteDesktopAppBlocked != nil {
+	if !IsNil(o.ChromeRemoteDesktopAppBlocked) {
 		toSerialize["chromeRemoteDesktopAppBlocked"] = o.ChromeRemoteDesktopAppBlocked
 	}
-	if o.DeviceEnrollmentDomain != nil {
+	if !IsNil(o.DeviceEnrollmentDomain) {
 		toSerialize["deviceEnrollmentDomain"] = o.DeviceEnrollmentDomain
 	}
-	if o.DiskEncrypted != nil {
+	if !IsNil(o.DiskEncrypted) {
 		toSerialize["diskEncrypted"] = o.DiskEncrypted
 	}
-	if o.KeyTrustLevel != nil {
+	if !IsNil(o.KeyTrustLevel) {
 		toSerialize["keyTrustLevel"] = o.KeyTrustLevel
 	}
-	if o.OsFirewall != nil {
+	if !IsNil(o.OsFirewall) {
 		toSerialize["osFirewall"] = o.OsFirewall
 	}
-	if o.OsVersion != nil {
+	if !IsNil(o.OsVersion) {
 		toSerialize["osVersion"] = o.OsVersion
 	}
-	if o.PasswordProtectionWarningTrigger != nil {
+	if !IsNil(o.PasswordProtectionWarningTrigger) {
 		toSerialize["passwordProtectionWarningTrigger"] = o.PasswordProtectionWarningTrigger
 	}
-	if o.RealtimeUrlCheckMode != nil {
+	if !IsNil(o.RealtimeUrlCheckMode) {
 		toSerialize["realtimeUrlCheckMode"] = o.RealtimeUrlCheckMode
 	}
-	if o.SafeBrowsingProtectionLevel != nil {
+	if !IsNil(o.SafeBrowsingProtectionLevel) {
 		toSerialize["safeBrowsingProtectionLevel"] = o.SafeBrowsingProtectionLevel
 	}
-	if o.ScreenLockSecured != nil {
+	if !IsNil(o.ScreenLockSecured) {
 		toSerialize["screenLockSecured"] = o.ScreenLockSecured
 	}
-	if o.SiteIsolationEnabled != nil {
+	if !IsNil(o.SiteIsolationEnabled) {
 		toSerialize["siteIsolationEnabled"] = o.SiteIsolationEnabled
 	}
 
@@ -537,23 +548,23 @@ func (o DTCMacOS) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DTCMacOS) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DTCMacOS) UnmarshalJSON(data []byte) (err error) {
 	varDTCMacOS := _DTCMacOS{}
 
-	err = json.Unmarshal(bytes, &varDTCMacOS)
-	if err == nil {
-		*o = DTCMacOS(varDTCMacOS)
-	} else {
+	err = json.Unmarshal(data, &varDTCMacOS)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DTCMacOS(varDTCMacOS)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "browserVersion")
 		delete(additionalProperties, "builtInDnsClientEnabled")
 		delete(additionalProperties, "chromeRemoteDesktopAppBlocked")
@@ -568,8 +579,6 @@ func (o *DTCMacOS) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "screenLockSecured")
 		delete(additionalProperties, "siteIsolationEnabled")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -610,4 +619,3 @@ func (v *NullableDTCMacOS) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

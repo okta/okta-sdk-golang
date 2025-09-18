@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the OAuth2ScopeConsentGrantEmbedded type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OAuth2ScopeConsentGrantEmbedded{}
+
 // OAuth2ScopeConsentGrantEmbedded Embedded resources related to the Grant
 type OAuth2ScopeConsentGrantEmbedded struct {
-	Scope *OAuth2ScopeConsentGrantEmbeddedScope `json:"scope,omitempty"`
+	Scope                *OAuth2ScopeConsentGrantEmbeddedScope `json:"scope,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewOAuth2ScopeConsentGrantEmbeddedWithDefaults() *OAuth2ScopeConsentGrantEm
 
 // GetScope returns the Scope field value if set, zero value otherwise.
 func (o *OAuth2ScopeConsentGrantEmbedded) GetScope() OAuth2ScopeConsentGrantEmbeddedScope {
-	if o == nil || o.Scope == nil {
+	if o == nil || IsNil(o.Scope) {
 		var ret OAuth2ScopeConsentGrantEmbeddedScope
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *OAuth2ScopeConsentGrantEmbedded) GetScope() OAuth2ScopeConsentGrantEmbe
 // GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ScopeConsentGrantEmbedded) GetScopeOk() (*OAuth2ScopeConsentGrantEmbeddedScope, bool) {
-	if o == nil || o.Scope == nil {
+	if o == nil || IsNil(o.Scope) {
 		return nil, false
 	}
 	return o.Scope, true
@@ -72,7 +75,7 @@ func (o *OAuth2ScopeConsentGrantEmbedded) GetScopeOk() (*OAuth2ScopeConsentGrant
 
 // HasScope returns a boolean if a field has been set.
 func (o *OAuth2ScopeConsentGrantEmbedded) HasScope() bool {
-	if o != nil && o.Scope != nil {
+	if o != nil && !IsNil(o.Scope) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *OAuth2ScopeConsentGrantEmbedded) SetScope(v OAuth2ScopeConsentGrantEmbe
 }
 
 func (o OAuth2ScopeConsentGrantEmbedded) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OAuth2ScopeConsentGrantEmbedded) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Scope != nil {
+	if !IsNil(o.Scope) {
 		toSerialize["scope"] = o.Scope
 	}
 
@@ -94,27 +105,25 @@ func (o OAuth2ScopeConsentGrantEmbedded) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OAuth2ScopeConsentGrantEmbedded) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OAuth2ScopeConsentGrantEmbedded) UnmarshalJSON(data []byte) (err error) {
 	varOAuth2ScopeConsentGrantEmbedded := _OAuth2ScopeConsentGrantEmbedded{}
 
-	err = json.Unmarshal(bytes, &varOAuth2ScopeConsentGrantEmbedded)
-	if err == nil {
-		*o = OAuth2ScopeConsentGrantEmbedded(varOAuth2ScopeConsentGrantEmbedded)
-	} else {
+	err = json.Unmarshal(data, &varOAuth2ScopeConsentGrantEmbedded)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OAuth2ScopeConsentGrantEmbedded(varOAuth2ScopeConsentGrantEmbedded)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "scope")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableOAuth2ScopeConsentGrantEmbedded) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

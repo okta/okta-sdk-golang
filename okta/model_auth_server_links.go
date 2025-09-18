@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,16 +27,23 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthServerLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthServerLinks{}
+
 // AuthServerLinks struct for AuthServerLinks
 type AuthServerLinks struct {
 	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Claims *AuthServerLinksAllOfClaims `json:"claims,omitempty"`
+	// Link to the authorization server claims
+	Claims     *HrefObject               `json:"claims,omitempty"`
 	Deactivate *HrefObjectDeactivateLink `json:"deactivate,omitempty"`
 	// Link to the authorization server metadata
 	Metadata []HrefObject `json:"metadata,omitempty"`
-	Policies *AuthServerLinksAllOfPolicies `json:"policies,omitempty"`
-	RotateKey *AuthServerLinksAllOfRotateKey `json:"rotateKey,omitempty"`
-	Scopes *AuthServerLinksAllOfScopes `json:"scopes,omitempty"`
+	// Link to the authorization server policies
+	Policies *HrefObject `json:"policies,omitempty"`
+	// Link to the authorization server key rotation
+	RotateKey *HrefObject `json:"rotateKey,omitempty"`
+	// Link to the authorization server scopes
+	Scopes               *HrefObject `json:"scopes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +68,7 @@ func NewAuthServerLinksWithDefaults() *AuthServerLinks {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *AuthServerLinks) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -71,7 +78,7 @@ func (o *AuthServerLinks) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthServerLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -79,7 +86,7 @@ func (o *AuthServerLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *AuthServerLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -92,9 +99,9 @@ func (o *AuthServerLinks) SetSelf(v HrefObjectSelfLink) {
 }
 
 // GetClaims returns the Claims field value if set, zero value otherwise.
-func (o *AuthServerLinks) GetClaims() AuthServerLinksAllOfClaims {
-	if o == nil || o.Claims == nil {
-		var ret AuthServerLinksAllOfClaims
+func (o *AuthServerLinks) GetClaims() HrefObject {
+	if o == nil || IsNil(o.Claims) {
+		var ret HrefObject
 		return ret
 	}
 	return *o.Claims
@@ -102,8 +109,8 @@ func (o *AuthServerLinks) GetClaims() AuthServerLinksAllOfClaims {
 
 // GetClaimsOk returns a tuple with the Claims field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AuthServerLinks) GetClaimsOk() (*AuthServerLinksAllOfClaims, bool) {
-	if o == nil || o.Claims == nil {
+func (o *AuthServerLinks) GetClaimsOk() (*HrefObject, bool) {
+	if o == nil || IsNil(o.Claims) {
 		return nil, false
 	}
 	return o.Claims, true
@@ -111,21 +118,21 @@ func (o *AuthServerLinks) GetClaimsOk() (*AuthServerLinksAllOfClaims, bool) {
 
 // HasClaims returns a boolean if a field has been set.
 func (o *AuthServerLinks) HasClaims() bool {
-	if o != nil && o.Claims != nil {
+	if o != nil && !IsNil(o.Claims) {
 		return true
 	}
 
 	return false
 }
 
-// SetClaims gets a reference to the given AuthServerLinksAllOfClaims and assigns it to the Claims field.
-func (o *AuthServerLinks) SetClaims(v AuthServerLinksAllOfClaims) {
+// SetClaims gets a reference to the given HrefObject and assigns it to the Claims field.
+func (o *AuthServerLinks) SetClaims(v HrefObject) {
 	o.Claims = &v
 }
 
 // GetDeactivate returns the Deactivate field value if set, zero value otherwise.
 func (o *AuthServerLinks) GetDeactivate() HrefObjectDeactivateLink {
-	if o == nil || o.Deactivate == nil {
+	if o == nil || IsNil(o.Deactivate) {
 		var ret HrefObjectDeactivateLink
 		return ret
 	}
@@ -135,7 +142,7 @@ func (o *AuthServerLinks) GetDeactivate() HrefObjectDeactivateLink {
 // GetDeactivateOk returns a tuple with the Deactivate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthServerLinks) GetDeactivateOk() (*HrefObjectDeactivateLink, bool) {
-	if o == nil || o.Deactivate == nil {
+	if o == nil || IsNil(o.Deactivate) {
 		return nil, false
 	}
 	return o.Deactivate, true
@@ -143,7 +150,7 @@ func (o *AuthServerLinks) GetDeactivateOk() (*HrefObjectDeactivateLink, bool) {
 
 // HasDeactivate returns a boolean if a field has been set.
 func (o *AuthServerLinks) HasDeactivate() bool {
-	if o != nil && o.Deactivate != nil {
+	if o != nil && !IsNil(o.Deactivate) {
 		return true
 	}
 
@@ -157,7 +164,7 @@ func (o *AuthServerLinks) SetDeactivate(v HrefObjectDeactivateLink) {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *AuthServerLinks) GetMetadata() []HrefObject {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret []HrefObject
 		return ret
 	}
@@ -167,7 +174,7 @@ func (o *AuthServerLinks) GetMetadata() []HrefObject {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthServerLinks) GetMetadataOk() ([]HrefObject, bool) {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -175,7 +182,7 @@ func (o *AuthServerLinks) GetMetadataOk() ([]HrefObject, bool) {
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *AuthServerLinks) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -188,9 +195,9 @@ func (o *AuthServerLinks) SetMetadata(v []HrefObject) {
 }
 
 // GetPolicies returns the Policies field value if set, zero value otherwise.
-func (o *AuthServerLinks) GetPolicies() AuthServerLinksAllOfPolicies {
-	if o == nil || o.Policies == nil {
-		var ret AuthServerLinksAllOfPolicies
+func (o *AuthServerLinks) GetPolicies() HrefObject {
+	if o == nil || IsNil(o.Policies) {
+		var ret HrefObject
 		return ret
 	}
 	return *o.Policies
@@ -198,8 +205,8 @@ func (o *AuthServerLinks) GetPolicies() AuthServerLinksAllOfPolicies {
 
 // GetPoliciesOk returns a tuple with the Policies field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AuthServerLinks) GetPoliciesOk() (*AuthServerLinksAllOfPolicies, bool) {
-	if o == nil || o.Policies == nil {
+func (o *AuthServerLinks) GetPoliciesOk() (*HrefObject, bool) {
+	if o == nil || IsNil(o.Policies) {
 		return nil, false
 	}
 	return o.Policies, true
@@ -207,22 +214,22 @@ func (o *AuthServerLinks) GetPoliciesOk() (*AuthServerLinksAllOfPolicies, bool) 
 
 // HasPolicies returns a boolean if a field has been set.
 func (o *AuthServerLinks) HasPolicies() bool {
-	if o != nil && o.Policies != nil {
+	if o != nil && !IsNil(o.Policies) {
 		return true
 	}
 
 	return false
 }
 
-// SetPolicies gets a reference to the given AuthServerLinksAllOfPolicies and assigns it to the Policies field.
-func (o *AuthServerLinks) SetPolicies(v AuthServerLinksAllOfPolicies) {
+// SetPolicies gets a reference to the given HrefObject and assigns it to the Policies field.
+func (o *AuthServerLinks) SetPolicies(v HrefObject) {
 	o.Policies = &v
 }
 
 // GetRotateKey returns the RotateKey field value if set, zero value otherwise.
-func (o *AuthServerLinks) GetRotateKey() AuthServerLinksAllOfRotateKey {
-	if o == nil || o.RotateKey == nil {
-		var ret AuthServerLinksAllOfRotateKey
+func (o *AuthServerLinks) GetRotateKey() HrefObject {
+	if o == nil || IsNil(o.RotateKey) {
+		var ret HrefObject
 		return ret
 	}
 	return *o.RotateKey
@@ -230,8 +237,8 @@ func (o *AuthServerLinks) GetRotateKey() AuthServerLinksAllOfRotateKey {
 
 // GetRotateKeyOk returns a tuple with the RotateKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AuthServerLinks) GetRotateKeyOk() (*AuthServerLinksAllOfRotateKey, bool) {
-	if o == nil || o.RotateKey == nil {
+func (o *AuthServerLinks) GetRotateKeyOk() (*HrefObject, bool) {
+	if o == nil || IsNil(o.RotateKey) {
 		return nil, false
 	}
 	return o.RotateKey, true
@@ -239,22 +246,22 @@ func (o *AuthServerLinks) GetRotateKeyOk() (*AuthServerLinksAllOfRotateKey, bool
 
 // HasRotateKey returns a boolean if a field has been set.
 func (o *AuthServerLinks) HasRotateKey() bool {
-	if o != nil && o.RotateKey != nil {
+	if o != nil && !IsNil(o.RotateKey) {
 		return true
 	}
 
 	return false
 }
 
-// SetRotateKey gets a reference to the given AuthServerLinksAllOfRotateKey and assigns it to the RotateKey field.
-func (o *AuthServerLinks) SetRotateKey(v AuthServerLinksAllOfRotateKey) {
+// SetRotateKey gets a reference to the given HrefObject and assigns it to the RotateKey field.
+func (o *AuthServerLinks) SetRotateKey(v HrefObject) {
 	o.RotateKey = &v
 }
 
 // GetScopes returns the Scopes field value if set, zero value otherwise.
-func (o *AuthServerLinks) GetScopes() AuthServerLinksAllOfScopes {
-	if o == nil || o.Scopes == nil {
-		var ret AuthServerLinksAllOfScopes
+func (o *AuthServerLinks) GetScopes() HrefObject {
+	if o == nil || IsNil(o.Scopes) {
+		var ret HrefObject
 		return ret
 	}
 	return *o.Scopes
@@ -262,8 +269,8 @@ func (o *AuthServerLinks) GetScopes() AuthServerLinksAllOfScopes {
 
 // GetScopesOk returns a tuple with the Scopes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AuthServerLinks) GetScopesOk() (*AuthServerLinksAllOfScopes, bool) {
-	if o == nil || o.Scopes == nil {
+func (o *AuthServerLinks) GetScopesOk() (*HrefObject, bool) {
+	if o == nil || IsNil(o.Scopes) {
 		return nil, false
 	}
 	return o.Scopes, true
@@ -271,39 +278,47 @@ func (o *AuthServerLinks) GetScopesOk() (*AuthServerLinksAllOfScopes, bool) {
 
 // HasScopes returns a boolean if a field has been set.
 func (o *AuthServerLinks) HasScopes() bool {
-	if o != nil && o.Scopes != nil {
+	if o != nil && !IsNil(o.Scopes) {
 		return true
 	}
 
 	return false
 }
 
-// SetScopes gets a reference to the given AuthServerLinksAllOfScopes and assigns it to the Scopes field.
-func (o *AuthServerLinks) SetScopes(v AuthServerLinksAllOfScopes) {
+// SetScopes gets a reference to the given HrefObject and assigns it to the Scopes field.
+func (o *AuthServerLinks) SetScopes(v HrefObject) {
 	o.Scopes = &v
 }
 
 func (o AuthServerLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthServerLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.Claims != nil {
+	if !IsNil(o.Claims) {
 		toSerialize["claims"] = o.Claims
 	}
-	if o.Deactivate != nil {
+	if !IsNil(o.Deactivate) {
 		toSerialize["deactivate"] = o.Deactivate
 	}
-	if o.Metadata != nil {
+	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
-	if o.Policies != nil {
+	if !IsNil(o.Policies) {
 		toSerialize["policies"] = o.Policies
 	}
-	if o.RotateKey != nil {
+	if !IsNil(o.RotateKey) {
 		toSerialize["rotateKey"] = o.RotateKey
 	}
-	if o.Scopes != nil {
+	if !IsNil(o.Scopes) {
 		toSerialize["scopes"] = o.Scopes
 	}
 
@@ -311,23 +326,23 @@ func (o AuthServerLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthServerLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthServerLinks) UnmarshalJSON(data []byte) (err error) {
 	varAuthServerLinks := _AuthServerLinks{}
 
-	err = json.Unmarshal(bytes, &varAuthServerLinks)
-	if err == nil {
-		*o = AuthServerLinks(varAuthServerLinks)
-	} else {
+	err = json.Unmarshal(data, &varAuthServerLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthServerLinks(varAuthServerLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "claims")
 		delete(additionalProperties, "deactivate")
@@ -336,8 +351,6 @@ func (o *AuthServerLinks) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "rotateKey")
 		delete(additionalProperties, "scopes")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -378,4 +391,3 @@ func (v *NullableAuthServerLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

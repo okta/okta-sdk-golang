@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -28,17 +28,21 @@ import (
 	"time"
 )
 
+// checks if the ResourceSetResource type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceSetResource{}
+
 // ResourceSetResource struct for ResourceSetResource
 type ResourceSetResource struct {
-	// Timestamp when the role was created
+	Conditions *ResourceConditions `json:"conditions,omitempty"`
+	// Timestamp when the resource set resource object was created
 	Created *time.Time `json:"created,omitempty"`
-	// Description of the Resource Set
-	Description *string `json:"description,omitempty"`
-	// Unique key for the role
+	// Unique ID of the resource set resource object
 	Id *string `json:"id,omitempty"`
-	// Timestamp when the role was last updated
+	// Timestamp when this object was last updated
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	// The Okta Resource Name (ORN) of the resource
+	Orn                  *string                   `json:"orn,omitempty"`
+	Links                *ResourceSetResourceLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,9 +65,41 @@ func NewResourceSetResourceWithDefaults() *ResourceSetResource {
 	return &this
 }
 
+// GetConditions returns the Conditions field value if set, zero value otherwise.
+func (o *ResourceSetResource) GetConditions() ResourceConditions {
+	if o == nil || IsNil(o.Conditions) {
+		var ret ResourceConditions
+		return ret
+	}
+	return *o.Conditions
+}
+
+// GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ResourceSetResource) GetConditionsOk() (*ResourceConditions, bool) {
+	if o == nil || IsNil(o.Conditions) {
+		return nil, false
+	}
+	return o.Conditions, true
+}
+
+// HasConditions returns a boolean if a field has been set.
+func (o *ResourceSetResource) HasConditions() bool {
+	if o != nil && !IsNil(o.Conditions) {
+		return true
+	}
+
+	return false
+}
+
+// SetConditions gets a reference to the given ResourceConditions and assigns it to the Conditions field.
+func (o *ResourceSetResource) SetConditions(v ResourceConditions) {
+	o.Conditions = &v
+}
+
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *ResourceSetResource) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -73,7 +109,7 @@ func (o *ResourceSetResource) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSetResource) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -81,7 +117,7 @@ func (o *ResourceSetResource) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *ResourceSetResource) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -93,41 +129,9 @@ func (o *ResourceSetResource) SetCreated(v time.Time) {
 	o.Created = &v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *ResourceSetResource) GetDescription() string {
-	if o == nil || o.Description == nil {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ResourceSetResource) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *ResourceSetResource) HasDescription() bool {
-	if o != nil && o.Description != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *ResourceSetResource) SetDescription(v string) {
-	o.Description = &v
-}
-
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *ResourceSetResource) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -137,7 +141,7 @@ func (o *ResourceSetResource) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSetResource) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -145,7 +149,7 @@ func (o *ResourceSetResource) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *ResourceSetResource) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -159,7 +163,7 @@ func (o *ResourceSetResource) SetId(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *ResourceSetResource) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -169,7 +173,7 @@ func (o *ResourceSetResource) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSetResource) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -177,7 +181,7 @@ func (o *ResourceSetResource) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *ResourceSetResource) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -189,10 +193,42 @@ func (o *ResourceSetResource) SetLastUpdated(v time.Time) {
 	o.LastUpdated = &v
 }
 
+// GetOrn returns the Orn field value if set, zero value otherwise.
+func (o *ResourceSetResource) GetOrn() string {
+	if o == nil || IsNil(o.Orn) {
+		var ret string
+		return ret
+	}
+	return *o.Orn
+}
+
+// GetOrnOk returns a tuple with the Orn field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ResourceSetResource) GetOrnOk() (*string, bool) {
+	if o == nil || IsNil(o.Orn) {
+		return nil, false
+	}
+	return o.Orn, true
+}
+
+// HasOrn returns a boolean if a field has been set.
+func (o *ResourceSetResource) HasOrn() bool {
+	if o != nil && !IsNil(o.Orn) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrn gets a reference to the given string and assigns it to the Orn field.
+func (o *ResourceSetResource) SetOrn(v string) {
+	o.Orn = &v
+}
+
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *ResourceSetResource) GetLinks() LinksSelf {
-	if o == nil || o.Links == nil {
-		var ret LinksSelf
+func (o *ResourceSetResource) GetLinks() ResourceSetResourceLinks {
+	if o == nil || IsNil(o.Links) {
+		var ret ResourceSetResourceLinks
 		return ret
 	}
 	return *o.Links
@@ -200,8 +236,8 @@ func (o *ResourceSetResource) GetLinks() LinksSelf {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResourceSetResource) GetLinksOk() (*LinksSelf, bool) {
-	if o == nil || o.Links == nil {
+func (o *ResourceSetResource) GetLinksOk() (*ResourceSetResourceLinks, bool) {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -209,33 +245,44 @@ func (o *ResourceSetResource) GetLinksOk() (*LinksSelf, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *ResourceSetResource) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
 	return false
 }
 
-// SetLinks gets a reference to the given LinksSelf and assigns it to the Links field.
-func (o *ResourceSetResource) SetLinks(v LinksSelf) {
+// SetLinks gets a reference to the given ResourceSetResourceLinks and assigns it to the Links field.
+func (o *ResourceSetResource) SetLinks(v ResourceSetResourceLinks) {
 	o.Links = &v
 }
 
 func (o ResourceSetResource) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ResourceSetResource) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
+	if !IsNil(o.Conditions) {
+		toSerialize["conditions"] = o.Conditions
+	}
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Links != nil {
+	if !IsNil(o.Orn) {
+		toSerialize["orn"] = o.Orn
+	}
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -243,31 +290,30 @@ func (o ResourceSetResource) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResourceSetResource) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ResourceSetResource) UnmarshalJSON(data []byte) (err error) {
 	varResourceSetResource := _ResourceSetResource{}
 
-	err = json.Unmarshal(bytes, &varResourceSetResource)
-	if err == nil {
-		*o = ResourceSetResource(varResourceSetResource)
-	} else {
+	err = json.Unmarshal(data, &varResourceSetResource)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ResourceSetResource(varResourceSetResource)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "conditions")
 		delete(additionalProperties, "created")
-		delete(additionalProperties, "description")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "lastUpdated")
+		delete(additionalProperties, "orn")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -308,4 +354,3 @@ func (v *NullableResourceSetResource) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

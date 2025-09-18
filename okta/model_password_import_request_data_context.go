@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the PasswordImportRequestDataContext type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordImportRequestDataContext{}
+
 // PasswordImportRequestDataContext struct for PasswordImportRequestDataContext
 type PasswordImportRequestDataContext struct {
-	Request *InlineHookRequestObject `json:"request,omitempty"`
-	Credential *PasswordImportRequestDataContextCredential `json:"credential,omitempty"`
+	Request              *InlineHookRequestObject                    `json:"request,omitempty"`
+	Credential           *PasswordImportRequestDataContextCredential `json:"credential,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewPasswordImportRequestDataContextWithDefaults() *PasswordImportRequestDat
 
 // GetRequest returns the Request field value if set, zero value otherwise.
 func (o *PasswordImportRequestDataContext) GetRequest() InlineHookRequestObject {
-	if o == nil || o.Request == nil {
+	if o == nil || IsNil(o.Request) {
 		var ret InlineHookRequestObject
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *PasswordImportRequestDataContext) GetRequest() InlineHookRequestObject 
 // GetRequestOk returns a tuple with the Request field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordImportRequestDataContext) GetRequestOk() (*InlineHookRequestObject, bool) {
-	if o == nil || o.Request == nil {
+	if o == nil || IsNil(o.Request) {
 		return nil, false
 	}
 	return o.Request, true
@@ -73,7 +76,7 @@ func (o *PasswordImportRequestDataContext) GetRequestOk() (*InlineHookRequestObj
 
 // HasRequest returns a boolean if a field has been set.
 func (o *PasswordImportRequestDataContext) HasRequest() bool {
-	if o != nil && o.Request != nil {
+	if o != nil && !IsNil(o.Request) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *PasswordImportRequestDataContext) SetRequest(v InlineHookRequestObject)
 
 // GetCredential returns the Credential field value if set, zero value otherwise.
 func (o *PasswordImportRequestDataContext) GetCredential() PasswordImportRequestDataContextCredential {
-	if o == nil || o.Credential == nil {
+	if o == nil || IsNil(o.Credential) {
 		var ret PasswordImportRequestDataContextCredential
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *PasswordImportRequestDataContext) GetCredential() PasswordImportRequest
 // GetCredentialOk returns a tuple with the Credential field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordImportRequestDataContext) GetCredentialOk() (*PasswordImportRequestDataContextCredential, bool) {
-	if o == nil || o.Credential == nil {
+	if o == nil || IsNil(o.Credential) {
 		return nil, false
 	}
 	return o.Credential, true
@@ -105,7 +108,7 @@ func (o *PasswordImportRequestDataContext) GetCredentialOk() (*PasswordImportReq
 
 // HasCredential returns a boolean if a field has been set.
 func (o *PasswordImportRequestDataContext) HasCredential() bool {
-	if o != nil && o.Credential != nil {
+	if o != nil && !IsNil(o.Credential) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *PasswordImportRequestDataContext) SetCredential(v PasswordImportRequest
 }
 
 func (o PasswordImportRequestDataContext) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordImportRequestDataContext) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Request != nil {
+	if !IsNil(o.Request) {
 		toSerialize["request"] = o.Request
 	}
-	if o.Credential != nil {
+	if !IsNil(o.Credential) {
 		toSerialize["credential"] = o.Credential
 	}
 
@@ -130,28 +141,26 @@ func (o PasswordImportRequestDataContext) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordImportRequestDataContext) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordImportRequestDataContext) UnmarshalJSON(data []byte) (err error) {
 	varPasswordImportRequestDataContext := _PasswordImportRequestDataContext{}
 
-	err = json.Unmarshal(bytes, &varPasswordImportRequestDataContext)
-	if err == nil {
-		*o = PasswordImportRequestDataContext(varPasswordImportRequestDataContext)
-	} else {
+	err = json.Unmarshal(data, &varPasswordImportRequestDataContext)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PasswordImportRequestDataContext(varPasswordImportRequestDataContext)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "request")
 		delete(additionalProperties, "credential")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullablePasswordImportRequestDataContext) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

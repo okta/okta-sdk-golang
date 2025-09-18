@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Description** | **string** | The human-readable description of the User Type | 
-**DisplayName** | **string** | The human-readable name of the User Type | 
+**Description** | **string** | The human-readable description of the user type | 
+**DisplayName** | **string** | The human-readable name of the user type | 
 **Name** | **string** | The name of the existing type | 
 
 ## Methods

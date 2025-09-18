@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the ResourceSetBindingRole type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceSetBindingRole{}
+
 // ResourceSetBindingRole struct for ResourceSetBindingRole
 type ResourceSetBindingRole struct {
-	Id *string `json:"id,omitempty"`
-	Links *ResourceSetBindingRoleLinks `json:"_links,omitempty"`
+	// `id` of the role
+	Id                   *string                      `json:"id,omitempty"`
+	Links                *ResourceSetBindingRoleLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +59,7 @@ func NewResourceSetBindingRoleWithDefaults() *ResourceSetBindingRole {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *ResourceSetBindingRole) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -65,7 +69,7 @@ func (o *ResourceSetBindingRole) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSetBindingRole) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -73,7 +77,7 @@ func (o *ResourceSetBindingRole) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *ResourceSetBindingRole) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -87,7 +91,7 @@ func (o *ResourceSetBindingRole) SetId(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *ResourceSetBindingRole) GetLinks() ResourceSetBindingRoleLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret ResourceSetBindingRoleLinks
 		return ret
 	}
@@ -97,7 +101,7 @@ func (o *ResourceSetBindingRole) GetLinks() ResourceSetBindingRoleLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSetBindingRole) GetLinksOk() (*ResourceSetBindingRoleLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -105,7 +109,7 @@ func (o *ResourceSetBindingRole) GetLinksOk() (*ResourceSetBindingRoleLinks, boo
 
 // HasLinks returns a boolean if a field has been set.
 func (o *ResourceSetBindingRole) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -118,11 +122,19 @@ func (o *ResourceSetBindingRole) SetLinks(v ResourceSetBindingRoleLinks) {
 }
 
 func (o ResourceSetBindingRole) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ResourceSetBindingRole) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -130,28 +142,26 @@ func (o ResourceSetBindingRole) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResourceSetBindingRole) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ResourceSetBindingRole) UnmarshalJSON(data []byte) (err error) {
 	varResourceSetBindingRole := _ResourceSetBindingRole{}
 
-	err = json.Unmarshal(bytes, &varResourceSetBindingRole)
-	if err == nil {
-		*o = ResourceSetBindingRole(varResourceSetBindingRole)
-	} else {
+	err = json.Unmarshal(data, &varResourceSetBindingRole)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ResourceSetBindingRole(varResourceSetBindingRole)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +202,3 @@ func (v *NullableResourceSetBindingRole) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

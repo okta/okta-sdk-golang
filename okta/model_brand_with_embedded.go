@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,15 +27,18 @@ import (
 	"encoding/json"
 )
 
+// checks if the BrandWithEmbedded type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BrandWithEmbedded{}
+
 // BrandWithEmbedded struct for BrandWithEmbedded
 type BrandWithEmbedded struct {
 	Embedded *map[string]interface{} `json:"_embedded,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	Links    *LinksSelf              `json:"_links,omitempty"`
 	// Consent for updating the custom privacy URL. Not required when resetting the URL.
 	AgreeToCustomPrivacyPolicy *bool `json:"agreeToCustomPrivacyPolicy,omitempty"`
 	// Custom privacy policy URL
-	CustomPrivacyPolicyUrl *string `json:"customPrivacyPolicyUrl,omitempty"`
-	DefaultApp *DefaultApp `json:"defaultApp,omitempty"`
+	CustomPrivacyPolicyUrl *string     `json:"customPrivacyPolicyUrl,omitempty"`
+	DefaultApp             *DefaultApp `json:"defaultApp,omitempty"`
 	// The ID of the email domain
 	EmailDomainId *string `json:"emailDomainId,omitempty"`
 	// The Brand ID
@@ -47,7 +50,7 @@ type BrandWithEmbedded struct {
 	// The name of the Brand
 	Name *string `json:"name,omitempty"`
 	// Removes \"Powered by Okta\" from the sign-in page in redirect authentication deployments, and \"© [current year] Okta, Inc.\" from the Okta End-User Dashboard
-	RemovePoweredByOkta *bool `json:"removePoweredByOkta,omitempty"`
+	RemovePoweredByOkta  *bool `json:"removePoweredByOkta,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -76,7 +79,7 @@ func NewBrandWithEmbeddedWithDefaults() *BrandWithEmbedded {
 
 // GetEmbedded returns the Embedded field value if set, zero value otherwise.
 func (o *BrandWithEmbedded) GetEmbedded() map[string]interface{} {
-	if o == nil || o.Embedded == nil {
+	if o == nil || IsNil(o.Embedded) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -86,7 +89,7 @@ func (o *BrandWithEmbedded) GetEmbedded() map[string]interface{} {
 // GetEmbeddedOk returns a tuple with the Embedded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BrandWithEmbedded) GetEmbeddedOk() (*map[string]interface{}, bool) {
-	if o == nil || o.Embedded == nil {
+	if o == nil || IsNil(o.Embedded) {
 		return nil, false
 	}
 	return o.Embedded, true
@@ -94,7 +97,7 @@ func (o *BrandWithEmbedded) GetEmbeddedOk() (*map[string]interface{}, bool) {
 
 // HasEmbedded returns a boolean if a field has been set.
 func (o *BrandWithEmbedded) HasEmbedded() bool {
-	if o != nil && o.Embedded != nil {
+	if o != nil && !IsNil(o.Embedded) {
 		return true
 	}
 
@@ -108,7 +111,7 @@ func (o *BrandWithEmbedded) SetEmbedded(v map[string]interface{}) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *BrandWithEmbedded) GetLinks() LinksSelf {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksSelf
 		return ret
 	}
@@ -118,7 +121,7 @@ func (o *BrandWithEmbedded) GetLinks() LinksSelf {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BrandWithEmbedded) GetLinksOk() (*LinksSelf, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -126,7 +129,7 @@ func (o *BrandWithEmbedded) GetLinksOk() (*LinksSelf, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *BrandWithEmbedded) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -140,7 +143,7 @@ func (o *BrandWithEmbedded) SetLinks(v LinksSelf) {
 
 // GetAgreeToCustomPrivacyPolicy returns the AgreeToCustomPrivacyPolicy field value if set, zero value otherwise.
 func (o *BrandWithEmbedded) GetAgreeToCustomPrivacyPolicy() bool {
-	if o == nil || o.AgreeToCustomPrivacyPolicy == nil {
+	if o == nil || IsNil(o.AgreeToCustomPrivacyPolicy) {
 		var ret bool
 		return ret
 	}
@@ -150,7 +153,7 @@ func (o *BrandWithEmbedded) GetAgreeToCustomPrivacyPolicy() bool {
 // GetAgreeToCustomPrivacyPolicyOk returns a tuple with the AgreeToCustomPrivacyPolicy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BrandWithEmbedded) GetAgreeToCustomPrivacyPolicyOk() (*bool, bool) {
-	if o == nil || o.AgreeToCustomPrivacyPolicy == nil {
+	if o == nil || IsNil(o.AgreeToCustomPrivacyPolicy) {
 		return nil, false
 	}
 	return o.AgreeToCustomPrivacyPolicy, true
@@ -158,7 +161,7 @@ func (o *BrandWithEmbedded) GetAgreeToCustomPrivacyPolicyOk() (*bool, bool) {
 
 // HasAgreeToCustomPrivacyPolicy returns a boolean if a field has been set.
 func (o *BrandWithEmbedded) HasAgreeToCustomPrivacyPolicy() bool {
-	if o != nil && o.AgreeToCustomPrivacyPolicy != nil {
+	if o != nil && !IsNil(o.AgreeToCustomPrivacyPolicy) {
 		return true
 	}
 
@@ -172,7 +175,7 @@ func (o *BrandWithEmbedded) SetAgreeToCustomPrivacyPolicy(v bool) {
 
 // GetCustomPrivacyPolicyUrl returns the CustomPrivacyPolicyUrl field value if set, zero value otherwise.
 func (o *BrandWithEmbedded) GetCustomPrivacyPolicyUrl() string {
-	if o == nil || o.CustomPrivacyPolicyUrl == nil {
+	if o == nil || IsNil(o.CustomPrivacyPolicyUrl) {
 		var ret string
 		return ret
 	}
@@ -182,7 +185,7 @@ func (o *BrandWithEmbedded) GetCustomPrivacyPolicyUrl() string {
 // GetCustomPrivacyPolicyUrlOk returns a tuple with the CustomPrivacyPolicyUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BrandWithEmbedded) GetCustomPrivacyPolicyUrlOk() (*string, bool) {
-	if o == nil || o.CustomPrivacyPolicyUrl == nil {
+	if o == nil || IsNil(o.CustomPrivacyPolicyUrl) {
 		return nil, false
 	}
 	return o.CustomPrivacyPolicyUrl, true
@@ -190,7 +193,7 @@ func (o *BrandWithEmbedded) GetCustomPrivacyPolicyUrlOk() (*string, bool) {
 
 // HasCustomPrivacyPolicyUrl returns a boolean if a field has been set.
 func (o *BrandWithEmbedded) HasCustomPrivacyPolicyUrl() bool {
-	if o != nil && o.CustomPrivacyPolicyUrl != nil {
+	if o != nil && !IsNil(o.CustomPrivacyPolicyUrl) {
 		return true
 	}
 
@@ -204,7 +207,7 @@ func (o *BrandWithEmbedded) SetCustomPrivacyPolicyUrl(v string) {
 
 // GetDefaultApp returns the DefaultApp field value if set, zero value otherwise.
 func (o *BrandWithEmbedded) GetDefaultApp() DefaultApp {
-	if o == nil || o.DefaultApp == nil {
+	if o == nil || IsNil(o.DefaultApp) {
 		var ret DefaultApp
 		return ret
 	}
@@ -214,7 +217,7 @@ func (o *BrandWithEmbedded) GetDefaultApp() DefaultApp {
 // GetDefaultAppOk returns a tuple with the DefaultApp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BrandWithEmbedded) GetDefaultAppOk() (*DefaultApp, bool) {
-	if o == nil || o.DefaultApp == nil {
+	if o == nil || IsNil(o.DefaultApp) {
 		return nil, false
 	}
 	return o.DefaultApp, true
@@ -222,7 +225,7 @@ func (o *BrandWithEmbedded) GetDefaultAppOk() (*DefaultApp, bool) {
 
 // HasDefaultApp returns a boolean if a field has been set.
 func (o *BrandWithEmbedded) HasDefaultApp() bool {
-	if o != nil && o.DefaultApp != nil {
+	if o != nil && !IsNil(o.DefaultApp) {
 		return true
 	}
 
@@ -236,7 +239,7 @@ func (o *BrandWithEmbedded) SetDefaultApp(v DefaultApp) {
 
 // GetEmailDomainId returns the EmailDomainId field value if set, zero value otherwise.
 func (o *BrandWithEmbedded) GetEmailDomainId() string {
-	if o == nil || o.EmailDomainId == nil {
+	if o == nil || IsNil(o.EmailDomainId) {
 		var ret string
 		return ret
 	}
@@ -246,7 +249,7 @@ func (o *BrandWithEmbedded) GetEmailDomainId() string {
 // GetEmailDomainIdOk returns a tuple with the EmailDomainId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BrandWithEmbedded) GetEmailDomainIdOk() (*string, bool) {
-	if o == nil || o.EmailDomainId == nil {
+	if o == nil || IsNil(o.EmailDomainId) {
 		return nil, false
 	}
 	return o.EmailDomainId, true
@@ -254,7 +257,7 @@ func (o *BrandWithEmbedded) GetEmailDomainIdOk() (*string, bool) {
 
 // HasEmailDomainId returns a boolean if a field has been set.
 func (o *BrandWithEmbedded) HasEmailDomainId() bool {
-	if o != nil && o.EmailDomainId != nil {
+	if o != nil && !IsNil(o.EmailDomainId) {
 		return true
 	}
 
@@ -268,7 +271,7 @@ func (o *BrandWithEmbedded) SetEmailDomainId(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *BrandWithEmbedded) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -278,7 +281,7 @@ func (o *BrandWithEmbedded) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BrandWithEmbedded) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -286,7 +289,7 @@ func (o *BrandWithEmbedded) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *BrandWithEmbedded) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -300,7 +303,7 @@ func (o *BrandWithEmbedded) SetId(v string) {
 
 // GetIsDefault returns the IsDefault field value if set, zero value otherwise.
 func (o *BrandWithEmbedded) GetIsDefault() bool {
-	if o == nil || o.IsDefault == nil {
+	if o == nil || IsNil(o.IsDefault) {
 		var ret bool
 		return ret
 	}
@@ -310,7 +313,7 @@ func (o *BrandWithEmbedded) GetIsDefault() bool {
 // GetIsDefaultOk returns a tuple with the IsDefault field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BrandWithEmbedded) GetIsDefaultOk() (*bool, bool) {
-	if o == nil || o.IsDefault == nil {
+	if o == nil || IsNil(o.IsDefault) {
 		return nil, false
 	}
 	return o.IsDefault, true
@@ -318,7 +321,7 @@ func (o *BrandWithEmbedded) GetIsDefaultOk() (*bool, bool) {
 
 // HasIsDefault returns a boolean if a field has been set.
 func (o *BrandWithEmbedded) HasIsDefault() bool {
-	if o != nil && o.IsDefault != nil {
+	if o != nil && !IsNil(o.IsDefault) {
 		return true
 	}
 
@@ -332,7 +335,7 @@ func (o *BrandWithEmbedded) SetIsDefault(v bool) {
 
 // GetLocale returns the Locale field value if set, zero value otherwise.
 func (o *BrandWithEmbedded) GetLocale() string {
-	if o == nil || o.Locale == nil {
+	if o == nil || IsNil(o.Locale) {
 		var ret string
 		return ret
 	}
@@ -342,7 +345,7 @@ func (o *BrandWithEmbedded) GetLocale() string {
 // GetLocaleOk returns a tuple with the Locale field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BrandWithEmbedded) GetLocaleOk() (*string, bool) {
-	if o == nil || o.Locale == nil {
+	if o == nil || IsNil(o.Locale) {
 		return nil, false
 	}
 	return o.Locale, true
@@ -350,7 +353,7 @@ func (o *BrandWithEmbedded) GetLocaleOk() (*string, bool) {
 
 // HasLocale returns a boolean if a field has been set.
 func (o *BrandWithEmbedded) HasLocale() bool {
-	if o != nil && o.Locale != nil {
+	if o != nil && !IsNil(o.Locale) {
 		return true
 	}
 
@@ -364,7 +367,7 @@ func (o *BrandWithEmbedded) SetLocale(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *BrandWithEmbedded) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -374,7 +377,7 @@ func (o *BrandWithEmbedded) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BrandWithEmbedded) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -382,7 +385,7 @@ func (o *BrandWithEmbedded) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *BrandWithEmbedded) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -396,7 +399,7 @@ func (o *BrandWithEmbedded) SetName(v string) {
 
 // GetRemovePoweredByOkta returns the RemovePoweredByOkta field value if set, zero value otherwise.
 func (o *BrandWithEmbedded) GetRemovePoweredByOkta() bool {
-	if o == nil || o.RemovePoweredByOkta == nil {
+	if o == nil || IsNil(o.RemovePoweredByOkta) {
 		var ret bool
 		return ret
 	}
@@ -406,7 +409,7 @@ func (o *BrandWithEmbedded) GetRemovePoweredByOkta() bool {
 // GetRemovePoweredByOktaOk returns a tuple with the RemovePoweredByOkta field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BrandWithEmbedded) GetRemovePoweredByOktaOk() (*bool, bool) {
-	if o == nil || o.RemovePoweredByOkta == nil {
+	if o == nil || IsNil(o.RemovePoweredByOkta) {
 		return nil, false
 	}
 	return o.RemovePoweredByOkta, true
@@ -414,7 +417,7 @@ func (o *BrandWithEmbedded) GetRemovePoweredByOktaOk() (*bool, bool) {
 
 // HasRemovePoweredByOkta returns a boolean if a field has been set.
 func (o *BrandWithEmbedded) HasRemovePoweredByOkta() bool {
-	if o != nil && o.RemovePoweredByOkta != nil {
+	if o != nil && !IsNil(o.RemovePoweredByOkta) {
 		return true
 	}
 
@@ -427,38 +430,46 @@ func (o *BrandWithEmbedded) SetRemovePoweredByOkta(v bool) {
 }
 
 func (o BrandWithEmbedded) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BrandWithEmbedded) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Embedded != nil {
+	if !IsNil(o.Embedded) {
 		toSerialize["_embedded"] = o.Embedded
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
-	if o.AgreeToCustomPrivacyPolicy != nil {
+	if !IsNil(o.AgreeToCustomPrivacyPolicy) {
 		toSerialize["agreeToCustomPrivacyPolicy"] = o.AgreeToCustomPrivacyPolicy
 	}
-	if o.CustomPrivacyPolicyUrl != nil {
+	if !IsNil(o.CustomPrivacyPolicyUrl) {
 		toSerialize["customPrivacyPolicyUrl"] = o.CustomPrivacyPolicyUrl
 	}
-	if o.DefaultApp != nil {
+	if !IsNil(o.DefaultApp) {
 		toSerialize["defaultApp"] = o.DefaultApp
 	}
-	if o.EmailDomainId != nil {
+	if !IsNil(o.EmailDomainId) {
 		toSerialize["emailDomainId"] = o.EmailDomainId
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.IsDefault != nil {
+	if !IsNil(o.IsDefault) {
 		toSerialize["isDefault"] = o.IsDefault
 	}
-	if o.Locale != nil {
+	if !IsNil(o.Locale) {
 		toSerialize["locale"] = o.Locale
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.RemovePoweredByOkta != nil {
+	if !IsNil(o.RemovePoweredByOkta) {
 		toSerialize["removePoweredByOkta"] = o.RemovePoweredByOkta
 	}
 
@@ -466,23 +477,23 @@ func (o BrandWithEmbedded) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *BrandWithEmbedded) UnmarshalJSON(bytes []byte) (err error) {
+func (o *BrandWithEmbedded) UnmarshalJSON(data []byte) (err error) {
 	varBrandWithEmbedded := _BrandWithEmbedded{}
 
-	err = json.Unmarshal(bytes, &varBrandWithEmbedded)
-	if err == nil {
-		*o = BrandWithEmbedded(varBrandWithEmbedded)
-	} else {
+	err = json.Unmarshal(data, &varBrandWithEmbedded)
+
+	if err != nil {
 		return err
 	}
 
+	*o = BrandWithEmbedded(varBrandWithEmbedded)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "_embedded")
 		delete(additionalProperties, "_links")
 		delete(additionalProperties, "agreeToCustomPrivacyPolicy")
@@ -495,8 +506,6 @@ func (o *BrandWithEmbedded) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "removePoweredByOkta")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -537,4 +546,3 @@ func (v *NullableBrandWithEmbedded) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

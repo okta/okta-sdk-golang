@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **UserNameTemplate** | Pointer to [**ApplicationCredentialsUsernameTemplate**](ApplicationCredentialsUsernameTemplate.md) |  | [optional] 
 **Password** | Pointer to [**PasswordCredential**](PasswordCredential.md) |  | [optional] 
 **RevealPassword** | Pointer to **bool** | Allow users to securely see their password | [optional] 
-**Scheme** | Pointer to **string** |  | [optional] 
-**UserName** | Pointer to **string** |  | [optional] 
+**Scheme** | Pointer to **string** | Apps with &#x60;BASIC_AUTH&#x60;, &#x60;BROWSER_PLUGIN&#x60;, or &#x60;SECURE_PASSWORD_STORE&#x60; sign-on modes have credentials vaulted by Okta and can be configured with the following schemes.  | [optional] 
+**UserName** | Pointer to **string** | Shared username for the app | [optional] 
 
 ## Methods
 

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -28,13 +28,21 @@ import (
 	"time"
 )
 
-// ApplicationCredentialsSigning struct for ApplicationCredentialsSigning
+// checks if the ApplicationCredentialsSigning type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApplicationCredentialsSigning{}
+
+// ApplicationCredentialsSigning App signing key properties > **Note:** Only apps with SAML_2_0, SAML_1_1, WS_FEDERATION, or OPENID_CONNECT `signOnMode` support the key rotation feature.
 type ApplicationCredentialsSigning struct {
+	// Key identifier used for signing assertions > **Note:** Currently, only the X.509 JWK format is supported for apps with SAML_2_0 `signOnMode`.
 	Kid *string `json:"kid,omitempty"`
+	// Timestamp when the signing key was last rotated
 	LastRotated *time.Time `json:"lastRotated,omitempty"`
+	// The scheduled time for the next signing key rotation
 	NextRotation *time.Time `json:"nextRotation,omitempty"`
+	// The mode of key rotation
 	RotationMode *string `json:"rotationMode,omitempty"`
-	Use *string `json:"use,omitempty"`
+	// Specifies the intended use of the key
+	Use                  *string `json:"use,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +67,7 @@ func NewApplicationCredentialsSigningWithDefaults() *ApplicationCredentialsSigni
 
 // GetKid returns the Kid field value if set, zero value otherwise.
 func (o *ApplicationCredentialsSigning) GetKid() string {
-	if o == nil || o.Kid == nil {
+	if o == nil || IsNil(o.Kid) {
 		var ret string
 		return ret
 	}
@@ -69,7 +77,7 @@ func (o *ApplicationCredentialsSigning) GetKid() string {
 // GetKidOk returns a tuple with the Kid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationCredentialsSigning) GetKidOk() (*string, bool) {
-	if o == nil || o.Kid == nil {
+	if o == nil || IsNil(o.Kid) {
 		return nil, false
 	}
 	return o.Kid, true
@@ -77,7 +85,7 @@ func (o *ApplicationCredentialsSigning) GetKidOk() (*string, bool) {
 
 // HasKid returns a boolean if a field has been set.
 func (o *ApplicationCredentialsSigning) HasKid() bool {
-	if o != nil && o.Kid != nil {
+	if o != nil && !IsNil(o.Kid) {
 		return true
 	}
 
@@ -91,7 +99,7 @@ func (o *ApplicationCredentialsSigning) SetKid(v string) {
 
 // GetLastRotated returns the LastRotated field value if set, zero value otherwise.
 func (o *ApplicationCredentialsSigning) GetLastRotated() time.Time {
-	if o == nil || o.LastRotated == nil {
+	if o == nil || IsNil(o.LastRotated) {
 		var ret time.Time
 		return ret
 	}
@@ -101,7 +109,7 @@ func (o *ApplicationCredentialsSigning) GetLastRotated() time.Time {
 // GetLastRotatedOk returns a tuple with the LastRotated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationCredentialsSigning) GetLastRotatedOk() (*time.Time, bool) {
-	if o == nil || o.LastRotated == nil {
+	if o == nil || IsNil(o.LastRotated) {
 		return nil, false
 	}
 	return o.LastRotated, true
@@ -109,7 +117,7 @@ func (o *ApplicationCredentialsSigning) GetLastRotatedOk() (*time.Time, bool) {
 
 // HasLastRotated returns a boolean if a field has been set.
 func (o *ApplicationCredentialsSigning) HasLastRotated() bool {
-	if o != nil && o.LastRotated != nil {
+	if o != nil && !IsNil(o.LastRotated) {
 		return true
 	}
 
@@ -123,7 +131,7 @@ func (o *ApplicationCredentialsSigning) SetLastRotated(v time.Time) {
 
 // GetNextRotation returns the NextRotation field value if set, zero value otherwise.
 func (o *ApplicationCredentialsSigning) GetNextRotation() time.Time {
-	if o == nil || o.NextRotation == nil {
+	if o == nil || IsNil(o.NextRotation) {
 		var ret time.Time
 		return ret
 	}
@@ -133,7 +141,7 @@ func (o *ApplicationCredentialsSigning) GetNextRotation() time.Time {
 // GetNextRotationOk returns a tuple with the NextRotation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationCredentialsSigning) GetNextRotationOk() (*time.Time, bool) {
-	if o == nil || o.NextRotation == nil {
+	if o == nil || IsNil(o.NextRotation) {
 		return nil, false
 	}
 	return o.NextRotation, true
@@ -141,7 +149,7 @@ func (o *ApplicationCredentialsSigning) GetNextRotationOk() (*time.Time, bool) {
 
 // HasNextRotation returns a boolean if a field has been set.
 func (o *ApplicationCredentialsSigning) HasNextRotation() bool {
-	if o != nil && o.NextRotation != nil {
+	if o != nil && !IsNil(o.NextRotation) {
 		return true
 	}
 
@@ -155,7 +163,7 @@ func (o *ApplicationCredentialsSigning) SetNextRotation(v time.Time) {
 
 // GetRotationMode returns the RotationMode field value if set, zero value otherwise.
 func (o *ApplicationCredentialsSigning) GetRotationMode() string {
-	if o == nil || o.RotationMode == nil {
+	if o == nil || IsNil(o.RotationMode) {
 		var ret string
 		return ret
 	}
@@ -165,7 +173,7 @@ func (o *ApplicationCredentialsSigning) GetRotationMode() string {
 // GetRotationModeOk returns a tuple with the RotationMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationCredentialsSigning) GetRotationModeOk() (*string, bool) {
-	if o == nil || o.RotationMode == nil {
+	if o == nil || IsNil(o.RotationMode) {
 		return nil, false
 	}
 	return o.RotationMode, true
@@ -173,7 +181,7 @@ func (o *ApplicationCredentialsSigning) GetRotationModeOk() (*string, bool) {
 
 // HasRotationMode returns a boolean if a field has been set.
 func (o *ApplicationCredentialsSigning) HasRotationMode() bool {
-	if o != nil && o.RotationMode != nil {
+	if o != nil && !IsNil(o.RotationMode) {
 		return true
 	}
 
@@ -187,7 +195,7 @@ func (o *ApplicationCredentialsSigning) SetRotationMode(v string) {
 
 // GetUse returns the Use field value if set, zero value otherwise.
 func (o *ApplicationCredentialsSigning) GetUse() string {
-	if o == nil || o.Use == nil {
+	if o == nil || IsNil(o.Use) {
 		var ret string
 		return ret
 	}
@@ -197,7 +205,7 @@ func (o *ApplicationCredentialsSigning) GetUse() string {
 // GetUseOk returns a tuple with the Use field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationCredentialsSigning) GetUseOk() (*string, bool) {
-	if o == nil || o.Use == nil {
+	if o == nil || IsNil(o.Use) {
 		return nil, false
 	}
 	return o.Use, true
@@ -205,7 +213,7 @@ func (o *ApplicationCredentialsSigning) GetUseOk() (*string, bool) {
 
 // HasUse returns a boolean if a field has been set.
 func (o *ApplicationCredentialsSigning) HasUse() bool {
-	if o != nil && o.Use != nil {
+	if o != nil && !IsNil(o.Use) {
 		return true
 	}
 
@@ -218,20 +226,28 @@ func (o *ApplicationCredentialsSigning) SetUse(v string) {
 }
 
 func (o ApplicationCredentialsSigning) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApplicationCredentialsSigning) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Kid != nil {
+	if !IsNil(o.Kid) {
 		toSerialize["kid"] = o.Kid
 	}
-	if o.LastRotated != nil {
+	if !IsNil(o.LastRotated) {
 		toSerialize["lastRotated"] = o.LastRotated
 	}
-	if o.NextRotation != nil {
+	if !IsNil(o.NextRotation) {
 		toSerialize["nextRotation"] = o.NextRotation
 	}
-	if o.RotationMode != nil {
+	if !IsNil(o.RotationMode) {
 		toSerialize["rotationMode"] = o.RotationMode
 	}
-	if o.Use != nil {
+	if !IsNil(o.Use) {
 		toSerialize["use"] = o.Use
 	}
 
@@ -239,31 +255,29 @@ func (o ApplicationCredentialsSigning) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ApplicationCredentialsSigning) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ApplicationCredentialsSigning) UnmarshalJSON(data []byte) (err error) {
 	varApplicationCredentialsSigning := _ApplicationCredentialsSigning{}
 
-	err = json.Unmarshal(bytes, &varApplicationCredentialsSigning)
-	if err == nil {
-		*o = ApplicationCredentialsSigning(varApplicationCredentialsSigning)
-	} else {
+	err = json.Unmarshal(data, &varApplicationCredentialsSigning)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ApplicationCredentialsSigning(varApplicationCredentialsSigning)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "kid")
 		delete(additionalProperties, "lastRotated")
 		delete(additionalProperties, "nextRotation")
 		delete(additionalProperties, "rotationMode")
 		delete(additionalProperties, "use")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -304,4 +318,3 @@ func (v *NullableApplicationCredentialsSigning) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

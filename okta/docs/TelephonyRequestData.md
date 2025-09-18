@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Context** | Pointer to [**TelephonyRequestDataContext**](TelephonyRequestDataContext.md) |  | [optional] 
+**Context** | Pointer to [**RegistrationInlineHookSSRDataAllOfDataContext**](RegistrationInlineHookSSRDataAllOfDataContext.md) |  | [optional] 
 **MessageProfile** | Pointer to [**TelephonyRequestDataMessageProfile**](TelephonyRequestDataMessageProfile.md) |  | [optional] 
 **UserProfile** | Pointer to [**TelephonyRequestDataUserProfile**](TelephonyRequestDataUserProfile.md) |  | [optional] 
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetContext
 
-`func (o *TelephonyRequestData) GetContext() TelephonyRequestDataContext`
+`func (o *TelephonyRequestData) GetContext() RegistrationInlineHookSSRDataAllOfDataContext`
 
 GetContext returns the Context field if non-nil, zero value otherwise.
 
 ### GetContextOk
 
-`func (o *TelephonyRequestData) GetContextOk() (*TelephonyRequestDataContext, bool)`
+`func (o *TelephonyRequestData) GetContextOk() (*RegistrationInlineHookSSRDataAllOfDataContext, bool)`
 
 GetContextOk returns a tuple with the Context field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetContext
 
-`func (o *TelephonyRequestData) SetContext(v TelephonyRequestDataContext)`
+`func (o *TelephonyRequestData) SetContext(v RegistrationInlineHookSSRDataAllOfDataContext)`
 
 SetContext sets Context field to given value.
 

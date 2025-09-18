@@ -5,15 +5,15 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AssignmentOperation** | Pointer to [**OperationResponseAssignmentOperation**](OperationResponseAssignmentOperation.md) |  | [optional] 
-**Completed** | Pointer to **time.Time** |  | [optional] [readonly] 
-**Created** | Pointer to **time.Time** |  | [optional] [readonly] 
-**Id** | Pointer to **string** |  | [optional] [readonly] 
-**NumUserMoved** | Pointer to **float32** |  | [optional] [readonly] 
-**RealmId** | Pointer to **string** |  | [optional] [readonly] 
-**RealmName** | Pointer to **string** |  | [optional] [readonly] 
-**Started** | Pointer to **time.Time** |  | [optional] [readonly] 
-**Status** | Pointer to **string** |  | [optional] [readonly] 
-**Type** | Pointer to **string** |  | [optional] [readonly] 
+**Completed** | Pointer to **time.Time** | Timestamp when the realm assignment operation completed | [optional] [readonly] 
+**Created** | Pointer to **time.Time** | Timestamp when the realm assignment operation was created | [optional] [readonly] 
+**Id** | Pointer to **string** | ID of the realm | [optional] [readonly] 
+**NumUserMoved** | Pointer to **float32** | Number of users moved | [optional] [readonly] 
+**RealmId** | Pointer to **string** | ID of the realm | [optional] [readonly] 
+**RealmName** | Pointer to **string** | Name of the realm | [optional] [readonly] 
+**Started** | Pointer to **time.Time** | Timestamp when the realm assignment operation started | [optional] [readonly] 
+**Status** | Pointer to **string** | Current status of the operation | [optional] [readonly] 
+**Type** | Pointer to **string** | Realm type | [optional] [readonly] 
 **Links** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
 
 ## Methods

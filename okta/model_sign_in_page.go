@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,14 +27,17 @@ import (
 	"encoding/json"
 )
 
+// checks if the SignInPage type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SignInPage{}
+
 // SignInPage struct for SignInPage
 type SignInPage struct {
 	// The HTML for the page
-	PageContent *string `json:"pageContent,omitempty"`
-	ContentSecurityPolicySetting *ContentSecurityPolicySetting `json:"contentSecurityPolicySetting,omitempty"`
-	WidgetCustomizations *SignInPageAllOfWidgetCustomizations `json:"widgetCustomizations,omitempty"`
+	PageContent                  *string                              `json:"pageContent,omitempty"`
+	ContentSecurityPolicySetting *ContentSecurityPolicySetting        `json:"contentSecurityPolicySetting,omitempty"`
+	WidgetCustomizations         *SignInPageAllOfWidgetCustomizations `json:"widgetCustomizations,omitempty"`
 	// The version specified as a [Semantic Version](https://semver.org/).
-	WidgetVersion *string `json:"widgetVersion,omitempty"`
+	WidgetVersion        *string `json:"widgetVersion,omitempty" validate:"regexp=^(0|[1-9]\\\\d*)\\\\.(0|[1-9]\\\\d*)\\\\.(0|[1-9]\\\\d*)(?:-((?:0|[1-9]\\\\d*|\\\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\\\.(?:0|[1-9]\\\\d*|\\\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\\+([0-9a-zA-Z-]+(?:\\\\.[0-9a-zA-Z-]+)*))?$"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewSignInPageWithDefaults() *SignInPage {
 
 // GetPageContent returns the PageContent field value if set, zero value otherwise.
 func (o *SignInPage) GetPageContent() string {
-	if o == nil || o.PageContent == nil {
+	if o == nil || IsNil(o.PageContent) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *SignInPage) GetPageContent() string {
 // GetPageContentOk returns a tuple with the PageContent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SignInPage) GetPageContentOk() (*string, bool) {
-	if o == nil || o.PageContent == nil {
+	if o == nil || IsNil(o.PageContent) {
 		return nil, false
 	}
 	return o.PageContent, true
@@ -77,7 +80,7 @@ func (o *SignInPage) GetPageContentOk() (*string, bool) {
 
 // HasPageContent returns a boolean if a field has been set.
 func (o *SignInPage) HasPageContent() bool {
-	if o != nil && o.PageContent != nil {
+	if o != nil && !IsNil(o.PageContent) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *SignInPage) SetPageContent(v string) {
 
 // GetContentSecurityPolicySetting returns the ContentSecurityPolicySetting field value if set, zero value otherwise.
 func (o *SignInPage) GetContentSecurityPolicySetting() ContentSecurityPolicySetting {
-	if o == nil || o.ContentSecurityPolicySetting == nil {
+	if o == nil || IsNil(o.ContentSecurityPolicySetting) {
 		var ret ContentSecurityPolicySetting
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *SignInPage) GetContentSecurityPolicySetting() ContentSecurityPolicySett
 // GetContentSecurityPolicySettingOk returns a tuple with the ContentSecurityPolicySetting field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SignInPage) GetContentSecurityPolicySettingOk() (*ContentSecurityPolicySetting, bool) {
-	if o == nil || o.ContentSecurityPolicySetting == nil {
+	if o == nil || IsNil(o.ContentSecurityPolicySetting) {
 		return nil, false
 	}
 	return o.ContentSecurityPolicySetting, true
@@ -109,7 +112,7 @@ func (o *SignInPage) GetContentSecurityPolicySettingOk() (*ContentSecurityPolicy
 
 // HasContentSecurityPolicySetting returns a boolean if a field has been set.
 func (o *SignInPage) HasContentSecurityPolicySetting() bool {
-	if o != nil && o.ContentSecurityPolicySetting != nil {
+	if o != nil && !IsNil(o.ContentSecurityPolicySetting) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *SignInPage) SetContentSecurityPolicySetting(v ContentSecurityPolicySett
 
 // GetWidgetCustomizations returns the WidgetCustomizations field value if set, zero value otherwise.
 func (o *SignInPage) GetWidgetCustomizations() SignInPageAllOfWidgetCustomizations {
-	if o == nil || o.WidgetCustomizations == nil {
+	if o == nil || IsNil(o.WidgetCustomizations) {
 		var ret SignInPageAllOfWidgetCustomizations
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *SignInPage) GetWidgetCustomizations() SignInPageAllOfWidgetCustomizatio
 // GetWidgetCustomizationsOk returns a tuple with the WidgetCustomizations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SignInPage) GetWidgetCustomizationsOk() (*SignInPageAllOfWidgetCustomizations, bool) {
-	if o == nil || o.WidgetCustomizations == nil {
+	if o == nil || IsNil(o.WidgetCustomizations) {
 		return nil, false
 	}
 	return o.WidgetCustomizations, true
@@ -141,7 +144,7 @@ func (o *SignInPage) GetWidgetCustomizationsOk() (*SignInPageAllOfWidgetCustomiz
 
 // HasWidgetCustomizations returns a boolean if a field has been set.
 func (o *SignInPage) HasWidgetCustomizations() bool {
-	if o != nil && o.WidgetCustomizations != nil {
+	if o != nil && !IsNil(o.WidgetCustomizations) {
 		return true
 	}
 
@@ -155,7 +158,7 @@ func (o *SignInPage) SetWidgetCustomizations(v SignInPageAllOfWidgetCustomizatio
 
 // GetWidgetVersion returns the WidgetVersion field value if set, zero value otherwise.
 func (o *SignInPage) GetWidgetVersion() string {
-	if o == nil || o.WidgetVersion == nil {
+	if o == nil || IsNil(o.WidgetVersion) {
 		var ret string
 		return ret
 	}
@@ -165,7 +168,7 @@ func (o *SignInPage) GetWidgetVersion() string {
 // GetWidgetVersionOk returns a tuple with the WidgetVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SignInPage) GetWidgetVersionOk() (*string, bool) {
-	if o == nil || o.WidgetVersion == nil {
+	if o == nil || IsNil(o.WidgetVersion) {
 		return nil, false
 	}
 	return o.WidgetVersion, true
@@ -173,7 +176,7 @@ func (o *SignInPage) GetWidgetVersionOk() (*string, bool) {
 
 // HasWidgetVersion returns a boolean if a field has been set.
 func (o *SignInPage) HasWidgetVersion() bool {
-	if o != nil && o.WidgetVersion != nil {
+	if o != nil && !IsNil(o.WidgetVersion) {
 		return true
 	}
 
@@ -186,17 +189,25 @@ func (o *SignInPage) SetWidgetVersion(v string) {
 }
 
 func (o SignInPage) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SignInPage) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.PageContent != nil {
+	if !IsNil(o.PageContent) {
 		toSerialize["pageContent"] = o.PageContent
 	}
-	if o.ContentSecurityPolicySetting != nil {
+	if !IsNil(o.ContentSecurityPolicySetting) {
 		toSerialize["contentSecurityPolicySetting"] = o.ContentSecurityPolicySetting
 	}
-	if o.WidgetCustomizations != nil {
+	if !IsNil(o.WidgetCustomizations) {
 		toSerialize["widgetCustomizations"] = o.WidgetCustomizations
 	}
-	if o.WidgetVersion != nil {
+	if !IsNil(o.WidgetVersion) {
 		toSerialize["widgetVersion"] = o.WidgetVersion
 	}
 
@@ -204,30 +215,28 @@ func (o SignInPage) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SignInPage) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SignInPage) UnmarshalJSON(data []byte) (err error) {
 	varSignInPage := _SignInPage{}
 
-	err = json.Unmarshal(bytes, &varSignInPage)
-	if err == nil {
-		*o = SignInPage(varSignInPage)
-	} else {
+	err = json.Unmarshal(data, &varSignInPage)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SignInPage(varSignInPage)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "pageContent")
 		delete(additionalProperties, "contentSecurityPolicySetting")
 		delete(additionalProperties, "widgetCustomizations")
 		delete(additionalProperties, "widgetVersion")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -268,4 +277,3 @@ func (v *NullableSignInPage) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

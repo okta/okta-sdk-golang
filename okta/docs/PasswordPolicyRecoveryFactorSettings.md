@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Status** | Pointer to **string** |  | [optional] 
+**Status** | Pointer to **string** | Whether or not the factor is active | [optional] 
 
 ## Methods
 

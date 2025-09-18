@@ -4,9 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Expiration** | Pointer to **time.Time** |  | [optional] [readonly] 
-**Support** | Pointer to **string** |  | [optional] 
-**Links** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
+**CaseNumber** | Pointer to **NullableString** | Support case number for the Okta Support access grant | [optional] [readonly] 
+**Expiration** | Pointer to **NullableTime** | Expiration of Okta Support | [optional] [readonly] 
+**Support** | Pointer to **string** | Status of Okta Support Settings | [optional] 
+**Links** | Pointer to [**OrgOktaSupportSettingsObjLinks**](OrgOktaSupportSettingsObjLinks.md) |  | [optional] 
 
 ## Methods
 
@@ -27,6 +28,41 @@ NewOrgOktaSupportSettingsObjWithDefaults instantiates a new OrgOktaSupportSettin
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
+### GetCaseNumber
+
+`func (o *OrgOktaSupportSettingsObj) GetCaseNumber() string`
+
+GetCaseNumber returns the CaseNumber field if non-nil, zero value otherwise.
+
+### GetCaseNumberOk
+
+`func (o *OrgOktaSupportSettingsObj) GetCaseNumberOk() (*string, bool)`
+
+GetCaseNumberOk returns a tuple with the CaseNumber field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCaseNumber
+
+`func (o *OrgOktaSupportSettingsObj) SetCaseNumber(v string)`
+
+SetCaseNumber sets CaseNumber field to given value.
+
+### HasCaseNumber
+
+`func (o *OrgOktaSupportSettingsObj) HasCaseNumber() bool`
+
+HasCaseNumber returns a boolean if a field has been set.
+
+### SetCaseNumberNil
+
+`func (o *OrgOktaSupportSettingsObj) SetCaseNumberNil(b bool)`
+
+ SetCaseNumberNil sets the value for CaseNumber to be an explicit nil
+
+### UnsetCaseNumber
+`func (o *OrgOktaSupportSettingsObj) UnsetCaseNumber()`
+
+UnsetCaseNumber ensures that no value is present for CaseNumber, not even an explicit nil
 ### GetExpiration
 
 `func (o *OrgOktaSupportSettingsObj) GetExpiration() time.Time`
@@ -52,6 +88,16 @@ SetExpiration sets Expiration field to given value.
 
 HasExpiration returns a boolean if a field has been set.
 
+### SetExpirationNil
+
+`func (o *OrgOktaSupportSettingsObj) SetExpirationNil(b bool)`
+
+ SetExpirationNil sets the value for Expiration to be an explicit nil
+
+### UnsetExpiration
+`func (o *OrgOktaSupportSettingsObj) UnsetExpiration()`
+
+UnsetExpiration ensures that no value is present for Expiration, not even an explicit nil
 ### GetSupport
 
 `func (o *OrgOktaSupportSettingsObj) GetSupport() string`
@@ -79,20 +125,20 @@ HasSupport returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *OrgOktaSupportSettingsObj) GetLinks() LinksSelf`
+`func (o *OrgOktaSupportSettingsObj) GetLinks() OrgOktaSupportSettingsObjLinks`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *OrgOktaSupportSettingsObj) GetLinksOk() (*LinksSelf, bool)`
+`func (o *OrgOktaSupportSettingsObj) GetLinksOk() (*OrgOktaSupportSettingsObjLinks, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *OrgOktaSupportSettingsObj) SetLinks(v LinksSelf)`
+`func (o *OrgOktaSupportSettingsObj) SetLinks(v OrgOktaSupportSettingsObjLinks)`
 
 SetLinks sets Links field to given value.
 

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**EmailAddress** | Pointer to **string** |  | [optional] 
-**Reason** | Pointer to **string** |  | [optional] 
+**EmailAddress** | Pointer to **string** | An email address with a validation error | [optional] 
+**Reason** | Pointer to **string** | Validation error reason | [optional] 
 
 ## Methods
 

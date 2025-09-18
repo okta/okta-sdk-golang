@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthenticatorKeyCustomAppAllOfProviderConfigurationApns type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorKeyCustomAppAllOfProviderConfigurationApns{}
+
 // AuthenticatorKeyCustomAppAllOfProviderConfigurationApns struct for AuthenticatorKeyCustomAppAllOfProviderConfigurationApns
 type AuthenticatorKeyCustomAppAllOfProviderConfigurationApns struct {
 	// ID of the APNs (Apple Push Notification Service) [configurations](https://developer.okta.com/docs/reference/api/push-providers/)
@@ -34,7 +37,7 @@ type AuthenticatorKeyCustomAppAllOfProviderConfigurationApns struct {
 	// AppBundleId of the APNs (Apple Push Notification Service) [configurations](https://developer.okta.com/docs/reference/api/push-providers/)
 	AppBundleId *string `json:"appBundleId,omitempty"`
 	// DebugAppBundleId of the APNs (Apple Push Notification Service) [configurations](https://developer.okta.com/docs/reference/api/push-providers/)
-	DebugAppBundleId *string `json:"debugAppBundleId,omitempty"`
+	DebugAppBundleId     *string `json:"debugAppBundleId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewAuthenticatorKeyCustomAppAllOfProviderConfigurationApnsWithDefaults() *A
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *AuthenticatorKeyCustomAppAllOfProviderConfigurationApns) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *AuthenticatorKeyCustomAppAllOfProviderConfigurationApns) GetId() string
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorKeyCustomAppAllOfProviderConfigurationApns) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -77,7 +80,7 @@ func (o *AuthenticatorKeyCustomAppAllOfProviderConfigurationApns) GetIdOk() (*st
 
 // HasId returns a boolean if a field has been set.
 func (o *AuthenticatorKeyCustomAppAllOfProviderConfigurationApns) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *AuthenticatorKeyCustomAppAllOfProviderConfigurationApns) SetId(v string
 
 // GetAppBundleId returns the AppBundleId field value if set, zero value otherwise.
 func (o *AuthenticatorKeyCustomAppAllOfProviderConfigurationApns) GetAppBundleId() string {
-	if o == nil || o.AppBundleId == nil {
+	if o == nil || IsNil(o.AppBundleId) {
 		var ret string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *AuthenticatorKeyCustomAppAllOfProviderConfigurationApns) GetAppBundleId
 // GetAppBundleIdOk returns a tuple with the AppBundleId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorKeyCustomAppAllOfProviderConfigurationApns) GetAppBundleIdOk() (*string, bool) {
-	if o == nil || o.AppBundleId == nil {
+	if o == nil || IsNil(o.AppBundleId) {
 		return nil, false
 	}
 	return o.AppBundleId, true
@@ -109,7 +112,7 @@ func (o *AuthenticatorKeyCustomAppAllOfProviderConfigurationApns) GetAppBundleId
 
 // HasAppBundleId returns a boolean if a field has been set.
 func (o *AuthenticatorKeyCustomAppAllOfProviderConfigurationApns) HasAppBundleId() bool {
-	if o != nil && o.AppBundleId != nil {
+	if o != nil && !IsNil(o.AppBundleId) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *AuthenticatorKeyCustomAppAllOfProviderConfigurationApns) SetAppBundleId
 
 // GetDebugAppBundleId returns the DebugAppBundleId field value if set, zero value otherwise.
 func (o *AuthenticatorKeyCustomAppAllOfProviderConfigurationApns) GetDebugAppBundleId() string {
-	if o == nil || o.DebugAppBundleId == nil {
+	if o == nil || IsNil(o.DebugAppBundleId) {
 		var ret string
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *AuthenticatorKeyCustomAppAllOfProviderConfigurationApns) GetDebugAppBun
 // GetDebugAppBundleIdOk returns a tuple with the DebugAppBundleId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorKeyCustomAppAllOfProviderConfigurationApns) GetDebugAppBundleIdOk() (*string, bool) {
-	if o == nil || o.DebugAppBundleId == nil {
+	if o == nil || IsNil(o.DebugAppBundleId) {
 		return nil, false
 	}
 	return o.DebugAppBundleId, true
@@ -141,7 +144,7 @@ func (o *AuthenticatorKeyCustomAppAllOfProviderConfigurationApns) GetDebugAppBun
 
 // HasDebugAppBundleId returns a boolean if a field has been set.
 func (o *AuthenticatorKeyCustomAppAllOfProviderConfigurationApns) HasDebugAppBundleId() bool {
-	if o != nil && o.DebugAppBundleId != nil {
+	if o != nil && !IsNil(o.DebugAppBundleId) {
 		return true
 	}
 
@@ -154,14 +157,22 @@ func (o *AuthenticatorKeyCustomAppAllOfProviderConfigurationApns) SetDebugAppBun
 }
 
 func (o AuthenticatorKeyCustomAppAllOfProviderConfigurationApns) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorKeyCustomAppAllOfProviderConfigurationApns) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.AppBundleId != nil {
+	if !IsNil(o.AppBundleId) {
 		toSerialize["appBundleId"] = o.AppBundleId
 	}
-	if o.DebugAppBundleId != nil {
+	if !IsNil(o.DebugAppBundleId) {
 		toSerialize["debugAppBundleId"] = o.DebugAppBundleId
 	}
 
@@ -169,29 +180,27 @@ func (o AuthenticatorKeyCustomAppAllOfProviderConfigurationApns) MarshalJSON() (
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorKeyCustomAppAllOfProviderConfigurationApns) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorKeyCustomAppAllOfProviderConfigurationApns) UnmarshalJSON(data []byte) (err error) {
 	varAuthenticatorKeyCustomAppAllOfProviderConfigurationApns := _AuthenticatorKeyCustomAppAllOfProviderConfigurationApns{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorKeyCustomAppAllOfProviderConfigurationApns)
-	if err == nil {
-		*o = AuthenticatorKeyCustomAppAllOfProviderConfigurationApns(varAuthenticatorKeyCustomAppAllOfProviderConfigurationApns)
-	} else {
+	err = json.Unmarshal(data, &varAuthenticatorKeyCustomAppAllOfProviderConfigurationApns)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthenticatorKeyCustomAppAllOfProviderConfigurationApns(varAuthenticatorKeyCustomAppAllOfProviderConfigurationApns)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "appBundleId")
 		delete(additionalProperties, "debugAppBundleId")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -232,4 +241,3 @@ func (v *NullableAuthenticatorKeyCustomAppAllOfProviderConfigurationApns) Unmars
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

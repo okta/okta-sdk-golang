@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
-// UserProfile Specifies the default and custom profile properties for a user.  The default user profile is based on the [System for Cross-domain Identity Management: Core Schema](https://datatracker.ietf.org/doc/html/rfc7643). The only permitted customizations of the default profile are to update permissions, change whether the `firstName` and `lastName` properties are nullable, and specify a [pattern](https://developer.okta.com/docs/reference/api/schemas/#login-pattern-validation) for `login`. You can use the Profile Editor in the administrator UI or the [Schemas API](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UISchema/#tag/UISchema) to make schema modifications.  You can extend user profiles with custom properties. You must first add the custom property to the user profile schema before you reference it. You can use the Profile Editor in the Admin console or the [Schemas API](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UISchema/#tag/UISchema) to manage schema extensions.  Custom attributes may contain HTML tags. It's the client's responsibility to escape or encode this data before displaying it. Use [best-practices](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html) to prevent cross-site scripting.
+// checks if the UserProfile type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserProfile{}
+
+// UserProfile Specifies the default and custom profile properties for a user.  The default user profile is based on the [System for Cross-domain Identity Management: Core Schema](https://datatracker.ietf.org/doc/html/rfc7643).  The only permitted customizations of the default profile are to update permissions, change whether the `firstName` and `lastName` properties are nullable, and specify a [pattern](https://developer.okta.com/docs/reference/api/schemas/#login-pattern-validation) for `login`. You can use the Profile Editor in the Admin Console or the [Schemas API](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UISchema/#tag/UISchema) to make schema modifications.  You can extend user profiles with custom properties. You must first add the custom property to the user profile schema before you reference it. You can use the Profile Editor in the Admin Console or the [Schemas API](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UISchema/#tag/UISchema) to manage schema extensions.  Custom attributes can contain HTML tags. It's the client's responsibility to escape or encode this data before displaying it. Use [best-practices](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html) to prevent cross-site scripting.
 type UserProfile struct {
 	// The city or locality of the user's address (`locality`)
 	City NullableString `json:"city,omitempty"`
 	// Name of the cost center assigned to a user
 	CostCenter NullableString `json:"costCenter,omitempty"`
-	// The country name component of the user's address (`country`)
+	// The country name component of the user's address (`country`). For validation, see [ISO 3166-1 alpha 2 \"short\" code format](https://datatracker.ietf.org/doc/html/draft-ietf-scim-core-schema-22#ref-ISO3166).
 	CountryCode NullableString `json:"countryCode,omitempty"`
 	// Name of the user's department
 	Department *string `json:"department,omitempty"`
@@ -55,7 +58,7 @@ type UserProfile struct {
 	LastName NullableString `json:"lastName,omitempty"`
 	// The user's default location for purposes of localizing items such as currency, date time format, numerical representations, and so on. A locale value is a concatenation of the ISO 639-1 two-letter language code, an underscore, and the ISO 3166-1 two-letter country code. For example, en_US specifies the language English and country US. This value is `en_US` by default.
 	Locale *string `json:"locale,omitempty"`
-	// The unique identifier for the user (`username`). For validation, see [Login pattern validation](https://developer.okta.com/docs/reference/api/schemas/#login-pattern-validation). See also [Okta login](https://developer.okta.com/docs/reference/api/users/#okta-login).
+	// The unique identifier for the user (`username`). For validation, see [Login pattern validation](https://developer.okta.com/docs/reference/api/schemas/#login-pattern-validation).  Every user within your Okta org must have a unique identifier for a login. This constraint applies to all users you import from other systems or applications such as Active Directory. Your organization is the top-level namespace to mix and match logins from all your connected applications or directories. Careful consideration of naming conventions for your login identifier will make it easier to onboard new applications in the future.  Logins are not considered unique if they differ only in case and/or diacritical marks. If one of your users has a login of Isaac.Brock@example.com, there cannot be another user whose login is isaac.brock@example.com, nor isáàc.bröck@example.com.  Okta has a default ambiguous name resolution policy for usernames that include @-signs. (By default, usernames must be formatted as email addresses and thus always include @-signs. You can remove that restriction using either the Admin Console or the [Schemas API](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Schema/). Users can sign in with their non-qualified short name (for example: isaac.brock with username isaac.brock@example.com) as long as the short name is still unique within the organization. maxLength: 100
 	Login *string `json:"login,omitempty"`
 	// The `displayName` of the user's manager
 	Manager NullableString `json:"manager,omitempty"`
@@ -71,13 +74,13 @@ type UserProfile struct {
 	Organization NullableString `json:"organization,omitempty"`
 	// Mailing address component of the user's address
 	PostalAddress NullableString `json:"postalAddress,omitempty"`
-	// The user's preferred written or spoken language
+	// The user's preferred written or spoken language. For validation, see [RFC 7231 Section 5.3.5](https://datatracker.ietf.org/doc/html/rfc7231#section-5.3.5).
 	PreferredLanguage NullableString `json:"preferredLanguage,omitempty"`
 	// The primary phone number of the user such as a home number
 	PrimaryPhone NullableString `json:"primaryPhone,omitempty"`
 	// The URL of the user's online profile. For example, a web page. See [URL](https://datatracker.ietf.org/doc/html/rfc1808).
 	ProfileUrl NullableString `json:"profileUrl,omitempty"`
-	// The secondary email address of the user typically used for account recovery
+	// The secondary email address of the user typically used for account recovery. For validation, see [RFC 5322 Section 3.2.3](https://datatracker.ietf.org/doc/html/rfc5322#section-3.2.3).
 	SecondEmail NullableString `json:"secondEmail,omitempty"`
 	// The state or region component of the user's address (`region`)
 	State NullableString `json:"state,omitempty"`
@@ -90,7 +93,7 @@ type UserProfile struct {
 	// The property used to describe the organization-to-user relationship, such as employee or contractor
 	UserType NullableString `json:"userType,omitempty"`
 	// The ZIP code or postal code component of the user's address (`postalCode`)
-	ZipCode NullableString `json:"zipCode,omitempty"`
+	ZipCode              NullableString `json:"zipCode,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -115,7 +118,7 @@ func NewUserProfileWithDefaults() *UserProfile {
 
 // GetCity returns the City field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserProfile) GetCity() string {
-	if o == nil || o.City.Get() == nil {
+	if o == nil || IsNil(o.City.Get()) {
 		var ret string
 		return ret
 	}
@@ -145,6 +148,7 @@ func (o *UserProfile) HasCity() bool {
 func (o *UserProfile) SetCity(v string) {
 	o.City.Set(&v)
 }
+
 // SetCityNil sets the value for City to be an explicit nil
 func (o *UserProfile) SetCityNil() {
 	o.City.Set(nil)
@@ -157,7 +161,7 @@ func (o *UserProfile) UnsetCity() {
 
 // GetCostCenter returns the CostCenter field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserProfile) GetCostCenter() string {
-	if o == nil || o.CostCenter.Get() == nil {
+	if o == nil || IsNil(o.CostCenter.Get()) {
 		var ret string
 		return ret
 	}
@@ -187,6 +191,7 @@ func (o *UserProfile) HasCostCenter() bool {
 func (o *UserProfile) SetCostCenter(v string) {
 	o.CostCenter.Set(&v)
 }
+
 // SetCostCenterNil sets the value for CostCenter to be an explicit nil
 func (o *UserProfile) SetCostCenterNil() {
 	o.CostCenter.Set(nil)
@@ -199,7 +204,7 @@ func (o *UserProfile) UnsetCostCenter() {
 
 // GetCountryCode returns the CountryCode field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserProfile) GetCountryCode() string {
-	if o == nil || o.CountryCode.Get() == nil {
+	if o == nil || IsNil(o.CountryCode.Get()) {
 		var ret string
 		return ret
 	}
@@ -229,6 +234,7 @@ func (o *UserProfile) HasCountryCode() bool {
 func (o *UserProfile) SetCountryCode(v string) {
 	o.CountryCode.Set(&v)
 }
+
 // SetCountryCodeNil sets the value for CountryCode to be an explicit nil
 func (o *UserProfile) SetCountryCodeNil() {
 	o.CountryCode.Set(nil)
@@ -241,7 +247,7 @@ func (o *UserProfile) UnsetCountryCode() {
 
 // GetDepartment returns the Department field value if set, zero value otherwise.
 func (o *UserProfile) GetDepartment() string {
-	if o == nil || o.Department == nil {
+	if o == nil || IsNil(o.Department) {
 		var ret string
 		return ret
 	}
@@ -251,7 +257,7 @@ func (o *UserProfile) GetDepartment() string {
 // GetDepartmentOk returns a tuple with the Department field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserProfile) GetDepartmentOk() (*string, bool) {
-	if o == nil || o.Department == nil {
+	if o == nil || IsNil(o.Department) {
 		return nil, false
 	}
 	return o.Department, true
@@ -259,7 +265,7 @@ func (o *UserProfile) GetDepartmentOk() (*string, bool) {
 
 // HasDepartment returns a boolean if a field has been set.
 func (o *UserProfile) HasDepartment() bool {
-	if o != nil && o.Department != nil {
+	if o != nil && !IsNil(o.Department) {
 		return true
 	}
 
@@ -273,7 +279,7 @@ func (o *UserProfile) SetDepartment(v string) {
 
 // GetDisplayName returns the DisplayName field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserProfile) GetDisplayName() string {
-	if o == nil || o.DisplayName.Get() == nil {
+	if o == nil || IsNil(o.DisplayName.Get()) {
 		var ret string
 		return ret
 	}
@@ -303,6 +309,7 @@ func (o *UserProfile) HasDisplayName() bool {
 func (o *UserProfile) SetDisplayName(v string) {
 	o.DisplayName.Set(&v)
 }
+
 // SetDisplayNameNil sets the value for DisplayName to be an explicit nil
 func (o *UserProfile) SetDisplayNameNil() {
 	o.DisplayName.Set(nil)
@@ -315,7 +322,7 @@ func (o *UserProfile) UnsetDisplayName() {
 
 // GetDivision returns the Division field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserProfile) GetDivision() string {
-	if o == nil || o.Division.Get() == nil {
+	if o == nil || IsNil(o.Division.Get()) {
 		var ret string
 		return ret
 	}
@@ -345,6 +352,7 @@ func (o *UserProfile) HasDivision() bool {
 func (o *UserProfile) SetDivision(v string) {
 	o.Division.Set(&v)
 }
+
 // SetDivisionNil sets the value for Division to be an explicit nil
 func (o *UserProfile) SetDivisionNil() {
 	o.Division.Set(nil)
@@ -357,7 +365,7 @@ func (o *UserProfile) UnsetDivision() {
 
 // GetEmail returns the Email field value if set, zero value otherwise.
 func (o *UserProfile) GetEmail() string {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		var ret string
 		return ret
 	}
@@ -367,7 +375,7 @@ func (o *UserProfile) GetEmail() string {
 // GetEmailOk returns a tuple with the Email field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserProfile) GetEmailOk() (*string, bool) {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		return nil, false
 	}
 	return o.Email, true
@@ -375,7 +383,7 @@ func (o *UserProfile) GetEmailOk() (*string, bool) {
 
 // HasEmail returns a boolean if a field has been set.
 func (o *UserProfile) HasEmail() bool {
-	if o != nil && o.Email != nil {
+	if o != nil && !IsNil(o.Email) {
 		return true
 	}
 
@@ -389,7 +397,7 @@ func (o *UserProfile) SetEmail(v string) {
 
 // GetEmployeeNumber returns the EmployeeNumber field value if set, zero value otherwise.
 func (o *UserProfile) GetEmployeeNumber() string {
-	if o == nil || o.EmployeeNumber == nil {
+	if o == nil || IsNil(o.EmployeeNumber) {
 		var ret string
 		return ret
 	}
@@ -399,7 +407,7 @@ func (o *UserProfile) GetEmployeeNumber() string {
 // GetEmployeeNumberOk returns a tuple with the EmployeeNumber field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserProfile) GetEmployeeNumberOk() (*string, bool) {
-	if o == nil || o.EmployeeNumber == nil {
+	if o == nil || IsNil(o.EmployeeNumber) {
 		return nil, false
 	}
 	return o.EmployeeNumber, true
@@ -407,7 +415,7 @@ func (o *UserProfile) GetEmployeeNumberOk() (*string, bool) {
 
 // HasEmployeeNumber returns a boolean if a field has been set.
 func (o *UserProfile) HasEmployeeNumber() bool {
-	if o != nil && o.EmployeeNumber != nil {
+	if o != nil && !IsNil(o.EmployeeNumber) {
 		return true
 	}
 
@@ -421,7 +429,7 @@ func (o *UserProfile) SetEmployeeNumber(v string) {
 
 // GetFirstName returns the FirstName field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserProfile) GetFirstName() string {
-	if o == nil || o.FirstName.Get() == nil {
+	if o == nil || IsNil(o.FirstName.Get()) {
 		var ret string
 		return ret
 	}
@@ -451,6 +459,7 @@ func (o *UserProfile) HasFirstName() bool {
 func (o *UserProfile) SetFirstName(v string) {
 	o.FirstName.Set(&v)
 }
+
 // SetFirstNameNil sets the value for FirstName to be an explicit nil
 func (o *UserProfile) SetFirstNameNil() {
 	o.FirstName.Set(nil)
@@ -463,7 +472,7 @@ func (o *UserProfile) UnsetFirstName() {
 
 // GetHonorificPrefix returns the HonorificPrefix field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserProfile) GetHonorificPrefix() string {
-	if o == nil || o.HonorificPrefix.Get() == nil {
+	if o == nil || IsNil(o.HonorificPrefix.Get()) {
 		var ret string
 		return ret
 	}
@@ -493,6 +502,7 @@ func (o *UserProfile) HasHonorificPrefix() bool {
 func (o *UserProfile) SetHonorificPrefix(v string) {
 	o.HonorificPrefix.Set(&v)
 }
+
 // SetHonorificPrefixNil sets the value for HonorificPrefix to be an explicit nil
 func (o *UserProfile) SetHonorificPrefixNil() {
 	o.HonorificPrefix.Set(nil)
@@ -505,7 +515,7 @@ func (o *UserProfile) UnsetHonorificPrefix() {
 
 // GetHonorificSuffix returns the HonorificSuffix field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserProfile) GetHonorificSuffix() string {
-	if o == nil || o.HonorificSuffix.Get() == nil {
+	if o == nil || IsNil(o.HonorificSuffix.Get()) {
 		var ret string
 		return ret
 	}
@@ -535,6 +545,7 @@ func (o *UserProfile) HasHonorificSuffix() bool {
 func (o *UserProfile) SetHonorificSuffix(v string) {
 	o.HonorificSuffix.Set(&v)
 }
+
 // SetHonorificSuffixNil sets the value for HonorificSuffix to be an explicit nil
 func (o *UserProfile) SetHonorificSuffixNil() {
 	o.HonorificSuffix.Set(nil)
@@ -547,7 +558,7 @@ func (o *UserProfile) UnsetHonorificSuffix() {
 
 // GetLastName returns the LastName field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserProfile) GetLastName() string {
-	if o == nil || o.LastName.Get() == nil {
+	if o == nil || IsNil(o.LastName.Get()) {
 		var ret string
 		return ret
 	}
@@ -577,6 +588,7 @@ func (o *UserProfile) HasLastName() bool {
 func (o *UserProfile) SetLastName(v string) {
 	o.LastName.Set(&v)
 }
+
 // SetLastNameNil sets the value for LastName to be an explicit nil
 func (o *UserProfile) SetLastNameNil() {
 	o.LastName.Set(nil)
@@ -589,7 +601,7 @@ func (o *UserProfile) UnsetLastName() {
 
 // GetLocale returns the Locale field value if set, zero value otherwise.
 func (o *UserProfile) GetLocale() string {
-	if o == nil || o.Locale == nil {
+	if o == nil || IsNil(o.Locale) {
 		var ret string
 		return ret
 	}
@@ -599,7 +611,7 @@ func (o *UserProfile) GetLocale() string {
 // GetLocaleOk returns a tuple with the Locale field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserProfile) GetLocaleOk() (*string, bool) {
-	if o == nil || o.Locale == nil {
+	if o == nil || IsNil(o.Locale) {
 		return nil, false
 	}
 	return o.Locale, true
@@ -607,7 +619,7 @@ func (o *UserProfile) GetLocaleOk() (*string, bool) {
 
 // HasLocale returns a boolean if a field has been set.
 func (o *UserProfile) HasLocale() bool {
-	if o != nil && o.Locale != nil {
+	if o != nil && !IsNil(o.Locale) {
 		return true
 	}
 
@@ -621,7 +633,7 @@ func (o *UserProfile) SetLocale(v string) {
 
 // GetLogin returns the Login field value if set, zero value otherwise.
 func (o *UserProfile) GetLogin() string {
-	if o == nil || o.Login == nil {
+	if o == nil || IsNil(o.Login) {
 		var ret string
 		return ret
 	}
@@ -631,7 +643,7 @@ func (o *UserProfile) GetLogin() string {
 // GetLoginOk returns a tuple with the Login field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserProfile) GetLoginOk() (*string, bool) {
-	if o == nil || o.Login == nil {
+	if o == nil || IsNil(o.Login) {
 		return nil, false
 	}
 	return o.Login, true
@@ -639,7 +651,7 @@ func (o *UserProfile) GetLoginOk() (*string, bool) {
 
 // HasLogin returns a boolean if a field has been set.
 func (o *UserProfile) HasLogin() bool {
-	if o != nil && o.Login != nil {
+	if o != nil && !IsNil(o.Login) {
 		return true
 	}
 
@@ -653,7 +665,7 @@ func (o *UserProfile) SetLogin(v string) {
 
 // GetManager returns the Manager field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserProfile) GetManager() string {
-	if o == nil || o.Manager.Get() == nil {
+	if o == nil || IsNil(o.Manager.Get()) {
 		var ret string
 		return ret
 	}
@@ -683,6 +695,7 @@ func (o *UserProfile) HasManager() bool {
 func (o *UserProfile) SetManager(v string) {
 	o.Manager.Set(&v)
 }
+
 // SetManagerNil sets the value for Manager to be an explicit nil
 func (o *UserProfile) SetManagerNil() {
 	o.Manager.Set(nil)
@@ -695,7 +708,7 @@ func (o *UserProfile) UnsetManager() {
 
 // GetManagerId returns the ManagerId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserProfile) GetManagerId() string {
-	if o == nil || o.ManagerId.Get() == nil {
+	if o == nil || IsNil(o.ManagerId.Get()) {
 		var ret string
 		return ret
 	}
@@ -725,6 +738,7 @@ func (o *UserProfile) HasManagerId() bool {
 func (o *UserProfile) SetManagerId(v string) {
 	o.ManagerId.Set(&v)
 }
+
 // SetManagerIdNil sets the value for ManagerId to be an explicit nil
 func (o *UserProfile) SetManagerIdNil() {
 	o.ManagerId.Set(nil)
@@ -737,7 +751,7 @@ func (o *UserProfile) UnsetManagerId() {
 
 // GetMiddleName returns the MiddleName field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserProfile) GetMiddleName() string {
-	if o == nil || o.MiddleName.Get() == nil {
+	if o == nil || IsNil(o.MiddleName.Get()) {
 		var ret string
 		return ret
 	}
@@ -767,6 +781,7 @@ func (o *UserProfile) HasMiddleName() bool {
 func (o *UserProfile) SetMiddleName(v string) {
 	o.MiddleName.Set(&v)
 }
+
 // SetMiddleNameNil sets the value for MiddleName to be an explicit nil
 func (o *UserProfile) SetMiddleNameNil() {
 	o.MiddleName.Set(nil)
@@ -779,7 +794,7 @@ func (o *UserProfile) UnsetMiddleName() {
 
 // GetMobilePhone returns the MobilePhone field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserProfile) GetMobilePhone() string {
-	if o == nil || o.MobilePhone.Get() == nil {
+	if o == nil || IsNil(o.MobilePhone.Get()) {
 		var ret string
 		return ret
 	}
@@ -809,6 +824,7 @@ func (o *UserProfile) HasMobilePhone() bool {
 func (o *UserProfile) SetMobilePhone(v string) {
 	o.MobilePhone.Set(&v)
 }
+
 // SetMobilePhoneNil sets the value for MobilePhone to be an explicit nil
 func (o *UserProfile) SetMobilePhoneNil() {
 	o.MobilePhone.Set(nil)
@@ -821,7 +837,7 @@ func (o *UserProfile) UnsetMobilePhone() {
 
 // GetNickName returns the NickName field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserProfile) GetNickName() string {
-	if o == nil || o.NickName.Get() == nil {
+	if o == nil || IsNil(o.NickName.Get()) {
 		var ret string
 		return ret
 	}
@@ -851,6 +867,7 @@ func (o *UserProfile) HasNickName() bool {
 func (o *UserProfile) SetNickName(v string) {
 	o.NickName.Set(&v)
 }
+
 // SetNickNameNil sets the value for NickName to be an explicit nil
 func (o *UserProfile) SetNickNameNil() {
 	o.NickName.Set(nil)
@@ -863,7 +880,7 @@ func (o *UserProfile) UnsetNickName() {
 
 // GetOrganization returns the Organization field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserProfile) GetOrganization() string {
-	if o == nil || o.Organization.Get() == nil {
+	if o == nil || IsNil(o.Organization.Get()) {
 		var ret string
 		return ret
 	}
@@ -893,6 +910,7 @@ func (o *UserProfile) HasOrganization() bool {
 func (o *UserProfile) SetOrganization(v string) {
 	o.Organization.Set(&v)
 }
+
 // SetOrganizationNil sets the value for Organization to be an explicit nil
 func (o *UserProfile) SetOrganizationNil() {
 	o.Organization.Set(nil)
@@ -905,7 +923,7 @@ func (o *UserProfile) UnsetOrganization() {
 
 // GetPostalAddress returns the PostalAddress field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserProfile) GetPostalAddress() string {
-	if o == nil || o.PostalAddress.Get() == nil {
+	if o == nil || IsNil(o.PostalAddress.Get()) {
 		var ret string
 		return ret
 	}
@@ -935,6 +953,7 @@ func (o *UserProfile) HasPostalAddress() bool {
 func (o *UserProfile) SetPostalAddress(v string) {
 	o.PostalAddress.Set(&v)
 }
+
 // SetPostalAddressNil sets the value for PostalAddress to be an explicit nil
 func (o *UserProfile) SetPostalAddressNil() {
 	o.PostalAddress.Set(nil)
@@ -947,7 +966,7 @@ func (o *UserProfile) UnsetPostalAddress() {
 
 // GetPreferredLanguage returns the PreferredLanguage field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserProfile) GetPreferredLanguage() string {
-	if o == nil || o.PreferredLanguage.Get() == nil {
+	if o == nil || IsNil(o.PreferredLanguage.Get()) {
 		var ret string
 		return ret
 	}
@@ -977,6 +996,7 @@ func (o *UserProfile) HasPreferredLanguage() bool {
 func (o *UserProfile) SetPreferredLanguage(v string) {
 	o.PreferredLanguage.Set(&v)
 }
+
 // SetPreferredLanguageNil sets the value for PreferredLanguage to be an explicit nil
 func (o *UserProfile) SetPreferredLanguageNil() {
 	o.PreferredLanguage.Set(nil)
@@ -989,7 +1009,7 @@ func (o *UserProfile) UnsetPreferredLanguage() {
 
 // GetPrimaryPhone returns the PrimaryPhone field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserProfile) GetPrimaryPhone() string {
-	if o == nil || o.PrimaryPhone.Get() == nil {
+	if o == nil || IsNil(o.PrimaryPhone.Get()) {
 		var ret string
 		return ret
 	}
@@ -1019,6 +1039,7 @@ func (o *UserProfile) HasPrimaryPhone() bool {
 func (o *UserProfile) SetPrimaryPhone(v string) {
 	o.PrimaryPhone.Set(&v)
 }
+
 // SetPrimaryPhoneNil sets the value for PrimaryPhone to be an explicit nil
 func (o *UserProfile) SetPrimaryPhoneNil() {
 	o.PrimaryPhone.Set(nil)
@@ -1031,7 +1052,7 @@ func (o *UserProfile) UnsetPrimaryPhone() {
 
 // GetProfileUrl returns the ProfileUrl field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserProfile) GetProfileUrl() string {
-	if o == nil || o.ProfileUrl.Get() == nil {
+	if o == nil || IsNil(o.ProfileUrl.Get()) {
 		var ret string
 		return ret
 	}
@@ -1061,6 +1082,7 @@ func (o *UserProfile) HasProfileUrl() bool {
 func (o *UserProfile) SetProfileUrl(v string) {
 	o.ProfileUrl.Set(&v)
 }
+
 // SetProfileUrlNil sets the value for ProfileUrl to be an explicit nil
 func (o *UserProfile) SetProfileUrlNil() {
 	o.ProfileUrl.Set(nil)
@@ -1073,7 +1095,7 @@ func (o *UserProfile) UnsetProfileUrl() {
 
 // GetSecondEmail returns the SecondEmail field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserProfile) GetSecondEmail() string {
-	if o == nil || o.SecondEmail.Get() == nil {
+	if o == nil || IsNil(o.SecondEmail.Get()) {
 		var ret string
 		return ret
 	}
@@ -1103,6 +1125,7 @@ func (o *UserProfile) HasSecondEmail() bool {
 func (o *UserProfile) SetSecondEmail(v string) {
 	o.SecondEmail.Set(&v)
 }
+
 // SetSecondEmailNil sets the value for SecondEmail to be an explicit nil
 func (o *UserProfile) SetSecondEmailNil() {
 	o.SecondEmail.Set(nil)
@@ -1115,7 +1138,7 @@ func (o *UserProfile) UnsetSecondEmail() {
 
 // GetState returns the State field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserProfile) GetState() string {
-	if o == nil || o.State.Get() == nil {
+	if o == nil || IsNil(o.State.Get()) {
 		var ret string
 		return ret
 	}
@@ -1145,6 +1168,7 @@ func (o *UserProfile) HasState() bool {
 func (o *UserProfile) SetState(v string) {
 	o.State.Set(&v)
 }
+
 // SetStateNil sets the value for State to be an explicit nil
 func (o *UserProfile) SetStateNil() {
 	o.State.Set(nil)
@@ -1157,7 +1181,7 @@ func (o *UserProfile) UnsetState() {
 
 // GetStreetAddress returns the StreetAddress field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserProfile) GetStreetAddress() string {
-	if o == nil || o.StreetAddress.Get() == nil {
+	if o == nil || IsNil(o.StreetAddress.Get()) {
 		var ret string
 		return ret
 	}
@@ -1187,6 +1211,7 @@ func (o *UserProfile) HasStreetAddress() bool {
 func (o *UserProfile) SetStreetAddress(v string) {
 	o.StreetAddress.Set(&v)
 }
+
 // SetStreetAddressNil sets the value for StreetAddress to be an explicit nil
 func (o *UserProfile) SetStreetAddressNil() {
 	o.StreetAddress.Set(nil)
@@ -1199,7 +1224,7 @@ func (o *UserProfile) UnsetStreetAddress() {
 
 // GetTimezone returns the Timezone field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserProfile) GetTimezone() string {
-	if o == nil || o.Timezone.Get() == nil {
+	if o == nil || IsNil(o.Timezone.Get()) {
 		var ret string
 		return ret
 	}
@@ -1229,6 +1254,7 @@ func (o *UserProfile) HasTimezone() bool {
 func (o *UserProfile) SetTimezone(v string) {
 	o.Timezone.Set(&v)
 }
+
 // SetTimezoneNil sets the value for Timezone to be an explicit nil
 func (o *UserProfile) SetTimezoneNil() {
 	o.Timezone.Set(nil)
@@ -1241,7 +1267,7 @@ func (o *UserProfile) UnsetTimezone() {
 
 // GetTitle returns the Title field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserProfile) GetTitle() string {
-	if o == nil || o.Title.Get() == nil {
+	if o == nil || IsNil(o.Title.Get()) {
 		var ret string
 		return ret
 	}
@@ -1271,6 +1297,7 @@ func (o *UserProfile) HasTitle() bool {
 func (o *UserProfile) SetTitle(v string) {
 	o.Title.Set(&v)
 }
+
 // SetTitleNil sets the value for Title to be an explicit nil
 func (o *UserProfile) SetTitleNil() {
 	o.Title.Set(nil)
@@ -1283,7 +1310,7 @@ func (o *UserProfile) UnsetTitle() {
 
 // GetUserType returns the UserType field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserProfile) GetUserType() string {
-	if o == nil || o.UserType.Get() == nil {
+	if o == nil || IsNil(o.UserType.Get()) {
 		var ret string
 		return ret
 	}
@@ -1313,6 +1340,7 @@ func (o *UserProfile) HasUserType() bool {
 func (o *UserProfile) SetUserType(v string) {
 	o.UserType.Set(&v)
 }
+
 // SetUserTypeNil sets the value for UserType to be an explicit nil
 func (o *UserProfile) SetUserTypeNil() {
 	o.UserType.Set(nil)
@@ -1325,7 +1353,7 @@ func (o *UserProfile) UnsetUserType() {
 
 // GetZipCode returns the ZipCode field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserProfile) GetZipCode() string {
-	if o == nil || o.ZipCode.Get() == nil {
+	if o == nil || IsNil(o.ZipCode.Get()) {
 		var ret string
 		return ret
 	}
@@ -1355,6 +1383,7 @@ func (o *UserProfile) HasZipCode() bool {
 func (o *UserProfile) SetZipCode(v string) {
 	o.ZipCode.Set(&v)
 }
+
 // SetZipCodeNil sets the value for ZipCode to be an explicit nil
 func (o *UserProfile) SetZipCodeNil() {
 	o.ZipCode.Set(nil)
@@ -1366,6 +1395,14 @@ func (o *UserProfile) UnsetZipCode() {
 }
 
 func (o UserProfile) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserProfile) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.City.IsSet() {
 		toSerialize["city"] = o.City.Get()
@@ -1376,7 +1413,7 @@ func (o UserProfile) MarshalJSON() ([]byte, error) {
 	if o.CountryCode.IsSet() {
 		toSerialize["countryCode"] = o.CountryCode.Get()
 	}
-	if o.Department != nil {
+	if !IsNil(o.Department) {
 		toSerialize["department"] = o.Department
 	}
 	if o.DisplayName.IsSet() {
@@ -1385,10 +1422,10 @@ func (o UserProfile) MarshalJSON() ([]byte, error) {
 	if o.Division.IsSet() {
 		toSerialize["division"] = o.Division.Get()
 	}
-	if o.Email != nil {
+	if !IsNil(o.Email) {
 		toSerialize["email"] = o.Email
 	}
-	if o.EmployeeNumber != nil {
+	if !IsNil(o.EmployeeNumber) {
 		toSerialize["employeeNumber"] = o.EmployeeNumber
 	}
 	if o.FirstName.IsSet() {
@@ -1403,10 +1440,10 @@ func (o UserProfile) MarshalJSON() ([]byte, error) {
 	if o.LastName.IsSet() {
 		toSerialize["lastName"] = o.LastName.Get()
 	}
-	if o.Locale != nil {
+	if !IsNil(o.Locale) {
 		toSerialize["locale"] = o.Locale
 	}
-	if o.Login != nil {
+	if !IsNil(o.Login) {
 		toSerialize["login"] = o.Login
 	}
 	if o.Manager.IsSet() {
@@ -1465,23 +1502,23 @@ func (o UserProfile) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserProfile) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserProfile) UnmarshalJSON(data []byte) (err error) {
 	varUserProfile := _UserProfile{}
 
-	err = json.Unmarshal(bytes, &varUserProfile)
-	if err == nil {
-		*o = UserProfile(varUserProfile)
-	} else {
+	err = json.Unmarshal(data, &varUserProfile)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserProfile(varUserProfile)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "city")
 		delete(additionalProperties, "costCenter")
 		delete(additionalProperties, "countryCode")
@@ -1514,8 +1551,6 @@ func (o *UserProfile) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "userType")
 		delete(additionalProperties, "zipCode")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -1556,4 +1591,3 @@ func (v *NullableUserProfile) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 5.1.0
 Contact: devex-public@okta.com
 */
 
@@ -25,14 +25,20 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the AuthenticationMethodObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticationMethodObject{}
 
 // AuthenticationMethodObject struct for AuthenticationMethodObject
 type AuthenticationMethodObject struct {
+	// <x-lifecycle-container><x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>Authenticator ID
+	Id *string `json:"id,omitempty"`
 	// A label that identifies the authenticator
-	Key *string `json:"key,omitempty"`
+	Key string `json:"key"`
 	// Specifies the method used for the authenticator
-	Method *string `json:"method,omitempty"`
+	Method               *string `json:"method,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -42,8 +48,9 @@ type _AuthenticationMethodObject AuthenticationMethodObject
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAuthenticationMethodObject() *AuthenticationMethodObject {
+func NewAuthenticationMethodObject(key string) *AuthenticationMethodObject {
 	this := AuthenticationMethodObject{}
+	this.Key = key
 	return &this
 }
 
@@ -55,41 +62,65 @@ func NewAuthenticationMethodObjectWithDefaults() *AuthenticationMethodObject {
 	return &this
 }
 
-// GetKey returns the Key field value if set, zero value otherwise.
-func (o *AuthenticationMethodObject) GetKey() string {
-	if o == nil || o.Key == nil {
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *AuthenticationMethodObject) GetId() string {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-	return *o.Key
+	return *o.Id
 }
 
-// GetKeyOk returns a tuple with the Key field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AuthenticationMethodObject) GetKeyOk() (*string, bool) {
-	if o == nil || o.Key == nil {
+func (o *AuthenticationMethodObject) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return o.Key, true
+	return o.Id, true
 }
 
-// HasKey returns a boolean if a field has been set.
-func (o *AuthenticationMethodObject) HasKey() bool {
-	if o != nil && o.Key != nil {
+// HasId returns a boolean if a field has been set.
+func (o *AuthenticationMethodObject) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
 	return false
 }
 
-// SetKey gets a reference to the given string and assigns it to the Key field.
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *AuthenticationMethodObject) SetId(v string) {
+	o.Id = &v
+}
+
+// GetKey returns the Key field value
+func (o *AuthenticationMethodObject) GetKey() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Key
+}
+
+// GetKeyOk returns a tuple with the Key field value
+// and a boolean to check if the value has been set.
+func (o *AuthenticationMethodObject) GetKeyOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Key, true
+}
+
+// SetKey sets field value
 func (o *AuthenticationMethodObject) SetKey(v string) {
-	o.Key = &v
+	o.Key = v
 }
 
 // GetMethod returns the Method field value if set, zero value otherwise.
 func (o *AuthenticationMethodObject) GetMethod() string {
-	if o == nil || o.Method == nil {
+	if o == nil || IsNil(o.Method) {
 		var ret string
 		return ret
 	}
@@ -99,7 +130,7 @@ func (o *AuthenticationMethodObject) GetMethod() string {
 // GetMethodOk returns a tuple with the Method field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticationMethodObject) GetMethodOk() (*string, bool) {
-	if o == nil || o.Method == nil {
+	if o == nil || IsNil(o.Method) {
 		return nil, false
 	}
 	return o.Method, true
@@ -107,7 +138,7 @@ func (o *AuthenticationMethodObject) GetMethodOk() (*string, bool) {
 
 // HasMethod returns a boolean if a field has been set.
 func (o *AuthenticationMethodObject) HasMethod() bool {
-	if o != nil && o.Method != nil {
+	if o != nil && !IsNil(o.Method) {
 		return true
 	}
 
@@ -120,11 +151,20 @@ func (o *AuthenticationMethodObject) SetMethod(v string) {
 }
 
 func (o AuthenticationMethodObject) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Key != nil {
-		toSerialize["key"] = o.Key
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Method != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticationMethodObject) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	toSerialize["key"] = o.Key
+	if !IsNil(o.Method) {
 		toSerialize["method"] = o.Method
 	}
 
@@ -132,28 +172,48 @@ func (o AuthenticationMethodObject) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticationMethodObject) UnmarshalJSON(bytes []byte) (err error) {
-	varAuthenticationMethodObject := _AuthenticationMethodObject{}
+func (o *AuthenticationMethodObject) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"key",
+	}
 
-	err = json.Unmarshal(bytes, &varAuthenticationMethodObject)
-	if err == nil {
-		*o = AuthenticationMethodObject(varAuthenticationMethodObject)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAuthenticationMethodObject := _AuthenticationMethodObject{}
+
+	err = json.Unmarshal(data, &varAuthenticationMethodObject)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AuthenticationMethodObject(varAuthenticationMethodObject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
 		delete(additionalProperties, "key")
 		delete(additionalProperties, "method")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +254,3 @@ func (v *NullableAuthenticationMethodObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
