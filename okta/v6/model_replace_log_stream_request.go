@@ -82,30 +82,6 @@ func (dst *ReplaceLogStreamRequest) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	// check if the discriminator value is 'LogStreamAwsPutSchema'
-	if jsonDict["type"] == "LogStreamAwsPutSchema" {
-		// try to unmarshal JSON data into LogStreamAwsPutSchema
-		err = json.Unmarshal(data, &dst.LogStreamAwsPutSchema)
-		if err == nil {
-			return nil // data stored in dst.LogStreamAwsPutSchema, return on the first match
-		} else {
-			dst.LogStreamAwsPutSchema = nil
-			return fmt.Errorf("failed to unmarshal ReplaceLogStreamRequest as LogStreamAwsPutSchema: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'LogStreamSplunkPutSchema'
-	if jsonDict["type"] == "LogStreamSplunkPutSchema" {
-		// try to unmarshal JSON data into LogStreamSplunkPutSchema
-		err = json.Unmarshal(data, &dst.LogStreamSplunkPutSchema)
-		if err == nil {
-			return nil // data stored in dst.LogStreamSplunkPutSchema, return on the first match
-		} else {
-			dst.LogStreamSplunkPutSchema = nil
-			return fmt.Errorf("failed to unmarshal ReplaceLogStreamRequest as LogStreamSplunkPutSchema: %s", err.Error())
-		}
-	}
-
 	return nil
 }
 

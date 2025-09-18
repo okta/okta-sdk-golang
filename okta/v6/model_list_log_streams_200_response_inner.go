@@ -82,30 +82,6 @@ func (dst *ListLogStreams200ResponseInner) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	// check if the discriminator value is 'LogStreamAws'
-	if jsonDict["type"] == "LogStreamAws" {
-		// try to unmarshal JSON data into LogStreamAws
-		err = json.Unmarshal(data, &dst.LogStreamAws)
-		if err == nil {
-			return nil // data stored in dst.LogStreamAws, return on the first match
-		} else {
-			dst.LogStreamAws = nil
-			return fmt.Errorf("failed to unmarshal ListLogStreams200ResponseInner as LogStreamAws: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'LogStreamSplunk'
-	if jsonDict["type"] == "LogStreamSplunk" {
-		// try to unmarshal JSON data into LogStreamSplunk
-		err = json.Unmarshal(data, &dst.LogStreamSplunk)
-		if err == nil {
-			return nil // data stored in dst.LogStreamSplunk, return on the first match
-		} else {
-			dst.LogStreamSplunk = nil
-			return fmt.Errorf("failed to unmarshal ListLogStreams200ResponseInner as LogStreamSplunk: %s", err.Error())
-		}
-	}
-
 	return nil
 }
 

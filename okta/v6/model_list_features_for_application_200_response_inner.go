@@ -82,30 +82,6 @@ func (dst *ListFeaturesForApplication200ResponseInner) UnmarshalJSON(data []byte
 		}
 	}
 
-	// check if the discriminator value is 'InboundProvisioningApplicationFeature'
-	if jsonDict["name"] == "InboundProvisioningApplicationFeature" {
-		// try to unmarshal JSON data into InboundProvisioningApplicationFeature
-		err = json.Unmarshal(data, &dst.InboundProvisioningApplicationFeature)
-		if err == nil {
-			return nil // data stored in dst.InboundProvisioningApplicationFeature, return on the first match
-		} else {
-			dst.InboundProvisioningApplicationFeature = nil
-			return fmt.Errorf("failed to unmarshal ListFeaturesForApplication200ResponseInner as InboundProvisioningApplicationFeature: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'UserProvisioningApplicationFeature'
-	if jsonDict["name"] == "UserProvisioningApplicationFeature" {
-		// try to unmarshal JSON data into UserProvisioningApplicationFeature
-		err = json.Unmarshal(data, &dst.UserProvisioningApplicationFeature)
-		if err == nil {
-			return nil // data stored in dst.UserProvisioningApplicationFeature, return on the first match
-		} else {
-			dst.UserProvisioningApplicationFeature = nil
-			return fmt.Errorf("failed to unmarshal ListFeaturesForApplication200ResponseInner as UserProvisioningApplicationFeature: %s", err.Error())
-		}
-	}
-
 	return nil
 }
 

@@ -142,66 +142,6 @@ func (dst *GetFactorTransactionStatus200Response) UnmarshalJSON(data []byte) err
 		}
 	}
 
-	// check if the discriminator value is 'UserFactorPushTransaction'
-	if jsonDict["factorResult"] == "UserFactorPushTransaction" {
-		// try to unmarshal JSON data into UserFactorPushTransaction
-		err = json.Unmarshal(data, &dst.UserFactorPushTransaction)
-		if err == nil {
-			return nil // data stored in dst.UserFactorPushTransaction, return on the first match
-		} else {
-			dst.UserFactorPushTransaction = nil
-			return fmt.Errorf("failed to unmarshal GetFactorTransactionStatus200Response as UserFactorPushTransaction: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'UserFactorPushTransactionRejected'
-	if jsonDict["factorResult"] == "UserFactorPushTransactionRejected" {
-		// try to unmarshal JSON data into UserFactorPushTransactionRejected
-		err = json.Unmarshal(data, &dst.UserFactorPushTransactionRejected)
-		if err == nil {
-			return nil // data stored in dst.UserFactorPushTransactionRejected, return on the first match
-		} else {
-			dst.UserFactorPushTransactionRejected = nil
-			return fmt.Errorf("failed to unmarshal GetFactorTransactionStatus200Response as UserFactorPushTransactionRejected: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'UserFactorPushTransactionTimeout'
-	if jsonDict["factorResult"] == "UserFactorPushTransactionTimeout" {
-		// try to unmarshal JSON data into UserFactorPushTransactionTimeout
-		err = json.Unmarshal(data, &dst.UserFactorPushTransactionTimeout)
-		if err == nil {
-			return nil // data stored in dst.UserFactorPushTransactionTimeout, return on the first match
-		} else {
-			dst.UserFactorPushTransactionTimeout = nil
-			return fmt.Errorf("failed to unmarshal GetFactorTransactionStatus200Response as UserFactorPushTransactionTimeout: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'UserFactorPushTransactionWaitingNMC'
-	if jsonDict["factorResult"] == "UserFactorPushTransactionWaitingNMC" {
-		// try to unmarshal JSON data into UserFactorPushTransactionWaitingNMC
-		err = json.Unmarshal(data, &dst.UserFactorPushTransactionWaitingNMC)
-		if err == nil {
-			return nil // data stored in dst.UserFactorPushTransactionWaitingNMC, return on the first match
-		} else {
-			dst.UserFactorPushTransactionWaitingNMC = nil
-			return fmt.Errorf("failed to unmarshal GetFactorTransactionStatus200Response as UserFactorPushTransactionWaitingNMC: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'UserFactorPushTransactionWaitingNoNMC'
-	if jsonDict["factorResult"] == "UserFactorPushTransactionWaitingNoNMC" {
-		// try to unmarshal JSON data into UserFactorPushTransactionWaitingNoNMC
-		err = json.Unmarshal(data, &dst.UserFactorPushTransactionWaitingNoNMC)
-		if err == nil {
-			return nil // data stored in dst.UserFactorPushTransactionWaitingNoNMC, return on the first match
-		} else {
-			dst.UserFactorPushTransactionWaitingNoNMC = nil
-			return fmt.Errorf("failed to unmarshal GetFactorTransactionStatus200Response as UserFactorPushTransactionWaitingNoNMC: %s", err.Error())
-		}
-	}
-
 	return nil
 }
 

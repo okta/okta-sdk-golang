@@ -82,30 +82,6 @@ func (dst *ListOrgContactTypes200ResponseInner) UnmarshalJSON(data []byte) error
 		}
 	}
 
-	// check if the discriminator value is 'orgBillingContactType'
-	if jsonDict["contactType"] == "orgBillingContactType" {
-		// try to unmarshal JSON data into OrgBillingContactType
-		err = json.Unmarshal(data, &dst.OrgBillingContactType)
-		if err == nil {
-			return nil // data stored in dst.OrgBillingContactType, return on the first match
-		} else {
-			dst.OrgBillingContactType = nil
-			return fmt.Errorf("failed to unmarshal ListOrgContactTypes200ResponseInner as OrgBillingContactType: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'orgTechnicalContactType'
-	if jsonDict["contactType"] == "orgTechnicalContactType" {
-		// try to unmarshal JSON data into OrgTechnicalContactType
-		err = json.Unmarshal(data, &dst.OrgTechnicalContactType)
-		if err == nil {
-			return nil // data stored in dst.OrgTechnicalContactType, return on the first match
-		} else {
-			dst.OrgTechnicalContactType = nil
-			return fmt.Errorf("failed to unmarshal ListOrgContactTypes200ResponseInner as OrgTechnicalContactType: %s", err.Error())
-		}
-	}
-
 	return nil
 }
 

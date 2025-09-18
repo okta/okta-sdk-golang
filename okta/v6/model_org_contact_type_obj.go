@@ -79,38 +79,6 @@ func (dst *OrgContactTypeObj) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	// check if the discriminator value is 'orgBillingContactType'
-	if jsonDict["contactType"] == "orgBillingContactType" {
-		// try to unmarshal JSON data into OrgBillingContactType
-		err = json.Unmarshal(data, &dst.OrgBillingContactType)
-		if err == nil {
-			jsonOrgBillingContactType, _ := json.Marshal(dst.OrgBillingContactType)
-			if string(jsonOrgBillingContactType) == "{}" { // empty struct
-				dst.OrgBillingContactType = nil
-			} else {
-				return nil // data stored in dst.OrgBillingContactType, return on the first match
-			}
-		} else {
-			dst.OrgBillingContactType = nil
-		}
-	}
-
-	// check if the discriminator value is 'orgTechnicalContactType'
-	if jsonDict["contactType"] == "orgTechnicalContactType" {
-		// try to unmarshal JSON data into OrgTechnicalContactType
-		err = json.Unmarshal(data, &dst.OrgTechnicalContactType)
-		if err == nil {
-			jsonOrgTechnicalContactType, _ := json.Marshal(dst.OrgTechnicalContactType)
-			if string(jsonOrgTechnicalContactType) == "{}" { // empty struct
-				dst.OrgTechnicalContactType = nil
-			} else {
-				return nil // data stored in dst.OrgTechnicalContactType, return on the first match
-			}
-		} else {
-			dst.OrgTechnicalContactType = nil
-		}
-	}
-
 	// try to unmarshal JSON data into OrgBillingContactType
 	err = json.Unmarshal(data, &dst.OrgBillingContactType)
 	if err == nil {

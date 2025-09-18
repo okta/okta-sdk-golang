@@ -122,54 +122,6 @@ func (dst *ListBehaviorDetectionRules200ResponseInner) UnmarshalJSON(data []byte
 		}
 	}
 
-	// check if the discriminator value is 'BehaviorRuleAnomalousDevice'
-	if jsonDict["type"] == "BehaviorRuleAnomalousDevice" {
-		// try to unmarshal JSON data into BehaviorRuleAnomalousDevice
-		err = json.Unmarshal(data, &dst.BehaviorRuleAnomalousDevice)
-		if err == nil {
-			return nil // data stored in dst.BehaviorRuleAnomalousDevice, return on the first match
-		} else {
-			dst.BehaviorRuleAnomalousDevice = nil
-			return fmt.Errorf("failed to unmarshal ListBehaviorDetectionRules200ResponseInner as BehaviorRuleAnomalousDevice: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'BehaviorRuleAnomalousIP'
-	if jsonDict["type"] == "BehaviorRuleAnomalousIP" {
-		// try to unmarshal JSON data into BehaviorRuleAnomalousIP
-		err = json.Unmarshal(data, &dst.BehaviorRuleAnomalousIP)
-		if err == nil {
-			return nil // data stored in dst.BehaviorRuleAnomalousIP, return on the first match
-		} else {
-			dst.BehaviorRuleAnomalousIP = nil
-			return fmt.Errorf("failed to unmarshal ListBehaviorDetectionRules200ResponseInner as BehaviorRuleAnomalousIP: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'BehaviorRuleAnomalousLocation'
-	if jsonDict["type"] == "BehaviorRuleAnomalousLocation" {
-		// try to unmarshal JSON data into BehaviorRuleAnomalousLocation
-		err = json.Unmarshal(data, &dst.BehaviorRuleAnomalousLocation)
-		if err == nil {
-			return nil // data stored in dst.BehaviorRuleAnomalousLocation, return on the first match
-		} else {
-			dst.BehaviorRuleAnomalousLocation = nil
-			return fmt.Errorf("failed to unmarshal ListBehaviorDetectionRules200ResponseInner as BehaviorRuleAnomalousLocation: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'BehaviorRuleVelocity'
-	if jsonDict["type"] == "BehaviorRuleVelocity" {
-		// try to unmarshal JSON data into BehaviorRuleVelocity
-		err = json.Unmarshal(data, &dst.BehaviorRuleVelocity)
-		if err == nil {
-			return nil // data stored in dst.BehaviorRuleVelocity, return on the first match
-		} else {
-			dst.BehaviorRuleVelocity = nil
-			return fmt.Errorf("failed to unmarshal ListBehaviorDetectionRules200ResponseInner as BehaviorRuleVelocity: %s", err.Error())
-		}
-	}
-
 	return nil
 }
 

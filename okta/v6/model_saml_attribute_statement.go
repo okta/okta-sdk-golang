@@ -79,38 +79,6 @@ func (dst *SamlAttributeStatement) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	// check if the discriminator value is 'SamlAttributeStatementExpression'
-	if jsonDict["type"] == "SamlAttributeStatementExpression" {
-		// try to unmarshal JSON data into SamlAttributeStatementExpression
-		err = json.Unmarshal(data, &dst.SamlAttributeStatementExpression)
-		if err == nil {
-			jsonSamlAttributeStatementExpression, _ := json.Marshal(dst.SamlAttributeStatementExpression)
-			if string(jsonSamlAttributeStatementExpression) == "{}" { // empty struct
-				dst.SamlAttributeStatementExpression = nil
-			} else {
-				return nil // data stored in dst.SamlAttributeStatementExpression, return on the first match
-			}
-		} else {
-			dst.SamlAttributeStatementExpression = nil
-		}
-	}
-
-	// check if the discriminator value is 'SamlAttributeStatementGroup'
-	if jsonDict["type"] == "SamlAttributeStatementGroup" {
-		// try to unmarshal JSON data into SamlAttributeStatementGroup
-		err = json.Unmarshal(data, &dst.SamlAttributeStatementGroup)
-		if err == nil {
-			jsonSamlAttributeStatementGroup, _ := json.Marshal(dst.SamlAttributeStatementGroup)
-			if string(jsonSamlAttributeStatementGroup) == "{}" { // empty struct
-				dst.SamlAttributeStatementGroup = nil
-			} else {
-				return nil // data stored in dst.SamlAttributeStatementGroup, return on the first match
-			}
-		} else {
-			dst.SamlAttributeStatementGroup = nil
-		}
-	}
-
 	// try to unmarshal JSON data into SamlAttributeStatementExpression
 	err = json.Unmarshal(data, &dst.SamlAttributeStatementExpression)
 	if err == nil {

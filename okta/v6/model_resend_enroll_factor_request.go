@@ -102,42 +102,6 @@ func (dst *ResendEnrollFactorRequest) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	// check if the discriminator value is 'UserFactorCall'
-	if jsonDict["factorType"] == "UserFactorCall" {
-		// try to unmarshal JSON data into UserFactorCall
-		err = json.Unmarshal(data, &dst.UserFactorCall)
-		if err == nil {
-			return nil // data stored in dst.UserFactorCall, return on the first match
-		} else {
-			dst.UserFactorCall = nil
-			return fmt.Errorf("failed to unmarshal ResendEnrollFactorRequest as UserFactorCall: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'UserFactorEmail'
-	if jsonDict["factorType"] == "UserFactorEmail" {
-		// try to unmarshal JSON data into UserFactorEmail
-		err = json.Unmarshal(data, &dst.UserFactorEmail)
-		if err == nil {
-			return nil // data stored in dst.UserFactorEmail, return on the first match
-		} else {
-			dst.UserFactorEmail = nil
-			return fmt.Errorf("failed to unmarshal ResendEnrollFactorRequest as UserFactorEmail: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'UserFactorSMS'
-	if jsonDict["factorType"] == "UserFactorSMS" {
-		// try to unmarshal JSON data into UserFactorSMS
-		err = json.Unmarshal(data, &dst.UserFactorSMS)
-		if err == nil {
-			return nil // data stored in dst.UserFactorSMS, return on the first match
-		} else {
-			dst.UserFactorSMS = nil
-			return fmt.Errorf("failed to unmarshal ResendEnrollFactorRequest as UserFactorSMS: %s", err.Error())
-		}
-	}
-
 	return nil
 }
 

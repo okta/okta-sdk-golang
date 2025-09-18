@@ -106,30 +106,6 @@ func (dst *GetUserRisk200Response) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	// check if the discriminator value is 'UserRiskLevelExists'
-	if jsonDict["riskLevel"] == "UserRiskLevelExists" {
-		// try to unmarshal JSON data into UserRiskLevelExists
-		err = json.Unmarshal(data, &dst.UserRiskLevelExists)
-		if err == nil {
-			return nil // data stored in dst.UserRiskLevelExists, return on the first match
-		} else {
-			dst.UserRiskLevelExists = nil
-			return fmt.Errorf("failed to unmarshal GetUserRisk200Response as UserRiskLevelExists: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'UserRiskLevelNone'
-	if jsonDict["riskLevel"] == "UserRiskLevelNone" {
-		// try to unmarshal JSON data into UserRiskLevelNone
-		err = json.Unmarshal(data, &dst.UserRiskLevelNone)
-		if err == nil {
-			return nil // data stored in dst.UserRiskLevelNone, return on the first match
-		} else {
-			dst.UserRiskLevelNone = nil
-			return fmt.Errorf("failed to unmarshal GetUserRisk200Response as UserRiskLevelNone: %s", err.Error())
-		}
-	}
-
 	return nil
 }
 
