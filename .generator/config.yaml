@@ -22,6 +22,7 @@ files:
   api_user_test.go: {}
   cache_test.go: {}
   cache.go: {}
+  client_test.go: {}
   configuration_test.go: {}
   gocache.go: {}
   main_test.go: {}

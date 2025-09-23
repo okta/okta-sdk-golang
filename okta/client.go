@@ -48,6 +48,7 @@ import (
 	"path/filepath"
 	"reflect"
 	"regexp"
+	"slices"
 	"strconv"
 	"strings"
 	"sync"
@@ -1392,13 +1393,16 @@ func (c *APIClient) doWithRetries(ctx context.Context, req *http.Request) (*http
 			// this is error is considered to be permanent and should not be retried
 			return backoff.Permanent(err)
 		}
-		if !tooManyRequests(resp) {
+		if !shouldRetryRequests(resp) {
 			return nil
 		}
-		if err = tryDrainBody(resp.Body); err != nil {
-			return err
+		// tryDrainBody except the last one
+		if bOff.maxRetries != bOff.retryCount {
+			if err = tryDrainBody(resp.Body); err != nil {
+				return err
+			}
 		}
-		backoffDuration, err := Get429BackoffTime(resp)
+		backoffDuration, err := GetBackoffTime(resp, c.cfg)
 		if err != nil {
 			return err
 		}
@@ -1409,7 +1413,7 @@ func (c *APIClient) doWithRetries(ctx context.Context, req *http.Request) (*http
 		bOff.retryCount++
 		req.Header.Add("X-Okta-Retry-For", resp.Header.Get("X-Okta-Request-Id"))
 		req.Header.Add("X-Okta-Retry-Count", fmt.Sprint(bOff.retryCount))
-		return errors.New("too many requests")
+		return fmt.Errorf("unexpected status code %v, giving up after %v retries", resp.StatusCode, bOff.maxRetries)
 	}
 	err = backoff.Retry(operation, bOff)
 	return resp, err
@@ -1598,8 +1602,21 @@ func (o *oktaBackoff) Context() context.Context {
 	return o.ctx
 }
 
-func tooManyRequests(resp *http.Response) bool {
-	return resp != nil && resp.StatusCode == http.StatusTooManyRequests
+var retryStatusCodes = []int{
+	http.StatusTooManyRequests,
+	http.StatusInternalServerError,
+	http.StatusBadGateway,
+	http.StatusServiceUnavailable,
+	http.StatusGatewayTimeout,
+}
+
+var defaultBackOffTimeInSeconds int64 = 30
+
+func shouldRetryRequests(resp *http.Response) bool {
+	if resp == nil {
+		return false
+	}
+	return slices.Contains(retryStatusCodes, resp.StatusCode)
 }
 
 func tryDrainBody(body io.ReadCloser) error {
@@ -1608,18 +1625,31 @@ func tryDrainBody(body io.ReadCloser) error {
 	return err
 }
 
-func Get429BackoffTime(resp *http.Response) (int64, error) {
-	requestDate, err := time.Parse("Mon, 02 Jan 2006 15:04:05 GMT", resp.Header.Get("Date"))
-	if err != nil {
-		// this is error is considered to be permanent and should not be retried
-		return 0, backoff.Permanent(fmt.Errorf("date header is missing or invalid: %w", err))
+func GetBackoffTime(resp *http.Response, config *Configuration) (int64, error) {
+	var backoffTimeInSeconds int64
+	var backoffErr error
+	switch resp.StatusCode {
+	case http.StatusTooManyRequests:
+		requestDate, err := time.Parse("Mon, 02 Jan 2006 15:04:05 GMT", resp.Header.Get("Date"))
+		if err != nil {
+			// this is error is considered to be permanent and should not be retried
+			backoffTimeInSeconds = 0
+			backoffErr = backoff.Permanent(fmt.Errorf("date header is missing or invalid: %w", err))
+		}
+		rateLimitReset, err := strconv.Atoi(resp.Header.Get("X-Rate-Limit-Reset"))
+		if err != nil {
+			// this is error is considered to be permanent and should not be retried
+			backoffTimeInSeconds = 0
+			backoffErr = backoff.Permanent(fmt.Errorf("X-Rate-Limit-Reset header is missing or invalid: %w", err))
+		}
+		backoffTimeInSeconds = int64(rateLimitReset) - requestDate.Unix() + 1
+	default:
+		backoffTimeInSeconds = config.Okta.Client.RateLimit.MaxBackoff
+		if backoffTimeInSeconds == 0 {
+			backoffTimeInSeconds = defaultBackOffTimeInSeconds
+		}
 	}
-	rateLimitReset, err := strconv.Atoi(resp.Header.Get("X-Rate-Limit-Reset"))
-	if err != nil {
-		// this is error is considered to be permanent and should not be retried
-		return 0, backoff.Permanent(fmt.Errorf("X-Rate-Limit-Reset header is missing or invalid: %w", err))
-	}
-	return int64(rateLimitReset) - requestDate.Unix() + 1, nil
+	return backoffTimeInSeconds, backoffErr
 }
 
 type ClientAssertionClaims struct {
@@ -1731,7 +1761,7 @@ func (c *APIClient) parseLimitHeaders(resp *http.Response) (*RateLimit, error) {
 	if err != nil {
 		return nil, err
 	}
-	reset, err := Get429BackoffTime(resp)
+	reset, err := GetBackoffTime(resp, c.cfg)
 	if err != nil {
 		return nil, err
 	}
