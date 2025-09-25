@@ -60,6 +60,9 @@ func Test_JWK_Request_Can_Create_User(t *testing.T) {
 }
 
 func Test_Dpop_Get_User(t *testing.T) {
+	if os.Getenv("OKTA_CCI") == "yes" {
+		t.Skip("Skipping testing not in CI environment")
+	}
 	configuration, err := NewConfiguration(WithAuthorizationMode("PrivateKey"), WithScopes([]string{"okta.users.manage", "okta.users.read"}))
 	require.NoError(t, err, "Creating a new config should not error")
 	client := NewAPIClient(configuration)

@@ -100,6 +100,9 @@ func Test_Update_Group(t *testing.T) {
 }
 
 func Test_Group_User_Operation(t *testing.T) {
+	if os.Getenv("OKTA_CCI") == "yes" {
+		t.Skip("Skipping testing not in CI environment")
+	}
 	group, _, err := setupGroup(randomTestString())
 	require.NoError(t, err, "Creating a new group should not error")
 	user, _, _, err := setupUser(true)
