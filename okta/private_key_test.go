@@ -1,6 +1,7 @@
 package okta
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
 	"testing"
@@ -60,6 +61,9 @@ func Test_JWK_Request_Can_Create_User(t *testing.T) {
 }
 
 func Test_Dpop_Get_User(t *testing.T) {
+	if os.Getenv("OKTA_CCI") == "yes" {
+		t.Skip("Skipping testing not in CI environment")
+	}
 	configuration, err := NewConfiguration(WithAuthorizationMode("PrivateKey"), WithScopes([]string{"okta.users.manage", "okta.users.read"}))
 	require.NoError(t, err, "Creating a new config should not error")
 	client := NewAPIClient(configuration)
@@ -96,6 +100,7 @@ func Test_Dpop_Pagination(t *testing.T) {
 	profile := testFactory.NewValidTestUserProfile()
 	body := CreateUserRequest{Credentials: uc, Profile: profile}
 	createdUser1, _, err := client.UserAPI.CreateUser(client.cfg.Context).Body(body).Activate(true).Execute()
+	fmt.Println(createdUser1.GetId(), err)
 	require.NoError(t, err, "Creating a new user should not error")
 	uc = testFactory.NewValidTestUserCredentialsWithPassword()
 	profile = testFactory.NewValidTestUserProfile()
