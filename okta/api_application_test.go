@@ -211,6 +211,7 @@ func Test_Application_Groups_Operations(t *testing.T) {
 		assert.Equal(t, int32(5), appGroup.GetPriority())
 	})
 	t.Run("list application group", func(t *testing.T) {
+		time.Sleep(500 * time.Millisecond)
 		appGroupList, _, err := apiClient.ApplicationGroupsAPI.ListApplicationGroupAssignments(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).Execute()
 		require.NoError(t, err, "Get list app group assignment should not error")
 		assert.NotEmpty(t, appGroupList)
