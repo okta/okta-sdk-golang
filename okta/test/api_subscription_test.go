@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_SubscriptionAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_SubscriptionAPIService(t *testing.T) {
 
 	t.Run("Test SubscriptionAPIService GetSubscriptionsNotificationTypeRole", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var roleRef openapiclient.ListSubscriptionsRoleRoleRefParameter
 		var notificationType string
@@ -40,7 +41,7 @@ func Test_okta_SubscriptionAPIService(t *testing.T) {
 
 	t.Run("Test SubscriptionAPIService GetSubscriptionsNotificationTypeUser", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var notificationType string
 		var userId string
@@ -55,7 +56,7 @@ func Test_okta_SubscriptionAPIService(t *testing.T) {
 
 	t.Run("Test SubscriptionAPIService ListSubscriptionsRole", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var roleRef openapiclient.ListSubscriptionsRoleRoleRefParameter
 
@@ -69,7 +70,7 @@ func Test_okta_SubscriptionAPIService(t *testing.T) {
 
 	t.Run("Test SubscriptionAPIService ListSubscriptionsUser", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 
@@ -83,7 +84,7 @@ func Test_okta_SubscriptionAPIService(t *testing.T) {
 
 	t.Run("Test SubscriptionAPIService SubscribeByNotificationTypeRole", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var roleRef openapiclient.ListSubscriptionsRoleRoleRefParameter
 		var notificationType string
@@ -97,7 +98,7 @@ func Test_okta_SubscriptionAPIService(t *testing.T) {
 
 	t.Run("Test SubscriptionAPIService SubscribeByNotificationTypeUser", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var notificationType string
 		var userId string
@@ -111,7 +112,7 @@ func Test_okta_SubscriptionAPIService(t *testing.T) {
 
 	t.Run("Test SubscriptionAPIService UnsubscribeByNotificationTypeRole", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var roleRef openapiclient.ListSubscriptionsRoleRoleRefParameter
 		var notificationType string
@@ -125,7 +126,7 @@ func Test_okta_SubscriptionAPIService(t *testing.T) {
 
 	t.Run("Test SubscriptionAPIService UnsubscribeByNotificationTypeUser", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var notificationType string
 		var userId string

@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_DevicePostureCheckAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_DevicePostureCheckAPIService(t *testing.T) {
 
 	t.Run("Test DevicePostureCheckAPIService CreateDevicePostureCheck", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.DevicePostureCheckAPI.CreateDevicePostureCheck(context.Background()).Execute()
 
@@ -37,7 +38,7 @@ func Test_okta_DevicePostureCheckAPIService(t *testing.T) {
 
 	t.Run("Test DevicePostureCheckAPIService DeleteDevicePostureCheck", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var postureCheckId string
 
@@ -50,7 +51,7 @@ func Test_okta_DevicePostureCheckAPIService(t *testing.T) {
 
 	t.Run("Test DevicePostureCheckAPIService GetDevicePostureCheck", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var postureCheckId string
 
@@ -64,7 +65,7 @@ func Test_okta_DevicePostureCheckAPIService(t *testing.T) {
 
 	t.Run("Test DevicePostureCheckAPIService ListDefaultDevicePostureChecks", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.DevicePostureCheckAPI.ListDefaultDevicePostureChecks(context.Background()).Execute()
 
@@ -76,7 +77,7 @@ func Test_okta_DevicePostureCheckAPIService(t *testing.T) {
 
 	t.Run("Test DevicePostureCheckAPIService ListDevicePostureChecks", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.DevicePostureCheckAPI.ListDevicePostureChecks(context.Background()).Execute()
 
@@ -88,7 +89,7 @@ func Test_okta_DevicePostureCheckAPIService(t *testing.T) {
 
 	t.Run("Test DevicePostureCheckAPIService ReplaceDevicePostureCheck", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var postureCheckId string
 

@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_CustomTemplatesAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_CustomTemplatesAPIService(t *testing.T) {
 
 	t.Run("Test CustomTemplatesAPIService CreateEmailCustomization", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 		var templateName string
@@ -40,7 +41,7 @@ func Test_okta_CustomTemplatesAPIService(t *testing.T) {
 
 	t.Run("Test CustomTemplatesAPIService DeleteAllCustomizations", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 		var templateName string
@@ -54,7 +55,7 @@ func Test_okta_CustomTemplatesAPIService(t *testing.T) {
 
 	t.Run("Test CustomTemplatesAPIService DeleteEmailCustomization", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 		var templateName string
@@ -69,7 +70,7 @@ func Test_okta_CustomTemplatesAPIService(t *testing.T) {
 
 	t.Run("Test CustomTemplatesAPIService GetCustomizationPreview", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 		var templateName string
@@ -85,7 +86,7 @@ func Test_okta_CustomTemplatesAPIService(t *testing.T) {
 
 	t.Run("Test CustomTemplatesAPIService GetEmailCustomization", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 		var templateName string
@@ -101,7 +102,7 @@ func Test_okta_CustomTemplatesAPIService(t *testing.T) {
 
 	t.Run("Test CustomTemplatesAPIService GetEmailDefaultContent", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 		var templateName string
@@ -116,7 +117,7 @@ func Test_okta_CustomTemplatesAPIService(t *testing.T) {
 
 	t.Run("Test CustomTemplatesAPIService GetEmailDefaultPreview", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 		var templateName string
@@ -131,7 +132,7 @@ func Test_okta_CustomTemplatesAPIService(t *testing.T) {
 
 	t.Run("Test CustomTemplatesAPIService GetEmailSettings", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 		var templateName string
@@ -146,7 +147,7 @@ func Test_okta_CustomTemplatesAPIService(t *testing.T) {
 
 	t.Run("Test CustomTemplatesAPIService GetEmailTemplate", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 		var templateName string
@@ -161,7 +162,7 @@ func Test_okta_CustomTemplatesAPIService(t *testing.T) {
 
 	t.Run("Test CustomTemplatesAPIService ListEmailCustomizations", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 		var templateName string
@@ -176,7 +177,7 @@ func Test_okta_CustomTemplatesAPIService(t *testing.T) {
 
 	t.Run("Test CustomTemplatesAPIService ListEmailTemplates", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 
@@ -190,7 +191,7 @@ func Test_okta_CustomTemplatesAPIService(t *testing.T) {
 
 	t.Run("Test CustomTemplatesAPIService ReplaceEmailCustomization", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 		var templateName string
@@ -206,7 +207,7 @@ func Test_okta_CustomTemplatesAPIService(t *testing.T) {
 
 	t.Run("Test CustomTemplatesAPIService ReplaceEmailSettings", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 		var templateName string
@@ -221,7 +222,7 @@ func Test_okta_CustomTemplatesAPIService(t *testing.T) {
 
 	t.Run("Test CustomTemplatesAPIService SendTestEmail", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 		var templateName string

@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_InlineHookAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_InlineHookAPIService(t *testing.T) {
 
 	t.Run("Test InlineHookAPIService ActivateInlineHook", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var inlineHookId string
 
@@ -39,7 +40,7 @@ func Test_okta_InlineHookAPIService(t *testing.T) {
 
 	t.Run("Test InlineHookAPIService CreateInlineHook", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.InlineHookAPI.CreateInlineHook(context.Background()).Execute()
 
@@ -51,7 +52,7 @@ func Test_okta_InlineHookAPIService(t *testing.T) {
 
 	t.Run("Test InlineHookAPIService DeactivateInlineHook", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var inlineHookId string
 
@@ -65,7 +66,7 @@ func Test_okta_InlineHookAPIService(t *testing.T) {
 
 	t.Run("Test InlineHookAPIService DeleteInlineHook", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var inlineHookId string
 
@@ -78,7 +79,7 @@ func Test_okta_InlineHookAPIService(t *testing.T) {
 
 	t.Run("Test InlineHookAPIService ExecuteInlineHook", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var inlineHookId string
 
@@ -92,7 +93,7 @@ func Test_okta_InlineHookAPIService(t *testing.T) {
 
 	t.Run("Test InlineHookAPIService GetInlineHook", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var inlineHookId string
 
@@ -106,7 +107,7 @@ func Test_okta_InlineHookAPIService(t *testing.T) {
 
 	t.Run("Test InlineHookAPIService ListInlineHooks", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.InlineHookAPI.ListInlineHooks(context.Background()).Execute()
 
@@ -118,7 +119,7 @@ func Test_okta_InlineHookAPIService(t *testing.T) {
 
 	t.Run("Test InlineHookAPIService ReplaceInlineHook", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var inlineHookId string
 
@@ -132,7 +133,7 @@ func Test_okta_InlineHookAPIService(t *testing.T) {
 
 	t.Run("Test InlineHookAPIService UpdateInlineHook", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var inlineHookId string
 

@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_TemplateAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_TemplateAPIService(t *testing.T) {
 
 	t.Run("Test TemplateAPIService CreateSmsTemplate", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.TemplateAPI.CreateSmsTemplate(context.Background()).Execute()
 
@@ -37,7 +38,7 @@ func Test_okta_TemplateAPIService(t *testing.T) {
 
 	t.Run("Test TemplateAPIService DeleteSmsTemplate", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var templateId string
 
@@ -50,7 +51,7 @@ func Test_okta_TemplateAPIService(t *testing.T) {
 
 	t.Run("Test TemplateAPIService GetSmsTemplate", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var templateId string
 
@@ -64,7 +65,7 @@ func Test_okta_TemplateAPIService(t *testing.T) {
 
 	t.Run("Test TemplateAPIService ListSmsTemplates", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.TemplateAPI.ListSmsTemplates(context.Background()).Execute()
 
@@ -76,7 +77,7 @@ func Test_okta_TemplateAPIService(t *testing.T) {
 
 	t.Run("Test TemplateAPIService ReplaceSmsTemplate", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var templateId string
 
@@ -90,7 +91,7 @@ func Test_okta_TemplateAPIService(t *testing.T) {
 
 	t.Run("Test TemplateAPIService UpdateSmsTemplate", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var templateId string
 

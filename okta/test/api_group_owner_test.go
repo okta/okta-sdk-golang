@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_GroupOwnerAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_GroupOwnerAPIService(t *testing.T) {
 
 	t.Run("Test GroupOwnerAPIService AssignGroupOwner", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var groupId string
 
@@ -39,7 +40,7 @@ func Test_okta_GroupOwnerAPIService(t *testing.T) {
 
 	t.Run("Test GroupOwnerAPIService DeleteGroupOwner", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var groupId string
 		var ownerId string
@@ -53,7 +54,7 @@ func Test_okta_GroupOwnerAPIService(t *testing.T) {
 
 	t.Run("Test GroupOwnerAPIService ListGroupOwners", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var groupId string
 

@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_OrgSettingCommunicationAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_OrgSettingCommunicationAPIService(t *testing.T) {
 
 	t.Run("Test OrgSettingCommunicationAPIService GetOktaCommunicationSettings", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.OrgSettingCommunicationAPI.GetOktaCommunicationSettings(context.Background()).Execute()
 
@@ -37,7 +38,7 @@ func Test_okta_OrgSettingCommunicationAPIService(t *testing.T) {
 
 	t.Run("Test OrgSettingCommunicationAPIService OptInUsersToOktaCommunicationEmails", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.OrgSettingCommunicationAPI.OptInUsersToOktaCommunicationEmails(context.Background()).Execute()
 
@@ -49,7 +50,7 @@ func Test_okta_OrgSettingCommunicationAPIService(t *testing.T) {
 
 	t.Run("Test OrgSettingCommunicationAPIService OptOutUsersFromOktaCommunicationEmails", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.OrgSettingCommunicationAPI.OptOutUsersFromOktaCommunicationEmails(context.Background()).Execute()
 

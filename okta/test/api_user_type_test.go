@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_UserTypeAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_UserTypeAPIService(t *testing.T) {
 
 	t.Run("Test UserTypeAPIService CreateUserType", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.UserTypeAPI.CreateUserType(context.Background()).Execute()
 
@@ -37,7 +38,7 @@ func Test_okta_UserTypeAPIService(t *testing.T) {
 
 	t.Run("Test UserTypeAPIService DeleteUserType", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var typeId string
 
@@ -50,7 +51,7 @@ func Test_okta_UserTypeAPIService(t *testing.T) {
 
 	t.Run("Test UserTypeAPIService GetUserType", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var typeId string
 
@@ -64,7 +65,7 @@ func Test_okta_UserTypeAPIService(t *testing.T) {
 
 	t.Run("Test UserTypeAPIService ListUserTypes", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.UserTypeAPI.ListUserTypes(context.Background()).Execute()
 
@@ -76,7 +77,7 @@ func Test_okta_UserTypeAPIService(t *testing.T) {
 
 	t.Run("Test UserTypeAPIService ReplaceUserType", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var typeId string
 
@@ -90,7 +91,7 @@ func Test_okta_UserTypeAPIService(t *testing.T) {
 
 	t.Run("Test UserTypeAPIService UpdateUserType", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var typeId string
 

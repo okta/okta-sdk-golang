@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_UserGrantAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_UserGrantAPIService(t *testing.T) {
 
 	t.Run("Test UserGrantAPIService GetUserGrant", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 		var grantId string
@@ -40,7 +41,7 @@ func Test_okta_UserGrantAPIService(t *testing.T) {
 
 	t.Run("Test UserGrantAPIService ListGrantsForUserAndClient", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 		var clientId string
@@ -55,7 +56,7 @@ func Test_okta_UserGrantAPIService(t *testing.T) {
 
 	t.Run("Test UserGrantAPIService ListUserGrants", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 
@@ -69,7 +70,7 @@ func Test_okta_UserGrantAPIService(t *testing.T) {
 
 	t.Run("Test UserGrantAPIService RevokeGrantsForUserAndClient", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 		var clientId string
@@ -83,7 +84,7 @@ func Test_okta_UserGrantAPIService(t *testing.T) {
 
 	t.Run("Test UserGrantAPIService RevokeUserGrant", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 		var grantId string
@@ -97,7 +98,7 @@ func Test_okta_UserGrantAPIService(t *testing.T) {
 
 	t.Run("Test UserGrantAPIService RevokeUserGrants", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 

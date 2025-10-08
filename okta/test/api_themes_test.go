@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_ThemesAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_ThemesAPIService(t *testing.T) {
 
 	t.Run("Test ThemesAPIService DeleteBrandThemeBackgroundImage", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 		var themeId string
@@ -39,7 +40,7 @@ func Test_okta_ThemesAPIService(t *testing.T) {
 
 	t.Run("Test ThemesAPIService DeleteBrandThemeFavicon", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 		var themeId string
@@ -53,7 +54,7 @@ func Test_okta_ThemesAPIService(t *testing.T) {
 
 	t.Run("Test ThemesAPIService DeleteBrandThemeLogo", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 		var themeId string
@@ -67,7 +68,7 @@ func Test_okta_ThemesAPIService(t *testing.T) {
 
 	t.Run("Test ThemesAPIService GetBrandTheme", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 		var themeId string
@@ -82,7 +83,7 @@ func Test_okta_ThemesAPIService(t *testing.T) {
 
 	t.Run("Test ThemesAPIService ListBrandThemes", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 
@@ -96,7 +97,7 @@ func Test_okta_ThemesAPIService(t *testing.T) {
 
 	t.Run("Test ThemesAPIService ReplaceBrandTheme", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 		var themeId string
@@ -111,7 +112,7 @@ func Test_okta_ThemesAPIService(t *testing.T) {
 
 	t.Run("Test ThemesAPIService UploadBrandThemeBackgroundImage", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 		var themeId string
@@ -126,7 +127,7 @@ func Test_okta_ThemesAPIService(t *testing.T) {
 
 	t.Run("Test ThemesAPIService UploadBrandThemeFavicon", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 		var themeId string
@@ -141,7 +142,7 @@ func Test_okta_ThemesAPIService(t *testing.T) {
 
 	t.Run("Test ThemesAPIService UploadBrandThemeLogo", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 		var themeId string

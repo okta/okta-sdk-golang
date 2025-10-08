@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_LinkedObjectAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_LinkedObjectAPIService(t *testing.T) {
 
 	t.Run("Test LinkedObjectAPIService CreateLinkedObjectDefinition", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.LinkedObjectAPI.CreateLinkedObjectDefinition(context.Background()).Execute()
 
@@ -37,7 +38,7 @@ func Test_okta_LinkedObjectAPIService(t *testing.T) {
 
 	t.Run("Test LinkedObjectAPIService DeleteLinkedObjectDefinition", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var linkedObjectName string
 
@@ -50,7 +51,7 @@ func Test_okta_LinkedObjectAPIService(t *testing.T) {
 
 	t.Run("Test LinkedObjectAPIService GetLinkedObjectDefinition", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var linkedObjectName string
 
@@ -64,7 +65,7 @@ func Test_okta_LinkedObjectAPIService(t *testing.T) {
 
 	t.Run("Test LinkedObjectAPIService ListLinkedObjectDefinitions", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.LinkedObjectAPI.ListLinkedObjectDefinitions(context.Background()).Execute()
 

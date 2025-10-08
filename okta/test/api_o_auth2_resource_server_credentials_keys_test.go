@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_OAuth2ResourceServerCredentialsKeysAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_OAuth2ResourceServerCredentialsKeysAPIService(t *testing.T) {
 
 	t.Run("Test OAuth2ResourceServerCredentialsKeysAPIService ActivateOAuth2ResourceServerJsonWebKey", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 		var keyId string
@@ -40,7 +41,7 @@ func Test_okta_OAuth2ResourceServerCredentialsKeysAPIService(t *testing.T) {
 
 	t.Run("Test OAuth2ResourceServerCredentialsKeysAPIService AddOAuth2ResourceServerJsonWebKey", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 
@@ -54,7 +55,7 @@ func Test_okta_OAuth2ResourceServerCredentialsKeysAPIService(t *testing.T) {
 
 	t.Run("Test OAuth2ResourceServerCredentialsKeysAPIService DeactivateOAuth2ResourceServerJsonWebKey", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 		var keyId string
@@ -69,7 +70,7 @@ func Test_okta_OAuth2ResourceServerCredentialsKeysAPIService(t *testing.T) {
 
 	t.Run("Test OAuth2ResourceServerCredentialsKeysAPIService DeleteOAuth2ResourceServerJsonWebKey", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 		var keyId string
@@ -83,7 +84,7 @@ func Test_okta_OAuth2ResourceServerCredentialsKeysAPIService(t *testing.T) {
 
 	t.Run("Test OAuth2ResourceServerCredentialsKeysAPIService GetOAuth2ResourceServerJsonWebKey", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 		var keyId string
@@ -98,7 +99,7 @@ func Test_okta_OAuth2ResourceServerCredentialsKeysAPIService(t *testing.T) {
 
 	t.Run("Test OAuth2ResourceServerCredentialsKeysAPIService ListOAuth2ResourceServerJsonWebKeys", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 

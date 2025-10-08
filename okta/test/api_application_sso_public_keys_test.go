@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_ApplicationSSOPublicKeysAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_ApplicationSSOPublicKeysAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationSSOPublicKeysAPIService ActivateOAuth2ClientJsonWebKey", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 		var keyId string
@@ -40,7 +41,7 @@ func Test_okta_ApplicationSSOPublicKeysAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationSSOPublicKeysAPIService ActivateOAuth2ClientSecret", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 		var secretId string
@@ -55,7 +56,7 @@ func Test_okta_ApplicationSSOPublicKeysAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationSSOPublicKeysAPIService AddJwk", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 
@@ -69,7 +70,7 @@ func Test_okta_ApplicationSSOPublicKeysAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationSSOPublicKeysAPIService CreateOAuth2ClientSecret", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 
@@ -83,7 +84,7 @@ func Test_okta_ApplicationSSOPublicKeysAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationSSOPublicKeysAPIService DeactivateOAuth2ClientJsonWebKey", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 		var keyId string
@@ -98,7 +99,7 @@ func Test_okta_ApplicationSSOPublicKeysAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationSSOPublicKeysAPIService DeactivateOAuth2ClientSecret", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 		var secretId string
@@ -113,7 +114,7 @@ func Test_okta_ApplicationSSOPublicKeysAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationSSOPublicKeysAPIService DeleteOAuth2ClientSecret", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 		var secretId string
@@ -127,7 +128,7 @@ func Test_okta_ApplicationSSOPublicKeysAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationSSOPublicKeysAPIService Deletejwk", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 		var keyId string
@@ -141,7 +142,7 @@ func Test_okta_ApplicationSSOPublicKeysAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationSSOPublicKeysAPIService GetJwk", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 		var keyId string
@@ -156,7 +157,7 @@ func Test_okta_ApplicationSSOPublicKeysAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationSSOPublicKeysAPIService GetOAuth2ClientSecret", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 		var secretId string
@@ -171,7 +172,7 @@ func Test_okta_ApplicationSSOPublicKeysAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationSSOPublicKeysAPIService ListJwk", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 
@@ -185,7 +186,7 @@ func Test_okta_ApplicationSSOPublicKeysAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationSSOPublicKeysAPIService ListOAuth2ClientSecrets", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 

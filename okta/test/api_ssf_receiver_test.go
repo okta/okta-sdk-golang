@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_SSFReceiverAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_SSFReceiverAPIService(t *testing.T) {
 
 	t.Run("Test SSFReceiverAPIService ActivateSecurityEventsProviderInstance", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var securityEventProviderId string
 
@@ -39,7 +40,7 @@ func Test_okta_SSFReceiverAPIService(t *testing.T) {
 
 	t.Run("Test SSFReceiverAPIService CreateSecurityEventsProviderInstance", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SSFReceiverAPI.CreateSecurityEventsProviderInstance(context.Background()).Execute()
 
@@ -51,7 +52,7 @@ func Test_okta_SSFReceiverAPIService(t *testing.T) {
 
 	t.Run("Test SSFReceiverAPIService DeactivateSecurityEventsProviderInstance", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var securityEventProviderId string
 
@@ -65,7 +66,7 @@ func Test_okta_SSFReceiverAPIService(t *testing.T) {
 
 	t.Run("Test SSFReceiverAPIService DeleteSecurityEventsProviderInstance", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var securityEventProviderId string
 
@@ -78,7 +79,7 @@ func Test_okta_SSFReceiverAPIService(t *testing.T) {
 
 	t.Run("Test SSFReceiverAPIService GetSecurityEventsProviderInstance", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var securityEventProviderId string
 
@@ -92,7 +93,7 @@ func Test_okta_SSFReceiverAPIService(t *testing.T) {
 
 	t.Run("Test SSFReceiverAPIService ListSecurityEventsProviderInstances", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SSFReceiverAPI.ListSecurityEventsProviderInstances(context.Background()).Execute()
 
@@ -104,7 +105,7 @@ func Test_okta_SSFReceiverAPIService(t *testing.T) {
 
 	t.Run("Test SSFReceiverAPIService ReplaceSecurityEventsProviderInstance", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var securityEventProviderId string
 

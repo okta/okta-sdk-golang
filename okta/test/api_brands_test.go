@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_BrandsAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_BrandsAPIService(t *testing.T) {
 
 	t.Run("Test BrandsAPIService CreateBrand", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.BrandsAPI.CreateBrand(context.Background()).Execute()
 
@@ -37,7 +38,7 @@ func Test_okta_BrandsAPIService(t *testing.T) {
 
 	t.Run("Test BrandsAPIService DeleteBrand", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 
@@ -50,7 +51,7 @@ func Test_okta_BrandsAPIService(t *testing.T) {
 
 	t.Run("Test BrandsAPIService GetBrand", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 
@@ -64,7 +65,7 @@ func Test_okta_BrandsAPIService(t *testing.T) {
 
 	t.Run("Test BrandsAPIService ListBrandDomains", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 
@@ -78,7 +79,7 @@ func Test_okta_BrandsAPIService(t *testing.T) {
 
 	t.Run("Test BrandsAPIService ListBrands", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.BrandsAPI.ListBrands(context.Background()).Execute()
 
@@ -90,7 +91,7 @@ func Test_okta_BrandsAPIService(t *testing.T) {
 
 	t.Run("Test BrandsAPIService ReplaceBrand", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 

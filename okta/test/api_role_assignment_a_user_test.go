@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_RoleAssignmentAUserAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_RoleAssignmentAUserAPIService(t *testing.T) {
 
 	t.Run("Test RoleAssignmentAUserAPIService AssignRoleToUser", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 
@@ -39,7 +40,7 @@ func Test_okta_RoleAssignmentAUserAPIService(t *testing.T) {
 
 	t.Run("Test RoleAssignmentAUserAPIService GetRoleAssignmentGovernanceGrant", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 		var roleAssignmentId string
@@ -55,7 +56,7 @@ func Test_okta_RoleAssignmentAUserAPIService(t *testing.T) {
 
 	t.Run("Test RoleAssignmentAUserAPIService GetRoleAssignmentGovernanceGrantResources", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 		var roleAssignmentId string
@@ -71,7 +72,7 @@ func Test_okta_RoleAssignmentAUserAPIService(t *testing.T) {
 
 	t.Run("Test RoleAssignmentAUserAPIService GetUserAssignedRole", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 		var roleAssignmentId string
@@ -86,7 +87,7 @@ func Test_okta_RoleAssignmentAUserAPIService(t *testing.T) {
 
 	t.Run("Test RoleAssignmentAUserAPIService GetUserAssignedRoleGovernance", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 		var roleAssignmentId string
@@ -101,7 +102,7 @@ func Test_okta_RoleAssignmentAUserAPIService(t *testing.T) {
 
 	t.Run("Test RoleAssignmentAUserAPIService ListAssignedRolesForUser", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 
@@ -115,7 +116,7 @@ func Test_okta_RoleAssignmentAUserAPIService(t *testing.T) {
 
 	t.Run("Test RoleAssignmentAUserAPIService ListUsersWithRoleAssignments", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.RoleAssignmentAUserAPI.ListUsersWithRoleAssignments(context.Background()).Execute()
 
@@ -127,7 +128,7 @@ func Test_okta_RoleAssignmentAUserAPIService(t *testing.T) {
 
 	t.Run("Test RoleAssignmentAUserAPIService UnassignRoleFromUser", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 		var roleAssignmentId string

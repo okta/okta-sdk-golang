@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_HookKeyAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_HookKeyAPIService(t *testing.T) {
 
 	t.Run("Test HookKeyAPIService CreateHookKey", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.HookKeyAPI.CreateHookKey(context.Background()).Execute()
 
@@ -37,7 +38,7 @@ func Test_okta_HookKeyAPIService(t *testing.T) {
 
 	t.Run("Test HookKeyAPIService DeleteHookKey", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var id string
 
@@ -50,7 +51,7 @@ func Test_okta_HookKeyAPIService(t *testing.T) {
 
 	t.Run("Test HookKeyAPIService GetHookKey", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var id string
 
@@ -64,7 +65,7 @@ func Test_okta_HookKeyAPIService(t *testing.T) {
 
 	t.Run("Test HookKeyAPIService GetPublicKey", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var keyId string
 
@@ -78,7 +79,7 @@ func Test_okta_HookKeyAPIService(t *testing.T) {
 
 	t.Run("Test HookKeyAPIService ListHookKeys", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.HookKeyAPI.ListHookKeys(context.Background()).Execute()
 
@@ -90,7 +91,7 @@ func Test_okta_HookKeyAPIService(t *testing.T) {
 
 	t.Run("Test HookKeyAPIService ReplaceHookKey", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var id string
 

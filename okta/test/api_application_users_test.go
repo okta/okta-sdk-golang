@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_ApplicationUsersAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_ApplicationUsersAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationUsersAPIService AssignUserToApplication", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 
@@ -39,7 +40,7 @@ func Test_okta_ApplicationUsersAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationUsersAPIService GetApplicationUser", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 		var userId string
@@ -54,7 +55,7 @@ func Test_okta_ApplicationUsersAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationUsersAPIService ListApplicationUsers", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 
@@ -68,7 +69,7 @@ func Test_okta_ApplicationUsersAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationUsersAPIService UnassignUserFromApplication", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 		var userId string
@@ -82,7 +83,7 @@ func Test_okta_ApplicationUsersAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationUsersAPIService UpdateApplicationUser", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 		var userId string

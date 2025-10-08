@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_ApplicationSSOCredentialKeyAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_ApplicationSSOCredentialKeyAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationSSOCredentialKeyAPIService CloneApplicationKey", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 		var keyId string
@@ -40,7 +41,7 @@ func Test_okta_ApplicationSSOCredentialKeyAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationSSOCredentialKeyAPIService GenerateApplicationKey", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 
@@ -54,7 +55,7 @@ func Test_okta_ApplicationSSOCredentialKeyAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationSSOCredentialKeyAPIService GenerateCsrForApplication", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 
@@ -68,7 +69,7 @@ func Test_okta_ApplicationSSOCredentialKeyAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationSSOCredentialKeyAPIService GetApplicationKey", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 		var keyId string
@@ -83,7 +84,7 @@ func Test_okta_ApplicationSSOCredentialKeyAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationSSOCredentialKeyAPIService GetCsrForApplication", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 		var csrId string
@@ -98,7 +99,7 @@ func Test_okta_ApplicationSSOCredentialKeyAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationSSOCredentialKeyAPIService ListApplicationKeys", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 
@@ -112,7 +113,7 @@ func Test_okta_ApplicationSSOCredentialKeyAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationSSOCredentialKeyAPIService ListCsrsForApplication", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 
@@ -126,7 +127,7 @@ func Test_okta_ApplicationSSOCredentialKeyAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationSSOCredentialKeyAPIService PublishCsrFromApplication", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 		var csrId string
@@ -141,7 +142,7 @@ func Test_okta_ApplicationSSOCredentialKeyAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationSSOCredentialKeyAPIService RevokeCsrFromApplication", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 		var csrId string

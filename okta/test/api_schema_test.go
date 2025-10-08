@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_SchemaAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_SchemaAPIService(t *testing.T) {
 
 	t.Run("Test SchemaAPIService GetApplicationUserSchema", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 
@@ -39,7 +40,7 @@ func Test_okta_SchemaAPIService(t *testing.T) {
 
 	t.Run("Test SchemaAPIService GetGroupSchema", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SchemaAPI.GetGroupSchema(context.Background()).Execute()
 
@@ -51,7 +52,7 @@ func Test_okta_SchemaAPIService(t *testing.T) {
 
 	t.Run("Test SchemaAPIService GetLogStreamSchema", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var logStreamType string
 
@@ -65,7 +66,7 @@ func Test_okta_SchemaAPIService(t *testing.T) {
 
 	t.Run("Test SchemaAPIService GetUserSchema", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var schemaId string
 
@@ -79,7 +80,7 @@ func Test_okta_SchemaAPIService(t *testing.T) {
 
 	t.Run("Test SchemaAPIService ListLogStreamSchemas", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SchemaAPI.ListLogStreamSchemas(context.Background()).Execute()
 
@@ -91,7 +92,7 @@ func Test_okta_SchemaAPIService(t *testing.T) {
 
 	t.Run("Test SchemaAPIService UpdateApplicationUserProfile", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 
@@ -105,7 +106,7 @@ func Test_okta_SchemaAPIService(t *testing.T) {
 
 	t.Run("Test SchemaAPIService UpdateGroupSchema", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SchemaAPI.UpdateGroupSchema(context.Background()).Execute()
 
@@ -117,7 +118,7 @@ func Test_okta_SchemaAPIService(t *testing.T) {
 
 	t.Run("Test SchemaAPIService UpdateUserProfile", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var schemaId string
 

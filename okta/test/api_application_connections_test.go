@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_ApplicationConnectionsAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_ApplicationConnectionsAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationConnectionsAPIService ActivateDefaultProvisioningConnectionForApplication", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 
@@ -38,7 +39,7 @@ func Test_okta_ApplicationConnectionsAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationConnectionsAPIService DeactivateDefaultProvisioningConnectionForApplication", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 
@@ -51,7 +52,7 @@ func Test_okta_ApplicationConnectionsAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationConnectionsAPIService GetDefaultProvisioningConnectionForApplication", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 
@@ -65,7 +66,7 @@ func Test_okta_ApplicationConnectionsAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationConnectionsAPIService GetUserProvisioningConnectionJWKS", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 
@@ -79,7 +80,7 @@ func Test_okta_ApplicationConnectionsAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationConnectionsAPIService UpdateDefaultProvisioningConnectionForApplication", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 
@@ -93,7 +94,7 @@ func Test_okta_ApplicationConnectionsAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationConnectionsAPIService VerifyProvisioningConnectionForApplication", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appName string
 		var appId string

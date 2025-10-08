@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_OrgSettingCustomizationAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_OrgSettingCustomizationAPIService(t *testing.T) {
 
 	t.Run("Test OrgSettingCustomizationAPIService GetOrgPreferences", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.OrgSettingCustomizationAPI.GetOrgPreferences(context.Background()).Execute()
 
@@ -37,7 +38,7 @@ func Test_okta_OrgSettingCustomizationAPIService(t *testing.T) {
 
 	t.Run("Test OrgSettingCustomizationAPIService SetOrgHideOktaUIFooter", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.OrgSettingCustomizationAPI.SetOrgHideOktaUIFooter(context.Background()).Execute()
 
@@ -49,7 +50,7 @@ func Test_okta_OrgSettingCustomizationAPIService(t *testing.T) {
 
 	t.Run("Test OrgSettingCustomizationAPIService SetOrgShowOktaUIFooter", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.OrgSettingCustomizationAPI.SetOrgShowOktaUIFooter(context.Background()).Execute()
 
@@ -61,7 +62,7 @@ func Test_okta_OrgSettingCustomizationAPIService(t *testing.T) {
 
 	t.Run("Test OrgSettingCustomizationAPIService UploadOrgLogo", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		httpRes, err := apiClient.OrgSettingCustomizationAPI.UploadOrgLogo(context.Background()).Execute()
 

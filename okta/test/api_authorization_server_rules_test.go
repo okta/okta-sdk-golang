@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_AuthorizationServerRulesAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_AuthorizationServerRulesAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerRulesAPIService ActivateAuthorizationServerPolicyRule", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 		var policyId string
@@ -40,7 +41,7 @@ func Test_okta_AuthorizationServerRulesAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerRulesAPIService CreateAuthorizationServerPolicyRule", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 		var policyId string
@@ -55,7 +56,7 @@ func Test_okta_AuthorizationServerRulesAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerRulesAPIService DeactivateAuthorizationServerPolicyRule", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 		var policyId string
@@ -70,7 +71,7 @@ func Test_okta_AuthorizationServerRulesAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerRulesAPIService DeleteAuthorizationServerPolicyRule", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 		var policyId string
@@ -85,7 +86,7 @@ func Test_okta_AuthorizationServerRulesAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerRulesAPIService GetAuthorizationServerPolicyRule", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 		var policyId string
@@ -101,7 +102,7 @@ func Test_okta_AuthorizationServerRulesAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerRulesAPIService ListAuthorizationServerPolicyRules", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 		var policyId string
@@ -116,7 +117,7 @@ func Test_okta_AuthorizationServerRulesAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerRulesAPIService ReplaceAuthorizationServerPolicyRule", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 		var policyId string

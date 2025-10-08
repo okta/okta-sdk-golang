@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_RoleCResourceSetResourceAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_RoleCResourceSetResourceAPIService(t *testing.T) {
 
 	t.Run("Test RoleCResourceSetResourceAPIService AddResourceSetResource", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var resourceSetIdOrLabel string
 
@@ -39,7 +40,7 @@ func Test_okta_RoleCResourceSetResourceAPIService(t *testing.T) {
 
 	t.Run("Test RoleCResourceSetResourceAPIService AddResourceSetResources", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var resourceSetIdOrLabel string
 
@@ -53,7 +54,7 @@ func Test_okta_RoleCResourceSetResourceAPIService(t *testing.T) {
 
 	t.Run("Test RoleCResourceSetResourceAPIService DeleteResourceSetResource", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var resourceSetIdOrLabel string
 		var resourceId string
@@ -67,7 +68,7 @@ func Test_okta_RoleCResourceSetResourceAPIService(t *testing.T) {
 
 	t.Run("Test RoleCResourceSetResourceAPIService GetResourceSetResource", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var resourceSetIdOrLabel string
 		var resourceId string
@@ -82,7 +83,7 @@ func Test_okta_RoleCResourceSetResourceAPIService(t *testing.T) {
 
 	t.Run("Test RoleCResourceSetResourceAPIService ListResourceSetResources", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var resourceSetIdOrLabel string
 
@@ -96,7 +97,7 @@ func Test_okta_RoleCResourceSetResourceAPIService(t *testing.T) {
 
 	t.Run("Test RoleCResourceSetResourceAPIService ReplaceResourceSetResource", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var resourceSetIdOrLabel string
 		var resourceId string

@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_AgentPoolsAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_AgentPoolsAPIService(t *testing.T) {
 
 	t.Run("Test AgentPoolsAPIService ActivateAgentPoolsUpdate", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var poolId string
 		var updateId string
@@ -40,7 +41,7 @@ func Test_okta_AgentPoolsAPIService(t *testing.T) {
 
 	t.Run("Test AgentPoolsAPIService CreateAgentPoolsUpdate", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var poolId string
 
@@ -54,7 +55,7 @@ func Test_okta_AgentPoolsAPIService(t *testing.T) {
 
 	t.Run("Test AgentPoolsAPIService DeactivateAgentPoolsUpdate", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var poolId string
 		var updateId string
@@ -69,7 +70,7 @@ func Test_okta_AgentPoolsAPIService(t *testing.T) {
 
 	t.Run("Test AgentPoolsAPIService DeleteAgentPoolsUpdate", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var poolId string
 		var updateId string
@@ -83,7 +84,7 @@ func Test_okta_AgentPoolsAPIService(t *testing.T) {
 
 	t.Run("Test AgentPoolsAPIService GetAgentPoolsUpdateInstance", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var poolId string
 		var updateId string
@@ -98,7 +99,7 @@ func Test_okta_AgentPoolsAPIService(t *testing.T) {
 
 	t.Run("Test AgentPoolsAPIService GetAgentPoolsUpdateSettings", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var poolId string
 
@@ -112,7 +113,7 @@ func Test_okta_AgentPoolsAPIService(t *testing.T) {
 
 	t.Run("Test AgentPoolsAPIService ListAgentPools", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.AgentPoolsAPI.ListAgentPools(context.Background()).Execute()
 
@@ -124,7 +125,7 @@ func Test_okta_AgentPoolsAPIService(t *testing.T) {
 
 	t.Run("Test AgentPoolsAPIService ListAgentPoolsUpdates", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var poolId string
 
@@ -138,7 +139,7 @@ func Test_okta_AgentPoolsAPIService(t *testing.T) {
 
 	t.Run("Test AgentPoolsAPIService PauseAgentPoolsUpdate", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var poolId string
 		var updateId string
@@ -153,7 +154,7 @@ func Test_okta_AgentPoolsAPIService(t *testing.T) {
 
 	t.Run("Test AgentPoolsAPIService ResumeAgentPoolsUpdate", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var poolId string
 		var updateId string
@@ -168,7 +169,7 @@ func Test_okta_AgentPoolsAPIService(t *testing.T) {
 
 	t.Run("Test AgentPoolsAPIService RetryAgentPoolsUpdate", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var poolId string
 		var updateId string
@@ -183,7 +184,7 @@ func Test_okta_AgentPoolsAPIService(t *testing.T) {
 
 	t.Run("Test AgentPoolsAPIService StopAgentPoolsUpdate", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var poolId string
 		var updateId string
@@ -198,7 +199,7 @@ func Test_okta_AgentPoolsAPIService(t *testing.T) {
 
 	t.Run("Test AgentPoolsAPIService UpdateAgentPoolsUpdate", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var poolId string
 		var updateId string
@@ -213,7 +214,7 @@ func Test_okta_AgentPoolsAPIService(t *testing.T) {
 
 	t.Run("Test AgentPoolsAPIService UpdateAgentPoolsUpdateSettings", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var poolId string
 

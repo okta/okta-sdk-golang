@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_RoleBTargetAdminAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_RoleBTargetAdminAPIService(t *testing.T) {
 
 	t.Run("Test RoleBTargetAdminAPIService AssignAllAppsAsTargetToRoleForUser", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 		var roleAssignmentId string
@@ -39,7 +40,7 @@ func Test_okta_RoleBTargetAdminAPIService(t *testing.T) {
 
 	t.Run("Test RoleBTargetAdminAPIService AssignAppInstanceTargetToAppAdminRoleForUser", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 		var roleAssignmentId string
@@ -55,7 +56,7 @@ func Test_okta_RoleBTargetAdminAPIService(t *testing.T) {
 
 	t.Run("Test RoleBTargetAdminAPIService AssignAppTargetToAdminRoleForUser", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 		var roleAssignmentId string
@@ -70,7 +71,7 @@ func Test_okta_RoleBTargetAdminAPIService(t *testing.T) {
 
 	t.Run("Test RoleBTargetAdminAPIService AssignGroupTargetToUserRole", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 		var roleAssignmentId string
@@ -85,7 +86,7 @@ func Test_okta_RoleBTargetAdminAPIService(t *testing.T) {
 
 	t.Run("Test RoleBTargetAdminAPIService GetRoleTargetsByUserIdAndRoleId", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 		var roleIdOrEncodedRoleId string
@@ -100,7 +101,7 @@ func Test_okta_RoleBTargetAdminAPIService(t *testing.T) {
 
 	t.Run("Test RoleBTargetAdminAPIService ListApplicationTargetsForApplicationAdministratorRoleForUser", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 		var roleAssignmentId string
@@ -115,7 +116,7 @@ func Test_okta_RoleBTargetAdminAPIService(t *testing.T) {
 
 	t.Run("Test RoleBTargetAdminAPIService ListGroupTargetsForRole", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 		var roleAssignmentId string
@@ -130,7 +131,7 @@ func Test_okta_RoleBTargetAdminAPIService(t *testing.T) {
 
 	t.Run("Test RoleBTargetAdminAPIService UnassignAppInstanceTargetFromAdminRoleForUser", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 		var roleAssignmentId string
@@ -146,7 +147,7 @@ func Test_okta_RoleBTargetAdminAPIService(t *testing.T) {
 
 	t.Run("Test RoleBTargetAdminAPIService UnassignAppTargetFromAppAdminRoleForUser", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 		var roleAssignmentId string
@@ -161,7 +162,7 @@ func Test_okta_RoleBTargetAdminAPIService(t *testing.T) {
 
 	t.Run("Test RoleBTargetAdminAPIService UnassignGroupTargetFromUserAdminRole", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 		var roleAssignmentId string

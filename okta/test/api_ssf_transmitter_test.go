@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_SSFTransmitterAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_SSFTransmitterAPIService(t *testing.T) {
 
 	t.Run("Test SSFTransmitterAPIService CreateSsfStream", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SSFTransmitterAPI.CreateSsfStream(context.Background()).Execute()
 
@@ -37,7 +38,7 @@ func Test_okta_SSFTransmitterAPIService(t *testing.T) {
 
 	t.Run("Test SSFTransmitterAPIService DeleteSsfStream", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		httpRes, err := apiClient.SSFTransmitterAPI.DeleteSsfStream(context.Background()).Execute()
 
@@ -48,7 +49,7 @@ func Test_okta_SSFTransmitterAPIService(t *testing.T) {
 
 	t.Run("Test SSFTransmitterAPIService GetSsfStreamStatus", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SSFTransmitterAPI.GetSsfStreamStatus(context.Background()).Execute()
 
@@ -60,7 +61,7 @@ func Test_okta_SSFTransmitterAPIService(t *testing.T) {
 
 	t.Run("Test SSFTransmitterAPIService GetSsfStreams", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SSFTransmitterAPI.GetSsfStreams(context.Background()).Execute()
 
@@ -72,7 +73,7 @@ func Test_okta_SSFTransmitterAPIService(t *testing.T) {
 
 	t.Run("Test SSFTransmitterAPIService GetWellknownSsfMetadata", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SSFTransmitterAPI.GetWellknownSsfMetadata(context.Background()).Execute()
 
@@ -84,7 +85,7 @@ func Test_okta_SSFTransmitterAPIService(t *testing.T) {
 
 	t.Run("Test SSFTransmitterAPIService ReplaceSsfStream", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SSFTransmitterAPI.ReplaceSsfStream(context.Background()).Execute()
 
@@ -96,7 +97,7 @@ func Test_okta_SSFTransmitterAPIService(t *testing.T) {
 
 	t.Run("Test SSFTransmitterAPIService UpdateSsfStream", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SSFTransmitterAPI.UpdateSsfStream(context.Background()).Execute()
 
@@ -108,7 +109,7 @@ func Test_okta_SSFTransmitterAPIService(t *testing.T) {
 
 	t.Run("Test SSFTransmitterAPIService VerifySsfStream", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		httpRes, err := apiClient.SSFTransmitterAPI.VerifySsfStream(context.Background()).Execute()
 

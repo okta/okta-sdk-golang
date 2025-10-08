@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_PolicyAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 
 	t.Run("Test PolicyAPIService ActivatePolicy", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var policyId string
 
@@ -38,7 +39,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 
 	t.Run("Test PolicyAPIService ActivatePolicyRule", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var policyId string
 		var ruleId string
@@ -52,7 +53,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 
 	t.Run("Test PolicyAPIService ClonePolicy", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var policyId string
 
@@ -66,7 +67,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 
 	t.Run("Test PolicyAPIService CreatePolicy", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.PolicyAPI.CreatePolicy(context.Background()).Execute()
 
@@ -78,7 +79,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 
 	t.Run("Test PolicyAPIService CreatePolicyRule", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var policyId string
 
@@ -92,7 +93,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 
 	t.Run("Test PolicyAPIService CreatePolicySimulation", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.PolicyAPI.CreatePolicySimulation(context.Background()).Execute()
 
@@ -104,7 +105,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 
 	t.Run("Test PolicyAPIService DeactivatePolicy", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var policyId string
 
@@ -117,7 +118,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 
 	t.Run("Test PolicyAPIService DeactivatePolicyRule", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var policyId string
 		var ruleId string
@@ -131,7 +132,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 
 	t.Run("Test PolicyAPIService DeletePolicy", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var policyId string
 
@@ -144,7 +145,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 
 	t.Run("Test PolicyAPIService DeletePolicyResourceMapping", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var policyId string
 		var mappingId string
@@ -158,7 +159,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 
 	t.Run("Test PolicyAPIService DeletePolicyRule", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var policyId string
 		var ruleId string
@@ -172,7 +173,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 
 	t.Run("Test PolicyAPIService GetPolicy", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var policyId string
 
@@ -186,7 +187,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 
 	t.Run("Test PolicyAPIService GetPolicyMapping", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var policyId string
 		var mappingId string
@@ -201,7 +202,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 
 	t.Run("Test PolicyAPIService GetPolicyRule", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var policyId string
 		var ruleId string
@@ -216,7 +217,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 
 	t.Run("Test PolicyAPIService ListPolicies", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.PolicyAPI.ListPolicies(context.Background()).Execute()
 
@@ -228,7 +229,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 
 	t.Run("Test PolicyAPIService ListPolicyApps", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var policyId string
 
@@ -242,7 +243,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 
 	t.Run("Test PolicyAPIService ListPolicyMappings", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var policyId string
 
@@ -256,7 +257,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 
 	t.Run("Test PolicyAPIService ListPolicyRules", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var policyId string
 
@@ -270,7 +271,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 
 	t.Run("Test PolicyAPIService MapResourceToPolicy", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var policyId string
 
@@ -284,7 +285,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 
 	t.Run("Test PolicyAPIService ReplacePolicy", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var policyId string
 
@@ -298,7 +299,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 
 	t.Run("Test PolicyAPIService ReplacePolicyRule", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var policyId string
 		var ruleId string

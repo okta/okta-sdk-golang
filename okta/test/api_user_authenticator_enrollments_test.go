@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_UserAuthenticatorEnrollmentsAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_UserAuthenticatorEnrollmentsAPIService(t *testing.T) {
 
 	t.Run("Test UserAuthenticatorEnrollmentsAPIService CreateAuthenticatorEnrollment", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 
@@ -39,7 +40,7 @@ func Test_okta_UserAuthenticatorEnrollmentsAPIService(t *testing.T) {
 
 	t.Run("Test UserAuthenticatorEnrollmentsAPIService CreateTacAuthenticatorEnrollment", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 
@@ -53,7 +54,7 @@ func Test_okta_UserAuthenticatorEnrollmentsAPIService(t *testing.T) {
 
 	t.Run("Test UserAuthenticatorEnrollmentsAPIService DeleteAuthenticatorEnrollment", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 		var enrollmentId string
@@ -67,7 +68,7 @@ func Test_okta_UserAuthenticatorEnrollmentsAPIService(t *testing.T) {
 
 	t.Run("Test UserAuthenticatorEnrollmentsAPIService GetAuthenticatorEnrollment", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 		var enrollmentId string
@@ -82,7 +83,7 @@ func Test_okta_UserAuthenticatorEnrollmentsAPIService(t *testing.T) {
 
 	t.Run("Test UserAuthenticatorEnrollmentsAPIService ListAuthenticatorEnrollments", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 

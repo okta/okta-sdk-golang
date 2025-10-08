@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_NetworkZoneAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_NetworkZoneAPIService(t *testing.T) {
 
 	t.Run("Test NetworkZoneAPIService ActivateNetworkZone", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var zoneId string
 
@@ -39,7 +40,7 @@ func Test_okta_NetworkZoneAPIService(t *testing.T) {
 
 	t.Run("Test NetworkZoneAPIService CreateNetworkZone", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.NetworkZoneAPI.CreateNetworkZone(context.Background()).Execute()
 
@@ -51,7 +52,7 @@ func Test_okta_NetworkZoneAPIService(t *testing.T) {
 
 	t.Run("Test NetworkZoneAPIService DeactivateNetworkZone", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var zoneId string
 
@@ -65,7 +66,7 @@ func Test_okta_NetworkZoneAPIService(t *testing.T) {
 
 	t.Run("Test NetworkZoneAPIService DeleteNetworkZone", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var zoneId string
 
@@ -78,7 +79,7 @@ func Test_okta_NetworkZoneAPIService(t *testing.T) {
 
 	t.Run("Test NetworkZoneAPIService GetNetworkZone", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var zoneId string
 
@@ -92,7 +93,7 @@ func Test_okta_NetworkZoneAPIService(t *testing.T) {
 
 	t.Run("Test NetworkZoneAPIService ListNetworkZones", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.NetworkZoneAPI.ListNetworkZones(context.Background()).Execute()
 
@@ -104,7 +105,7 @@ func Test_okta_NetworkZoneAPIService(t *testing.T) {
 
 	t.Run("Test NetworkZoneAPIService ReplaceNetworkZone", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var zoneId string
 

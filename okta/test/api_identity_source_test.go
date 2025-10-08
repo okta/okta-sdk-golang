@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_IdentitySourceAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_IdentitySourceAPIService(t *testing.T) {
 
 	t.Run("Test IdentitySourceAPIService CreateIdentitySourceSession", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var identitySourceId string
 
@@ -39,7 +40,7 @@ func Test_okta_IdentitySourceAPIService(t *testing.T) {
 
 	t.Run("Test IdentitySourceAPIService DeleteIdentitySourceSession", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var identitySourceId string
 		var sessionId string
@@ -53,7 +54,7 @@ func Test_okta_IdentitySourceAPIService(t *testing.T) {
 
 	t.Run("Test IdentitySourceAPIService GetIdentitySourceSession", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var identitySourceId string
 		var sessionId string
@@ -68,7 +69,7 @@ func Test_okta_IdentitySourceAPIService(t *testing.T) {
 
 	t.Run("Test IdentitySourceAPIService ListIdentitySourceSessions", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var identitySourceId string
 
@@ -82,7 +83,7 @@ func Test_okta_IdentitySourceAPIService(t *testing.T) {
 
 	t.Run("Test IdentitySourceAPIService StartImportFromIdentitySource", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var identitySourceId string
 		var sessionId string
@@ -97,7 +98,7 @@ func Test_okta_IdentitySourceAPIService(t *testing.T) {
 
 	t.Run("Test IdentitySourceAPIService UploadIdentitySourceDataForDelete", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var identitySourceId string
 		var sessionId string
@@ -111,7 +112,7 @@ func Test_okta_IdentitySourceAPIService(t *testing.T) {
 
 	t.Run("Test IdentitySourceAPIService UploadIdentitySourceDataForUpsert", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var identitySourceId string
 		var sessionId string

@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_AuthorizationServerAssocAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_AuthorizationServerAssocAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerAssocAPIService CreateAssociatedServers", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 
@@ -39,7 +40,7 @@ func Test_okta_AuthorizationServerAssocAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerAssocAPIService DeleteAssociatedServer", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 		var associatedServerId string
@@ -53,7 +54,7 @@ func Test_okta_AuthorizationServerAssocAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerAssocAPIService ListAssociatedServersByTrustedType", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 

@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_GroupPushMappingAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_GroupPushMappingAPIService(t *testing.T) {
 
 	t.Run("Test GroupPushMappingAPIService CreateGroupPushMapping", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 
@@ -39,7 +40,7 @@ func Test_okta_GroupPushMappingAPIService(t *testing.T) {
 
 	t.Run("Test GroupPushMappingAPIService DeleteGroupPushMapping", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 		var mappingId string
@@ -53,7 +54,7 @@ func Test_okta_GroupPushMappingAPIService(t *testing.T) {
 
 	t.Run("Test GroupPushMappingAPIService GetGroupPushMapping", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 		var mappingId string
@@ -68,7 +69,7 @@ func Test_okta_GroupPushMappingAPIService(t *testing.T) {
 
 	t.Run("Test GroupPushMappingAPIService ListGroupPushMappings", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 
@@ -82,7 +83,7 @@ func Test_okta_GroupPushMappingAPIService(t *testing.T) {
 
 	t.Run("Test GroupPushMappingAPIService UpdateGroupPushMapping", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 		var mappingId string

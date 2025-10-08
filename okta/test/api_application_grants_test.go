@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_ApplicationGrantsAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_ApplicationGrantsAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationGrantsAPIService GetScopeConsentGrant", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 		var grantId string
@@ -40,7 +41,7 @@ func Test_okta_ApplicationGrantsAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationGrantsAPIService GrantConsentToScope", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 
@@ -54,7 +55,7 @@ func Test_okta_ApplicationGrantsAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationGrantsAPIService ListScopeConsentGrants", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 
@@ -68,7 +69,7 @@ func Test_okta_ApplicationGrantsAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationGrantsAPIService RevokeScopeConsentGrant", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 		var grantId string

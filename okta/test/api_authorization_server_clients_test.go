@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_AuthorizationServerClientsAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_AuthorizationServerClientsAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerClientsAPIService GetRefreshTokenForAuthorizationServerAndClient", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 		var clientId string
@@ -41,7 +42,7 @@ func Test_okta_AuthorizationServerClientsAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerClientsAPIService ListOAuth2ClientsForAuthorizationServer", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 
@@ -55,7 +56,7 @@ func Test_okta_AuthorizationServerClientsAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerClientsAPIService ListRefreshTokensForAuthorizationServerAndClient", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 		var clientId string
@@ -70,7 +71,7 @@ func Test_okta_AuthorizationServerClientsAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerClientsAPIService RevokeRefreshTokenForAuthorizationServerAndClient", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 		var clientId string
@@ -85,7 +86,7 @@ func Test_okta_AuthorizationServerClientsAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerClientsAPIService RevokeRefreshTokensForAuthorizationServerAndClient", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 		var clientId string

@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_CAPTCHAAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_CAPTCHAAPIService(t *testing.T) {
 
 	t.Run("Test CAPTCHAAPIService CreateCaptchaInstance", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.CAPTCHAAPI.CreateCaptchaInstance(context.Background()).Execute()
 
@@ -37,7 +38,7 @@ func Test_okta_CAPTCHAAPIService(t *testing.T) {
 
 	t.Run("Test CAPTCHAAPIService DeleteCaptchaInstance", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var captchaId string
 
@@ -50,7 +51,7 @@ func Test_okta_CAPTCHAAPIService(t *testing.T) {
 
 	t.Run("Test CAPTCHAAPIService DeleteOrgCaptchaSettings", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		httpRes, err := apiClient.CAPTCHAAPI.DeleteOrgCaptchaSettings(context.Background()).Execute()
 
@@ -61,7 +62,7 @@ func Test_okta_CAPTCHAAPIService(t *testing.T) {
 
 	t.Run("Test CAPTCHAAPIService GetCaptchaInstance", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var captchaId string
 
@@ -75,7 +76,7 @@ func Test_okta_CAPTCHAAPIService(t *testing.T) {
 
 	t.Run("Test CAPTCHAAPIService GetOrgCaptchaSettings", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.CAPTCHAAPI.GetOrgCaptchaSettings(context.Background()).Execute()
 
@@ -87,7 +88,7 @@ func Test_okta_CAPTCHAAPIService(t *testing.T) {
 
 	t.Run("Test CAPTCHAAPIService ListCaptchaInstances", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.CAPTCHAAPI.ListCaptchaInstances(context.Background()).Execute()
 
@@ -99,7 +100,7 @@ func Test_okta_CAPTCHAAPIService(t *testing.T) {
 
 	t.Run("Test CAPTCHAAPIService ReplaceCaptchaInstance", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var captchaId string
 
@@ -113,7 +114,7 @@ func Test_okta_CAPTCHAAPIService(t *testing.T) {
 
 	t.Run("Test CAPTCHAAPIService ReplacesOrgCaptchaSettings", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.CAPTCHAAPI.ReplacesOrgCaptchaSettings(context.Background()).Execute()
 
@@ -125,7 +126,7 @@ func Test_okta_CAPTCHAAPIService(t *testing.T) {
 
 	t.Run("Test CAPTCHAAPIService UpdateCaptchaInstance", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var captchaId string
 

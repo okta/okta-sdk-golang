@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_AuthorizationServerClaimsAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_AuthorizationServerClaimsAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerClaimsAPIService CreateOAuth2Claim", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 
@@ -39,7 +40,7 @@ func Test_okta_AuthorizationServerClaimsAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerClaimsAPIService DeleteOAuth2Claim", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 		var claimId string
@@ -53,7 +54,7 @@ func Test_okta_AuthorizationServerClaimsAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerClaimsAPIService GetOAuth2Claim", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 		var claimId string
@@ -68,7 +69,7 @@ func Test_okta_AuthorizationServerClaimsAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerClaimsAPIService ListOAuth2Claims", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 
@@ -82,7 +83,7 @@ func Test_okta_AuthorizationServerClaimsAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerClaimsAPIService ReplaceOAuth2Claim", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 		var claimId string

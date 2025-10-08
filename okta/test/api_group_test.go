@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_GroupAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_GroupAPIService(t *testing.T) {
 
 	t.Run("Test GroupAPIService AddGroup", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.GroupAPI.AddGroup(context.Background()).Execute()
 
@@ -37,7 +38,7 @@ func Test_okta_GroupAPIService(t *testing.T) {
 
 	t.Run("Test GroupAPIService AssignUserToGroup", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var groupId string
 		var userId string
@@ -51,7 +52,7 @@ func Test_okta_GroupAPIService(t *testing.T) {
 
 	t.Run("Test GroupAPIService DeleteGroup", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var groupId string
 
@@ -64,7 +65,7 @@ func Test_okta_GroupAPIService(t *testing.T) {
 
 	t.Run("Test GroupAPIService GetGroup", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var groupId string
 
@@ -78,7 +79,7 @@ func Test_okta_GroupAPIService(t *testing.T) {
 
 	t.Run("Test GroupAPIService ListAssignedApplicationsForGroup", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var groupId string
 
@@ -92,7 +93,7 @@ func Test_okta_GroupAPIService(t *testing.T) {
 
 	t.Run("Test GroupAPIService ListGroupUsers", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var groupId string
 
@@ -106,7 +107,7 @@ func Test_okta_GroupAPIService(t *testing.T) {
 
 	t.Run("Test GroupAPIService ListGroups", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.GroupAPI.ListGroups(context.Background()).Execute()
 
@@ -118,7 +119,7 @@ func Test_okta_GroupAPIService(t *testing.T) {
 
 	t.Run("Test GroupAPIService ReplaceGroup", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var groupId string
 
@@ -132,7 +133,7 @@ func Test_okta_GroupAPIService(t *testing.T) {
 
 	t.Run("Test GroupAPIService UnassignUserFromGroup", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var groupId string
 		var userId string

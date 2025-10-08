@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_PrincipalRateLimitAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_PrincipalRateLimitAPIService(t *testing.T) {
 
 	t.Run("Test PrincipalRateLimitAPIService CreatePrincipalRateLimitEntity", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.PrincipalRateLimitAPI.CreatePrincipalRateLimitEntity(context.Background()).Execute()
 
@@ -37,7 +38,7 @@ func Test_okta_PrincipalRateLimitAPIService(t *testing.T) {
 
 	t.Run("Test PrincipalRateLimitAPIService GetPrincipalRateLimitEntity", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var principalRateLimitId string
 
@@ -51,7 +52,7 @@ func Test_okta_PrincipalRateLimitAPIService(t *testing.T) {
 
 	t.Run("Test PrincipalRateLimitAPIService ListPrincipalRateLimitEntities", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.PrincipalRateLimitAPI.ListPrincipalRateLimitEntities(context.Background()).Execute()
 
@@ -63,7 +64,7 @@ func Test_okta_PrincipalRateLimitAPIService(t *testing.T) {
 
 	t.Run("Test PrincipalRateLimitAPIService ReplacePrincipalRateLimitEntity", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var principalRateLimitId string
 

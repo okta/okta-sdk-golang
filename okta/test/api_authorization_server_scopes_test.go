@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_AuthorizationServerScopesAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_AuthorizationServerScopesAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerScopesAPIService CreateOAuth2Scope", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 
@@ -39,7 +40,7 @@ func Test_okta_AuthorizationServerScopesAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerScopesAPIService DeleteOAuth2Scope", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 		var scopeId string
@@ -53,7 +54,7 @@ func Test_okta_AuthorizationServerScopesAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerScopesAPIService GetOAuth2Scope", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 		var scopeId string
@@ -68,7 +69,7 @@ func Test_okta_AuthorizationServerScopesAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerScopesAPIService ListOAuth2Scopes", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 
@@ -82,7 +83,7 @@ func Test_okta_AuthorizationServerScopesAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerScopesAPIService ReplaceOAuth2Scope", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 		var scopeId string

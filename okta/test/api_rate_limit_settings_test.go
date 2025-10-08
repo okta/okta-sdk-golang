@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_RateLimitSettingsAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_RateLimitSettingsAPIService(t *testing.T) {
 
 	t.Run("Test RateLimitSettingsAPIService GetRateLimitSettingsAdminNotifications", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.RateLimitSettingsAPI.GetRateLimitSettingsAdminNotifications(context.Background()).Execute()
 
@@ -37,7 +38,7 @@ func Test_okta_RateLimitSettingsAPIService(t *testing.T) {
 
 	t.Run("Test RateLimitSettingsAPIService GetRateLimitSettingsPerClient", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.RateLimitSettingsAPI.GetRateLimitSettingsPerClient(context.Background()).Execute()
 
@@ -49,7 +50,7 @@ func Test_okta_RateLimitSettingsAPIService(t *testing.T) {
 
 	t.Run("Test RateLimitSettingsAPIService GetRateLimitSettingsWarningThreshold", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.RateLimitSettingsAPI.GetRateLimitSettingsWarningThreshold(context.Background()).Execute()
 
@@ -61,7 +62,7 @@ func Test_okta_RateLimitSettingsAPIService(t *testing.T) {
 
 	t.Run("Test RateLimitSettingsAPIService ReplaceRateLimitSettingsAdminNotifications", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.RateLimitSettingsAPI.ReplaceRateLimitSettingsAdminNotifications(context.Background()).Execute()
 
@@ -73,7 +74,7 @@ func Test_okta_RateLimitSettingsAPIService(t *testing.T) {
 
 	t.Run("Test RateLimitSettingsAPIService ReplaceRateLimitSettingsPerClient", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.RateLimitSettingsAPI.ReplaceRateLimitSettingsPerClient(context.Background()).Execute()
 
@@ -85,7 +86,7 @@ func Test_okta_RateLimitSettingsAPIService(t *testing.T) {
 
 	t.Run("Test RateLimitSettingsAPIService ReplaceRateLimitSettingsWarningThreshold", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.RateLimitSettingsAPI.ReplaceRateLimitSettingsWarningThreshold(context.Background()).Execute()
 

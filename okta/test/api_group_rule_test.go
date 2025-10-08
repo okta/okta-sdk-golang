@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_GroupRuleAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_GroupRuleAPIService(t *testing.T) {
 
 	t.Run("Test GroupRuleAPIService ActivateGroupRule", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var groupRuleId string
 
@@ -38,7 +39,7 @@ func Test_okta_GroupRuleAPIService(t *testing.T) {
 
 	t.Run("Test GroupRuleAPIService CreateGroupRule", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.GroupRuleAPI.CreateGroupRule(context.Background()).Execute()
 
@@ -50,7 +51,7 @@ func Test_okta_GroupRuleAPIService(t *testing.T) {
 
 	t.Run("Test GroupRuleAPIService DeactivateGroupRule", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var groupRuleId string
 
@@ -63,7 +64,7 @@ func Test_okta_GroupRuleAPIService(t *testing.T) {
 
 	t.Run("Test GroupRuleAPIService DeleteGroupRule", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var groupRuleId string
 
@@ -76,7 +77,7 @@ func Test_okta_GroupRuleAPIService(t *testing.T) {
 
 	t.Run("Test GroupRuleAPIService GetGroupRule", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var groupRuleId string
 
@@ -90,7 +91,7 @@ func Test_okta_GroupRuleAPIService(t *testing.T) {
 
 	t.Run("Test GroupRuleAPIService ListGroupRules", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.GroupRuleAPI.ListGroupRules(context.Background()).Execute()
 
@@ -102,7 +103,7 @@ func Test_okta_GroupRuleAPIService(t *testing.T) {
 
 	t.Run("Test GroupRuleAPIService ReplaceGroupRule", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var groupRuleId string
 

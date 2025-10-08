@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_ApplicationGroupsAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_ApplicationGroupsAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationGroupsAPIService AssignGroupToApplication", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 		var groupId string
@@ -40,7 +41,7 @@ func Test_okta_ApplicationGroupsAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationGroupsAPIService GetApplicationGroupAssignment", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 		var groupId string
@@ -55,7 +56,7 @@ func Test_okta_ApplicationGroupsAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationGroupsAPIService ListApplicationGroupAssignments", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 
@@ -69,7 +70,7 @@ func Test_okta_ApplicationGroupsAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationGroupsAPIService UnassignApplicationFromGroup", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 		var groupId string
@@ -83,7 +84,7 @@ func Test_okta_ApplicationGroupsAPIService(t *testing.T) {
 
 	t.Run("Test ApplicationGroupsAPIService UpdateGroupAssignmentToApplication", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var appId string
 		var groupId string

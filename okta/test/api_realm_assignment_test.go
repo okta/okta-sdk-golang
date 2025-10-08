@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_RealmAssignmentAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_RealmAssignmentAPIService(t *testing.T) {
 
 	t.Run("Test RealmAssignmentAPIService ActivateRealmAssignment", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var assignmentId string
 
@@ -38,7 +39,7 @@ func Test_okta_RealmAssignmentAPIService(t *testing.T) {
 
 	t.Run("Test RealmAssignmentAPIService CreateRealmAssignment", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.RealmAssignmentAPI.CreateRealmAssignment(context.Background()).Execute()
 
@@ -50,7 +51,7 @@ func Test_okta_RealmAssignmentAPIService(t *testing.T) {
 
 	t.Run("Test RealmAssignmentAPIService DeactivateRealmAssignment", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var assignmentId string
 
@@ -63,7 +64,7 @@ func Test_okta_RealmAssignmentAPIService(t *testing.T) {
 
 	t.Run("Test RealmAssignmentAPIService DeleteRealmAssignment", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var assignmentId string
 
@@ -76,7 +77,7 @@ func Test_okta_RealmAssignmentAPIService(t *testing.T) {
 
 	t.Run("Test RealmAssignmentAPIService ExecuteRealmAssignment", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.RealmAssignmentAPI.ExecuteRealmAssignment(context.Background()).Execute()
 
@@ -88,7 +89,7 @@ func Test_okta_RealmAssignmentAPIService(t *testing.T) {
 
 	t.Run("Test RealmAssignmentAPIService GetRealmAssignment", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var assignmentId string
 
@@ -102,7 +103,7 @@ func Test_okta_RealmAssignmentAPIService(t *testing.T) {
 
 	t.Run("Test RealmAssignmentAPIService ListRealmAssignmentOperations", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.RealmAssignmentAPI.ListRealmAssignmentOperations(context.Background()).Execute()
 
@@ -114,7 +115,7 @@ func Test_okta_RealmAssignmentAPIService(t *testing.T) {
 
 	t.Run("Test RealmAssignmentAPIService ListRealmAssignments", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.RealmAssignmentAPI.ListRealmAssignments(context.Background()).Execute()
 
@@ -126,7 +127,7 @@ func Test_okta_RealmAssignmentAPIService(t *testing.T) {
 
 	t.Run("Test RealmAssignmentAPIService ReplaceRealmAssignment", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var assignmentId string
 

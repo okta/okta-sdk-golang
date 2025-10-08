@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_BehaviorAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_BehaviorAPIService(t *testing.T) {
 
 	t.Run("Test BehaviorAPIService ActivateBehaviorDetectionRule", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var behaviorId string
 
@@ -39,7 +40,7 @@ func Test_okta_BehaviorAPIService(t *testing.T) {
 
 	t.Run("Test BehaviorAPIService CreateBehaviorDetectionRule", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.BehaviorAPI.CreateBehaviorDetectionRule(context.Background()).Execute()
 
@@ -51,7 +52,7 @@ func Test_okta_BehaviorAPIService(t *testing.T) {
 
 	t.Run("Test BehaviorAPIService DeactivateBehaviorDetectionRule", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var behaviorId string
 
@@ -65,7 +66,7 @@ func Test_okta_BehaviorAPIService(t *testing.T) {
 
 	t.Run("Test BehaviorAPIService DeleteBehaviorDetectionRule", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var behaviorId string
 
@@ -78,7 +79,7 @@ func Test_okta_BehaviorAPIService(t *testing.T) {
 
 	t.Run("Test BehaviorAPIService GetBehaviorDetectionRule", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var behaviorId string
 
@@ -92,7 +93,7 @@ func Test_okta_BehaviorAPIService(t *testing.T) {
 
 	t.Run("Test BehaviorAPIService ListBehaviorDetectionRules", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.BehaviorAPI.ListBehaviorDetectionRules(context.Background()).Execute()
 
@@ -104,7 +105,7 @@ func Test_okta_BehaviorAPIService(t *testing.T) {
 
 	t.Run("Test BehaviorAPIService ReplaceBehaviorDetectionRule", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var behaviorId string
 

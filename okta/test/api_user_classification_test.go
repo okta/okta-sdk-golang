@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_UserClassificationAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_UserClassificationAPIService(t *testing.T) {
 
 	t.Run("Test UserClassificationAPIService GetUserClassification", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 
@@ -39,7 +40,7 @@ func Test_okta_UserClassificationAPIService(t *testing.T) {
 
 	t.Run("Test UserClassificationAPIService ReplaceUserClassification", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 

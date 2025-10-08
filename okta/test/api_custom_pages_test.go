@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_CustomPagesAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_CustomPagesAPIService(t *testing.T) {
 
 	t.Run("Test CustomPagesAPIService DeleteCustomizedErrorPage", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 
@@ -38,7 +39,7 @@ func Test_okta_CustomPagesAPIService(t *testing.T) {
 
 	t.Run("Test CustomPagesAPIService DeleteCustomizedSignInPage", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 
@@ -51,7 +52,7 @@ func Test_okta_CustomPagesAPIService(t *testing.T) {
 
 	t.Run("Test CustomPagesAPIService DeletePreviewErrorPage", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 
@@ -64,7 +65,7 @@ func Test_okta_CustomPagesAPIService(t *testing.T) {
 
 	t.Run("Test CustomPagesAPIService DeletePreviewSignInPage", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 
@@ -77,7 +78,7 @@ func Test_okta_CustomPagesAPIService(t *testing.T) {
 
 	t.Run("Test CustomPagesAPIService GetCustomizedErrorPage", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 
@@ -91,7 +92,7 @@ func Test_okta_CustomPagesAPIService(t *testing.T) {
 
 	t.Run("Test CustomPagesAPIService GetCustomizedSignInPage", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 
@@ -105,7 +106,7 @@ func Test_okta_CustomPagesAPIService(t *testing.T) {
 
 	t.Run("Test CustomPagesAPIService GetDefaultErrorPage", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 
@@ -119,7 +120,7 @@ func Test_okta_CustomPagesAPIService(t *testing.T) {
 
 	t.Run("Test CustomPagesAPIService GetDefaultSignInPage", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 
@@ -133,7 +134,7 @@ func Test_okta_CustomPagesAPIService(t *testing.T) {
 
 	t.Run("Test CustomPagesAPIService GetErrorPage", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 
@@ -147,7 +148,7 @@ func Test_okta_CustomPagesAPIService(t *testing.T) {
 
 	t.Run("Test CustomPagesAPIService GetPreviewErrorPage", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 
@@ -161,7 +162,7 @@ func Test_okta_CustomPagesAPIService(t *testing.T) {
 
 	t.Run("Test CustomPagesAPIService GetPreviewSignInPage", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 
@@ -175,7 +176,7 @@ func Test_okta_CustomPagesAPIService(t *testing.T) {
 
 	t.Run("Test CustomPagesAPIService GetSignInPage", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 
@@ -189,7 +190,7 @@ func Test_okta_CustomPagesAPIService(t *testing.T) {
 
 	t.Run("Test CustomPagesAPIService GetSignOutPageSettings", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 
@@ -203,7 +204,7 @@ func Test_okta_CustomPagesAPIService(t *testing.T) {
 
 	t.Run("Test CustomPagesAPIService ListAllSignInWidgetVersions", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 
@@ -217,7 +218,7 @@ func Test_okta_CustomPagesAPIService(t *testing.T) {
 
 	t.Run("Test CustomPagesAPIService ReplaceCustomizedErrorPage", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 
@@ -231,7 +232,7 @@ func Test_okta_CustomPagesAPIService(t *testing.T) {
 
 	t.Run("Test CustomPagesAPIService ReplaceCustomizedSignInPage", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 
@@ -245,7 +246,7 @@ func Test_okta_CustomPagesAPIService(t *testing.T) {
 
 	t.Run("Test CustomPagesAPIService ReplacePreviewErrorPage", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 
@@ -259,7 +260,7 @@ func Test_okta_CustomPagesAPIService(t *testing.T) {
 
 	t.Run("Test CustomPagesAPIService ReplacePreviewSignInPage", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 
@@ -273,7 +274,7 @@ func Test_okta_CustomPagesAPIService(t *testing.T) {
 
 	t.Run("Test CustomPagesAPIService ReplaceSignOutPageSettings", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 

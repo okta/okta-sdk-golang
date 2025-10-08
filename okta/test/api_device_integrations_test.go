@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_DeviceIntegrationsAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_DeviceIntegrationsAPIService(t *testing.T) {
 
 	t.Run("Test DeviceIntegrationsAPIService ActivateDeviceIntegration", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var deviceIntegrationId string
 
@@ -39,7 +40,7 @@ func Test_okta_DeviceIntegrationsAPIService(t *testing.T) {
 
 	t.Run("Test DeviceIntegrationsAPIService DeactivateDeviceIntegration", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var deviceIntegrationId string
 
@@ -53,7 +54,7 @@ func Test_okta_DeviceIntegrationsAPIService(t *testing.T) {
 
 	t.Run("Test DeviceIntegrationsAPIService GetDeviceIntegration", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var deviceIntegrationId string
 
@@ -67,7 +68,7 @@ func Test_okta_DeviceIntegrationsAPIService(t *testing.T) {
 
 	t.Run("Test DeviceIntegrationsAPIService ListDeviceIntegrations", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.DeviceIntegrationsAPI.ListDeviceIntegrations(context.Background()).Execute()
 

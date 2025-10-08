@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_IdentityProviderSigningKeysAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_IdentityProviderSigningKeysAPIService(t *testing.T) {
 
 	t.Run("Test IdentityProviderSigningKeysAPIService CloneIdentityProviderKey", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var idpId string
 		var kid string
@@ -40,7 +41,7 @@ func Test_okta_IdentityProviderSigningKeysAPIService(t *testing.T) {
 
 	t.Run("Test IdentityProviderSigningKeysAPIService GenerateCsrForIdentityProvider", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var idpId string
 
@@ -54,7 +55,7 @@ func Test_okta_IdentityProviderSigningKeysAPIService(t *testing.T) {
 
 	t.Run("Test IdentityProviderSigningKeysAPIService GenerateIdentityProviderSigningKey", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var idpId string
 
@@ -68,7 +69,7 @@ func Test_okta_IdentityProviderSigningKeysAPIService(t *testing.T) {
 
 	t.Run("Test IdentityProviderSigningKeysAPIService GetCsrForIdentityProvider", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var idpId string
 		var idpCsrId string
@@ -83,7 +84,7 @@ func Test_okta_IdentityProviderSigningKeysAPIService(t *testing.T) {
 
 	t.Run("Test IdentityProviderSigningKeysAPIService GetIdentityProviderSigningKey", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var idpId string
 		var kid string
@@ -98,7 +99,7 @@ func Test_okta_IdentityProviderSigningKeysAPIService(t *testing.T) {
 
 	t.Run("Test IdentityProviderSigningKeysAPIService ListActiveIdentityProviderSigningKey", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var idpId string
 
@@ -112,7 +113,7 @@ func Test_okta_IdentityProviderSigningKeysAPIService(t *testing.T) {
 
 	t.Run("Test IdentityProviderSigningKeysAPIService ListCsrsForIdentityProvider", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var idpId string
 
@@ -126,7 +127,7 @@ func Test_okta_IdentityProviderSigningKeysAPIService(t *testing.T) {
 
 	t.Run("Test IdentityProviderSigningKeysAPIService ListIdentityProviderSigningKeys", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var idpId string
 
@@ -140,7 +141,7 @@ func Test_okta_IdentityProviderSigningKeysAPIService(t *testing.T) {
 
 	t.Run("Test IdentityProviderSigningKeysAPIService PublishCsrForIdentityProvider", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var idpId string
 		var idpCsrId string
@@ -155,7 +156,7 @@ func Test_okta_IdentityProviderSigningKeysAPIService(t *testing.T) {
 
 	t.Run("Test IdentityProviderSigningKeysAPIService RevokeCsrForIdentityProvider", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var idpId string
 		var idpCsrId string

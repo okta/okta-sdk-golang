@@ -13,10 +13,11 @@ package {{packageName}}
 
 import (
 	"context"
+	"testing"
+
+	{{goImportAlias}} "{{gitHost}}/{{gitUserId}}/{{gitRepoId}}{{#isGoSubmodule}}/{{packageName}}{{/isGoSubmodule}}/{{versionName}}/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	{{goImportAlias}} "{{gitHost}}/{{gitUserId}}/{{gitRepoId}}{{#isGoSubmodule}}/{{packageName}}{{/isGoSubmodule}}/{{versionName}}/okta"
 )
 
 func Test_{{packageName}}_{{classname}}Service(t *testing.T) {
@@ -30,11 +31,11 @@ func Test_{{packageName}}_{{classname}}Service(t *testing.T) {
 	t.Run("Test {{classname}}Service {{{nickname}}}", func(t *testing.T) {
 
 		{{^pathParams}}
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 		{{/pathParams}}
 		{{#pathParams}}
 		{{#-first}}
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		{{/-first}}
 		{{#isPrimitiveType}}

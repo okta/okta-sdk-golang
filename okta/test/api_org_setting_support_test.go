@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_OrgSettingSupportAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_OrgSettingSupportAPIService(t *testing.T) {
 
 	t.Run("Test OrgSettingSupportAPIService ExtendOktaSupport", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		httpRes, err := apiClient.OrgSettingSupportAPI.ExtendOktaSupport(context.Background()).Execute()
 
@@ -36,7 +37,7 @@ func Test_okta_OrgSettingSupportAPIService(t *testing.T) {
 
 	t.Run("Test OrgSettingSupportAPIService GetAerialConsent", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.OrgSettingSupportAPI.GetAerialConsent(context.Background()).Execute()
 
@@ -48,7 +49,7 @@ func Test_okta_OrgSettingSupportAPIService(t *testing.T) {
 
 	t.Run("Test OrgSettingSupportAPIService GetOrgOktaSupportSettings", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.OrgSettingSupportAPI.GetOrgOktaSupportSettings(context.Background()).Execute()
 
@@ -60,7 +61,7 @@ func Test_okta_OrgSettingSupportAPIService(t *testing.T) {
 
 	t.Run("Test OrgSettingSupportAPIService GrantAerialConsent", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.OrgSettingSupportAPI.GrantAerialConsent(context.Background()).Execute()
 
@@ -72,7 +73,7 @@ func Test_okta_OrgSettingSupportAPIService(t *testing.T) {
 
 	t.Run("Test OrgSettingSupportAPIService GrantOktaSupport", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		httpRes, err := apiClient.OrgSettingSupportAPI.GrantOktaSupport(context.Background()).Execute()
 
@@ -83,7 +84,7 @@ func Test_okta_OrgSettingSupportAPIService(t *testing.T) {
 
 	t.Run("Test OrgSettingSupportAPIService ListOktaSupportCases", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.OrgSettingSupportAPI.ListOktaSupportCases(context.Background()).Execute()
 
@@ -95,7 +96,7 @@ func Test_okta_OrgSettingSupportAPIService(t *testing.T) {
 
 	t.Run("Test OrgSettingSupportAPIService RevokeAerialConsent", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.OrgSettingSupportAPI.RevokeAerialConsent(context.Background()).Execute()
 
@@ -107,7 +108,7 @@ func Test_okta_OrgSettingSupportAPIService(t *testing.T) {
 
 	t.Run("Test OrgSettingSupportAPIService RevokeOktaSupport", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		httpRes, err := apiClient.OrgSettingSupportAPI.RevokeOktaSupport(context.Background()).Execute()
 
@@ -118,7 +119,7 @@ func Test_okta_OrgSettingSupportAPIService(t *testing.T) {
 
 	t.Run("Test OrgSettingSupportAPIService UpdateOktaSupportCase", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var caseNumber string
 

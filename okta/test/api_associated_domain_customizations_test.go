@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_AssociatedDomainCustomizationsAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_AssociatedDomainCustomizationsAPIService(t *testing.T) {
 
 	t.Run("Test AssociatedDomainCustomizationsAPIService GetAllWellKnownURIs", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 
@@ -39,7 +40,7 @@ func Test_okta_AssociatedDomainCustomizationsAPIService(t *testing.T) {
 
 	t.Run("Test AssociatedDomainCustomizationsAPIService GetAppleAppSiteAssociationWellKnownURI", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.AssociatedDomainCustomizationsAPI.GetAppleAppSiteAssociationWellKnownURI(context.Background()).Execute()
 
@@ -51,7 +52,7 @@ func Test_okta_AssociatedDomainCustomizationsAPIService(t *testing.T) {
 
 	t.Run("Test AssociatedDomainCustomizationsAPIService GetAssetLinksWellKnownURI", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.AssociatedDomainCustomizationsAPI.GetAssetLinksWellKnownURI(context.Background()).Execute()
 
@@ -63,7 +64,7 @@ func Test_okta_AssociatedDomainCustomizationsAPIService(t *testing.T) {
 
 	t.Run("Test AssociatedDomainCustomizationsAPIService GetBrandWellKnownURI", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 		var path string
@@ -78,7 +79,7 @@ func Test_okta_AssociatedDomainCustomizationsAPIService(t *testing.T) {
 
 	t.Run("Test AssociatedDomainCustomizationsAPIService GetRootBrandWellKnownURI", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 		var path string
@@ -93,7 +94,7 @@ func Test_okta_AssociatedDomainCustomizationsAPIService(t *testing.T) {
 
 	t.Run("Test AssociatedDomainCustomizationsAPIService GetWebAuthnWellKnownURI", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.AssociatedDomainCustomizationsAPI.GetWebAuthnWellKnownURI(context.Background()).Execute()
 
@@ -105,7 +106,7 @@ func Test_okta_AssociatedDomainCustomizationsAPIService(t *testing.T) {
 
 	t.Run("Test AssociatedDomainCustomizationsAPIService ReplaceBrandWellKnownURI", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var brandId string
 		var path string

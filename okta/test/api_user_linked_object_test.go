@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_UserLinkedObjectAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_UserLinkedObjectAPIService(t *testing.T) {
 
 	t.Run("Test UserLinkedObjectAPIService AssignLinkedObjectValueForPrimary", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userIdOrLogin string
 		var primaryRelationshipName string
@@ -40,7 +41,7 @@ func Test_okta_UserLinkedObjectAPIService(t *testing.T) {
 
 	t.Run("Test UserLinkedObjectAPIService DeleteLinkedObjectForUser", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userIdOrLogin string
 		var relationshipName string
@@ -54,7 +55,7 @@ func Test_okta_UserLinkedObjectAPIService(t *testing.T) {
 
 	t.Run("Test UserLinkedObjectAPIService ListLinkedObjectsForUser", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userIdOrLogin string
 		var relationshipName string

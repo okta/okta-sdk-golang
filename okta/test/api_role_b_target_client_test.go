@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_RoleBTargetClientAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_RoleBTargetClientAPIService(t *testing.T) {
 
 	t.Run("Test RoleBTargetClientAPIService AssignAppTargetInstanceRoleForClient", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var clientId string
 		var roleAssignmentId string
@@ -41,7 +42,7 @@ func Test_okta_RoleBTargetClientAPIService(t *testing.T) {
 
 	t.Run("Test RoleBTargetClientAPIService AssignAppTargetRoleToClient", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var clientId string
 		var roleAssignmentId string
@@ -56,7 +57,7 @@ func Test_okta_RoleBTargetClientAPIService(t *testing.T) {
 
 	t.Run("Test RoleBTargetClientAPIService AssignGroupTargetRoleForClient", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var clientId string
 		var roleAssignmentId string
@@ -71,7 +72,7 @@ func Test_okta_RoleBTargetClientAPIService(t *testing.T) {
 
 	t.Run("Test RoleBTargetClientAPIService ListAppTargetRoleToClient", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var clientId string
 		var roleAssignmentId string
@@ -86,7 +87,7 @@ func Test_okta_RoleBTargetClientAPIService(t *testing.T) {
 
 	t.Run("Test RoleBTargetClientAPIService ListGroupTargetRoleForClient", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var clientId string
 		var roleAssignmentId string
@@ -101,7 +102,7 @@ func Test_okta_RoleBTargetClientAPIService(t *testing.T) {
 
 	t.Run("Test RoleBTargetClientAPIService RemoveAppTargetInstanceRoleForClient", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var clientId string
 		var roleAssignmentId string
@@ -117,7 +118,7 @@ func Test_okta_RoleBTargetClientAPIService(t *testing.T) {
 
 	t.Run("Test RoleBTargetClientAPIService RemoveAppTargetRoleFromClient", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var clientId string
 		var roleAssignmentId string
@@ -132,7 +133,7 @@ func Test_okta_RoleBTargetClientAPIService(t *testing.T) {
 
 	t.Run("Test RoleBTargetClientAPIService RemoveGroupTargetRoleFromClient", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var clientId string
 		var roleAssignmentId string

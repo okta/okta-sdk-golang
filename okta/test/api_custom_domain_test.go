@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_CustomDomainAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_CustomDomainAPIService(t *testing.T) {
 
 	t.Run("Test CustomDomainAPIService CreateCustomDomain", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.CustomDomainAPI.CreateCustomDomain(context.Background()).Execute()
 
@@ -37,7 +38,7 @@ func Test_okta_CustomDomainAPIService(t *testing.T) {
 
 	t.Run("Test CustomDomainAPIService DeleteCustomDomain", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var domainId string
 
@@ -50,7 +51,7 @@ func Test_okta_CustomDomainAPIService(t *testing.T) {
 
 	t.Run("Test CustomDomainAPIService GetCustomDomain", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var domainId string
 
@@ -64,7 +65,7 @@ func Test_okta_CustomDomainAPIService(t *testing.T) {
 
 	t.Run("Test CustomDomainAPIService ListCustomDomains", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.CustomDomainAPI.ListCustomDomains(context.Background()).Execute()
 
@@ -76,7 +77,7 @@ func Test_okta_CustomDomainAPIService(t *testing.T) {
 
 	t.Run("Test CustomDomainAPIService ReplaceCustomDomain", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var domainId string
 
@@ -90,7 +91,7 @@ func Test_okta_CustomDomainAPIService(t *testing.T) {
 
 	t.Run("Test CustomDomainAPIService UpsertCertificate", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var domainId string
 
@@ -103,7 +104,7 @@ func Test_okta_CustomDomainAPIService(t *testing.T) {
 
 	t.Run("Test CustomDomainAPIService VerifyDomain", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var domainId string
 

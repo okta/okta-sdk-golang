@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_UserFactorAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_UserFactorAPIService(t *testing.T) {
 
 	t.Run("Test UserFactorAPIService ActivateFactor", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 		var factorId string
@@ -40,7 +41,7 @@ func Test_okta_UserFactorAPIService(t *testing.T) {
 
 	t.Run("Test UserFactorAPIService EnrollFactor", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 
@@ -54,7 +55,7 @@ func Test_okta_UserFactorAPIService(t *testing.T) {
 
 	t.Run("Test UserFactorAPIService GetFactor", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 		var factorId string
@@ -69,7 +70,7 @@ func Test_okta_UserFactorAPIService(t *testing.T) {
 
 	t.Run("Test UserFactorAPIService GetFactorTransactionStatus", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 		var factorId string
@@ -85,7 +86,7 @@ func Test_okta_UserFactorAPIService(t *testing.T) {
 
 	t.Run("Test UserFactorAPIService GetYubikeyOtpTokenById", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var tokenId string
 
@@ -99,7 +100,7 @@ func Test_okta_UserFactorAPIService(t *testing.T) {
 
 	t.Run("Test UserFactorAPIService ListFactors", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 
@@ -113,7 +114,7 @@ func Test_okta_UserFactorAPIService(t *testing.T) {
 
 	t.Run("Test UserFactorAPIService ListSupportedFactors", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 
@@ -127,7 +128,7 @@ func Test_okta_UserFactorAPIService(t *testing.T) {
 
 	t.Run("Test UserFactorAPIService ListSupportedSecurityQuestions", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 
@@ -141,7 +142,7 @@ func Test_okta_UserFactorAPIService(t *testing.T) {
 
 	t.Run("Test UserFactorAPIService ListYubikeyOtpTokens", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.UserFactorAPI.ListYubikeyOtpTokens(context.Background()).Execute()
 
@@ -153,7 +154,7 @@ func Test_okta_UserFactorAPIService(t *testing.T) {
 
 	t.Run("Test UserFactorAPIService ResendEnrollFactor", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 		var factorId string
@@ -168,7 +169,7 @@ func Test_okta_UserFactorAPIService(t *testing.T) {
 
 	t.Run("Test UserFactorAPIService UnenrollFactor", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 		var factorId string
@@ -182,7 +183,7 @@ func Test_okta_UserFactorAPIService(t *testing.T) {
 
 	t.Run("Test UserFactorAPIService UploadYubikeyOtpTokenSeed", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.UserFactorAPI.UploadYubikeyOtpTokenSeed(context.Background()).Execute()
 
@@ -194,7 +195,7 @@ func Test_okta_UserFactorAPIService(t *testing.T) {
 
 	t.Run("Test UserFactorAPIService VerifyFactor", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId string
 		var factorId string

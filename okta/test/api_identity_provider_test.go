@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_IdentityProviderAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_IdentityProviderAPIService(t *testing.T) {
 
 	t.Run("Test IdentityProviderAPIService ActivateIdentityProvider", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var idpId string
 
@@ -39,7 +40,7 @@ func Test_okta_IdentityProviderAPIService(t *testing.T) {
 
 	t.Run("Test IdentityProviderAPIService CreateIdentityProvider", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.IdentityProviderAPI.CreateIdentityProvider(context.Background()).Execute()
 
@@ -51,7 +52,7 @@ func Test_okta_IdentityProviderAPIService(t *testing.T) {
 
 	t.Run("Test IdentityProviderAPIService DeactivateIdentityProvider", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var idpId string
 
@@ -65,7 +66,7 @@ func Test_okta_IdentityProviderAPIService(t *testing.T) {
 
 	t.Run("Test IdentityProviderAPIService DeleteIdentityProvider", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var idpId string
 
@@ -78,7 +79,7 @@ func Test_okta_IdentityProviderAPIService(t *testing.T) {
 
 	t.Run("Test IdentityProviderAPIService GetIdentityProvider", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var idpId string
 
@@ -92,7 +93,7 @@ func Test_okta_IdentityProviderAPIService(t *testing.T) {
 
 	t.Run("Test IdentityProviderAPIService ListIdentityProviders", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.IdentityProviderAPI.ListIdentityProviders(context.Background()).Execute()
 
@@ -104,7 +105,7 @@ func Test_okta_IdentityProviderAPIService(t *testing.T) {
 
 	t.Run("Test IdentityProviderAPIService ReplaceIdentityProvider", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var idpId string
 

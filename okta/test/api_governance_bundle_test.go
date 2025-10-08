@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_GovernanceBundleAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_GovernanceBundleAPIService(t *testing.T) {
 
 	t.Run("Test GovernanceBundleAPIService CreateGovernanceBundle", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.GovernanceBundleAPI.CreateGovernanceBundle(context.Background()).Execute()
 
@@ -37,7 +38,7 @@ func Test_okta_GovernanceBundleAPIService(t *testing.T) {
 
 	t.Run("Test GovernanceBundleAPIService DeleteGovernanceBundle", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var bundleId string
 
@@ -50,7 +51,7 @@ func Test_okta_GovernanceBundleAPIService(t *testing.T) {
 
 	t.Run("Test GovernanceBundleAPIService GetGovernanceBundle", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var bundleId string
 
@@ -64,7 +65,7 @@ func Test_okta_GovernanceBundleAPIService(t *testing.T) {
 
 	t.Run("Test GovernanceBundleAPIService GetOptInStatus", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.GovernanceBundleAPI.GetOptInStatus(context.Background()).Execute()
 
@@ -76,7 +77,7 @@ func Test_okta_GovernanceBundleAPIService(t *testing.T) {
 
 	t.Run("Test GovernanceBundleAPIService ListBundleEntitlementValues", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var bundleId string
 		var entitlementId string
@@ -91,7 +92,7 @@ func Test_okta_GovernanceBundleAPIService(t *testing.T) {
 
 	t.Run("Test GovernanceBundleAPIService ListBundleEntitlements", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var bundleId string
 
@@ -105,7 +106,7 @@ func Test_okta_GovernanceBundleAPIService(t *testing.T) {
 
 	t.Run("Test GovernanceBundleAPIService ListGovernanceBundles", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.GovernanceBundleAPI.ListGovernanceBundles(context.Background()).Execute()
 
@@ -117,7 +118,7 @@ func Test_okta_GovernanceBundleAPIService(t *testing.T) {
 
 	t.Run("Test GovernanceBundleAPIService OptIn", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.GovernanceBundleAPI.OptIn(context.Background()).Execute()
 
@@ -129,7 +130,7 @@ func Test_okta_GovernanceBundleAPIService(t *testing.T) {
 
 	t.Run("Test GovernanceBundleAPIService OptOut", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.GovernanceBundleAPI.OptOut(context.Background()).Execute()
 
@@ -141,7 +142,7 @@ func Test_okta_GovernanceBundleAPIService(t *testing.T) {
 
 	t.Run("Test GovernanceBundleAPIService ReplaceGovernanceBundle", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var bundleId string
 

@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_RoleDResourceSetBindingMemberAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_RoleDResourceSetBindingMemberAPIService(t *testing.T) {
 
 	t.Run("Test RoleDResourceSetBindingMemberAPIService AddMembersToBinding", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var resourceSetIdOrLabel string
 		var roleIdOrLabel string
@@ -40,7 +41,7 @@ func Test_okta_RoleDResourceSetBindingMemberAPIService(t *testing.T) {
 
 	t.Run("Test RoleDResourceSetBindingMemberAPIService GetMemberOfBinding", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var resourceSetIdOrLabel string
 		var roleIdOrLabel string
@@ -56,7 +57,7 @@ func Test_okta_RoleDResourceSetBindingMemberAPIService(t *testing.T) {
 
 	t.Run("Test RoleDResourceSetBindingMemberAPIService ListMembersOfBinding", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var resourceSetIdOrLabel string
 		var roleIdOrLabel string
@@ -71,7 +72,7 @@ func Test_okta_RoleDResourceSetBindingMemberAPIService(t *testing.T) {
 
 	t.Run("Test RoleDResourceSetBindingMemberAPIService UnassignMemberFromBinding", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var resourceSetIdOrLabel string
 		var roleIdOrLabel string

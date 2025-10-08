@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_UserLifecycleAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_UserLifecycleAPIService(t *testing.T) {
 
 	t.Run("Test UserLifecycleAPIService ActivateUser", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var id string
 
@@ -39,7 +40,7 @@ func Test_okta_UserLifecycleAPIService(t *testing.T) {
 
 	t.Run("Test UserLifecycleAPIService DeactivateUser", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var id string
 
@@ -52,7 +53,7 @@ func Test_okta_UserLifecycleAPIService(t *testing.T) {
 
 	t.Run("Test UserLifecycleAPIService ReactivateUser", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var id string
 
@@ -66,7 +67,7 @@ func Test_okta_UserLifecycleAPIService(t *testing.T) {
 
 	t.Run("Test UserLifecycleAPIService ResetFactors", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var id string
 
@@ -79,7 +80,7 @@ func Test_okta_UserLifecycleAPIService(t *testing.T) {
 
 	t.Run("Test UserLifecycleAPIService SuspendUser", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var id string
 
@@ -92,7 +93,7 @@ func Test_okta_UserLifecycleAPIService(t *testing.T) {
 
 	t.Run("Test UserLifecycleAPIService UnlockUser", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var id string
 
@@ -105,7 +106,7 @@ func Test_okta_UserLifecycleAPIService(t *testing.T) {
 
 	t.Run("Test UserLifecycleAPIService UnsuspendUser", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var id string
 

@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_EmailDomainAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_EmailDomainAPIService(t *testing.T) {
 
 	t.Run("Test EmailDomainAPIService CreateEmailDomain", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.EmailDomainAPI.CreateEmailDomain(context.Background()).Execute()
 
@@ -37,7 +38,7 @@ func Test_okta_EmailDomainAPIService(t *testing.T) {
 
 	t.Run("Test EmailDomainAPIService DeleteEmailDomain", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var emailDomainId string
 
@@ -50,7 +51,7 @@ func Test_okta_EmailDomainAPIService(t *testing.T) {
 
 	t.Run("Test EmailDomainAPIService GetEmailDomain", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var emailDomainId string
 
@@ -64,7 +65,7 @@ func Test_okta_EmailDomainAPIService(t *testing.T) {
 
 	t.Run("Test EmailDomainAPIService ListEmailDomains", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.EmailDomainAPI.ListEmailDomains(context.Background()).Execute()
 
@@ -76,7 +77,7 @@ func Test_okta_EmailDomainAPIService(t *testing.T) {
 
 	t.Run("Test EmailDomainAPIService ReplaceEmailDomain", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var emailDomainId string
 
@@ -90,7 +91,7 @@ func Test_okta_EmailDomainAPIService(t *testing.T) {
 
 	t.Run("Test EmailDomainAPIService VerifyEmailDomain", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var emailDomainId string
 

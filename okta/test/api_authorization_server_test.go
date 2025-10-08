@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_AuthorizationServerAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_AuthorizationServerAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerAPIService ActivateAuthorizationServer", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 
@@ -38,7 +39,7 @@ func Test_okta_AuthorizationServerAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerAPIService CreateAuthorizationServer", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.AuthorizationServerAPI.CreateAuthorizationServer(context.Background()).Execute()
 
@@ -50,7 +51,7 @@ func Test_okta_AuthorizationServerAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerAPIService DeactivateAuthorizationServer", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 
@@ -63,7 +64,7 @@ func Test_okta_AuthorizationServerAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerAPIService DeleteAuthorizationServer", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 
@@ -76,7 +77,7 @@ func Test_okta_AuthorizationServerAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerAPIService GetAuthorizationServer", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 
@@ -90,7 +91,7 @@ func Test_okta_AuthorizationServerAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerAPIService ListAuthorizationServers", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.AuthorizationServerAPI.ListAuthorizationServers(context.Background()).Execute()
 
@@ -102,7 +103,7 @@ func Test_okta_AuthorizationServerAPIService(t *testing.T) {
 
 	t.Run("Test AuthorizationServerAPIService ReplaceAuthorizationServer", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authServerId string
 

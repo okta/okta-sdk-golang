@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_OrgSettingAdminAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_OrgSettingAdminAPIService(t *testing.T) {
 
 	t.Run("Test OrgSettingAdminAPIService AssignClientPrivilegesSetting", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.OrgSettingAdminAPI.AssignClientPrivilegesSetting(context.Background()).Execute()
 
@@ -37,7 +38,7 @@ func Test_okta_OrgSettingAdminAPIService(t *testing.T) {
 
 	t.Run("Test OrgSettingAdminAPIService GetAutoAssignAdminAppSetting", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.OrgSettingAdminAPI.GetAutoAssignAdminAppSetting(context.Background()).Execute()
 
@@ -49,7 +50,7 @@ func Test_okta_OrgSettingAdminAPIService(t *testing.T) {
 
 	t.Run("Test OrgSettingAdminAPIService GetClientPrivilegesSetting", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.OrgSettingAdminAPI.GetClientPrivilegesSetting(context.Background()).Execute()
 
@@ -61,7 +62,7 @@ func Test_okta_OrgSettingAdminAPIService(t *testing.T) {
 
 	t.Run("Test OrgSettingAdminAPIService GetThirdPartyAdminSetting", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.OrgSettingAdminAPI.GetThirdPartyAdminSetting(context.Background()).Execute()
 
@@ -73,7 +74,7 @@ func Test_okta_OrgSettingAdminAPIService(t *testing.T) {
 
 	t.Run("Test OrgSettingAdminAPIService UpdateAutoAssignAdminAppSetting", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.OrgSettingAdminAPI.UpdateAutoAssignAdminAppSetting(context.Background()).Execute()
 
@@ -85,7 +86,7 @@ func Test_okta_OrgSettingAdminAPIService(t *testing.T) {
 
 	t.Run("Test OrgSettingAdminAPIService UpdateThirdPartyAdminSetting", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.OrgSettingAdminAPI.UpdateThirdPartyAdminSetting(context.Background()).Execute()
 

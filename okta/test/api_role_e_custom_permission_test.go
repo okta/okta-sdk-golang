@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_RoleECustomPermissionAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_RoleECustomPermissionAPIService(t *testing.T) {
 
 	t.Run("Test RoleECustomPermissionAPIService CreateRolePermission", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var roleIdOrLabel string
 		var permissionType string
@@ -39,7 +40,7 @@ func Test_okta_RoleECustomPermissionAPIService(t *testing.T) {
 
 	t.Run("Test RoleECustomPermissionAPIService DeleteRolePermission", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var roleIdOrLabel string
 		var permissionType string
@@ -53,7 +54,7 @@ func Test_okta_RoleECustomPermissionAPIService(t *testing.T) {
 
 	t.Run("Test RoleECustomPermissionAPIService GetRolePermission", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var roleIdOrLabel string
 		var permissionType string
@@ -68,7 +69,7 @@ func Test_okta_RoleECustomPermissionAPIService(t *testing.T) {
 
 	t.Run("Test RoleECustomPermissionAPIService ListRolePermissions", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var roleIdOrLabel string
 
@@ -82,7 +83,7 @@ func Test_okta_RoleECustomPermissionAPIService(t *testing.T) {
 
 	t.Run("Test RoleECustomPermissionAPIService ReplaceRolePermission", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var roleIdOrLabel string
 		var permissionType string

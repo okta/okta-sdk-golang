@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_DeviceAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_DeviceAPIService(t *testing.T) {
 
 	t.Run("Test DeviceAPIService ActivateDevice", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var deviceId string
 
@@ -38,7 +39,7 @@ func Test_okta_DeviceAPIService(t *testing.T) {
 
 	t.Run("Test DeviceAPIService DeactivateDevice", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var deviceId string
 
@@ -51,7 +52,7 @@ func Test_okta_DeviceAPIService(t *testing.T) {
 
 	t.Run("Test DeviceAPIService DeleteDevice", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var deviceId string
 
@@ -64,7 +65,7 @@ func Test_okta_DeviceAPIService(t *testing.T) {
 
 	t.Run("Test DeviceAPIService GetDevice", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var deviceId string
 
@@ -78,7 +79,7 @@ func Test_okta_DeviceAPIService(t *testing.T) {
 
 	t.Run("Test DeviceAPIService ListDeviceUsers", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var deviceId string
 
@@ -92,7 +93,7 @@ func Test_okta_DeviceAPIService(t *testing.T) {
 
 	t.Run("Test DeviceAPIService ListDevices", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.DeviceAPI.ListDevices(context.Background()).Execute()
 
@@ -104,7 +105,7 @@ func Test_okta_DeviceAPIService(t *testing.T) {
 
 	t.Run("Test DeviceAPIService SuspendDevice", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var deviceId string
 
@@ -117,7 +118,7 @@ func Test_okta_DeviceAPIService(t *testing.T) {
 
 	t.Run("Test DeviceAPIService UnsuspendDevice", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var deviceId string
 

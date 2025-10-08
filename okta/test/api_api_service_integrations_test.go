@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_ApiServiceIntegrationsAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_ApiServiceIntegrationsAPIService(t *testing.T) {
 
 	t.Run("Test ApiServiceIntegrationsAPIService ActivateApiServiceIntegrationInstanceSecret", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var apiServiceId string
 		var secretId string
@@ -40,7 +41,7 @@ func Test_okta_ApiServiceIntegrationsAPIService(t *testing.T) {
 
 	t.Run("Test ApiServiceIntegrationsAPIService CreateApiServiceIntegrationInstance", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.ApiServiceIntegrationsAPI.CreateApiServiceIntegrationInstance(context.Background()).Execute()
 
@@ -52,7 +53,7 @@ func Test_okta_ApiServiceIntegrationsAPIService(t *testing.T) {
 
 	t.Run("Test ApiServiceIntegrationsAPIService CreateApiServiceIntegrationInstanceSecret", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var apiServiceId string
 
@@ -66,7 +67,7 @@ func Test_okta_ApiServiceIntegrationsAPIService(t *testing.T) {
 
 	t.Run("Test ApiServiceIntegrationsAPIService DeactivateApiServiceIntegrationInstanceSecret", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var apiServiceId string
 		var secretId string
@@ -81,7 +82,7 @@ func Test_okta_ApiServiceIntegrationsAPIService(t *testing.T) {
 
 	t.Run("Test ApiServiceIntegrationsAPIService DeleteApiServiceIntegrationInstance", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var apiServiceId string
 
@@ -94,7 +95,7 @@ func Test_okta_ApiServiceIntegrationsAPIService(t *testing.T) {
 
 	t.Run("Test ApiServiceIntegrationsAPIService DeleteApiServiceIntegrationInstanceSecret", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var apiServiceId string
 		var secretId string
@@ -108,7 +109,7 @@ func Test_okta_ApiServiceIntegrationsAPIService(t *testing.T) {
 
 	t.Run("Test ApiServiceIntegrationsAPIService GetApiServiceIntegrationInstance", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var apiServiceId string
 
@@ -122,7 +123,7 @@ func Test_okta_ApiServiceIntegrationsAPIService(t *testing.T) {
 
 	t.Run("Test ApiServiceIntegrationsAPIService ListApiServiceIntegrationInstanceSecrets", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var apiServiceId string
 
@@ -136,7 +137,7 @@ func Test_okta_ApiServiceIntegrationsAPIService(t *testing.T) {
 
 	t.Run("Test ApiServiceIntegrationsAPIService ListApiServiceIntegrationInstances", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.ApiServiceIntegrationsAPI.ListApiServiceIntegrationInstances(context.Background()).Execute()
 

@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_AuthenticatorAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_AuthenticatorAPIService(t *testing.T) {
 
 	t.Run("Test AuthenticatorAPIService ActivateAuthenticator", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authenticatorId string
 
@@ -39,7 +40,7 @@ func Test_okta_AuthenticatorAPIService(t *testing.T) {
 
 	t.Run("Test AuthenticatorAPIService ActivateAuthenticatorMethod", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authenticatorId string
 		var methodType string
@@ -54,7 +55,7 @@ func Test_okta_AuthenticatorAPIService(t *testing.T) {
 
 	t.Run("Test AuthenticatorAPIService CreateAuthenticator", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.AuthenticatorAPI.CreateAuthenticator(context.Background()).Execute()
 
@@ -66,7 +67,7 @@ func Test_okta_AuthenticatorAPIService(t *testing.T) {
 
 	t.Run("Test AuthenticatorAPIService CreateCustomAAGUID", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authenticatorId string
 
@@ -80,7 +81,7 @@ func Test_okta_AuthenticatorAPIService(t *testing.T) {
 
 	t.Run("Test AuthenticatorAPIService DeactivateAuthenticator", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authenticatorId string
 
@@ -94,7 +95,7 @@ func Test_okta_AuthenticatorAPIService(t *testing.T) {
 
 	t.Run("Test AuthenticatorAPIService DeactivateAuthenticatorMethod", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authenticatorId string
 		var methodType string
@@ -109,7 +110,7 @@ func Test_okta_AuthenticatorAPIService(t *testing.T) {
 
 	t.Run("Test AuthenticatorAPIService DeleteCustomAAGUID", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authenticatorId string
 		var aaguid string
@@ -123,7 +124,7 @@ func Test_okta_AuthenticatorAPIService(t *testing.T) {
 
 	t.Run("Test AuthenticatorAPIService GetAuthenticator", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authenticatorId string
 
@@ -137,7 +138,7 @@ func Test_okta_AuthenticatorAPIService(t *testing.T) {
 
 	t.Run("Test AuthenticatorAPIService GetAuthenticatorMethod", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authenticatorId string
 		var methodType string
@@ -152,7 +153,7 @@ func Test_okta_AuthenticatorAPIService(t *testing.T) {
 
 	t.Run("Test AuthenticatorAPIService GetCustomAAGUID", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authenticatorId string
 		var aaguid string
@@ -167,7 +168,7 @@ func Test_okta_AuthenticatorAPIService(t *testing.T) {
 
 	t.Run("Test AuthenticatorAPIService GetWellKnownAppAuthenticatorConfiguration", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.AuthenticatorAPI.GetWellKnownAppAuthenticatorConfiguration(context.Background()).Execute()
 
@@ -179,7 +180,7 @@ func Test_okta_AuthenticatorAPIService(t *testing.T) {
 
 	t.Run("Test AuthenticatorAPIService ListAllCustomAAGUIDs", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authenticatorId string
 
@@ -193,7 +194,7 @@ func Test_okta_AuthenticatorAPIService(t *testing.T) {
 
 	t.Run("Test AuthenticatorAPIService ListAuthenticatorMethods", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authenticatorId string
 
@@ -207,7 +208,7 @@ func Test_okta_AuthenticatorAPIService(t *testing.T) {
 
 	t.Run("Test AuthenticatorAPIService ListAuthenticators", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.AuthenticatorAPI.ListAuthenticators(context.Background()).Execute()
 
@@ -219,7 +220,7 @@ func Test_okta_AuthenticatorAPIService(t *testing.T) {
 
 	t.Run("Test AuthenticatorAPIService ReplaceAuthenticator", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authenticatorId string
 
@@ -233,7 +234,7 @@ func Test_okta_AuthenticatorAPIService(t *testing.T) {
 
 	t.Run("Test AuthenticatorAPIService ReplaceAuthenticatorMethod", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authenticatorId string
 		var methodType string
@@ -248,7 +249,7 @@ func Test_okta_AuthenticatorAPIService(t *testing.T) {
 
 	t.Run("Test AuthenticatorAPIService ReplaceCustomAAGUID", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authenticatorId string
 		var aaguid string
@@ -263,7 +264,7 @@ func Test_okta_AuthenticatorAPIService(t *testing.T) {
 
 	t.Run("Test AuthenticatorAPIService UpdateCustomAAGUID", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var authenticatorId string
 		var aaguid string

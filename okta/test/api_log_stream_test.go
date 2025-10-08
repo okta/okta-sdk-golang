@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_LogStreamAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_LogStreamAPIService(t *testing.T) {
 
 	t.Run("Test LogStreamAPIService ActivateLogStream", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var logStreamId string
 
@@ -39,7 +40,7 @@ func Test_okta_LogStreamAPIService(t *testing.T) {
 
 	t.Run("Test LogStreamAPIService CreateLogStream", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.LogStreamAPI.CreateLogStream(context.Background()).Execute()
 
@@ -51,7 +52,7 @@ func Test_okta_LogStreamAPIService(t *testing.T) {
 
 	t.Run("Test LogStreamAPIService DeactivateLogStream", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var logStreamId string
 
@@ -65,7 +66,7 @@ func Test_okta_LogStreamAPIService(t *testing.T) {
 
 	t.Run("Test LogStreamAPIService DeleteLogStream", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var logStreamId string
 
@@ -78,7 +79,7 @@ func Test_okta_LogStreamAPIService(t *testing.T) {
 
 	t.Run("Test LogStreamAPIService GetLogStream", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var logStreamId string
 
@@ -92,7 +93,7 @@ func Test_okta_LogStreamAPIService(t *testing.T) {
 
 	t.Run("Test LogStreamAPIService ListLogStreams", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.LogStreamAPI.ListLogStreams(context.Background()).Execute()
 
@@ -104,7 +105,7 @@ func Test_okta_LogStreamAPIService(t *testing.T) {
 
 	t.Run("Test LogStreamAPIService ReplaceLogStream", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var logStreamId string
 

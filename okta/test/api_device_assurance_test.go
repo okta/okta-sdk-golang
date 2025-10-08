@@ -11,10 +11,11 @@ package okta
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func Test_okta_DeviceAssuranceAPIService(t *testing.T) {
@@ -25,7 +26,7 @@ func Test_okta_DeviceAssuranceAPIService(t *testing.T) {
 
 	t.Run("Test DeviceAssuranceAPIService CreateDeviceAssurancePolicy", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.DeviceAssuranceAPI.CreateDeviceAssurancePolicy(context.Background()).Execute()
 
@@ -37,7 +38,7 @@ func Test_okta_DeviceAssuranceAPIService(t *testing.T) {
 
 	t.Run("Test DeviceAssuranceAPIService DeleteDeviceAssurancePolicy", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var deviceAssuranceId string
 
@@ -50,7 +51,7 @@ func Test_okta_DeviceAssuranceAPIService(t *testing.T) {
 
 	t.Run("Test DeviceAssuranceAPIService GetDeviceAssurancePolicy", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var deviceAssuranceId string
 
@@ -64,7 +65,7 @@ func Test_okta_DeviceAssuranceAPIService(t *testing.T) {
 
 	t.Run("Test DeviceAssuranceAPIService ListDeviceAssurancePolicies", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.DeviceAssuranceAPI.ListDeviceAssurancePolicies(context.Background()).Execute()
 
@@ -76,7 +77,7 @@ func Test_okta_DeviceAssuranceAPIService(t *testing.T) {
 
 	t.Run("Test DeviceAssuranceAPIService ReplaceDeviceAssurancePolicy", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var deviceAssuranceId string
 
