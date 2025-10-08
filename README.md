@@ -42,7 +42,8 @@ policy](https://developer.okta.com/code/library-versions/).
 | 2.x     | :warning: Retired                                            |
 | 3.x     | :warning: Retired                                            |
 | 4.x     | :warning: Retiring                                           |
-| 5.x     | :heavy_check_mark: Release ([migration guide](MIGRATING.md)) |
+| 5.x     | :heavy_check_mark: Release                                   |
+| 6.x     | :heavy_check_mark: Release ([migration guide](MIGRATING.md)) |
 
 The latest release can always be found on the [releases page][github-releases].
 
@@ -55,7 +56,7 @@ If you run into problems using the SDK, you can
 
 ## Getting started
 
-The SDK is compatible with Go version 1.12.x and up. For SDK v2 and above, you
+The SDK is compatible with Go version 1.23.x and up. For SDK v2 and above, you
 must use [Go Modules](https://blog.golang.org/using-go-modules) to install the
 SDK.
 
@@ -64,17 +65,17 @@ SDK.
 To install the Okta Golang SDK in your project:
   - Create a module file by running `go mod init`
     - You can skip this step if you already use `go mod`
-  - Run `go get github.com/okta/okta-sdk-golang/v5@latest`. This will add
+  - Run `go get github.com/okta/okta-sdk-golang/v6@latest`. This will add
     the SDK to your `go.mod` file.
   - Import the package in your project with `import
-   "github.com/okta/okta-sdk-golang/v5/okta"`
+   "github.com/okta/okta-sdk-golang/v6/okta"`
 
 ### Installing legacy version
 
-Although we do not suggest using the 2.x, 3.x, and 4.x version of the SDK, you can still use
+Although we do not suggest using the 2.x, 3.x, 4.x, and 5.x version of the SDK, you can still use
 it. The earlier versions are either retired or in an unsupported state. It
 will likely remain working currently, but you should make a plan to
-migrate to the new 5.x version.
+migrate to the new 6.x version.
 
 You can install the latest version of the SDK by running `go get
 github.com/okta/okta-sdk-golang@latest` and import the package in your project
@@ -95,7 +96,7 @@ Construct a client instance by passing it your Okta domain name and API token:
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v5/okta"
+	"github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func main() {
@@ -174,7 +175,7 @@ any other configuration.
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v5/okta"
+	"github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func main() {
@@ -203,7 +204,7 @@ should construct your own HTTP requests.
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v5/okta"
+	"github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func main() {
@@ -216,7 +217,7 @@ func main() {
   }
   client := okta.NewAPIClient(config)
 
-  user, resp, err := client.UserAPI.GetUser(client.cfg.Context, "{UserId|Username|Email}").Execute()
+  user, resp, err := client.UserAPI.GetUser(client.GetConfig().Context, "{UserId|Username|Email}").Execute()
   if err != nil {
       fmt.Printf("Error Getting User: %v\n", err)
   }
@@ -230,7 +231,7 @@ func main() {
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v5/okta"
+	"github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func main() {
@@ -243,7 +244,7 @@ func main() {
   }
   client := okta.NewAPIClient(config)
 
-  users, resp, err := client.UserAPI.ListUsers(client.cfg.Context).Execute()
+  users, resp, err := client.UserAPI.ListUsers(client.GetConfig().Context).Execute()
   if err != nil {
     fmt.Printf("Error Getting Users: %v\n", err)
   }
@@ -260,7 +261,7 @@ func main() {
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v5/okta"
+	"github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func main() {
@@ -273,7 +274,7 @@ func main() {
   }
   client := okta.NewAPIClient(config)
 
-  users, resp, err := client.UserAPI.ListUsers(client.cfg.Context).Filter("status eq \"ACTIVE\"").Execute()
+  users, resp, err := client.UserAPI.ListUsers(client.GetConfig().Context).Filter("status eq \"ACTIVE\"").Execute()
   if err != nil {
     fmt.Printf("Error Getting Users: %v\n", err)
   }
@@ -292,7 +293,7 @@ func main() {
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v5/okta"
+	"github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func main() {
@@ -324,7 +325,7 @@ func main() {
 		Profile: &profile,
 	}
 
-  users, resp, err := client.UserAPI.CreateUser(client.cfg.Context).Body(createUserRequest).Activate(true).Execute()
+  users, resp, err := client.UserAPI.CreateUser(client.GetConfig().Context).Body(createUserRequest).Activate(true).Execute()
   if err != nil {
     fmt.Printf("Error Creating Users: %v\n", err)
   }
@@ -339,7 +340,7 @@ func main() {
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v5/okta"
+	"github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func main() {
@@ -352,7 +353,7 @@ func main() {
   }
   client := okta.NewAPIClient(config)
 
-  userToUpdate, resp, err := client.UserAPI.GetUser(client.cfg.Context, "{userId}")
+  userToUpdate, resp, err := client.UserAPI.GetUser(client.GetConfig().Context, "{userId}")
 	if err != nil {
 		fmt.Printf("Error Getting User to update: %v\n", err)
 	}
@@ -365,7 +366,7 @@ func main() {
 		Profile: &newProfile,
 	}
 
-	updatedUser, resp, err := client.UserAPI.UpdateUser(client.cfg.Context, userToUpdate.Id).Body(updateUser).Execute()
+	updatedUser, resp, err := client.UserAPI.UpdateUser(client.GetConfig().Context, userToUpdate.Id).Body(updateUser).Execute()
 	if err != nil {
 		fmt.Printf("Error updating user: %v\n", err)
 	}
@@ -379,15 +380,15 @@ func main() {
 Custom attributes must first be defined in the Okta profile editor. Then, you
 can work with custom attributes on a user the same as any other profile attribute
 
-### Remove a User
+### Delete a User
 
-You must first deactivate the user, and then you can delete the user.
+To delete a user permanently. Only users that have a `DEPROVISIONED` status can be deleted.`
 
 ```go
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v5/okta"
+	"github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func main() {
@@ -400,14 +401,7 @@ func main() {
   }
   client := okta.NewAPIClient(config)
 
-  resp, err := client.UserAPI.DeactivateUser(client.cfg.Context, "00u14ffhw5szVqide0h8").Execute()
-	if err != nil {
-		fmt.Printf("Error deactivating user: %v\n", err)
-	}
-
-	fmt.Printf("Response: %+v\n\n", resp)
-
-	resp, err = client.UserAPI.DeleteUser(client.cfg.Context, "00u14ffhw5szVqide0h8").Execute()
+	resp, err = client.UserAPI.DeleteUser(client.GetConfig().Context, "00u14ffhw5szVqide0h8").Execute()
 	if err != nil {
 		fmt.Printf("Error deleting user: %v\n", err)
 	}
@@ -416,13 +410,13 @@ func main() {
 }
 ```
 
-### List a User's Groups
+### Add a Group
 
 ```go
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v5/okta"
+	"github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func main() {
@@ -433,47 +427,17 @@ func main() {
   if err != nil {
     fmt.Printf("Error: %v\n", err)
   }
+
   client := okta.NewAPIClient(config)
 
-  groups, resp, err := client.UserAPI.ListUserGroups(client.cfg.Context, "00u14fg9ff4MExj5f0h8").Execute()
-	if err != nil {
-		fmt.Printf("Error getting group list for user: %v\n", err)
+  grpProfile := okta.NewOktaUserGroupProfile()
+	grpProfile.SetDescription("This is a group of developers")
+	grpProfile.SetName("Developers")
+	addGrpRequest := okta.AddGroupRequest{
+		Profile: grpProfile,
 	}
-
-	fmt.Printf("Groups: %+v\n Response: %+v\n\n", groups, resp)
-
-	for index, group := range groups {
-		fmt.Printf("Group %d: %v\n", index, group)
-	}
-}
-```
-
-### Create a Group
-
-```go
-import (
-	"fmt"
-	"context"
-	"github.com/okta/okta-sdk-golang/v5/okta"
-)
-
-func main() {
-  config, err := okta.NewConfiguration(
-    okta.WithOrgUrl("https://{yourOktaDomain}"),
-    okta.WithToken("{apiToken}"),
-  )
-  if err != nil {
-    fmt.Printf("Error: %v\n", err)
-  }
-  client := okta.NewAPIClient(config)
-
-  groupProfile := &okta.GroupProfile{
-		Name: "Sith",
-	}
-	groupToCreate := &okta.Group{
-		Profile: groupProfile,
-	}
-	group, resp, err := client.GroupAPI.CreateGroup(client.cfg.Context, *groupToCreate).Execute()
+	// Add the group using the GroupAPI
+	group, resp, err := client.GroupAPI.AddGroup(client.GetConfig().Context).Group(addGrpRequest).Execute()
 	if err != nil {
 		fmt.Printf("Error creating group: %v\n", err)
 	}
@@ -488,7 +452,7 @@ func main() {
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v5/okta"
+	"github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func main() {
@@ -501,7 +465,7 @@ func main() {
   }
   client := okta.NewAPIClient(config)
 
-  resp, err := client.GroupAPI.AssignUserToGroup(client.cfg.Context, "{groupId}", "{userId}").Execute()
+  resp, err := client.GroupAPI.AssignUserToGroup(client.GetConfig().Context, "{groupId}", "{userId}").Execute()
 	if err != nil {
 		fmt.Printf("Error adding user to group: %v\n", err)
 	}
@@ -516,7 +480,7 @@ func main() {
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v5/okta"
+	"github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func main() {
@@ -529,7 +493,7 @@ func main() {
   }
   client := okta.NewAPIClient(config)
 
-  applicationList, resp, err := client.ApplicationAPI.ListApplications(client.cfg.Context).Execute()
+  applicationList, resp, err := client.ApplicationAPI.ListApplications(client.GetConfig().Context).Execute()
 	if err != nil {
 		fmt.Printf("Error listing applications: %v\n", err)
 	}
@@ -544,7 +508,7 @@ func main() {
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v5/okta"
+	"github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func main() {
@@ -557,7 +521,7 @@ func main() {
   }
   client := okta.NewAPIClient(config)
 
-  application, resp, err := client.ApplicationAPI.GetApplication(client.cfg.Context, "0oaswjmkbtlpBDWpu0h7").Execute()
+  application, resp, err := client.ApplicationAPI.GetApplication(client.GetConfig().Context, "0oaswjmkbtlpBDWpu0h7").Execute()
 	if err != nil {
 		fmt.Printf("Error getting application: %v\n", err)
 	}
@@ -567,13 +531,13 @@ func main() {
 }
 ```
 
-### Create an Open ID Connect Application
+### Create an OpenID Connect(OIDC) Application
 
 ```go
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v5/okta"
+	"github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 func main() {
@@ -586,53 +550,39 @@ func main() {
   }
   client := okta.NewAPIClient(config)
 
-	settingClient := NewOpenIdConnectApplicationSettingsClient()
-	settingClient.SetClientUri("https://example.com/client")
-	settingClient.SetLogoUri("https://example.com/assets/images/logo-new.png")
-	settingClient.SetResponseTypes([]string{"token", "id_token", "code"})
-	settingClient.SetRedirectUris([]string{"https://example.com/oauth2/callback", "myapp://callback"})
-	settingClient.SetPostLogoutRedirectUris([]string{"https://example.com/postlogout", "myapp://postlogoutcallback"})
-	settingClient.SetGrantTypes([]string{"implicit", "authorization_code"})
-	settingClient.SetApplicationType("native")
-	settingClient.SetTosUri("https://example.com/client/tos")
-	settingClient.SetPolicyUri("https://example.com/client/policy")
-	setting := NewOpenIdConnectApplicationSettings()
-	setting.SetOauthClient(*settingClient)
-	credClient := NewApplicationCredentialsOAuthClient()
-	credClient.SetTokenEndpointAuthMethod("client_secret_post")
-	credClient.SetClientId(randomTestString())
-	credClient.SetAutoKeyRotation(true)
-	credentials := NewOAuthApplicationCredentials()
-	credentials.SetOauthClient(*credClient)
-	res := OpenIdConnectApplication{}
-	res.SetSettings(*setting)
-	res.SetCredentials(*credentials)
-	res.SetName("oidc_client")
-	res.SetSignOnMode("OPENID_CONNECT")
-	res.SetLabel(label)
+  settingClient := okta.NewOpenIdConnectApplicationSettingsClient([]string{"grantTypes"})
+  settingClient.SetClientUri("https://example.com/client")
+  settingClient.SetLogoUri("https://example.com/assets/images/logo-new.png")
+  settingClient.SetResponseTypes([]string{"token", "id_token", "code"})
+  settingClient.SetRedirectUris([]string{"https://example.com/oauth2/callback", "myapp://callback"})
+  settingClient.SetPostLogoutRedirectUris([]string{"https://example.com/postlogout", "myapp://postlogoutcallback"})
+  settingClient.SetGrantTypes([]string{"implicit", "authorization_code"})
+  settingClient.SetApplicationType("native")
+  settingClient.SetTosUri("https://example.com/client/tos")
+  settingClient.SetPolicyUri("https://example.com/client/policy")
+  setting := okta.NewOpenIdConnectApplicationSettings()
+  setting.SetOauthClient(*settingClient)
+  credClient := okta.NewApplicationCredentialsOAuthClient()
+  credClient.SetTokenEndpointAuthMethod("client_secret_post")
+  credClient.SetClientId("id")
+  credClient.SetAutoKeyRotation(true)
+  credentials := okta.NewOAuthApplicationCredentials()
+  credentials.SetOauthClient(*credClient)
+  res := okta.OpenIdConnectApplication{}
+  res.SetSettings(*setting)
+  res.SetCredentials(*credentials)
+  res.SetName("oidc_client")
+  res.SetSignOnMode("OPENID_CONNECT")
+  res.SetLabel("label")
 
+  application, resp, err := client.ApplicationAPI.CreateApplication(client.GetConfig().Context).Application(okta.ListApplications200ResponseInner{OpenIdConnectApplication: &res}).Execute()
+  if err != nil {
+      fmt.Printf("Error creating application: %v\n", err)
+  }
 
-	application, resp, err := client.ApplicationAPI.CreateApplication(client.cfg.Context, ListApplications200ResponseInner{OpenIdConnectApplication: res})
-	if err != nil {
-		fmt.Printf("Error creating application: %v\n", err)
-	}
-
-	fmt.Printf("Application: %+v\n Response: %+v\n\n", application, resp)
+  fmt.Printf("Application: %+v\n Response: %+v\n\n", application, resp)
 }
 ```
-
-### Access Request Executor
-
-If you need to gain access to the request executor, we have provided a method
-off the `Client` to do so.
-
-```go
-re := client.CloneRequestExecutor()
-```
-
-Doing this will provide you with the ability to create your own requests for
-the Okta API and call the `Do` method that handles all the headers for you
-based on the configuration.
 
 ## Configuration reference
 
@@ -723,15 +673,12 @@ The client is configured with a configuration setter object passed to the `NewCl
 | WithOrgUrl(url string) | Okta organization URL |
 | WithToken(token string) | Okta API token |
 | WithUserAgentExtra(userAgent string) | Append additional information to the HTTP User-Agent |
-| WithHttpClient(httpClient http.Client) | Custom net/http client |
 | WithHttpClientPtr(httpClient *http.Client) | pointer to custom net/http client |
 | WithTestingDisableHttpsCheck(httpsCheck bool) | Disable net/http SSL checks |
 | WithRequestTimeout(requestTimeout int64) | HTTP request time out in seconds |
 | WithRateLimitMaxRetries(maxRetries int32) | Number of request retries when http request times out |
 | WithRateLimitMaxBackOff(maxBackoff int64) | Max amount of time to wait on request back off |
 | WithAuthorizationMode(authzMode string) | Okta API auth mode, `SSWS` (Okta based), `PrivateKey` (OAuth app based) or `JWT` (OAuth app based) |
-| WithClientId(clientId string) | Okta App client id, used with `PrivateKey` OAuth auth mode |
-| WithClientAssertion(clientAssertion string) | Okta App client assertion, used with `JWT` OAuth auth mode |
 | WithScopes(scopes []string) | Okta API app scopes |
 | WithPrivateKey(privateKey string) | Private key value |
 | WithPrivateKeyId(privateKeyId string) | Private key id (kid) value |
@@ -1075,21 +1022,13 @@ if resp.HasNextPage() {
 }
 ```
 
-## Building the SDK
-
-In most cases, you won't need to build the SDK from source. If you want to
-build it yourself, you'll need these prerequisites:
-
-- Clone the repo
-- Run `make build` from the root of the project
-
 ## Contributing
 
 We're happy to accept contributions and PRs! Please see the [contribution
 guide](CONTRIBUTING.md) to understand how to structure a contribution.
 
 [devforum]: https://devforum.okta.com/
-[sdkapiref]: https://godoc.org/github.com/okta/okta-sdk-golang/v4/okta
+[sdkapiref]: https://godoc.org/github.com/okta/okta-sdk-golang/v6/okta
 [lang-landing]: https://developer.okta.com/code/go/
 [github-issues]: /okta/okta-sdk-golang/issues
 [github-releases]: /okta/okta-sdk-golang/releases
