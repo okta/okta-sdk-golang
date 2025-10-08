@@ -1,6 +1,11 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v6.0.0
+- Update to latest Okta Management API specification
+- Breaking changes from v5.x - see [migration guide](MIGRATING.md)
+- Minimum Go version requirement: 1.23.x
+
 ## v5.0.6
 - Add option to prevent 429 by enabling api throttling [#526](https://github.com/okta/okta-sdk-golang/pull/526). Thanks [@erezrokah](https://github.com/erezrokah) and [@aditya-okta](https://github.com/aditya-okta)
 

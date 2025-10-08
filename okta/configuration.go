@@ -37,7 +37,7 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/go-jose/go-jose/v3"
+	"github.com/go-jose/go-jose/v4"
 	"github.com/kelseyhightower/envconfig"
 	"gopkg.in/yaml.v3"
 )
