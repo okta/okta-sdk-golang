@@ -130,7 +130,7 @@ Version 6 of the Okta Go SDK includes several improvements, API updates, and bre
 
 ### Prerequisites
 
-- Go 1.23 or later (v6 requires a newer Go version)
+- Go 1.24 or later (v6 requires a newer Go version)
 - Update your `go.mod` file to use the new version
 
 ### Installation
