@@ -9,10 +9,11 @@ import (
 
 // TestDataManager manages test resources and cleanup
 type TestDataManager struct {
-	client       *APIClient
-	createdUsers []string
-	mutex        sync.Mutex
-	ctx          context.Context
+	client        *APIClient
+	createdUsers  []string
+	createdGroups []string
+	mutex         sync.Mutex
+	ctx           context.Context
 }
 
 var testDataManager *TestDataManager
@@ -28,9 +29,10 @@ func GetTestDataManager() *TestDataManager {
 
 		client := NewAPIClient(config)
 		testDataManager = &TestDataManager{
-			client:       client,
-			createdUsers: make([]string, 0),
-			ctx:          context.Background(),
+			client:        client,
+			createdUsers:  make([]string, 0),
+			createdGroups: make([]string, 0),
+			ctx:           context.Background(),
 		}
 	})
 	return testDataManager
@@ -134,6 +136,70 @@ func (tdm *TestDataManager) CleanupAllTestUsers() {
 	}
 
 	tdm.createdUsers = tdm.createdUsers[:0]
+}
+
+// CreateTestGroup creates a group for testing and tracks it for cleanup
+func (tdm *TestDataManager) CreateTestGroup() (*Group, error) {
+	tdm.mutex.Lock()
+	defer tdm.mutex.Unlock()
+
+	groupRequest := testFactory.NewValidTestAddGroupRequest()
+
+	req := tdm.client.GroupAPI.AddGroup(tdm.ctx).Group(groupRequest)
+	createdGroup, _, err := req.Execute()
+	if err != nil {
+		return nil, fmt.Errorf("failed to create test group: %w", err)
+	}
+
+	if createdGroup.Id != nil {
+		tdm.createdGroups = append(tdm.createdGroups, *createdGroup.Id)
+	}
+
+	return createdGroup, nil
+}
+
+// CleanupTestGroup safely removes a specific test group
+func (tdm *TestDataManager) CleanupTestGroup(groupID string) error {
+	_, deleteErr := tdm.client.GroupAPI.DeleteGroup(tdm.ctx, groupID).Execute()
+	if deleteErr != nil {
+		return fmt.Errorf("failed to delete group %s: %w", groupID, deleteErr)
+	}
+
+	return nil
+}
+
+// TrackGroup adds a group ID to the tracking list for cleanup
+func (tdm *TestDataManager) TrackGroup(groupID string) {
+	tdm.mutex.Lock()
+	defer tdm.mutex.Unlock()
+	tdm.createdGroups = append(tdm.createdGroups, groupID)
+}
+
+// RemoveGroupFromTracking removes a group ID from the tracking list
+func (tdm *TestDataManager) RemoveGroupFromTracking(groupID string) {
+	tdm.mutex.Lock()
+	defer tdm.mutex.Unlock()
+
+	for i, id := range tdm.createdGroups {
+		if id == groupID {
+			tdm.createdGroups = append(tdm.createdGroups[:i], tdm.createdGroups[i+1:]...)
+			break
+		}
+	}
+}
+
+// CleanupAllTestGroups removes all tracked test groups
+func (tdm *TestDataManager) CleanupAllTestGroups() {
+	tdm.mutex.Lock()
+	defer tdm.mutex.Unlock()
+
+	for _, groupID := range tdm.createdGroups {
+		if err := tdm.CleanupTestGroup(groupID); err != nil {
+			log.Printf("Failed to cleanup group %s: %v", groupID, err)
+		}
+	}
+
+	tdm.createdGroups = tdm.createdGroups[:0]
 }
 
 // ValidateTestEnvironment checks if test environment is properly configured

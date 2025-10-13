@@ -98,3 +98,34 @@ func (t *TestFactory) NewValidTestPasswordCredential() *PasswordCredential {
 	pc.SetValue(p)
 	return pc
 }
+
+func (t *TestFactory) NewValidTestGroupProfile() OktaUserGroupProfile {
+	name := randomTestString()
+	description := "Test group created by SDK tests"
+
+	profile := NewOktaUserGroupProfile()
+	profile.SetName(name)
+	profile.SetDescription(description)
+
+	return *profile
+}
+
+func (t *TestFactory) NewTestGroupProfileUpdate() OktaUserGroupProfile {
+	name := randomTestString() + "_updated"
+	description := "Updated test group description"
+
+	profile := NewOktaUserGroupProfile()
+	profile.SetName(name)
+	profile.SetDescription(description)
+
+	return *profile
+}
+
+func (t *TestFactory) NewValidTestAddGroupRequest() AddGroupRequest {
+	profile := t.NewValidTestGroupProfile()
+
+	request := NewAddGroupRequest()
+	request.SetProfile(profile)
+
+	return *request
+}
