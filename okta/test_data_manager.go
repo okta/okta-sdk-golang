@@ -9,11 +9,12 @@ import (
 
 // TestDataManager manages test resources and cleanup
 type TestDataManager struct {
-	client        *APIClient
-	createdUsers  []string
-	createdGroups []string
-	mutex         sync.Mutex
-	ctx           context.Context
+	client          *APIClient
+	createdUsers    []string
+	createdGroups   []string
+	createdPolicies []string
+	mutex           sync.Mutex
+	ctx             context.Context
 }
 
 var testDataManager *TestDataManager
@@ -29,10 +30,11 @@ func GetTestDataManager() *TestDataManager {
 
 		client := NewAPIClient(config)
 		testDataManager = &TestDataManager{
-			client:        client,
-			createdUsers:  make([]string, 0),
-			createdGroups: make([]string, 0),
-			ctx:           context.Background(),
+			client:          client,
+			createdUsers:    make([]string, 0),
+			createdGroups:   make([]string, 0),
+			createdPolicies: make([]string, 0),
+			ctx:             context.Background(),
 		}
 	})
 	return testDataManager
@@ -200,6 +202,70 @@ func (tdm *TestDataManager) CleanupAllTestGroups() {
 	}
 
 	tdm.createdGroups = tdm.createdGroups[:0]
+}
+
+// CreateTestPolicy creates a policy for testing and tracks it for cleanup
+func (tdm *TestDataManager) CreateTestPolicy() (*CreatePolicyRequest, error) {
+	tdm.mutex.Lock()
+	defer tdm.mutex.Unlock()
+
+	policyRequest := testFactory.NewValidTestCreatePolicyRequest()
+
+	req := tdm.client.PolicyAPI.CreatePolicy(tdm.ctx).Policy(policyRequest)
+	createdPolicy, _, err := req.Execute()
+	if err != nil {
+		return nil, fmt.Errorf("failed to create test policy: %w", err)
+	}
+
+	if createdPolicy.AccessPolicy != nil && createdPolicy.AccessPolicy.Id != nil {
+		tdm.createdPolicies = append(tdm.createdPolicies, *createdPolicy.AccessPolicy.Id)
+	}
+
+	return createdPolicy, nil
+}
+
+// CleanupTestPolicy safely removes a specific test policy
+func (tdm *TestDataManager) CleanupTestPolicy(policyID string) error {
+	_, deleteErr := tdm.client.PolicyAPI.DeletePolicy(tdm.ctx, policyID).Execute()
+	if deleteErr != nil {
+		return fmt.Errorf("failed to delete policy %s: %w", policyID, deleteErr)
+	}
+
+	return nil
+}
+
+// TrackPolicy adds a policy ID to the tracking list for cleanup
+func (tdm *TestDataManager) TrackPolicy(policyID string) {
+	tdm.mutex.Lock()
+	defer tdm.mutex.Unlock()
+	tdm.createdPolicies = append(tdm.createdPolicies, policyID)
+}
+
+// RemovePolicyFromTracking removes a policy ID from the tracking list
+func (tdm *TestDataManager) RemovePolicyFromTracking(policyID string) {
+	tdm.mutex.Lock()
+	defer tdm.mutex.Unlock()
+
+	for i, id := range tdm.createdPolicies {
+		if id == policyID {
+			tdm.createdPolicies = append(tdm.createdPolicies[:i], tdm.createdPolicies[i+1:]...)
+			break
+		}
+	}
+}
+
+// CleanupAllTestPolicies removes all tracked test policies
+func (tdm *TestDataManager) CleanupAllTestPolicies() {
+	tdm.mutex.Lock()
+	defer tdm.mutex.Unlock()
+
+	for _, policyID := range tdm.createdPolicies {
+		if err := tdm.CleanupTestPolicy(policyID); err != nil {
+			log.Printf("Failed to cleanup policy %s: %v", policyID, err)
+		}
+	}
+
+	tdm.createdPolicies = tdm.createdPolicies[:0]
 }
 
 // ValidateTestEnvironment checks if test environment is properly configured

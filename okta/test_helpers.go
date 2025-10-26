@@ -129,3 +129,50 @@ func (t *TestFactory) NewValidTestAddGroupRequest() AddGroupRequest {
 
 	return *request
 }
+
+func (t *TestFactory) NewValidTestAccessPolicy() AccessPolicy {
+	name := randomTestString() + "_policy"
+	description := "Test access policy created by SDK tests"
+	policyType := "ACCESS_POLICY"
+
+	policy := NewAccessPolicy(name, policyType)
+	policy.SetDescription(description)
+
+	return *policy
+}
+
+func (t *TestFactory) NewTestAccessPolicyUpdate() AccessPolicy {
+	name := randomTestString() + "_updated_policy"
+	description := "Updated test policy description"
+	policyType := "ACCESS_POLICY"
+
+	policy := NewAccessPolicy(name, policyType)
+	policy.SetDescription(description)
+
+	return *policy
+}
+
+func (t *TestFactory) NewValidTestCreatePolicyRequest() CreatePolicyRequest {
+	accessPolicy := t.NewValidTestAccessPolicy()
+	return AccessPolicyAsCreatePolicyRequest(&accessPolicy)
+}
+
+func (t *TestFactory) NewValidTestPolicyRule() ListPolicyRules200ResponseInner {
+	name := randomTestString() + "_rule"
+
+	rule := NewAccessPolicyRule()
+	rule.SetName(name)
+	rule.SetType("ACCESS_POLICY")
+
+	// Create required conditions structure
+	groupCondition := NewGroupCondition([]string{}, []string{}) // empty include/exclude arrays
+	userCondition := NewUserCondition([]string{}, []string{})   // empty include/exclude arrays
+	peopleCondition := NewPolicyPeopleCondition(*groupCondition, *userCondition)
+
+	conditions := NewAccessPolicyRuleConditions()
+	conditions.SetPeople(*peopleCondition)
+
+	rule.SetConditions(*conditions)
+
+	return AccessPolicyRuleAsListPolicyRules200ResponseInner(rule)
+}
