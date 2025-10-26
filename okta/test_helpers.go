@@ -176,3 +176,40 @@ func (t *TestFactory) NewValidTestPolicyRule() ListPolicyRules200ResponseInner {
 
 	return AccessPolicyRuleAsListPolicyRules200ResponseInner(rule)
 }
+
+func (t *TestFactory) NewValidTestBookmarkApplication() BookmarkApplication {
+	label := "Test Bookmark App"
+	name := "bookmark"
+	url := "https://example.com/bookmark"
+
+	appSettings := NewBookmarkApplicationSettingsApplication(url)
+	appSettings.SetRequestIntegration(false)
+
+	settings := NewBookmarkApplicationSettings()
+	settings.SetApp(*appSettings)
+
+	app := NewBookmarkApplication(name, *settings, label, "BOOKMARK")
+
+	return *app
+}
+
+func (t *TestFactory) NewValidTestCreateApplicationRequest() ListApplications200ResponseInner {
+	bookmarkApp := t.NewValidTestBookmarkApplication()
+	return BookmarkApplicationAsListApplications200ResponseInner(&bookmarkApp)
+}
+
+func (t *TestFactory) NewTestBookmarkApplicationUpdate() BookmarkApplication {
+	label := "Updated Test Bookmark App"
+	name := "bookmark"
+	url := "https://example.com/updated-bookmark"
+
+	appSettings := NewBookmarkApplicationSettingsApplication(url)
+	appSettings.SetRequestIntegration(false)
+
+	settings := NewBookmarkApplicationSettings()
+	settings.SetApp(*appSettings)
+
+	app := NewBookmarkApplication(name, *settings, label, "BOOKMARK")
+
+	return *app
+}

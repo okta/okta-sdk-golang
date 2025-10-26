@@ -9,12 +9,13 @@ import (
 
 // TestDataManager manages test resources and cleanup
 type TestDataManager struct {
-	client          *APIClient
-	createdUsers    []string
-	createdGroups   []string
-	createdPolicies []string
-	mutex           sync.Mutex
-	ctx             context.Context
+	client              *APIClient
+	createdUsers        []string
+	createdGroups       []string
+	createdPolicies     []string
+	createdApplications []string
+	mutex               sync.Mutex
+	ctx                 context.Context
 }
 
 var testDataManager *TestDataManager
@@ -30,11 +31,12 @@ func GetTestDataManager() *TestDataManager {
 
 		client := NewAPIClient(config)
 		testDataManager = &TestDataManager{
-			client:          client,
-			createdUsers:    make([]string, 0),
-			createdGroups:   make([]string, 0),
-			createdPolicies: make([]string, 0),
-			ctx:             context.Background(),
+			client:              client,
+			createdUsers:        make([]string, 0),
+			createdGroups:       make([]string, 0),
+			createdPolicies:     make([]string, 0),
+			createdApplications: make([]string, 0),
+			ctx:                 context.Background(),
 		}
 	})
 	return testDataManager
@@ -268,6 +270,77 @@ func (tdm *TestDataManager) CleanupAllTestPolicies() {
 	tdm.createdPolicies = tdm.createdPolicies[:0]
 }
 
+// CreateTestApplication creates an application for testing and tracks it for cleanup
+func (tdm *TestDataManager) CreateTestApplication() (*ListApplications200ResponseInner, error) {
+	tdm.mutex.Lock()
+	defer tdm.mutex.Unlock()
+
+	appRequest := testFactory.NewValidTestCreateApplicationRequest()
+
+	req := tdm.client.ApplicationAPI.CreateApplication(tdm.ctx).Application(appRequest)
+	createdApp, _, err := req.Execute()
+	if err != nil {
+		return nil, fmt.Errorf("failed to create test application: %w", err)
+	}
+
+	if createdApp.BookmarkApplication != nil && createdApp.BookmarkApplication.Id != nil {
+		tdm.createdApplications = append(tdm.createdApplications, *createdApp.BookmarkApplication.Id)
+	}
+
+	return createdApp, nil
+}
+
+// CleanupTestApplication safely removes a specific test application
+func (tdm *TestDataManager) CleanupTestApplication(appID string) error {
+	// First deactivate the application if not already deactivated
+	_, deactivateErr := tdm.client.ApplicationAPI.DeactivateApplication(tdm.ctx, appID).Execute()
+	if deactivateErr != nil {
+		log.Printf("Warning: Failed to deactivate application %s: %v", appID, deactivateErr)
+	}
+
+	// Then delete the application
+	_, deleteErr := tdm.client.ApplicationAPI.DeleteApplication(tdm.ctx, appID).Execute()
+	if deleteErr != nil {
+		return fmt.Errorf("failed to delete application %s: %w", appID, deleteErr)
+	}
+
+	return nil
+}
+
+// TrackApplication adds an application ID to the tracking list for cleanup
+func (tdm *TestDataManager) TrackApplication(appID string) {
+	tdm.mutex.Lock()
+	defer tdm.mutex.Unlock()
+	tdm.createdApplications = append(tdm.createdApplications, appID)
+}
+
+// RemoveApplicationFromTracking removes an application ID from the tracking list
+func (tdm *TestDataManager) RemoveApplicationFromTracking(appID string) {
+	tdm.mutex.Lock()
+	defer tdm.mutex.Unlock()
+
+	for i, id := range tdm.createdApplications {
+		if id == appID {
+			tdm.createdApplications = append(tdm.createdApplications[:i], tdm.createdApplications[i+1:]...)
+			break
+		}
+	}
+}
+
+// CleanupAllTestApplications removes all tracked test applications
+func (tdm *TestDataManager) CleanupAllTestApplications() {
+	tdm.mutex.Lock()
+	defer tdm.mutex.Unlock()
+
+	for _, appID := range tdm.createdApplications {
+		if err := tdm.CleanupTestApplication(appID); err != nil {
+			log.Printf("Failed to cleanup application %s: %v", appID, err)
+		}
+	}
+
+	tdm.createdApplications = tdm.createdApplications[:0]
+}
+
 // ValidateTestEnvironment checks if test environment is properly configured
 func ValidateTestEnvironment() error {
 	config, err := NewConfiguration()
@@ -284,4 +357,12 @@ func ValidateTestEnvironment() error {
 	}
 
 	return nil
+}
+
+// CleanupAll removes all tracked test resources
+func (tdm *TestDataManager) CleanupAll() {
+	tdm.CleanupAllTestUsers()
+	tdm.CleanupAllTestGroups()
+	tdm.CleanupAllTestPolicies()
+	tdm.CleanupAllTestApplications()
 }
