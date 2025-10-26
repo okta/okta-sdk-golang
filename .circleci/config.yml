@@ -12,7 +12,8 @@ orbs:
 jobs:
   test-v4:
     docker:
-      - image: cimg/go:1.23.0
+      - image: cimg/go:1.24.0
+    resource_class: xlarge
     steps:
       - checkout
       - run: go version
@@ -23,7 +24,7 @@ jobs:
 
   snyk-scan:
     docker:
-      - image: cimg/go:1.23.0
+      - image: cimg/go:1.24.0
     steps:
       - checkout
       - general-platform-helpers/step-load-dependencies
@@ -34,7 +35,7 @@ jobs:
 
   reversing-labs:
     docker:
-      - image: cimg/go:1.23.0
+      - image: cimg/go:1.24.0
     steps:
       - checkout
       - run:

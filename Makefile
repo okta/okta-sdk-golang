@@ -56,11 +56,24 @@ endif
 fmt: check-golangci-lint # Format the code using `golangci-lint`
 	@$(GOLANGCI_LINT) fmt
 
+.PHONY: import
+import: # Run goimports on all Go files
+	@goimports -w .
+
 check-golangci-lint:
 	@which $(GOLANGCI_LINT) > /dev/null || curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/HEAD/install.sh | sh -s -- -b $(shell go env GOPATH)/bin $(GOLANGCI_LINT_VERSION)
 
 test:
 	go test -cover -coverpkg=./okta -failfast -race ./okta ./okta/test -test.v
+
+test\:all:
+	go test -cover -coverpkg=./okta -failfast -race ./okta ./okta/test -test.v
+
+test\:integration:
+	go test -cover -coverpkg=./okta -failfast -race ./okta/test -test.v
+
+test\:unit:
+	go test -cover -coverpkg=./okta -failfast -race ./okta -test.v
 
 generate:
 	npx @openapitools/openapi-generator-cli generate -c ./.generator/config.yaml -i .generator/okta-management-APIs-oasv3-noEnums-inheritance.yaml --skip-validate-spec
