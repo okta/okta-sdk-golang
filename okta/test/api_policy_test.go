@@ -12,6 +12,7 @@ package okta
 import (
 	"context"
 	"encoding/json"
+	"net/http"
 	"testing"
 
 	okta "github.com/okta/okta-sdk-golang/v6/okta"
@@ -44,7 +45,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 
 		assert.NotNil(t, resp.AccessPolicy)
 		assert.NotNil(t, resp.AccessPolicy.Id)
@@ -78,7 +79,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 		_, createHttpRes, createErr := apiClient.PolicyAPI.CreatePolicyRule(context.Background(), policyId).PolicyRule(ruleRequest).Execute()
 
 		// Extract rule ID from error response body
-		require.Equal(t, 200, createHttpRes.StatusCode)
+		require.Equal(t, http.StatusOK, createHttpRes.StatusCode)
 		require.NotNil(t, createErr)
 
 		createErrorBody := string(createErr.(*okta.GenericOpenAPIError).Body())
@@ -90,7 +91,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 		httpRes, err := apiClient.PolicyAPI.ActivatePolicyRule(context.Background(), policyId, ruleId).Execute()
 
 		require.Nil(t, err)
-		assert.Equal(t, 204, httpRes.StatusCode)
+		assert.Equal(t, http.StatusNoContent, httpRes.StatusCode)
 	})
 
 	t.Run("Test PolicyAPIService ClonePolicy", func(t *testing.T) {
@@ -111,7 +112,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 
 		assert.NotNil(t, resp.AccessPolicy)
 		assert.NotNil(t, resp.AccessPolicy.Id)
@@ -131,7 +132,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 		_, httpRes, err := apiClient.PolicyAPI.GetPolicy(context.Background(), nonExistentPolicyId).Execute()
 
 		assert.NotNil(t, err)
-		assert.Equal(t, 404, httpRes.StatusCode)
+		assert.Equal(t, http.StatusNotFound, httpRes.StatusCode)
 	})
 
 	t.Run("Test PolicyAPIService CreatePolicyRule", func(t *testing.T) {
@@ -155,7 +156,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 		// The API creates the rule successfully but returns a response that can't be unmarshaled
 		// because the API response is missing the "groups" property in conditions.people
 		// which the SDK requires for unmarshaling the AccessPolicyRule
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 
 		// The error should be related to JSON unmarshaling due to missing groups property
 		if err != nil {
@@ -197,7 +198,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 		httpRes, err := apiClient.PolicyAPI.DeactivatePolicy(context.Background(), policyId).Execute()
 
 		require.Nil(t, err)
-		assert.Equal(t, 204, httpRes.StatusCode)
+		assert.Equal(t, http.StatusNoContent, httpRes.StatusCode)
 
 		// Verify policy is deactivated by retrieving it
 		resp, _, err := apiClient.PolicyAPI.GetPolicy(context.Background(), policyId).Execute()
@@ -226,7 +227,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 		_, createHttpRes, createErr := apiClient.PolicyAPI.CreatePolicyRule(context.Background(), policyId).PolicyRule(ruleRequest).Execute()
 
 		// Extract rule ID from error response body
-		require.Equal(t, 200, createHttpRes.StatusCode)
+		require.Equal(t, http.StatusOK, createHttpRes.StatusCode)
 		require.NotNil(t, createErr)
 
 		createErrorBody := string(createErr.(*okta.GenericOpenAPIError).Body())
@@ -242,7 +243,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 		httpRes, err := apiClient.PolicyAPI.DeactivatePolicyRule(context.Background(), policyId, ruleId).Execute()
 
 		require.Nil(t, err)
-		assert.Equal(t, 204, httpRes.StatusCode)
+		assert.Equal(t, http.StatusNoContent, httpRes.StatusCode)
 	})
 
 	t.Run("Test PolicyAPIService DeletePolicy", func(t *testing.T) {
@@ -262,7 +263,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 		httpRes, err := apiClient.PolicyAPI.DeletePolicy(context.Background(), policyId).Execute()
 
 		require.Nil(t, err)
-		assert.Equal(t, 204, httpRes.StatusCode)
+		assert.Equal(t, http.StatusNoContent, httpRes.StatusCode)
 
 		// Remove from tracking since it's deleted
 		testDataManager.RemovePolicyFromTracking(policyId)
@@ -270,7 +271,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 		// Verify policy is deleted by trying to get it (should return 404)
 		_, httpRes2, err2 := apiClient.PolicyAPI.GetPolicy(context.Background(), policyId).Execute()
 		assert.NotNil(t, err2)
-		assert.Equal(t, 404, httpRes2.StatusCode)
+		assert.Equal(t, http.StatusNotFound, httpRes2.StatusCode)
 	})
 
 	t.Run("Test PolicyAPIService DeletePolicyResourceMapping", func(t *testing.T) {
@@ -297,7 +298,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 		_, createHttpRes, createErr := apiClient.PolicyAPI.CreatePolicyRule(context.Background(), policyId).PolicyRule(ruleRequest).Execute()
 
 		// Extract rule ID from error response body
-		require.Equal(t, 200, createHttpRes.StatusCode)
+		require.Equal(t, http.StatusOK, createHttpRes.StatusCode)
 		require.NotNil(t, createErr)
 
 		createErrorBody := string(createErr.(*okta.GenericOpenAPIError).Body())
@@ -309,12 +310,12 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 		httpRes, err := apiClient.PolicyAPI.DeletePolicyRule(context.Background(), policyId, ruleId).Execute()
 
 		require.Nil(t, err)
-		assert.Equal(t, 204, httpRes.StatusCode)
+		assert.Equal(t, http.StatusNoContent, httpRes.StatusCode)
 
 		// Verify rule is deleted by trying to get it (should return 404)
 		_, httpRes2, err2 := apiClient.PolicyAPI.GetPolicyRule(context.Background(), policyId, ruleId).Execute()
 		assert.NotNil(t, err2)
-		assert.Equal(t, 404, httpRes2.StatusCode)
+		assert.Equal(t, http.StatusNotFound, httpRes2.StatusCode)
 	})
 
 	t.Run("Test PolicyAPIService GetPolicy", func(t *testing.T) {
@@ -335,7 +336,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 
 		assert.NotNil(t, resp.AccessPolicy)
 		assert.Equal(t, policyId, *resp.AccessPolicy.Id)
@@ -367,7 +368,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 		_, createHttpRes, createErr := apiClient.PolicyAPI.CreatePolicyRule(context.Background(), policyId).PolicyRule(ruleRequest).Execute()
 
 		// The rule creation should succeed (200) but unmarshaling should fail
-		require.Equal(t, 200, createHttpRes.StatusCode)
+		require.Equal(t, http.StatusOK, createHttpRes.StatusCode)
 		require.NotNil(t, createErr)
 		require.Contains(t, createErr.Error(), "no value given for required property groups")
 
@@ -381,7 +382,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 		resp, httpRes, err := apiClient.PolicyAPI.GetPolicyRule(context.Background(), policyId, ruleId).Execute()
 
 		// The API returns the rule successfully but can't unmarshal due to missing groups property
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 
 		// The error should be related to JSON unmarshaling due to missing groups property
 		if err != nil {
@@ -417,7 +418,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 		// The API returns an array of policies but the SDK expects a single policy object
 		// This is a known issue where the OpenAPI spec doesn't match the actual API behavior
 		// For now, we'll verify that we get a 200 response and the error is related to unmarshaling
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 
 		// The error should be related to JSON unmarshaling due to array vs single object mismatch
 		if err != nil {
@@ -453,7 +454,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 
 		// Response should be an array (could be empty)
 		assert.IsType(t, []okta.ListApplications200ResponseInner{}, resp)
@@ -477,7 +478,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 
 		// Response should be an array (could be empty)
 		assert.IsType(t, []okta.PolicyMapping{}, resp)
@@ -500,7 +501,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 		resp, httpRes, err := apiClient.PolicyAPI.ListPolicyRules(context.Background(), policyId).Execute()
 
 		// The API returns an array of policy rules but may have unmarshaling issues
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 
 		if err != nil {
 			// Verify this is the expected unmarshaling error
@@ -540,7 +541,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 
 		assert.NotNil(t, resp.AccessPolicy)
 		assert.Equal(t, policyId, *resp.AccessPolicy.Id)
@@ -568,7 +569,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 		_, createHttpRes, createErr := apiClient.PolicyAPI.CreatePolicyRule(context.Background(), policyId).PolicyRule(ruleRequest).Execute()
 
 		// Extract rule ID from error response body
-		require.Equal(t, 200, createHttpRes.StatusCode)
+		require.Equal(t, http.StatusOK, createHttpRes.StatusCode)
 		require.NotNil(t, createErr)
 
 		createErrorBody := string(createErr.(*okta.GenericOpenAPIError).Body())
@@ -583,7 +584,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 		resp, httpRes, err := apiClient.PolicyAPI.ReplacePolicyRule(context.Background(), policyId, ruleId).PolicyRule(updateRuleRequest).Execute()
 
 		// The API should succeed but may have unmarshaling issues
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 
 		if err != nil {
 			// Verify this is the expected unmarshaling error

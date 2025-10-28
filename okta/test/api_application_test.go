@@ -11,6 +11,7 @@ package okta
 
 import (
 	"context"
+	"net/http"
 	"strings"
 	"testing"
 
@@ -42,7 +43,7 @@ func Test_okta_ApplicationAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 
 		assert.NotNil(t, resp.BookmarkApplication)
 		assert.NotNil(t, resp.BookmarkApplication.Id)
@@ -64,14 +65,14 @@ func Test_okta_ApplicationAPIService(t *testing.T) {
 				t.Logf("Known SDK unmarshaling issue encountered: %v", err)
 				// This is acceptable - the API call succeeded but JSON unmarshaling failed
 				if httpRes != nil {
-					assert.Equal(t, 200, httpRes.StatusCode)
+					assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 				}
 				return
 			}
 			t.Fatalf("Unexpected error: %v", err)
 		}
 		require.NotNil(t, httpRes)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 		// We don't assert on the response contents since we don't know what applications exist
 	})
 
@@ -94,7 +95,7 @@ func Test_okta_ApplicationAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 
 		// Verify application details
 		require.NotNil(t, resp.BookmarkApplication)
@@ -128,7 +129,7 @@ func Test_okta_ApplicationAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 
 		// Verify the update
 		require.NotNil(t, resp.BookmarkApplication)
@@ -153,13 +154,13 @@ func Test_okta_ApplicationAPIService(t *testing.T) {
 		// First deactivate it, then activate it
 		deactivateRes, deactivateErr := apiClient.ApplicationAPI.DeactivateApplication(context.Background(), *createdApp.BookmarkApplication.Id).Execute()
 		require.Nil(t, deactivateErr)
-		assert.Equal(t, 200, deactivateRes.StatusCode)
+		assert.Equal(t, http.StatusOK, deactivateRes.StatusCode)
 
 		// Now activate it
 		httpRes, err := apiClient.ApplicationAPI.ActivateApplication(context.Background(), *createdApp.BookmarkApplication.Id).Execute()
 
 		require.Nil(t, err)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 	})
 
 	t.Run("Test ApplicationAPIService DeactivateApplication", func(t *testing.T) {
@@ -180,7 +181,7 @@ func Test_okta_ApplicationAPIService(t *testing.T) {
 		httpRes, err := apiClient.ApplicationAPI.DeactivateApplication(context.Background(), *createdApp.BookmarkApplication.Id).Execute()
 
 		require.Nil(t, err)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 	})
 
 	t.Run("Test ApplicationAPIService DeleteApplication", func(t *testing.T) {
@@ -199,19 +200,19 @@ func Test_okta_ApplicationAPIService(t *testing.T) {
 		// First deactivate the application
 		deactivateRes, deactivateErr := apiClient.ApplicationAPI.DeactivateApplication(context.Background(), appID).Execute()
 		require.Nil(t, deactivateErr)
-		assert.Equal(t, 200, deactivateRes.StatusCode)
+		assert.Equal(t, http.StatusOK, deactivateRes.StatusCode)
 
 		// Then delete it
 		httpRes, err := apiClient.ApplicationAPI.DeleteApplication(context.Background(), appID).Execute()
 
 		require.Nil(t, err)
-		assert.Equal(t, 204, httpRes.StatusCode)
+		assert.Equal(t, http.StatusNoContent, httpRes.StatusCode)
 
 		// Verify it's deleted by trying to get it (should return 404)
 		_, getRes, getErr := apiClient.ApplicationAPI.GetApplication(context.Background(), appID).Execute()
 		assert.NotNil(t, getErr)
 		if getRes != nil {
-			assert.Equal(t, 404, getRes.StatusCode)
+			assert.Equal(t, http.StatusNotFound, getRes.StatusCode)
 		}
 	})
 }

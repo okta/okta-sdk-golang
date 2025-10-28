@@ -11,6 +11,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"net/http"
 	"os"
 	"testing"
 	"time"
@@ -67,7 +68,7 @@ func Test_okta_UserAPIService(t *testing.T) {
 
 		require.NoError(t, err, "CreateUser should not return an error")
 		require.NotNil(t, resp, "Response should not be nil")
-		assert.Equal(t, 200, httpRes.StatusCode, "HTTP status should be 200")
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode, "HTTP status should be 200")
 
 		assert.NotNil(t, resp.Id, "User ID should be set")
 		assert.NotNil(t, resp.Profile, "User profile should be set")
@@ -91,7 +92,7 @@ func Test_okta_UserAPIService(t *testing.T) {
 
 		require.NoError(t, err, "GetUser should not return an error")
 		require.NotNil(t, resp, "Response should not be nil")
-		assert.Equal(t, 200, httpRes.StatusCode, "HTTP status should be 200")
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode, "HTTP status should be 200")
 
 		assert.Equal(t, createdUser.Id, resp.Id, "User IDs should match")
 		if resp.Profile != nil && createdUser.Profile != nil {
@@ -104,7 +105,7 @@ func Test_okta_UserAPIService(t *testing.T) {
 
 		require.NoError(t, err, "ListUsers should not return an error")
 		require.NotNil(t, resp, "Response should not be nil")
-		assert.Equal(t, 200, httpRes.StatusCode, "HTTP status should be 200")
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode, "HTTP status should be 200")
 
 		assert.IsType(t, []okta.User{}, resp, "Response should be a slice of User")
 	})
@@ -124,7 +125,7 @@ func Test_okta_UserAPIService(t *testing.T) {
 
 		require.NoError(t, err, "UpdateUser should not return an error")
 		require.NotNil(t, resp, "Response should not be nil")
-		assert.Equal(t, 200, httpRes.StatusCode, "HTTP status should be 200")
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode, "HTTP status should be 200")
 
 		if resp.Profile != nil {
 			assert.Equal(t, updatedProfile.GetFirstName(), resp.Profile.GetFirstName(), "First name should be updated")
@@ -147,7 +148,7 @@ func Test_okta_UserAPIService(t *testing.T) {
 
 		require.NoError(t, err, "ReplaceUser should not return an error")
 		require.NotNil(t, resp, "Response should not be nil")
-		assert.Equal(t, 200, httpRes.StatusCode, "HTTP status should be 200")
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode, "HTTP status should be 200")
 
 		if resp.Profile != nil {
 			assert.Equal(t, replacementProfile.GetFirstName(), resp.Profile.GetFirstName(), "First name should be replaced")
@@ -169,7 +170,7 @@ func Test_okta_UserAPIService(t *testing.T) {
 		httpRes, err := apiClient.UserAPI.DeleteUser(testContext, *createdUser.Id).Execute()
 
 		require.NoError(t, err, "DeleteUser should not return an error")
-		assert.Equal(t, 204, httpRes.StatusCode, "HTTP status should be 200")
+		assert.Equal(t, http.StatusNoContent, httpRes.StatusCode, "HTTP status should be 204")
 
 		testDataMgr.RemoveUserFromTracking(*createdUser.Id)
 
@@ -189,6 +190,6 @@ func Test_okta_UserAPIService(t *testing.T) {
 
 		require.NoError(t, err, "ListUserBlocks should not return an error")
 		require.NotNil(t, resp, "Response should not be nil")
-		assert.Equal(t, 200, httpRes.StatusCode, "HTTP status should be 200")
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode, "HTTP status should be 200")
 	})
 }

@@ -11,6 +11,7 @@ package okta
 
 import (
 	"context"
+	"net/http"
 	"testing"
 	"time"
 
@@ -43,7 +44,7 @@ func Test_okta_GroupAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 
 		assert.NotNil(t, resp.Id)
 		assert.NotNil(t, resp.Profile)
@@ -71,7 +72,7 @@ func Test_okta_GroupAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 
 		assert.Equal(t, *createdGroup.Id, *resp.Id)
 		assert.NotNil(t, resp.Profile)
@@ -98,7 +99,7 @@ func Test_okta_GroupAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 
 		assert.Equal(t, *createdGroup.Id, *resp.Id)
 		assert.NotNil(t, resp.Profile)
@@ -118,7 +119,7 @@ func Test_okta_GroupAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 
 		assert.Greater(t, len(resp), 0)
 
@@ -141,13 +142,13 @@ func Test_okta_GroupAPIService(t *testing.T) {
 		httpRes, err := apiClient.GroupAPI.DeleteGroup(context.Background(), *createdGroup.Id).Execute()
 
 		require.Nil(t, err)
-		assert.Equal(t, 204, httpRes.StatusCode)
+		assert.Equal(t, http.StatusNoContent, httpRes.StatusCode)
 
 		testDataManager.RemoveGroupFromTracking(*createdGroup.Id)
 
 		_, httpRes, err = apiClient.GroupAPI.GetGroup(context.Background(), *createdGroup.Id).Execute()
 		assert.NotNil(t, err)
-		assert.Equal(t, 404, httpRes.StatusCode)
+		assert.Equal(t, http.StatusNotFound, httpRes.StatusCode)
 	})
 
 	t.Run("Test GroupAPIService AssignUserToGroup", func(t *testing.T) {
@@ -164,14 +165,14 @@ func Test_okta_GroupAPIService(t *testing.T) {
 		httpRes, err := apiClient.GroupAPI.AssignUserToGroup(context.Background(), *createdGroup.Id, *createdUser.Id).Execute()
 
 		require.Nil(t, err)
-		assert.Equal(t, 204, httpRes.StatusCode)
+		assert.Equal(t, http.StatusNoContent, httpRes.StatusCode)
 
 		// Small delay to allow the assignment to propagate
 		time.Sleep(3 * time.Second)
 
 		users, httpRes, err := apiClient.GroupAPI.ListGroupUsers(context.Background(), *createdGroup.Id).Execute()
 		require.Nil(t, err)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 
 		foundUser := false
 		for _, user := range users {
@@ -204,7 +205,7 @@ func Test_okta_GroupAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 
 		foundUser := false
 		for _, user := range resp {
@@ -234,14 +235,14 @@ func Test_okta_GroupAPIService(t *testing.T) {
 		httpRes, err := apiClient.GroupAPI.UnassignUserFromGroup(context.Background(), *createdGroup.Id, *createdUser.Id).Execute()
 
 		require.Nil(t, err)
-		assert.Equal(t, 204, httpRes.StatusCode)
+		assert.Equal(t, http.StatusNoContent, httpRes.StatusCode)
 
 		// Allow time for API propagation
 		time.Sleep(3 * time.Second)
 
 		users, httpRes, err := apiClient.GroupAPI.ListGroupUsers(context.Background(), *createdGroup.Id).Execute()
 		require.Nil(t, err)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 
 		foundUser := false
 		for _, user := range users {
@@ -263,7 +264,7 @@ func Test_okta_GroupAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 	})
 
 	t.Run("Test GroupAPIService Error Handling - Get Nonexistent Group", func(t *testing.T) {
@@ -272,7 +273,7 @@ func Test_okta_GroupAPIService(t *testing.T) {
 		_, httpRes, err := apiClient.GroupAPI.GetGroup(context.Background(), nonExistentGroupID).Execute()
 
 		assert.NotNil(t, err)
-		assert.Equal(t, 404, httpRes.StatusCode)
+		assert.Equal(t, http.StatusNotFound, httpRes.StatusCode)
 	})
 
 	t.Run("Test GroupAPIService Error Handling - Delete Nonexistent Group", func(t *testing.T) {
@@ -281,7 +282,7 @@ func Test_okta_GroupAPIService(t *testing.T) {
 		httpRes, err := apiClient.GroupAPI.DeleteGroup(context.Background(), nonExistentGroupID).Execute()
 
 		assert.NotNil(t, err)
-		assert.Equal(t, 404, httpRes.StatusCode)
+		assert.Equal(t, http.StatusNotFound, httpRes.StatusCode)
 	})
 
 	t.Run("Test GroupAPIService Error Handling - Assign Nonexistent User to Group", func(t *testing.T) {
@@ -295,6 +296,6 @@ func Test_okta_GroupAPIService(t *testing.T) {
 		httpRes, err := apiClient.GroupAPI.AssignUserToGroup(context.Background(), *createdGroup.Id, nonExistentUserID).Execute()
 
 		assert.NotNil(t, err)
-		assert.Equal(t, 404, httpRes.StatusCode)
+		assert.Equal(t, http.StatusNotFound, httpRes.StatusCode)
 	})
 }

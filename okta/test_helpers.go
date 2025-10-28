@@ -43,14 +43,6 @@ func testPassword(length int) string {
 	return string(result)
 }
 
-// func testName(name string) string {
-// 	s := fmt.Sprintf("%s %s", randomTestString(), name)
-// 	if len(s) > 50 {
-// 		s = s[:50]
-// 	}
-// 	return s
-// }
-
 type TestFactory struct{}
 
 var testFactory TestFactory
