@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -79,12 +79,14 @@ type RealmAPI interface {
 	GetRealmExecute(r ApiGetRealmRequest) (*Realm, *APIResponse, error)
 
 	/*
-		ListRealms List all realms
+			ListRealms List all realms
 
-		Lists all Realms
+			Lists all realms.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiListRealmsRequest
+		> **Note:** The `search` parameter results are sourced from an eventually consistent datasource and may not reflect the latest information.
+
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiListRealmsRequest
 	*/
 	ListRealms(ctx context.Context) ApiListRealmsRequest
 
@@ -675,7 +677,9 @@ func (r ApiListRealmsRequest) Execute() ([]Realm, *APIResponse, error) {
 /*
 ListRealms List all realms
 
-Lists all Realms
+Lists all realms.
+
+> **Note:** The `search` parameter results are sourced from an eventually consistent datasource and may not reflect the latest information.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiListRealmsRequest

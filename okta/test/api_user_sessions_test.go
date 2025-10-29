@@ -24,17 +24,6 @@ func Test_okta_UserSessionsAPIService(t *testing.T) {
 	require.Nil(t, err)
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test UserSessionsAPIService EndUserSessions", func(t *testing.T) {
-
-		t.Skip("skip test") // remove to run test
-
-		httpRes, err := apiClient.UserSessionsAPI.EndUserSessions(context.Background()).Execute()
-
-		require.Nil(t, err)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
 	t.Run("Test UserSessionsAPIService RevokeUserSessions", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test

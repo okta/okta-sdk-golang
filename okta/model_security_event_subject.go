@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -30,14 +30,12 @@ import (
 // checks if the SecurityEventSubject type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SecurityEventSubject{}
 
-// SecurityEventSubject The event subject
+// SecurityEventSubject The event subjects
 type SecurityEventSubject struct {
-	// The format of the subject
-	Format *string `json:"format,omitempty"`
-	// An identifier of the actor
-	Iss *string `json:"iss,omitempty"`
-	// An identifier for the subject that was acted on
-	Sub                  *string `json:"sub,omitempty"`
+	// The device involved with the event
+	Device map[string]interface{} `json:"device,omitempty"`
+	// The user involved with the event
+	User                 map[string]interface{} `json:"user,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,100 +58,68 @@ func NewSecurityEventSubjectWithDefaults() *SecurityEventSubject {
 	return &this
 }
 
-// GetFormat returns the Format field value if set, zero value otherwise.
-func (o *SecurityEventSubject) GetFormat() string {
-	if o == nil || IsNil(o.Format) {
-		var ret string
+// GetDevice returns the Device field value if set, zero value otherwise.
+func (o *SecurityEventSubject) GetDevice() map[string]interface{} {
+	if o == nil || IsNil(o.Device) {
+		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Format
+	return o.Device
 }
 
-// GetFormatOk returns a tuple with the Format field value if set, nil otherwise
+// GetDeviceOk returns a tuple with the Device field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SecurityEventSubject) GetFormatOk() (*string, bool) {
-	if o == nil || IsNil(o.Format) {
-		return nil, false
+func (o *SecurityEventSubject) GetDeviceOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Device) {
+		return map[string]interface{}{}, false
 	}
-	return o.Format, true
+	return o.Device, true
 }
 
-// HasFormat returns a boolean if a field has been set.
-func (o *SecurityEventSubject) HasFormat() bool {
-	if o != nil && !IsNil(o.Format) {
+// HasDevice returns a boolean if a field has been set.
+func (o *SecurityEventSubject) HasDevice() bool {
+	if o != nil && !IsNil(o.Device) {
 		return true
 	}
 
 	return false
 }
 
-// SetFormat gets a reference to the given string and assigns it to the Format field.
-func (o *SecurityEventSubject) SetFormat(v string) {
-	o.Format = &v
+// SetDevice gets a reference to the given map[string]interface{} and assigns it to the Device field.
+func (o *SecurityEventSubject) SetDevice(v map[string]interface{}) {
+	o.Device = v
 }
 
-// GetIss returns the Iss field value if set, zero value otherwise.
-func (o *SecurityEventSubject) GetIss() string {
-	if o == nil || IsNil(o.Iss) {
-		var ret string
+// GetUser returns the User field value if set, zero value otherwise.
+func (o *SecurityEventSubject) GetUser() map[string]interface{} {
+	if o == nil || IsNil(o.User) {
+		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Iss
+	return o.User
 }
 
-// GetIssOk returns a tuple with the Iss field value if set, nil otherwise
+// GetUserOk returns a tuple with the User field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SecurityEventSubject) GetIssOk() (*string, bool) {
-	if o == nil || IsNil(o.Iss) {
-		return nil, false
+func (o *SecurityEventSubject) GetUserOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.User) {
+		return map[string]interface{}{}, false
 	}
-	return o.Iss, true
+	return o.User, true
 }
 
-// HasIss returns a boolean if a field has been set.
-func (o *SecurityEventSubject) HasIss() bool {
-	if o != nil && !IsNil(o.Iss) {
+// HasUser returns a boolean if a field has been set.
+func (o *SecurityEventSubject) HasUser() bool {
+	if o != nil && !IsNil(o.User) {
 		return true
 	}
 
 	return false
 }
 
-// SetIss gets a reference to the given string and assigns it to the Iss field.
-func (o *SecurityEventSubject) SetIss(v string) {
-	o.Iss = &v
-}
-
-// GetSub returns the Sub field value if set, zero value otherwise.
-func (o *SecurityEventSubject) GetSub() string {
-	if o == nil || IsNil(o.Sub) {
-		var ret string
-		return ret
-	}
-	return *o.Sub
-}
-
-// GetSubOk returns a tuple with the Sub field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SecurityEventSubject) GetSubOk() (*string, bool) {
-	if o == nil || IsNil(o.Sub) {
-		return nil, false
-	}
-	return o.Sub, true
-}
-
-// HasSub returns a boolean if a field has been set.
-func (o *SecurityEventSubject) HasSub() bool {
-	if o != nil && !IsNil(o.Sub) {
-		return true
-	}
-
-	return false
-}
-
-// SetSub gets a reference to the given string and assigns it to the Sub field.
-func (o *SecurityEventSubject) SetSub(v string) {
-	o.Sub = &v
+// SetUser gets a reference to the given map[string]interface{} and assigns it to the User field.
+func (o *SecurityEventSubject) SetUser(v map[string]interface{}) {
+	o.User = v
 }
 
 func (o SecurityEventSubject) MarshalJSON() ([]byte, error) {
@@ -166,14 +132,11 @@ func (o SecurityEventSubject) MarshalJSON() ([]byte, error) {
 
 func (o SecurityEventSubject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Format) {
-		toSerialize["format"] = o.Format
+	if !IsNil(o.Device) {
+		toSerialize["device"] = o.Device
 	}
-	if !IsNil(o.Iss) {
-		toSerialize["iss"] = o.Iss
-	}
-	if !IsNil(o.Sub) {
-		toSerialize["sub"] = o.Sub
+	if !IsNil(o.User) {
+		toSerialize["user"] = o.User
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -197,9 +160,8 @@ func (o *SecurityEventSubject) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "format")
-		delete(additionalProperties, "iss")
-		delete(additionalProperties, "sub")
+		delete(additionalProperties, "device")
+		delete(additionalProperties, "user")
 		o.AdditionalProperties = additionalProperties
 	}
 

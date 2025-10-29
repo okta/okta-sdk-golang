@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -33,9 +33,9 @@ var _ MappedNullable = &IDVCredentialsClient{}
 
 // IDVCredentialsClient <x-lifecycle-container><x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>Client credentials for `IDV_CLEAR` and `IDV_INCODE` IdP types
 type IDVCredentialsClient struct {
-	// The client ID that you generate in your IDV
+	// The client ID that you generate in your IDV vendor
 	ClientId string `json:"client_id"`
-	// The client secret that you generate in your IDV
+	// The client secret that you generate in your IDV vendor
 	ClientSecret         string `json:"client_secret"`
 	AdditionalProperties map[string]interface{}
 }

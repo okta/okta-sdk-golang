@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -38,7 +38,7 @@ type OktaSignOnPolicyRuleSignonActions struct {
 	FactorLifetime *int32 `json:"factorLifetime,omitempty"`
 	// Indicates if the User should be challenged for a second factor (MFA) based on the device being used, a Factor session lifetime, or on every sign-in attempt  > **Note:** Required only if `requireFactor` is set to `true`.
 	FactorPromptMode *string `json:"factorPromptMode,omitempty"`
-	// <x-lifecycle class=\"oie\"></x-lifecycle> Indicates the primary factor used to establish a session for the org. Supported values: `PASSWORD_IDP_ANY_FACTOR` (users can use any factor required by the app authentication policy to establish a session), `PASSWORD_IDP` (users must always use a password to establish a session).  > **Note:** Required only if `access` is set to `ALLOW`.
+	// <x-lifecycle class=\"oie\"></x-lifecycle> Indicates the primary factor used to establish a session for the org. Supported values: `PASSWORD_IDP_ANY_FACTOR` (users can use any factor required by the app's app sign-in policy to establish a session), `PASSWORD_IDP` (users must always use a password to establish a session).  > **Note:** Required only if `access` is set to `ALLOW`.
 	PrimaryFactor *string `json:"primaryFactor,omitempty"`
 	// Indicates if Okta should automatically remember the device
 	RememberDeviceByDefault *bool `json:"rememberDeviceByDefault,omitempty"`

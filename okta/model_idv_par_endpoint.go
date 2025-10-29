@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -33,7 +33,7 @@ var _ MappedNullable = &IDVParEndpoint{}
 // IDVParEndpoint IDV [PAR](https://datatracker.ietf.org/doc/html/rfc9126) endpoint
 type IDVParEndpoint struct {
 	Binding *string `json:"binding,omitempty"`
-	// URL of the IDV `par` endpoint
+	// URL of the `par` endpoint of the IDV vendor
 	Url                  *string `json:"url,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

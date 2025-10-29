@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -36,7 +36,7 @@ import (
 type CustomDomainAPI interface {
 
 	/*
-		CreateCustomDomain Create a Custom Domain
+		CreateCustomDomain Create a custom domain
 
 		Creates your custom domain
 
@@ -79,7 +79,7 @@ type CustomDomainAPI interface {
 	GetCustomDomainExecute(r ApiGetCustomDomainRequest) (*DomainResponse, *APIResponse, error)
 
 	/*
-		ListCustomDomains List all Custom Domains
+		ListCustomDomains List all custom domains
 
 		Lists all verified custom domains for the org
 
@@ -126,13 +126,17 @@ type CustomDomainAPI interface {
 	UpsertCertificateExecute(r ApiUpsertCertificateRequest) (*APIResponse, error)
 
 	/*
-		VerifyDomain Verify a custom domain
+			VerifyDomain Verify a custom domain
 
-		Verifies the custom domain and validity of DNS records by `domainId`. Furthermore, if the `certificateSourceType` in the domain is `OKTA_MANAGED`, then an attempt is made to obtain and install a certificate. After a certificate is obtained and installed by Okta, Okta manages the certificate including certificate renewal.
+			Verifies the custom domain and validity of DNS records by `domainId`. Verify your custom domain to confirm that you own or control the domain and that you have properly configured the required DNS records. Furthermore, if the `certificateSourceType` in the domain is `OKTA_MANAGED`, then an attempt is made to obtain and install a certificate. After a certificate is obtained and installed by Okta, Okta manages the certificate including certificate renewal.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param domainId `id` of the Domain
-		@return ApiVerifyDomainRequest
+		Verify your custom domain after you've [created it](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/CustomDomain/#tag/CustomDomain/operation/createCustomDomain) and after you've added your TXT and CNAME records to your domain provider. Okta doesn't verify your domain automatically. You must use the API to verify your custom domain if you change your DNS records or if you encounter issues with domain validation.
+
+		> **Note:** DNS record changes can take time to propagate. If you recently updated your DNS records, you may need to wait before verifying your custom domain. If you encounter issues with domain verification, double-check your DNS records and ensure that they're correctly configured. See [Update your DNS TXT](https://developer.okta.com/docs/guides/custom-url-domain/main/#update-your-dns-txt) for more information about verifying your custom domain.
+
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param domainId `id` of the Domain
+			@return ApiVerifyDomainRequest
 	*/
 	VerifyDomain(ctx context.Context, domainId string) ApiVerifyDomainRequest
 
@@ -161,7 +165,7 @@ func (r ApiCreateCustomDomainRequest) Execute() (*DomainResponse, *APIResponse, 
 }
 
 /*
-CreateCustomDomain Create a Custom Domain
+CreateCustomDomain Create a custom domain
 
 Creates your custom domain
 
@@ -647,7 +651,7 @@ func (r ApiListCustomDomainsRequest) Execute() (*DomainListResponse, *APIRespons
 }
 
 /*
-ListCustomDomains List all Custom Domains
+ListCustomDomains List all custom domains
 
 Lists all verified custom domains for the org
 
@@ -1169,7 +1173,11 @@ func (r ApiVerifyDomainRequest) Execute() (*DomainResponse, *APIResponse, error)
 /*
 VerifyDomain Verify a custom domain
 
-Verifies the custom domain and validity of DNS records by `domainId`. Furthermore, if the `certificateSourceType` in the domain is `OKTA_MANAGED`, then an attempt is made to obtain and install a certificate. After a certificate is obtained and installed by Okta, Okta manages the certificate including certificate renewal.
+Verifies the custom domain and validity of DNS records by `domainId`. Verify your custom domain to confirm that you own or control the domain and that you have properly configured the required DNS records. Furthermore, if the `certificateSourceType` in the domain is `OKTA_MANAGED`, then an attempt is made to obtain and install a certificate. After a certificate is obtained and installed by Okta, Okta manages the certificate including certificate renewal.
+
+Verify your custom domain after you've [created it](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/CustomDomain/#tag/CustomDomain/operation/createCustomDomain) and after you've added your TXT and CNAME records to your domain provider. Okta doesn't verify your domain automatically. You must use the API to verify your custom domain if you change your DNS records or if you encounter issues with domain validation.
+
+> **Note:** DNS record changes can take time to propagate. If you recently updated your DNS records, you may need to wait before verifying your custom domain. If you encounter issues with domain verification, double-check your DNS records and ensure that they're correctly configured. See [Update your DNS TXT](https://developer.okta.com/docs/guides/custom-url-domain/main/#update-your-dns-txt) for more information about verifying your custom domain.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param domainId `id` of the Domain

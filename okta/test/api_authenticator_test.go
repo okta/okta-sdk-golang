@@ -277,4 +277,18 @@ func Test_okta_AuthenticatorAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test AuthenticatorAPIService VerifyRpIdDomain", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var authenticatorId string
+		var webAuthnMethodType string
+
+		httpRes, err := apiClient.AuthenticatorAPI.VerifyRpIdDomain(context.Background(), authenticatorId, webAuthnMethodType).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 }

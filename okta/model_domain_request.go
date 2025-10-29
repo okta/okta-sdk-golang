@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -35,7 +35,7 @@ var _ MappedNullable = &DomainRequest{}
 type DomainRequest struct {
 	// Certificate source type that indicates whether the certificate is provided by the user or Okta.
 	CertificateSourceType string `json:"certificateSourceType"`
-	// Custom domain name
+	// Custom domain name  > **Note:** You can't use the reserved `drapp.{yourOrgSubDomain}.okta.com` domain.
 	Domain               string `json:"domain"`
 	AdditionalProperties map[string]interface{}
 }

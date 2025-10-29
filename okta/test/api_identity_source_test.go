@@ -124,4 +124,60 @@ func Test_okta_IdentitySourceAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test IdentitySourceAPIService UploadIdentitySourceGroupMembershipsForDelete", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var identitySourceId string
+		var sessionId string
+
+		httpRes, err := apiClient.IdentitySourceAPI.UploadIdentitySourceGroupMembershipsForDelete(context.Background(), identitySourceId, sessionId).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test IdentitySourceAPIService UploadIdentitySourceGroupMembershipsForUpsert", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var identitySourceId string
+		var sessionId string
+
+		httpRes, err := apiClient.IdentitySourceAPI.UploadIdentitySourceGroupMembershipsForUpsert(context.Background(), identitySourceId, sessionId).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test IdentitySourceAPIService UploadIdentitySourceGroupsDataForDelete", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var identitySourceId string
+		var sessionId string
+
+		httpRes, err := apiClient.IdentitySourceAPI.UploadIdentitySourceGroupsDataForDelete(context.Background(), identitySourceId, sessionId).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test IdentitySourceAPIService UploadIdentitySourceGroupsForUpsert", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var identitySourceId string
+		var sessionId string
+
+		httpRes, err := apiClient.IdentitySourceAPI.UploadIdentitySourceGroupsForUpsert(context.Background(), identitySourceId, sessionId).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 }

@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -33,7 +33,7 @@ var _ MappedNullable = &AuthenticatorEnrollmentLinks{}
 // AuthenticatorEnrollmentLinks struct for AuthenticatorEnrollmentLinks
 type AuthenticatorEnrollmentLinks struct {
 	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	// Returns information on the specified user
+	// Returns information about the specified user
 	User *HrefObject `json:"user,omitempty"`
 	// Returns information about a specific authenticator. See [Retrieve an authenticator](/openapi/okta-management/management/tag/Authenticator/#tag/Authenticator/operation/getAuthenticator).
 	Authenticator        *HrefObject `json:"authenticator,omitempty"`

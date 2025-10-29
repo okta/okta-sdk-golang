@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -47,7 +47,7 @@ type RoleAssignmentClientAPI interface {
 		> * For IAM-based standard role assignments, use the request payload for standard roles. However, the response payload for IAM-based role assignments is similar to the custom role's assignment response.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param clientId Client app ID
+			@param clientId `client_id` of the app
 			@return ApiAssignRoleToClientRequest
 	*/
 	AssignRoleToClient(ctx context.Context, clientId string) ApiAssignRoleToClientRequest
@@ -62,7 +62,7 @@ type RoleAssignmentClientAPI interface {
 		Unassigns a role assignment (identified by `roleAssignmentId`) from a client app (identified by `clientId`)
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param clientId Client app ID
+		@param clientId `client_id` of the app
 		@param roleAssignmentId The `id` of the role assignment
 		@return ApiDeleteRoleFromClientRequest
 	*/
@@ -77,7 +77,7 @@ type RoleAssignmentClientAPI interface {
 		Lists all roles assigned to a client app identified by `clientId`
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param clientId Client app ID
+		@param clientId `client_id` of the app
 		@return ApiListRolesForClientRequest
 	*/
 	ListRolesForClient(ctx context.Context, clientId string) ApiListRolesForClientRequest
@@ -92,7 +92,7 @@ type RoleAssignmentClientAPI interface {
 		Retrieves a role assignment (identified by `roleAssignmentId`) for a client app (identified by `clientId`)
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param clientId Client app ID
+		@param clientId `client_id` of the app
 		@param roleAssignmentId The `id` of the role assignment
 		@return ApiRetrieveClientRoleRequest
 	*/
@@ -135,7 +135,7 @@ You can also assign a custom role to a client app, but the preferred method to a
 > * For IAM-based standard role assignments, use the request payload for standard roles. However, the response payload for IAM-based role assignments is similar to the custom role's assignment response.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId Client app ID
+	@param clientId `client_id` of the app
 	@return ApiAssignRoleToClientRequest
 */
 func (a *RoleAssignmentClientAPIService) AssignRoleToClient(ctx context.Context, clientId string) ApiAssignRoleToClientRequest {
@@ -307,7 +307,7 @@ DeleteRoleFromClient Unassign a client role
 Unassigns a role assignment (identified by `roleAssignmentId`) from a client app (identified by `clientId`)
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId Client app ID
+	@param clientId `client_id` of the app
 	@param roleAssignmentId The `id` of the role assignment
 	@return ApiDeleteRoleFromClientRequest
 */
@@ -463,7 +463,7 @@ ListRolesForClient List all client role assignments
 Lists all roles assigned to a client app identified by `clientId`
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId Client app ID
+	@param clientId `client_id` of the app
 	@return ApiListRolesForClientRequest
 */
 func (a *RoleAssignmentClientAPIService) ListRolesForClient(ctx context.Context, clientId string) ApiListRolesForClientRequest {
@@ -630,7 +630,7 @@ RetrieveClientRole Retrieve a client role
 Retrieves a role assignment (identified by `roleAssignmentId`) for a client app (identified by `clientId`)
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId Client app ID
+	@param clientId `client_id` of the app
 	@param roleAssignmentId The `id` of the role assignment
 	@return ApiRetrieveClientRoleRequest
 */

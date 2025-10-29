@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -30,7 +30,7 @@ import (
 // checks if the IDVCredentials type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &IDVCredentials{}
 
-// IDVCredentials Credentials for verifying requests to the IDV
+// IDVCredentials Credentials for verifying requests to the IDV vendor
 type IDVCredentials struct {
 	Bearer               *IDVCredentialsBearer `json:"bearer,omitempty"`
 	Client               *IDVCredentialsClient `json:"client,omitempty"`

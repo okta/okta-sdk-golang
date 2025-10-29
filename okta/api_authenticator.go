@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -312,6 +312,21 @@ type AuthenticatorAPI interface {
 	// UpdateCustomAAGUIDExecute executes the request
 	//  @return CustomAAGUIDResponseObject
 	UpdateCustomAAGUIDExecute(r ApiUpdateCustomAAGUIDRequest) (*CustomAAGUIDResponseObject, *APIResponse, error)
+
+	/*
+		VerifyRpIdDomain Verify a Relying Party ID domain
+
+		Verifies the [Relying Party identifier (RP ID)](https://www.w3.org/TR/webauthn/#relying-party-identifier) domain for the specified WebAuthn authenticator and the specific `webauthn` authenticator method
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authenticatorId `id` of the authenticator
+		@param webAuthnMethodType Type of authenticator method
+		@return ApiVerifyRpIdDomainRequest
+	*/
+	VerifyRpIdDomain(ctx context.Context, authenticatorId string, webAuthnMethodType string) ApiVerifyRpIdDomainRequest
+
+	// VerifyRpIdDomainExecute executes the request
+	VerifyRpIdDomainExecute(r ApiVerifyRpIdDomainRequest) (*APIResponse, error)
 }
 
 // AuthenticatorAPIService AuthenticatorAPI service
@@ -3375,4 +3390,173 @@ func (a *AuthenticatorAPIService) UpdateCustomAAGUIDExecute(r ApiUpdateCustomAAG
 
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
+}
+
+type ApiVerifyRpIdDomainRequest struct {
+	ctx                context.Context
+	ApiService         AuthenticatorAPI
+	authenticatorId    string
+	webAuthnMethodType string
+	retryCount         int32
+}
+
+func (r ApiVerifyRpIdDomainRequest) Execute() (*APIResponse, error) {
+	return r.ApiService.VerifyRpIdDomainExecute(r)
+}
+
+/*
+VerifyRpIdDomain Verify a Relying Party ID domain
+
+Verifies the [Relying Party identifier (RP ID)](https://www.w3.org/TR/webauthn/#relying-party-identifier) domain for the specified WebAuthn authenticator and the specific `webauthn` authenticator method
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authenticatorId `id` of the authenticator
+	@param webAuthnMethodType Type of authenticator method
+	@return ApiVerifyRpIdDomainRequest
+*/
+func (a *AuthenticatorAPIService) VerifyRpIdDomain(ctx context.Context, authenticatorId string, webAuthnMethodType string) ApiVerifyRpIdDomainRequest {
+	return ApiVerifyRpIdDomainRequest{
+		ApiService:         a,
+		ctx:                ctx,
+		authenticatorId:    authenticatorId,
+		webAuthnMethodType: webAuthnMethodType,
+		retryCount:         0,
+	}
+}
+
+// Execute executes the request
+func (a *AuthenticatorAPIService) VerifyRpIdDomainExecute(r ApiVerifyRpIdDomainRequest) (*APIResponse, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarHTTPResponse *http.Response
+		localAPIResponse     *APIResponse
+		err                  error
+	)
+
+	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
+		localctx, cancel := context.WithTimeout(r.ctx, time.Second*time.Duration(a.client.cfg.Okta.Client.RequestTimeout))
+		r.ctx = localctx
+		defer cancel()
+	}
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthenticatorAPIService.VerifyRpIdDomain")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/authenticators/{authenticatorId}/methods/{webAuthnMethodType}/verify-rp-id-domain"
+	localVarPath = strings.Replace(localVarPath, "{"+"authenticatorId"+"}", url.PathEscape(parameterToString(r.authenticatorId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"webAuthnMethodType"+"}", url.PathEscape(parameterToString(r.webAuthnMethodType, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["apiToken"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			return localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			return localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			return localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, newErr
+	}
+
+	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+	return localAPIResponse, nil
 }

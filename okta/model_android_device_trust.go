@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -30,7 +30,7 @@ import (
 // checks if the AndroidDeviceTrust type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AndroidDeviceTrust{}
 
-// AndroidDeviceTrust <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Android Device Trust integration provider
+// AndroidDeviceTrust Android Device Trust integration provider
 type AndroidDeviceTrust struct {
 	// Indicates how well a device can enforce app integrity
 	DeviceIntegrityLevel *string `json:"deviceIntegrityLevel,omitempty"`

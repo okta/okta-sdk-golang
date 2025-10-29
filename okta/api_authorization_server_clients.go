@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -42,7 +42,7 @@ type AuthorizationServerClientsAPI interface {
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param authServerId `id` of the Authorization Server
-		@param clientId Client app ID
+		@param clientId `client_id` of the app
 		@param tokenId `id` of Token
 		@return ApiGetRefreshTokenForAuthorizationServerAndClientRequest
 	*/
@@ -76,7 +76,7 @@ type AuthorizationServerClientsAPI interface {
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param authServerId `id` of the Authorization Server
-		@param clientId Client app ID
+		@param clientId `client_id` of the app
 		@return ApiListRefreshTokensForAuthorizationServerAndClientRequest
 	*/
 	ListRefreshTokensForAuthorizationServerAndClient(ctx context.Context, authServerId string, clientId string) ApiListRefreshTokensForAuthorizationServerAndClientRequest
@@ -92,7 +92,7 @@ type AuthorizationServerClientsAPI interface {
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param authServerId `id` of the Authorization Server
-		@param clientId Client app ID
+		@param clientId `client_id` of the app
 		@param tokenId `id` of Token
 		@return ApiRevokeRefreshTokenForAuthorizationServerAndClientRequest
 	*/
@@ -108,7 +108,7 @@ type AuthorizationServerClientsAPI interface {
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param authServerId `id` of the Authorization Server
-		@param clientId Client app ID
+		@param clientId `client_id` of the app
 		@return ApiRevokeRefreshTokensForAuthorizationServerAndClientRequest
 	*/
 	RevokeRefreshTokensForAuthorizationServerAndClient(ctx context.Context, authServerId string, clientId string) ApiRevokeRefreshTokensForAuthorizationServerAndClientRequest
@@ -147,7 +147,7 @@ Retrieves a refresh token for a Client
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param authServerId `id` of the Authorization Server
-	@param clientId Client app ID
+	@param clientId `client_id` of the app
 	@param tokenId `id` of Token
 	@return ApiGetRefreshTokenForAuthorizationServerAndClientRequest
 */
@@ -512,7 +512,7 @@ Lists all refresh tokens issued by an authorization server for a specific Client
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param authServerId `id` of the Authorization Server
-	@param clientId Client app ID
+	@param clientId `client_id` of the app
 	@return ApiListRefreshTokensForAuthorizationServerAndClientRequest
 */
 func (a *AuthorizationServerClientsAPIService) ListRefreshTokensForAuthorizationServerAndClient(ctx context.Context, authServerId string, clientId string) ApiListRefreshTokensForAuthorizationServerAndClientRequest {
@@ -692,7 +692,7 @@ Revokes a refresh token for a Client
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param authServerId `id` of the Authorization Server
-	@param clientId Client app ID
+	@param clientId `client_id` of the app
 	@param tokenId `id` of Token
 	@return ApiRevokeRefreshTokenForAuthorizationServerAndClientRequest
 */
@@ -852,7 +852,7 @@ Revokes all refresh tokens for a Client
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param authServerId `id` of the Authorization Server
-	@param clientId Client app ID
+	@param clientId `client_id` of the app
 	@return ApiRevokeRefreshTokensForAuthorizationServerAndClientRequest
 */
 func (a *AuthorizationServerClientsAPIService) RevokeRefreshTokensForAuthorizationServerAndClient(ctx context.Context, authServerId string, clientId string) ApiRevokeRefreshTokensForAuthorizationServerAndClientRequest {

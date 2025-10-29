@@ -41,7 +41,7 @@ import (
 
 func main() {
 	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	keyId := "apk2f4zrZbs8nUa7p0g4" // string | Unique `id` of the Custom Authorization Server JSON Web Key
+	keyId := "pks2f4zrZbs8nUa7p0g4" // string | Unique `id` of the OAuth 2.0 Client JSON Web Key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **appId** | **string** | Application ID | 
-**keyId** | **string** | Unique &#x60;id&#x60; of the Custom Authorization Server JSON Web Key | 
+**keyId** | **string** | Unique &#x60;id&#x60; of the OAuth 2.0 Client JSON Web Key | 
 
 ### Other Parameters
 
@@ -331,7 +331,7 @@ import (
 
 func main() {
 	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	keyId := "apk2f4zrZbs8nUa7p0g4" // string | Unique `id` of the Custom Authorization Server JSON Web Key
+	keyId := "pks2f4zrZbs8nUa7p0g4" // string | Unique `id` of the OAuth 2.0 Client JSON Web Key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -352,7 +352,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **appId** | **string** | Application ID | 
-**keyId** | **string** | Unique &#x60;id&#x60; of the Custom Authorization Server JSON Web Key | 
+**keyId** | **string** | Unique &#x60;id&#x60; of the OAuth 2.0 Client JSON Web Key | 
 
 ### Other Parameters
 
@@ -548,7 +548,7 @@ import (
 
 func main() {
 	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	keyId := "apk2f4zrZbs8nUa7p0g4" // string | Unique `id` of the Custom Authorization Server JSON Web Key
+	keyId := "pks2f4zrZbs8nUa7p0g4" // string | Unique `id` of the OAuth 2.0 Client JSON Web Key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -567,7 +567,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **appId** | **string** | Application ID | 
-**keyId** | **string** | Unique &#x60;id&#x60; of the Custom Authorization Server JSON Web Key | 
+**keyId** | **string** | Unique &#x60;id&#x60; of the OAuth 2.0 Client JSON Web Key | 
 
 ### Other Parameters
 
@@ -619,7 +619,7 @@ import (
 
 func main() {
 	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	keyId := "apk2f4zrZbs8nUa7p0g4" // string | Unique `id` of the Custom Authorization Server JSON Web Key
+	keyId := "pks2f4zrZbs8nUa7p0g4" // string | Unique `id` of the OAuth 2.0 Client JSON Web Key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -640,7 +640,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **appId** | **string** | Application ID | 
-**keyId** | **string** | Unique &#x60;id&#x60; of the Custom Authorization Server JSON Web Key | 
+**keyId** | **string** | Unique &#x60;id&#x60; of the OAuth 2.0 Client JSON Web Key | 
 
 ### Other Parameters
 

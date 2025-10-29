@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -30,7 +30,7 @@ import (
 // checks if the EnrollmentPolicyAuthenticatorGracePeriod type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &EnrollmentPolicyAuthenticatorGracePeriod{}
 
-// EnrollmentPolicyAuthenticatorGracePeriod <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Specifies the time period required to complete an authenticator enrollment or setup
+// EnrollmentPolicyAuthenticatorGracePeriod <x-lifecycle-container><x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>Specifies the time period required to complete an authenticator enrollment or setup
 type EnrollmentPolicyAuthenticatorGracePeriod struct {
 	// Grace period type
 	Type                 *string `json:"type,omitempty"`

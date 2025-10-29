@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -43,7 +43,7 @@ type GroupRule struct {
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	// Name of the group rule
 	Name *string `json:"name,omitempty"`
-	// Status of group rule
+	// Status of group rule. You can't update the status of a rule from `INACTIVE` to `ACTIVE`. You must use the activate and deactivate lifecycle operations.
 	Status *string `json:"status,omitempty"`
 	// Type to indicate a group rule operation. Only `group_rule` is allowed.
 	Type                 *string `json:"type,omitempty"`

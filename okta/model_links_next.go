@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -32,7 +32,7 @@ var _ MappedNullable = &LinksNext{}
 
 // LinksNext Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available for the current status of an application using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification. Use the `LinksNext` object for dynamic discovery of related resources and lifecycle operations.
 type LinksNext struct {
-	Next                 *HrefObject `json:"next,omitempty"`
+	Next                 *HrefObjectNextLink `json:"next,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,9 +56,9 @@ func NewLinksNextWithDefaults() *LinksNext {
 }
 
 // GetNext returns the Next field value if set, zero value otherwise.
-func (o *LinksNext) GetNext() HrefObject {
+func (o *LinksNext) GetNext() HrefObjectNextLink {
 	if o == nil || IsNil(o.Next) {
-		var ret HrefObject
+		var ret HrefObjectNextLink
 		return ret
 	}
 	return *o.Next
@@ -66,7 +66,7 @@ func (o *LinksNext) GetNext() HrefObject {
 
 // GetNextOk returns a tuple with the Next field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LinksNext) GetNextOk() (*HrefObject, bool) {
+func (o *LinksNext) GetNextOk() (*HrefObjectNextLink, bool) {
 	if o == nil || IsNil(o.Next) {
 		return nil, false
 	}
@@ -82,8 +82,8 @@ func (o *LinksNext) HasNext() bool {
 	return false
 }
 
-// SetNext gets a reference to the given HrefObject and assigns it to the Next field.
-func (o *LinksNext) SetNext(v HrefObject) {
+// SetNext gets a reference to the given HrefObjectNextLink and assigns it to the Next field.
+func (o *LinksNext) SetNext(v HrefObjectNextLink) {
 	o.Next = &v
 }
 

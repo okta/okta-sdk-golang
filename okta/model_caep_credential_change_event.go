@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -47,7 +47,7 @@ type CaepCredentialChangeEvent struct {
 	InitiatingEntity     *string                               `json:"initiating_entity,omitempty"`
 	ReasonAdmin          *CaepCredentialChangeEventReasonAdmin `json:"reason_admin,omitempty"`
 	ReasonUser           *CaepCredentialChangeEventReasonUser  `json:"reason_user,omitempty"`
-	Subject              *SecurityEventSubject                 `json:"subject,omitempty"`
+	Subject              *SsfTransmitterSecurityEventSubject   `json:"subject,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -313,9 +313,9 @@ func (o *CaepCredentialChangeEvent) SetReasonUser(v CaepCredentialChangeEventRea
 }
 
 // GetSubject returns the Subject field value if set, zero value otherwise.
-func (o *CaepCredentialChangeEvent) GetSubject() SecurityEventSubject {
+func (o *CaepCredentialChangeEvent) GetSubject() SsfTransmitterSecurityEventSubject {
 	if o == nil || IsNil(o.Subject) {
-		var ret SecurityEventSubject
+		var ret SsfTransmitterSecurityEventSubject
 		return ret
 	}
 	return *o.Subject
@@ -323,7 +323,7 @@ func (o *CaepCredentialChangeEvent) GetSubject() SecurityEventSubject {
 
 // GetSubjectOk returns a tuple with the Subject field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CaepCredentialChangeEvent) GetSubjectOk() (*SecurityEventSubject, bool) {
+func (o *CaepCredentialChangeEvent) GetSubjectOk() (*SsfTransmitterSecurityEventSubject, bool) {
 	if o == nil || IsNil(o.Subject) {
 		return nil, false
 	}
@@ -339,8 +339,8 @@ func (o *CaepCredentialChangeEvent) HasSubject() bool {
 	return false
 }
 
-// SetSubject gets a reference to the given SecurityEventSubject and assigns it to the Subject field.
-func (o *CaepCredentialChangeEvent) SetSubject(v SecurityEventSubject) {
+// SetSubject gets a reference to the given SsfTransmitterSecurityEventSubject and assigns it to the Subject field.
+func (o *CaepCredentialChangeEvent) SetSubject(v SsfTransmitterSecurityEventSubject) {
 	o.Subject = &v
 }
 

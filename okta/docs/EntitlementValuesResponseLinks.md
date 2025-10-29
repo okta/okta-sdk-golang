@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Self** | Pointer to [**HrefObjectSelfLink**](HrefObjectSelfLink.md) |  | [optional] 
-**Next** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**Next** | Pointer to [**HrefObjectNextLink**](HrefObjectNextLink.md) |  | [optional] 
 **Bundle** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
 **Entitlements** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
 
@@ -55,20 +55,20 @@ HasSelf returns a boolean if a field has been set.
 
 ### GetNext
 
-`func (o *EntitlementValuesResponseLinks) GetNext() HrefObject`
+`func (o *EntitlementValuesResponseLinks) GetNext() HrefObjectNextLink`
 
 GetNext returns the Next field if non-nil, zero value otherwise.
 
 ### GetNextOk
 
-`func (o *EntitlementValuesResponseLinks) GetNextOk() (*HrefObject, bool)`
+`func (o *EntitlementValuesResponseLinks) GetNextOk() (*HrefObjectNextLink, bool)`
 
 GetNextOk returns a tuple with the Next field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNext
 
-`func (o *EntitlementValuesResponseLinks) SetNext(v HrefObject)`
+`func (o *EntitlementValuesResponseLinks) SetNext(v HrefObjectNextLink)`
 
 SetNext sets Next field to given value.
 

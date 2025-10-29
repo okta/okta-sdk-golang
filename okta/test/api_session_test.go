@@ -24,41 +24,6 @@ func Test_okta_SessionAPIService(t *testing.T) {
 	require.Nil(t, err)
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test SessionAPIService CloseCurrentSession", func(t *testing.T) {
-
-		t.Skip("skip test") // remove to run test
-
-		httpRes, err := apiClient.SessionAPI.CloseCurrentSession(context.Background()).Execute()
-
-		require.Nil(t, err)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test SessionAPIService CreateSession", func(t *testing.T) {
-
-		t.Skip("skip test") // remove to run test
-
-		resp, httpRes, err := apiClient.SessionAPI.CreateSession(context.Background()).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test SessionAPIService GetCurrentSession", func(t *testing.T) {
-
-		t.Skip("skip test") // remove to run test
-
-		resp, httpRes, err := apiClient.SessionAPI.GetCurrentSession(context.Background()).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
 	t.Run("Test SessionAPIService GetSession", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
@@ -66,18 +31,6 @@ func Test_okta_SessionAPIService(t *testing.T) {
 		var sessionId string
 
 		resp, httpRes, err := apiClient.SessionAPI.GetSession(context.Background(), sessionId).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test SessionAPIService RefreshCurrentSession", func(t *testing.T) {
-
-		t.Skip("skip test") // remove to run test
-
-		resp, httpRes, err := apiClient.SessionAPI.RefreshCurrentSession(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -852,7 +852,21 @@ type ApiListResourceSetResourcesRequest struct {
 	ctx                  context.Context
 	ApiService           RoleCResourceSetResourceAPI
 	resourceSetIdOrLabel string
+	after                *string
+	limit                *int32
 	retryCount           int32
+}
+
+// Specifies the pagination cursor for the next page of targets
+func (r ApiListResourceSetResourcesRequest) After(after string) ApiListResourceSetResourcesRequest {
+	r.after = &after
+	return r
+}
+
+// Specifies the number of results returned. Defaults to &#x60;100&#x60;.
+func (r ApiListResourceSetResourcesRequest) Limit(limit int32) ApiListResourceSetResourcesRequest {
+	r.limit = &limit
+	return r
 }
 
 func (r ApiListResourceSetResourcesRequest) Execute() (*ResourceSetResources, *APIResponse, error) {
@@ -908,6 +922,12 @@ func (a *RoleCResourceSetResourceAPIService) ListResourceSetResourcesExecute(r A
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.after != nil {
+		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
+	}
+	if r.limit != nil {
+		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

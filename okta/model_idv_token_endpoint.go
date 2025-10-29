@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -30,10 +30,10 @@ import (
 // checks if the IDVTokenEndpoint type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &IDVTokenEndpoint{}
 
-// IDVTokenEndpoint IDV token endpoint
+// IDVTokenEndpoint Token endpoint of the IDV vendor
 type IDVTokenEndpoint struct {
 	Binding *string `json:"binding,omitempty"`
-	// URL of the IDV `token` endpoint
+	// URL of the `token` endpoint of the IDV vendor
 	Url                  *string `json:"url,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

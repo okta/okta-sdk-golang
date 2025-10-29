@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -42,7 +42,7 @@ type UserOAuthAPI interface {
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param userId ID of an existing Okta user
-		@param clientId Client app ID
+		@param clientId `client_id` of the app
 		@param tokenId `id` of Token
 		@return ApiGetRefreshTokenForUserAndClientRequest
 	*/
@@ -59,7 +59,7 @@ type UserOAuthAPI interface {
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param userId ID of an existing Okta user
-		@param clientId Client app ID
+		@param clientId `client_id` of the app
 		@return ApiListRefreshTokensForUserAndClientRequest
 	*/
 	ListRefreshTokensForUserAndClient(ctx context.Context, userId string, clientId string) ApiListRefreshTokensForUserAndClientRequest
@@ -75,7 +75,7 @@ type UserOAuthAPI interface {
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param userId ID of an existing Okta user
-		@param clientId Client app ID
+		@param clientId `client_id` of the app
 		@param tokenId `id` of Token
 		@return ApiRevokeTokenForUserAndClientRequest
 	*/
@@ -91,7 +91,7 @@ type UserOAuthAPI interface {
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param userId ID of an existing Okta user
-		@param clientId Client app ID
+		@param clientId `client_id` of the app
 		@return ApiRevokeTokensForUserAndClientRequest
 	*/
 	RevokeTokensForUserAndClient(ctx context.Context, userId string, clientId string) ApiRevokeTokensForUserAndClientRequest
@@ -130,7 +130,7 @@ Retrieves a refresh token issued for the specified user and client
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId ID of an existing Okta user
-	@param clientId Client app ID
+	@param clientId `client_id` of the app
 	@param tokenId `id` of Token
 	@return ApiGetRefreshTokenForUserAndClientRequest
 */
@@ -327,7 +327,7 @@ Lists all refresh tokens issued for the specified user and client
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId ID of an existing Okta user
-	@param clientId Client app ID
+	@param clientId `client_id` of the app
 	@return ApiListRefreshTokensForUserAndClientRequest
 */
 func (a *UserOAuthAPIService) ListRefreshTokensForUserAndClient(ctx context.Context, userId string, clientId string) ApiListRefreshTokensForUserAndClientRequest {
@@ -507,7 +507,7 @@ Revokes the specified refresh and access tokens
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId ID of an existing Okta user
-	@param clientId Client app ID
+	@param clientId `client_id` of the app
 	@param tokenId `id` of Token
 	@return ApiRevokeTokenForUserAndClientRequest
 */
@@ -667,7 +667,7 @@ Revokes all refresh tokens issued for the specified user and client
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId ID of an existing Okta user
-	@param clientId Client app ID
+	@param clientId `client_id` of the app
 	@return ApiRevokeTokensForUserAndClientRequest
 */
 func (a *UserOAuthAPIService) RevokeTokensForUserAndClient(ctx context.Context, userId string, clientId string) ApiRevokeTokensForUserAndClientRequest {

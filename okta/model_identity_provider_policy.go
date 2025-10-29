@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -30,7 +30,7 @@ import (
 // checks if the IdentityProviderPolicy type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &IdentityProviderPolicy{}
 
-// IdentityProviderPolicy Policy settings for the IdP. The following provisioning and account linking actions are supported by each IdP provider: | IdP type                                                          | User provisioning actions | Group provisioning actions            | Account link actions | Account link filters | | ----------------------------------------------------------------- | ------------------------- | ------------------------------------- | -------------------- | -------------------- | | `SAML2`                                                           | `AUTO` or `DISABLED`      | `NONE`, `ASSIGN`, `APPEND`, or `SYNC` | `AUTO`, `DISABLED`   | `groups`, `users`    | | `X509`, `IDV_PERSONA`, `IDV_INCODE`, and `IDV_CLEAR`              | `DISABLED`                | No support for JIT provisioning       |                      |                      | | All other IdP types                                               | `AUTO`, `DISABLED`        | `NONE` or `ASSIGN`                    | `AUTO`, `DISABLED`   | `groups`, `users`    |
+// IdentityProviderPolicy Policy settings for the IdP. The following provisioning and account linking actions are supported by each IdP provider: | IdP type                                                           | User provisioning actions | Group provisioning actions            | Account link actions | Account link filters | | -----------------------------------------------------------------  | ------------------------- | ------------------------------------- | -------------------- | -------------------- | | `SAML2`                                                            | `AUTO` or `DISABLED`      | `NONE`, `ASSIGN`, `APPEND`, or `SYNC` | `AUTO`, `DISABLED`   | `groups`, `users`    | | `X509`, `IDV_PERSONA`, `IDV_INCODE`, `IDV_CLEAR` and `IDV_STANDARD`| `DISABLED`                | No support for JIT provisioning       |                      |                      | | All other IdP types                                                | `AUTO`, `DISABLED`        | `NONE` or `ASSIGN`                    | `AUTO`, `DISABLED`   | `groups`, `users`    |
 type IdentityProviderPolicy struct {
 	AccountLink *PolicyAccountLink `json:"accountLink,omitempty"`
 	// Maximum allowable clock skew when processing messages from the IdP

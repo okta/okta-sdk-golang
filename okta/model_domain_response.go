@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -35,8 +35,8 @@ type DomainResponse struct {
 	// The ID number of the brand
 	BrandId *string `json:"brandId,omitempty"`
 	// Certificate source type that indicates whether the certificate is provided by the user or Okta.
-	CertificateSourceType *string     `json:"certificateSourceType,omitempty"`
-	DnsRecords            []DNSRecord `json:"dnsRecords,omitempty"`
+	CertificateSourceType *string            `json:"certificateSourceType,omitempty"`
+	DnsRecords            []DNSRecordDomains `json:"dnsRecords,omitempty"`
 	// Custom domain name
 	Domain *string `json:"domain,omitempty"`
 	// Unique ID of the domain
@@ -132,9 +132,9 @@ func (o *DomainResponse) SetCertificateSourceType(v string) {
 }
 
 // GetDnsRecords returns the DnsRecords field value if set, zero value otherwise.
-func (o *DomainResponse) GetDnsRecords() []DNSRecord {
+func (o *DomainResponse) GetDnsRecords() []DNSRecordDomains {
 	if o == nil || IsNil(o.DnsRecords) {
-		var ret []DNSRecord
+		var ret []DNSRecordDomains
 		return ret
 	}
 	return o.DnsRecords
@@ -142,7 +142,7 @@ func (o *DomainResponse) GetDnsRecords() []DNSRecord {
 
 // GetDnsRecordsOk returns a tuple with the DnsRecords field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DomainResponse) GetDnsRecordsOk() ([]DNSRecord, bool) {
+func (o *DomainResponse) GetDnsRecordsOk() ([]DNSRecordDomains, bool) {
 	if o == nil || IsNil(o.DnsRecords) {
 		return nil, false
 	}
@@ -158,8 +158,8 @@ func (o *DomainResponse) HasDnsRecords() bool {
 	return false
 }
 
-// SetDnsRecords gets a reference to the given []DNSRecord and assigns it to the DnsRecords field.
-func (o *DomainResponse) SetDnsRecords(v []DNSRecord) {
+// SetDnsRecords gets a reference to the given []DNSRecordDomains and assigns it to the DnsRecords field.
+func (o *DomainResponse) SetDnsRecords(v []DNSRecordDomains) {
 	o.DnsRecords = v
 }
 

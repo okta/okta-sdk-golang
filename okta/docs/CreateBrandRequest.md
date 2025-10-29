@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | The name of the Brand | 
+**Name** | **string** | The name of the brand  &gt; **Note:** You can&#39;t use the reserved &#x60;DRAPP_DOMAIN_BRAND&#x60; name. | 
 
 ## Methods
 

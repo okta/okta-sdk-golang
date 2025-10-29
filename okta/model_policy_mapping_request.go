@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -32,9 +32,9 @@ var _ MappedNullable = &PolicyMappingRequest{}
 
 // PolicyMappingRequest struct for PolicyMappingRequest
 type PolicyMappingRequest struct {
-	// Unique identifier of the resource to map
+	// [Policy ID](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Policy/#tag/Policy/operation/listPolicies!c=200&path=0/id&t=response) of the app sign-in policy that you want to map
 	ResourceId *string `json:"resourceId,omitempty"`
-	// Specifies the type of resource to map. You can either map an app onto a policy, or map a device signal collection policy onto an authentication policy.
+	// Specifies the type of resource to map. You can only map an app sign-in policy to a device signal collection policy (the `policyId` path parameter).
 	ResourceType         *string `json:"resourceType,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

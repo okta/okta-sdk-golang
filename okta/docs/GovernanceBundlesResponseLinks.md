@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Self** | Pointer to [**HrefObjectSelfLink**](HrefObjectSelfLink.md) |  | [optional] 
-**Next** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**Next** | Pointer to [**HrefObjectNextLink**](HrefObjectNextLink.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasSelf returns a boolean if a field has been set.
 
 ### GetNext
 
-`func (o *GovernanceBundlesResponseLinks) GetNext() HrefObject`
+`func (o *GovernanceBundlesResponseLinks) GetNext() HrefObjectNextLink`
 
 GetNext returns the Next field if non-nil, zero value otherwise.
 
 ### GetNextOk
 
-`func (o *GovernanceBundlesResponseLinks) GetNextOk() (*HrefObject, bool)`
+`func (o *GovernanceBundlesResponseLinks) GetNextOk() (*HrefObjectNextLink, bool)`
 
 GetNextOk returns a tuple with the Next field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNext
 
-`func (o *GovernanceBundlesResponseLinks) SetNext(v HrefObject)`
+`func (o *GovernanceBundlesResponseLinks) SetNext(v HrefObjectNextLink)`
 
 SetNext sets Next field to given value.
 

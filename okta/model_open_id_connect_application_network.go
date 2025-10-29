@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -31,7 +31,7 @@ import (
 // checks if the OpenIdConnectApplicationNetwork type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &OpenIdConnectApplicationNetwork{}
 
-// OpenIdConnectApplicationNetwork <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>The network restrictions of the client
+// OpenIdConnectApplicationNetwork The network restrictions of the client
 type OpenIdConnectApplicationNetwork struct {
 	// The connection type of the network. Can be `ANYWHERE` or `ZONE`.
 	Connection string `json:"connection"`

@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -141,6 +141,66 @@ type IdentitySourceAPI interface {
 
 	// UploadIdentitySourceDataForUpsertExecute executes the request
 	UploadIdentitySourceDataForUpsertExecute(r ApiUploadIdentitySourceDataForUpsertRequest) (*APIResponse, error)
+
+	/*
+		UploadIdentitySourceGroupMembershipsForDelete Upload the group memberships to be deleted in Okta
+
+		Uploads the group memberships that need to be deleted in Okta from the identity source for the given session
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param identitySourceId The ID of the identity source for which the session is created
+		@param sessionId The ID of the identity source session
+		@return ApiUploadIdentitySourceGroupMembershipsForDeleteRequest
+	*/
+	UploadIdentitySourceGroupMembershipsForDelete(ctx context.Context, identitySourceId string, sessionId string) ApiUploadIdentitySourceGroupMembershipsForDeleteRequest
+
+	// UploadIdentitySourceGroupMembershipsForDeleteExecute executes the request
+	UploadIdentitySourceGroupMembershipsForDeleteExecute(r ApiUploadIdentitySourceGroupMembershipsForDeleteRequest) (*APIResponse, error)
+
+	/*
+		UploadIdentitySourceGroupMembershipsForUpsert Upload the group memberships to be upserted in Okta
+
+		Uploads the group memberships that need to be inserted or updated in Okta from the identity source for the given session
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param identitySourceId The ID of the identity source for which the session is created
+		@param sessionId The ID of the identity source session
+		@return ApiUploadIdentitySourceGroupMembershipsForUpsertRequest
+	*/
+	UploadIdentitySourceGroupMembershipsForUpsert(ctx context.Context, identitySourceId string, sessionId string) ApiUploadIdentitySourceGroupMembershipsForUpsertRequest
+
+	// UploadIdentitySourceGroupMembershipsForUpsertExecute executes the request
+	UploadIdentitySourceGroupMembershipsForUpsertExecute(r ApiUploadIdentitySourceGroupMembershipsForUpsertRequest) (*APIResponse, error)
+
+	/*
+		UploadIdentitySourceGroupsDataForDelete Upload the group external IDs to be deleted in Okta
+
+		Uploads external IDs of groups that need to be deleted in Okta from the identity source for the given session
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param identitySourceId The ID of the identity source for which the session is created
+		@param sessionId The ID of the identity source session
+		@return ApiUploadIdentitySourceGroupsDataForDeleteRequest
+	*/
+	UploadIdentitySourceGroupsDataForDelete(ctx context.Context, identitySourceId string, sessionId string) ApiUploadIdentitySourceGroupsDataForDeleteRequest
+
+	// UploadIdentitySourceGroupsDataForDeleteExecute executes the request
+	UploadIdentitySourceGroupsDataForDeleteExecute(r ApiUploadIdentitySourceGroupsDataForDeleteRequest) (*APIResponse, error)
+
+	/*
+		UploadIdentitySourceGroupsForUpsert Upload the group profiles without memberships to be upserted in Okta
+
+		Uploads the group profiles without memberships that need to be inserted or updated in Okta from the identity source for the given session
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param identitySourceId The ID of the identity source for which the session is created
+		@param sessionId The ID of the identity source session
+		@return ApiUploadIdentitySourceGroupsForUpsertRequest
+	*/
+	UploadIdentitySourceGroupsForUpsert(ctx context.Context, identitySourceId string, sessionId string) ApiUploadIdentitySourceGroupsForUpsertRequest
+
+	// UploadIdentitySourceGroupsForUpsertExecute executes the request
+	UploadIdentitySourceGroupsForUpsertExecute(r ApiUploadIdentitySourceGroupsForUpsertRequest) (*APIResponse, error)
 }
 
 // IdentitySourceAPIService IdentitySourceAPI service
@@ -1238,6 +1298,714 @@ func (a *IdentitySourceAPIService) UploadIdentitySourceDataForUpsertExecute(r Ap
 	}
 	// body params
 	localVarPostBody = r.bulkUpsertRequestBody
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["apiToken"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			return localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			return localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			return localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, newErr
+	}
+
+	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+	return localAPIResponse, nil
+}
+
+type ApiUploadIdentitySourceGroupMembershipsForDeleteRequest struct {
+	ctx                                   context.Context
+	ApiService                            IdentitySourceAPI
+	identitySourceId                      string
+	sessionId                             string
+	bulkGroupMembershipsDeleteRequestBody *BulkGroupMembershipsDeleteRequestBody
+	retryCount                            int32
+}
+
+func (r ApiUploadIdentitySourceGroupMembershipsForDeleteRequest) BulkGroupMembershipsDeleteRequestBody(bulkGroupMembershipsDeleteRequestBody BulkGroupMembershipsDeleteRequestBody) ApiUploadIdentitySourceGroupMembershipsForDeleteRequest {
+	r.bulkGroupMembershipsDeleteRequestBody = &bulkGroupMembershipsDeleteRequestBody
+	return r
+}
+
+func (r ApiUploadIdentitySourceGroupMembershipsForDeleteRequest) Execute() (*APIResponse, error) {
+	return r.ApiService.UploadIdentitySourceGroupMembershipsForDeleteExecute(r)
+}
+
+/*
+UploadIdentitySourceGroupMembershipsForDelete Upload the group memberships to be deleted in Okta
+
+Uploads the group memberships that need to be deleted in Okta from the identity source for the given session
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param identitySourceId The ID of the identity source for which the session is created
+	@param sessionId The ID of the identity source session
+	@return ApiUploadIdentitySourceGroupMembershipsForDeleteRequest
+*/
+func (a *IdentitySourceAPIService) UploadIdentitySourceGroupMembershipsForDelete(ctx context.Context, identitySourceId string, sessionId string) ApiUploadIdentitySourceGroupMembershipsForDeleteRequest {
+	return ApiUploadIdentitySourceGroupMembershipsForDeleteRequest{
+		ApiService:       a,
+		ctx:              ctx,
+		identitySourceId: identitySourceId,
+		sessionId:        sessionId,
+		retryCount:       0,
+	}
+}
+
+// Execute executes the request
+func (a *IdentitySourceAPIService) UploadIdentitySourceGroupMembershipsForDeleteExecute(r ApiUploadIdentitySourceGroupMembershipsForDeleteRequest) (*APIResponse, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarHTTPResponse *http.Response
+		localAPIResponse     *APIResponse
+		err                  error
+	)
+
+	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
+		localctx, cancel := context.WithTimeout(r.ctx, time.Second*time.Duration(a.client.cfg.Okta.Client.RequestTimeout))
+		r.ctx = localctx
+		defer cancel()
+	}
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentitySourceAPIService.UploadIdentitySourceGroupMembershipsForDelete")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/identity-sources/{identitySourceId}/sessions/{sessionId}/bulk-group-memberships-delete"
+	localVarPath = strings.Replace(localVarPath, "{"+"identitySourceId"+"}", url.PathEscape(parameterToString(r.identitySourceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"sessionId"+"}", url.PathEscape(parameterToString(r.sessionId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.bulkGroupMembershipsDeleteRequestBody
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["apiToken"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			return localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			return localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			return localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, newErr
+	}
+
+	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+	return localAPIResponse, nil
+}
+
+type ApiUploadIdentitySourceGroupMembershipsForUpsertRequest struct {
+	ctx                                   context.Context
+	ApiService                            IdentitySourceAPI
+	identitySourceId                      string
+	sessionId                             string
+	bulkGroupMembershipsUpsertRequestBody *BulkGroupMembershipsUpsertRequestBody
+	retryCount                            int32
+}
+
+func (r ApiUploadIdentitySourceGroupMembershipsForUpsertRequest) BulkGroupMembershipsUpsertRequestBody(bulkGroupMembershipsUpsertRequestBody BulkGroupMembershipsUpsertRequestBody) ApiUploadIdentitySourceGroupMembershipsForUpsertRequest {
+	r.bulkGroupMembershipsUpsertRequestBody = &bulkGroupMembershipsUpsertRequestBody
+	return r
+}
+
+func (r ApiUploadIdentitySourceGroupMembershipsForUpsertRequest) Execute() (*APIResponse, error) {
+	return r.ApiService.UploadIdentitySourceGroupMembershipsForUpsertExecute(r)
+}
+
+/*
+UploadIdentitySourceGroupMembershipsForUpsert Upload the group memberships to be upserted in Okta
+
+Uploads the group memberships that need to be inserted or updated in Okta from the identity source for the given session
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param identitySourceId The ID of the identity source for which the session is created
+	@param sessionId The ID of the identity source session
+	@return ApiUploadIdentitySourceGroupMembershipsForUpsertRequest
+*/
+func (a *IdentitySourceAPIService) UploadIdentitySourceGroupMembershipsForUpsert(ctx context.Context, identitySourceId string, sessionId string) ApiUploadIdentitySourceGroupMembershipsForUpsertRequest {
+	return ApiUploadIdentitySourceGroupMembershipsForUpsertRequest{
+		ApiService:       a,
+		ctx:              ctx,
+		identitySourceId: identitySourceId,
+		sessionId:        sessionId,
+		retryCount:       0,
+	}
+}
+
+// Execute executes the request
+func (a *IdentitySourceAPIService) UploadIdentitySourceGroupMembershipsForUpsertExecute(r ApiUploadIdentitySourceGroupMembershipsForUpsertRequest) (*APIResponse, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarHTTPResponse *http.Response
+		localAPIResponse     *APIResponse
+		err                  error
+	)
+
+	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
+		localctx, cancel := context.WithTimeout(r.ctx, time.Second*time.Duration(a.client.cfg.Okta.Client.RequestTimeout))
+		r.ctx = localctx
+		defer cancel()
+	}
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentitySourceAPIService.UploadIdentitySourceGroupMembershipsForUpsert")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/identity-sources/{identitySourceId}/sessions/{sessionId}/bulk-group-memberships-upsert"
+	localVarPath = strings.Replace(localVarPath, "{"+"identitySourceId"+"}", url.PathEscape(parameterToString(r.identitySourceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"sessionId"+"}", url.PathEscape(parameterToString(r.sessionId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.bulkGroupMembershipsUpsertRequestBody
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["apiToken"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			return localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			return localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			return localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, newErr
+	}
+
+	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+	return localAPIResponse, nil
+}
+
+type ApiUploadIdentitySourceGroupsDataForDeleteRequest struct {
+	ctx                        context.Context
+	ApiService                 IdentitySourceAPI
+	identitySourceId           string
+	sessionId                  string
+	bulkGroupDeleteRequestBody *BulkGroupDeleteRequestBody
+	retryCount                 int32
+}
+
+func (r ApiUploadIdentitySourceGroupsDataForDeleteRequest) BulkGroupDeleteRequestBody(bulkGroupDeleteRequestBody BulkGroupDeleteRequestBody) ApiUploadIdentitySourceGroupsDataForDeleteRequest {
+	r.bulkGroupDeleteRequestBody = &bulkGroupDeleteRequestBody
+	return r
+}
+
+func (r ApiUploadIdentitySourceGroupsDataForDeleteRequest) Execute() (*APIResponse, error) {
+	return r.ApiService.UploadIdentitySourceGroupsDataForDeleteExecute(r)
+}
+
+/*
+UploadIdentitySourceGroupsDataForDelete Upload the group external IDs to be deleted in Okta
+
+Uploads external IDs of groups that need to be deleted in Okta from the identity source for the given session
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param identitySourceId The ID of the identity source for which the session is created
+	@param sessionId The ID of the identity source session
+	@return ApiUploadIdentitySourceGroupsDataForDeleteRequest
+*/
+func (a *IdentitySourceAPIService) UploadIdentitySourceGroupsDataForDelete(ctx context.Context, identitySourceId string, sessionId string) ApiUploadIdentitySourceGroupsDataForDeleteRequest {
+	return ApiUploadIdentitySourceGroupsDataForDeleteRequest{
+		ApiService:       a,
+		ctx:              ctx,
+		identitySourceId: identitySourceId,
+		sessionId:        sessionId,
+		retryCount:       0,
+	}
+}
+
+// Execute executes the request
+func (a *IdentitySourceAPIService) UploadIdentitySourceGroupsDataForDeleteExecute(r ApiUploadIdentitySourceGroupsDataForDeleteRequest) (*APIResponse, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarHTTPResponse *http.Response
+		localAPIResponse     *APIResponse
+		err                  error
+	)
+
+	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
+		localctx, cancel := context.WithTimeout(r.ctx, time.Second*time.Duration(a.client.cfg.Okta.Client.RequestTimeout))
+		r.ctx = localctx
+		defer cancel()
+	}
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentitySourceAPIService.UploadIdentitySourceGroupsDataForDelete")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/identity-sources/{identitySourceId}/sessions/{sessionId}/bulk-groups-delete"
+	localVarPath = strings.Replace(localVarPath, "{"+"identitySourceId"+"}", url.PathEscape(parameterToString(r.identitySourceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"sessionId"+"}", url.PathEscape(parameterToString(r.sessionId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.bulkGroupDeleteRequestBody
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["apiToken"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			return localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			return localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			return localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, newErr
+	}
+
+	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+	return localAPIResponse, nil
+}
+
+type ApiUploadIdentitySourceGroupsForUpsertRequest struct {
+	ctx                        context.Context
+	ApiService                 IdentitySourceAPI
+	identitySourceId           string
+	sessionId                  string
+	bulkGroupUpsertRequestBody *BulkGroupUpsertRequestBody
+	retryCount                 int32
+}
+
+func (r ApiUploadIdentitySourceGroupsForUpsertRequest) BulkGroupUpsertRequestBody(bulkGroupUpsertRequestBody BulkGroupUpsertRequestBody) ApiUploadIdentitySourceGroupsForUpsertRequest {
+	r.bulkGroupUpsertRequestBody = &bulkGroupUpsertRequestBody
+	return r
+}
+
+func (r ApiUploadIdentitySourceGroupsForUpsertRequest) Execute() (*APIResponse, error) {
+	return r.ApiService.UploadIdentitySourceGroupsForUpsertExecute(r)
+}
+
+/*
+UploadIdentitySourceGroupsForUpsert Upload the group profiles without memberships to be upserted in Okta
+
+Uploads the group profiles without memberships that need to be inserted or updated in Okta from the identity source for the given session
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param identitySourceId The ID of the identity source for which the session is created
+	@param sessionId The ID of the identity source session
+	@return ApiUploadIdentitySourceGroupsForUpsertRequest
+*/
+func (a *IdentitySourceAPIService) UploadIdentitySourceGroupsForUpsert(ctx context.Context, identitySourceId string, sessionId string) ApiUploadIdentitySourceGroupsForUpsertRequest {
+	return ApiUploadIdentitySourceGroupsForUpsertRequest{
+		ApiService:       a,
+		ctx:              ctx,
+		identitySourceId: identitySourceId,
+		sessionId:        sessionId,
+		retryCount:       0,
+	}
+}
+
+// Execute executes the request
+func (a *IdentitySourceAPIService) UploadIdentitySourceGroupsForUpsertExecute(r ApiUploadIdentitySourceGroupsForUpsertRequest) (*APIResponse, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarHTTPResponse *http.Response
+		localAPIResponse     *APIResponse
+		err                  error
+	)
+
+	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
+		localctx, cancel := context.WithTimeout(r.ctx, time.Second*time.Duration(a.client.cfg.Okta.Client.RequestTimeout))
+		r.ctx = localctx
+		defer cancel()
+	}
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentitySourceAPIService.UploadIdentitySourceGroupsForUpsert")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/identity-sources/{identitySourceId}/sessions/{sessionId}/bulk-groups-upsert"
+	localVarPath = strings.Replace(localVarPath, "{"+"identitySourceId"+"}", url.PathEscape(parameterToString(r.identitySourceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"sessionId"+"}", url.PathEscape(parameterToString(r.sessionId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.bulkGroupUpsertRequestBody
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

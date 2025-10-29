@@ -7,7 +7,6 @@ Method | HTTP request | Description
 [**GetOrgPreferences**](OrgSettingCustomizationAPI.md#GetOrgPreferences) | **Get** /api/v1/org/preferences | Retrieve the org preferences
 [**SetOrgHideOktaUIFooter**](OrgSettingCustomizationAPI.md#SetOrgHideOktaUIFooter) | **Post** /api/v1/org/preferences/hideEndUserFooter | Set the hide dashboard footer preference
 [**SetOrgShowOktaUIFooter**](OrgSettingCustomizationAPI.md#SetOrgShowOktaUIFooter) | **Post** /api/v1/org/preferences/showEndUserFooter | Set the show dashboard footer preference
-[**UploadOrgLogo**](OrgSettingCustomizationAPI.md#UploadOrgLogo) | **Post** /api/v1/org/logo | Upload the org logo
 
 
 
@@ -187,70 +186,6 @@ Other parameters are passed through a pointer to a apiSetOrgShowOktaUIFooterRequ
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## UploadOrgLogo
-
-> UploadOrgLogo(ctx).File(file).Execute()
-
-Upload the org logo
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-	file := os.NewFile(1234, "some_file") // *os.File | The file must be in PNG, JPG, or GIF format and less than 1 MB in size. For best results use landscape orientation, a transparent background, and a minimum size of 420px by 120px to prevent upscaling.
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.OrgSettingCustomizationAPI.UploadOrgLogo(context.Background()).File(file).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingCustomizationAPI.UploadOrgLogo``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiUploadOrgLogoRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **file** | ***os.File** | The file must be in PNG, JPG, or GIF format and less than 1 MB in size. For best results use landscape orientation, a transparent background, and a minimum size of 420px by 120px to prevent upscaling. | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: multipart/form-data
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

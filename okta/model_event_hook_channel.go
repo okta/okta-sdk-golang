@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -36,7 +36,7 @@ type EventHookChannel struct {
 	Config EventHookChannelConfig `json:"config"`
 	// The channel type. Currently supports `HTTP`.
 	Type string `json:"type"`
-	// Version of the channel. Currently the only supported version is `1.0.0``.
+	// Version of the channel. Currently the only supported version is `1.0.0`.
 	Version              string `json:"version"`
 	AdditionalProperties map[string]interface{}
 }

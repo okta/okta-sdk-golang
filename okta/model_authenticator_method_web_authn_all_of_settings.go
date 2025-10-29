@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -37,7 +37,8 @@ type AuthenticatorMethodWebAuthnAllOfSettings struct {
 	// User verification setting. Possible values `DISCOURAGED` (the authenticator isn't asked to perform user verification, but may do so at its discretion), `PREFERRED` (the client uses an authenticator capable of user verification if possible), or `REQUIRED`(the client uses only an authenticator capable of user verification)
 	UserVerification *string `json:"userVerification,omitempty"`
 	// Method attachment
-	Attachment *string `json:"attachment,omitempty"`
+	Attachment *string       `json:"attachment,omitempty"`
+	RpId       *WebAuthnRpId `json:"rpId,omitempty"`
 	// <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Enables the passkeys autofill UI to display available WebAuthn discoverable credentials (\"resident key\") from the Sign-In Widget username field
 	EnableAutofillUI     *bool `json:"enableAutofillUI,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -162,6 +163,38 @@ func (o *AuthenticatorMethodWebAuthnAllOfSettings) SetAttachment(v string) {
 	o.Attachment = &v
 }
 
+// GetRpId returns the RpId field value if set, zero value otherwise.
+func (o *AuthenticatorMethodWebAuthnAllOfSettings) GetRpId() WebAuthnRpId {
+	if o == nil || IsNil(o.RpId) {
+		var ret WebAuthnRpId
+		return ret
+	}
+	return *o.RpId
+}
+
+// GetRpIdOk returns a tuple with the RpId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuthenticatorMethodWebAuthnAllOfSettings) GetRpIdOk() (*WebAuthnRpId, bool) {
+	if o == nil || IsNil(o.RpId) {
+		return nil, false
+	}
+	return o.RpId, true
+}
+
+// HasRpId returns a boolean if a field has been set.
+func (o *AuthenticatorMethodWebAuthnAllOfSettings) HasRpId() bool {
+	if o != nil && !IsNil(o.RpId) {
+		return true
+	}
+
+	return false
+}
+
+// SetRpId gets a reference to the given WebAuthnRpId and assigns it to the RpId field.
+func (o *AuthenticatorMethodWebAuthnAllOfSettings) SetRpId(v WebAuthnRpId) {
+	o.RpId = &v
+}
+
 // GetEnableAutofillUI returns the EnableAutofillUI field value if set, zero value otherwise.
 func (o *AuthenticatorMethodWebAuthnAllOfSettings) GetEnableAutofillUI() bool {
 	if o == nil || IsNil(o.EnableAutofillUI) {
@@ -213,6 +246,9 @@ func (o AuthenticatorMethodWebAuthnAllOfSettings) ToMap() (map[string]interface{
 	if !IsNil(o.Attachment) {
 		toSerialize["attachment"] = o.Attachment
 	}
+	if !IsNil(o.RpId) {
+		toSerialize["rpId"] = o.RpId
+	}
 	if !IsNil(o.EnableAutofillUI) {
 		toSerialize["enableAutofillUI"] = o.EnableAutofillUI
 	}
@@ -241,6 +277,7 @@ func (o *AuthenticatorMethodWebAuthnAllOfSettings) UnmarshalJSON(data []byte) (e
 		delete(additionalProperties, "aaguidGroups")
 		delete(additionalProperties, "userVerification")
 		delete(additionalProperties, "attachment")
+		delete(additionalProperties, "rpId")
 		delete(additionalProperties, "enableAutofillUI")
 		o.AdditionalProperties = additionalProperties
 	}

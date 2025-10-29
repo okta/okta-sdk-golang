@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -52,7 +52,7 @@ type OpenIdConnectApplicationSettingsClient struct {
 	// <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle> <x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>URL where Okta sends the logout request
 	FrontchannelLogoutUri *string  `json:"frontchannel_logout_uri,omitempty"`
 	GrantTypes            []string `json:"grant_types"`
-	// <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>The algorithm for encrypting access tokens issued by this authorization server. If this is requested, the response is signed, and then encrypted. The result is a nested JWT. The default, if omitted, is that no encryption is performed.
+	// <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>JWE alg algorithm for encrypting the ID token issued to this client. If this is requested, the response is signed, and then encrypted with the result being a nested JWT. The default, if omitted, is that no encryption is performed. See the [Application Public Keys API](/openapi/okta-management/management/tag/ApplicationSSOPublicKeys/) for more information on encryption keys. See [Key management](https://developer.okta.com/docs/guides/key-management/main/) for more information on how encryption keys are used.
 	IdTokenEncryptedResponseAlg *string                                    `json:"id_token_encrypted_response_alg,omitempty"`
 	IdpInitiatedLogin           *OpenIdConnectApplicationIdpInitiatedLogin `json:"idp_initiated_login,omitempty"`
 	// URL string that a third party can use to initiate the sign-in flow by the client

@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -33,7 +33,7 @@ var _ MappedNullable = &CreateBrandRequest{}
 
 // CreateBrandRequest struct for CreateBrandRequest
 type CreateBrandRequest struct {
-	// The name of the Brand
+	// The name of the brand  > **Note:** You can't use the reserved `DRAPP_DOMAIN_BRAND` name.
 	Name                 string `json:"name"`
 	AdditionalProperties map[string]interface{}
 }

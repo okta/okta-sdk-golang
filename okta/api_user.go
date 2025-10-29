@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -134,7 +134,9 @@ type UserAPI interface {
 
 		A subset of users can be returned that match a supported filter expression or search criteria. Different results are returned depending on specified queries in the request.
 
-		> **Note:** This operation omits users that have a status of `DEPROVISIONED` in the response. To return all users, use a filter or search query instead.
+		> **Notes:**
+		>  * This operation omits users that have a status of `DEPROVISIONED` in the response. To return all users, use a filter or search query instead.
+		>  * The `search` parameter results are sourced from an eventually consistent datasource and may not reflect the latest information.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@return ApiListUsersRequest
@@ -978,6 +980,7 @@ type ApiListUsersRequest struct {
 	limit       *int32
 	sortBy      *string
 	sortOrder   *string
+	fields      *string
 	expand      *string
 	retryCount  int32
 }
@@ -1030,6 +1033,12 @@ func (r ApiListUsersRequest) SortOrder(sortOrder string) ApiListUsersRequest {
 	return r
 }
 
+// Specifies a select set of user properties to query. Any other properties will be filtered out of the returned users.  Requested fields should be comma-separated. Profile attributes should be contained within a &#x60;profile:({field1}, {field2}, ...)&#x60; directive.
+func (r ApiListUsersRequest) Fields(fields string) ApiListUsersRequest {
+	r.fields = &fields
+	return r
+}
+
 // &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;A parameter to include metadata in the &#x60;_embedded&#x60; property. Supported value: &#x60;classification&#x60;.
 func (r ApiListUsersRequest) Expand(expand string) ApiListUsersRequest {
 	r.expand = &expand
@@ -1047,7 +1056,9 @@ Lists users in your org, with pagination in most cases.
 
 A subset of users can be returned that match a supported filter expression or search criteria. Different results are returned depending on specified queries in the request.
 
-> **Note:** This operation omits users that have a status of `DEPROVISIONED` in the response. To return all users, use a filter or search query instead.
+> **Notes:**
+>  * This operation omits users that have a status of `DEPROVISIONED` in the response. To return all users, use a filter or search query instead.
+>  * The `search` parameter results are sourced from an eventually consistent datasource and may not reflect the latest information.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiListUsersRequest
@@ -1110,6 +1121,9 @@ func (a *UserAPIService) ListUsersExecute(r ApiListUsersRequest) ([]User, *APIRe
 	}
 	if r.sortOrder != nil {
 		localVarQueryParams.Add("sortOrder", parameterToString(*r.sortOrder, ""))
+	}
+	if r.fields != nil {
+		localVarQueryParams.Add("fields", parameterToString(*r.fields, ""))
 	}
 	if r.expand != nil {
 		localVarQueryParams.Add("expand", parameterToString(*r.expand, ""))

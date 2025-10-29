@@ -32,7 +32,7 @@ import (
 )
 
 func main() {
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | Client app ID
+	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
 	assignRoleToGroupRequest := openapiclient.assignRoleToGroup_request{CustomRoleAssignmentSchema: openapiclient.NewCustomRoleAssignmentSchema()} // AssignRoleToGroupRequest | 
 
 	configuration := openapiclient.NewConfiguration()
@@ -53,7 +53,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**clientId** | **string** | Client app ID | 
+**clientId** | **string** | &#x60;client_id&#x60; of the app | 
 
 ### Other Parameters
 
@@ -104,7 +104,7 @@ import (
 )
 
 func main() {
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | Client app ID
+	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
 	roleAssignmentId := "JBCUYUC7IRCVGS27IFCE2SKO" // string | The `id` of the role assignment
 
 	configuration := openapiclient.NewConfiguration()
@@ -123,7 +123,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**clientId** | **string** | Client app ID | 
+**clientId** | **string** | &#x60;client_id&#x60; of the app | 
 **roleAssignmentId** | **string** | The &#x60;id&#x60; of the role assignment | 
 
 ### Other Parameters
@@ -175,7 +175,7 @@ import (
 )
 
 func main() {
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | Client app ID
+	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -195,7 +195,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**clientId** | **string** | Client app ID | 
+**clientId** | **string** | &#x60;client_id&#x60; of the app | 
 
 ### Other Parameters
 
@@ -245,7 +245,7 @@ import (
 )
 
 func main() {
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | Client app ID
+	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
 	roleAssignmentId := "JBCUYUC7IRCVGS27IFCE2SKO" // string | The `id` of the role assignment
 
 	configuration := openapiclient.NewConfiguration()
@@ -266,7 +266,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**clientId** | **string** | Client app ID | 
+**clientId** | **string** | &#x60;client_id&#x60; of the app | 
 **roleAssignmentId** | **string** | The &#x60;id&#x60; of the role assignment | 
 
 ### Other Parameters

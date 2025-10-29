@@ -3,3 +3,8 @@
 .idea
 .okta.yaml
 .vscode
+
+# Coverage reports
+coverage.out
+coverage.html
+coverage_filtered.out

@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**From** | **string** | Email address that sends test emails | 
-**To** | **string** | Email address that receives test emails | 
+**FromAddress** | **string** | Email address that sends test emails | 
+**ToAddress** | **string** | Email address that receives test emails | 
 
 ## Methods
 
 ### NewEmailTestAddresses
 
-`func NewEmailTestAddresses(from string, to string, ) *EmailTestAddresses`
+`func NewEmailTestAddresses(fromAddress string, toAddress string, ) *EmailTestAddresses`
 
 NewEmailTestAddresses instantiates a new EmailTestAddresses object
 This constructor will assign default values to properties that have it defined,
@@ -26,44 +26,44 @@ NewEmailTestAddressesWithDefaults instantiates a new EmailTestAddresses object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetFrom
+### GetFromAddress
 
-`func (o *EmailTestAddresses) GetFrom() string`
+`func (o *EmailTestAddresses) GetFromAddress() string`
 
-GetFrom returns the From field if non-nil, zero value otherwise.
+GetFromAddress returns the FromAddress field if non-nil, zero value otherwise.
 
-### GetFromOk
+### GetFromAddressOk
 
-`func (o *EmailTestAddresses) GetFromOk() (*string, bool)`
+`func (o *EmailTestAddresses) GetFromAddressOk() (*string, bool)`
 
-GetFromOk returns a tuple with the From field if it's non-nil, zero value otherwise
+GetFromAddressOk returns a tuple with the FromAddress field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetFrom
+### SetFromAddress
 
-`func (o *EmailTestAddresses) SetFrom(v string)`
+`func (o *EmailTestAddresses) SetFromAddress(v string)`
 
-SetFrom sets From field to given value.
+SetFromAddress sets FromAddress field to given value.
 
 
-### GetTo
+### GetToAddress
 
-`func (o *EmailTestAddresses) GetTo() string`
+`func (o *EmailTestAddresses) GetToAddress() string`
 
-GetTo returns the To field if non-nil, zero value otherwise.
+GetToAddress returns the ToAddress field if non-nil, zero value otherwise.
 
-### GetToOk
+### GetToAddressOk
 
-`func (o *EmailTestAddresses) GetToOk() (*string, bool)`
+`func (o *EmailTestAddresses) GetToAddressOk() (*string, bool)`
 
-GetToOk returns a tuple with the To field if it's non-nil, zero value otherwise
+GetToAddressOk returns a tuple with the ToAddress field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetTo
+### SetToAddress
 
-`func (o *EmailTestAddresses) SetTo(v string)`
+`func (o *EmailTestAddresses) SetToAddress(v string)`
 
-SetTo sets To field to given value.
+SetToAddress sets ToAddress field to given value.
 
 
 

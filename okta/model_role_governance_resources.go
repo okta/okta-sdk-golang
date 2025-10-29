@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -32,8 +32,8 @@ var _ MappedNullable = &RoleGovernanceResources{}
 
 // RoleGovernanceResources The resources of a grant
 type RoleGovernanceResources struct {
-	Resources            []RoleGovernanceResource      `json:"resources,omitempty"`
-	Links                *RoleGovernanceResourcesLinks `json:"_links,omitempty"`
+	Resources            []RoleGovernanceResource           `json:"resources,omitempty"`
+	Links                *AIAgentOperationListResponseLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -89,9 +89,9 @@ func (o *RoleGovernanceResources) SetResources(v []RoleGovernanceResource) {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *RoleGovernanceResources) GetLinks() RoleGovernanceResourcesLinks {
+func (o *RoleGovernanceResources) GetLinks() AIAgentOperationListResponseLinks {
 	if o == nil || IsNil(o.Links) {
-		var ret RoleGovernanceResourcesLinks
+		var ret AIAgentOperationListResponseLinks
 		return ret
 	}
 	return *o.Links
@@ -99,7 +99,7 @@ func (o *RoleGovernanceResources) GetLinks() RoleGovernanceResourcesLinks {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RoleGovernanceResources) GetLinksOk() (*RoleGovernanceResourcesLinks, bool) {
+func (o *RoleGovernanceResources) GetLinksOk() (*AIAgentOperationListResponseLinks, bool) {
 	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
@@ -115,8 +115,8 @@ func (o *RoleGovernanceResources) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given RoleGovernanceResourcesLinks and assigns it to the Links field.
-func (o *RoleGovernanceResources) SetLinks(v RoleGovernanceResourcesLinks) {
+// SetLinks gets a reference to the given AIAgentOperationListResponseLinks and assigns it to the Links field.
+func (o *RoleGovernanceResources) SetLinks(v AIAgentOperationListResponseLinks) {
 	o.Links = &v
 }
 

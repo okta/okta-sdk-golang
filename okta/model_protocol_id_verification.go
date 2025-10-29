@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -30,7 +30,7 @@ import (
 // checks if the ProtocolIdVerification type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ProtocolIdVerification{}
 
-// ProtocolIdVerification Protocol settings for the IDV
+// ProtocolIdVerification Protocol settings for the IDV vendor
 type ProtocolIdVerification struct {
 	Credentials *IDVCredentials `json:"credentials,omitempty"`
 	Endpoints   *IDVEndpoints   `json:"endpoints,omitempty"`

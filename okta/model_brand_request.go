@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -42,7 +42,7 @@ type BrandRequest struct {
 	EmailDomainId *string `json:"emailDomainId,omitempty"`
 	// The language specified as an [IETF BCP 47 language tag](https://datatracker.ietf.org/doc/html/rfc5646)
 	Locale *string `json:"locale,omitempty"`
-	// The name of the Brand
+	// The name of the brand  > **Note:** You can't use the reserved `DRAPP_DOMAIN_BRAND` name.
 	Name string `json:"name"`
 	// Removes \"Powered by Okta\" from the sign-in page in redirect authentication deployments, and \"© [current year] Okta, Inc.\" from the Okta End-User Dashboard
 	RemovePoweredByOkta  *bool `json:"removePoweredByOkta,omitempty"`

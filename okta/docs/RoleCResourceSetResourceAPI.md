@@ -303,7 +303,7 @@ Name | Type | Description  | Notes
 
 ## ListResourceSetResources
 
-> ResourceSetResources ListResourceSetResources(ctx, resourceSetIdOrLabel).Execute()
+> ResourceSetResources ListResourceSetResources(ctx, resourceSetIdOrLabel).After(after).Limit(limit).Execute()
 
 List all resource set resources
 
@@ -323,10 +323,12 @@ import (
 
 func main() {
 	resourceSetIdOrLabel := "iamoJDFKaJxGIr0oamd9g" // string | `id` or `label` of the resource set
+	after := "after_example" // string | Specifies the pagination cursor for the next page of targets (optional)
+	limit := int32(56) // int32 | Specifies the number of results returned. Defaults to `100`. (optional) (default to 100)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RoleCResourceSetResourceAPI.ListResourceSetResources(context.Background(), resourceSetIdOrLabel).Execute()
+	resp, r, err := apiClient.RoleCResourceSetResourceAPI.ListResourceSetResources(context.Background(), resourceSetIdOrLabel).After(after).Limit(limit).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RoleCResourceSetResourceAPI.ListResourceSetResources``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -352,6 +354,8 @@ Other parameters are passed through a pointer to a apiListResourceSetResourcesRe
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **after** | **string** | Specifies the pagination cursor for the next page of targets | 
+ **limit** | **int32** | Specifies the number of results returned. Defaults to &#x60;100&#x60;. | [default to 100]
 
 ### Return type
 

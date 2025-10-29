@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2025.08.0
+API version: 2025.10.0
 Contact: devex-public@okta.com
 */
 
@@ -33,7 +33,7 @@ var _ MappedNullable = &IdentityProviderApplicationUserLinks{}
 // IdentityProviderApplicationUserLinks struct for IdentityProviderApplicationUserLinks
 type IdentityProviderApplicationUserLinks struct {
 	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Next *HrefObject         `json:"next,omitempty"`
+	Next *HrefObjectNextLink `json:"next,omitempty"`
 	// The IdP instance
 	Idp *HrefObject `json:"idp,omitempty"`
 	// The linked Okta user
@@ -93,9 +93,9 @@ func (o *IdentityProviderApplicationUserLinks) SetSelf(v HrefObjectSelfLink) {
 }
 
 // GetNext returns the Next field value if set, zero value otherwise.
-func (o *IdentityProviderApplicationUserLinks) GetNext() HrefObject {
+func (o *IdentityProviderApplicationUserLinks) GetNext() HrefObjectNextLink {
 	if o == nil || IsNil(o.Next) {
-		var ret HrefObject
+		var ret HrefObjectNextLink
 		return ret
 	}
 	return *o.Next
@@ -103,7 +103,7 @@ func (o *IdentityProviderApplicationUserLinks) GetNext() HrefObject {
 
 // GetNextOk returns a tuple with the Next field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IdentityProviderApplicationUserLinks) GetNextOk() (*HrefObject, bool) {
+func (o *IdentityProviderApplicationUserLinks) GetNextOk() (*HrefObjectNextLink, bool) {
 	if o == nil || IsNil(o.Next) {
 		return nil, false
 	}
@@ -119,8 +119,8 @@ func (o *IdentityProviderApplicationUserLinks) HasNext() bool {
 	return false
 }
 
-// SetNext gets a reference to the given HrefObject and assigns it to the Next field.
-func (o *IdentityProviderApplicationUserLinks) SetNext(v HrefObject) {
+// SetNext gets a reference to the given HrefObjectNextLink and assigns it to the Next field.
+func (o *IdentityProviderApplicationUserLinks) SetNext(v HrefObjectNextLink) {
 	o.Next = &v
 }
 
