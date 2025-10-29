@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** | Unique identifier for a profile mapping | [optional] [readonly] 
-**Properties** | Pointer to [**map[string]ProfileMappingProperty**](ProfileMappingProperty.md) |  | [optional] 
+**Properties** | Pointer to [**ProfileMappingProperty**](ProfileMappingProperty.md) |  | [optional] 
 **Source** | Pointer to [**ProfileMappingSource**](ProfileMappingSource.md) |  | [optional] 
 **Target** | Pointer to [**ProfileMappingTarget**](ProfileMappingTarget.md) |  | [optional] 
 **Links** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
@@ -56,20 +56,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetProperties
 
-`func (o *ProfileMapping) GetProperties() map[string]ProfileMappingProperty`
+`func (o *ProfileMapping) GetProperties() ProfileMappingProperty`
 
 GetProperties returns the Properties field if non-nil, zero value otherwise.
 
 ### GetPropertiesOk
 
-`func (o *ProfileMapping) GetPropertiesOk() (*map[string]ProfileMappingProperty, bool)`
+`func (o *ProfileMapping) GetPropertiesOk() (*ProfileMappingProperty, bool)`
 
 GetPropertiesOk returns a tuple with the Properties field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProperties
 
-`func (o *ProfileMapping) SetProperties(v map[string]ProfileMappingProperty)`
+`func (o *ProfileMapping) SetProperties(v ProfileMappingProperty)`
 
 SetProperties sets Properties field to given value.
 

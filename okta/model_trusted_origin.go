@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -28,26 +28,29 @@ import (
 	"time"
 )
 
+// checks if the TrustedOrigin type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TrustedOrigin{}
+
 // TrustedOrigin struct for TrustedOrigin
 type TrustedOrigin struct {
-	// Timestamp when the Trusted Origin was created
+	// Timestamp when the trusted origin was created
 	Created *time.Time `json:"created,omitempty"`
-	// The ID of the user who created the Trusted Origin
+	// The ID of the user who created the trusted origin
 	CreatedBy *string `json:"createdBy,omitempty"`
-	// Unique identifier for the Trusted Origin
+	// Unique identifier for the trusted origin
 	Id *string `json:"id,omitempty"`
-	// Timestamp when the Trusted Origin was last updated
+	// Timestamp when the trusted origin was last updated
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	// The ID of the user who last updated the Trusted Origin
+	// The ID of the user who last updated the trusted origin
 	LastUpdatedBy *string `json:"lastUpdatedBy,omitempty"`
-	// Unique name for the Trusted Origin
+	// Unique name for the trusted origin
 	Name *string `json:"name,omitempty"`
-	// Unique origin URL for the Trusted Origin. The supported schemes for this attribute are HTTP, HTTPS, FTP, Ionic 2, and Capacitor.
+	// Unique origin URL for the trusted origin. The supported schemes for this attribute are HTTP, HTTPS, FTP, Ionic 2, and Capacitor.
 	Origin *string `json:"origin,omitempty"`
-	// Array of Scope types that this Trusted Origin is used for
-	Scopes []TrustedOriginScope `json:"scopes,omitempty"`
-	Status *string `json:"status,omitempty"`
-	Links *LinksSelfAndLifecycle `json:"_links,omitempty"`
+	// Array of scope types that this trusted origin is used for
+	Scopes               []TrustedOriginScope   `json:"scopes,omitempty"`
+	Status               *string                `json:"status,omitempty"`
+	Links                *LinksSelfAndLifecycle `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -72,7 +75,7 @@ func NewTrustedOriginWithDefaults() *TrustedOrigin {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *TrustedOrigin) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *TrustedOrigin) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TrustedOrigin) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -90,7 +93,7 @@ func (o *TrustedOrigin) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *TrustedOrigin) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -104,7 +107,7 @@ func (o *TrustedOrigin) SetCreated(v time.Time) {
 
 // GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
 func (o *TrustedOrigin) GetCreatedBy() string {
-	if o == nil || o.CreatedBy == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		var ret string
 		return ret
 	}
@@ -114,7 +117,7 @@ func (o *TrustedOrigin) GetCreatedBy() string {
 // GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TrustedOrigin) GetCreatedByOk() (*string, bool) {
-	if o == nil || o.CreatedBy == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		return nil, false
 	}
 	return o.CreatedBy, true
@@ -122,7 +125,7 @@ func (o *TrustedOrigin) GetCreatedByOk() (*string, bool) {
 
 // HasCreatedBy returns a boolean if a field has been set.
 func (o *TrustedOrigin) HasCreatedBy() bool {
-	if o != nil && o.CreatedBy != nil {
+	if o != nil && !IsNil(o.CreatedBy) {
 		return true
 	}
 
@@ -136,7 +139,7 @@ func (o *TrustedOrigin) SetCreatedBy(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *TrustedOrigin) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -146,7 +149,7 @@ func (o *TrustedOrigin) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TrustedOrigin) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -154,7 +157,7 @@ func (o *TrustedOrigin) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *TrustedOrigin) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -168,7 +171,7 @@ func (o *TrustedOrigin) SetId(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *TrustedOrigin) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -178,7 +181,7 @@ func (o *TrustedOrigin) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TrustedOrigin) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -186,7 +189,7 @@ func (o *TrustedOrigin) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *TrustedOrigin) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -200,7 +203,7 @@ func (o *TrustedOrigin) SetLastUpdated(v time.Time) {
 
 // GetLastUpdatedBy returns the LastUpdatedBy field value if set, zero value otherwise.
 func (o *TrustedOrigin) GetLastUpdatedBy() string {
-	if o == nil || o.LastUpdatedBy == nil {
+	if o == nil || IsNil(o.LastUpdatedBy) {
 		var ret string
 		return ret
 	}
@@ -210,7 +213,7 @@ func (o *TrustedOrigin) GetLastUpdatedBy() string {
 // GetLastUpdatedByOk returns a tuple with the LastUpdatedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TrustedOrigin) GetLastUpdatedByOk() (*string, bool) {
-	if o == nil || o.LastUpdatedBy == nil {
+	if o == nil || IsNil(o.LastUpdatedBy) {
 		return nil, false
 	}
 	return o.LastUpdatedBy, true
@@ -218,7 +221,7 @@ func (o *TrustedOrigin) GetLastUpdatedByOk() (*string, bool) {
 
 // HasLastUpdatedBy returns a boolean if a field has been set.
 func (o *TrustedOrigin) HasLastUpdatedBy() bool {
-	if o != nil && o.LastUpdatedBy != nil {
+	if o != nil && !IsNil(o.LastUpdatedBy) {
 		return true
 	}
 
@@ -232,7 +235,7 @@ func (o *TrustedOrigin) SetLastUpdatedBy(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *TrustedOrigin) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -242,7 +245,7 @@ func (o *TrustedOrigin) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TrustedOrigin) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -250,7 +253,7 @@ func (o *TrustedOrigin) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *TrustedOrigin) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -264,7 +267,7 @@ func (o *TrustedOrigin) SetName(v string) {
 
 // GetOrigin returns the Origin field value if set, zero value otherwise.
 func (o *TrustedOrigin) GetOrigin() string {
-	if o == nil || o.Origin == nil {
+	if o == nil || IsNil(o.Origin) {
 		var ret string
 		return ret
 	}
@@ -274,7 +277,7 @@ func (o *TrustedOrigin) GetOrigin() string {
 // GetOriginOk returns a tuple with the Origin field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TrustedOrigin) GetOriginOk() (*string, bool) {
-	if o == nil || o.Origin == nil {
+	if o == nil || IsNil(o.Origin) {
 		return nil, false
 	}
 	return o.Origin, true
@@ -282,7 +285,7 @@ func (o *TrustedOrigin) GetOriginOk() (*string, bool) {
 
 // HasOrigin returns a boolean if a field has been set.
 func (o *TrustedOrigin) HasOrigin() bool {
-	if o != nil && o.Origin != nil {
+	if o != nil && !IsNil(o.Origin) {
 		return true
 	}
 
@@ -296,7 +299,7 @@ func (o *TrustedOrigin) SetOrigin(v string) {
 
 // GetScopes returns the Scopes field value if set, zero value otherwise.
 func (o *TrustedOrigin) GetScopes() []TrustedOriginScope {
-	if o == nil || o.Scopes == nil {
+	if o == nil || IsNil(o.Scopes) {
 		var ret []TrustedOriginScope
 		return ret
 	}
@@ -306,7 +309,7 @@ func (o *TrustedOrigin) GetScopes() []TrustedOriginScope {
 // GetScopesOk returns a tuple with the Scopes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TrustedOrigin) GetScopesOk() ([]TrustedOriginScope, bool) {
-	if o == nil || o.Scopes == nil {
+	if o == nil || IsNil(o.Scopes) {
 		return nil, false
 	}
 	return o.Scopes, true
@@ -314,7 +317,7 @@ func (o *TrustedOrigin) GetScopesOk() ([]TrustedOriginScope, bool) {
 
 // HasScopes returns a boolean if a field has been set.
 func (o *TrustedOrigin) HasScopes() bool {
-	if o != nil && o.Scopes != nil {
+	if o != nil && !IsNil(o.Scopes) {
 		return true
 	}
 
@@ -328,7 +331,7 @@ func (o *TrustedOrigin) SetScopes(v []TrustedOriginScope) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *TrustedOrigin) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -338,7 +341,7 @@ func (o *TrustedOrigin) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TrustedOrigin) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -346,7 +349,7 @@ func (o *TrustedOrigin) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *TrustedOrigin) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -360,7 +363,7 @@ func (o *TrustedOrigin) SetStatus(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *TrustedOrigin) GetLinks() LinksSelfAndLifecycle {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksSelfAndLifecycle
 		return ret
 	}
@@ -370,7 +373,7 @@ func (o *TrustedOrigin) GetLinks() LinksSelfAndLifecycle {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TrustedOrigin) GetLinksOk() (*LinksSelfAndLifecycle, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -378,7 +381,7 @@ func (o *TrustedOrigin) GetLinksOk() (*LinksSelfAndLifecycle, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *TrustedOrigin) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -391,35 +394,43 @@ func (o *TrustedOrigin) SetLinks(v LinksSelfAndLifecycle) {
 }
 
 func (o TrustedOrigin) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TrustedOrigin) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.CreatedBy != nil {
+	if !IsNil(o.CreatedBy) {
 		toSerialize["createdBy"] = o.CreatedBy
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.LastUpdatedBy != nil {
+	if !IsNil(o.LastUpdatedBy) {
 		toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Origin != nil {
+	if !IsNil(o.Origin) {
 		toSerialize["origin"] = o.Origin
 	}
-	if o.Scopes != nil {
+	if !IsNil(o.Scopes) {
 		toSerialize["scopes"] = o.Scopes
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -427,23 +438,23 @@ func (o TrustedOrigin) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *TrustedOrigin) UnmarshalJSON(bytes []byte) (err error) {
+func (o *TrustedOrigin) UnmarshalJSON(data []byte) (err error) {
 	varTrustedOrigin := _TrustedOrigin{}
 
-	err = json.Unmarshal(bytes, &varTrustedOrigin)
-	if err == nil {
-		*o = TrustedOrigin(varTrustedOrigin)
-	} else {
+	err = json.Unmarshal(data, &varTrustedOrigin)
+
+	if err != nil {
 		return err
 	}
 
+	*o = TrustedOrigin(varTrustedOrigin)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "createdBy")
 		delete(additionalProperties, "id")
@@ -455,8 +466,6 @@ func (o *TrustedOrigin) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -497,4 +506,3 @@ func (v *NullableTrustedOrigin) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

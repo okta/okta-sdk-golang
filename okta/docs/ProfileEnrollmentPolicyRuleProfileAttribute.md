@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Label** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Required** | Pointer to **bool** |  | [optional] 
+**Label** | Pointer to **string** | A display-friendly label for this property | [optional] 
+**Name** | Pointer to **string** | The name of a user profile property. Can be an existing property. | [optional] 
+**Required** | Pointer to **bool** | (Optional, default &#x60;FALSE&#x60;) Indicates if this property is required for enrollment | [optional] [default to false]
 
 ## Methods
 

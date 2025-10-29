@@ -4,23 +4,23 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to **time.Time** | Timestamp when the Policy was created | [optional] [readonly] 
-**Description** | Pointer to **string** | Policy description | [optional] 
-**Id** | Pointer to **string** | Policy ID | [optional] [readonly] 
-**LastUpdated** | Pointer to **time.Time** | Timestamp when the Policy was last updated | [optional] [readonly] 
-**Name** | Pointer to **string** | Policy name | [optional] 
-**Priority** | Pointer to **int32** | Specifies the order in which this Policy is evaluated in relation to the other policies | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**System** | Pointer to **bool** | Specifies whether Okta created the Policy | [optional] 
-**Type** | Pointer to **string** | All Okta orgs contain only one IdP Discovery Policy with an immutable default Rule routing to your org&#39;s sign-in page. Creating or replacing a policy with &#x60;IDP_DISCOVERY&#x60; type isn&#39;t supported. The following policy types are available with the Okta Identity Engine: &#x60;ACCESS_POLICY&#x60;, &#x60;PROFILE_ENROLLMENT&#x60;, &#x60;CONTINUOUS_ACCESS&#x60;, and &#x60;ENTITY_RISK&#x60;. The &#x60;CONTINUOUS_ACCESS&#x60;, and &#x60;ENTITY_RISK&#x60; policy types are in Early Access (EA). Contact your Okta account team to enable these features. | [optional] 
-**Embedded** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
+**Created** | Pointer to **time.Time** | Timestamp when the policy was created | [optional] [readonly] 
+**Description** | Pointer to **string** | Description of the policy | [optional] 
+**Id** | Pointer to **string** | Identifier of the policy | [optional] [readonly] [default to "Assigned"]
+**LastUpdated** | Pointer to **time.Time** | Timestamp when the policy was last modified | [optional] [readonly] 
+**Name** | **string** | Name of the policy | 
+**Priority** | Pointer to **int32** | Specifies the order in which this policy is evaluated in relation to the other policies | [optional] 
+**Status** | Pointer to **string** | Whether or not the policy is active. Use the &#x60;activate&#x60; query parameter to set the status of a policy. | [optional] 
+**System** | Pointer to **bool** | Specifies whether Okta created the policy | [optional] [default to false]
+**Type** | **string** | All Okta orgs contain only one IdP discovery policy with an immutable default rule routing to your org&#39;s sign-in page, one entity risk policy, and one session protection policy. Creating or replacing a policy with the &#x60;IDP_DISCOVERY&#x60; type, the &#x60;ENTITY_RISK&#x60; type, or the &#x60;POST_AUTH_SESSION&#x60; type isn&#39;t supported. The following policy types are available with Identity Engine: &#x60;ACCESS_POLICY&#x60;, &#x60;PROFILE_ENROLLMENT&#x60;, &#x60;POST_AUTH_SESSION&#x60;, &lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &#x60;DEVICE_SIGNAL_COLLECTION&#x60;, and &#x60;ENTITY_RISK&#x60;. | 
+**Embedded** | Pointer to **map[string]map[string]interface{}** |  | [optional] [readonly] 
 **Links** | Pointer to [**PolicyLinks**](PolicyLinks.md) |  | [optional] 
 
 ## Methods
 
 ### NewPolicy
 
-`func NewPolicy() *Policy`
+`func NewPolicy(name string, type_ string, ) *Policy`
 
 NewPolicy instantiates a new Policy object
 This constructor will assign default values to properties that have it defined,
@@ -154,11 +154,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *Policy) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetPriority
 
@@ -254,28 +249,23 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
-### HasType
-
-`func (o *Policy) HasType() bool`
-
-HasType returns a boolean if a field has been set.
 
 ### GetEmbedded
 
-`func (o *Policy) GetEmbedded() map[string]interface{}`
+`func (o *Policy) GetEmbedded() map[string]map[string]interface{}`
 
 GetEmbedded returns the Embedded field if non-nil, zero value otherwise.
 
 ### GetEmbeddedOk
 
-`func (o *Policy) GetEmbeddedOk() (*map[string]interface{}, bool)`
+`func (o *Policy) GetEmbeddedOk() (*map[string]map[string]interface{}, bool)`
 
 GetEmbeddedOk returns a tuple with the Embedded field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEmbedded
 
-`func (o *Policy) SetEmbedded(v map[string]interface{})`
+`func (o *Policy) SetEmbedded(v map[string]map[string]interface{})`
 
 SetEmbedded sets Embedded field to given value.
 

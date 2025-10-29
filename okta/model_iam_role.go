@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -25,8 +25,12 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the IamRole type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IamRole{}
 
 // IamRole struct for IamRole
 type IamRole struct {
@@ -39,8 +43,8 @@ type IamRole struct {
 	// Unique label for the role
 	Label string `json:"label"`
 	// Timestamp when the role was last updated
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Links *IamRoleLinks `json:"_links,omitempty"`
+	LastUpdated          *time.Time    `json:"lastUpdated,omitempty"`
+	Links                *IamRoleLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -67,7 +71,7 @@ func NewIamRoleWithDefaults() *IamRole {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *IamRole) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -77,7 +81,7 @@ func (o *IamRole) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IamRole) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -85,7 +89,7 @@ func (o *IamRole) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *IamRole) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -123,7 +127,7 @@ func (o *IamRole) SetDescription(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *IamRole) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -133,7 +137,7 @@ func (o *IamRole) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IamRole) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -141,7 +145,7 @@ func (o *IamRole) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *IamRole) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -179,7 +183,7 @@ func (o *IamRole) SetLabel(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *IamRole) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -189,7 +193,7 @@ func (o *IamRole) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IamRole) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -197,7 +201,7 @@ func (o *IamRole) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *IamRole) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -211,7 +215,7 @@ func (o *IamRole) SetLastUpdated(v time.Time) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *IamRole) GetLinks() IamRoleLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret IamRoleLinks
 		return ret
 	}
@@ -221,7 +225,7 @@ func (o *IamRole) GetLinks() IamRoleLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IamRole) GetLinksOk() (*IamRoleLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -229,7 +233,7 @@ func (o *IamRole) GetLinksOk() (*IamRoleLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *IamRole) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -242,23 +246,27 @@ func (o *IamRole) SetLinks(v IamRoleLinks) {
 }
 
 func (o IamRole) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IamRole) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if true {
-		toSerialize["description"] = o.Description
-	}
-	if o.Id != nil {
+	toSerialize["description"] = o.Description
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if true {
-		toSerialize["label"] = o.Label
-	}
-	if o.LastUpdated != nil {
+	toSerialize["label"] = o.Label
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -266,23 +274,45 @@ func (o IamRole) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *IamRole) UnmarshalJSON(bytes []byte) (err error) {
-	varIamRole := _IamRole{}
+func (o *IamRole) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"description",
+		"label",
+	}
 
-	err = json.Unmarshal(bytes, &varIamRole)
-	if err == nil {
-		*o = IamRole(varIamRole)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varIamRole := _IamRole{}
+
+	err = json.Unmarshal(data, &varIamRole)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamRole(varIamRole)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "id")
@@ -290,8 +320,6 @@ func (o *IamRole) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "lastUpdated")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -332,4 +360,3 @@ func (v *NullableIamRole) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

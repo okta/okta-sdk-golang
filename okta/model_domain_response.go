@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,21 +27,24 @@ import (
 	"encoding/json"
 )
 
+// checks if the DomainResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DomainResponse{}
+
 // DomainResponse The properties that define an individual domain.
 type DomainResponse struct {
 	// The ID number of the brand
 	BrandId *string `json:"brandId,omitempty"`
 	// Certificate source type that indicates whether the certificate is provided by the user or Okta.
-	CertificateSourceType *string `json:"certificateSourceType,omitempty"`
-	DnsRecords []DNSRecord `json:"dnsRecords,omitempty"`
+	CertificateSourceType *string     `json:"certificateSourceType,omitempty"`
+	DnsRecords            []DNSRecord `json:"dnsRecords,omitempty"`
 	// Custom domain name
 	Domain *string `json:"domain,omitempty"`
 	// Unique ID of the domain
-	Id *string `json:"id,omitempty"`
+	Id                *string                    `json:"id,omitempty"`
 	PublicCertificate *DomainCertificateMetadata `json:"publicCertificate,omitempty"`
 	// Status of the domain
-	ValidationStatus *string `json:"validationStatus,omitempty"`
-	Links *DomainLinks `json:"_links,omitempty"`
+	ValidationStatus     *string      `json:"validationStatus,omitempty"`
+	Links                *DomainLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -66,7 +69,7 @@ func NewDomainResponseWithDefaults() *DomainResponse {
 
 // GetBrandId returns the BrandId field value if set, zero value otherwise.
 func (o *DomainResponse) GetBrandId() string {
-	if o == nil || o.BrandId == nil {
+	if o == nil || IsNil(o.BrandId) {
 		var ret string
 		return ret
 	}
@@ -76,7 +79,7 @@ func (o *DomainResponse) GetBrandId() string {
 // GetBrandIdOk returns a tuple with the BrandId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DomainResponse) GetBrandIdOk() (*string, bool) {
-	if o == nil || o.BrandId == nil {
+	if o == nil || IsNil(o.BrandId) {
 		return nil, false
 	}
 	return o.BrandId, true
@@ -84,7 +87,7 @@ func (o *DomainResponse) GetBrandIdOk() (*string, bool) {
 
 // HasBrandId returns a boolean if a field has been set.
 func (o *DomainResponse) HasBrandId() bool {
-	if o != nil && o.BrandId != nil {
+	if o != nil && !IsNil(o.BrandId) {
 		return true
 	}
 
@@ -98,7 +101,7 @@ func (o *DomainResponse) SetBrandId(v string) {
 
 // GetCertificateSourceType returns the CertificateSourceType field value if set, zero value otherwise.
 func (o *DomainResponse) GetCertificateSourceType() string {
-	if o == nil || o.CertificateSourceType == nil {
+	if o == nil || IsNil(o.CertificateSourceType) {
 		var ret string
 		return ret
 	}
@@ -108,7 +111,7 @@ func (o *DomainResponse) GetCertificateSourceType() string {
 // GetCertificateSourceTypeOk returns a tuple with the CertificateSourceType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DomainResponse) GetCertificateSourceTypeOk() (*string, bool) {
-	if o == nil || o.CertificateSourceType == nil {
+	if o == nil || IsNil(o.CertificateSourceType) {
 		return nil, false
 	}
 	return o.CertificateSourceType, true
@@ -116,7 +119,7 @@ func (o *DomainResponse) GetCertificateSourceTypeOk() (*string, bool) {
 
 // HasCertificateSourceType returns a boolean if a field has been set.
 func (o *DomainResponse) HasCertificateSourceType() bool {
-	if o != nil && o.CertificateSourceType != nil {
+	if o != nil && !IsNil(o.CertificateSourceType) {
 		return true
 	}
 
@@ -130,7 +133,7 @@ func (o *DomainResponse) SetCertificateSourceType(v string) {
 
 // GetDnsRecords returns the DnsRecords field value if set, zero value otherwise.
 func (o *DomainResponse) GetDnsRecords() []DNSRecord {
-	if o == nil || o.DnsRecords == nil {
+	if o == nil || IsNil(o.DnsRecords) {
 		var ret []DNSRecord
 		return ret
 	}
@@ -140,7 +143,7 @@ func (o *DomainResponse) GetDnsRecords() []DNSRecord {
 // GetDnsRecordsOk returns a tuple with the DnsRecords field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DomainResponse) GetDnsRecordsOk() ([]DNSRecord, bool) {
-	if o == nil || o.DnsRecords == nil {
+	if o == nil || IsNil(o.DnsRecords) {
 		return nil, false
 	}
 	return o.DnsRecords, true
@@ -148,7 +151,7 @@ func (o *DomainResponse) GetDnsRecordsOk() ([]DNSRecord, bool) {
 
 // HasDnsRecords returns a boolean if a field has been set.
 func (o *DomainResponse) HasDnsRecords() bool {
-	if o != nil && o.DnsRecords != nil {
+	if o != nil && !IsNil(o.DnsRecords) {
 		return true
 	}
 
@@ -162,7 +165,7 @@ func (o *DomainResponse) SetDnsRecords(v []DNSRecord) {
 
 // GetDomain returns the Domain field value if set, zero value otherwise.
 func (o *DomainResponse) GetDomain() string {
-	if o == nil || o.Domain == nil {
+	if o == nil || IsNil(o.Domain) {
 		var ret string
 		return ret
 	}
@@ -172,7 +175,7 @@ func (o *DomainResponse) GetDomain() string {
 // GetDomainOk returns a tuple with the Domain field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DomainResponse) GetDomainOk() (*string, bool) {
-	if o == nil || o.Domain == nil {
+	if o == nil || IsNil(o.Domain) {
 		return nil, false
 	}
 	return o.Domain, true
@@ -180,7 +183,7 @@ func (o *DomainResponse) GetDomainOk() (*string, bool) {
 
 // HasDomain returns a boolean if a field has been set.
 func (o *DomainResponse) HasDomain() bool {
-	if o != nil && o.Domain != nil {
+	if o != nil && !IsNil(o.Domain) {
 		return true
 	}
 
@@ -194,7 +197,7 @@ func (o *DomainResponse) SetDomain(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *DomainResponse) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -204,7 +207,7 @@ func (o *DomainResponse) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DomainResponse) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -212,7 +215,7 @@ func (o *DomainResponse) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *DomainResponse) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -226,7 +229,7 @@ func (o *DomainResponse) SetId(v string) {
 
 // GetPublicCertificate returns the PublicCertificate field value if set, zero value otherwise.
 func (o *DomainResponse) GetPublicCertificate() DomainCertificateMetadata {
-	if o == nil || o.PublicCertificate == nil {
+	if o == nil || IsNil(o.PublicCertificate) {
 		var ret DomainCertificateMetadata
 		return ret
 	}
@@ -236,7 +239,7 @@ func (o *DomainResponse) GetPublicCertificate() DomainCertificateMetadata {
 // GetPublicCertificateOk returns a tuple with the PublicCertificate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DomainResponse) GetPublicCertificateOk() (*DomainCertificateMetadata, bool) {
-	if o == nil || o.PublicCertificate == nil {
+	if o == nil || IsNil(o.PublicCertificate) {
 		return nil, false
 	}
 	return o.PublicCertificate, true
@@ -244,7 +247,7 @@ func (o *DomainResponse) GetPublicCertificateOk() (*DomainCertificateMetadata, b
 
 // HasPublicCertificate returns a boolean if a field has been set.
 func (o *DomainResponse) HasPublicCertificate() bool {
-	if o != nil && o.PublicCertificate != nil {
+	if o != nil && !IsNil(o.PublicCertificate) {
 		return true
 	}
 
@@ -258,7 +261,7 @@ func (o *DomainResponse) SetPublicCertificate(v DomainCertificateMetadata) {
 
 // GetValidationStatus returns the ValidationStatus field value if set, zero value otherwise.
 func (o *DomainResponse) GetValidationStatus() string {
-	if o == nil || o.ValidationStatus == nil {
+	if o == nil || IsNil(o.ValidationStatus) {
 		var ret string
 		return ret
 	}
@@ -268,7 +271,7 @@ func (o *DomainResponse) GetValidationStatus() string {
 // GetValidationStatusOk returns a tuple with the ValidationStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DomainResponse) GetValidationStatusOk() (*string, bool) {
-	if o == nil || o.ValidationStatus == nil {
+	if o == nil || IsNil(o.ValidationStatus) {
 		return nil, false
 	}
 	return o.ValidationStatus, true
@@ -276,7 +279,7 @@ func (o *DomainResponse) GetValidationStatusOk() (*string, bool) {
 
 // HasValidationStatus returns a boolean if a field has been set.
 func (o *DomainResponse) HasValidationStatus() bool {
-	if o != nil && o.ValidationStatus != nil {
+	if o != nil && !IsNil(o.ValidationStatus) {
 		return true
 	}
 
@@ -290,7 +293,7 @@ func (o *DomainResponse) SetValidationStatus(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *DomainResponse) GetLinks() DomainLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret DomainLinks
 		return ret
 	}
@@ -300,7 +303,7 @@ func (o *DomainResponse) GetLinks() DomainLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DomainResponse) GetLinksOk() (*DomainLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -308,7 +311,7 @@ func (o *DomainResponse) GetLinksOk() (*DomainLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *DomainResponse) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -321,29 +324,37 @@ func (o *DomainResponse) SetLinks(v DomainLinks) {
 }
 
 func (o DomainResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DomainResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.BrandId != nil {
+	if !IsNil(o.BrandId) {
 		toSerialize["brandId"] = o.BrandId
 	}
-	if o.CertificateSourceType != nil {
+	if !IsNil(o.CertificateSourceType) {
 		toSerialize["certificateSourceType"] = o.CertificateSourceType
 	}
-	if o.DnsRecords != nil {
+	if !IsNil(o.DnsRecords) {
 		toSerialize["dnsRecords"] = o.DnsRecords
 	}
-	if o.Domain != nil {
+	if !IsNil(o.Domain) {
 		toSerialize["domain"] = o.Domain
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.PublicCertificate != nil {
+	if !IsNil(o.PublicCertificate) {
 		toSerialize["publicCertificate"] = o.PublicCertificate
 	}
-	if o.ValidationStatus != nil {
+	if !IsNil(o.ValidationStatus) {
 		toSerialize["validationStatus"] = o.ValidationStatus
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -351,23 +362,23 @@ func (o DomainResponse) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DomainResponse) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DomainResponse) UnmarshalJSON(data []byte) (err error) {
 	varDomainResponse := _DomainResponse{}
 
-	err = json.Unmarshal(bytes, &varDomainResponse)
-	if err == nil {
-		*o = DomainResponse(varDomainResponse)
-	} else {
+	err = json.Unmarshal(data, &varDomainResponse)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DomainResponse(varDomainResponse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "brandId")
 		delete(additionalProperties, "certificateSourceType")
 		delete(additionalProperties, "dnsRecords")
@@ -377,8 +388,6 @@ func (o *DomainResponse) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "validationStatus")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -419,4 +428,3 @@ func (v *NullableDomainResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

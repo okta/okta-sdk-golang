@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,11 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the ChangePasswordRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ChangePasswordRequest{}
+
 // ChangePasswordRequest struct for ChangePasswordRequest
 type ChangePasswordRequest struct {
 	NewPassword *PasswordCredential `json:"newPassword,omitempty"`
 	OldPassword *PasswordCredential `json:"oldPassword,omitempty"`
-	RevokeSessions *bool `json:"revokeSessions,omitempty"`
+	// When set to `true`, revokes all user sessions, except for the current session
+	RevokeSessions       *bool `json:"revokeSessions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -43,6 +47,8 @@ type _ChangePasswordRequest ChangePasswordRequest
 // will change when the set of required properties is changed
 func NewChangePasswordRequest() *ChangePasswordRequest {
 	this := ChangePasswordRequest{}
+	var revokeSessions bool = false
+	this.RevokeSessions = &revokeSessions
 	return &this
 }
 
@@ -51,12 +57,14 @@ func NewChangePasswordRequest() *ChangePasswordRequest {
 // but it doesn't guarantee that properties required by API are set
 func NewChangePasswordRequestWithDefaults() *ChangePasswordRequest {
 	this := ChangePasswordRequest{}
+	var revokeSessions bool = false
+	this.RevokeSessions = &revokeSessions
 	return &this
 }
 
 // GetNewPassword returns the NewPassword field value if set, zero value otherwise.
 func (o *ChangePasswordRequest) GetNewPassword() PasswordCredential {
-	if o == nil || o.NewPassword == nil {
+	if o == nil || IsNil(o.NewPassword) {
 		var ret PasswordCredential
 		return ret
 	}
@@ -66,7 +74,7 @@ func (o *ChangePasswordRequest) GetNewPassword() PasswordCredential {
 // GetNewPasswordOk returns a tuple with the NewPassword field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ChangePasswordRequest) GetNewPasswordOk() (*PasswordCredential, bool) {
-	if o == nil || o.NewPassword == nil {
+	if o == nil || IsNil(o.NewPassword) {
 		return nil, false
 	}
 	return o.NewPassword, true
@@ -74,7 +82,7 @@ func (o *ChangePasswordRequest) GetNewPasswordOk() (*PasswordCredential, bool) {
 
 // HasNewPassword returns a boolean if a field has been set.
 func (o *ChangePasswordRequest) HasNewPassword() bool {
-	if o != nil && o.NewPassword != nil {
+	if o != nil && !IsNil(o.NewPassword) {
 		return true
 	}
 
@@ -88,7 +96,7 @@ func (o *ChangePasswordRequest) SetNewPassword(v PasswordCredential) {
 
 // GetOldPassword returns the OldPassword field value if set, zero value otherwise.
 func (o *ChangePasswordRequest) GetOldPassword() PasswordCredential {
-	if o == nil || o.OldPassword == nil {
+	if o == nil || IsNil(o.OldPassword) {
 		var ret PasswordCredential
 		return ret
 	}
@@ -98,7 +106,7 @@ func (o *ChangePasswordRequest) GetOldPassword() PasswordCredential {
 // GetOldPasswordOk returns a tuple with the OldPassword field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ChangePasswordRequest) GetOldPasswordOk() (*PasswordCredential, bool) {
-	if o == nil || o.OldPassword == nil {
+	if o == nil || IsNil(o.OldPassword) {
 		return nil, false
 	}
 	return o.OldPassword, true
@@ -106,7 +114,7 @@ func (o *ChangePasswordRequest) GetOldPasswordOk() (*PasswordCredential, bool) {
 
 // HasOldPassword returns a boolean if a field has been set.
 func (o *ChangePasswordRequest) HasOldPassword() bool {
-	if o != nil && o.OldPassword != nil {
+	if o != nil && !IsNil(o.OldPassword) {
 		return true
 	}
 
@@ -120,7 +128,7 @@ func (o *ChangePasswordRequest) SetOldPassword(v PasswordCredential) {
 
 // GetRevokeSessions returns the RevokeSessions field value if set, zero value otherwise.
 func (o *ChangePasswordRequest) GetRevokeSessions() bool {
-	if o == nil || o.RevokeSessions == nil {
+	if o == nil || IsNil(o.RevokeSessions) {
 		var ret bool
 		return ret
 	}
@@ -130,7 +138,7 @@ func (o *ChangePasswordRequest) GetRevokeSessions() bool {
 // GetRevokeSessionsOk returns a tuple with the RevokeSessions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ChangePasswordRequest) GetRevokeSessionsOk() (*bool, bool) {
-	if o == nil || o.RevokeSessions == nil {
+	if o == nil || IsNil(o.RevokeSessions) {
 		return nil, false
 	}
 	return o.RevokeSessions, true
@@ -138,7 +146,7 @@ func (o *ChangePasswordRequest) GetRevokeSessionsOk() (*bool, bool) {
 
 // HasRevokeSessions returns a boolean if a field has been set.
 func (o *ChangePasswordRequest) HasRevokeSessions() bool {
-	if o != nil && o.RevokeSessions != nil {
+	if o != nil && !IsNil(o.RevokeSessions) {
 		return true
 	}
 
@@ -151,14 +159,22 @@ func (o *ChangePasswordRequest) SetRevokeSessions(v bool) {
 }
 
 func (o ChangePasswordRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ChangePasswordRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.NewPassword != nil {
+	if !IsNil(o.NewPassword) {
 		toSerialize["newPassword"] = o.NewPassword
 	}
-	if o.OldPassword != nil {
+	if !IsNil(o.OldPassword) {
 		toSerialize["oldPassword"] = o.OldPassword
 	}
-	if o.RevokeSessions != nil {
+	if !IsNil(o.RevokeSessions) {
 		toSerialize["revokeSessions"] = o.RevokeSessions
 	}
 
@@ -166,29 +182,27 @@ func (o ChangePasswordRequest) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ChangePasswordRequest) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ChangePasswordRequest) UnmarshalJSON(data []byte) (err error) {
 	varChangePasswordRequest := _ChangePasswordRequest{}
 
-	err = json.Unmarshal(bytes, &varChangePasswordRequest)
-	if err == nil {
-		*o = ChangePasswordRequest(varChangePasswordRequest)
-	} else {
+	err = json.Unmarshal(data, &varChangePasswordRequest)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ChangePasswordRequest(varChangePasswordRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "newPassword")
 		delete(additionalProperties, "oldPassword")
 		delete(additionalProperties, "revokeSessions")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +243,3 @@ func (v *NullableChangePasswordRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

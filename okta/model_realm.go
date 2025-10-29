@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -28,18 +28,21 @@ import (
 	"time"
 )
 
+// checks if the Realm type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Realm{}
+
 // Realm struct for Realm
 type Realm struct {
-	// Timestamp when the Realm was created
+	// Timestamp when the realm was created
 	Created *time.Time `json:"created,omitempty"`
-	// Unique key for the Realm
+	// Unique ID for the realm
 	Id *string `json:"id,omitempty"`
-	// Conveys whether the Realm is the default
+	// Indicates the default realm. Existing users will start out in the default realm and can be moved to other realms individually or through realm assignments. See [Realms Assignments API](/openapi/okta-management/management/tag/RealmAssignment/).
 	IsDefault *bool `json:"isDefault,omitempty"`
-	// Timestamp when the Realm was last updated
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Profile *RealmProfile `json:"profile,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	// Timestamp when the realm was updated
+	LastUpdated          *time.Time    `json:"lastUpdated,omitempty"`
+	Profile              *RealmProfile `json:"profile,omitempty"`
+	Links                *LinksSelf    `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -64,7 +67,7 @@ func NewRealmWithDefaults() *Realm {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *Realm) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -74,7 +77,7 @@ func (o *Realm) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Realm) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -82,7 +85,7 @@ func (o *Realm) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *Realm) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -96,7 +99,7 @@ func (o *Realm) SetCreated(v time.Time) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *Realm) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -106,7 +109,7 @@ func (o *Realm) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Realm) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -114,7 +117,7 @@ func (o *Realm) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *Realm) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -128,7 +131,7 @@ func (o *Realm) SetId(v string) {
 
 // GetIsDefault returns the IsDefault field value if set, zero value otherwise.
 func (o *Realm) GetIsDefault() bool {
-	if o == nil || o.IsDefault == nil {
+	if o == nil || IsNil(o.IsDefault) {
 		var ret bool
 		return ret
 	}
@@ -138,7 +141,7 @@ func (o *Realm) GetIsDefault() bool {
 // GetIsDefaultOk returns a tuple with the IsDefault field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Realm) GetIsDefaultOk() (*bool, bool) {
-	if o == nil || o.IsDefault == nil {
+	if o == nil || IsNil(o.IsDefault) {
 		return nil, false
 	}
 	return o.IsDefault, true
@@ -146,7 +149,7 @@ func (o *Realm) GetIsDefaultOk() (*bool, bool) {
 
 // HasIsDefault returns a boolean if a field has been set.
 func (o *Realm) HasIsDefault() bool {
-	if o != nil && o.IsDefault != nil {
+	if o != nil && !IsNil(o.IsDefault) {
 		return true
 	}
 
@@ -160,7 +163,7 @@ func (o *Realm) SetIsDefault(v bool) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *Realm) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -170,7 +173,7 @@ func (o *Realm) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Realm) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -178,7 +181,7 @@ func (o *Realm) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *Realm) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -192,7 +195,7 @@ func (o *Realm) SetLastUpdated(v time.Time) {
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *Realm) GetProfile() RealmProfile {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret RealmProfile
 		return ret
 	}
@@ -202,7 +205,7 @@ func (o *Realm) GetProfile() RealmProfile {
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Realm) GetProfileOk() (*RealmProfile, bool) {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		return nil, false
 	}
 	return o.Profile, true
@@ -210,7 +213,7 @@ func (o *Realm) GetProfileOk() (*RealmProfile, bool) {
 
 // HasProfile returns a boolean if a field has been set.
 func (o *Realm) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -224,7 +227,7 @@ func (o *Realm) SetProfile(v RealmProfile) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *Realm) GetLinks() LinksSelf {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksSelf
 		return ret
 	}
@@ -234,7 +237,7 @@ func (o *Realm) GetLinks() LinksSelf {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Realm) GetLinksOk() (*LinksSelf, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -242,7 +245,7 @@ func (o *Realm) GetLinksOk() (*LinksSelf, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *Realm) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -255,23 +258,31 @@ func (o *Realm) SetLinks(v LinksSelf) {
 }
 
 func (o Realm) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Realm) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.IsDefault != nil {
+	if !IsNil(o.IsDefault) {
 		toSerialize["isDefault"] = o.IsDefault
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Profile != nil {
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -279,23 +290,23 @@ func (o Realm) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Realm) UnmarshalJSON(bytes []byte) (err error) {
+func (o *Realm) UnmarshalJSON(data []byte) (err error) {
 	varRealm := _Realm{}
 
-	err = json.Unmarshal(bytes, &varRealm)
-	if err == nil {
-		*o = Realm(varRealm)
-	} else {
+	err = json.Unmarshal(data, &varRealm)
+
+	if err != nil {
 		return err
 	}
 
+	*o = Realm(varRealm)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "isDefault")
@@ -303,8 +314,6 @@ func (o *Realm) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "profile")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -345,4 +354,3 @@ func (v *NullableRealm) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

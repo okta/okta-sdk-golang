@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Credentials** | Pointer to [**UserCredentials**](UserCredentials.md) |  | [optional] 
-**GroupIds** | Pointer to **[]string** |  | [optional] 
+**Credentials** | Pointer to [**UserCredentialsWritable**](UserCredentialsWritable.md) |  | [optional] 
+**GroupIds** | Pointer to **[]string** | The list of group IDs of groups that the user is added to at the time of creation | [optional] 
 **Profile** | [**UserProfile**](UserProfile.md) |  | 
-**RealmId** | Pointer to **string** | &lt;div class&#x3D;\&quot;x-lifecycle-container\&quot;&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/div&gt;The ID of the Realm in which the user is residing | [optional] 
+**RealmId** | Pointer to **string** | The ID of the realm in which the user is residing. See [Realms](/openapi/okta-management/management/tag/Realm/). | [optional] 
 **Type** | Pointer to [**CreateUserRequestType**](CreateUserRequestType.md) |  | [optional] 
 
 ## Methods
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCredentials
 
-`func (o *CreateUserRequest) GetCredentials() UserCredentials`
+`func (o *CreateUserRequest) GetCredentials() UserCredentialsWritable`
 
 GetCredentials returns the Credentials field if non-nil, zero value otherwise.
 
 ### GetCredentialsOk
 
-`func (o *CreateUserRequest) GetCredentialsOk() (*UserCredentials, bool)`
+`func (o *CreateUserRequest) GetCredentialsOk() (*UserCredentialsWritable, bool)`
 
 GetCredentialsOk returns a tuple with the Credentials field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCredentials
 
-`func (o *CreateUserRequest) SetCredentials(v UserCredentials)`
+`func (o *CreateUserRequest) SetCredentials(v UserCredentialsWritable)`
 
 SetCredentials sets Credentials field to given value.
 

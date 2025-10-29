@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the SsprStepUpRequirement type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SsprStepUpRequirement{}
+
 // SsprStepUpRequirement Defines the secondary authenticators needed for password reset if `required` is true. The following are three valid configurations: * `required`=false * `required`=true with no methods to use any SSO authenticator * `required`=true with `security_question` as the method
 type SsprStepUpRequirement struct {
 	// Authenticator methods required for secondary authentication step of password recovery. Specify this value only when `required` is true and `security_question` is permitted for the secondary authentication.
-	Methods []string `json:"methods,omitempty"`
-	Required *bool `json:"required,omitempty"`
+	Methods              []string `json:"methods,omitempty"`
+	Required             *bool    `json:"required,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewSsprStepUpRequirementWithDefaults() *SsprStepUpRequirement {
 
 // GetMethods returns the Methods field value if set, zero value otherwise.
 func (o *SsprStepUpRequirement) GetMethods() []string {
-	if o == nil || o.Methods == nil {
+	if o == nil || IsNil(o.Methods) {
 		var ret []string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *SsprStepUpRequirement) GetMethods() []string {
 // GetMethodsOk returns a tuple with the Methods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SsprStepUpRequirement) GetMethodsOk() ([]string, bool) {
-	if o == nil || o.Methods == nil {
+	if o == nil || IsNil(o.Methods) {
 		return nil, false
 	}
 	return o.Methods, true
@@ -74,7 +77,7 @@ func (o *SsprStepUpRequirement) GetMethodsOk() ([]string, bool) {
 
 // HasMethods returns a boolean if a field has been set.
 func (o *SsprStepUpRequirement) HasMethods() bool {
-	if o != nil && o.Methods != nil {
+	if o != nil && !IsNil(o.Methods) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *SsprStepUpRequirement) SetMethods(v []string) {
 
 // GetRequired returns the Required field value if set, zero value otherwise.
 func (o *SsprStepUpRequirement) GetRequired() bool {
-	if o == nil || o.Required == nil {
+	if o == nil || IsNil(o.Required) {
 		var ret bool
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *SsprStepUpRequirement) GetRequired() bool {
 // GetRequiredOk returns a tuple with the Required field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SsprStepUpRequirement) GetRequiredOk() (*bool, bool) {
-	if o == nil || o.Required == nil {
+	if o == nil || IsNil(o.Required) {
 		return nil, false
 	}
 	return o.Required, true
@@ -106,7 +109,7 @@ func (o *SsprStepUpRequirement) GetRequiredOk() (*bool, bool) {
 
 // HasRequired returns a boolean if a field has been set.
 func (o *SsprStepUpRequirement) HasRequired() bool {
-	if o != nil && o.Required != nil {
+	if o != nil && !IsNil(o.Required) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *SsprStepUpRequirement) SetRequired(v bool) {
 }
 
 func (o SsprStepUpRequirement) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SsprStepUpRequirement) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Methods != nil {
+	if !IsNil(o.Methods) {
 		toSerialize["methods"] = o.Methods
 	}
-	if o.Required != nil {
+	if !IsNil(o.Required) {
 		toSerialize["required"] = o.Required
 	}
 
@@ -131,28 +142,26 @@ func (o SsprStepUpRequirement) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SsprStepUpRequirement) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SsprStepUpRequirement) UnmarshalJSON(data []byte) (err error) {
 	varSsprStepUpRequirement := _SsprStepUpRequirement{}
 
-	err = json.Unmarshal(bytes, &varSsprStepUpRequirement)
-	if err == nil {
-		*o = SsprStepUpRequirement(varSsprStepUpRequirement)
-	} else {
+	err = json.Unmarshal(data, &varSsprStepUpRequirement)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SsprStepUpRequirement(varSsprStepUpRequirement)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "methods")
 		delete(additionalProperties, "required")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableSsprStepUpRequirement) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

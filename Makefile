@@ -3,8 +3,8 @@ COLOR_NONE=\x1b[0m
 COLOR_ERROR=\x1b[31;01m
 COLOR_WARNING=\x1b[33;05m
 COLOR_OKTA=\x1B[34;01m
-GOFMT := gofumpt
-GOIMPORTS := goimports
+GOLANGCI_LINT := golangci-lint
+GOLANGCI_LINT_VERSION := v2.5.0
 
 help:
 	@echo "$(COLOR_OK)Okta SDK for Golang$(COLOR_NONE)"
@@ -53,22 +53,15 @@ ifneq ($(origin OPENAPI_SPEC_BRANCH),undefined)
 endif
 
 .PHONY: fmt
-fmt: check-fmt # Format the code
-	@$(GOFMT) -l -w $$(find . -name '*.go' |grep -v vendor) > /dev/null
+fmt: check-golangci-lint # Format the code using `golangci-lint`
+	@$(GOLANGCI_LINT) fmt
 
-check-fmt:
-	@which $(GOFMT) > /dev/null || GO111MODULE=on go install mvdan.cc/gofumpt@v0.5.0
-
-.PHONY: import
-import: check-goimports
-	@$(GOIMPORTS) -w $$(find . -path ./vendor -prune -o -name '*.go' -print) > /dev/null
-
-check-goimports:
-	@which $(GOIMPORTS) > /dev/null || GO111MODULE=on go install golang.org/x/tools/cmd/goimports@latest
+check-golangci-lint:
+	@which $(GOLANGCI_LINT) > /dev/null || curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/HEAD/install.sh | sh -s -- -b $(shell go env GOPATH)/bin $(GOLANGCI_LINT_VERSION)
 
 test:
 	go test -failfast -race ./okta -test.v
 
 generate:
-	npx @openapitools/openapi-generator-cli generate -c ./.generator/config.yaml -i .generator/okta-management-APIs-oasv3-noEnums-inheritance.yaml
+	npx @openapitools/openapi-generator-cli generate -c ./.generator/config.yaml -i .generator/okta-management-APIs-oasv3-noEnums-inheritance.yaml --skip-validate-spec
 

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthorizationServerCredentials type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthorizationServerCredentials{}
+
 // AuthorizationServerCredentials struct for AuthorizationServerCredentials
 type AuthorizationServerCredentials struct {
-	Signing *AuthorizationServerCredentialsSigningConfig `json:"signing,omitempty"`
+	Signing              *AuthorizationServerCredentialsSigningConfig `json:"signing,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewAuthorizationServerCredentialsWithDefaults() *AuthorizationServerCredent
 
 // GetSigning returns the Signing field value if set, zero value otherwise.
 func (o *AuthorizationServerCredentials) GetSigning() AuthorizationServerCredentialsSigningConfig {
-	if o == nil || o.Signing == nil {
+	if o == nil || IsNil(o.Signing) {
 		var ret AuthorizationServerCredentialsSigningConfig
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *AuthorizationServerCredentials) GetSigning() AuthorizationServerCredent
 // GetSigningOk returns a tuple with the Signing field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerCredentials) GetSigningOk() (*AuthorizationServerCredentialsSigningConfig, bool) {
-	if o == nil || o.Signing == nil {
+	if o == nil || IsNil(o.Signing) {
 		return nil, false
 	}
 	return o.Signing, true
@@ -72,7 +75,7 @@ func (o *AuthorizationServerCredentials) GetSigningOk() (*AuthorizationServerCre
 
 // HasSigning returns a boolean if a field has been set.
 func (o *AuthorizationServerCredentials) HasSigning() bool {
-	if o != nil && o.Signing != nil {
+	if o != nil && !IsNil(o.Signing) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *AuthorizationServerCredentials) SetSigning(v AuthorizationServerCredent
 }
 
 func (o AuthorizationServerCredentials) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthorizationServerCredentials) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Signing != nil {
+	if !IsNil(o.Signing) {
 		toSerialize["signing"] = o.Signing
 	}
 
@@ -94,27 +105,25 @@ func (o AuthorizationServerCredentials) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthorizationServerCredentials) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthorizationServerCredentials) UnmarshalJSON(data []byte) (err error) {
 	varAuthorizationServerCredentials := _AuthorizationServerCredentials{}
 
-	err = json.Unmarshal(bytes, &varAuthorizationServerCredentials)
-	if err == nil {
-		*o = AuthorizationServerCredentials(varAuthorizationServerCredentials)
-	} else {
+	err = json.Unmarshal(data, &varAuthorizationServerCredentials)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthorizationServerCredentials(varAuthorizationServerCredentials)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "signing")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableAuthorizationServerCredentials) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

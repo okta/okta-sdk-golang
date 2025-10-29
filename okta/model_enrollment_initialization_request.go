@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,16 +27,19 @@ import (
 	"encoding/json"
 )
 
-// EnrollmentInitializationRequest Enrollment Initialization Request
+// checks if the EnrollmentInitializationRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EnrollmentInitializationRequest{}
+
+// EnrollmentInitializationRequest Enrollment initialization request
 type EnrollmentInitializationRequest struct {
-	// List of Relying Party hostnames to register on the YubiKey.
+	// List of relying party hostnames to register on the YubiKey
 	EnrollmentRpIds []string `json:"enrollmentRpIds,omitempty"`
-	// Name of the fulfillment provider for the WebAuthn Preregistration Factor
+	// Name of the fulfillment provider for the WebAuthn preregistration factor
 	FulfillmentProvider *string `json:"fulfillmentProvider,omitempty"`
 	// ID of an existing Okta user
-	UserId *string `json:"userId,omitempty"`
+	UserId                *string   `json:"userId,omitempty"`
 	YubicoTransportKeyJWK *ECKeyJWK `json:"yubicoTransportKeyJWK,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties  map[string]interface{}
 }
 
 type _EnrollmentInitializationRequest EnrollmentInitializationRequest
@@ -60,7 +63,7 @@ func NewEnrollmentInitializationRequestWithDefaults() *EnrollmentInitializationR
 
 // GetEnrollmentRpIds returns the EnrollmentRpIds field value if set, zero value otherwise.
 func (o *EnrollmentInitializationRequest) GetEnrollmentRpIds() []string {
-	if o == nil || o.EnrollmentRpIds == nil {
+	if o == nil || IsNil(o.EnrollmentRpIds) {
 		var ret []string
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *EnrollmentInitializationRequest) GetEnrollmentRpIds() []string {
 // GetEnrollmentRpIdsOk returns a tuple with the EnrollmentRpIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnrollmentInitializationRequest) GetEnrollmentRpIdsOk() ([]string, bool) {
-	if o == nil || o.EnrollmentRpIds == nil {
+	if o == nil || IsNil(o.EnrollmentRpIds) {
 		return nil, false
 	}
 	return o.EnrollmentRpIds, true
@@ -78,7 +81,7 @@ func (o *EnrollmentInitializationRequest) GetEnrollmentRpIdsOk() ([]string, bool
 
 // HasEnrollmentRpIds returns a boolean if a field has been set.
 func (o *EnrollmentInitializationRequest) HasEnrollmentRpIds() bool {
-	if o != nil && o.EnrollmentRpIds != nil {
+	if o != nil && !IsNil(o.EnrollmentRpIds) {
 		return true
 	}
 
@@ -92,7 +95,7 @@ func (o *EnrollmentInitializationRequest) SetEnrollmentRpIds(v []string) {
 
 // GetFulfillmentProvider returns the FulfillmentProvider field value if set, zero value otherwise.
 func (o *EnrollmentInitializationRequest) GetFulfillmentProvider() string {
-	if o == nil || o.FulfillmentProvider == nil {
+	if o == nil || IsNil(o.FulfillmentProvider) {
 		var ret string
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *EnrollmentInitializationRequest) GetFulfillmentProvider() string {
 // GetFulfillmentProviderOk returns a tuple with the FulfillmentProvider field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnrollmentInitializationRequest) GetFulfillmentProviderOk() (*string, bool) {
-	if o == nil || o.FulfillmentProvider == nil {
+	if o == nil || IsNil(o.FulfillmentProvider) {
 		return nil, false
 	}
 	return o.FulfillmentProvider, true
@@ -110,7 +113,7 @@ func (o *EnrollmentInitializationRequest) GetFulfillmentProviderOk() (*string, b
 
 // HasFulfillmentProvider returns a boolean if a field has been set.
 func (o *EnrollmentInitializationRequest) HasFulfillmentProvider() bool {
-	if o != nil && o.FulfillmentProvider != nil {
+	if o != nil && !IsNil(o.FulfillmentProvider) {
 		return true
 	}
 
@@ -124,7 +127,7 @@ func (o *EnrollmentInitializationRequest) SetFulfillmentProvider(v string) {
 
 // GetUserId returns the UserId field value if set, zero value otherwise.
 func (o *EnrollmentInitializationRequest) GetUserId() string {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		var ret string
 		return ret
 	}
@@ -134,7 +137,7 @@ func (o *EnrollmentInitializationRequest) GetUserId() string {
 // GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnrollmentInitializationRequest) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		return nil, false
 	}
 	return o.UserId, true
@@ -142,7 +145,7 @@ func (o *EnrollmentInitializationRequest) GetUserIdOk() (*string, bool) {
 
 // HasUserId returns a boolean if a field has been set.
 func (o *EnrollmentInitializationRequest) HasUserId() bool {
-	if o != nil && o.UserId != nil {
+	if o != nil && !IsNil(o.UserId) {
 		return true
 	}
 
@@ -156,7 +159,7 @@ func (o *EnrollmentInitializationRequest) SetUserId(v string) {
 
 // GetYubicoTransportKeyJWK returns the YubicoTransportKeyJWK field value if set, zero value otherwise.
 func (o *EnrollmentInitializationRequest) GetYubicoTransportKeyJWK() ECKeyJWK {
-	if o == nil || o.YubicoTransportKeyJWK == nil {
+	if o == nil || IsNil(o.YubicoTransportKeyJWK) {
 		var ret ECKeyJWK
 		return ret
 	}
@@ -166,7 +169,7 @@ func (o *EnrollmentInitializationRequest) GetYubicoTransportKeyJWK() ECKeyJWK {
 // GetYubicoTransportKeyJWKOk returns a tuple with the YubicoTransportKeyJWK field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnrollmentInitializationRequest) GetYubicoTransportKeyJWKOk() (*ECKeyJWK, bool) {
-	if o == nil || o.YubicoTransportKeyJWK == nil {
+	if o == nil || IsNil(o.YubicoTransportKeyJWK) {
 		return nil, false
 	}
 	return o.YubicoTransportKeyJWK, true
@@ -174,7 +177,7 @@ func (o *EnrollmentInitializationRequest) GetYubicoTransportKeyJWKOk() (*ECKeyJW
 
 // HasYubicoTransportKeyJWK returns a boolean if a field has been set.
 func (o *EnrollmentInitializationRequest) HasYubicoTransportKeyJWK() bool {
-	if o != nil && o.YubicoTransportKeyJWK != nil {
+	if o != nil && !IsNil(o.YubicoTransportKeyJWK) {
 		return true
 	}
 
@@ -187,17 +190,25 @@ func (o *EnrollmentInitializationRequest) SetYubicoTransportKeyJWK(v ECKeyJWK) {
 }
 
 func (o EnrollmentInitializationRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EnrollmentInitializationRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.EnrollmentRpIds != nil {
+	if !IsNil(o.EnrollmentRpIds) {
 		toSerialize["enrollmentRpIds"] = o.EnrollmentRpIds
 	}
-	if o.FulfillmentProvider != nil {
+	if !IsNil(o.FulfillmentProvider) {
 		toSerialize["fulfillmentProvider"] = o.FulfillmentProvider
 	}
-	if o.UserId != nil {
+	if !IsNil(o.UserId) {
 		toSerialize["userId"] = o.UserId
 	}
-	if o.YubicoTransportKeyJWK != nil {
+	if !IsNil(o.YubicoTransportKeyJWK) {
 		toSerialize["yubicoTransportKeyJWK"] = o.YubicoTransportKeyJWK
 	}
 
@@ -205,30 +216,28 @@ func (o EnrollmentInitializationRequest) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EnrollmentInitializationRequest) UnmarshalJSON(bytes []byte) (err error) {
+func (o *EnrollmentInitializationRequest) UnmarshalJSON(data []byte) (err error) {
 	varEnrollmentInitializationRequest := _EnrollmentInitializationRequest{}
 
-	err = json.Unmarshal(bytes, &varEnrollmentInitializationRequest)
-	if err == nil {
-		*o = EnrollmentInitializationRequest(varEnrollmentInitializationRequest)
-	} else {
+	err = json.Unmarshal(data, &varEnrollmentInitializationRequest)
+
+	if err != nil {
 		return err
 	}
 
+	*o = EnrollmentInitializationRequest(varEnrollmentInitializationRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "enrollmentRpIds")
 		delete(additionalProperties, "fulfillmentProvider")
 		delete(additionalProperties, "userId")
 		delete(additionalProperties, "yubicoTransportKeyJWK")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -269,4 +278,3 @@ func (v *NullableEnrollmentInitializationRequest) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

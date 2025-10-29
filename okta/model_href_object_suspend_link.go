@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -25,19 +25,23 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
-// HrefObjectSuspendLink struct for HrefObjectSuspendLink
+// checks if the HrefObjectSuspendLink type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &HrefObjectSuspendLink{}
+
+// HrefObjectSuspendLink Link to suspend the resource
 type HrefObjectSuspendLink struct {
 	Hints *HrefHints `json:"hints,omitempty"`
 	// Link URI
 	Href string `json:"href"`
 	// Link name
 	Name *string `json:"name,omitempty"`
-	// Indicates whether the Link Object's `href` property is a URI template.
+	// Indicates whether the link object's `href` property is a URI template.
 	Templated *bool `json:"templated,omitempty"`
 	// The media type of the link. If omitted, it is implicitly `application/json`.
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -63,7 +67,7 @@ func NewHrefObjectSuspendLinkWithDefaults() *HrefObjectSuspendLink {
 
 // GetHints returns the Hints field value if set, zero value otherwise.
 func (o *HrefObjectSuspendLink) GetHints() HrefHints {
-	if o == nil || o.Hints == nil {
+	if o == nil || IsNil(o.Hints) {
 		var ret HrefHints
 		return ret
 	}
@@ -73,7 +77,7 @@ func (o *HrefObjectSuspendLink) GetHints() HrefHints {
 // GetHintsOk returns a tuple with the Hints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HrefObjectSuspendLink) GetHintsOk() (*HrefHints, bool) {
-	if o == nil || o.Hints == nil {
+	if o == nil || IsNil(o.Hints) {
 		return nil, false
 	}
 	return o.Hints, true
@@ -81,7 +85,7 @@ func (o *HrefObjectSuspendLink) GetHintsOk() (*HrefHints, bool) {
 
 // HasHints returns a boolean if a field has been set.
 func (o *HrefObjectSuspendLink) HasHints() bool {
-	if o != nil && o.Hints != nil {
+	if o != nil && !IsNil(o.Hints) {
 		return true
 	}
 
@@ -119,7 +123,7 @@ func (o *HrefObjectSuspendLink) SetHref(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *HrefObjectSuspendLink) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -129,7 +133,7 @@ func (o *HrefObjectSuspendLink) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HrefObjectSuspendLink) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -137,7 +141,7 @@ func (o *HrefObjectSuspendLink) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *HrefObjectSuspendLink) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -151,7 +155,7 @@ func (o *HrefObjectSuspendLink) SetName(v string) {
 
 // GetTemplated returns the Templated field value if set, zero value otherwise.
 func (o *HrefObjectSuspendLink) GetTemplated() bool {
-	if o == nil || o.Templated == nil {
+	if o == nil || IsNil(o.Templated) {
 		var ret bool
 		return ret
 	}
@@ -161,7 +165,7 @@ func (o *HrefObjectSuspendLink) GetTemplated() bool {
 // GetTemplatedOk returns a tuple with the Templated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HrefObjectSuspendLink) GetTemplatedOk() (*bool, bool) {
-	if o == nil || o.Templated == nil {
+	if o == nil || IsNil(o.Templated) {
 		return nil, false
 	}
 	return o.Templated, true
@@ -169,7 +173,7 @@ func (o *HrefObjectSuspendLink) GetTemplatedOk() (*bool, bool) {
 
 // HasTemplated returns a boolean if a field has been set.
 func (o *HrefObjectSuspendLink) HasTemplated() bool {
-	if o != nil && o.Templated != nil {
+	if o != nil && !IsNil(o.Templated) {
 		return true
 	}
 
@@ -183,7 +187,7 @@ func (o *HrefObjectSuspendLink) SetTemplated(v bool) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *HrefObjectSuspendLink) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -193,7 +197,7 @@ func (o *HrefObjectSuspendLink) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HrefObjectSuspendLink) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -201,7 +205,7 @@ func (o *HrefObjectSuspendLink) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *HrefObjectSuspendLink) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -214,20 +218,26 @@ func (o *HrefObjectSuspendLink) SetType(v string) {
 }
 
 func (o HrefObjectSuspendLink) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o HrefObjectSuspendLink) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Hints != nil {
+	if !IsNil(o.Hints) {
 		toSerialize["hints"] = o.Hints
 	}
-	if true {
-		toSerialize["href"] = o.Href
-	}
-	if o.Name != nil {
+	toSerialize["href"] = o.Href
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Templated != nil {
+	if !IsNil(o.Templated) {
 		toSerialize["templated"] = o.Templated
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -235,31 +245,50 @@ func (o HrefObjectSuspendLink) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *HrefObjectSuspendLink) UnmarshalJSON(bytes []byte) (err error) {
-	varHrefObjectSuspendLink := _HrefObjectSuspendLink{}
+func (o *HrefObjectSuspendLink) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"href",
+	}
 
-	err = json.Unmarshal(bytes, &varHrefObjectSuspendLink)
-	if err == nil {
-		*o = HrefObjectSuspendLink(varHrefObjectSuspendLink)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varHrefObjectSuspendLink := _HrefObjectSuspendLink{}
+
+	err = json.Unmarshal(data, &varHrefObjectSuspendLink)
+
+	if err != nil {
+		return err
+	}
+
+	*o = HrefObjectSuspendLink(varHrefObjectSuspendLink)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "hints")
 		delete(additionalProperties, "href")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "templated")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -300,4 +329,3 @@ func (v *NullableHrefObjectSuspendLink) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

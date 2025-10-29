@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -25,15 +25,19 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
-// SimulatePolicyBody The request body required for a simulate policy operation.
+// checks if the SimulatePolicyBody type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SimulatePolicyBody{}
+
+// SimulatePolicyBody The request body required for a simulate policy operation
 type SimulatePolicyBody struct {
 	// The application instance ID for a simulate operation
-	AppInstance string `json:"appInstance"`
+	AppInstance   string         `json:"appInstance"`
 	PolicyContext *PolicyContext `json:"policyContext,omitempty"`
 	// Supported policy types for a simulate operation. The default value, `null`, returns all types.
-	PolicyTypes []string `json:"policyTypes,omitempty"`
+	PolicyTypes          []string `json:"policyTypes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -83,7 +87,7 @@ func (o *SimulatePolicyBody) SetAppInstance(v string) {
 
 // GetPolicyContext returns the PolicyContext field value if set, zero value otherwise.
 func (o *SimulatePolicyBody) GetPolicyContext() PolicyContext {
-	if o == nil || o.PolicyContext == nil {
+	if o == nil || IsNil(o.PolicyContext) {
 		var ret PolicyContext
 		return ret
 	}
@@ -93,7 +97,7 @@ func (o *SimulatePolicyBody) GetPolicyContext() PolicyContext {
 // GetPolicyContextOk returns a tuple with the PolicyContext field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SimulatePolicyBody) GetPolicyContextOk() (*PolicyContext, bool) {
-	if o == nil || o.PolicyContext == nil {
+	if o == nil || IsNil(o.PolicyContext) {
 		return nil, false
 	}
 	return o.PolicyContext, true
@@ -101,7 +105,7 @@ func (o *SimulatePolicyBody) GetPolicyContextOk() (*PolicyContext, bool) {
 
 // HasPolicyContext returns a boolean if a field has been set.
 func (o *SimulatePolicyBody) HasPolicyContext() bool {
-	if o != nil && o.PolicyContext != nil {
+	if o != nil && !IsNil(o.PolicyContext) {
 		return true
 	}
 
@@ -115,7 +119,7 @@ func (o *SimulatePolicyBody) SetPolicyContext(v PolicyContext) {
 
 // GetPolicyTypes returns the PolicyTypes field value if set, zero value otherwise.
 func (o *SimulatePolicyBody) GetPolicyTypes() []string {
-	if o == nil || o.PolicyTypes == nil {
+	if o == nil || IsNil(o.PolicyTypes) {
 		var ret []string
 		return ret
 	}
@@ -125,7 +129,7 @@ func (o *SimulatePolicyBody) GetPolicyTypes() []string {
 // GetPolicyTypesOk returns a tuple with the PolicyTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SimulatePolicyBody) GetPolicyTypesOk() ([]string, bool) {
-	if o == nil || o.PolicyTypes == nil {
+	if o == nil || IsNil(o.PolicyTypes) {
 		return nil, false
 	}
 	return o.PolicyTypes, true
@@ -133,7 +137,7 @@ func (o *SimulatePolicyBody) GetPolicyTypesOk() ([]string, bool) {
 
 // HasPolicyTypes returns a boolean if a field has been set.
 func (o *SimulatePolicyBody) HasPolicyTypes() bool {
-	if o != nil && o.PolicyTypes != nil {
+	if o != nil && !IsNil(o.PolicyTypes) {
 		return true
 	}
 
@@ -146,14 +150,20 @@ func (o *SimulatePolicyBody) SetPolicyTypes(v []string) {
 }
 
 func (o SimulatePolicyBody) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["appInstance"] = o.AppInstance
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.PolicyContext != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o SimulatePolicyBody) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["appInstance"] = o.AppInstance
+	if !IsNil(o.PolicyContext) {
 		toSerialize["policyContext"] = o.PolicyContext
 	}
-	if o.PolicyTypes != nil {
+	if !IsNil(o.PolicyTypes) {
 		toSerialize["policyTypes"] = o.PolicyTypes
 	}
 
@@ -161,29 +171,48 @@ func (o SimulatePolicyBody) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SimulatePolicyBody) UnmarshalJSON(bytes []byte) (err error) {
-	varSimulatePolicyBody := _SimulatePolicyBody{}
+func (o *SimulatePolicyBody) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"appInstance",
+	}
 
-	err = json.Unmarshal(bytes, &varSimulatePolicyBody)
-	if err == nil {
-		*o = SimulatePolicyBody(varSimulatePolicyBody)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSimulatePolicyBody := _SimulatePolicyBody{}
+
+	err = json.Unmarshal(data, &varSimulatePolicyBody)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SimulatePolicyBody(varSimulatePolicyBody)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "appInstance")
 		delete(additionalProperties, "policyContext")
 		delete(additionalProperties, "policyTypes")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -224,4 +253,3 @@ func (v *NullableSimulatePolicyBody) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

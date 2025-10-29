@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Conditions** | Pointer to **map[string]interface{}** | Conditions for further restricting a permission | [optional] 
-**Created** | Pointer to **time.Time** | Timestamp when the role was created | [optional] [readonly] 
-**Label** | Pointer to **string** | The permission type | [optional] [readonly] 
-**LastUpdated** | Pointer to **time.Time** | Timestamp when the role was last updated | [optional] [readonly] 
+**Conditions** | Pointer to [**NullablePermissionConditions**](PermissionConditions.md) |  | [optional] 
+**Created** | Pointer to **time.Time** | Timestamp when the permission was assigned | [optional] [readonly] 
+**Label** | Pointer to **string** | The assigned Okta [permission](/openapi/okta-management/guides/permissions) | [optional] [readonly] 
+**LastUpdated** | Pointer to **time.Time** | Timestamp when the permission was last updated | [optional] [readonly] 
 **Links** | Pointer to [**PermissionLinks**](PermissionLinks.md) |  | [optional] 
 
 ## Methods
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetConditions
 
-`func (o *Permission) GetConditions() map[string]interface{}`
+`func (o *Permission) GetConditions() PermissionConditions`
 
 GetConditions returns the Conditions field if non-nil, zero value otherwise.
 
 ### GetConditionsOk
 
-`func (o *Permission) GetConditionsOk() (*map[string]interface{}, bool)`
+`func (o *Permission) GetConditionsOk() (*PermissionConditions, bool)`
 
 GetConditionsOk returns a tuple with the Conditions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConditions
 
-`func (o *Permission) SetConditions(v map[string]interface{})`
+`func (o *Permission) SetConditions(v PermissionConditions)`
 
 SetConditions sets Conditions field to given value.
 

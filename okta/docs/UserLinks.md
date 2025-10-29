@@ -4,21 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Self** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
-**Activate** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
-**ResetPassword** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
-**ResetFactors** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
-**ExpirePassword** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
-**ForgotPassword** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
-**ChangeRecoveryQuestion** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
-**Deactivate** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
-**Reactivate** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
-**ChangePassword** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
-**Schema** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
-**Suspend** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
-**Unsuspend** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
-**Unlock** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
-**Type** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**Self** | Pointer to [**HrefObject**](HrefObject.md) | URL to the individual user | [optional] 
+**Activate** | Pointer to [**HrefObject**](HrefObject.md) | URL to activate the user | [optional] 
+**ResetPassword** | Pointer to [**HrefObject**](HrefObject.md) | URL to reset the user&#39;s password | [optional] 
+**ResetFactors** | Pointer to [**HrefObject**](HrefObject.md) | URL to reset the user&#39;s factors | [optional] 
+**ExpirePassword** | Pointer to [**HrefObject**](HrefObject.md) | URL to expire the user&#39;s password | [optional] 
+**ForgotPassword** | Pointer to [**HrefObject**](HrefObject.md) | URL to initiate a forgot password operation | [optional] 
+**ChangeRecoveryQuestion** | Pointer to [**HrefObject**](HrefObject.md) | URL to change the user&#39;s recovery question | [optional] 
+**Deactivate** | Pointer to [**HrefObject**](HrefObject.md) | URL to deactivate a user | [optional] 
+**Reactivate** | Pointer to [**HrefObject**](HrefObject.md) | URL to reactivate the user | [optional] 
+**ChangePassword** | Pointer to [**HrefObject**](HrefObject.md) | URL to change the user&#39;s password | [optional] 
+**Schema** | Pointer to [**HrefObject**](HrefObject.md) | URL to the user&#39;s profile schema | [optional] 
+**Suspend** | Pointer to [**HrefObject**](HrefObject.md) | URL to suspend the user | [optional] 
+**Unsuspend** | Pointer to [**HrefObject**](HrefObject.md) | URL to unsuspend the user | [optional] 
+**Unlock** | Pointer to [**HrefObject**](HrefObject.md) | URL to unlock the locked-out user | [optional] 
+**Type** | Pointer to [**HrefObject**](HrefObject.md) | URL to the user type | [optional] 
 
 ## Methods
 

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the InlineHookResponseCommands type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InlineHookResponseCommands{}
+
 // InlineHookResponseCommands struct for InlineHookResponseCommands
 type InlineHookResponseCommands struct {
-	Type *string `json:"type,omitempty"`
-	Value []InlineHookResponseCommandValue `json:"value,omitempty"`
+	Type                 *string                          `json:"type,omitempty"`
+	Value                []InlineHookResponseCommandValue `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewInlineHookResponseCommandsWithDefaults() *InlineHookResponseCommands {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *InlineHookResponseCommands) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *InlineHookResponseCommands) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookResponseCommands) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -73,7 +76,7 @@ func (o *InlineHookResponseCommands) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *InlineHookResponseCommands) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *InlineHookResponseCommands) SetType(v string) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *InlineHookResponseCommands) GetValue() []InlineHookResponseCommandValue {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret []InlineHookResponseCommandValue
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *InlineHookResponseCommands) GetValue() []InlineHookResponseCommandValue
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InlineHookResponseCommands) GetValueOk() ([]InlineHookResponseCommandValue, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -105,7 +108,7 @@ func (o *InlineHookResponseCommands) GetValueOk() ([]InlineHookResponseCommandVa
 
 // HasValue returns a boolean if a field has been set.
 func (o *InlineHookResponseCommands) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *InlineHookResponseCommands) SetValue(v []InlineHookResponseCommandValue
 }
 
 func (o InlineHookResponseCommands) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o InlineHookResponseCommands) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Value != nil {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
 
@@ -130,28 +141,26 @@ func (o InlineHookResponseCommands) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *InlineHookResponseCommands) UnmarshalJSON(bytes []byte) (err error) {
+func (o *InlineHookResponseCommands) UnmarshalJSON(data []byte) (err error) {
 	varInlineHookResponseCommands := _InlineHookResponseCommands{}
 
-	err = json.Unmarshal(bytes, &varInlineHookResponseCommands)
-	if err == nil {
-		*o = InlineHookResponseCommands(varInlineHookResponseCommands)
-	} else {
+	err = json.Unmarshal(data, &varInlineHookResponseCommands)
+
+	if err != nil {
 		return err
 	}
 
+	*o = InlineHookResponseCommands(varInlineHookResponseCommands)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "value")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableInlineHookResponseCommands) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

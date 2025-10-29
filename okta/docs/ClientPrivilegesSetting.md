@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ClientPrivilegesSetting** | Pointer to **bool** |  | [optional] 
+**ClientPrivilegesSetting** | Pointer to **bool** | If true, assigns the super admin role by default to new public client apps | [optional] 
 
 ## Methods
 

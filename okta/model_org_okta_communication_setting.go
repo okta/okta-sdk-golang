@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the OrgOktaCommunicationSetting type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrgOktaCommunicationSetting{}
+
 // OrgOktaCommunicationSetting struct for OrgOktaCommunicationSetting
 type OrgOktaCommunicationSetting struct {
-	OptOutEmailUsers *bool `json:"optOutEmailUsers,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	// Indicates whether org users receive Okta communication emails
+	OptOutEmailUsers     *bool                             `json:"optOutEmailUsers,omitempty"`
+	Links                *OrgOktaCommunicationSettingLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +59,7 @@ func NewOrgOktaCommunicationSettingWithDefaults() *OrgOktaCommunicationSetting {
 
 // GetOptOutEmailUsers returns the OptOutEmailUsers field value if set, zero value otherwise.
 func (o *OrgOktaCommunicationSetting) GetOptOutEmailUsers() bool {
-	if o == nil || o.OptOutEmailUsers == nil {
+	if o == nil || IsNil(o.OptOutEmailUsers) {
 		var ret bool
 		return ret
 	}
@@ -65,7 +69,7 @@ func (o *OrgOktaCommunicationSetting) GetOptOutEmailUsers() bool {
 // GetOptOutEmailUsersOk returns a tuple with the OptOutEmailUsers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgOktaCommunicationSetting) GetOptOutEmailUsersOk() (*bool, bool) {
-	if o == nil || o.OptOutEmailUsers == nil {
+	if o == nil || IsNil(o.OptOutEmailUsers) {
 		return nil, false
 	}
 	return o.OptOutEmailUsers, true
@@ -73,7 +77,7 @@ func (o *OrgOktaCommunicationSetting) GetOptOutEmailUsersOk() (*bool, bool) {
 
 // HasOptOutEmailUsers returns a boolean if a field has been set.
 func (o *OrgOktaCommunicationSetting) HasOptOutEmailUsers() bool {
-	if o != nil && o.OptOutEmailUsers != nil {
+	if o != nil && !IsNil(o.OptOutEmailUsers) {
 		return true
 	}
 
@@ -86,9 +90,9 @@ func (o *OrgOktaCommunicationSetting) SetOptOutEmailUsers(v bool) {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *OrgOktaCommunicationSetting) GetLinks() LinksSelf {
-	if o == nil || o.Links == nil {
-		var ret LinksSelf
+func (o *OrgOktaCommunicationSetting) GetLinks() OrgOktaCommunicationSettingLinks {
+	if o == nil || IsNil(o.Links) {
+		var ret OrgOktaCommunicationSettingLinks
 		return ret
 	}
 	return *o.Links
@@ -96,8 +100,8 @@ func (o *OrgOktaCommunicationSetting) GetLinks() LinksSelf {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OrgOktaCommunicationSetting) GetLinksOk() (*LinksSelf, bool) {
-	if o == nil || o.Links == nil {
+func (o *OrgOktaCommunicationSetting) GetLinksOk() (*OrgOktaCommunicationSettingLinks, bool) {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -105,24 +109,32 @@ func (o *OrgOktaCommunicationSetting) GetLinksOk() (*LinksSelf, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *OrgOktaCommunicationSetting) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
 	return false
 }
 
-// SetLinks gets a reference to the given LinksSelf and assigns it to the Links field.
-func (o *OrgOktaCommunicationSetting) SetLinks(v LinksSelf) {
+// SetLinks gets a reference to the given OrgOktaCommunicationSettingLinks and assigns it to the Links field.
+func (o *OrgOktaCommunicationSetting) SetLinks(v OrgOktaCommunicationSettingLinks) {
 	o.Links = &v
 }
 
 func (o OrgOktaCommunicationSetting) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OrgOktaCommunicationSetting) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.OptOutEmailUsers != nil {
+	if !IsNil(o.OptOutEmailUsers) {
 		toSerialize["optOutEmailUsers"] = o.OptOutEmailUsers
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -130,28 +142,26 @@ func (o OrgOktaCommunicationSetting) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OrgOktaCommunicationSetting) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OrgOktaCommunicationSetting) UnmarshalJSON(data []byte) (err error) {
 	varOrgOktaCommunicationSetting := _OrgOktaCommunicationSetting{}
 
-	err = json.Unmarshal(bytes, &varOrgOktaCommunicationSetting)
-	if err == nil {
-		*o = OrgOktaCommunicationSetting(varOrgOktaCommunicationSetting)
-	} else {
+	err = json.Unmarshal(data, &varOrgOktaCommunicationSetting)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OrgOktaCommunicationSetting(varOrgOktaCommunicationSetting)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "optOutEmailUsers")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +202,3 @@ func (v *NullableOrgOktaCommunicationSetting) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

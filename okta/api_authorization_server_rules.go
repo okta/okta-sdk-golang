@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -26,26 +26,25 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type AuthorizationServerRulesAPI interface {
 
 	/*
-	ActivateAuthorizationServerPolicyRule Activate a Policy Rule
+		ActivateAuthorizationServerPolicyRule Activate a policy rule
 
-	Activates an authorization server policy rule
+		Activates an authorization server policy rule
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param policyId `id` of the Policy
-	@param ruleId `id` of the Policy Rule
-	@return ApiActivateAuthorizationServerPolicyRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param policyId `id` of the Policy
+		@param ruleId `id` of the policy rule
+		@return ApiActivateAuthorizationServerPolicyRuleRequest
 	*/
 	ActivateAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string, ruleId string) ApiActivateAuthorizationServerPolicyRuleRequest
 
@@ -53,14 +52,14 @@ type AuthorizationServerRulesAPI interface {
 	ActivateAuthorizationServerPolicyRuleExecute(r ApiActivateAuthorizationServerPolicyRuleRequest) (*APIResponse, error)
 
 	/*
-	CreateAuthorizationServerPolicyRule Create a Policy Rule
+		CreateAuthorizationServerPolicyRule Create a policy rule
 
-	Creates a policy rule for the specified Custom Authorization Server and Policy
+		Creates a policy rule for the specified Custom Authorization Server and Policy
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param policyId `id` of the Policy
-	@return ApiCreateAuthorizationServerPolicyRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param policyId `id` of the Policy
+		@return ApiCreateAuthorizationServerPolicyRuleRequest
 	*/
 	CreateAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string) ApiCreateAuthorizationServerPolicyRuleRequest
 
@@ -69,15 +68,15 @@ type AuthorizationServerRulesAPI interface {
 	CreateAuthorizationServerPolicyRuleExecute(r ApiCreateAuthorizationServerPolicyRuleRequest) (*AuthorizationServerPolicyRule, *APIResponse, error)
 
 	/*
-	DeactivateAuthorizationServerPolicyRule Deactivate a Policy Rule
+		DeactivateAuthorizationServerPolicyRule Deactivate a policy rule
 
-	Deactivates an authorization server policy rule
+		Deactivates an authorization server policy rule
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param policyId `id` of the Policy
-	@param ruleId `id` of the Policy Rule
-	@return ApiDeactivateAuthorizationServerPolicyRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param policyId `id` of the Policy
+		@param ruleId `id` of the policy rule
+		@return ApiDeactivateAuthorizationServerPolicyRuleRequest
 	*/
 	DeactivateAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string, ruleId string) ApiDeactivateAuthorizationServerPolicyRuleRequest
 
@@ -85,15 +84,15 @@ type AuthorizationServerRulesAPI interface {
 	DeactivateAuthorizationServerPolicyRuleExecute(r ApiDeactivateAuthorizationServerPolicyRuleRequest) (*APIResponse, error)
 
 	/*
-	DeleteAuthorizationServerPolicyRule Delete a Policy Rule
+		DeleteAuthorizationServerPolicyRule Delete a policy rule
 
-	Deletes a Policy Rule defined in the specified Custom Authorization Server and Policy
+		Deletes a Policy Rule defined in the specified Custom Authorization Server and Policy
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param policyId `id` of the Policy
-	@param ruleId `id` of the Policy Rule
-	@return ApiDeleteAuthorizationServerPolicyRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param policyId `id` of the Policy
+		@param ruleId `id` of the policy rule
+		@return ApiDeleteAuthorizationServerPolicyRuleRequest
 	*/
 	DeleteAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string, ruleId string) ApiDeleteAuthorizationServerPolicyRuleRequest
 
@@ -101,15 +100,15 @@ type AuthorizationServerRulesAPI interface {
 	DeleteAuthorizationServerPolicyRuleExecute(r ApiDeleteAuthorizationServerPolicyRuleRequest) (*APIResponse, error)
 
 	/*
-	GetAuthorizationServerPolicyRule Retrieve a Policy Rule
+		GetAuthorizationServerPolicyRule Retrieve a policy rule
 
-	Retrieves a policy rule by `ruleId`
+		Retrieves a policy rule by `ruleId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param policyId `id` of the Policy
-	@param ruleId `id` of the Policy Rule
-	@return ApiGetAuthorizationServerPolicyRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param policyId `id` of the Policy
+		@param ruleId `id` of the policy rule
+		@return ApiGetAuthorizationServerPolicyRuleRequest
 	*/
 	GetAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string, ruleId string) ApiGetAuthorizationServerPolicyRuleRequest
 
@@ -118,14 +117,14 @@ type AuthorizationServerRulesAPI interface {
 	GetAuthorizationServerPolicyRuleExecute(r ApiGetAuthorizationServerPolicyRuleRequest) (*AuthorizationServerPolicyRule, *APIResponse, error)
 
 	/*
-	ListAuthorizationServerPolicyRules List all Policy Rules
+		ListAuthorizationServerPolicyRules List all policy rules
 
-	Lists all policy rules for the specified Custom Authorization Server and Policy
+		Lists all policy rules for the specified Custom Authorization Server and Policy
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param policyId `id` of the Policy
-	@return ApiListAuthorizationServerPolicyRulesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param policyId `id` of the Policy
+		@return ApiListAuthorizationServerPolicyRulesRequest
 	*/
 	ListAuthorizationServerPolicyRules(ctx context.Context, authServerId string, policyId string) ApiListAuthorizationServerPolicyRulesRequest
 
@@ -134,15 +133,15 @@ type AuthorizationServerRulesAPI interface {
 	ListAuthorizationServerPolicyRulesExecute(r ApiListAuthorizationServerPolicyRulesRequest) ([]AuthorizationServerPolicyRule, *APIResponse, error)
 
 	/*
-	ReplaceAuthorizationServerPolicyRule Replace a Policy Rule
+		ReplaceAuthorizationServerPolicyRule Replace a policy rule
 
-	Replaces the configuration of the Policy Rule defined in the specified Custom Authorization Server and Policy
+		Replaces the configuration of the Policy Rule defined in the specified Custom Authorization Server and Policy
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param policyId `id` of the Policy
-	@param ruleId `id` of the Policy Rule
-	@return ApiReplaceAuthorizationServerPolicyRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param policyId `id` of the Policy
+		@param ruleId `id` of the policy rule
+		@return ApiReplaceAuthorizationServerPolicyRuleRequest
 	*/
 	ReplaceAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string, ruleId string) ApiReplaceAuthorizationServerPolicyRuleRequest
 
@@ -155,12 +154,12 @@ type AuthorizationServerRulesAPI interface {
 type AuthorizationServerRulesAPIService service
 
 type ApiActivateAuthorizationServerPolicyRuleRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerRulesAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerRulesAPI
 	authServerId string
-	policyId string
-	ruleId string
-	retryCount int32
+	policyId     string
+	ruleId       string
+	retryCount   int32
 }
 
 func (r ApiActivateAuthorizationServerPolicyRuleRequest) Execute() (*APIResponse, error) {
@@ -168,24 +167,24 @@ func (r ApiActivateAuthorizationServerPolicyRuleRequest) Execute() (*APIResponse
 }
 
 /*
-ActivateAuthorizationServerPolicyRule Activate a Policy Rule
+ActivateAuthorizationServerPolicyRule Activate a policy rule
 
 Activates an authorization server policy rule
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @param policyId `id` of the Policy
- @param ruleId `id` of the Policy Rule
- @return ApiActivateAuthorizationServerPolicyRuleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@param policyId `id` of the Policy
+	@param ruleId `id` of the policy rule
+	@return ApiActivateAuthorizationServerPolicyRuleRequest
 */
 func (a *AuthorizationServerRulesAPIService) ActivateAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string, ruleId string) ApiActivateAuthorizationServerPolicyRuleRequest {
 	return ApiActivateAuthorizationServerPolicyRuleRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		policyId: policyId,
-		ruleId: ruleId,
-		retryCount: 0,
+		policyId:     policyId,
+		ruleId:       ruleId,
+		retryCount:   0,
 	}
 }
 
@@ -197,7 +196,7 @@ func (a *AuthorizationServerRulesAPIService) ActivateAuthorizationServerPolicyRu
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -260,9 +259,9 @@ func (a *AuthorizationServerRulesAPIService) ActivateAuthorizationServerPolicyRu
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -316,15 +315,15 @@ func (a *AuthorizationServerRulesAPIService) ActivateAuthorizationServerPolicyRu
 }
 
 type ApiCreateAuthorizationServerPolicyRuleRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerRulesAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerRulesAPI
 	authServerId string
-	policyId string
-	policyRule *AuthorizationServerPolicyRule
-	retryCount int32
+	policyId     string
+	policyRule   *AuthorizationServerPolicyRuleRequest
+	retryCount   int32
 }
 
-func (r ApiCreateAuthorizationServerPolicyRuleRequest) PolicyRule(policyRule AuthorizationServerPolicyRule) ApiCreateAuthorizationServerPolicyRuleRequest {
+func (r ApiCreateAuthorizationServerPolicyRuleRequest) PolicyRule(policyRule AuthorizationServerPolicyRuleRequest) ApiCreateAuthorizationServerPolicyRuleRequest {
 	r.policyRule = &policyRule
 	return r
 }
@@ -334,27 +333,28 @@ func (r ApiCreateAuthorizationServerPolicyRuleRequest) Execute() (*Authorization
 }
 
 /*
-CreateAuthorizationServerPolicyRule Create a Policy Rule
+CreateAuthorizationServerPolicyRule Create a policy rule
 
 Creates a policy rule for the specified Custom Authorization Server and Policy
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @param policyId `id` of the Policy
- @return ApiCreateAuthorizationServerPolicyRuleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@param policyId `id` of the Policy
+	@return ApiCreateAuthorizationServerPolicyRuleRequest
 */
 func (a *AuthorizationServerRulesAPIService) CreateAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string) ApiCreateAuthorizationServerPolicyRuleRequest {
 	return ApiCreateAuthorizationServerPolicyRuleRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		policyId: policyId,
-		retryCount: 0,
+		policyId:     policyId,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return AuthorizationServerPolicyRule
+//
+//	@return AuthorizationServerPolicyRule
 func (a *AuthorizationServerRulesAPIService) CreateAuthorizationServerPolicyRuleExecute(r ApiCreateAuthorizationServerPolicyRuleRequest) (*AuthorizationServerPolicyRule, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -363,7 +363,7 @@ func (a *AuthorizationServerRulesAPIService) CreateAuthorizationServerPolicyRule
 		localVarReturnValue  *AuthorizationServerPolicyRule
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -430,9 +430,9 @@ func (a *AuthorizationServerRulesAPIService) CreateAuthorizationServerPolicyRule
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -502,18 +502,18 @@ func (a *AuthorizationServerRulesAPIService) CreateAuthorizationServerPolicyRule
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeactivateAuthorizationServerPolicyRuleRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerRulesAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerRulesAPI
 	authServerId string
-	policyId string
-	ruleId string
-	retryCount int32
+	policyId     string
+	ruleId       string
+	retryCount   int32
 }
 
 func (r ApiDeactivateAuthorizationServerPolicyRuleRequest) Execute() (*APIResponse, error) {
@@ -521,24 +521,24 @@ func (r ApiDeactivateAuthorizationServerPolicyRuleRequest) Execute() (*APIRespon
 }
 
 /*
-DeactivateAuthorizationServerPolicyRule Deactivate a Policy Rule
+DeactivateAuthorizationServerPolicyRule Deactivate a policy rule
 
 Deactivates an authorization server policy rule
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @param policyId `id` of the Policy
- @param ruleId `id` of the Policy Rule
- @return ApiDeactivateAuthorizationServerPolicyRuleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@param policyId `id` of the Policy
+	@param ruleId `id` of the policy rule
+	@return ApiDeactivateAuthorizationServerPolicyRuleRequest
 */
 func (a *AuthorizationServerRulesAPIService) DeactivateAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string, ruleId string) ApiDeactivateAuthorizationServerPolicyRuleRequest {
 	return ApiDeactivateAuthorizationServerPolicyRuleRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		policyId: policyId,
-		ruleId: ruleId,
-		retryCount: 0,
+		policyId:     policyId,
+		ruleId:       ruleId,
+		retryCount:   0,
 	}
 }
 
@@ -550,7 +550,7 @@ func (a *AuthorizationServerRulesAPIService) DeactivateAuthorizationServerPolicy
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -613,9 +613,9 @@ func (a *AuthorizationServerRulesAPIService) DeactivateAuthorizationServerPolicy
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -669,12 +669,12 @@ func (a *AuthorizationServerRulesAPIService) DeactivateAuthorizationServerPolicy
 }
 
 type ApiDeleteAuthorizationServerPolicyRuleRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerRulesAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerRulesAPI
 	authServerId string
-	policyId string
-	ruleId string
-	retryCount int32
+	policyId     string
+	ruleId       string
+	retryCount   int32
 }
 
 func (r ApiDeleteAuthorizationServerPolicyRuleRequest) Execute() (*APIResponse, error) {
@@ -682,24 +682,24 @@ func (r ApiDeleteAuthorizationServerPolicyRuleRequest) Execute() (*APIResponse, 
 }
 
 /*
-DeleteAuthorizationServerPolicyRule Delete a Policy Rule
+DeleteAuthorizationServerPolicyRule Delete a policy rule
 
 Deletes a Policy Rule defined in the specified Custom Authorization Server and Policy
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @param policyId `id` of the Policy
- @param ruleId `id` of the Policy Rule
- @return ApiDeleteAuthorizationServerPolicyRuleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@param policyId `id` of the Policy
+	@param ruleId `id` of the policy rule
+	@return ApiDeleteAuthorizationServerPolicyRuleRequest
 */
 func (a *AuthorizationServerRulesAPIService) DeleteAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string, ruleId string) ApiDeleteAuthorizationServerPolicyRuleRequest {
 	return ApiDeleteAuthorizationServerPolicyRuleRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		policyId: policyId,
-		ruleId: ruleId,
-		retryCount: 0,
+		policyId:     policyId,
+		ruleId:       ruleId,
+		retryCount:   0,
 	}
 }
 
@@ -711,7 +711,7 @@ func (a *AuthorizationServerRulesAPIService) DeleteAuthorizationServerPolicyRule
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -774,9 +774,9 @@ func (a *AuthorizationServerRulesAPIService) DeleteAuthorizationServerPolicyRule
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -830,12 +830,12 @@ func (a *AuthorizationServerRulesAPIService) DeleteAuthorizationServerPolicyRule
 }
 
 type ApiGetAuthorizationServerPolicyRuleRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerRulesAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerRulesAPI
 	authServerId string
-	policyId string
-	ruleId string
-	retryCount int32
+	policyId     string
+	ruleId       string
+	retryCount   int32
 }
 
 func (r ApiGetAuthorizationServerPolicyRuleRequest) Execute() (*AuthorizationServerPolicyRule, *APIResponse, error) {
@@ -843,29 +843,30 @@ func (r ApiGetAuthorizationServerPolicyRuleRequest) Execute() (*AuthorizationSer
 }
 
 /*
-GetAuthorizationServerPolicyRule Retrieve a Policy Rule
+GetAuthorizationServerPolicyRule Retrieve a policy rule
 
 Retrieves a policy rule by `ruleId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @param policyId `id` of the Policy
- @param ruleId `id` of the Policy Rule
- @return ApiGetAuthorizationServerPolicyRuleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@param policyId `id` of the Policy
+	@param ruleId `id` of the policy rule
+	@return ApiGetAuthorizationServerPolicyRuleRequest
 */
 func (a *AuthorizationServerRulesAPIService) GetAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string, ruleId string) ApiGetAuthorizationServerPolicyRuleRequest {
 	return ApiGetAuthorizationServerPolicyRuleRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		policyId: policyId,
-		ruleId: ruleId,
-		retryCount: 0,
+		policyId:     policyId,
+		ruleId:       ruleId,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return AuthorizationServerPolicyRule
+//
+//	@return AuthorizationServerPolicyRule
 func (a *AuthorizationServerRulesAPIService) GetAuthorizationServerPolicyRuleExecute(r ApiGetAuthorizationServerPolicyRuleRequest) (*AuthorizationServerPolicyRule, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -874,7 +875,7 @@ func (a *AuthorizationServerRulesAPIService) GetAuthorizationServerPolicyRuleExe
 		localVarReturnValue  *AuthorizationServerPolicyRule
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -937,9 +938,9 @@ func (a *AuthorizationServerRulesAPIService) GetAuthorizationServerPolicyRuleExe
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -997,17 +998,17 @@ func (a *AuthorizationServerRulesAPIService) GetAuthorizationServerPolicyRuleExe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListAuthorizationServerPolicyRulesRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerRulesAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerRulesAPI
 	authServerId string
-	policyId string
-	retryCount int32
+	policyId     string
+	retryCount   int32
 }
 
 func (r ApiListAuthorizationServerPolicyRulesRequest) Execute() ([]AuthorizationServerPolicyRule, *APIResponse, error) {
@@ -1015,27 +1016,28 @@ func (r ApiListAuthorizationServerPolicyRulesRequest) Execute() ([]Authorization
 }
 
 /*
-ListAuthorizationServerPolicyRules List all Policy Rules
+ListAuthorizationServerPolicyRules List all policy rules
 
 Lists all policy rules for the specified Custom Authorization Server and Policy
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @param policyId `id` of the Policy
- @return ApiListAuthorizationServerPolicyRulesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@param policyId `id` of the Policy
+	@return ApiListAuthorizationServerPolicyRulesRequest
 */
 func (a *AuthorizationServerRulesAPIService) ListAuthorizationServerPolicyRules(ctx context.Context, authServerId string, policyId string) ApiListAuthorizationServerPolicyRulesRequest {
 	return ApiListAuthorizationServerPolicyRulesRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		policyId: policyId,
-		retryCount: 0,
+		policyId:     policyId,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return []AuthorizationServerPolicyRule
+//
+//	@return []AuthorizationServerPolicyRule
 func (a *AuthorizationServerRulesAPIService) ListAuthorizationServerPolicyRulesExecute(r ApiListAuthorizationServerPolicyRulesRequest) ([]AuthorizationServerPolicyRule, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1044,7 +1046,7 @@ func (a *AuthorizationServerRulesAPIService) ListAuthorizationServerPolicyRulesE
 		localVarReturnValue  []AuthorizationServerPolicyRule
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1106,9 +1108,9 @@ func (a *AuthorizationServerRulesAPIService) ListAuthorizationServerPolicyRulesE
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1166,22 +1168,22 @@ func (a *AuthorizationServerRulesAPIService) ListAuthorizationServerPolicyRulesE
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceAuthorizationServerPolicyRuleRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerRulesAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerRulesAPI
 	authServerId string
-	policyId string
-	ruleId string
-	policyRule *AuthorizationServerPolicyRule
-	retryCount int32
+	policyId     string
+	ruleId       string
+	policyRule   *AuthorizationServerPolicyRuleRequest
+	retryCount   int32
 }
 
-func (r ApiReplaceAuthorizationServerPolicyRuleRequest) PolicyRule(policyRule AuthorizationServerPolicyRule) ApiReplaceAuthorizationServerPolicyRuleRequest {
+func (r ApiReplaceAuthorizationServerPolicyRuleRequest) PolicyRule(policyRule AuthorizationServerPolicyRuleRequest) ApiReplaceAuthorizationServerPolicyRuleRequest {
 	r.policyRule = &policyRule
 	return r
 }
@@ -1191,29 +1193,30 @@ func (r ApiReplaceAuthorizationServerPolicyRuleRequest) Execute() (*Authorizatio
 }
 
 /*
-ReplaceAuthorizationServerPolicyRule Replace a Policy Rule
+ReplaceAuthorizationServerPolicyRule Replace a policy rule
 
 Replaces the configuration of the Policy Rule defined in the specified Custom Authorization Server and Policy
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @param policyId `id` of the Policy
- @param ruleId `id` of the Policy Rule
- @return ApiReplaceAuthorizationServerPolicyRuleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@param policyId `id` of the Policy
+	@param ruleId `id` of the policy rule
+	@return ApiReplaceAuthorizationServerPolicyRuleRequest
 */
 func (a *AuthorizationServerRulesAPIService) ReplaceAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string, ruleId string) ApiReplaceAuthorizationServerPolicyRuleRequest {
 	return ApiReplaceAuthorizationServerPolicyRuleRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		policyId: policyId,
-		ruleId: ruleId,
-		retryCount: 0,
+		policyId:     policyId,
+		ruleId:       ruleId,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return AuthorizationServerPolicyRule
+//
+//	@return AuthorizationServerPolicyRule
 func (a *AuthorizationServerRulesAPIService) ReplaceAuthorizationServerPolicyRuleExecute(r ApiReplaceAuthorizationServerPolicyRuleRequest) (*AuthorizationServerPolicyRule, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -1222,7 +1225,7 @@ func (a *AuthorizationServerRulesAPIService) ReplaceAuthorizationServerPolicyRul
 		localVarReturnValue  *AuthorizationServerPolicyRule
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1290,9 +1293,9 @@ func (a *AuthorizationServerRulesAPIService) ReplaceAuthorizationServerPolicyRul
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1362,7 +1365,7 @@ func (a *AuthorizationServerRulesAPIService) ReplaceAuthorizationServerPolicyRul
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

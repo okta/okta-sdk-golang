@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -25,17 +25,21 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 	"reflect"
 	"strings"
 )
+
+// checks if the OpenIdConnectApplication type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OpenIdConnectApplication{}
 
 // OpenIdConnectApplication struct for OpenIdConnectApplication
 type OpenIdConnectApplication struct {
 	Application
 	Credentials OAuthApplicationCredentials `json:"credentials"`
-	// `oidc_client` is the key name for an OIDC app instance
-	Name string `json:"name"`
-	Settings OpenIdConnectApplicationSettings `json:"settings"`
+	// `oidc_client` is the key name for an OAuth 2.0 client app instance
+	Name                 string                           `json:"name"`
+	Settings             OpenIdConnectApplicationSettings `json:"settings"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -136,43 +140,70 @@ func (o *OpenIdConnectApplication) SetSettings(v OpenIdConnectApplicationSetting
 }
 
 func (o OpenIdConnectApplication) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OpenIdConnectApplication) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedApplication, errApplication := json.Marshal(o.Application)
 	if errApplication != nil {
-		return []byte{}, errApplication
+		return map[string]interface{}{}, errApplication
 	}
 	errApplication = json.Unmarshal([]byte(serializedApplication), &toSerialize)
 	if errApplication != nil {
-		return []byte{}, errApplication
+		return map[string]interface{}{}, errApplication
 	}
-	if true {
-		toSerialize["credentials"] = o.Credentials
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["settings"] = o.Settings
-	}
+	toSerialize["credentials"] = o.Credentials
+	toSerialize["name"] = o.Name
+	toSerialize["settings"] = o.Settings
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OpenIdConnectApplication) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OpenIdConnectApplication) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"credentials",
+		"name",
+		"settings",
+		"label",
+		"signOnMode",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	type OpenIdConnectApplicationWithoutEmbeddedStruct struct {
 		Credentials OAuthApplicationCredentials `json:"credentials"`
-		// `oidc_client` is the key name for an OIDC app instance
-		Name string `json:"name"`
+		// `oidc_client` is the key name for an OAuth 2.0 client app instance
+		Name     string                           `json:"name"`
 		Settings OpenIdConnectApplicationSettings `json:"settings"`
 	}
 
 	varOpenIdConnectApplicationWithoutEmbeddedStruct := OpenIdConnectApplicationWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varOpenIdConnectApplicationWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varOpenIdConnectApplicationWithoutEmbeddedStruct)
 	if err == nil {
 		varOpenIdConnectApplication := _OpenIdConnectApplication{}
 		varOpenIdConnectApplication.Credentials = varOpenIdConnectApplicationWithoutEmbeddedStruct.Credentials
@@ -185,7 +216,7 @@ func (o *OpenIdConnectApplication) UnmarshalJSON(bytes []byte) (err error) {
 
 	varOpenIdConnectApplication := _OpenIdConnectApplication{}
 
-	err = json.Unmarshal(bytes, &varOpenIdConnectApplication)
+	err = json.Unmarshal(data, &varOpenIdConnectApplication)
 	if err == nil {
 		o.Application = varOpenIdConnectApplication.Application
 	} else {
@@ -194,8 +225,7 @@ func (o *OpenIdConnectApplication) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "credentials")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "settings")
@@ -219,8 +249,6 @@ func (o *OpenIdConnectApplication) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -261,4 +289,3 @@ func (v *NullableOpenIdConnectApplication) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

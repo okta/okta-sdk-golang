@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,14 @@ import (
 	"encoding/json"
 )
 
-// AccessPolicyRuleApplicationSignOn struct for AccessPolicyRuleApplicationSignOn
+// checks if the AccessPolicyRuleApplicationSignOn type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AccessPolicyRuleApplicationSignOn{}
+
+// AccessPolicyRuleApplicationSignOn Specifies the results when a user attempts to sign in
 type AccessPolicyRuleApplicationSignOn struct {
-	Access *string `json:"access,omitempty"`
-	VerificationMethod *VerificationMethod `json:"verificationMethod,omitempty"`
+	Access               *string             `json:"access,omitempty"`
+	KeepMeSignedIn       *KeepMeSignedIn     `json:"keepMeSignedIn,omitempty"`
+	VerificationMethod   *VerificationMethod `json:"verificationMethod,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +59,7 @@ func NewAccessPolicyRuleApplicationSignOnWithDefaults() *AccessPolicyRuleApplica
 
 // GetAccess returns the Access field value if set, zero value otherwise.
 func (o *AccessPolicyRuleApplicationSignOn) GetAccess() string {
-	if o == nil || o.Access == nil {
+	if o == nil || IsNil(o.Access) {
 		var ret string
 		return ret
 	}
@@ -65,7 +69,7 @@ func (o *AccessPolicyRuleApplicationSignOn) GetAccess() string {
 // GetAccessOk returns a tuple with the Access field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccessPolicyRuleApplicationSignOn) GetAccessOk() (*string, bool) {
-	if o == nil || o.Access == nil {
+	if o == nil || IsNil(o.Access) {
 		return nil, false
 	}
 	return o.Access, true
@@ -73,7 +77,7 @@ func (o *AccessPolicyRuleApplicationSignOn) GetAccessOk() (*string, bool) {
 
 // HasAccess returns a boolean if a field has been set.
 func (o *AccessPolicyRuleApplicationSignOn) HasAccess() bool {
-	if o != nil && o.Access != nil {
+	if o != nil && !IsNil(o.Access) {
 		return true
 	}
 
@@ -85,9 +89,41 @@ func (o *AccessPolicyRuleApplicationSignOn) SetAccess(v string) {
 	o.Access = &v
 }
 
+// GetKeepMeSignedIn returns the KeepMeSignedIn field value if set, zero value otherwise.
+func (o *AccessPolicyRuleApplicationSignOn) GetKeepMeSignedIn() KeepMeSignedIn {
+	if o == nil || IsNil(o.KeepMeSignedIn) {
+		var ret KeepMeSignedIn
+		return ret
+	}
+	return *o.KeepMeSignedIn
+}
+
+// GetKeepMeSignedInOk returns a tuple with the KeepMeSignedIn field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccessPolicyRuleApplicationSignOn) GetKeepMeSignedInOk() (*KeepMeSignedIn, bool) {
+	if o == nil || IsNil(o.KeepMeSignedIn) {
+		return nil, false
+	}
+	return o.KeepMeSignedIn, true
+}
+
+// HasKeepMeSignedIn returns a boolean if a field has been set.
+func (o *AccessPolicyRuleApplicationSignOn) HasKeepMeSignedIn() bool {
+	if o != nil && !IsNil(o.KeepMeSignedIn) {
+		return true
+	}
+
+	return false
+}
+
+// SetKeepMeSignedIn gets a reference to the given KeepMeSignedIn and assigns it to the KeepMeSignedIn field.
+func (o *AccessPolicyRuleApplicationSignOn) SetKeepMeSignedIn(v KeepMeSignedIn) {
+	o.KeepMeSignedIn = &v
+}
+
 // GetVerificationMethod returns the VerificationMethod field value if set, zero value otherwise.
 func (o *AccessPolicyRuleApplicationSignOn) GetVerificationMethod() VerificationMethod {
-	if o == nil || o.VerificationMethod == nil {
+	if o == nil || IsNil(o.VerificationMethod) {
 		var ret VerificationMethod
 		return ret
 	}
@@ -97,7 +133,7 @@ func (o *AccessPolicyRuleApplicationSignOn) GetVerificationMethod() Verification
 // GetVerificationMethodOk returns a tuple with the VerificationMethod field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccessPolicyRuleApplicationSignOn) GetVerificationMethodOk() (*VerificationMethod, bool) {
-	if o == nil || o.VerificationMethod == nil {
+	if o == nil || IsNil(o.VerificationMethod) {
 		return nil, false
 	}
 	return o.VerificationMethod, true
@@ -105,7 +141,7 @@ func (o *AccessPolicyRuleApplicationSignOn) GetVerificationMethodOk() (*Verifica
 
 // HasVerificationMethod returns a boolean if a field has been set.
 func (o *AccessPolicyRuleApplicationSignOn) HasVerificationMethod() bool {
-	if o != nil && o.VerificationMethod != nil {
+	if o != nil && !IsNil(o.VerificationMethod) {
 		return true
 	}
 
@@ -118,11 +154,22 @@ func (o *AccessPolicyRuleApplicationSignOn) SetVerificationMethod(v Verification
 }
 
 func (o AccessPolicyRuleApplicationSignOn) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AccessPolicyRuleApplicationSignOn) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Access != nil {
+	if !IsNil(o.Access) {
 		toSerialize["access"] = o.Access
 	}
-	if o.VerificationMethod != nil {
+	if !IsNil(o.KeepMeSignedIn) {
+		toSerialize["keepMeSignedIn"] = o.KeepMeSignedIn
+	}
+	if !IsNil(o.VerificationMethod) {
 		toSerialize["verificationMethod"] = o.VerificationMethod
 	}
 
@@ -130,28 +177,27 @@ func (o AccessPolicyRuleApplicationSignOn) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AccessPolicyRuleApplicationSignOn) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AccessPolicyRuleApplicationSignOn) UnmarshalJSON(data []byte) (err error) {
 	varAccessPolicyRuleApplicationSignOn := _AccessPolicyRuleApplicationSignOn{}
 
-	err = json.Unmarshal(bytes, &varAccessPolicyRuleApplicationSignOn)
-	if err == nil {
-		*o = AccessPolicyRuleApplicationSignOn(varAccessPolicyRuleApplicationSignOn)
-	} else {
+	err = json.Unmarshal(data, &varAccessPolicyRuleApplicationSignOn)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AccessPolicyRuleApplicationSignOn(varAccessPolicyRuleApplicationSignOn)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "access")
+		delete(additionalProperties, "keepMeSignedIn")
 		delete(additionalProperties, "verificationMethod")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +238,3 @@ func (v *NullableAccessPolicyRuleApplicationSignOn) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

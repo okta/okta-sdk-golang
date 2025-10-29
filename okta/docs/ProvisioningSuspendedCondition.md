@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Action** | Pointer to **string** |  | [optional] 
+**Action** | Pointer to **string** | Specifies the action during authentication when an IdP user is linked to a previously suspended Okta user | [optional] 
 
 ## Methods
 

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
-// HrefHintsGuidanceObject struct for HrefHintsGuidanceObject
+// checks if the HrefHintsGuidanceObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &HrefHintsGuidanceObject{}
+
+// HrefHintsGuidanceObject Describes allowed HTTP verbs and guidance for the `href`
 type HrefHintsGuidanceObject struct {
 	Allow []string `json:"allow,omitempty"`
-	// Specifies the URI to invoke for granting scope consent required to complete the OAuth 2.0 connection 
-	Guidance []string `json:"guidance,omitempty"`
+	// Specifies the URI to invoke for granting scope consent required to complete the OAuth 2.0 connection
+	Guidance             []string `json:"guidance,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewHrefHintsGuidanceObjectWithDefaults() *HrefHintsGuidanceObject {
 
 // GetAllow returns the Allow field value if set, zero value otherwise.
 func (o *HrefHintsGuidanceObject) GetAllow() []string {
-	if o == nil || o.Allow == nil {
+	if o == nil || IsNil(o.Allow) {
 		var ret []string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *HrefHintsGuidanceObject) GetAllow() []string {
 // GetAllowOk returns a tuple with the Allow field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HrefHintsGuidanceObject) GetAllowOk() ([]string, bool) {
-	if o == nil || o.Allow == nil {
+	if o == nil || IsNil(o.Allow) {
 		return nil, false
 	}
 	return o.Allow, true
@@ -74,7 +77,7 @@ func (o *HrefHintsGuidanceObject) GetAllowOk() ([]string, bool) {
 
 // HasAllow returns a boolean if a field has been set.
 func (o *HrefHintsGuidanceObject) HasAllow() bool {
-	if o != nil && o.Allow != nil {
+	if o != nil && !IsNil(o.Allow) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *HrefHintsGuidanceObject) SetAllow(v []string) {
 
 // GetGuidance returns the Guidance field value if set, zero value otherwise.
 func (o *HrefHintsGuidanceObject) GetGuidance() []string {
-	if o == nil || o.Guidance == nil {
+	if o == nil || IsNil(o.Guidance) {
 		var ret []string
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *HrefHintsGuidanceObject) GetGuidance() []string {
 // GetGuidanceOk returns a tuple with the Guidance field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HrefHintsGuidanceObject) GetGuidanceOk() ([]string, bool) {
-	if o == nil || o.Guidance == nil {
+	if o == nil || IsNil(o.Guidance) {
 		return nil, false
 	}
 	return o.Guidance, true
@@ -106,7 +109,7 @@ func (o *HrefHintsGuidanceObject) GetGuidanceOk() ([]string, bool) {
 
 // HasGuidance returns a boolean if a field has been set.
 func (o *HrefHintsGuidanceObject) HasGuidance() bool {
-	if o != nil && o.Guidance != nil {
+	if o != nil && !IsNil(o.Guidance) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *HrefHintsGuidanceObject) SetGuidance(v []string) {
 }
 
 func (o HrefHintsGuidanceObject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o HrefHintsGuidanceObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Allow != nil {
+	if !IsNil(o.Allow) {
 		toSerialize["allow"] = o.Allow
 	}
-	if o.Guidance != nil {
+	if !IsNil(o.Guidance) {
 		toSerialize["guidance"] = o.Guidance
 	}
 
@@ -131,28 +142,26 @@ func (o HrefHintsGuidanceObject) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *HrefHintsGuidanceObject) UnmarshalJSON(bytes []byte) (err error) {
+func (o *HrefHintsGuidanceObject) UnmarshalJSON(data []byte) (err error) {
 	varHrefHintsGuidanceObject := _HrefHintsGuidanceObject{}
 
-	err = json.Unmarshal(bytes, &varHrefHintsGuidanceObject)
-	if err == nil {
-		*o = HrefHintsGuidanceObject(varHrefHintsGuidanceObject)
-	} else {
+	err = json.Unmarshal(data, &varHrefHintsGuidanceObject)
+
+	if err != nil {
 		return err
 	}
 
+	*o = HrefHintsGuidanceObject(varHrefHintsGuidanceObject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "allow")
 		delete(additionalProperties, "guidance")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableHrefHintsGuidanceObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

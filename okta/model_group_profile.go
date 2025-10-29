@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -25,136 +25,58 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
-// GroupProfile struct for GroupProfile
+// GroupProfile Specifies required and optional properties for a group. The `objectClass` of a group determines which additional properties are available.  You can extend group profiles with custom properties, but you must first add the properties to the group profile schema before you can reference them. Use the Profile Editor in the Admin Console or the [Schemas API](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Schema/)to manage schema extensions.  Custom properties can contain HTML tags. It is the client's responsibility to escape or encode this data before displaying it. Use [best-practices](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html) to prevent cross-site scripting.
 type GroupProfile struct {
-	Description *string `json:"description,omitempty"`
-	Name *string `json:"name,omitempty"`
-	AdditionalProperties map[string]interface{}
+	OktaActiveDirectoryGroupProfile *OktaActiveDirectoryGroupProfile
+	OktaUserGroupProfile            *OktaUserGroupProfile
 }
 
-type _GroupProfile GroupProfile
-
-// NewGroupProfile instantiates a new GroupProfile object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewGroupProfile() *GroupProfile {
-	this := GroupProfile{}
-	return &this
-}
-
-// NewGroupProfileWithDefaults instantiates a new GroupProfile object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewGroupProfileWithDefaults() *GroupProfile {
-	this := GroupProfile{}
-	return &this
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *GroupProfile) GetDescription() string {
-	if o == nil || o.Description == nil {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GroupProfile) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *GroupProfile) HasDescription() bool {
-	if o != nil && o.Description != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *GroupProfile) SetDescription(v string) {
-	o.Description = &v
-}
-
-// GetName returns the Name field value if set, zero value otherwise.
-func (o *GroupProfile) GetName() string {
-	if o == nil || o.Name == nil {
-		var ret string
-		return ret
-	}
-	return *o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GroupProfile) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
-		return nil, false
-	}
-	return o.Name, true
-}
-
-// HasName returns a boolean if a field has been set.
-func (o *GroupProfile) HasName() bool {
-	if o != nil && o.Name != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
-func (o *GroupProfile) SetName(v string) {
-	o.Name = &v
-}
-
-func (o GroupProfile) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
-	}
-
-	return json.Marshal(toSerialize)
-}
-
-func (o *GroupProfile) UnmarshalJSON(bytes []byte) (err error) {
-	varGroupProfile := _GroupProfile{}
-
-	err = json.Unmarshal(bytes, &varGroupProfile)
+// Unmarshal JSON data into any of the pointers in the struct
+func (dst *GroupProfile) UnmarshalJSON(data []byte) error {
+	var err error
+	// try to unmarshal JSON data into OktaActiveDirectoryGroupProfile
+	err = json.Unmarshal(data, &dst.OktaActiveDirectoryGroupProfile)
 	if err == nil {
-		*o = GroupProfile(varGroupProfile)
+		jsonOktaActiveDirectoryGroupProfile, _ := json.Marshal(dst.OktaActiveDirectoryGroupProfile)
+		if string(jsonOktaActiveDirectoryGroupProfile) == "{}" { // empty struct
+			dst.OktaActiveDirectoryGroupProfile = nil
+		} else {
+			return nil // data stored in dst.OktaActiveDirectoryGroupProfile, return on the first match
+		}
 	} else {
-		return err
+		dst.OktaActiveDirectoryGroupProfile = nil
 	}
 
-	additionalProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &additionalProperties)
+	// try to unmarshal JSON data into OktaUserGroupProfile
+	err = json.Unmarshal(data, &dst.OktaUserGroupProfile)
 	if err == nil {
-		delete(additionalProperties, "description")
-		delete(additionalProperties, "name")
-		o.AdditionalProperties = additionalProperties
+		jsonOktaUserGroupProfile, _ := json.Marshal(dst.OktaUserGroupProfile)
+		if string(jsonOktaUserGroupProfile) == "{}" { // empty struct
+			dst.OktaUserGroupProfile = nil
+		} else {
+			return nil // data stored in dst.OktaUserGroupProfile, return on the first match
+		}
 	} else {
-		return err
+		dst.OktaUserGroupProfile = nil
 	}
 
-	return err
+	return fmt.Errorf("data failed to match schemas in anyOf(GroupProfile)")
+}
+
+// Marshal data from the first non-nil pointers in the struct to JSON
+func (src GroupProfile) MarshalJSON() ([]byte, error) {
+	if src.OktaActiveDirectoryGroupProfile != nil {
+		return json.Marshal(&src.OktaActiveDirectoryGroupProfile)
+	}
+
+	if src.OktaUserGroupProfile != nil {
+		return json.Marshal(&src.OktaUserGroupProfile)
+	}
+
+	return nil, nil // no data in anyOf schemas
 }
 
 type NullableGroupProfile struct {
@@ -192,4 +114,3 @@ func (v *NullableGroupProfile) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

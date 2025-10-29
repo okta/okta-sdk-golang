@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,39 +27,73 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserSchemaBaseProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserSchemaBaseProperties{}
+
 // UserSchemaBaseProperties struct for UserSchemaBaseProperties
 type UserSchemaBaseProperties struct {
+	// City or locality component of the user's address (`locality`)
 	City *UserSchemaAttribute `json:"city,omitempty"`
+	// Name of a cost center assigned to the user
 	CostCenter *UserSchemaAttribute `json:"costCenter,omitempty"`
+	// Country name component of the user's address (`country`.) This property uses [ISO 3166-1 alpha 2 \"short\" code format](https://tools.ietf.org/html/draft-ietf-scim-core-schema-22#ref-ISO3166).
 	CountryCode *UserSchemaAttribute `json:"countryCode,omitempty"`
+	// Name of the user's department
 	Department *UserSchemaAttribute `json:"department,omitempty"`
+	// Name of the user, suitable for display to end users
 	DisplayName *UserSchemaAttribute `json:"displayName,omitempty"`
+	// Name of the user's division
 	Division *UserSchemaAttribute `json:"division,omitempty"`
+	// Primary email address of the user. This property is formatted according to [RFC 5322 Section 3.2.3](https://datatracker.ietf.org/doc/html/rfc5322#section-3.2.3).
 	Email *UserSchemaAttribute `json:"email,omitempty"`
+	// Organization or company assigned unique identifier for the user
 	EmployeeNumber *UserSchemaAttribute `json:"employeeNumber,omitempty"`
+	// Given name of the user (`givenName`)
 	FirstName *UserSchemaAttribute `json:"firstName,omitempty"`
+	// Honorific prefix(es) of the user or title in most Western languages
 	HonorificPrefix *UserSchemaAttribute `json:"honorificPrefix,omitempty"`
+	// Honorific suffix(es) of the user
 	HonorificSuffix *UserSchemaAttribute `json:"honorificSuffix,omitempty"`
+	// Family name of the user (`familyName`)
 	LastName *UserSchemaAttribute `json:"lastName,omitempty"`
+	// User's default location for purposes of localizing items such as currency, date time format, numerical representations, and so on.  A locale value is a concatenation of the ISO 639-1 two-letter language code, an underscore, and the ISO 3166-1 two-letter country code. For example: `en_US` specifies the language English and country US. This value is `en_US` by default.
 	Locale *UserSchemaAttribute `json:"locale,omitempty"`
+	// Unique identifier for the user (`userName`)  The login property is validated according to its pattern attribute, which is a string. By default, the attribute is null. When the attribute is null, the username is required to be formatted as an email address as defined by [RFC 6531 Section 3.3](http://tools.ietf.org/html/rfc6531#section-3.3). The pattern can be set through the API to one of the following forms. (The Admin Console provides access to the same forms.)   * A login pattern of `\".+\"` indicates that there is no restriction on usernames. Any non-empty, unique value is permitted, and the minimum length of five isn't enforced. In this case, usernames don't need to include the `@` character. If a name does include `@`, the portion ahead of the `@` can be used for logging in, provided it identifies a unique user within the org.   * A login pattern of the form `\"[...]+\"` indicates that usernames must only contain characters from the set given between the brackets. The enclosing brackets and final `+` are required for this form. Character ranges can be indicated using hyphens. To include the hyphen itself in the allowed set, the hyphen must appear first. Any characters in the set except the hyphen, a-z, A-Z, and 0-9 must be preceded by a backslash (`\\`). For example, `\"[a-z13579\\.]+\"` would restrict usernames to lowercase letters, odd digits, and periods, while `\"[-a-zA-Z0-9]+\"` would allow basic alphanumeric characters and hyphens.
 	Login *UserSchemaAttribute `json:"login,omitempty"`
+	// The `displayName` of the user's manager
 	Manager *UserSchemaAttribute `json:"manager,omitempty"`
+	// The `id` of the user's manager
 	ManagerId *UserSchemaAttribute `json:"managerId,omitempty"`
+	// Middle name(s) of the user
 	MiddleName *UserSchemaAttribute `json:"middleName,omitempty"`
+	// Mobile phone number of the user
 	MobilePhone *UserSchemaAttribute `json:"mobilePhone,omitempty"`
+	// Casual way to address the user in real life
 	NickName *UserSchemaAttribute `json:"nickName,omitempty"`
+	// Name of the user's organization
 	Organization *UserSchemaAttribute `json:"organization,omitempty"`
+	// Mailing address component of the user's address
 	PostalAddress *UserSchemaAttribute `json:"postalAddress,omitempty"`
+	// User's preferred written or spoken languages. This property is formatted according to [RFC 7231 Section 5.3.5](https://tools.ietf.org/html/rfc7231#section-5.3.5).
 	PreferredLanguage *UserSchemaAttribute `json:"preferredLanguage,omitempty"`
+	// Primary phone number of the user, such as home number
 	PrimaryPhone *UserSchemaAttribute `json:"primaryPhone,omitempty"`
+	// URL of the user's online profile (for example, a web page.) This property is formatted according to the [Relative Uniform Resource Locators specification](https://tools.ietf.org/html/draft-ietf-scim-core-schema-22#ref-ISO3166).
 	ProfileUrl *UserSchemaAttribute `json:"profileUrl,omitempty"`
+	// Secondary email address of the user typically used for account recovery. This property is formatted according to [RFC 5322 Section 3.2.3](https://datatracker.ietf.org/doc/html/rfc5322#section-3.2.3).
 	SecondEmail *UserSchemaAttribute `json:"secondEmail,omitempty"`
+	// State or region component of the user's address (`region`)
 	State *UserSchemaAttribute `json:"state,omitempty"`
+	// Full street address component of the user's address
 	StreetAddress *UserSchemaAttribute `json:"streetAddress,omitempty"`
+	// User's time zone. This property is formatted according to the [IANA Time Zone database format](https://tools.ietf.org/html/rfc6557).
 	Timezone *UserSchemaAttribute `json:"timezone,omitempty"`
+	// User's title, such as \"Vice President\"
 	Title *UserSchemaAttribute `json:"title,omitempty"`
+	// Used to describe the organization to the user relationship such as \"Employee\" or \"Contractor\".  **Note:** The `userType` field is an arbitrary string value and isn't related to the newer [User Types](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserType/) feature.
 	UserType *UserSchemaAttribute `json:"userType,omitempty"`
-	ZipCode *UserSchemaAttribute `json:"zipCode,omitempty"`
+	// ZIP code or postal code component of the user's address (`postalCode`)
+	ZipCode              *UserSchemaAttribute `json:"zipCode,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -84,7 +118,7 @@ func NewUserSchemaBasePropertiesWithDefaults() *UserSchemaBaseProperties {
 
 // GetCity returns the City field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetCity() UserSchemaAttribute {
-	if o == nil || o.City == nil {
+	if o == nil || IsNil(o.City) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -94,7 +128,7 @@ func (o *UserSchemaBaseProperties) GetCity() UserSchemaAttribute {
 // GetCityOk returns a tuple with the City field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetCityOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.City == nil {
+	if o == nil || IsNil(o.City) {
 		return nil, false
 	}
 	return o.City, true
@@ -102,7 +136,7 @@ func (o *UserSchemaBaseProperties) GetCityOk() (*UserSchemaAttribute, bool) {
 
 // HasCity returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasCity() bool {
-	if o != nil && o.City != nil {
+	if o != nil && !IsNil(o.City) {
 		return true
 	}
 
@@ -116,7 +150,7 @@ func (o *UserSchemaBaseProperties) SetCity(v UserSchemaAttribute) {
 
 // GetCostCenter returns the CostCenter field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetCostCenter() UserSchemaAttribute {
-	if o == nil || o.CostCenter == nil {
+	if o == nil || IsNil(o.CostCenter) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -126,7 +160,7 @@ func (o *UserSchemaBaseProperties) GetCostCenter() UserSchemaAttribute {
 // GetCostCenterOk returns a tuple with the CostCenter field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetCostCenterOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.CostCenter == nil {
+	if o == nil || IsNil(o.CostCenter) {
 		return nil, false
 	}
 	return o.CostCenter, true
@@ -134,7 +168,7 @@ func (o *UserSchemaBaseProperties) GetCostCenterOk() (*UserSchemaAttribute, bool
 
 // HasCostCenter returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasCostCenter() bool {
-	if o != nil && o.CostCenter != nil {
+	if o != nil && !IsNil(o.CostCenter) {
 		return true
 	}
 
@@ -148,7 +182,7 @@ func (o *UserSchemaBaseProperties) SetCostCenter(v UserSchemaAttribute) {
 
 // GetCountryCode returns the CountryCode field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetCountryCode() UserSchemaAttribute {
-	if o == nil || o.CountryCode == nil {
+	if o == nil || IsNil(o.CountryCode) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -158,7 +192,7 @@ func (o *UserSchemaBaseProperties) GetCountryCode() UserSchemaAttribute {
 // GetCountryCodeOk returns a tuple with the CountryCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetCountryCodeOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.CountryCode == nil {
+	if o == nil || IsNil(o.CountryCode) {
 		return nil, false
 	}
 	return o.CountryCode, true
@@ -166,7 +200,7 @@ func (o *UserSchemaBaseProperties) GetCountryCodeOk() (*UserSchemaAttribute, boo
 
 // HasCountryCode returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasCountryCode() bool {
-	if o != nil && o.CountryCode != nil {
+	if o != nil && !IsNil(o.CountryCode) {
 		return true
 	}
 
@@ -180,7 +214,7 @@ func (o *UserSchemaBaseProperties) SetCountryCode(v UserSchemaAttribute) {
 
 // GetDepartment returns the Department field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetDepartment() UserSchemaAttribute {
-	if o == nil || o.Department == nil {
+	if o == nil || IsNil(o.Department) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -190,7 +224,7 @@ func (o *UserSchemaBaseProperties) GetDepartment() UserSchemaAttribute {
 // GetDepartmentOk returns a tuple with the Department field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetDepartmentOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.Department == nil {
+	if o == nil || IsNil(o.Department) {
 		return nil, false
 	}
 	return o.Department, true
@@ -198,7 +232,7 @@ func (o *UserSchemaBaseProperties) GetDepartmentOk() (*UserSchemaAttribute, bool
 
 // HasDepartment returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasDepartment() bool {
-	if o != nil && o.Department != nil {
+	if o != nil && !IsNil(o.Department) {
 		return true
 	}
 
@@ -212,7 +246,7 @@ func (o *UserSchemaBaseProperties) SetDepartment(v UserSchemaAttribute) {
 
 // GetDisplayName returns the DisplayName field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetDisplayName() UserSchemaAttribute {
-	if o == nil || o.DisplayName == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -222,7 +256,7 @@ func (o *UserSchemaBaseProperties) GetDisplayName() UserSchemaAttribute {
 // GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetDisplayNameOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.DisplayName == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		return nil, false
 	}
 	return o.DisplayName, true
@@ -230,7 +264,7 @@ func (o *UserSchemaBaseProperties) GetDisplayNameOk() (*UserSchemaAttribute, boo
 
 // HasDisplayName returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasDisplayName() bool {
-	if o != nil && o.DisplayName != nil {
+	if o != nil && !IsNil(o.DisplayName) {
 		return true
 	}
 
@@ -244,7 +278,7 @@ func (o *UserSchemaBaseProperties) SetDisplayName(v UserSchemaAttribute) {
 
 // GetDivision returns the Division field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetDivision() UserSchemaAttribute {
-	if o == nil || o.Division == nil {
+	if o == nil || IsNil(o.Division) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -254,7 +288,7 @@ func (o *UserSchemaBaseProperties) GetDivision() UserSchemaAttribute {
 // GetDivisionOk returns a tuple with the Division field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetDivisionOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.Division == nil {
+	if o == nil || IsNil(o.Division) {
 		return nil, false
 	}
 	return o.Division, true
@@ -262,7 +296,7 @@ func (o *UserSchemaBaseProperties) GetDivisionOk() (*UserSchemaAttribute, bool) 
 
 // HasDivision returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasDivision() bool {
-	if o != nil && o.Division != nil {
+	if o != nil && !IsNil(o.Division) {
 		return true
 	}
 
@@ -276,7 +310,7 @@ func (o *UserSchemaBaseProperties) SetDivision(v UserSchemaAttribute) {
 
 // GetEmail returns the Email field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetEmail() UserSchemaAttribute {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -286,7 +320,7 @@ func (o *UserSchemaBaseProperties) GetEmail() UserSchemaAttribute {
 // GetEmailOk returns a tuple with the Email field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetEmailOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		return nil, false
 	}
 	return o.Email, true
@@ -294,7 +328,7 @@ func (o *UserSchemaBaseProperties) GetEmailOk() (*UserSchemaAttribute, bool) {
 
 // HasEmail returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasEmail() bool {
-	if o != nil && o.Email != nil {
+	if o != nil && !IsNil(o.Email) {
 		return true
 	}
 
@@ -308,7 +342,7 @@ func (o *UserSchemaBaseProperties) SetEmail(v UserSchemaAttribute) {
 
 // GetEmployeeNumber returns the EmployeeNumber field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetEmployeeNumber() UserSchemaAttribute {
-	if o == nil || o.EmployeeNumber == nil {
+	if o == nil || IsNil(o.EmployeeNumber) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -318,7 +352,7 @@ func (o *UserSchemaBaseProperties) GetEmployeeNumber() UserSchemaAttribute {
 // GetEmployeeNumberOk returns a tuple with the EmployeeNumber field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetEmployeeNumberOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.EmployeeNumber == nil {
+	if o == nil || IsNil(o.EmployeeNumber) {
 		return nil, false
 	}
 	return o.EmployeeNumber, true
@@ -326,7 +360,7 @@ func (o *UserSchemaBaseProperties) GetEmployeeNumberOk() (*UserSchemaAttribute, 
 
 // HasEmployeeNumber returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasEmployeeNumber() bool {
-	if o != nil && o.EmployeeNumber != nil {
+	if o != nil && !IsNil(o.EmployeeNumber) {
 		return true
 	}
 
@@ -340,7 +374,7 @@ func (o *UserSchemaBaseProperties) SetEmployeeNumber(v UserSchemaAttribute) {
 
 // GetFirstName returns the FirstName field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetFirstName() UserSchemaAttribute {
-	if o == nil || o.FirstName == nil {
+	if o == nil || IsNil(o.FirstName) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -350,7 +384,7 @@ func (o *UserSchemaBaseProperties) GetFirstName() UserSchemaAttribute {
 // GetFirstNameOk returns a tuple with the FirstName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetFirstNameOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.FirstName == nil {
+	if o == nil || IsNil(o.FirstName) {
 		return nil, false
 	}
 	return o.FirstName, true
@@ -358,7 +392,7 @@ func (o *UserSchemaBaseProperties) GetFirstNameOk() (*UserSchemaAttribute, bool)
 
 // HasFirstName returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasFirstName() bool {
-	if o != nil && o.FirstName != nil {
+	if o != nil && !IsNil(o.FirstName) {
 		return true
 	}
 
@@ -372,7 +406,7 @@ func (o *UserSchemaBaseProperties) SetFirstName(v UserSchemaAttribute) {
 
 // GetHonorificPrefix returns the HonorificPrefix field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetHonorificPrefix() UserSchemaAttribute {
-	if o == nil || o.HonorificPrefix == nil {
+	if o == nil || IsNil(o.HonorificPrefix) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -382,7 +416,7 @@ func (o *UserSchemaBaseProperties) GetHonorificPrefix() UserSchemaAttribute {
 // GetHonorificPrefixOk returns a tuple with the HonorificPrefix field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetHonorificPrefixOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.HonorificPrefix == nil {
+	if o == nil || IsNil(o.HonorificPrefix) {
 		return nil, false
 	}
 	return o.HonorificPrefix, true
@@ -390,7 +424,7 @@ func (o *UserSchemaBaseProperties) GetHonorificPrefixOk() (*UserSchemaAttribute,
 
 // HasHonorificPrefix returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasHonorificPrefix() bool {
-	if o != nil && o.HonorificPrefix != nil {
+	if o != nil && !IsNil(o.HonorificPrefix) {
 		return true
 	}
 
@@ -404,7 +438,7 @@ func (o *UserSchemaBaseProperties) SetHonorificPrefix(v UserSchemaAttribute) {
 
 // GetHonorificSuffix returns the HonorificSuffix field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetHonorificSuffix() UserSchemaAttribute {
-	if o == nil || o.HonorificSuffix == nil {
+	if o == nil || IsNil(o.HonorificSuffix) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -414,7 +448,7 @@ func (o *UserSchemaBaseProperties) GetHonorificSuffix() UserSchemaAttribute {
 // GetHonorificSuffixOk returns a tuple with the HonorificSuffix field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetHonorificSuffixOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.HonorificSuffix == nil {
+	if o == nil || IsNil(o.HonorificSuffix) {
 		return nil, false
 	}
 	return o.HonorificSuffix, true
@@ -422,7 +456,7 @@ func (o *UserSchemaBaseProperties) GetHonorificSuffixOk() (*UserSchemaAttribute,
 
 // HasHonorificSuffix returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasHonorificSuffix() bool {
-	if o != nil && o.HonorificSuffix != nil {
+	if o != nil && !IsNil(o.HonorificSuffix) {
 		return true
 	}
 
@@ -436,7 +470,7 @@ func (o *UserSchemaBaseProperties) SetHonorificSuffix(v UserSchemaAttribute) {
 
 // GetLastName returns the LastName field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetLastName() UserSchemaAttribute {
-	if o == nil || o.LastName == nil {
+	if o == nil || IsNil(o.LastName) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -446,7 +480,7 @@ func (o *UserSchemaBaseProperties) GetLastName() UserSchemaAttribute {
 // GetLastNameOk returns a tuple with the LastName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetLastNameOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.LastName == nil {
+	if o == nil || IsNil(o.LastName) {
 		return nil, false
 	}
 	return o.LastName, true
@@ -454,7 +488,7 @@ func (o *UserSchemaBaseProperties) GetLastNameOk() (*UserSchemaAttribute, bool) 
 
 // HasLastName returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasLastName() bool {
-	if o != nil && o.LastName != nil {
+	if o != nil && !IsNil(o.LastName) {
 		return true
 	}
 
@@ -468,7 +502,7 @@ func (o *UserSchemaBaseProperties) SetLastName(v UserSchemaAttribute) {
 
 // GetLocale returns the Locale field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetLocale() UserSchemaAttribute {
-	if o == nil || o.Locale == nil {
+	if o == nil || IsNil(o.Locale) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -478,7 +512,7 @@ func (o *UserSchemaBaseProperties) GetLocale() UserSchemaAttribute {
 // GetLocaleOk returns a tuple with the Locale field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetLocaleOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.Locale == nil {
+	if o == nil || IsNil(o.Locale) {
 		return nil, false
 	}
 	return o.Locale, true
@@ -486,7 +520,7 @@ func (o *UserSchemaBaseProperties) GetLocaleOk() (*UserSchemaAttribute, bool) {
 
 // HasLocale returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasLocale() bool {
-	if o != nil && o.Locale != nil {
+	if o != nil && !IsNil(o.Locale) {
 		return true
 	}
 
@@ -500,7 +534,7 @@ func (o *UserSchemaBaseProperties) SetLocale(v UserSchemaAttribute) {
 
 // GetLogin returns the Login field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetLogin() UserSchemaAttribute {
-	if o == nil || o.Login == nil {
+	if o == nil || IsNil(o.Login) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -510,7 +544,7 @@ func (o *UserSchemaBaseProperties) GetLogin() UserSchemaAttribute {
 // GetLoginOk returns a tuple with the Login field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetLoginOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.Login == nil {
+	if o == nil || IsNil(o.Login) {
 		return nil, false
 	}
 	return o.Login, true
@@ -518,7 +552,7 @@ func (o *UserSchemaBaseProperties) GetLoginOk() (*UserSchemaAttribute, bool) {
 
 // HasLogin returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasLogin() bool {
-	if o != nil && o.Login != nil {
+	if o != nil && !IsNil(o.Login) {
 		return true
 	}
 
@@ -532,7 +566,7 @@ func (o *UserSchemaBaseProperties) SetLogin(v UserSchemaAttribute) {
 
 // GetManager returns the Manager field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetManager() UserSchemaAttribute {
-	if o == nil || o.Manager == nil {
+	if o == nil || IsNil(o.Manager) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -542,7 +576,7 @@ func (o *UserSchemaBaseProperties) GetManager() UserSchemaAttribute {
 // GetManagerOk returns a tuple with the Manager field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetManagerOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.Manager == nil {
+	if o == nil || IsNil(o.Manager) {
 		return nil, false
 	}
 	return o.Manager, true
@@ -550,7 +584,7 @@ func (o *UserSchemaBaseProperties) GetManagerOk() (*UserSchemaAttribute, bool) {
 
 // HasManager returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasManager() bool {
-	if o != nil && o.Manager != nil {
+	if o != nil && !IsNil(o.Manager) {
 		return true
 	}
 
@@ -564,7 +598,7 @@ func (o *UserSchemaBaseProperties) SetManager(v UserSchemaAttribute) {
 
 // GetManagerId returns the ManagerId field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetManagerId() UserSchemaAttribute {
-	if o == nil || o.ManagerId == nil {
+	if o == nil || IsNil(o.ManagerId) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -574,7 +608,7 @@ func (o *UserSchemaBaseProperties) GetManagerId() UserSchemaAttribute {
 // GetManagerIdOk returns a tuple with the ManagerId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetManagerIdOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.ManagerId == nil {
+	if o == nil || IsNil(o.ManagerId) {
 		return nil, false
 	}
 	return o.ManagerId, true
@@ -582,7 +616,7 @@ func (o *UserSchemaBaseProperties) GetManagerIdOk() (*UserSchemaAttribute, bool)
 
 // HasManagerId returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasManagerId() bool {
-	if o != nil && o.ManagerId != nil {
+	if o != nil && !IsNil(o.ManagerId) {
 		return true
 	}
 
@@ -596,7 +630,7 @@ func (o *UserSchemaBaseProperties) SetManagerId(v UserSchemaAttribute) {
 
 // GetMiddleName returns the MiddleName field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetMiddleName() UserSchemaAttribute {
-	if o == nil || o.MiddleName == nil {
+	if o == nil || IsNil(o.MiddleName) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -606,7 +640,7 @@ func (o *UserSchemaBaseProperties) GetMiddleName() UserSchemaAttribute {
 // GetMiddleNameOk returns a tuple with the MiddleName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetMiddleNameOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.MiddleName == nil {
+	if o == nil || IsNil(o.MiddleName) {
 		return nil, false
 	}
 	return o.MiddleName, true
@@ -614,7 +648,7 @@ func (o *UserSchemaBaseProperties) GetMiddleNameOk() (*UserSchemaAttribute, bool
 
 // HasMiddleName returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasMiddleName() bool {
-	if o != nil && o.MiddleName != nil {
+	if o != nil && !IsNil(o.MiddleName) {
 		return true
 	}
 
@@ -628,7 +662,7 @@ func (o *UserSchemaBaseProperties) SetMiddleName(v UserSchemaAttribute) {
 
 // GetMobilePhone returns the MobilePhone field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetMobilePhone() UserSchemaAttribute {
-	if o == nil || o.MobilePhone == nil {
+	if o == nil || IsNil(o.MobilePhone) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -638,7 +672,7 @@ func (o *UserSchemaBaseProperties) GetMobilePhone() UserSchemaAttribute {
 // GetMobilePhoneOk returns a tuple with the MobilePhone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetMobilePhoneOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.MobilePhone == nil {
+	if o == nil || IsNil(o.MobilePhone) {
 		return nil, false
 	}
 	return o.MobilePhone, true
@@ -646,7 +680,7 @@ func (o *UserSchemaBaseProperties) GetMobilePhoneOk() (*UserSchemaAttribute, boo
 
 // HasMobilePhone returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasMobilePhone() bool {
-	if o != nil && o.MobilePhone != nil {
+	if o != nil && !IsNil(o.MobilePhone) {
 		return true
 	}
 
@@ -660,7 +694,7 @@ func (o *UserSchemaBaseProperties) SetMobilePhone(v UserSchemaAttribute) {
 
 // GetNickName returns the NickName field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetNickName() UserSchemaAttribute {
-	if o == nil || o.NickName == nil {
+	if o == nil || IsNil(o.NickName) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -670,7 +704,7 @@ func (o *UserSchemaBaseProperties) GetNickName() UserSchemaAttribute {
 // GetNickNameOk returns a tuple with the NickName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetNickNameOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.NickName == nil {
+	if o == nil || IsNil(o.NickName) {
 		return nil, false
 	}
 	return o.NickName, true
@@ -678,7 +712,7 @@ func (o *UserSchemaBaseProperties) GetNickNameOk() (*UserSchemaAttribute, bool) 
 
 // HasNickName returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasNickName() bool {
-	if o != nil && o.NickName != nil {
+	if o != nil && !IsNil(o.NickName) {
 		return true
 	}
 
@@ -692,7 +726,7 @@ func (o *UserSchemaBaseProperties) SetNickName(v UserSchemaAttribute) {
 
 // GetOrganization returns the Organization field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetOrganization() UserSchemaAttribute {
-	if o == nil || o.Organization == nil {
+	if o == nil || IsNil(o.Organization) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -702,7 +736,7 @@ func (o *UserSchemaBaseProperties) GetOrganization() UserSchemaAttribute {
 // GetOrganizationOk returns a tuple with the Organization field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetOrganizationOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.Organization == nil {
+	if o == nil || IsNil(o.Organization) {
 		return nil, false
 	}
 	return o.Organization, true
@@ -710,7 +744,7 @@ func (o *UserSchemaBaseProperties) GetOrganizationOk() (*UserSchemaAttribute, bo
 
 // HasOrganization returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasOrganization() bool {
-	if o != nil && o.Organization != nil {
+	if o != nil && !IsNil(o.Organization) {
 		return true
 	}
 
@@ -724,7 +758,7 @@ func (o *UserSchemaBaseProperties) SetOrganization(v UserSchemaAttribute) {
 
 // GetPostalAddress returns the PostalAddress field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetPostalAddress() UserSchemaAttribute {
-	if o == nil || o.PostalAddress == nil {
+	if o == nil || IsNil(o.PostalAddress) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -734,7 +768,7 @@ func (o *UserSchemaBaseProperties) GetPostalAddress() UserSchemaAttribute {
 // GetPostalAddressOk returns a tuple with the PostalAddress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetPostalAddressOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.PostalAddress == nil {
+	if o == nil || IsNil(o.PostalAddress) {
 		return nil, false
 	}
 	return o.PostalAddress, true
@@ -742,7 +776,7 @@ func (o *UserSchemaBaseProperties) GetPostalAddressOk() (*UserSchemaAttribute, b
 
 // HasPostalAddress returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasPostalAddress() bool {
-	if o != nil && o.PostalAddress != nil {
+	if o != nil && !IsNil(o.PostalAddress) {
 		return true
 	}
 
@@ -756,7 +790,7 @@ func (o *UserSchemaBaseProperties) SetPostalAddress(v UserSchemaAttribute) {
 
 // GetPreferredLanguage returns the PreferredLanguage field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetPreferredLanguage() UserSchemaAttribute {
-	if o == nil || o.PreferredLanguage == nil {
+	if o == nil || IsNil(o.PreferredLanguage) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -766,7 +800,7 @@ func (o *UserSchemaBaseProperties) GetPreferredLanguage() UserSchemaAttribute {
 // GetPreferredLanguageOk returns a tuple with the PreferredLanguage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetPreferredLanguageOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.PreferredLanguage == nil {
+	if o == nil || IsNil(o.PreferredLanguage) {
 		return nil, false
 	}
 	return o.PreferredLanguage, true
@@ -774,7 +808,7 @@ func (o *UserSchemaBaseProperties) GetPreferredLanguageOk() (*UserSchemaAttribut
 
 // HasPreferredLanguage returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasPreferredLanguage() bool {
-	if o != nil && o.PreferredLanguage != nil {
+	if o != nil && !IsNil(o.PreferredLanguage) {
 		return true
 	}
 
@@ -788,7 +822,7 @@ func (o *UserSchemaBaseProperties) SetPreferredLanguage(v UserSchemaAttribute) {
 
 // GetPrimaryPhone returns the PrimaryPhone field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetPrimaryPhone() UserSchemaAttribute {
-	if o == nil || o.PrimaryPhone == nil {
+	if o == nil || IsNil(o.PrimaryPhone) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -798,7 +832,7 @@ func (o *UserSchemaBaseProperties) GetPrimaryPhone() UserSchemaAttribute {
 // GetPrimaryPhoneOk returns a tuple with the PrimaryPhone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetPrimaryPhoneOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.PrimaryPhone == nil {
+	if o == nil || IsNil(o.PrimaryPhone) {
 		return nil, false
 	}
 	return o.PrimaryPhone, true
@@ -806,7 +840,7 @@ func (o *UserSchemaBaseProperties) GetPrimaryPhoneOk() (*UserSchemaAttribute, bo
 
 // HasPrimaryPhone returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasPrimaryPhone() bool {
-	if o != nil && o.PrimaryPhone != nil {
+	if o != nil && !IsNil(o.PrimaryPhone) {
 		return true
 	}
 
@@ -820,7 +854,7 @@ func (o *UserSchemaBaseProperties) SetPrimaryPhone(v UserSchemaAttribute) {
 
 // GetProfileUrl returns the ProfileUrl field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetProfileUrl() UserSchemaAttribute {
-	if o == nil || o.ProfileUrl == nil {
+	if o == nil || IsNil(o.ProfileUrl) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -830,7 +864,7 @@ func (o *UserSchemaBaseProperties) GetProfileUrl() UserSchemaAttribute {
 // GetProfileUrlOk returns a tuple with the ProfileUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetProfileUrlOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.ProfileUrl == nil {
+	if o == nil || IsNil(o.ProfileUrl) {
 		return nil, false
 	}
 	return o.ProfileUrl, true
@@ -838,7 +872,7 @@ func (o *UserSchemaBaseProperties) GetProfileUrlOk() (*UserSchemaAttribute, bool
 
 // HasProfileUrl returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasProfileUrl() bool {
-	if o != nil && o.ProfileUrl != nil {
+	if o != nil && !IsNil(o.ProfileUrl) {
 		return true
 	}
 
@@ -852,7 +886,7 @@ func (o *UserSchemaBaseProperties) SetProfileUrl(v UserSchemaAttribute) {
 
 // GetSecondEmail returns the SecondEmail field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetSecondEmail() UserSchemaAttribute {
-	if o == nil || o.SecondEmail == nil {
+	if o == nil || IsNil(o.SecondEmail) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -862,7 +896,7 @@ func (o *UserSchemaBaseProperties) GetSecondEmail() UserSchemaAttribute {
 // GetSecondEmailOk returns a tuple with the SecondEmail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetSecondEmailOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.SecondEmail == nil {
+	if o == nil || IsNil(o.SecondEmail) {
 		return nil, false
 	}
 	return o.SecondEmail, true
@@ -870,7 +904,7 @@ func (o *UserSchemaBaseProperties) GetSecondEmailOk() (*UserSchemaAttribute, boo
 
 // HasSecondEmail returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasSecondEmail() bool {
-	if o != nil && o.SecondEmail != nil {
+	if o != nil && !IsNil(o.SecondEmail) {
 		return true
 	}
 
@@ -884,7 +918,7 @@ func (o *UserSchemaBaseProperties) SetSecondEmail(v UserSchemaAttribute) {
 
 // GetState returns the State field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetState() UserSchemaAttribute {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -894,7 +928,7 @@ func (o *UserSchemaBaseProperties) GetState() UserSchemaAttribute {
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetStateOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
 	return o.State, true
@@ -902,7 +936,7 @@ func (o *UserSchemaBaseProperties) GetStateOk() (*UserSchemaAttribute, bool) {
 
 // HasState returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && !IsNil(o.State) {
 		return true
 	}
 
@@ -916,7 +950,7 @@ func (o *UserSchemaBaseProperties) SetState(v UserSchemaAttribute) {
 
 // GetStreetAddress returns the StreetAddress field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetStreetAddress() UserSchemaAttribute {
-	if o == nil || o.StreetAddress == nil {
+	if o == nil || IsNil(o.StreetAddress) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -926,7 +960,7 @@ func (o *UserSchemaBaseProperties) GetStreetAddress() UserSchemaAttribute {
 // GetStreetAddressOk returns a tuple with the StreetAddress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetStreetAddressOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.StreetAddress == nil {
+	if o == nil || IsNil(o.StreetAddress) {
 		return nil, false
 	}
 	return o.StreetAddress, true
@@ -934,7 +968,7 @@ func (o *UserSchemaBaseProperties) GetStreetAddressOk() (*UserSchemaAttribute, b
 
 // HasStreetAddress returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasStreetAddress() bool {
-	if o != nil && o.StreetAddress != nil {
+	if o != nil && !IsNil(o.StreetAddress) {
 		return true
 	}
 
@@ -948,7 +982,7 @@ func (o *UserSchemaBaseProperties) SetStreetAddress(v UserSchemaAttribute) {
 
 // GetTimezone returns the Timezone field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetTimezone() UserSchemaAttribute {
-	if o == nil || o.Timezone == nil {
+	if o == nil || IsNil(o.Timezone) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -958,7 +992,7 @@ func (o *UserSchemaBaseProperties) GetTimezone() UserSchemaAttribute {
 // GetTimezoneOk returns a tuple with the Timezone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetTimezoneOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.Timezone == nil {
+	if o == nil || IsNil(o.Timezone) {
 		return nil, false
 	}
 	return o.Timezone, true
@@ -966,7 +1000,7 @@ func (o *UserSchemaBaseProperties) GetTimezoneOk() (*UserSchemaAttribute, bool) 
 
 // HasTimezone returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasTimezone() bool {
-	if o != nil && o.Timezone != nil {
+	if o != nil && !IsNil(o.Timezone) {
 		return true
 	}
 
@@ -980,7 +1014,7 @@ func (o *UserSchemaBaseProperties) SetTimezone(v UserSchemaAttribute) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetTitle() UserSchemaAttribute {
-	if o == nil || o.Title == nil {
+	if o == nil || IsNil(o.Title) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -990,7 +1024,7 @@ func (o *UserSchemaBaseProperties) GetTitle() UserSchemaAttribute {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetTitleOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.Title == nil {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -998,7 +1032,7 @@ func (o *UserSchemaBaseProperties) GetTitleOk() (*UserSchemaAttribute, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasTitle() bool {
-	if o != nil && o.Title != nil {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -1012,7 +1046,7 @@ func (o *UserSchemaBaseProperties) SetTitle(v UserSchemaAttribute) {
 
 // GetUserType returns the UserType field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetUserType() UserSchemaAttribute {
-	if o == nil || o.UserType == nil {
+	if o == nil || IsNil(o.UserType) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -1022,7 +1056,7 @@ func (o *UserSchemaBaseProperties) GetUserType() UserSchemaAttribute {
 // GetUserTypeOk returns a tuple with the UserType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetUserTypeOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.UserType == nil {
+	if o == nil || IsNil(o.UserType) {
 		return nil, false
 	}
 	return o.UserType, true
@@ -1030,7 +1064,7 @@ func (o *UserSchemaBaseProperties) GetUserTypeOk() (*UserSchemaAttribute, bool) 
 
 // HasUserType returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasUserType() bool {
-	if o != nil && o.UserType != nil {
+	if o != nil && !IsNil(o.UserType) {
 		return true
 	}
 
@@ -1044,7 +1078,7 @@ func (o *UserSchemaBaseProperties) SetUserType(v UserSchemaAttribute) {
 
 // GetZipCode returns the ZipCode field value if set, zero value otherwise.
 func (o *UserSchemaBaseProperties) GetZipCode() UserSchemaAttribute {
-	if o == nil || o.ZipCode == nil {
+	if o == nil || IsNil(o.ZipCode) {
 		var ret UserSchemaAttribute
 		return ret
 	}
@@ -1054,7 +1088,7 @@ func (o *UserSchemaBaseProperties) GetZipCode() UserSchemaAttribute {
 // GetZipCodeOk returns a tuple with the ZipCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSchemaBaseProperties) GetZipCodeOk() (*UserSchemaAttribute, bool) {
-	if o == nil || o.ZipCode == nil {
+	if o == nil || IsNil(o.ZipCode) {
 		return nil, false
 	}
 	return o.ZipCode, true
@@ -1062,7 +1096,7 @@ func (o *UserSchemaBaseProperties) GetZipCodeOk() (*UserSchemaAttribute, bool) {
 
 // HasZipCode returns a boolean if a field has been set.
 func (o *UserSchemaBaseProperties) HasZipCode() bool {
-	if o != nil && o.ZipCode != nil {
+	if o != nil && !IsNil(o.ZipCode) {
 		return true
 	}
 
@@ -1075,98 +1109,106 @@ func (o *UserSchemaBaseProperties) SetZipCode(v UserSchemaAttribute) {
 }
 
 func (o UserSchemaBaseProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserSchemaBaseProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.City != nil {
+	if !IsNil(o.City) {
 		toSerialize["city"] = o.City
 	}
-	if o.CostCenter != nil {
+	if !IsNil(o.CostCenter) {
 		toSerialize["costCenter"] = o.CostCenter
 	}
-	if o.CountryCode != nil {
+	if !IsNil(o.CountryCode) {
 		toSerialize["countryCode"] = o.CountryCode
 	}
-	if o.Department != nil {
+	if !IsNil(o.Department) {
 		toSerialize["department"] = o.Department
 	}
-	if o.DisplayName != nil {
+	if !IsNil(o.DisplayName) {
 		toSerialize["displayName"] = o.DisplayName
 	}
-	if o.Division != nil {
+	if !IsNil(o.Division) {
 		toSerialize["division"] = o.Division
 	}
-	if o.Email != nil {
+	if !IsNil(o.Email) {
 		toSerialize["email"] = o.Email
 	}
-	if o.EmployeeNumber != nil {
+	if !IsNil(o.EmployeeNumber) {
 		toSerialize["employeeNumber"] = o.EmployeeNumber
 	}
-	if o.FirstName != nil {
+	if !IsNil(o.FirstName) {
 		toSerialize["firstName"] = o.FirstName
 	}
-	if o.HonorificPrefix != nil {
+	if !IsNil(o.HonorificPrefix) {
 		toSerialize["honorificPrefix"] = o.HonorificPrefix
 	}
-	if o.HonorificSuffix != nil {
+	if !IsNil(o.HonorificSuffix) {
 		toSerialize["honorificSuffix"] = o.HonorificSuffix
 	}
-	if o.LastName != nil {
+	if !IsNil(o.LastName) {
 		toSerialize["lastName"] = o.LastName
 	}
-	if o.Locale != nil {
+	if !IsNil(o.Locale) {
 		toSerialize["locale"] = o.Locale
 	}
-	if o.Login != nil {
+	if !IsNil(o.Login) {
 		toSerialize["login"] = o.Login
 	}
-	if o.Manager != nil {
+	if !IsNil(o.Manager) {
 		toSerialize["manager"] = o.Manager
 	}
-	if o.ManagerId != nil {
+	if !IsNil(o.ManagerId) {
 		toSerialize["managerId"] = o.ManagerId
 	}
-	if o.MiddleName != nil {
+	if !IsNil(o.MiddleName) {
 		toSerialize["middleName"] = o.MiddleName
 	}
-	if o.MobilePhone != nil {
+	if !IsNil(o.MobilePhone) {
 		toSerialize["mobilePhone"] = o.MobilePhone
 	}
-	if o.NickName != nil {
+	if !IsNil(o.NickName) {
 		toSerialize["nickName"] = o.NickName
 	}
-	if o.Organization != nil {
+	if !IsNil(o.Organization) {
 		toSerialize["organization"] = o.Organization
 	}
-	if o.PostalAddress != nil {
+	if !IsNil(o.PostalAddress) {
 		toSerialize["postalAddress"] = o.PostalAddress
 	}
-	if o.PreferredLanguage != nil {
+	if !IsNil(o.PreferredLanguage) {
 		toSerialize["preferredLanguage"] = o.PreferredLanguage
 	}
-	if o.PrimaryPhone != nil {
+	if !IsNil(o.PrimaryPhone) {
 		toSerialize["primaryPhone"] = o.PrimaryPhone
 	}
-	if o.ProfileUrl != nil {
+	if !IsNil(o.ProfileUrl) {
 		toSerialize["profileUrl"] = o.ProfileUrl
 	}
-	if o.SecondEmail != nil {
+	if !IsNil(o.SecondEmail) {
 		toSerialize["secondEmail"] = o.SecondEmail
 	}
-	if o.State != nil {
+	if !IsNil(o.State) {
 		toSerialize["state"] = o.State
 	}
-	if o.StreetAddress != nil {
+	if !IsNil(o.StreetAddress) {
 		toSerialize["streetAddress"] = o.StreetAddress
 	}
-	if o.Timezone != nil {
+	if !IsNil(o.Timezone) {
 		toSerialize["timezone"] = o.Timezone
 	}
-	if o.Title != nil {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if o.UserType != nil {
+	if !IsNil(o.UserType) {
 		toSerialize["userType"] = o.UserType
 	}
-	if o.ZipCode != nil {
+	if !IsNil(o.ZipCode) {
 		toSerialize["zipCode"] = o.ZipCode
 	}
 
@@ -1174,23 +1216,23 @@ func (o UserSchemaBaseProperties) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserSchemaBaseProperties) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserSchemaBaseProperties) UnmarshalJSON(data []byte) (err error) {
 	varUserSchemaBaseProperties := _UserSchemaBaseProperties{}
 
-	err = json.Unmarshal(bytes, &varUserSchemaBaseProperties)
-	if err == nil {
-		*o = UserSchemaBaseProperties(varUserSchemaBaseProperties)
-	} else {
+	err = json.Unmarshal(data, &varUserSchemaBaseProperties)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserSchemaBaseProperties(varUserSchemaBaseProperties)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "city")
 		delete(additionalProperties, "costCenter")
 		delete(additionalProperties, "countryCode")
@@ -1223,8 +1265,6 @@ func (o *UserSchemaBaseProperties) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "userType")
 		delete(additionalProperties, "zipCode")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -1265,4 +1305,3 @@ func (v *NullableUserSchemaBaseProperties) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

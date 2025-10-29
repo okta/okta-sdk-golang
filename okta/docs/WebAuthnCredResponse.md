@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AuthenticatorEnrollmentId** | Pointer to **string** | ID for a WebAuthn Preregistration Factor in Okta | [optional] 
-**CredResponseJWE** | Pointer to **string** | Encrypted JWE of credential response from the fulfillment provider | [optional] 
+**AuthenticatorEnrollmentId** | Pointer to **string** | ID for a WebAuthn preregistration factor in Okta | [optional] 
+**CredResponseJwe** | Pointer to **string** | Encrypted JSON Web Encryption (JWE) of the credential response from the fulfillment provider | [optional] 
 
 ## Methods
 
@@ -51,30 +51,30 @@ SetAuthenticatorEnrollmentId sets AuthenticatorEnrollmentId field to given value
 
 HasAuthenticatorEnrollmentId returns a boolean if a field has been set.
 
-### GetCredResponseJWE
+### GetCredResponseJwe
 
-`func (o *WebAuthnCredResponse) GetCredResponseJWE() string`
+`func (o *WebAuthnCredResponse) GetCredResponseJwe() string`
 
-GetCredResponseJWE returns the CredResponseJWE field if non-nil, zero value otherwise.
+GetCredResponseJwe returns the CredResponseJwe field if non-nil, zero value otherwise.
 
-### GetCredResponseJWEOk
+### GetCredResponseJweOk
 
-`func (o *WebAuthnCredResponse) GetCredResponseJWEOk() (*string, bool)`
+`func (o *WebAuthnCredResponse) GetCredResponseJweOk() (*string, bool)`
 
-GetCredResponseJWEOk returns a tuple with the CredResponseJWE field if it's non-nil, zero value otherwise
+GetCredResponseJweOk returns a tuple with the CredResponseJwe field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCredResponseJWE
+### SetCredResponseJwe
 
-`func (o *WebAuthnCredResponse) SetCredResponseJWE(v string)`
+`func (o *WebAuthnCredResponse) SetCredResponseJwe(v string)`
 
-SetCredResponseJWE sets CredResponseJWE field to given value.
+SetCredResponseJwe sets CredResponseJwe field to given value.
 
-### HasCredResponseJWE
+### HasCredResponseJwe
 
-`func (o *WebAuthnCredResponse) HasCredResponseJWE() bool`
+`func (o *WebAuthnCredResponse) HasCredResponseJwe() bool`
 
-HasCredResponseJWE returns a boolean if a field has been set.
+HasCredResponseJwe returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -29,10 +29,13 @@ import (
 	"strings"
 )
 
+// checks if the FCMPushProvider type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FCMPushProvider{}
+
 // FCMPushProvider struct for FCMPushProvider
 type FCMPushProvider struct {
 	PushProvider
-	Configuration *FCMConfiguration `json:"configuration,omitempty"`
+	Configuration        *FCMConfiguration `json:"configuration,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewFCMPushProviderWithDefaults() *FCMPushProvider {
 
 // GetConfiguration returns the Configuration field value if set, zero value otherwise.
 func (o *FCMPushProvider) GetConfiguration() FCMConfiguration {
-	if o == nil || o.Configuration == nil {
+	if o == nil || IsNil(o.Configuration) {
 		var ret FCMConfiguration
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *FCMPushProvider) GetConfiguration() FCMConfiguration {
 // GetConfigurationOk returns a tuple with the Configuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FCMPushProvider) GetConfigurationOk() (*FCMConfiguration, bool) {
-	if o == nil || o.Configuration == nil {
+	if o == nil || IsNil(o.Configuration) {
 		return nil, false
 	}
 	return o.Configuration, true
@@ -75,7 +78,7 @@ func (o *FCMPushProvider) GetConfigurationOk() (*FCMConfiguration, bool) {
 
 // HasConfiguration returns a boolean if a field has been set.
 func (o *FCMPushProvider) HasConfiguration() bool {
-	if o != nil && o.Configuration != nil {
+	if o != nil && !IsNil(o.Configuration) {
 		return true
 	}
 
@@ -88,16 +91,24 @@ func (o *FCMPushProvider) SetConfiguration(v FCMConfiguration) {
 }
 
 func (o FCMPushProvider) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o FCMPushProvider) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedPushProvider, errPushProvider := json.Marshal(o.PushProvider)
 	if errPushProvider != nil {
-		return []byte{}, errPushProvider
+		return map[string]interface{}{}, errPushProvider
 	}
 	errPushProvider = json.Unmarshal([]byte(serializedPushProvider), &toSerialize)
 	if errPushProvider != nil {
-		return []byte{}, errPushProvider
+		return map[string]interface{}{}, errPushProvider
 	}
-	if o.Configuration != nil {
+	if !IsNil(o.Configuration) {
 		toSerialize["configuration"] = o.Configuration
 	}
 
@@ -105,17 +116,17 @@ func (o FCMPushProvider) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *FCMPushProvider) UnmarshalJSON(bytes []byte) (err error) {
+func (o *FCMPushProvider) UnmarshalJSON(data []byte) (err error) {
 	type FCMPushProviderWithoutEmbeddedStruct struct {
 		Configuration *FCMConfiguration `json:"configuration,omitempty"`
 	}
 
 	varFCMPushProviderWithoutEmbeddedStruct := FCMPushProviderWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varFCMPushProviderWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varFCMPushProviderWithoutEmbeddedStruct)
 	if err == nil {
 		varFCMPushProvider := _FCMPushProvider{}
 		varFCMPushProvider.Configuration = varFCMPushProviderWithoutEmbeddedStruct.Configuration
@@ -126,7 +137,7 @@ func (o *FCMPushProvider) UnmarshalJSON(bytes []byte) (err error) {
 
 	varFCMPushProvider := _FCMPushProvider{}
 
-	err = json.Unmarshal(bytes, &varFCMPushProvider)
+	err = json.Unmarshal(data, &varFCMPushProvider)
 	if err == nil {
 		o.PushProvider = varFCMPushProvider.PushProvider
 	} else {
@@ -135,8 +146,7 @@ func (o *FCMPushProvider) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "configuration")
 
 		// remove fields from embedded structs
@@ -158,8 +168,6 @@ func (o *FCMPushProvider) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -200,4 +208,3 @@ func (v *NullableFCMPushProvider) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

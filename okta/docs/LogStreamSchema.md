@@ -4,16 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Schema** | Pointer to **string** |  | [optional] [readonly] 
-**Created** | Pointer to **string** |  | [optional] [readonly] 
-**ErrorMessage** | Pointer to **map[string]interface{}** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] [readonly] 
-**LastUpdated** | Pointer to **string** |  | [optional] [readonly] 
-**Name** | Pointer to **string** |  | [optional] [readonly] 
-**Properties** | Pointer to **map[string]interface{}** |  | [optional] 
-**Required** | Pointer to **[]string** |  | [optional] 
-**Title** | Pointer to **string** |  | [optional] 
-**Type** | Pointer to **string** |  | [optional] [readonly] 
+**Schema** | Pointer to **string** | JSON schema version identifier | [optional] [readonly] 
+**ErrorMessage** | Pointer to **map[string]interface{}** | A collection of error messages for individual properties in the schema. Okta implements a subset of [ajv-errors](https://github.com/ajv-validator/ajv-errors). | [optional] 
+**Id** | Pointer to **string** | URI of log stream schema | [optional] [readonly] 
+**OneOf** | Pointer to [**[]UserSchemaAttributeEnum**](UserSchemaAttributeEnum.md) | Non-empty array of valid JSON schemas.  Okta only supports &#x60;oneOf&#x60; for specifying display names for an &#x60;enum&#x60;. Each schema has the following format:  &#x60;&#x60;&#x60; {   \&quot;const\&quot;: \&quot;enumValue\&quot;,   \&quot;title\&quot;: \&quot;display name\&quot; } &#x60;&#x60;&#x60; | [optional] 
+**Pattern** | Pointer to **string** | For &#x60;string&#x60; log stream schema property type, specifies the regular expression used to validate the property | [optional] 
+**Properties** | Pointer to **map[string]interface{}** | log stream schema properties object | [optional] 
+**Required** | Pointer to **[]string** | Required properties for this log stream schema object | [optional] 
+**Title** | Pointer to **string** | Name of the log streaming integration | [optional] 
+**Type** | Pointer to **string** | Type of log stream schema property | [optional] [readonly] 
 **Links** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
 
 ## Methods
@@ -59,31 +58,6 @@ SetSchema sets Schema field to given value.
 `func (o *LogStreamSchema) HasSchema() bool`
 
 HasSchema returns a boolean if a field has been set.
-
-### GetCreated
-
-`func (o *LogStreamSchema) GetCreated() string`
-
-GetCreated returns the Created field if non-nil, zero value otherwise.
-
-### GetCreatedOk
-
-`func (o *LogStreamSchema) GetCreatedOk() (*string, bool)`
-
-GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCreated
-
-`func (o *LogStreamSchema) SetCreated(v string)`
-
-SetCreated sets Created field to given value.
-
-### HasCreated
-
-`func (o *LogStreamSchema) HasCreated() bool`
-
-HasCreated returns a boolean if a field has been set.
 
 ### GetErrorMessage
 
@@ -135,55 +109,65 @@ SetId sets Id field to given value.
 
 HasId returns a boolean if a field has been set.
 
-### GetLastUpdated
+### GetOneOf
 
-`func (o *LogStreamSchema) GetLastUpdated() string`
+`func (o *LogStreamSchema) GetOneOf() []UserSchemaAttributeEnum`
 
-GetLastUpdated returns the LastUpdated field if non-nil, zero value otherwise.
+GetOneOf returns the OneOf field if non-nil, zero value otherwise.
 
-### GetLastUpdatedOk
+### GetOneOfOk
 
-`func (o *LogStreamSchema) GetLastUpdatedOk() (*string, bool)`
+`func (o *LogStreamSchema) GetOneOfOk() (*[]UserSchemaAttributeEnum, bool)`
 
-GetLastUpdatedOk returns a tuple with the LastUpdated field if it's non-nil, zero value otherwise
+GetOneOfOk returns a tuple with the OneOf field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetLastUpdated
+### SetOneOf
 
-`func (o *LogStreamSchema) SetLastUpdated(v string)`
+`func (o *LogStreamSchema) SetOneOf(v []UserSchemaAttributeEnum)`
 
-SetLastUpdated sets LastUpdated field to given value.
+SetOneOf sets OneOf field to given value.
 
-### HasLastUpdated
+### HasOneOf
 
-`func (o *LogStreamSchema) HasLastUpdated() bool`
+`func (o *LogStreamSchema) HasOneOf() bool`
 
-HasLastUpdated returns a boolean if a field has been set.
+HasOneOf returns a boolean if a field has been set.
 
-### GetName
+### SetOneOfNil
 
-`func (o *LogStreamSchema) GetName() string`
+`func (o *LogStreamSchema) SetOneOfNil(b bool)`
 
-GetName returns the Name field if non-nil, zero value otherwise.
+ SetOneOfNil sets the value for OneOf to be an explicit nil
 
-### GetNameOk
+### UnsetOneOf
+`func (o *LogStreamSchema) UnsetOneOf()`
 
-`func (o *LogStreamSchema) GetNameOk() (*string, bool)`
+UnsetOneOf ensures that no value is present for OneOf, not even an explicit nil
+### GetPattern
 
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+`func (o *LogStreamSchema) GetPattern() string`
+
+GetPattern returns the Pattern field if non-nil, zero value otherwise.
+
+### GetPatternOk
+
+`func (o *LogStreamSchema) GetPatternOk() (*string, bool)`
+
+GetPatternOk returns a tuple with the Pattern field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetName
+### SetPattern
 
-`func (o *LogStreamSchema) SetName(v string)`
+`func (o *LogStreamSchema) SetPattern(v string)`
 
-SetName sets Name field to given value.
+SetPattern sets Pattern field to given value.
 
-### HasName
+### HasPattern
 
-`func (o *LogStreamSchema) HasName() bool`
+`func (o *LogStreamSchema) HasPattern() bool`
 
-HasName returns a boolean if a field has been set.
+HasPattern returns a boolean if a field has been set.
 
 ### GetProperties
 

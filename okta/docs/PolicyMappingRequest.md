@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ResourceId** | Pointer to **string** |  | [optional] 
-**ResourceType** | Pointer to **string** |  | [optional] 
+**ResourceId** | Pointer to **string** | Unique identifier of the resource to map | [optional] 
+**ResourceType** | Pointer to **string** | Specifies the type of resource to map. You can either map an app onto a policy, or map a device signal collection policy onto an authentication policy. | [optional] 
 
 ## Methods
 

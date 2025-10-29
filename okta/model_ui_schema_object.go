@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,15 +27,18 @@ import (
 	"encoding/json"
 )
 
+// checks if the UISchemaObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UISchemaObject{}
+
 // UISchemaObject Properties of the UI schema
 type UISchemaObject struct {
-	// Specifies the button label for the `Submit` button at the bottom of the enrollment form.
-	ButtonLabel *string `json:"buttonLabel,omitempty"`
-	Elements *UIElement `json:"elements,omitempty"`
-	// Specifies the label at the top of the enrollment form under the logo.
+	// Specifies the button label for the `Submit` button at the bottom of the enrollment form
+	ButtonLabel *string    `json:"buttonLabel,omitempty"`
+	Elements    *UIElement `json:"elements,omitempty"`
+	// Specifies the label at the top of the enrollment form under the logo
 	Label *string `json:"label,omitempty"`
 	// Specifies the type of layout
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -68,7 +71,7 @@ func NewUISchemaObjectWithDefaults() *UISchemaObject {
 
 // GetButtonLabel returns the ButtonLabel field value if set, zero value otherwise.
 func (o *UISchemaObject) GetButtonLabel() string {
-	if o == nil || o.ButtonLabel == nil {
+	if o == nil || IsNil(o.ButtonLabel) {
 		var ret string
 		return ret
 	}
@@ -78,7 +81,7 @@ func (o *UISchemaObject) GetButtonLabel() string {
 // GetButtonLabelOk returns a tuple with the ButtonLabel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UISchemaObject) GetButtonLabelOk() (*string, bool) {
-	if o == nil || o.ButtonLabel == nil {
+	if o == nil || IsNil(o.ButtonLabel) {
 		return nil, false
 	}
 	return o.ButtonLabel, true
@@ -86,7 +89,7 @@ func (o *UISchemaObject) GetButtonLabelOk() (*string, bool) {
 
 // HasButtonLabel returns a boolean if a field has been set.
 func (o *UISchemaObject) HasButtonLabel() bool {
-	if o != nil && o.ButtonLabel != nil {
+	if o != nil && !IsNil(o.ButtonLabel) {
 		return true
 	}
 
@@ -100,7 +103,7 @@ func (o *UISchemaObject) SetButtonLabel(v string) {
 
 // GetElements returns the Elements field value if set, zero value otherwise.
 func (o *UISchemaObject) GetElements() UIElement {
-	if o == nil || o.Elements == nil {
+	if o == nil || IsNil(o.Elements) {
 		var ret UIElement
 		return ret
 	}
@@ -110,7 +113,7 @@ func (o *UISchemaObject) GetElements() UIElement {
 // GetElementsOk returns a tuple with the Elements field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UISchemaObject) GetElementsOk() (*UIElement, bool) {
-	if o == nil || o.Elements == nil {
+	if o == nil || IsNil(o.Elements) {
 		return nil, false
 	}
 	return o.Elements, true
@@ -118,7 +121,7 @@ func (o *UISchemaObject) GetElementsOk() (*UIElement, bool) {
 
 // HasElements returns a boolean if a field has been set.
 func (o *UISchemaObject) HasElements() bool {
-	if o != nil && o.Elements != nil {
+	if o != nil && !IsNil(o.Elements) {
 		return true
 	}
 
@@ -132,7 +135,7 @@ func (o *UISchemaObject) SetElements(v UIElement) {
 
 // GetLabel returns the Label field value if set, zero value otherwise.
 func (o *UISchemaObject) GetLabel() string {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		var ret string
 		return ret
 	}
@@ -142,7 +145,7 @@ func (o *UISchemaObject) GetLabel() string {
 // GetLabelOk returns a tuple with the Label field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UISchemaObject) GetLabelOk() (*string, bool) {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		return nil, false
 	}
 	return o.Label, true
@@ -150,7 +153,7 @@ func (o *UISchemaObject) GetLabelOk() (*string, bool) {
 
 // HasLabel returns a boolean if a field has been set.
 func (o *UISchemaObject) HasLabel() bool {
-	if o != nil && o.Label != nil {
+	if o != nil && !IsNil(o.Label) {
 		return true
 	}
 
@@ -164,7 +167,7 @@ func (o *UISchemaObject) SetLabel(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *UISchemaObject) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -174,7 +177,7 @@ func (o *UISchemaObject) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UISchemaObject) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -182,7 +185,7 @@ func (o *UISchemaObject) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *UISchemaObject) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -195,17 +198,25 @@ func (o *UISchemaObject) SetType(v string) {
 }
 
 func (o UISchemaObject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UISchemaObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ButtonLabel != nil {
+	if !IsNil(o.ButtonLabel) {
 		toSerialize["buttonLabel"] = o.ButtonLabel
 	}
-	if o.Elements != nil {
+	if !IsNil(o.Elements) {
 		toSerialize["elements"] = o.Elements
 	}
-	if o.Label != nil {
+	if !IsNil(o.Label) {
 		toSerialize["label"] = o.Label
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -213,30 +224,28 @@ func (o UISchemaObject) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UISchemaObject) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UISchemaObject) UnmarshalJSON(data []byte) (err error) {
 	varUISchemaObject := _UISchemaObject{}
 
-	err = json.Unmarshal(bytes, &varUISchemaObject)
-	if err == nil {
-		*o = UISchemaObject(varUISchemaObject)
-	} else {
+	err = json.Unmarshal(data, &varUISchemaObject)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UISchemaObject(varUISchemaObject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "buttonLabel")
 		delete(additionalProperties, "elements")
 		delete(additionalProperties, "label")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -277,4 +286,3 @@ func (v *NullableUISchemaObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

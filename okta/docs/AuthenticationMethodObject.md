@@ -4,14 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | Pointer to **string** | A label that identifies the authenticator | [optional] 
+**Id** | Pointer to **string** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;oie\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;Authenticator ID | [optional] 
+**Key** | **string** | A label that identifies the authenticator | 
 **Method** | Pointer to **string** | Specifies the method used for the authenticator | [optional] 
 
 ## Methods
 
 ### NewAuthenticationMethodObject
 
-`func NewAuthenticationMethodObject() *AuthenticationMethodObject`
+`func NewAuthenticationMethodObject(key string, ) *AuthenticationMethodObject`
 
 NewAuthenticationMethodObject instantiates a new AuthenticationMethodObject object
 This constructor will assign default values to properties that have it defined,
@@ -25,6 +26,31 @@ will change when the set of required properties is changed
 NewAuthenticationMethodObjectWithDefaults instantiates a new AuthenticationMethodObject object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetId
+
+`func (o *AuthenticationMethodObject) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *AuthenticationMethodObject) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *AuthenticationMethodObject) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *AuthenticationMethodObject) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetKey
 
@@ -45,11 +71,6 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
-### HasKey
-
-`func (o *AuthenticationMethodObject) HasKey() bool`
-
-HasKey returns a boolean if a field has been set.
 
 ### GetMethod
 

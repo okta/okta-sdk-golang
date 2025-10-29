@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Resend** | Pointer to [**LinksResendResend**](LinksResendResend.md) |  | [optional] 
+**Resend** | Pointer to [**HrefObject**](HrefObject.md) | Resends the factor enrollment challenge. See [Resend a factor enrollment](/openapi/okta-management/management/tag/UserFactor/#tag/UserFactor/operation/resendEnrollFactor). | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetResend
 
-`func (o *LinksResend) GetResend() LinksResendResend`
+`func (o *LinksResend) GetResend() HrefObject`
 
 GetResend returns the Resend field if non-nil, zero value otherwise.
 
 ### GetResendOk
 
-`func (o *LinksResend) GetResendOk() (*LinksResendResend, bool)`
+`func (o *LinksResend) GetResendOk() (*HrefObject, bool)`
 
 GetResendOk returns a tuple with the Resend field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResend
 
-`func (o *LinksResend) SetResend(v LinksResendResend)`
+`func (o *LinksResend) SetResend(v HrefObject)`
 
 SetResend sets Resend field to given value.
 

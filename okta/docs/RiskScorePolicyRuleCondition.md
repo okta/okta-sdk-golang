@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Level** | Pointer to **string** |  | [optional] 
+**Level** | **string** | The level to match | 
 
 ## Methods
 
 ### NewRiskScorePolicyRuleCondition
 
-`func NewRiskScorePolicyRuleCondition() *RiskScorePolicyRuleCondition`
+`func NewRiskScorePolicyRuleCondition(level string, ) *RiskScorePolicyRuleCondition`
 
 NewRiskScorePolicyRuleCondition instantiates a new RiskScorePolicyRuleCondition object
 This constructor will assign default values to properties that have it defined,
@@ -44,11 +44,6 @@ and a boolean to check if the value has been set.
 
 SetLevel sets Level field to given value.
 
-### HasLevel
-
-`func (o *RiskScorePolicyRuleCondition) HasLevel() bool`
-
-HasLevel returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

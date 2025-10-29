@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **EventTimestamp** | **int64** | The time of the event (UNIX timestamp) | 
 **NewValue** | Pointer to **string** | The new identifier value | [optional] 
-**Subjects** | [**SecurityEventSubject**](SecurityEventSubject.md) |  | 
+**Subject** | [**SecurityEventSubject**](SecurityEventSubject.md) |  | 
 
 ## Methods
 
 ### NewRiscIdentifierChangedEvent
 
-`func NewRiscIdentifierChangedEvent(eventTimestamp int64, subjects SecurityEventSubject, ) *RiscIdentifierChangedEvent`
+`func NewRiscIdentifierChangedEvent(eventTimestamp int64, subject SecurityEventSubject, ) *RiscIdentifierChangedEvent`
 
 NewRiscIdentifierChangedEvent instantiates a new RiscIdentifierChangedEvent object
 This constructor will assign default values to properties that have it defined,
@@ -72,24 +72,24 @@ SetNewValue sets NewValue field to given value.
 
 HasNewValue returns a boolean if a field has been set.
 
-### GetSubjects
+### GetSubject
 
-`func (o *RiscIdentifierChangedEvent) GetSubjects() SecurityEventSubject`
+`func (o *RiscIdentifierChangedEvent) GetSubject() SecurityEventSubject`
 
-GetSubjects returns the Subjects field if non-nil, zero value otherwise.
+GetSubject returns the Subject field if non-nil, zero value otherwise.
 
-### GetSubjectsOk
+### GetSubjectOk
 
-`func (o *RiscIdentifierChangedEvent) GetSubjectsOk() (*SecurityEventSubject, bool)`
+`func (o *RiscIdentifierChangedEvent) GetSubjectOk() (*SecurityEventSubject, bool)`
 
-GetSubjectsOk returns a tuple with the Subjects field if it's non-nil, zero value otherwise
+GetSubjectOk returns a tuple with the Subject field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetSubjects
+### SetSubject
 
-`func (o *RiscIdentifierChangedEvent) SetSubjects(v SecurityEventSubject)`
+`func (o *RiscIdentifierChangedEvent) SetSubject(v SecurityEventSubject)`
 
-SetSubjects sets Subjects field to given value.
+SetSubject sets Subject field to given value.
 
 
 

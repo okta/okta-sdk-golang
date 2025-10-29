@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **PhoneExtension** | Pointer to **NullableString** | Extension of the associated &#x60;phoneNumber&#x60; | [optional] 
-**PhoneNumber** | Pointer to **string** | Phone number of the Factor. You should format phone numbers to use the [E.164 standard](https://www.itu.int/rec/T-REC-E.164/). | [optional] 
+**PhoneNumber** | Pointer to **string** | Phone number of the factor. Format phone numbers to use the [E.164 standard](https://www.itu.int/rec/T-REC-E.164/). | [optional] 
 
 ## Methods
 

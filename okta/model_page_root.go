@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the PageRoot type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PageRoot{}
+
 // PageRoot struct for PageRoot
 type PageRoot struct {
-	Embedded *PageRootEmbedded `json:"_embedded,omitempty"`
-	Links *PageRootLinks `json:"_links,omitempty"`
+	Embedded             *PageRootEmbedded `json:"_embedded,omitempty"`
+	Links                *PageRootLinks    `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewPageRootWithDefaults() *PageRoot {
 
 // GetEmbedded returns the Embedded field value if set, zero value otherwise.
 func (o *PageRoot) GetEmbedded() PageRootEmbedded {
-	if o == nil || o.Embedded == nil {
+	if o == nil || IsNil(o.Embedded) {
 		var ret PageRootEmbedded
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *PageRoot) GetEmbedded() PageRootEmbedded {
 // GetEmbeddedOk returns a tuple with the Embedded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PageRoot) GetEmbeddedOk() (*PageRootEmbedded, bool) {
-	if o == nil || o.Embedded == nil {
+	if o == nil || IsNil(o.Embedded) {
 		return nil, false
 	}
 	return o.Embedded, true
@@ -73,7 +76,7 @@ func (o *PageRoot) GetEmbeddedOk() (*PageRootEmbedded, bool) {
 
 // HasEmbedded returns a boolean if a field has been set.
 func (o *PageRoot) HasEmbedded() bool {
-	if o != nil && o.Embedded != nil {
+	if o != nil && !IsNil(o.Embedded) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *PageRoot) SetEmbedded(v PageRootEmbedded) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *PageRoot) GetLinks() PageRootLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret PageRootLinks
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *PageRoot) GetLinks() PageRootLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PageRoot) GetLinksOk() (*PageRootLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -105,7 +108,7 @@ func (o *PageRoot) GetLinksOk() (*PageRootLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *PageRoot) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *PageRoot) SetLinks(v PageRootLinks) {
 }
 
 func (o PageRoot) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PageRoot) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Embedded != nil {
+	if !IsNil(o.Embedded) {
 		toSerialize["_embedded"] = o.Embedded
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -130,28 +141,26 @@ func (o PageRoot) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PageRoot) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PageRoot) UnmarshalJSON(data []byte) (err error) {
 	varPageRoot := _PageRoot{}
 
-	err = json.Unmarshal(bytes, &varPageRoot)
-	if err == nil {
-		*o = PageRoot(varPageRoot)
-	} else {
+	err = json.Unmarshal(data, &varPageRoot)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PageRoot(varPageRoot)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "_embedded")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullablePageRoot) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

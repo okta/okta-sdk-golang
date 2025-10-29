@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to **time.Time** | Timestamp when the Authenticator was created | [optional] [readonly] 
-**Id** | Pointer to **string** | A unique identifier for the Authenticator | [optional] [readonly] 
-**Key** | Pointer to **string** | A human-readable string that identifies the Authenticator | [optional] 
-**LastUpdated** | Pointer to **time.Time** | Timestamp when the Authenticator was last modified | [optional] [readonly] 
-**Name** | Pointer to **string** | Display name of the Authenticator | [optional] 
+**Created** | Pointer to **time.Time** | Timestamp when the authenticator was created | [optional] [readonly] 
+**Id** | Pointer to **string** | A unique identifier for the authenticator | [optional] [readonly] 
+**Key** | Pointer to **string** | A human-readable string that identifies the authenticator | [optional] 
+**LastUpdated** | Pointer to **time.Time** | Timestamp when the authenticator was last modified | [optional] [readonly] 
+**Name** | Pointer to **string** | Display name of the authenticator | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
-**Type** | Pointer to **string** | The type of Authenticator | [optional] 
+**Type** | Pointer to **string** | The type of authenticator | [optional] 
 **Links** | Pointer to [**AuthenticatorLinks**](AuthenticatorLinks.md) |  | [optional] 
 
 ## Methods

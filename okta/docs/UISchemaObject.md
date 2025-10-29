@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ButtonLabel** | Pointer to **string** | Specifies the button label for the &#x60;Submit&#x60; button at the bottom of the enrollment form. | [optional] [default to "Submit"]
+**ButtonLabel** | Pointer to **string** | Specifies the button label for the &#x60;Submit&#x60; button at the bottom of the enrollment form | [optional] [default to "Submit"]
 **Elements** | Pointer to [**UIElement**](UIElement.md) |  | [optional] 
-**Label** | Pointer to **string** | Specifies the label at the top of the enrollment form under the logo. | [optional] [default to "Sign in"]
+**Label** | Pointer to **string** | Specifies the label at the top of the enrollment form under the logo | [optional] [default to "Sign in"]
 **Type** | Pointer to **string** | Specifies the type of layout | [optional] 
 
 ## Methods

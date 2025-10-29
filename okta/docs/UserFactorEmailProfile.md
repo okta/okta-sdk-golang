@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Email** | Pointer to **string** | Email address of the user. Must be either the primary or secondary email address associated with the Okta user account. | [optional] 
+**Email** | Pointer to **string** | Email address of the user. This must be either the primary or secondary email address associated with the Okta user account. | [optional] 
 
 ## Methods
 

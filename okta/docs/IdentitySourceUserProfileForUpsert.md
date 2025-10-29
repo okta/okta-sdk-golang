@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Email** | Pointer to **string** |  | [optional] 
-**FirstName** | Pointer to **NullableString** |  | [optional] 
-**HomeAddress** | Pointer to **NullableString** |  | [optional] 
-**LastName** | Pointer to **NullableString** |  | [optional] 
-**MobilePhone** | Pointer to **NullableString** |  | [optional] 
-**SecondEmail** | Pointer to **string** |  | [optional] 
-**UserName** | Pointer to **string** |  | [optional] 
+**Email** | Pointer to **string** | Email address of the user | [optional] 
+**FirstName** | Pointer to **NullableString** | First name of the user | [optional] 
+**HomeAddress** | Pointer to **NullableString** | Home address of the user | [optional] 
+**LastName** | Pointer to **NullableString** | Last name of the user | [optional] 
+**MobilePhone** | Pointer to **NullableString** | Mobile phone number of the user | [optional] 
+**SecondEmail** | Pointer to **string** | Alternative email address of the user | [optional] 
+**UserName** | Pointer to **string** | Username of the user | [optional] 
 
 ## Methods
 

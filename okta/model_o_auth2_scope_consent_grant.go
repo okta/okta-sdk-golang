@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -25,15 +25,19 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the OAuth2ScopeConsentGrant type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OAuth2ScopeConsentGrant{}
 
 // OAuth2ScopeConsentGrant Grant object that represents an app consent scope grant
 type OAuth2ScopeConsentGrant struct {
 	// Client ID of the app integration
 	ClientId *string `json:"clientId,omitempty"`
 	// Timestamp when the object was created
-	Created *time.Time `json:"created,omitempty"`
+	Created   *time.Time   `json:"created,omitempty"`
 	CreatedBy *OAuth2Actor `json:"createdBy,omitempty"`
 	// ID of the Grant object
 	Id *string `json:"id,omitempty"`
@@ -48,9 +52,9 @@ type OAuth2ScopeConsentGrant struct {
 	// Status
 	Status *string `json:"status,omitempty"`
 	// User ID that granted consent (if `source` is `END_USER`)
-	UserId *string `json:"userId,omitempty"`
-	Embedded *OAuth2ScopeConsentGrantEmbedded `json:"_embedded,omitempty"`
-	Links *OAuth2ScopeConsentGrantLinks `json:"_links,omitempty"`
+	UserId               *string                          `json:"userId,omitempty"`
+	Embedded             *OAuth2ScopeConsentGrantEmbedded `json:"_embedded,omitempty"`
+	Links                *OAuth2ScopeConsentGrantLinks    `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -77,7 +81,7 @@ func NewOAuth2ScopeConsentGrantWithDefaults() *OAuth2ScopeConsentGrant {
 
 // GetClientId returns the ClientId field value if set, zero value otherwise.
 func (o *OAuth2ScopeConsentGrant) GetClientId() string {
-	if o == nil || o.ClientId == nil {
+	if o == nil || IsNil(o.ClientId) {
 		var ret string
 		return ret
 	}
@@ -87,7 +91,7 @@ func (o *OAuth2ScopeConsentGrant) GetClientId() string {
 // GetClientIdOk returns a tuple with the ClientId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ScopeConsentGrant) GetClientIdOk() (*string, bool) {
-	if o == nil || o.ClientId == nil {
+	if o == nil || IsNil(o.ClientId) {
 		return nil, false
 	}
 	return o.ClientId, true
@@ -95,7 +99,7 @@ func (o *OAuth2ScopeConsentGrant) GetClientIdOk() (*string, bool) {
 
 // HasClientId returns a boolean if a field has been set.
 func (o *OAuth2ScopeConsentGrant) HasClientId() bool {
-	if o != nil && o.ClientId != nil {
+	if o != nil && !IsNil(o.ClientId) {
 		return true
 	}
 
@@ -109,7 +113,7 @@ func (o *OAuth2ScopeConsentGrant) SetClientId(v string) {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *OAuth2ScopeConsentGrant) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -119,7 +123,7 @@ func (o *OAuth2ScopeConsentGrant) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ScopeConsentGrant) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -127,7 +131,7 @@ func (o *OAuth2ScopeConsentGrant) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *OAuth2ScopeConsentGrant) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -141,7 +145,7 @@ func (o *OAuth2ScopeConsentGrant) SetCreated(v time.Time) {
 
 // GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
 func (o *OAuth2ScopeConsentGrant) GetCreatedBy() OAuth2Actor {
-	if o == nil || o.CreatedBy == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		var ret OAuth2Actor
 		return ret
 	}
@@ -151,7 +155,7 @@ func (o *OAuth2ScopeConsentGrant) GetCreatedBy() OAuth2Actor {
 // GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ScopeConsentGrant) GetCreatedByOk() (*OAuth2Actor, bool) {
-	if o == nil || o.CreatedBy == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		return nil, false
 	}
 	return o.CreatedBy, true
@@ -159,7 +163,7 @@ func (o *OAuth2ScopeConsentGrant) GetCreatedByOk() (*OAuth2Actor, bool) {
 
 // HasCreatedBy returns a boolean if a field has been set.
 func (o *OAuth2ScopeConsentGrant) HasCreatedBy() bool {
-	if o != nil && o.CreatedBy != nil {
+	if o != nil && !IsNil(o.CreatedBy) {
 		return true
 	}
 
@@ -173,7 +177,7 @@ func (o *OAuth2ScopeConsentGrant) SetCreatedBy(v OAuth2Actor) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *OAuth2ScopeConsentGrant) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -183,7 +187,7 @@ func (o *OAuth2ScopeConsentGrant) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ScopeConsentGrant) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -191,7 +195,7 @@ func (o *OAuth2ScopeConsentGrant) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *OAuth2ScopeConsentGrant) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -229,7 +233,7 @@ func (o *OAuth2ScopeConsentGrant) SetIssuer(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *OAuth2ScopeConsentGrant) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -239,7 +243,7 @@ func (o *OAuth2ScopeConsentGrant) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ScopeConsentGrant) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -247,7 +251,7 @@ func (o *OAuth2ScopeConsentGrant) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *OAuth2ScopeConsentGrant) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -285,7 +289,7 @@ func (o *OAuth2ScopeConsentGrant) SetScopeId(v string) {
 
 // GetSource returns the Source field value if set, zero value otherwise.
 func (o *OAuth2ScopeConsentGrant) GetSource() string {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		var ret string
 		return ret
 	}
@@ -295,7 +299,7 @@ func (o *OAuth2ScopeConsentGrant) GetSource() string {
 // GetSourceOk returns a tuple with the Source field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ScopeConsentGrant) GetSourceOk() (*string, bool) {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		return nil, false
 	}
 	return o.Source, true
@@ -303,7 +307,7 @@ func (o *OAuth2ScopeConsentGrant) GetSourceOk() (*string, bool) {
 
 // HasSource returns a boolean if a field has been set.
 func (o *OAuth2ScopeConsentGrant) HasSource() bool {
-	if o != nil && o.Source != nil {
+	if o != nil && !IsNil(o.Source) {
 		return true
 	}
 
@@ -317,7 +321,7 @@ func (o *OAuth2ScopeConsentGrant) SetSource(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *OAuth2ScopeConsentGrant) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -327,7 +331,7 @@ func (o *OAuth2ScopeConsentGrant) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ScopeConsentGrant) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -335,7 +339,7 @@ func (o *OAuth2ScopeConsentGrant) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *OAuth2ScopeConsentGrant) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -349,7 +353,7 @@ func (o *OAuth2ScopeConsentGrant) SetStatus(v string) {
 
 // GetUserId returns the UserId field value if set, zero value otherwise.
 func (o *OAuth2ScopeConsentGrant) GetUserId() string {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		var ret string
 		return ret
 	}
@@ -359,7 +363,7 @@ func (o *OAuth2ScopeConsentGrant) GetUserId() string {
 // GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ScopeConsentGrant) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		return nil, false
 	}
 	return o.UserId, true
@@ -367,7 +371,7 @@ func (o *OAuth2ScopeConsentGrant) GetUserIdOk() (*string, bool) {
 
 // HasUserId returns a boolean if a field has been set.
 func (o *OAuth2ScopeConsentGrant) HasUserId() bool {
-	if o != nil && o.UserId != nil {
+	if o != nil && !IsNil(o.UserId) {
 		return true
 	}
 
@@ -381,7 +385,7 @@ func (o *OAuth2ScopeConsentGrant) SetUserId(v string) {
 
 // GetEmbedded returns the Embedded field value if set, zero value otherwise.
 func (o *OAuth2ScopeConsentGrant) GetEmbedded() OAuth2ScopeConsentGrantEmbedded {
-	if o == nil || o.Embedded == nil {
+	if o == nil || IsNil(o.Embedded) {
 		var ret OAuth2ScopeConsentGrantEmbedded
 		return ret
 	}
@@ -391,7 +395,7 @@ func (o *OAuth2ScopeConsentGrant) GetEmbedded() OAuth2ScopeConsentGrantEmbedded 
 // GetEmbeddedOk returns a tuple with the Embedded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ScopeConsentGrant) GetEmbeddedOk() (*OAuth2ScopeConsentGrantEmbedded, bool) {
-	if o == nil || o.Embedded == nil {
+	if o == nil || IsNil(o.Embedded) {
 		return nil, false
 	}
 	return o.Embedded, true
@@ -399,7 +403,7 @@ func (o *OAuth2ScopeConsentGrant) GetEmbeddedOk() (*OAuth2ScopeConsentGrantEmbed
 
 // HasEmbedded returns a boolean if a field has been set.
 func (o *OAuth2ScopeConsentGrant) HasEmbedded() bool {
-	if o != nil && o.Embedded != nil {
+	if o != nil && !IsNil(o.Embedded) {
 		return true
 	}
 
@@ -413,7 +417,7 @@ func (o *OAuth2ScopeConsentGrant) SetEmbedded(v OAuth2ScopeConsentGrantEmbedded)
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *OAuth2ScopeConsentGrant) GetLinks() OAuth2ScopeConsentGrantLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret OAuth2ScopeConsentGrantLinks
 		return ret
 	}
@@ -423,7 +427,7 @@ func (o *OAuth2ScopeConsentGrant) GetLinks() OAuth2ScopeConsentGrantLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ScopeConsentGrant) GetLinksOk() (*OAuth2ScopeConsentGrantLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -431,7 +435,7 @@ func (o *OAuth2ScopeConsentGrant) GetLinksOk() (*OAuth2ScopeConsentGrantLinks, b
 
 // HasLinks returns a boolean if a field has been set.
 func (o *OAuth2ScopeConsentGrant) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -444,41 +448,45 @@ func (o *OAuth2ScopeConsentGrant) SetLinks(v OAuth2ScopeConsentGrantLinks) {
 }
 
 func (o OAuth2ScopeConsentGrant) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OAuth2ScopeConsentGrant) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ClientId != nil {
+	if !IsNil(o.ClientId) {
 		toSerialize["clientId"] = o.ClientId
 	}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.CreatedBy != nil {
+	if !IsNil(o.CreatedBy) {
 		toSerialize["createdBy"] = o.CreatedBy
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if true {
-		toSerialize["issuer"] = o.Issuer
-	}
-	if o.LastUpdated != nil {
+	toSerialize["issuer"] = o.Issuer
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if true {
-		toSerialize["scopeId"] = o.ScopeId
-	}
-	if o.Source != nil {
+	toSerialize["scopeId"] = o.ScopeId
+	if !IsNil(o.Source) {
 		toSerialize["source"] = o.Source
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.UserId != nil {
+	if !IsNil(o.UserId) {
 		toSerialize["userId"] = o.UserId
 	}
-	if o.Embedded != nil {
+	if !IsNil(o.Embedded) {
 		toSerialize["_embedded"] = o.Embedded
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -486,23 +494,45 @@ func (o OAuth2ScopeConsentGrant) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OAuth2ScopeConsentGrant) UnmarshalJSON(bytes []byte) (err error) {
-	varOAuth2ScopeConsentGrant := _OAuth2ScopeConsentGrant{}
+func (o *OAuth2ScopeConsentGrant) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"issuer",
+		"scopeId",
+	}
 
-	err = json.Unmarshal(bytes, &varOAuth2ScopeConsentGrant)
-	if err == nil {
-		*o = OAuth2ScopeConsentGrant(varOAuth2ScopeConsentGrant)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varOAuth2ScopeConsentGrant := _OAuth2ScopeConsentGrant{}
+
+	err = json.Unmarshal(data, &varOAuth2ScopeConsentGrant)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OAuth2ScopeConsentGrant(varOAuth2ScopeConsentGrant)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "clientId")
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "createdBy")
@@ -516,8 +546,6 @@ func (o *OAuth2ScopeConsentGrant) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "_embedded")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -558,4 +586,3 @@ func (v *NullableOAuth2ScopeConsentGrant) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -4,22 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to **time.Time** | Timestamp when the Factor was enrolled | [optional] [readonly] 
+**Created** | Pointer to **time.Time** | Timestamp when the factor was enrolled | [optional] [readonly] 
 **FactorType** | Pointer to **interface{}** |  | [optional] 
-**Id** | Pointer to **string** | ID of the Factor | [optional] [readonly] 
-**LastUpdated** | Pointer to **time.Time** | Timestamp when the Factor was last updated | [optional] [readonly] 
+**Id** | Pointer to **string** | ID of the factor | [optional] [readonly] 
+**LastUpdated** | Pointer to **time.Time** | Timestamp when the factor was last updated | [optional] [readonly] 
 **Profile** | Pointer to [**UserFactorWebAuthnProfile**](UserFactorWebAuthnProfile.md) |  | [optional] 
 **Provider** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**VendorName** | Pointer to **string** | Name of the Factor vendor. This is usually the same as the provider except for On-Prem MFA where it depends on administrator settings. | [optional] [readonly] 
+**Status** | Pointer to **string** | Status of the factor | [optional] [readonly] 
+**VendorName** | Pointer to **string** | Name of the factor vendor. This is usually the same as the provider except for On-Prem MFA, which depends on admin settings. | [optional] [readonly] 
 **Embedded** | Pointer to **map[string]map[string]interface{}** |  | [optional] [readonly] 
-**Links** | Pointer to [**LinksSelfAndLifecycle**](LinksSelfAndLifecycle.md) |  | [optional] 
-**ExpiresAt** | Pointer to **time.Time** | Timestamp when the Factor verification attempt expires | [optional] [readonly] 
-**FactorResult** | Pointer to **string** | Result of a Factor verification attempt | [optional] [readonly] 
-**Verify** | Pointer to [**UserFactorHardwareAllOfVerify**](UserFactorHardwareAllOfVerify.md) |  | [optional] 
-**FactorProfileId** | Pointer to **string** | ID of an existing Custom TOTP Factor profile. To create this, see [Custom TOTP Factor](https://help.okta.com/okta_help.htm?id&#x3D;ext-mfa-totp). | [optional] 
-**Type** | Pointer to **string** | The type of authenticator method | [optional] 
-**Settings** | Pointer to [**AuthenticatorMethodSignedNonceAllOfSettings**](AuthenticatorMethodSignedNonceAllOfSettings.md) |  | [optional] 
+**Links** | Pointer to [**UserFactorLinks**](UserFactorLinks.md) |  | [optional] 
+**Verify** | Pointer to [**UserFactorTokenHardwareAllOfVerify**](UserFactorTokenHardwareAllOfVerify.md) |  | [optional] 
+**FactorProfileId** | Pointer to **string** | ID of an existing Custom TOTP factor profile. To create this, see [Custom TOTP factor](https://help.okta.com/okta_help.htm?id&#x3D;ext-mfa-totp). | [optional] 
 
 ## Methods
 
@@ -277,20 +273,20 @@ HasEmbedded returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *ListFactors200ResponseInner) GetLinks() LinksSelfAndLifecycle`
+`func (o *ListFactors200ResponseInner) GetLinks() UserFactorLinks`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *ListFactors200ResponseInner) GetLinksOk() (*LinksSelfAndLifecycle, bool)`
+`func (o *ListFactors200ResponseInner) GetLinksOk() (*UserFactorLinks, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *ListFactors200ResponseInner) SetLinks(v LinksSelfAndLifecycle)`
+`func (o *ListFactors200ResponseInner) SetLinks(v UserFactorLinks)`
 
 SetLinks sets Links field to given value.
 
@@ -300,72 +296,22 @@ SetLinks sets Links field to given value.
 
 HasLinks returns a boolean if a field has been set.
 
-### GetExpiresAt
-
-`func (o *ListFactors200ResponseInner) GetExpiresAt() time.Time`
-
-GetExpiresAt returns the ExpiresAt field if non-nil, zero value otherwise.
-
-### GetExpiresAtOk
-
-`func (o *ListFactors200ResponseInner) GetExpiresAtOk() (*time.Time, bool)`
-
-GetExpiresAtOk returns a tuple with the ExpiresAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetExpiresAt
-
-`func (o *ListFactors200ResponseInner) SetExpiresAt(v time.Time)`
-
-SetExpiresAt sets ExpiresAt field to given value.
-
-### HasExpiresAt
-
-`func (o *ListFactors200ResponseInner) HasExpiresAt() bool`
-
-HasExpiresAt returns a boolean if a field has been set.
-
-### GetFactorResult
-
-`func (o *ListFactors200ResponseInner) GetFactorResult() string`
-
-GetFactorResult returns the FactorResult field if non-nil, zero value otherwise.
-
-### GetFactorResultOk
-
-`func (o *ListFactors200ResponseInner) GetFactorResultOk() (*string, bool)`
-
-GetFactorResultOk returns a tuple with the FactorResult field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetFactorResult
-
-`func (o *ListFactors200ResponseInner) SetFactorResult(v string)`
-
-SetFactorResult sets FactorResult field to given value.
-
-### HasFactorResult
-
-`func (o *ListFactors200ResponseInner) HasFactorResult() bool`
-
-HasFactorResult returns a boolean if a field has been set.
-
 ### GetVerify
 
-`func (o *ListFactors200ResponseInner) GetVerify() UserFactorHardwareAllOfVerify`
+`func (o *ListFactors200ResponseInner) GetVerify() UserFactorTokenHardwareAllOfVerify`
 
 GetVerify returns the Verify field if non-nil, zero value otherwise.
 
 ### GetVerifyOk
 
-`func (o *ListFactors200ResponseInner) GetVerifyOk() (*UserFactorHardwareAllOfVerify, bool)`
+`func (o *ListFactors200ResponseInner) GetVerifyOk() (*UserFactorTokenHardwareAllOfVerify, bool)`
 
 GetVerifyOk returns a tuple with the Verify field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVerify
 
-`func (o *ListFactors200ResponseInner) SetVerify(v UserFactorHardwareAllOfVerify)`
+`func (o *ListFactors200ResponseInner) SetVerify(v UserFactorTokenHardwareAllOfVerify)`
 
 SetVerify sets Verify field to given value.
 
@@ -399,56 +345,6 @@ SetFactorProfileId sets FactorProfileId field to given value.
 `func (o *ListFactors200ResponseInner) HasFactorProfileId() bool`
 
 HasFactorProfileId returns a boolean if a field has been set.
-
-### GetType
-
-`func (o *ListFactors200ResponseInner) GetType() string`
-
-GetType returns the Type field if non-nil, zero value otherwise.
-
-### GetTypeOk
-
-`func (o *ListFactors200ResponseInner) GetTypeOk() (*string, bool)`
-
-GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetType
-
-`func (o *ListFactors200ResponseInner) SetType(v string)`
-
-SetType sets Type field to given value.
-
-### HasType
-
-`func (o *ListFactors200ResponseInner) HasType() bool`
-
-HasType returns a boolean if a field has been set.
-
-### GetSettings
-
-`func (o *ListFactors200ResponseInner) GetSettings() AuthenticatorMethodSignedNonceAllOfSettings`
-
-GetSettings returns the Settings field if non-nil, zero value otherwise.
-
-### GetSettingsOk
-
-`func (o *ListFactors200ResponseInner) GetSettingsOk() (*AuthenticatorMethodSignedNonceAllOfSettings, bool)`
-
-GetSettingsOk returns a tuple with the Settings field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSettings
-
-`func (o *ListFactors200ResponseInner) SetSettings(v AuthenticatorMethodSignedNonceAllOfSettings)`
-
-SetSettings sets Settings field to given value.
-
-### HasSettings
-
-`func (o *ListFactors200ResponseInner) HasSettings() bool`
-
-HasSettings returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

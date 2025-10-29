@@ -4,14 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccessPolicy** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**AccessPolicy** | Pointer to [**AccessPolicyLink**](AccessPolicyLink.md) |  | [optional] 
 **Activate** | Pointer to [**HrefObjectActivateLink**](HrefObjectActivateLink.md) |  | [optional] 
+**AppLinks** | Pointer to [**[]HrefObject**](HrefObject.md) | List of app link resources | [optional] 
 **Deactivate** | Pointer to [**HrefObjectDeactivateLink**](HrefObjectDeactivateLink.md) |  | [optional] 
-**Groups** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
-**Logo** | Pointer to [**[]HrefObject**](HrefObject.md) |  | [optional] 
-**Metadata** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**Groups** | Pointer to [**GroupsLink**](GroupsLink.md) |  | [optional] 
+**Help** | Pointer to [**HelpLink**](HelpLink.md) |  | [optional] 
+**Logo** | Pointer to [**[]HrefObject**](HrefObject.md) | List of app logo resources | [optional] 
+**Metadata** | Pointer to [**MetadataLink**](MetadataLink.md) |  | [optional] 
 **Self** | Pointer to [**HrefObjectSelfLink**](HrefObjectSelfLink.md) |  | [optional] 
-**Users** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**Users** | Pointer to [**UsersLink**](UsersLink.md) |  | [optional] 
 
 ## Methods
 
@@ -34,20 +36,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAccessPolicy
 
-`func (o *ApplicationLinks) GetAccessPolicy() HrefObject`
+`func (o *ApplicationLinks) GetAccessPolicy() AccessPolicyLink`
 
 GetAccessPolicy returns the AccessPolicy field if non-nil, zero value otherwise.
 
 ### GetAccessPolicyOk
 
-`func (o *ApplicationLinks) GetAccessPolicyOk() (*HrefObject, bool)`
+`func (o *ApplicationLinks) GetAccessPolicyOk() (*AccessPolicyLink, bool)`
 
 GetAccessPolicyOk returns a tuple with the AccessPolicy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccessPolicy
 
-`func (o *ApplicationLinks) SetAccessPolicy(v HrefObject)`
+`func (o *ApplicationLinks) SetAccessPolicy(v AccessPolicyLink)`
 
 SetAccessPolicy sets AccessPolicy field to given value.
 
@@ -82,6 +84,31 @@ SetActivate sets Activate field to given value.
 
 HasActivate returns a boolean if a field has been set.
 
+### GetAppLinks
+
+`func (o *ApplicationLinks) GetAppLinks() []HrefObject`
+
+GetAppLinks returns the AppLinks field if non-nil, zero value otherwise.
+
+### GetAppLinksOk
+
+`func (o *ApplicationLinks) GetAppLinksOk() (*[]HrefObject, bool)`
+
+GetAppLinksOk returns a tuple with the AppLinks field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAppLinks
+
+`func (o *ApplicationLinks) SetAppLinks(v []HrefObject)`
+
+SetAppLinks sets AppLinks field to given value.
+
+### HasAppLinks
+
+`func (o *ApplicationLinks) HasAppLinks() bool`
+
+HasAppLinks returns a boolean if a field has been set.
+
 ### GetDeactivate
 
 `func (o *ApplicationLinks) GetDeactivate() HrefObjectDeactivateLink`
@@ -109,20 +136,20 @@ HasDeactivate returns a boolean if a field has been set.
 
 ### GetGroups
 
-`func (o *ApplicationLinks) GetGroups() HrefObject`
+`func (o *ApplicationLinks) GetGroups() GroupsLink`
 
 GetGroups returns the Groups field if non-nil, zero value otherwise.
 
 ### GetGroupsOk
 
-`func (o *ApplicationLinks) GetGroupsOk() (*HrefObject, bool)`
+`func (o *ApplicationLinks) GetGroupsOk() (*GroupsLink, bool)`
 
 GetGroupsOk returns a tuple with the Groups field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGroups
 
-`func (o *ApplicationLinks) SetGroups(v HrefObject)`
+`func (o *ApplicationLinks) SetGroups(v GroupsLink)`
 
 SetGroups sets Groups field to given value.
 
@@ -131,6 +158,31 @@ SetGroups sets Groups field to given value.
 `func (o *ApplicationLinks) HasGroups() bool`
 
 HasGroups returns a boolean if a field has been set.
+
+### GetHelp
+
+`func (o *ApplicationLinks) GetHelp() HelpLink`
+
+GetHelp returns the Help field if non-nil, zero value otherwise.
+
+### GetHelpOk
+
+`func (o *ApplicationLinks) GetHelpOk() (*HelpLink, bool)`
+
+GetHelpOk returns a tuple with the Help field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHelp
+
+`func (o *ApplicationLinks) SetHelp(v HelpLink)`
+
+SetHelp sets Help field to given value.
+
+### HasHelp
+
+`func (o *ApplicationLinks) HasHelp() bool`
+
+HasHelp returns a boolean if a field has been set.
 
 ### GetLogo
 
@@ -159,20 +211,20 @@ HasLogo returns a boolean if a field has been set.
 
 ### GetMetadata
 
-`func (o *ApplicationLinks) GetMetadata() HrefObject`
+`func (o *ApplicationLinks) GetMetadata() MetadataLink`
 
 GetMetadata returns the Metadata field if non-nil, zero value otherwise.
 
 ### GetMetadataOk
 
-`func (o *ApplicationLinks) GetMetadataOk() (*HrefObject, bool)`
+`func (o *ApplicationLinks) GetMetadataOk() (*MetadataLink, bool)`
 
 GetMetadataOk returns a tuple with the Metadata field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMetadata
 
-`func (o *ApplicationLinks) SetMetadata(v HrefObject)`
+`func (o *ApplicationLinks) SetMetadata(v MetadataLink)`
 
 SetMetadata sets Metadata field to given value.
 
@@ -209,20 +261,20 @@ HasSelf returns a boolean if a field has been set.
 
 ### GetUsers
 
-`func (o *ApplicationLinks) GetUsers() HrefObject`
+`func (o *ApplicationLinks) GetUsers() UsersLink`
 
 GetUsers returns the Users field if non-nil, zero value otherwise.
 
 ### GetUsersOk
 
-`func (o *ApplicationLinks) GetUsersOk() (*HrefObject, bool)`
+`func (o *ApplicationLinks) GetUsersOk() (*UsersLink, bool)`
 
 GetUsersOk returns a tuple with the Users field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUsers
 
-`func (o *ApplicationLinks) SetUsers(v HrefObject)`
+`func (o *ApplicationLinks) SetUsers(v UsersLink)`
 
 SetUsers sets Users field to given value.
 

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -28,17 +28,27 @@ import (
 	"time"
 )
 
+// checks if the Group type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Group{}
+
 // Group struct for Group
 type Group struct {
+	// Timestamp when the group was created
 	Created *time.Time `json:"created,omitempty"`
+	// Unique ID for the group
 	Id *string `json:"id,omitempty"`
+	// Timestamp when the groups memberships were last updated
 	LastMembershipUpdated *time.Time `json:"lastMembershipUpdated,omitempty"`
+	// Timestamp when the group's profile was last updated
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	ObjectClass []string `json:"objectClass,omitempty"`
-	Profile *GroupProfile `json:"profile,omitempty"`
+	// Determines the group's `profile`
+	ObjectClass []string      `json:"objectClass,omitempty"`
+	Profile     *GroupProfile `json:"profile,omitempty"`
+	// Determines how a group's profile and memberships are managed
 	Type *string `json:"type,omitempty"`
-	Embedded map[string]map[string]interface{} `json:"_embedded,omitempty"`
-	Links *GroupLinks `json:"_links,omitempty"`
+	// Embedded resources related to the group
+	Embedded             map[string]map[string]interface{} `json:"_embedded,omitempty"`
+	Links                *GroupLinks                       `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -63,7 +73,7 @@ func NewGroupWithDefaults() *Group {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *Group) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -73,7 +83,7 @@ func (o *Group) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Group) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -81,7 +91,7 @@ func (o *Group) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *Group) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -95,7 +105,7 @@ func (o *Group) SetCreated(v time.Time) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *Group) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -105,7 +115,7 @@ func (o *Group) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Group) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -113,7 +123,7 @@ func (o *Group) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *Group) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -127,7 +137,7 @@ func (o *Group) SetId(v string) {
 
 // GetLastMembershipUpdated returns the LastMembershipUpdated field value if set, zero value otherwise.
 func (o *Group) GetLastMembershipUpdated() time.Time {
-	if o == nil || o.LastMembershipUpdated == nil {
+	if o == nil || IsNil(o.LastMembershipUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -137,7 +147,7 @@ func (o *Group) GetLastMembershipUpdated() time.Time {
 // GetLastMembershipUpdatedOk returns a tuple with the LastMembershipUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Group) GetLastMembershipUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastMembershipUpdated == nil {
+	if o == nil || IsNil(o.LastMembershipUpdated) {
 		return nil, false
 	}
 	return o.LastMembershipUpdated, true
@@ -145,7 +155,7 @@ func (o *Group) GetLastMembershipUpdatedOk() (*time.Time, bool) {
 
 // HasLastMembershipUpdated returns a boolean if a field has been set.
 func (o *Group) HasLastMembershipUpdated() bool {
-	if o != nil && o.LastMembershipUpdated != nil {
+	if o != nil && !IsNil(o.LastMembershipUpdated) {
 		return true
 	}
 
@@ -159,7 +169,7 @@ func (o *Group) SetLastMembershipUpdated(v time.Time) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *Group) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -169,7 +179,7 @@ func (o *Group) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Group) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -177,7 +187,7 @@ func (o *Group) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *Group) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -191,7 +201,7 @@ func (o *Group) SetLastUpdated(v time.Time) {
 
 // GetObjectClass returns the ObjectClass field value if set, zero value otherwise.
 func (o *Group) GetObjectClass() []string {
-	if o == nil || o.ObjectClass == nil {
+	if o == nil || IsNil(o.ObjectClass) {
 		var ret []string
 		return ret
 	}
@@ -201,7 +211,7 @@ func (o *Group) GetObjectClass() []string {
 // GetObjectClassOk returns a tuple with the ObjectClass field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Group) GetObjectClassOk() ([]string, bool) {
-	if o == nil || o.ObjectClass == nil {
+	if o == nil || IsNil(o.ObjectClass) {
 		return nil, false
 	}
 	return o.ObjectClass, true
@@ -209,7 +219,7 @@ func (o *Group) GetObjectClassOk() ([]string, bool) {
 
 // HasObjectClass returns a boolean if a field has been set.
 func (o *Group) HasObjectClass() bool {
-	if o != nil && o.ObjectClass != nil {
+	if o != nil && !IsNil(o.ObjectClass) {
 		return true
 	}
 
@@ -223,7 +233,7 @@ func (o *Group) SetObjectClass(v []string) {
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *Group) GetProfile() GroupProfile {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret GroupProfile
 		return ret
 	}
@@ -233,7 +243,7 @@ func (o *Group) GetProfile() GroupProfile {
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Group) GetProfileOk() (*GroupProfile, bool) {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		return nil, false
 	}
 	return o.Profile, true
@@ -241,7 +251,7 @@ func (o *Group) GetProfileOk() (*GroupProfile, bool) {
 
 // HasProfile returns a boolean if a field has been set.
 func (o *Group) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -255,7 +265,7 @@ func (o *Group) SetProfile(v GroupProfile) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *Group) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -265,7 +275,7 @@ func (o *Group) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Group) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -273,7 +283,7 @@ func (o *Group) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *Group) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -287,7 +297,7 @@ func (o *Group) SetType(v string) {
 
 // GetEmbedded returns the Embedded field value if set, zero value otherwise.
 func (o *Group) GetEmbedded() map[string]map[string]interface{} {
-	if o == nil || o.Embedded == nil {
+	if o == nil || IsNil(o.Embedded) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
@@ -297,15 +307,15 @@ func (o *Group) GetEmbedded() map[string]map[string]interface{} {
 // GetEmbeddedOk returns a tuple with the Embedded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Group) GetEmbeddedOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || o.Embedded == nil {
-		return nil, false
+	if o == nil || IsNil(o.Embedded) {
+		return map[string]map[string]interface{}{}, false
 	}
 	return o.Embedded, true
 }
 
 // HasEmbedded returns a boolean if a field has been set.
 func (o *Group) HasEmbedded() bool {
-	if o != nil && o.Embedded != nil {
+	if o != nil && !IsNil(o.Embedded) {
 		return true
 	}
 
@@ -319,7 +329,7 @@ func (o *Group) SetEmbedded(v map[string]map[string]interface{}) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *Group) GetLinks() GroupLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret GroupLinks
 		return ret
 	}
@@ -329,7 +339,7 @@ func (o *Group) GetLinks() GroupLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Group) GetLinksOk() (*GroupLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -337,7 +347,7 @@ func (o *Group) GetLinksOk() (*GroupLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *Group) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -350,32 +360,40 @@ func (o *Group) SetLinks(v GroupLinks) {
 }
 
 func (o Group) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Group) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastMembershipUpdated != nil {
+	if !IsNil(o.LastMembershipUpdated) {
 		toSerialize["lastMembershipUpdated"] = o.LastMembershipUpdated
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.ObjectClass != nil {
+	if !IsNil(o.ObjectClass) {
 		toSerialize["objectClass"] = o.ObjectClass
 	}
-	if o.Profile != nil {
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Embedded != nil {
+	if !IsNil(o.Embedded) {
 		toSerialize["_embedded"] = o.Embedded
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -383,23 +401,23 @@ func (o Group) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Group) UnmarshalJSON(bytes []byte) (err error) {
+func (o *Group) UnmarshalJSON(data []byte) (err error) {
 	varGroup := _Group{}
 
-	err = json.Unmarshal(bytes, &varGroup)
-	if err == nil {
-		*o = Group(varGroup)
-	} else {
+	err = json.Unmarshal(data, &varGroup)
+
+	if err != nil {
 		return err
 	}
 
+	*o = Group(varGroup)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "lastMembershipUpdated")
@@ -410,8 +428,6 @@ func (o *Group) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "_embedded")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -452,4 +468,3 @@ func (v *NullableGroup) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

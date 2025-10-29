@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Enrollment** | Pointer to **string** | Indicates if the Factor is required for the specified user | [optional] 
-**FactorType** | Pointer to **string** | Type of Factor | [optional] 
-**Provider** | Pointer to **string** | Provider for the Factor | [optional] 
-**Status** | Pointer to **string** | Status of the Factor | [optional] [readonly] 
-**VendorName** | Pointer to **string** | Name of the Factor vendor. This is usually the same as the provider except for On-Prem MFA where it depends on administrator settings. | [optional] [readonly] 
-**Embedded** | Pointer to **map[string]map[string]interface{}** | Embedded resources related to the Factor | [optional] [readonly] 
+**Enrollment** | Pointer to **string** | Indicates if the factor is required for the specified user | [optional] 
+**FactorType** | Pointer to **string** | Type of factor | [optional] 
+**Provider** | Pointer to **string** |  | [optional] 
+**Status** | Pointer to **string** | Status of the factor | [optional] [readonly] 
+**VendorName** | Pointer to **string** | Name of the factor vendor. This is usually the same as the provider except for On-Prem MFA, which depends on admin settings. | [optional] [readonly] 
+**Embedded** | Pointer to **map[string]map[string]interface{}** | Embedded resources related to the factor | [optional] [readonly] 
 **Links** | Pointer to [**UserFactorLinks**](UserFactorLinks.md) |  | [optional] 
 
 ## Methods

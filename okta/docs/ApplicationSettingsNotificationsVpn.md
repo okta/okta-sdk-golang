@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**HelpUrl** | Pointer to **string** |  | [optional] 
-**Message** | Pointer to **string** |  | [optional] 
-**Network** | Pointer to [**ApplicationSettingsNotificationsVpnNetwork**](ApplicationSettingsNotificationsVpnNetwork.md) |  | [optional] 
+**HelpUrl** | Pointer to **string** | An optional URL to a help page to assist your end users in signing in to your company VPN | [optional] 
+**Message** | Pointer to **string** | A VPN requirement message that&#39;s displayed to users | [optional] 
+**Network** | [**ApplicationSettingsNotificationsVpnNetwork**](ApplicationSettingsNotificationsVpnNetwork.md) |  | 
 
 ## Methods
 
 ### NewApplicationSettingsNotificationsVpn
 
-`func NewApplicationSettingsNotificationsVpn() *ApplicationSettingsNotificationsVpn`
+`func NewApplicationSettingsNotificationsVpn(network ApplicationSettingsNotificationsVpnNetwork, ) *ApplicationSettingsNotificationsVpn`
 
 NewApplicationSettingsNotificationsVpn instantiates a new ApplicationSettingsNotificationsVpn object
 This constructor will assign default values to properties that have it defined,
@@ -96,11 +96,6 @@ and a boolean to check if the value has been set.
 
 SetNetwork sets Network field to given value.
 
-### HasNetwork
-
-`func (o *ApplicationSettingsNotificationsVpn) HasNetwork() bool`
-
-HasNetwork returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

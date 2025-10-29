@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Self** | Pointer to [**HrefObjectSelfLink**](HrefObjectSelfLink.md) |  | [optional] 
-**Resources** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
-**Bindings** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**Resources** | Pointer to [**HrefObjectResourceSetResourcesLink**](HrefObjectResourceSetResourcesLink.md) |  | [optional] 
+**Bindings** | Pointer to [**HrefObjectBindingsLink**](HrefObjectBindingsLink.md) |  | [optional] 
 
 ## Methods
 
@@ -54,20 +54,20 @@ HasSelf returns a boolean if a field has been set.
 
 ### GetResources
 
-`func (o *ResourceSetLinks) GetResources() HrefObject`
+`func (o *ResourceSetLinks) GetResources() HrefObjectResourceSetResourcesLink`
 
 GetResources returns the Resources field if non-nil, zero value otherwise.
 
 ### GetResourcesOk
 
-`func (o *ResourceSetLinks) GetResourcesOk() (*HrefObject, bool)`
+`func (o *ResourceSetLinks) GetResourcesOk() (*HrefObjectResourceSetResourcesLink, bool)`
 
 GetResourcesOk returns a tuple with the Resources field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResources
 
-`func (o *ResourceSetLinks) SetResources(v HrefObject)`
+`func (o *ResourceSetLinks) SetResources(v HrefObjectResourceSetResourcesLink)`
 
 SetResources sets Resources field to given value.
 
@@ -79,20 +79,20 @@ HasResources returns a boolean if a field has been set.
 
 ### GetBindings
 
-`func (o *ResourceSetLinks) GetBindings() HrefObject`
+`func (o *ResourceSetLinks) GetBindings() HrefObjectBindingsLink`
 
 GetBindings returns the Bindings field if non-nil, zero value otherwise.
 
 ### GetBindingsOk
 
-`func (o *ResourceSetLinks) GetBindingsOk() (*HrefObject, bool)`
+`func (o *ResourceSetLinks) GetBindingsOk() (*HrefObjectBindingsLink, bool)`
 
 GetBindingsOk returns a tuple with the Bindings field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBindings
 
-`func (o *ResourceSetLinks) SetBindings(v HrefObject)`
+`func (o *ResourceSetLinks) SetBindings(v HrefObjectBindingsLink)`
 
 SetBindings sets Bindings field to given value.
 

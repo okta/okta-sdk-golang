@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -25,12 +25,16 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the UpdateDomain type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UpdateDomain{}
 
 // UpdateDomain struct for UpdateDomain
 type UpdateDomain struct {
 	// The `id` of the brand used to replace the existing brand.
-	BrandId string `json:"brandId"`
+	BrandId              string `json:"brandId"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -79,36 +83,61 @@ func (o *UpdateDomain) SetBrandId(v string) {
 }
 
 func (o UpdateDomain) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["brandId"] = o.BrandId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UpdateDomain) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["brandId"] = o.BrandId
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UpdateDomain) UnmarshalJSON(bytes []byte) (err error) {
-	varUpdateDomain := _UpdateDomain{}
+func (o *UpdateDomain) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"brandId",
+	}
 
-	err = json.Unmarshal(bytes, &varUpdateDomain)
-	if err == nil {
-		*o = UpdateDomain(varUpdateDomain)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varUpdateDomain := _UpdateDomain{}
+
+	err = json.Unmarshal(data, &varUpdateDomain)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UpdateDomain(varUpdateDomain)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "brandId")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -149,4 +178,3 @@ func (v *NullableUpdateDomain) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

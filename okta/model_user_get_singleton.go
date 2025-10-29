@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -28,12 +28,15 @@ import (
 	"time"
 )
 
+// checks if the UserGetSingleton type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserGetSingleton{}
+
 // UserGetSingleton struct for UserGetSingleton
 type UserGetSingleton struct {
 	// The timestamp when the user status transitioned to `ACTIVE`
 	Activated NullableTime `json:"activated,omitempty"`
 	// The timestamp when the user was created
-	Created *time.Time `json:"created,omitempty"`
+	Created     *time.Time       `json:"created,omitempty"`
 	Credentials *UserCredentials `json:"credentials,omitempty"`
 	// The unique key for the user
 	Id *string `json:"id,omitempty"`
@@ -43,19 +46,19 @@ type UserGetSingleton struct {
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	// The timestamp when the user's password was last updated
 	PasswordChanged NullableTime `json:"passwordChanged,omitempty"`
-	Profile *UserProfile `json:"profile,omitempty"`
-	// <div class=\"x-lifecycle-container\"><x-lifecycle class=\"ea\"></x-lifecycle></div>The ID of the Realm in which the user is residing
+	Profile         *UserProfile `json:"profile,omitempty"`
+	// The ID of the realm in which the user is residing. See [Realms](/openapi/okta-management/management/tag/Realm/).
 	RealmId *string `json:"realmId,omitempty"`
-	// The current status of the user
+	// The current status of the user.  The status of a user changes in response to explicit events, such as admin-driven lifecycle changes, user login, or self-service password recovery. Okta doesn't asynchronously sweep through users and update their password expiry state, for example. Instead, Okta evaluates password policy at login time, notices the password has expired, and moves the user to the expired state. When running reports, remember that the data is valid as of the last login or lifecycle event for that user.
 	Status *string `json:"status,omitempty"`
 	// The timestamp when the status of the user last changed
 	StatusChanged NullableTime `json:"statusChanged,omitempty"`
 	// The target status of an in-progress asynchronous status transition. This property is only returned if the user's state is transitioning.
-	TransitioningToStatus NullableString `json:"transitioningToStatus,omitempty"`
-	Type *UserType `json:"type,omitempty"`
-	Embedded *UserGetSingletonAllOfEmbedded `json:"_embedded,omitempty"`
-	Links *UserLinks `json:"_links,omitempty"`
-	AdditionalProperties map[string]interface{}
+	TransitioningToStatus NullableString                 `json:"transitioningToStatus,omitempty"`
+	Type                  *UserType                      `json:"type,omitempty"`
+	Embedded              *UserGetSingletonAllOfEmbedded `json:"_embedded,omitempty"`
+	Links                 *UserLinks                     `json:"_links,omitempty"`
+	AdditionalProperties  map[string]interface{}
 }
 
 type _UserGetSingleton UserGetSingleton
@@ -79,7 +82,7 @@ func NewUserGetSingletonWithDefaults() *UserGetSingleton {
 
 // GetActivated returns the Activated field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserGetSingleton) GetActivated() time.Time {
-	if o == nil || o.Activated.Get() == nil {
+	if o == nil || IsNil(o.Activated.Get()) {
 		var ret time.Time
 		return ret
 	}
@@ -109,6 +112,7 @@ func (o *UserGetSingleton) HasActivated() bool {
 func (o *UserGetSingleton) SetActivated(v time.Time) {
 	o.Activated.Set(&v)
 }
+
 // SetActivatedNil sets the value for Activated to be an explicit nil
 func (o *UserGetSingleton) SetActivatedNil() {
 	o.Activated.Set(nil)
@@ -121,7 +125,7 @@ func (o *UserGetSingleton) UnsetActivated() {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *UserGetSingleton) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -131,7 +135,7 @@ func (o *UserGetSingleton) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserGetSingleton) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -139,7 +143,7 @@ func (o *UserGetSingleton) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *UserGetSingleton) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -153,7 +157,7 @@ func (o *UserGetSingleton) SetCreated(v time.Time) {
 
 // GetCredentials returns the Credentials field value if set, zero value otherwise.
 func (o *UserGetSingleton) GetCredentials() UserCredentials {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		var ret UserCredentials
 		return ret
 	}
@@ -163,7 +167,7 @@ func (o *UserGetSingleton) GetCredentials() UserCredentials {
 // GetCredentialsOk returns a tuple with the Credentials field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserGetSingleton) GetCredentialsOk() (*UserCredentials, bool) {
-	if o == nil || o.Credentials == nil {
+	if o == nil || IsNil(o.Credentials) {
 		return nil, false
 	}
 	return o.Credentials, true
@@ -171,7 +175,7 @@ func (o *UserGetSingleton) GetCredentialsOk() (*UserCredentials, bool) {
 
 // HasCredentials returns a boolean if a field has been set.
 func (o *UserGetSingleton) HasCredentials() bool {
-	if o != nil && o.Credentials != nil {
+	if o != nil && !IsNil(o.Credentials) {
 		return true
 	}
 
@@ -185,7 +189,7 @@ func (o *UserGetSingleton) SetCredentials(v UserCredentials) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *UserGetSingleton) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -195,7 +199,7 @@ func (o *UserGetSingleton) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserGetSingleton) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -203,7 +207,7 @@ func (o *UserGetSingleton) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *UserGetSingleton) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -217,7 +221,7 @@ func (o *UserGetSingleton) SetId(v string) {
 
 // GetLastLogin returns the LastLogin field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserGetSingleton) GetLastLogin() time.Time {
-	if o == nil || o.LastLogin.Get() == nil {
+	if o == nil || IsNil(o.LastLogin.Get()) {
 		var ret time.Time
 		return ret
 	}
@@ -247,6 +251,7 @@ func (o *UserGetSingleton) HasLastLogin() bool {
 func (o *UserGetSingleton) SetLastLogin(v time.Time) {
 	o.LastLogin.Set(&v)
 }
+
 // SetLastLoginNil sets the value for LastLogin to be an explicit nil
 func (o *UserGetSingleton) SetLastLoginNil() {
 	o.LastLogin.Set(nil)
@@ -259,7 +264,7 @@ func (o *UserGetSingleton) UnsetLastLogin() {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *UserGetSingleton) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -269,7 +274,7 @@ func (o *UserGetSingleton) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserGetSingleton) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -277,7 +282,7 @@ func (o *UserGetSingleton) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *UserGetSingleton) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -291,7 +296,7 @@ func (o *UserGetSingleton) SetLastUpdated(v time.Time) {
 
 // GetPasswordChanged returns the PasswordChanged field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserGetSingleton) GetPasswordChanged() time.Time {
-	if o == nil || o.PasswordChanged.Get() == nil {
+	if o == nil || IsNil(o.PasswordChanged.Get()) {
 		var ret time.Time
 		return ret
 	}
@@ -321,6 +326,7 @@ func (o *UserGetSingleton) HasPasswordChanged() bool {
 func (o *UserGetSingleton) SetPasswordChanged(v time.Time) {
 	o.PasswordChanged.Set(&v)
 }
+
 // SetPasswordChangedNil sets the value for PasswordChanged to be an explicit nil
 func (o *UserGetSingleton) SetPasswordChangedNil() {
 	o.PasswordChanged.Set(nil)
@@ -333,7 +339,7 @@ func (o *UserGetSingleton) UnsetPasswordChanged() {
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *UserGetSingleton) GetProfile() UserProfile {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret UserProfile
 		return ret
 	}
@@ -343,7 +349,7 @@ func (o *UserGetSingleton) GetProfile() UserProfile {
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserGetSingleton) GetProfileOk() (*UserProfile, bool) {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		return nil, false
 	}
 	return o.Profile, true
@@ -351,7 +357,7 @@ func (o *UserGetSingleton) GetProfileOk() (*UserProfile, bool) {
 
 // HasProfile returns a boolean if a field has been set.
 func (o *UserGetSingleton) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -365,7 +371,7 @@ func (o *UserGetSingleton) SetProfile(v UserProfile) {
 
 // GetRealmId returns the RealmId field value if set, zero value otherwise.
 func (o *UserGetSingleton) GetRealmId() string {
-	if o == nil || o.RealmId == nil {
+	if o == nil || IsNil(o.RealmId) {
 		var ret string
 		return ret
 	}
@@ -375,7 +381,7 @@ func (o *UserGetSingleton) GetRealmId() string {
 // GetRealmIdOk returns a tuple with the RealmId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserGetSingleton) GetRealmIdOk() (*string, bool) {
-	if o == nil || o.RealmId == nil {
+	if o == nil || IsNil(o.RealmId) {
 		return nil, false
 	}
 	return o.RealmId, true
@@ -383,7 +389,7 @@ func (o *UserGetSingleton) GetRealmIdOk() (*string, bool) {
 
 // HasRealmId returns a boolean if a field has been set.
 func (o *UserGetSingleton) HasRealmId() bool {
-	if o != nil && o.RealmId != nil {
+	if o != nil && !IsNil(o.RealmId) {
 		return true
 	}
 
@@ -397,7 +403,7 @@ func (o *UserGetSingleton) SetRealmId(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *UserGetSingleton) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -407,7 +413,7 @@ func (o *UserGetSingleton) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserGetSingleton) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -415,7 +421,7 @@ func (o *UserGetSingleton) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *UserGetSingleton) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -429,7 +435,7 @@ func (o *UserGetSingleton) SetStatus(v string) {
 
 // GetStatusChanged returns the StatusChanged field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserGetSingleton) GetStatusChanged() time.Time {
-	if o == nil || o.StatusChanged.Get() == nil {
+	if o == nil || IsNil(o.StatusChanged.Get()) {
 		var ret time.Time
 		return ret
 	}
@@ -459,6 +465,7 @@ func (o *UserGetSingleton) HasStatusChanged() bool {
 func (o *UserGetSingleton) SetStatusChanged(v time.Time) {
 	o.StatusChanged.Set(&v)
 }
+
 // SetStatusChangedNil sets the value for StatusChanged to be an explicit nil
 func (o *UserGetSingleton) SetStatusChangedNil() {
 	o.StatusChanged.Set(nil)
@@ -471,7 +478,7 @@ func (o *UserGetSingleton) UnsetStatusChanged() {
 
 // GetTransitioningToStatus returns the TransitioningToStatus field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserGetSingleton) GetTransitioningToStatus() string {
-	if o == nil || o.TransitioningToStatus.Get() == nil {
+	if o == nil || IsNil(o.TransitioningToStatus.Get()) {
 		var ret string
 		return ret
 	}
@@ -501,6 +508,7 @@ func (o *UserGetSingleton) HasTransitioningToStatus() bool {
 func (o *UserGetSingleton) SetTransitioningToStatus(v string) {
 	o.TransitioningToStatus.Set(&v)
 }
+
 // SetTransitioningToStatusNil sets the value for TransitioningToStatus to be an explicit nil
 func (o *UserGetSingleton) SetTransitioningToStatusNil() {
 	o.TransitioningToStatus.Set(nil)
@@ -513,7 +521,7 @@ func (o *UserGetSingleton) UnsetTransitioningToStatus() {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *UserGetSingleton) GetType() UserType {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret UserType
 		return ret
 	}
@@ -523,7 +531,7 @@ func (o *UserGetSingleton) GetType() UserType {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserGetSingleton) GetTypeOk() (*UserType, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -531,7 +539,7 @@ func (o *UserGetSingleton) GetTypeOk() (*UserType, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *UserGetSingleton) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -545,7 +553,7 @@ func (o *UserGetSingleton) SetType(v UserType) {
 
 // GetEmbedded returns the Embedded field value if set, zero value otherwise.
 func (o *UserGetSingleton) GetEmbedded() UserGetSingletonAllOfEmbedded {
-	if o == nil || o.Embedded == nil {
+	if o == nil || IsNil(o.Embedded) {
 		var ret UserGetSingletonAllOfEmbedded
 		return ret
 	}
@@ -555,7 +563,7 @@ func (o *UserGetSingleton) GetEmbedded() UserGetSingletonAllOfEmbedded {
 // GetEmbeddedOk returns a tuple with the Embedded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserGetSingleton) GetEmbeddedOk() (*UserGetSingletonAllOfEmbedded, bool) {
-	if o == nil || o.Embedded == nil {
+	if o == nil || IsNil(o.Embedded) {
 		return nil, false
 	}
 	return o.Embedded, true
@@ -563,7 +571,7 @@ func (o *UserGetSingleton) GetEmbeddedOk() (*UserGetSingletonAllOfEmbedded, bool
 
 // HasEmbedded returns a boolean if a field has been set.
 func (o *UserGetSingleton) HasEmbedded() bool {
-	if o != nil && o.Embedded != nil {
+	if o != nil && !IsNil(o.Embedded) {
 		return true
 	}
 
@@ -577,7 +585,7 @@ func (o *UserGetSingleton) SetEmbedded(v UserGetSingletonAllOfEmbedded) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *UserGetSingleton) GetLinks() UserLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret UserLinks
 		return ret
 	}
@@ -587,7 +595,7 @@ func (o *UserGetSingleton) GetLinks() UserLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserGetSingleton) GetLinksOk() (*UserLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -595,7 +603,7 @@ func (o *UserGetSingleton) GetLinksOk() (*UserLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *UserGetSingleton) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -608,35 +616,43 @@ func (o *UserGetSingleton) SetLinks(v UserLinks) {
 }
 
 func (o UserGetSingleton) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserGetSingleton) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Activated.IsSet() {
 		toSerialize["activated"] = o.Activated.Get()
 	}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Credentials != nil {
+	if !IsNil(o.Credentials) {
 		toSerialize["credentials"] = o.Credentials
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
 	if o.LastLogin.IsSet() {
 		toSerialize["lastLogin"] = o.LastLogin.Get()
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
 	if o.PasswordChanged.IsSet() {
 		toSerialize["passwordChanged"] = o.PasswordChanged.Get()
 	}
-	if o.Profile != nil {
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
-	if o.RealmId != nil {
+	if !IsNil(o.RealmId) {
 		toSerialize["realmId"] = o.RealmId
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
 	if o.StatusChanged.IsSet() {
@@ -645,13 +661,13 @@ func (o UserGetSingleton) MarshalJSON() ([]byte, error) {
 	if o.TransitioningToStatus.IsSet() {
 		toSerialize["transitioningToStatus"] = o.TransitioningToStatus.Get()
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Embedded != nil {
+	if !IsNil(o.Embedded) {
 		toSerialize["_embedded"] = o.Embedded
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -659,23 +675,23 @@ func (o UserGetSingleton) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserGetSingleton) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserGetSingleton) UnmarshalJSON(data []byte) (err error) {
 	varUserGetSingleton := _UserGetSingleton{}
 
-	err = json.Unmarshal(bytes, &varUserGetSingleton)
-	if err == nil {
-		*o = UserGetSingleton(varUserGetSingleton)
-	} else {
+	err = json.Unmarshal(data, &varUserGetSingleton)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserGetSingleton(varUserGetSingleton)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "activated")
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "credentials")
@@ -692,8 +708,6 @@ func (o *UserGetSingleton) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "_embedded")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -734,4 +748,3 @@ func (v *NullableUserGetSingleton) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

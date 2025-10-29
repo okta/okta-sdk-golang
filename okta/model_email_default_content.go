@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -25,15 +25,19 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the EmailDefaultContent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EmailDefaultContent{}
 
 // EmailDefaultContent struct for EmailDefaultContent
 type EmailDefaultContent struct {
-	// The HTML body of the email. May contain [variable references](https://velocity.apache.org/engine/1.7/user-guide.html#references).  <x-lifecycle class=\"ea\"></x-lifecycle> Not required if Custom languages for Okta Email Templates is enabled. A `null` body is replaced with a default value from one of the following in priority order:  1. An existing default email customization, if one exists 2. Okta-provided translated content for the specified language, if one exists 3. Okta-provided translated content for the brand locale, if it's set 4. Okta-provided content in English 
+	// The HTML body of the email. May contain [variable references](https://velocity.apache.org/engine/1.7/user-guide.html#references).  <x-lifecycle class=\"ea\"></x-lifecycle> Not required if Custom languages for Okta Email Templates is enabled. A `null` body is replaced with a default value from one of the following in priority order:  1. An existing default email customization, if one exists 2. Okta-provided translated content for the specified language, if one exists 3. Okta-provided translated content for the brand locale, if it's set 4. Okta-provided content in English
 	Body string `json:"body"`
-	// The email subject. May contain [variable references](https://velocity.apache.org/engine/1.7/user-guide.html#references).  <x-lifecycle class=\"ea\"></x-lifecycle> Not required if Custom languages for Okta Email Templates is enabled. A `null` subject is replaced with a default value from one of the following in priority order:  1. An existing default email customization, if one exists 2. Okta-provided translated content for the specified language, if one exists 3. Okta-provided translated content for the brand locale, if it's set 4. Okta-provided content in English 
-	Subject string `json:"subject"`
-	Links *EmailDefaultContentAllOfLinks `json:"_links,omitempty"`
+	// The email subject. May contain [variable references](https://velocity.apache.org/engine/1.7/user-guide.html#references).  <x-lifecycle class=\"ea\"></x-lifecycle> Not required if Custom languages for Okta Email Templates is enabled. A `null` subject is replaced with a default value from one of the following in priority order:  1. An existing default email customization, if one exists 2. Okta-provided translated content for the specified language, if one exists 3. Okta-provided translated content for the brand locale, if it's set 4. Okta-provided content in English
+	Subject              string                 `json:"subject"`
+	Links                map[string]interface{} `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,46 +111,50 @@ func (o *EmailDefaultContent) SetSubject(v string) {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *EmailDefaultContent) GetLinks() EmailDefaultContentAllOfLinks {
-	if o == nil || o.Links == nil {
-		var ret EmailDefaultContentAllOfLinks
+func (o *EmailDefaultContent) GetLinks() map[string]interface{} {
+	if o == nil || IsNil(o.Links) {
+		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Links
+	return o.Links
 }
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EmailDefaultContent) GetLinksOk() (*EmailDefaultContentAllOfLinks, bool) {
-	if o == nil || o.Links == nil {
-		return nil, false
+func (o *EmailDefaultContent) GetLinksOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Links) {
+		return map[string]interface{}{}, false
 	}
 	return o.Links, true
 }
 
 // HasLinks returns a boolean if a field has been set.
 func (o *EmailDefaultContent) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
 	return false
 }
 
-// SetLinks gets a reference to the given EmailDefaultContentAllOfLinks and assigns it to the Links field.
-func (o *EmailDefaultContent) SetLinks(v EmailDefaultContentAllOfLinks) {
-	o.Links = &v
+// SetLinks gets a reference to the given map[string]interface{} and assigns it to the Links field.
+func (o *EmailDefaultContent) SetLinks(v map[string]interface{}) {
+	o.Links = v
 }
 
 func (o EmailDefaultContent) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EmailDefaultContent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["body"] = o.Body
-	}
-	if true {
-		toSerialize["subject"] = o.Subject
-	}
-	if o.Links != nil {
+	toSerialize["body"] = o.Body
+	toSerialize["subject"] = o.Subject
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -154,29 +162,49 @@ func (o EmailDefaultContent) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EmailDefaultContent) UnmarshalJSON(bytes []byte) (err error) {
-	varEmailDefaultContent := _EmailDefaultContent{}
+func (o *EmailDefaultContent) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"body",
+		"subject",
+	}
 
-	err = json.Unmarshal(bytes, &varEmailDefaultContent)
-	if err == nil {
-		*o = EmailDefaultContent(varEmailDefaultContent)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varEmailDefaultContent := _EmailDefaultContent{}
+
+	err = json.Unmarshal(data, &varEmailDefaultContent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EmailDefaultContent(varEmailDefaultContent)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "body")
 		delete(additionalProperties, "subject")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -217,4 +245,3 @@ func (v *NullableEmailDefaultContent) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to **time.Time** | Timestamp when the Trusted Origin was created | [optional] [readonly] 
-**CreatedBy** | Pointer to **string** | The ID of the user who created the Trusted Origin | [optional] 
-**Id** | Pointer to **string** | Unique identifier for the Trusted Origin | [optional] [readonly] 
-**LastUpdated** | Pointer to **time.Time** | Timestamp when the Trusted Origin was last updated | [optional] [readonly] 
-**LastUpdatedBy** | Pointer to **string** | The ID of the user who last updated the Trusted Origin | [optional] 
-**Name** | Pointer to **string** | Unique name for the Trusted Origin | [optional] 
-**Origin** | Pointer to **string** | Unique origin URL for the Trusted Origin. The supported schemes for this attribute are HTTP, HTTPS, FTP, Ionic 2, and Capacitor. | [optional] 
-**Scopes** | Pointer to [**[]TrustedOriginScope**](TrustedOriginScope.md) | Array of Scope types that this Trusted Origin is used for | [optional] 
+**Created** | Pointer to **time.Time** | Timestamp when the trusted origin was created | [optional] [readonly] 
+**CreatedBy** | Pointer to **string** | The ID of the user who created the trusted origin | [optional] 
+**Id** | Pointer to **string** | Unique identifier for the trusted origin | [optional] [readonly] 
+**LastUpdated** | Pointer to **time.Time** | Timestamp when the trusted origin was last updated | [optional] [readonly] 
+**LastUpdatedBy** | Pointer to **string** | The ID of the user who last updated the trusted origin | [optional] 
+**Name** | Pointer to **string** | Unique name for the trusted origin | [optional] 
+**Origin** | Pointer to **string** | Unique origin URL for the trusted origin. The supported schemes for this attribute are HTTP, HTTPS, FTP, Ionic 2, and Capacitor. | [optional] 
+**Scopes** | Pointer to [**[]TrustedOriginScope**](TrustedOriginScope.md) | Array of scope types that this trusted origin is used for | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
 **Links** | Pointer to [**LinksSelfAndLifecycle**](LinksSelfAndLifecycle.md) |  | [optional] 
 

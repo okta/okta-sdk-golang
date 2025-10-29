@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,14 @@ import (
 	"encoding/json"
 )
 
-// PolicyAccountLink struct for PolicyAccountLink
+// checks if the PolicyAccountLink type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PolicyAccountLink{}
+
+// PolicyAccountLink Specifies the behavior for linking an IdP user to an existing Okta user
 type PolicyAccountLink struct {
-	Action *string `json:"action,omitempty"`
-	Filter *PolicyAccountLinkFilter `json:"filter,omitempty"`
+	// Specifies the account linking action for an IdP user
+	Action               *string                  `json:"action,omitempty"`
+	Filter               *PolicyAccountLinkFilter `json:"filter,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +59,7 @@ func NewPolicyAccountLinkWithDefaults() *PolicyAccountLink {
 
 // GetAction returns the Action field value if set, zero value otherwise.
 func (o *PolicyAccountLink) GetAction() string {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		var ret string
 		return ret
 	}
@@ -65,7 +69,7 @@ func (o *PolicyAccountLink) GetAction() string {
 // GetActionOk returns a tuple with the Action field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyAccountLink) GetActionOk() (*string, bool) {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		return nil, false
 	}
 	return o.Action, true
@@ -73,7 +77,7 @@ func (o *PolicyAccountLink) GetActionOk() (*string, bool) {
 
 // HasAction returns a boolean if a field has been set.
 func (o *PolicyAccountLink) HasAction() bool {
-	if o != nil && o.Action != nil {
+	if o != nil && !IsNil(o.Action) {
 		return true
 	}
 
@@ -87,7 +91,7 @@ func (o *PolicyAccountLink) SetAction(v string) {
 
 // GetFilter returns the Filter field value if set, zero value otherwise.
 func (o *PolicyAccountLink) GetFilter() PolicyAccountLinkFilter {
-	if o == nil || o.Filter == nil {
+	if o == nil || IsNil(o.Filter) {
 		var ret PolicyAccountLinkFilter
 		return ret
 	}
@@ -97,7 +101,7 @@ func (o *PolicyAccountLink) GetFilter() PolicyAccountLinkFilter {
 // GetFilterOk returns a tuple with the Filter field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyAccountLink) GetFilterOk() (*PolicyAccountLinkFilter, bool) {
-	if o == nil || o.Filter == nil {
+	if o == nil || IsNil(o.Filter) {
 		return nil, false
 	}
 	return o.Filter, true
@@ -105,7 +109,7 @@ func (o *PolicyAccountLink) GetFilterOk() (*PolicyAccountLinkFilter, bool) {
 
 // HasFilter returns a boolean if a field has been set.
 func (o *PolicyAccountLink) HasFilter() bool {
-	if o != nil && o.Filter != nil {
+	if o != nil && !IsNil(o.Filter) {
 		return true
 	}
 
@@ -118,11 +122,19 @@ func (o *PolicyAccountLink) SetFilter(v PolicyAccountLinkFilter) {
 }
 
 func (o PolicyAccountLink) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PolicyAccountLink) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Action != nil {
+	if !IsNil(o.Action) {
 		toSerialize["action"] = o.Action
 	}
-	if o.Filter != nil {
+	if !IsNil(o.Filter) {
 		toSerialize["filter"] = o.Filter
 	}
 
@@ -130,28 +142,26 @@ func (o PolicyAccountLink) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PolicyAccountLink) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PolicyAccountLink) UnmarshalJSON(data []byte) (err error) {
 	varPolicyAccountLink := _PolicyAccountLink{}
 
-	err = json.Unmarshal(bytes, &varPolicyAccountLink)
-	if err == nil {
-		*o = PolicyAccountLink(varPolicyAccountLink)
-	} else {
+	err = json.Unmarshal(data, &varPolicyAccountLink)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PolicyAccountLink(varPolicyAccountLink)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "action")
 		delete(additionalProperties, "filter")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +202,3 @@ func (v *NullablePolicyAccountLink) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

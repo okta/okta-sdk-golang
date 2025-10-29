@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,15 @@ import (
 	"encoding/json"
 )
 
-// LogGeolocation struct for LogGeolocation
+// checks if the LogGeolocation type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LogGeolocation{}
+
+// LogGeolocation The latitude and longitude of the geolocation where an action was performed. The object is formatted according to the [ISO 6709](https://www.iso.org/obp/ui/fr/#iso:std:iso:6709:ed-3:v1:en) standard.
 type LogGeolocation struct {
+	// Latitude which uses two digits for the [integer part](https://www.iso.org/obp/ui/fr/#iso:std:iso:6709:ed-3:v1:en#Latitude)
 	Lat *float64 `json:"lat,omitempty"`
-	Lon *float64 `json:"lon,omitempty"`
+	// Longitude which uses three digits for the [integer part](https://www.iso.org/obp/ui/fr/#iso:std:iso:6709:ed-3:v1:en#Longitude)
+	Lon                  *float64 `json:"lon,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +60,7 @@ func NewLogGeolocationWithDefaults() *LogGeolocation {
 
 // GetLat returns the Lat field value if set, zero value otherwise.
 func (o *LogGeolocation) GetLat() float64 {
-	if o == nil || o.Lat == nil {
+	if o == nil || IsNil(o.Lat) {
 		var ret float64
 		return ret
 	}
@@ -65,7 +70,7 @@ func (o *LogGeolocation) GetLat() float64 {
 // GetLatOk returns a tuple with the Lat field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogGeolocation) GetLatOk() (*float64, bool) {
-	if o == nil || o.Lat == nil {
+	if o == nil || IsNil(o.Lat) {
 		return nil, false
 	}
 	return o.Lat, true
@@ -73,7 +78,7 @@ func (o *LogGeolocation) GetLatOk() (*float64, bool) {
 
 // HasLat returns a boolean if a field has been set.
 func (o *LogGeolocation) HasLat() bool {
-	if o != nil && o.Lat != nil {
+	if o != nil && !IsNil(o.Lat) {
 		return true
 	}
 
@@ -87,7 +92,7 @@ func (o *LogGeolocation) SetLat(v float64) {
 
 // GetLon returns the Lon field value if set, zero value otherwise.
 func (o *LogGeolocation) GetLon() float64 {
-	if o == nil || o.Lon == nil {
+	if o == nil || IsNil(o.Lon) {
 		var ret float64
 		return ret
 	}
@@ -97,7 +102,7 @@ func (o *LogGeolocation) GetLon() float64 {
 // GetLonOk returns a tuple with the Lon field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogGeolocation) GetLonOk() (*float64, bool) {
-	if o == nil || o.Lon == nil {
+	if o == nil || IsNil(o.Lon) {
 		return nil, false
 	}
 	return o.Lon, true
@@ -105,7 +110,7 @@ func (o *LogGeolocation) GetLonOk() (*float64, bool) {
 
 // HasLon returns a boolean if a field has been set.
 func (o *LogGeolocation) HasLon() bool {
-	if o != nil && o.Lon != nil {
+	if o != nil && !IsNil(o.Lon) {
 		return true
 	}
 
@@ -118,11 +123,19 @@ func (o *LogGeolocation) SetLon(v float64) {
 }
 
 func (o LogGeolocation) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LogGeolocation) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Lat != nil {
+	if !IsNil(o.Lat) {
 		toSerialize["lat"] = o.Lat
 	}
-	if o.Lon != nil {
+	if !IsNil(o.Lon) {
 		toSerialize["lon"] = o.Lon
 	}
 
@@ -130,28 +143,26 @@ func (o LogGeolocation) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LogGeolocation) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LogGeolocation) UnmarshalJSON(data []byte) (err error) {
 	varLogGeolocation := _LogGeolocation{}
 
-	err = json.Unmarshal(bytes, &varLogGeolocation)
-	if err == nil {
-		*o = LogGeolocation(varLogGeolocation)
-	} else {
+	err = json.Unmarshal(data, &varLogGeolocation)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LogGeolocation(varLogGeolocation)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "lat")
 		delete(additionalProperties, "lon")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +203,3 @@ func (v *NullableLogGeolocation) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

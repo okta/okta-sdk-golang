@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Actions** | Pointer to [**OperationResponseAssignmentOperationConfigurationActions**](OperationResponseAssignmentOperationConfigurationActions.md) |  | [optional] 
 **Conditions** | Pointer to [**Conditions**](Conditions.md) |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | ID of the realm assignment operation | [optional] 
+**Name** | Pointer to **string** | Name of the realm assignment operation | [optional] 
 
 ## Methods
 

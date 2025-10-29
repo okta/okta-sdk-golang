@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,14 +27,17 @@ import (
 	"encoding/json"
 )
 
-// Parameters Attributes used for processing AD Group membership update
+// checks if the Parameters type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Parameters{}
+
+// Parameters Attributes used for processing Active Directory group membership update
 type Parameters struct {
 	// The update action to take
 	Action *string `json:"action,omitempty"`
-	// The attribute that tracks group memberships in AD. This should be `member` for AD.
+	// The attribute that tracks group memberships in Active Directory. For Active Directory, use `member`.
 	Attribute *string `json:"attribute,omitempty"`
 	// List of user IDs whose group memberships to update
-	Values []string `json:"values,omitempty"`
+	Values               []string `json:"values,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewParametersWithDefaults() *Parameters {
 
 // GetAction returns the Action field value if set, zero value otherwise.
 func (o *Parameters) GetAction() string {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *Parameters) GetAction() string {
 // GetActionOk returns a tuple with the Action field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Parameters) GetActionOk() (*string, bool) {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		return nil, false
 	}
 	return o.Action, true
@@ -77,7 +80,7 @@ func (o *Parameters) GetActionOk() (*string, bool) {
 
 // HasAction returns a boolean if a field has been set.
 func (o *Parameters) HasAction() bool {
-	if o != nil && o.Action != nil {
+	if o != nil && !IsNil(o.Action) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *Parameters) SetAction(v string) {
 
 // GetAttribute returns the Attribute field value if set, zero value otherwise.
 func (o *Parameters) GetAttribute() string {
-	if o == nil || o.Attribute == nil {
+	if o == nil || IsNil(o.Attribute) {
 		var ret string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *Parameters) GetAttribute() string {
 // GetAttributeOk returns a tuple with the Attribute field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Parameters) GetAttributeOk() (*string, bool) {
-	if o == nil || o.Attribute == nil {
+	if o == nil || IsNil(o.Attribute) {
 		return nil, false
 	}
 	return o.Attribute, true
@@ -109,7 +112,7 @@ func (o *Parameters) GetAttributeOk() (*string, bool) {
 
 // HasAttribute returns a boolean if a field has been set.
 func (o *Parameters) HasAttribute() bool {
-	if o != nil && o.Attribute != nil {
+	if o != nil && !IsNil(o.Attribute) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *Parameters) SetAttribute(v string) {
 
 // GetValues returns the Values field value if set, zero value otherwise.
 func (o *Parameters) GetValues() []string {
-	if o == nil || o.Values == nil {
+	if o == nil || IsNil(o.Values) {
 		var ret []string
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *Parameters) GetValues() []string {
 // GetValuesOk returns a tuple with the Values field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Parameters) GetValuesOk() ([]string, bool) {
-	if o == nil || o.Values == nil {
+	if o == nil || IsNil(o.Values) {
 		return nil, false
 	}
 	return o.Values, true
@@ -141,7 +144,7 @@ func (o *Parameters) GetValuesOk() ([]string, bool) {
 
 // HasValues returns a boolean if a field has been set.
 func (o *Parameters) HasValues() bool {
-	if o != nil && o.Values != nil {
+	if o != nil && !IsNil(o.Values) {
 		return true
 	}
 
@@ -154,14 +157,22 @@ func (o *Parameters) SetValues(v []string) {
 }
 
 func (o Parameters) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Parameters) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Action != nil {
+	if !IsNil(o.Action) {
 		toSerialize["action"] = o.Action
 	}
-	if o.Attribute != nil {
+	if !IsNil(o.Attribute) {
 		toSerialize["attribute"] = o.Attribute
 	}
-	if o.Values != nil {
+	if !IsNil(o.Values) {
 		toSerialize["values"] = o.Values
 	}
 
@@ -169,29 +180,27 @@ func (o Parameters) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Parameters) UnmarshalJSON(bytes []byte) (err error) {
+func (o *Parameters) UnmarshalJSON(data []byte) (err error) {
 	varParameters := _Parameters{}
 
-	err = json.Unmarshal(bytes, &varParameters)
-	if err == nil {
-		*o = Parameters(varParameters)
-	} else {
+	err = json.Unmarshal(data, &varParameters)
+
+	if err != nil {
 		return err
 	}
 
+	*o = Parameters(varParameters)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "action")
 		delete(additionalProperties, "attribute")
 		delete(additionalProperties, "values")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -232,4 +241,3 @@ func (v *NullableParameters) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

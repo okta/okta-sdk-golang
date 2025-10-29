@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Answer** | Pointer to **string** | Answer to the question | [optional] 
 **Question** | Pointer to **string** | Unique key for the question | [optional] 
-**QuestionText** | Pointer to **string** | Human-readable text displayed to the user | [optional] [readonly] 
+**QuestionText** | Pointer to **string** | Human-readable text that&#39;s displayed to the user | [optional] [readonly] 
 
 ## Methods
 

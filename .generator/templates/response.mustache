@@ -5,7 +5,6 @@ import (
 	"errors"
 	"net/http"
 	"net/url"
-	"io/ioutil"
 	"strings"
 	"bytes"
 	"encoding/xml"
@@ -26,7 +25,7 @@ func newAPIResponse(r *http.Response, cli *APIClient, v interface{}) *APIRespons
 	// switch v
 	pg = newPaginationInHeader(r)
 	response := &APIResponse{Response: r, cli: cli, pg: pg}
-	return response 
+	return response
 }
 
 func buildResponse(resp *http.Response, cli *APIClient, v interface{}) (*APIResponse, error) {
@@ -36,11 +35,11 @@ func buildResponse(resp *http.Response, cli *APIClient, v interface{}) (*APIResp
 	if err != nil {
 		return response, err
 	}
-	bodyBytes, _ := ioutil.ReadAll(resp.Body)
+	bodyBytes, _ := io.ReadAll(resp.Body)
 	copyBodyBytes := make([]byte, len(bodyBytes))
 	copy(copyBodyBytes, bodyBytes)
 	_ = resp.Body.Close()                                    // close it to avoid memory leaks
-	resp.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes)) // restore the original response body
+	resp.Body = io.NopCloser(bytes.NewBuffer(bodyBytes)) // restore the original response body
 	if len(copyBodyBytes) == 0 {
 		return response, nil
 	}
@@ -62,9 +61,9 @@ func buildResponse(resp *http.Response, cli *APIClient, v interface{}) (*APIResp
 }
 
 func (c *APIClient) checkResponseForError(resp *http.Response) error {
-	localVarBody, _ := ioutil.ReadAll(resp.Body)
+	localVarBody, _ := io.ReadAll(resp.Body)
 	resp.Body.Close()
-	resp.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	resp.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if resp.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,

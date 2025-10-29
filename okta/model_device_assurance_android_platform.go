@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -29,15 +29,19 @@ import (
 	"strings"
 )
 
+// checks if the DeviceAssuranceAndroidPlatform type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeviceAssuranceAndroidPlatform{}
+
 // DeviceAssuranceAndroidPlatform struct for DeviceAssuranceAndroidPlatform
 type DeviceAssuranceAndroidPlatform struct {
 	DeviceAssurance
-	DiskEncryptionType *DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType `json:"diskEncryptionType,omitempty"`
-	Jailbreak *bool `json:"jailbreak,omitempty"`
-	OsVersion *OSVersion `json:"osVersion,omitempty"`
-	ScreenLockType *DeviceAssuranceAndroidPlatformAllOfScreenLockType `json:"screenLockType,omitempty"`
-	SecureHardwarePresent *bool `json:"secureHardwarePresent,omitempty"`
-	AdditionalProperties map[string]interface{}
+	DiskEncryptionType        *DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType        `json:"diskEncryptionType,omitempty"`
+	Jailbreak                 *bool                                                         `json:"jailbreak,omitempty"`
+	OsVersion                 *OSVersion                                                    `json:"osVersion,omitempty"`
+	ScreenLockType            *DeviceAssuranceAndroidPlatformAllOfScreenLockType            `json:"screenLockType,omitempty"`
+	SecureHardwarePresent     *bool                                                         `json:"secureHardwarePresent,omitempty"`
+	ThirdPartySignalProviders *DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders `json:"thirdPartySignalProviders,omitempty"`
+	AdditionalProperties      map[string]interface{}
 }
 
 type _DeviceAssuranceAndroidPlatform DeviceAssuranceAndroidPlatform
@@ -61,7 +65,7 @@ func NewDeviceAssuranceAndroidPlatformWithDefaults() *DeviceAssuranceAndroidPlat
 
 // GetDiskEncryptionType returns the DiskEncryptionType field value if set, zero value otherwise.
 func (o *DeviceAssuranceAndroidPlatform) GetDiskEncryptionType() DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType {
-	if o == nil || o.DiskEncryptionType == nil {
+	if o == nil || IsNil(o.DiskEncryptionType) {
 		var ret DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType
 		return ret
 	}
@@ -71,7 +75,7 @@ func (o *DeviceAssuranceAndroidPlatform) GetDiskEncryptionType() DeviceAssurance
 // GetDiskEncryptionTypeOk returns a tuple with the DiskEncryptionType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceAssuranceAndroidPlatform) GetDiskEncryptionTypeOk() (*DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType, bool) {
-	if o == nil || o.DiskEncryptionType == nil {
+	if o == nil || IsNil(o.DiskEncryptionType) {
 		return nil, false
 	}
 	return o.DiskEncryptionType, true
@@ -79,7 +83,7 @@ func (o *DeviceAssuranceAndroidPlatform) GetDiskEncryptionTypeOk() (*DeviceAssur
 
 // HasDiskEncryptionType returns a boolean if a field has been set.
 func (o *DeviceAssuranceAndroidPlatform) HasDiskEncryptionType() bool {
-	if o != nil && o.DiskEncryptionType != nil {
+	if o != nil && !IsNil(o.DiskEncryptionType) {
 		return true
 	}
 
@@ -93,7 +97,7 @@ func (o *DeviceAssuranceAndroidPlatform) SetDiskEncryptionType(v DeviceAssurance
 
 // GetJailbreak returns the Jailbreak field value if set, zero value otherwise.
 func (o *DeviceAssuranceAndroidPlatform) GetJailbreak() bool {
-	if o == nil || o.Jailbreak == nil {
+	if o == nil || IsNil(o.Jailbreak) {
 		var ret bool
 		return ret
 	}
@@ -103,7 +107,7 @@ func (o *DeviceAssuranceAndroidPlatform) GetJailbreak() bool {
 // GetJailbreakOk returns a tuple with the Jailbreak field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceAssuranceAndroidPlatform) GetJailbreakOk() (*bool, bool) {
-	if o == nil || o.Jailbreak == nil {
+	if o == nil || IsNil(o.Jailbreak) {
 		return nil, false
 	}
 	return o.Jailbreak, true
@@ -111,7 +115,7 @@ func (o *DeviceAssuranceAndroidPlatform) GetJailbreakOk() (*bool, bool) {
 
 // HasJailbreak returns a boolean if a field has been set.
 func (o *DeviceAssuranceAndroidPlatform) HasJailbreak() bool {
-	if o != nil && o.Jailbreak != nil {
+	if o != nil && !IsNil(o.Jailbreak) {
 		return true
 	}
 
@@ -125,7 +129,7 @@ func (o *DeviceAssuranceAndroidPlatform) SetJailbreak(v bool) {
 
 // GetOsVersion returns the OsVersion field value if set, zero value otherwise.
 func (o *DeviceAssuranceAndroidPlatform) GetOsVersion() OSVersion {
-	if o == nil || o.OsVersion == nil {
+	if o == nil || IsNil(o.OsVersion) {
 		var ret OSVersion
 		return ret
 	}
@@ -135,7 +139,7 @@ func (o *DeviceAssuranceAndroidPlatform) GetOsVersion() OSVersion {
 // GetOsVersionOk returns a tuple with the OsVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceAssuranceAndroidPlatform) GetOsVersionOk() (*OSVersion, bool) {
-	if o == nil || o.OsVersion == nil {
+	if o == nil || IsNil(o.OsVersion) {
 		return nil, false
 	}
 	return o.OsVersion, true
@@ -143,7 +147,7 @@ func (o *DeviceAssuranceAndroidPlatform) GetOsVersionOk() (*OSVersion, bool) {
 
 // HasOsVersion returns a boolean if a field has been set.
 func (o *DeviceAssuranceAndroidPlatform) HasOsVersion() bool {
-	if o != nil && o.OsVersion != nil {
+	if o != nil && !IsNil(o.OsVersion) {
 		return true
 	}
 
@@ -157,7 +161,7 @@ func (o *DeviceAssuranceAndroidPlatform) SetOsVersion(v OSVersion) {
 
 // GetScreenLockType returns the ScreenLockType field value if set, zero value otherwise.
 func (o *DeviceAssuranceAndroidPlatform) GetScreenLockType() DeviceAssuranceAndroidPlatformAllOfScreenLockType {
-	if o == nil || o.ScreenLockType == nil {
+	if o == nil || IsNil(o.ScreenLockType) {
 		var ret DeviceAssuranceAndroidPlatformAllOfScreenLockType
 		return ret
 	}
@@ -167,7 +171,7 @@ func (o *DeviceAssuranceAndroidPlatform) GetScreenLockType() DeviceAssuranceAndr
 // GetScreenLockTypeOk returns a tuple with the ScreenLockType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceAssuranceAndroidPlatform) GetScreenLockTypeOk() (*DeviceAssuranceAndroidPlatformAllOfScreenLockType, bool) {
-	if o == nil || o.ScreenLockType == nil {
+	if o == nil || IsNil(o.ScreenLockType) {
 		return nil, false
 	}
 	return o.ScreenLockType, true
@@ -175,7 +179,7 @@ func (o *DeviceAssuranceAndroidPlatform) GetScreenLockTypeOk() (*DeviceAssurance
 
 // HasScreenLockType returns a boolean if a field has been set.
 func (o *DeviceAssuranceAndroidPlatform) HasScreenLockType() bool {
-	if o != nil && o.ScreenLockType != nil {
+	if o != nil && !IsNil(o.ScreenLockType) {
 		return true
 	}
 
@@ -189,7 +193,7 @@ func (o *DeviceAssuranceAndroidPlatform) SetScreenLockType(v DeviceAssuranceAndr
 
 // GetSecureHardwarePresent returns the SecureHardwarePresent field value if set, zero value otherwise.
 func (o *DeviceAssuranceAndroidPlatform) GetSecureHardwarePresent() bool {
-	if o == nil || o.SecureHardwarePresent == nil {
+	if o == nil || IsNil(o.SecureHardwarePresent) {
 		var ret bool
 		return ret
 	}
@@ -199,7 +203,7 @@ func (o *DeviceAssuranceAndroidPlatform) GetSecureHardwarePresent() bool {
 // GetSecureHardwarePresentOk returns a tuple with the SecureHardwarePresent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceAssuranceAndroidPlatform) GetSecureHardwarePresentOk() (*bool, bool) {
-	if o == nil || o.SecureHardwarePresent == nil {
+	if o == nil || IsNil(o.SecureHardwarePresent) {
 		return nil, false
 	}
 	return o.SecureHardwarePresent, true
@@ -207,7 +211,7 @@ func (o *DeviceAssuranceAndroidPlatform) GetSecureHardwarePresentOk() (*bool, bo
 
 // HasSecureHardwarePresent returns a boolean if a field has been set.
 func (o *DeviceAssuranceAndroidPlatform) HasSecureHardwarePresent() bool {
-	if o != nil && o.SecureHardwarePresent != nil {
+	if o != nil && !IsNil(o.SecureHardwarePresent) {
 		return true
 	}
 
@@ -219,51 +223,95 @@ func (o *DeviceAssuranceAndroidPlatform) SetSecureHardwarePresent(v bool) {
 	o.SecureHardwarePresent = &v
 }
 
+// GetThirdPartySignalProviders returns the ThirdPartySignalProviders field value if set, zero value otherwise.
+func (o *DeviceAssuranceAndroidPlatform) GetThirdPartySignalProviders() DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders {
+	if o == nil || IsNil(o.ThirdPartySignalProviders) {
+		var ret DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders
+		return ret
+	}
+	return *o.ThirdPartySignalProviders
+}
+
+// GetThirdPartySignalProvidersOk returns a tuple with the ThirdPartySignalProviders field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DeviceAssuranceAndroidPlatform) GetThirdPartySignalProvidersOk() (*DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders, bool) {
+	if o == nil || IsNil(o.ThirdPartySignalProviders) {
+		return nil, false
+	}
+	return o.ThirdPartySignalProviders, true
+}
+
+// HasThirdPartySignalProviders returns a boolean if a field has been set.
+func (o *DeviceAssuranceAndroidPlatform) HasThirdPartySignalProviders() bool {
+	if o != nil && !IsNil(o.ThirdPartySignalProviders) {
+		return true
+	}
+
+	return false
+}
+
+// SetThirdPartySignalProviders gets a reference to the given DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders and assigns it to the ThirdPartySignalProviders field.
+func (o *DeviceAssuranceAndroidPlatform) SetThirdPartySignalProviders(v DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders) {
+	o.ThirdPartySignalProviders = &v
+}
+
 func (o DeviceAssuranceAndroidPlatform) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DeviceAssuranceAndroidPlatform) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedDeviceAssurance, errDeviceAssurance := json.Marshal(o.DeviceAssurance)
 	if errDeviceAssurance != nil {
-		return []byte{}, errDeviceAssurance
+		return map[string]interface{}{}, errDeviceAssurance
 	}
 	errDeviceAssurance = json.Unmarshal([]byte(serializedDeviceAssurance), &toSerialize)
 	if errDeviceAssurance != nil {
-		return []byte{}, errDeviceAssurance
+		return map[string]interface{}{}, errDeviceAssurance
 	}
-	if o.DiskEncryptionType != nil {
+	if !IsNil(o.DiskEncryptionType) {
 		toSerialize["diskEncryptionType"] = o.DiskEncryptionType
 	}
-	if o.Jailbreak != nil {
+	if !IsNil(o.Jailbreak) {
 		toSerialize["jailbreak"] = o.Jailbreak
 	}
-	if o.OsVersion != nil {
+	if !IsNil(o.OsVersion) {
 		toSerialize["osVersion"] = o.OsVersion
 	}
-	if o.ScreenLockType != nil {
+	if !IsNil(o.ScreenLockType) {
 		toSerialize["screenLockType"] = o.ScreenLockType
 	}
-	if o.SecureHardwarePresent != nil {
+	if !IsNil(o.SecureHardwarePresent) {
 		toSerialize["secureHardwarePresent"] = o.SecureHardwarePresent
+	}
+	if !IsNil(o.ThirdPartySignalProviders) {
+		toSerialize["thirdPartySignalProviders"] = o.ThirdPartySignalProviders
 	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DeviceAssuranceAndroidPlatform) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DeviceAssuranceAndroidPlatform) UnmarshalJSON(data []byte) (err error) {
 	type DeviceAssuranceAndroidPlatformWithoutEmbeddedStruct struct {
-		DiskEncryptionType *DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType `json:"diskEncryptionType,omitempty"`
-		Jailbreak *bool `json:"jailbreak,omitempty"`
-		OsVersion *OSVersion `json:"osVersion,omitempty"`
-		ScreenLockType *DeviceAssuranceAndroidPlatformAllOfScreenLockType `json:"screenLockType,omitempty"`
-		SecureHardwarePresent *bool `json:"secureHardwarePresent,omitempty"`
+		DiskEncryptionType        *DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType        `json:"diskEncryptionType,omitempty"`
+		Jailbreak                 *bool                                                         `json:"jailbreak,omitempty"`
+		OsVersion                 *OSVersion                                                    `json:"osVersion,omitempty"`
+		ScreenLockType            *DeviceAssuranceAndroidPlatformAllOfScreenLockType            `json:"screenLockType,omitempty"`
+		SecureHardwarePresent     *bool                                                         `json:"secureHardwarePresent,omitempty"`
+		ThirdPartySignalProviders *DeviceAssuranceAndroidPlatformAllOfThirdPartySignalProviders `json:"thirdPartySignalProviders,omitempty"`
 	}
 
 	varDeviceAssuranceAndroidPlatformWithoutEmbeddedStruct := DeviceAssuranceAndroidPlatformWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varDeviceAssuranceAndroidPlatformWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varDeviceAssuranceAndroidPlatformWithoutEmbeddedStruct)
 	if err == nil {
 		varDeviceAssuranceAndroidPlatform := _DeviceAssuranceAndroidPlatform{}
 		varDeviceAssuranceAndroidPlatform.DiskEncryptionType = varDeviceAssuranceAndroidPlatformWithoutEmbeddedStruct.DiskEncryptionType
@@ -271,6 +319,7 @@ func (o *DeviceAssuranceAndroidPlatform) UnmarshalJSON(bytes []byte) (err error)
 		varDeviceAssuranceAndroidPlatform.OsVersion = varDeviceAssuranceAndroidPlatformWithoutEmbeddedStruct.OsVersion
 		varDeviceAssuranceAndroidPlatform.ScreenLockType = varDeviceAssuranceAndroidPlatformWithoutEmbeddedStruct.ScreenLockType
 		varDeviceAssuranceAndroidPlatform.SecureHardwarePresent = varDeviceAssuranceAndroidPlatformWithoutEmbeddedStruct.SecureHardwarePresent
+		varDeviceAssuranceAndroidPlatform.ThirdPartySignalProviders = varDeviceAssuranceAndroidPlatformWithoutEmbeddedStruct.ThirdPartySignalProviders
 		*o = DeviceAssuranceAndroidPlatform(varDeviceAssuranceAndroidPlatform)
 	} else {
 		return err
@@ -278,7 +327,7 @@ func (o *DeviceAssuranceAndroidPlatform) UnmarshalJSON(bytes []byte) (err error)
 
 	varDeviceAssuranceAndroidPlatform := _DeviceAssuranceAndroidPlatform{}
 
-	err = json.Unmarshal(bytes, &varDeviceAssuranceAndroidPlatform)
+	err = json.Unmarshal(data, &varDeviceAssuranceAndroidPlatform)
 	if err == nil {
 		o.DeviceAssurance = varDeviceAssuranceAndroidPlatform.DeviceAssurance
 	} else {
@@ -287,13 +336,13 @@ func (o *DeviceAssuranceAndroidPlatform) UnmarshalJSON(bytes []byte) (err error)
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "diskEncryptionType")
 		delete(additionalProperties, "jailbreak")
 		delete(additionalProperties, "osVersion")
 		delete(additionalProperties, "screenLockType")
 		delete(additionalProperties, "secureHardwarePresent")
+		delete(additionalProperties, "thirdPartySignalProviders")
 
 		// remove fields from embedded structs
 		reflectDeviceAssurance := reflect.ValueOf(o.DeviceAssurance)
@@ -314,8 +363,6 @@ func (o *DeviceAssuranceAndroidPlatform) UnmarshalJSON(bytes []byte) (err error)
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -356,4 +403,3 @@ func (v *NullableDeviceAssuranceAndroidPlatform) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

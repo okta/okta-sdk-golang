@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **LastUpdatedBy** | Pointer to **string** | ID of the user who made the last update | [optional] [readonly] 
 **Logo** | **string** | URL to an uploaded application logo. This logo appears next to your app integration name in the OIN catalog. You must first [Upload an OIN Integration logo](/openapi/okta-management/management/tag/YourOinIntegrations/#tag/YourOinIntegrations/operation/uploadSubmissionLogo) to obtain the logo URL before you can specify this value. | 
 **Name** | **string** | The app integration name. This is the main title used for your integration in the OIN catalog. | 
+**Provisioning** | Pointer to [**ProvisioningDetails**](ProvisioningDetails.md) |  | [optional] 
 **Sso** | Pointer to [**Sso**](Sso.md) |  | [optional] 
 **Status** | Pointer to **string** | Status of the OIN Integration submission | [optional] [readonly] 
 
@@ -218,6 +219,31 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+
+### GetProvisioning
+
+`func (o *SubmissionRequest) GetProvisioning() ProvisioningDetails`
+
+GetProvisioning returns the Provisioning field if non-nil, zero value otherwise.
+
+### GetProvisioningOk
+
+`func (o *SubmissionRequest) GetProvisioningOk() (*ProvisioningDetails, bool)`
+
+GetProvisioningOk returns a tuple with the Provisioning field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProvisioning
+
+`func (o *SubmissionRequest) SetProvisioning(v ProvisioningDetails)`
+
+SetProvisioning sets Provisioning field to given value.
+
+### HasProvisioning
+
+`func (o *SubmissionRequest) HasProvisioning() bool`
+
+HasProvisioning returns a boolean if a field has been set.
 
 ### GetSso
 

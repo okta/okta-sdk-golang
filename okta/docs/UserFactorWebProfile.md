@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CredentialId** | Pointer to **string** | ID for the Factor credential | [optional] 
+**CredentialId** | Pointer to **string** | ID for the factor credential | [optional] 
 
 ## Methods
 

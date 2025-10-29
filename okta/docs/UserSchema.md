@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Schema** | Pointer to **string** |  | [optional] [readonly] 
-**Created** | Pointer to **string** |  | [optional] [readonly] 
-**Definitions** | Pointer to [**UserSchemaDefinitions**](UserSchemaDefinitions.md) |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] [readonly] 
-**LastUpdated** | Pointer to **string** |  | [optional] [readonly] 
-**Name** | Pointer to **string** |  | [optional] [readonly] 
-**Properties** | Pointer to [**UserSchemaProperties**](UserSchemaProperties.md) |  | [optional] 
-**Title** | Pointer to **string** |  | [optional] 
-**Type** | Pointer to **string** |  | [optional] [readonly] 
+**Schema** | Pointer to **string** | JSON schema version identifier | [optional] [readonly] 
+**Created** | Pointer to **string** | Timestamp when the schema was created | [optional] [readonly] 
+**Definitions** | Pointer to [**UserSchemaDefinitions**](UserSchemaDefinitions.md) | User profile subschemas  The profile object for a user is defined by a composite schema of base and custom properties using a JSON path to reference subschemas. The &#x60;#base&#x60; properties are defined and versioned by Okta, while &#x60;#custom&#x60; properties are extensible. Custom property names for the profile object must be unique and can&#39;t conflict with a property name defined in the &#x60;#base&#x60; subschema. | [optional] 
+**Id** | Pointer to **string** | URI of user schema | [optional] [readonly] 
+**LastUpdated** | Pointer to **string** | Timestamp when the schema was last updated | [optional] [readonly] 
+**Name** | Pointer to **string** | Name of the schema | [optional] [readonly] 
+**Properties** | Pointer to [**UserSchemaProperties**](UserSchemaProperties.md) | User Object Properties | [optional] 
+**Title** | Pointer to **string** | User-defined display name for the schema | [optional] 
+**Type** | Pointer to **string** | Type of [root schema](https://tools.ietf.org/html/draft-zyp-json-schema-04#section-3.4) | [optional] [readonly] 
 **Links** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
 
 ## Methods

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -25,13 +25,19 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
-// ApplicationSettingsNotificationsVpn struct for ApplicationSettingsNotificationsVpn
+// checks if the ApplicationSettingsNotificationsVpn type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApplicationSettingsNotificationsVpn{}
+
+// ApplicationSettingsNotificationsVpn Sends customizable messages with conditions to end users when a VPN connection is required
 type ApplicationSettingsNotificationsVpn struct {
+	// An optional URL to a help page to assist your end users in signing in to your company VPN
 	HelpUrl *string `json:"helpUrl,omitempty"`
-	Message *string `json:"message,omitempty"`
-	Network *ApplicationSettingsNotificationsVpnNetwork `json:"network,omitempty"`
+	// A VPN requirement message that's displayed to users
+	Message              *string                                    `json:"message,omitempty"`
+	Network              ApplicationSettingsNotificationsVpnNetwork `json:"network"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -41,8 +47,9 @@ type _ApplicationSettingsNotificationsVpn ApplicationSettingsNotificationsVpn
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewApplicationSettingsNotificationsVpn() *ApplicationSettingsNotificationsVpn {
+func NewApplicationSettingsNotificationsVpn(network ApplicationSettingsNotificationsVpnNetwork) *ApplicationSettingsNotificationsVpn {
 	this := ApplicationSettingsNotificationsVpn{}
+	this.Network = network
 	return &this
 }
 
@@ -56,7 +63,7 @@ func NewApplicationSettingsNotificationsVpnWithDefaults() *ApplicationSettingsNo
 
 // GetHelpUrl returns the HelpUrl field value if set, zero value otherwise.
 func (o *ApplicationSettingsNotificationsVpn) GetHelpUrl() string {
-	if o == nil || o.HelpUrl == nil {
+	if o == nil || IsNil(o.HelpUrl) {
 		var ret string
 		return ret
 	}
@@ -66,7 +73,7 @@ func (o *ApplicationSettingsNotificationsVpn) GetHelpUrl() string {
 // GetHelpUrlOk returns a tuple with the HelpUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationSettingsNotificationsVpn) GetHelpUrlOk() (*string, bool) {
-	if o == nil || o.HelpUrl == nil {
+	if o == nil || IsNil(o.HelpUrl) {
 		return nil, false
 	}
 	return o.HelpUrl, true
@@ -74,7 +81,7 @@ func (o *ApplicationSettingsNotificationsVpn) GetHelpUrlOk() (*string, bool) {
 
 // HasHelpUrl returns a boolean if a field has been set.
 func (o *ApplicationSettingsNotificationsVpn) HasHelpUrl() bool {
-	if o != nil && o.HelpUrl != nil {
+	if o != nil && !IsNil(o.HelpUrl) {
 		return true
 	}
 
@@ -88,7 +95,7 @@ func (o *ApplicationSettingsNotificationsVpn) SetHelpUrl(v string) {
 
 // GetMessage returns the Message field value if set, zero value otherwise.
 func (o *ApplicationSettingsNotificationsVpn) GetMessage() string {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
 	}
@@ -98,7 +105,7 @@ func (o *ApplicationSettingsNotificationsVpn) GetMessage() string {
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationSettingsNotificationsVpn) GetMessageOk() (*string, bool) {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
 	return o.Message, true
@@ -106,7 +113,7 @@ func (o *ApplicationSettingsNotificationsVpn) GetMessageOk() (*string, bool) {
 
 // HasMessage returns a boolean if a field has been set.
 func (o *ApplicationSettingsNotificationsVpn) HasMessage() bool {
-	if o != nil && o.Message != nil {
+	if o != nil && !IsNil(o.Message) {
 		return true
 	}
 
@@ -118,77 +125,94 @@ func (o *ApplicationSettingsNotificationsVpn) SetMessage(v string) {
 	o.Message = &v
 }
 
-// GetNetwork returns the Network field value if set, zero value otherwise.
+// GetNetwork returns the Network field value
 func (o *ApplicationSettingsNotificationsVpn) GetNetwork() ApplicationSettingsNotificationsVpnNetwork {
-	if o == nil || o.Network == nil {
+	if o == nil {
 		var ret ApplicationSettingsNotificationsVpnNetwork
 		return ret
 	}
-	return *o.Network
+
+	return o.Network
 }
 
-// GetNetworkOk returns a tuple with the Network field value if set, nil otherwise
+// GetNetworkOk returns a tuple with the Network field value
 // and a boolean to check if the value has been set.
 func (o *ApplicationSettingsNotificationsVpn) GetNetworkOk() (*ApplicationSettingsNotificationsVpnNetwork, bool) {
-	if o == nil || o.Network == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.Network, true
+	return &o.Network, true
 }
 
-// HasNetwork returns a boolean if a field has been set.
-func (o *ApplicationSettingsNotificationsVpn) HasNetwork() bool {
-	if o != nil && o.Network != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetNetwork gets a reference to the given ApplicationSettingsNotificationsVpnNetwork and assigns it to the Network field.
+// SetNetwork sets field value
 func (o *ApplicationSettingsNotificationsVpn) SetNetwork(v ApplicationSettingsNotificationsVpnNetwork) {
-	o.Network = &v
+	o.Network = v
 }
 
 func (o ApplicationSettingsNotificationsVpn) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApplicationSettingsNotificationsVpn) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.HelpUrl != nil {
+	if !IsNil(o.HelpUrl) {
 		toSerialize["helpUrl"] = o.HelpUrl
 	}
-	if o.Message != nil {
+	if !IsNil(o.Message) {
 		toSerialize["message"] = o.Message
 	}
-	if o.Network != nil {
-		toSerialize["network"] = o.Network
-	}
+	toSerialize["network"] = o.Network
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ApplicationSettingsNotificationsVpn) UnmarshalJSON(bytes []byte) (err error) {
-	varApplicationSettingsNotificationsVpn := _ApplicationSettingsNotificationsVpn{}
+func (o *ApplicationSettingsNotificationsVpn) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"network",
+	}
 
-	err = json.Unmarshal(bytes, &varApplicationSettingsNotificationsVpn)
-	if err == nil {
-		*o = ApplicationSettingsNotificationsVpn(varApplicationSettingsNotificationsVpn)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varApplicationSettingsNotificationsVpn := _ApplicationSettingsNotificationsVpn{}
+
+	err = json.Unmarshal(data, &varApplicationSettingsNotificationsVpn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ApplicationSettingsNotificationsVpn(varApplicationSettingsNotificationsVpn)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "helpUrl")
 		delete(additionalProperties, "message")
 		delete(additionalProperties, "network")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +253,3 @@ func (v *NullableApplicationSettingsNotificationsVpn) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

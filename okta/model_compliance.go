@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the Compliance type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Compliance{}
+
 // Compliance struct for Compliance
 type Compliance struct {
-	Fips *string `json:"fips,omitempty"`
+	Fips                 *string `json:"fips,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewComplianceWithDefaults() *Compliance {
 
 // GetFips returns the Fips field value if set, zero value otherwise.
 func (o *Compliance) GetFips() string {
-	if o == nil || o.Fips == nil {
+	if o == nil || IsNil(o.Fips) {
 		var ret string
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *Compliance) GetFips() string {
 // GetFipsOk returns a tuple with the Fips field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Compliance) GetFipsOk() (*string, bool) {
-	if o == nil || o.Fips == nil {
+	if o == nil || IsNil(o.Fips) {
 		return nil, false
 	}
 	return o.Fips, true
@@ -72,7 +75,7 @@ func (o *Compliance) GetFipsOk() (*string, bool) {
 
 // HasFips returns a boolean if a field has been set.
 func (o *Compliance) HasFips() bool {
-	if o != nil && o.Fips != nil {
+	if o != nil && !IsNil(o.Fips) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *Compliance) SetFips(v string) {
 }
 
 func (o Compliance) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Compliance) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Fips != nil {
+	if !IsNil(o.Fips) {
 		toSerialize["fips"] = o.Fips
 	}
 
@@ -94,27 +105,25 @@ func (o Compliance) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Compliance) UnmarshalJSON(bytes []byte) (err error) {
+func (o *Compliance) UnmarshalJSON(data []byte) (err error) {
 	varCompliance := _Compliance{}
 
-	err = json.Unmarshal(bytes, &varCompliance)
-	if err == nil {
-		*o = Compliance(varCompliance)
-	} else {
+	err = json.Unmarshal(data, &varCompliance)
+
+	if err != nil {
 		return err
 	}
 
+	*o = Compliance(varCompliance)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "fips")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableCompliance) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

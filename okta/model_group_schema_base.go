@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,19 @@ import (
 	"encoding/json"
 )
 
+// checks if the GroupSchemaBase type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GroupSchemaBase{}
+
 // GroupSchemaBase struct for GroupSchemaBase
 type GroupSchemaBase struct {
+	// The subschema name
 	Id *string `json:"id,omitempty"`
+	// The `#base` object properties
 	Properties *GroupSchemaBaseProperties `json:"properties,omitempty"`
+	// A collection indicating required property names
 	Required []string `json:"required,omitempty"`
-	Type *string `json:"type,omitempty"`
+	// The object type
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +64,7 @@ func NewGroupSchemaBaseWithDefaults() *GroupSchemaBase {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *GroupSchemaBase) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -67,7 +74,7 @@ func (o *GroupSchemaBase) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupSchemaBase) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -75,7 +82,7 @@ func (o *GroupSchemaBase) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *GroupSchemaBase) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -89,7 +96,7 @@ func (o *GroupSchemaBase) SetId(v string) {
 
 // GetProperties returns the Properties field value if set, zero value otherwise.
 func (o *GroupSchemaBase) GetProperties() GroupSchemaBaseProperties {
-	if o == nil || o.Properties == nil {
+	if o == nil || IsNil(o.Properties) {
 		var ret GroupSchemaBaseProperties
 		return ret
 	}
@@ -99,7 +106,7 @@ func (o *GroupSchemaBase) GetProperties() GroupSchemaBaseProperties {
 // GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupSchemaBase) GetPropertiesOk() (*GroupSchemaBaseProperties, bool) {
-	if o == nil || o.Properties == nil {
+	if o == nil || IsNil(o.Properties) {
 		return nil, false
 	}
 	return o.Properties, true
@@ -107,7 +114,7 @@ func (o *GroupSchemaBase) GetPropertiesOk() (*GroupSchemaBaseProperties, bool) {
 
 // HasProperties returns a boolean if a field has been set.
 func (o *GroupSchemaBase) HasProperties() bool {
-	if o != nil && o.Properties != nil {
+	if o != nil && !IsNil(o.Properties) {
 		return true
 	}
 
@@ -121,7 +128,7 @@ func (o *GroupSchemaBase) SetProperties(v GroupSchemaBaseProperties) {
 
 // GetRequired returns the Required field value if set, zero value otherwise.
 func (o *GroupSchemaBase) GetRequired() []string {
-	if o == nil || o.Required == nil {
+	if o == nil || IsNil(o.Required) {
 		var ret []string
 		return ret
 	}
@@ -131,7 +138,7 @@ func (o *GroupSchemaBase) GetRequired() []string {
 // GetRequiredOk returns a tuple with the Required field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupSchemaBase) GetRequiredOk() ([]string, bool) {
-	if o == nil || o.Required == nil {
+	if o == nil || IsNil(o.Required) {
 		return nil, false
 	}
 	return o.Required, true
@@ -139,7 +146,7 @@ func (o *GroupSchemaBase) GetRequiredOk() ([]string, bool) {
 
 // HasRequired returns a boolean if a field has been set.
 func (o *GroupSchemaBase) HasRequired() bool {
-	if o != nil && o.Required != nil {
+	if o != nil && !IsNil(o.Required) {
 		return true
 	}
 
@@ -153,7 +160,7 @@ func (o *GroupSchemaBase) SetRequired(v []string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *GroupSchemaBase) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -163,7 +170,7 @@ func (o *GroupSchemaBase) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupSchemaBase) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -171,7 +178,7 @@ func (o *GroupSchemaBase) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *GroupSchemaBase) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -184,17 +191,25 @@ func (o *GroupSchemaBase) SetType(v string) {
 }
 
 func (o GroupSchemaBase) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o GroupSchemaBase) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Properties != nil {
+	if !IsNil(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
-	if o.Required != nil {
+	if !IsNil(o.Required) {
 		toSerialize["required"] = o.Required
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -202,30 +217,28 @@ func (o GroupSchemaBase) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *GroupSchemaBase) UnmarshalJSON(bytes []byte) (err error) {
+func (o *GroupSchemaBase) UnmarshalJSON(data []byte) (err error) {
 	varGroupSchemaBase := _GroupSchemaBase{}
 
-	err = json.Unmarshal(bytes, &varGroupSchemaBase)
-	if err == nil {
-		*o = GroupSchemaBase(varGroupSchemaBase)
-	} else {
+	err = json.Unmarshal(data, &varGroupSchemaBase)
+
+	if err != nil {
 		return err
 	}
 
+	*o = GroupSchemaBase(varGroupSchemaBase)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "properties")
 		delete(additionalProperties, "required")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -266,4 +279,3 @@ func (v *NullableGroupSchemaBase) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

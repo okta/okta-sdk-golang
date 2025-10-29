@@ -2,7 +2,7 @@ package okta
 
 import (
 	"bytes"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
@@ -23,12 +23,12 @@ func CreateCacheKey(req *http.Request) string {
 
 func CopyResponse(resp *http.Response) *http.Response {
 	c := *resp
-	respBody, err := ioutil.ReadAll(resp.Body)
+	respBody, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return resp
 	}
 
-	c.Body = ioutil.NopCloser(bytes.NewBuffer(respBody))
+	c.Body = io.NopCloser(bytes.NewBuffer(respBody))
 
 	return &c
 }

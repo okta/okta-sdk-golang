@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**RequestIntegration** | Pointer to **bool** |  | [optional] 
-**Url** | Pointer to **string** |  | [optional] 
+**RequestIntegration** | Pointer to **bool** | Would you like Okta to add an integration for this app? | [optional] [default to false]
+**Url** | **string** | The URL of the launch page for this app | 
 
 ## Methods
 
 ### NewBookmarkApplicationSettingsApplication
 
-`func NewBookmarkApplicationSettingsApplication() *BookmarkApplicationSettingsApplication`
+`func NewBookmarkApplicationSettingsApplication(url string, ) *BookmarkApplicationSettingsApplication`
 
 NewBookmarkApplicationSettingsApplication instantiates a new BookmarkApplicationSettingsApplication object
 This constructor will assign default values to properties that have it defined,
@@ -70,11 +70,6 @@ and a boolean to check if the value has been set.
 
 SetUrl sets Url field to given value.
 
-### HasUrl
-
-`func (o *BookmarkApplicationSettingsApplication) HasUrl() bool`
-
-HasUrl returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ClientId** | Pointer to **string** | Unique key for the client application. The &#x60;client_id&#x60; is immutable | [optional] [readonly] 
+**ClientId** | Pointer to **string** | Unique key for the client application. The &#x60;client_id&#x60; is immutable. | [optional] [readonly] 
 **ClientName** | Pointer to **string** | Human-readable string name of the client application | [optional] [readonly] 
 **ClientUri** | Pointer to **string** |  | [optional] [readonly] 
 **LogoUri** | Pointer to **string** | URL string that references a logo for the client consent dialog (not the sign-in dialog) | [optional] [readonly] 
-**Links** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
+**Links** | Pointer to [**OAuth2ClientLinks**](OAuth2ClientLinks.md) |  | [optional] 
 
 ## Methods
 
@@ -131,20 +131,20 @@ HasLogoUri returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *OAuth2Client) GetLinks() LinksSelf`
+`func (o *OAuth2Client) GetLinks() OAuth2ClientLinks`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *OAuth2Client) GetLinksOk() (*LinksSelf, bool)`
+`func (o *OAuth2Client) GetLinksOk() (*OAuth2ClientLinks, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *OAuth2Client) SetLinks(v LinksSelf)`
+`func (o *OAuth2Client) SetLinks(v OAuth2ClientLinks)`
 
 SetLinks sets Links field to given value.
 

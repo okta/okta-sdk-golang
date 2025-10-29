@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -26,6 +26,9 @@ package okta
 import (
 	"encoding/json"
 )
+
+// checks if the OINSaml11ApplicationSettingsSignOn type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OINSaml11ApplicationSettingsSignOn{}
 
 // OINSaml11ApplicationSettingsSignOn Contains SAML 1.1 sign-on mode attributes
 type OINSaml11ApplicationSettingsSignOn struct {
@@ -36,7 +39,7 @@ type OINSaml11ApplicationSettingsSignOn struct {
 	// Recipient override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm).
 	RecipientOverride *string `json:"recipientOverride,omitempty"`
 	// Assertion Consumer Service (ACS) URL override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm).
-	SsoAcsUrlOverride *string `json:"ssoAcsUrlOverride,omitempty"`
+	SsoAcsUrlOverride    *string `json:"ssoAcsUrlOverride,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewOINSaml11ApplicationSettingsSignOnWithDefaults() *OINSaml11ApplicationSe
 
 // GetAudienceOverride returns the AudienceOverride field value if set, zero value otherwise.
 func (o *OINSaml11ApplicationSettingsSignOn) GetAudienceOverride() string {
-	if o == nil || o.AudienceOverride == nil {
+	if o == nil || IsNil(o.AudienceOverride) {
 		var ret string
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *OINSaml11ApplicationSettingsSignOn) GetAudienceOverride() string {
 // GetAudienceOverrideOk returns a tuple with the AudienceOverride field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OINSaml11ApplicationSettingsSignOn) GetAudienceOverrideOk() (*string, bool) {
-	if o == nil || o.AudienceOverride == nil {
+	if o == nil || IsNil(o.AudienceOverride) {
 		return nil, false
 	}
 	return o.AudienceOverride, true
@@ -79,7 +82,7 @@ func (o *OINSaml11ApplicationSettingsSignOn) GetAudienceOverrideOk() (*string, b
 
 // HasAudienceOverride returns a boolean if a field has been set.
 func (o *OINSaml11ApplicationSettingsSignOn) HasAudienceOverride() bool {
-	if o != nil && o.AudienceOverride != nil {
+	if o != nil && !IsNil(o.AudienceOverride) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *OINSaml11ApplicationSettingsSignOn) SetAudienceOverride(v string) {
 
 // GetDefaultRelayState returns the DefaultRelayState field value if set, zero value otherwise.
 func (o *OINSaml11ApplicationSettingsSignOn) GetDefaultRelayState() string {
-	if o == nil || o.DefaultRelayState == nil {
+	if o == nil || IsNil(o.DefaultRelayState) {
 		var ret string
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *OINSaml11ApplicationSettingsSignOn) GetDefaultRelayState() string {
 // GetDefaultRelayStateOk returns a tuple with the DefaultRelayState field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OINSaml11ApplicationSettingsSignOn) GetDefaultRelayStateOk() (*string, bool) {
-	if o == nil || o.DefaultRelayState == nil {
+	if o == nil || IsNil(o.DefaultRelayState) {
 		return nil, false
 	}
 	return o.DefaultRelayState, true
@@ -111,7 +114,7 @@ func (o *OINSaml11ApplicationSettingsSignOn) GetDefaultRelayStateOk() (*string, 
 
 // HasDefaultRelayState returns a boolean if a field has been set.
 func (o *OINSaml11ApplicationSettingsSignOn) HasDefaultRelayState() bool {
-	if o != nil && o.DefaultRelayState != nil {
+	if o != nil && !IsNil(o.DefaultRelayState) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *OINSaml11ApplicationSettingsSignOn) SetDefaultRelayState(v string) {
 
 // GetRecipientOverride returns the RecipientOverride field value if set, zero value otherwise.
 func (o *OINSaml11ApplicationSettingsSignOn) GetRecipientOverride() string {
-	if o == nil || o.RecipientOverride == nil {
+	if o == nil || IsNil(o.RecipientOverride) {
 		var ret string
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *OINSaml11ApplicationSettingsSignOn) GetRecipientOverride() string {
 // GetRecipientOverrideOk returns a tuple with the RecipientOverride field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OINSaml11ApplicationSettingsSignOn) GetRecipientOverrideOk() (*string, bool) {
-	if o == nil || o.RecipientOverride == nil {
+	if o == nil || IsNil(o.RecipientOverride) {
 		return nil, false
 	}
 	return o.RecipientOverride, true
@@ -143,7 +146,7 @@ func (o *OINSaml11ApplicationSettingsSignOn) GetRecipientOverrideOk() (*string, 
 
 // HasRecipientOverride returns a boolean if a field has been set.
 func (o *OINSaml11ApplicationSettingsSignOn) HasRecipientOverride() bool {
-	if o != nil && o.RecipientOverride != nil {
+	if o != nil && !IsNil(o.RecipientOverride) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *OINSaml11ApplicationSettingsSignOn) SetRecipientOverride(v string) {
 
 // GetSsoAcsUrlOverride returns the SsoAcsUrlOverride field value if set, zero value otherwise.
 func (o *OINSaml11ApplicationSettingsSignOn) GetSsoAcsUrlOverride() string {
-	if o == nil || o.SsoAcsUrlOverride == nil {
+	if o == nil || IsNil(o.SsoAcsUrlOverride) {
 		var ret string
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *OINSaml11ApplicationSettingsSignOn) GetSsoAcsUrlOverride() string {
 // GetSsoAcsUrlOverrideOk returns a tuple with the SsoAcsUrlOverride field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OINSaml11ApplicationSettingsSignOn) GetSsoAcsUrlOverrideOk() (*string, bool) {
-	if o == nil || o.SsoAcsUrlOverride == nil {
+	if o == nil || IsNil(o.SsoAcsUrlOverride) {
 		return nil, false
 	}
 	return o.SsoAcsUrlOverride, true
@@ -175,7 +178,7 @@ func (o *OINSaml11ApplicationSettingsSignOn) GetSsoAcsUrlOverrideOk() (*string, 
 
 // HasSsoAcsUrlOverride returns a boolean if a field has been set.
 func (o *OINSaml11ApplicationSettingsSignOn) HasSsoAcsUrlOverride() bool {
-	if o != nil && o.SsoAcsUrlOverride != nil {
+	if o != nil && !IsNil(o.SsoAcsUrlOverride) {
 		return true
 	}
 
@@ -188,17 +191,25 @@ func (o *OINSaml11ApplicationSettingsSignOn) SetSsoAcsUrlOverride(v string) {
 }
 
 func (o OINSaml11ApplicationSettingsSignOn) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OINSaml11ApplicationSettingsSignOn) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AudienceOverride != nil {
+	if !IsNil(o.AudienceOverride) {
 		toSerialize["audienceOverride"] = o.AudienceOverride
 	}
-	if o.DefaultRelayState != nil {
+	if !IsNil(o.DefaultRelayState) {
 		toSerialize["defaultRelayState"] = o.DefaultRelayState
 	}
-	if o.RecipientOverride != nil {
+	if !IsNil(o.RecipientOverride) {
 		toSerialize["recipientOverride"] = o.RecipientOverride
 	}
-	if o.SsoAcsUrlOverride != nil {
+	if !IsNil(o.SsoAcsUrlOverride) {
 		toSerialize["ssoAcsUrlOverride"] = o.SsoAcsUrlOverride
 	}
 
@@ -206,30 +217,28 @@ func (o OINSaml11ApplicationSettingsSignOn) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OINSaml11ApplicationSettingsSignOn) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OINSaml11ApplicationSettingsSignOn) UnmarshalJSON(data []byte) (err error) {
 	varOINSaml11ApplicationSettingsSignOn := _OINSaml11ApplicationSettingsSignOn{}
 
-	err = json.Unmarshal(bytes, &varOINSaml11ApplicationSettingsSignOn)
-	if err == nil {
-		*o = OINSaml11ApplicationSettingsSignOn(varOINSaml11ApplicationSettingsSignOn)
-	} else {
+	err = json.Unmarshal(data, &varOINSaml11ApplicationSettingsSignOn)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OINSaml11ApplicationSettingsSignOn(varOINSaml11ApplicationSettingsSignOn)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "audienceOverride")
 		delete(additionalProperties, "defaultRelayState")
 		delete(additionalProperties, "recipientOverride")
 		delete(additionalProperties, "ssoAcsUrlOverride")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -270,4 +279,3 @@ func (v *NullableOINSaml11ApplicationSettingsSignOn) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

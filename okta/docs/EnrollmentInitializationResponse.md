@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CredRequests** | Pointer to [**[]WebAuthnCredRequest**](WebAuthnCredRequest.md) | List of credential requests for the fulfillment provider | [optional] 
-**FulfillmentProvider** | Pointer to **string** | Name of the fulfillment provider for the WebAuthn Preregistration Factor | [optional] 
+**FulfillmentProvider** | Pointer to **string** | Name of the fulfillment provider for the WebAuthn preregistration factor | [optional] 
 **PinRequestJwe** | Pointer to **string** | Encrypted JWE of PIN request for the fulfillment provider | [optional] 
 **UserId** | Pointer to **string** | ID of an existing Okta user | [optional] 
 

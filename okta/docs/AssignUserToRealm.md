@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**RealmId** | Pointer to **string** |  | [optional] 
+**RealmId** | Pointer to **string** | ID of the realm | [optional] 
 
 ## Methods
 

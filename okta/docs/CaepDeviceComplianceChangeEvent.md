@@ -10,13 +10,13 @@ Name | Type | Description | Notes
 **PreviousStatus** | **string** | Previous device compliance status | 
 **ReasonAdmin** | Pointer to [**CaepDeviceComplianceChangeEventReasonAdmin**](CaepDeviceComplianceChangeEventReasonAdmin.md) |  | [optional] 
 **ReasonUser** | Pointer to [**CaepDeviceComplianceChangeEventReasonUser**](CaepDeviceComplianceChangeEventReasonUser.md) |  | [optional] 
-**Subjects** | [**SecurityEventSubject**](SecurityEventSubject.md) |  | 
+**Subject** | [**SecurityEventSubject**](SecurityEventSubject.md) |  | 
 
 ## Methods
 
 ### NewCaepDeviceComplianceChangeEvent
 
-`func NewCaepDeviceComplianceChangeEvent(currentStatus string, eventTimestamp int64, previousStatus string, subjects SecurityEventSubject, ) *CaepDeviceComplianceChangeEvent`
+`func NewCaepDeviceComplianceChangeEvent(currentStatus string, eventTimestamp int64, previousStatus string, subject SecurityEventSubject, ) *CaepDeviceComplianceChangeEvent`
 
 NewCaepDeviceComplianceChangeEvent instantiates a new CaepDeviceComplianceChangeEvent object
 This constructor will assign default values to properties that have it defined,
@@ -166,24 +166,24 @@ SetReasonUser sets ReasonUser field to given value.
 
 HasReasonUser returns a boolean if a field has been set.
 
-### GetSubjects
+### GetSubject
 
-`func (o *CaepDeviceComplianceChangeEvent) GetSubjects() SecurityEventSubject`
+`func (o *CaepDeviceComplianceChangeEvent) GetSubject() SecurityEventSubject`
 
-GetSubjects returns the Subjects field if non-nil, zero value otherwise.
+GetSubject returns the Subject field if non-nil, zero value otherwise.
 
-### GetSubjectsOk
+### GetSubjectOk
 
-`func (o *CaepDeviceComplianceChangeEvent) GetSubjectsOk() (*SecurityEventSubject, bool)`
+`func (o *CaepDeviceComplianceChangeEvent) GetSubjectOk() (*SecurityEventSubject, bool)`
 
-GetSubjectsOk returns a tuple with the Subjects field if it's non-nil, zero value otherwise
+GetSubjectOk returns a tuple with the Subject field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetSubjects
+### SetSubject
 
-`func (o *CaepDeviceComplianceChangeEvent) SetSubjects(v SecurityEventSubject)`
+`func (o *CaepDeviceComplianceChangeEvent) SetSubject(v SecurityEventSubject)`
 
-SetSubjects sets Subjects field to given value.
+SetSubject sets Subject field to given value.
 
 
 

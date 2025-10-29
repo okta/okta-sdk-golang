@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AuthenticatorEnrollmentId** | Pointer to **string** | ID for a WebAuthn Preregistration Factor in Okta | [optional] 
-**FulfillmentProvider** | Pointer to **string** | Name of the fulfillment provider for the WebAuthn Preregistration Factor | [optional] 
+**AuthenticatorEnrollmentId** | Pointer to **string** | ID for a WebAuthn preregistration factor in Okta | [optional] 
+**FulfillmentProvider** | Pointer to **string** | Name of the fulfillment provider for the WebAuthn preregistration factor | [optional] 
 **UserId** | Pointer to **string** | ID of an existing Okta user | [optional] 
 
 ## Methods

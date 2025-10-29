@@ -4,41 +4,42 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AcsEndpoints** | Pointer to [**[]AcsEndpoint**](AcsEndpoint.md) |  | [optional] 
-**AllowMultipleAcsEndpoints** | Pointer to **bool** |  | [optional] 
-**AssertionSigned** | Pointer to **bool** |  | [optional] 
-**AttributeStatements** | Pointer to [**[]SamlAttributeStatement**](SamlAttributeStatement.md) |  | [optional] 
-**Audience** | Pointer to **string** |  | [optional] 
+**AcsEndpoints** | Pointer to [**[]AcsEndpoint**](AcsEndpoint.md) | An array of ACS endpoints. You can configure a maximum of 100 endpoints. | [optional] 
+**AllowMultipleAcsEndpoints** | **bool** | Determines whether the app allows you to configure multiple ACS URIs | 
+**AssertionEncryption** | Pointer to [**SamlAssertionEncryption**](SamlAssertionEncryption.md) |  | [optional] 
+**AssertionSigned** | **bool** | Determines whether the SAML assertion is digitally signed | 
+**AttributeStatements** | Pointer to [**[]SamlAttributeStatement**](SamlAttributeStatement.md) | A list of custom attribute statements for the app&#39;s SAML assertion. See [SAML 2.0 Technical Overview](https://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0-cd-02.html).  There are two types of attribute statements: | Type | Description | | ---- | ----------- | | EXPRESSION | Generic attribute statement that can be dynamic and supports [Okta Expression Language](https://developer.okta.com/docs/reference/okta-expression-language/) | | GROUP | Group attribute statement |  | [optional] 
+**Audience** | **string** | The entity ID of the SP. Use the entity ID value exactly as provided by the SP. | 
 **AudienceOverride** | Pointer to **string** | Audience override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm). | [optional] 
-**AuthnContextClassRef** | Pointer to **string** |  | [optional] 
-**ConfiguredAttributeStatements** | Pointer to [**[]SamlAttributeStatement**](SamlAttributeStatement.md) |  | [optional] 
+**AuthnContextClassRef** | **string** | Identifies the SAML authentication context class for the assertion&#39;s authentication statement | 
+**ConfiguredAttributeStatements** | Pointer to [**[]SamlAttributeStatement**](SamlAttributeStatement.md) | The list of dynamic attribute statements for the SAML assertion inherited from app metadata (apps from the OIN) during app creation.  There are two types of attribute statements: &#x60;EXPRESSION&#x60; and &#x60;GROUP&#x60;.  | [optional] 
 **DefaultRelayState** | Pointer to **string** | Identifies a specific application resource in an IdP-initiated SSO scenario | [optional] 
-**Destination** | Pointer to **string** |  | [optional] 
+**Destination** | **string** | Identifies the location inside the SAML assertion where the SAML response should be sent | 
 **DestinationOverride** | Pointer to **string** | Destination override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm). | [optional] 
-**DigestAlgorithm** | Pointer to **string** |  | [optional] 
-**HonorForceAuthn** | Pointer to **bool** | Set to &#x60;true&#x60; to prompt users for their credentials when a SAML request has the &#x60;ForceAuthn&#x60; attribute set to &#x60;true&#x60; | [optional] 
-**IdpIssuer** | Pointer to **string** |  | [optional] 
-**InlineHooks** | Pointer to [**[]SignOnInlineHook**](SignOnInlineHook.md) |  | [optional] 
+**DigestAlgorithm** | **string** | Determines the digest algorithm used to digitally sign the SAML assertion and response | 
+**HonorForceAuthn** | **bool** | Set to &#x60;true&#x60; to prompt users for their credentials when a SAML request has the &#x60;ForceAuthn&#x60; attribute set to &#x60;true&#x60; | 
+**IdpIssuer** | **string** | SAML Issuer ID | 
+**InlineHooks** | Pointer to [**[]SignOnInlineHook**](SignOnInlineHook.md) | Associates the app with SAML inline hooks. See [the SAML assertion inline hook reference](https://developer.okta.com/docs/reference/saml-hook/). | [optional] 
 **ParticipateSlo** | Pointer to [**SloParticipate**](SloParticipate.md) |  | [optional] 
-**Recipient** | Pointer to **string** |  | [optional] 
+**Recipient** | **string** | The location where the app may present the SAML assertion | 
 **RecipientOverride** | Pointer to **string** | Recipient override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm). | [optional] 
-**RequestCompressed** | Pointer to **bool** |  | [optional] 
-**ResponseSigned** | Pointer to **bool** |  | [optional] 
-**SamlAssertionLifetimeSeconds** | Pointer to **int32** | For SAML 2.0 only.&lt;br&gt;Determines the SAML app session lifetimes with Okta | [optional] 
-**SignatureAlgorithm** | Pointer to **string** |  | [optional] 
+**RequestCompressed** | **bool** | Determines whether the SAML request is expected to be compressed | 
+**ResponseSigned** | **bool** | Determines whether the SAML authentication response message is digitally signed by the IdP &gt; **Note:** Either (or both) &#x60;responseSigned&#x60; or &#x60;assertionSigned&#x60; must be &#x60;TRUE&#x60;. | 
+**SamlAssertionLifetimeSeconds** | Pointer to **int32** | Determines the SAML app session lifetimes with Okta | [optional] 
+**SignatureAlgorithm** | **string** | Determines the signing algorithm used to digitally sign the SAML assertion and response | 
 **Slo** | Pointer to [**SingleLogout**](SingleLogout.md) |  | [optional] 
-**SpCertificate** | Pointer to [**SpCertificate**](SpCertificate.md) |  | [optional] 
-**SpIssuer** | Pointer to **string** |  | [optional] 
-**SsoAcsUrl** | Pointer to **string** | Single Sign-On Assertion Consumer Service (ACS) URL | [optional] 
+**SpCertificate** | Pointer to [**SamlSpCertificate**](SamlSpCertificate.md) |  | [optional] 
+**SpIssuer** | Pointer to **string** | The issuer ID for the Service Provider. This property appears when SLO is enabled. | [optional] 
+**SsoAcsUrl** | **string** | Single Sign-On Assertion Consumer Service (ACS) URL | 
 **SsoAcsUrlOverride** | Pointer to **string** | Assertion Consumer Service (ACS) URL override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm). | [optional] 
-**SubjectNameIdFormat** | Pointer to **string** |  | [optional] 
-**SubjectNameIdTemplate** | Pointer to **string** |  | [optional] 
+**SubjectNameIdFormat** | **string** | Identifies the SAML processing rules. Supported values: | 
+**SubjectNameIdTemplate** | **string** | Template for app user&#39;s username when a user is assigned to the app | 
 
 ## Methods
 
 ### NewSamlApplicationSettingsSignOn
 
-`func NewSamlApplicationSettingsSignOn() *SamlApplicationSettingsSignOn`
+`func NewSamlApplicationSettingsSignOn(allowMultipleAcsEndpoints bool, assertionSigned bool, audience string, authnContextClassRef string, destination string, digestAlgorithm string, honorForceAuthn bool, idpIssuer string, recipient string, requestCompressed bool, responseSigned bool, signatureAlgorithm string, ssoAcsUrl string, subjectNameIdFormat string, subjectNameIdTemplate string, ) *SamlApplicationSettingsSignOn`
 
 NewSamlApplicationSettingsSignOn instantiates a new SamlApplicationSettingsSignOn object
 This constructor will assign default values to properties that have it defined,
@@ -97,11 +98,31 @@ and a boolean to check if the value has been set.
 
 SetAllowMultipleAcsEndpoints sets AllowMultipleAcsEndpoints field to given value.
 
-### HasAllowMultipleAcsEndpoints
 
-`func (o *SamlApplicationSettingsSignOn) HasAllowMultipleAcsEndpoints() bool`
+### GetAssertionEncryption
 
-HasAllowMultipleAcsEndpoints returns a boolean if a field has been set.
+`func (o *SamlApplicationSettingsSignOn) GetAssertionEncryption() SamlAssertionEncryption`
+
+GetAssertionEncryption returns the AssertionEncryption field if non-nil, zero value otherwise.
+
+### GetAssertionEncryptionOk
+
+`func (o *SamlApplicationSettingsSignOn) GetAssertionEncryptionOk() (*SamlAssertionEncryption, bool)`
+
+GetAssertionEncryptionOk returns a tuple with the AssertionEncryption field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAssertionEncryption
+
+`func (o *SamlApplicationSettingsSignOn) SetAssertionEncryption(v SamlAssertionEncryption)`
+
+SetAssertionEncryption sets AssertionEncryption field to given value.
+
+### HasAssertionEncryption
+
+`func (o *SamlApplicationSettingsSignOn) HasAssertionEncryption() bool`
+
+HasAssertionEncryption returns a boolean if a field has been set.
 
 ### GetAssertionSigned
 
@@ -122,11 +143,6 @@ and a boolean to check if the value has been set.
 
 SetAssertionSigned sets AssertionSigned field to given value.
 
-### HasAssertionSigned
-
-`func (o *SamlApplicationSettingsSignOn) HasAssertionSigned() bool`
-
-HasAssertionSigned returns a boolean if a field has been set.
 
 ### GetAttributeStatements
 
@@ -172,11 +188,6 @@ and a boolean to check if the value has been set.
 
 SetAudience sets Audience field to given value.
 
-### HasAudience
-
-`func (o *SamlApplicationSettingsSignOn) HasAudience() bool`
-
-HasAudience returns a boolean if a field has been set.
 
 ### GetAudienceOverride
 
@@ -222,11 +233,6 @@ and a boolean to check if the value has been set.
 
 SetAuthnContextClassRef sets AuthnContextClassRef field to given value.
 
-### HasAuthnContextClassRef
-
-`func (o *SamlApplicationSettingsSignOn) HasAuthnContextClassRef() bool`
-
-HasAuthnContextClassRef returns a boolean if a field has been set.
 
 ### GetConfiguredAttributeStatements
 
@@ -297,11 +303,6 @@ and a boolean to check if the value has been set.
 
 SetDestination sets Destination field to given value.
 
-### HasDestination
-
-`func (o *SamlApplicationSettingsSignOn) HasDestination() bool`
-
-HasDestination returns a boolean if a field has been set.
 
 ### GetDestinationOverride
 
@@ -347,11 +348,6 @@ and a boolean to check if the value has been set.
 
 SetDigestAlgorithm sets DigestAlgorithm field to given value.
 
-### HasDigestAlgorithm
-
-`func (o *SamlApplicationSettingsSignOn) HasDigestAlgorithm() bool`
-
-HasDigestAlgorithm returns a boolean if a field has been set.
 
 ### GetHonorForceAuthn
 
@@ -372,11 +368,6 @@ and a boolean to check if the value has been set.
 
 SetHonorForceAuthn sets HonorForceAuthn field to given value.
 
-### HasHonorForceAuthn
-
-`func (o *SamlApplicationSettingsSignOn) HasHonorForceAuthn() bool`
-
-HasHonorForceAuthn returns a boolean if a field has been set.
 
 ### GetIdpIssuer
 
@@ -397,11 +388,6 @@ and a boolean to check if the value has been set.
 
 SetIdpIssuer sets IdpIssuer field to given value.
 
-### HasIdpIssuer
-
-`func (o *SamlApplicationSettingsSignOn) HasIdpIssuer() bool`
-
-HasIdpIssuer returns a boolean if a field has been set.
 
 ### GetInlineHooks
 
@@ -472,11 +458,6 @@ and a boolean to check if the value has been set.
 
 SetRecipient sets Recipient field to given value.
 
-### HasRecipient
-
-`func (o *SamlApplicationSettingsSignOn) HasRecipient() bool`
-
-HasRecipient returns a boolean if a field has been set.
 
 ### GetRecipientOverride
 
@@ -522,11 +503,6 @@ and a boolean to check if the value has been set.
 
 SetRequestCompressed sets RequestCompressed field to given value.
 
-### HasRequestCompressed
-
-`func (o *SamlApplicationSettingsSignOn) HasRequestCompressed() bool`
-
-HasRequestCompressed returns a boolean if a field has been set.
 
 ### GetResponseSigned
 
@@ -547,11 +523,6 @@ and a boolean to check if the value has been set.
 
 SetResponseSigned sets ResponseSigned field to given value.
 
-### HasResponseSigned
-
-`func (o *SamlApplicationSettingsSignOn) HasResponseSigned() bool`
-
-HasResponseSigned returns a boolean if a field has been set.
 
 ### GetSamlAssertionLifetimeSeconds
 
@@ -597,11 +568,6 @@ and a boolean to check if the value has been set.
 
 SetSignatureAlgorithm sets SignatureAlgorithm field to given value.
 
-### HasSignatureAlgorithm
-
-`func (o *SamlApplicationSettingsSignOn) HasSignatureAlgorithm() bool`
-
-HasSignatureAlgorithm returns a boolean if a field has been set.
 
 ### GetSlo
 
@@ -630,20 +596,20 @@ HasSlo returns a boolean if a field has been set.
 
 ### GetSpCertificate
 
-`func (o *SamlApplicationSettingsSignOn) GetSpCertificate() SpCertificate`
+`func (o *SamlApplicationSettingsSignOn) GetSpCertificate() SamlSpCertificate`
 
 GetSpCertificate returns the SpCertificate field if non-nil, zero value otherwise.
 
 ### GetSpCertificateOk
 
-`func (o *SamlApplicationSettingsSignOn) GetSpCertificateOk() (*SpCertificate, bool)`
+`func (o *SamlApplicationSettingsSignOn) GetSpCertificateOk() (*SamlSpCertificate, bool)`
 
 GetSpCertificateOk returns a tuple with the SpCertificate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSpCertificate
 
-`func (o *SamlApplicationSettingsSignOn) SetSpCertificate(v SpCertificate)`
+`func (o *SamlApplicationSettingsSignOn) SetSpCertificate(v SamlSpCertificate)`
 
 SetSpCertificate sets SpCertificate field to given value.
 
@@ -697,11 +663,6 @@ and a boolean to check if the value has been set.
 
 SetSsoAcsUrl sets SsoAcsUrl field to given value.
 
-### HasSsoAcsUrl
-
-`func (o *SamlApplicationSettingsSignOn) HasSsoAcsUrl() bool`
-
-HasSsoAcsUrl returns a boolean if a field has been set.
 
 ### GetSsoAcsUrlOverride
 
@@ -747,11 +708,6 @@ and a boolean to check if the value has been set.
 
 SetSubjectNameIdFormat sets SubjectNameIdFormat field to given value.
 
-### HasSubjectNameIdFormat
-
-`func (o *SamlApplicationSettingsSignOn) HasSubjectNameIdFormat() bool`
-
-HasSubjectNameIdFormat returns a boolean if a field has been set.
 
 ### GetSubjectNameIdTemplate
 
@@ -772,11 +728,6 @@ and a boolean to check if the value has been set.
 
 SetSubjectNameIdTemplate sets SubjectNameIdTemplate field to given value.
 
-### HasSubjectNameIdTemplate
-
-`func (o *SamlApplicationSettingsSignOn) HasSubjectNameIdTemplate() bool`
-
-HasSubjectNameIdTemplate returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

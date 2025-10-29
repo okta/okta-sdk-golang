@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
-// GroupRuleGroupCondition struct for GroupRuleGroupCondition
+// checks if the GroupRuleGroupCondition type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GroupRuleGroupCondition{}
+
+// GroupRuleGroupCondition Currently not supported
 type GroupRuleGroupCondition struct {
-	Exclude []string `json:"exclude,omitempty"`
-	Include []string `json:"include,omitempty"`
+	// Currently not supported
+	Exclude              []string `json:"exclude,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewGroupRuleGroupConditionWithDefaults() *GroupRuleGroupCondition {
 
 // GetExclude returns the Exclude field value if set, zero value otherwise.
 func (o *GroupRuleGroupCondition) GetExclude() []string {
-	if o == nil || o.Exclude == nil {
+	if o == nil || IsNil(o.Exclude) {
 		var ret []string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *GroupRuleGroupCondition) GetExclude() []string {
 // GetExcludeOk returns a tuple with the Exclude field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupRuleGroupCondition) GetExcludeOk() ([]string, bool) {
-	if o == nil || o.Exclude == nil {
+	if o == nil || IsNil(o.Exclude) {
 		return nil, false
 	}
 	return o.Exclude, true
@@ -73,7 +76,7 @@ func (o *GroupRuleGroupCondition) GetExcludeOk() ([]string, bool) {
 
 // HasExclude returns a boolean if a field has been set.
 func (o *GroupRuleGroupCondition) HasExclude() bool {
-	if o != nil && o.Exclude != nil {
+	if o != nil && !IsNil(o.Exclude) {
 		return true
 	}
 
@@ -85,73 +88,43 @@ func (o *GroupRuleGroupCondition) SetExclude(v []string) {
 	o.Exclude = v
 }
 
-// GetInclude returns the Include field value if set, zero value otherwise.
-func (o *GroupRuleGroupCondition) GetInclude() []string {
-	if o == nil || o.Include == nil {
-		var ret []string
-		return ret
-	}
-	return o.Include
-}
-
-// GetIncludeOk returns a tuple with the Include field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GroupRuleGroupCondition) GetIncludeOk() ([]string, bool) {
-	if o == nil || o.Include == nil {
-		return nil, false
-	}
-	return o.Include, true
-}
-
-// HasInclude returns a boolean if a field has been set.
-func (o *GroupRuleGroupCondition) HasInclude() bool {
-	if o != nil && o.Include != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetInclude gets a reference to the given []string and assigns it to the Include field.
-func (o *GroupRuleGroupCondition) SetInclude(v []string) {
-	o.Include = v
-}
-
 func (o GroupRuleGroupCondition) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Exclude != nil {
-		toSerialize["exclude"] = o.Exclude
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Include != nil {
-		toSerialize["include"] = o.Include
+	return json.Marshal(toSerialize)
+}
+
+func (o GroupRuleGroupCondition) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Exclude) {
+		toSerialize["exclude"] = o.Exclude
 	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *GroupRuleGroupCondition) UnmarshalJSON(bytes []byte) (err error) {
+func (o *GroupRuleGroupCondition) UnmarshalJSON(data []byte) (err error) {
 	varGroupRuleGroupCondition := _GroupRuleGroupCondition{}
 
-	err = json.Unmarshal(bytes, &varGroupRuleGroupCondition)
-	if err == nil {
-		*o = GroupRuleGroupCondition(varGroupRuleGroupCondition)
-	} else {
+	err = json.Unmarshal(data, &varGroupRuleGroupCondition)
+
+	if err != nil {
 		return err
 	}
 
+	*o = GroupRuleGroupCondition(varGroupRuleGroupCondition)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "exclude")
-		delete(additionalProperties, "include")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +165,3 @@ func (v *NullableGroupRuleGroupCondition) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

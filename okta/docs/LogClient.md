@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Device** | Pointer to **string** |  | [optional] [readonly] 
+**Device** | Pointer to **string** | Type of device that the client operates from (for example, computer) | [optional] [readonly] 
 **GeographicalContext** | Pointer to [**LogGeographicalContext**](LogGeographicalContext.md) |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] [readonly] 
-**IpAddress** | Pointer to **string** |  | [optional] [readonly] 
+**Id** | Pointer to **string** | For OAuth requests, this is the ID of the OAuth [client](https://datatracker.ietf.org/doc/html/rfc6749#section-1.1) making the request. For SSWS token requests, this is the ID of the agent making the request. | [optional] [readonly] 
+**IpAddress** | Pointer to **string** | IP address that the client is making its request from | [optional] [readonly] 
 **UserAgent** | Pointer to [**LogUserAgent**](LogUserAgent.md) |  | [optional] 
-**Zone** | Pointer to **string** |  | [optional] [readonly] 
+**Zone** | Pointer to **string** | The &#x60;name&#x60; of the [Zone](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/NetworkZone/#tag/NetworkZone/operation/getNetworkZone) that the client&#39;s location is mapped to | [optional] [readonly] 
 
 ## Methods
 

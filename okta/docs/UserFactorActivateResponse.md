@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**FactorType** | Pointer to **string** | Type of the Factor | [optional] 
+**FactorType** | Pointer to **string** | Type of the factor | [optional] 
 **Links** | Pointer to [**UserFactorActivateResponseLinks**](UserFactorActivateResponseLinks.md) |  | [optional] 
 
 ## Methods

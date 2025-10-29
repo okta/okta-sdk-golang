@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,20 +27,23 @@ import (
 	"encoding/json"
 )
 
-// AccessPolicyConstraint struct for AccessPolicyConstraint
+// checks if the AccessPolicyConstraint type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AccessPolicyConstraint{}
+
+// AccessPolicyConstraint Consists of a `POSSESSION` constraint, a `KNOWLEDGE` constraint, or both. You can't configure an `INHERENCE` constraint, but an inherence factor can satisfy the second part of a 2FA assurance if no other constraints are specified. Constraints are logically evaluated such that only one `constraint` object needs to be satisfied, but within a `constraint` object, each `constraint` property must be satisfied.
 type AccessPolicyConstraint struct {
 	// This property specifies the precise authenticator and method for authentication. <x-lifecycle class=\"oie\"></x-lifecycle>
 	AuthenticationMethods []AuthenticationMethodObject `json:"authenticationMethods,omitempty"`
 	// This property specifies the precise authenticator and method to exclude from authentication. <x-lifecycle class=\"oie\"></x-lifecycle>
 	ExcludedAuthenticationMethods []AuthenticationMethodObject `json:"excludedAuthenticationMethods,omitempty"`
-	// The Authenticator methods that are permitted
+	// The authenticator methods that are permitted
 	Methods []string `json:"methods,omitempty"`
 	// The duration after which the user must re-authenticate regardless of user activity. This re-authentication interval overrides the Verification Method object's `reauthenticateIn` interval. The supported values use ISO 8601 period format for recurring time intervals (for example, `PT1H`).
 	ReauthenticateIn *string `json:"reauthenticateIn,omitempty"`
 	// This property indicates whether the knowledge or possession factor is required by the assurance. It's optional in the request, but is always returned in the response. By default, this field is `true`. If the knowledge or possession constraint has values for `excludedAuthenticationMethods` the `required` value is false. <x-lifecycle class=\"oie\"></x-lifecycle>
 	Required *bool `json:"required,omitempty"`
-	// The Authenticator types that are permitted
-	Types []string `json:"types,omitempty"`
+	// The authenticator types that are permitted
+	Types                []string `json:"types,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -65,7 +68,7 @@ func NewAccessPolicyConstraintWithDefaults() *AccessPolicyConstraint {
 
 // GetAuthenticationMethods returns the AuthenticationMethods field value if set, zero value otherwise.
 func (o *AccessPolicyConstraint) GetAuthenticationMethods() []AuthenticationMethodObject {
-	if o == nil || o.AuthenticationMethods == nil {
+	if o == nil || IsNil(o.AuthenticationMethods) {
 		var ret []AuthenticationMethodObject
 		return ret
 	}
@@ -75,7 +78,7 @@ func (o *AccessPolicyConstraint) GetAuthenticationMethods() []AuthenticationMeth
 // GetAuthenticationMethodsOk returns a tuple with the AuthenticationMethods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccessPolicyConstraint) GetAuthenticationMethodsOk() ([]AuthenticationMethodObject, bool) {
-	if o == nil || o.AuthenticationMethods == nil {
+	if o == nil || IsNil(o.AuthenticationMethods) {
 		return nil, false
 	}
 	return o.AuthenticationMethods, true
@@ -83,7 +86,7 @@ func (o *AccessPolicyConstraint) GetAuthenticationMethodsOk() ([]AuthenticationM
 
 // HasAuthenticationMethods returns a boolean if a field has been set.
 func (o *AccessPolicyConstraint) HasAuthenticationMethods() bool {
-	if o != nil && o.AuthenticationMethods != nil {
+	if o != nil && !IsNil(o.AuthenticationMethods) {
 		return true
 	}
 
@@ -97,7 +100,7 @@ func (o *AccessPolicyConstraint) SetAuthenticationMethods(v []AuthenticationMeth
 
 // GetExcludedAuthenticationMethods returns the ExcludedAuthenticationMethods field value if set, zero value otherwise.
 func (o *AccessPolicyConstraint) GetExcludedAuthenticationMethods() []AuthenticationMethodObject {
-	if o == nil || o.ExcludedAuthenticationMethods == nil {
+	if o == nil || IsNil(o.ExcludedAuthenticationMethods) {
 		var ret []AuthenticationMethodObject
 		return ret
 	}
@@ -107,7 +110,7 @@ func (o *AccessPolicyConstraint) GetExcludedAuthenticationMethods() []Authentica
 // GetExcludedAuthenticationMethodsOk returns a tuple with the ExcludedAuthenticationMethods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccessPolicyConstraint) GetExcludedAuthenticationMethodsOk() ([]AuthenticationMethodObject, bool) {
-	if o == nil || o.ExcludedAuthenticationMethods == nil {
+	if o == nil || IsNil(o.ExcludedAuthenticationMethods) {
 		return nil, false
 	}
 	return o.ExcludedAuthenticationMethods, true
@@ -115,7 +118,7 @@ func (o *AccessPolicyConstraint) GetExcludedAuthenticationMethodsOk() ([]Authent
 
 // HasExcludedAuthenticationMethods returns a boolean if a field has been set.
 func (o *AccessPolicyConstraint) HasExcludedAuthenticationMethods() bool {
-	if o != nil && o.ExcludedAuthenticationMethods != nil {
+	if o != nil && !IsNil(o.ExcludedAuthenticationMethods) {
 		return true
 	}
 
@@ -129,7 +132,7 @@ func (o *AccessPolicyConstraint) SetExcludedAuthenticationMethods(v []Authentica
 
 // GetMethods returns the Methods field value if set, zero value otherwise.
 func (o *AccessPolicyConstraint) GetMethods() []string {
-	if o == nil || o.Methods == nil {
+	if o == nil || IsNil(o.Methods) {
 		var ret []string
 		return ret
 	}
@@ -139,7 +142,7 @@ func (o *AccessPolicyConstraint) GetMethods() []string {
 // GetMethodsOk returns a tuple with the Methods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccessPolicyConstraint) GetMethodsOk() ([]string, bool) {
-	if o == nil || o.Methods == nil {
+	if o == nil || IsNil(o.Methods) {
 		return nil, false
 	}
 	return o.Methods, true
@@ -147,7 +150,7 @@ func (o *AccessPolicyConstraint) GetMethodsOk() ([]string, bool) {
 
 // HasMethods returns a boolean if a field has been set.
 func (o *AccessPolicyConstraint) HasMethods() bool {
-	if o != nil && o.Methods != nil {
+	if o != nil && !IsNil(o.Methods) {
 		return true
 	}
 
@@ -161,7 +164,7 @@ func (o *AccessPolicyConstraint) SetMethods(v []string) {
 
 // GetReauthenticateIn returns the ReauthenticateIn field value if set, zero value otherwise.
 func (o *AccessPolicyConstraint) GetReauthenticateIn() string {
-	if o == nil || o.ReauthenticateIn == nil {
+	if o == nil || IsNil(o.ReauthenticateIn) {
 		var ret string
 		return ret
 	}
@@ -171,7 +174,7 @@ func (o *AccessPolicyConstraint) GetReauthenticateIn() string {
 // GetReauthenticateInOk returns a tuple with the ReauthenticateIn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccessPolicyConstraint) GetReauthenticateInOk() (*string, bool) {
-	if o == nil || o.ReauthenticateIn == nil {
+	if o == nil || IsNil(o.ReauthenticateIn) {
 		return nil, false
 	}
 	return o.ReauthenticateIn, true
@@ -179,7 +182,7 @@ func (o *AccessPolicyConstraint) GetReauthenticateInOk() (*string, bool) {
 
 // HasReauthenticateIn returns a boolean if a field has been set.
 func (o *AccessPolicyConstraint) HasReauthenticateIn() bool {
-	if o != nil && o.ReauthenticateIn != nil {
+	if o != nil && !IsNil(o.ReauthenticateIn) {
 		return true
 	}
 
@@ -193,7 +196,7 @@ func (o *AccessPolicyConstraint) SetReauthenticateIn(v string) {
 
 // GetRequired returns the Required field value if set, zero value otherwise.
 func (o *AccessPolicyConstraint) GetRequired() bool {
-	if o == nil || o.Required == nil {
+	if o == nil || IsNil(o.Required) {
 		var ret bool
 		return ret
 	}
@@ -203,7 +206,7 @@ func (o *AccessPolicyConstraint) GetRequired() bool {
 // GetRequiredOk returns a tuple with the Required field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccessPolicyConstraint) GetRequiredOk() (*bool, bool) {
-	if o == nil || o.Required == nil {
+	if o == nil || IsNil(o.Required) {
 		return nil, false
 	}
 	return o.Required, true
@@ -211,7 +214,7 @@ func (o *AccessPolicyConstraint) GetRequiredOk() (*bool, bool) {
 
 // HasRequired returns a boolean if a field has been set.
 func (o *AccessPolicyConstraint) HasRequired() bool {
-	if o != nil && o.Required != nil {
+	if o != nil && !IsNil(o.Required) {
 		return true
 	}
 
@@ -225,7 +228,7 @@ func (o *AccessPolicyConstraint) SetRequired(v bool) {
 
 // GetTypes returns the Types field value if set, zero value otherwise.
 func (o *AccessPolicyConstraint) GetTypes() []string {
-	if o == nil || o.Types == nil {
+	if o == nil || IsNil(o.Types) {
 		var ret []string
 		return ret
 	}
@@ -235,7 +238,7 @@ func (o *AccessPolicyConstraint) GetTypes() []string {
 // GetTypesOk returns a tuple with the Types field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccessPolicyConstraint) GetTypesOk() ([]string, bool) {
-	if o == nil || o.Types == nil {
+	if o == nil || IsNil(o.Types) {
 		return nil, false
 	}
 	return o.Types, true
@@ -243,7 +246,7 @@ func (o *AccessPolicyConstraint) GetTypesOk() ([]string, bool) {
 
 // HasTypes returns a boolean if a field has been set.
 func (o *AccessPolicyConstraint) HasTypes() bool {
-	if o != nil && o.Types != nil {
+	if o != nil && !IsNil(o.Types) {
 		return true
 	}
 
@@ -256,23 +259,31 @@ func (o *AccessPolicyConstraint) SetTypes(v []string) {
 }
 
 func (o AccessPolicyConstraint) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AccessPolicyConstraint) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AuthenticationMethods != nil {
+	if !IsNil(o.AuthenticationMethods) {
 		toSerialize["authenticationMethods"] = o.AuthenticationMethods
 	}
-	if o.ExcludedAuthenticationMethods != nil {
+	if !IsNil(o.ExcludedAuthenticationMethods) {
 		toSerialize["excludedAuthenticationMethods"] = o.ExcludedAuthenticationMethods
 	}
-	if o.Methods != nil {
+	if !IsNil(o.Methods) {
 		toSerialize["methods"] = o.Methods
 	}
-	if o.ReauthenticateIn != nil {
+	if !IsNil(o.ReauthenticateIn) {
 		toSerialize["reauthenticateIn"] = o.ReauthenticateIn
 	}
-	if o.Required != nil {
+	if !IsNil(o.Required) {
 		toSerialize["required"] = o.Required
 	}
-	if o.Types != nil {
+	if !IsNil(o.Types) {
 		toSerialize["types"] = o.Types
 	}
 
@@ -280,23 +291,23 @@ func (o AccessPolicyConstraint) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AccessPolicyConstraint) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AccessPolicyConstraint) UnmarshalJSON(data []byte) (err error) {
 	varAccessPolicyConstraint := _AccessPolicyConstraint{}
 
-	err = json.Unmarshal(bytes, &varAccessPolicyConstraint)
-	if err == nil {
-		*o = AccessPolicyConstraint(varAccessPolicyConstraint)
-	} else {
+	err = json.Unmarshal(data, &varAccessPolicyConstraint)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AccessPolicyConstraint(varAccessPolicyConstraint)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "authenticationMethods")
 		delete(additionalProperties, "excludedAuthenticationMethods")
 		delete(additionalProperties, "methods")
@@ -304,8 +315,6 @@ func (o *AccessPolicyConstraint) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "required")
 		delete(additionalProperties, "types")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -346,4 +355,3 @@ func (v *NullableAccessPolicyConstraint) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

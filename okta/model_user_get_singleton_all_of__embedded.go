@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserGetSingletonAllOfEmbedded type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserGetSingletonAllOfEmbedded{}
+
 // UserGetSingletonAllOfEmbedded The embedded resources related to the object if the `expand` query parameter is specified
 type UserGetSingletonAllOfEmbedded struct {
 	// A list of access block details for the user account
-	Blocks []UserBlock `json:"blocks,omitempty"`
+	Blocks               []UserBlock `json:"blocks,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewUserGetSingletonAllOfEmbeddedWithDefaults() *UserGetSingletonAllOfEmbedd
 
 // GetBlocks returns the Blocks field value if set, zero value otherwise.
 func (o *UserGetSingletonAllOfEmbedded) GetBlocks() []UserBlock {
-	if o == nil || o.Blocks == nil {
+	if o == nil || IsNil(o.Blocks) {
 		var ret []UserBlock
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *UserGetSingletonAllOfEmbedded) GetBlocks() []UserBlock {
 // GetBlocksOk returns a tuple with the Blocks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserGetSingletonAllOfEmbedded) GetBlocksOk() ([]UserBlock, bool) {
-	if o == nil || o.Blocks == nil {
+	if o == nil || IsNil(o.Blocks) {
 		return nil, false
 	}
 	return o.Blocks, true
@@ -73,7 +76,7 @@ func (o *UserGetSingletonAllOfEmbedded) GetBlocksOk() ([]UserBlock, bool) {
 
 // HasBlocks returns a boolean if a field has been set.
 func (o *UserGetSingletonAllOfEmbedded) HasBlocks() bool {
-	if o != nil && o.Blocks != nil {
+	if o != nil && !IsNil(o.Blocks) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *UserGetSingletonAllOfEmbedded) SetBlocks(v []UserBlock) {
 }
 
 func (o UserGetSingletonAllOfEmbedded) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserGetSingletonAllOfEmbedded) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Blocks != nil {
+	if !IsNil(o.Blocks) {
 		toSerialize["blocks"] = o.Blocks
 	}
 
@@ -95,27 +106,25 @@ func (o UserGetSingletonAllOfEmbedded) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserGetSingletonAllOfEmbedded) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserGetSingletonAllOfEmbedded) UnmarshalJSON(data []byte) (err error) {
 	varUserGetSingletonAllOfEmbedded := _UserGetSingletonAllOfEmbedded{}
 
-	err = json.Unmarshal(bytes, &varUserGetSingletonAllOfEmbedded)
-	if err == nil {
-		*o = UserGetSingletonAllOfEmbedded(varUserGetSingletonAllOfEmbedded)
-	} else {
+	err = json.Unmarshal(data, &varUserGetSingletonAllOfEmbedded)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserGetSingletonAllOfEmbedded(varUserGetSingletonAllOfEmbedded)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "blocks")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableUserGetSingletonAllOfEmbedded) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

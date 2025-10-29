@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -25,12 +25,16 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ZoomUsApplicationSettingsApplication type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ZoomUsApplicationSettingsApplication{}
 
 // ZoomUsApplicationSettingsApplication Zoom app instance properties
 type ZoomUsApplicationSettingsApplication struct {
 	// Your Zoom subdomain
-	SubDomain string `json:"subDomain"`
+	SubDomain            string `json:"subDomain"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -79,36 +83,61 @@ func (o *ZoomUsApplicationSettingsApplication) SetSubDomain(v string) {
 }
 
 func (o ZoomUsApplicationSettingsApplication) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["subDomain"] = o.SubDomain
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ZoomUsApplicationSettingsApplication) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["subDomain"] = o.SubDomain
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ZoomUsApplicationSettingsApplication) UnmarshalJSON(bytes []byte) (err error) {
-	varZoomUsApplicationSettingsApplication := _ZoomUsApplicationSettingsApplication{}
+func (o *ZoomUsApplicationSettingsApplication) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"subDomain",
+	}
 
-	err = json.Unmarshal(bytes, &varZoomUsApplicationSettingsApplication)
-	if err == nil {
-		*o = ZoomUsApplicationSettingsApplication(varZoomUsApplicationSettingsApplication)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varZoomUsApplicationSettingsApplication := _ZoomUsApplicationSettingsApplication{}
+
+	err = json.Unmarshal(data, &varZoomUsApplicationSettingsApplication)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ZoomUsApplicationSettingsApplication(varZoomUsApplicationSettingsApplication)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "subDomain")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -149,4 +178,3 @@ func (v *NullableZoomUsApplicationSettingsApplication) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

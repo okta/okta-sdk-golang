@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,14 +27,17 @@ import (
 	"encoding/json"
 )
 
-// ProfileMapping The Profile Mapping object describes a mapping between an Okta User's and an App User's properties using [JSON Schema Draft 4](https://datatracker.ietf.org/doc/html/draft-zyp-json-schema-04).  > **Note:** Same type source/target mappings aren't supported by this API. Profile mappings must either be Okta->App or App->Okta.
+// checks if the ProfileMapping type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ProfileMapping{}
+
+// ProfileMapping The profile mapping object describes a mapping between an Okta user's and an app user's properties using [JSON Schema Draft 4](https://datatracker.ietf.org/doc/html/draft-zyp-json-schema-04).  > **Note:** Same type source/target mappings aren't supported by this API. Profile mappings must be between Okta and an app.
 type ProfileMapping struct {
 	// Unique identifier for a profile mapping
-	Id *string `json:"id,omitempty"`
-	Properties *map[string]ProfileMappingProperty `json:"properties,omitempty"`
-	Source *ProfileMappingSource `json:"source,omitempty"`
-	Target *ProfileMappingTarget `json:"target,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	Id                   *string                `json:"id,omitempty"`
+	Properties           ProfileMappingProperty `json:"properties,omitempty"`
+	Source               *ProfileMappingSource  `json:"source,omitempty"`
+	Target               *ProfileMappingTarget  `json:"target,omitempty"`
+	Links                *LinksSelf             `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewProfileMappingWithDefaults() *ProfileMapping {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *ProfileMapping) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *ProfileMapping) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProfileMapping) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -77,7 +80,7 @@ func (o *ProfileMapping) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *ProfileMapping) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -90,40 +93,40 @@ func (o *ProfileMapping) SetId(v string) {
 }
 
 // GetProperties returns the Properties field value if set, zero value otherwise.
-func (o *ProfileMapping) GetProperties() map[string]ProfileMappingProperty {
-	if o == nil || o.Properties == nil {
-		var ret map[string]ProfileMappingProperty
+func (o *ProfileMapping) GetProperties() ProfileMappingProperty {
+	if o == nil || IsNil(o.Properties) {
+		var ret ProfileMappingProperty
 		return ret
 	}
-	return *o.Properties
+	return o.Properties
 }
 
 // GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProfileMapping) GetPropertiesOk() (*map[string]ProfileMappingProperty, bool) {
-	if o == nil || o.Properties == nil {
-		return nil, false
+func (o *ProfileMapping) GetPropertiesOk() (ProfileMappingProperty, bool) {
+	if o == nil || IsNil(o.Properties) {
+		return ProfileMappingProperty{}, false
 	}
 	return o.Properties, true
 }
 
 // HasProperties returns a boolean if a field has been set.
 func (o *ProfileMapping) HasProperties() bool {
-	if o != nil && o.Properties != nil {
+	if o != nil && !IsNil(o.Properties) {
 		return true
 	}
 
 	return false
 }
 
-// SetProperties gets a reference to the given map[string]ProfileMappingProperty and assigns it to the Properties field.
-func (o *ProfileMapping) SetProperties(v map[string]ProfileMappingProperty) {
-	o.Properties = &v
+// SetProperties gets a reference to the given ProfileMappingProperty and assigns it to the Properties field.
+func (o *ProfileMapping) SetProperties(v ProfileMappingProperty) {
+	o.Properties = v
 }
 
 // GetSource returns the Source field value if set, zero value otherwise.
 func (o *ProfileMapping) GetSource() ProfileMappingSource {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		var ret ProfileMappingSource
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *ProfileMapping) GetSource() ProfileMappingSource {
 // GetSourceOk returns a tuple with the Source field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProfileMapping) GetSourceOk() (*ProfileMappingSource, bool) {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		return nil, false
 	}
 	return o.Source, true
@@ -141,7 +144,7 @@ func (o *ProfileMapping) GetSourceOk() (*ProfileMappingSource, bool) {
 
 // HasSource returns a boolean if a field has been set.
 func (o *ProfileMapping) HasSource() bool {
-	if o != nil && o.Source != nil {
+	if o != nil && !IsNil(o.Source) {
 		return true
 	}
 
@@ -155,7 +158,7 @@ func (o *ProfileMapping) SetSource(v ProfileMappingSource) {
 
 // GetTarget returns the Target field value if set, zero value otherwise.
 func (o *ProfileMapping) GetTarget() ProfileMappingTarget {
-	if o == nil || o.Target == nil {
+	if o == nil || IsNil(o.Target) {
 		var ret ProfileMappingTarget
 		return ret
 	}
@@ -165,7 +168,7 @@ func (o *ProfileMapping) GetTarget() ProfileMappingTarget {
 // GetTargetOk returns a tuple with the Target field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProfileMapping) GetTargetOk() (*ProfileMappingTarget, bool) {
-	if o == nil || o.Target == nil {
+	if o == nil || IsNil(o.Target) {
 		return nil, false
 	}
 	return o.Target, true
@@ -173,7 +176,7 @@ func (o *ProfileMapping) GetTargetOk() (*ProfileMappingTarget, bool) {
 
 // HasTarget returns a boolean if a field has been set.
 func (o *ProfileMapping) HasTarget() bool {
-	if o != nil && o.Target != nil {
+	if o != nil && !IsNil(o.Target) {
 		return true
 	}
 
@@ -187,7 +190,7 @@ func (o *ProfileMapping) SetTarget(v ProfileMappingTarget) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *ProfileMapping) GetLinks() LinksSelf {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksSelf
 		return ret
 	}
@@ -197,7 +200,7 @@ func (o *ProfileMapping) GetLinks() LinksSelf {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProfileMapping) GetLinksOk() (*LinksSelf, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -205,7 +208,7 @@ func (o *ProfileMapping) GetLinksOk() (*LinksSelf, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *ProfileMapping) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -218,20 +221,28 @@ func (o *ProfileMapping) SetLinks(v LinksSelf) {
 }
 
 func (o ProfileMapping) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ProfileMapping) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Properties != nil {
+	if !IsNil(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
-	if o.Source != nil {
+	if !IsNil(o.Source) {
 		toSerialize["source"] = o.Source
 	}
-	if o.Target != nil {
+	if !IsNil(o.Target) {
 		toSerialize["target"] = o.Target
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -239,31 +250,29 @@ func (o ProfileMapping) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ProfileMapping) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ProfileMapping) UnmarshalJSON(data []byte) (err error) {
 	varProfileMapping := _ProfileMapping{}
 
-	err = json.Unmarshal(bytes, &varProfileMapping)
-	if err == nil {
-		*o = ProfileMapping(varProfileMapping)
-	} else {
+	err = json.Unmarshal(data, &varProfileMapping)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ProfileMapping(varProfileMapping)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "properties")
 		delete(additionalProperties, "source")
 		delete(additionalProperties, "target")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -304,4 +313,3 @@ func (v *NullableProfileMapping) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

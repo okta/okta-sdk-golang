@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Actions** | Pointer to [**Actions**](Actions.md) |  | [optional] 
 **Conditions** | Pointer to [**Conditions**](Conditions.md) |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
-**Priority** | Pointer to **int32** |  | [optional] 
+**Priority** | Pointer to **int32** | The priority of the realm assignment. The lower the number, the higher the priority. This helps resolve conflicts between realm assignments. &gt; **Note:** When you create realm assignments in bulk, realm assignment priorities must be unique. | [optional] 
 
 ## Methods
 

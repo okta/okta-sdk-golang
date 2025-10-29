@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the IdpPolicyRuleActionMatchCriteria type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IdpPolicyRuleActionMatchCriteria{}
+
 // IdpPolicyRuleActionMatchCriteria struct for IdpPolicyRuleActionMatchCriteria
 type IdpPolicyRuleActionMatchCriteria struct {
 	// The IdP property that the evaluated string should match to
 	PropertyName *string `json:"propertyName,omitempty"`
-	// You can provide an Okta Expression Language expression with the Login Context that's evaluated with the IdP. For example, the value `login.identifier` refers to the user's username. If the user is signing in with the username `john.doe@mycompany.com`, the expression `login.identifier.substringAfter(@))` is evaluated to the domain name of the user, for example: `mycompany.com`. 
-	ProviderExpression *string `json:"providerExpression,omitempty"`
+	// You can provide an Okta Expression Language expression with the Login Context that's evaluated with the IdP. For example, the value `login.identifier` refers to the user's username. If the user is signing in with the username `john.doe@mycompany.com`, the expression `login.identifier.substringAfter(@))` is evaluated to the domain name of the user, for example: `mycompany.com`.
+	ProviderExpression   *string `json:"providerExpression,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewIdpPolicyRuleActionMatchCriteriaWithDefaults() *IdpPolicyRuleActionMatch
 
 // GetPropertyName returns the PropertyName field value if set, zero value otherwise.
 func (o *IdpPolicyRuleActionMatchCriteria) GetPropertyName() string {
-	if o == nil || o.PropertyName == nil {
+	if o == nil || IsNil(o.PropertyName) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *IdpPolicyRuleActionMatchCriteria) GetPropertyName() string {
 // GetPropertyNameOk returns a tuple with the PropertyName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdpPolicyRuleActionMatchCriteria) GetPropertyNameOk() (*string, bool) {
-	if o == nil || o.PropertyName == nil {
+	if o == nil || IsNil(o.PropertyName) {
 		return nil, false
 	}
 	return o.PropertyName, true
@@ -75,7 +78,7 @@ func (o *IdpPolicyRuleActionMatchCriteria) GetPropertyNameOk() (*string, bool) {
 
 // HasPropertyName returns a boolean if a field has been set.
 func (o *IdpPolicyRuleActionMatchCriteria) HasPropertyName() bool {
-	if o != nil && o.PropertyName != nil {
+	if o != nil && !IsNil(o.PropertyName) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *IdpPolicyRuleActionMatchCriteria) SetPropertyName(v string) {
 
 // GetProviderExpression returns the ProviderExpression field value if set, zero value otherwise.
 func (o *IdpPolicyRuleActionMatchCriteria) GetProviderExpression() string {
-	if o == nil || o.ProviderExpression == nil {
+	if o == nil || IsNil(o.ProviderExpression) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *IdpPolicyRuleActionMatchCriteria) GetProviderExpression() string {
 // GetProviderExpressionOk returns a tuple with the ProviderExpression field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdpPolicyRuleActionMatchCriteria) GetProviderExpressionOk() (*string, bool) {
-	if o == nil || o.ProviderExpression == nil {
+	if o == nil || IsNil(o.ProviderExpression) {
 		return nil, false
 	}
 	return o.ProviderExpression, true
@@ -107,7 +110,7 @@ func (o *IdpPolicyRuleActionMatchCriteria) GetProviderExpressionOk() (*string, b
 
 // HasProviderExpression returns a boolean if a field has been set.
 func (o *IdpPolicyRuleActionMatchCriteria) HasProviderExpression() bool {
-	if o != nil && o.ProviderExpression != nil {
+	if o != nil && !IsNil(o.ProviderExpression) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *IdpPolicyRuleActionMatchCriteria) SetProviderExpression(v string) {
 }
 
 func (o IdpPolicyRuleActionMatchCriteria) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IdpPolicyRuleActionMatchCriteria) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.PropertyName != nil {
+	if !IsNil(o.PropertyName) {
 		toSerialize["propertyName"] = o.PropertyName
 	}
-	if o.ProviderExpression != nil {
+	if !IsNil(o.ProviderExpression) {
 		toSerialize["providerExpression"] = o.ProviderExpression
 	}
 
@@ -132,28 +143,26 @@ func (o IdpPolicyRuleActionMatchCriteria) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *IdpPolicyRuleActionMatchCriteria) UnmarshalJSON(bytes []byte) (err error) {
+func (o *IdpPolicyRuleActionMatchCriteria) UnmarshalJSON(data []byte) (err error) {
 	varIdpPolicyRuleActionMatchCriteria := _IdpPolicyRuleActionMatchCriteria{}
 
-	err = json.Unmarshal(bytes, &varIdpPolicyRuleActionMatchCriteria)
-	if err == nil {
-		*o = IdpPolicyRuleActionMatchCriteria(varIdpPolicyRuleActionMatchCriteria)
-	} else {
+	err = json.Unmarshal(data, &varIdpPolicyRuleActionMatchCriteria)
+
+	if err != nil {
 		return err
 	}
 
+	*o = IdpPolicyRuleActionMatchCriteria(varIdpPolicyRuleActionMatchCriteria)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "propertyName")
 		delete(additionalProperties, "providerExpression")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableIdpPolicyRuleActionMatchCriteria) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

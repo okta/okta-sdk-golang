@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ResourceSet** | Pointer to **string** | Resource Set ID | [optional] 
-**Role** | Pointer to **string** | Custom Role ID | [optional] 
-**Type** | Pointer to **string** | Standard role type | [optional] 
+**ResourceSet** | Pointer to **string** | Resource set ID | [optional] 
+**Role** | Pointer to **string** | Custom role ID | [optional] 
+**Type** | Pointer to **string** | The type of role. Specify &#x60;CUSTOM&#x60; for a custom role. | [optional] 
 
 ## Methods
 

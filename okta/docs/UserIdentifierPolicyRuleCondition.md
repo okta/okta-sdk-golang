@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Attribute** | Pointer to **string** |  | [optional] 
-**Patterns** | Pointer to [**[]UserIdentifierConditionEvaluatorPattern**](UserIdentifierConditionEvaluatorPattern.md) |  | [optional] 
-**Type** | Pointer to **string** |  | [optional] 
+**Attribute** | Pointer to **string** | The name of the profile attribute to match against. Only used when type is &#x60;ATTRIBUTE&#x60;. | [optional] 
+**Patterns** | [**[]UserIdentifierConditionEvaluatorPattern**](UserIdentifierConditionEvaluatorPattern.md) |  | 
+**Type** | **string** | What to match against, either user ID or an attribute in the user&#39;s Okta profile. | 
 
 ## Methods
 
 ### NewUserIdentifierPolicyRuleCondition
 
-`func NewUserIdentifierPolicyRuleCondition() *UserIdentifierPolicyRuleCondition`
+`func NewUserIdentifierPolicyRuleCondition(patterns []UserIdentifierConditionEvaluatorPattern, type_ string, ) *UserIdentifierPolicyRuleCondition`
 
 NewUserIdentifierPolicyRuleCondition instantiates a new UserIdentifierPolicyRuleCondition object
 This constructor will assign default values to properties that have it defined,
@@ -71,11 +71,6 @@ and a boolean to check if the value has been set.
 
 SetPatterns sets Patterns field to given value.
 
-### HasPatterns
-
-`func (o *UserIdentifierPolicyRuleCondition) HasPatterns() bool`
-
-HasPatterns returns a boolean if a field has been set.
 
 ### GetType
 
@@ -96,11 +91,6 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
-### HasType
-
-`func (o *UserIdentifierPolicyRuleCondition) HasType() bool`
-
-HasType returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Conditions** | Pointer to **map[string]interface{}** | Conditions for further restricting a permission | [optional] 
+**Conditions** | Pointer to [**NullablePermissionConditions**](PermissionConditions.md) |  | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetConditions
 
-`func (o *CreateUpdateIamRolePermissionRequest) GetConditions() map[string]interface{}`
+`func (o *CreateUpdateIamRolePermissionRequest) GetConditions() PermissionConditions`
 
 GetConditions returns the Conditions field if non-nil, zero value otherwise.
 
 ### GetConditionsOk
 
-`func (o *CreateUpdateIamRolePermissionRequest) GetConditionsOk() (*map[string]interface{}, bool)`
+`func (o *CreateUpdateIamRolePermissionRequest) GetConditionsOk() (*PermissionConditions, bool)`
 
 GetConditionsOk returns a tuple with the Conditions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConditions
 
-`func (o *CreateUpdateIamRolePermissionRequest) SetConditions(v map[string]interface{})`
+`func (o *CreateUpdateIamRolePermissionRequest) SetConditions(v PermissionConditions)`
 
 SetConditions sets Conditions field to given value.
 

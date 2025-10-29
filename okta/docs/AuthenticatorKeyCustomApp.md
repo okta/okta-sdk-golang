@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AgreeToTerms** | Pointer to **bool** | A value of &#x60;true&#x60; indicates that the administrator accepts the [terms](https://www.okta.com/privacy-policy/)for creating a new authenticator. Okta requires that you accept the terms when creating a new &#x60;custom_app&#x60; authenticator. Other authenticators don&#39;t require this field. | [optional] 
+**AgreeToTerms** | Pointer to **bool** | A value of &#x60;true&#x60; indicates that the administrator accepts the [terms](https://www.okta.com/privacy-policy/) for creating a new authenticator. Okta requires that you accept the terms when creating a new &#x60;custom_app&#x60; authenticator. Other authenticators don&#39;t require this field. | [optional] 
 **Provider** | Pointer to [**AuthenticatorKeyCustomAppAllOfProvider**](AuthenticatorKeyCustomAppAllOfProvider.md) |  | [optional] 
 **Settings** | Pointer to [**AuthenticatorKeyCustomAppAllOfSettings**](AuthenticatorKeyCustomAppAllOfSettings.md) |  | [optional] 
 

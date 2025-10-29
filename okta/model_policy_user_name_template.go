@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
-// PolicyUserNameTemplate struct for PolicyUserNameTemplate
+// checks if the PolicyUserNameTemplate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PolicyUserNameTemplate{}
+
+// PolicyUserNameTemplate [Okta Expression Language (EL) expression](https://developer.okta.com/docs/reference/okta-expression-language/) to generate or transform a unique username for the IdP user. * IdP user profile attributes can be referenced with the `idpuser` prefix such as `idpuser.subjectNameId`. * You must define an IdP user profile attribute before it can be referenced in an Okta EL expression. To define an IdP user attribute policy, you may need to create a new IdP instance without a base profile property. Then edit the IdP user profile to update the IdP instance with an expression that references the IdP user profile attribute that you just created.
 type PolicyUserNameTemplate struct {
-	Template *string `json:"template,omitempty"`
+	Template             *string `json:"template,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewPolicyUserNameTemplateWithDefaults() *PolicyUserNameTemplate {
 
 // GetTemplate returns the Template field value if set, zero value otherwise.
 func (o *PolicyUserNameTemplate) GetTemplate() string {
-	if o == nil || o.Template == nil {
+	if o == nil || IsNil(o.Template) {
 		var ret string
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *PolicyUserNameTemplate) GetTemplate() string {
 // GetTemplateOk returns a tuple with the Template field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyUserNameTemplate) GetTemplateOk() (*string, bool) {
-	if o == nil || o.Template == nil {
+	if o == nil || IsNil(o.Template) {
 		return nil, false
 	}
 	return o.Template, true
@@ -72,7 +75,7 @@ func (o *PolicyUserNameTemplate) GetTemplateOk() (*string, bool) {
 
 // HasTemplate returns a boolean if a field has been set.
 func (o *PolicyUserNameTemplate) HasTemplate() bool {
-	if o != nil && o.Template != nil {
+	if o != nil && !IsNil(o.Template) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *PolicyUserNameTemplate) SetTemplate(v string) {
 }
 
 func (o PolicyUserNameTemplate) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PolicyUserNameTemplate) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Template != nil {
+	if !IsNil(o.Template) {
 		toSerialize["template"] = o.Template
 	}
 
@@ -94,27 +105,25 @@ func (o PolicyUserNameTemplate) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PolicyUserNameTemplate) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PolicyUserNameTemplate) UnmarshalJSON(data []byte) (err error) {
 	varPolicyUserNameTemplate := _PolicyUserNameTemplate{}
 
-	err = json.Unmarshal(bytes, &varPolicyUserNameTemplate)
-	if err == nil {
-		*o = PolicyUserNameTemplate(varPolicyUserNameTemplate)
-	} else {
+	err = json.Unmarshal(data, &varPolicyUserNameTemplate)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PolicyUserNameTemplate(varPolicyUserNameTemplate)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "template")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullablePolicyUserNameTemplate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

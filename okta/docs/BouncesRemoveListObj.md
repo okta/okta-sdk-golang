@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**EmailAddresses** | Pointer to **[]string** |  | [optional] 
+**EmailAddresses** | Pointer to **[]string** | A list of email addresses to remove from the email-service bounce list | [optional] 
 
 ## Methods
 

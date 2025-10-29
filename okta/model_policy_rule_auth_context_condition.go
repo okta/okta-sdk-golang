@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,13 @@ import (
 	"encoding/json"
 )
 
-// PolicyRuleAuthContextCondition struct for PolicyRuleAuthContextCondition
+// checks if the PolicyRuleAuthContextCondition type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PolicyRuleAuthContextCondition{}
+
+// PolicyRuleAuthContextCondition Specifies an authentication entry point
 type PolicyRuleAuthContextCondition struct {
-	AuthType *string `json:"authType,omitempty"`
+	// Specifies how the user is authenticated
+	AuthType             *string `json:"authType,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +58,7 @@ func NewPolicyRuleAuthContextConditionWithDefaults() *PolicyRuleAuthContextCondi
 
 // GetAuthType returns the AuthType field value if set, zero value otherwise.
 func (o *PolicyRuleAuthContextCondition) GetAuthType() string {
-	if o == nil || o.AuthType == nil {
+	if o == nil || IsNil(o.AuthType) {
 		var ret string
 		return ret
 	}
@@ -64,7 +68,7 @@ func (o *PolicyRuleAuthContextCondition) GetAuthType() string {
 // GetAuthTypeOk returns a tuple with the AuthType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRuleAuthContextCondition) GetAuthTypeOk() (*string, bool) {
-	if o == nil || o.AuthType == nil {
+	if o == nil || IsNil(o.AuthType) {
 		return nil, false
 	}
 	return o.AuthType, true
@@ -72,7 +76,7 @@ func (o *PolicyRuleAuthContextCondition) GetAuthTypeOk() (*string, bool) {
 
 // HasAuthType returns a boolean if a field has been set.
 func (o *PolicyRuleAuthContextCondition) HasAuthType() bool {
-	if o != nil && o.AuthType != nil {
+	if o != nil && !IsNil(o.AuthType) {
 		return true
 	}
 
@@ -85,8 +89,16 @@ func (o *PolicyRuleAuthContextCondition) SetAuthType(v string) {
 }
 
 func (o PolicyRuleAuthContextCondition) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PolicyRuleAuthContextCondition) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AuthType != nil {
+	if !IsNil(o.AuthType) {
 		toSerialize["authType"] = o.AuthType
 	}
 
@@ -94,27 +106,25 @@ func (o PolicyRuleAuthContextCondition) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PolicyRuleAuthContextCondition) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PolicyRuleAuthContextCondition) UnmarshalJSON(data []byte) (err error) {
 	varPolicyRuleAuthContextCondition := _PolicyRuleAuthContextCondition{}
 
-	err = json.Unmarshal(bytes, &varPolicyRuleAuthContextCondition)
-	if err == nil {
-		*o = PolicyRuleAuthContextCondition(varPolicyRuleAuthContextCondition)
-	} else {
+	err = json.Unmarshal(data, &varPolicyRuleAuthContextCondition)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PolicyRuleAuthContextCondition(varPolicyRuleAuthContextCondition)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "authType")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +165,3 @@ func (v *NullablePolicyRuleAuthContextCondition) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

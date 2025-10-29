@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the EmailTemplateResponseEmbedded type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EmailTemplateResponseEmbedded{}
+
 // EmailTemplateResponseEmbedded struct for EmailTemplateResponseEmbedded
 type EmailTemplateResponseEmbedded struct {
-	Settings *EmailSettingsResponse `json:"settings,omitempty"`
-	CustomizationCount *int32 `json:"customizationCount,omitempty"`
+	Settings             *EmailSettingsResponse `json:"settings,omitempty"`
+	CustomizationCount   *int32                 `json:"customizationCount,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewEmailTemplateResponseEmbeddedWithDefaults() *EmailTemplateResponseEmbedd
 
 // GetSettings returns the Settings field value if set, zero value otherwise.
 func (o *EmailTemplateResponseEmbedded) GetSettings() EmailSettingsResponse {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		var ret EmailSettingsResponse
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *EmailTemplateResponseEmbedded) GetSettings() EmailSettingsResponse {
 // GetSettingsOk returns a tuple with the Settings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EmailTemplateResponseEmbedded) GetSettingsOk() (*EmailSettingsResponse, bool) {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		return nil, false
 	}
 	return o.Settings, true
@@ -73,7 +76,7 @@ func (o *EmailTemplateResponseEmbedded) GetSettingsOk() (*EmailSettingsResponse,
 
 // HasSettings returns a boolean if a field has been set.
 func (o *EmailTemplateResponseEmbedded) HasSettings() bool {
-	if o != nil && o.Settings != nil {
+	if o != nil && !IsNil(o.Settings) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *EmailTemplateResponseEmbedded) SetSettings(v EmailSettingsResponse) {
 
 // GetCustomizationCount returns the CustomizationCount field value if set, zero value otherwise.
 func (o *EmailTemplateResponseEmbedded) GetCustomizationCount() int32 {
-	if o == nil || o.CustomizationCount == nil {
+	if o == nil || IsNil(o.CustomizationCount) {
 		var ret int32
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *EmailTemplateResponseEmbedded) GetCustomizationCount() int32 {
 // GetCustomizationCountOk returns a tuple with the CustomizationCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EmailTemplateResponseEmbedded) GetCustomizationCountOk() (*int32, bool) {
-	if o == nil || o.CustomizationCount == nil {
+	if o == nil || IsNil(o.CustomizationCount) {
 		return nil, false
 	}
 	return o.CustomizationCount, true
@@ -105,7 +108,7 @@ func (o *EmailTemplateResponseEmbedded) GetCustomizationCountOk() (*int32, bool)
 
 // HasCustomizationCount returns a boolean if a field has been set.
 func (o *EmailTemplateResponseEmbedded) HasCustomizationCount() bool {
-	if o != nil && o.CustomizationCount != nil {
+	if o != nil && !IsNil(o.CustomizationCount) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *EmailTemplateResponseEmbedded) SetCustomizationCount(v int32) {
 }
 
 func (o EmailTemplateResponseEmbedded) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EmailTemplateResponseEmbedded) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Settings != nil {
+	if !IsNil(o.Settings) {
 		toSerialize["settings"] = o.Settings
 	}
-	if o.CustomizationCount != nil {
+	if !IsNil(o.CustomizationCount) {
 		toSerialize["customizationCount"] = o.CustomizationCount
 	}
 
@@ -130,28 +141,26 @@ func (o EmailTemplateResponseEmbedded) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EmailTemplateResponseEmbedded) UnmarshalJSON(bytes []byte) (err error) {
+func (o *EmailTemplateResponseEmbedded) UnmarshalJSON(data []byte) (err error) {
 	varEmailTemplateResponseEmbedded := _EmailTemplateResponseEmbedded{}
 
-	err = json.Unmarshal(bytes, &varEmailTemplateResponseEmbedded)
-	if err == nil {
-		*o = EmailTemplateResponseEmbedded(varEmailTemplateResponseEmbedded)
-	} else {
+	err = json.Unmarshal(data, &varEmailTemplateResponseEmbedded)
+
+	if err != nil {
 		return err
 	}
 
+	*o = EmailTemplateResponseEmbedded(varEmailTemplateResponseEmbedded)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "settings")
 		delete(additionalProperties, "customizationCount")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableEmailTemplateResponseEmbedded) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

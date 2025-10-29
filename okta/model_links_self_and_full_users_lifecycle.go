@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,14 +27,18 @@ import (
 	"encoding/json"
 )
 
+// checks if the LinksSelfAndFullUsersLifecycle type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LinksSelfAndFullUsersLifecycle{}
+
 // LinksSelfAndFullUsersLifecycle struct for LinksSelfAndFullUsersLifecycle
 type LinksSelfAndFullUsersLifecycle struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Activate *HrefObjectActivateLink `json:"activate,omitempty"`
+	Self       *HrefObjectSelfLink       `json:"self,omitempty"`
+	Activate   *HrefObjectActivateLink   `json:"activate,omitempty"`
 	Deactivate *HrefObjectDeactivateLink `json:"deactivate,omitempty"`
-	Suspend *HrefObjectSuspendLink `json:"suspend,omitempty"`
-	Unsuspend *HrefObjectUnsuspendLink `json:"unsuspend,omitempty"`
-	Users *HrefObject `json:"users,omitempty"`
+	Suspend    *HrefObjectSuspendLink    `json:"suspend,omitempty"`
+	Unsuspend  *HrefObjectUnsuspendLink  `json:"unsuspend,omitempty"`
+	// Link to device users
+	Users                *HrefObject `json:"users,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +63,7 @@ func NewLinksSelfAndFullUsersLifecycleWithDefaults() *LinksSelfAndFullUsersLifec
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *LinksSelfAndFullUsersLifecycle) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -69,7 +73,7 @@ func (o *LinksSelfAndFullUsersLifecycle) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksSelfAndFullUsersLifecycle) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -77,7 +81,7 @@ func (o *LinksSelfAndFullUsersLifecycle) GetSelfOk() (*HrefObjectSelfLink, bool)
 
 // HasSelf returns a boolean if a field has been set.
 func (o *LinksSelfAndFullUsersLifecycle) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -91,7 +95,7 @@ func (o *LinksSelfAndFullUsersLifecycle) SetSelf(v HrefObjectSelfLink) {
 
 // GetActivate returns the Activate field value if set, zero value otherwise.
 func (o *LinksSelfAndFullUsersLifecycle) GetActivate() HrefObjectActivateLink {
-	if o == nil || o.Activate == nil {
+	if o == nil || IsNil(o.Activate) {
 		var ret HrefObjectActivateLink
 		return ret
 	}
@@ -101,7 +105,7 @@ func (o *LinksSelfAndFullUsersLifecycle) GetActivate() HrefObjectActivateLink {
 // GetActivateOk returns a tuple with the Activate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksSelfAndFullUsersLifecycle) GetActivateOk() (*HrefObjectActivateLink, bool) {
-	if o == nil || o.Activate == nil {
+	if o == nil || IsNil(o.Activate) {
 		return nil, false
 	}
 	return o.Activate, true
@@ -109,7 +113,7 @@ func (o *LinksSelfAndFullUsersLifecycle) GetActivateOk() (*HrefObjectActivateLin
 
 // HasActivate returns a boolean if a field has been set.
 func (o *LinksSelfAndFullUsersLifecycle) HasActivate() bool {
-	if o != nil && o.Activate != nil {
+	if o != nil && !IsNil(o.Activate) {
 		return true
 	}
 
@@ -123,7 +127,7 @@ func (o *LinksSelfAndFullUsersLifecycle) SetActivate(v HrefObjectActivateLink) {
 
 // GetDeactivate returns the Deactivate field value if set, zero value otherwise.
 func (o *LinksSelfAndFullUsersLifecycle) GetDeactivate() HrefObjectDeactivateLink {
-	if o == nil || o.Deactivate == nil {
+	if o == nil || IsNil(o.Deactivate) {
 		var ret HrefObjectDeactivateLink
 		return ret
 	}
@@ -133,7 +137,7 @@ func (o *LinksSelfAndFullUsersLifecycle) GetDeactivate() HrefObjectDeactivateLin
 // GetDeactivateOk returns a tuple with the Deactivate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksSelfAndFullUsersLifecycle) GetDeactivateOk() (*HrefObjectDeactivateLink, bool) {
-	if o == nil || o.Deactivate == nil {
+	if o == nil || IsNil(o.Deactivate) {
 		return nil, false
 	}
 	return o.Deactivate, true
@@ -141,7 +145,7 @@ func (o *LinksSelfAndFullUsersLifecycle) GetDeactivateOk() (*HrefObjectDeactivat
 
 // HasDeactivate returns a boolean if a field has been set.
 func (o *LinksSelfAndFullUsersLifecycle) HasDeactivate() bool {
-	if o != nil && o.Deactivate != nil {
+	if o != nil && !IsNil(o.Deactivate) {
 		return true
 	}
 
@@ -155,7 +159,7 @@ func (o *LinksSelfAndFullUsersLifecycle) SetDeactivate(v HrefObjectDeactivateLin
 
 // GetSuspend returns the Suspend field value if set, zero value otherwise.
 func (o *LinksSelfAndFullUsersLifecycle) GetSuspend() HrefObjectSuspendLink {
-	if o == nil || o.Suspend == nil {
+	if o == nil || IsNil(o.Suspend) {
 		var ret HrefObjectSuspendLink
 		return ret
 	}
@@ -165,7 +169,7 @@ func (o *LinksSelfAndFullUsersLifecycle) GetSuspend() HrefObjectSuspendLink {
 // GetSuspendOk returns a tuple with the Suspend field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksSelfAndFullUsersLifecycle) GetSuspendOk() (*HrefObjectSuspendLink, bool) {
-	if o == nil || o.Suspend == nil {
+	if o == nil || IsNil(o.Suspend) {
 		return nil, false
 	}
 	return o.Suspend, true
@@ -173,7 +177,7 @@ func (o *LinksSelfAndFullUsersLifecycle) GetSuspendOk() (*HrefObjectSuspendLink,
 
 // HasSuspend returns a boolean if a field has been set.
 func (o *LinksSelfAndFullUsersLifecycle) HasSuspend() bool {
-	if o != nil && o.Suspend != nil {
+	if o != nil && !IsNil(o.Suspend) {
 		return true
 	}
 
@@ -187,7 +191,7 @@ func (o *LinksSelfAndFullUsersLifecycle) SetSuspend(v HrefObjectSuspendLink) {
 
 // GetUnsuspend returns the Unsuspend field value if set, zero value otherwise.
 func (o *LinksSelfAndFullUsersLifecycle) GetUnsuspend() HrefObjectUnsuspendLink {
-	if o == nil || o.Unsuspend == nil {
+	if o == nil || IsNil(o.Unsuspend) {
 		var ret HrefObjectUnsuspendLink
 		return ret
 	}
@@ -197,7 +201,7 @@ func (o *LinksSelfAndFullUsersLifecycle) GetUnsuspend() HrefObjectUnsuspendLink 
 // GetUnsuspendOk returns a tuple with the Unsuspend field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksSelfAndFullUsersLifecycle) GetUnsuspendOk() (*HrefObjectUnsuspendLink, bool) {
-	if o == nil || o.Unsuspend == nil {
+	if o == nil || IsNil(o.Unsuspend) {
 		return nil, false
 	}
 	return o.Unsuspend, true
@@ -205,7 +209,7 @@ func (o *LinksSelfAndFullUsersLifecycle) GetUnsuspendOk() (*HrefObjectUnsuspendL
 
 // HasUnsuspend returns a boolean if a field has been set.
 func (o *LinksSelfAndFullUsersLifecycle) HasUnsuspend() bool {
-	if o != nil && o.Unsuspend != nil {
+	if o != nil && !IsNil(o.Unsuspend) {
 		return true
 	}
 
@@ -219,7 +223,7 @@ func (o *LinksSelfAndFullUsersLifecycle) SetUnsuspend(v HrefObjectUnsuspendLink)
 
 // GetUsers returns the Users field value if set, zero value otherwise.
 func (o *LinksSelfAndFullUsersLifecycle) GetUsers() HrefObject {
-	if o == nil || o.Users == nil {
+	if o == nil || IsNil(o.Users) {
 		var ret HrefObject
 		return ret
 	}
@@ -229,7 +233,7 @@ func (o *LinksSelfAndFullUsersLifecycle) GetUsers() HrefObject {
 // GetUsersOk returns a tuple with the Users field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksSelfAndFullUsersLifecycle) GetUsersOk() (*HrefObject, bool) {
-	if o == nil || o.Users == nil {
+	if o == nil || IsNil(o.Users) {
 		return nil, false
 	}
 	return o.Users, true
@@ -237,7 +241,7 @@ func (o *LinksSelfAndFullUsersLifecycle) GetUsersOk() (*HrefObject, bool) {
 
 // HasUsers returns a boolean if a field has been set.
 func (o *LinksSelfAndFullUsersLifecycle) HasUsers() bool {
-	if o != nil && o.Users != nil {
+	if o != nil && !IsNil(o.Users) {
 		return true
 	}
 
@@ -250,23 +254,31 @@ func (o *LinksSelfAndFullUsersLifecycle) SetUsers(v HrefObject) {
 }
 
 func (o LinksSelfAndFullUsersLifecycle) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LinksSelfAndFullUsersLifecycle) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.Activate != nil {
+	if !IsNil(o.Activate) {
 		toSerialize["activate"] = o.Activate
 	}
-	if o.Deactivate != nil {
+	if !IsNil(o.Deactivate) {
 		toSerialize["deactivate"] = o.Deactivate
 	}
-	if o.Suspend != nil {
+	if !IsNil(o.Suspend) {
 		toSerialize["suspend"] = o.Suspend
 	}
-	if o.Unsuspend != nil {
+	if !IsNil(o.Unsuspend) {
 		toSerialize["unsuspend"] = o.Unsuspend
 	}
-	if o.Users != nil {
+	if !IsNil(o.Users) {
 		toSerialize["users"] = o.Users
 	}
 
@@ -274,23 +286,23 @@ func (o LinksSelfAndFullUsersLifecycle) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LinksSelfAndFullUsersLifecycle) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LinksSelfAndFullUsersLifecycle) UnmarshalJSON(data []byte) (err error) {
 	varLinksSelfAndFullUsersLifecycle := _LinksSelfAndFullUsersLifecycle{}
 
-	err = json.Unmarshal(bytes, &varLinksSelfAndFullUsersLifecycle)
-	if err == nil {
-		*o = LinksSelfAndFullUsersLifecycle(varLinksSelfAndFullUsersLifecycle)
-	} else {
+	err = json.Unmarshal(data, &varLinksSelfAndFullUsersLifecycle)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LinksSelfAndFullUsersLifecycle(varLinksSelfAndFullUsersLifecycle)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "activate")
 		delete(additionalProperties, "deactivate")
@@ -298,8 +310,6 @@ func (o *LinksSelfAndFullUsersLifecycle) UnmarshalJSON(bytes []byte) (err error)
 		delete(additionalProperties, "unsuspend")
 		delete(additionalProperties, "users")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -340,4 +350,3 @@ func (v *NullableLinksSelfAndFullUsersLifecycle) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

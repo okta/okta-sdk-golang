@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the UpdateUISchema type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UpdateUISchema{}
+
 // UpdateUISchema The updated request body properties
 type UpdateUISchema struct {
-	UiSchema *UISchemaObject `json:"uiSchema,omitempty"`
+	UiSchema             *UISchemaObject `json:"uiSchema,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewUpdateUISchemaWithDefaults() *UpdateUISchema {
 
 // GetUiSchema returns the UiSchema field value if set, zero value otherwise.
 func (o *UpdateUISchema) GetUiSchema() UISchemaObject {
-	if o == nil || o.UiSchema == nil {
+	if o == nil || IsNil(o.UiSchema) {
 		var ret UISchemaObject
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *UpdateUISchema) GetUiSchema() UISchemaObject {
 // GetUiSchemaOk returns a tuple with the UiSchema field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateUISchema) GetUiSchemaOk() (*UISchemaObject, bool) {
-	if o == nil || o.UiSchema == nil {
+	if o == nil || IsNil(o.UiSchema) {
 		return nil, false
 	}
 	return o.UiSchema, true
@@ -72,7 +75,7 @@ func (o *UpdateUISchema) GetUiSchemaOk() (*UISchemaObject, bool) {
 
 // HasUiSchema returns a boolean if a field has been set.
 func (o *UpdateUISchema) HasUiSchema() bool {
-	if o != nil && o.UiSchema != nil {
+	if o != nil && !IsNil(o.UiSchema) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *UpdateUISchema) SetUiSchema(v UISchemaObject) {
 }
 
 func (o UpdateUISchema) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UpdateUISchema) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.UiSchema != nil {
+	if !IsNil(o.UiSchema) {
 		toSerialize["uiSchema"] = o.UiSchema
 	}
 
@@ -94,27 +105,25 @@ func (o UpdateUISchema) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UpdateUISchema) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UpdateUISchema) UnmarshalJSON(data []byte) (err error) {
 	varUpdateUISchema := _UpdateUISchema{}
 
-	err = json.Unmarshal(bytes, &varUpdateUISchema)
-	if err == nil {
-		*o = UpdateUISchema(varUpdateUISchema)
-	} else {
+	err = json.Unmarshal(data, &varUpdateUISchema)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UpdateUISchema(varUpdateUISchema)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "uiSchema")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableUpdateUISchema) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

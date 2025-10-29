@@ -5,7 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Self** | Pointer to [**HrefObjectSelfLink**](HrefObjectSelfLink.md) |  | [optional] 
-**Application** | Pointer to [**PolicyMappingLinksAllOfApplication**](PolicyMappingLinksAllOfApplication.md) |  | [optional] 
+**Application** | Pointer to [**HrefObject**](HrefObject.md) | Link to the mapped application | [optional] 
+**Policy** | Pointer to [**HrefObject**](HrefObject.md) | Link to the mapped policy | [optional] 
 
 ## Methods
 
@@ -53,20 +54,20 @@ HasSelf returns a boolean if a field has been set.
 
 ### GetApplication
 
-`func (o *PolicyMappingLinks) GetApplication() PolicyMappingLinksAllOfApplication`
+`func (o *PolicyMappingLinks) GetApplication() HrefObject`
 
 GetApplication returns the Application field if non-nil, zero value otherwise.
 
 ### GetApplicationOk
 
-`func (o *PolicyMappingLinks) GetApplicationOk() (*PolicyMappingLinksAllOfApplication, bool)`
+`func (o *PolicyMappingLinks) GetApplicationOk() (*HrefObject, bool)`
 
 GetApplicationOk returns a tuple with the Application field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetApplication
 
-`func (o *PolicyMappingLinks) SetApplication(v PolicyMappingLinksAllOfApplication)`
+`func (o *PolicyMappingLinks) SetApplication(v HrefObject)`
 
 SetApplication sets Application field to given value.
 
@@ -75,6 +76,31 @@ SetApplication sets Application field to given value.
 `func (o *PolicyMappingLinks) HasApplication() bool`
 
 HasApplication returns a boolean if a field has been set.
+
+### GetPolicy
+
+`func (o *PolicyMappingLinks) GetPolicy() HrefObject`
+
+GetPolicy returns the Policy field if non-nil, zero value otherwise.
+
+### GetPolicyOk
+
+`func (o *PolicyMappingLinks) GetPolicyOk() (*HrefObject, bool)`
+
+GetPolicyOk returns a tuple with the Policy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPolicy
+
+`func (o *PolicyMappingLinks) SetPolicy(v HrefObject)`
+
+SetPolicy sets Policy field to given value.
+
+### HasPolicy
+
+`func (o *PolicyMappingLinks) HasPolicy() bool`
+
+HasPolicy returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,7 +27,10 @@ import (
 	"encoding/json"
 )
 
-// CAPTCHAInstance 
+// checks if the CAPTCHAInstance type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CAPTCHAInstance{}
+
+// CAPTCHAInstance
 type CAPTCHAInstance struct {
 	// The unique key for the CAPTCHA instance
 	Id *string `json:"id,omitempty"`
@@ -38,8 +41,8 @@ type CAPTCHAInstance struct {
 	// The site key issued from the CAPTCHA provider to render a CAPTCHA on a page
 	SiteKey *string `json:"siteKey,omitempty"`
 	// The type of CAPTCHA provider
-	Type *string `json:"type,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	Type                 *string    `json:"type,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -64,7 +67,7 @@ func NewCAPTCHAInstanceWithDefaults() *CAPTCHAInstance {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *CAPTCHAInstance) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -74,7 +77,7 @@ func (o *CAPTCHAInstance) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CAPTCHAInstance) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -82,7 +85,7 @@ func (o *CAPTCHAInstance) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *CAPTCHAInstance) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -96,7 +99,7 @@ func (o *CAPTCHAInstance) SetId(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *CAPTCHAInstance) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -106,7 +109,7 @@ func (o *CAPTCHAInstance) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CAPTCHAInstance) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -114,7 +117,7 @@ func (o *CAPTCHAInstance) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *CAPTCHAInstance) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -128,7 +131,7 @@ func (o *CAPTCHAInstance) SetName(v string) {
 
 // GetSecretKey returns the SecretKey field value if set, zero value otherwise.
 func (o *CAPTCHAInstance) GetSecretKey() string {
-	if o == nil || o.SecretKey == nil {
+	if o == nil || IsNil(o.SecretKey) {
 		var ret string
 		return ret
 	}
@@ -138,7 +141,7 @@ func (o *CAPTCHAInstance) GetSecretKey() string {
 // GetSecretKeyOk returns a tuple with the SecretKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CAPTCHAInstance) GetSecretKeyOk() (*string, bool) {
-	if o == nil || o.SecretKey == nil {
+	if o == nil || IsNil(o.SecretKey) {
 		return nil, false
 	}
 	return o.SecretKey, true
@@ -146,7 +149,7 @@ func (o *CAPTCHAInstance) GetSecretKeyOk() (*string, bool) {
 
 // HasSecretKey returns a boolean if a field has been set.
 func (o *CAPTCHAInstance) HasSecretKey() bool {
-	if o != nil && o.SecretKey != nil {
+	if o != nil && !IsNil(o.SecretKey) {
 		return true
 	}
 
@@ -160,7 +163,7 @@ func (o *CAPTCHAInstance) SetSecretKey(v string) {
 
 // GetSiteKey returns the SiteKey field value if set, zero value otherwise.
 func (o *CAPTCHAInstance) GetSiteKey() string {
-	if o == nil || o.SiteKey == nil {
+	if o == nil || IsNil(o.SiteKey) {
 		var ret string
 		return ret
 	}
@@ -170,7 +173,7 @@ func (o *CAPTCHAInstance) GetSiteKey() string {
 // GetSiteKeyOk returns a tuple with the SiteKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CAPTCHAInstance) GetSiteKeyOk() (*string, bool) {
-	if o == nil || o.SiteKey == nil {
+	if o == nil || IsNil(o.SiteKey) {
 		return nil, false
 	}
 	return o.SiteKey, true
@@ -178,7 +181,7 @@ func (o *CAPTCHAInstance) GetSiteKeyOk() (*string, bool) {
 
 // HasSiteKey returns a boolean if a field has been set.
 func (o *CAPTCHAInstance) HasSiteKey() bool {
-	if o != nil && o.SiteKey != nil {
+	if o != nil && !IsNil(o.SiteKey) {
 		return true
 	}
 
@@ -192,7 +195,7 @@ func (o *CAPTCHAInstance) SetSiteKey(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *CAPTCHAInstance) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -202,7 +205,7 @@ func (o *CAPTCHAInstance) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CAPTCHAInstance) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -210,7 +213,7 @@ func (o *CAPTCHAInstance) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *CAPTCHAInstance) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -224,7 +227,7 @@ func (o *CAPTCHAInstance) SetType(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *CAPTCHAInstance) GetLinks() LinksSelf {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksSelf
 		return ret
 	}
@@ -234,7 +237,7 @@ func (o *CAPTCHAInstance) GetLinks() LinksSelf {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CAPTCHAInstance) GetLinksOk() (*LinksSelf, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -242,7 +245,7 @@ func (o *CAPTCHAInstance) GetLinksOk() (*LinksSelf, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *CAPTCHAInstance) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -255,23 +258,31 @@ func (o *CAPTCHAInstance) SetLinks(v LinksSelf) {
 }
 
 func (o CAPTCHAInstance) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CAPTCHAInstance) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.SecretKey != nil {
+	if !IsNil(o.SecretKey) {
 		toSerialize["secretKey"] = o.SecretKey
 	}
-	if o.SiteKey != nil {
+	if !IsNil(o.SiteKey) {
 		toSerialize["siteKey"] = o.SiteKey
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -279,23 +290,23 @@ func (o CAPTCHAInstance) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CAPTCHAInstance) UnmarshalJSON(bytes []byte) (err error) {
+func (o *CAPTCHAInstance) UnmarshalJSON(data []byte) (err error) {
 	varCAPTCHAInstance := _CAPTCHAInstance{}
 
-	err = json.Unmarshal(bytes, &varCAPTCHAInstance)
-	if err == nil {
-		*o = CAPTCHAInstance(varCAPTCHAInstance)
-	} else {
+	err = json.Unmarshal(data, &varCAPTCHAInstance)
+
+	if err != nil {
 		return err
 	}
 
+	*o = CAPTCHAInstance(varCAPTCHAInstance)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "secretKey")
@@ -303,8 +314,6 @@ func (o *CAPTCHAInstance) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -345,4 +354,3 @@ func (v *NullableCAPTCHAInstance) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

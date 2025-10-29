@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -29,10 +29,13 @@ import (
 	"strings"
 )
 
+// checks if the AuthenticatorMethodSignedNonce type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorMethodSignedNonce{}
+
 // AuthenticatorMethodSignedNonce struct for AuthenticatorMethodSignedNonce
 type AuthenticatorMethodSignedNonce struct {
 	AuthenticatorMethodBase
-	Settings *AuthenticatorMethodSignedNonceAllOfSettings `json:"settings,omitempty"`
+	Settings             *AuthenticatorMethodSignedNonceAllOfSettings `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewAuthenticatorMethodSignedNonceWithDefaults() *AuthenticatorMethodSignedN
 
 // GetSettings returns the Settings field value if set, zero value otherwise.
 func (o *AuthenticatorMethodSignedNonce) GetSettings() AuthenticatorMethodSignedNonceAllOfSettings {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		var ret AuthenticatorMethodSignedNonceAllOfSettings
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *AuthenticatorMethodSignedNonce) GetSettings() AuthenticatorMethodSigned
 // GetSettingsOk returns a tuple with the Settings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorMethodSignedNonce) GetSettingsOk() (*AuthenticatorMethodSignedNonceAllOfSettings, bool) {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		return nil, false
 	}
 	return o.Settings, true
@@ -75,7 +78,7 @@ func (o *AuthenticatorMethodSignedNonce) GetSettingsOk() (*AuthenticatorMethodSi
 
 // HasSettings returns a boolean if a field has been set.
 func (o *AuthenticatorMethodSignedNonce) HasSettings() bool {
-	if o != nil && o.Settings != nil {
+	if o != nil && !IsNil(o.Settings) {
 		return true
 	}
 
@@ -88,16 +91,24 @@ func (o *AuthenticatorMethodSignedNonce) SetSettings(v AuthenticatorMethodSigned
 }
 
 func (o AuthenticatorMethodSignedNonce) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorMethodSignedNonce) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedAuthenticatorMethodBase, errAuthenticatorMethodBase := json.Marshal(o.AuthenticatorMethodBase)
 	if errAuthenticatorMethodBase != nil {
-		return []byte{}, errAuthenticatorMethodBase
+		return map[string]interface{}{}, errAuthenticatorMethodBase
 	}
 	errAuthenticatorMethodBase = json.Unmarshal([]byte(serializedAuthenticatorMethodBase), &toSerialize)
 	if errAuthenticatorMethodBase != nil {
-		return []byte{}, errAuthenticatorMethodBase
+		return map[string]interface{}{}, errAuthenticatorMethodBase
 	}
-	if o.Settings != nil {
+	if !IsNil(o.Settings) {
 		toSerialize["settings"] = o.Settings
 	}
 
@@ -105,17 +116,17 @@ func (o AuthenticatorMethodSignedNonce) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorMethodSignedNonce) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorMethodSignedNonce) UnmarshalJSON(data []byte) (err error) {
 	type AuthenticatorMethodSignedNonceWithoutEmbeddedStruct struct {
 		Settings *AuthenticatorMethodSignedNonceAllOfSettings `json:"settings,omitempty"`
 	}
 
 	varAuthenticatorMethodSignedNonceWithoutEmbeddedStruct := AuthenticatorMethodSignedNonceWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorMethodSignedNonceWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varAuthenticatorMethodSignedNonceWithoutEmbeddedStruct)
 	if err == nil {
 		varAuthenticatorMethodSignedNonce := _AuthenticatorMethodSignedNonce{}
 		varAuthenticatorMethodSignedNonce.Settings = varAuthenticatorMethodSignedNonceWithoutEmbeddedStruct.Settings
@@ -126,7 +137,7 @@ func (o *AuthenticatorMethodSignedNonce) UnmarshalJSON(bytes []byte) (err error)
 
 	varAuthenticatorMethodSignedNonce := _AuthenticatorMethodSignedNonce{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorMethodSignedNonce)
+	err = json.Unmarshal(data, &varAuthenticatorMethodSignedNonce)
 	if err == nil {
 		o.AuthenticatorMethodBase = varAuthenticatorMethodSignedNonce.AuthenticatorMethodBase
 	} else {
@@ -135,8 +146,7 @@ func (o *AuthenticatorMethodSignedNonce) UnmarshalJSON(bytes []byte) (err error)
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "settings")
 
 		// remove fields from embedded structs
@@ -158,8 +168,6 @@ func (o *AuthenticatorMethodSignedNonce) UnmarshalJSON(bytes []byte) (err error)
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -200,4 +208,3 @@ func (v *NullableAuthenticatorMethodSignedNonce) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

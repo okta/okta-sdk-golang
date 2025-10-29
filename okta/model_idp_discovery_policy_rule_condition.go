@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
-// IdpDiscoveryPolicyRuleCondition struct for IdpDiscoveryPolicyRuleCondition
+// checks if the IdpDiscoveryPolicyRuleCondition type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IdpDiscoveryPolicyRuleCondition{}
+
+// IdpDiscoveryPolicyRuleCondition Specifies conditions that must be met during policy evaluation to apply the rule. All policy conditions and conditions for at least one rule must be met to apply the settings specified in the policy and the associated rule.
 type IdpDiscoveryPolicyRuleCondition struct {
-	App *AppAndInstancePolicyRuleCondition `json:"app,omitempty"`
-	Network *PolicyNetworkCondition `json:"network,omitempty"`
-	UserIdentifier *UserIdentifierPolicyRuleCondition `json:"userIdentifier,omitempty"`
-	Platform *PlatformPolicyRuleCondition `json:"platform,omitempty"`
+	App                  *AppAndInstancePolicyRuleCondition `json:"app,omitempty"`
+	Network              *PolicyNetworkCondition            `json:"network,omitempty"`
+	Platform             *PlatformPolicyRuleCondition       `json:"platform,omitempty"`
+	UserIdentifier       *UserIdentifierPolicyRuleCondition `json:"userIdentifier,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewIdpDiscoveryPolicyRuleConditionWithDefaults() *IdpDiscoveryPolicyRuleCon
 
 // GetApp returns the App field value if set, zero value otherwise.
 func (o *IdpDiscoveryPolicyRuleCondition) GetApp() AppAndInstancePolicyRuleCondition {
-	if o == nil || o.App == nil {
+	if o == nil || IsNil(o.App) {
 		var ret AppAndInstancePolicyRuleCondition
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *IdpDiscoveryPolicyRuleCondition) GetApp() AppAndInstancePolicyRuleCondi
 // GetAppOk returns a tuple with the App field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdpDiscoveryPolicyRuleCondition) GetAppOk() (*AppAndInstancePolicyRuleCondition, bool) {
-	if o == nil || o.App == nil {
+	if o == nil || IsNil(o.App) {
 		return nil, false
 	}
 	return o.App, true
@@ -75,7 +78,7 @@ func (o *IdpDiscoveryPolicyRuleCondition) GetAppOk() (*AppAndInstancePolicyRuleC
 
 // HasApp returns a boolean if a field has been set.
 func (o *IdpDiscoveryPolicyRuleCondition) HasApp() bool {
-	if o != nil && o.App != nil {
+	if o != nil && !IsNil(o.App) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *IdpDiscoveryPolicyRuleCondition) SetApp(v AppAndInstancePolicyRuleCondi
 
 // GetNetwork returns the Network field value if set, zero value otherwise.
 func (o *IdpDiscoveryPolicyRuleCondition) GetNetwork() PolicyNetworkCondition {
-	if o == nil || o.Network == nil {
+	if o == nil || IsNil(o.Network) {
 		var ret PolicyNetworkCondition
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *IdpDiscoveryPolicyRuleCondition) GetNetwork() PolicyNetworkCondition {
 // GetNetworkOk returns a tuple with the Network field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdpDiscoveryPolicyRuleCondition) GetNetworkOk() (*PolicyNetworkCondition, bool) {
-	if o == nil || o.Network == nil {
+	if o == nil || IsNil(o.Network) {
 		return nil, false
 	}
 	return o.Network, true
@@ -107,7 +110,7 @@ func (o *IdpDiscoveryPolicyRuleCondition) GetNetworkOk() (*PolicyNetworkConditio
 
 // HasNetwork returns a boolean if a field has been set.
 func (o *IdpDiscoveryPolicyRuleCondition) HasNetwork() bool {
-	if o != nil && o.Network != nil {
+	if o != nil && !IsNil(o.Network) {
 		return true
 	}
 
@@ -119,41 +122,9 @@ func (o *IdpDiscoveryPolicyRuleCondition) SetNetwork(v PolicyNetworkCondition) {
 	o.Network = &v
 }
 
-// GetUserIdentifier returns the UserIdentifier field value if set, zero value otherwise.
-func (o *IdpDiscoveryPolicyRuleCondition) GetUserIdentifier() UserIdentifierPolicyRuleCondition {
-	if o == nil || o.UserIdentifier == nil {
-		var ret UserIdentifierPolicyRuleCondition
-		return ret
-	}
-	return *o.UserIdentifier
-}
-
-// GetUserIdentifierOk returns a tuple with the UserIdentifier field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *IdpDiscoveryPolicyRuleCondition) GetUserIdentifierOk() (*UserIdentifierPolicyRuleCondition, bool) {
-	if o == nil || o.UserIdentifier == nil {
-		return nil, false
-	}
-	return o.UserIdentifier, true
-}
-
-// HasUserIdentifier returns a boolean if a field has been set.
-func (o *IdpDiscoveryPolicyRuleCondition) HasUserIdentifier() bool {
-	if o != nil && o.UserIdentifier != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetUserIdentifier gets a reference to the given UserIdentifierPolicyRuleCondition and assigns it to the UserIdentifier field.
-func (o *IdpDiscoveryPolicyRuleCondition) SetUserIdentifier(v UserIdentifierPolicyRuleCondition) {
-	o.UserIdentifier = &v
-}
-
 // GetPlatform returns the Platform field value if set, zero value otherwise.
 func (o *IdpDiscoveryPolicyRuleCondition) GetPlatform() PlatformPolicyRuleCondition {
-	if o == nil || o.Platform == nil {
+	if o == nil || IsNil(o.Platform) {
 		var ret PlatformPolicyRuleCondition
 		return ret
 	}
@@ -163,7 +134,7 @@ func (o *IdpDiscoveryPolicyRuleCondition) GetPlatform() PlatformPolicyRuleCondit
 // GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdpDiscoveryPolicyRuleCondition) GetPlatformOk() (*PlatformPolicyRuleCondition, bool) {
-	if o == nil || o.Platform == nil {
+	if o == nil || IsNil(o.Platform) {
 		return nil, false
 	}
 	return o.Platform, true
@@ -171,7 +142,7 @@ func (o *IdpDiscoveryPolicyRuleCondition) GetPlatformOk() (*PlatformPolicyRuleCo
 
 // HasPlatform returns a boolean if a field has been set.
 func (o *IdpDiscoveryPolicyRuleCondition) HasPlatform() bool {
-	if o != nil && o.Platform != nil {
+	if o != nil && !IsNil(o.Platform) {
 		return true
 	}
 
@@ -183,49 +154,87 @@ func (o *IdpDiscoveryPolicyRuleCondition) SetPlatform(v PlatformPolicyRuleCondit
 	o.Platform = &v
 }
 
+// GetUserIdentifier returns the UserIdentifier field value if set, zero value otherwise.
+func (o *IdpDiscoveryPolicyRuleCondition) GetUserIdentifier() UserIdentifierPolicyRuleCondition {
+	if o == nil || IsNil(o.UserIdentifier) {
+		var ret UserIdentifierPolicyRuleCondition
+		return ret
+	}
+	return *o.UserIdentifier
+}
+
+// GetUserIdentifierOk returns a tuple with the UserIdentifier field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IdpDiscoveryPolicyRuleCondition) GetUserIdentifierOk() (*UserIdentifierPolicyRuleCondition, bool) {
+	if o == nil || IsNil(o.UserIdentifier) {
+		return nil, false
+	}
+	return o.UserIdentifier, true
+}
+
+// HasUserIdentifier returns a boolean if a field has been set.
+func (o *IdpDiscoveryPolicyRuleCondition) HasUserIdentifier() bool {
+	if o != nil && !IsNil(o.UserIdentifier) {
+		return true
+	}
+
+	return false
+}
+
+// SetUserIdentifier gets a reference to the given UserIdentifierPolicyRuleCondition and assigns it to the UserIdentifier field.
+func (o *IdpDiscoveryPolicyRuleCondition) SetUserIdentifier(v UserIdentifierPolicyRuleCondition) {
+	o.UserIdentifier = &v
+}
+
 func (o IdpDiscoveryPolicyRuleCondition) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IdpDiscoveryPolicyRuleCondition) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.App != nil {
+	if !IsNil(o.App) {
 		toSerialize["app"] = o.App
 	}
-	if o.Network != nil {
+	if !IsNil(o.Network) {
 		toSerialize["network"] = o.Network
 	}
-	if o.UserIdentifier != nil {
-		toSerialize["userIdentifier"] = o.UserIdentifier
-	}
-	if o.Platform != nil {
+	if !IsNil(o.Platform) {
 		toSerialize["platform"] = o.Platform
+	}
+	if !IsNil(o.UserIdentifier) {
+		toSerialize["userIdentifier"] = o.UserIdentifier
 	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *IdpDiscoveryPolicyRuleCondition) UnmarshalJSON(bytes []byte) (err error) {
+func (o *IdpDiscoveryPolicyRuleCondition) UnmarshalJSON(data []byte) (err error) {
 	varIdpDiscoveryPolicyRuleCondition := _IdpDiscoveryPolicyRuleCondition{}
 
-	err = json.Unmarshal(bytes, &varIdpDiscoveryPolicyRuleCondition)
-	if err == nil {
-		*o = IdpDiscoveryPolicyRuleCondition(varIdpDiscoveryPolicyRuleCondition)
-	} else {
+	err = json.Unmarshal(data, &varIdpDiscoveryPolicyRuleCondition)
+
+	if err != nil {
 		return err
 	}
 
+	*o = IdpDiscoveryPolicyRuleCondition(varIdpDiscoveryPolicyRuleCondition)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "app")
 		delete(additionalProperties, "network")
-		delete(additionalProperties, "userIdentifier")
 		delete(additionalProperties, "platform")
+		delete(additionalProperties, "userIdentifier")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -266,4 +275,3 @@ func (v *NullableIdpDiscoveryPolicyRuleCondition) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

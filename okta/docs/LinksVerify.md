@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Verify** | Pointer to [**LinksVerifyVerify**](LinksVerifyVerify.md) |  | [optional] 
+**Verify** | Pointer to [**HrefObject**](HrefObject.md) | Verifies the factor resource. See [Verify a factor](/openapi/okta-management/management/tag/UserFactor/#tag/UserFactor/operation/verifyFactor). | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetVerify
 
-`func (o *LinksVerify) GetVerify() LinksVerifyVerify`
+`func (o *LinksVerify) GetVerify() HrefObject`
 
 GetVerify returns the Verify field if non-nil, zero value otherwise.
 
 ### GetVerifyOk
 
-`func (o *LinksVerify) GetVerifyOk() (*LinksVerifyVerify, bool)`
+`func (o *LinksVerify) GetVerifyOk() (*HrefObject, bool)`
 
 GetVerifyOk returns a tuple with the Verify field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVerify
 
-`func (o *LinksVerify) SetVerify(v LinksVerifyVerify)`
+`func (o *LinksVerify) SetVerify(v HrefObject)`
 
 SetVerify sets Verify field to given value.
 

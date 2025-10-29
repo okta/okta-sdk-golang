@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Description** | Pointer to **string** | The updated human-readable description of the User Type | [optional] 
-**DisplayName** | Pointer to **string** | The updated human-readable display name for the User Type | [optional] 
+**Description** | Pointer to **string** | The updated human-readable description of the user type | [optional] 
+**DisplayName** | Pointer to **string** | The updated human-readable display name for the user type | [optional] 
 
 ## Methods
 

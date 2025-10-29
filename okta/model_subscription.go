@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the Subscription type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Subscription{}
+
 // Subscription struct for Subscription
 type Subscription struct {
 	// An array of sources send notifications to users. > **Note**: Currently, Okta only allows `email` channels.
@@ -34,8 +37,8 @@ type Subscription struct {
 	// The type of notification
 	NotificationType *string `json:"notificationType,omitempty"`
 	// The status of the subscription
-	Status *string `json:"status,omitempty"`
-	Links *SubscriptionLinks `json:"_links,omitempty"`
+	Status               *string            `json:"status,omitempty"`
+	Links                *SubscriptionLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +63,7 @@ func NewSubscriptionWithDefaults() *Subscription {
 
 // GetChannels returns the Channels field value if set, zero value otherwise.
 func (o *Subscription) GetChannels() []string {
-	if o == nil || o.Channels == nil {
+	if o == nil || IsNil(o.Channels) {
 		var ret []string
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *Subscription) GetChannels() []string {
 // GetChannelsOk returns a tuple with the Channels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Subscription) GetChannelsOk() ([]string, bool) {
-	if o == nil || o.Channels == nil {
+	if o == nil || IsNil(o.Channels) {
 		return nil, false
 	}
 	return o.Channels, true
@@ -78,7 +81,7 @@ func (o *Subscription) GetChannelsOk() ([]string, bool) {
 
 // HasChannels returns a boolean if a field has been set.
 func (o *Subscription) HasChannels() bool {
-	if o != nil && o.Channels != nil {
+	if o != nil && !IsNil(o.Channels) {
 		return true
 	}
 
@@ -92,7 +95,7 @@ func (o *Subscription) SetChannels(v []string) {
 
 // GetNotificationType returns the NotificationType field value if set, zero value otherwise.
 func (o *Subscription) GetNotificationType() string {
-	if o == nil || o.NotificationType == nil {
+	if o == nil || IsNil(o.NotificationType) {
 		var ret string
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *Subscription) GetNotificationType() string {
 // GetNotificationTypeOk returns a tuple with the NotificationType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Subscription) GetNotificationTypeOk() (*string, bool) {
-	if o == nil || o.NotificationType == nil {
+	if o == nil || IsNil(o.NotificationType) {
 		return nil, false
 	}
 	return o.NotificationType, true
@@ -110,7 +113,7 @@ func (o *Subscription) GetNotificationTypeOk() (*string, bool) {
 
 // HasNotificationType returns a boolean if a field has been set.
 func (o *Subscription) HasNotificationType() bool {
-	if o != nil && o.NotificationType != nil {
+	if o != nil && !IsNil(o.NotificationType) {
 		return true
 	}
 
@@ -124,7 +127,7 @@ func (o *Subscription) SetNotificationType(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *Subscription) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -134,7 +137,7 @@ func (o *Subscription) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Subscription) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -142,7 +145,7 @@ func (o *Subscription) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *Subscription) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -156,7 +159,7 @@ func (o *Subscription) SetStatus(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *Subscription) GetLinks() SubscriptionLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret SubscriptionLinks
 		return ret
 	}
@@ -166,7 +169,7 @@ func (o *Subscription) GetLinks() SubscriptionLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Subscription) GetLinksOk() (*SubscriptionLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -174,7 +177,7 @@ func (o *Subscription) GetLinksOk() (*SubscriptionLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *Subscription) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -187,17 +190,25 @@ func (o *Subscription) SetLinks(v SubscriptionLinks) {
 }
 
 func (o Subscription) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Subscription) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Channels != nil {
+	if !IsNil(o.Channels) {
 		toSerialize["channels"] = o.Channels
 	}
-	if o.NotificationType != nil {
+	if !IsNil(o.NotificationType) {
 		toSerialize["notificationType"] = o.NotificationType
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -205,30 +216,28 @@ func (o Subscription) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Subscription) UnmarshalJSON(bytes []byte) (err error) {
+func (o *Subscription) UnmarshalJSON(data []byte) (err error) {
 	varSubscription := _Subscription{}
 
-	err = json.Unmarshal(bytes, &varSubscription)
-	if err == nil {
-		*o = Subscription(varSubscription)
-	} else {
+	err = json.Unmarshal(data, &varSubscription)
+
+	if err != nil {
 		return err
 	}
 
+	*o = Subscription(varSubscription)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "channels")
 		delete(additionalProperties, "notificationType")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -269,4 +278,3 @@ func (v *NullableSubscription) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Groups** | Pointer to [**PolicyAccountLinkFilterGroups**](PolicyAccountLinkFilterGroups.md) |  | [optional] 
+**Users** | Pointer to [**PolicyAccountLinkFilterUsers**](PolicyAccountLinkFilterUsers.md) |  | [optional] 
 
 ## Methods
 
@@ -49,6 +50,31 @@ SetGroups sets Groups field to given value.
 `func (o *PolicyAccountLinkFilter) HasGroups() bool`
 
 HasGroups returns a boolean if a field has been set.
+
+### GetUsers
+
+`func (o *PolicyAccountLinkFilter) GetUsers() PolicyAccountLinkFilterUsers`
+
+GetUsers returns the Users field if non-nil, zero value otherwise.
+
+### GetUsersOk
+
+`func (o *PolicyAccountLinkFilter) GetUsersOk() (*PolicyAccountLinkFilterUsers, bool)`
+
+GetUsersOk returns a tuple with the Users field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUsers
+
+`func (o *PolicyAccountLinkFilter) SetUsers(v PolicyAccountLinkFilterUsers)`
+
+SetUsers sets Users field to given value.
+
+### HasUsers
+
+`func (o *PolicyAccountLinkFilter) HasUsers() bool`
+
+HasUsers returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

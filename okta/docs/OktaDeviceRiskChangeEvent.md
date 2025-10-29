@@ -10,13 +10,13 @@ Name | Type | Description | Notes
 **PreviousLevel** | **string** | Previous risk level of the device | 
 **ReasonAdmin** | Pointer to [**CaepDeviceComplianceChangeEventReasonAdmin**](CaepDeviceComplianceChangeEventReasonAdmin.md) |  | [optional] 
 **ReasonUser** | Pointer to [**CaepDeviceComplianceChangeEventReasonUser**](CaepDeviceComplianceChangeEventReasonUser.md) |  | [optional] 
-**Subjects** | [**SecurityEventSubject**](SecurityEventSubject.md) |  | 
+**Subject** | [**SecurityEventSubject**](SecurityEventSubject.md) |  | 
 
 ## Methods
 
 ### NewOktaDeviceRiskChangeEvent
 
-`func NewOktaDeviceRiskChangeEvent(currentLevel string, eventTimestamp int64, previousLevel string, subjects SecurityEventSubject, ) *OktaDeviceRiskChangeEvent`
+`func NewOktaDeviceRiskChangeEvent(currentLevel string, eventTimestamp int64, previousLevel string, subject SecurityEventSubject, ) *OktaDeviceRiskChangeEvent`
 
 NewOktaDeviceRiskChangeEvent instantiates a new OktaDeviceRiskChangeEvent object
 This constructor will assign default values to properties that have it defined,
@@ -166,24 +166,24 @@ SetReasonUser sets ReasonUser field to given value.
 
 HasReasonUser returns a boolean if a field has been set.
 
-### GetSubjects
+### GetSubject
 
-`func (o *OktaDeviceRiskChangeEvent) GetSubjects() SecurityEventSubject`
+`func (o *OktaDeviceRiskChangeEvent) GetSubject() SecurityEventSubject`
 
-GetSubjects returns the Subjects field if non-nil, zero value otherwise.
+GetSubject returns the Subject field if non-nil, zero value otherwise.
 
-### GetSubjectsOk
+### GetSubjectOk
 
-`func (o *OktaDeviceRiskChangeEvent) GetSubjectsOk() (*SecurityEventSubject, bool)`
+`func (o *OktaDeviceRiskChangeEvent) GetSubjectOk() (*SecurityEventSubject, bool)`
 
-GetSubjectsOk returns a tuple with the Subjects field if it's non-nil, zero value otherwise
+GetSubjectOk returns a tuple with the Subject field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetSubjects
+### SetSubject
 
-`func (o *OktaDeviceRiskChangeEvent) SetSubjects(v SecurityEventSubject)`
+`func (o *OktaDeviceRiskChangeEvent) SetSubject(v SecurityEventSubject)`
 
-SetSubjects sets Subjects field to given value.
+SetSubject sets Subject field to given value.
 
 
 

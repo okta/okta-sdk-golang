@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -26,23 +26,22 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type EmailServerAPI interface {
 
 	/*
-	CreateEmailServer Create a custom SMTP server
+		CreateEmailServer Create a custom SMTP server
 
-	Creates a custom email SMTP server configuration for your org
+		Creates a custom email SMTP server configuration for your org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateEmailServerRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateEmailServerRequest
 	*/
 	CreateEmailServer(ctx context.Context) ApiCreateEmailServerRequest
 
@@ -51,13 +50,13 @@ type EmailServerAPI interface {
 	CreateEmailServerExecute(r ApiCreateEmailServerRequest) (*EmailServerResponse, *APIResponse, error)
 
 	/*
-	DeleteEmailServer Delete an SMTP Server configuration
+		DeleteEmailServer Delete an SMTP server configuration
 
-	Deletes the specified custom SMTP server configuration
+		Deletes the specified custom SMTP server configuration
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param emailServerId
-	@return ApiDeleteEmailServerRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param emailServerId
+		@return ApiDeleteEmailServerRequest
 	*/
 	DeleteEmailServer(ctx context.Context, emailServerId string) ApiDeleteEmailServerRequest
 
@@ -65,13 +64,13 @@ type EmailServerAPI interface {
 	DeleteEmailServerExecute(r ApiDeleteEmailServerRequest) (*APIResponse, error)
 
 	/*
-	GetEmailServer Retrieve an SMTP Server configuration
+		GetEmailServer Retrieve an SMTP server configuration
 
-	Retrieves the specified custom SMTP server configuration
+		Retrieves the specified custom SMTP server configuration
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param emailServerId
-	@return ApiGetEmailServerRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param emailServerId
+		@return ApiGetEmailServerRequest
 	*/
 	GetEmailServer(ctx context.Context, emailServerId string) ApiGetEmailServerRequest
 
@@ -80,12 +79,12 @@ type EmailServerAPI interface {
 	GetEmailServerExecute(r ApiGetEmailServerRequest) (*EmailServerListResponse, *APIResponse, error)
 
 	/*
-	ListEmailServers List all enrolled SMTP servers
+		ListEmailServers List all enrolled SMTP servers
 
-	Lists all the enrolled custom SMTP server configurations
+		Lists all the enrolled custom SMTP server configurations
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListEmailServersRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListEmailServersRequest
 	*/
 	ListEmailServers(ctx context.Context) ApiListEmailServersRequest
 
@@ -94,13 +93,13 @@ type EmailServerAPI interface {
 	ListEmailServersExecute(r ApiListEmailServersRequest) (*EmailServerListResponse, *APIResponse, error)
 
 	/*
-	TestEmailServer Test an SMTP Server configuration
+		TestEmailServer Test an SMTP server configuration
 
-	Tests the specified custom SMTP Server configuration
+		Tests the specified custom SMTP Server configuration
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param emailServerId
-	@return ApiTestEmailServerRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param emailServerId
+		@return ApiTestEmailServerRequest
 	*/
 	TestEmailServer(ctx context.Context, emailServerId string) ApiTestEmailServerRequest
 
@@ -108,13 +107,13 @@ type EmailServerAPI interface {
 	TestEmailServerExecute(r ApiTestEmailServerRequest) (*APIResponse, error)
 
 	/*
-	UpdateEmailServer Update an SMTP Server configuration
+		UpdateEmailServer Update an SMTP server configuration
 
-	Updates the specified custom SMTP server configuration
+		Updates the specified custom SMTP server configuration
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param emailServerId
-	@return ApiUpdateEmailServerRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param emailServerId
+		@return ApiUpdateEmailServerRequest
 	*/
 	UpdateEmailServer(ctx context.Context, emailServerId string) ApiUpdateEmailServerRequest
 
@@ -127,10 +126,10 @@ type EmailServerAPI interface {
 type EmailServerAPIService service
 
 type ApiCreateEmailServerRequest struct {
-	ctx context.Context
-	ApiService EmailServerAPI
+	ctx             context.Context
+	ApiService      EmailServerAPI
 	emailServerPost *EmailServerPost
-	retryCount int32
+	retryCount      int32
 }
 
 func (r ApiCreateEmailServerRequest) EmailServerPost(emailServerPost EmailServerPost) ApiCreateEmailServerRequest {
@@ -147,19 +146,20 @@ CreateEmailServer Create a custom SMTP server
 
 Creates a custom email SMTP server configuration for your org
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateEmailServerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateEmailServerRequest
 */
 func (a *EmailServerAPIService) CreateEmailServer(ctx context.Context) ApiCreateEmailServerRequest {
 	return ApiCreateEmailServerRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return EmailServerResponse
+//
+//	@return EmailServerResponse
 func (a *EmailServerAPIService) CreateEmailServerExecute(r ApiCreateEmailServerRequest) (*EmailServerResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -168,7 +168,7 @@ func (a *EmailServerAPIService) CreateEmailServerExecute(r ApiCreateEmailServerR
 		localVarReturnValue  *EmailServerResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -230,9 +230,9 @@ func (a *EmailServerAPIService) CreateEmailServerExecute(r ApiCreateEmailServerR
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -290,16 +290,16 @@ func (a *EmailServerAPIService) CreateEmailServerExecute(r ApiCreateEmailServerR
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteEmailServerRequest struct {
-	ctx context.Context
-	ApiService EmailServerAPI
+	ctx           context.Context
+	ApiService    EmailServerAPI
 	emailServerId string
-	retryCount int32
+	retryCount    int32
 }
 
 func (r ApiDeleteEmailServerRequest) Execute() (*APIResponse, error) {
@@ -307,20 +307,20 @@ func (r ApiDeleteEmailServerRequest) Execute() (*APIResponse, error) {
 }
 
 /*
-DeleteEmailServer Delete an SMTP Server configuration
+DeleteEmailServer Delete an SMTP server configuration
 
 Deletes the specified custom SMTP server configuration
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param emailServerId
- @return ApiDeleteEmailServerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param emailServerId
+	@return ApiDeleteEmailServerRequest
 */
 func (a *EmailServerAPIService) DeleteEmailServer(ctx context.Context, emailServerId string) ApiDeleteEmailServerRequest {
 	return ApiDeleteEmailServerRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		emailServerId: emailServerId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -332,7 +332,7 @@ func (a *EmailServerAPIService) DeleteEmailServerExecute(r ApiDeleteEmailServerR
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -393,9 +393,9 @@ func (a *EmailServerAPIService) DeleteEmailServerExecute(r ApiDeleteEmailServerR
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -449,10 +449,10 @@ func (a *EmailServerAPIService) DeleteEmailServerExecute(r ApiDeleteEmailServerR
 }
 
 type ApiGetEmailServerRequest struct {
-	ctx context.Context
-	ApiService EmailServerAPI
+	ctx           context.Context
+	ApiService    EmailServerAPI
 	emailServerId string
-	retryCount int32
+	retryCount    int32
 }
 
 func (r ApiGetEmailServerRequest) Execute() (*EmailServerListResponse, *APIResponse, error) {
@@ -460,25 +460,26 @@ func (r ApiGetEmailServerRequest) Execute() (*EmailServerListResponse, *APIRespo
 }
 
 /*
-GetEmailServer Retrieve an SMTP Server configuration
+GetEmailServer Retrieve an SMTP server configuration
 
 Retrieves the specified custom SMTP server configuration
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param emailServerId
- @return ApiGetEmailServerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param emailServerId
+	@return ApiGetEmailServerRequest
 */
 func (a *EmailServerAPIService) GetEmailServer(ctx context.Context, emailServerId string) ApiGetEmailServerRequest {
 	return ApiGetEmailServerRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		emailServerId: emailServerId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
 // Execute executes the request
-//  @return EmailServerListResponse
+//
+//	@return EmailServerListResponse
 func (a *EmailServerAPIService) GetEmailServerExecute(r ApiGetEmailServerRequest) (*EmailServerListResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -487,7 +488,7 @@ func (a *EmailServerAPIService) GetEmailServerExecute(r ApiGetEmailServerRequest
 		localVarReturnValue  *EmailServerListResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -548,9 +549,9 @@ func (a *EmailServerAPIService) GetEmailServerExecute(r ApiGetEmailServerRequest
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -608,13 +609,13 @@ func (a *EmailServerAPIService) GetEmailServerExecute(r ApiGetEmailServerRequest
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListEmailServersRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService EmailServerAPI
 	retryCount int32
 }
@@ -628,19 +629,20 @@ ListEmailServers List all enrolled SMTP servers
 
 Lists all the enrolled custom SMTP server configurations
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListEmailServersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListEmailServersRequest
 */
 func (a *EmailServerAPIService) ListEmailServers(ctx context.Context) ApiListEmailServersRequest {
 	return ApiListEmailServersRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return EmailServerListResponse
+//
+//	@return EmailServerListResponse
 func (a *EmailServerAPIService) ListEmailServersExecute(r ApiListEmailServersRequest) (*EmailServerListResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -649,7 +651,7 @@ func (a *EmailServerAPIService) ListEmailServersExecute(r ApiListEmailServersReq
 		localVarReturnValue  *EmailServerListResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -709,9 +711,9 @@ func (a *EmailServerAPIService) ListEmailServersExecute(r ApiListEmailServersReq
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -757,17 +759,17 @@ func (a *EmailServerAPIService) ListEmailServersExecute(r ApiListEmailServersReq
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiTestEmailServerRequest struct {
-	ctx context.Context
-	ApiService EmailServerAPI
-	emailServerId string
+	ctx                context.Context
+	ApiService         EmailServerAPI
+	emailServerId      string
 	emailTestAddresses *EmailTestAddresses
-	retryCount int32
+	retryCount         int32
 }
 
 func (r ApiTestEmailServerRequest) EmailTestAddresses(emailTestAddresses EmailTestAddresses) ApiTestEmailServerRequest {
@@ -780,20 +782,20 @@ func (r ApiTestEmailServerRequest) Execute() (*APIResponse, error) {
 }
 
 /*
-TestEmailServer Test an SMTP Server configuration
+TestEmailServer Test an SMTP server configuration
 
 Tests the specified custom SMTP Server configuration
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param emailServerId
- @return ApiTestEmailServerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param emailServerId
+	@return ApiTestEmailServerRequest
 */
 func (a *EmailServerAPIService) TestEmailServer(ctx context.Context, emailServerId string) ApiTestEmailServerRequest {
 	return ApiTestEmailServerRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		emailServerId: emailServerId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -805,7 +807,7 @@ func (a *EmailServerAPIService) TestEmailServerExecute(r ApiTestEmailServerReque
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -868,9 +870,9 @@ func (a *EmailServerAPIService) TestEmailServerExecute(r ApiTestEmailServerReque
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -936,11 +938,11 @@ func (a *EmailServerAPIService) TestEmailServerExecute(r ApiTestEmailServerReque
 }
 
 type ApiUpdateEmailServerRequest struct {
-	ctx context.Context
-	ApiService EmailServerAPI
-	emailServerId string
+	ctx                context.Context
+	ApiService         EmailServerAPI
+	emailServerId      string
 	emailServerRequest *EmailServerRequest
-	retryCount int32
+	retryCount         int32
 }
 
 func (r ApiUpdateEmailServerRequest) EmailServerRequest(emailServerRequest EmailServerRequest) ApiUpdateEmailServerRequest {
@@ -953,25 +955,26 @@ func (r ApiUpdateEmailServerRequest) Execute() (*EmailServerResponse, *APIRespon
 }
 
 /*
-UpdateEmailServer Update an SMTP Server configuration
+UpdateEmailServer Update an SMTP server configuration
 
 Updates the specified custom SMTP server configuration
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param emailServerId
- @return ApiUpdateEmailServerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param emailServerId
+	@return ApiUpdateEmailServerRequest
 */
 func (a *EmailServerAPIService) UpdateEmailServer(ctx context.Context, emailServerId string) ApiUpdateEmailServerRequest {
 	return ApiUpdateEmailServerRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		emailServerId: emailServerId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
 // Execute executes the request
-//  @return EmailServerResponse
+//
+//	@return EmailServerResponse
 func (a *EmailServerAPIService) UpdateEmailServerExecute(r ApiUpdateEmailServerRequest) (*EmailServerResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
@@ -980,7 +983,7 @@ func (a *EmailServerAPIService) UpdateEmailServerExecute(r ApiUpdateEmailServerR
 		localVarReturnValue  *EmailServerResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1043,9 +1046,9 @@ func (a *EmailServerAPIService) UpdateEmailServerExecute(r ApiUpdateEmailServerR
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1115,7 +1118,7 @@ func (a *EmailServerAPIService) UpdateEmailServerExecute(r ApiUpdateEmailServerR
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Scope** | Pointer to [**AppCustomHrefObject**](AppCustomHrefObject.md) |  | [optional] 
+**Scope** | Pointer to [**OfflineAccessScopeResourceHrefObject**](OfflineAccessScopeResourceHrefObject.md) | Link to Scope resource | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetScope
 
-`func (o *OAuth2RefreshTokenScopeLinks) GetScope() AppCustomHrefObject`
+`func (o *OAuth2RefreshTokenScopeLinks) GetScope() OfflineAccessScopeResourceHrefObject`
 
 GetScope returns the Scope field if non-nil, zero value otherwise.
 
 ### GetScopeOk
 
-`func (o *OAuth2RefreshTokenScopeLinks) GetScopeOk() (*AppCustomHrefObject, bool)`
+`func (o *OAuth2RefreshTokenScopeLinks) GetScopeOk() (*OfflineAccessScopeResourceHrefObject, bool)`
 
 GetScopeOk returns a tuple with the Scope field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScope
 
-`func (o *OAuth2RefreshTokenScopeLinks) SetScope(v AppCustomHrefObject)`
+`func (o *OAuth2RefreshTokenScopeLinks) SetScope(v OfflineAccessScopeResourceHrefObject)`
 
 SetScope sets Scope field to given value.
 

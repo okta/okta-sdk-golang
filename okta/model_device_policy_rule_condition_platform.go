@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the DevicePolicyRuleConditionPlatform type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DevicePolicyRuleConditionPlatform{}
+
 // DevicePolicyRuleConditionPlatform struct for DevicePolicyRuleConditionPlatform
 type DevicePolicyRuleConditionPlatform struct {
 	SupportedMDMFrameworks []string `json:"supportedMDMFrameworks,omitempty"`
-	Types []string `json:"types,omitempty"`
-	AdditionalProperties map[string]interface{}
+	Types                  []string `json:"types,omitempty"`
+	AdditionalProperties   map[string]interface{}
 }
 
 type _DevicePolicyRuleConditionPlatform DevicePolicyRuleConditionPlatform
@@ -55,7 +58,7 @@ func NewDevicePolicyRuleConditionPlatformWithDefaults() *DevicePolicyRuleConditi
 
 // GetSupportedMDMFrameworks returns the SupportedMDMFrameworks field value if set, zero value otherwise.
 func (o *DevicePolicyRuleConditionPlatform) GetSupportedMDMFrameworks() []string {
-	if o == nil || o.SupportedMDMFrameworks == nil {
+	if o == nil || IsNil(o.SupportedMDMFrameworks) {
 		var ret []string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *DevicePolicyRuleConditionPlatform) GetSupportedMDMFrameworks() []string
 // GetSupportedMDMFrameworksOk returns a tuple with the SupportedMDMFrameworks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DevicePolicyRuleConditionPlatform) GetSupportedMDMFrameworksOk() ([]string, bool) {
-	if o == nil || o.SupportedMDMFrameworks == nil {
+	if o == nil || IsNil(o.SupportedMDMFrameworks) {
 		return nil, false
 	}
 	return o.SupportedMDMFrameworks, true
@@ -73,7 +76,7 @@ func (o *DevicePolicyRuleConditionPlatform) GetSupportedMDMFrameworksOk() ([]str
 
 // HasSupportedMDMFrameworks returns a boolean if a field has been set.
 func (o *DevicePolicyRuleConditionPlatform) HasSupportedMDMFrameworks() bool {
-	if o != nil && o.SupportedMDMFrameworks != nil {
+	if o != nil && !IsNil(o.SupportedMDMFrameworks) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *DevicePolicyRuleConditionPlatform) SetSupportedMDMFrameworks(v []string
 
 // GetTypes returns the Types field value if set, zero value otherwise.
 func (o *DevicePolicyRuleConditionPlatform) GetTypes() []string {
-	if o == nil || o.Types == nil {
+	if o == nil || IsNil(o.Types) {
 		var ret []string
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *DevicePolicyRuleConditionPlatform) GetTypes() []string {
 // GetTypesOk returns a tuple with the Types field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DevicePolicyRuleConditionPlatform) GetTypesOk() ([]string, bool) {
-	if o == nil || o.Types == nil {
+	if o == nil || IsNil(o.Types) {
 		return nil, false
 	}
 	return o.Types, true
@@ -105,7 +108,7 @@ func (o *DevicePolicyRuleConditionPlatform) GetTypesOk() ([]string, bool) {
 
 // HasTypes returns a boolean if a field has been set.
 func (o *DevicePolicyRuleConditionPlatform) HasTypes() bool {
-	if o != nil && o.Types != nil {
+	if o != nil && !IsNil(o.Types) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *DevicePolicyRuleConditionPlatform) SetTypes(v []string) {
 }
 
 func (o DevicePolicyRuleConditionPlatform) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DevicePolicyRuleConditionPlatform) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.SupportedMDMFrameworks != nil {
+	if !IsNil(o.SupportedMDMFrameworks) {
 		toSerialize["supportedMDMFrameworks"] = o.SupportedMDMFrameworks
 	}
-	if o.Types != nil {
+	if !IsNil(o.Types) {
 		toSerialize["types"] = o.Types
 	}
 
@@ -130,28 +141,26 @@ func (o DevicePolicyRuleConditionPlatform) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DevicePolicyRuleConditionPlatform) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DevicePolicyRuleConditionPlatform) UnmarshalJSON(data []byte) (err error) {
 	varDevicePolicyRuleConditionPlatform := _DevicePolicyRuleConditionPlatform{}
 
-	err = json.Unmarshal(bytes, &varDevicePolicyRuleConditionPlatform)
-	if err == nil {
-		*o = DevicePolicyRuleConditionPlatform(varDevicePolicyRuleConditionPlatform)
-	} else {
+	err = json.Unmarshal(data, &varDevicePolicyRuleConditionPlatform)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DevicePolicyRuleConditionPlatform(varDevicePolicyRuleConditionPlatform)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "supportedMDMFrameworks")
 		delete(additionalProperties, "types")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableDevicePolicyRuleConditionPlatform) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

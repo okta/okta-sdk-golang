@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -26,6 +26,9 @@ package okta
 import (
 	"encoding/json"
 )
+
+// checks if the DTCWindows type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DTCWindows{}
 
 // DTCWindows Google Chrome Device Trust Connector provider
 type DTCWindows struct {
@@ -45,8 +48,8 @@ type DTCWindows struct {
 	// Represents the attestation strength used by the Chrome Verified Access API
 	KeyTrustLevel *string `json:"keyTrustLevel,omitempty"`
 	// Indicates whether a firewall is enabled at the OS-level on the device
-	OsFirewall *bool `json:"osFirewall,omitempty"`
-	OsVersion *OSVersionFourComponents `json:"osVersion,omitempty"`
+	OsFirewall *bool                    `json:"osFirewall,omitempty"`
+	OsVersion  *OSVersionFourComponents `json:"osVersion,omitempty"`
 	// Indicates whether the Password Protection Warning feature is enabled
 	PasswordProtectionWarningTrigger *string `json:"passwordProtectionWarningTrigger,omitempty"`
 	// Indicates whether enterprise-grade (custom) unsafe URL scanning is enabled
@@ -60,11 +63,12 @@ type DTCWindows struct {
 	// Indicates whether the Site Isolation (also known as **Site Per Process**) setting is enabled
 	SiteIsolationEnabled *bool `json:"siteIsolationEnabled,omitempty"`
 	// Indicates whether Chrome is blocking third-party software injection
+	// Deprecated
 	ThirdPartyBlockingEnabled *bool `json:"thirdPartyBlockingEnabled,omitempty"`
 	// Windows domain that the current machine has joined
 	WindowsMachineDomain *string `json:"windowsMachineDomain,omitempty"`
 	// Windows domain for the current OS user
-	WindowsUserDomain *string `json:"windowsUserDomain,omitempty"`
+	WindowsUserDomain    *string `json:"windowsUserDomain,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -89,7 +93,7 @@ func NewDTCWindowsWithDefaults() *DTCWindows {
 
 // GetBrowserVersion returns the BrowserVersion field value if set, zero value otherwise.
 func (o *DTCWindows) GetBrowserVersion() ChromeBrowserVersion {
-	if o == nil || o.BrowserVersion == nil {
+	if o == nil || IsNil(o.BrowserVersion) {
 		var ret ChromeBrowserVersion
 		return ret
 	}
@@ -99,7 +103,7 @@ func (o *DTCWindows) GetBrowserVersion() ChromeBrowserVersion {
 // GetBrowserVersionOk returns a tuple with the BrowserVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCWindows) GetBrowserVersionOk() (*ChromeBrowserVersion, bool) {
-	if o == nil || o.BrowserVersion == nil {
+	if o == nil || IsNil(o.BrowserVersion) {
 		return nil, false
 	}
 	return o.BrowserVersion, true
@@ -107,7 +111,7 @@ func (o *DTCWindows) GetBrowserVersionOk() (*ChromeBrowserVersion, bool) {
 
 // HasBrowserVersion returns a boolean if a field has been set.
 func (o *DTCWindows) HasBrowserVersion() bool {
-	if o != nil && o.BrowserVersion != nil {
+	if o != nil && !IsNil(o.BrowserVersion) {
 		return true
 	}
 
@@ -121,7 +125,7 @@ func (o *DTCWindows) SetBrowserVersion(v ChromeBrowserVersion) {
 
 // GetBuiltInDnsClientEnabled returns the BuiltInDnsClientEnabled field value if set, zero value otherwise.
 func (o *DTCWindows) GetBuiltInDnsClientEnabled() bool {
-	if o == nil || o.BuiltInDnsClientEnabled == nil {
+	if o == nil || IsNil(o.BuiltInDnsClientEnabled) {
 		var ret bool
 		return ret
 	}
@@ -131,7 +135,7 @@ func (o *DTCWindows) GetBuiltInDnsClientEnabled() bool {
 // GetBuiltInDnsClientEnabledOk returns a tuple with the BuiltInDnsClientEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCWindows) GetBuiltInDnsClientEnabledOk() (*bool, bool) {
-	if o == nil || o.BuiltInDnsClientEnabled == nil {
+	if o == nil || IsNil(o.BuiltInDnsClientEnabled) {
 		return nil, false
 	}
 	return o.BuiltInDnsClientEnabled, true
@@ -139,7 +143,7 @@ func (o *DTCWindows) GetBuiltInDnsClientEnabledOk() (*bool, bool) {
 
 // HasBuiltInDnsClientEnabled returns a boolean if a field has been set.
 func (o *DTCWindows) HasBuiltInDnsClientEnabled() bool {
-	if o != nil && o.BuiltInDnsClientEnabled != nil {
+	if o != nil && !IsNil(o.BuiltInDnsClientEnabled) {
 		return true
 	}
 
@@ -153,7 +157,7 @@ func (o *DTCWindows) SetBuiltInDnsClientEnabled(v bool) {
 
 // GetChromeRemoteDesktopAppBlocked returns the ChromeRemoteDesktopAppBlocked field value if set, zero value otherwise.
 func (o *DTCWindows) GetChromeRemoteDesktopAppBlocked() bool {
-	if o == nil || o.ChromeRemoteDesktopAppBlocked == nil {
+	if o == nil || IsNil(o.ChromeRemoteDesktopAppBlocked) {
 		var ret bool
 		return ret
 	}
@@ -163,7 +167,7 @@ func (o *DTCWindows) GetChromeRemoteDesktopAppBlocked() bool {
 // GetChromeRemoteDesktopAppBlockedOk returns a tuple with the ChromeRemoteDesktopAppBlocked field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCWindows) GetChromeRemoteDesktopAppBlockedOk() (*bool, bool) {
-	if o == nil || o.ChromeRemoteDesktopAppBlocked == nil {
+	if o == nil || IsNil(o.ChromeRemoteDesktopAppBlocked) {
 		return nil, false
 	}
 	return o.ChromeRemoteDesktopAppBlocked, true
@@ -171,7 +175,7 @@ func (o *DTCWindows) GetChromeRemoteDesktopAppBlockedOk() (*bool, bool) {
 
 // HasChromeRemoteDesktopAppBlocked returns a boolean if a field has been set.
 func (o *DTCWindows) HasChromeRemoteDesktopAppBlocked() bool {
-	if o != nil && o.ChromeRemoteDesktopAppBlocked != nil {
+	if o != nil && !IsNil(o.ChromeRemoteDesktopAppBlocked) {
 		return true
 	}
 
@@ -185,7 +189,7 @@ func (o *DTCWindows) SetChromeRemoteDesktopAppBlocked(v bool) {
 
 // GetCrowdStrikeAgentId returns the CrowdStrikeAgentId field value if set, zero value otherwise.
 func (o *DTCWindows) GetCrowdStrikeAgentId() string {
-	if o == nil || o.CrowdStrikeAgentId == nil {
+	if o == nil || IsNil(o.CrowdStrikeAgentId) {
 		var ret string
 		return ret
 	}
@@ -195,7 +199,7 @@ func (o *DTCWindows) GetCrowdStrikeAgentId() string {
 // GetCrowdStrikeAgentIdOk returns a tuple with the CrowdStrikeAgentId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCWindows) GetCrowdStrikeAgentIdOk() (*string, bool) {
-	if o == nil || o.CrowdStrikeAgentId == nil {
+	if o == nil || IsNil(o.CrowdStrikeAgentId) {
 		return nil, false
 	}
 	return o.CrowdStrikeAgentId, true
@@ -203,7 +207,7 @@ func (o *DTCWindows) GetCrowdStrikeAgentIdOk() (*string, bool) {
 
 // HasCrowdStrikeAgentId returns a boolean if a field has been set.
 func (o *DTCWindows) HasCrowdStrikeAgentId() bool {
-	if o != nil && o.CrowdStrikeAgentId != nil {
+	if o != nil && !IsNil(o.CrowdStrikeAgentId) {
 		return true
 	}
 
@@ -217,7 +221,7 @@ func (o *DTCWindows) SetCrowdStrikeAgentId(v string) {
 
 // GetCrowdStrikeCustomerId returns the CrowdStrikeCustomerId field value if set, zero value otherwise.
 func (o *DTCWindows) GetCrowdStrikeCustomerId() string {
-	if o == nil || o.CrowdStrikeCustomerId == nil {
+	if o == nil || IsNil(o.CrowdStrikeCustomerId) {
 		var ret string
 		return ret
 	}
@@ -227,7 +231,7 @@ func (o *DTCWindows) GetCrowdStrikeCustomerId() string {
 // GetCrowdStrikeCustomerIdOk returns a tuple with the CrowdStrikeCustomerId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCWindows) GetCrowdStrikeCustomerIdOk() (*string, bool) {
-	if o == nil || o.CrowdStrikeCustomerId == nil {
+	if o == nil || IsNil(o.CrowdStrikeCustomerId) {
 		return nil, false
 	}
 	return o.CrowdStrikeCustomerId, true
@@ -235,7 +239,7 @@ func (o *DTCWindows) GetCrowdStrikeCustomerIdOk() (*string, bool) {
 
 // HasCrowdStrikeCustomerId returns a boolean if a field has been set.
 func (o *DTCWindows) HasCrowdStrikeCustomerId() bool {
-	if o != nil && o.CrowdStrikeCustomerId != nil {
+	if o != nil && !IsNil(o.CrowdStrikeCustomerId) {
 		return true
 	}
 
@@ -249,7 +253,7 @@ func (o *DTCWindows) SetCrowdStrikeCustomerId(v string) {
 
 // GetDeviceEnrollmentDomain returns the DeviceEnrollmentDomain field value if set, zero value otherwise.
 func (o *DTCWindows) GetDeviceEnrollmentDomain() string {
-	if o == nil || o.DeviceEnrollmentDomain == nil {
+	if o == nil || IsNil(o.DeviceEnrollmentDomain) {
 		var ret string
 		return ret
 	}
@@ -259,7 +263,7 @@ func (o *DTCWindows) GetDeviceEnrollmentDomain() string {
 // GetDeviceEnrollmentDomainOk returns a tuple with the DeviceEnrollmentDomain field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCWindows) GetDeviceEnrollmentDomainOk() (*string, bool) {
-	if o == nil || o.DeviceEnrollmentDomain == nil {
+	if o == nil || IsNil(o.DeviceEnrollmentDomain) {
 		return nil, false
 	}
 	return o.DeviceEnrollmentDomain, true
@@ -267,7 +271,7 @@ func (o *DTCWindows) GetDeviceEnrollmentDomainOk() (*string, bool) {
 
 // HasDeviceEnrollmentDomain returns a boolean if a field has been set.
 func (o *DTCWindows) HasDeviceEnrollmentDomain() bool {
-	if o != nil && o.DeviceEnrollmentDomain != nil {
+	if o != nil && !IsNil(o.DeviceEnrollmentDomain) {
 		return true
 	}
 
@@ -281,7 +285,7 @@ func (o *DTCWindows) SetDeviceEnrollmentDomain(v string) {
 
 // GetDiskEncrypted returns the DiskEncrypted field value if set, zero value otherwise.
 func (o *DTCWindows) GetDiskEncrypted() bool {
-	if o == nil || o.DiskEncrypted == nil {
+	if o == nil || IsNil(o.DiskEncrypted) {
 		var ret bool
 		return ret
 	}
@@ -291,7 +295,7 @@ func (o *DTCWindows) GetDiskEncrypted() bool {
 // GetDiskEncryptedOk returns a tuple with the DiskEncrypted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCWindows) GetDiskEncryptedOk() (*bool, bool) {
-	if o == nil || o.DiskEncrypted == nil {
+	if o == nil || IsNil(o.DiskEncrypted) {
 		return nil, false
 	}
 	return o.DiskEncrypted, true
@@ -299,7 +303,7 @@ func (o *DTCWindows) GetDiskEncryptedOk() (*bool, bool) {
 
 // HasDiskEncrypted returns a boolean if a field has been set.
 func (o *DTCWindows) HasDiskEncrypted() bool {
-	if o != nil && o.DiskEncrypted != nil {
+	if o != nil && !IsNil(o.DiskEncrypted) {
 		return true
 	}
 
@@ -313,7 +317,7 @@ func (o *DTCWindows) SetDiskEncrypted(v bool) {
 
 // GetKeyTrustLevel returns the KeyTrustLevel field value if set, zero value otherwise.
 func (o *DTCWindows) GetKeyTrustLevel() string {
-	if o == nil || o.KeyTrustLevel == nil {
+	if o == nil || IsNil(o.KeyTrustLevel) {
 		var ret string
 		return ret
 	}
@@ -323,7 +327,7 @@ func (o *DTCWindows) GetKeyTrustLevel() string {
 // GetKeyTrustLevelOk returns a tuple with the KeyTrustLevel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCWindows) GetKeyTrustLevelOk() (*string, bool) {
-	if o == nil || o.KeyTrustLevel == nil {
+	if o == nil || IsNil(o.KeyTrustLevel) {
 		return nil, false
 	}
 	return o.KeyTrustLevel, true
@@ -331,7 +335,7 @@ func (o *DTCWindows) GetKeyTrustLevelOk() (*string, bool) {
 
 // HasKeyTrustLevel returns a boolean if a field has been set.
 func (o *DTCWindows) HasKeyTrustLevel() bool {
-	if o != nil && o.KeyTrustLevel != nil {
+	if o != nil && !IsNil(o.KeyTrustLevel) {
 		return true
 	}
 
@@ -345,7 +349,7 @@ func (o *DTCWindows) SetKeyTrustLevel(v string) {
 
 // GetOsFirewall returns the OsFirewall field value if set, zero value otherwise.
 func (o *DTCWindows) GetOsFirewall() bool {
-	if o == nil || o.OsFirewall == nil {
+	if o == nil || IsNil(o.OsFirewall) {
 		var ret bool
 		return ret
 	}
@@ -355,7 +359,7 @@ func (o *DTCWindows) GetOsFirewall() bool {
 // GetOsFirewallOk returns a tuple with the OsFirewall field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCWindows) GetOsFirewallOk() (*bool, bool) {
-	if o == nil || o.OsFirewall == nil {
+	if o == nil || IsNil(o.OsFirewall) {
 		return nil, false
 	}
 	return o.OsFirewall, true
@@ -363,7 +367,7 @@ func (o *DTCWindows) GetOsFirewallOk() (*bool, bool) {
 
 // HasOsFirewall returns a boolean if a field has been set.
 func (o *DTCWindows) HasOsFirewall() bool {
-	if o != nil && o.OsFirewall != nil {
+	if o != nil && !IsNil(o.OsFirewall) {
 		return true
 	}
 
@@ -377,7 +381,7 @@ func (o *DTCWindows) SetOsFirewall(v bool) {
 
 // GetOsVersion returns the OsVersion field value if set, zero value otherwise.
 func (o *DTCWindows) GetOsVersion() OSVersionFourComponents {
-	if o == nil || o.OsVersion == nil {
+	if o == nil || IsNil(o.OsVersion) {
 		var ret OSVersionFourComponents
 		return ret
 	}
@@ -387,7 +391,7 @@ func (o *DTCWindows) GetOsVersion() OSVersionFourComponents {
 // GetOsVersionOk returns a tuple with the OsVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCWindows) GetOsVersionOk() (*OSVersionFourComponents, bool) {
-	if o == nil || o.OsVersion == nil {
+	if o == nil || IsNil(o.OsVersion) {
 		return nil, false
 	}
 	return o.OsVersion, true
@@ -395,7 +399,7 @@ func (o *DTCWindows) GetOsVersionOk() (*OSVersionFourComponents, bool) {
 
 // HasOsVersion returns a boolean if a field has been set.
 func (o *DTCWindows) HasOsVersion() bool {
-	if o != nil && o.OsVersion != nil {
+	if o != nil && !IsNil(o.OsVersion) {
 		return true
 	}
 
@@ -409,7 +413,7 @@ func (o *DTCWindows) SetOsVersion(v OSVersionFourComponents) {
 
 // GetPasswordProtectionWarningTrigger returns the PasswordProtectionWarningTrigger field value if set, zero value otherwise.
 func (o *DTCWindows) GetPasswordProtectionWarningTrigger() string {
-	if o == nil || o.PasswordProtectionWarningTrigger == nil {
+	if o == nil || IsNil(o.PasswordProtectionWarningTrigger) {
 		var ret string
 		return ret
 	}
@@ -419,7 +423,7 @@ func (o *DTCWindows) GetPasswordProtectionWarningTrigger() string {
 // GetPasswordProtectionWarningTriggerOk returns a tuple with the PasswordProtectionWarningTrigger field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCWindows) GetPasswordProtectionWarningTriggerOk() (*string, bool) {
-	if o == nil || o.PasswordProtectionWarningTrigger == nil {
+	if o == nil || IsNil(o.PasswordProtectionWarningTrigger) {
 		return nil, false
 	}
 	return o.PasswordProtectionWarningTrigger, true
@@ -427,7 +431,7 @@ func (o *DTCWindows) GetPasswordProtectionWarningTriggerOk() (*string, bool) {
 
 // HasPasswordProtectionWarningTrigger returns a boolean if a field has been set.
 func (o *DTCWindows) HasPasswordProtectionWarningTrigger() bool {
-	if o != nil && o.PasswordProtectionWarningTrigger != nil {
+	if o != nil && !IsNil(o.PasswordProtectionWarningTrigger) {
 		return true
 	}
 
@@ -441,7 +445,7 @@ func (o *DTCWindows) SetPasswordProtectionWarningTrigger(v string) {
 
 // GetRealtimeUrlCheckMode returns the RealtimeUrlCheckMode field value if set, zero value otherwise.
 func (o *DTCWindows) GetRealtimeUrlCheckMode() bool {
-	if o == nil || o.RealtimeUrlCheckMode == nil {
+	if o == nil || IsNil(o.RealtimeUrlCheckMode) {
 		var ret bool
 		return ret
 	}
@@ -451,7 +455,7 @@ func (o *DTCWindows) GetRealtimeUrlCheckMode() bool {
 // GetRealtimeUrlCheckModeOk returns a tuple with the RealtimeUrlCheckMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCWindows) GetRealtimeUrlCheckModeOk() (*bool, bool) {
-	if o == nil || o.RealtimeUrlCheckMode == nil {
+	if o == nil || IsNil(o.RealtimeUrlCheckMode) {
 		return nil, false
 	}
 	return o.RealtimeUrlCheckMode, true
@@ -459,7 +463,7 @@ func (o *DTCWindows) GetRealtimeUrlCheckModeOk() (*bool, bool) {
 
 // HasRealtimeUrlCheckMode returns a boolean if a field has been set.
 func (o *DTCWindows) HasRealtimeUrlCheckMode() bool {
-	if o != nil && o.RealtimeUrlCheckMode != nil {
+	if o != nil && !IsNil(o.RealtimeUrlCheckMode) {
 		return true
 	}
 
@@ -473,7 +477,7 @@ func (o *DTCWindows) SetRealtimeUrlCheckMode(v bool) {
 
 // GetSafeBrowsingProtectionLevel returns the SafeBrowsingProtectionLevel field value if set, zero value otherwise.
 func (o *DTCWindows) GetSafeBrowsingProtectionLevel() string {
-	if o == nil || o.SafeBrowsingProtectionLevel == nil {
+	if o == nil || IsNil(o.SafeBrowsingProtectionLevel) {
 		var ret string
 		return ret
 	}
@@ -483,7 +487,7 @@ func (o *DTCWindows) GetSafeBrowsingProtectionLevel() string {
 // GetSafeBrowsingProtectionLevelOk returns a tuple with the SafeBrowsingProtectionLevel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCWindows) GetSafeBrowsingProtectionLevelOk() (*string, bool) {
-	if o == nil || o.SafeBrowsingProtectionLevel == nil {
+	if o == nil || IsNil(o.SafeBrowsingProtectionLevel) {
 		return nil, false
 	}
 	return o.SafeBrowsingProtectionLevel, true
@@ -491,7 +495,7 @@ func (o *DTCWindows) GetSafeBrowsingProtectionLevelOk() (*string, bool) {
 
 // HasSafeBrowsingProtectionLevel returns a boolean if a field has been set.
 func (o *DTCWindows) HasSafeBrowsingProtectionLevel() bool {
-	if o != nil && o.SafeBrowsingProtectionLevel != nil {
+	if o != nil && !IsNil(o.SafeBrowsingProtectionLevel) {
 		return true
 	}
 
@@ -505,7 +509,7 @@ func (o *DTCWindows) SetSafeBrowsingProtectionLevel(v string) {
 
 // GetScreenLockSecured returns the ScreenLockSecured field value if set, zero value otherwise.
 func (o *DTCWindows) GetScreenLockSecured() bool {
-	if o == nil || o.ScreenLockSecured == nil {
+	if o == nil || IsNil(o.ScreenLockSecured) {
 		var ret bool
 		return ret
 	}
@@ -515,7 +519,7 @@ func (o *DTCWindows) GetScreenLockSecured() bool {
 // GetScreenLockSecuredOk returns a tuple with the ScreenLockSecured field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCWindows) GetScreenLockSecuredOk() (*bool, bool) {
-	if o == nil || o.ScreenLockSecured == nil {
+	if o == nil || IsNil(o.ScreenLockSecured) {
 		return nil, false
 	}
 	return o.ScreenLockSecured, true
@@ -523,7 +527,7 @@ func (o *DTCWindows) GetScreenLockSecuredOk() (*bool, bool) {
 
 // HasScreenLockSecured returns a boolean if a field has been set.
 func (o *DTCWindows) HasScreenLockSecured() bool {
-	if o != nil && o.ScreenLockSecured != nil {
+	if o != nil && !IsNil(o.ScreenLockSecured) {
 		return true
 	}
 
@@ -537,7 +541,7 @@ func (o *DTCWindows) SetScreenLockSecured(v bool) {
 
 // GetSecureBootEnabled returns the SecureBootEnabled field value if set, zero value otherwise.
 func (o *DTCWindows) GetSecureBootEnabled() bool {
-	if o == nil || o.SecureBootEnabled == nil {
+	if o == nil || IsNil(o.SecureBootEnabled) {
 		var ret bool
 		return ret
 	}
@@ -547,7 +551,7 @@ func (o *DTCWindows) GetSecureBootEnabled() bool {
 // GetSecureBootEnabledOk returns a tuple with the SecureBootEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCWindows) GetSecureBootEnabledOk() (*bool, bool) {
-	if o == nil || o.SecureBootEnabled == nil {
+	if o == nil || IsNil(o.SecureBootEnabled) {
 		return nil, false
 	}
 	return o.SecureBootEnabled, true
@@ -555,7 +559,7 @@ func (o *DTCWindows) GetSecureBootEnabledOk() (*bool, bool) {
 
 // HasSecureBootEnabled returns a boolean if a field has been set.
 func (o *DTCWindows) HasSecureBootEnabled() bool {
-	if o != nil && o.SecureBootEnabled != nil {
+	if o != nil && !IsNil(o.SecureBootEnabled) {
 		return true
 	}
 
@@ -569,7 +573,7 @@ func (o *DTCWindows) SetSecureBootEnabled(v bool) {
 
 // GetSiteIsolationEnabled returns the SiteIsolationEnabled field value if set, zero value otherwise.
 func (o *DTCWindows) GetSiteIsolationEnabled() bool {
-	if o == nil || o.SiteIsolationEnabled == nil {
+	if o == nil || IsNil(o.SiteIsolationEnabled) {
 		var ret bool
 		return ret
 	}
@@ -579,7 +583,7 @@ func (o *DTCWindows) GetSiteIsolationEnabled() bool {
 // GetSiteIsolationEnabledOk returns a tuple with the SiteIsolationEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCWindows) GetSiteIsolationEnabledOk() (*bool, bool) {
-	if o == nil || o.SiteIsolationEnabled == nil {
+	if o == nil || IsNil(o.SiteIsolationEnabled) {
 		return nil, false
 	}
 	return o.SiteIsolationEnabled, true
@@ -587,7 +591,7 @@ func (o *DTCWindows) GetSiteIsolationEnabledOk() (*bool, bool) {
 
 // HasSiteIsolationEnabled returns a boolean if a field has been set.
 func (o *DTCWindows) HasSiteIsolationEnabled() bool {
-	if o != nil && o.SiteIsolationEnabled != nil {
+	if o != nil && !IsNil(o.SiteIsolationEnabled) {
 		return true
 	}
 
@@ -600,8 +604,9 @@ func (o *DTCWindows) SetSiteIsolationEnabled(v bool) {
 }
 
 // GetThirdPartyBlockingEnabled returns the ThirdPartyBlockingEnabled field value if set, zero value otherwise.
+// Deprecated
 func (o *DTCWindows) GetThirdPartyBlockingEnabled() bool {
-	if o == nil || o.ThirdPartyBlockingEnabled == nil {
+	if o == nil || IsNil(o.ThirdPartyBlockingEnabled) {
 		var ret bool
 		return ret
 	}
@@ -610,8 +615,9 @@ func (o *DTCWindows) GetThirdPartyBlockingEnabled() bool {
 
 // GetThirdPartyBlockingEnabledOk returns a tuple with the ThirdPartyBlockingEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *DTCWindows) GetThirdPartyBlockingEnabledOk() (*bool, bool) {
-	if o == nil || o.ThirdPartyBlockingEnabled == nil {
+	if o == nil || IsNil(o.ThirdPartyBlockingEnabled) {
 		return nil, false
 	}
 	return o.ThirdPartyBlockingEnabled, true
@@ -619,7 +625,7 @@ func (o *DTCWindows) GetThirdPartyBlockingEnabledOk() (*bool, bool) {
 
 // HasThirdPartyBlockingEnabled returns a boolean if a field has been set.
 func (o *DTCWindows) HasThirdPartyBlockingEnabled() bool {
-	if o != nil && o.ThirdPartyBlockingEnabled != nil {
+	if o != nil && !IsNil(o.ThirdPartyBlockingEnabled) {
 		return true
 	}
 
@@ -627,13 +633,14 @@ func (o *DTCWindows) HasThirdPartyBlockingEnabled() bool {
 }
 
 // SetThirdPartyBlockingEnabled gets a reference to the given bool and assigns it to the ThirdPartyBlockingEnabled field.
+// Deprecated
 func (o *DTCWindows) SetThirdPartyBlockingEnabled(v bool) {
 	o.ThirdPartyBlockingEnabled = &v
 }
 
 // GetWindowsMachineDomain returns the WindowsMachineDomain field value if set, zero value otherwise.
 func (o *DTCWindows) GetWindowsMachineDomain() string {
-	if o == nil || o.WindowsMachineDomain == nil {
+	if o == nil || IsNil(o.WindowsMachineDomain) {
 		var ret string
 		return ret
 	}
@@ -643,7 +650,7 @@ func (o *DTCWindows) GetWindowsMachineDomain() string {
 // GetWindowsMachineDomainOk returns a tuple with the WindowsMachineDomain field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCWindows) GetWindowsMachineDomainOk() (*string, bool) {
-	if o == nil || o.WindowsMachineDomain == nil {
+	if o == nil || IsNil(o.WindowsMachineDomain) {
 		return nil, false
 	}
 	return o.WindowsMachineDomain, true
@@ -651,7 +658,7 @@ func (o *DTCWindows) GetWindowsMachineDomainOk() (*string, bool) {
 
 // HasWindowsMachineDomain returns a boolean if a field has been set.
 func (o *DTCWindows) HasWindowsMachineDomain() bool {
-	if o != nil && o.WindowsMachineDomain != nil {
+	if o != nil && !IsNil(o.WindowsMachineDomain) {
 		return true
 	}
 
@@ -665,7 +672,7 @@ func (o *DTCWindows) SetWindowsMachineDomain(v string) {
 
 // GetWindowsUserDomain returns the WindowsUserDomain field value if set, zero value otherwise.
 func (o *DTCWindows) GetWindowsUserDomain() string {
-	if o == nil || o.WindowsUserDomain == nil {
+	if o == nil || IsNil(o.WindowsUserDomain) {
 		var ret string
 		return ret
 	}
@@ -675,7 +682,7 @@ func (o *DTCWindows) GetWindowsUserDomain() string {
 // GetWindowsUserDomainOk returns a tuple with the WindowsUserDomain field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DTCWindows) GetWindowsUserDomainOk() (*string, bool) {
-	if o == nil || o.WindowsUserDomain == nil {
+	if o == nil || IsNil(o.WindowsUserDomain) {
 		return nil, false
 	}
 	return o.WindowsUserDomain, true
@@ -683,7 +690,7 @@ func (o *DTCWindows) GetWindowsUserDomainOk() (*string, bool) {
 
 // HasWindowsUserDomain returns a boolean if a field has been set.
 func (o *DTCWindows) HasWindowsUserDomain() bool {
-	if o != nil && o.WindowsUserDomain != nil {
+	if o != nil && !IsNil(o.WindowsUserDomain) {
 		return true
 	}
 
@@ -696,62 +703,70 @@ func (o *DTCWindows) SetWindowsUserDomain(v string) {
 }
 
 func (o DTCWindows) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DTCWindows) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.BrowserVersion != nil {
+	if !IsNil(o.BrowserVersion) {
 		toSerialize["browserVersion"] = o.BrowserVersion
 	}
-	if o.BuiltInDnsClientEnabled != nil {
+	if !IsNil(o.BuiltInDnsClientEnabled) {
 		toSerialize["builtInDnsClientEnabled"] = o.BuiltInDnsClientEnabled
 	}
-	if o.ChromeRemoteDesktopAppBlocked != nil {
+	if !IsNil(o.ChromeRemoteDesktopAppBlocked) {
 		toSerialize["chromeRemoteDesktopAppBlocked"] = o.ChromeRemoteDesktopAppBlocked
 	}
-	if o.CrowdStrikeAgentId != nil {
+	if !IsNil(o.CrowdStrikeAgentId) {
 		toSerialize["crowdStrikeAgentId"] = o.CrowdStrikeAgentId
 	}
-	if o.CrowdStrikeCustomerId != nil {
+	if !IsNil(o.CrowdStrikeCustomerId) {
 		toSerialize["crowdStrikeCustomerId"] = o.CrowdStrikeCustomerId
 	}
-	if o.DeviceEnrollmentDomain != nil {
+	if !IsNil(o.DeviceEnrollmentDomain) {
 		toSerialize["deviceEnrollmentDomain"] = o.DeviceEnrollmentDomain
 	}
-	if o.DiskEncrypted != nil {
+	if !IsNil(o.DiskEncrypted) {
 		toSerialize["diskEncrypted"] = o.DiskEncrypted
 	}
-	if o.KeyTrustLevel != nil {
+	if !IsNil(o.KeyTrustLevel) {
 		toSerialize["keyTrustLevel"] = o.KeyTrustLevel
 	}
-	if o.OsFirewall != nil {
+	if !IsNil(o.OsFirewall) {
 		toSerialize["osFirewall"] = o.OsFirewall
 	}
-	if o.OsVersion != nil {
+	if !IsNil(o.OsVersion) {
 		toSerialize["osVersion"] = o.OsVersion
 	}
-	if o.PasswordProtectionWarningTrigger != nil {
+	if !IsNil(o.PasswordProtectionWarningTrigger) {
 		toSerialize["passwordProtectionWarningTrigger"] = o.PasswordProtectionWarningTrigger
 	}
-	if o.RealtimeUrlCheckMode != nil {
+	if !IsNil(o.RealtimeUrlCheckMode) {
 		toSerialize["realtimeUrlCheckMode"] = o.RealtimeUrlCheckMode
 	}
-	if o.SafeBrowsingProtectionLevel != nil {
+	if !IsNil(o.SafeBrowsingProtectionLevel) {
 		toSerialize["safeBrowsingProtectionLevel"] = o.SafeBrowsingProtectionLevel
 	}
-	if o.ScreenLockSecured != nil {
+	if !IsNil(o.ScreenLockSecured) {
 		toSerialize["screenLockSecured"] = o.ScreenLockSecured
 	}
-	if o.SecureBootEnabled != nil {
+	if !IsNil(o.SecureBootEnabled) {
 		toSerialize["secureBootEnabled"] = o.SecureBootEnabled
 	}
-	if o.SiteIsolationEnabled != nil {
+	if !IsNil(o.SiteIsolationEnabled) {
 		toSerialize["siteIsolationEnabled"] = o.SiteIsolationEnabled
 	}
-	if o.ThirdPartyBlockingEnabled != nil {
+	if !IsNil(o.ThirdPartyBlockingEnabled) {
 		toSerialize["thirdPartyBlockingEnabled"] = o.ThirdPartyBlockingEnabled
 	}
-	if o.WindowsMachineDomain != nil {
+	if !IsNil(o.WindowsMachineDomain) {
 		toSerialize["windowsMachineDomain"] = o.WindowsMachineDomain
 	}
-	if o.WindowsUserDomain != nil {
+	if !IsNil(o.WindowsUserDomain) {
 		toSerialize["windowsUserDomain"] = o.WindowsUserDomain
 	}
 
@@ -759,23 +774,23 @@ func (o DTCWindows) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DTCWindows) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DTCWindows) UnmarshalJSON(data []byte) (err error) {
 	varDTCWindows := _DTCWindows{}
 
-	err = json.Unmarshal(bytes, &varDTCWindows)
-	if err == nil {
-		*o = DTCWindows(varDTCWindows)
-	} else {
+	err = json.Unmarshal(data, &varDTCWindows)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DTCWindows(varDTCWindows)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "browserVersion")
 		delete(additionalProperties, "builtInDnsClientEnabled")
 		delete(additionalProperties, "chromeRemoteDesktopAppBlocked")
@@ -796,8 +811,6 @@ func (o *DTCWindows) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "windowsMachineDomain")
 		delete(additionalProperties, "windowsUserDomain")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -838,4 +851,3 @@ func (v *NullableDTCWindows) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

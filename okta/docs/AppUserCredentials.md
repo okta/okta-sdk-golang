@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Password** | Pointer to [**AppUserPasswordCredential**](AppUserPasswordCredential.md) |  | [optional] 
-**UserName** | Pointer to **string** | The user&#39;s username in the app | [optional] 
+**UserName** | Pointer to **string** | The user&#39;s username in the app  &gt; **Note:** The [userNameTemplate](/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication!path&#x3D;0/credentials/userNameTemplate&amp;t&#x3D;request) in the application object defines the default username generated when a user is assigned to that app. &gt; If you attempt to assign a username or password to an app with an incompatible [authentication scheme](/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication!path&#x3D;0/credentials/scheme&amp;t&#x3D;request), the following error is returned: &gt; \&quot;Credentials should not be set on this resource based on the scheme.\&quot; | [optional] 
 
 ## Methods
 

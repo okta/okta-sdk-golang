@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -25,15 +25,19 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the BehaviorRuleSettingsAnomalousLocation type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BehaviorRuleSettingsAnomalousLocation{}
 
 // BehaviorRuleSettingsAnomalousLocation struct for BehaviorRuleSettingsAnomalousLocation
 type BehaviorRuleSettingsAnomalousLocation struct {
-	MaxEventsUsedForEvaluation *int32 `json:"maxEventsUsedForEvaluation,omitempty"`
+	MaxEventsUsedForEvaluation   *int32 `json:"maxEventsUsedForEvaluation,omitempty"`
 	MinEventsNeededForEvaluation *int32 `json:"minEventsNeededForEvaluation,omitempty"`
-	Granularity string `json:"granularity"`
+	Granularity                  string `json:"granularity"`
 	// Required when `granularity` is `LAT_LONG`. Radius from the provided coordinates in kilometers.
-	RadiusKilometers *int32 `json:"radiusKilometers,omitempty"`
+	RadiusKilometers     *int32 `json:"radiusKilometers,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -67,7 +71,7 @@ func NewBehaviorRuleSettingsAnomalousLocationWithDefaults() *BehaviorRuleSetting
 
 // GetMaxEventsUsedForEvaluation returns the MaxEventsUsedForEvaluation field value if set, zero value otherwise.
 func (o *BehaviorRuleSettingsAnomalousLocation) GetMaxEventsUsedForEvaluation() int32 {
-	if o == nil || o.MaxEventsUsedForEvaluation == nil {
+	if o == nil || IsNil(o.MaxEventsUsedForEvaluation) {
 		var ret int32
 		return ret
 	}
@@ -77,7 +81,7 @@ func (o *BehaviorRuleSettingsAnomalousLocation) GetMaxEventsUsedForEvaluation() 
 // GetMaxEventsUsedForEvaluationOk returns a tuple with the MaxEventsUsedForEvaluation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BehaviorRuleSettingsAnomalousLocation) GetMaxEventsUsedForEvaluationOk() (*int32, bool) {
-	if o == nil || o.MaxEventsUsedForEvaluation == nil {
+	if o == nil || IsNil(o.MaxEventsUsedForEvaluation) {
 		return nil, false
 	}
 	return o.MaxEventsUsedForEvaluation, true
@@ -85,7 +89,7 @@ func (o *BehaviorRuleSettingsAnomalousLocation) GetMaxEventsUsedForEvaluationOk(
 
 // HasMaxEventsUsedForEvaluation returns a boolean if a field has been set.
 func (o *BehaviorRuleSettingsAnomalousLocation) HasMaxEventsUsedForEvaluation() bool {
-	if o != nil && o.MaxEventsUsedForEvaluation != nil {
+	if o != nil && !IsNil(o.MaxEventsUsedForEvaluation) {
 		return true
 	}
 
@@ -99,7 +103,7 @@ func (o *BehaviorRuleSettingsAnomalousLocation) SetMaxEventsUsedForEvaluation(v 
 
 // GetMinEventsNeededForEvaluation returns the MinEventsNeededForEvaluation field value if set, zero value otherwise.
 func (o *BehaviorRuleSettingsAnomalousLocation) GetMinEventsNeededForEvaluation() int32 {
-	if o == nil || o.MinEventsNeededForEvaluation == nil {
+	if o == nil || IsNil(o.MinEventsNeededForEvaluation) {
 		var ret int32
 		return ret
 	}
@@ -109,7 +113,7 @@ func (o *BehaviorRuleSettingsAnomalousLocation) GetMinEventsNeededForEvaluation(
 // GetMinEventsNeededForEvaluationOk returns a tuple with the MinEventsNeededForEvaluation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BehaviorRuleSettingsAnomalousLocation) GetMinEventsNeededForEvaluationOk() (*int32, bool) {
-	if o == nil || o.MinEventsNeededForEvaluation == nil {
+	if o == nil || IsNil(o.MinEventsNeededForEvaluation) {
 		return nil, false
 	}
 	return o.MinEventsNeededForEvaluation, true
@@ -117,7 +121,7 @@ func (o *BehaviorRuleSettingsAnomalousLocation) GetMinEventsNeededForEvaluationO
 
 // HasMinEventsNeededForEvaluation returns a boolean if a field has been set.
 func (o *BehaviorRuleSettingsAnomalousLocation) HasMinEventsNeededForEvaluation() bool {
-	if o != nil && o.MinEventsNeededForEvaluation != nil {
+	if o != nil && !IsNil(o.MinEventsNeededForEvaluation) {
 		return true
 	}
 
@@ -155,7 +159,7 @@ func (o *BehaviorRuleSettingsAnomalousLocation) SetGranularity(v string) {
 
 // GetRadiusKilometers returns the RadiusKilometers field value if set, zero value otherwise.
 func (o *BehaviorRuleSettingsAnomalousLocation) GetRadiusKilometers() int32 {
-	if o == nil || o.RadiusKilometers == nil {
+	if o == nil || IsNil(o.RadiusKilometers) {
 		var ret int32
 		return ret
 	}
@@ -165,7 +169,7 @@ func (o *BehaviorRuleSettingsAnomalousLocation) GetRadiusKilometers() int32 {
 // GetRadiusKilometersOk returns a tuple with the RadiusKilometers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BehaviorRuleSettingsAnomalousLocation) GetRadiusKilometersOk() (*int32, bool) {
-	if o == nil || o.RadiusKilometers == nil {
+	if o == nil || IsNil(o.RadiusKilometers) {
 		return nil, false
 	}
 	return o.RadiusKilometers, true
@@ -173,7 +177,7 @@ func (o *BehaviorRuleSettingsAnomalousLocation) GetRadiusKilometersOk() (*int32,
 
 // HasRadiusKilometers returns a boolean if a field has been set.
 func (o *BehaviorRuleSettingsAnomalousLocation) HasRadiusKilometers() bool {
-	if o != nil && o.RadiusKilometers != nil {
+	if o != nil && !IsNil(o.RadiusKilometers) {
 		return true
 	}
 
@@ -186,17 +190,23 @@ func (o *BehaviorRuleSettingsAnomalousLocation) SetRadiusKilometers(v int32) {
 }
 
 func (o BehaviorRuleSettingsAnomalousLocation) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BehaviorRuleSettingsAnomalousLocation) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.MaxEventsUsedForEvaluation != nil {
+	if !IsNil(o.MaxEventsUsedForEvaluation) {
 		toSerialize["maxEventsUsedForEvaluation"] = o.MaxEventsUsedForEvaluation
 	}
-	if o.MinEventsNeededForEvaluation != nil {
+	if !IsNil(o.MinEventsNeededForEvaluation) {
 		toSerialize["minEventsNeededForEvaluation"] = o.MinEventsNeededForEvaluation
 	}
-	if true {
-		toSerialize["granularity"] = o.Granularity
-	}
-	if o.RadiusKilometers != nil {
+	toSerialize["granularity"] = o.Granularity
+	if !IsNil(o.RadiusKilometers) {
 		toSerialize["radiusKilometers"] = o.RadiusKilometers
 	}
 
@@ -204,30 +214,49 @@ func (o BehaviorRuleSettingsAnomalousLocation) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *BehaviorRuleSettingsAnomalousLocation) UnmarshalJSON(bytes []byte) (err error) {
-	varBehaviorRuleSettingsAnomalousLocation := _BehaviorRuleSettingsAnomalousLocation{}
+func (o *BehaviorRuleSettingsAnomalousLocation) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"granularity",
+	}
 
-	err = json.Unmarshal(bytes, &varBehaviorRuleSettingsAnomalousLocation)
-	if err == nil {
-		*o = BehaviorRuleSettingsAnomalousLocation(varBehaviorRuleSettingsAnomalousLocation)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varBehaviorRuleSettingsAnomalousLocation := _BehaviorRuleSettingsAnomalousLocation{}
+
+	err = json.Unmarshal(data, &varBehaviorRuleSettingsAnomalousLocation)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BehaviorRuleSettingsAnomalousLocation(varBehaviorRuleSettingsAnomalousLocation)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "maxEventsUsedForEvaluation")
 		delete(additionalProperties, "minEventsNeededForEvaluation")
 		delete(additionalProperties, "granularity")
 		delete(additionalProperties, "radiusKilometers")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -268,4 +297,3 @@ func (v *NullableBehaviorRuleSettingsAnomalousLocation) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

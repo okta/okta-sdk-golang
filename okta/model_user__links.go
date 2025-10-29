@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,23 +27,41 @@ import (
 	"encoding/json"
 )
 
-// UserLinks Specifies link relations (see [Web Linking](https://datatracker.ietf.org/doc/html/rfc8288) available for the current status of a user. The Links object is used for dynamic discovery of related resources, lifecycle operations, and credential operations. The Links object is read-only.  For an individual user result, the Links object contains a full set of link relations available for that user as determined by your policies. For a collection of users, the Links object contains only the `self` link. Operations that return a collection of Users include List Users and List Group Members.
+// checks if the UserLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserLinks{}
+
+// UserLinks Specifies link relations (see [Web Linking](https://datatracker.ietf.org/doc/html/rfc8288) available for the current status of a user. The links object is used for dynamic discovery of related resources, lifecycle operations, and credential operations. The links object is read-only.  For an individual user result, the links object contains a full set of link relations available for that user as determined by your policies. For a collection of users, the links object contains only the `self` link. Operations that return a collection of users include [List all users](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/User/#tag/User/operation/listUsers) and [List all group member users](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Group/#tag/Group/operation/listGroupUsers).
 type UserLinks struct {
+	// URL to the individual user
 	Self *HrefObject `json:"self,omitempty"`
+	// URL to activate the user
 	Activate *HrefObject `json:"activate,omitempty"`
+	// URL to reset the user's password
 	ResetPassword *HrefObject `json:"resetPassword,omitempty"`
+	// URL to reset the user's factors
 	ResetFactors *HrefObject `json:"resetFactors,omitempty"`
+	// URL to expire the user's password
 	ExpirePassword *HrefObject `json:"expirePassword,omitempty"`
+	// URL to initiate a forgot password operation
 	ForgotPassword *HrefObject `json:"forgotPassword,omitempty"`
+	// URL to change the user's recovery question
 	ChangeRecoveryQuestion *HrefObject `json:"changeRecoveryQuestion,omitempty"`
+	// URL to deactivate a user
 	Deactivate *HrefObject `json:"deactivate,omitempty"`
+	// URL to reactivate the user
 	Reactivate *HrefObject `json:"reactivate,omitempty"`
+	// URL to change the user's password
 	ChangePassword *HrefObject `json:"changePassword,omitempty"`
+	// URL to the user's profile schema
 	Schema *HrefObject `json:"schema,omitempty"`
+	// URL to suspend the user
 	Suspend *HrefObject `json:"suspend,omitempty"`
+	// URL to unsuspend the user
 	Unsuspend *HrefObject `json:"unsuspend,omitempty"`
+	// URL to unlock the locked-out user
 	Unlock *HrefObject `json:"unlock,omitempty"`
-	Type *HrefObject `json:"type,omitempty"`
+	// URL to the user type
+	Type                 *HrefObject `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -68,7 +86,7 @@ func NewUserLinksWithDefaults() *UserLinks {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *UserLinks) GetSelf() HrefObject {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObject
 		return ret
 	}
@@ -78,7 +96,7 @@ func (o *UserLinks) GetSelf() HrefObject {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserLinks) GetSelfOk() (*HrefObject, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -86,7 +104,7 @@ func (o *UserLinks) GetSelfOk() (*HrefObject, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *UserLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -100,7 +118,7 @@ func (o *UserLinks) SetSelf(v HrefObject) {
 
 // GetActivate returns the Activate field value if set, zero value otherwise.
 func (o *UserLinks) GetActivate() HrefObject {
-	if o == nil || o.Activate == nil {
+	if o == nil || IsNil(o.Activate) {
 		var ret HrefObject
 		return ret
 	}
@@ -110,7 +128,7 @@ func (o *UserLinks) GetActivate() HrefObject {
 // GetActivateOk returns a tuple with the Activate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserLinks) GetActivateOk() (*HrefObject, bool) {
-	if o == nil || o.Activate == nil {
+	if o == nil || IsNil(o.Activate) {
 		return nil, false
 	}
 	return o.Activate, true
@@ -118,7 +136,7 @@ func (o *UserLinks) GetActivateOk() (*HrefObject, bool) {
 
 // HasActivate returns a boolean if a field has been set.
 func (o *UserLinks) HasActivate() bool {
-	if o != nil && o.Activate != nil {
+	if o != nil && !IsNil(o.Activate) {
 		return true
 	}
 
@@ -132,7 +150,7 @@ func (o *UserLinks) SetActivate(v HrefObject) {
 
 // GetResetPassword returns the ResetPassword field value if set, zero value otherwise.
 func (o *UserLinks) GetResetPassword() HrefObject {
-	if o == nil || o.ResetPassword == nil {
+	if o == nil || IsNil(o.ResetPassword) {
 		var ret HrefObject
 		return ret
 	}
@@ -142,7 +160,7 @@ func (o *UserLinks) GetResetPassword() HrefObject {
 // GetResetPasswordOk returns a tuple with the ResetPassword field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserLinks) GetResetPasswordOk() (*HrefObject, bool) {
-	if o == nil || o.ResetPassword == nil {
+	if o == nil || IsNil(o.ResetPassword) {
 		return nil, false
 	}
 	return o.ResetPassword, true
@@ -150,7 +168,7 @@ func (o *UserLinks) GetResetPasswordOk() (*HrefObject, bool) {
 
 // HasResetPassword returns a boolean if a field has been set.
 func (o *UserLinks) HasResetPassword() bool {
-	if o != nil && o.ResetPassword != nil {
+	if o != nil && !IsNil(o.ResetPassword) {
 		return true
 	}
 
@@ -164,7 +182,7 @@ func (o *UserLinks) SetResetPassword(v HrefObject) {
 
 // GetResetFactors returns the ResetFactors field value if set, zero value otherwise.
 func (o *UserLinks) GetResetFactors() HrefObject {
-	if o == nil || o.ResetFactors == nil {
+	if o == nil || IsNil(o.ResetFactors) {
 		var ret HrefObject
 		return ret
 	}
@@ -174,7 +192,7 @@ func (o *UserLinks) GetResetFactors() HrefObject {
 // GetResetFactorsOk returns a tuple with the ResetFactors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserLinks) GetResetFactorsOk() (*HrefObject, bool) {
-	if o == nil || o.ResetFactors == nil {
+	if o == nil || IsNil(o.ResetFactors) {
 		return nil, false
 	}
 	return o.ResetFactors, true
@@ -182,7 +200,7 @@ func (o *UserLinks) GetResetFactorsOk() (*HrefObject, bool) {
 
 // HasResetFactors returns a boolean if a field has been set.
 func (o *UserLinks) HasResetFactors() bool {
-	if o != nil && o.ResetFactors != nil {
+	if o != nil && !IsNil(o.ResetFactors) {
 		return true
 	}
 
@@ -196,7 +214,7 @@ func (o *UserLinks) SetResetFactors(v HrefObject) {
 
 // GetExpirePassword returns the ExpirePassword field value if set, zero value otherwise.
 func (o *UserLinks) GetExpirePassword() HrefObject {
-	if o == nil || o.ExpirePassword == nil {
+	if o == nil || IsNil(o.ExpirePassword) {
 		var ret HrefObject
 		return ret
 	}
@@ -206,7 +224,7 @@ func (o *UserLinks) GetExpirePassword() HrefObject {
 // GetExpirePasswordOk returns a tuple with the ExpirePassword field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserLinks) GetExpirePasswordOk() (*HrefObject, bool) {
-	if o == nil || o.ExpirePassword == nil {
+	if o == nil || IsNil(o.ExpirePassword) {
 		return nil, false
 	}
 	return o.ExpirePassword, true
@@ -214,7 +232,7 @@ func (o *UserLinks) GetExpirePasswordOk() (*HrefObject, bool) {
 
 // HasExpirePassword returns a boolean if a field has been set.
 func (o *UserLinks) HasExpirePassword() bool {
-	if o != nil && o.ExpirePassword != nil {
+	if o != nil && !IsNil(o.ExpirePassword) {
 		return true
 	}
 
@@ -228,7 +246,7 @@ func (o *UserLinks) SetExpirePassword(v HrefObject) {
 
 // GetForgotPassword returns the ForgotPassword field value if set, zero value otherwise.
 func (o *UserLinks) GetForgotPassword() HrefObject {
-	if o == nil || o.ForgotPassword == nil {
+	if o == nil || IsNil(o.ForgotPassword) {
 		var ret HrefObject
 		return ret
 	}
@@ -238,7 +256,7 @@ func (o *UserLinks) GetForgotPassword() HrefObject {
 // GetForgotPasswordOk returns a tuple with the ForgotPassword field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserLinks) GetForgotPasswordOk() (*HrefObject, bool) {
-	if o == nil || o.ForgotPassword == nil {
+	if o == nil || IsNil(o.ForgotPassword) {
 		return nil, false
 	}
 	return o.ForgotPassword, true
@@ -246,7 +264,7 @@ func (o *UserLinks) GetForgotPasswordOk() (*HrefObject, bool) {
 
 // HasForgotPassword returns a boolean if a field has been set.
 func (o *UserLinks) HasForgotPassword() bool {
-	if o != nil && o.ForgotPassword != nil {
+	if o != nil && !IsNil(o.ForgotPassword) {
 		return true
 	}
 
@@ -260,7 +278,7 @@ func (o *UserLinks) SetForgotPassword(v HrefObject) {
 
 // GetChangeRecoveryQuestion returns the ChangeRecoveryQuestion field value if set, zero value otherwise.
 func (o *UserLinks) GetChangeRecoveryQuestion() HrefObject {
-	if o == nil || o.ChangeRecoveryQuestion == nil {
+	if o == nil || IsNil(o.ChangeRecoveryQuestion) {
 		var ret HrefObject
 		return ret
 	}
@@ -270,7 +288,7 @@ func (o *UserLinks) GetChangeRecoveryQuestion() HrefObject {
 // GetChangeRecoveryQuestionOk returns a tuple with the ChangeRecoveryQuestion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserLinks) GetChangeRecoveryQuestionOk() (*HrefObject, bool) {
-	if o == nil || o.ChangeRecoveryQuestion == nil {
+	if o == nil || IsNil(o.ChangeRecoveryQuestion) {
 		return nil, false
 	}
 	return o.ChangeRecoveryQuestion, true
@@ -278,7 +296,7 @@ func (o *UserLinks) GetChangeRecoveryQuestionOk() (*HrefObject, bool) {
 
 // HasChangeRecoveryQuestion returns a boolean if a field has been set.
 func (o *UserLinks) HasChangeRecoveryQuestion() bool {
-	if o != nil && o.ChangeRecoveryQuestion != nil {
+	if o != nil && !IsNil(o.ChangeRecoveryQuestion) {
 		return true
 	}
 
@@ -292,7 +310,7 @@ func (o *UserLinks) SetChangeRecoveryQuestion(v HrefObject) {
 
 // GetDeactivate returns the Deactivate field value if set, zero value otherwise.
 func (o *UserLinks) GetDeactivate() HrefObject {
-	if o == nil || o.Deactivate == nil {
+	if o == nil || IsNil(o.Deactivate) {
 		var ret HrefObject
 		return ret
 	}
@@ -302,7 +320,7 @@ func (o *UserLinks) GetDeactivate() HrefObject {
 // GetDeactivateOk returns a tuple with the Deactivate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserLinks) GetDeactivateOk() (*HrefObject, bool) {
-	if o == nil || o.Deactivate == nil {
+	if o == nil || IsNil(o.Deactivate) {
 		return nil, false
 	}
 	return o.Deactivate, true
@@ -310,7 +328,7 @@ func (o *UserLinks) GetDeactivateOk() (*HrefObject, bool) {
 
 // HasDeactivate returns a boolean if a field has been set.
 func (o *UserLinks) HasDeactivate() bool {
-	if o != nil && o.Deactivate != nil {
+	if o != nil && !IsNil(o.Deactivate) {
 		return true
 	}
 
@@ -324,7 +342,7 @@ func (o *UserLinks) SetDeactivate(v HrefObject) {
 
 // GetReactivate returns the Reactivate field value if set, zero value otherwise.
 func (o *UserLinks) GetReactivate() HrefObject {
-	if o == nil || o.Reactivate == nil {
+	if o == nil || IsNil(o.Reactivate) {
 		var ret HrefObject
 		return ret
 	}
@@ -334,7 +352,7 @@ func (o *UserLinks) GetReactivate() HrefObject {
 // GetReactivateOk returns a tuple with the Reactivate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserLinks) GetReactivateOk() (*HrefObject, bool) {
-	if o == nil || o.Reactivate == nil {
+	if o == nil || IsNil(o.Reactivate) {
 		return nil, false
 	}
 	return o.Reactivate, true
@@ -342,7 +360,7 @@ func (o *UserLinks) GetReactivateOk() (*HrefObject, bool) {
 
 // HasReactivate returns a boolean if a field has been set.
 func (o *UserLinks) HasReactivate() bool {
-	if o != nil && o.Reactivate != nil {
+	if o != nil && !IsNil(o.Reactivate) {
 		return true
 	}
 
@@ -356,7 +374,7 @@ func (o *UserLinks) SetReactivate(v HrefObject) {
 
 // GetChangePassword returns the ChangePassword field value if set, zero value otherwise.
 func (o *UserLinks) GetChangePassword() HrefObject {
-	if o == nil || o.ChangePassword == nil {
+	if o == nil || IsNil(o.ChangePassword) {
 		var ret HrefObject
 		return ret
 	}
@@ -366,7 +384,7 @@ func (o *UserLinks) GetChangePassword() HrefObject {
 // GetChangePasswordOk returns a tuple with the ChangePassword field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserLinks) GetChangePasswordOk() (*HrefObject, bool) {
-	if o == nil || o.ChangePassword == nil {
+	if o == nil || IsNil(o.ChangePassword) {
 		return nil, false
 	}
 	return o.ChangePassword, true
@@ -374,7 +392,7 @@ func (o *UserLinks) GetChangePasswordOk() (*HrefObject, bool) {
 
 // HasChangePassword returns a boolean if a field has been set.
 func (o *UserLinks) HasChangePassword() bool {
-	if o != nil && o.ChangePassword != nil {
+	if o != nil && !IsNil(o.ChangePassword) {
 		return true
 	}
 
@@ -388,7 +406,7 @@ func (o *UserLinks) SetChangePassword(v HrefObject) {
 
 // GetSchema returns the Schema field value if set, zero value otherwise.
 func (o *UserLinks) GetSchema() HrefObject {
-	if o == nil || o.Schema == nil {
+	if o == nil || IsNil(o.Schema) {
 		var ret HrefObject
 		return ret
 	}
@@ -398,7 +416,7 @@ func (o *UserLinks) GetSchema() HrefObject {
 // GetSchemaOk returns a tuple with the Schema field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserLinks) GetSchemaOk() (*HrefObject, bool) {
-	if o == nil || o.Schema == nil {
+	if o == nil || IsNil(o.Schema) {
 		return nil, false
 	}
 	return o.Schema, true
@@ -406,7 +424,7 @@ func (o *UserLinks) GetSchemaOk() (*HrefObject, bool) {
 
 // HasSchema returns a boolean if a field has been set.
 func (o *UserLinks) HasSchema() bool {
-	if o != nil && o.Schema != nil {
+	if o != nil && !IsNil(o.Schema) {
 		return true
 	}
 
@@ -420,7 +438,7 @@ func (o *UserLinks) SetSchema(v HrefObject) {
 
 // GetSuspend returns the Suspend field value if set, zero value otherwise.
 func (o *UserLinks) GetSuspend() HrefObject {
-	if o == nil || o.Suspend == nil {
+	if o == nil || IsNil(o.Suspend) {
 		var ret HrefObject
 		return ret
 	}
@@ -430,7 +448,7 @@ func (o *UserLinks) GetSuspend() HrefObject {
 // GetSuspendOk returns a tuple with the Suspend field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserLinks) GetSuspendOk() (*HrefObject, bool) {
-	if o == nil || o.Suspend == nil {
+	if o == nil || IsNil(o.Suspend) {
 		return nil, false
 	}
 	return o.Suspend, true
@@ -438,7 +456,7 @@ func (o *UserLinks) GetSuspendOk() (*HrefObject, bool) {
 
 // HasSuspend returns a boolean if a field has been set.
 func (o *UserLinks) HasSuspend() bool {
-	if o != nil && o.Suspend != nil {
+	if o != nil && !IsNil(o.Suspend) {
 		return true
 	}
 
@@ -452,7 +470,7 @@ func (o *UserLinks) SetSuspend(v HrefObject) {
 
 // GetUnsuspend returns the Unsuspend field value if set, zero value otherwise.
 func (o *UserLinks) GetUnsuspend() HrefObject {
-	if o == nil || o.Unsuspend == nil {
+	if o == nil || IsNil(o.Unsuspend) {
 		var ret HrefObject
 		return ret
 	}
@@ -462,7 +480,7 @@ func (o *UserLinks) GetUnsuspend() HrefObject {
 // GetUnsuspendOk returns a tuple with the Unsuspend field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserLinks) GetUnsuspendOk() (*HrefObject, bool) {
-	if o == nil || o.Unsuspend == nil {
+	if o == nil || IsNil(o.Unsuspend) {
 		return nil, false
 	}
 	return o.Unsuspend, true
@@ -470,7 +488,7 @@ func (o *UserLinks) GetUnsuspendOk() (*HrefObject, bool) {
 
 // HasUnsuspend returns a boolean if a field has been set.
 func (o *UserLinks) HasUnsuspend() bool {
-	if o != nil && o.Unsuspend != nil {
+	if o != nil && !IsNil(o.Unsuspend) {
 		return true
 	}
 
@@ -484,7 +502,7 @@ func (o *UserLinks) SetUnsuspend(v HrefObject) {
 
 // GetUnlock returns the Unlock field value if set, zero value otherwise.
 func (o *UserLinks) GetUnlock() HrefObject {
-	if o == nil || o.Unlock == nil {
+	if o == nil || IsNil(o.Unlock) {
 		var ret HrefObject
 		return ret
 	}
@@ -494,7 +512,7 @@ func (o *UserLinks) GetUnlock() HrefObject {
 // GetUnlockOk returns a tuple with the Unlock field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserLinks) GetUnlockOk() (*HrefObject, bool) {
-	if o == nil || o.Unlock == nil {
+	if o == nil || IsNil(o.Unlock) {
 		return nil, false
 	}
 	return o.Unlock, true
@@ -502,7 +520,7 @@ func (o *UserLinks) GetUnlockOk() (*HrefObject, bool) {
 
 // HasUnlock returns a boolean if a field has been set.
 func (o *UserLinks) HasUnlock() bool {
-	if o != nil && o.Unlock != nil {
+	if o != nil && !IsNil(o.Unlock) {
 		return true
 	}
 
@@ -516,7 +534,7 @@ func (o *UserLinks) SetUnlock(v HrefObject) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *UserLinks) GetType() HrefObject {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret HrefObject
 		return ret
 	}
@@ -526,7 +544,7 @@ func (o *UserLinks) GetType() HrefObject {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserLinks) GetTypeOk() (*HrefObject, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -534,7 +552,7 @@ func (o *UserLinks) GetTypeOk() (*HrefObject, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *UserLinks) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -547,50 +565,58 @@ func (o *UserLinks) SetType(v HrefObject) {
 }
 
 func (o UserLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.Activate != nil {
+	if !IsNil(o.Activate) {
 		toSerialize["activate"] = o.Activate
 	}
-	if o.ResetPassword != nil {
+	if !IsNil(o.ResetPassword) {
 		toSerialize["resetPassword"] = o.ResetPassword
 	}
-	if o.ResetFactors != nil {
+	if !IsNil(o.ResetFactors) {
 		toSerialize["resetFactors"] = o.ResetFactors
 	}
-	if o.ExpirePassword != nil {
+	if !IsNil(o.ExpirePassword) {
 		toSerialize["expirePassword"] = o.ExpirePassword
 	}
-	if o.ForgotPassword != nil {
+	if !IsNil(o.ForgotPassword) {
 		toSerialize["forgotPassword"] = o.ForgotPassword
 	}
-	if o.ChangeRecoveryQuestion != nil {
+	if !IsNil(o.ChangeRecoveryQuestion) {
 		toSerialize["changeRecoveryQuestion"] = o.ChangeRecoveryQuestion
 	}
-	if o.Deactivate != nil {
+	if !IsNil(o.Deactivate) {
 		toSerialize["deactivate"] = o.Deactivate
 	}
-	if o.Reactivate != nil {
+	if !IsNil(o.Reactivate) {
 		toSerialize["reactivate"] = o.Reactivate
 	}
-	if o.ChangePassword != nil {
+	if !IsNil(o.ChangePassword) {
 		toSerialize["changePassword"] = o.ChangePassword
 	}
-	if o.Schema != nil {
+	if !IsNil(o.Schema) {
 		toSerialize["schema"] = o.Schema
 	}
-	if o.Suspend != nil {
+	if !IsNil(o.Suspend) {
 		toSerialize["suspend"] = o.Suspend
 	}
-	if o.Unsuspend != nil {
+	if !IsNil(o.Unsuspend) {
 		toSerialize["unsuspend"] = o.Unsuspend
 	}
-	if o.Unlock != nil {
+	if !IsNil(o.Unlock) {
 		toSerialize["unlock"] = o.Unlock
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -598,23 +624,23 @@ func (o UserLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserLinks) UnmarshalJSON(data []byte) (err error) {
 	varUserLinks := _UserLinks{}
 
-	err = json.Unmarshal(bytes, &varUserLinks)
-	if err == nil {
-		*o = UserLinks(varUserLinks)
-	} else {
+	err = json.Unmarshal(data, &varUserLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserLinks(varUserLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "activate")
 		delete(additionalProperties, "resetPassword")
@@ -631,8 +657,6 @@ func (o *UserLinks) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "unlock")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -673,4 +697,3 @@ func (v *NullableUserLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

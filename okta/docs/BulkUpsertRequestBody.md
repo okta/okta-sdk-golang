@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**EntityType** | Pointer to **string** |  | [optional] 
-**Profiles** | Pointer to [**[]IdentitySourceUserProfileForUpsert**](IdentitySourceUserProfileForUpsert.md) |  | [optional] 
+**EntityType** | Pointer to **string** | The type of data to upsert into the session. Currently, only &#x60;USERS&#x60; is supported. | [optional] 
+**Profiles** | Pointer to [**[]BulkUpsertRequestBodyProfilesInner**](BulkUpsertRequestBodyProfilesInner.md) | Array of user profiles to be uploaded | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasEntityType returns a boolean if a field has been set.
 
 ### GetProfiles
 
-`func (o *BulkUpsertRequestBody) GetProfiles() []IdentitySourceUserProfileForUpsert`
+`func (o *BulkUpsertRequestBody) GetProfiles() []BulkUpsertRequestBodyProfilesInner`
 
 GetProfiles returns the Profiles field if non-nil, zero value otherwise.
 
 ### GetProfilesOk
 
-`func (o *BulkUpsertRequestBody) GetProfilesOk() (*[]IdentitySourceUserProfileForUpsert, bool)`
+`func (o *BulkUpsertRequestBody) GetProfilesOk() (*[]BulkUpsertRequestBodyProfilesInner, bool)`
 
 GetProfilesOk returns a tuple with the Profiles field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProfiles
 
-`func (o *BulkUpsertRequestBody) SetProfiles(v []IdentitySourceUserProfileForUpsert)`
+`func (o *BulkUpsertRequestBody) SetProfiles(v []BulkUpsertRequestBodyProfilesInner)`
 
 SetProfiles sets Profiles field to given value.
 

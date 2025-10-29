@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the PasswordImportRequestDataAction type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordImportRequestDataAction{}
+
 // PasswordImportRequestDataAction This object specifies the default action Okta is set to take. Okta takes this action if your external service sends an empty HTTP 204 response. You can override the default action by returning a commands object in your response specifying the action to take.
 type PasswordImportRequestDataAction struct {
 	// The status of the user credential, either `UNVERIFIED` or `VERIFIED`
-	Credential *string `json:"credential,omitempty"`
+	Credential           *string `json:"credential,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewPasswordImportRequestDataActionWithDefaults() *PasswordImportRequestData
 
 // GetCredential returns the Credential field value if set, zero value otherwise.
 func (o *PasswordImportRequestDataAction) GetCredential() string {
-	if o == nil || o.Credential == nil {
+	if o == nil || IsNil(o.Credential) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *PasswordImportRequestDataAction) GetCredential() string {
 // GetCredentialOk returns a tuple with the Credential field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordImportRequestDataAction) GetCredentialOk() (*string, bool) {
-	if o == nil || o.Credential == nil {
+	if o == nil || IsNil(o.Credential) {
 		return nil, false
 	}
 	return o.Credential, true
@@ -77,7 +80,7 @@ func (o *PasswordImportRequestDataAction) GetCredentialOk() (*string, bool) {
 
 // HasCredential returns a boolean if a field has been set.
 func (o *PasswordImportRequestDataAction) HasCredential() bool {
-	if o != nil && o.Credential != nil {
+	if o != nil && !IsNil(o.Credential) {
 		return true
 	}
 
@@ -90,8 +93,16 @@ func (o *PasswordImportRequestDataAction) SetCredential(v string) {
 }
 
 func (o PasswordImportRequestDataAction) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordImportRequestDataAction) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Credential != nil {
+	if !IsNil(o.Credential) {
 		toSerialize["credential"] = o.Credential
 	}
 
@@ -99,27 +110,25 @@ func (o PasswordImportRequestDataAction) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordImportRequestDataAction) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordImportRequestDataAction) UnmarshalJSON(data []byte) (err error) {
 	varPasswordImportRequestDataAction := _PasswordImportRequestDataAction{}
 
-	err = json.Unmarshal(bytes, &varPasswordImportRequestDataAction)
-	if err == nil {
-		*o = PasswordImportRequestDataAction(varPasswordImportRequestDataAction)
-	} else {
+	err = json.Unmarshal(data, &varPasswordImportRequestDataAction)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PasswordImportRequestDataAction(varPasswordImportRequestDataAction)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "credential")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -160,4 +169,3 @@ func (v *NullablePasswordImportRequestDataAction) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

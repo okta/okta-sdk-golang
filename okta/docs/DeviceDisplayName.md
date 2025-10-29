@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Sensitive** | Pointer to **bool** |  | [optional] 
-**Value** | Pointer to **string** |  | [optional] 
+**Sensitive** | Pointer to **bool** | Indicates whether the associated value is Personal Identifiable Information (PII) and requires masking | [optional] [default to false]
+**Value** | Pointer to **string** | Display name of the device | [optional] 
 
 ## Methods
 

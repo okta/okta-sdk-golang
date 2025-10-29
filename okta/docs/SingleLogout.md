@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Enabled** | Pointer to **bool** |  | [optional] 
-**Issuer** | Pointer to **string** |  | [optional] 
-**LogoutUrl** | Pointer to **string** |  | [optional] 
+**Enabled** | Pointer to **bool** | Whether the application supports SLO | [optional] 
+**Issuer** | Pointer to **string** | The issuer of the Service Provider that generates the SLO request | [optional] 
+**LogoutUrl** | Pointer to **string** | The location where the logout response is sent | [optional] 
 
 ## Methods
 

@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ResourceId** | **string** | The user ID associated with the Okta privileged resource | 
+**ResourceId** | Pointer to **string** | The user ID associated with the Okta privileged resource | [optional] 
 **Credentials** | Pointer to [**PrivilegedResourceCredentials**](PrivilegedResourceCredentials.md) |  | [optional] 
-**Profile** | Pointer to **map[string]map[string]interface{}** | Specific profile properties for the privileged account | [optional] [readonly] 
+**Profile** | Pointer to **map[string]interface{}** | Specific profile properties for the privileged resource | [optional] [readonly] 
 
 ## Methods
 
 ### NewPrivilegedResourceAccountOkta
 
-`func NewPrivilegedResourceAccountOkta(resourceId string, ) *PrivilegedResourceAccountOkta`
+`func NewPrivilegedResourceAccountOkta() *PrivilegedResourceAccountOkta`
 
 NewPrivilegedResourceAccountOkta instantiates a new PrivilegedResourceAccountOkta object
 This constructor will assign default values to properties that have it defined,
@@ -46,6 +46,11 @@ and a boolean to check if the value has been set.
 
 SetResourceId sets ResourceId field to given value.
 
+### HasResourceId
+
+`func (o *PrivilegedResourceAccountOkta) HasResourceId() bool`
+
+HasResourceId returns a boolean if a field has been set.
 
 ### GetCredentials
 
@@ -74,20 +79,20 @@ HasCredentials returns a boolean if a field has been set.
 
 ### GetProfile
 
-`func (o *PrivilegedResourceAccountOkta) GetProfile() map[string]map[string]interface{}`
+`func (o *PrivilegedResourceAccountOkta) GetProfile() map[string]interface{}`
 
 GetProfile returns the Profile field if non-nil, zero value otherwise.
 
 ### GetProfileOk
 
-`func (o *PrivilegedResourceAccountOkta) GetProfileOk() (*map[string]map[string]interface{}, bool)`
+`func (o *PrivilegedResourceAccountOkta) GetProfileOk() (*map[string]interface{}, bool)`
 
 GetProfileOk returns a tuple with the Profile field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProfile
 
-`func (o *PrivilegedResourceAccountOkta) SetProfile(v map[string]map[string]interface{})`
+`func (o *PrivilegedResourceAccountOkta) SetProfile(v map[string]interface{})`
 
 SetProfile sets Profile field to given value.
 

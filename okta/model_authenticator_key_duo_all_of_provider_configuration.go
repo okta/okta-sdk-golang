@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthenticatorKeyDuoAllOfProviderConfiguration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorKeyDuoAllOfProviderConfiguration{}
+
 // AuthenticatorKeyDuoAllOfProviderConfiguration struct for AuthenticatorKeyDuoAllOfProviderConfiguration
 type AuthenticatorKeyDuoAllOfProviderConfiguration struct {
 	// The Duo Security API hostname
@@ -34,8 +37,8 @@ type AuthenticatorKeyDuoAllOfProviderConfiguration struct {
 	// The Duo Security integration key
 	IntegrationKey *string `json:"integrationKey,omitempty"`
 	// The Duo Security secret key
-	SecretKey *string `json:"secretKey,omitempty"`
-	UserNameTemplate *AuthenticatorKeyDuoAllOfProviderConfigurationUserNameTemplate `json:"userNameTemplate,omitempty"`
+	SecretKey            *string                                                        `json:"secretKey,omitempty"`
+	UserNameTemplate     *AuthenticatorKeyDuoAllOfProviderConfigurationUserNameTemplate `json:"userNameTemplate,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +63,7 @@ func NewAuthenticatorKeyDuoAllOfProviderConfigurationWithDefaults() *Authenticat
 
 // GetHost returns the Host field value if set, zero value otherwise.
 func (o *AuthenticatorKeyDuoAllOfProviderConfiguration) GetHost() string {
-	if o == nil || o.Host == nil {
+	if o == nil || IsNil(o.Host) {
 		var ret string
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *AuthenticatorKeyDuoAllOfProviderConfiguration) GetHost() string {
 // GetHostOk returns a tuple with the Host field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorKeyDuoAllOfProviderConfiguration) GetHostOk() (*string, bool) {
-	if o == nil || o.Host == nil {
+	if o == nil || IsNil(o.Host) {
 		return nil, false
 	}
 	return o.Host, true
@@ -78,7 +81,7 @@ func (o *AuthenticatorKeyDuoAllOfProviderConfiguration) GetHostOk() (*string, bo
 
 // HasHost returns a boolean if a field has been set.
 func (o *AuthenticatorKeyDuoAllOfProviderConfiguration) HasHost() bool {
-	if o != nil && o.Host != nil {
+	if o != nil && !IsNil(o.Host) {
 		return true
 	}
 
@@ -92,7 +95,7 @@ func (o *AuthenticatorKeyDuoAllOfProviderConfiguration) SetHost(v string) {
 
 // GetIntegrationKey returns the IntegrationKey field value if set, zero value otherwise.
 func (o *AuthenticatorKeyDuoAllOfProviderConfiguration) GetIntegrationKey() string {
-	if o == nil || o.IntegrationKey == nil {
+	if o == nil || IsNil(o.IntegrationKey) {
 		var ret string
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *AuthenticatorKeyDuoAllOfProviderConfiguration) GetIntegrationKey() stri
 // GetIntegrationKeyOk returns a tuple with the IntegrationKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorKeyDuoAllOfProviderConfiguration) GetIntegrationKeyOk() (*string, bool) {
-	if o == nil || o.IntegrationKey == nil {
+	if o == nil || IsNil(o.IntegrationKey) {
 		return nil, false
 	}
 	return o.IntegrationKey, true
@@ -110,7 +113,7 @@ func (o *AuthenticatorKeyDuoAllOfProviderConfiguration) GetIntegrationKeyOk() (*
 
 // HasIntegrationKey returns a boolean if a field has been set.
 func (o *AuthenticatorKeyDuoAllOfProviderConfiguration) HasIntegrationKey() bool {
-	if o != nil && o.IntegrationKey != nil {
+	if o != nil && !IsNil(o.IntegrationKey) {
 		return true
 	}
 
@@ -124,7 +127,7 @@ func (o *AuthenticatorKeyDuoAllOfProviderConfiguration) SetIntegrationKey(v stri
 
 // GetSecretKey returns the SecretKey field value if set, zero value otherwise.
 func (o *AuthenticatorKeyDuoAllOfProviderConfiguration) GetSecretKey() string {
-	if o == nil || o.SecretKey == nil {
+	if o == nil || IsNil(o.SecretKey) {
 		var ret string
 		return ret
 	}
@@ -134,7 +137,7 @@ func (o *AuthenticatorKeyDuoAllOfProviderConfiguration) GetSecretKey() string {
 // GetSecretKeyOk returns a tuple with the SecretKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorKeyDuoAllOfProviderConfiguration) GetSecretKeyOk() (*string, bool) {
-	if o == nil || o.SecretKey == nil {
+	if o == nil || IsNil(o.SecretKey) {
 		return nil, false
 	}
 	return o.SecretKey, true
@@ -142,7 +145,7 @@ func (o *AuthenticatorKeyDuoAllOfProviderConfiguration) GetSecretKeyOk() (*strin
 
 // HasSecretKey returns a boolean if a field has been set.
 func (o *AuthenticatorKeyDuoAllOfProviderConfiguration) HasSecretKey() bool {
-	if o != nil && o.SecretKey != nil {
+	if o != nil && !IsNil(o.SecretKey) {
 		return true
 	}
 
@@ -156,7 +159,7 @@ func (o *AuthenticatorKeyDuoAllOfProviderConfiguration) SetSecretKey(v string) {
 
 // GetUserNameTemplate returns the UserNameTemplate field value if set, zero value otherwise.
 func (o *AuthenticatorKeyDuoAllOfProviderConfiguration) GetUserNameTemplate() AuthenticatorKeyDuoAllOfProviderConfigurationUserNameTemplate {
-	if o == nil || o.UserNameTemplate == nil {
+	if o == nil || IsNil(o.UserNameTemplate) {
 		var ret AuthenticatorKeyDuoAllOfProviderConfigurationUserNameTemplate
 		return ret
 	}
@@ -166,7 +169,7 @@ func (o *AuthenticatorKeyDuoAllOfProviderConfiguration) GetUserNameTemplate() Au
 // GetUserNameTemplateOk returns a tuple with the UserNameTemplate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorKeyDuoAllOfProviderConfiguration) GetUserNameTemplateOk() (*AuthenticatorKeyDuoAllOfProviderConfigurationUserNameTemplate, bool) {
-	if o == nil || o.UserNameTemplate == nil {
+	if o == nil || IsNil(o.UserNameTemplate) {
 		return nil, false
 	}
 	return o.UserNameTemplate, true
@@ -174,7 +177,7 @@ func (o *AuthenticatorKeyDuoAllOfProviderConfiguration) GetUserNameTemplateOk() 
 
 // HasUserNameTemplate returns a boolean if a field has been set.
 func (o *AuthenticatorKeyDuoAllOfProviderConfiguration) HasUserNameTemplate() bool {
-	if o != nil && o.UserNameTemplate != nil {
+	if o != nil && !IsNil(o.UserNameTemplate) {
 		return true
 	}
 
@@ -187,17 +190,25 @@ func (o *AuthenticatorKeyDuoAllOfProviderConfiguration) SetUserNameTemplate(v Au
 }
 
 func (o AuthenticatorKeyDuoAllOfProviderConfiguration) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorKeyDuoAllOfProviderConfiguration) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Host != nil {
+	if !IsNil(o.Host) {
 		toSerialize["host"] = o.Host
 	}
-	if o.IntegrationKey != nil {
+	if !IsNil(o.IntegrationKey) {
 		toSerialize["integrationKey"] = o.IntegrationKey
 	}
-	if o.SecretKey != nil {
+	if !IsNil(o.SecretKey) {
 		toSerialize["secretKey"] = o.SecretKey
 	}
-	if o.UserNameTemplate != nil {
+	if !IsNil(o.UserNameTemplate) {
 		toSerialize["userNameTemplate"] = o.UserNameTemplate
 	}
 
@@ -205,30 +216,28 @@ func (o AuthenticatorKeyDuoAllOfProviderConfiguration) MarshalJSON() ([]byte, er
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorKeyDuoAllOfProviderConfiguration) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorKeyDuoAllOfProviderConfiguration) UnmarshalJSON(data []byte) (err error) {
 	varAuthenticatorKeyDuoAllOfProviderConfiguration := _AuthenticatorKeyDuoAllOfProviderConfiguration{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorKeyDuoAllOfProviderConfiguration)
-	if err == nil {
-		*o = AuthenticatorKeyDuoAllOfProviderConfiguration(varAuthenticatorKeyDuoAllOfProviderConfiguration)
-	} else {
+	err = json.Unmarshal(data, &varAuthenticatorKeyDuoAllOfProviderConfiguration)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthenticatorKeyDuoAllOfProviderConfiguration(varAuthenticatorKeyDuoAllOfProviderConfiguration)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "host")
 		delete(additionalProperties, "integrationKey")
 		delete(additionalProperties, "secretKey")
 		delete(additionalProperties, "userNameTemplate")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -269,4 +278,3 @@ func (v *NullableAuthenticatorKeyDuoAllOfProviderConfiguration) UnmarshalJSON(sr
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

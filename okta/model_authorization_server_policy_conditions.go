@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthorizationServerPolicyConditions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthorizationServerPolicyConditions{}
+
 // AuthorizationServerPolicyConditions struct for AuthorizationServerPolicyConditions
 type AuthorizationServerPolicyConditions struct {
-	Clients *ClientPolicyCondition `json:"clients,omitempty"`
+	Clients              *ClientPolicyCondition `json:"clients,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewAuthorizationServerPolicyConditionsWithDefaults() *AuthorizationServerPo
 
 // GetClients returns the Clients field value if set, zero value otherwise.
 func (o *AuthorizationServerPolicyConditions) GetClients() ClientPolicyCondition {
-	if o == nil || o.Clients == nil {
+	if o == nil || IsNil(o.Clients) {
 		var ret ClientPolicyCondition
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *AuthorizationServerPolicyConditions) GetClients() ClientPolicyCondition
 // GetClientsOk returns a tuple with the Clients field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationServerPolicyConditions) GetClientsOk() (*ClientPolicyCondition, bool) {
-	if o == nil || o.Clients == nil {
+	if o == nil || IsNil(o.Clients) {
 		return nil, false
 	}
 	return o.Clients, true
@@ -72,7 +75,7 @@ func (o *AuthorizationServerPolicyConditions) GetClientsOk() (*ClientPolicyCondi
 
 // HasClients returns a boolean if a field has been set.
 func (o *AuthorizationServerPolicyConditions) HasClients() bool {
-	if o != nil && o.Clients != nil {
+	if o != nil && !IsNil(o.Clients) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *AuthorizationServerPolicyConditions) SetClients(v ClientPolicyCondition
 }
 
 func (o AuthorizationServerPolicyConditions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthorizationServerPolicyConditions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Clients != nil {
+	if !IsNil(o.Clients) {
 		toSerialize["clients"] = o.Clients
 	}
 
@@ -94,27 +105,25 @@ func (o AuthorizationServerPolicyConditions) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthorizationServerPolicyConditions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthorizationServerPolicyConditions) UnmarshalJSON(data []byte) (err error) {
 	varAuthorizationServerPolicyConditions := _AuthorizationServerPolicyConditions{}
 
-	err = json.Unmarshal(bytes, &varAuthorizationServerPolicyConditions)
-	if err == nil {
-		*o = AuthorizationServerPolicyConditions(varAuthorizationServerPolicyConditions)
-	} else {
+	err = json.Unmarshal(data, &varAuthorizationServerPolicyConditions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthorizationServerPolicyConditions(varAuthorizationServerPolicyConditions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "clients")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableAuthorizationServerPolicyConditions) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

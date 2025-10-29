@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the PermissionLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PermissionLinks{}
+
 // PermissionLinks struct for PermissionLinks
 type PermissionLinks struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Role *HrefObject `json:"role,omitempty"`
+	Self                 *HrefObjectSelfLink `json:"self,omitempty"`
+	Role                 *HrefObjectRoleLink `json:"role,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewPermissionLinksWithDefaults() *PermissionLinks {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *PermissionLinks) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *PermissionLinks) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PermissionLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -73,7 +76,7 @@ func (o *PermissionLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *PermissionLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -86,9 +89,9 @@ func (o *PermissionLinks) SetSelf(v HrefObjectSelfLink) {
 }
 
 // GetRole returns the Role field value if set, zero value otherwise.
-func (o *PermissionLinks) GetRole() HrefObject {
-	if o == nil || o.Role == nil {
-		var ret HrefObject
+func (o *PermissionLinks) GetRole() HrefObjectRoleLink {
+	if o == nil || IsNil(o.Role) {
+		var ret HrefObjectRoleLink
 		return ret
 	}
 	return *o.Role
@@ -96,8 +99,8 @@ func (o *PermissionLinks) GetRole() HrefObject {
 
 // GetRoleOk returns a tuple with the Role field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PermissionLinks) GetRoleOk() (*HrefObject, bool) {
-	if o == nil || o.Role == nil {
+func (o *PermissionLinks) GetRoleOk() (*HrefObjectRoleLink, bool) {
+	if o == nil || IsNil(o.Role) {
 		return nil, false
 	}
 	return o.Role, true
@@ -105,24 +108,32 @@ func (o *PermissionLinks) GetRoleOk() (*HrefObject, bool) {
 
 // HasRole returns a boolean if a field has been set.
 func (o *PermissionLinks) HasRole() bool {
-	if o != nil && o.Role != nil {
+	if o != nil && !IsNil(o.Role) {
 		return true
 	}
 
 	return false
 }
 
-// SetRole gets a reference to the given HrefObject and assigns it to the Role field.
-func (o *PermissionLinks) SetRole(v HrefObject) {
+// SetRole gets a reference to the given HrefObjectRoleLink and assigns it to the Role field.
+func (o *PermissionLinks) SetRole(v HrefObjectRoleLink) {
 	o.Role = &v
 }
 
 func (o PermissionLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PermissionLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.Role != nil {
+	if !IsNil(o.Role) {
 		toSerialize["role"] = o.Role
 	}
 
@@ -130,28 +141,26 @@ func (o PermissionLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PermissionLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PermissionLinks) UnmarshalJSON(data []byte) (err error) {
 	varPermissionLinks := _PermissionLinks{}
 
-	err = json.Unmarshal(bytes, &varPermissionLinks)
-	if err == nil {
-		*o = PermissionLinks(varPermissionLinks)
-	} else {
+	err = json.Unmarshal(data, &varPermissionLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PermissionLinks(varPermissionLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "role")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullablePermissionLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

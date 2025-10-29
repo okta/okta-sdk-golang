@@ -4,25 +4,23 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ButtonField** | Pointer to **string** |  | [optional] 
-**ButtonSelector** | Pointer to **string** |  | [optional] 
-**Checkbox** | Pointer to **string** |  | [optional] 
-**ExtraFieldSelector** | Pointer to **string** |  | [optional] 
-**ExtraFieldValue** | Pointer to **string** |  | [optional] 
-**LoginUrlRegex** | Pointer to **string** |  | [optional] 
-**PasswordField** | Pointer to **string** |  | [optional] 
-**PasswordSelector** | Pointer to **string** |  | [optional] 
-**RedirectUrl** | Pointer to **string** |  | [optional] 
-**TargetURL** | Pointer to **string** |  | [optional] 
-**Url** | Pointer to **string** |  | [optional] 
-**UsernameField** | Pointer to **string** |  | [optional] 
-**UserNameSelector** | Pointer to **string** |  | [optional] 
+**ButtonField** | **string** | CSS selector for the **Sign-In** button in the sign-in form (for SWA apps with the &#x60;template_swa&#x60; app name definition) | 
+**ButtonSelector** | Pointer to **string** | CSS selector for the **Sign-In**  button in the sign-in form (for three-field SWA apps with the &#x60;template_swa3field&#x60; app name definition) | [optional] 
+**ExtraFieldSelector** | Pointer to **string** | Enter the CSS selector for the extra field (for three-field SWA apps with the &#x60;template_swa3field&#x60; app name definition). | [optional] 
+**ExtraFieldValue** | Pointer to **string** | Enter the value for the extra field in the form (for three-field SWA apps with the &#x60;template_swa3field&#x60; app name definition). | [optional] 
+**LoginUrlRegex** | Pointer to **string** | A regular expression that further restricts targetURL to the specified regular expression | [optional] 
+**PasswordField** | **string** | CSS selector for the **Password** field in the sign-in form (for SWA apps with the &#x60;template_swa&#x60; app name definition) | 
+**PasswordSelector** | Pointer to **string** | CSS selector for the **Password** field in the sign-in form (for three-field SWA apps with the &#x60;template_swa3field&#x60; app name definition) | [optional] 
+**TargetURL** | Pointer to **string** | The URL of the sign-in page for this app (for three-field SWA apps with the &#x60;template_swa3field&#x60; app name definition) | [optional] 
+**Url** | **string** | The URL of the sign-in page for this app (for SWA apps with the &#x60;template_swa&#x60; app name definition) | 
+**UsernameField** | **string** | CSS selector for the **Username** field in the sign-in form (for SWA apps with the &#x60;template_swa&#x60; app name definition) | 
+**UserNameSelector** | Pointer to **string** | CSS selector for the **Username** field in the sign-in form (for three-field SWA apps with the &#x60;template_swa3field&#x60; app name definition) | [optional] 
 
 ## Methods
 
 ### NewSwaApplicationSettingsApplication
 
-`func NewSwaApplicationSettingsApplication() *SwaApplicationSettingsApplication`
+`func NewSwaApplicationSettingsApplication(buttonField string, passwordField string, url string, usernameField string, ) *SwaApplicationSettingsApplication`
 
 NewSwaApplicationSettingsApplication instantiates a new SwaApplicationSettingsApplication object
 This constructor will assign default values to properties that have it defined,
@@ -56,11 +54,6 @@ and a boolean to check if the value has been set.
 
 SetButtonField sets ButtonField field to given value.
 
-### HasButtonField
-
-`func (o *SwaApplicationSettingsApplication) HasButtonField() bool`
-
-HasButtonField returns a boolean if a field has been set.
 
 ### GetButtonSelector
 
@@ -86,31 +79,6 @@ SetButtonSelector sets ButtonSelector field to given value.
 `func (o *SwaApplicationSettingsApplication) HasButtonSelector() bool`
 
 HasButtonSelector returns a boolean if a field has been set.
-
-### GetCheckbox
-
-`func (o *SwaApplicationSettingsApplication) GetCheckbox() string`
-
-GetCheckbox returns the Checkbox field if non-nil, zero value otherwise.
-
-### GetCheckboxOk
-
-`func (o *SwaApplicationSettingsApplication) GetCheckboxOk() (*string, bool)`
-
-GetCheckboxOk returns a tuple with the Checkbox field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCheckbox
-
-`func (o *SwaApplicationSettingsApplication) SetCheckbox(v string)`
-
-SetCheckbox sets Checkbox field to given value.
-
-### HasCheckbox
-
-`func (o *SwaApplicationSettingsApplication) HasCheckbox() bool`
-
-HasCheckbox returns a boolean if a field has been set.
 
 ### GetExtraFieldSelector
 
@@ -206,11 +174,6 @@ and a boolean to check if the value has been set.
 
 SetPasswordField sets PasswordField field to given value.
 
-### HasPasswordField
-
-`func (o *SwaApplicationSettingsApplication) HasPasswordField() bool`
-
-HasPasswordField returns a boolean if a field has been set.
 
 ### GetPasswordSelector
 
@@ -236,31 +199,6 @@ SetPasswordSelector sets PasswordSelector field to given value.
 `func (o *SwaApplicationSettingsApplication) HasPasswordSelector() bool`
 
 HasPasswordSelector returns a boolean if a field has been set.
-
-### GetRedirectUrl
-
-`func (o *SwaApplicationSettingsApplication) GetRedirectUrl() string`
-
-GetRedirectUrl returns the RedirectUrl field if non-nil, zero value otherwise.
-
-### GetRedirectUrlOk
-
-`func (o *SwaApplicationSettingsApplication) GetRedirectUrlOk() (*string, bool)`
-
-GetRedirectUrlOk returns a tuple with the RedirectUrl field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRedirectUrl
-
-`func (o *SwaApplicationSettingsApplication) SetRedirectUrl(v string)`
-
-SetRedirectUrl sets RedirectUrl field to given value.
-
-### HasRedirectUrl
-
-`func (o *SwaApplicationSettingsApplication) HasRedirectUrl() bool`
-
-HasRedirectUrl returns a boolean if a field has been set.
 
 ### GetTargetURL
 
@@ -306,11 +244,6 @@ and a boolean to check if the value has been set.
 
 SetUrl sets Url field to given value.
 
-### HasUrl
-
-`func (o *SwaApplicationSettingsApplication) HasUrl() bool`
-
-HasUrl returns a boolean if a field has been set.
 
 ### GetUsernameField
 
@@ -331,11 +264,6 @@ and a boolean to check if the value has been set.
 
 SetUsernameField sets UsernameField field to given value.
 
-### HasUsernameField
-
-`func (o *SwaApplicationSettingsApplication) HasUsernameField() bool`
-
-HasUsernameField returns a boolean if a field has been set.
 
 ### GetUserNameSelector
 

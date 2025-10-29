@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**AccessTokenEncryptedResponseAlgorithm** | Pointer to **string** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;The algorithm for encrypting access tokens issued by this authorization server. If this is requested, the response is signed, and then encrypted. The result is a nested JWT. The default, if omitted, is that no encryption is performed. | [optional] 
 **Audiences** | Pointer to **[]string** | The recipients that the tokens are intended for. This becomes the &#x60;aud&#x60; claim in an access token. Okta currently supports only one audience. | [optional] 
 **Created** | Pointer to **time.Time** |  | [optional] [readonly] 
 **Credentials** | Pointer to [**AuthorizationServerCredentials**](AuthorizationServerCredentials.md) |  | [optional] 
@@ -11,6 +12,8 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** | The ID of the custom authorization server | [optional] [readonly] 
 **Issuer** | Pointer to **string** | The complete URL for the custom authorization server. This becomes the &#x60;iss&#x60; claim in an access token. | [optional] 
 **IssuerMode** | Pointer to **string** | Indicates which value is specified in the issuer of the tokens that a custom authorization server returns: the Okta org domain URL or a custom domain URL.  &#x60;issuerMode&#x60; is visible if you have a custom URL domain configured or the Dynamic Issuer Mode feature enabled. If you have a custom URL domain configured, you can set a custom domain URL in a custom authorization server, and this property is returned in the appropriate responses.  When set to &#x60;ORG_URL&#x60;, then in responses, &#x60;issuer&#x60; is the Okta org domain URL: &#x60;https://${yourOktaDomain}&#x60;.  When set to &#x60;CUSTOM_URL&#x60;, then in responses, &#x60;issuer&#x60; is the custom domain URL configured in the administration user interface.  When set to &#x60;DYNAMIC&#x60;, then in responses, &#x60;issuer&#x60; is the custom domain URL if the OAuth 2.0 request was sent to the custom domain, or is the Okta org&#39;s domain URL if the OAuth 2.0 request was sent to the original Okta org domain.  After you configure a custom URL domain, all new custom authorization servers use &#x60;CUSTOM_URL&#x60; by default. If the Dynamic Issuer Mode feature is enabled, then all new custom authorization servers use &#x60;DYNAMIC&#x60; by default. All existing custom authorization servers continue to use the original value until they&#39;re changed using the Admin Console or the API. This way, existing integrations with the client and resource server continue to work after the feature is enabled. | [optional] 
+**Jwks** | Pointer to [**ResourceServerJsonWebKeys**](ResourceServerJsonWebKeys.md) |  | [optional] 
+**JwksUri** | Pointer to **string** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;URL string that references a JSON Web Key Set for encrypting JWTs minted by the custom authorization server | [optional] 
 **LastUpdated** | Pointer to **time.Time** |  | [optional] [readonly] 
 **Name** | Pointer to **string** | The name of the custom authorization server | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
@@ -34,6 +37,31 @@ will change when the set of required properties is changed
 NewAuthorizationServerWithDefaults instantiates a new AuthorizationServer object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAccessTokenEncryptedResponseAlgorithm
+
+`func (o *AuthorizationServer) GetAccessTokenEncryptedResponseAlgorithm() string`
+
+GetAccessTokenEncryptedResponseAlgorithm returns the AccessTokenEncryptedResponseAlgorithm field if non-nil, zero value otherwise.
+
+### GetAccessTokenEncryptedResponseAlgorithmOk
+
+`func (o *AuthorizationServer) GetAccessTokenEncryptedResponseAlgorithmOk() (*string, bool)`
+
+GetAccessTokenEncryptedResponseAlgorithmOk returns a tuple with the AccessTokenEncryptedResponseAlgorithm field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAccessTokenEncryptedResponseAlgorithm
+
+`func (o *AuthorizationServer) SetAccessTokenEncryptedResponseAlgorithm(v string)`
+
+SetAccessTokenEncryptedResponseAlgorithm sets AccessTokenEncryptedResponseAlgorithm field to given value.
+
+### HasAccessTokenEncryptedResponseAlgorithm
+
+`func (o *AuthorizationServer) HasAccessTokenEncryptedResponseAlgorithm() bool`
+
+HasAccessTokenEncryptedResponseAlgorithm returns a boolean if a field has been set.
 
 ### GetAudiences
 
@@ -209,6 +237,56 @@ SetIssuerMode sets IssuerMode field to given value.
 `func (o *AuthorizationServer) HasIssuerMode() bool`
 
 HasIssuerMode returns a boolean if a field has been set.
+
+### GetJwks
+
+`func (o *AuthorizationServer) GetJwks() ResourceServerJsonWebKeys`
+
+GetJwks returns the Jwks field if non-nil, zero value otherwise.
+
+### GetJwksOk
+
+`func (o *AuthorizationServer) GetJwksOk() (*ResourceServerJsonWebKeys, bool)`
+
+GetJwksOk returns a tuple with the Jwks field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetJwks
+
+`func (o *AuthorizationServer) SetJwks(v ResourceServerJsonWebKeys)`
+
+SetJwks sets Jwks field to given value.
+
+### HasJwks
+
+`func (o *AuthorizationServer) HasJwks() bool`
+
+HasJwks returns a boolean if a field has been set.
+
+### GetJwksUri
+
+`func (o *AuthorizationServer) GetJwksUri() string`
+
+GetJwksUri returns the JwksUri field if non-nil, zero value otherwise.
+
+### GetJwksUriOk
+
+`func (o *AuthorizationServer) GetJwksUriOk() (*string, bool)`
+
+GetJwksUriOk returns a tuple with the JwksUri field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetJwksUri
+
+`func (o *AuthorizationServer) SetJwksUri(v string)`
+
+SetJwksUri sets JwksUri field to given value.
+
+### HasJwksUri
+
+`func (o *AuthorizationServer) HasJwksUri() bool`
+
+HasJwksUri returns a boolean if a field has been set.
 
 ### GetLastUpdated
 

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Action** | Pointer to **string** | The update action to take | [optional] 
-**Attribute** | Pointer to **string** | The attribute that tracks group memberships in AD. This should be &#x60;member&#x60; for AD. | [optional] 
+**Attribute** | Pointer to **string** | The attribute that tracks group memberships in Active Directory. For Active Directory, use &#x60;member&#x60;. | [optional] 
 **Values** | Pointer to **[]string** | List of user IDs whose group memberships to update | [optional] 
 
 ## Methods

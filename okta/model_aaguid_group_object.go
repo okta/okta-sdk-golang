@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
-// AAGUIDGroupObject <x-lifecycle class=\"ea\"></x-lifecycle> The AAGUID Group object supports the Early Access (Self-Service) Allow List for FIDO2 (WebAuthn) Authenticators feature. Enable the feature for your org from the **Settings** > **Features** page in the Admin Console.  This feature has several limitations when enrolling a security key:   - Enrollment is currently unsupported on Firefox.   - Enrollment is currently unsupported on Chrome if User Verification is set to DISCOURAGED and a PIN is set on the security key.   - If prompted during enrollment, users must allow Okta to see the make and model of the security key. 
+// checks if the AAGUIDGroupObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AAGUIDGroupObject{}
+
+// AAGUIDGroupObject struct for AAGUIDGroupObject
 type AAGUIDGroupObject struct {
-	// A list of YubiKey hardware FIDO2 Authenticator Attestation Global Unique Identifiers (AAGUIDs). The available [AAGUIDs](https://support.yubico.com/hc/en-us/articles/360016648959-YubiKey-Hardware-FIDO2-AAGUIDs) (opens new window) are provided by the FIDO Alliance Metadata Service.
+	// A list of YubiKey hardware FIDO2 AAGUIDs. The available [AAGUIDs](https://support.yubico.com/hc/en-us/articles/360016648959-YubiKey-Hardware-FIDO2-AAGUIDs) are provided by the FIDO Alliance Metadata Service.
 	Aaguids []string `json:"aaguids,omitempty"`
 	// A name to identify the group of YubiKey hardware FIDO2 AAGUIDs
-	Name *string `json:"name,omitempty"`
+	Name                 *string `json:"name,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewAAGUIDGroupObjectWithDefaults() *AAGUIDGroupObject {
 
 // GetAaguids returns the Aaguids field value if set, zero value otherwise.
 func (o *AAGUIDGroupObject) GetAaguids() []string {
-	if o == nil || o.Aaguids == nil {
+	if o == nil || IsNil(o.Aaguids) {
 		var ret []string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *AAGUIDGroupObject) GetAaguids() []string {
 // GetAaguidsOk returns a tuple with the Aaguids field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AAGUIDGroupObject) GetAaguidsOk() ([]string, bool) {
-	if o == nil || o.Aaguids == nil {
+	if o == nil || IsNil(o.Aaguids) {
 		return nil, false
 	}
 	return o.Aaguids, true
@@ -75,7 +78,7 @@ func (o *AAGUIDGroupObject) GetAaguidsOk() ([]string, bool) {
 
 // HasAaguids returns a boolean if a field has been set.
 func (o *AAGUIDGroupObject) HasAaguids() bool {
-	if o != nil && o.Aaguids != nil {
+	if o != nil && !IsNil(o.Aaguids) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *AAGUIDGroupObject) SetAaguids(v []string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *AAGUIDGroupObject) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *AAGUIDGroupObject) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AAGUIDGroupObject) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -107,7 +110,7 @@ func (o *AAGUIDGroupObject) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *AAGUIDGroupObject) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *AAGUIDGroupObject) SetName(v string) {
 }
 
 func (o AAGUIDGroupObject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AAGUIDGroupObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Aaguids != nil {
+	if !IsNil(o.Aaguids) {
 		toSerialize["aaguids"] = o.Aaguids
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
 
@@ -132,28 +143,26 @@ func (o AAGUIDGroupObject) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AAGUIDGroupObject) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AAGUIDGroupObject) UnmarshalJSON(data []byte) (err error) {
 	varAAGUIDGroupObject := _AAGUIDGroupObject{}
 
-	err = json.Unmarshal(bytes, &varAAGUIDGroupObject)
-	if err == nil {
-		*o = AAGUIDGroupObject(varAAGUIDGroupObject)
-	} else {
+	err = json.Unmarshal(data, &varAAGUIDGroupObject)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AAGUIDGroupObject(varAAGUIDGroupObject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "aaguids")
 		delete(additionalProperties, "name")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableAAGUIDGroupObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

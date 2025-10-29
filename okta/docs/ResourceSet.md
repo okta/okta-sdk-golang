@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Created** | Pointer to **time.Time** | Timestamp when the role was created | [optional] [readonly] 
-**Description** | Pointer to **string** | Description of the Resource Set | [optional] 
-**Id** | Pointer to **string** | Unique key for the role | [optional] [readonly] 
-**Label** | Pointer to **string** | Unique label for the Resource Set | [optional] 
+**Description** | Pointer to **string** | Description of the resource set | [optional] 
+**Id** | Pointer to **string** | Unique ID for the resource set object | [optional] [readonly] 
+**Label** | Pointer to **string** | Unique label for the resource set | [optional] 
 **LastUpdated** | Pointer to **time.Time** | Timestamp when the role was last updated | [optional] [readonly] 
 **Links** | Pointer to [**ResourceSetLinks**](ResourceSetLinks.md) |  | [optional] 
 

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,13 +27,20 @@ import (
 	"encoding/json"
 )
 
-// PasswordPolicyPasswordSettingsLockout struct for PasswordPolicyPasswordSettingsLockout
+// checks if the PasswordPolicyPasswordSettingsLockout type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordPolicyPasswordSettingsLockout{}
+
+// PasswordPolicyPasswordSettingsLockout Lockout settings
 type PasswordPolicyPasswordSettingsLockout struct {
+	// Specifies the time interval (in minutes) a locked account remains locked before it is automatically unlocked: `0` indicates no limit
 	AutoUnlockMinutes *int32 `json:"autoUnlockMinutes,omitempty"`
+	// Specifies the number of times Users can attempt to sign in to their accounts with an invalid password before their accounts are locked: `0` indicates no limit
 	MaxAttempts *int32 `json:"maxAttempts,omitempty"`
+	// Indicates if the User should be informed when their account is locked
 	ShowLockoutFailures *bool `json:"showLockoutFailures,omitempty"`
+	// How the user is notified when their account becomes locked. The only acceptable values are `[]` and `['EMAIL']`.
 	UserLockoutNotificationChannels []string `json:"userLockoutNotificationChannels,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties            map[string]interface{}
 }
 
 type _PasswordPolicyPasswordSettingsLockout PasswordPolicyPasswordSettingsLockout
@@ -44,6 +51,12 @@ type _PasswordPolicyPasswordSettingsLockout PasswordPolicyPasswordSettingsLockou
 // will change when the set of required properties is changed
 func NewPasswordPolicyPasswordSettingsLockout() *PasswordPolicyPasswordSettingsLockout {
 	this := PasswordPolicyPasswordSettingsLockout{}
+	var autoUnlockMinutes int32 = 0
+	this.AutoUnlockMinutes = &autoUnlockMinutes
+	var maxAttempts int32 = 10
+	this.MaxAttempts = &maxAttempts
+	var showLockoutFailures bool = false
+	this.ShowLockoutFailures = &showLockoutFailures
 	return &this
 }
 
@@ -52,12 +65,18 @@ func NewPasswordPolicyPasswordSettingsLockout() *PasswordPolicyPasswordSettingsL
 // but it doesn't guarantee that properties required by API are set
 func NewPasswordPolicyPasswordSettingsLockoutWithDefaults() *PasswordPolicyPasswordSettingsLockout {
 	this := PasswordPolicyPasswordSettingsLockout{}
+	var autoUnlockMinutes int32 = 0
+	this.AutoUnlockMinutes = &autoUnlockMinutes
+	var maxAttempts int32 = 10
+	this.MaxAttempts = &maxAttempts
+	var showLockoutFailures bool = false
+	this.ShowLockoutFailures = &showLockoutFailures
 	return &this
 }
 
 // GetAutoUnlockMinutes returns the AutoUnlockMinutes field value if set, zero value otherwise.
 func (o *PasswordPolicyPasswordSettingsLockout) GetAutoUnlockMinutes() int32 {
-	if o == nil || o.AutoUnlockMinutes == nil {
+	if o == nil || IsNil(o.AutoUnlockMinutes) {
 		var ret int32
 		return ret
 	}
@@ -67,7 +86,7 @@ func (o *PasswordPolicyPasswordSettingsLockout) GetAutoUnlockMinutes() int32 {
 // GetAutoUnlockMinutesOk returns a tuple with the AutoUnlockMinutes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyPasswordSettingsLockout) GetAutoUnlockMinutesOk() (*int32, bool) {
-	if o == nil || o.AutoUnlockMinutes == nil {
+	if o == nil || IsNil(o.AutoUnlockMinutes) {
 		return nil, false
 	}
 	return o.AutoUnlockMinutes, true
@@ -75,7 +94,7 @@ func (o *PasswordPolicyPasswordSettingsLockout) GetAutoUnlockMinutesOk() (*int32
 
 // HasAutoUnlockMinutes returns a boolean if a field has been set.
 func (o *PasswordPolicyPasswordSettingsLockout) HasAutoUnlockMinutes() bool {
-	if o != nil && o.AutoUnlockMinutes != nil {
+	if o != nil && !IsNil(o.AutoUnlockMinutes) {
 		return true
 	}
 
@@ -89,7 +108,7 @@ func (o *PasswordPolicyPasswordSettingsLockout) SetAutoUnlockMinutes(v int32) {
 
 // GetMaxAttempts returns the MaxAttempts field value if set, zero value otherwise.
 func (o *PasswordPolicyPasswordSettingsLockout) GetMaxAttempts() int32 {
-	if o == nil || o.MaxAttempts == nil {
+	if o == nil || IsNil(o.MaxAttempts) {
 		var ret int32
 		return ret
 	}
@@ -99,7 +118,7 @@ func (o *PasswordPolicyPasswordSettingsLockout) GetMaxAttempts() int32 {
 // GetMaxAttemptsOk returns a tuple with the MaxAttempts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyPasswordSettingsLockout) GetMaxAttemptsOk() (*int32, bool) {
-	if o == nil || o.MaxAttempts == nil {
+	if o == nil || IsNil(o.MaxAttempts) {
 		return nil, false
 	}
 	return o.MaxAttempts, true
@@ -107,7 +126,7 @@ func (o *PasswordPolicyPasswordSettingsLockout) GetMaxAttemptsOk() (*int32, bool
 
 // HasMaxAttempts returns a boolean if a field has been set.
 func (o *PasswordPolicyPasswordSettingsLockout) HasMaxAttempts() bool {
-	if o != nil && o.MaxAttempts != nil {
+	if o != nil && !IsNil(o.MaxAttempts) {
 		return true
 	}
 
@@ -121,7 +140,7 @@ func (o *PasswordPolicyPasswordSettingsLockout) SetMaxAttempts(v int32) {
 
 // GetShowLockoutFailures returns the ShowLockoutFailures field value if set, zero value otherwise.
 func (o *PasswordPolicyPasswordSettingsLockout) GetShowLockoutFailures() bool {
-	if o == nil || o.ShowLockoutFailures == nil {
+	if o == nil || IsNil(o.ShowLockoutFailures) {
 		var ret bool
 		return ret
 	}
@@ -131,7 +150,7 @@ func (o *PasswordPolicyPasswordSettingsLockout) GetShowLockoutFailures() bool {
 // GetShowLockoutFailuresOk returns a tuple with the ShowLockoutFailures field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyPasswordSettingsLockout) GetShowLockoutFailuresOk() (*bool, bool) {
-	if o == nil || o.ShowLockoutFailures == nil {
+	if o == nil || IsNil(o.ShowLockoutFailures) {
 		return nil, false
 	}
 	return o.ShowLockoutFailures, true
@@ -139,7 +158,7 @@ func (o *PasswordPolicyPasswordSettingsLockout) GetShowLockoutFailuresOk() (*boo
 
 // HasShowLockoutFailures returns a boolean if a field has been set.
 func (o *PasswordPolicyPasswordSettingsLockout) HasShowLockoutFailures() bool {
-	if o != nil && o.ShowLockoutFailures != nil {
+	if o != nil && !IsNil(o.ShowLockoutFailures) {
 		return true
 	}
 
@@ -153,7 +172,7 @@ func (o *PasswordPolicyPasswordSettingsLockout) SetShowLockoutFailures(v bool) {
 
 // GetUserLockoutNotificationChannels returns the UserLockoutNotificationChannels field value if set, zero value otherwise.
 func (o *PasswordPolicyPasswordSettingsLockout) GetUserLockoutNotificationChannels() []string {
-	if o == nil || o.UserLockoutNotificationChannels == nil {
+	if o == nil || IsNil(o.UserLockoutNotificationChannels) {
 		var ret []string
 		return ret
 	}
@@ -163,7 +182,7 @@ func (o *PasswordPolicyPasswordSettingsLockout) GetUserLockoutNotificationChanne
 // GetUserLockoutNotificationChannelsOk returns a tuple with the UserLockoutNotificationChannels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyPasswordSettingsLockout) GetUserLockoutNotificationChannelsOk() ([]string, bool) {
-	if o == nil || o.UserLockoutNotificationChannels == nil {
+	if o == nil || IsNil(o.UserLockoutNotificationChannels) {
 		return nil, false
 	}
 	return o.UserLockoutNotificationChannels, true
@@ -171,7 +190,7 @@ func (o *PasswordPolicyPasswordSettingsLockout) GetUserLockoutNotificationChanne
 
 // HasUserLockoutNotificationChannels returns a boolean if a field has been set.
 func (o *PasswordPolicyPasswordSettingsLockout) HasUserLockoutNotificationChannels() bool {
-	if o != nil && o.UserLockoutNotificationChannels != nil {
+	if o != nil && !IsNil(o.UserLockoutNotificationChannels) {
 		return true
 	}
 
@@ -184,17 +203,25 @@ func (o *PasswordPolicyPasswordSettingsLockout) SetUserLockoutNotificationChanne
 }
 
 func (o PasswordPolicyPasswordSettingsLockout) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordPolicyPasswordSettingsLockout) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AutoUnlockMinutes != nil {
+	if !IsNil(o.AutoUnlockMinutes) {
 		toSerialize["autoUnlockMinutes"] = o.AutoUnlockMinutes
 	}
-	if o.MaxAttempts != nil {
+	if !IsNil(o.MaxAttempts) {
 		toSerialize["maxAttempts"] = o.MaxAttempts
 	}
-	if o.ShowLockoutFailures != nil {
+	if !IsNil(o.ShowLockoutFailures) {
 		toSerialize["showLockoutFailures"] = o.ShowLockoutFailures
 	}
-	if o.UserLockoutNotificationChannels != nil {
+	if !IsNil(o.UserLockoutNotificationChannels) {
 		toSerialize["userLockoutNotificationChannels"] = o.UserLockoutNotificationChannels
 	}
 
@@ -202,30 +229,28 @@ func (o PasswordPolicyPasswordSettingsLockout) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordPolicyPasswordSettingsLockout) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordPolicyPasswordSettingsLockout) UnmarshalJSON(data []byte) (err error) {
 	varPasswordPolicyPasswordSettingsLockout := _PasswordPolicyPasswordSettingsLockout{}
 
-	err = json.Unmarshal(bytes, &varPasswordPolicyPasswordSettingsLockout)
-	if err == nil {
-		*o = PasswordPolicyPasswordSettingsLockout(varPasswordPolicyPasswordSettingsLockout)
-	} else {
+	err = json.Unmarshal(data, &varPasswordPolicyPasswordSettingsLockout)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PasswordPolicyPasswordSettingsLockout(varPasswordPolicyPasswordSettingsLockout)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "autoUnlockMinutes")
 		delete(additionalProperties, "maxAttempts")
 		delete(additionalProperties, "showLockoutFailures")
 		delete(additionalProperties, "userLockoutNotificationChannels")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -266,4 +291,3 @@ func (v *NullablePasswordPolicyPasswordSettingsLockout) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

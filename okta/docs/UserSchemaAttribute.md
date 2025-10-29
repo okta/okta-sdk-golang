@@ -4,24 +4,24 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Description** | Pointer to **string** |  | [optional] 
-**Enum** | Pointer to **[]string** |  | [optional] 
-**ExternalName** | Pointer to **string** |  | [optional] 
-**ExternalNamespace** | Pointer to **string** |  | [optional] 
-**Items** | Pointer to [**UserSchemaAttributeItems**](UserSchemaAttributeItems.md) |  | [optional] 
-**Master** | Pointer to [**UserSchemaAttributeMaster**](UserSchemaAttributeMaster.md) |  | [optional] 
-**MaxLength** | Pointer to **NullableInt32** |  | [optional] 
-**MinLength** | Pointer to **NullableInt32** |  | [optional] 
-**Mutability** | Pointer to **string** |  | [optional] 
-**OneOf** | Pointer to [**[]UserSchemaAttributeEnum**](UserSchemaAttributeEnum.md) |  | [optional] 
-**Pattern** | Pointer to **string** |  | [optional] 
-**Permissions** | Pointer to [**[]UserSchemaAttributePermission**](UserSchemaAttributePermission.md) |  | [optional] 
-**Required** | Pointer to **bool** |  | [optional] 
+**Default** | Pointer to **interface{}** | If specified, assigns the value as the default value for the custom attribute. This is a nullable property. If you don&#39;t specify a value for this custom attribute during user creation or update, the &#x60;default&#x60; is used instead of setting the value to &#x60;null&#x60; or empty. | [optional] 
+**Description** | Pointer to **string** | Description of the property | [optional] 
+**Enum** | Pointer to [**[]GroupSchemaAttributeEnumInner**](GroupSchemaAttributeEnumInner.md) | Enumerated value of the property.  The value of the property is limited to one of the values specified in the enum definition. The list of values for the enum must consist of unique elements. | [optional] 
+**ExternalName** | Pointer to **string** | Name of the property as it exists in an external application  **NOTE**: When you add a custom property, only Identity Provider app user schemas require &#x60;externalName&#x60; to be included in the request body. If an existing custom Identity Provider app user schema property has an empty &#x60;externalName&#x60;, requests aren&#39;t allowed to update other properties until the &#x60;externalName&#x60; is defined. | [optional] 
+**ExternalNamespace** | Pointer to **string** | Namespace from the external application | [optional] 
+**Format** | Pointer to **string** | Identifies the type of data represented by the string | [optional] 
+**Master** | Pointer to [**NullableUserSchemaAttributeMaster**](UserSchemaAttributeMaster.md) | Identifies where the property is mastered | [optional] 
+**MaxLength** | Pointer to **NullableInt32** | Maximum character length of a string property | [optional] 
+**MinLength** | Pointer to **NullableInt32** | Minimum character length of a string property | [optional] 
+**Mutability** | Pointer to **string** | Defines the mutability of the property | [optional] 
+**OneOf** | Pointer to [**[]UserSchemaAttributeEnum**](UserSchemaAttributeEnum.md) | Non-empty array of valid JSON schemas.  The &#x60;oneOf&#x60; key is only supported in conjunction with &#x60;enum&#x60; and provides a mechanism to return a display name for the &#x60;enum&#x60; value.&lt;br&gt; Each schema has the following format:  &#x60;&#x60;&#x60; {   \&quot;const\&quot;: \&quot;enumValue\&quot;,   \&quot;title\&quot;: \&quot;display name\&quot; } &#x60;&#x60;&#x60;  When &#x60;enum&#x60; is used in conjunction with &#x60;oneOf&#x60;, you must keep the set of enumerated values and their order.&lt;br&gt; For example:  &#x60;&#x60;&#x60; \&quot;enum\&quot;: [\&quot;S\&quot;,\&quot;M\&quot;,\&quot;L\&quot;,\&quot;XL\&quot;], \&quot;oneOf\&quot;: [     {\&quot;const\&quot;: \&quot;S\&quot;, \&quot;title\&quot;: \&quot;Small\&quot;},     {\&quot;const\&quot;: \&quot;M\&quot;, \&quot;title\&quot;: \&quot;Medium\&quot;},     {\&quot;const\&quot;: \&quot;L\&quot;, \&quot;title\&quot;: \&quot;Large\&quot;},     {\&quot;const\&quot;: \&quot;XL\&quot;, \&quot;title\&quot;: \&quot;Extra Large\&quot;}   ] &#x60;&#x60;&#x60; | [optional] 
+**Pattern** | Pointer to **string** | For &#x60;string&#x60; property types, specifies the regular expression used to validate the property | [optional] 
+**Permissions** | Pointer to [**[]UserSchemaAttributePermission**](UserSchemaAttributePermission.md) | Access control permissions for the property | [optional] 
+**Required** | Pointer to **NullableBool** | Determines whether the property is required | [optional] 
 **Scope** | Pointer to **string** |  | [optional] 
-**Title** | Pointer to **string** |  | [optional] 
-**Type** | Pointer to **string** |  | [optional] 
-**Union** | Pointer to **string** |  | [optional] 
-**Unique** | Pointer to **string** |  | [optional] 
+**Title** | Pointer to **string** | User-defined display name for the property | [optional] 
+**Type** | Pointer to **string** | Type of property | [optional] 
+**Unique** | Pointer to **NullableBool** | Determines whether property values must be unique | [optional] 
 
 ## Methods
 
@@ -42,6 +42,41 @@ NewUserSchemaAttributeWithDefaults instantiates a new UserSchemaAttribute object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
+### GetDefault
+
+`func (o *UserSchemaAttribute) GetDefault() interface{}`
+
+GetDefault returns the Default field if non-nil, zero value otherwise.
+
+### GetDefaultOk
+
+`func (o *UserSchemaAttribute) GetDefaultOk() (*interface{}, bool)`
+
+GetDefaultOk returns a tuple with the Default field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDefault
+
+`func (o *UserSchemaAttribute) SetDefault(v interface{})`
+
+SetDefault sets Default field to given value.
+
+### HasDefault
+
+`func (o *UserSchemaAttribute) HasDefault() bool`
+
+HasDefault returns a boolean if a field has been set.
+
+### SetDefaultNil
+
+`func (o *UserSchemaAttribute) SetDefaultNil(b bool)`
+
+ SetDefaultNil sets the value for Default to be an explicit nil
+
+### UnsetDefault
+`func (o *UserSchemaAttribute) UnsetDefault()`
+
+UnsetDefault ensures that no value is present for Default, not even an explicit nil
 ### GetDescription
 
 `func (o *UserSchemaAttribute) GetDescription() string`
@@ -69,20 +104,20 @@ HasDescription returns a boolean if a field has been set.
 
 ### GetEnum
 
-`func (o *UserSchemaAttribute) GetEnum() []string`
+`func (o *UserSchemaAttribute) GetEnum() []GroupSchemaAttributeEnumInner`
 
 GetEnum returns the Enum field if non-nil, zero value otherwise.
 
 ### GetEnumOk
 
-`func (o *UserSchemaAttribute) GetEnumOk() (*[]string, bool)`
+`func (o *UserSchemaAttribute) GetEnumOk() (*[]GroupSchemaAttributeEnumInner, bool)`
 
 GetEnumOk returns a tuple with the Enum field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnum
 
-`func (o *UserSchemaAttribute) SetEnum(v []string)`
+`func (o *UserSchemaAttribute) SetEnum(v []GroupSchemaAttributeEnumInner)`
 
 SetEnum sets Enum field to given value.
 
@@ -92,6 +127,16 @@ SetEnum sets Enum field to given value.
 
 HasEnum returns a boolean if a field has been set.
 
+### SetEnumNil
+
+`func (o *UserSchemaAttribute) SetEnumNil(b bool)`
+
+ SetEnumNil sets the value for Enum to be an explicit nil
+
+### UnsetEnum
+`func (o *UserSchemaAttribute) UnsetEnum()`
+
+UnsetEnum ensures that no value is present for Enum, not even an explicit nil
 ### GetExternalName
 
 `func (o *UserSchemaAttribute) GetExternalName() string`
@@ -142,30 +187,30 @@ SetExternalNamespace sets ExternalNamespace field to given value.
 
 HasExternalNamespace returns a boolean if a field has been set.
 
-### GetItems
+### GetFormat
 
-`func (o *UserSchemaAttribute) GetItems() UserSchemaAttributeItems`
+`func (o *UserSchemaAttribute) GetFormat() string`
 
-GetItems returns the Items field if non-nil, zero value otherwise.
+GetFormat returns the Format field if non-nil, zero value otherwise.
 
-### GetItemsOk
+### GetFormatOk
 
-`func (o *UserSchemaAttribute) GetItemsOk() (*UserSchemaAttributeItems, bool)`
+`func (o *UserSchemaAttribute) GetFormatOk() (*string, bool)`
 
-GetItemsOk returns a tuple with the Items field if it's non-nil, zero value otherwise
+GetFormatOk returns a tuple with the Format field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetItems
+### SetFormat
 
-`func (o *UserSchemaAttribute) SetItems(v UserSchemaAttributeItems)`
+`func (o *UserSchemaAttribute) SetFormat(v string)`
 
-SetItems sets Items field to given value.
+SetFormat sets Format field to given value.
 
-### HasItems
+### HasFormat
 
-`func (o *UserSchemaAttribute) HasItems() bool`
+`func (o *UserSchemaAttribute) HasFormat() bool`
 
-HasItems returns a boolean if a field has been set.
+HasFormat returns a boolean if a field has been set.
 
 ### GetMaster
 
@@ -192,6 +237,16 @@ SetMaster sets Master field to given value.
 
 HasMaster returns a boolean if a field has been set.
 
+### SetMasterNil
+
+`func (o *UserSchemaAttribute) SetMasterNil(b bool)`
+
+ SetMasterNil sets the value for Master to be an explicit nil
+
+### UnsetMaster
+`func (o *UserSchemaAttribute) UnsetMaster()`
+
+UnsetMaster ensures that no value is present for Master, not even an explicit nil
 ### GetMaxLength
 
 `func (o *UserSchemaAttribute) GetMaxLength() int32`
@@ -312,6 +367,16 @@ SetOneOf sets OneOf field to given value.
 
 HasOneOf returns a boolean if a field has been set.
 
+### SetOneOfNil
+
+`func (o *UserSchemaAttribute) SetOneOfNil(b bool)`
+
+ SetOneOfNil sets the value for OneOf to be an explicit nil
+
+### UnsetOneOf
+`func (o *UserSchemaAttribute) UnsetOneOf()`
+
+UnsetOneOf ensures that no value is present for OneOf, not even an explicit nil
 ### GetPattern
 
 `func (o *UserSchemaAttribute) GetPattern() string`
@@ -362,6 +427,16 @@ SetPermissions sets Permissions field to given value.
 
 HasPermissions returns a boolean if a field has been set.
 
+### SetPermissionsNil
+
+`func (o *UserSchemaAttribute) SetPermissionsNil(b bool)`
+
+ SetPermissionsNil sets the value for Permissions to be an explicit nil
+
+### UnsetPermissions
+`func (o *UserSchemaAttribute) UnsetPermissions()`
+
+UnsetPermissions ensures that no value is present for Permissions, not even an explicit nil
 ### GetRequired
 
 `func (o *UserSchemaAttribute) GetRequired() bool`
@@ -387,6 +462,16 @@ SetRequired sets Required field to given value.
 
 HasRequired returns a boolean if a field has been set.
 
+### SetRequiredNil
+
+`func (o *UserSchemaAttribute) SetRequiredNil(b bool)`
+
+ SetRequiredNil sets the value for Required to be an explicit nil
+
+### UnsetRequired
+`func (o *UserSchemaAttribute) UnsetRequired()`
+
+UnsetRequired ensures that no value is present for Required, not even an explicit nil
 ### GetScope
 
 `func (o *UserSchemaAttribute) GetScope() string`
@@ -462,47 +547,22 @@ SetType sets Type field to given value.
 
 HasType returns a boolean if a field has been set.
 
-### GetUnion
-
-`func (o *UserSchemaAttribute) GetUnion() string`
-
-GetUnion returns the Union field if non-nil, zero value otherwise.
-
-### GetUnionOk
-
-`func (o *UserSchemaAttribute) GetUnionOk() (*string, bool)`
-
-GetUnionOk returns a tuple with the Union field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUnion
-
-`func (o *UserSchemaAttribute) SetUnion(v string)`
-
-SetUnion sets Union field to given value.
-
-### HasUnion
-
-`func (o *UserSchemaAttribute) HasUnion() bool`
-
-HasUnion returns a boolean if a field has been set.
-
 ### GetUnique
 
-`func (o *UserSchemaAttribute) GetUnique() string`
+`func (o *UserSchemaAttribute) GetUnique() bool`
 
 GetUnique returns the Unique field if non-nil, zero value otherwise.
 
 ### GetUniqueOk
 
-`func (o *UserSchemaAttribute) GetUniqueOk() (*string, bool)`
+`func (o *UserSchemaAttribute) GetUniqueOk() (*bool, bool)`
 
 GetUniqueOk returns a tuple with the Unique field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUnique
 
-`func (o *UserSchemaAttribute) SetUnique(v string)`
+`func (o *UserSchemaAttribute) SetUnique(v bool)`
 
 SetUnique sets Unique field to given value.
 
@@ -512,6 +572,16 @@ SetUnique sets Unique field to given value.
 
 HasUnique returns a boolean if a field has been set.
 
+### SetUniqueNil
+
+`func (o *UserSchemaAttribute) SetUniqueNil(b bool)`
+
+ SetUniqueNil sets the value for Unique to be an explicit nil
+
+### UnsetUnique
+`func (o *UserSchemaAttribute) UnsetUnique()`
+
+UnsetUnique ensures that no value is present for Unique, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -4,11 +4,11 @@ All URIs are relative to *https://subdomain.okta.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetFeature**](FeatureAPI.md#GetFeature) | **Get** /api/v1/features/{featureId} | Retrieve a Feature
+[**GetFeature**](FeatureAPI.md#GetFeature) | **Get** /api/v1/features/{featureId} | Retrieve a feature
 [**ListFeatureDependencies**](FeatureAPI.md#ListFeatureDependencies) | **Get** /api/v1/features/{featureId}/dependencies | List all dependencies
 [**ListFeatureDependents**](FeatureAPI.md#ListFeatureDependents) | **Get** /api/v1/features/{featureId}/dependents | List all dependents
-[**ListFeatures**](FeatureAPI.md#ListFeatures) | **Get** /api/v1/features | List all Features
-[**UpdateFeatureLifecycle**](FeatureAPI.md#UpdateFeatureLifecycle) | **Post** /api/v1/features/{featureId}/{lifecycle} | Update a Feature lifecycle
+[**ListFeatures**](FeatureAPI.md#ListFeatures) | **Get** /api/v1/features | List all features
+[**UpdateFeatureLifecycle**](FeatureAPI.md#UpdateFeatureLifecycle) | **Post** /api/v1/features/{featureId}/{lifecycle} | Update a feature lifecycle
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > Feature GetFeature(ctx, featureId).Execute()
 
-Retrieve a Feature
+Retrieve a feature
 
 
 
@@ -26,24 +26,24 @@ Retrieve a Feature
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    featureId := "R5HjqNn1pEqWGy48E9jg" // string | `id` of the feature
+	featureId := "R5HjqNn1pEqWGy48E9jg" // string | `id` of the feature
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FeatureAPI.GetFeature(context.Background(), featureId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FeatureAPI.GetFeature``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFeature`: Feature
-    fmt.Fprintf(os.Stdout, "Response from `FeatureAPI.GetFeature`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FeatureAPI.GetFeature(context.Background(), featureId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FeatureAPI.GetFeature``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFeature`: Feature
+	fmt.Fprintf(os.Stdout, "Response from `FeatureAPI.GetFeature`: %v\n", resp)
 }
 ```
 
@@ -96,24 +96,24 @@ List all dependencies
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    featureId := "R5HjqNn1pEqWGy48E9jg" // string | `id` of the feature
+	featureId := "R5HjqNn1pEqWGy48E9jg" // string | `id` of the feature
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FeatureAPI.ListFeatureDependencies(context.Background(), featureId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FeatureAPI.ListFeatureDependencies``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListFeatureDependencies`: []Feature
-    fmt.Fprintf(os.Stdout, "Response from `FeatureAPI.ListFeatureDependencies`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FeatureAPI.ListFeatureDependencies(context.Background(), featureId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FeatureAPI.ListFeatureDependencies``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListFeatureDependencies`: []Feature
+	fmt.Fprintf(os.Stdout, "Response from `FeatureAPI.ListFeatureDependencies`: %v\n", resp)
 }
 ```
 
@@ -166,24 +166,24 @@ List all dependents
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    featureId := "R5HjqNn1pEqWGy48E9jg" // string | `id` of the feature
+	featureId := "R5HjqNn1pEqWGy48E9jg" // string | `id` of the feature
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FeatureAPI.ListFeatureDependents(context.Background(), featureId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FeatureAPI.ListFeatureDependents``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListFeatureDependents`: []Feature
-    fmt.Fprintf(os.Stdout, "Response from `FeatureAPI.ListFeatureDependents`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FeatureAPI.ListFeatureDependents(context.Background(), featureId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FeatureAPI.ListFeatureDependents``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListFeatureDependents`: []Feature
+	fmt.Fprintf(os.Stdout, "Response from `FeatureAPI.ListFeatureDependents`: %v\n", resp)
 }
 ```
 
@@ -226,7 +226,7 @@ Name | Type | Description  | Notes
 
 > []Feature ListFeatures(ctx).Execute()
 
-List all Features
+List all features
 
 
 
@@ -236,23 +236,23 @@ List all Features
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FeatureAPI.ListFeatures(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FeatureAPI.ListFeatures``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListFeatures`: []Feature
-    fmt.Fprintf(os.Stdout, "Response from `FeatureAPI.ListFeatures`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FeatureAPI.ListFeatures(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FeatureAPI.ListFeatures``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListFeatures`: []Feature
+	fmt.Fprintf(os.Stdout, "Response from `FeatureAPI.ListFeatures`: %v\n", resp)
 }
 ```
 
@@ -287,7 +287,7 @@ Other parameters are passed through a pointer to a apiListFeaturesRequest struct
 
 > Feature UpdateFeatureLifecycle(ctx, featureId, lifecycle).Mode(mode).Execute()
 
-Update a Feature lifecycle
+Update a feature lifecycle
 
 
 
@@ -297,26 +297,26 @@ Update a Feature lifecycle
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    featureId := "R5HjqNn1pEqWGy48E9jg" // string | `id` of the feature
-    lifecycle := "lifecycle_example" // string | Whether to `ENABLE` or `DISABLE` the feature
-    mode := "mode_example" // string | Indicates if you want to force enable or disable a feature. Supported value is `force`. (optional)
+	featureId := "R5HjqNn1pEqWGy48E9jg" // string | `id` of the feature
+	lifecycle := "lifecycle_example" // string | Whether to `ENABLE` or `DISABLE` the feature
+	mode := "mode_example" // string | Indicates if you want to force enable or disable a feature. Supported value is `force`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FeatureAPI.UpdateFeatureLifecycle(context.Background(), featureId, lifecycle).Mode(mode).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FeatureAPI.UpdateFeatureLifecycle``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateFeatureLifecycle`: Feature
-    fmt.Fprintf(os.Stdout, "Response from `FeatureAPI.UpdateFeatureLifecycle`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FeatureAPI.UpdateFeatureLifecycle(context.Background(), featureId, lifecycle).Mode(mode).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FeatureAPI.UpdateFeatureLifecycle``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateFeatureLifecycle`: Feature
+	fmt.Fprintf(os.Stdout, "Response from `FeatureAPI.UpdateFeatureLifecycle`: %v\n", resp)
 }
 ```
 

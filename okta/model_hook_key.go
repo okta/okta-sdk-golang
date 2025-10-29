@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -28,21 +28,23 @@ import (
 	"time"
 )
 
-// HookKey struct for HookKey
+// checks if the HookKey type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &HookKey{}
+
+// HookKey The `id` property in the response as `id` serves as the unique ID for the key, which you can specify when invoking other CRUD operations.  The `keyId` provided in the response is the alias of the public key that you can use to get details of the public key data in a separate call.
 type HookKey struct {
-	// Timestamp when the key was created.
-	Created *time.Time `json:"created,omitempty"`
-	// The unique identifier for the key.
+	// Timestamp when the key was created
+	Created NullableTime `json:"created,omitempty"`
+	// The unique identifier for the key
 	Id *string `json:"id,omitempty"`
-	// Whether this key is currently in use by other hooks.
+	// Whether this key is currently in use by other applications
 	IsUsed *bool `json:"isUsed,omitempty"`
-	// The alias of the public key.
+	// The alias of the public key
 	KeyId *string `json:"keyId,omitempty"`
-	// Timestamp when the key was updated.
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	// Display name of the key.
-	Name *string `json:"name,omitempty"`
-	Embedded *JsonWebKey `json:"_embedded,omitempty"`
+	// Timestamp when the key was updated
+	LastUpdated NullableTime `json:"lastUpdated,omitempty"`
+	// Display name of the key
+	Name                 *string `json:"name,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -65,41 +67,52 @@ func NewHookKeyWithDefaults() *HookKey {
 	return &this
 }
 
-// GetCreated returns the Created field value if set, zero value otherwise.
+// GetCreated returns the Created field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *HookKey) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created.Get()) {
 		var ret time.Time
 		return ret
 	}
-	return *o.Created
+	return *o.Created.Get()
 }
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *HookKey) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.Created, true
+	return o.Created.Get(), o.Created.IsSet()
 }
 
 // HasCreated returns a boolean if a field has been set.
 func (o *HookKey) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && o.Created.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
+// SetCreated gets a reference to the given NullableTime and assigns it to the Created field.
 func (o *HookKey) SetCreated(v time.Time) {
-	o.Created = &v
+	o.Created.Set(&v)
+}
+
+// SetCreatedNil sets the value for Created to be an explicit nil
+func (o *HookKey) SetCreatedNil() {
+	o.Created.Set(nil)
+}
+
+// UnsetCreated ensures that no value is present for Created, not even an explicit nil
+func (o *HookKey) UnsetCreated() {
+	o.Created.Unset()
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *HookKey) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -109,7 +122,7 @@ func (o *HookKey) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HookKey) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -117,7 +130,7 @@ func (o *HookKey) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *HookKey) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -131,7 +144,7 @@ func (o *HookKey) SetId(v string) {
 
 // GetIsUsed returns the IsUsed field value if set, zero value otherwise.
 func (o *HookKey) GetIsUsed() bool {
-	if o == nil || o.IsUsed == nil {
+	if o == nil || IsNil(o.IsUsed) {
 		var ret bool
 		return ret
 	}
@@ -141,7 +154,7 @@ func (o *HookKey) GetIsUsed() bool {
 // GetIsUsedOk returns a tuple with the IsUsed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HookKey) GetIsUsedOk() (*bool, bool) {
-	if o == nil || o.IsUsed == nil {
+	if o == nil || IsNil(o.IsUsed) {
 		return nil, false
 	}
 	return o.IsUsed, true
@@ -149,7 +162,7 @@ func (o *HookKey) GetIsUsedOk() (*bool, bool) {
 
 // HasIsUsed returns a boolean if a field has been set.
 func (o *HookKey) HasIsUsed() bool {
-	if o != nil && o.IsUsed != nil {
+	if o != nil && !IsNil(o.IsUsed) {
 		return true
 	}
 
@@ -163,7 +176,7 @@ func (o *HookKey) SetIsUsed(v bool) {
 
 // GetKeyId returns the KeyId field value if set, zero value otherwise.
 func (o *HookKey) GetKeyId() string {
-	if o == nil || o.KeyId == nil {
+	if o == nil || IsNil(o.KeyId) {
 		var ret string
 		return ret
 	}
@@ -173,7 +186,7 @@ func (o *HookKey) GetKeyId() string {
 // GetKeyIdOk returns a tuple with the KeyId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HookKey) GetKeyIdOk() (*string, bool) {
-	if o == nil || o.KeyId == nil {
+	if o == nil || IsNil(o.KeyId) {
 		return nil, false
 	}
 	return o.KeyId, true
@@ -181,7 +194,7 @@ func (o *HookKey) GetKeyIdOk() (*string, bool) {
 
 // HasKeyId returns a boolean if a field has been set.
 func (o *HookKey) HasKeyId() bool {
-	if o != nil && o.KeyId != nil {
+	if o != nil && !IsNil(o.KeyId) {
 		return true
 	}
 
@@ -193,41 +206,52 @@ func (o *HookKey) SetKeyId(v string) {
 	o.KeyId = &v
 }
 
-// GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
+// GetLastUpdated returns the LastUpdated field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *HookKey) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated.Get()) {
 		var ret time.Time
 		return ret
 	}
-	return *o.LastUpdated
+	return *o.LastUpdated.Get()
 }
 
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *HookKey) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.LastUpdated, true
+	return o.LastUpdated.Get(), o.LastUpdated.IsSet()
 }
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *HookKey) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && o.LastUpdated.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetLastUpdated gets a reference to the given time.Time and assigns it to the LastUpdated field.
+// SetLastUpdated gets a reference to the given NullableTime and assigns it to the LastUpdated field.
 func (o *HookKey) SetLastUpdated(v time.Time) {
-	o.LastUpdated = &v
+	o.LastUpdated.Set(&v)
+}
+
+// SetLastUpdatedNil sets the value for LastUpdated to be an explicit nil
+func (o *HookKey) SetLastUpdatedNil() {
+	o.LastUpdated.Set(nil)
+}
+
+// UnsetLastUpdated ensures that no value is present for LastUpdated, not even an explicit nil
+func (o *HookKey) UnsetLastUpdated() {
+	o.LastUpdated.Unset()
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *HookKey) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -237,7 +261,7 @@ func (o *HookKey) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HookKey) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -245,7 +269,7 @@ func (o *HookKey) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *HookKey) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -257,93 +281,63 @@ func (o *HookKey) SetName(v string) {
 	o.Name = &v
 }
 
-// GetEmbedded returns the Embedded field value if set, zero value otherwise.
-func (o *HookKey) GetEmbedded() JsonWebKey {
-	if o == nil || o.Embedded == nil {
-		var ret JsonWebKey
-		return ret
-	}
-	return *o.Embedded
-}
-
-// GetEmbeddedOk returns a tuple with the Embedded field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *HookKey) GetEmbeddedOk() (*JsonWebKey, bool) {
-	if o == nil || o.Embedded == nil {
-		return nil, false
-	}
-	return o.Embedded, true
-}
-
-// HasEmbedded returns a boolean if a field has been set.
-func (o *HookKey) HasEmbedded() bool {
-	if o != nil && o.Embedded != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetEmbedded gets a reference to the given JsonWebKey and assigns it to the Embedded field.
-func (o *HookKey) SetEmbedded(v JsonWebKey) {
-	o.Embedded = &v
-}
-
 func (o HookKey) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
-		toSerialize["created"] = o.Created
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Id != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o HookKey) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if o.Created.IsSet() {
+		toSerialize["created"] = o.Created.Get()
+	}
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.IsUsed != nil {
+	if !IsNil(o.IsUsed) {
 		toSerialize["isUsed"] = o.IsUsed
 	}
-	if o.KeyId != nil {
+	if !IsNil(o.KeyId) {
 		toSerialize["keyId"] = o.KeyId
 	}
-	if o.LastUpdated != nil {
-		toSerialize["lastUpdated"] = o.LastUpdated
+	if o.LastUpdated.IsSet() {
+		toSerialize["lastUpdated"] = o.LastUpdated.Get()
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
-	}
-	if o.Embedded != nil {
-		toSerialize["_embedded"] = o.Embedded
 	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *HookKey) UnmarshalJSON(bytes []byte) (err error) {
+func (o *HookKey) UnmarshalJSON(data []byte) (err error) {
 	varHookKey := _HookKey{}
 
-	err = json.Unmarshal(bytes, &varHookKey)
-	if err == nil {
-		*o = HookKey(varHookKey)
-	} else {
+	err = json.Unmarshal(data, &varHookKey)
+
+	if err != nil {
 		return err
 	}
 
+	*o = HookKey(varHookKey)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "isUsed")
 		delete(additionalProperties, "keyId")
 		delete(additionalProperties, "lastUpdated")
 		delete(additionalProperties, "name")
-		delete(additionalProperties, "_embedded")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -384,4 +378,3 @@ func (v *NullableHookKey) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

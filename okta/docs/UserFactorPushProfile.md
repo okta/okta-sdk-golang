@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CredentialId** | Pointer to **string** | ID for the Factor credential | [optional] 
+**CredentialId** | Pointer to **string** | ID for the factor credential | [optional] 
 **DeviceToken** | Pointer to **string** | Token used to identify the device | [optional] 
 **DeviceType** | Pointer to **string** | Type of device | [optional] 
 **Name** | Pointer to **string** | Name of the device | [optional] 

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the LinksActivate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LinksActivate{}
+
 // LinksActivate struct for LinksActivate
 type LinksActivate struct {
-	Activate *LinksActivateActivate `json:"activate,omitempty"`
+	// Activates an enrolled factor. See [Activate a factor](/openapi/okta-management/management/tag/UserFactor/#tag/UserFactor/operation/activateFactor).
+	Activate             *HrefObject `json:"activate,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -53,9 +57,9 @@ func NewLinksActivateWithDefaults() *LinksActivate {
 }
 
 // GetActivate returns the Activate field value if set, zero value otherwise.
-func (o *LinksActivate) GetActivate() LinksActivateActivate {
-	if o == nil || o.Activate == nil {
-		var ret LinksActivateActivate
+func (o *LinksActivate) GetActivate() HrefObject {
+	if o == nil || IsNil(o.Activate) {
+		var ret HrefObject
 		return ret
 	}
 	return *o.Activate
@@ -63,8 +67,8 @@ func (o *LinksActivate) GetActivate() LinksActivateActivate {
 
 // GetActivateOk returns a tuple with the Activate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LinksActivate) GetActivateOk() (*LinksActivateActivate, bool) {
-	if o == nil || o.Activate == nil {
+func (o *LinksActivate) GetActivateOk() (*HrefObject, bool) {
+	if o == nil || IsNil(o.Activate) {
 		return nil, false
 	}
 	return o.Activate, true
@@ -72,21 +76,29 @@ func (o *LinksActivate) GetActivateOk() (*LinksActivateActivate, bool) {
 
 // HasActivate returns a boolean if a field has been set.
 func (o *LinksActivate) HasActivate() bool {
-	if o != nil && o.Activate != nil {
+	if o != nil && !IsNil(o.Activate) {
 		return true
 	}
 
 	return false
 }
 
-// SetActivate gets a reference to the given LinksActivateActivate and assigns it to the Activate field.
-func (o *LinksActivate) SetActivate(v LinksActivateActivate) {
+// SetActivate gets a reference to the given HrefObject and assigns it to the Activate field.
+func (o *LinksActivate) SetActivate(v HrefObject) {
 	o.Activate = &v
 }
 
 func (o LinksActivate) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LinksActivate) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Activate != nil {
+	if !IsNil(o.Activate) {
 		toSerialize["activate"] = o.Activate
 	}
 
@@ -94,27 +106,25 @@ func (o LinksActivate) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LinksActivate) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LinksActivate) UnmarshalJSON(data []byte) (err error) {
 	varLinksActivate := _LinksActivate{}
 
-	err = json.Unmarshal(bytes, &varLinksActivate)
-	if err == nil {
-		*o = LinksActivate(varLinksActivate)
-	} else {
+	err = json.Unmarshal(data, &varLinksActivate)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LinksActivate(varLinksActivate)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "activate")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +165,3 @@ func (v *NullableLinksActivate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

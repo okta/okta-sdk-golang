@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**IdpIds** | Pointer to **[]string** |  | [optional] 
+**IdpIds** | Pointer to **[]string** | Specifies the IdP ID | [optional] 
 **Provider** | Pointer to **string** |  | [optional] 
 
 ## Methods

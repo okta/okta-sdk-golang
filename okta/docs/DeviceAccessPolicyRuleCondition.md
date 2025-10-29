@@ -4,13 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Migrated** | Pointer to **bool** |  | [optional] 
-**Platform** | Pointer to [**DevicePolicyRuleConditionPlatform**](DevicePolicyRuleConditionPlatform.md) |  | [optional] 
-**Rooted** | Pointer to **bool** |  | [optional] 
-**TrustLevel** | Pointer to **string** |  | [optional] 
 **Assurance** | Pointer to [**DevicePolicyRuleConditionAssurance**](DevicePolicyRuleConditionAssurance.md) |  | [optional] 
-**Managed** | Pointer to **bool** |  | [optional] 
-**Registered** | Pointer to **bool** |  | [optional] 
+**Managed** | Pointer to **bool** | Indicates if the device is managed. A device is considered managed if it&#39;s part of a device management system. | [optional] 
+**Registered** | Pointer to **bool** | Indicates if the device is registered. A device is registered if the User enrolls with Okta Verify that&#39;s installed on the device. When the &#x60;managed&#x60; property is passed, you must also include the &#x60;registered&#x60; property and set it to &#x60;true&#x60;.  | [optional] 
 
 ## Methods
 
@@ -30,106 +26,6 @@ will change when the set of required properties is changed
 NewDeviceAccessPolicyRuleConditionWithDefaults instantiates a new DeviceAccessPolicyRuleCondition object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetMigrated
-
-`func (o *DeviceAccessPolicyRuleCondition) GetMigrated() bool`
-
-GetMigrated returns the Migrated field if non-nil, zero value otherwise.
-
-### GetMigratedOk
-
-`func (o *DeviceAccessPolicyRuleCondition) GetMigratedOk() (*bool, bool)`
-
-GetMigratedOk returns a tuple with the Migrated field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMigrated
-
-`func (o *DeviceAccessPolicyRuleCondition) SetMigrated(v bool)`
-
-SetMigrated sets Migrated field to given value.
-
-### HasMigrated
-
-`func (o *DeviceAccessPolicyRuleCondition) HasMigrated() bool`
-
-HasMigrated returns a boolean if a field has been set.
-
-### GetPlatform
-
-`func (o *DeviceAccessPolicyRuleCondition) GetPlatform() DevicePolicyRuleConditionPlatform`
-
-GetPlatform returns the Platform field if non-nil, zero value otherwise.
-
-### GetPlatformOk
-
-`func (o *DeviceAccessPolicyRuleCondition) GetPlatformOk() (*DevicePolicyRuleConditionPlatform, bool)`
-
-GetPlatformOk returns a tuple with the Platform field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPlatform
-
-`func (o *DeviceAccessPolicyRuleCondition) SetPlatform(v DevicePolicyRuleConditionPlatform)`
-
-SetPlatform sets Platform field to given value.
-
-### HasPlatform
-
-`func (o *DeviceAccessPolicyRuleCondition) HasPlatform() bool`
-
-HasPlatform returns a boolean if a field has been set.
-
-### GetRooted
-
-`func (o *DeviceAccessPolicyRuleCondition) GetRooted() bool`
-
-GetRooted returns the Rooted field if non-nil, zero value otherwise.
-
-### GetRootedOk
-
-`func (o *DeviceAccessPolicyRuleCondition) GetRootedOk() (*bool, bool)`
-
-GetRootedOk returns a tuple with the Rooted field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRooted
-
-`func (o *DeviceAccessPolicyRuleCondition) SetRooted(v bool)`
-
-SetRooted sets Rooted field to given value.
-
-### HasRooted
-
-`func (o *DeviceAccessPolicyRuleCondition) HasRooted() bool`
-
-HasRooted returns a boolean if a field has been set.
-
-### GetTrustLevel
-
-`func (o *DeviceAccessPolicyRuleCondition) GetTrustLevel() string`
-
-GetTrustLevel returns the TrustLevel field if non-nil, zero value otherwise.
-
-### GetTrustLevelOk
-
-`func (o *DeviceAccessPolicyRuleCondition) GetTrustLevelOk() (*string, bool)`
-
-GetTrustLevelOk returns a tuple with the TrustLevel field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTrustLevel
-
-`func (o *DeviceAccessPolicyRuleCondition) SetTrustLevel(v string)`
-
-SetTrustLevel sets TrustLevel field to given value.
-
-### HasTrustLevel
-
-`func (o *DeviceAccessPolicyRuleCondition) HasTrustLevel() bool`
-
-HasTrustLevel returns a boolean if a field has been set.
 
 ### GetAssurance
 

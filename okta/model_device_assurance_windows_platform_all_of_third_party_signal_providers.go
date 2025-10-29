@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders{}
+
 // DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders Settings for third-party signal providers (based on the `WINDOWS` platform)
 type DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders struct {
-	Dtc *DTCWindows `json:"dtc,omitempty"`
+	Dtc                  *DTCWindows       `json:"dtc,omitempty"`
+	DevicePostureIdP     *DevicePostureIdP `json:"devicePostureIdP,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +58,7 @@ func NewDeviceAssuranceWindowsPlatformAllOfThirdPartySignalProvidersWithDefaults
 
 // GetDtc returns the Dtc field value if set, zero value otherwise.
 func (o *DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders) GetDtc() DTCWindows {
-	if o == nil || o.Dtc == nil {
+	if o == nil || IsNil(o.Dtc) {
 		var ret DTCWindows
 		return ret
 	}
@@ -64,7 +68,7 @@ func (o *DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders) GetDtc() 
 // GetDtcOk returns a tuple with the Dtc field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders) GetDtcOk() (*DTCWindows, bool) {
-	if o == nil || o.Dtc == nil {
+	if o == nil || IsNil(o.Dtc) {
 		return nil, false
 	}
 	return o.Dtc, true
@@ -72,7 +76,7 @@ func (o *DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders) GetDtcOk(
 
 // HasDtc returns a boolean if a field has been set.
 func (o *DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders) HasDtc() bool {
-	if o != nil && o.Dtc != nil {
+	if o != nil && !IsNil(o.Dtc) {
 		return true
 	}
 
@@ -84,37 +88,79 @@ func (o *DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders) SetDtc(v 
 	o.Dtc = &v
 }
 
+// GetDevicePostureIdP returns the DevicePostureIdP field value if set, zero value otherwise.
+func (o *DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders) GetDevicePostureIdP() DevicePostureIdP {
+	if o == nil || IsNil(o.DevicePostureIdP) {
+		var ret DevicePostureIdP
+		return ret
+	}
+	return *o.DevicePostureIdP
+}
+
+// GetDevicePostureIdPOk returns a tuple with the DevicePostureIdP field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders) GetDevicePostureIdPOk() (*DevicePostureIdP, bool) {
+	if o == nil || IsNil(o.DevicePostureIdP) {
+		return nil, false
+	}
+	return o.DevicePostureIdP, true
+}
+
+// HasDevicePostureIdP returns a boolean if a field has been set.
+func (o *DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders) HasDevicePostureIdP() bool {
+	if o != nil && !IsNil(o.DevicePostureIdP) {
+		return true
+	}
+
+	return false
+}
+
+// SetDevicePostureIdP gets a reference to the given DevicePostureIdP and assigns it to the DevicePostureIdP field.
+func (o *DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders) SetDevicePostureIdP(v DevicePostureIdP) {
+	o.DevicePostureIdP = &v
+}
+
 func (o DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Dtc != nil {
+	if !IsNil(o.Dtc) {
 		toSerialize["dtc"] = o.Dtc
+	}
+	if !IsNil(o.DevicePostureIdP) {
+		toSerialize["devicePostureIdP"] = o.DevicePostureIdP
 	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders) UnmarshalJSON(data []byte) (err error) {
 	varDeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders := _DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders{}
 
-	err = json.Unmarshal(bytes, &varDeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders)
-	if err == nil {
-		*o = DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders(varDeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders)
-	} else {
+	err = json.Unmarshal(data, &varDeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders(varDeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "dtc")
+		delete(additionalProperties, "devicePostureIdP")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +201,3 @@ func (v *NullableDeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders) U
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

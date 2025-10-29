@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -25,15 +25,19 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the EventSubscriptions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EventSubscriptions{}
 
 // EventSubscriptions struct for EventSubscriptions
 type EventSubscriptions struct {
 	Filter NullableEventHookFilters `json:"filter,omitempty"`
-	// The subscribed event types that trigger the event hook. When you register an event hook you need to specify which events you want to subscribe to. To see the list of event types currently eligible for use in event hooks, use the [Event Types catalog](/docs/reference/api/event-types/#catalog) and search with the parameter `event-hook-eligible`.
+	// The subscribed event types that trigger the event hook. When you register an event hook you need to specify which events you want to subscribe to. To see the list of event types currently eligible for use in event hooks, use the [Event Types catalog](https://developer.okta.com/docs/reference/api/event-types/#catalog) and search with the parameter `event-hook-eligible`.
 	Items []string `json:"items"`
 	// The events object type. Currently supports `EVENT_TYPE`.
-	Type string `json:"type"`
+	Type                 string `json:"type"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +64,7 @@ func NewEventSubscriptionsWithDefaults() *EventSubscriptions {
 
 // GetFilter returns the Filter field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *EventSubscriptions) GetFilter() EventHookFilters {
-	if o == nil || o.Filter.Get() == nil {
+	if o == nil || IsNil(o.Filter.Get()) {
 		var ret EventHookFilters
 		return ret
 	}
@@ -90,6 +94,7 @@ func (o *EventSubscriptions) HasFilter() bool {
 func (o *EventSubscriptions) SetFilter(v EventHookFilters) {
 	o.Filter.Set(&v)
 }
+
 // SetFilterNil sets the value for Filter to be an explicit nil
 func (o *EventSubscriptions) SetFilterNil() {
 	o.Filter.Set(nil)
@@ -149,44 +154,68 @@ func (o *EventSubscriptions) SetType(v string) {
 }
 
 func (o EventSubscriptions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EventSubscriptions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Filter.IsSet() {
 		toSerialize["filter"] = o.Filter.Get()
 	}
-	if true {
-		toSerialize["items"] = o.Items
-	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
+	toSerialize["items"] = o.Items
+	toSerialize["type"] = o.Type
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EventSubscriptions) UnmarshalJSON(bytes []byte) (err error) {
-	varEventSubscriptions := _EventSubscriptions{}
+func (o *EventSubscriptions) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"items",
+		"type",
+	}
 
-	err = json.Unmarshal(bytes, &varEventSubscriptions)
-	if err == nil {
-		*o = EventSubscriptions(varEventSubscriptions)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varEventSubscriptions := _EventSubscriptions{}
+
+	err = json.Unmarshal(data, &varEventSubscriptions)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EventSubscriptions(varEventSubscriptions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "filter")
 		delete(additionalProperties, "items")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -227,4 +256,3 @@ func (v *NullableEventSubscriptions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -1,5 +1,3 @@
-
-//model_oneof.mustache
 // {{classname}} - {{{description}}}{{^description}}struct for {{{classname}}}{{/description}}
 type {{classname}} struct {
 	{{#oneOf}}
@@ -17,7 +15,7 @@ func {{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}}As{{classname}}(v *{
 
 {{/oneOf}}
 
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *{{classname}}) UnmarshalJSON(data []byte) error {
 	var err error
 	{{#isNullable}}
@@ -35,7 +33,7 @@ func (dst *{{classname}}) UnmarshalJSON(data []byte) error {
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	{{/-first}}
@@ -47,7 +45,7 @@ func (dst *{{classname}}) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.{{{modelName}}}, return on the first match
 		} else {
 			dst.{{{modelName}}} = nil
-			return fmt.Errorf("Failed to unmarshal {{classname}} as {{{modelName}}}: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal {{classname}} as {{{modelName}}}: %s", err.Error())
 		}
 	}
 
@@ -55,41 +53,10 @@ func (dst *{{classname}}) UnmarshalJSON(data []byte) error {
 	return nil
 	{{/discriminator}}
 	{{^discriminator}}
-        match := 0
-        {{#oneOf}}
-        // try to unmarshal data into {{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}}
-        err = json.Unmarshal(data, &dst.{{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}})
-        if err == nil {
-                json{{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}}, _ := json.Marshal(dst.{{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}})
-                if string(json{{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}}) == "{}" { // empty struct
-                        dst.{{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}} = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.{{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}} = nil
-        }
-
-        {{/oneOf}}
-        if match > 1 { // more than 1 match
-                // reset to nil
-                {{#oneOf}}
-                dst.{{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}} = nil
-                {{/oneOf}}
-
-                return fmt.Errorf("Data matches more than one schema in oneOf({{classname}})")
-        } else if match == 1 {
-                return nil // exactly one match
-        } else { // no match
-                return fmt.Errorf("Data failed to match schemas in oneOf({{classname}})")
-        }
-	{{/discriminator}}
-	{{/useOneOfDiscriminatorLookup}}
-	{{^useOneOfDiscriminatorLookup}}
 	match := 0
 	{{#oneOf}}
 	// try to unmarshal data into {{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}}
-	err = newStrictDecoder(data).Decode(&dst.{{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}})
+	err = json.Unmarshal(data, &dst.{{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}})
 	if err == nil {
 		json{{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}}, _ := json.Marshal(dst.{{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}})
 		if string(json{{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}}) == "{}" { // empty struct
@@ -108,11 +75,46 @@ func (dst *{{classname}}) UnmarshalJSON(data []byte) error {
 		dst.{{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}} = nil
 		{{/oneOf}}
 
-		return fmt.Errorf("Data matches more than one schema in oneOf({{classname}})")
+		return fmt.Errorf("data matches more than one schema in oneOf({{classname}})")
 	} else if match == 1 {
 		return nil // exactly one match
 	} else { // no match
-		return fmt.Errorf("Data failed to match schemas in oneOf({{classname}})")
+		return fmt.Errorf("data failed to match schemas in oneOf({{classname}})")
+	}
+	{{/discriminator}}
+	{{/useOneOfDiscriminatorLookup}}
+	{{^useOneOfDiscriminatorLookup}}
+	match := 0
+	{{#oneOf}}
+	// try to unmarshal data into {{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}}
+	err = newStrictDecoder(data).Decode(&dst.{{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}})
+	if err == nil {
+		json{{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}}, _ := json.Marshal(dst.{{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}})
+		if string(json{{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}}) == "{}" { // empty struct
+			dst.{{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}} = nil
+		} else {
+			if err = validator.Validate(dst.{{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}}); err != nil {
+				dst.{{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}} = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.{{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}} = nil
+	}
+
+	{{/oneOf}}
+	if match > 1 { // more than 1 match
+		// reset to nil
+		{{#oneOf}}
+		dst.{{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}} = nil
+		{{/oneOf}}
+
+		return fmt.Errorf("data matches more than one schema in oneOf({{classname}})")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("data failed to match schemas in oneOf({{classname}})")
 	}
 	{{/useOneOfDiscriminatorLookup}}
 }
@@ -136,6 +138,18 @@ func (obj *{{classname}}) GetActualInstance() (interface{}) {
 {{#oneOf}}
 	if obj.{{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}} != nil {
 		return obj.{{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}}
+	}
+
+{{/oneOf}}
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj {{classname}}) GetActualInstanceValue() (interface{}) {
+{{#oneOf}}
+	if obj.{{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}} != nil {
+		return *obj.{{#lambda.type-to-name}}{{{.}}}{{/lambda.type-to-name}}
 	}
 
 {{/oneOf}}

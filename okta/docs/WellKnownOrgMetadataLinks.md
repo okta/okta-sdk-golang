@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Alternate** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
-**Organization** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**Alternate** | Pointer to [**HrefObject**](HrefObject.md) | Link to the custom domain org URL | [optional] 
+**Organization** | Pointer to [**HrefObject**](HrefObject.md) | Link to the org URL | [optional] 
 
 ## Methods
 

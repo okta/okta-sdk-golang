@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | &#x60;id&#x60; of the role | [optional] 
 **Links** | Pointer to [**ResourceSetBindingRoleLinks**](ResourceSetBindingRoleLinks.md) |  | [optional] 
 
 ## Methods

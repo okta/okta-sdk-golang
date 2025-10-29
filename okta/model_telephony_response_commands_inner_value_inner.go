@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -26,6 +26,9 @@ package okta
 import (
 	"encoding/json"
 )
+
+// checks if the TelephonyResponseCommandsInnerValueInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TelephonyResponseCommandsInnerValueInner{}
 
 // TelephonyResponseCommandsInnerValueInner struct for TelephonyResponseCommandsInnerValueInner
 type TelephonyResponseCommandsInnerValueInner struct {
@@ -36,7 +39,7 @@ type TelephonyResponseCommandsInnerValueInner struct {
 	// Transaction ID for sms/voice
 	TransactionId *string `json:"transactionId,omitempty"`
 	// Any relevant metadata for the telephony transaction
-	TransactionMetadata *string `json:"transactionMetadata,omitempty"`
+	TransactionMetadata  *string `json:"transactionMetadata,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewTelephonyResponseCommandsInnerValueInnerWithDefaults() *TelephonyRespons
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *TelephonyResponseCommandsInnerValueInner) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *TelephonyResponseCommandsInnerValueInner) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TelephonyResponseCommandsInnerValueInner) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -79,7 +82,7 @@ func (o *TelephonyResponseCommandsInnerValueInner) GetStatusOk() (*string, bool)
 
 // HasStatus returns a boolean if a field has been set.
 func (o *TelephonyResponseCommandsInnerValueInner) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *TelephonyResponseCommandsInnerValueInner) SetStatus(v string) {
 
 // GetProvider returns the Provider field value if set, zero value otherwise.
 func (o *TelephonyResponseCommandsInnerValueInner) GetProvider() string {
-	if o == nil || o.Provider == nil {
+	if o == nil || IsNil(o.Provider) {
 		var ret string
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *TelephonyResponseCommandsInnerValueInner) GetProvider() string {
 // GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TelephonyResponseCommandsInnerValueInner) GetProviderOk() (*string, bool) {
-	if o == nil || o.Provider == nil {
+	if o == nil || IsNil(o.Provider) {
 		return nil, false
 	}
 	return o.Provider, true
@@ -111,7 +114,7 @@ func (o *TelephonyResponseCommandsInnerValueInner) GetProviderOk() (*string, boo
 
 // HasProvider returns a boolean if a field has been set.
 func (o *TelephonyResponseCommandsInnerValueInner) HasProvider() bool {
-	if o != nil && o.Provider != nil {
+	if o != nil && !IsNil(o.Provider) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *TelephonyResponseCommandsInnerValueInner) SetProvider(v string) {
 
 // GetTransactionId returns the TransactionId field value if set, zero value otherwise.
 func (o *TelephonyResponseCommandsInnerValueInner) GetTransactionId() string {
-	if o == nil || o.TransactionId == nil {
+	if o == nil || IsNil(o.TransactionId) {
 		var ret string
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *TelephonyResponseCommandsInnerValueInner) GetTransactionId() string {
 // GetTransactionIdOk returns a tuple with the TransactionId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TelephonyResponseCommandsInnerValueInner) GetTransactionIdOk() (*string, bool) {
-	if o == nil || o.TransactionId == nil {
+	if o == nil || IsNil(o.TransactionId) {
 		return nil, false
 	}
 	return o.TransactionId, true
@@ -143,7 +146,7 @@ func (o *TelephonyResponseCommandsInnerValueInner) GetTransactionIdOk() (*string
 
 // HasTransactionId returns a boolean if a field has been set.
 func (o *TelephonyResponseCommandsInnerValueInner) HasTransactionId() bool {
-	if o != nil && o.TransactionId != nil {
+	if o != nil && !IsNil(o.TransactionId) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *TelephonyResponseCommandsInnerValueInner) SetTransactionId(v string) {
 
 // GetTransactionMetadata returns the TransactionMetadata field value if set, zero value otherwise.
 func (o *TelephonyResponseCommandsInnerValueInner) GetTransactionMetadata() string {
-	if o == nil || o.TransactionMetadata == nil {
+	if o == nil || IsNil(o.TransactionMetadata) {
 		var ret string
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *TelephonyResponseCommandsInnerValueInner) GetTransactionMetadata() stri
 // GetTransactionMetadataOk returns a tuple with the TransactionMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TelephonyResponseCommandsInnerValueInner) GetTransactionMetadataOk() (*string, bool) {
-	if o == nil || o.TransactionMetadata == nil {
+	if o == nil || IsNil(o.TransactionMetadata) {
 		return nil, false
 	}
 	return o.TransactionMetadata, true
@@ -175,7 +178,7 @@ func (o *TelephonyResponseCommandsInnerValueInner) GetTransactionMetadataOk() (*
 
 // HasTransactionMetadata returns a boolean if a field has been set.
 func (o *TelephonyResponseCommandsInnerValueInner) HasTransactionMetadata() bool {
-	if o != nil && o.TransactionMetadata != nil {
+	if o != nil && !IsNil(o.TransactionMetadata) {
 		return true
 	}
 
@@ -188,17 +191,25 @@ func (o *TelephonyResponseCommandsInnerValueInner) SetTransactionMetadata(v stri
 }
 
 func (o TelephonyResponseCommandsInnerValueInner) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TelephonyResponseCommandsInnerValueInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Provider != nil {
+	if !IsNil(o.Provider) {
 		toSerialize["provider"] = o.Provider
 	}
-	if o.TransactionId != nil {
+	if !IsNil(o.TransactionId) {
 		toSerialize["transactionId"] = o.TransactionId
 	}
-	if o.TransactionMetadata != nil {
+	if !IsNil(o.TransactionMetadata) {
 		toSerialize["transactionMetadata"] = o.TransactionMetadata
 	}
 
@@ -206,30 +217,28 @@ func (o TelephonyResponseCommandsInnerValueInner) MarshalJSON() ([]byte, error) 
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *TelephonyResponseCommandsInnerValueInner) UnmarshalJSON(bytes []byte) (err error) {
+func (o *TelephonyResponseCommandsInnerValueInner) UnmarshalJSON(data []byte) (err error) {
 	varTelephonyResponseCommandsInnerValueInner := _TelephonyResponseCommandsInnerValueInner{}
 
-	err = json.Unmarshal(bytes, &varTelephonyResponseCommandsInnerValueInner)
-	if err == nil {
-		*o = TelephonyResponseCommandsInnerValueInner(varTelephonyResponseCommandsInnerValueInner)
-	} else {
+	err = json.Unmarshal(data, &varTelephonyResponseCommandsInnerValueInner)
+
+	if err != nil {
 		return err
 	}
 
+	*o = TelephonyResponseCommandsInnerValueInner(varTelephonyResponseCommandsInnerValueInner)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "provider")
 		delete(additionalProperties, "transactionId")
 		delete(additionalProperties, "transactionMetadata")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -270,4 +279,3 @@ func (v *NullableTelephonyResponseCommandsInnerValueInner) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

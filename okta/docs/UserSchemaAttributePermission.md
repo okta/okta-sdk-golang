@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Action** | Pointer to **string** |  | [optional] 
-**Principal** | Pointer to **string** |  | [optional] 
+**Action** | Pointer to **string** | Determines whether the principal can view or modify the property | [optional] 
+**Principal** | Pointer to **string** | Security principal | [optional] 
 
 ## Methods
 

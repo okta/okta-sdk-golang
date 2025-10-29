@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Exclude** | Pointer to [**[]AppAndInstanceConditionEvaluatorAppOrInstance**](AppAndInstanceConditionEvaluatorAppOrInstance.md) |  | [optional] 
-**Include** | Pointer to [**[]AppAndInstanceConditionEvaluatorAppOrInstance**](AppAndInstanceConditionEvaluatorAppOrInstance.md) |  | [optional] 
+**Exclude** | Pointer to [**[]AppAndInstanceConditionEvaluatorAppOrInstance**](AppAndInstanceConditionEvaluatorAppOrInstance.md) | The list of apps or app instances to exclude | [optional] 
+**Include** | Pointer to [**[]AppAndInstanceConditionEvaluatorAppOrInstance**](AppAndInstanceConditionEvaluatorAppOrInstance.md) | The list of apps or app instances to match on | [optional] 
 
 ## Methods
 

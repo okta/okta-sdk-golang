@@ -5,9 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ExpiresAt** | Pointer to **time.Time** | Timestamp when the verification expires | [optional] [readonly] 
-**FactorMessage** | Pointer to **NullableString** | Optional display message for Factor verification | [optional] [readonly] 
-**FactorResult** | Pointer to **string** | Result of a Factor verification | [optional] 
-**Embedded** | Pointer to **map[string]map[string]interface{}** |  | [optional] [readonly] 
+**FactorMessage** | Pointer to **NullableString** | Optional display message for factor verification | [optional] [readonly] 
+**FactorResult** | Pointer to **string** | Result of a factor verification | [optional] 
+**Profile** | Pointer to **map[string]map[string]interface{}** |  | [optional] [readonly] 
+**Embedded** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
 **Links** | Pointer to [**UserFactorLinks**](UserFactorLinks.md) |  | [optional] 
 
 ## Methods
@@ -113,6 +114,31 @@ SetFactorResult sets FactorResult field to given value.
 `func (o *UserFactorVerifyResponse) HasFactorResult() bool`
 
 HasFactorResult returns a boolean if a field has been set.
+
+### GetProfile
+
+`func (o *UserFactorVerifyResponse) GetProfile() map[string]map[string]interface{}`
+
+GetProfile returns the Profile field if non-nil, zero value otherwise.
+
+### GetProfileOk
+
+`func (o *UserFactorVerifyResponse) GetProfileOk() (*map[string]map[string]interface{}, bool)`
+
+GetProfileOk returns a tuple with the Profile field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProfile
+
+`func (o *UserFactorVerifyResponse) SetProfile(v map[string]map[string]interface{})`
+
+SetProfile sets Profile field to given value.
+
+### HasProfile
+
+`func (o *UserFactorVerifyResponse) HasProfile() bool`
+
+HasProfile returns a boolean if a field has been set.
 
 ### GetEmbedded
 

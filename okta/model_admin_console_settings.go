@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the AdminConsoleSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AdminConsoleSettings{}
+
 // AdminConsoleSettings Settings specific to the Okta Admin Console
 type AdminConsoleSettings struct {
 	// The maximum idle time before the Okta Admin Console session expires. Must be no more than 12 hours.
 	SessionIdleTimeoutMinutes *int32 `json:"sessionIdleTimeoutMinutes,omitempty"`
 	// The absolute maximum session lifetime of the Okta Admin Console. Must be no more than 7 days.
 	SessionMaxLifetimeMinutes *int32 `json:"sessionMaxLifetimeMinutes,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties      map[string]interface{}
 }
 
 type _AdminConsoleSettings AdminConsoleSettings
@@ -65,7 +68,7 @@ func NewAdminConsoleSettingsWithDefaults() *AdminConsoleSettings {
 
 // GetSessionIdleTimeoutMinutes returns the SessionIdleTimeoutMinutes field value if set, zero value otherwise.
 func (o *AdminConsoleSettings) GetSessionIdleTimeoutMinutes() int32 {
-	if o == nil || o.SessionIdleTimeoutMinutes == nil {
+	if o == nil || IsNil(o.SessionIdleTimeoutMinutes) {
 		var ret int32
 		return ret
 	}
@@ -75,7 +78,7 @@ func (o *AdminConsoleSettings) GetSessionIdleTimeoutMinutes() int32 {
 // GetSessionIdleTimeoutMinutesOk returns a tuple with the SessionIdleTimeoutMinutes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AdminConsoleSettings) GetSessionIdleTimeoutMinutesOk() (*int32, bool) {
-	if o == nil || o.SessionIdleTimeoutMinutes == nil {
+	if o == nil || IsNil(o.SessionIdleTimeoutMinutes) {
 		return nil, false
 	}
 	return o.SessionIdleTimeoutMinutes, true
@@ -83,7 +86,7 @@ func (o *AdminConsoleSettings) GetSessionIdleTimeoutMinutesOk() (*int32, bool) {
 
 // HasSessionIdleTimeoutMinutes returns a boolean if a field has been set.
 func (o *AdminConsoleSettings) HasSessionIdleTimeoutMinutes() bool {
-	if o != nil && o.SessionIdleTimeoutMinutes != nil {
+	if o != nil && !IsNil(o.SessionIdleTimeoutMinutes) {
 		return true
 	}
 
@@ -97,7 +100,7 @@ func (o *AdminConsoleSettings) SetSessionIdleTimeoutMinutes(v int32) {
 
 // GetSessionMaxLifetimeMinutes returns the SessionMaxLifetimeMinutes field value if set, zero value otherwise.
 func (o *AdminConsoleSettings) GetSessionMaxLifetimeMinutes() int32 {
-	if o == nil || o.SessionMaxLifetimeMinutes == nil {
+	if o == nil || IsNil(o.SessionMaxLifetimeMinutes) {
 		var ret int32
 		return ret
 	}
@@ -107,7 +110,7 @@ func (o *AdminConsoleSettings) GetSessionMaxLifetimeMinutes() int32 {
 // GetSessionMaxLifetimeMinutesOk returns a tuple with the SessionMaxLifetimeMinutes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AdminConsoleSettings) GetSessionMaxLifetimeMinutesOk() (*int32, bool) {
-	if o == nil || o.SessionMaxLifetimeMinutes == nil {
+	if o == nil || IsNil(o.SessionMaxLifetimeMinutes) {
 		return nil, false
 	}
 	return o.SessionMaxLifetimeMinutes, true
@@ -115,7 +118,7 @@ func (o *AdminConsoleSettings) GetSessionMaxLifetimeMinutesOk() (*int32, bool) {
 
 // HasSessionMaxLifetimeMinutes returns a boolean if a field has been set.
 func (o *AdminConsoleSettings) HasSessionMaxLifetimeMinutes() bool {
-	if o != nil && o.SessionMaxLifetimeMinutes != nil {
+	if o != nil && !IsNil(o.SessionMaxLifetimeMinutes) {
 		return true
 	}
 
@@ -128,11 +131,19 @@ func (o *AdminConsoleSettings) SetSessionMaxLifetimeMinutes(v int32) {
 }
 
 func (o AdminConsoleSettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AdminConsoleSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.SessionIdleTimeoutMinutes != nil {
+	if !IsNil(o.SessionIdleTimeoutMinutes) {
 		toSerialize["sessionIdleTimeoutMinutes"] = o.SessionIdleTimeoutMinutes
 	}
-	if o.SessionMaxLifetimeMinutes != nil {
+	if !IsNil(o.SessionMaxLifetimeMinutes) {
 		toSerialize["sessionMaxLifetimeMinutes"] = o.SessionMaxLifetimeMinutes
 	}
 
@@ -140,28 +151,26 @@ func (o AdminConsoleSettings) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AdminConsoleSettings) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AdminConsoleSettings) UnmarshalJSON(data []byte) (err error) {
 	varAdminConsoleSettings := _AdminConsoleSettings{}
 
-	err = json.Unmarshal(bytes, &varAdminConsoleSettings)
-	if err == nil {
-		*o = AdminConsoleSettings(varAdminConsoleSettings)
-	} else {
+	err = json.Unmarshal(data, &varAdminConsoleSettings)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AdminConsoleSettings(varAdminConsoleSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "sessionIdleTimeoutMinutes")
 		delete(additionalProperties, "sessionMaxLifetimeMinutes")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -202,4 +211,3 @@ func (v *NullableAdminConsoleSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

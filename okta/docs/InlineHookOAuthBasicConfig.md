@@ -5,13 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AuthType** | Pointer to **string** |  | [optional] 
-**ClientId** | Pointer to **string** |  | [optional] 
-**Scope** | Pointer to **string** |  | [optional] 
-**TokenUrl** | Pointer to **string** |  | [optional] 
-**AuthScheme** | Pointer to [**InlineHookChannelConfigAuthScheme**](InlineHookChannelConfigAuthScheme.md) |  | [optional] 
-**Headers** | Pointer to [**[]InlineHookChannelConfigHeaders**](InlineHookChannelConfigHeaders.md) |  | [optional] 
-**Method** | Pointer to **string** |  | [optional] 
-**Uri** | Pointer to **string** |  | [optional] 
+**ClientId** | Pointer to **string** | A publicly exposed string provided by the service that&#39;s used to identify the OAuth app and build authorization URLs | [optional] 
+**Scope** | Pointer to **string** | Include the scopes that allow you to perform the actions on the hook endpoint that you want to access | [optional] 
+**TokenUrl** | Pointer to **string** | The URI where inline hooks can exchange an authorization code for access and refresh tokens | [optional] 
+**Headers** | Pointer to [**[]InlineHookChannelConfigHeaders**](InlineHookChannelConfigHeaders.md) | An optional list of key/value pairs for headers that you can send with the request to the external service | [optional] 
+**Method** | Pointer to **string** | The method of the Okta inline hook request | [optional] 
+**Uri** | Pointer to **string** | The external service endpoint that executes the inline hook handler. It must begin with &#x60;https://&#x60; and be reachable by Okta. No white space is allowed in the URI. | [optional] 
 
 ## Methods
 
@@ -131,31 +130,6 @@ SetTokenUrl sets TokenUrl field to given value.
 `func (o *InlineHookOAuthBasicConfig) HasTokenUrl() bool`
 
 HasTokenUrl returns a boolean if a field has been set.
-
-### GetAuthScheme
-
-`func (o *InlineHookOAuthBasicConfig) GetAuthScheme() InlineHookChannelConfigAuthScheme`
-
-GetAuthScheme returns the AuthScheme field if non-nil, zero value otherwise.
-
-### GetAuthSchemeOk
-
-`func (o *InlineHookOAuthBasicConfig) GetAuthSchemeOk() (*InlineHookChannelConfigAuthScheme, bool)`
-
-GetAuthSchemeOk returns a tuple with the AuthScheme field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAuthScheme
-
-`func (o *InlineHookOAuthBasicConfig) SetAuthScheme(v InlineHookChannelConfigAuthScheme)`
-
-SetAuthScheme sets AuthScheme field to given value.
-
-### HasAuthScheme
-
-`func (o *InlineHookOAuthBasicConfig) HasAuthScheme() bool`
-
-HasAuthScheme returns a boolean if a field has been set.
 
 ### GetHeaders
 

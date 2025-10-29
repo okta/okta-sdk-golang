@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,8 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the PasswordPolicyRecoveryEmailRecoveryToken type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordPolicyRecoveryEmailRecoveryToken{}
+
 // PasswordPolicyRecoveryEmailRecoveryToken struct for PasswordPolicyRecoveryEmailRecoveryToken
 type PasswordPolicyRecoveryEmailRecoveryToken struct {
+	// Lifetime (in minutes) of the recovery token
 	TokenLifetimeMinutes *int32 `json:"tokenLifetimeMinutes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -41,6 +45,8 @@ type _PasswordPolicyRecoveryEmailRecoveryToken PasswordPolicyRecoveryEmailRecove
 // will change when the set of required properties is changed
 func NewPasswordPolicyRecoveryEmailRecoveryToken() *PasswordPolicyRecoveryEmailRecoveryToken {
 	this := PasswordPolicyRecoveryEmailRecoveryToken{}
+	var tokenLifetimeMinutes int32 = 10080
+	this.TokenLifetimeMinutes = &tokenLifetimeMinutes
 	return &this
 }
 
@@ -49,12 +55,14 @@ func NewPasswordPolicyRecoveryEmailRecoveryToken() *PasswordPolicyRecoveryEmailR
 // but it doesn't guarantee that properties required by API are set
 func NewPasswordPolicyRecoveryEmailRecoveryTokenWithDefaults() *PasswordPolicyRecoveryEmailRecoveryToken {
 	this := PasswordPolicyRecoveryEmailRecoveryToken{}
+	var tokenLifetimeMinutes int32 = 10080
+	this.TokenLifetimeMinutes = &tokenLifetimeMinutes
 	return &this
 }
 
 // GetTokenLifetimeMinutes returns the TokenLifetimeMinutes field value if set, zero value otherwise.
 func (o *PasswordPolicyRecoveryEmailRecoveryToken) GetTokenLifetimeMinutes() int32 {
-	if o == nil || o.TokenLifetimeMinutes == nil {
+	if o == nil || IsNil(o.TokenLifetimeMinutes) {
 		var ret int32
 		return ret
 	}
@@ -64,7 +72,7 @@ func (o *PasswordPolicyRecoveryEmailRecoveryToken) GetTokenLifetimeMinutes() int
 // GetTokenLifetimeMinutesOk returns a tuple with the TokenLifetimeMinutes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyRecoveryEmailRecoveryToken) GetTokenLifetimeMinutesOk() (*int32, bool) {
-	if o == nil || o.TokenLifetimeMinutes == nil {
+	if o == nil || IsNil(o.TokenLifetimeMinutes) {
 		return nil, false
 	}
 	return o.TokenLifetimeMinutes, true
@@ -72,7 +80,7 @@ func (o *PasswordPolicyRecoveryEmailRecoveryToken) GetTokenLifetimeMinutesOk() (
 
 // HasTokenLifetimeMinutes returns a boolean if a field has been set.
 func (o *PasswordPolicyRecoveryEmailRecoveryToken) HasTokenLifetimeMinutes() bool {
-	if o != nil && o.TokenLifetimeMinutes != nil {
+	if o != nil && !IsNil(o.TokenLifetimeMinutes) {
 		return true
 	}
 
@@ -85,8 +93,16 @@ func (o *PasswordPolicyRecoveryEmailRecoveryToken) SetTokenLifetimeMinutes(v int
 }
 
 func (o PasswordPolicyRecoveryEmailRecoveryToken) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordPolicyRecoveryEmailRecoveryToken) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.TokenLifetimeMinutes != nil {
+	if !IsNil(o.TokenLifetimeMinutes) {
 		toSerialize["tokenLifetimeMinutes"] = o.TokenLifetimeMinutes
 	}
 
@@ -94,27 +110,25 @@ func (o PasswordPolicyRecoveryEmailRecoveryToken) MarshalJSON() ([]byte, error) 
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordPolicyRecoveryEmailRecoveryToken) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordPolicyRecoveryEmailRecoveryToken) UnmarshalJSON(data []byte) (err error) {
 	varPasswordPolicyRecoveryEmailRecoveryToken := _PasswordPolicyRecoveryEmailRecoveryToken{}
 
-	err = json.Unmarshal(bytes, &varPasswordPolicyRecoveryEmailRecoveryToken)
-	if err == nil {
-		*o = PasswordPolicyRecoveryEmailRecoveryToken(varPasswordPolicyRecoveryEmailRecoveryToken)
-	} else {
+	err = json.Unmarshal(data, &varPasswordPolicyRecoveryEmailRecoveryToken)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PasswordPolicyRecoveryEmailRecoveryToken(varPasswordPolicyRecoveryEmailRecoveryToken)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "tokenLifetimeMinutes")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +169,3 @@ func (v *NullablePasswordPolicyRecoveryEmailRecoveryToken) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

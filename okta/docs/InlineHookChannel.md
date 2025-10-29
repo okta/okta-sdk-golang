@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | Pointer to **string** |  | [optional] 
-**Version** | Pointer to **string** |  | [optional] 
+**Version** | Pointer to **string** | Version of the inline hook type. The currently supported version is &#x60;1.0.0&#x60;. | [optional] 
 
 ## Methods
 

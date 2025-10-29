@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Action** | Pointer to **string** |  | [optional] 
+**Action** | Pointer to **string** | Specifies the user provisioning action during authentication when an IdP user isn&#39;t linked to an existing Okta user. * To successfully provision a new Okta user, you must enable just-in-time (JIT) provisioning in your org security settings. * If the target username isn&#39;t unique or the resulting Okta user profile is missing a required profile attribute, JIT provisioning may fail. * New Okta users are provisioned with either a &#x60;FEDERATION&#x60; or &#x60;SOCIAL&#x60; authentication provider depending on the IdP type. | [optional] 
 **Conditions** | Pointer to [**ProvisioningConditions**](ProvisioningConditions.md) |  | [optional] 
 **Groups** | Pointer to [**ProvisioningGroups**](ProvisioningGroups.md) |  | [optional] 
-**ProfileMaster** | Pointer to **bool** |  | [optional] 
+**ProfileMaster** | Pointer to **bool** | Determines if the IdP should act as a source of truth for user profile attributes | [optional] 
 
 ## Methods
 

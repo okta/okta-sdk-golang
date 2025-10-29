@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,19 +27,30 @@ import (
 	"encoding/json"
 )
 
+// checks if the LogStreamSchema type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LogStreamSchema{}
+
 // LogStreamSchema struct for LogStreamSchema
 type LogStreamSchema struct {
+	// JSON schema version identifier
 	Schema *string `json:"$schema,omitempty"`
-	Created *string `json:"created,omitempty"`
+	// A collection of error messages for individual properties in the schema. Okta implements a subset of [ajv-errors](https://github.com/ajv-validator/ajv-errors).
 	ErrorMessage map[string]interface{} `json:"errorMessage,omitempty"`
+	// URI of log stream schema
 	Id *string `json:"id,omitempty"`
-	LastUpdated *string `json:"lastUpdated,omitempty"`
-	Name *string `json:"name,omitempty"`
+	// Non-empty array of valid JSON schemas.  Okta only supports `oneOf` for specifying display names for an `enum`. Each schema has the following format:  ``` {   \"const\": \"enumValue\",   \"title\": \"display name\" } ```
+	OneOf []UserSchemaAttributeEnum `json:"oneOf,omitempty"`
+	// For `string` log stream schema property type, specifies the regular expression used to validate the property
+	Pattern *string `json:"pattern,omitempty"`
+	// log stream schema properties object
 	Properties map[string]interface{} `json:"properties,omitempty"`
+	// Required properties for this log stream schema object
 	Required []string `json:"required,omitempty"`
+	// Name of the log streaming integration
 	Title *string `json:"title,omitempty"`
-	Type *string `json:"type,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	// Type of log stream schema property
+	Type                 *string    `json:"type,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -64,7 +75,7 @@ func NewLogStreamSchemaWithDefaults() *LogStreamSchema {
 
 // GetSchema returns the Schema field value if set, zero value otherwise.
 func (o *LogStreamSchema) GetSchema() string {
-	if o == nil || o.Schema == nil {
+	if o == nil || IsNil(o.Schema) {
 		var ret string
 		return ret
 	}
@@ -74,7 +85,7 @@ func (o *LogStreamSchema) GetSchema() string {
 // GetSchemaOk returns a tuple with the Schema field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogStreamSchema) GetSchemaOk() (*string, bool) {
-	if o == nil || o.Schema == nil {
+	if o == nil || IsNil(o.Schema) {
 		return nil, false
 	}
 	return o.Schema, true
@@ -82,7 +93,7 @@ func (o *LogStreamSchema) GetSchemaOk() (*string, bool) {
 
 // HasSchema returns a boolean if a field has been set.
 func (o *LogStreamSchema) HasSchema() bool {
-	if o != nil && o.Schema != nil {
+	if o != nil && !IsNil(o.Schema) {
 		return true
 	}
 
@@ -94,41 +105,9 @@ func (o *LogStreamSchema) SetSchema(v string) {
 	o.Schema = &v
 }
 
-// GetCreated returns the Created field value if set, zero value otherwise.
-func (o *LogStreamSchema) GetCreated() string {
-	if o == nil || o.Created == nil {
-		var ret string
-		return ret
-	}
-	return *o.Created
-}
-
-// GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *LogStreamSchema) GetCreatedOk() (*string, bool) {
-	if o == nil || o.Created == nil {
-		return nil, false
-	}
-	return o.Created, true
-}
-
-// HasCreated returns a boolean if a field has been set.
-func (o *LogStreamSchema) HasCreated() bool {
-	if o != nil && o.Created != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCreated gets a reference to the given string and assigns it to the Created field.
-func (o *LogStreamSchema) SetCreated(v string) {
-	o.Created = &v
-}
-
 // GetErrorMessage returns the ErrorMessage field value if set, zero value otherwise.
 func (o *LogStreamSchema) GetErrorMessage() map[string]interface{} {
-	if o == nil || o.ErrorMessage == nil {
+	if o == nil || IsNil(o.ErrorMessage) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -138,15 +117,15 @@ func (o *LogStreamSchema) GetErrorMessage() map[string]interface{} {
 // GetErrorMessageOk returns a tuple with the ErrorMessage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogStreamSchema) GetErrorMessageOk() (map[string]interface{}, bool) {
-	if o == nil || o.ErrorMessage == nil {
-		return nil, false
+	if o == nil || IsNil(o.ErrorMessage) {
+		return map[string]interface{}{}, false
 	}
 	return o.ErrorMessage, true
 }
 
 // HasErrorMessage returns a boolean if a field has been set.
 func (o *LogStreamSchema) HasErrorMessage() bool {
-	if o != nil && o.ErrorMessage != nil {
+	if o != nil && !IsNil(o.ErrorMessage) {
 		return true
 	}
 
@@ -160,7 +139,7 @@ func (o *LogStreamSchema) SetErrorMessage(v map[string]interface{}) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *LogStreamSchema) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -170,7 +149,7 @@ func (o *LogStreamSchema) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogStreamSchema) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -178,7 +157,7 @@ func (o *LogStreamSchema) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *LogStreamSchema) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -190,73 +169,74 @@ func (o *LogStreamSchema) SetId(v string) {
 	o.Id = &v
 }
 
-// GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
-func (o *LogStreamSchema) GetLastUpdated() string {
-	if o == nil || o.LastUpdated == nil {
-		var ret string
+// GetOneOf returns the OneOf field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *LogStreamSchema) GetOneOf() []UserSchemaAttributeEnum {
+	if o == nil {
+		var ret []UserSchemaAttributeEnum
 		return ret
 	}
-	return *o.LastUpdated
+	return o.OneOf
 }
 
-// GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
+// GetOneOfOk returns a tuple with the OneOf field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogStreamSchema) GetLastUpdatedOk() (*string, bool) {
-	if o == nil || o.LastUpdated == nil {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *LogStreamSchema) GetOneOfOk() ([]UserSchemaAttributeEnum, bool) {
+	if o == nil || IsNil(o.OneOf) {
 		return nil, false
 	}
-	return o.LastUpdated, true
+	return o.OneOf, true
 }
 
-// HasLastUpdated returns a boolean if a field has been set.
-func (o *LogStreamSchema) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+// HasOneOf returns a boolean if a field has been set.
+func (o *LogStreamSchema) HasOneOf() bool {
+	if o != nil && !IsNil(o.OneOf) {
 		return true
 	}
 
 	return false
 }
 
-// SetLastUpdated gets a reference to the given string and assigns it to the LastUpdated field.
-func (o *LogStreamSchema) SetLastUpdated(v string) {
-	o.LastUpdated = &v
+// SetOneOf gets a reference to the given []UserSchemaAttributeEnum and assigns it to the OneOf field.
+func (o *LogStreamSchema) SetOneOf(v []UserSchemaAttributeEnum) {
+	o.OneOf = v
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
-func (o *LogStreamSchema) GetName() string {
-	if o == nil || o.Name == nil {
+// GetPattern returns the Pattern field value if set, zero value otherwise.
+func (o *LogStreamSchema) GetPattern() string {
+	if o == nil || IsNil(o.Pattern) {
 		var ret string
 		return ret
 	}
-	return *o.Name
+	return *o.Pattern
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetPatternOk returns a tuple with the Pattern field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogStreamSchema) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+func (o *LogStreamSchema) GetPatternOk() (*string, bool) {
+	if o == nil || IsNil(o.Pattern) {
 		return nil, false
 	}
-	return o.Name, true
+	return o.Pattern, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *LogStreamSchema) HasName() bool {
-	if o != nil && o.Name != nil {
+// HasPattern returns a boolean if a field has been set.
+func (o *LogStreamSchema) HasPattern() bool {
+	if o != nil && !IsNil(o.Pattern) {
 		return true
 	}
 
 	return false
 }
 
-// SetName gets a reference to the given string and assigns it to the Name field.
-func (o *LogStreamSchema) SetName(v string) {
-	o.Name = &v
+// SetPattern gets a reference to the given string and assigns it to the Pattern field.
+func (o *LogStreamSchema) SetPattern(v string) {
+	o.Pattern = &v
 }
 
 // GetProperties returns the Properties field value if set, zero value otherwise.
 func (o *LogStreamSchema) GetProperties() map[string]interface{} {
-	if o == nil || o.Properties == nil {
+	if o == nil || IsNil(o.Properties) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -266,15 +246,15 @@ func (o *LogStreamSchema) GetProperties() map[string]interface{} {
 // GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogStreamSchema) GetPropertiesOk() (map[string]interface{}, bool) {
-	if o == nil || o.Properties == nil {
-		return nil, false
+	if o == nil || IsNil(o.Properties) {
+		return map[string]interface{}{}, false
 	}
 	return o.Properties, true
 }
 
 // HasProperties returns a boolean if a field has been set.
 func (o *LogStreamSchema) HasProperties() bool {
-	if o != nil && o.Properties != nil {
+	if o != nil && !IsNil(o.Properties) {
 		return true
 	}
 
@@ -288,7 +268,7 @@ func (o *LogStreamSchema) SetProperties(v map[string]interface{}) {
 
 // GetRequired returns the Required field value if set, zero value otherwise.
 func (o *LogStreamSchema) GetRequired() []string {
-	if o == nil || o.Required == nil {
+	if o == nil || IsNil(o.Required) {
 		var ret []string
 		return ret
 	}
@@ -298,7 +278,7 @@ func (o *LogStreamSchema) GetRequired() []string {
 // GetRequiredOk returns a tuple with the Required field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogStreamSchema) GetRequiredOk() ([]string, bool) {
-	if o == nil || o.Required == nil {
+	if o == nil || IsNil(o.Required) {
 		return nil, false
 	}
 	return o.Required, true
@@ -306,7 +286,7 @@ func (o *LogStreamSchema) GetRequiredOk() ([]string, bool) {
 
 // HasRequired returns a boolean if a field has been set.
 func (o *LogStreamSchema) HasRequired() bool {
-	if o != nil && o.Required != nil {
+	if o != nil && !IsNil(o.Required) {
 		return true
 	}
 
@@ -320,7 +300,7 @@ func (o *LogStreamSchema) SetRequired(v []string) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *LogStreamSchema) GetTitle() string {
-	if o == nil || o.Title == nil {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -330,7 +310,7 @@ func (o *LogStreamSchema) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogStreamSchema) GetTitleOk() (*string, bool) {
-	if o == nil || o.Title == nil {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -338,7 +318,7 @@ func (o *LogStreamSchema) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *LogStreamSchema) HasTitle() bool {
-	if o != nil && o.Title != nil {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -352,7 +332,7 @@ func (o *LogStreamSchema) SetTitle(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *LogStreamSchema) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -362,7 +342,7 @@ func (o *LogStreamSchema) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogStreamSchema) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -370,7 +350,7 @@ func (o *LogStreamSchema) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *LogStreamSchema) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -384,7 +364,7 @@ func (o *LogStreamSchema) SetType(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *LogStreamSchema) GetLinks() LinksSelf {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksSelf
 		return ret
 	}
@@ -394,7 +374,7 @@ func (o *LogStreamSchema) GetLinks() LinksSelf {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogStreamSchema) GetLinksOk() (*LinksSelf, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -402,7 +382,7 @@ func (o *LogStreamSchema) GetLinksOk() (*LinksSelf, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *LogStreamSchema) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -415,38 +395,43 @@ func (o *LogStreamSchema) SetLinks(v LinksSelf) {
 }
 
 func (o LogStreamSchema) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LogStreamSchema) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Schema != nil {
+	if !IsNil(o.Schema) {
 		toSerialize["$schema"] = o.Schema
 	}
-	if o.Created != nil {
-		toSerialize["created"] = o.Created
-	}
-	if o.ErrorMessage != nil {
+	if !IsNil(o.ErrorMessage) {
 		toSerialize["errorMessage"] = o.ErrorMessage
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
-		toSerialize["lastUpdated"] = o.LastUpdated
+	if o.OneOf != nil {
+		toSerialize["oneOf"] = o.OneOf
 	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
+	if !IsNil(o.Pattern) {
+		toSerialize["pattern"] = o.Pattern
 	}
-	if o.Properties != nil {
+	if !IsNil(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
-	if o.Required != nil {
+	if !IsNil(o.Required) {
 		toSerialize["required"] = o.Required
 	}
-	if o.Title != nil {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -454,37 +439,34 @@ func (o LogStreamSchema) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LogStreamSchema) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LogStreamSchema) UnmarshalJSON(data []byte) (err error) {
 	varLogStreamSchema := _LogStreamSchema{}
 
-	err = json.Unmarshal(bytes, &varLogStreamSchema)
-	if err == nil {
-		*o = LogStreamSchema(varLogStreamSchema)
-	} else {
+	err = json.Unmarshal(data, &varLogStreamSchema)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LogStreamSchema(varLogStreamSchema)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "$schema")
-		delete(additionalProperties, "created")
 		delete(additionalProperties, "errorMessage")
 		delete(additionalProperties, "id")
-		delete(additionalProperties, "lastUpdated")
-		delete(additionalProperties, "name")
+		delete(additionalProperties, "oneOf")
+		delete(additionalProperties, "pattern")
 		delete(additionalProperties, "properties")
 		delete(additionalProperties, "required")
 		delete(additionalProperties, "title")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -525,4 +507,3 @@ func (v *NullableLogStreamSchema) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

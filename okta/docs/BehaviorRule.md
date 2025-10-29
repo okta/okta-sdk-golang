@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to **time.Time** |  | [optional] [readonly] 
-**Id** | Pointer to **string** |  | [optional] [readonly] 
-**LastUpdated** | Pointer to **time.Time** |  | [optional] [readonly] 
-**Name** | **string** |  | 
+**Created** | Pointer to **string** | Timestamp when the Behavior Detection Rule was created | [optional] [readonly] 
+**Id** | Pointer to **string** | ID of the Behavior Detection Rule | [optional] [readonly] 
+**LastUpdated** | Pointer to **string** | Timestamp when the Behavior Detection Rule was last modified | [optional] [readonly] 
+**Name** | **string** | Name of the Behavior Detection Rule | 
 **Status** | Pointer to **string** |  | [optional] 
 **Type** | **string** |  | 
 **Link** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
@@ -33,20 +33,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreated
 
-`func (o *BehaviorRule) GetCreated() time.Time`
+`func (o *BehaviorRule) GetCreated() string`
 
 GetCreated returns the Created field if non-nil, zero value otherwise.
 
 ### GetCreatedOk
 
-`func (o *BehaviorRule) GetCreatedOk() (*time.Time, bool)`
+`func (o *BehaviorRule) GetCreatedOk() (*string, bool)`
 
 GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreated
 
-`func (o *BehaviorRule) SetCreated(v time.Time)`
+`func (o *BehaviorRule) SetCreated(v string)`
 
 SetCreated sets Created field to given value.
 
@@ -83,20 +83,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetLastUpdated
 
-`func (o *BehaviorRule) GetLastUpdated() time.Time`
+`func (o *BehaviorRule) GetLastUpdated() string`
 
 GetLastUpdated returns the LastUpdated field if non-nil, zero value otherwise.
 
 ### GetLastUpdatedOk
 
-`func (o *BehaviorRule) GetLastUpdatedOk() (*time.Time, bool)`
+`func (o *BehaviorRule) GetLastUpdatedOk() (*string, bool)`
 
 GetLastUpdatedOk returns a tuple with the LastUpdated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastUpdated
 
-`func (o *BehaviorRule) SetLastUpdated(v time.Time)`
+`func (o *BehaviorRule) SetLastUpdated(v string)`
 
 SetLastUpdated sets LastUpdated field to given value.
 

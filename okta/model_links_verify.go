@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the LinksVerify type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LinksVerify{}
+
 // LinksVerify struct for LinksVerify
 type LinksVerify struct {
-	Verify *LinksVerifyVerify `json:"verify,omitempty"`
+	// Verifies the factor resource. See [Verify a factor](/openapi/okta-management/management/tag/UserFactor/#tag/UserFactor/operation/verifyFactor).
+	Verify               *HrefObject `json:"verify,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -53,9 +57,9 @@ func NewLinksVerifyWithDefaults() *LinksVerify {
 }
 
 // GetVerify returns the Verify field value if set, zero value otherwise.
-func (o *LinksVerify) GetVerify() LinksVerifyVerify {
-	if o == nil || o.Verify == nil {
-		var ret LinksVerifyVerify
+func (o *LinksVerify) GetVerify() HrefObject {
+	if o == nil || IsNil(o.Verify) {
+		var ret HrefObject
 		return ret
 	}
 	return *o.Verify
@@ -63,8 +67,8 @@ func (o *LinksVerify) GetVerify() LinksVerifyVerify {
 
 // GetVerifyOk returns a tuple with the Verify field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LinksVerify) GetVerifyOk() (*LinksVerifyVerify, bool) {
-	if o == nil || o.Verify == nil {
+func (o *LinksVerify) GetVerifyOk() (*HrefObject, bool) {
+	if o == nil || IsNil(o.Verify) {
 		return nil, false
 	}
 	return o.Verify, true
@@ -72,21 +76,29 @@ func (o *LinksVerify) GetVerifyOk() (*LinksVerifyVerify, bool) {
 
 // HasVerify returns a boolean if a field has been set.
 func (o *LinksVerify) HasVerify() bool {
-	if o != nil && o.Verify != nil {
+	if o != nil && !IsNil(o.Verify) {
 		return true
 	}
 
 	return false
 }
 
-// SetVerify gets a reference to the given LinksVerifyVerify and assigns it to the Verify field.
-func (o *LinksVerify) SetVerify(v LinksVerifyVerify) {
+// SetVerify gets a reference to the given HrefObject and assigns it to the Verify field.
+func (o *LinksVerify) SetVerify(v HrefObject) {
 	o.Verify = &v
 }
 
 func (o LinksVerify) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LinksVerify) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Verify != nil {
+	if !IsNil(o.Verify) {
 		toSerialize["verify"] = o.Verify
 	}
 
@@ -94,27 +106,25 @@ func (o LinksVerify) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LinksVerify) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LinksVerify) UnmarshalJSON(data []byte) (err error) {
 	varLinksVerify := _LinksVerify{}
 
-	err = json.Unmarshal(bytes, &varLinksVerify)
-	if err == nil {
-		*o = LinksVerify(varLinksVerify)
-	} else {
+	err = json.Unmarshal(data, &varLinksVerify)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LinksVerify(varLinksVerify)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "verify")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +165,3 @@ func (v *NullableLinksVerify) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

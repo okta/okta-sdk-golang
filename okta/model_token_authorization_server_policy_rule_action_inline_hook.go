@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the TokenAuthorizationServerPolicyRuleActionInlineHook type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TokenAuthorizationServerPolicyRuleActionInlineHook{}
+
 // TokenAuthorizationServerPolicyRuleActionInlineHook struct for TokenAuthorizationServerPolicyRuleActionInlineHook
 type TokenAuthorizationServerPolicyRuleActionInlineHook struct {
-	Id *string `json:"id,omitempty"`
+	Id                   *string `json:"id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewTokenAuthorizationServerPolicyRuleActionInlineHookWithDefaults() *TokenA
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *TokenAuthorizationServerPolicyRuleActionInlineHook) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *TokenAuthorizationServerPolicyRuleActionInlineHook) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenAuthorizationServerPolicyRuleActionInlineHook) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -72,7 +75,7 @@ func (o *TokenAuthorizationServerPolicyRuleActionInlineHook) GetIdOk() (*string,
 
 // HasId returns a boolean if a field has been set.
 func (o *TokenAuthorizationServerPolicyRuleActionInlineHook) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *TokenAuthorizationServerPolicyRuleActionInlineHook) SetId(v string) {
 }
 
 func (o TokenAuthorizationServerPolicyRuleActionInlineHook) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TokenAuthorizationServerPolicyRuleActionInlineHook) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
 
@@ -94,27 +105,25 @@ func (o TokenAuthorizationServerPolicyRuleActionInlineHook) MarshalJSON() ([]byt
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *TokenAuthorizationServerPolicyRuleActionInlineHook) UnmarshalJSON(bytes []byte) (err error) {
+func (o *TokenAuthorizationServerPolicyRuleActionInlineHook) UnmarshalJSON(data []byte) (err error) {
 	varTokenAuthorizationServerPolicyRuleActionInlineHook := _TokenAuthorizationServerPolicyRuleActionInlineHook{}
 
-	err = json.Unmarshal(bytes, &varTokenAuthorizationServerPolicyRuleActionInlineHook)
-	if err == nil {
-		*o = TokenAuthorizationServerPolicyRuleActionInlineHook(varTokenAuthorizationServerPolicyRuleActionInlineHook)
-	} else {
+	err = json.Unmarshal(data, &varTokenAuthorizationServerPolicyRuleActionInlineHook)
+
+	if err != nil {
 		return err
 	}
 
+	*o = TokenAuthorizationServerPolicyRuleActionInlineHook(varTokenAuthorizationServerPolicyRuleActionInlineHook)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableTokenAuthorizationServerPolicyRuleActionInlineHook) UnmarshalJS
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

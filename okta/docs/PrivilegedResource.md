@@ -5,18 +5,17 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Created** | Pointer to **time.Time** | Timestamp when the object was created | [optional] [readonly] 
-**CredentialChanged** | Pointer to **time.Time** | Timestamp when the credential was changed | [optional] [readonly] 
-**CredentialSyncState** | Pointer to **string** | Current credential sync status of the privileged resource | [optional] [readonly] 
+**CredentialSyncInfo** | Pointer to [**CredentialSyncInfo**](CredentialSyncInfo.md) |  | [optional] 
 **Id** | Pointer to **string** | ID of the privileged resource | [optional] [readonly] 
 **LastUpdated** | Pointer to **time.Time** | Timestamp when the object was last updated | [optional] [readonly] 
-**ResourceType** | Pointer to **string** | The type of the resource | [optional] 
+**ResourceType** | **string** | The type of the resource | 
 **Status** | Pointer to **string** | Current status of the privileged resource | [optional] [readonly] 
 
 ## Methods
 
 ### NewPrivilegedResource
 
-`func NewPrivilegedResource() *PrivilegedResource`
+`func NewPrivilegedResource(resourceType string, ) *PrivilegedResource`
 
 NewPrivilegedResource instantiates a new PrivilegedResource object
 This constructor will assign default values to properties that have it defined,
@@ -56,55 +55,30 @@ SetCreated sets Created field to given value.
 
 HasCreated returns a boolean if a field has been set.
 
-### GetCredentialChanged
+### GetCredentialSyncInfo
 
-`func (o *PrivilegedResource) GetCredentialChanged() time.Time`
+`func (o *PrivilegedResource) GetCredentialSyncInfo() CredentialSyncInfo`
 
-GetCredentialChanged returns the CredentialChanged field if non-nil, zero value otherwise.
+GetCredentialSyncInfo returns the CredentialSyncInfo field if non-nil, zero value otherwise.
 
-### GetCredentialChangedOk
+### GetCredentialSyncInfoOk
 
-`func (o *PrivilegedResource) GetCredentialChangedOk() (*time.Time, bool)`
+`func (o *PrivilegedResource) GetCredentialSyncInfoOk() (*CredentialSyncInfo, bool)`
 
-GetCredentialChangedOk returns a tuple with the CredentialChanged field if it's non-nil, zero value otherwise
+GetCredentialSyncInfoOk returns a tuple with the CredentialSyncInfo field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCredentialChanged
+### SetCredentialSyncInfo
 
-`func (o *PrivilegedResource) SetCredentialChanged(v time.Time)`
+`func (o *PrivilegedResource) SetCredentialSyncInfo(v CredentialSyncInfo)`
 
-SetCredentialChanged sets CredentialChanged field to given value.
+SetCredentialSyncInfo sets CredentialSyncInfo field to given value.
 
-### HasCredentialChanged
+### HasCredentialSyncInfo
 
-`func (o *PrivilegedResource) HasCredentialChanged() bool`
+`func (o *PrivilegedResource) HasCredentialSyncInfo() bool`
 
-HasCredentialChanged returns a boolean if a field has been set.
-
-### GetCredentialSyncState
-
-`func (o *PrivilegedResource) GetCredentialSyncState() string`
-
-GetCredentialSyncState returns the CredentialSyncState field if non-nil, zero value otherwise.
-
-### GetCredentialSyncStateOk
-
-`func (o *PrivilegedResource) GetCredentialSyncStateOk() (*string, bool)`
-
-GetCredentialSyncStateOk returns a tuple with the CredentialSyncState field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCredentialSyncState
-
-`func (o *PrivilegedResource) SetCredentialSyncState(v string)`
-
-SetCredentialSyncState sets CredentialSyncState field to given value.
-
-### HasCredentialSyncState
-
-`func (o *PrivilegedResource) HasCredentialSyncState() bool`
-
-HasCredentialSyncState returns a boolean if a field has been set.
+HasCredentialSyncInfo returns a boolean if a field has been set.
 
 ### GetId
 
@@ -175,11 +149,6 @@ and a boolean to check if the value has been set.
 
 SetResourceType sets ResourceType field to given value.
 
-### HasResourceType
-
-`func (o *PrivilegedResource) HasResourceType() bool`
-
-HasResourceType returns a boolean if a field has been set.
 
 ### GetStatus
 

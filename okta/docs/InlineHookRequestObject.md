@@ -4,7 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Request** | Pointer to [**InlineHookRequestObjectRequest**](InlineHookRequestObjectRequest.md) |  | [optional] 
+**Id** | Pointer to **string** | The unique identifier that Okta assigned to the API request | [optional] 
+**IpAddress** | Pointer to **string** | The IP address of the client that made the API request | [optional] 
+**Method** | Pointer to **string** | The HTTP request method of the API request | [optional] 
+**Url** | Pointer to [**InlineHookRequestObjectUrl**](InlineHookRequestObjectUrl.md) |  | [optional] 
 
 ## Methods
 
@@ -25,30 +28,105 @@ NewInlineHookRequestObjectWithDefaults instantiates a new InlineHookRequestObjec
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetRequest
+### GetId
 
-`func (o *InlineHookRequestObject) GetRequest() InlineHookRequestObjectRequest`
+`func (o *InlineHookRequestObject) GetId() string`
 
-GetRequest returns the Request field if non-nil, zero value otherwise.
+GetId returns the Id field if non-nil, zero value otherwise.
 
-### GetRequestOk
+### GetIdOk
 
-`func (o *InlineHookRequestObject) GetRequestOk() (*InlineHookRequestObjectRequest, bool)`
+`func (o *InlineHookRequestObject) GetIdOk() (*string, bool)`
 
-GetRequestOk returns a tuple with the Request field if it's non-nil, zero value otherwise
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetRequest
+### SetId
 
-`func (o *InlineHookRequestObject) SetRequest(v InlineHookRequestObjectRequest)`
+`func (o *InlineHookRequestObject) SetId(v string)`
 
-SetRequest sets Request field to given value.
+SetId sets Id field to given value.
 
-### HasRequest
+### HasId
 
-`func (o *InlineHookRequestObject) HasRequest() bool`
+`func (o *InlineHookRequestObject) HasId() bool`
 
-HasRequest returns a boolean if a field has been set.
+HasId returns a boolean if a field has been set.
+
+### GetIpAddress
+
+`func (o *InlineHookRequestObject) GetIpAddress() string`
+
+GetIpAddress returns the IpAddress field if non-nil, zero value otherwise.
+
+### GetIpAddressOk
+
+`func (o *InlineHookRequestObject) GetIpAddressOk() (*string, bool)`
+
+GetIpAddressOk returns a tuple with the IpAddress field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIpAddress
+
+`func (o *InlineHookRequestObject) SetIpAddress(v string)`
+
+SetIpAddress sets IpAddress field to given value.
+
+### HasIpAddress
+
+`func (o *InlineHookRequestObject) HasIpAddress() bool`
+
+HasIpAddress returns a boolean if a field has been set.
+
+### GetMethod
+
+`func (o *InlineHookRequestObject) GetMethod() string`
+
+GetMethod returns the Method field if non-nil, zero value otherwise.
+
+### GetMethodOk
+
+`func (o *InlineHookRequestObject) GetMethodOk() (*string, bool)`
+
+GetMethodOk returns a tuple with the Method field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMethod
+
+`func (o *InlineHookRequestObject) SetMethod(v string)`
+
+SetMethod sets Method field to given value.
+
+### HasMethod
+
+`func (o *InlineHookRequestObject) HasMethod() bool`
+
+HasMethod returns a boolean if a field has been set.
+
+### GetUrl
+
+`func (o *InlineHookRequestObject) GetUrl() InlineHookRequestObjectUrl`
+
+GetUrl returns the Url field if non-nil, zero value otherwise.
+
+### GetUrlOk
+
+`func (o *InlineHookRequestObject) GetUrlOk() (*InlineHookRequestObjectUrl, bool)`
+
+GetUrlOk returns a tuple with the Url field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUrl
+
+`func (o *InlineHookRequestObject) SetUrl(v InlineHookRequestObjectUrl)`
+
+SetUrl sets Url field to given value.
+
+### HasUrl
+
+`func (o *InlineHookRequestObject) HasUrl() bool`
+
+HasUrl returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

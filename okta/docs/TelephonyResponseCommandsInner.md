@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | Pointer to **string** | The location where you specify the command. For the Telephony inline hook, there&#39;s only one command, &#x60;com.okta.telephony.action&#x60;. | [optional] 
+**Type** | Pointer to **string** | The location where you specify the command. For the telephony inline hook, there&#39;s only one command, &#x60;com.okta.telephony.action&#x60;. | [optional] 
 **Value** | Pointer to [**[]TelephonyResponseCommandsInnerValueInner**](TelephonyResponseCommandsInnerValueInner.md) | The status of the telephony operation along with optional additional information about the provider, transaction ID and any other transaction metadata. | [optional] 
 
 ## Methods

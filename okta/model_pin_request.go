@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,14 +27,17 @@ import (
 	"encoding/json"
 )
 
-// PinRequest Pin Request
+// checks if the PinRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PinRequest{}
+
+// PinRequest Pin request
 type PinRequest struct {
-	// ID for a WebAuthn Preregistration Factor in Okta
+	// ID for a WebAuthn preregistration factor in Okta
 	AuthenticatorEnrollmentId *string `json:"authenticatorEnrollmentId,omitempty"`
-	// Name of the fulfillment provider for the WebAuthn Preregistration Factor
+	// Name of the fulfillment provider for the WebAuthn preregistration factor
 	FulfillmentProvider *string `json:"fulfillmentProvider,omitempty"`
 	// ID of an existing Okta user
-	UserId *string `json:"userId,omitempty"`
+	UserId               *string `json:"userId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewPinRequestWithDefaults() *PinRequest {
 
 // GetAuthenticatorEnrollmentId returns the AuthenticatorEnrollmentId field value if set, zero value otherwise.
 func (o *PinRequest) GetAuthenticatorEnrollmentId() string {
-	if o == nil || o.AuthenticatorEnrollmentId == nil {
+	if o == nil || IsNil(o.AuthenticatorEnrollmentId) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *PinRequest) GetAuthenticatorEnrollmentId() string {
 // GetAuthenticatorEnrollmentIdOk returns a tuple with the AuthenticatorEnrollmentId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PinRequest) GetAuthenticatorEnrollmentIdOk() (*string, bool) {
-	if o == nil || o.AuthenticatorEnrollmentId == nil {
+	if o == nil || IsNil(o.AuthenticatorEnrollmentId) {
 		return nil, false
 	}
 	return o.AuthenticatorEnrollmentId, true
@@ -77,7 +80,7 @@ func (o *PinRequest) GetAuthenticatorEnrollmentIdOk() (*string, bool) {
 
 // HasAuthenticatorEnrollmentId returns a boolean if a field has been set.
 func (o *PinRequest) HasAuthenticatorEnrollmentId() bool {
-	if o != nil && o.AuthenticatorEnrollmentId != nil {
+	if o != nil && !IsNil(o.AuthenticatorEnrollmentId) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *PinRequest) SetAuthenticatorEnrollmentId(v string) {
 
 // GetFulfillmentProvider returns the FulfillmentProvider field value if set, zero value otherwise.
 func (o *PinRequest) GetFulfillmentProvider() string {
-	if o == nil || o.FulfillmentProvider == nil {
+	if o == nil || IsNil(o.FulfillmentProvider) {
 		var ret string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *PinRequest) GetFulfillmentProvider() string {
 // GetFulfillmentProviderOk returns a tuple with the FulfillmentProvider field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PinRequest) GetFulfillmentProviderOk() (*string, bool) {
-	if o == nil || o.FulfillmentProvider == nil {
+	if o == nil || IsNil(o.FulfillmentProvider) {
 		return nil, false
 	}
 	return o.FulfillmentProvider, true
@@ -109,7 +112,7 @@ func (o *PinRequest) GetFulfillmentProviderOk() (*string, bool) {
 
 // HasFulfillmentProvider returns a boolean if a field has been set.
 func (o *PinRequest) HasFulfillmentProvider() bool {
-	if o != nil && o.FulfillmentProvider != nil {
+	if o != nil && !IsNil(o.FulfillmentProvider) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *PinRequest) SetFulfillmentProvider(v string) {
 
 // GetUserId returns the UserId field value if set, zero value otherwise.
 func (o *PinRequest) GetUserId() string {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		var ret string
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *PinRequest) GetUserId() string {
 // GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PinRequest) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		return nil, false
 	}
 	return o.UserId, true
@@ -141,7 +144,7 @@ func (o *PinRequest) GetUserIdOk() (*string, bool) {
 
 // HasUserId returns a boolean if a field has been set.
 func (o *PinRequest) HasUserId() bool {
-	if o != nil && o.UserId != nil {
+	if o != nil && !IsNil(o.UserId) {
 		return true
 	}
 
@@ -154,14 +157,22 @@ func (o *PinRequest) SetUserId(v string) {
 }
 
 func (o PinRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PinRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AuthenticatorEnrollmentId != nil {
+	if !IsNil(o.AuthenticatorEnrollmentId) {
 		toSerialize["authenticatorEnrollmentId"] = o.AuthenticatorEnrollmentId
 	}
-	if o.FulfillmentProvider != nil {
+	if !IsNil(o.FulfillmentProvider) {
 		toSerialize["fulfillmentProvider"] = o.FulfillmentProvider
 	}
-	if o.UserId != nil {
+	if !IsNil(o.UserId) {
 		toSerialize["userId"] = o.UserId
 	}
 
@@ -169,29 +180,27 @@ func (o PinRequest) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PinRequest) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PinRequest) UnmarshalJSON(data []byte) (err error) {
 	varPinRequest := _PinRequest{}
 
-	err = json.Unmarshal(bytes, &varPinRequest)
-	if err == nil {
-		*o = PinRequest(varPinRequest)
-	} else {
+	err = json.Unmarshal(data, &varPinRequest)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PinRequest(varPinRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "authenticatorEnrollmentId")
 		delete(additionalProperties, "fulfillmentProvider")
 		delete(additionalProperties, "userId")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -232,4 +241,3 @@ func (v *NullablePinRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

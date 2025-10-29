@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,13 +27,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthenticatorMethodSignedNonceAllOfSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorMethodSignedNonceAllOfSettings{}
+
 // AuthenticatorMethodSignedNonceAllOfSettings struct for AuthenticatorMethodSignedNonceAllOfSettings
 type AuthenticatorMethodSignedNonceAllOfSettings struct {
 	Algorithms []string `json:"algorithms,omitempty"`
 	// Indicates whether you must use a hardware key store
 	KeyProtection *string `json:"keyProtection,omitempty"`
 	// Controls whether to show the Sign in with Okta Verify button on the Sign-In Widget
-	ShowSignInWithOV *string `json:"showSignInWithOV,omitempty"`
+	ShowSignInWithOV     *string `json:"showSignInWithOV,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,7 +61,7 @@ func NewAuthenticatorMethodSignedNonceAllOfSettingsWithDefaults() *Authenticator
 
 // GetAlgorithms returns the Algorithms field value if set, zero value otherwise.
 func (o *AuthenticatorMethodSignedNonceAllOfSettings) GetAlgorithms() []string {
-	if o == nil || o.Algorithms == nil {
+	if o == nil || IsNil(o.Algorithms) {
 		var ret []string
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *AuthenticatorMethodSignedNonceAllOfSettings) GetAlgorithms() []string {
 // GetAlgorithmsOk returns a tuple with the Algorithms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorMethodSignedNonceAllOfSettings) GetAlgorithmsOk() ([]string, bool) {
-	if o == nil || o.Algorithms == nil {
+	if o == nil || IsNil(o.Algorithms) {
 		return nil, false
 	}
 	return o.Algorithms, true
@@ -76,7 +79,7 @@ func (o *AuthenticatorMethodSignedNonceAllOfSettings) GetAlgorithmsOk() ([]strin
 
 // HasAlgorithms returns a boolean if a field has been set.
 func (o *AuthenticatorMethodSignedNonceAllOfSettings) HasAlgorithms() bool {
-	if o != nil && o.Algorithms != nil {
+	if o != nil && !IsNil(o.Algorithms) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *AuthenticatorMethodSignedNonceAllOfSettings) SetAlgorithms(v []string) 
 
 // GetKeyProtection returns the KeyProtection field value if set, zero value otherwise.
 func (o *AuthenticatorMethodSignedNonceAllOfSettings) GetKeyProtection() string {
-	if o == nil || o.KeyProtection == nil {
+	if o == nil || IsNil(o.KeyProtection) {
 		var ret string
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *AuthenticatorMethodSignedNonceAllOfSettings) GetKeyProtection() string 
 // GetKeyProtectionOk returns a tuple with the KeyProtection field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorMethodSignedNonceAllOfSettings) GetKeyProtectionOk() (*string, bool) {
-	if o == nil || o.KeyProtection == nil {
+	if o == nil || IsNil(o.KeyProtection) {
 		return nil, false
 	}
 	return o.KeyProtection, true
@@ -108,7 +111,7 @@ func (o *AuthenticatorMethodSignedNonceAllOfSettings) GetKeyProtectionOk() (*str
 
 // HasKeyProtection returns a boolean if a field has been set.
 func (o *AuthenticatorMethodSignedNonceAllOfSettings) HasKeyProtection() bool {
-	if o != nil && o.KeyProtection != nil {
+	if o != nil && !IsNil(o.KeyProtection) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *AuthenticatorMethodSignedNonceAllOfSettings) SetKeyProtection(v string)
 
 // GetShowSignInWithOV returns the ShowSignInWithOV field value if set, zero value otherwise.
 func (o *AuthenticatorMethodSignedNonceAllOfSettings) GetShowSignInWithOV() string {
-	if o == nil || o.ShowSignInWithOV == nil {
+	if o == nil || IsNil(o.ShowSignInWithOV) {
 		var ret string
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *AuthenticatorMethodSignedNonceAllOfSettings) GetShowSignInWithOV() stri
 // GetShowSignInWithOVOk returns a tuple with the ShowSignInWithOV field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorMethodSignedNonceAllOfSettings) GetShowSignInWithOVOk() (*string, bool) {
-	if o == nil || o.ShowSignInWithOV == nil {
+	if o == nil || IsNil(o.ShowSignInWithOV) {
 		return nil, false
 	}
 	return o.ShowSignInWithOV, true
@@ -140,7 +143,7 @@ func (o *AuthenticatorMethodSignedNonceAllOfSettings) GetShowSignInWithOVOk() (*
 
 // HasShowSignInWithOV returns a boolean if a field has been set.
 func (o *AuthenticatorMethodSignedNonceAllOfSettings) HasShowSignInWithOV() bool {
-	if o != nil && o.ShowSignInWithOV != nil {
+	if o != nil && !IsNil(o.ShowSignInWithOV) {
 		return true
 	}
 
@@ -153,14 +156,22 @@ func (o *AuthenticatorMethodSignedNonceAllOfSettings) SetShowSignInWithOV(v stri
 }
 
 func (o AuthenticatorMethodSignedNonceAllOfSettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorMethodSignedNonceAllOfSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Algorithms != nil {
+	if !IsNil(o.Algorithms) {
 		toSerialize["algorithms"] = o.Algorithms
 	}
-	if o.KeyProtection != nil {
+	if !IsNil(o.KeyProtection) {
 		toSerialize["keyProtection"] = o.KeyProtection
 	}
-	if o.ShowSignInWithOV != nil {
+	if !IsNil(o.ShowSignInWithOV) {
 		toSerialize["showSignInWithOV"] = o.ShowSignInWithOV
 	}
 
@@ -168,29 +179,27 @@ func (o AuthenticatorMethodSignedNonceAllOfSettings) MarshalJSON() ([]byte, erro
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorMethodSignedNonceAllOfSettings) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorMethodSignedNonceAllOfSettings) UnmarshalJSON(data []byte) (err error) {
 	varAuthenticatorMethodSignedNonceAllOfSettings := _AuthenticatorMethodSignedNonceAllOfSettings{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorMethodSignedNonceAllOfSettings)
-	if err == nil {
-		*o = AuthenticatorMethodSignedNonceAllOfSettings(varAuthenticatorMethodSignedNonceAllOfSettings)
-	} else {
+	err = json.Unmarshal(data, &varAuthenticatorMethodSignedNonceAllOfSettings)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthenticatorMethodSignedNonceAllOfSettings(varAuthenticatorMethodSignedNonceAllOfSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "algorithms")
 		delete(additionalProperties, "keyProtection")
 		delete(additionalProperties, "showSignInWithOV")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -231,4 +240,3 @@ func (v *NullableAuthenticatorMethodSignedNonceAllOfSettings) UnmarshalJSON(src 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

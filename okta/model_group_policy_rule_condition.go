@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
-// GroupPolicyRuleCondition Specifies a set of Groups whose Users are to be included or excluded
+// checks if the GroupPolicyRuleCondition type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GroupPolicyRuleCondition{}
+
+// GroupPolicyRuleCondition Specifies a set of groups whose users are to be included or excluded
 type GroupPolicyRuleCondition struct {
 	// Groups to be excluded
 	Exclude []string `json:"exclude,omitempty"`
 	// Groups to be included
-	Include []string `json:"include,omitempty"`
+	Include              []string `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewGroupPolicyRuleConditionWithDefaults() *GroupPolicyRuleCondition {
 
 // GetExclude returns the Exclude field value if set, zero value otherwise.
 func (o *GroupPolicyRuleCondition) GetExclude() []string {
-	if o == nil || o.Exclude == nil {
+	if o == nil || IsNil(o.Exclude) {
 		var ret []string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *GroupPolicyRuleCondition) GetExclude() []string {
 // GetExcludeOk returns a tuple with the Exclude field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupPolicyRuleCondition) GetExcludeOk() ([]string, bool) {
-	if o == nil || o.Exclude == nil {
+	if o == nil || IsNil(o.Exclude) {
 		return nil, false
 	}
 	return o.Exclude, true
@@ -75,7 +78,7 @@ func (o *GroupPolicyRuleCondition) GetExcludeOk() ([]string, bool) {
 
 // HasExclude returns a boolean if a field has been set.
 func (o *GroupPolicyRuleCondition) HasExclude() bool {
-	if o != nil && o.Exclude != nil {
+	if o != nil && !IsNil(o.Exclude) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *GroupPolicyRuleCondition) SetExclude(v []string) {
 
 // GetInclude returns the Include field value if set, zero value otherwise.
 func (o *GroupPolicyRuleCondition) GetInclude() []string {
-	if o == nil || o.Include == nil {
+	if o == nil || IsNil(o.Include) {
 		var ret []string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *GroupPolicyRuleCondition) GetInclude() []string {
 // GetIncludeOk returns a tuple with the Include field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupPolicyRuleCondition) GetIncludeOk() ([]string, bool) {
-	if o == nil || o.Include == nil {
+	if o == nil || IsNil(o.Include) {
 		return nil, false
 	}
 	return o.Include, true
@@ -107,7 +110,7 @@ func (o *GroupPolicyRuleCondition) GetIncludeOk() ([]string, bool) {
 
 // HasInclude returns a boolean if a field has been set.
 func (o *GroupPolicyRuleCondition) HasInclude() bool {
-	if o != nil && o.Include != nil {
+	if o != nil && !IsNil(o.Include) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *GroupPolicyRuleCondition) SetInclude(v []string) {
 }
 
 func (o GroupPolicyRuleCondition) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o GroupPolicyRuleCondition) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Exclude != nil {
+	if !IsNil(o.Exclude) {
 		toSerialize["exclude"] = o.Exclude
 	}
-	if o.Include != nil {
+	if !IsNil(o.Include) {
 		toSerialize["include"] = o.Include
 	}
 
@@ -132,28 +143,26 @@ func (o GroupPolicyRuleCondition) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *GroupPolicyRuleCondition) UnmarshalJSON(bytes []byte) (err error) {
+func (o *GroupPolicyRuleCondition) UnmarshalJSON(data []byte) (err error) {
 	varGroupPolicyRuleCondition := _GroupPolicyRuleCondition{}
 
-	err = json.Unmarshal(bytes, &varGroupPolicyRuleCondition)
-	if err == nil {
-		*o = GroupPolicyRuleCondition(varGroupPolicyRuleCondition)
-	} else {
+	err = json.Unmarshal(data, &varGroupPolicyRuleCondition)
+
+	if err != nil {
 		return err
 	}
 
+	*o = GroupPolicyRuleCondition(varGroupPolicyRuleCondition)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "exclude")
 		delete(additionalProperties, "include")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableGroupPolicyRuleCondition) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

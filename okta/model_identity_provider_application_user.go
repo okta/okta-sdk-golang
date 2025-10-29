@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -25,17 +25,27 @@ package okta
 
 import (
 	"encoding/json"
+	"time"
 )
+
+// checks if the IdentityProviderApplicationUser type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IdentityProviderApplicationUser{}
 
 // IdentityProviderApplicationUser struct for IdentityProviderApplicationUser
 type IdentityProviderApplicationUser struct {
-	Created *string `json:"created,omitempty"`
+	// Timestamp when the object was created
+	Created *time.Time `json:"created,omitempty"`
+	// Unique IdP-specific identifier for the user
 	ExternalId *string `json:"externalId,omitempty"`
+	// Unique key of the user
 	Id *string `json:"id,omitempty"`
-	LastUpdated *string `json:"lastUpdated,omitempty"`
+	// Timestamp when the object was last updated
+	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
+	// IdP-specific profile for the user.  IdP user profiles are IdP-specific but may be customized by the Profile Editor in the Admin Console.  > **Note:** Okta variable names have reserved characters that may conflict with the name of an IdP assertion attribute. You can use the **External name** to define the attribute name as defined in an IdP assertion such as a SAML attribute name.
 	Profile map[string]map[string]interface{} `json:"profile,omitempty"`
-	Embedded map[string]map[string]interface{} `json:"_embedded,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	// Embedded resources related to the IdP user
+	Embedded             map[string]map[string]interface{}     `json:"_embedded,omitempty"`
+	Links                *IdentityProviderApplicationUserLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,9 +69,9 @@ func NewIdentityProviderApplicationUserWithDefaults() *IdentityProviderApplicati
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *IdentityProviderApplicationUser) GetCreated() string {
-	if o == nil || o.Created == nil {
-		var ret string
+func (o *IdentityProviderApplicationUser) GetCreated() time.Time {
+	if o == nil || IsNil(o.Created) {
+		var ret time.Time
 		return ret
 	}
 	return *o.Created
@@ -69,8 +79,8 @@ func (o *IdentityProviderApplicationUser) GetCreated() string {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IdentityProviderApplicationUser) GetCreatedOk() (*string, bool) {
-	if o == nil || o.Created == nil {
+func (o *IdentityProviderApplicationUser) GetCreatedOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -78,21 +88,21 @@ func (o *IdentityProviderApplicationUser) GetCreatedOk() (*string, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *IdentityProviderApplicationUser) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
 	return false
 }
 
-// SetCreated gets a reference to the given string and assigns it to the Created field.
-func (o *IdentityProviderApplicationUser) SetCreated(v string) {
+// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
+func (o *IdentityProviderApplicationUser) SetCreated(v time.Time) {
 	o.Created = &v
 }
 
 // GetExternalId returns the ExternalId field value if set, zero value otherwise.
 func (o *IdentityProviderApplicationUser) GetExternalId() string {
-	if o == nil || o.ExternalId == nil {
+	if o == nil || IsNil(o.ExternalId) {
 		var ret string
 		return ret
 	}
@@ -102,7 +112,7 @@ func (o *IdentityProviderApplicationUser) GetExternalId() string {
 // GetExternalIdOk returns a tuple with the ExternalId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProviderApplicationUser) GetExternalIdOk() (*string, bool) {
-	if o == nil || o.ExternalId == nil {
+	if o == nil || IsNil(o.ExternalId) {
 		return nil, false
 	}
 	return o.ExternalId, true
@@ -110,7 +120,7 @@ func (o *IdentityProviderApplicationUser) GetExternalIdOk() (*string, bool) {
 
 // HasExternalId returns a boolean if a field has been set.
 func (o *IdentityProviderApplicationUser) HasExternalId() bool {
-	if o != nil && o.ExternalId != nil {
+	if o != nil && !IsNil(o.ExternalId) {
 		return true
 	}
 
@@ -124,7 +134,7 @@ func (o *IdentityProviderApplicationUser) SetExternalId(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *IdentityProviderApplicationUser) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -134,7 +144,7 @@ func (o *IdentityProviderApplicationUser) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProviderApplicationUser) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -142,7 +152,7 @@ func (o *IdentityProviderApplicationUser) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *IdentityProviderApplicationUser) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -155,9 +165,9 @@ func (o *IdentityProviderApplicationUser) SetId(v string) {
 }
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
-func (o *IdentityProviderApplicationUser) GetLastUpdated() string {
-	if o == nil || o.LastUpdated == nil {
-		var ret string
+func (o *IdentityProviderApplicationUser) GetLastUpdated() time.Time {
+	if o == nil || IsNil(o.LastUpdated) {
+		var ret time.Time
 		return ret
 	}
 	return *o.LastUpdated
@@ -165,8 +175,8 @@ func (o *IdentityProviderApplicationUser) GetLastUpdated() string {
 
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IdentityProviderApplicationUser) GetLastUpdatedOk() (*string, bool) {
-	if o == nil || o.LastUpdated == nil {
+func (o *IdentityProviderApplicationUser) GetLastUpdatedOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -174,21 +184,21 @@ func (o *IdentityProviderApplicationUser) GetLastUpdatedOk() (*string, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *IdentityProviderApplicationUser) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
 	return false
 }
 
-// SetLastUpdated gets a reference to the given string and assigns it to the LastUpdated field.
-func (o *IdentityProviderApplicationUser) SetLastUpdated(v string) {
+// SetLastUpdated gets a reference to the given time.Time and assigns it to the LastUpdated field.
+func (o *IdentityProviderApplicationUser) SetLastUpdated(v time.Time) {
 	o.LastUpdated = &v
 }
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *IdentityProviderApplicationUser) GetProfile() map[string]map[string]interface{} {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
@@ -198,15 +208,15 @@ func (o *IdentityProviderApplicationUser) GetProfile() map[string]map[string]int
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProviderApplicationUser) GetProfileOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || o.Profile == nil {
-		return nil, false
+	if o == nil || IsNil(o.Profile) {
+		return map[string]map[string]interface{}{}, false
 	}
 	return o.Profile, true
 }
 
 // HasProfile returns a boolean if a field has been set.
 func (o *IdentityProviderApplicationUser) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -220,7 +230,7 @@ func (o *IdentityProviderApplicationUser) SetProfile(v map[string]map[string]int
 
 // GetEmbedded returns the Embedded field value if set, zero value otherwise.
 func (o *IdentityProviderApplicationUser) GetEmbedded() map[string]map[string]interface{} {
-	if o == nil || o.Embedded == nil {
+	if o == nil || IsNil(o.Embedded) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
@@ -230,15 +240,15 @@ func (o *IdentityProviderApplicationUser) GetEmbedded() map[string]map[string]in
 // GetEmbeddedOk returns a tuple with the Embedded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProviderApplicationUser) GetEmbeddedOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || o.Embedded == nil {
-		return nil, false
+	if o == nil || IsNil(o.Embedded) {
+		return map[string]map[string]interface{}{}, false
 	}
 	return o.Embedded, true
 }
 
 // HasEmbedded returns a boolean if a field has been set.
 func (o *IdentityProviderApplicationUser) HasEmbedded() bool {
-	if o != nil && o.Embedded != nil {
+	if o != nil && !IsNil(o.Embedded) {
 		return true
 	}
 
@@ -251,9 +261,9 @@ func (o *IdentityProviderApplicationUser) SetEmbedded(v map[string]map[string]in
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *IdentityProviderApplicationUser) GetLinks() LinksSelf {
-	if o == nil || o.Links == nil {
-		var ret LinksSelf
+func (o *IdentityProviderApplicationUser) GetLinks() IdentityProviderApplicationUserLinks {
+	if o == nil || IsNil(o.Links) {
+		var ret IdentityProviderApplicationUserLinks
 		return ret
 	}
 	return *o.Links
@@ -261,8 +271,8 @@ func (o *IdentityProviderApplicationUser) GetLinks() LinksSelf {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IdentityProviderApplicationUser) GetLinksOk() (*LinksSelf, bool) {
-	if o == nil || o.Links == nil {
+func (o *IdentityProviderApplicationUser) GetLinksOk() (*IdentityProviderApplicationUserLinks, bool) {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -270,39 +280,47 @@ func (o *IdentityProviderApplicationUser) GetLinksOk() (*LinksSelf, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *IdentityProviderApplicationUser) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
 	return false
 }
 
-// SetLinks gets a reference to the given LinksSelf and assigns it to the Links field.
-func (o *IdentityProviderApplicationUser) SetLinks(v LinksSelf) {
+// SetLinks gets a reference to the given IdentityProviderApplicationUserLinks and assigns it to the Links field.
+func (o *IdentityProviderApplicationUser) SetLinks(v IdentityProviderApplicationUserLinks) {
 	o.Links = &v
 }
 
 func (o IdentityProviderApplicationUser) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IdentityProviderApplicationUser) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.ExternalId != nil {
+	if !IsNil(o.ExternalId) {
 		toSerialize["externalId"] = o.ExternalId
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Profile != nil {
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
-	if o.Embedded != nil {
+	if !IsNil(o.Embedded) {
 		toSerialize["_embedded"] = o.Embedded
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -310,23 +328,23 @@ func (o IdentityProviderApplicationUser) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *IdentityProviderApplicationUser) UnmarshalJSON(bytes []byte) (err error) {
+func (o *IdentityProviderApplicationUser) UnmarshalJSON(data []byte) (err error) {
 	varIdentityProviderApplicationUser := _IdentityProviderApplicationUser{}
 
-	err = json.Unmarshal(bytes, &varIdentityProviderApplicationUser)
-	if err == nil {
-		*o = IdentityProviderApplicationUser(varIdentityProviderApplicationUser)
-	} else {
+	err = json.Unmarshal(data, &varIdentityProviderApplicationUser)
+
+	if err != nil {
 		return err
 	}
 
+	*o = IdentityProviderApplicationUser(varIdentityProviderApplicationUser)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "externalId")
 		delete(additionalProperties, "id")
@@ -335,8 +353,6 @@ func (o *IdentityProviderApplicationUser) UnmarshalJSON(bytes []byte) (err error
 		delete(additionalProperties, "_embedded")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -377,4 +393,3 @@ func (v *NullableIdentityProviderApplicationUser) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

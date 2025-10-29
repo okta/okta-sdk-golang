@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Qrcode** | Pointer to [**LinksQrcodeQrcode**](LinksQrcodeQrcode.md) |  | [optional] 
+**Qrcode** | Pointer to [**HrefObject**](HrefObject.md) | QR code that encodes the push activation code needed for enrollment on the device | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetQrcode
 
-`func (o *LinksQrcode) GetQrcode() LinksQrcodeQrcode`
+`func (o *LinksQrcode) GetQrcode() HrefObject`
 
 GetQrcode returns the Qrcode field if non-nil, zero value otherwise.
 
 ### GetQrcodeOk
 
-`func (o *LinksQrcode) GetQrcodeOk() (*LinksQrcodeQrcode, bool)`
+`func (o *LinksQrcode) GetQrcodeOk() (*HrefObject, bool)`
 
 GetQrcodeOk returns a tuple with the Qrcode field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQrcode
 
-`func (o *LinksQrcode) SetQrcode(v LinksQrcodeQrcode)`
+`func (o *LinksQrcode) SetQrcode(v HrefObject)`
 
 SetQrcode sets Qrcode field to given value.
 

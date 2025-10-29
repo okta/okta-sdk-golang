@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the DeviceUser type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeviceUser{}
+
 // DeviceUser struct for DeviceUser
 type DeviceUser struct {
 	// Timestamp when device was created
@@ -34,8 +37,8 @@ type DeviceUser struct {
 	// The management status of the device
 	ManagementStatus *string `json:"managementStatus,omitempty"`
 	// Screen lock type of the device
-	ScreenLockType *string `json:"screenLockType,omitempty"`
-	User *User `json:"user,omitempty"`
+	ScreenLockType       *string `json:"screenLockType,omitempty"`
+	User                 *User   `json:"user,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +63,7 @@ func NewDeviceUserWithDefaults() *DeviceUser {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *DeviceUser) GetCreated() string {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret string
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *DeviceUser) GetCreated() string {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceUser) GetCreatedOk() (*string, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -78,7 +81,7 @@ func (o *DeviceUser) GetCreatedOk() (*string, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *DeviceUser) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -92,7 +95,7 @@ func (o *DeviceUser) SetCreated(v string) {
 
 // GetManagementStatus returns the ManagementStatus field value if set, zero value otherwise.
 func (o *DeviceUser) GetManagementStatus() string {
-	if o == nil || o.ManagementStatus == nil {
+	if o == nil || IsNil(o.ManagementStatus) {
 		var ret string
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *DeviceUser) GetManagementStatus() string {
 // GetManagementStatusOk returns a tuple with the ManagementStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceUser) GetManagementStatusOk() (*string, bool) {
-	if o == nil || o.ManagementStatus == nil {
+	if o == nil || IsNil(o.ManagementStatus) {
 		return nil, false
 	}
 	return o.ManagementStatus, true
@@ -110,7 +113,7 @@ func (o *DeviceUser) GetManagementStatusOk() (*string, bool) {
 
 // HasManagementStatus returns a boolean if a field has been set.
 func (o *DeviceUser) HasManagementStatus() bool {
-	if o != nil && o.ManagementStatus != nil {
+	if o != nil && !IsNil(o.ManagementStatus) {
 		return true
 	}
 
@@ -124,7 +127,7 @@ func (o *DeviceUser) SetManagementStatus(v string) {
 
 // GetScreenLockType returns the ScreenLockType field value if set, zero value otherwise.
 func (o *DeviceUser) GetScreenLockType() string {
-	if o == nil || o.ScreenLockType == nil {
+	if o == nil || IsNil(o.ScreenLockType) {
 		var ret string
 		return ret
 	}
@@ -134,7 +137,7 @@ func (o *DeviceUser) GetScreenLockType() string {
 // GetScreenLockTypeOk returns a tuple with the ScreenLockType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceUser) GetScreenLockTypeOk() (*string, bool) {
-	if o == nil || o.ScreenLockType == nil {
+	if o == nil || IsNil(o.ScreenLockType) {
 		return nil, false
 	}
 	return o.ScreenLockType, true
@@ -142,7 +145,7 @@ func (o *DeviceUser) GetScreenLockTypeOk() (*string, bool) {
 
 // HasScreenLockType returns a boolean if a field has been set.
 func (o *DeviceUser) HasScreenLockType() bool {
-	if o != nil && o.ScreenLockType != nil {
+	if o != nil && !IsNil(o.ScreenLockType) {
 		return true
 	}
 
@@ -156,7 +159,7 @@ func (o *DeviceUser) SetScreenLockType(v string) {
 
 // GetUser returns the User field value if set, zero value otherwise.
 func (o *DeviceUser) GetUser() User {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		var ret User
 		return ret
 	}
@@ -166,7 +169,7 @@ func (o *DeviceUser) GetUser() User {
 // GetUserOk returns a tuple with the User field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceUser) GetUserOk() (*User, bool) {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		return nil, false
 	}
 	return o.User, true
@@ -174,7 +177,7 @@ func (o *DeviceUser) GetUserOk() (*User, bool) {
 
 // HasUser returns a boolean if a field has been set.
 func (o *DeviceUser) HasUser() bool {
-	if o != nil && o.User != nil {
+	if o != nil && !IsNil(o.User) {
 		return true
 	}
 
@@ -187,17 +190,25 @@ func (o *DeviceUser) SetUser(v User) {
 }
 
 func (o DeviceUser) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DeviceUser) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.ManagementStatus != nil {
+	if !IsNil(o.ManagementStatus) {
 		toSerialize["managementStatus"] = o.ManagementStatus
 	}
-	if o.ScreenLockType != nil {
+	if !IsNil(o.ScreenLockType) {
 		toSerialize["screenLockType"] = o.ScreenLockType
 	}
-	if o.User != nil {
+	if !IsNil(o.User) {
 		toSerialize["user"] = o.User
 	}
 
@@ -205,30 +216,28 @@ func (o DeviceUser) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DeviceUser) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DeviceUser) UnmarshalJSON(data []byte) (err error) {
 	varDeviceUser := _DeviceUser{}
 
-	err = json.Unmarshal(bytes, &varDeviceUser)
-	if err == nil {
-		*o = DeviceUser(varDeviceUser)
-	} else {
+	err = json.Unmarshal(data, &varDeviceUser)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DeviceUser(varDeviceUser)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "managementStatus")
 		delete(additionalProperties, "screenLockType")
 		delete(additionalProperties, "user")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -269,4 +278,3 @@ func (v *NullableDeviceUser) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

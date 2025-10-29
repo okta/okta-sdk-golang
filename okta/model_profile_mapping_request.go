@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -25,11 +25,15 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ProfileMappingRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ProfileMappingRequest{}
 
 // ProfileMappingRequest The updated request body properties
 type ProfileMappingRequest struct {
-	Properties map[string]ProfileMappingProperty `json:"properties"`
+	Properties           ProfileMappingProperty `json:"properties"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -39,7 +43,7 @@ type _ProfileMappingRequest ProfileMappingRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewProfileMappingRequest(properties map[string]ProfileMappingProperty) *ProfileMappingRequest {
+func NewProfileMappingRequest(properties ProfileMappingProperty) *ProfileMappingRequest {
 	this := ProfileMappingRequest{}
 	this.Properties = properties
 	return &this
@@ -54,9 +58,9 @@ func NewProfileMappingRequestWithDefaults() *ProfileMappingRequest {
 }
 
 // GetProperties returns the Properties field value
-func (o *ProfileMappingRequest) GetProperties() map[string]ProfileMappingProperty {
+func (o *ProfileMappingRequest) GetProperties() ProfileMappingProperty {
 	if o == nil {
-		var ret map[string]ProfileMappingProperty
+		var ret ProfileMappingProperty
 		return ret
 	}
 
@@ -65,49 +69,74 @@ func (o *ProfileMappingRequest) GetProperties() map[string]ProfileMappingPropert
 
 // GetPropertiesOk returns a tuple with the Properties field value
 // and a boolean to check if the value has been set.
-func (o *ProfileMappingRequest) GetPropertiesOk() (*map[string]ProfileMappingProperty, bool) {
+func (o *ProfileMappingRequest) GetPropertiesOk() (ProfileMappingProperty, bool) {
 	if o == nil {
-		return nil, false
+		return ProfileMappingProperty{}, false
 	}
-	return &o.Properties, true
+	return o.Properties, true
 }
 
 // SetProperties sets field value
-func (o *ProfileMappingRequest) SetProperties(v map[string]ProfileMappingProperty) {
+func (o *ProfileMappingRequest) SetProperties(v ProfileMappingProperty) {
 	o.Properties = v
 }
 
 func (o ProfileMappingRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["properties"] = o.Properties
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ProfileMappingRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["properties"] = o.Properties
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ProfileMappingRequest) UnmarshalJSON(bytes []byte) (err error) {
-	varProfileMappingRequest := _ProfileMappingRequest{}
+func (o *ProfileMappingRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"properties",
+	}
 
-	err = json.Unmarshal(bytes, &varProfileMappingRequest)
-	if err == nil {
-		*o = ProfileMappingRequest(varProfileMappingRequest)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varProfileMappingRequest := _ProfileMappingRequest{}
+
+	err = json.Unmarshal(data, &varProfileMappingRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ProfileMappingRequest(varProfileMappingRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "properties")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -148,4 +177,3 @@ func (v *NullableProfileMappingRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

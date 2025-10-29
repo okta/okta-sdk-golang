@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to **string** |  | [optional] 
-**ExternalId** | Pointer to **string** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] [readonly] 
-**LastUpdated** | Pointer to **string** |  | [optional] 
-**Profile** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
-**Embedded** | Pointer to **map[string]map[string]interface{}** |  | [optional] [readonly] 
-**Links** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
+**Created** | Pointer to **time.Time** | Timestamp when the object was created | [optional] [readonly] 
+**ExternalId** | Pointer to **string** | Unique IdP-specific identifier for the user | [optional] [readonly] 
+**Id** | Pointer to **string** | Unique key of the user | [optional] [readonly] 
+**LastUpdated** | Pointer to **time.Time** | Timestamp when the object was last updated | [optional] [readonly] 
+**Profile** | Pointer to **map[string]map[string]interface{}** | IdP-specific profile for the user.  IdP user profiles are IdP-specific but may be customized by the Profile Editor in the Admin Console.  &gt; **Note:** Okta variable names have reserved characters that may conflict with the name of an IdP assertion attribute. You can use the **External name** to define the attribute name as defined in an IdP assertion such as a SAML attribute name. | [optional] 
+**Embedded** | Pointer to **map[string]map[string]interface{}** | Embedded resources related to the IdP user | [optional] [readonly] 
+**Links** | Pointer to [**IdentityProviderApplicationUserLinks**](IdentityProviderApplicationUserLinks.md) |  | [optional] 
 
 ## Methods
 
@@ -33,20 +33,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreated
 
-`func (o *IdentityProviderApplicationUser) GetCreated() string`
+`func (o *IdentityProviderApplicationUser) GetCreated() time.Time`
 
 GetCreated returns the Created field if non-nil, zero value otherwise.
 
 ### GetCreatedOk
 
-`func (o *IdentityProviderApplicationUser) GetCreatedOk() (*string, bool)`
+`func (o *IdentityProviderApplicationUser) GetCreatedOk() (*time.Time, bool)`
 
 GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreated
 
-`func (o *IdentityProviderApplicationUser) SetCreated(v string)`
+`func (o *IdentityProviderApplicationUser) SetCreated(v time.Time)`
 
 SetCreated sets Created field to given value.
 
@@ -108,20 +108,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetLastUpdated
 
-`func (o *IdentityProviderApplicationUser) GetLastUpdated() string`
+`func (o *IdentityProviderApplicationUser) GetLastUpdated() time.Time`
 
 GetLastUpdated returns the LastUpdated field if non-nil, zero value otherwise.
 
 ### GetLastUpdatedOk
 
-`func (o *IdentityProviderApplicationUser) GetLastUpdatedOk() (*string, bool)`
+`func (o *IdentityProviderApplicationUser) GetLastUpdatedOk() (*time.Time, bool)`
 
 GetLastUpdatedOk returns a tuple with the LastUpdated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastUpdated
 
-`func (o *IdentityProviderApplicationUser) SetLastUpdated(v string)`
+`func (o *IdentityProviderApplicationUser) SetLastUpdated(v time.Time)`
 
 SetLastUpdated sets LastUpdated field to given value.
 
@@ -183,20 +183,20 @@ HasEmbedded returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *IdentityProviderApplicationUser) GetLinks() LinksSelf`
+`func (o *IdentityProviderApplicationUser) GetLinks() IdentityProviderApplicationUserLinks`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *IdentityProviderApplicationUser) GetLinksOk() (*LinksSelf, bool)`
+`func (o *IdentityProviderApplicationUser) GetLinksOk() (*IdentityProviderApplicationUserLinks, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *IdentityProviderApplicationUser) SetLinks(v LinksSelf)`
+`func (o *IdentityProviderApplicationUser) SetLinks(v IdentityProviderApplicationUserLinks)`
 
 SetLinks sets Links field to given value.
 

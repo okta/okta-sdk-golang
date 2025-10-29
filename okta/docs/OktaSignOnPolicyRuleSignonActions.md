@@ -4,11 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Access** | Pointer to **string** |  | [optional] 
-**FactorLifetime** | Pointer to **int32** |  | [optional] 
-**FactorPromptMode** | Pointer to **string** |  | [optional] 
-**RememberDeviceByDefault** | Pointer to **bool** |  | [optional] [default to false]
-**RequireFactor** | Pointer to **bool** |  | [optional] [default to false]
+**Access** | Pointer to **string** | Indicates if a user is allowed to sign in | [optional] 
+**FactorLifetime** | Pointer to **int32** | Interval of time that must elapse before the user is challenged for MFA, if the factor prompt mode is set to &#x60;SESSION&#x60;  &gt; **Note:** Required only if &#x60;requireFactor&#x60; is &#x60;true&#x60;.  | [optional] 
+**FactorPromptMode** | Pointer to **string** | Indicates if the User should be challenged for a second factor (MFA) based on the device being used, a Factor session lifetime, or on every sign-in attempt  &gt; **Note:** Required only if &#x60;requireFactor&#x60; is set to &#x60;true&#x60;.  | [optional] 
+**PrimaryFactor** | Pointer to **string** | &lt;x-lifecycle class&#x3D;\&quot;oie\&quot;&gt;&lt;/x-lifecycle&gt; Indicates the primary factor used to establish a session for the org. Supported values: &#x60;PASSWORD_IDP_ANY_FACTOR&#x60; (users can use any factor required by the app authentication policy to establish a session), &#x60;PASSWORD_IDP&#x60; (users must always use a password to establish a session).  &gt; **Note:** Required only if &#x60;access&#x60; is set to &#x60;ALLOW&#x60;. | [optional] 
+**RememberDeviceByDefault** | Pointer to **bool** | Indicates if Okta should automatically remember the device | [optional] [default to false]
+**RequireFactor** | Pointer to **bool** | Indicates if multifactor authentication is required | [optional] [default to false]
 **Session** | Pointer to [**OktaSignOnPolicyRuleSignonSessionActions**](OktaSignOnPolicyRuleSignonSessionActions.md) |  | [optional] 
 
 ## Methods
@@ -104,6 +105,31 @@ SetFactorPromptMode sets FactorPromptMode field to given value.
 `func (o *OktaSignOnPolicyRuleSignonActions) HasFactorPromptMode() bool`
 
 HasFactorPromptMode returns a boolean if a field has been set.
+
+### GetPrimaryFactor
+
+`func (o *OktaSignOnPolicyRuleSignonActions) GetPrimaryFactor() string`
+
+GetPrimaryFactor returns the PrimaryFactor field if non-nil, zero value otherwise.
+
+### GetPrimaryFactorOk
+
+`func (o *OktaSignOnPolicyRuleSignonActions) GetPrimaryFactorOk() (*string, bool)`
+
+GetPrimaryFactorOk returns a tuple with the PrimaryFactor field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPrimaryFactor
+
+`func (o *OktaSignOnPolicyRuleSignonActions) SetPrimaryFactor(v string)`
+
+SetPrimaryFactor sets PrimaryFactor field to given value.
+
+### HasPrimaryFactor
+
+`func (o *OktaSignOnPolicyRuleSignonActions) HasPrimaryFactor() bool`
+
+HasPrimaryFactor returns a boolean if a field has been set.
 
 ### GetRememberDeviceByDefault
 

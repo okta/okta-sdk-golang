@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Value** | Pointer to **string** |  | [optional] 
+**Value** | Pointer to **string** | Value of the condition expression | [optional] 
 
 ## Methods
 

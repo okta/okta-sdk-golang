@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,14 +27,17 @@ import (
 	"encoding/json"
 )
 
-// OSVersionDynamicVersionRequirement <div class=\"x-lifecycle-container\"><x-lifecycle class=\"ea\"></x-lifecycle></div>Contains the necessary properties for a dynamic version requirement
+// checks if the OSVersionDynamicVersionRequirement type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OSVersionDynamicVersionRequirement{}
+
+// OSVersionDynamicVersionRequirement <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Contains the necessary properties for a dynamic version requirement
 type OSVersionDynamicVersionRequirement struct {
 	// Indicates the type of the dynamic OS version requirement
 	Type *string `json:"type,omitempty"`
 	// Indicates the distance from the latest major version
 	DistanceFromLatestMajor *int32 `json:"distanceFromLatestMajor,omitempty"`
 	// Indicates whether the device needs to be on the latest security patch
-	LatestSecurityPatch *bool `json:"latestSecurityPatch,omitempty"`
+	LatestSecurityPatch  *bool `json:"latestSecurityPatch,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewOSVersionDynamicVersionRequirementWithDefaults() *OSVersionDynamicVersio
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *OSVersionDynamicVersionRequirement) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *OSVersionDynamicVersionRequirement) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OSVersionDynamicVersionRequirement) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -77,7 +80,7 @@ func (o *OSVersionDynamicVersionRequirement) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *OSVersionDynamicVersionRequirement) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *OSVersionDynamicVersionRequirement) SetType(v string) {
 
 // GetDistanceFromLatestMajor returns the DistanceFromLatestMajor field value if set, zero value otherwise.
 func (o *OSVersionDynamicVersionRequirement) GetDistanceFromLatestMajor() int32 {
-	if o == nil || o.DistanceFromLatestMajor == nil {
+	if o == nil || IsNil(o.DistanceFromLatestMajor) {
 		var ret int32
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *OSVersionDynamicVersionRequirement) GetDistanceFromLatestMajor() int32 
 // GetDistanceFromLatestMajorOk returns a tuple with the DistanceFromLatestMajor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OSVersionDynamicVersionRequirement) GetDistanceFromLatestMajorOk() (*int32, bool) {
-	if o == nil || o.DistanceFromLatestMajor == nil {
+	if o == nil || IsNil(o.DistanceFromLatestMajor) {
 		return nil, false
 	}
 	return o.DistanceFromLatestMajor, true
@@ -109,7 +112,7 @@ func (o *OSVersionDynamicVersionRequirement) GetDistanceFromLatestMajorOk() (*in
 
 // HasDistanceFromLatestMajor returns a boolean if a field has been set.
 func (o *OSVersionDynamicVersionRequirement) HasDistanceFromLatestMajor() bool {
-	if o != nil && o.DistanceFromLatestMajor != nil {
+	if o != nil && !IsNil(o.DistanceFromLatestMajor) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *OSVersionDynamicVersionRequirement) SetDistanceFromLatestMajor(v int32)
 
 // GetLatestSecurityPatch returns the LatestSecurityPatch field value if set, zero value otherwise.
 func (o *OSVersionDynamicVersionRequirement) GetLatestSecurityPatch() bool {
-	if o == nil || o.LatestSecurityPatch == nil {
+	if o == nil || IsNil(o.LatestSecurityPatch) {
 		var ret bool
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *OSVersionDynamicVersionRequirement) GetLatestSecurityPatch() bool {
 // GetLatestSecurityPatchOk returns a tuple with the LatestSecurityPatch field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OSVersionDynamicVersionRequirement) GetLatestSecurityPatchOk() (*bool, bool) {
-	if o == nil || o.LatestSecurityPatch == nil {
+	if o == nil || IsNil(o.LatestSecurityPatch) {
 		return nil, false
 	}
 	return o.LatestSecurityPatch, true
@@ -141,7 +144,7 @@ func (o *OSVersionDynamicVersionRequirement) GetLatestSecurityPatchOk() (*bool, 
 
 // HasLatestSecurityPatch returns a boolean if a field has been set.
 func (o *OSVersionDynamicVersionRequirement) HasLatestSecurityPatch() bool {
-	if o != nil && o.LatestSecurityPatch != nil {
+	if o != nil && !IsNil(o.LatestSecurityPatch) {
 		return true
 	}
 
@@ -154,14 +157,22 @@ func (o *OSVersionDynamicVersionRequirement) SetLatestSecurityPatch(v bool) {
 }
 
 func (o OSVersionDynamicVersionRequirement) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OSVersionDynamicVersionRequirement) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.DistanceFromLatestMajor != nil {
+	if !IsNil(o.DistanceFromLatestMajor) {
 		toSerialize["distanceFromLatestMajor"] = o.DistanceFromLatestMajor
 	}
-	if o.LatestSecurityPatch != nil {
+	if !IsNil(o.LatestSecurityPatch) {
 		toSerialize["latestSecurityPatch"] = o.LatestSecurityPatch
 	}
 
@@ -169,29 +180,27 @@ func (o OSVersionDynamicVersionRequirement) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OSVersionDynamicVersionRequirement) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OSVersionDynamicVersionRequirement) UnmarshalJSON(data []byte) (err error) {
 	varOSVersionDynamicVersionRequirement := _OSVersionDynamicVersionRequirement{}
 
-	err = json.Unmarshal(bytes, &varOSVersionDynamicVersionRequirement)
-	if err == nil {
-		*o = OSVersionDynamicVersionRequirement(varOSVersionDynamicVersionRequirement)
-	} else {
+	err = json.Unmarshal(data, &varOSVersionDynamicVersionRequirement)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OSVersionDynamicVersionRequirement(varOSVersionDynamicVersionRequirement)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "distanceFromLatestMajor")
 		delete(additionalProperties, "latestSecurityPatch")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -232,4 +241,3 @@ func (v *NullableOSVersionDynamicVersionRequirement) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

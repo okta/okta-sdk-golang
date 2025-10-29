@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**LoginUrl** | Pointer to **string** | Primary URL of the sign-in page for this app | [optional] 
+**LoginUrl** | **string** | Primary URL of the sign-in page for this app | 
 **RedirectUrl** | Pointer to **string** | Secondary URL of the sign-in page for this app | [optional] 
 
 ## Methods
 
 ### NewAutoLoginApplicationSettingsSignOn
 
-`func NewAutoLoginApplicationSettingsSignOn() *AutoLoginApplicationSettingsSignOn`
+`func NewAutoLoginApplicationSettingsSignOn(loginUrl string, ) *AutoLoginApplicationSettingsSignOn`
 
 NewAutoLoginApplicationSettingsSignOn instantiates a new AutoLoginApplicationSettingsSignOn object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetLoginUrl sets LoginUrl field to given value.
 
-### HasLoginUrl
-
-`func (o *AutoLoginApplicationSettingsSignOn) HasLoginUrl() bool`
-
-HasLoginUrl returns a boolean if a field has been set.
 
 ### GetRedirectUrl
 

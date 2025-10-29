@@ -4,13 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Access** | Pointer to **string** |  | [optional] 
+**Access** | Pointer to **string** | Indicates if the user profile is granted access  &gt; **Note:** You can&#39;t set the &#x60;access&#x60; property to &#x60;DENY&#x60; after you create the policy | [optional] 
 **ActivationRequirements** | Pointer to [**ProfileEnrollmentPolicyRuleActivationRequirement**](ProfileEnrollmentPolicyRuleActivationRequirement.md) |  | [optional] 
-**PreRegistrationInlineHooks** | Pointer to [**[]PreRegistrationInlineHook**](PreRegistrationInlineHook.md) |  | [optional] 
-**ProfileAttributes** | Pointer to [**[]ProfileEnrollmentPolicyRuleProfileAttribute**](ProfileEnrollmentPolicyRuleProfileAttribute.md) |  | [optional] 
-**ProgressiveProfilingAction** | Pointer to **string** |  | [optional] 
-**TargetGroupIds** | Pointer to **[]string** |  | [optional] 
-**UnknownUserAction** | Pointer to **string** |  | [optional] 
+**AllowedIdentifiers** | Pointer to **[]string** | A list of attributes to identify an end user. Can be used across Okta sign-in, unlock, and recovery flows. | [optional] [default to ["login"]]
+**EnrollAuthenticatorTypes** | Pointer to **[]string** | Additional authenticator fields that can be used on the first page of user registration. Valid values only includes &#x60;&#39;password&#39;&#x60;. | [optional] 
+**PreRegistrationInlineHooks** | Pointer to [**[]PreRegistrationInlineHook**](PreRegistrationInlineHook.md) | (Optional) The &#x60;id&#x60; of at most one registration inline hook | [optional] 
+**ProfileAttributes** | Pointer to [**[]ProfileEnrollmentPolicyRuleProfileAttribute**](ProfileEnrollmentPolicyRuleProfileAttribute.md) | A list of attributes to prompt the user for during registration or progressive profiling. Where defined on the user schema, these attributes are persisted in the user profile. You can also add non-schema attributes, which aren&#39;t persisted to the user&#39;s profile, but are included in requests to the registration inline hook. A maximum of 10 profile properties is supported. | [optional] 
+**ProgressiveProfilingAction** | Pointer to **string** | Progressive profile enrollment helps evaluate the user profile policy at every user login. Users can be prompted to provide input for newly required attributes. | [optional] 
+**TargetGroupIds** | Pointer to **[]string** | (Optional, max 1 entry) The &#x60;id&#x60; of a group that this user should be added to | [optional] 
+**UiSchemaId** | Pointer to **string** | Value created by the backend. If present, all policy updates must include this attribute/value. | [optional] 
+**UnknownUserAction** | Pointer to **string** | Which action should be taken if this user is new | [optional] 
 
 ## Methods
 
@@ -80,6 +83,56 @@ SetActivationRequirements sets ActivationRequirements field to given value.
 `func (o *ProfileEnrollmentPolicyRuleAction) HasActivationRequirements() bool`
 
 HasActivationRequirements returns a boolean if a field has been set.
+
+### GetAllowedIdentifiers
+
+`func (o *ProfileEnrollmentPolicyRuleAction) GetAllowedIdentifiers() []string`
+
+GetAllowedIdentifiers returns the AllowedIdentifiers field if non-nil, zero value otherwise.
+
+### GetAllowedIdentifiersOk
+
+`func (o *ProfileEnrollmentPolicyRuleAction) GetAllowedIdentifiersOk() (*[]string, bool)`
+
+GetAllowedIdentifiersOk returns a tuple with the AllowedIdentifiers field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAllowedIdentifiers
+
+`func (o *ProfileEnrollmentPolicyRuleAction) SetAllowedIdentifiers(v []string)`
+
+SetAllowedIdentifiers sets AllowedIdentifiers field to given value.
+
+### HasAllowedIdentifiers
+
+`func (o *ProfileEnrollmentPolicyRuleAction) HasAllowedIdentifiers() bool`
+
+HasAllowedIdentifiers returns a boolean if a field has been set.
+
+### GetEnrollAuthenticatorTypes
+
+`func (o *ProfileEnrollmentPolicyRuleAction) GetEnrollAuthenticatorTypes() []string`
+
+GetEnrollAuthenticatorTypes returns the EnrollAuthenticatorTypes field if non-nil, zero value otherwise.
+
+### GetEnrollAuthenticatorTypesOk
+
+`func (o *ProfileEnrollmentPolicyRuleAction) GetEnrollAuthenticatorTypesOk() (*[]string, bool)`
+
+GetEnrollAuthenticatorTypesOk returns a tuple with the EnrollAuthenticatorTypes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEnrollAuthenticatorTypes
+
+`func (o *ProfileEnrollmentPolicyRuleAction) SetEnrollAuthenticatorTypes(v []string)`
+
+SetEnrollAuthenticatorTypes sets EnrollAuthenticatorTypes field to given value.
+
+### HasEnrollAuthenticatorTypes
+
+`func (o *ProfileEnrollmentPolicyRuleAction) HasEnrollAuthenticatorTypes() bool`
+
+HasEnrollAuthenticatorTypes returns a boolean if a field has been set.
 
 ### GetPreRegistrationInlineHooks
 
@@ -180,6 +233,31 @@ SetTargetGroupIds sets TargetGroupIds field to given value.
 `func (o *ProfileEnrollmentPolicyRuleAction) HasTargetGroupIds() bool`
 
 HasTargetGroupIds returns a boolean if a field has been set.
+
+### GetUiSchemaId
+
+`func (o *ProfileEnrollmentPolicyRuleAction) GetUiSchemaId() string`
+
+GetUiSchemaId returns the UiSchemaId field if non-nil, zero value otherwise.
+
+### GetUiSchemaIdOk
+
+`func (o *ProfileEnrollmentPolicyRuleAction) GetUiSchemaIdOk() (*string, bool)`
+
+GetUiSchemaIdOk returns a tuple with the UiSchemaId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUiSchemaId
+
+`func (o *ProfileEnrollmentPolicyRuleAction) SetUiSchemaId(v string)`
+
+SetUiSchemaId sets UiSchemaId field to given value.
+
+### HasUiSchemaId
+
+`func (o *ProfileEnrollmentPolicyRuleAction) HasUiSchemaId() bool`
+
+HasUiSchemaId returns a boolean if a field has been set.
 
 ### GetUnknownUserAction
 

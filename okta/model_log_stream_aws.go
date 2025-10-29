@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -25,10 +25,14 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 	"reflect"
 	"strings"
 	"time"
 )
+
+// checks if the LogStreamAws type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LogStreamAws{}
 
 // LogStreamAws struct for LogStreamAws
 type LogStreamAws struct {
@@ -89,34 +93,68 @@ func (o *LogStreamAws) SetSettings(v LogStreamSettingsAws) {
 }
 
 func (o LogStreamAws) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LogStreamAws) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedLogStream, errLogStream := json.Marshal(o.LogStream)
 	if errLogStream != nil {
-		return []byte{}, errLogStream
+		return map[string]interface{}{}, errLogStream
 	}
 	errLogStream = json.Unmarshal([]byte(serializedLogStream), &toSerialize)
 	if errLogStream != nil {
-		return []byte{}, errLogStream
+		return map[string]interface{}{}, errLogStream
 	}
-	if true {
-		toSerialize["settings"] = o.Settings
-	}
+	toSerialize["settings"] = o.Settings
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LogStreamAws) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LogStreamAws) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"settings",
+		"created",
+		"id",
+		"lastUpdated",
+		"name",
+		"status",
+		"type",
+		"_links",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	type LogStreamAwsWithoutEmbeddedStruct struct {
 		Settings LogStreamSettingsAws `json:"settings"`
 	}
 
 	varLogStreamAwsWithoutEmbeddedStruct := LogStreamAwsWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varLogStreamAwsWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varLogStreamAwsWithoutEmbeddedStruct)
 	if err == nil {
 		varLogStreamAws := _LogStreamAws{}
 		varLogStreamAws.Settings = varLogStreamAwsWithoutEmbeddedStruct.Settings
@@ -127,7 +165,7 @@ func (o *LogStreamAws) UnmarshalJSON(bytes []byte) (err error) {
 
 	varLogStreamAws := _LogStreamAws{}
 
-	err = json.Unmarshal(bytes, &varLogStreamAws)
+	err = json.Unmarshal(data, &varLogStreamAws)
 	if err == nil {
 		o.LogStream = varLogStreamAws.LogStream
 	} else {
@@ -136,8 +174,7 @@ func (o *LogStreamAws) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "settings")
 
 		// remove fields from embedded structs
@@ -159,8 +196,6 @@ func (o *LogStreamAws) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

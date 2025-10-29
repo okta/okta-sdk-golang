@@ -4,10 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Filter** | Pointer to **string** |  | [optional] 
-**Format** | Pointer to **[]string** |  | [optional] 
-**MatchAttribute** | Pointer to **string** |  | [optional] 
-**MatchType** | Pointer to **string** |  | [optional] 
+**Filter** | Pointer to **string** | Optional [regular expression pattern](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Regular_expressions) used to filter untrusted IdP usernames. * As a best security practice, you should define a regular expression pattern to filter untrusted IdP usernames. This is especially important if multiple IdPs are connected to your org. The filter prevents an IdP from issuing an assertion for any user, including partners or directory users in your Okta org. * For example, the filter pattern &#x60;(\\S+@example\\.com)&#x60; allows only Users that have an &#x60;@example.com&#x60; username suffix. It rejects assertions that have any other suffix such as &#x60;@corp.example.com&#x60; or &#x60;@partner.com&#x60;. * Only &#x60;SAML2&#x60; and &#x60;OIDC&#x60; IdP providers support the &#x60;filter&#x60; property. | [optional] 
+**MatchAttribute** | Pointer to **string** | Okta user profile attribute for matching a transformed IdP username. Only for matchType &#x60;CUSTOM_ATTRIBUTE&#x60;. The &#x60;matchAttribute&#x60; must be a valid Okta user profile attribute of one of the following types: * String (with no format or &#39;email&#39; format only) * Integer * Number | [optional] 
+**MatchType** | Pointer to **string** | Determines the Okta user profile attribute match conditions for account linking and authentication of the transformed IdP username | [optional] 
 **UserNameTemplate** | Pointer to [**PolicyUserNameTemplate**](PolicyUserNameTemplate.md) |  | [optional] 
 
 ## Methods
@@ -53,31 +52,6 @@ SetFilter sets Filter field to given value.
 `func (o *PolicySubject) HasFilter() bool`
 
 HasFilter returns a boolean if a field has been set.
-
-### GetFormat
-
-`func (o *PolicySubject) GetFormat() []string`
-
-GetFormat returns the Format field if non-nil, zero value otherwise.
-
-### GetFormatOk
-
-`func (o *PolicySubject) GetFormatOk() (*[]string, bool)`
-
-GetFormatOk returns a tuple with the Format field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetFormat
-
-`func (o *PolicySubject) SetFormat(v []string)`
-
-SetFormat sets Format field to given value.
-
-### HasFormat
-
-`func (o *PolicySubject) HasFormat() bool`
-
-HasFormat returns a boolean if a field has been set.
 
 ### GetMatchAttribute
 

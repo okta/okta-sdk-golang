@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Lat** | Pointer to **float64** |  | [optional] [readonly] 
-**Lon** | Pointer to **float64** |  | [optional] [readonly] 
+**Lat** | Pointer to **float64** | Latitude which uses two digits for the [integer part](https://www.iso.org/obp/ui/fr/#iso:std:iso:6709:ed-3:v1:en#Latitude) | [optional] [readonly] 
+**Lon** | Pointer to **float64** | Longitude which uses three digits for the [integer part](https://www.iso.org/obp/ui/fr/#iso:std:iso:6709:ed-3:v1:en#Longitude) | [optional] [readonly] 
 
 ## Methods
 

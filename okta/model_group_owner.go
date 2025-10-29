@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -25,7 +25,11 @@ package okta
 
 import (
 	"encoding/json"
+	"time"
 )
+
+// checks if the GroupOwner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GroupOwner{}
 
 // GroupOwner struct for GroupOwner
 type GroupOwner struct {
@@ -34,15 +38,15 @@ type GroupOwner struct {
 	// The `id` of the group owner
 	Id *string `json:"id,omitempty"`
 	// Timestamp when the group owner was last updated
-	LastUpdated *string `json:"lastUpdated,omitempty"`
+	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	// The ID of the app instance if the `originType` is `APPLICATION`. This value is `NULL` if `originType` is `OKTA_DIRECTORY`.
 	OriginId *string `json:"originId,omitempty"`
 	// The source where group ownership is managed
 	OriginType *string `json:"originType,omitempty"`
-	// If `originType`is APPLICATION, this parameter is set to `FALSE` until the owner’s `originId` is reconciled with an associated Okta ID.
+	// If `originType`is APPLICATION, this parameter is set to `FALSE` until the owner's `originId` is reconciled with an associated Okta ID.
 	Resolved *bool `json:"resolved,omitempty"`
 	// The entity type of the owner
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -67,7 +71,7 @@ func NewGroupOwnerWithDefaults() *GroupOwner {
 
 // GetDisplayName returns the DisplayName field value if set, zero value otherwise.
 func (o *GroupOwner) GetDisplayName() string {
-	if o == nil || o.DisplayName == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		var ret string
 		return ret
 	}
@@ -77,7 +81,7 @@ func (o *GroupOwner) GetDisplayName() string {
 // GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupOwner) GetDisplayNameOk() (*string, bool) {
-	if o == nil || o.DisplayName == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		return nil, false
 	}
 	return o.DisplayName, true
@@ -85,7 +89,7 @@ func (o *GroupOwner) GetDisplayNameOk() (*string, bool) {
 
 // HasDisplayName returns a boolean if a field has been set.
 func (o *GroupOwner) HasDisplayName() bool {
-	if o != nil && o.DisplayName != nil {
+	if o != nil && !IsNil(o.DisplayName) {
 		return true
 	}
 
@@ -99,7 +103,7 @@ func (o *GroupOwner) SetDisplayName(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *GroupOwner) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -109,7 +113,7 @@ func (o *GroupOwner) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupOwner) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -117,7 +121,7 @@ func (o *GroupOwner) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *GroupOwner) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -130,9 +134,9 @@ func (o *GroupOwner) SetId(v string) {
 }
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
-func (o *GroupOwner) GetLastUpdated() string {
-	if o == nil || o.LastUpdated == nil {
-		var ret string
+func (o *GroupOwner) GetLastUpdated() time.Time {
+	if o == nil || IsNil(o.LastUpdated) {
+		var ret time.Time
 		return ret
 	}
 	return *o.LastUpdated
@@ -140,8 +144,8 @@ func (o *GroupOwner) GetLastUpdated() string {
 
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GroupOwner) GetLastUpdatedOk() (*string, bool) {
-	if o == nil || o.LastUpdated == nil {
+func (o *GroupOwner) GetLastUpdatedOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -149,21 +153,21 @@ func (o *GroupOwner) GetLastUpdatedOk() (*string, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *GroupOwner) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
 	return false
 }
 
-// SetLastUpdated gets a reference to the given string and assigns it to the LastUpdated field.
-func (o *GroupOwner) SetLastUpdated(v string) {
+// SetLastUpdated gets a reference to the given time.Time and assigns it to the LastUpdated field.
+func (o *GroupOwner) SetLastUpdated(v time.Time) {
 	o.LastUpdated = &v
 }
 
 // GetOriginId returns the OriginId field value if set, zero value otherwise.
 func (o *GroupOwner) GetOriginId() string {
-	if o == nil || o.OriginId == nil {
+	if o == nil || IsNil(o.OriginId) {
 		var ret string
 		return ret
 	}
@@ -173,7 +177,7 @@ func (o *GroupOwner) GetOriginId() string {
 // GetOriginIdOk returns a tuple with the OriginId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupOwner) GetOriginIdOk() (*string, bool) {
-	if o == nil || o.OriginId == nil {
+	if o == nil || IsNil(o.OriginId) {
 		return nil, false
 	}
 	return o.OriginId, true
@@ -181,7 +185,7 @@ func (o *GroupOwner) GetOriginIdOk() (*string, bool) {
 
 // HasOriginId returns a boolean if a field has been set.
 func (o *GroupOwner) HasOriginId() bool {
-	if o != nil && o.OriginId != nil {
+	if o != nil && !IsNil(o.OriginId) {
 		return true
 	}
 
@@ -195,7 +199,7 @@ func (o *GroupOwner) SetOriginId(v string) {
 
 // GetOriginType returns the OriginType field value if set, zero value otherwise.
 func (o *GroupOwner) GetOriginType() string {
-	if o == nil || o.OriginType == nil {
+	if o == nil || IsNil(o.OriginType) {
 		var ret string
 		return ret
 	}
@@ -205,7 +209,7 @@ func (o *GroupOwner) GetOriginType() string {
 // GetOriginTypeOk returns a tuple with the OriginType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupOwner) GetOriginTypeOk() (*string, bool) {
-	if o == nil || o.OriginType == nil {
+	if o == nil || IsNil(o.OriginType) {
 		return nil, false
 	}
 	return o.OriginType, true
@@ -213,7 +217,7 @@ func (o *GroupOwner) GetOriginTypeOk() (*string, bool) {
 
 // HasOriginType returns a boolean if a field has been set.
 func (o *GroupOwner) HasOriginType() bool {
-	if o != nil && o.OriginType != nil {
+	if o != nil && !IsNil(o.OriginType) {
 		return true
 	}
 
@@ -227,7 +231,7 @@ func (o *GroupOwner) SetOriginType(v string) {
 
 // GetResolved returns the Resolved field value if set, zero value otherwise.
 func (o *GroupOwner) GetResolved() bool {
-	if o == nil || o.Resolved == nil {
+	if o == nil || IsNil(o.Resolved) {
 		var ret bool
 		return ret
 	}
@@ -237,7 +241,7 @@ func (o *GroupOwner) GetResolved() bool {
 // GetResolvedOk returns a tuple with the Resolved field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupOwner) GetResolvedOk() (*bool, bool) {
-	if o == nil || o.Resolved == nil {
+	if o == nil || IsNil(o.Resolved) {
 		return nil, false
 	}
 	return o.Resolved, true
@@ -245,7 +249,7 @@ func (o *GroupOwner) GetResolvedOk() (*bool, bool) {
 
 // HasResolved returns a boolean if a field has been set.
 func (o *GroupOwner) HasResolved() bool {
-	if o != nil && o.Resolved != nil {
+	if o != nil && !IsNil(o.Resolved) {
 		return true
 	}
 
@@ -259,7 +263,7 @@ func (o *GroupOwner) SetResolved(v bool) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *GroupOwner) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -269,7 +273,7 @@ func (o *GroupOwner) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupOwner) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -277,7 +281,7 @@ func (o *GroupOwner) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *GroupOwner) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -290,26 +294,34 @@ func (o *GroupOwner) SetType(v string) {
 }
 
 func (o GroupOwner) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o GroupOwner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.DisplayName != nil {
+	if !IsNil(o.DisplayName) {
 		toSerialize["displayName"] = o.DisplayName
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.OriginId != nil {
+	if !IsNil(o.OriginId) {
 		toSerialize["originId"] = o.OriginId
 	}
-	if o.OriginType != nil {
+	if !IsNil(o.OriginType) {
 		toSerialize["originType"] = o.OriginType
 	}
-	if o.Resolved != nil {
+	if !IsNil(o.Resolved) {
 		toSerialize["resolved"] = o.Resolved
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -317,23 +329,23 @@ func (o GroupOwner) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *GroupOwner) UnmarshalJSON(bytes []byte) (err error) {
+func (o *GroupOwner) UnmarshalJSON(data []byte) (err error) {
 	varGroupOwner := _GroupOwner{}
 
-	err = json.Unmarshal(bytes, &varGroupOwner)
-	if err == nil {
-		*o = GroupOwner(varGroupOwner)
-	} else {
+	err = json.Unmarshal(data, &varGroupOwner)
+
+	if err != nil {
 		return err
 	}
 
+	*o = GroupOwner(varGroupOwner)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "displayName")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "lastUpdated")
@@ -342,8 +354,6 @@ func (o *GroupOwner) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "resolved")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -384,4 +394,3 @@ func (v *NullableGroupOwner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

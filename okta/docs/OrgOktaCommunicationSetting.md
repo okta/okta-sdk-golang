@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**OptOutEmailUsers** | Pointer to **bool** |  | [optional] [readonly] 
-**Links** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
+**OptOutEmailUsers** | Pointer to **bool** | Indicates whether org users receive Okta communication emails | [optional] [readonly] 
+**Links** | Pointer to [**OrgOktaCommunicationSettingLinks**](OrgOktaCommunicationSettingLinks.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasOptOutEmailUsers returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *OrgOktaCommunicationSetting) GetLinks() LinksSelf`
+`func (o *OrgOktaCommunicationSetting) GetLinks() OrgOktaCommunicationSettingLinks`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *OrgOktaCommunicationSetting) GetLinksOk() (*LinksSelf, bool)`
+`func (o *OrgOktaCommunicationSetting) GetLinksOk() (*OrgOktaCommunicationSettingLinks, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *OrgOktaCommunicationSetting) SetLinks(v LinksSelf)`
+`func (o *OrgOktaCommunicationSetting) SetLinks(v OrgOktaCommunicationSettingLinks)`
 
 SetLinks sets Links field to given value.
 

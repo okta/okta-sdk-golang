@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**IOS** | Pointer to **bool** |  | [optional] 
-**Web** | Pointer to **bool** |  | [optional] 
+**IOS** | Pointer to **bool** | Okta Mobile for iOS or Android (pre-dates Android) | [optional] [default to false]
+**Web** | Pointer to **bool** | Okta End-User Dashboard on a web browser | [optional] [default to false]
 
 ## Methods
 

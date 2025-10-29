@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserActivationToken type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserActivationToken{}
+
 // UserActivationToken struct for UserActivationToken
 type UserActivationToken struct {
+	// Token received as part of an activation user request. If a password was set before the user was activated, then user must sign in with their password or the `activationToken` and not the activation link. More information about using the `activationToken` to login can be found in the [Authentication API](https://developer.okta.com/docs/reference/api/authn/#primary-authentication-with-activation-token).
 	ActivationToken *string `json:"activationToken,omitempty"`
-	ActivationUrl *string `json:"activationUrl,omitempty"`
+	// If `sendEmail` is `false`, returns an activation link for the user to set up their account. The activation token can be used to create a custom activation link.
+	ActivationUrl        *string `json:"activationUrl,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +60,7 @@ func NewUserActivationTokenWithDefaults() *UserActivationToken {
 
 // GetActivationToken returns the ActivationToken field value if set, zero value otherwise.
 func (o *UserActivationToken) GetActivationToken() string {
-	if o == nil || o.ActivationToken == nil {
+	if o == nil || IsNil(o.ActivationToken) {
 		var ret string
 		return ret
 	}
@@ -65,7 +70,7 @@ func (o *UserActivationToken) GetActivationToken() string {
 // GetActivationTokenOk returns a tuple with the ActivationToken field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserActivationToken) GetActivationTokenOk() (*string, bool) {
-	if o == nil || o.ActivationToken == nil {
+	if o == nil || IsNil(o.ActivationToken) {
 		return nil, false
 	}
 	return o.ActivationToken, true
@@ -73,7 +78,7 @@ func (o *UserActivationToken) GetActivationTokenOk() (*string, bool) {
 
 // HasActivationToken returns a boolean if a field has been set.
 func (o *UserActivationToken) HasActivationToken() bool {
-	if o != nil && o.ActivationToken != nil {
+	if o != nil && !IsNil(o.ActivationToken) {
 		return true
 	}
 
@@ -87,7 +92,7 @@ func (o *UserActivationToken) SetActivationToken(v string) {
 
 // GetActivationUrl returns the ActivationUrl field value if set, zero value otherwise.
 func (o *UserActivationToken) GetActivationUrl() string {
-	if o == nil || o.ActivationUrl == nil {
+	if o == nil || IsNil(o.ActivationUrl) {
 		var ret string
 		return ret
 	}
@@ -97,7 +102,7 @@ func (o *UserActivationToken) GetActivationUrl() string {
 // GetActivationUrlOk returns a tuple with the ActivationUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserActivationToken) GetActivationUrlOk() (*string, bool) {
-	if o == nil || o.ActivationUrl == nil {
+	if o == nil || IsNil(o.ActivationUrl) {
 		return nil, false
 	}
 	return o.ActivationUrl, true
@@ -105,7 +110,7 @@ func (o *UserActivationToken) GetActivationUrlOk() (*string, bool) {
 
 // HasActivationUrl returns a boolean if a field has been set.
 func (o *UserActivationToken) HasActivationUrl() bool {
-	if o != nil && o.ActivationUrl != nil {
+	if o != nil && !IsNil(o.ActivationUrl) {
 		return true
 	}
 
@@ -118,11 +123,19 @@ func (o *UserActivationToken) SetActivationUrl(v string) {
 }
 
 func (o UserActivationToken) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserActivationToken) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ActivationToken != nil {
+	if !IsNil(o.ActivationToken) {
 		toSerialize["activationToken"] = o.ActivationToken
 	}
-	if o.ActivationUrl != nil {
+	if !IsNil(o.ActivationUrl) {
 		toSerialize["activationUrl"] = o.ActivationUrl
 	}
 
@@ -130,28 +143,26 @@ func (o UserActivationToken) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserActivationToken) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserActivationToken) UnmarshalJSON(data []byte) (err error) {
 	varUserActivationToken := _UserActivationToken{}
 
-	err = json.Unmarshal(bytes, &varUserActivationToken)
-	if err == nil {
-		*o = UserActivationToken(varUserActivationToken)
-	} else {
+	err = json.Unmarshal(data, &varUserActivationToken)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserActivationToken(varUserActivationToken)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "activationToken")
 		delete(additionalProperties, "activationUrl")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +203,3 @@ func (v *NullableUserActivationToken) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

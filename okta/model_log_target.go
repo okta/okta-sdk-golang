@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
-// LogTarget The entity that an actor performs an action on. Targets can be anything, such as an app user, a sign-in token, or anything else.
+// checks if the LogTarget type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LogTarget{}
+
+// LogTarget struct for LogTarget
 type LogTarget struct {
 	// The alternate ID of the target
-	AlternateId *string `json:"alternateId,omitempty"`
+	AlternateId   *string                 `json:"alternateId,omitempty"`
 	ChangeDetails *LogTargetChangeDetails `json:"changeDetails,omitempty"`
 	// Further details on the target
 	DetailEntry map[string]interface{} `json:"detailEntry,omitempty"`
@@ -39,7 +42,7 @@ type LogTarget struct {
 	// The ID of the target
 	Id *string `json:"id,omitempty"`
 	// The type of target
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -64,7 +67,7 @@ func NewLogTargetWithDefaults() *LogTarget {
 
 // GetAlternateId returns the AlternateId field value if set, zero value otherwise.
 func (o *LogTarget) GetAlternateId() string {
-	if o == nil || o.AlternateId == nil {
+	if o == nil || IsNil(o.AlternateId) {
 		var ret string
 		return ret
 	}
@@ -74,7 +77,7 @@ func (o *LogTarget) GetAlternateId() string {
 // GetAlternateIdOk returns a tuple with the AlternateId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogTarget) GetAlternateIdOk() (*string, bool) {
-	if o == nil || o.AlternateId == nil {
+	if o == nil || IsNil(o.AlternateId) {
 		return nil, false
 	}
 	return o.AlternateId, true
@@ -82,7 +85,7 @@ func (o *LogTarget) GetAlternateIdOk() (*string, bool) {
 
 // HasAlternateId returns a boolean if a field has been set.
 func (o *LogTarget) HasAlternateId() bool {
-	if o != nil && o.AlternateId != nil {
+	if o != nil && !IsNil(o.AlternateId) {
 		return true
 	}
 
@@ -96,7 +99,7 @@ func (o *LogTarget) SetAlternateId(v string) {
 
 // GetChangeDetails returns the ChangeDetails field value if set, zero value otherwise.
 func (o *LogTarget) GetChangeDetails() LogTargetChangeDetails {
-	if o == nil || o.ChangeDetails == nil {
+	if o == nil || IsNil(o.ChangeDetails) {
 		var ret LogTargetChangeDetails
 		return ret
 	}
@@ -106,7 +109,7 @@ func (o *LogTarget) GetChangeDetails() LogTargetChangeDetails {
 // GetChangeDetailsOk returns a tuple with the ChangeDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogTarget) GetChangeDetailsOk() (*LogTargetChangeDetails, bool) {
-	if o == nil || o.ChangeDetails == nil {
+	if o == nil || IsNil(o.ChangeDetails) {
 		return nil, false
 	}
 	return o.ChangeDetails, true
@@ -114,7 +117,7 @@ func (o *LogTarget) GetChangeDetailsOk() (*LogTargetChangeDetails, bool) {
 
 // HasChangeDetails returns a boolean if a field has been set.
 func (o *LogTarget) HasChangeDetails() bool {
-	if o != nil && o.ChangeDetails != nil {
+	if o != nil && !IsNil(o.ChangeDetails) {
 		return true
 	}
 
@@ -128,7 +131,7 @@ func (o *LogTarget) SetChangeDetails(v LogTargetChangeDetails) {
 
 // GetDetailEntry returns the DetailEntry field value if set, zero value otherwise.
 func (o *LogTarget) GetDetailEntry() map[string]interface{} {
-	if o == nil || o.DetailEntry == nil {
+	if o == nil || IsNil(o.DetailEntry) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -138,15 +141,15 @@ func (o *LogTarget) GetDetailEntry() map[string]interface{} {
 // GetDetailEntryOk returns a tuple with the DetailEntry field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogTarget) GetDetailEntryOk() (map[string]interface{}, bool) {
-	if o == nil || o.DetailEntry == nil {
-		return nil, false
+	if o == nil || IsNil(o.DetailEntry) {
+		return map[string]interface{}{}, false
 	}
 	return o.DetailEntry, true
 }
 
 // HasDetailEntry returns a boolean if a field has been set.
 func (o *LogTarget) HasDetailEntry() bool {
-	if o != nil && o.DetailEntry != nil {
+	if o != nil && !IsNil(o.DetailEntry) {
 		return true
 	}
 
@@ -160,7 +163,7 @@ func (o *LogTarget) SetDetailEntry(v map[string]interface{}) {
 
 // GetDisplayName returns the DisplayName field value if set, zero value otherwise.
 func (o *LogTarget) GetDisplayName() string {
-	if o == nil || o.DisplayName == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		var ret string
 		return ret
 	}
@@ -170,7 +173,7 @@ func (o *LogTarget) GetDisplayName() string {
 // GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogTarget) GetDisplayNameOk() (*string, bool) {
-	if o == nil || o.DisplayName == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		return nil, false
 	}
 	return o.DisplayName, true
@@ -178,7 +181,7 @@ func (o *LogTarget) GetDisplayNameOk() (*string, bool) {
 
 // HasDisplayName returns a boolean if a field has been set.
 func (o *LogTarget) HasDisplayName() bool {
-	if o != nil && o.DisplayName != nil {
+	if o != nil && !IsNil(o.DisplayName) {
 		return true
 	}
 
@@ -192,7 +195,7 @@ func (o *LogTarget) SetDisplayName(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *LogTarget) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -202,7 +205,7 @@ func (o *LogTarget) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogTarget) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -210,7 +213,7 @@ func (o *LogTarget) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *LogTarget) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -224,7 +227,7 @@ func (o *LogTarget) SetId(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *LogTarget) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -234,7 +237,7 @@ func (o *LogTarget) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogTarget) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -242,7 +245,7 @@ func (o *LogTarget) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *LogTarget) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -255,23 +258,31 @@ func (o *LogTarget) SetType(v string) {
 }
 
 func (o LogTarget) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LogTarget) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AlternateId != nil {
+	if !IsNil(o.AlternateId) {
 		toSerialize["alternateId"] = o.AlternateId
 	}
-	if o.ChangeDetails != nil {
+	if !IsNil(o.ChangeDetails) {
 		toSerialize["changeDetails"] = o.ChangeDetails
 	}
-	if o.DetailEntry != nil {
+	if !IsNil(o.DetailEntry) {
 		toSerialize["detailEntry"] = o.DetailEntry
 	}
-	if o.DisplayName != nil {
+	if !IsNil(o.DisplayName) {
 		toSerialize["displayName"] = o.DisplayName
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -279,23 +290,23 @@ func (o LogTarget) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LogTarget) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LogTarget) UnmarshalJSON(data []byte) (err error) {
 	varLogTarget := _LogTarget{}
 
-	err = json.Unmarshal(bytes, &varLogTarget)
-	if err == nil {
-		*o = LogTarget(varLogTarget)
-	} else {
+	err = json.Unmarshal(data, &varLogTarget)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LogTarget(varLogTarget)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "alternateId")
 		delete(additionalProperties, "changeDetails")
 		delete(additionalProperties, "detailEntry")
@@ -303,8 +314,6 @@ func (o *LogTarget) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -345,4 +354,3 @@ func (v *NullableLogTarget) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

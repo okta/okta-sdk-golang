@@ -4,11 +4,11 @@ All URIs are relative to *https://subdomain.okta.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateOAuth2Claim**](AuthorizationServerClaimsAPI.md#CreateOAuth2Claim) | **Post** /api/v1/authorizationServers/{authServerId}/claims | Create a custom token Claim
-[**DeleteOAuth2Claim**](AuthorizationServerClaimsAPI.md#DeleteOAuth2Claim) | **Delete** /api/v1/authorizationServers/{authServerId}/claims/{claimId} | Delete a custom token Claim
-[**GetOAuth2Claim**](AuthorizationServerClaimsAPI.md#GetOAuth2Claim) | **Get** /api/v1/authorizationServers/{authServerId}/claims/{claimId} | Retrieve a custom token Claim
-[**ListOAuth2Claims**](AuthorizationServerClaimsAPI.md#ListOAuth2Claims) | **Get** /api/v1/authorizationServers/{authServerId}/claims | List all custom token Claims
-[**ReplaceOAuth2Claim**](AuthorizationServerClaimsAPI.md#ReplaceOAuth2Claim) | **Put** /api/v1/authorizationServers/{authServerId}/claims/{claimId} | Replace a custom token Claim
+[**CreateOAuth2Claim**](AuthorizationServerClaimsAPI.md#CreateOAuth2Claim) | **Post** /api/v1/authorizationServers/{authServerId}/claims | Create a custom token claim
+[**DeleteOAuth2Claim**](AuthorizationServerClaimsAPI.md#DeleteOAuth2Claim) | **Delete** /api/v1/authorizationServers/{authServerId}/claims/{claimId} | Delete a custom token claim
+[**GetOAuth2Claim**](AuthorizationServerClaimsAPI.md#GetOAuth2Claim) | **Get** /api/v1/authorizationServers/{authServerId}/claims/{claimId} | Retrieve a custom token claim
+[**ListOAuth2Claims**](AuthorizationServerClaimsAPI.md#ListOAuth2Claims) | **Get** /api/v1/authorizationServers/{authServerId}/claims | List all custom token claims
+[**ReplaceOAuth2Claim**](AuthorizationServerClaimsAPI.md#ReplaceOAuth2Claim) | **Put** /api/v1/authorizationServers/{authServerId}/claims/{claimId} | Replace a custom token claim
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > OAuth2Claim CreateOAuth2Claim(ctx, authServerId).OAuth2Claim(oAuth2Claim).Execute()
 
-Create a custom token Claim
+Create a custom token claim
 
 
 
@@ -26,25 +26,25 @@ Create a custom token Claim
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-    oAuth2Claim := *openapiclient.NewOAuth2Claim() // OAuth2Claim | 
+	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+	oAuth2Claim := *openapiclient.NewOAuth2Claim() // OAuth2Claim | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthorizationServerClaimsAPI.CreateOAuth2Claim(context.Background(), authServerId).OAuth2Claim(oAuth2Claim).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerClaimsAPI.CreateOAuth2Claim``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateOAuth2Claim`: OAuth2Claim
-    fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerClaimsAPI.CreateOAuth2Claim`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthorizationServerClaimsAPI.CreateOAuth2Claim(context.Background(), authServerId).OAuth2Claim(oAuth2Claim).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerClaimsAPI.CreateOAuth2Claim``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateOAuth2Claim`: OAuth2Claim
+	fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerClaimsAPI.CreateOAuth2Claim`: %v\n", resp)
 }
 ```
 
@@ -88,7 +88,7 @@ Name | Type | Description  | Notes
 
 > DeleteOAuth2Claim(ctx, authServerId, claimId).Execute()
 
-Delete a custom token Claim
+Delete a custom token claim
 
 
 
@@ -98,23 +98,23 @@ Delete a custom token Claim
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-    claimId := "hNJ3Uk76xLagWkGx5W3N" // string | `id` of Claim
+	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+	claimId := "hNJ3Uk76xLagWkGx5W3N" // string | `id` of Claim
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.AuthorizationServerClaimsAPI.DeleteOAuth2Claim(context.Background(), authServerId, claimId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerClaimsAPI.DeleteOAuth2Claim``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AuthorizationServerClaimsAPI.DeleteOAuth2Claim(context.Background(), authServerId, claimId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerClaimsAPI.DeleteOAuth2Claim``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -159,7 +159,7 @@ Name | Type | Description  | Notes
 
 > OAuth2Claim GetOAuth2Claim(ctx, authServerId, claimId).Execute()
 
-Retrieve a custom token Claim
+Retrieve a custom token claim
 
 
 
@@ -169,25 +169,25 @@ Retrieve a custom token Claim
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-    claimId := "hNJ3Uk76xLagWkGx5W3N" // string | `id` of Claim
+	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+	claimId := "hNJ3Uk76xLagWkGx5W3N" // string | `id` of Claim
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthorizationServerClaimsAPI.GetOAuth2Claim(context.Background(), authServerId, claimId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerClaimsAPI.GetOAuth2Claim``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetOAuth2Claim`: OAuth2Claim
-    fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerClaimsAPI.GetOAuth2Claim`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthorizationServerClaimsAPI.GetOAuth2Claim(context.Background(), authServerId, claimId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerClaimsAPI.GetOAuth2Claim``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetOAuth2Claim`: OAuth2Claim
+	fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerClaimsAPI.GetOAuth2Claim`: %v\n", resp)
 }
 ```
 
@@ -232,7 +232,7 @@ Name | Type | Description  | Notes
 
 > []OAuth2Claim ListOAuth2Claims(ctx, authServerId).Execute()
 
-List all custom token Claims
+List all custom token claims
 
 
 
@@ -242,24 +242,24 @@ List all custom token Claims
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthorizationServerClaimsAPI.ListOAuth2Claims(context.Background(), authServerId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerClaimsAPI.ListOAuth2Claims``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListOAuth2Claims`: []OAuth2Claim
-    fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerClaimsAPI.ListOAuth2Claims`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthorizationServerClaimsAPI.ListOAuth2Claims(context.Background(), authServerId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerClaimsAPI.ListOAuth2Claims``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListOAuth2Claims`: []OAuth2Claim
+	fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerClaimsAPI.ListOAuth2Claims`: %v\n", resp)
 }
 ```
 
@@ -302,7 +302,7 @@ Name | Type | Description  | Notes
 
 > OAuth2Claim ReplaceOAuth2Claim(ctx, authServerId, claimId).OAuth2Claim(oAuth2Claim).Execute()
 
-Replace a custom token Claim
+Replace a custom token claim
 
 
 
@@ -312,26 +312,26 @@ Replace a custom token Claim
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-    claimId := "hNJ3Uk76xLagWkGx5W3N" // string | `id` of Claim
-    oAuth2Claim := *openapiclient.NewOAuth2Claim() // OAuth2Claim | 
+	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+	claimId := "hNJ3Uk76xLagWkGx5W3N" // string | `id` of Claim
+	oAuth2Claim := *openapiclient.NewOAuth2Claim() // OAuth2Claim | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthorizationServerClaimsAPI.ReplaceOAuth2Claim(context.Background(), authServerId, claimId).OAuth2Claim(oAuth2Claim).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerClaimsAPI.ReplaceOAuth2Claim``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceOAuth2Claim`: OAuth2Claim
-    fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerClaimsAPI.ReplaceOAuth2Claim`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthorizationServerClaimsAPI.ReplaceOAuth2Claim(context.Background(), authServerId, claimId).OAuth2Claim(oAuth2Claim).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerClaimsAPI.ReplaceOAuth2Claim``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceOAuth2Claim`: OAuth2Claim
+	fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerClaimsAPI.ReplaceOAuth2Claim`: %v\n", resp)
 }
 ```
 

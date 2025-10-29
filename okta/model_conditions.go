@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,14 @@ import (
 	"encoding/json"
 )
 
-// Conditions struct for Conditions
+// checks if the Conditions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Conditions{}
+
+// Conditions Conditions of applying realm assignment
 type Conditions struct {
 	Expression *Expression `json:"expression,omitempty"`
-	ProfileSourceId *string `json:"profileSourceId,omitempty"`
+	// ID of the profile source
+	ProfileSourceId      *string `json:"profileSourceId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +59,7 @@ func NewConditionsWithDefaults() *Conditions {
 
 // GetExpression returns the Expression field value if set, zero value otherwise.
 func (o *Conditions) GetExpression() Expression {
-	if o == nil || o.Expression == nil {
+	if o == nil || IsNil(o.Expression) {
 		var ret Expression
 		return ret
 	}
@@ -65,7 +69,7 @@ func (o *Conditions) GetExpression() Expression {
 // GetExpressionOk returns a tuple with the Expression field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Conditions) GetExpressionOk() (*Expression, bool) {
-	if o == nil || o.Expression == nil {
+	if o == nil || IsNil(o.Expression) {
 		return nil, false
 	}
 	return o.Expression, true
@@ -73,7 +77,7 @@ func (o *Conditions) GetExpressionOk() (*Expression, bool) {
 
 // HasExpression returns a boolean if a field has been set.
 func (o *Conditions) HasExpression() bool {
-	if o != nil && o.Expression != nil {
+	if o != nil && !IsNil(o.Expression) {
 		return true
 	}
 
@@ -87,7 +91,7 @@ func (o *Conditions) SetExpression(v Expression) {
 
 // GetProfileSourceId returns the ProfileSourceId field value if set, zero value otherwise.
 func (o *Conditions) GetProfileSourceId() string {
-	if o == nil || o.ProfileSourceId == nil {
+	if o == nil || IsNil(o.ProfileSourceId) {
 		var ret string
 		return ret
 	}
@@ -97,7 +101,7 @@ func (o *Conditions) GetProfileSourceId() string {
 // GetProfileSourceIdOk returns a tuple with the ProfileSourceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Conditions) GetProfileSourceIdOk() (*string, bool) {
-	if o == nil || o.ProfileSourceId == nil {
+	if o == nil || IsNil(o.ProfileSourceId) {
 		return nil, false
 	}
 	return o.ProfileSourceId, true
@@ -105,7 +109,7 @@ func (o *Conditions) GetProfileSourceIdOk() (*string, bool) {
 
 // HasProfileSourceId returns a boolean if a field has been set.
 func (o *Conditions) HasProfileSourceId() bool {
-	if o != nil && o.ProfileSourceId != nil {
+	if o != nil && !IsNil(o.ProfileSourceId) {
 		return true
 	}
 
@@ -118,11 +122,19 @@ func (o *Conditions) SetProfileSourceId(v string) {
 }
 
 func (o Conditions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Conditions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Expression != nil {
+	if !IsNil(o.Expression) {
 		toSerialize["expression"] = o.Expression
 	}
-	if o.ProfileSourceId != nil {
+	if !IsNil(o.ProfileSourceId) {
 		toSerialize["profileSourceId"] = o.ProfileSourceId
 	}
 
@@ -130,28 +142,26 @@ func (o Conditions) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Conditions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *Conditions) UnmarshalJSON(data []byte) (err error) {
 	varConditions := _Conditions{}
 
-	err = json.Unmarshal(bytes, &varConditions)
-	if err == nil {
-		*o = Conditions(varConditions)
-	} else {
+	err = json.Unmarshal(data, &varConditions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = Conditions(varConditions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "expression")
 		delete(additionalProperties, "profileSourceId")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +202,3 @@ func (v *NullableConditions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

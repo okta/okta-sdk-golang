@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**City** | Pointer to **string** |  | [optional] [readonly] 
-**Country** | Pointer to **string** |  | [optional] [readonly] 
+**City** | Pointer to **string** | The city that encompasses the area that contains the geolocation coordinates, if available (for example, Seattle, San Francisco) | [optional] [readonly] 
+**Country** | Pointer to **string** | Full name of the country that encompasses the area that contains the geolocation coordinates (for example, France, Uganda) | [optional] [readonly] 
 **Geolocation** | Pointer to [**LogGeolocation**](LogGeolocation.md) |  | [optional] 
-**PostalCode** | Pointer to **string** |  | [optional] [readonly] 
-**State** | Pointer to **string** |  | [optional] [readonly] 
+**PostalCode** | Pointer to **string** | Postal code of the area that encompasses the geolocation coordinates | [optional] [readonly] 
+**State** | Pointer to **string** | Full name of the state or province that encompasses the area that contains the geolocation coordinates (for example, Montana, Ontario) | [optional] [readonly] 
 
 ## Methods
 

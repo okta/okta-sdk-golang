@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the LinksPoll type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LinksPoll{}
+
 // LinksPoll struct for LinksPoll
 type LinksPoll struct {
-	Poll *LinksPollPoll `json:"poll,omitempty"`
+	// Polls the factor resource for status information. Always use the `poll` link instead of manually constructing your own URL.
+	Poll                 *HrefObject `json:"poll,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -53,9 +57,9 @@ func NewLinksPollWithDefaults() *LinksPoll {
 }
 
 // GetPoll returns the Poll field value if set, zero value otherwise.
-func (o *LinksPoll) GetPoll() LinksPollPoll {
-	if o == nil || o.Poll == nil {
-		var ret LinksPollPoll
+func (o *LinksPoll) GetPoll() HrefObject {
+	if o == nil || IsNil(o.Poll) {
+		var ret HrefObject
 		return ret
 	}
 	return *o.Poll
@@ -63,8 +67,8 @@ func (o *LinksPoll) GetPoll() LinksPollPoll {
 
 // GetPollOk returns a tuple with the Poll field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LinksPoll) GetPollOk() (*LinksPollPoll, bool) {
-	if o == nil || o.Poll == nil {
+func (o *LinksPoll) GetPollOk() (*HrefObject, bool) {
+	if o == nil || IsNil(o.Poll) {
 		return nil, false
 	}
 	return o.Poll, true
@@ -72,21 +76,29 @@ func (o *LinksPoll) GetPollOk() (*LinksPollPoll, bool) {
 
 // HasPoll returns a boolean if a field has been set.
 func (o *LinksPoll) HasPoll() bool {
-	if o != nil && o.Poll != nil {
+	if o != nil && !IsNil(o.Poll) {
 		return true
 	}
 
 	return false
 }
 
-// SetPoll gets a reference to the given LinksPollPoll and assigns it to the Poll field.
-func (o *LinksPoll) SetPoll(v LinksPollPoll) {
+// SetPoll gets a reference to the given HrefObject and assigns it to the Poll field.
+func (o *LinksPoll) SetPoll(v HrefObject) {
 	o.Poll = &v
 }
 
 func (o LinksPoll) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LinksPoll) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Poll != nil {
+	if !IsNil(o.Poll) {
 		toSerialize["poll"] = o.Poll
 	}
 
@@ -94,27 +106,25 @@ func (o LinksPoll) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LinksPoll) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LinksPoll) UnmarshalJSON(data []byte) (err error) {
 	varLinksPoll := _LinksPoll{}
 
-	err = json.Unmarshal(bytes, &varLinksPoll)
-	if err == nil {
-		*o = LinksPoll(varLinksPoll)
-	} else {
+	err = json.Unmarshal(data, &varLinksPoll)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LinksPoll(varLinksPoll)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "poll")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +165,3 @@ func (v *NullableLinksPoll) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

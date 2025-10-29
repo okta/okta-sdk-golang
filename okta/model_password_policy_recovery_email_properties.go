@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the PasswordPolicyRecoveryEmailProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordPolicyRecoveryEmailProperties{}
+
 // PasswordPolicyRecoveryEmailProperties struct for PasswordPolicyRecoveryEmailProperties
 type PasswordPolicyRecoveryEmailProperties struct {
-	RecoveryToken *PasswordPolicyRecoveryEmailRecoveryToken `json:"recoveryToken,omitempty"`
+	RecoveryToken        *PasswordPolicyRecoveryEmailRecoveryToken `json:"recoveryToken,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewPasswordPolicyRecoveryEmailPropertiesWithDefaults() *PasswordPolicyRecov
 
 // GetRecoveryToken returns the RecoveryToken field value if set, zero value otherwise.
 func (o *PasswordPolicyRecoveryEmailProperties) GetRecoveryToken() PasswordPolicyRecoveryEmailRecoveryToken {
-	if o == nil || o.RecoveryToken == nil {
+	if o == nil || IsNil(o.RecoveryToken) {
 		var ret PasswordPolicyRecoveryEmailRecoveryToken
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *PasswordPolicyRecoveryEmailProperties) GetRecoveryToken() PasswordPolic
 // GetRecoveryTokenOk returns a tuple with the RecoveryToken field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyRecoveryEmailProperties) GetRecoveryTokenOk() (*PasswordPolicyRecoveryEmailRecoveryToken, bool) {
-	if o == nil || o.RecoveryToken == nil {
+	if o == nil || IsNil(o.RecoveryToken) {
 		return nil, false
 	}
 	return o.RecoveryToken, true
@@ -72,7 +75,7 @@ func (o *PasswordPolicyRecoveryEmailProperties) GetRecoveryTokenOk() (*PasswordP
 
 // HasRecoveryToken returns a boolean if a field has been set.
 func (o *PasswordPolicyRecoveryEmailProperties) HasRecoveryToken() bool {
-	if o != nil && o.RecoveryToken != nil {
+	if o != nil && !IsNil(o.RecoveryToken) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *PasswordPolicyRecoveryEmailProperties) SetRecoveryToken(v PasswordPolic
 }
 
 func (o PasswordPolicyRecoveryEmailProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordPolicyRecoveryEmailProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.RecoveryToken != nil {
+	if !IsNil(o.RecoveryToken) {
 		toSerialize["recoveryToken"] = o.RecoveryToken
 	}
 
@@ -94,27 +105,25 @@ func (o PasswordPolicyRecoveryEmailProperties) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordPolicyRecoveryEmailProperties) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordPolicyRecoveryEmailProperties) UnmarshalJSON(data []byte) (err error) {
 	varPasswordPolicyRecoveryEmailProperties := _PasswordPolicyRecoveryEmailProperties{}
 
-	err = json.Unmarshal(bytes, &varPasswordPolicyRecoveryEmailProperties)
-	if err == nil {
-		*o = PasswordPolicyRecoveryEmailProperties(varPasswordPolicyRecoveryEmailProperties)
-	} else {
+	err = json.Unmarshal(data, &varPasswordPolicyRecoveryEmailProperties)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PasswordPolicyRecoveryEmailProperties(varPasswordPolicyRecoveryEmailProperties)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "recoveryToken")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullablePasswordPolicyRecoveryEmailProperties) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

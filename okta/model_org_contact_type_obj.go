@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -25,136 +25,112 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the OrgContactTypeObj type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrgContactTypeObj{}
 
 // OrgContactTypeObj struct for OrgContactTypeObj
 type OrgContactTypeObj struct {
-	ContactType *string `json:"contactType,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
-	AdditionalProperties map[string]interface{}
+	OrgBillingContactType   *OrgBillingContactType
+	OrgTechnicalContactType *OrgTechnicalContactType
 }
 
-type _OrgContactTypeObj OrgContactTypeObj
-
-// NewOrgContactTypeObj instantiates a new OrgContactTypeObj object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewOrgContactTypeObj() *OrgContactTypeObj {
-	this := OrgContactTypeObj{}
-	return &this
-}
-
-// NewOrgContactTypeObjWithDefaults instantiates a new OrgContactTypeObj object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewOrgContactTypeObjWithDefaults() *OrgContactTypeObj {
-	this := OrgContactTypeObj{}
-	return &this
-}
-
-// GetContactType returns the ContactType field value if set, zero value otherwise.
-func (o *OrgContactTypeObj) GetContactType() string {
-	if o == nil || o.ContactType == nil {
-		var ret string
-		return ret
-	}
-	return *o.ContactType
-}
-
-// GetContactTypeOk returns a tuple with the ContactType field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *OrgContactTypeObj) GetContactTypeOk() (*string, bool) {
-	if o == nil || o.ContactType == nil {
-		return nil, false
-	}
-	return o.ContactType, true
-}
-
-// HasContactType returns a boolean if a field has been set.
-func (o *OrgContactTypeObj) HasContactType() bool {
-	if o != nil && o.ContactType != nil {
-		return true
+// Unmarshal JSON data into any of the pointers in the struct
+func (dst *OrgContactTypeObj) UnmarshalJSON(data []byte) error {
+	var err error
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]interface{}
+	err = json.Unmarshal(data, &jsonDict)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	return false
-}
-
-// SetContactType gets a reference to the given string and assigns it to the ContactType field.
-func (o *OrgContactTypeObj) SetContactType(v string) {
-	o.ContactType = &v
-}
-
-// GetLinks returns the Links field value if set, zero value otherwise.
-func (o *OrgContactTypeObj) GetLinks() LinksSelf {
-	if o == nil || o.Links == nil {
-		var ret LinksSelf
-		return ret
-	}
-	return *o.Links
-}
-
-// GetLinksOk returns a tuple with the Links field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *OrgContactTypeObj) GetLinksOk() (*LinksSelf, bool) {
-	if o == nil || o.Links == nil {
-		return nil, false
-	}
-	return o.Links, true
-}
-
-// HasLinks returns a boolean if a field has been set.
-func (o *OrgContactTypeObj) HasLinks() bool {
-	if o != nil && o.Links != nil {
-		return true
+	// check if the discriminator value is 'BILLING'
+	if jsonDict["contactType"] == "BILLING" {
+		// try to unmarshal JSON data into OrgBillingContactType
+		err = json.Unmarshal(data, &dst.OrgBillingContactType)
+		if err == nil {
+			jsonOrgBillingContactType, _ := json.Marshal(dst.OrgBillingContactType)
+			if string(jsonOrgBillingContactType) == "{}" { // empty struct
+				dst.OrgBillingContactType = nil
+			} else {
+				return nil // data stored in dst.OrgBillingContactType, return on the first match
+			}
+		} else {
+			dst.OrgBillingContactType = nil
+		}
 	}
 
-	return false
-}
-
-// SetLinks gets a reference to the given LinksSelf and assigns it to the Links field.
-func (o *OrgContactTypeObj) SetLinks(v LinksSelf) {
-	o.Links = &v
-}
-
-func (o OrgContactTypeObj) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ContactType != nil {
-		toSerialize["contactType"] = o.ContactType
-	}
-	if o.Links != nil {
-		toSerialize["_links"] = o.Links
-	}
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
+	// check if the discriminator value is 'TECHNICAL'
+	if jsonDict["contactType"] == "TECHNICAL" {
+		// try to unmarshal JSON data into OrgTechnicalContactType
+		err = json.Unmarshal(data, &dst.OrgTechnicalContactType)
+		if err == nil {
+			jsonOrgTechnicalContactType, _ := json.Marshal(dst.OrgTechnicalContactType)
+			if string(jsonOrgTechnicalContactType) == "{}" { // empty struct
+				dst.OrgTechnicalContactType = nil
+			} else {
+				return nil // data stored in dst.OrgTechnicalContactType, return on the first match
+			}
+		} else {
+			dst.OrgTechnicalContactType = nil
+		}
 	}
 
-	return json.Marshal(toSerialize)
-}
-
-func (o *OrgContactTypeObj) UnmarshalJSON(bytes []byte) (err error) {
-	varOrgContactTypeObj := _OrgContactTypeObj{}
-
-	err = json.Unmarshal(bytes, &varOrgContactTypeObj)
+	// try to unmarshal JSON data into OrgBillingContactType
+	err = json.Unmarshal(data, &dst.OrgBillingContactType)
 	if err == nil {
-		*o = OrgContactTypeObj(varOrgContactTypeObj)
+		jsonOrgBillingContactType, _ := json.Marshal(dst.OrgBillingContactType)
+		if string(jsonOrgBillingContactType) == "{}" { // empty struct
+			dst.OrgBillingContactType = nil
+		} else {
+			return nil // data stored in dst.OrgBillingContactType, return on the first match
+		}
 	} else {
-		return err
+		dst.OrgBillingContactType = nil
 	}
 
-	additionalProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &additionalProperties)
+	// try to unmarshal JSON data into OrgTechnicalContactType
+	err = json.Unmarshal(data, &dst.OrgTechnicalContactType)
 	if err == nil {
-		delete(additionalProperties, "contactType")
-		delete(additionalProperties, "_links")
-		o.AdditionalProperties = additionalProperties
+		jsonOrgTechnicalContactType, _ := json.Marshal(dst.OrgTechnicalContactType)
+		if string(jsonOrgTechnicalContactType) == "{}" { // empty struct
+			dst.OrgTechnicalContactType = nil
+		} else {
+			return nil // data stored in dst.OrgTechnicalContactType, return on the first match
+		}
 	} else {
-		return err
+		dst.OrgTechnicalContactType = nil
 	}
 
-	return err
+	return fmt.Errorf("data failed to match schemas in anyOf(OrgContactTypeObj)")
+}
+
+// Marshal data from the first non-nil pointers in the struct to JSON
+func (src OrgContactTypeObj) MarshalJSON() ([]byte, error) {
+	if src.OrgBillingContactType != nil {
+		return json.Marshal(&src.OrgBillingContactType)
+	}
+
+	if src.OrgTechnicalContactType != nil {
+		return json.Marshal(&src.OrgTechnicalContactType)
+	}
+
+	return nil, nil // no data in anyOf schemas
+}
+
+func (src OrgContactTypeObj) ToMap() (map[string]interface{}, error) {
+	if src.OrgBillingContactType != nil {
+		return src.OrgBillingContactType.ToMap()
+	}
+
+	if src.OrgTechnicalContactType != nil {
+		return src.OrgTechnicalContactType.ToMap()
+	}
+
+	return nil, nil // no data in anyOf schemas
 }
 
 type NullableOrgContactTypeObj struct {
@@ -192,4 +168,3 @@ func (v *NullableOrgContactTypeObj) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

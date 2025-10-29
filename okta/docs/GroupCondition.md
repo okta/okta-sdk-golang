@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Exclude** | Pointer to **[]string** | Groups to be excluded | [optional] 
-**Include** | Pointer to **[]string** | Groups to be included | [optional] 
+**Exclude** | **[]string** | Groups to be excluded | 
+**Include** | **[]string** | Groups to be included | 
 
 ## Methods
 
 ### NewGroupCondition
 
-`func NewGroupCondition() *GroupCondition`
+`func NewGroupCondition(exclude []string, include []string, ) *GroupCondition`
 
 NewGroupCondition instantiates a new GroupCondition object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetExclude sets Exclude field to given value.
 
-### HasExclude
-
-`func (o *GroupCondition) HasExclude() bool`
-
-HasExclude returns a boolean if a field has been set.
 
 ### GetInclude
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetInclude sets Include field to given value.
 
-### HasInclude
-
-`func (o *GroupCondition) HasInclude() bool`
-
-HasInclude returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

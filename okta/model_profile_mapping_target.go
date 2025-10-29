@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ProfileMappingTarget type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ProfileMappingTarget{}
+
 // ProfileMappingTarget The parameter is the target of a profile mapping and is a valid [JSON Schema Draft 4](https://datatracker.ietf.org/doc/html/draft-zyp-json-schema-04) document with the following properties. The data type can be an app instance or an Okta object.   > **Note:** If the target is Okta and the UserTypes feature isn't enabled, then the target `_links` only has a link to the schema.
 type ProfileMappingTarget struct {
 	// Unique identifier for the application instance or UserType
@@ -34,8 +37,8 @@ type ProfileMappingTarget struct {
 	// Variable name of the application instance or name of the referenced userType
 	Name *string `json:"name,omitempty"`
 	// Type of user referenced in the mapping
-	Type *string `json:"type,omitempty"`
-	Links *SourceLinks `json:"_links,omitempty"`
+	Type                 *string      `json:"type,omitempty"`
+	Links                *SourceLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +63,7 @@ func NewProfileMappingTargetWithDefaults() *ProfileMappingTarget {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *ProfileMappingTarget) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *ProfileMappingTarget) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProfileMappingTarget) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -78,7 +81,7 @@ func (o *ProfileMappingTarget) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *ProfileMappingTarget) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -92,7 +95,7 @@ func (o *ProfileMappingTarget) SetId(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *ProfileMappingTarget) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *ProfileMappingTarget) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProfileMappingTarget) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -110,7 +113,7 @@ func (o *ProfileMappingTarget) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *ProfileMappingTarget) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -124,7 +127,7 @@ func (o *ProfileMappingTarget) SetName(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *ProfileMappingTarget) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -134,7 +137,7 @@ func (o *ProfileMappingTarget) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProfileMappingTarget) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -142,7 +145,7 @@ func (o *ProfileMappingTarget) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *ProfileMappingTarget) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -156,7 +159,7 @@ func (o *ProfileMappingTarget) SetType(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *ProfileMappingTarget) GetLinks() SourceLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret SourceLinks
 		return ret
 	}
@@ -166,7 +169,7 @@ func (o *ProfileMappingTarget) GetLinks() SourceLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProfileMappingTarget) GetLinksOk() (*SourceLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -174,7 +177,7 @@ func (o *ProfileMappingTarget) GetLinksOk() (*SourceLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *ProfileMappingTarget) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -187,17 +190,25 @@ func (o *ProfileMappingTarget) SetLinks(v SourceLinks) {
 }
 
 func (o ProfileMappingTarget) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ProfileMappingTarget) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -205,30 +216,28 @@ func (o ProfileMappingTarget) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ProfileMappingTarget) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ProfileMappingTarget) UnmarshalJSON(data []byte) (err error) {
 	varProfileMappingTarget := _ProfileMappingTarget{}
 
-	err = json.Unmarshal(bytes, &varProfileMappingTarget)
-	if err == nil {
-		*o = ProfileMappingTarget(varProfileMappingTarget)
-	} else {
+	err = json.Unmarshal(data, &varProfileMappingTarget)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ProfileMappingTarget(varProfileMappingTarget)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -269,4 +278,3 @@ func (v *NullableProfileMappingTarget) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

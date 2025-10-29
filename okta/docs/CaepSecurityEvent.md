@@ -8,13 +8,13 @@ Name | Type | Description | Notes
 **InitiatingEntity** | Pointer to **string** | The entity that initiated the event | [optional] 
 **ReasonAdmin** | Pointer to [**CaepDeviceComplianceChangeEventReasonAdmin**](CaepDeviceComplianceChangeEventReasonAdmin.md) |  | [optional] 
 **ReasonUser** | Pointer to [**CaepDeviceComplianceChangeEventReasonUser**](CaepDeviceComplianceChangeEventReasonUser.md) |  | [optional] 
-**Subjects** | [**SecurityEventSubject**](SecurityEventSubject.md) |  | 
+**Subject** | [**SecurityEventSubject**](SecurityEventSubject.md) |  | 
 
 ## Methods
 
 ### NewCaepSecurityEvent
 
-`func NewCaepSecurityEvent(eventTimestamp int64, subjects SecurityEventSubject, ) *CaepSecurityEvent`
+`func NewCaepSecurityEvent(eventTimestamp int64, subject SecurityEventSubject, ) *CaepSecurityEvent`
 
 NewCaepSecurityEvent instantiates a new CaepSecurityEvent object
 This constructor will assign default values to properties that have it defined,
@@ -124,24 +124,24 @@ SetReasonUser sets ReasonUser field to given value.
 
 HasReasonUser returns a boolean if a field has been set.
 
-### GetSubjects
+### GetSubject
 
-`func (o *CaepSecurityEvent) GetSubjects() SecurityEventSubject`
+`func (o *CaepSecurityEvent) GetSubject() SecurityEventSubject`
 
-GetSubjects returns the Subjects field if non-nil, zero value otherwise.
+GetSubject returns the Subject field if non-nil, zero value otherwise.
 
-### GetSubjectsOk
+### GetSubjectOk
 
-`func (o *CaepSecurityEvent) GetSubjectsOk() (*SecurityEventSubject, bool)`
+`func (o *CaepSecurityEvent) GetSubjectOk() (*SecurityEventSubject, bool)`
 
-GetSubjectsOk returns a tuple with the Subjects field if it's non-nil, zero value otherwise
+GetSubjectOk returns a tuple with the Subject field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetSubjects
+### SetSubject
 
-`func (o *CaepSecurityEvent) SetSubjects(v SecurityEventSubject)`
+`func (o *CaepSecurityEvent) SetSubject(v SecurityEventSubject)`
 
-SetSubjects sets Subjects field to given value.
+SetSubject sets Subject field to given value.
 
 
 

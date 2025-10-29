@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ExternalId** | Pointer to **string** |  | [optional] 
+**ExternalId** | Pointer to **string** | Unique IdP-specific identifier for a user | [optional] 
 
 ## Methods
 

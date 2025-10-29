@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Actions** | Pointer to [**EntityRiskPolicyRuleAllOfActions**](EntityRiskPolicyRuleAllOfActions.md) |  | [optional] 
-**Conditions** | Pointer to [**EntityRiskPolicyRuleAllOfConditions**](EntityRiskPolicyRuleAllOfConditions.md) |  | [optional] 
+**Conditions** | Pointer to [**EntityRiskPolicyRuleConditions**](EntityRiskPolicyRuleConditions.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasActions returns a boolean if a field has been set.
 
 ### GetConditions
 
-`func (o *EntityRiskPolicyRule) GetConditions() EntityRiskPolicyRuleAllOfConditions`
+`func (o *EntityRiskPolicyRule) GetConditions() EntityRiskPolicyRuleConditions`
 
 GetConditions returns the Conditions field if non-nil, zero value otherwise.
 
 ### GetConditionsOk
 
-`func (o *EntityRiskPolicyRule) GetConditionsOk() (*EntityRiskPolicyRuleAllOfConditions, bool)`
+`func (o *EntityRiskPolicyRule) GetConditionsOk() (*EntityRiskPolicyRuleConditions, bool)`
 
 GetConditionsOk returns a tuple with the Conditions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConditions
 
-`func (o *EntityRiskPolicyRule) SetConditions(v EntityRiskPolicyRuleAllOfConditions)`
+`func (o *EntityRiskPolicyRule) SetConditions(v EntityRiskPolicyRuleConditions)`
 
 SetConditions sets Conditions field to given value.
 

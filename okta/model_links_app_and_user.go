@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
-// LinksAppAndUser Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification. This object is used for dynamic discovery of resources related to the Application User.
+// checks if the LinksAppAndUser type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LinksAppAndUser{}
+
+// LinksAppAndUser Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification. This object is used for dynamic discovery of resources related to the application user.
 type LinksAppAndUser struct {
-	App *HrefObjectAppLink `json:"app,omitempty"`
-	Group *HrefObjectGroupLink `json:"group,omitempty"`
-	User *HrefObjectUserLink `json:"user,omitempty"`
+	App                  *HrefObjectAppLink   `json:"app,omitempty"`
+	Group                *HrefObjectGroupLink `json:"group,omitempty"`
+	User                 *HrefObjectUserLink  `json:"user,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewLinksAppAndUserWithDefaults() *LinksAppAndUser {
 
 // GetApp returns the App field value if set, zero value otherwise.
 func (o *LinksAppAndUser) GetApp() HrefObjectAppLink {
-	if o == nil || o.App == nil {
+	if o == nil || IsNil(o.App) {
 		var ret HrefObjectAppLink
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *LinksAppAndUser) GetApp() HrefObjectAppLink {
 // GetAppOk returns a tuple with the App field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksAppAndUser) GetAppOk() (*HrefObjectAppLink, bool) {
-	if o == nil || o.App == nil {
+	if o == nil || IsNil(o.App) {
 		return nil, false
 	}
 	return o.App, true
@@ -74,7 +77,7 @@ func (o *LinksAppAndUser) GetAppOk() (*HrefObjectAppLink, bool) {
 
 // HasApp returns a boolean if a field has been set.
 func (o *LinksAppAndUser) HasApp() bool {
-	if o != nil && o.App != nil {
+	if o != nil && !IsNil(o.App) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *LinksAppAndUser) SetApp(v HrefObjectAppLink) {
 
 // GetGroup returns the Group field value if set, zero value otherwise.
 func (o *LinksAppAndUser) GetGroup() HrefObjectGroupLink {
-	if o == nil || o.Group == nil {
+	if o == nil || IsNil(o.Group) {
 		var ret HrefObjectGroupLink
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *LinksAppAndUser) GetGroup() HrefObjectGroupLink {
 // GetGroupOk returns a tuple with the Group field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksAppAndUser) GetGroupOk() (*HrefObjectGroupLink, bool) {
-	if o == nil || o.Group == nil {
+	if o == nil || IsNil(o.Group) {
 		return nil, false
 	}
 	return o.Group, true
@@ -106,7 +109,7 @@ func (o *LinksAppAndUser) GetGroupOk() (*HrefObjectGroupLink, bool) {
 
 // HasGroup returns a boolean if a field has been set.
 func (o *LinksAppAndUser) HasGroup() bool {
-	if o != nil && o.Group != nil {
+	if o != nil && !IsNil(o.Group) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *LinksAppAndUser) SetGroup(v HrefObjectGroupLink) {
 
 // GetUser returns the User field value if set, zero value otherwise.
 func (o *LinksAppAndUser) GetUser() HrefObjectUserLink {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		var ret HrefObjectUserLink
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *LinksAppAndUser) GetUser() HrefObjectUserLink {
 // GetUserOk returns a tuple with the User field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinksAppAndUser) GetUserOk() (*HrefObjectUserLink, bool) {
-	if o == nil || o.User == nil {
+	if o == nil || IsNil(o.User) {
 		return nil, false
 	}
 	return o.User, true
@@ -138,7 +141,7 @@ func (o *LinksAppAndUser) GetUserOk() (*HrefObjectUserLink, bool) {
 
 // HasUser returns a boolean if a field has been set.
 func (o *LinksAppAndUser) HasUser() bool {
-	if o != nil && o.User != nil {
+	if o != nil && !IsNil(o.User) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *LinksAppAndUser) SetUser(v HrefObjectUserLink) {
 }
 
 func (o LinksAppAndUser) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LinksAppAndUser) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.App != nil {
+	if !IsNil(o.App) {
 		toSerialize["app"] = o.App
 	}
-	if o.Group != nil {
+	if !IsNil(o.Group) {
 		toSerialize["group"] = o.Group
 	}
-	if o.User != nil {
+	if !IsNil(o.User) {
 		toSerialize["user"] = o.User
 	}
 
@@ -166,29 +177,27 @@ func (o LinksAppAndUser) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LinksAppAndUser) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LinksAppAndUser) UnmarshalJSON(data []byte) (err error) {
 	varLinksAppAndUser := _LinksAppAndUser{}
 
-	err = json.Unmarshal(bytes, &varLinksAppAndUser)
-	if err == nil {
-		*o = LinksAppAndUser(varLinksAppAndUser)
-	} else {
+	err = json.Unmarshal(data, &varLinksAppAndUser)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LinksAppAndUser(varLinksAppAndUser)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "app")
 		delete(additionalProperties, "group")
 		delete(additionalProperties, "user")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullableLinksAppAndUser) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **AuthScheme** | **string** | OAuth 2.0 is used to authenticate with the app. | 
 **ClientId** | Pointer to **string** | Only used for the Okta Org2Org (&#x60;okta_org2org&#x60;) app. The unique client identifier for the OAuth 2.0 service app from the target org. | [optional] 
 **Settings** | Pointer to [**Office365ProvisioningSettings**](Office365ProvisioningSettings.md) |  | [optional] 
+**Signing** | Pointer to [**Org2OrgProvisioningOAuthSigningSettings**](Org2OrgProvisioningOAuthSigningSettings.md) |  | [optional] 
 
 ## Methods
 
@@ -96,6 +97,31 @@ SetSettings sets Settings field to given value.
 `func (o *ProvisioningConnectionOauthRequestProfile) HasSettings() bool`
 
 HasSettings returns a boolean if a field has been set.
+
+### GetSigning
+
+`func (o *ProvisioningConnectionOauthRequestProfile) GetSigning() Org2OrgProvisioningOAuthSigningSettings`
+
+GetSigning returns the Signing field if non-nil, zero value otherwise.
+
+### GetSigningOk
+
+`func (o *ProvisioningConnectionOauthRequestProfile) GetSigningOk() (*Org2OrgProvisioningOAuthSigningSettings, bool)`
+
+GetSigningOk returns a tuple with the Signing field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSigning
+
+`func (o *ProvisioningConnectionOauthRequestProfile) SetSigning(v Org2OrgProvisioningOAuthSigningSettings)`
+
+SetSigning sets Signing field to given value.
+
+### HasSigning
+
+`func (o *ProvisioningConnectionOauthRequestProfile) HasSigning() bool`
+
+HasSigning returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

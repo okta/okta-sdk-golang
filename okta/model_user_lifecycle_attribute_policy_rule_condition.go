@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserLifecycleAttributePolicyRuleCondition type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserLifecycleAttributePolicyRuleCondition{}
+
 // UserLifecycleAttributePolicyRuleCondition struct for UserLifecycleAttributePolicyRuleCondition
 type UserLifecycleAttributePolicyRuleCondition struct {
-	AttributeName *string `json:"attributeName,omitempty"`
-	MatchingValue *string `json:"matchingValue,omitempty"`
+	AttributeName        *string `json:"attributeName,omitempty"`
+	MatchingValue        *string `json:"matchingValue,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewUserLifecycleAttributePolicyRuleConditionWithDefaults() *UserLifecycleAt
 
 // GetAttributeName returns the AttributeName field value if set, zero value otherwise.
 func (o *UserLifecycleAttributePolicyRuleCondition) GetAttributeName() string {
-	if o == nil || o.AttributeName == nil {
+	if o == nil || IsNil(o.AttributeName) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *UserLifecycleAttributePolicyRuleCondition) GetAttributeName() string {
 // GetAttributeNameOk returns a tuple with the AttributeName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserLifecycleAttributePolicyRuleCondition) GetAttributeNameOk() (*string, bool) {
-	if o == nil || o.AttributeName == nil {
+	if o == nil || IsNil(o.AttributeName) {
 		return nil, false
 	}
 	return o.AttributeName, true
@@ -73,7 +76,7 @@ func (o *UserLifecycleAttributePolicyRuleCondition) GetAttributeNameOk() (*strin
 
 // HasAttributeName returns a boolean if a field has been set.
 func (o *UserLifecycleAttributePolicyRuleCondition) HasAttributeName() bool {
-	if o != nil && o.AttributeName != nil {
+	if o != nil && !IsNil(o.AttributeName) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *UserLifecycleAttributePolicyRuleCondition) SetAttributeName(v string) {
 
 // GetMatchingValue returns the MatchingValue field value if set, zero value otherwise.
 func (o *UserLifecycleAttributePolicyRuleCondition) GetMatchingValue() string {
-	if o == nil || o.MatchingValue == nil {
+	if o == nil || IsNil(o.MatchingValue) {
 		var ret string
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *UserLifecycleAttributePolicyRuleCondition) GetMatchingValue() string {
 // GetMatchingValueOk returns a tuple with the MatchingValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserLifecycleAttributePolicyRuleCondition) GetMatchingValueOk() (*string, bool) {
-	if o == nil || o.MatchingValue == nil {
+	if o == nil || IsNil(o.MatchingValue) {
 		return nil, false
 	}
 	return o.MatchingValue, true
@@ -105,7 +108,7 @@ func (o *UserLifecycleAttributePolicyRuleCondition) GetMatchingValueOk() (*strin
 
 // HasMatchingValue returns a boolean if a field has been set.
 func (o *UserLifecycleAttributePolicyRuleCondition) HasMatchingValue() bool {
-	if o != nil && o.MatchingValue != nil {
+	if o != nil && !IsNil(o.MatchingValue) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *UserLifecycleAttributePolicyRuleCondition) SetMatchingValue(v string) {
 }
 
 func (o UserLifecycleAttributePolicyRuleCondition) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserLifecycleAttributePolicyRuleCondition) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AttributeName != nil {
+	if !IsNil(o.AttributeName) {
 		toSerialize["attributeName"] = o.AttributeName
 	}
-	if o.MatchingValue != nil {
+	if !IsNil(o.MatchingValue) {
 		toSerialize["matchingValue"] = o.MatchingValue
 	}
 
@@ -130,28 +141,26 @@ func (o UserLifecycleAttributePolicyRuleCondition) MarshalJSON() ([]byte, error)
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserLifecycleAttributePolicyRuleCondition) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserLifecycleAttributePolicyRuleCondition) UnmarshalJSON(data []byte) (err error) {
 	varUserLifecycleAttributePolicyRuleCondition := _UserLifecycleAttributePolicyRuleCondition{}
 
-	err = json.Unmarshal(bytes, &varUserLifecycleAttributePolicyRuleCondition)
-	if err == nil {
-		*o = UserLifecycleAttributePolicyRuleCondition(varUserLifecycleAttributePolicyRuleCondition)
-	} else {
+	err = json.Unmarshal(data, &varUserLifecycleAttributePolicyRuleCondition)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserLifecycleAttributePolicyRuleCondition(varUserLifecycleAttributePolicyRuleCondition)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "attributeName")
 		delete(additionalProperties, "matchingValue")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableUserLifecycleAttributePolicyRuleCondition) UnmarshalJSON(src []
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the ProfileEnrollmentPolicyRuleActions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ProfileEnrollmentPolicyRuleActions{}
+
 // ProfileEnrollmentPolicyRuleActions struct for ProfileEnrollmentPolicyRuleActions
 type ProfileEnrollmentPolicyRuleActions struct {
-	ProfileEnrollment *ProfileEnrollmentPolicyRuleAction `json:"profileEnrollment,omitempty"`
+	ProfileEnrollment    *ProfileEnrollmentPolicyRuleAction `json:"profileEnrollment,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewProfileEnrollmentPolicyRuleActionsWithDefaults() *ProfileEnrollmentPolic
 
 // GetProfileEnrollment returns the ProfileEnrollment field value if set, zero value otherwise.
 func (o *ProfileEnrollmentPolicyRuleActions) GetProfileEnrollment() ProfileEnrollmentPolicyRuleAction {
-	if o == nil || o.ProfileEnrollment == nil {
+	if o == nil || IsNil(o.ProfileEnrollment) {
 		var ret ProfileEnrollmentPolicyRuleAction
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *ProfileEnrollmentPolicyRuleActions) GetProfileEnrollment() ProfileEnrol
 // GetProfileEnrollmentOk returns a tuple with the ProfileEnrollment field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProfileEnrollmentPolicyRuleActions) GetProfileEnrollmentOk() (*ProfileEnrollmentPolicyRuleAction, bool) {
-	if o == nil || o.ProfileEnrollment == nil {
+	if o == nil || IsNil(o.ProfileEnrollment) {
 		return nil, false
 	}
 	return o.ProfileEnrollment, true
@@ -72,7 +75,7 @@ func (o *ProfileEnrollmentPolicyRuleActions) GetProfileEnrollmentOk() (*ProfileE
 
 // HasProfileEnrollment returns a boolean if a field has been set.
 func (o *ProfileEnrollmentPolicyRuleActions) HasProfileEnrollment() bool {
-	if o != nil && o.ProfileEnrollment != nil {
+	if o != nil && !IsNil(o.ProfileEnrollment) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *ProfileEnrollmentPolicyRuleActions) SetProfileEnrollment(v ProfileEnrol
 }
 
 func (o ProfileEnrollmentPolicyRuleActions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ProfileEnrollmentPolicyRuleActions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ProfileEnrollment != nil {
+	if !IsNil(o.ProfileEnrollment) {
 		toSerialize["profileEnrollment"] = o.ProfileEnrollment
 	}
 
@@ -94,27 +105,25 @@ func (o ProfileEnrollmentPolicyRuleActions) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ProfileEnrollmentPolicyRuleActions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ProfileEnrollmentPolicyRuleActions) UnmarshalJSON(data []byte) (err error) {
 	varProfileEnrollmentPolicyRuleActions := _ProfileEnrollmentPolicyRuleActions{}
 
-	err = json.Unmarshal(bytes, &varProfileEnrollmentPolicyRuleActions)
-	if err == nil {
-		*o = ProfileEnrollmentPolicyRuleActions(varProfileEnrollmentPolicyRuleActions)
-	} else {
+	err = json.Unmarshal(data, &varProfileEnrollmentPolicyRuleActions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ProfileEnrollmentPolicyRuleActions(varProfileEnrollmentPolicyRuleActions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "profileEnrollment")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableProfileEnrollmentPolicyRuleActions) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

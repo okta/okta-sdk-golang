@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** | ID of the AD group to update | [optional] 
+**Id** | Pointer to **string** | ID of the Active Directory group to update | [optional] 
 **Parameters** | Pointer to [**Parameters**](Parameters.md) |  | [optional] 
 
 ## Methods

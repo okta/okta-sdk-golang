@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Connection** | Pointer to **string** |  | [optional] 
-**Exclude** | Pointer to **[]string** |  | [optional] 
-**Include** | Pointer to **[]string** |  | [optional] 
+**Connection** | Pointer to **string** | Specifies the VPN connection details required to access the app | [optional] 
+**Exclude** | Pointer to **[]string** | Defines the IP addresses or network ranges that are excluded from the VPN requirement | [optional] 
+**Include** | Pointer to **[]string** | Defines the IP addresses or network ranges that are required to use the VPN | [optional] 
 
 ## Methods
 

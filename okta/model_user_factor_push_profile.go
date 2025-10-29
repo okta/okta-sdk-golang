@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserFactorPushProfile type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserFactorPushProfile{}
+
 // UserFactorPushProfile struct for UserFactorPushProfile
 type UserFactorPushProfile struct {
-	// ID for the Factor credential
+	// ID for the factor credential
 	CredentialId *string `json:"credentialId,omitempty"`
 	// Token used to identify the device
 	DeviceToken *string `json:"deviceToken,omitempty"`
@@ -40,7 +43,7 @@ type UserFactorPushProfile struct {
 	// OS version of the associated device
 	Platform *string `json:"platform,omitempty"`
 	// Installed version of Okta Verify
-	Version *string `json:"version,omitempty"`
+	Version              *string `json:"version,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -65,7 +68,7 @@ func NewUserFactorPushProfileWithDefaults() *UserFactorPushProfile {
 
 // GetCredentialId returns the CredentialId field value if set, zero value otherwise.
 func (o *UserFactorPushProfile) GetCredentialId() string {
-	if o == nil || o.CredentialId == nil {
+	if o == nil || IsNil(o.CredentialId) {
 		var ret string
 		return ret
 	}
@@ -75,7 +78,7 @@ func (o *UserFactorPushProfile) GetCredentialId() string {
 // GetCredentialIdOk returns a tuple with the CredentialId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorPushProfile) GetCredentialIdOk() (*string, bool) {
-	if o == nil || o.CredentialId == nil {
+	if o == nil || IsNil(o.CredentialId) {
 		return nil, false
 	}
 	return o.CredentialId, true
@@ -83,7 +86,7 @@ func (o *UserFactorPushProfile) GetCredentialIdOk() (*string, bool) {
 
 // HasCredentialId returns a boolean if a field has been set.
 func (o *UserFactorPushProfile) HasCredentialId() bool {
-	if o != nil && o.CredentialId != nil {
+	if o != nil && !IsNil(o.CredentialId) {
 		return true
 	}
 
@@ -97,7 +100,7 @@ func (o *UserFactorPushProfile) SetCredentialId(v string) {
 
 // GetDeviceToken returns the DeviceToken field value if set, zero value otherwise.
 func (o *UserFactorPushProfile) GetDeviceToken() string {
-	if o == nil || o.DeviceToken == nil {
+	if o == nil || IsNil(o.DeviceToken) {
 		var ret string
 		return ret
 	}
@@ -107,7 +110,7 @@ func (o *UserFactorPushProfile) GetDeviceToken() string {
 // GetDeviceTokenOk returns a tuple with the DeviceToken field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorPushProfile) GetDeviceTokenOk() (*string, bool) {
-	if o == nil || o.DeviceToken == nil {
+	if o == nil || IsNil(o.DeviceToken) {
 		return nil, false
 	}
 	return o.DeviceToken, true
@@ -115,7 +118,7 @@ func (o *UserFactorPushProfile) GetDeviceTokenOk() (*string, bool) {
 
 // HasDeviceToken returns a boolean if a field has been set.
 func (o *UserFactorPushProfile) HasDeviceToken() bool {
-	if o != nil && o.DeviceToken != nil {
+	if o != nil && !IsNil(o.DeviceToken) {
 		return true
 	}
 
@@ -129,7 +132,7 @@ func (o *UserFactorPushProfile) SetDeviceToken(v string) {
 
 // GetDeviceType returns the DeviceType field value if set, zero value otherwise.
 func (o *UserFactorPushProfile) GetDeviceType() string {
-	if o == nil || o.DeviceType == nil {
+	if o == nil || IsNil(o.DeviceType) {
 		var ret string
 		return ret
 	}
@@ -139,7 +142,7 @@ func (o *UserFactorPushProfile) GetDeviceType() string {
 // GetDeviceTypeOk returns a tuple with the DeviceType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorPushProfile) GetDeviceTypeOk() (*string, bool) {
-	if o == nil || o.DeviceType == nil {
+	if o == nil || IsNil(o.DeviceType) {
 		return nil, false
 	}
 	return o.DeviceType, true
@@ -147,7 +150,7 @@ func (o *UserFactorPushProfile) GetDeviceTypeOk() (*string, bool) {
 
 // HasDeviceType returns a boolean if a field has been set.
 func (o *UserFactorPushProfile) HasDeviceType() bool {
-	if o != nil && o.DeviceType != nil {
+	if o != nil && !IsNil(o.DeviceType) {
 		return true
 	}
 
@@ -161,7 +164,7 @@ func (o *UserFactorPushProfile) SetDeviceType(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *UserFactorPushProfile) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -171,7 +174,7 @@ func (o *UserFactorPushProfile) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorPushProfile) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -179,7 +182,7 @@ func (o *UserFactorPushProfile) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *UserFactorPushProfile) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -193,7 +196,7 @@ func (o *UserFactorPushProfile) SetName(v string) {
 
 // GetPlatform returns the Platform field value if set, zero value otherwise.
 func (o *UserFactorPushProfile) GetPlatform() string {
-	if o == nil || o.Platform == nil {
+	if o == nil || IsNil(o.Platform) {
 		var ret string
 		return ret
 	}
@@ -203,7 +206,7 @@ func (o *UserFactorPushProfile) GetPlatform() string {
 // GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorPushProfile) GetPlatformOk() (*string, bool) {
-	if o == nil || o.Platform == nil {
+	if o == nil || IsNil(o.Platform) {
 		return nil, false
 	}
 	return o.Platform, true
@@ -211,7 +214,7 @@ func (o *UserFactorPushProfile) GetPlatformOk() (*string, bool) {
 
 // HasPlatform returns a boolean if a field has been set.
 func (o *UserFactorPushProfile) HasPlatform() bool {
-	if o != nil && o.Platform != nil {
+	if o != nil && !IsNil(o.Platform) {
 		return true
 	}
 
@@ -225,7 +228,7 @@ func (o *UserFactorPushProfile) SetPlatform(v string) {
 
 // GetVersion returns the Version field value if set, zero value otherwise.
 func (o *UserFactorPushProfile) GetVersion() string {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		var ret string
 		return ret
 	}
@@ -235,7 +238,7 @@ func (o *UserFactorPushProfile) GetVersion() string {
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorPushProfile) GetVersionOk() (*string, bool) {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
 	return o.Version, true
@@ -243,7 +246,7 @@ func (o *UserFactorPushProfile) GetVersionOk() (*string, bool) {
 
 // HasVersion returns a boolean if a field has been set.
 func (o *UserFactorPushProfile) HasVersion() bool {
-	if o != nil && o.Version != nil {
+	if o != nil && !IsNil(o.Version) {
 		return true
 	}
 
@@ -256,23 +259,31 @@ func (o *UserFactorPushProfile) SetVersion(v string) {
 }
 
 func (o UserFactorPushProfile) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserFactorPushProfile) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.CredentialId != nil {
+	if !IsNil(o.CredentialId) {
 		toSerialize["credentialId"] = o.CredentialId
 	}
-	if o.DeviceToken != nil {
+	if !IsNil(o.DeviceToken) {
 		toSerialize["deviceToken"] = o.DeviceToken
 	}
-	if o.DeviceType != nil {
+	if !IsNil(o.DeviceType) {
 		toSerialize["deviceType"] = o.DeviceType
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Platform != nil {
+	if !IsNil(o.Platform) {
 		toSerialize["platform"] = o.Platform
 	}
-	if o.Version != nil {
+	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
 
@@ -280,23 +291,23 @@ func (o UserFactorPushProfile) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserFactorPushProfile) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserFactorPushProfile) UnmarshalJSON(data []byte) (err error) {
 	varUserFactorPushProfile := _UserFactorPushProfile{}
 
-	err = json.Unmarshal(bytes, &varUserFactorPushProfile)
-	if err == nil {
-		*o = UserFactorPushProfile(varUserFactorPushProfile)
-	} else {
+	err = json.Unmarshal(data, &varUserFactorPushProfile)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserFactorPushProfile(varUserFactorPushProfile)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "credentialId")
 		delete(additionalProperties, "deviceToken")
 		delete(additionalProperties, "deviceType")
@@ -304,8 +315,6 @@ func (o *UserFactorPushProfile) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "platform")
 		delete(additionalProperties, "version")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -346,4 +355,3 @@ func (v *NullableUserFactorPushProfile) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

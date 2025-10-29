@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,13 @@ import (
 	"encoding/json"
 )
 
-// OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm struct for OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm
+// checks if the OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm{}
+
+// OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm Action that assigns a user to a realm
 type OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm struct {
-	RealmId *string `json:"realmId,omitempty"`
+	// ID of the realm
+	RealmId              *string `json:"realmId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +58,7 @@ func NewOperationResponseAssignmentOperationConfigurationActionsAssignUserToReal
 
 // GetRealmId returns the RealmId field value if set, zero value otherwise.
 func (o *OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm) GetRealmId() string {
-	if o == nil || o.RealmId == nil {
+	if o == nil || IsNil(o.RealmId) {
 		var ret string
 		return ret
 	}
@@ -64,7 +68,7 @@ func (o *OperationResponseAssignmentOperationConfigurationActionsAssignUserToRea
 // GetRealmIdOk returns a tuple with the RealmId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm) GetRealmIdOk() (*string, bool) {
-	if o == nil || o.RealmId == nil {
+	if o == nil || IsNil(o.RealmId) {
 		return nil, false
 	}
 	return o.RealmId, true
@@ -72,7 +76,7 @@ func (o *OperationResponseAssignmentOperationConfigurationActionsAssignUserToRea
 
 // HasRealmId returns a boolean if a field has been set.
 func (o *OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm) HasRealmId() bool {
-	if o != nil && o.RealmId != nil {
+	if o != nil && !IsNil(o.RealmId) {
 		return true
 	}
 
@@ -85,8 +89,16 @@ func (o *OperationResponseAssignmentOperationConfigurationActionsAssignUserToRea
 }
 
 func (o OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.RealmId != nil {
+	if !IsNil(o.RealmId) {
 		toSerialize["realmId"] = o.RealmId
 	}
 
@@ -94,27 +106,25 @@ func (o OperationResponseAssignmentOperationConfigurationActionsAssignUserToReal
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm) UnmarshalJSON(data []byte) (err error) {
 	varOperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm := _OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm{}
 
-	err = json.Unmarshal(bytes, &varOperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm)
-	if err == nil {
-		*o = OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm(varOperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm)
-	} else {
+	err = json.Unmarshal(data, &varOperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm(varOperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "realmId")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +165,3 @@ func (v *NullableOperationResponseAssignmentOperationConfigurationActionsAssignU
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

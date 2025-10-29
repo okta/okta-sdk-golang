@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Actions** | Pointer to [**ProfileEnrollmentPolicyRuleActions**](ProfileEnrollmentPolicyRuleActions.md) |  | [optional] 
-**Conditions** | Pointer to [**PolicyRuleConditions**](PolicyRuleConditions.md) |  | [optional] 
+**Conditions** | Pointer to **NullableString** | Policy rule conditions aren&#39;t supported for this policy type | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasActions returns a boolean if a field has been set.
 
 ### GetConditions
 
-`func (o *ProfileEnrollmentPolicyRule) GetConditions() PolicyRuleConditions`
+`func (o *ProfileEnrollmentPolicyRule) GetConditions() string`
 
 GetConditions returns the Conditions field if non-nil, zero value otherwise.
 
 ### GetConditionsOk
 
-`func (o *ProfileEnrollmentPolicyRule) GetConditionsOk() (*PolicyRuleConditions, bool)`
+`func (o *ProfileEnrollmentPolicyRule) GetConditionsOk() (*string, bool)`
 
 GetConditionsOk returns a tuple with the Conditions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConditions
 
-`func (o *ProfileEnrollmentPolicyRule) SetConditions(v PolicyRuleConditions)`
+`func (o *ProfileEnrollmentPolicyRule) SetConditions(v string)`
 
 SetConditions sets Conditions field to given value.
 
@@ -76,6 +76,16 @@ SetConditions sets Conditions field to given value.
 
 HasConditions returns a boolean if a field has been set.
 
+### SetConditionsNil
+
+`func (o *ProfileEnrollmentPolicyRule) SetConditionsNil(b bool)`
+
+ SetConditionsNil sets the value for Conditions to be an explicit nil
+
+### UnsetConditions
+`func (o *ProfileEnrollmentPolicyRule) UnsetConditions()`
+
+UnsetConditions ensures that no value is present for Conditions, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

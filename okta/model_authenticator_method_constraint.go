@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthenticatorMethodConstraint type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorMethodConstraint{}
+
 // AuthenticatorMethodConstraint Limits the authenticators that can be used for a given method. Currently, only the `otp` method supports constraints, and Google authenticator (key : 'google_otp') is the only allowed authenticator.
 type AuthenticatorMethodConstraint struct {
 	AllowedAuthenticators []AuthenticatorIdentity `json:"allowedAuthenticators,omitempty"`
-	Method *string `json:"method,omitempty"`
-	AdditionalProperties map[string]interface{}
+	Method                *string                 `json:"method,omitempty"`
+	AdditionalProperties  map[string]interface{}
 }
 
 type _AuthenticatorMethodConstraint AuthenticatorMethodConstraint
@@ -55,7 +58,7 @@ func NewAuthenticatorMethodConstraintWithDefaults() *AuthenticatorMethodConstrai
 
 // GetAllowedAuthenticators returns the AllowedAuthenticators field value if set, zero value otherwise.
 func (o *AuthenticatorMethodConstraint) GetAllowedAuthenticators() []AuthenticatorIdentity {
-	if o == nil || o.AllowedAuthenticators == nil {
+	if o == nil || IsNil(o.AllowedAuthenticators) {
 		var ret []AuthenticatorIdentity
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *AuthenticatorMethodConstraint) GetAllowedAuthenticators() []Authenticat
 // GetAllowedAuthenticatorsOk returns a tuple with the AllowedAuthenticators field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorMethodConstraint) GetAllowedAuthenticatorsOk() ([]AuthenticatorIdentity, bool) {
-	if o == nil || o.AllowedAuthenticators == nil {
+	if o == nil || IsNil(o.AllowedAuthenticators) {
 		return nil, false
 	}
 	return o.AllowedAuthenticators, true
@@ -73,7 +76,7 @@ func (o *AuthenticatorMethodConstraint) GetAllowedAuthenticatorsOk() ([]Authenti
 
 // HasAllowedAuthenticators returns a boolean if a field has been set.
 func (o *AuthenticatorMethodConstraint) HasAllowedAuthenticators() bool {
-	if o != nil && o.AllowedAuthenticators != nil {
+	if o != nil && !IsNil(o.AllowedAuthenticators) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *AuthenticatorMethodConstraint) SetAllowedAuthenticators(v []Authenticat
 
 // GetMethod returns the Method field value if set, zero value otherwise.
 func (o *AuthenticatorMethodConstraint) GetMethod() string {
-	if o == nil || o.Method == nil {
+	if o == nil || IsNil(o.Method) {
 		var ret string
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *AuthenticatorMethodConstraint) GetMethod() string {
 // GetMethodOk returns a tuple with the Method field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorMethodConstraint) GetMethodOk() (*string, bool) {
-	if o == nil || o.Method == nil {
+	if o == nil || IsNil(o.Method) {
 		return nil, false
 	}
 	return o.Method, true
@@ -105,7 +108,7 @@ func (o *AuthenticatorMethodConstraint) GetMethodOk() (*string, bool) {
 
 // HasMethod returns a boolean if a field has been set.
 func (o *AuthenticatorMethodConstraint) HasMethod() bool {
-	if o != nil && o.Method != nil {
+	if o != nil && !IsNil(o.Method) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *AuthenticatorMethodConstraint) SetMethod(v string) {
 }
 
 func (o AuthenticatorMethodConstraint) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorMethodConstraint) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AllowedAuthenticators != nil {
+	if !IsNil(o.AllowedAuthenticators) {
 		toSerialize["allowedAuthenticators"] = o.AllowedAuthenticators
 	}
-	if o.Method != nil {
+	if !IsNil(o.Method) {
 		toSerialize["method"] = o.Method
 	}
 
@@ -130,28 +141,26 @@ func (o AuthenticatorMethodConstraint) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorMethodConstraint) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorMethodConstraint) UnmarshalJSON(data []byte) (err error) {
 	varAuthenticatorMethodConstraint := _AuthenticatorMethodConstraint{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorMethodConstraint)
-	if err == nil {
-		*o = AuthenticatorMethodConstraint(varAuthenticatorMethodConstraint)
-	} else {
+	err = json.Unmarshal(data, &varAuthenticatorMethodConstraint)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthenticatorMethodConstraint(varAuthenticatorMethodConstraint)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "allowedAuthenticators")
 		delete(additionalProperties, "method")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableAuthenticatorMethodConstraint) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

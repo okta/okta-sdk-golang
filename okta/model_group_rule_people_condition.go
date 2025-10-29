@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
-// GroupRulePeopleCondition struct for GroupRulePeopleCondition
+// checks if the GroupRulePeopleCondition type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GroupRulePeopleCondition{}
+
+// GroupRulePeopleCondition Defines conditions for `people` in a group rule
 type GroupRulePeopleCondition struct {
-	Groups *GroupRuleGroupCondition `json:"groups,omitempty"`
-	Users *GroupRuleUserCondition `json:"users,omitempty"`
+	Groups               *GroupRuleGroupCondition `json:"groups,omitempty"`
+	Users                *GroupRuleUserCondition  `json:"users,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewGroupRulePeopleConditionWithDefaults() *GroupRulePeopleCondition {
 
 // GetGroups returns the Groups field value if set, zero value otherwise.
 func (o *GroupRulePeopleCondition) GetGroups() GroupRuleGroupCondition {
-	if o == nil || o.Groups == nil {
+	if o == nil || IsNil(o.Groups) {
 		var ret GroupRuleGroupCondition
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *GroupRulePeopleCondition) GetGroups() GroupRuleGroupCondition {
 // GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupRulePeopleCondition) GetGroupsOk() (*GroupRuleGroupCondition, bool) {
-	if o == nil || o.Groups == nil {
+	if o == nil || IsNil(o.Groups) {
 		return nil, false
 	}
 	return o.Groups, true
@@ -73,7 +76,7 @@ func (o *GroupRulePeopleCondition) GetGroupsOk() (*GroupRuleGroupCondition, bool
 
 // HasGroups returns a boolean if a field has been set.
 func (o *GroupRulePeopleCondition) HasGroups() bool {
-	if o != nil && o.Groups != nil {
+	if o != nil && !IsNil(o.Groups) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *GroupRulePeopleCondition) SetGroups(v GroupRuleGroupCondition) {
 
 // GetUsers returns the Users field value if set, zero value otherwise.
 func (o *GroupRulePeopleCondition) GetUsers() GroupRuleUserCondition {
-	if o == nil || o.Users == nil {
+	if o == nil || IsNil(o.Users) {
 		var ret GroupRuleUserCondition
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *GroupRulePeopleCondition) GetUsers() GroupRuleUserCondition {
 // GetUsersOk returns a tuple with the Users field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupRulePeopleCondition) GetUsersOk() (*GroupRuleUserCondition, bool) {
-	if o == nil || o.Users == nil {
+	if o == nil || IsNil(o.Users) {
 		return nil, false
 	}
 	return o.Users, true
@@ -105,7 +108,7 @@ func (o *GroupRulePeopleCondition) GetUsersOk() (*GroupRuleUserCondition, bool) 
 
 // HasUsers returns a boolean if a field has been set.
 func (o *GroupRulePeopleCondition) HasUsers() bool {
-	if o != nil && o.Users != nil {
+	if o != nil && !IsNil(o.Users) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *GroupRulePeopleCondition) SetUsers(v GroupRuleUserCondition) {
 }
 
 func (o GroupRulePeopleCondition) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o GroupRulePeopleCondition) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Groups != nil {
+	if !IsNil(o.Groups) {
 		toSerialize["groups"] = o.Groups
 	}
-	if o.Users != nil {
+	if !IsNil(o.Users) {
 		toSerialize["users"] = o.Users
 	}
 
@@ -130,28 +141,26 @@ func (o GroupRulePeopleCondition) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *GroupRulePeopleCondition) UnmarshalJSON(bytes []byte) (err error) {
+func (o *GroupRulePeopleCondition) UnmarshalJSON(data []byte) (err error) {
 	varGroupRulePeopleCondition := _GroupRulePeopleCondition{}
 
-	err = json.Unmarshal(bytes, &varGroupRulePeopleCondition)
-	if err == nil {
-		*o = GroupRulePeopleCondition(varGroupRulePeopleCondition)
-	} else {
+	err = json.Unmarshal(data, &varGroupRulePeopleCondition)
+
+	if err != nil {
 		return err
 	}
 
+	*o = GroupRulePeopleCondition(varGroupRulePeopleCondition)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "groups")
 		delete(additionalProperties, "users")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableGroupRulePeopleCondition) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

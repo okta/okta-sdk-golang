@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the AttackProtectionAuthenticatorSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AttackProtectionAuthenticatorSettings{}
+
 // AttackProtectionAuthenticatorSettings struct for AttackProtectionAuthenticatorSettings
 type AttackProtectionAuthenticatorSettings struct {
 	// If true, requires users to verify a possession factor before verifying a knowledge factor when the assurance requires two-factor authentication (2FA).
 	VerifyKnowledgeSecondWhen2faRequired *bool `json:"verifyKnowledgeSecondWhen2faRequired,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties                 map[string]interface{}
 }
 
 type _AttackProtectionAuthenticatorSettings AttackProtectionAuthenticatorSettings
@@ -59,7 +62,7 @@ func NewAttackProtectionAuthenticatorSettingsWithDefaults() *AttackProtectionAut
 
 // GetVerifyKnowledgeSecondWhen2faRequired returns the VerifyKnowledgeSecondWhen2faRequired field value if set, zero value otherwise.
 func (o *AttackProtectionAuthenticatorSettings) GetVerifyKnowledgeSecondWhen2faRequired() bool {
-	if o == nil || o.VerifyKnowledgeSecondWhen2faRequired == nil {
+	if o == nil || IsNil(o.VerifyKnowledgeSecondWhen2faRequired) {
 		var ret bool
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *AttackProtectionAuthenticatorSettings) GetVerifyKnowledgeSecondWhen2faR
 // GetVerifyKnowledgeSecondWhen2faRequiredOk returns a tuple with the VerifyKnowledgeSecondWhen2faRequired field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AttackProtectionAuthenticatorSettings) GetVerifyKnowledgeSecondWhen2faRequiredOk() (*bool, bool) {
-	if o == nil || o.VerifyKnowledgeSecondWhen2faRequired == nil {
+	if o == nil || IsNil(o.VerifyKnowledgeSecondWhen2faRequired) {
 		return nil, false
 	}
 	return o.VerifyKnowledgeSecondWhen2faRequired, true
@@ -77,7 +80,7 @@ func (o *AttackProtectionAuthenticatorSettings) GetVerifyKnowledgeSecondWhen2faR
 
 // HasVerifyKnowledgeSecondWhen2faRequired returns a boolean if a field has been set.
 func (o *AttackProtectionAuthenticatorSettings) HasVerifyKnowledgeSecondWhen2faRequired() bool {
-	if o != nil && o.VerifyKnowledgeSecondWhen2faRequired != nil {
+	if o != nil && !IsNil(o.VerifyKnowledgeSecondWhen2faRequired) {
 		return true
 	}
 
@@ -90,8 +93,16 @@ func (o *AttackProtectionAuthenticatorSettings) SetVerifyKnowledgeSecondWhen2faR
 }
 
 func (o AttackProtectionAuthenticatorSettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AttackProtectionAuthenticatorSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.VerifyKnowledgeSecondWhen2faRequired != nil {
+	if !IsNil(o.VerifyKnowledgeSecondWhen2faRequired) {
 		toSerialize["verifyKnowledgeSecondWhen2faRequired"] = o.VerifyKnowledgeSecondWhen2faRequired
 	}
 
@@ -99,27 +110,25 @@ func (o AttackProtectionAuthenticatorSettings) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AttackProtectionAuthenticatorSettings) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AttackProtectionAuthenticatorSettings) UnmarshalJSON(data []byte) (err error) {
 	varAttackProtectionAuthenticatorSettings := _AttackProtectionAuthenticatorSettings{}
 
-	err = json.Unmarshal(bytes, &varAttackProtectionAuthenticatorSettings)
-	if err == nil {
-		*o = AttackProtectionAuthenticatorSettings(varAttackProtectionAuthenticatorSettings)
-	} else {
+	err = json.Unmarshal(data, &varAttackProtectionAuthenticatorSettings)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AttackProtectionAuthenticatorSettings(varAttackProtectionAuthenticatorSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "verifyKnowledgeSecondWhen2faRequired")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -160,4 +169,3 @@ func (v *NullableAttackProtectionAuthenticatorSettings) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

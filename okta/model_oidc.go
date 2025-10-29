@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -25,7 +25,11 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the Oidc type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Oidc{}
 
 // Oidc OIDC configuration details
 type Oidc struct {
@@ -36,7 +40,7 @@ type Oidc struct {
 	// The sign-out redirect URIs for your app. You can send a request to `/v1/logout` to sign the user out and redirect them to one of these URIs.
 	PostLogoutUris []string `json:"postLogoutUris,omitempty"`
 	// List of sign-in redirect URIs
-	RedirectUris []string `json:"redirectUris"`
+	RedirectUris         []string `json:"redirectUris"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -87,7 +91,7 @@ func (o *Oidc) SetDoc(v string) {
 
 // GetInitiateLoginUri returns the InitiateLoginUri field value if set, zero value otherwise.
 func (o *Oidc) GetInitiateLoginUri() string {
-	if o == nil || o.InitiateLoginUri == nil {
+	if o == nil || IsNil(o.InitiateLoginUri) {
 		var ret string
 		return ret
 	}
@@ -97,7 +101,7 @@ func (o *Oidc) GetInitiateLoginUri() string {
 // GetInitiateLoginUriOk returns a tuple with the InitiateLoginUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Oidc) GetInitiateLoginUriOk() (*string, bool) {
-	if o == nil || o.InitiateLoginUri == nil {
+	if o == nil || IsNil(o.InitiateLoginUri) {
 		return nil, false
 	}
 	return o.InitiateLoginUri, true
@@ -105,7 +109,7 @@ func (o *Oidc) GetInitiateLoginUriOk() (*string, bool) {
 
 // HasInitiateLoginUri returns a boolean if a field has been set.
 func (o *Oidc) HasInitiateLoginUri() bool {
-	if o != nil && o.InitiateLoginUri != nil {
+	if o != nil && !IsNil(o.InitiateLoginUri) {
 		return true
 	}
 
@@ -119,7 +123,7 @@ func (o *Oidc) SetInitiateLoginUri(v string) {
 
 // GetPostLogoutUris returns the PostLogoutUris field value if set, zero value otherwise.
 func (o *Oidc) GetPostLogoutUris() []string {
-	if o == nil || o.PostLogoutUris == nil {
+	if o == nil || IsNil(o.PostLogoutUris) {
 		var ret []string
 		return ret
 	}
@@ -129,7 +133,7 @@ func (o *Oidc) GetPostLogoutUris() []string {
 // GetPostLogoutUrisOk returns a tuple with the PostLogoutUris field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Oidc) GetPostLogoutUrisOk() ([]string, bool) {
-	if o == nil || o.PostLogoutUris == nil {
+	if o == nil || IsNil(o.PostLogoutUris) {
 		return nil, false
 	}
 	return o.PostLogoutUris, true
@@ -137,7 +141,7 @@ func (o *Oidc) GetPostLogoutUrisOk() ([]string, bool) {
 
 // HasPostLogoutUris returns a boolean if a field has been set.
 func (o *Oidc) HasPostLogoutUris() bool {
-	if o != nil && o.PostLogoutUris != nil {
+	if o != nil && !IsNil(o.PostLogoutUris) {
 		return true
 	}
 
@@ -174,48 +178,72 @@ func (o *Oidc) SetRedirectUris(v []string) {
 }
 
 func (o Oidc) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["doc"] = o.Doc
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.InitiateLoginUri != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o Oidc) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["doc"] = o.Doc
+	if !IsNil(o.InitiateLoginUri) {
 		toSerialize["initiateLoginUri"] = o.InitiateLoginUri
 	}
-	if o.PostLogoutUris != nil {
+	if !IsNil(o.PostLogoutUris) {
 		toSerialize["postLogoutUris"] = o.PostLogoutUris
 	}
-	if true {
-		toSerialize["redirectUris"] = o.RedirectUris
-	}
+	toSerialize["redirectUris"] = o.RedirectUris
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Oidc) UnmarshalJSON(bytes []byte) (err error) {
-	varOidc := _Oidc{}
+func (o *Oidc) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"doc",
+		"redirectUris",
+	}
 
-	err = json.Unmarshal(bytes, &varOidc)
-	if err == nil {
-		*o = Oidc(varOidc)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varOidc := _Oidc{}
+
+	err = json.Unmarshal(data, &varOidc)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Oidc(varOidc)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "doc")
 		delete(additionalProperties, "initiateLoginUri")
 		delete(additionalProperties, "postLogoutUris")
 		delete(additionalProperties, "redirectUris")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -256,4 +284,3 @@ func (v *NullableOidc) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the ErrorPage type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ErrorPage{}
+
 // ErrorPage struct for ErrorPage
 type ErrorPage struct {
 	// The HTML for the page
-	PageContent *string `json:"pageContent,omitempty"`
+	PageContent                  *string                       `json:"pageContent,omitempty"`
 	ContentSecurityPolicySetting *ContentSecurityPolicySetting `json:"contentSecurityPolicySetting,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties         map[string]interface{}
 }
 
 type _ErrorPage ErrorPage
@@ -56,7 +59,7 @@ func NewErrorPageWithDefaults() *ErrorPage {
 
 // GetPageContent returns the PageContent field value if set, zero value otherwise.
 func (o *ErrorPage) GetPageContent() string {
-	if o == nil || o.PageContent == nil {
+	if o == nil || IsNil(o.PageContent) {
 		var ret string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *ErrorPage) GetPageContent() string {
 // GetPageContentOk returns a tuple with the PageContent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ErrorPage) GetPageContentOk() (*string, bool) {
-	if o == nil || o.PageContent == nil {
+	if o == nil || IsNil(o.PageContent) {
 		return nil, false
 	}
 	return o.PageContent, true
@@ -74,7 +77,7 @@ func (o *ErrorPage) GetPageContentOk() (*string, bool) {
 
 // HasPageContent returns a boolean if a field has been set.
 func (o *ErrorPage) HasPageContent() bool {
-	if o != nil && o.PageContent != nil {
+	if o != nil && !IsNil(o.PageContent) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *ErrorPage) SetPageContent(v string) {
 
 // GetContentSecurityPolicySetting returns the ContentSecurityPolicySetting field value if set, zero value otherwise.
 func (o *ErrorPage) GetContentSecurityPolicySetting() ContentSecurityPolicySetting {
-	if o == nil || o.ContentSecurityPolicySetting == nil {
+	if o == nil || IsNil(o.ContentSecurityPolicySetting) {
 		var ret ContentSecurityPolicySetting
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *ErrorPage) GetContentSecurityPolicySetting() ContentSecurityPolicySetti
 // GetContentSecurityPolicySettingOk returns a tuple with the ContentSecurityPolicySetting field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ErrorPage) GetContentSecurityPolicySettingOk() (*ContentSecurityPolicySetting, bool) {
-	if o == nil || o.ContentSecurityPolicySetting == nil {
+	if o == nil || IsNil(o.ContentSecurityPolicySetting) {
 		return nil, false
 	}
 	return o.ContentSecurityPolicySetting, true
@@ -106,7 +109,7 @@ func (o *ErrorPage) GetContentSecurityPolicySettingOk() (*ContentSecurityPolicyS
 
 // HasContentSecurityPolicySetting returns a boolean if a field has been set.
 func (o *ErrorPage) HasContentSecurityPolicySetting() bool {
-	if o != nil && o.ContentSecurityPolicySetting != nil {
+	if o != nil && !IsNil(o.ContentSecurityPolicySetting) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *ErrorPage) SetContentSecurityPolicySetting(v ContentSecurityPolicySetti
 }
 
 func (o ErrorPage) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ErrorPage) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.PageContent != nil {
+	if !IsNil(o.PageContent) {
 		toSerialize["pageContent"] = o.PageContent
 	}
-	if o.ContentSecurityPolicySetting != nil {
+	if !IsNil(o.ContentSecurityPolicySetting) {
 		toSerialize["contentSecurityPolicySetting"] = o.ContentSecurityPolicySetting
 	}
 
@@ -131,28 +142,26 @@ func (o ErrorPage) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ErrorPage) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ErrorPage) UnmarshalJSON(data []byte) (err error) {
 	varErrorPage := _ErrorPage{}
 
-	err = json.Unmarshal(bytes, &varErrorPage)
-	if err == nil {
-		*o = ErrorPage(varErrorPage)
-	} else {
+	err = json.Unmarshal(data, &varErrorPage)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ErrorPage(varErrorPage)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "pageContent")
 		delete(additionalProperties, "contentSecurityPolicySetting")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableErrorPage) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

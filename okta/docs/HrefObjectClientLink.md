@@ -6,9 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Hints** | Pointer to [**HrefHints**](HrefHints.md) |  | [optional] 
 **Href** | **string** | Link URI | 
-**Name** | Pointer to **string** | Link name | [optional] 
-**Templated** | Pointer to **bool** | Indicates whether the Link Object&#39;s &#x60;href&#x60; property is a URI template. | [optional] 
-**Type** | Pointer to **string** | The media type of the link. If omitted, it is implicitly &#x60;application/json&#x60;. | [optional] 
+**Name** | Pointer to **string** | Link name | [optional] [readonly] 
+**Templated** | Pointer to **bool** | Indicates whether the link object&#39;s &#x60;href&#x60; property is a URI template. | [optional] [readonly] 
+**Type** | Pointer to **string** | The media type of the link. If omitted, it is implicitly &#x60;application/json&#x60;. | [optional] [readonly] 
 
 ## Methods
 

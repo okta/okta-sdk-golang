@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] [readonly] 
-**Orn** | Pointer to **string** |  | [optional] [readonly] 
+**Id** | Pointer to **string** | The ID of the user | [optional] [readonly] 
+**Orn** | Pointer to **string** | ORN representing the assignee | [optional] [readonly] 
 **Links** | Pointer to [**LinksSelfAndRoles**](LinksSelfAndRoles.md) |  | [optional] 
 
 ## Methods

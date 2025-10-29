@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -26,6 +26,9 @@ package okta
 import (
 	"encoding/json"
 )
+
+// checks if the TokenResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TokenResponse{}
 
 // TokenResponse struct for TokenResponse
 type TokenResponse struct {
@@ -44,7 +47,7 @@ type TokenResponse struct {
 	// The scopes contained in the access token.
 	Scope *string `json:"scope,omitempty"`
 	// The token type in a `/token` response. The value is generally `Bearer` except for a few instances of token exchange.
-	TokenType *string `json:"token_type,omitempty"`
+	TokenType            *string `json:"token_type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -69,7 +72,7 @@ func NewTokenResponseWithDefaults() *TokenResponse {
 
 // GetAccessToken returns the AccessToken field value if set, zero value otherwise.
 func (o *TokenResponse) GetAccessToken() string {
-	if o == nil || o.AccessToken == nil {
+	if o == nil || IsNil(o.AccessToken) {
 		var ret string
 		return ret
 	}
@@ -79,7 +82,7 @@ func (o *TokenResponse) GetAccessToken() string {
 // GetAccessTokenOk returns a tuple with the AccessToken field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenResponse) GetAccessTokenOk() (*string, bool) {
-	if o == nil || o.AccessToken == nil {
+	if o == nil || IsNil(o.AccessToken) {
 		return nil, false
 	}
 	return o.AccessToken, true
@@ -87,7 +90,7 @@ func (o *TokenResponse) GetAccessTokenOk() (*string, bool) {
 
 // HasAccessToken returns a boolean if a field has been set.
 func (o *TokenResponse) HasAccessToken() bool {
-	if o != nil && o.AccessToken != nil {
+	if o != nil && !IsNil(o.AccessToken) {
 		return true
 	}
 
@@ -101,7 +104,7 @@ func (o *TokenResponse) SetAccessToken(v string) {
 
 // GetDeviceSecret returns the DeviceSecret field value if set, zero value otherwise.
 func (o *TokenResponse) GetDeviceSecret() string {
-	if o == nil || o.DeviceSecret == nil {
+	if o == nil || IsNil(o.DeviceSecret) {
 		var ret string
 		return ret
 	}
@@ -111,7 +114,7 @@ func (o *TokenResponse) GetDeviceSecret() string {
 // GetDeviceSecretOk returns a tuple with the DeviceSecret field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenResponse) GetDeviceSecretOk() (*string, bool) {
-	if o == nil || o.DeviceSecret == nil {
+	if o == nil || IsNil(o.DeviceSecret) {
 		return nil, false
 	}
 	return o.DeviceSecret, true
@@ -119,7 +122,7 @@ func (o *TokenResponse) GetDeviceSecretOk() (*string, bool) {
 
 // HasDeviceSecret returns a boolean if a field has been set.
 func (o *TokenResponse) HasDeviceSecret() bool {
-	if o != nil && o.DeviceSecret != nil {
+	if o != nil && !IsNil(o.DeviceSecret) {
 		return true
 	}
 
@@ -133,7 +136,7 @@ func (o *TokenResponse) SetDeviceSecret(v string) {
 
 // GetExpiresIn returns the ExpiresIn field value if set, zero value otherwise.
 func (o *TokenResponse) GetExpiresIn() int32 {
-	if o == nil || o.ExpiresIn == nil {
+	if o == nil || IsNil(o.ExpiresIn) {
 		var ret int32
 		return ret
 	}
@@ -143,7 +146,7 @@ func (o *TokenResponse) GetExpiresIn() int32 {
 // GetExpiresInOk returns a tuple with the ExpiresIn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenResponse) GetExpiresInOk() (*int32, bool) {
-	if o == nil || o.ExpiresIn == nil {
+	if o == nil || IsNil(o.ExpiresIn) {
 		return nil, false
 	}
 	return o.ExpiresIn, true
@@ -151,7 +154,7 @@ func (o *TokenResponse) GetExpiresInOk() (*int32, bool) {
 
 // HasExpiresIn returns a boolean if a field has been set.
 func (o *TokenResponse) HasExpiresIn() bool {
-	if o != nil && o.ExpiresIn != nil {
+	if o != nil && !IsNil(o.ExpiresIn) {
 		return true
 	}
 
@@ -165,7 +168,7 @@ func (o *TokenResponse) SetExpiresIn(v int32) {
 
 // GetIdToken returns the IdToken field value if set, zero value otherwise.
 func (o *TokenResponse) GetIdToken() string {
-	if o == nil || o.IdToken == nil {
+	if o == nil || IsNil(o.IdToken) {
 		var ret string
 		return ret
 	}
@@ -175,7 +178,7 @@ func (o *TokenResponse) GetIdToken() string {
 // GetIdTokenOk returns a tuple with the IdToken field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenResponse) GetIdTokenOk() (*string, bool) {
-	if o == nil || o.IdToken == nil {
+	if o == nil || IsNil(o.IdToken) {
 		return nil, false
 	}
 	return o.IdToken, true
@@ -183,7 +186,7 @@ func (o *TokenResponse) GetIdTokenOk() (*string, bool) {
 
 // HasIdToken returns a boolean if a field has been set.
 func (o *TokenResponse) HasIdToken() bool {
-	if o != nil && o.IdToken != nil {
+	if o != nil && !IsNil(o.IdToken) {
 		return true
 	}
 
@@ -197,7 +200,7 @@ func (o *TokenResponse) SetIdToken(v string) {
 
 // GetIssuedTokenType returns the IssuedTokenType field value if set, zero value otherwise.
 func (o *TokenResponse) GetIssuedTokenType() string {
-	if o == nil || o.IssuedTokenType == nil {
+	if o == nil || IsNil(o.IssuedTokenType) {
 		var ret string
 		return ret
 	}
@@ -207,7 +210,7 @@ func (o *TokenResponse) GetIssuedTokenType() string {
 // GetIssuedTokenTypeOk returns a tuple with the IssuedTokenType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenResponse) GetIssuedTokenTypeOk() (*string, bool) {
-	if o == nil || o.IssuedTokenType == nil {
+	if o == nil || IsNil(o.IssuedTokenType) {
 		return nil, false
 	}
 	return o.IssuedTokenType, true
@@ -215,7 +218,7 @@ func (o *TokenResponse) GetIssuedTokenTypeOk() (*string, bool) {
 
 // HasIssuedTokenType returns a boolean if a field has been set.
 func (o *TokenResponse) HasIssuedTokenType() bool {
-	if o != nil && o.IssuedTokenType != nil {
+	if o != nil && !IsNil(o.IssuedTokenType) {
 		return true
 	}
 
@@ -229,7 +232,7 @@ func (o *TokenResponse) SetIssuedTokenType(v string) {
 
 // GetRefreshToken returns the RefreshToken field value if set, zero value otherwise.
 func (o *TokenResponse) GetRefreshToken() string {
-	if o == nil || o.RefreshToken == nil {
+	if o == nil || IsNil(o.RefreshToken) {
 		var ret string
 		return ret
 	}
@@ -239,7 +242,7 @@ func (o *TokenResponse) GetRefreshToken() string {
 // GetRefreshTokenOk returns a tuple with the RefreshToken field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenResponse) GetRefreshTokenOk() (*string, bool) {
-	if o == nil || o.RefreshToken == nil {
+	if o == nil || IsNil(o.RefreshToken) {
 		return nil, false
 	}
 	return o.RefreshToken, true
@@ -247,7 +250,7 @@ func (o *TokenResponse) GetRefreshTokenOk() (*string, bool) {
 
 // HasRefreshToken returns a boolean if a field has been set.
 func (o *TokenResponse) HasRefreshToken() bool {
-	if o != nil && o.RefreshToken != nil {
+	if o != nil && !IsNil(o.RefreshToken) {
 		return true
 	}
 
@@ -261,7 +264,7 @@ func (o *TokenResponse) SetRefreshToken(v string) {
 
 // GetScope returns the Scope field value if set, zero value otherwise.
 func (o *TokenResponse) GetScope() string {
-	if o == nil || o.Scope == nil {
+	if o == nil || IsNil(o.Scope) {
 		var ret string
 		return ret
 	}
@@ -271,7 +274,7 @@ func (o *TokenResponse) GetScope() string {
 // GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenResponse) GetScopeOk() (*string, bool) {
-	if o == nil || o.Scope == nil {
+	if o == nil || IsNil(o.Scope) {
 		return nil, false
 	}
 	return o.Scope, true
@@ -279,7 +282,7 @@ func (o *TokenResponse) GetScopeOk() (*string, bool) {
 
 // HasScope returns a boolean if a field has been set.
 func (o *TokenResponse) HasScope() bool {
-	if o != nil && o.Scope != nil {
+	if o != nil && !IsNil(o.Scope) {
 		return true
 	}
 
@@ -293,7 +296,7 @@ func (o *TokenResponse) SetScope(v string) {
 
 // GetTokenType returns the TokenType field value if set, zero value otherwise.
 func (o *TokenResponse) GetTokenType() string {
-	if o == nil || o.TokenType == nil {
+	if o == nil || IsNil(o.TokenType) {
 		var ret string
 		return ret
 	}
@@ -303,7 +306,7 @@ func (o *TokenResponse) GetTokenType() string {
 // GetTokenTypeOk returns a tuple with the TokenType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenResponse) GetTokenTypeOk() (*string, bool) {
-	if o == nil || o.TokenType == nil {
+	if o == nil || IsNil(o.TokenType) {
 		return nil, false
 	}
 	return o.TokenType, true
@@ -311,7 +314,7 @@ func (o *TokenResponse) GetTokenTypeOk() (*string, bool) {
 
 // HasTokenType returns a boolean if a field has been set.
 func (o *TokenResponse) HasTokenType() bool {
-	if o != nil && o.TokenType != nil {
+	if o != nil && !IsNil(o.TokenType) {
 		return true
 	}
 
@@ -324,29 +327,37 @@ func (o *TokenResponse) SetTokenType(v string) {
 }
 
 func (o TokenResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TokenResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AccessToken != nil {
+	if !IsNil(o.AccessToken) {
 		toSerialize["access_token"] = o.AccessToken
 	}
-	if o.DeviceSecret != nil {
+	if !IsNil(o.DeviceSecret) {
 		toSerialize["device_secret"] = o.DeviceSecret
 	}
-	if o.ExpiresIn != nil {
+	if !IsNil(o.ExpiresIn) {
 		toSerialize["expires_in"] = o.ExpiresIn
 	}
-	if o.IdToken != nil {
+	if !IsNil(o.IdToken) {
 		toSerialize["id_token"] = o.IdToken
 	}
-	if o.IssuedTokenType != nil {
+	if !IsNil(o.IssuedTokenType) {
 		toSerialize["issued_token_type"] = o.IssuedTokenType
 	}
-	if o.RefreshToken != nil {
+	if !IsNil(o.RefreshToken) {
 		toSerialize["refresh_token"] = o.RefreshToken
 	}
-	if o.Scope != nil {
+	if !IsNil(o.Scope) {
 		toSerialize["scope"] = o.Scope
 	}
-	if o.TokenType != nil {
+	if !IsNil(o.TokenType) {
 		toSerialize["token_type"] = o.TokenType
 	}
 
@@ -354,23 +365,23 @@ func (o TokenResponse) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *TokenResponse) UnmarshalJSON(bytes []byte) (err error) {
+func (o *TokenResponse) UnmarshalJSON(data []byte) (err error) {
 	varTokenResponse := _TokenResponse{}
 
-	err = json.Unmarshal(bytes, &varTokenResponse)
-	if err == nil {
-		*o = TokenResponse(varTokenResponse)
-	} else {
+	err = json.Unmarshal(data, &varTokenResponse)
+
+	if err != nil {
 		return err
 	}
 
+	*o = TokenResponse(varTokenResponse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "access_token")
 		delete(additionalProperties, "device_secret")
 		delete(additionalProperties, "expires_in")
@@ -380,8 +391,6 @@ func (o *TokenResponse) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "scope")
 		delete(additionalProperties, "token_type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -422,4 +431,3 @@ func (v *NullableTokenResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

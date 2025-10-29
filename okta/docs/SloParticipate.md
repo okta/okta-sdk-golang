@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **BindingType** | Pointer to **string** | Request binding type | [optional] 
-**Enabled** | Pointer to **bool** | Allows the app to participate in front-channel single logout. | [optional] 
-**LogoutRequestUrl** | Pointer to **string** | URL where Okta sends the logout request. | [optional] 
-**SessionIndexRequired** | Pointer to **bool** | Include user session details. | [optional] 
+**Enabled** | Pointer to **bool** | Indicates whether the app is allowed to participate in front-channel SLO | [optional] 
+**LogoutRequestUrl** | Pointer to **string** | URL where Okta sends the logout request | [optional] 
+**SessionIndexRequired** | Pointer to **bool** | Determines whether Okta sends the &#x60;SessionIndex&#x60; elements in the logout request | [optional] 
 
 ## Methods
 

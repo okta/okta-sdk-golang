@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
+**Name** | Pointer to **string** | Display name for the key | [optional] 
 
 ## Methods
 

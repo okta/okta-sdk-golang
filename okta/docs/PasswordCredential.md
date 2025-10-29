@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Hash** | Pointer to [**PasswordCredentialHash**](PasswordCredentialHash.md) |  | [optional] 
 **Hook** | Pointer to [**PasswordCredentialHook**](PasswordCredentialHook.md) |  | [optional] 
-**Value** | Pointer to **string** | Specifies the password for a user. The Password Policy validates this password. | [optional] 
+**Value** | Pointer to **string** | Specifies the password for a user. The password policy validates this password. | [optional] 
 
 ## Methods
 

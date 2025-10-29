@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ExpiresAt** | Pointer to **time.Time** | Timestamp when the Factor verification attempt expires | [optional] [readonly] 
-**FactorResult** | Pointer to **string** | Result of a Factor verification | [optional] 
+**ExpiresAt** | Pointer to **time.Time** | Timestamp when the factor verification attempt expires | [optional] [readonly] 
+**FactorResult** | Pointer to **string** | Result of a factor activation | [optional] 
 
 ## Methods
 

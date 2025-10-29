@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Self** | Pointer to [**HrefObjectSelfLink**](HrefObjectSelfLink.md) |  | [optional] 
-**Members** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**Members** | Pointer to [**HrefObjectMembersLink**](HrefObjectMembersLink.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasSelf returns a boolean if a field has been set.
 
 ### GetMembers
 
-`func (o *ResourceSetBindingRoleLinks) GetMembers() HrefObject`
+`func (o *ResourceSetBindingRoleLinks) GetMembers() HrefObjectMembersLink`
 
 GetMembers returns the Members field if non-nil, zero value otherwise.
 
 ### GetMembersOk
 
-`func (o *ResourceSetBindingRoleLinks) GetMembersOk() (*HrefObject, bool)`
+`func (o *ResourceSetBindingRoleLinks) GetMembersOk() (*HrefObjectMembersLink, bool)`
 
 GetMembersOk returns a tuple with the Members field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMembers
 
-`func (o *ResourceSetBindingRoleLinks) SetMembers(v HrefObject)`
+`func (o *ResourceSetBindingRoleLinks) SetMembers(v HrefObjectMembersLink)`
 
 SetMembers sets Members field to given value.
 

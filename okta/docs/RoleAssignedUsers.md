@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Value** | Pointer to [**[]RoleAssignedUser**](RoleAssignedUser.md) |  | [optional] 
-**Links** | Pointer to [**LinksNext**](LinksNext.md) |  | [optional] 
+**Links** | Pointer to [**LinksNextForRoleAssignments**](LinksNextForRoleAssignments.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasValue returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *RoleAssignedUsers) GetLinks() LinksNext`
+`func (o *RoleAssignedUsers) GetLinks() LinksNextForRoleAssignments`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *RoleAssignedUsers) GetLinksOk() (*LinksNext, bool)`
+`func (o *RoleAssignedUsers) GetLinksOk() (*LinksNextForRoleAssignments, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *RoleAssignedUsers) SetLinks(v LinksNext)`
+`func (o *RoleAssignedUsers) SetLinks(v LinksNextForRoleAssignments)`
 
 SetLinks sets Links field to given value.
 

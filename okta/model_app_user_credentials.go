@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
-// AppUserCredentials Specifies a user's credentials for the app. This parameter can be omitted for apps with [sign-on mode](/openapi/okta-management/management/tag/Application/#tag/Application/operation/getApplication!c=200&path=0/signOnMode&t=response) (`signOnMode`) or [authentication schemes](/openapi/okta-management/management/tag/Application/#tag/Application/operation/getApplication!c=200&path=0/credentials/scheme&t=response) (`credentials.scheme`) that don't require credentials. 
+// checks if the AppUserCredentials type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AppUserCredentials{}
+
+// AppUserCredentials Specifies a user's credentials for the app. This parameter can be omitted for apps with [sign-on mode](/openapi/okta-management/management/tag/Application/#tag/Application/operation/getApplication!c=200&path=0/signOnMode&t=response) (`signOnMode`) or [authentication schemes](/openapi/okta-management/management/tag/Application/#tag/Application/operation/getApplication!c=200&path=0/credentials/scheme&t=response) (`credentials.scheme`) that don't require credentials.
 type AppUserCredentials struct {
 	Password *AppUserPasswordCredential `json:"password,omitempty"`
-	// The user's username in the app
-	UserName *string `json:"userName,omitempty"`
+	// The user's username in the app  > **Note:** The [userNameTemplate](/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication!path=0/credentials/userNameTemplate&t=request) in the application object defines the default username generated when a user is assigned to that app. > If you attempt to assign a username or password to an app with an incompatible [authentication scheme](/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication!path=0/credentials/scheme&t=request), the following error is returned: > \"Credentials should not be set on this resource based on the scheme.\"
+	UserName             *string `json:"userName,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewAppUserCredentialsWithDefaults() *AppUserCredentials {
 
 // GetPassword returns the Password field value if set, zero value otherwise.
 func (o *AppUserCredentials) GetPassword() AppUserPasswordCredential {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		var ret AppUserPasswordCredential
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *AppUserCredentials) GetPassword() AppUserPasswordCredential {
 // GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppUserCredentials) GetPasswordOk() (*AppUserPasswordCredential, bool) {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		return nil, false
 	}
 	return o.Password, true
@@ -74,7 +77,7 @@ func (o *AppUserCredentials) GetPasswordOk() (*AppUserPasswordCredential, bool) 
 
 // HasPassword returns a boolean if a field has been set.
 func (o *AppUserCredentials) HasPassword() bool {
-	if o != nil && o.Password != nil {
+	if o != nil && !IsNil(o.Password) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *AppUserCredentials) SetPassword(v AppUserPasswordCredential) {
 
 // GetUserName returns the UserName field value if set, zero value otherwise.
 func (o *AppUserCredentials) GetUserName() string {
-	if o == nil || o.UserName == nil {
+	if o == nil || IsNil(o.UserName) {
 		var ret string
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *AppUserCredentials) GetUserName() string {
 // GetUserNameOk returns a tuple with the UserName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppUserCredentials) GetUserNameOk() (*string, bool) {
-	if o == nil || o.UserName == nil {
+	if o == nil || IsNil(o.UserName) {
 		return nil, false
 	}
 	return o.UserName, true
@@ -106,7 +109,7 @@ func (o *AppUserCredentials) GetUserNameOk() (*string, bool) {
 
 // HasUserName returns a boolean if a field has been set.
 func (o *AppUserCredentials) HasUserName() bool {
-	if o != nil && o.UserName != nil {
+	if o != nil && !IsNil(o.UserName) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *AppUserCredentials) SetUserName(v string) {
 }
 
 func (o AppUserCredentials) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AppUserCredentials) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Password != nil {
+	if !IsNil(o.Password) {
 		toSerialize["password"] = o.Password
 	}
-	if o.UserName != nil {
+	if !IsNil(o.UserName) {
 		toSerialize["userName"] = o.UserName
 	}
 
@@ -131,28 +142,26 @@ func (o AppUserCredentials) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AppUserCredentials) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AppUserCredentials) UnmarshalJSON(data []byte) (err error) {
 	varAppUserCredentials := _AppUserCredentials{}
 
-	err = json.Unmarshal(bytes, &varAppUserCredentials)
-	if err == nil {
-		*o = AppUserCredentials(varAppUserCredentials)
-	} else {
+	err = json.Unmarshal(data, &varAppUserCredentials)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AppUserCredentials(varAppUserCredentials)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "password")
 		delete(additionalProperties, "userName")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -193,4 +202,3 @@ func (v *NullableAppUserCredentials) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

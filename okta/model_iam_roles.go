@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the IamRoles type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IamRoles{}
+
 // IamRoles struct for IamRoles
 type IamRoles struct {
-	Roles []IamRole `json:"roles,omitempty"`
-	Links *LinksNext `json:"_links,omitempty"`
+	Roles                []IamRole  `json:"roles,omitempty"`
+	Links                *LinksNext `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewIamRolesWithDefaults() *IamRoles {
 
 // GetRoles returns the Roles field value if set, zero value otherwise.
 func (o *IamRoles) GetRoles() []IamRole {
-	if o == nil || o.Roles == nil {
+	if o == nil || IsNil(o.Roles) {
 		var ret []IamRole
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *IamRoles) GetRoles() []IamRole {
 // GetRolesOk returns a tuple with the Roles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IamRoles) GetRolesOk() ([]IamRole, bool) {
-	if o == nil || o.Roles == nil {
+	if o == nil || IsNil(o.Roles) {
 		return nil, false
 	}
 	return o.Roles, true
@@ -73,7 +76,7 @@ func (o *IamRoles) GetRolesOk() ([]IamRole, bool) {
 
 // HasRoles returns a boolean if a field has been set.
 func (o *IamRoles) HasRoles() bool {
-	if o != nil && o.Roles != nil {
+	if o != nil && !IsNil(o.Roles) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *IamRoles) SetRoles(v []IamRole) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *IamRoles) GetLinks() LinksNext {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksNext
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *IamRoles) GetLinks() LinksNext {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IamRoles) GetLinksOk() (*LinksNext, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -105,7 +108,7 @@ func (o *IamRoles) GetLinksOk() (*LinksNext, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *IamRoles) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *IamRoles) SetLinks(v LinksNext) {
 }
 
 func (o IamRoles) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IamRoles) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Roles != nil {
+	if !IsNil(o.Roles) {
 		toSerialize["roles"] = o.Roles
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -130,28 +141,26 @@ func (o IamRoles) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *IamRoles) UnmarshalJSON(bytes []byte) (err error) {
+func (o *IamRoles) UnmarshalJSON(data []byte) (err error) {
 	varIamRoles := _IamRoles{}
 
-	err = json.Unmarshal(bytes, &varIamRoles)
-	if err == nil {
-		*o = IamRoles(varIamRoles)
-	} else {
+	err = json.Unmarshal(data, &varIamRoles)
+
+	if err != nil {
 		return err
 	}
 
+	*o = IamRoles(varIamRoles)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "roles")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableIamRoles) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

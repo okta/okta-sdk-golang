@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the OrgCAPTCHASettingsLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrgCAPTCHASettingsLinks{}
+
 // OrgCAPTCHASettingsLinks Link relations for the CAPTCHA settings object
 type OrgCAPTCHASettingsLinks struct {
-	Self *HrefObject `json:"self,omitempty"`
+	Self                 *HrefObject `json:"self,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewOrgCAPTCHASettingsLinksWithDefaults() *OrgCAPTCHASettingsLinks {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *OrgCAPTCHASettingsLinks) GetSelf() HrefObject {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObject
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *OrgCAPTCHASettingsLinks) GetSelf() HrefObject {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgCAPTCHASettingsLinks) GetSelfOk() (*HrefObject, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -72,7 +75,7 @@ func (o *OrgCAPTCHASettingsLinks) GetSelfOk() (*HrefObject, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *OrgCAPTCHASettingsLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *OrgCAPTCHASettingsLinks) SetSelf(v HrefObject) {
 }
 
 func (o OrgCAPTCHASettingsLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OrgCAPTCHASettingsLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
 
@@ -94,27 +105,25 @@ func (o OrgCAPTCHASettingsLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OrgCAPTCHASettingsLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OrgCAPTCHASettingsLinks) UnmarshalJSON(data []byte) (err error) {
 	varOrgCAPTCHASettingsLinks := _OrgCAPTCHASettingsLinks{}
 
-	err = json.Unmarshal(bytes, &varOrgCAPTCHASettingsLinks)
-	if err == nil {
-		*o = OrgCAPTCHASettingsLinks(varOrgCAPTCHASettingsLinks)
-	} else {
+	err = json.Unmarshal(data, &varOrgCAPTCHASettingsLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OrgCAPTCHASettingsLinks(varOrgCAPTCHASettingsLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableOrgCAPTCHASettingsLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

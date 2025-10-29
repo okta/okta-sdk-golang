@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -26,24 +26,23 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type InlineHookAPI interface {
 
 	/*
-	ActivateInlineHook Activate an Inline Hook
+		ActivateInlineHook Activate an inline hook
 
-	Activates the inline hook by `inlineHookId`
+		Activates the inline hook by `inlineHookId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param inlineHookId `id` of the Inline Hook
-	@return ApiActivateInlineHookRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param inlineHookId `id` of the inline hook
+		@return ApiActivateInlineHookRequest
 	*/
 	ActivateInlineHook(ctx context.Context, inlineHookId string) ApiActivateInlineHookRequest
 
@@ -52,27 +51,50 @@ type InlineHookAPI interface {
 	ActivateInlineHookExecute(r ApiActivateInlineHookRequest) (*InlineHook, *APIResponse, error)
 
 	/*
-	CreateInlineHook Create an Inline Hook
+			CreateInlineHook Create an inline hook
 
-	Creates an inline hook
+			Creates an inline hook
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateInlineHookRequest
+		This endpoint creates an inline hook for your org in an `ACTIVE` status. You need to pass an inline hooks object in the JSON payload of your request.
+		That object represents the set of required information about the inline hook that you're registering, including:
+
+		* The URI of your external service endpoint
+		* The type of inline hook you're registering
+		* The type of authentication you're registering
+
+		There are two authentication options that you can configure for your inline hook: HTTP headers and OAuth 2.0 tokens.
+
+		HTTP headers let you specify a secret API key that you want Okta to pass to your external service endpoint (so that your external service can check for its presence as a security measure).
+
+		>**Note:** The API key that you set here is unrelated to the Okta API token you must supply when making calls to Okta APIs.
+
+		You can also optionally specify extra headers that you want Okta to pass to your external service with each call.
+
+		To configure HTTP header authentication, see parameters for the `config` object.
+
+		OAuth 2.0 tokens provide enhanced security between Okta and your external service. You can configure these tokens for the following types&mdash;client secret and private key.
+
+		>**Note:** Your external service's endpoint needs to be a valid HTTPS endpoint. The URI you specify should always begin with `https://`.
+
+		The total number of inline hooks that you can create in an Okta org is limited to 50, which is a combined total for any combination of inline hook types.
+
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiCreateInlineHookRequest
 	*/
 	CreateInlineHook(ctx context.Context) ApiCreateInlineHookRequest
 
 	// CreateInlineHookExecute executes the request
-	//  @return InlineHook
-	CreateInlineHookExecute(r ApiCreateInlineHookRequest) (*InlineHook, *APIResponse, error)
+	//  @return InlineHookCreateResponse
+	CreateInlineHookExecute(r ApiCreateInlineHookRequest) (*InlineHookCreateResponse, *APIResponse, error)
 
 	/*
-	DeactivateInlineHook Deactivate an Inline Hook
+		DeactivateInlineHook Deactivate an inline hook
 
-	Deactivates the inline hook by `inlineHookId`
+		Deactivates the inline hook by `inlineHookId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param inlineHookId `id` of the Inline Hook
-	@return ApiDeactivateInlineHookRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param inlineHookId `id` of the inline hook
+		@return ApiDeactivateInlineHookRequest
 	*/
 	DeactivateInlineHook(ctx context.Context, inlineHookId string) ApiDeactivateInlineHookRequest
 
@@ -81,13 +103,13 @@ type InlineHookAPI interface {
 	DeactivateInlineHookExecute(r ApiDeactivateInlineHookRequest) (*InlineHook, *APIResponse, error)
 
 	/*
-	DeleteInlineHook Delete an Inline Hook
+		DeleteInlineHook Delete an inline hook
 
-	Deletes an inline hook by `inlineHookId`. Once deleted, the Inline Hook is unrecoverable. As a safety precaution, only Inline Hooks with a status of INACTIVE are eligible for deletion.
+		Deletes an inline hook by `inlineHookId`. After it's deleted, the inline hook is unrecoverable. As a safety precaution, only inline hooks with a status of `INACTIVE` are eligible for deletion.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param inlineHookId `id` of the Inline Hook
-	@return ApiDeleteInlineHookRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param inlineHookId `id` of the inline hook
+		@return ApiDeleteInlineHookRequest
 	*/
 	DeleteInlineHook(ctx context.Context, inlineHookId string) ApiDeleteInlineHookRequest
 
@@ -95,28 +117,35 @@ type InlineHookAPI interface {
 	DeleteInlineHookExecute(r ApiDeleteInlineHookRequest) (*APIResponse, error)
 
 	/*
-	ExecuteInlineHook Execute an Inline Hook
+			ExecuteInlineHook Execute an inline hook
 
-	Executes the inline hook by `inlineHookId` using the request body as the input. This will send the provided data through the Channel and return a response if it matches the correct data contract. This execution endpoint should only be used for testing purposes.
+			Executes the inline hook that matches the provided `inlineHookId` by using the request body as the input. This inline hook sends the provided
+		data through the `channel` object and returns a response if it matches the correct data contract. Otherwise it returns an error. You need to
+		construct a JSON payload that matches the payloads that Okta would send to your external service for this inline hook type.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param inlineHookId `id` of the Inline Hook
-	@return ApiExecuteInlineHookRequest
+		A timeout of three seconds is enforced on all outbound requests, with one retry in the event of a timeout or an error response from the remote system.
+		If a successful response isn't received after the request, a 400 error is returned with more information about what failed.
+
+		>**Note:** This execution endpoint isn't tied to any other functionality in Okta, and you should only use it for testing purposes.
+
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param inlineHookId `id` of the inline hook
+			@return ApiExecuteInlineHookRequest
 	*/
 	ExecuteInlineHook(ctx context.Context, inlineHookId string) ApiExecuteInlineHookRequest
 
 	// ExecuteInlineHookExecute executes the request
-	//  @return InlineHookResponse
-	ExecuteInlineHookExecute(r ApiExecuteInlineHookRequest) (*InlineHookResponse, *APIResponse, error)
+	//  @return ExecuteInlineHook200Response
+	ExecuteInlineHookExecute(r ApiExecuteInlineHookRequest) (*ExecuteInlineHook200Response, *APIResponse, error)
 
 	/*
-	GetInlineHook Retrieve an Inline Hook
+		GetInlineHook Retrieve an inline hook
 
-	Retrieves an inline hook by `inlineHookId`
+		Retrieves an inline hook by `inlineHookId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param inlineHookId `id` of the Inline Hook
-	@return ApiGetInlineHookRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param inlineHookId `id` of the inline hook
+		@return ApiGetInlineHookRequest
 	*/
 	GetInlineHook(ctx context.Context, inlineHookId string) ApiGetInlineHookRequest
 
@@ -125,12 +154,22 @@ type InlineHookAPI interface {
 	GetInlineHookExecute(r ApiGetInlineHookRequest) (*InlineHook, *APIResponse, error)
 
 	/*
-	ListInlineHooks List all Inline Hooks
+			ListInlineHooks List all inline hooks
 
-	Lists all inline hooks
+			Lists all inline hooks or all inline hooks of a specific type.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListInlineHooksRequest
+		When listing a specific inline hook, you need to specify its type. The following types are currently supported:
+		  | Type Value                         | Name                                                           |
+		  |------------------------------------|----------------------------------------------------------------|
+		  | `com.okta.import.transform`        | [User import inline hook](/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createUserImportInlineHook)       |
+		  | `com.okta.oauth2.tokens.transform` | [Token inline hook](/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createTokenInlineHook)               |
+		  | `com.okta.saml.tokens.transform`   | [SAML assertion inline hook](/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createSAMLAssertionInlineHook)       |
+		  | `com.okta.telephony.provider`      | [Telephony inline hook](/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createTelephonyInlineHook) |
+		  | `com.okta.user.credential.password.import` | [Password import inline hook](/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createPasswordImportInlineHook)|
+		  | `com.okta.user.pre-registration`   | [Registration inline hook](/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/create-registration-hook) |
+
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiListInlineHooksRequest
 	*/
 	ListInlineHooks(ctx context.Context) ApiListInlineHooksRequest
 
@@ -139,13 +178,15 @@ type InlineHookAPI interface {
 	ListInlineHooksExecute(r ApiListInlineHooksRequest) ([]InlineHook, *APIResponse, error)
 
 	/*
-	ReplaceInlineHook Replace an Inline Hook
+			ReplaceInlineHook Replace an inline hook
 
-	Replaces an inline hook by `inlineHookId`
+			Replaces an inline hook by `inlineHookId`. The submitted inline hook properties replace the existing properties after passing validation.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param inlineHookId `id` of the Inline Hook
-	@return ApiReplaceInlineHookRequest
+		>**Note:** Some properties are immutable and can't be updated.
+
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param inlineHookId `id` of the inline hook
+			@return ApiReplaceInlineHookRequest
 	*/
 	ReplaceInlineHook(ctx context.Context, inlineHookId string) ApiReplaceInlineHookRequest
 
@@ -154,13 +195,13 @@ type InlineHookAPI interface {
 	ReplaceInlineHookExecute(r ApiReplaceInlineHookRequest) (*InlineHook, *APIResponse, error)
 
 	/*
-	UpdateInlineHook Update an Inline Hook
+		UpdateInlineHook Update an inline hook
 
-	Updates an inline hook by `inlineHookId`
+		Updates an inline hook by `inlineHookId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param inlineHookId `id` of the Inline Hook
-	@return ApiUpdateInlineHookRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param inlineHookId `id` of the inline hook
+		@return ApiUpdateInlineHookRequest
 	*/
 	UpdateInlineHook(ctx context.Context, inlineHookId string) ApiUpdateInlineHookRequest
 
@@ -173,10 +214,10 @@ type InlineHookAPI interface {
 type InlineHookAPIService service
 
 type ApiActivateInlineHookRequest struct {
-	ctx context.Context
-	ApiService InlineHookAPI
+	ctx          context.Context
+	ApiService   InlineHookAPI
 	inlineHookId string
-	retryCount int32
+	retryCount   int32
 }
 
 func (r ApiActivateInlineHookRequest) Execute() (*InlineHook, *APIResponse, error) {
@@ -184,25 +225,26 @@ func (r ApiActivateInlineHookRequest) Execute() (*InlineHook, *APIResponse, erro
 }
 
 /*
-ActivateInlineHook Activate an Inline Hook
+ActivateInlineHook Activate an inline hook
 
 Activates the inline hook by `inlineHookId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param inlineHookId `id` of the Inline Hook
- @return ApiActivateInlineHookRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param inlineHookId `id` of the inline hook
+	@return ApiActivateInlineHookRequest
 */
 func (a *InlineHookAPIService) ActivateInlineHook(ctx context.Context, inlineHookId string) ApiActivateInlineHookRequest {
 	return ApiActivateInlineHookRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		inlineHookId: inlineHookId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return InlineHook
+//
+//	@return InlineHook
 func (a *InlineHookAPIService) ActivateInlineHookExecute(r ApiActivateInlineHookRequest) (*InlineHook, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -211,7 +253,7 @@ func (a *InlineHookAPIService) ActivateInlineHookExecute(r ApiActivateInlineHook
 		localVarReturnValue  *InlineHook
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -272,9 +314,9 @@ func (a *InlineHookAPIService) ActivateInlineHookExecute(r ApiActivateInlineHook
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -332,54 +374,78 @@ func (a *InlineHookAPIService) ActivateInlineHookExecute(r ApiActivateInlineHook
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiCreateInlineHookRequest struct {
-	ctx context.Context
-	ApiService InlineHookAPI
-	inlineHook *InlineHook
-	retryCount int32
+	ctx              context.Context
+	ApiService       InlineHookAPI
+	inlineHookCreate *InlineHookCreate
+	retryCount       int32
 }
 
-func (r ApiCreateInlineHookRequest) InlineHook(inlineHook InlineHook) ApiCreateInlineHookRequest {
-	r.inlineHook = &inlineHook
+func (r ApiCreateInlineHookRequest) InlineHookCreate(inlineHookCreate InlineHookCreate) ApiCreateInlineHookRequest {
+	r.inlineHookCreate = &inlineHookCreate
 	return r
 }
 
-func (r ApiCreateInlineHookRequest) Execute() (*InlineHook, *APIResponse, error) {
+func (r ApiCreateInlineHookRequest) Execute() (*InlineHookCreateResponse, *APIResponse, error) {
 	return r.ApiService.CreateInlineHookExecute(r)
 }
 
 /*
-CreateInlineHook Create an Inline Hook
+CreateInlineHook Create an inline hook
 
-Creates an inline hook
+# Creates an inline hook
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateInlineHookRequest
+This endpoint creates an inline hook for your org in an `ACTIVE` status. You need to pass an inline hooks object in the JSON payload of your request.
+That object represents the set of required information about the inline hook that you're registering, including:
+
+* The URI of your external service endpoint
+* The type of inline hook you're registering
+* The type of authentication you're registering
+
+There are two authentication options that you can configure for your inline hook: HTTP headers and OAuth 2.0 tokens.
+
+HTTP headers let you specify a secret API key that you want Okta to pass to your external service endpoint (so that your external service can check for its presence as a security measure).
+
+>**Note:** The API key that you set here is unrelated to the Okta API token you must supply when making calls to Okta APIs.
+
+You can also optionally specify extra headers that you want Okta to pass to your external service with each call.
+
+To configure HTTP header authentication, see parameters for the `config` object.
+
+OAuth 2.0 tokens provide enhanced security between Okta and your external service. You can configure these tokens for the following types&mdash;client secret and private key.
+
+>**Note:** Your external service's endpoint needs to be a valid HTTPS endpoint. The URI you specify should always begin with `https://`.
+
+The total number of inline hooks that you can create in an Okta org is limited to 50, which is a combined total for any combination of inline hook types.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateInlineHookRequest
 */
 func (a *InlineHookAPIService) CreateInlineHook(ctx context.Context) ApiCreateInlineHookRequest {
 	return ApiCreateInlineHookRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return InlineHook
-func (a *InlineHookAPIService) CreateInlineHookExecute(r ApiCreateInlineHookRequest) (*InlineHook, *APIResponse, error) {
+//
+//	@return InlineHookCreateResponse
+func (a *InlineHookAPIService) CreateInlineHookExecute(r ApiCreateInlineHookRequest) (*InlineHookCreateResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *InlineHook
+		localVarReturnValue  *InlineHookCreateResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -397,8 +463,8 @@ func (a *InlineHookAPIService) CreateInlineHookExecute(r ApiCreateInlineHookRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.inlineHook == nil {
-		return localVarReturnValue, nil, reportError("inlineHook is required and must be specified")
+	if r.inlineHookCreate == nil {
+		return localVarReturnValue, nil, reportError("inlineHookCreate is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -419,7 +485,7 @@ func (a *InlineHookAPIService) CreateInlineHookExecute(r ApiCreateInlineHookRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.inlineHook
+	localVarPostBody = r.inlineHookCreate
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -444,9 +510,9 @@ func (a *InlineHookAPIService) CreateInlineHookExecute(r ApiCreateInlineHookRequ
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -504,16 +570,16 @@ func (a *InlineHookAPIService) CreateInlineHookExecute(r ApiCreateInlineHookRequ
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeactivateInlineHookRequest struct {
-	ctx context.Context
-	ApiService InlineHookAPI
+	ctx          context.Context
+	ApiService   InlineHookAPI
 	inlineHookId string
-	retryCount int32
+	retryCount   int32
 }
 
 func (r ApiDeactivateInlineHookRequest) Execute() (*InlineHook, *APIResponse, error) {
@@ -521,25 +587,26 @@ func (r ApiDeactivateInlineHookRequest) Execute() (*InlineHook, *APIResponse, er
 }
 
 /*
-DeactivateInlineHook Deactivate an Inline Hook
+DeactivateInlineHook Deactivate an inline hook
 
 Deactivates the inline hook by `inlineHookId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param inlineHookId `id` of the Inline Hook
- @return ApiDeactivateInlineHookRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param inlineHookId `id` of the inline hook
+	@return ApiDeactivateInlineHookRequest
 */
 func (a *InlineHookAPIService) DeactivateInlineHook(ctx context.Context, inlineHookId string) ApiDeactivateInlineHookRequest {
 	return ApiDeactivateInlineHookRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		inlineHookId: inlineHookId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return InlineHook
+//
+//	@return InlineHook
 func (a *InlineHookAPIService) DeactivateInlineHookExecute(r ApiDeactivateInlineHookRequest) (*InlineHook, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -548,7 +615,7 @@ func (a *InlineHookAPIService) DeactivateInlineHookExecute(r ApiDeactivateInline
 		localVarReturnValue  *InlineHook
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -609,9 +676,9 @@ func (a *InlineHookAPIService) DeactivateInlineHookExecute(r ApiDeactivateInline
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -669,16 +736,16 @@ func (a *InlineHookAPIService) DeactivateInlineHookExecute(r ApiDeactivateInline
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteInlineHookRequest struct {
-	ctx context.Context
-	ApiService InlineHookAPI
+	ctx          context.Context
+	ApiService   InlineHookAPI
 	inlineHookId string
-	retryCount int32
+	retryCount   int32
 }
 
 func (r ApiDeleteInlineHookRequest) Execute() (*APIResponse, error) {
@@ -686,20 +753,20 @@ func (r ApiDeleteInlineHookRequest) Execute() (*APIResponse, error) {
 }
 
 /*
-DeleteInlineHook Delete an Inline Hook
+DeleteInlineHook Delete an inline hook
 
-Deletes an inline hook by `inlineHookId`. Once deleted, the Inline Hook is unrecoverable. As a safety precaution, only Inline Hooks with a status of INACTIVE are eligible for deletion.
+Deletes an inline hook by `inlineHookId`. After it's deleted, the inline hook is unrecoverable. As a safety precaution, only inline hooks with a status of `INACTIVE` are eligible for deletion.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param inlineHookId `id` of the Inline Hook
- @return ApiDeleteInlineHookRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param inlineHookId `id` of the inline hook
+	@return ApiDeleteInlineHookRequest
 */
 func (a *InlineHookAPIService) DeleteInlineHook(ctx context.Context, inlineHookId string) ApiDeleteInlineHookRequest {
 	return ApiDeleteInlineHookRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		inlineHookId: inlineHookId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -711,7 +778,7 @@ func (a *InlineHookAPIService) DeleteInlineHookExecute(r ApiDeleteInlineHookRequ
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -772,9 +839,9 @@ func (a *InlineHookAPIService) DeleteInlineHookExecute(r ApiDeleteInlineHookRequ
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -828,51 +895,59 @@ func (a *InlineHookAPIService) DeleteInlineHookExecute(r ApiDeleteInlineHookRequ
 }
 
 type ApiExecuteInlineHookRequest struct {
-	ctx context.Context
-	ApiService InlineHookAPI
+	ctx          context.Context
+	ApiService   InlineHookAPI
 	inlineHookId string
-	payloadData *map[string]interface{}
-	retryCount int32
+	payloadData  *ExecuteInlineHookRequest
+	retryCount   int32
 }
 
-func (r ApiExecuteInlineHookRequest) PayloadData(payloadData map[string]interface{}) ApiExecuteInlineHookRequest {
+func (r ApiExecuteInlineHookRequest) PayloadData(payloadData ExecuteInlineHookRequest) ApiExecuteInlineHookRequest {
 	r.payloadData = &payloadData
 	return r
 }
 
-func (r ApiExecuteInlineHookRequest) Execute() (*InlineHookResponse, *APIResponse, error) {
+func (r ApiExecuteInlineHookRequest) Execute() (*ExecuteInlineHook200Response, *APIResponse, error) {
 	return r.ApiService.ExecuteInlineHookExecute(r)
 }
 
 /*
-ExecuteInlineHook Execute an Inline Hook
+ExecuteInlineHook Execute an inline hook
 
-Executes the inline hook by `inlineHookId` using the request body as the input. This will send the provided data through the Channel and return a response if it matches the correct data contract. This execution endpoint should only be used for testing purposes.
+Executes the inline hook that matches the provided `inlineHookId` by using the request body as the input. This inline hook sends the provided
+data through the `channel` object and returns a response if it matches the correct data contract. Otherwise it returns an error. You need to
+construct a JSON payload that matches the payloads that Okta would send to your external service for this inline hook type.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param inlineHookId `id` of the Inline Hook
- @return ApiExecuteInlineHookRequest
+A timeout of three seconds is enforced on all outbound requests, with one retry in the event of a timeout or an error response from the remote system.
+If a successful response isn't received after the request, a 400 error is returned with more information about what failed.
+
+>**Note:** This execution endpoint isn't tied to any other functionality in Okta, and you should only use it for testing purposes.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param inlineHookId `id` of the inline hook
+	@return ApiExecuteInlineHookRequest
 */
 func (a *InlineHookAPIService) ExecuteInlineHook(ctx context.Context, inlineHookId string) ApiExecuteInlineHookRequest {
 	return ApiExecuteInlineHookRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		inlineHookId: inlineHookId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return InlineHookResponse
-func (a *InlineHookAPIService) ExecuteInlineHookExecute(r ApiExecuteInlineHookRequest) (*InlineHookResponse, *APIResponse, error) {
+//
+//	@return ExecuteInlineHook200Response
+func (a *InlineHookAPIService) ExecuteInlineHookExecute(r ApiExecuteInlineHookRequest) (*ExecuteInlineHook200Response, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *InlineHookResponse
+		localVarReturnValue  *ExecuteInlineHook200Response
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -938,9 +1013,9 @@ func (a *InlineHookAPIService) ExecuteInlineHookExecute(r ApiExecuteInlineHookRe
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1010,16 +1085,16 @@ func (a *InlineHookAPIService) ExecuteInlineHookExecute(r ApiExecuteInlineHookRe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetInlineHookRequest struct {
-	ctx context.Context
-	ApiService InlineHookAPI
+	ctx          context.Context
+	ApiService   InlineHookAPI
 	inlineHookId string
-	retryCount int32
+	retryCount   int32
 }
 
 func (r ApiGetInlineHookRequest) Execute() (*InlineHook, *APIResponse, error) {
@@ -1027,25 +1102,26 @@ func (r ApiGetInlineHookRequest) Execute() (*InlineHook, *APIResponse, error) {
 }
 
 /*
-GetInlineHook Retrieve an Inline Hook
+GetInlineHook Retrieve an inline hook
 
 Retrieves an inline hook by `inlineHookId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param inlineHookId `id` of the Inline Hook
- @return ApiGetInlineHookRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param inlineHookId `id` of the inline hook
+	@return ApiGetInlineHookRequest
 */
 func (a *InlineHookAPIService) GetInlineHook(ctx context.Context, inlineHookId string) ApiGetInlineHookRequest {
 	return ApiGetInlineHookRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		inlineHookId: inlineHookId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return InlineHook
+//
+//	@return InlineHook
 func (a *InlineHookAPIService) GetInlineHookExecute(r ApiGetInlineHookRequest) (*InlineHook, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1054,7 +1130,7 @@ func (a *InlineHookAPIService) GetInlineHookExecute(r ApiGetInlineHookRequest) (
 		localVarReturnValue  *InlineHook
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1115,9 +1191,9 @@ func (a *InlineHookAPIService) GetInlineHookExecute(r ApiGetInlineHookRequest) (
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1175,18 +1251,19 @@ func (a *InlineHookAPIService) GetInlineHookExecute(r ApiGetInlineHookRequest) (
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListInlineHooksRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService InlineHookAPI
-	type_ *string
+	type_      *string
 	retryCount int32
 }
 
+// One of the supported inline hook types
 func (r ApiListInlineHooksRequest) Type_(type_ string) ApiListInlineHooksRequest {
 	r.type_ = &type_
 	return r
@@ -1197,23 +1274,35 @@ func (r ApiListInlineHooksRequest) Execute() ([]InlineHook, *APIResponse, error)
 }
 
 /*
-ListInlineHooks List all Inline Hooks
+ListInlineHooks List all inline hooks
 
-Lists all inline hooks
+Lists all inline hooks or all inline hooks of a specific type.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListInlineHooksRequest
+When listing a specific inline hook, you need to specify its type. The following types are currently supported:
+
+	 | Type Value                         | Name                                                           |
+	 |------------------------------------|----------------------------------------------------------------|
+	 | `com.okta.import.transform`        | [User import inline hook](/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createUserImportInlineHook)       |
+	 | `com.okta.oauth2.tokens.transform` | [Token inline hook](/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createTokenInlineHook)               |
+	 | `com.okta.saml.tokens.transform`   | [SAML assertion inline hook](/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createSAMLAssertionInlineHook)       |
+	 | `com.okta.telephony.provider`      | [Telephony inline hook](/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createTelephonyInlineHook) |
+	 | `com.okta.user.credential.password.import` | [Password import inline hook](/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createPasswordImportInlineHook)|
+	 | `com.okta.user.pre-registration`   | [Registration inline hook](/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/create-registration-hook) |
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListInlineHooksRequest
 */
 func (a *InlineHookAPIService) ListInlineHooks(ctx context.Context) ApiListInlineHooksRequest {
 	return ApiListInlineHooksRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []InlineHook
+//
+//	@return []InlineHook
 func (a *InlineHookAPIService) ListInlineHooksExecute(r ApiListInlineHooksRequest) ([]InlineHook, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1222,7 +1311,7 @@ func (a *InlineHookAPIService) ListInlineHooksExecute(r ApiListInlineHooksReques
 		localVarReturnValue  []InlineHook
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1285,9 +1374,9 @@ func (a *InlineHookAPIService) ListInlineHooksExecute(r ApiListInlineHooksReques
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1333,20 +1422,20 @@ func (a *InlineHookAPIService) ListInlineHooksExecute(r ApiListInlineHooksReques
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceInlineHookRequest struct {
-	ctx context.Context
-	ApiService InlineHookAPI
+	ctx          context.Context
+	ApiService   InlineHookAPI
 	inlineHookId string
-	inlineHook *InlineHook
-	retryCount int32
+	inlineHook   *InlineHookReplace
+	retryCount   int32
 }
 
-func (r ApiReplaceInlineHookRequest) InlineHook(inlineHook InlineHook) ApiReplaceInlineHookRequest {
+func (r ApiReplaceInlineHookRequest) InlineHook(inlineHook InlineHookReplace) ApiReplaceInlineHookRequest {
 	r.inlineHook = &inlineHook
 	return r
 }
@@ -1356,25 +1445,28 @@ func (r ApiReplaceInlineHookRequest) Execute() (*InlineHook, *APIResponse, error
 }
 
 /*
-ReplaceInlineHook Replace an Inline Hook
+ReplaceInlineHook Replace an inline hook
 
-Replaces an inline hook by `inlineHookId`
+Replaces an inline hook by `inlineHookId`. The submitted inline hook properties replace the existing properties after passing validation.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param inlineHookId `id` of the Inline Hook
- @return ApiReplaceInlineHookRequest
+>**Note:** Some properties are immutable and can't be updated.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param inlineHookId `id` of the inline hook
+	@return ApiReplaceInlineHookRequest
 */
 func (a *InlineHookAPIService) ReplaceInlineHook(ctx context.Context, inlineHookId string) ApiReplaceInlineHookRequest {
 	return ApiReplaceInlineHookRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		inlineHookId: inlineHookId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return InlineHook
+//
+//	@return InlineHook
 func (a *InlineHookAPIService) ReplaceInlineHookExecute(r ApiReplaceInlineHookRequest) (*InlineHook, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -1383,7 +1475,7 @@ func (a *InlineHookAPIService) ReplaceInlineHookExecute(r ApiReplaceInlineHookRe
 		localVarReturnValue  *InlineHook
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1449,9 +1541,9 @@ func (a *InlineHookAPIService) ReplaceInlineHookExecute(r ApiReplaceInlineHookRe
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1521,20 +1613,20 @@ func (a *InlineHookAPIService) ReplaceInlineHookExecute(r ApiReplaceInlineHookRe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateInlineHookRequest struct {
-	ctx context.Context
-	ApiService InlineHookAPI
+	ctx          context.Context
+	ApiService   InlineHookAPI
 	inlineHookId string
-	inlineHook *InlineHook
-	retryCount int32
+	inlineHook   *InlineHookReplace
+	retryCount   int32
 }
 
-func (r ApiUpdateInlineHookRequest) InlineHook(inlineHook InlineHook) ApiUpdateInlineHookRequest {
+func (r ApiUpdateInlineHookRequest) InlineHook(inlineHook InlineHookReplace) ApiUpdateInlineHookRequest {
 	r.inlineHook = &inlineHook
 	return r
 }
@@ -1544,25 +1636,26 @@ func (r ApiUpdateInlineHookRequest) Execute() (*InlineHook, *APIResponse, error)
 }
 
 /*
-UpdateInlineHook Update an Inline Hook
+UpdateInlineHook Update an inline hook
 
 Updates an inline hook by `inlineHookId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param inlineHookId `id` of the Inline Hook
- @return ApiUpdateInlineHookRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param inlineHookId `id` of the inline hook
+	@return ApiUpdateInlineHookRequest
 */
 func (a *InlineHookAPIService) UpdateInlineHook(ctx context.Context, inlineHookId string) ApiUpdateInlineHookRequest {
 	return ApiUpdateInlineHookRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		inlineHookId: inlineHookId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return InlineHook
+//
+//	@return InlineHook
 func (a *InlineHookAPIService) UpdateInlineHookExecute(r ApiUpdateInlineHookRequest) (*InlineHook, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1571,7 +1664,7 @@ func (a *InlineHookAPIService) UpdateInlineHookExecute(r ApiUpdateInlineHookRequ
 		localVarReturnValue  *InlineHook
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1637,9 +1730,9 @@ func (a *InlineHookAPIService) UpdateInlineHookExecute(r ApiUpdateInlineHookRequ
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1709,7 +1802,7 @@ func (a *InlineHookAPIService) UpdateInlineHookExecute(r ApiUpdateInlineHookRequ
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

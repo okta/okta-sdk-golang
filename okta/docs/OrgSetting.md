@@ -4,24 +4,24 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Address1** | Pointer to **string** |  | [optional] 
-**Address2** | Pointer to **string** |  | [optional] 
-**City** | Pointer to **string** |  | [optional] 
-**CompanyName** | Pointer to **string** |  | [optional] 
-**Country** | Pointer to **string** |  | [optional] 
-**Created** | Pointer to **time.Time** |  | [optional] [readonly] 
-**EndUserSupportHelpURL** | Pointer to **string** |  | [optional] 
-**ExpiresAt** | Pointer to **time.Time** |  | [optional] [readonly] 
-**Id** | Pointer to **string** |  | [optional] [readonly] 
-**LastUpdated** | Pointer to **time.Time** |  | [optional] [readonly] 
-**PhoneNumber** | Pointer to **string** |  | [optional] 
-**PostalCode** | Pointer to **string** |  | [optional] 
-**State** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] [readonly] 
-**Subdomain** | Pointer to **string** |  | [optional] [readonly] 
-**SupportPhoneNumber** | Pointer to **string** |  | [optional] 
-**Website** | Pointer to **string** |  | [optional] 
-**Links** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
+**Address1** | Pointer to **string** | Primary address of the organization associated with the org | [optional] 
+**Address2** | Pointer to **string** | Secondary address of the organization associated with the org | [optional] 
+**City** | Pointer to **string** | City of the organization associated with the org | [optional] 
+**CompanyName** | Pointer to **string** | Name of org | [optional] 
+**Country** | Pointer to **string** | County of the organization associated with the org | [optional] 
+**Created** | Pointer to **time.Time** | When org was created | [optional] [readonly] 
+**EndUserSupportHelpURL** | Pointer to **string** | Support link of org | [optional] 
+**ExpiresAt** | Pointer to **time.Time** | Expiration of org | [optional] [readonly] 
+**Id** | Pointer to **string** | Org ID | [optional] [readonly] 
+**LastUpdated** | Pointer to **time.Time** | When org was last updated | [optional] [readonly] 
+**PhoneNumber** | Pointer to **string** | Phone number of the organization associated with the org | [optional] 
+**PostalCode** | Pointer to **string** | Postal code of the organization associated with the org | [optional] 
+**State** | Pointer to **string** | State of the organization associated with the org | [optional] 
+**Status** | Pointer to **string** | Status of org | [optional] [readonly] 
+**Subdomain** | Pointer to **string** | Subdomain of org | [optional] [readonly] 
+**SupportPhoneNumber** | Pointer to **string** | Support help phone of the organization associated with the org | [optional] 
+**Website** | Pointer to **string** | Website of the organization associated with the org | [optional] 
+**Links** | Pointer to [**OrgGeneralSettingLinks**](OrgGeneralSettingLinks.md) |  | [optional] 
 
 ## Methods
 
@@ -469,20 +469,20 @@ HasWebsite returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *OrgSetting) GetLinks() LinksSelf`
+`func (o *OrgSetting) GetLinks() OrgGeneralSettingLinks`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *OrgSetting) GetLinksOk() (*LinksSelf, bool)`
+`func (o *OrgSetting) GetLinksOk() (*OrgGeneralSettingLinks, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *OrgSetting) SetLinks(v LinksSelf)`
+`func (o *OrgSetting) SetLinks(v OrgGeneralSettingLinks)`
 
 SetLinks sets Links field to given value.
 

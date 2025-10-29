@@ -5,13 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Dictionary** | Pointer to [**PasswordDictionary**](PasswordDictionary.md) |  | [optional] 
-**ExcludeAttributes** | Pointer to **[]string** |  | [optional] 
-**ExcludeUsername** | Pointer to **bool** |  | [optional] [default to true]
-**MinLength** | Pointer to **int32** |  | [optional] 
-**MinLowerCase** | Pointer to **int32** |  | [optional] 
-**MinNumber** | Pointer to **int32** |  | [optional] 
-**MinSymbol** | Pointer to **int32** |  | [optional] 
-**MinUpperCase** | Pointer to **int32** |  | [optional] 
+**ExcludeAttributes** | Pointer to **[]string** | The User profile attributes whose values must be excluded from the password: currently only supports &#x60;firstName&#x60; and &#x60;lastName&#x60; | [optional] [default to []]
+**ExcludeUsername** | Pointer to **bool** | Indicates if the Username must be excluded from the password | [optional] [default to true]
+**MinLength** | Pointer to **int32** | Minimum password length | [optional] [default to 8]
+**MinLowerCase** | Pointer to **int32** | Indicates if a password must contain at least one lower case letter: &#x60;0&#x60; indicates no, &#x60;1&#x60; indicates yes | [optional] [default to 1]
+**MinNumber** | Pointer to **int32** | Indicates if a password must contain at least one number: &#x60;0&#x60; indicates no, &#x60;1&#x60; indicates yes | [optional] [default to 1]
+**MinSymbol** | Pointer to **int32** | Indicates if a password must contain at least one symbol (For example: !@#$%^&amp;*): &#x60;0&#x60; indicates no, &#x60;1&#x60; indicates yes | [optional] [default to 1]
+**MinUpperCase** | Pointer to **int32** | Indicates if a password must contain at least one upper case letter: &#x60;0&#x60; indicates no, &#x60;1&#x60; indicates yes | [optional] [default to 1]
+**OelStatement** | Pointer to **string** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &lt;x-lifecycle class&#x3D;\&quot;oie\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;Use an [Expression Language](https://developer.okta.com/docs/reference/okta-expression-language-in-identity-engine/) expression to block a word from being used in a password. You can only block one word per expression. Use the &#x60;OR&#x60; operator to connect multiple expressions to block multiple words. | [optional] 
 
 ## Methods
 
@@ -231,6 +232,31 @@ SetMinUpperCase sets MinUpperCase field to given value.
 `func (o *PasswordPolicyPasswordSettingsComplexity) HasMinUpperCase() bool`
 
 HasMinUpperCase returns a boolean if a field has been set.
+
+### GetOelStatement
+
+`func (o *PasswordPolicyPasswordSettingsComplexity) GetOelStatement() string`
+
+GetOelStatement returns the OelStatement field if non-nil, zero value otherwise.
+
+### GetOelStatementOk
+
+`func (o *PasswordPolicyPasswordSettingsComplexity) GetOelStatementOk() (*string, bool)`
+
+GetOelStatementOk returns a tuple with the OelStatement field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOelStatement
+
+`func (o *PasswordPolicyPasswordSettingsComplexity) SetOelStatement(v string)`
+
+SetOelStatement sets OelStatement field to given value.
+
+### HasOelStatement
+
+`func (o *PasswordPolicyPasswordSettingsComplexity) HasOelStatement() bool`
+
+HasOelStatement returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

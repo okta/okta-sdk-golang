@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the OSVersionThreeComponents type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OSVersionThreeComponents{}
+
 // OSVersionThreeComponents Current version of the operating system (maximum of three components in the versioning scheme)
 type OSVersionThreeComponents struct {
-	Minimum *string `json:"minimum,omitempty"`
+	Minimum              *string `json:"minimum,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewOSVersionThreeComponentsWithDefaults() *OSVersionThreeComponents {
 
 // GetMinimum returns the Minimum field value if set, zero value otherwise.
 func (o *OSVersionThreeComponents) GetMinimum() string {
-	if o == nil || o.Minimum == nil {
+	if o == nil || IsNil(o.Minimum) {
 		var ret string
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *OSVersionThreeComponents) GetMinimum() string {
 // GetMinimumOk returns a tuple with the Minimum field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OSVersionThreeComponents) GetMinimumOk() (*string, bool) {
-	if o == nil || o.Minimum == nil {
+	if o == nil || IsNil(o.Minimum) {
 		return nil, false
 	}
 	return o.Minimum, true
@@ -72,7 +75,7 @@ func (o *OSVersionThreeComponents) GetMinimumOk() (*string, bool) {
 
 // HasMinimum returns a boolean if a field has been set.
 func (o *OSVersionThreeComponents) HasMinimum() bool {
-	if o != nil && o.Minimum != nil {
+	if o != nil && !IsNil(o.Minimum) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *OSVersionThreeComponents) SetMinimum(v string) {
 }
 
 func (o OSVersionThreeComponents) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OSVersionThreeComponents) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Minimum != nil {
+	if !IsNil(o.Minimum) {
 		toSerialize["minimum"] = o.Minimum
 	}
 
@@ -94,27 +105,25 @@ func (o OSVersionThreeComponents) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OSVersionThreeComponents) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OSVersionThreeComponents) UnmarshalJSON(data []byte) (err error) {
 	varOSVersionThreeComponents := _OSVersionThreeComponents{}
 
-	err = json.Unmarshal(bytes, &varOSVersionThreeComponents)
-	if err == nil {
-		*o = OSVersionThreeComponents(varOSVersionThreeComponents)
-	} else {
+	err = json.Unmarshal(data, &varOSVersionThreeComponents)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OSVersionThreeComponents(varOSVersionThreeComponents)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "minimum")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullableOSVersionThreeComponents) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

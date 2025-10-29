@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**User** | Pointer to [**LinksUserUser**](LinksUserUser.md) |  | [optional] 
+**User** | Pointer to [**HrefObject**](HrefObject.md) | Returns information on the specified user | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetUser
 
-`func (o *LinksUser) GetUser() LinksUserUser`
+`func (o *LinksUser) GetUser() HrefObject`
 
 GetUser returns the User field if non-nil, zero value otherwise.
 
 ### GetUserOk
 
-`func (o *LinksUser) GetUserOk() (*LinksUserUser, bool)`
+`func (o *LinksUser) GetUserOk() (*HrefObject, bool)`
 
 GetUserOk returns a tuple with the User field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUser
 
-`func (o *LinksUser) SetUser(v LinksUserUser)`
+`func (o *LinksUser) SetUser(v HrefObject)`
 
 SetUser sets User field to given value.
 

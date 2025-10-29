@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | **time.Time** | Timestamp when the Log Stream object was created | [readonly] 
-**Id** | **string** | Unique identifier for the Log Stream | [readonly] 
-**LastUpdated** | **time.Time** | Timestamp when the Log Stream object was last updated | [readonly] 
-**Name** | **string** | Unique name for the Log Stream object | 
-**Status** | **string** | Lifecycle status of the Log Stream object | [readonly] 
+**Created** | **time.Time** | Timestamp when the log stream object was created | [readonly] 
+**Id** | **string** | Unique identifier for the log stream | [readonly] 
+**LastUpdated** | **time.Time** | Timestamp when the log stream object was last updated | [readonly] 
+**Name** | **string** | Unique name for the log stream object | 
+**Status** | **string** | Lifecycle status of the log stream object | [readonly] 
 **Type** | **string** | Specifies the streaming provider used  Supported providers:   * &#x60;aws_eventbridge&#x60; ([AWS EventBridge](https://aws.amazon.com/eventbridge))   * &#x60;splunk_cloud_logstreaming&#x60; ([Splunk Cloud](https://www.splunk.com/en_us/software/splunk-cloud-platform.html))  Select the provider type to see provider-specific configurations in the &#x60;settings&#x60; property: | 
 **Links** | [**LogStreamLinksSelfAndLifecycle**](LogStreamLinksSelfAndLifecycle.md) |  | 
 

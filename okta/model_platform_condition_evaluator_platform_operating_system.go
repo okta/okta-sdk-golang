@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the PlatformConditionEvaluatorPlatformOperatingSystem type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PlatformConditionEvaluatorPlatformOperatingSystem{}
+
 // PlatformConditionEvaluatorPlatformOperatingSystem struct for PlatformConditionEvaluatorPlatformOperatingSystem
 type PlatformConditionEvaluatorPlatformOperatingSystem struct {
-	Expression *string `json:"expression,omitempty"`
-	Type *string `json:"type,omitempty"`
-	Version *PlatformConditionEvaluatorPlatformOperatingSystemVersion `json:"version,omitempty"`
+	Expression           *string                                                   `json:"expression,omitempty"`
+	Type                 *string                                                   `json:"type,omitempty"`
+	Version              *PlatformConditionEvaluatorPlatformOperatingSystemVersion `json:"version,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewPlatformConditionEvaluatorPlatformOperatingSystemWithDefaults() *Platfor
 
 // GetExpression returns the Expression field value if set, zero value otherwise.
 func (o *PlatformConditionEvaluatorPlatformOperatingSystem) GetExpression() string {
-	if o == nil || o.Expression == nil {
+	if o == nil || IsNil(o.Expression) {
 		var ret string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *PlatformConditionEvaluatorPlatformOperatingSystem) GetExpression() stri
 // GetExpressionOk returns a tuple with the Expression field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PlatformConditionEvaluatorPlatformOperatingSystem) GetExpressionOk() (*string, bool) {
-	if o == nil || o.Expression == nil {
+	if o == nil || IsNil(o.Expression) {
 		return nil, false
 	}
 	return o.Expression, true
@@ -74,7 +77,7 @@ func (o *PlatformConditionEvaluatorPlatformOperatingSystem) GetExpressionOk() (*
 
 // HasExpression returns a boolean if a field has been set.
 func (o *PlatformConditionEvaluatorPlatformOperatingSystem) HasExpression() bool {
-	if o != nil && o.Expression != nil {
+	if o != nil && !IsNil(o.Expression) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *PlatformConditionEvaluatorPlatformOperatingSystem) SetExpression(v stri
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *PlatformConditionEvaluatorPlatformOperatingSystem) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *PlatformConditionEvaluatorPlatformOperatingSystem) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PlatformConditionEvaluatorPlatformOperatingSystem) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -106,7 +109,7 @@ func (o *PlatformConditionEvaluatorPlatformOperatingSystem) GetTypeOk() (*string
 
 // HasType returns a boolean if a field has been set.
 func (o *PlatformConditionEvaluatorPlatformOperatingSystem) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *PlatformConditionEvaluatorPlatformOperatingSystem) SetType(v string) {
 
 // GetVersion returns the Version field value if set, zero value otherwise.
 func (o *PlatformConditionEvaluatorPlatformOperatingSystem) GetVersion() PlatformConditionEvaluatorPlatformOperatingSystemVersion {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		var ret PlatformConditionEvaluatorPlatformOperatingSystemVersion
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *PlatformConditionEvaluatorPlatformOperatingSystem) GetVersion() Platfor
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PlatformConditionEvaluatorPlatformOperatingSystem) GetVersionOk() (*PlatformConditionEvaluatorPlatformOperatingSystemVersion, bool) {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
 	return o.Version, true
@@ -138,7 +141,7 @@ func (o *PlatformConditionEvaluatorPlatformOperatingSystem) GetVersionOk() (*Pla
 
 // HasVersion returns a boolean if a field has been set.
 func (o *PlatformConditionEvaluatorPlatformOperatingSystem) HasVersion() bool {
-	if o != nil && o.Version != nil {
+	if o != nil && !IsNil(o.Version) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *PlatformConditionEvaluatorPlatformOperatingSystem) SetVersion(v Platfor
 }
 
 func (o PlatformConditionEvaluatorPlatformOperatingSystem) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PlatformConditionEvaluatorPlatformOperatingSystem) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Expression != nil {
+	if !IsNil(o.Expression) {
 		toSerialize["expression"] = o.Expression
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Version != nil {
+	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
 
@@ -166,29 +177,27 @@ func (o PlatformConditionEvaluatorPlatformOperatingSystem) MarshalJSON() ([]byte
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PlatformConditionEvaluatorPlatformOperatingSystem) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PlatformConditionEvaluatorPlatformOperatingSystem) UnmarshalJSON(data []byte) (err error) {
 	varPlatformConditionEvaluatorPlatformOperatingSystem := _PlatformConditionEvaluatorPlatformOperatingSystem{}
 
-	err = json.Unmarshal(bytes, &varPlatformConditionEvaluatorPlatformOperatingSystem)
-	if err == nil {
-		*o = PlatformConditionEvaluatorPlatformOperatingSystem(varPlatformConditionEvaluatorPlatformOperatingSystem)
-	} else {
+	err = json.Unmarshal(data, &varPlatformConditionEvaluatorPlatformOperatingSystem)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PlatformConditionEvaluatorPlatformOperatingSystem(varPlatformConditionEvaluatorPlatformOperatingSystem)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "expression")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "version")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullablePlatformConditionEvaluatorPlatformOperatingSystem) UnmarshalJSO
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

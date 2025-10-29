@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Additions** | Pointer to **[]string** |  | [optional] 
+**Additions** | Pointer to **[]string** | A list of member resources to add to the role resource set binding | [optional] 
 
 ## Methods
 

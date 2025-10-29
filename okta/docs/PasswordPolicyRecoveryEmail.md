@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Properties** | Pointer to [**PasswordPolicyRecoveryEmailProperties**](PasswordPolicyRecoveryEmailProperties.md) |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
+**Status** | Pointer to **string** | Whether or not the factor is active | [optional] 
 
 ## Methods
 

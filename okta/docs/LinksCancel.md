@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Cancel** | Pointer to [**LinksCancelCancel**](LinksCancelCancel.md) |  | [optional] 
+**Cancel** | Pointer to [**HrefObject**](HrefObject.md) | Cancels a &#x60;push&#x60; factor challenge with a &#x60;WAITING&#x60; status | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCancel
 
-`func (o *LinksCancel) GetCancel() LinksCancelCancel`
+`func (o *LinksCancel) GetCancel() HrefObject`
 
 GetCancel returns the Cancel field if non-nil, zero value otherwise.
 
 ### GetCancelOk
 
-`func (o *LinksCancel) GetCancelOk() (*LinksCancelCancel, bool)`
+`func (o *LinksCancel) GetCancelOk() (*HrefObject, bool)`
 
 GetCancelOk returns a tuple with the Cancel field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCancel
 
-`func (o *LinksCancel) SetCancel(v LinksCancelCancel)`
+`func (o *LinksCancel) SetCancel(v HrefObject)`
 
 SetCancel sets Cancel field to given value.
 

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -26,6 +26,9 @@ package okta
 import (
 	"encoding/json"
 )
+
+// checks if the TelephonyRequestDataUserProfile type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TelephonyRequestDataUserProfile{}
 
 // TelephonyRequestDataUserProfile User profile specifies information about the Okta user
 type TelephonyRequestDataUserProfile struct {
@@ -36,7 +39,7 @@ type TelephonyRequestDataUserProfile struct {
 	// The user's Okta login
 	Login *string `json:"login,omitempty"`
 	// The user's Okta user ID
-	UserId *string `json:"userId,omitempty"`
+	UserId               *string `json:"userId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewTelephonyRequestDataUserProfileWithDefaults() *TelephonyRequestDataUserP
 
 // GetFirstName returns the FirstName field value if set, zero value otherwise.
 func (o *TelephonyRequestDataUserProfile) GetFirstName() string {
-	if o == nil || o.FirstName == nil {
+	if o == nil || IsNil(o.FirstName) {
 		var ret string
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *TelephonyRequestDataUserProfile) GetFirstName() string {
 // GetFirstNameOk returns a tuple with the FirstName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TelephonyRequestDataUserProfile) GetFirstNameOk() (*string, bool) {
-	if o == nil || o.FirstName == nil {
+	if o == nil || IsNil(o.FirstName) {
 		return nil, false
 	}
 	return o.FirstName, true
@@ -79,7 +82,7 @@ func (o *TelephonyRequestDataUserProfile) GetFirstNameOk() (*string, bool) {
 
 // HasFirstName returns a boolean if a field has been set.
 func (o *TelephonyRequestDataUserProfile) HasFirstName() bool {
-	if o != nil && o.FirstName != nil {
+	if o != nil && !IsNil(o.FirstName) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *TelephonyRequestDataUserProfile) SetFirstName(v string) {
 
 // GetLastName returns the LastName field value if set, zero value otherwise.
 func (o *TelephonyRequestDataUserProfile) GetLastName() string {
-	if o == nil || o.LastName == nil {
+	if o == nil || IsNil(o.LastName) {
 		var ret string
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *TelephonyRequestDataUserProfile) GetLastName() string {
 // GetLastNameOk returns a tuple with the LastName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TelephonyRequestDataUserProfile) GetLastNameOk() (*string, bool) {
-	if o == nil || o.LastName == nil {
+	if o == nil || IsNil(o.LastName) {
 		return nil, false
 	}
 	return o.LastName, true
@@ -111,7 +114,7 @@ func (o *TelephonyRequestDataUserProfile) GetLastNameOk() (*string, bool) {
 
 // HasLastName returns a boolean if a field has been set.
 func (o *TelephonyRequestDataUserProfile) HasLastName() bool {
-	if o != nil && o.LastName != nil {
+	if o != nil && !IsNil(o.LastName) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *TelephonyRequestDataUserProfile) SetLastName(v string) {
 
 // GetLogin returns the Login field value if set, zero value otherwise.
 func (o *TelephonyRequestDataUserProfile) GetLogin() string {
-	if o == nil || o.Login == nil {
+	if o == nil || IsNil(o.Login) {
 		var ret string
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *TelephonyRequestDataUserProfile) GetLogin() string {
 // GetLoginOk returns a tuple with the Login field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TelephonyRequestDataUserProfile) GetLoginOk() (*string, bool) {
-	if o == nil || o.Login == nil {
+	if o == nil || IsNil(o.Login) {
 		return nil, false
 	}
 	return o.Login, true
@@ -143,7 +146,7 @@ func (o *TelephonyRequestDataUserProfile) GetLoginOk() (*string, bool) {
 
 // HasLogin returns a boolean if a field has been set.
 func (o *TelephonyRequestDataUserProfile) HasLogin() bool {
-	if o != nil && o.Login != nil {
+	if o != nil && !IsNil(o.Login) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *TelephonyRequestDataUserProfile) SetLogin(v string) {
 
 // GetUserId returns the UserId field value if set, zero value otherwise.
 func (o *TelephonyRequestDataUserProfile) GetUserId() string {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		var ret string
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *TelephonyRequestDataUserProfile) GetUserId() string {
 // GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TelephonyRequestDataUserProfile) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		return nil, false
 	}
 	return o.UserId, true
@@ -175,7 +178,7 @@ func (o *TelephonyRequestDataUserProfile) GetUserIdOk() (*string, bool) {
 
 // HasUserId returns a boolean if a field has been set.
 func (o *TelephonyRequestDataUserProfile) HasUserId() bool {
-	if o != nil && o.UserId != nil {
+	if o != nil && !IsNil(o.UserId) {
 		return true
 	}
 
@@ -188,17 +191,25 @@ func (o *TelephonyRequestDataUserProfile) SetUserId(v string) {
 }
 
 func (o TelephonyRequestDataUserProfile) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TelephonyRequestDataUserProfile) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.FirstName != nil {
+	if !IsNil(o.FirstName) {
 		toSerialize["firstName"] = o.FirstName
 	}
-	if o.LastName != nil {
+	if !IsNil(o.LastName) {
 		toSerialize["lastName"] = o.LastName
 	}
-	if o.Login != nil {
+	if !IsNil(o.Login) {
 		toSerialize["login"] = o.Login
 	}
-	if o.UserId != nil {
+	if !IsNil(o.UserId) {
 		toSerialize["userId"] = o.UserId
 	}
 
@@ -206,30 +217,28 @@ func (o TelephonyRequestDataUserProfile) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *TelephonyRequestDataUserProfile) UnmarshalJSON(bytes []byte) (err error) {
+func (o *TelephonyRequestDataUserProfile) UnmarshalJSON(data []byte) (err error) {
 	varTelephonyRequestDataUserProfile := _TelephonyRequestDataUserProfile{}
 
-	err = json.Unmarshal(bytes, &varTelephonyRequestDataUserProfile)
-	if err == nil {
-		*o = TelephonyRequestDataUserProfile(varTelephonyRequestDataUserProfile)
-	} else {
+	err = json.Unmarshal(data, &varTelephonyRequestDataUserProfile)
+
+	if err != nil {
 		return err
 	}
 
+	*o = TelephonyRequestDataUserProfile(varTelephonyRequestDataUserProfile)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "firstName")
 		delete(additionalProperties, "lastName")
 		delete(additionalProperties, "login")
 		delete(additionalProperties, "userId")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -270,4 +279,3 @@ func (v *NullableTelephonyRequestDataUserProfile) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

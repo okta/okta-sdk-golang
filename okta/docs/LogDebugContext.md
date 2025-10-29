@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DebugData** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
+**DebugData** | Pointer to **map[string]interface{}** | A dynamic field that contains miscellaneous information that is dependent on the event type. | [optional] [readonly] 
 
 ## Methods
 

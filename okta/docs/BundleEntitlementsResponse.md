@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Entitlements** | Pointer to [**[]BundleEntitlement**](BundleEntitlement.md) |  | [optional] 
-**Links** | Pointer to [**NullableBundleEntitlementsResponseLinks**](BundleEntitlementsResponseLinks.md) |  | [optional] 
+**Links** | Pointer to [**BundleEntitlementsResponseLinks**](BundleEntitlementsResponseLinks.md) |  | [optional] 
 
 ## Methods
 
@@ -76,16 +76,6 @@ SetLinks sets Links field to given value.
 
 HasLinks returns a boolean if a field has been set.
 
-### SetLinksNil
-
-`func (o *BundleEntitlementsResponse) SetLinksNil(b bool)`
-
- SetLinksNil sets the value for Links to be an explicit nil
-
-### UnsetLinks
-`func (o *BundleEntitlementsResponse) UnsetLinks()`
-
-UnsetLinks ensures that no value is present for Links, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

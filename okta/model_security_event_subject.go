@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,14 +27,17 @@ import (
 	"encoding/json"
 )
 
-// SecurityEventSubject The event subjects
+// checks if the SecurityEventSubject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SecurityEventSubject{}
+
+// SecurityEventSubject The event subject
 type SecurityEventSubject struct {
-	// The device involved with the event
-	Device map[string]interface{} `json:"device,omitempty"`
-	// The tenant involved with the event
-	Tenant map[string]interface{} `json:"tenant,omitempty"`
-	// The user involved with the event
-	User map[string]interface{} `json:"user,omitempty"`
+	// The format of the subject
+	Format *string `json:"format,omitempty"`
+	// An identifier of the actor
+	Iss *string `json:"iss,omitempty"`
+	// An identifier for the subject that was acted on
+	Sub                  *string `json:"sub,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,141 +60,147 @@ func NewSecurityEventSubjectWithDefaults() *SecurityEventSubject {
 	return &this
 }
 
-// GetDevice returns the Device field value if set, zero value otherwise.
-func (o *SecurityEventSubject) GetDevice() map[string]interface{} {
-	if o == nil || o.Device == nil {
-		var ret map[string]interface{}
+// GetFormat returns the Format field value if set, zero value otherwise.
+func (o *SecurityEventSubject) GetFormat() string {
+	if o == nil || IsNil(o.Format) {
+		var ret string
 		return ret
 	}
-	return o.Device
+	return *o.Format
 }
 
-// GetDeviceOk returns a tuple with the Device field value if set, nil otherwise
+// GetFormatOk returns a tuple with the Format field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SecurityEventSubject) GetDeviceOk() (map[string]interface{}, bool) {
-	if o == nil || o.Device == nil {
+func (o *SecurityEventSubject) GetFormatOk() (*string, bool) {
+	if o == nil || IsNil(o.Format) {
 		return nil, false
 	}
-	return o.Device, true
+	return o.Format, true
 }
 
-// HasDevice returns a boolean if a field has been set.
-func (o *SecurityEventSubject) HasDevice() bool {
-	if o != nil && o.Device != nil {
+// HasFormat returns a boolean if a field has been set.
+func (o *SecurityEventSubject) HasFormat() bool {
+	if o != nil && !IsNil(o.Format) {
 		return true
 	}
 
 	return false
 }
 
-// SetDevice gets a reference to the given map[string]interface{} and assigns it to the Device field.
-func (o *SecurityEventSubject) SetDevice(v map[string]interface{}) {
-	o.Device = v
+// SetFormat gets a reference to the given string and assigns it to the Format field.
+func (o *SecurityEventSubject) SetFormat(v string) {
+	o.Format = &v
 }
 
-// GetTenant returns the Tenant field value if set, zero value otherwise.
-func (o *SecurityEventSubject) GetTenant() map[string]interface{} {
-	if o == nil || o.Tenant == nil {
-		var ret map[string]interface{}
+// GetIss returns the Iss field value if set, zero value otherwise.
+func (o *SecurityEventSubject) GetIss() string {
+	if o == nil || IsNil(o.Iss) {
+		var ret string
 		return ret
 	}
-	return o.Tenant
+	return *o.Iss
 }
 
-// GetTenantOk returns a tuple with the Tenant field value if set, nil otherwise
+// GetIssOk returns a tuple with the Iss field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SecurityEventSubject) GetTenantOk() (map[string]interface{}, bool) {
-	if o == nil || o.Tenant == nil {
+func (o *SecurityEventSubject) GetIssOk() (*string, bool) {
+	if o == nil || IsNil(o.Iss) {
 		return nil, false
 	}
-	return o.Tenant, true
+	return o.Iss, true
 }
 
-// HasTenant returns a boolean if a field has been set.
-func (o *SecurityEventSubject) HasTenant() bool {
-	if o != nil && o.Tenant != nil {
+// HasIss returns a boolean if a field has been set.
+func (o *SecurityEventSubject) HasIss() bool {
+	if o != nil && !IsNil(o.Iss) {
 		return true
 	}
 
 	return false
 }
 
-// SetTenant gets a reference to the given map[string]interface{} and assigns it to the Tenant field.
-func (o *SecurityEventSubject) SetTenant(v map[string]interface{}) {
-	o.Tenant = v
+// SetIss gets a reference to the given string and assigns it to the Iss field.
+func (o *SecurityEventSubject) SetIss(v string) {
+	o.Iss = &v
 }
 
-// GetUser returns the User field value if set, zero value otherwise.
-func (o *SecurityEventSubject) GetUser() map[string]interface{} {
-	if o == nil || o.User == nil {
-		var ret map[string]interface{}
+// GetSub returns the Sub field value if set, zero value otherwise.
+func (o *SecurityEventSubject) GetSub() string {
+	if o == nil || IsNil(o.Sub) {
+		var ret string
 		return ret
 	}
-	return o.User
+	return *o.Sub
 }
 
-// GetUserOk returns a tuple with the User field value if set, nil otherwise
+// GetSubOk returns a tuple with the Sub field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SecurityEventSubject) GetUserOk() (map[string]interface{}, bool) {
-	if o == nil || o.User == nil {
+func (o *SecurityEventSubject) GetSubOk() (*string, bool) {
+	if o == nil || IsNil(o.Sub) {
 		return nil, false
 	}
-	return o.User, true
+	return o.Sub, true
 }
 
-// HasUser returns a boolean if a field has been set.
-func (o *SecurityEventSubject) HasUser() bool {
-	if o != nil && o.User != nil {
+// HasSub returns a boolean if a field has been set.
+func (o *SecurityEventSubject) HasSub() bool {
+	if o != nil && !IsNil(o.Sub) {
 		return true
 	}
 
 	return false
 }
 
-// SetUser gets a reference to the given map[string]interface{} and assigns it to the User field.
-func (o *SecurityEventSubject) SetUser(v map[string]interface{}) {
-	o.User = v
+// SetSub gets a reference to the given string and assigns it to the Sub field.
+func (o *SecurityEventSubject) SetSub(v string) {
+	o.Sub = &v
 }
 
 func (o SecurityEventSubject) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SecurityEventSubject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Device != nil {
-		toSerialize["device"] = o.Device
+	if !IsNil(o.Format) {
+		toSerialize["format"] = o.Format
 	}
-	if o.Tenant != nil {
-		toSerialize["tenant"] = o.Tenant
+	if !IsNil(o.Iss) {
+		toSerialize["iss"] = o.Iss
 	}
-	if o.User != nil {
-		toSerialize["user"] = o.User
+	if !IsNil(o.Sub) {
+		toSerialize["sub"] = o.Sub
 	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SecurityEventSubject) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SecurityEventSubject) UnmarshalJSON(data []byte) (err error) {
 	varSecurityEventSubject := _SecurityEventSubject{}
 
-	err = json.Unmarshal(bytes, &varSecurityEventSubject)
-	if err == nil {
-		*o = SecurityEventSubject(varSecurityEventSubject)
-	} else {
+	err = json.Unmarshal(data, &varSecurityEventSubject)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SecurityEventSubject(varSecurityEventSubject)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
-		delete(additionalProperties, "device")
-		delete(additionalProperties, "tenant")
-		delete(additionalProperties, "user")
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "format")
+		delete(additionalProperties, "iss")
+		delete(additionalProperties, "sub")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -232,4 +241,3 @@ func (v *NullableSecurityEventSubject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

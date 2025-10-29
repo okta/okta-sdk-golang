@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -25,18 +25,25 @@ package okta
 
 import (
 	"encoding/json"
-	"time"
+	"fmt"
 )
+
+// checks if the BehaviorRule type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BehaviorRule{}
 
 // BehaviorRule struct for BehaviorRule
 type BehaviorRule struct {
-	Created *time.Time `json:"created,omitempty"`
+	// Timestamp when the Behavior Detection Rule was created
+	Created *string `json:"created,omitempty"`
+	// ID of the Behavior Detection Rule
 	Id *string `json:"id,omitempty"`
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Name string `json:"name"`
-	Status *string `json:"status,omitempty"`
-	Type string `json:"type"`
-	Link *LinksSelf `json:"_link,omitempty"`
+	// Timestamp when the Behavior Detection Rule was last modified
+	LastUpdated *string `json:"lastUpdated,omitempty"`
+	// Name of the Behavior Detection Rule
+	Name                 string     `json:"name"`
+	Status               *string    `json:"status,omitempty"`
+	Type                 string     `json:"type"`
+	Link                 *LinksSelf `json:"_link,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -62,9 +69,9 @@ func NewBehaviorRuleWithDefaults() *BehaviorRule {
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *BehaviorRule) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
-		var ret time.Time
+func (o *BehaviorRule) GetCreated() string {
+	if o == nil || IsNil(o.Created) {
+		var ret string
 		return ret
 	}
 	return *o.Created
@@ -72,8 +79,8 @@ func (o *BehaviorRule) GetCreated() time.Time {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BehaviorRule) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+func (o *BehaviorRule) GetCreatedOk() (*string, bool) {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -81,21 +88,21 @@ func (o *BehaviorRule) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *BehaviorRule) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
 	return false
 }
 
-// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
-func (o *BehaviorRule) SetCreated(v time.Time) {
+// SetCreated gets a reference to the given string and assigns it to the Created field.
+func (o *BehaviorRule) SetCreated(v string) {
 	o.Created = &v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *BehaviorRule) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -105,7 +112,7 @@ func (o *BehaviorRule) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BehaviorRule) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -113,7 +120,7 @@ func (o *BehaviorRule) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *BehaviorRule) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -126,9 +133,9 @@ func (o *BehaviorRule) SetId(v string) {
 }
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
-func (o *BehaviorRule) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
-		var ret time.Time
+func (o *BehaviorRule) GetLastUpdated() string {
+	if o == nil || IsNil(o.LastUpdated) {
+		var ret string
 		return ret
 	}
 	return *o.LastUpdated
@@ -136,8 +143,8 @@ func (o *BehaviorRule) GetLastUpdated() time.Time {
 
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BehaviorRule) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+func (o *BehaviorRule) GetLastUpdatedOk() (*string, bool) {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -145,15 +152,15 @@ func (o *BehaviorRule) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *BehaviorRule) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
 	return false
 }
 
-// SetLastUpdated gets a reference to the given time.Time and assigns it to the LastUpdated field.
-func (o *BehaviorRule) SetLastUpdated(v time.Time) {
+// SetLastUpdated gets a reference to the given string and assigns it to the LastUpdated field.
+func (o *BehaviorRule) SetLastUpdated(v string) {
 	o.LastUpdated = &v
 }
 
@@ -183,7 +190,7 @@ func (o *BehaviorRule) SetName(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *BehaviorRule) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -193,7 +200,7 @@ func (o *BehaviorRule) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BehaviorRule) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -201,7 +208,7 @@ func (o *BehaviorRule) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *BehaviorRule) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -239,7 +246,7 @@ func (o *BehaviorRule) SetType(v string) {
 
 // GetLink returns the Link field value if set, zero value otherwise.
 func (o *BehaviorRule) GetLink() LinksSelf {
-	if o == nil || o.Link == nil {
+	if o == nil || IsNil(o.Link) {
 		var ret LinksSelf
 		return ret
 	}
@@ -249,7 +256,7 @@ func (o *BehaviorRule) GetLink() LinksSelf {
 // GetLinkOk returns a tuple with the Link field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BehaviorRule) GetLinkOk() (*LinksSelf, bool) {
-	if o == nil || o.Link == nil {
+	if o == nil || IsNil(o.Link) {
 		return nil, false
 	}
 	return o.Link, true
@@ -257,7 +264,7 @@ func (o *BehaviorRule) GetLinkOk() (*LinksSelf, bool) {
 
 // HasLink returns a boolean if a field has been set.
 func (o *BehaviorRule) HasLink() bool {
-	if o != nil && o.Link != nil {
+	if o != nil && !IsNil(o.Link) {
 		return true
 	}
 
@@ -270,26 +277,30 @@ func (o *BehaviorRule) SetLink(v LinksSelf) {
 }
 
 func (o BehaviorRule) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BehaviorRule) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Status != nil {
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if o.Link != nil {
+	toSerialize["type"] = o.Type
+	if !IsNil(o.Link) {
 		toSerialize["_link"] = o.Link
 	}
 
@@ -297,23 +308,45 @@ func (o BehaviorRule) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *BehaviorRule) UnmarshalJSON(bytes []byte) (err error) {
-	varBehaviorRule := _BehaviorRule{}
+func (o *BehaviorRule) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"type",
+	}
 
-	err = json.Unmarshal(bytes, &varBehaviorRule)
-	if err == nil {
-		*o = BehaviorRule(varBehaviorRule)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varBehaviorRule := _BehaviorRule{}
+
+	err = json.Unmarshal(data, &varBehaviorRule)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BehaviorRule(varBehaviorRule)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "lastUpdated")
@@ -322,8 +355,6 @@ func (o *BehaviorRule) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "_link")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -364,4 +395,3 @@ func (v *NullableBehaviorRule) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

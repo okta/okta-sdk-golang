@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the NetworkZoneLocation type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NetworkZoneLocation{}
+
 // NetworkZoneLocation struct for NetworkZoneLocation
 type NetworkZoneLocation struct {
-	// The two-character ISO-3166-1 country code. Don't use continent codes since they are treated as generic codes for undesignated countries. <br>For example: `US`
+	// The two-character ISO 3166-1 country code. Don't use continent codes since they are treated as generic codes for undesignated countries. <br>For example: `US`
 	Country *string `json:"country,omitempty"`
-	// (Optional) The ISO-3166-2 region code appended to the country code (`countryCode-regionCode`), or `null` if empty. Don't use continent codes since they are treated as generic codes for undesignated regions. <br>For example: `CA` (for `US-CA` country and region code)
-	Region *string `json:"region,omitempty"`
+	// (Optional) The ISO 3166-2 region code appended to the country code (`countryCode-regionCode`), or `null` if empty. Don't use continent codes since they are treated as generic codes for undesignated regions. <br>For example: `CA` (for `US-CA` country and region code)
+	Region               *string `json:"region,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewNetworkZoneLocationWithDefaults() *NetworkZoneLocation {
 
 // GetCountry returns the Country field value if set, zero value otherwise.
 func (o *NetworkZoneLocation) GetCountry() string {
-	if o == nil || o.Country == nil {
+	if o == nil || IsNil(o.Country) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *NetworkZoneLocation) GetCountry() string {
 // GetCountryOk returns a tuple with the Country field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NetworkZoneLocation) GetCountryOk() (*string, bool) {
-	if o == nil || o.Country == nil {
+	if o == nil || IsNil(o.Country) {
 		return nil, false
 	}
 	return o.Country, true
@@ -75,7 +78,7 @@ func (o *NetworkZoneLocation) GetCountryOk() (*string, bool) {
 
 // HasCountry returns a boolean if a field has been set.
 func (o *NetworkZoneLocation) HasCountry() bool {
-	if o != nil && o.Country != nil {
+	if o != nil && !IsNil(o.Country) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *NetworkZoneLocation) SetCountry(v string) {
 
 // GetRegion returns the Region field value if set, zero value otherwise.
 func (o *NetworkZoneLocation) GetRegion() string {
-	if o == nil || o.Region == nil {
+	if o == nil || IsNil(o.Region) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *NetworkZoneLocation) GetRegion() string {
 // GetRegionOk returns a tuple with the Region field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NetworkZoneLocation) GetRegionOk() (*string, bool) {
-	if o == nil || o.Region == nil {
+	if o == nil || IsNil(o.Region) {
 		return nil, false
 	}
 	return o.Region, true
@@ -107,7 +110,7 @@ func (o *NetworkZoneLocation) GetRegionOk() (*string, bool) {
 
 // HasRegion returns a boolean if a field has been set.
 func (o *NetworkZoneLocation) HasRegion() bool {
-	if o != nil && o.Region != nil {
+	if o != nil && !IsNil(o.Region) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *NetworkZoneLocation) SetRegion(v string) {
 }
 
 func (o NetworkZoneLocation) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o NetworkZoneLocation) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Country != nil {
+	if !IsNil(o.Country) {
 		toSerialize["country"] = o.Country
 	}
-	if o.Region != nil {
+	if !IsNil(o.Region) {
 		toSerialize["region"] = o.Region
 	}
 
@@ -132,28 +143,26 @@ func (o NetworkZoneLocation) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *NetworkZoneLocation) UnmarshalJSON(bytes []byte) (err error) {
+func (o *NetworkZoneLocation) UnmarshalJSON(data []byte) (err error) {
 	varNetworkZoneLocation := _NetworkZoneLocation{}
 
-	err = json.Unmarshal(bytes, &varNetworkZoneLocation)
-	if err == nil {
-		*o = NetworkZoneLocation(varNetworkZoneLocation)
-	} else {
+	err = json.Unmarshal(data, &varNetworkZoneLocation)
+
+	if err != nil {
 		return err
 	}
 
+	*o = NetworkZoneLocation(varNetworkZoneLocation)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "country")
 		delete(additionalProperties, "region")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableNetworkZoneLocation) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

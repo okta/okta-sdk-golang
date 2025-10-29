@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,30 +27,33 @@ import (
 	"encoding/json"
 )
 
+// checks if the PolicyRuleConditions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PolicyRuleConditions{}
+
 // PolicyRuleConditions struct for PolicyRuleConditions
 type PolicyRuleConditions struct {
-	App *AppAndInstancePolicyRuleCondition `json:"app,omitempty"`
-	Apps *AppInstancePolicyRuleCondition `json:"apps,omitempty"`
-	AuthContext *PolicyRuleAuthContextCondition `json:"authContext,omitempty"`
-	AuthProvider *PasswordPolicyAuthenticationProviderCondition `json:"authProvider,omitempty"`
-	BeforeScheduledAction *BeforeScheduledActionPolicyRuleCondition `json:"beforeScheduledAction,omitempty"`
-	Clients *ClientPolicyCondition `json:"clients,omitempty"`
-	Context *ContextPolicyRuleCondition `json:"context,omitempty"`
-	Device *DevicePolicyRuleCondition `json:"device,omitempty"`
-	GrantTypes *GrantTypePolicyRuleCondition `json:"grantTypes,omitempty"`
-	Groups *GroupPolicyRuleCondition `json:"groups,omitempty"`
-	IdentityProvider *IdentityProviderPolicyRuleCondition `json:"identityProvider,omitempty"`
-	MdmEnrollment *MDMEnrollmentPolicyRuleCondition `json:"mdmEnrollment,omitempty"`
-	Network *PolicyNetworkCondition `json:"network,omitempty"`
-	People *PolicyPeopleCondition `json:"people,omitempty"`
-	Platform *PlatformPolicyRuleCondition `json:"platform,omitempty"`
-	Risk *RiskPolicyRuleCondition `json:"risk,omitempty"`
-	RiskScore *RiskScorePolicyRuleCondition `json:"riskScore,omitempty"`
-	Scopes *OAuth2ScopesMediationPolicyRuleCondition `json:"scopes,omitempty"`
-	UserIdentifier *UserIdentifierPolicyRuleCondition `json:"userIdentifier,omitempty"`
-	Users *UserPolicyRuleCondition `json:"users,omitempty"`
-	UserStatus *UserStatusPolicyRuleCondition `json:"userStatus,omitempty"`
-	AdditionalProperties map[string]interface{}
+	App                   *AppAndInstancePolicyRuleCondition             `json:"app,omitempty"`
+	Apps                  *AppInstancePolicyRuleCondition                `json:"apps,omitempty"`
+	AuthContext           *PolicyRuleAuthContextCondition                `json:"authContext,omitempty"`
+	AuthProvider          *PasswordPolicyAuthenticationProviderCondition `json:"authProvider,omitempty"`
+	BeforeScheduledAction *BeforeScheduledActionPolicyRuleCondition      `json:"beforeScheduledAction,omitempty"`
+	Clients               *ClientPolicyCondition                         `json:"clients,omitempty"`
+	Context               *ContextPolicyRuleCondition                    `json:"context,omitempty"`
+	Device                *DevicePolicyRuleCondition                     `json:"device,omitempty"`
+	GrantTypes            *GrantTypePolicyRuleCondition                  `json:"grantTypes,omitempty"`
+	Groups                *GroupPolicyRuleCondition                      `json:"groups,omitempty"`
+	IdentityProvider      *IdentityProviderPolicyRuleCondition           `json:"identityProvider,omitempty"`
+	MdmEnrollment         *MDMEnrollmentPolicyRuleCondition              `json:"mdmEnrollment,omitempty"`
+	Network               *PolicyNetworkCondition                        `json:"network,omitempty"`
+	People                *PolicyPeopleCondition                         `json:"people,omitempty"`
+	Platform              *PlatformPolicyRuleCondition                   `json:"platform,omitempty"`
+	Risk                  *RiskPolicyRuleCondition                       `json:"risk,omitempty"`
+	RiskScore             *RiskScorePolicyRuleCondition                  `json:"riskScore,omitempty"`
+	Scopes                *OAuth2ScopesMediationPolicyRuleCondition      `json:"scopes,omitempty"`
+	UserIdentifier        *UserIdentifierPolicyRuleCondition             `json:"userIdentifier,omitempty"`
+	Users                 *UserPolicyRuleCondition                       `json:"users,omitempty"`
+	UserStatus            *UserStatusPolicyRuleCondition                 `json:"userStatus,omitempty"`
+	AdditionalProperties  map[string]interface{}
 }
 
 type _PolicyRuleConditions PolicyRuleConditions
@@ -74,7 +77,7 @@ func NewPolicyRuleConditionsWithDefaults() *PolicyRuleConditions {
 
 // GetApp returns the App field value if set, zero value otherwise.
 func (o *PolicyRuleConditions) GetApp() AppAndInstancePolicyRuleCondition {
-	if o == nil || o.App == nil {
+	if o == nil || IsNil(o.App) {
 		var ret AppAndInstancePolicyRuleCondition
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *PolicyRuleConditions) GetApp() AppAndInstancePolicyRuleCondition {
 // GetAppOk returns a tuple with the App field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRuleConditions) GetAppOk() (*AppAndInstancePolicyRuleCondition, bool) {
-	if o == nil || o.App == nil {
+	if o == nil || IsNil(o.App) {
 		return nil, false
 	}
 	return o.App, true
@@ -92,7 +95,7 @@ func (o *PolicyRuleConditions) GetAppOk() (*AppAndInstancePolicyRuleCondition, b
 
 // HasApp returns a boolean if a field has been set.
 func (o *PolicyRuleConditions) HasApp() bool {
-	if o != nil && o.App != nil {
+	if o != nil && !IsNil(o.App) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *PolicyRuleConditions) SetApp(v AppAndInstancePolicyRuleCondition) {
 
 // GetApps returns the Apps field value if set, zero value otherwise.
 func (o *PolicyRuleConditions) GetApps() AppInstancePolicyRuleCondition {
-	if o == nil || o.Apps == nil {
+	if o == nil || IsNil(o.Apps) {
 		var ret AppInstancePolicyRuleCondition
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *PolicyRuleConditions) GetApps() AppInstancePolicyRuleCondition {
 // GetAppsOk returns a tuple with the Apps field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRuleConditions) GetAppsOk() (*AppInstancePolicyRuleCondition, bool) {
-	if o == nil || o.Apps == nil {
+	if o == nil || IsNil(o.Apps) {
 		return nil, false
 	}
 	return o.Apps, true
@@ -124,7 +127,7 @@ func (o *PolicyRuleConditions) GetAppsOk() (*AppInstancePolicyRuleCondition, boo
 
 // HasApps returns a boolean if a field has been set.
 func (o *PolicyRuleConditions) HasApps() bool {
-	if o != nil && o.Apps != nil {
+	if o != nil && !IsNil(o.Apps) {
 		return true
 	}
 
@@ -138,7 +141,7 @@ func (o *PolicyRuleConditions) SetApps(v AppInstancePolicyRuleCondition) {
 
 // GetAuthContext returns the AuthContext field value if set, zero value otherwise.
 func (o *PolicyRuleConditions) GetAuthContext() PolicyRuleAuthContextCondition {
-	if o == nil || o.AuthContext == nil {
+	if o == nil || IsNil(o.AuthContext) {
 		var ret PolicyRuleAuthContextCondition
 		return ret
 	}
@@ -148,7 +151,7 @@ func (o *PolicyRuleConditions) GetAuthContext() PolicyRuleAuthContextCondition {
 // GetAuthContextOk returns a tuple with the AuthContext field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRuleConditions) GetAuthContextOk() (*PolicyRuleAuthContextCondition, bool) {
-	if o == nil || o.AuthContext == nil {
+	if o == nil || IsNil(o.AuthContext) {
 		return nil, false
 	}
 	return o.AuthContext, true
@@ -156,7 +159,7 @@ func (o *PolicyRuleConditions) GetAuthContextOk() (*PolicyRuleAuthContextConditi
 
 // HasAuthContext returns a boolean if a field has been set.
 func (o *PolicyRuleConditions) HasAuthContext() bool {
-	if o != nil && o.AuthContext != nil {
+	if o != nil && !IsNil(o.AuthContext) {
 		return true
 	}
 
@@ -170,7 +173,7 @@ func (o *PolicyRuleConditions) SetAuthContext(v PolicyRuleAuthContextCondition) 
 
 // GetAuthProvider returns the AuthProvider field value if set, zero value otherwise.
 func (o *PolicyRuleConditions) GetAuthProvider() PasswordPolicyAuthenticationProviderCondition {
-	if o == nil || o.AuthProvider == nil {
+	if o == nil || IsNil(o.AuthProvider) {
 		var ret PasswordPolicyAuthenticationProviderCondition
 		return ret
 	}
@@ -180,7 +183,7 @@ func (o *PolicyRuleConditions) GetAuthProvider() PasswordPolicyAuthenticationPro
 // GetAuthProviderOk returns a tuple with the AuthProvider field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRuleConditions) GetAuthProviderOk() (*PasswordPolicyAuthenticationProviderCondition, bool) {
-	if o == nil || o.AuthProvider == nil {
+	if o == nil || IsNil(o.AuthProvider) {
 		return nil, false
 	}
 	return o.AuthProvider, true
@@ -188,7 +191,7 @@ func (o *PolicyRuleConditions) GetAuthProviderOk() (*PasswordPolicyAuthenticatio
 
 // HasAuthProvider returns a boolean if a field has been set.
 func (o *PolicyRuleConditions) HasAuthProvider() bool {
-	if o != nil && o.AuthProvider != nil {
+	if o != nil && !IsNil(o.AuthProvider) {
 		return true
 	}
 
@@ -202,7 +205,7 @@ func (o *PolicyRuleConditions) SetAuthProvider(v PasswordPolicyAuthenticationPro
 
 // GetBeforeScheduledAction returns the BeforeScheduledAction field value if set, zero value otherwise.
 func (o *PolicyRuleConditions) GetBeforeScheduledAction() BeforeScheduledActionPolicyRuleCondition {
-	if o == nil || o.BeforeScheduledAction == nil {
+	if o == nil || IsNil(o.BeforeScheduledAction) {
 		var ret BeforeScheduledActionPolicyRuleCondition
 		return ret
 	}
@@ -212,7 +215,7 @@ func (o *PolicyRuleConditions) GetBeforeScheduledAction() BeforeScheduledActionP
 // GetBeforeScheduledActionOk returns a tuple with the BeforeScheduledAction field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRuleConditions) GetBeforeScheduledActionOk() (*BeforeScheduledActionPolicyRuleCondition, bool) {
-	if o == nil || o.BeforeScheduledAction == nil {
+	if o == nil || IsNil(o.BeforeScheduledAction) {
 		return nil, false
 	}
 	return o.BeforeScheduledAction, true
@@ -220,7 +223,7 @@ func (o *PolicyRuleConditions) GetBeforeScheduledActionOk() (*BeforeScheduledAct
 
 // HasBeforeScheduledAction returns a boolean if a field has been set.
 func (o *PolicyRuleConditions) HasBeforeScheduledAction() bool {
-	if o != nil && o.BeforeScheduledAction != nil {
+	if o != nil && !IsNil(o.BeforeScheduledAction) {
 		return true
 	}
 
@@ -234,7 +237,7 @@ func (o *PolicyRuleConditions) SetBeforeScheduledAction(v BeforeScheduledActionP
 
 // GetClients returns the Clients field value if set, zero value otherwise.
 func (o *PolicyRuleConditions) GetClients() ClientPolicyCondition {
-	if o == nil || o.Clients == nil {
+	if o == nil || IsNil(o.Clients) {
 		var ret ClientPolicyCondition
 		return ret
 	}
@@ -244,7 +247,7 @@ func (o *PolicyRuleConditions) GetClients() ClientPolicyCondition {
 // GetClientsOk returns a tuple with the Clients field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRuleConditions) GetClientsOk() (*ClientPolicyCondition, bool) {
-	if o == nil || o.Clients == nil {
+	if o == nil || IsNil(o.Clients) {
 		return nil, false
 	}
 	return o.Clients, true
@@ -252,7 +255,7 @@ func (o *PolicyRuleConditions) GetClientsOk() (*ClientPolicyCondition, bool) {
 
 // HasClients returns a boolean if a field has been set.
 func (o *PolicyRuleConditions) HasClients() bool {
-	if o != nil && o.Clients != nil {
+	if o != nil && !IsNil(o.Clients) {
 		return true
 	}
 
@@ -266,7 +269,7 @@ func (o *PolicyRuleConditions) SetClients(v ClientPolicyCondition) {
 
 // GetContext returns the Context field value if set, zero value otherwise.
 func (o *PolicyRuleConditions) GetContext() ContextPolicyRuleCondition {
-	if o == nil || o.Context == nil {
+	if o == nil || IsNil(o.Context) {
 		var ret ContextPolicyRuleCondition
 		return ret
 	}
@@ -276,7 +279,7 @@ func (o *PolicyRuleConditions) GetContext() ContextPolicyRuleCondition {
 // GetContextOk returns a tuple with the Context field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRuleConditions) GetContextOk() (*ContextPolicyRuleCondition, bool) {
-	if o == nil || o.Context == nil {
+	if o == nil || IsNil(o.Context) {
 		return nil, false
 	}
 	return o.Context, true
@@ -284,7 +287,7 @@ func (o *PolicyRuleConditions) GetContextOk() (*ContextPolicyRuleCondition, bool
 
 // HasContext returns a boolean if a field has been set.
 func (o *PolicyRuleConditions) HasContext() bool {
-	if o != nil && o.Context != nil {
+	if o != nil && !IsNil(o.Context) {
 		return true
 	}
 
@@ -298,7 +301,7 @@ func (o *PolicyRuleConditions) SetContext(v ContextPolicyRuleCondition) {
 
 // GetDevice returns the Device field value if set, zero value otherwise.
 func (o *PolicyRuleConditions) GetDevice() DevicePolicyRuleCondition {
-	if o == nil || o.Device == nil {
+	if o == nil || IsNil(o.Device) {
 		var ret DevicePolicyRuleCondition
 		return ret
 	}
@@ -308,7 +311,7 @@ func (o *PolicyRuleConditions) GetDevice() DevicePolicyRuleCondition {
 // GetDeviceOk returns a tuple with the Device field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRuleConditions) GetDeviceOk() (*DevicePolicyRuleCondition, bool) {
-	if o == nil || o.Device == nil {
+	if o == nil || IsNil(o.Device) {
 		return nil, false
 	}
 	return o.Device, true
@@ -316,7 +319,7 @@ func (o *PolicyRuleConditions) GetDeviceOk() (*DevicePolicyRuleCondition, bool) 
 
 // HasDevice returns a boolean if a field has been set.
 func (o *PolicyRuleConditions) HasDevice() bool {
-	if o != nil && o.Device != nil {
+	if o != nil && !IsNil(o.Device) {
 		return true
 	}
 
@@ -330,7 +333,7 @@ func (o *PolicyRuleConditions) SetDevice(v DevicePolicyRuleCondition) {
 
 // GetGrantTypes returns the GrantTypes field value if set, zero value otherwise.
 func (o *PolicyRuleConditions) GetGrantTypes() GrantTypePolicyRuleCondition {
-	if o == nil || o.GrantTypes == nil {
+	if o == nil || IsNil(o.GrantTypes) {
 		var ret GrantTypePolicyRuleCondition
 		return ret
 	}
@@ -340,7 +343,7 @@ func (o *PolicyRuleConditions) GetGrantTypes() GrantTypePolicyRuleCondition {
 // GetGrantTypesOk returns a tuple with the GrantTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRuleConditions) GetGrantTypesOk() (*GrantTypePolicyRuleCondition, bool) {
-	if o == nil || o.GrantTypes == nil {
+	if o == nil || IsNil(o.GrantTypes) {
 		return nil, false
 	}
 	return o.GrantTypes, true
@@ -348,7 +351,7 @@ func (o *PolicyRuleConditions) GetGrantTypesOk() (*GrantTypePolicyRuleCondition,
 
 // HasGrantTypes returns a boolean if a field has been set.
 func (o *PolicyRuleConditions) HasGrantTypes() bool {
-	if o != nil && o.GrantTypes != nil {
+	if o != nil && !IsNil(o.GrantTypes) {
 		return true
 	}
 
@@ -362,7 +365,7 @@ func (o *PolicyRuleConditions) SetGrantTypes(v GrantTypePolicyRuleCondition) {
 
 // GetGroups returns the Groups field value if set, zero value otherwise.
 func (o *PolicyRuleConditions) GetGroups() GroupPolicyRuleCondition {
-	if o == nil || o.Groups == nil {
+	if o == nil || IsNil(o.Groups) {
 		var ret GroupPolicyRuleCondition
 		return ret
 	}
@@ -372,7 +375,7 @@ func (o *PolicyRuleConditions) GetGroups() GroupPolicyRuleCondition {
 // GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRuleConditions) GetGroupsOk() (*GroupPolicyRuleCondition, bool) {
-	if o == nil || o.Groups == nil {
+	if o == nil || IsNil(o.Groups) {
 		return nil, false
 	}
 	return o.Groups, true
@@ -380,7 +383,7 @@ func (o *PolicyRuleConditions) GetGroupsOk() (*GroupPolicyRuleCondition, bool) {
 
 // HasGroups returns a boolean if a field has been set.
 func (o *PolicyRuleConditions) HasGroups() bool {
-	if o != nil && o.Groups != nil {
+	if o != nil && !IsNil(o.Groups) {
 		return true
 	}
 
@@ -394,7 +397,7 @@ func (o *PolicyRuleConditions) SetGroups(v GroupPolicyRuleCondition) {
 
 // GetIdentityProvider returns the IdentityProvider field value if set, zero value otherwise.
 func (o *PolicyRuleConditions) GetIdentityProvider() IdentityProviderPolicyRuleCondition {
-	if o == nil || o.IdentityProvider == nil {
+	if o == nil || IsNil(o.IdentityProvider) {
 		var ret IdentityProviderPolicyRuleCondition
 		return ret
 	}
@@ -404,7 +407,7 @@ func (o *PolicyRuleConditions) GetIdentityProvider() IdentityProviderPolicyRuleC
 // GetIdentityProviderOk returns a tuple with the IdentityProvider field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRuleConditions) GetIdentityProviderOk() (*IdentityProviderPolicyRuleCondition, bool) {
-	if o == nil || o.IdentityProvider == nil {
+	if o == nil || IsNil(o.IdentityProvider) {
 		return nil, false
 	}
 	return o.IdentityProvider, true
@@ -412,7 +415,7 @@ func (o *PolicyRuleConditions) GetIdentityProviderOk() (*IdentityProviderPolicyR
 
 // HasIdentityProvider returns a boolean if a field has been set.
 func (o *PolicyRuleConditions) HasIdentityProvider() bool {
-	if o != nil && o.IdentityProvider != nil {
+	if o != nil && !IsNil(o.IdentityProvider) {
 		return true
 	}
 
@@ -426,7 +429,7 @@ func (o *PolicyRuleConditions) SetIdentityProvider(v IdentityProviderPolicyRuleC
 
 // GetMdmEnrollment returns the MdmEnrollment field value if set, zero value otherwise.
 func (o *PolicyRuleConditions) GetMdmEnrollment() MDMEnrollmentPolicyRuleCondition {
-	if o == nil || o.MdmEnrollment == nil {
+	if o == nil || IsNil(o.MdmEnrollment) {
 		var ret MDMEnrollmentPolicyRuleCondition
 		return ret
 	}
@@ -436,7 +439,7 @@ func (o *PolicyRuleConditions) GetMdmEnrollment() MDMEnrollmentPolicyRuleConditi
 // GetMdmEnrollmentOk returns a tuple with the MdmEnrollment field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRuleConditions) GetMdmEnrollmentOk() (*MDMEnrollmentPolicyRuleCondition, bool) {
-	if o == nil || o.MdmEnrollment == nil {
+	if o == nil || IsNil(o.MdmEnrollment) {
 		return nil, false
 	}
 	return o.MdmEnrollment, true
@@ -444,7 +447,7 @@ func (o *PolicyRuleConditions) GetMdmEnrollmentOk() (*MDMEnrollmentPolicyRuleCon
 
 // HasMdmEnrollment returns a boolean if a field has been set.
 func (o *PolicyRuleConditions) HasMdmEnrollment() bool {
-	if o != nil && o.MdmEnrollment != nil {
+	if o != nil && !IsNil(o.MdmEnrollment) {
 		return true
 	}
 
@@ -458,7 +461,7 @@ func (o *PolicyRuleConditions) SetMdmEnrollment(v MDMEnrollmentPolicyRuleConditi
 
 // GetNetwork returns the Network field value if set, zero value otherwise.
 func (o *PolicyRuleConditions) GetNetwork() PolicyNetworkCondition {
-	if o == nil || o.Network == nil {
+	if o == nil || IsNil(o.Network) {
 		var ret PolicyNetworkCondition
 		return ret
 	}
@@ -468,7 +471,7 @@ func (o *PolicyRuleConditions) GetNetwork() PolicyNetworkCondition {
 // GetNetworkOk returns a tuple with the Network field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRuleConditions) GetNetworkOk() (*PolicyNetworkCondition, bool) {
-	if o == nil || o.Network == nil {
+	if o == nil || IsNil(o.Network) {
 		return nil, false
 	}
 	return o.Network, true
@@ -476,7 +479,7 @@ func (o *PolicyRuleConditions) GetNetworkOk() (*PolicyNetworkCondition, bool) {
 
 // HasNetwork returns a boolean if a field has been set.
 func (o *PolicyRuleConditions) HasNetwork() bool {
-	if o != nil && o.Network != nil {
+	if o != nil && !IsNil(o.Network) {
 		return true
 	}
 
@@ -490,7 +493,7 @@ func (o *PolicyRuleConditions) SetNetwork(v PolicyNetworkCondition) {
 
 // GetPeople returns the People field value if set, zero value otherwise.
 func (o *PolicyRuleConditions) GetPeople() PolicyPeopleCondition {
-	if o == nil || o.People == nil {
+	if o == nil || IsNil(o.People) {
 		var ret PolicyPeopleCondition
 		return ret
 	}
@@ -500,7 +503,7 @@ func (o *PolicyRuleConditions) GetPeople() PolicyPeopleCondition {
 // GetPeopleOk returns a tuple with the People field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRuleConditions) GetPeopleOk() (*PolicyPeopleCondition, bool) {
-	if o == nil || o.People == nil {
+	if o == nil || IsNil(o.People) {
 		return nil, false
 	}
 	return o.People, true
@@ -508,7 +511,7 @@ func (o *PolicyRuleConditions) GetPeopleOk() (*PolicyPeopleCondition, bool) {
 
 // HasPeople returns a boolean if a field has been set.
 func (o *PolicyRuleConditions) HasPeople() bool {
-	if o != nil && o.People != nil {
+	if o != nil && !IsNil(o.People) {
 		return true
 	}
 
@@ -522,7 +525,7 @@ func (o *PolicyRuleConditions) SetPeople(v PolicyPeopleCondition) {
 
 // GetPlatform returns the Platform field value if set, zero value otherwise.
 func (o *PolicyRuleConditions) GetPlatform() PlatformPolicyRuleCondition {
-	if o == nil || o.Platform == nil {
+	if o == nil || IsNil(o.Platform) {
 		var ret PlatformPolicyRuleCondition
 		return ret
 	}
@@ -532,7 +535,7 @@ func (o *PolicyRuleConditions) GetPlatform() PlatformPolicyRuleCondition {
 // GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRuleConditions) GetPlatformOk() (*PlatformPolicyRuleCondition, bool) {
-	if o == nil || o.Platform == nil {
+	if o == nil || IsNil(o.Platform) {
 		return nil, false
 	}
 	return o.Platform, true
@@ -540,7 +543,7 @@ func (o *PolicyRuleConditions) GetPlatformOk() (*PlatformPolicyRuleCondition, bo
 
 // HasPlatform returns a boolean if a field has been set.
 func (o *PolicyRuleConditions) HasPlatform() bool {
-	if o != nil && o.Platform != nil {
+	if o != nil && !IsNil(o.Platform) {
 		return true
 	}
 
@@ -554,7 +557,7 @@ func (o *PolicyRuleConditions) SetPlatform(v PlatformPolicyRuleCondition) {
 
 // GetRisk returns the Risk field value if set, zero value otherwise.
 func (o *PolicyRuleConditions) GetRisk() RiskPolicyRuleCondition {
-	if o == nil || o.Risk == nil {
+	if o == nil || IsNil(o.Risk) {
 		var ret RiskPolicyRuleCondition
 		return ret
 	}
@@ -564,7 +567,7 @@ func (o *PolicyRuleConditions) GetRisk() RiskPolicyRuleCondition {
 // GetRiskOk returns a tuple with the Risk field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRuleConditions) GetRiskOk() (*RiskPolicyRuleCondition, bool) {
-	if o == nil || o.Risk == nil {
+	if o == nil || IsNil(o.Risk) {
 		return nil, false
 	}
 	return o.Risk, true
@@ -572,7 +575,7 @@ func (o *PolicyRuleConditions) GetRiskOk() (*RiskPolicyRuleCondition, bool) {
 
 // HasRisk returns a boolean if a field has been set.
 func (o *PolicyRuleConditions) HasRisk() bool {
-	if o != nil && o.Risk != nil {
+	if o != nil && !IsNil(o.Risk) {
 		return true
 	}
 
@@ -586,7 +589,7 @@ func (o *PolicyRuleConditions) SetRisk(v RiskPolicyRuleCondition) {
 
 // GetRiskScore returns the RiskScore field value if set, zero value otherwise.
 func (o *PolicyRuleConditions) GetRiskScore() RiskScorePolicyRuleCondition {
-	if o == nil || o.RiskScore == nil {
+	if o == nil || IsNil(o.RiskScore) {
 		var ret RiskScorePolicyRuleCondition
 		return ret
 	}
@@ -596,7 +599,7 @@ func (o *PolicyRuleConditions) GetRiskScore() RiskScorePolicyRuleCondition {
 // GetRiskScoreOk returns a tuple with the RiskScore field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRuleConditions) GetRiskScoreOk() (*RiskScorePolicyRuleCondition, bool) {
-	if o == nil || o.RiskScore == nil {
+	if o == nil || IsNil(o.RiskScore) {
 		return nil, false
 	}
 	return o.RiskScore, true
@@ -604,7 +607,7 @@ func (o *PolicyRuleConditions) GetRiskScoreOk() (*RiskScorePolicyRuleCondition, 
 
 // HasRiskScore returns a boolean if a field has been set.
 func (o *PolicyRuleConditions) HasRiskScore() bool {
-	if o != nil && o.RiskScore != nil {
+	if o != nil && !IsNil(o.RiskScore) {
 		return true
 	}
 
@@ -618,7 +621,7 @@ func (o *PolicyRuleConditions) SetRiskScore(v RiskScorePolicyRuleCondition) {
 
 // GetScopes returns the Scopes field value if set, zero value otherwise.
 func (o *PolicyRuleConditions) GetScopes() OAuth2ScopesMediationPolicyRuleCondition {
-	if o == nil || o.Scopes == nil {
+	if o == nil || IsNil(o.Scopes) {
 		var ret OAuth2ScopesMediationPolicyRuleCondition
 		return ret
 	}
@@ -628,7 +631,7 @@ func (o *PolicyRuleConditions) GetScopes() OAuth2ScopesMediationPolicyRuleCondit
 // GetScopesOk returns a tuple with the Scopes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRuleConditions) GetScopesOk() (*OAuth2ScopesMediationPolicyRuleCondition, bool) {
-	if o == nil || o.Scopes == nil {
+	if o == nil || IsNil(o.Scopes) {
 		return nil, false
 	}
 	return o.Scopes, true
@@ -636,7 +639,7 @@ func (o *PolicyRuleConditions) GetScopesOk() (*OAuth2ScopesMediationPolicyRuleCo
 
 // HasScopes returns a boolean if a field has been set.
 func (o *PolicyRuleConditions) HasScopes() bool {
-	if o != nil && o.Scopes != nil {
+	if o != nil && !IsNil(o.Scopes) {
 		return true
 	}
 
@@ -650,7 +653,7 @@ func (o *PolicyRuleConditions) SetScopes(v OAuth2ScopesMediationPolicyRuleCondit
 
 // GetUserIdentifier returns the UserIdentifier field value if set, zero value otherwise.
 func (o *PolicyRuleConditions) GetUserIdentifier() UserIdentifierPolicyRuleCondition {
-	if o == nil || o.UserIdentifier == nil {
+	if o == nil || IsNil(o.UserIdentifier) {
 		var ret UserIdentifierPolicyRuleCondition
 		return ret
 	}
@@ -660,7 +663,7 @@ func (o *PolicyRuleConditions) GetUserIdentifier() UserIdentifierPolicyRuleCondi
 // GetUserIdentifierOk returns a tuple with the UserIdentifier field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRuleConditions) GetUserIdentifierOk() (*UserIdentifierPolicyRuleCondition, bool) {
-	if o == nil || o.UserIdentifier == nil {
+	if o == nil || IsNil(o.UserIdentifier) {
 		return nil, false
 	}
 	return o.UserIdentifier, true
@@ -668,7 +671,7 @@ func (o *PolicyRuleConditions) GetUserIdentifierOk() (*UserIdentifierPolicyRuleC
 
 // HasUserIdentifier returns a boolean if a field has been set.
 func (o *PolicyRuleConditions) HasUserIdentifier() bool {
-	if o != nil && o.UserIdentifier != nil {
+	if o != nil && !IsNil(o.UserIdentifier) {
 		return true
 	}
 
@@ -682,7 +685,7 @@ func (o *PolicyRuleConditions) SetUserIdentifier(v UserIdentifierPolicyRuleCondi
 
 // GetUsers returns the Users field value if set, zero value otherwise.
 func (o *PolicyRuleConditions) GetUsers() UserPolicyRuleCondition {
-	if o == nil || o.Users == nil {
+	if o == nil || IsNil(o.Users) {
 		var ret UserPolicyRuleCondition
 		return ret
 	}
@@ -692,7 +695,7 @@ func (o *PolicyRuleConditions) GetUsers() UserPolicyRuleCondition {
 // GetUsersOk returns a tuple with the Users field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRuleConditions) GetUsersOk() (*UserPolicyRuleCondition, bool) {
-	if o == nil || o.Users == nil {
+	if o == nil || IsNil(o.Users) {
 		return nil, false
 	}
 	return o.Users, true
@@ -700,7 +703,7 @@ func (o *PolicyRuleConditions) GetUsersOk() (*UserPolicyRuleCondition, bool) {
 
 // HasUsers returns a boolean if a field has been set.
 func (o *PolicyRuleConditions) HasUsers() bool {
-	if o != nil && o.Users != nil {
+	if o != nil && !IsNil(o.Users) {
 		return true
 	}
 
@@ -714,7 +717,7 @@ func (o *PolicyRuleConditions) SetUsers(v UserPolicyRuleCondition) {
 
 // GetUserStatus returns the UserStatus field value if set, zero value otherwise.
 func (o *PolicyRuleConditions) GetUserStatus() UserStatusPolicyRuleCondition {
-	if o == nil || o.UserStatus == nil {
+	if o == nil || IsNil(o.UserStatus) {
 		var ret UserStatusPolicyRuleCondition
 		return ret
 	}
@@ -724,7 +727,7 @@ func (o *PolicyRuleConditions) GetUserStatus() UserStatusPolicyRuleCondition {
 // GetUserStatusOk returns a tuple with the UserStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRuleConditions) GetUserStatusOk() (*UserStatusPolicyRuleCondition, bool) {
-	if o == nil || o.UserStatus == nil {
+	if o == nil || IsNil(o.UserStatus) {
 		return nil, false
 	}
 	return o.UserStatus, true
@@ -732,7 +735,7 @@ func (o *PolicyRuleConditions) GetUserStatusOk() (*UserStatusPolicyRuleCondition
 
 // HasUserStatus returns a boolean if a field has been set.
 func (o *PolicyRuleConditions) HasUserStatus() bool {
-	if o != nil && o.UserStatus != nil {
+	if o != nil && !IsNil(o.UserStatus) {
 		return true
 	}
 
@@ -745,68 +748,76 @@ func (o *PolicyRuleConditions) SetUserStatus(v UserStatusPolicyRuleCondition) {
 }
 
 func (o PolicyRuleConditions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PolicyRuleConditions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.App != nil {
+	if !IsNil(o.App) {
 		toSerialize["app"] = o.App
 	}
-	if o.Apps != nil {
+	if !IsNil(o.Apps) {
 		toSerialize["apps"] = o.Apps
 	}
-	if o.AuthContext != nil {
+	if !IsNil(o.AuthContext) {
 		toSerialize["authContext"] = o.AuthContext
 	}
-	if o.AuthProvider != nil {
+	if !IsNil(o.AuthProvider) {
 		toSerialize["authProvider"] = o.AuthProvider
 	}
-	if o.BeforeScheduledAction != nil {
+	if !IsNil(o.BeforeScheduledAction) {
 		toSerialize["beforeScheduledAction"] = o.BeforeScheduledAction
 	}
-	if o.Clients != nil {
+	if !IsNil(o.Clients) {
 		toSerialize["clients"] = o.Clients
 	}
-	if o.Context != nil {
+	if !IsNil(o.Context) {
 		toSerialize["context"] = o.Context
 	}
-	if o.Device != nil {
+	if !IsNil(o.Device) {
 		toSerialize["device"] = o.Device
 	}
-	if o.GrantTypes != nil {
+	if !IsNil(o.GrantTypes) {
 		toSerialize["grantTypes"] = o.GrantTypes
 	}
-	if o.Groups != nil {
+	if !IsNil(o.Groups) {
 		toSerialize["groups"] = o.Groups
 	}
-	if o.IdentityProvider != nil {
+	if !IsNil(o.IdentityProvider) {
 		toSerialize["identityProvider"] = o.IdentityProvider
 	}
-	if o.MdmEnrollment != nil {
+	if !IsNil(o.MdmEnrollment) {
 		toSerialize["mdmEnrollment"] = o.MdmEnrollment
 	}
-	if o.Network != nil {
+	if !IsNil(o.Network) {
 		toSerialize["network"] = o.Network
 	}
-	if o.People != nil {
+	if !IsNil(o.People) {
 		toSerialize["people"] = o.People
 	}
-	if o.Platform != nil {
+	if !IsNil(o.Platform) {
 		toSerialize["platform"] = o.Platform
 	}
-	if o.Risk != nil {
+	if !IsNil(o.Risk) {
 		toSerialize["risk"] = o.Risk
 	}
-	if o.RiskScore != nil {
+	if !IsNil(o.RiskScore) {
 		toSerialize["riskScore"] = o.RiskScore
 	}
-	if o.Scopes != nil {
+	if !IsNil(o.Scopes) {
 		toSerialize["scopes"] = o.Scopes
 	}
-	if o.UserIdentifier != nil {
+	if !IsNil(o.UserIdentifier) {
 		toSerialize["userIdentifier"] = o.UserIdentifier
 	}
-	if o.Users != nil {
+	if !IsNil(o.Users) {
 		toSerialize["users"] = o.Users
 	}
-	if o.UserStatus != nil {
+	if !IsNil(o.UserStatus) {
 		toSerialize["userStatus"] = o.UserStatus
 	}
 
@@ -814,23 +825,23 @@ func (o PolicyRuleConditions) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PolicyRuleConditions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PolicyRuleConditions) UnmarshalJSON(data []byte) (err error) {
 	varPolicyRuleConditions := _PolicyRuleConditions{}
 
-	err = json.Unmarshal(bytes, &varPolicyRuleConditions)
-	if err == nil {
-		*o = PolicyRuleConditions(varPolicyRuleConditions)
-	} else {
+	err = json.Unmarshal(data, &varPolicyRuleConditions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PolicyRuleConditions(varPolicyRuleConditions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "app")
 		delete(additionalProperties, "apps")
 		delete(additionalProperties, "authContext")
@@ -853,8 +864,6 @@ func (o *PolicyRuleConditions) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "users")
 		delete(additionalProperties, "userStatus")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -895,4 +904,3 @@ func (v *NullablePolicyRuleConditions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

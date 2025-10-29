@@ -1,0 +1,206 @@
+/*
+Okta Admin Management
+
+Allows customers to easily access the Okta Management APIs
+
+Copyright 2025 - Present Okta, Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+API version: 2025.08.0
+Contact: devex-public@okta.com
+*/
+
+package okta
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// TokenHookResponseCommandsInnerValueInnerValue - Value to set the claim to.
+type TokenHookResponseCommandsInnerValueInnerValue struct {
+	Int32             *int32
+	MapmapOfStringAny *map[string]interface{}
+	String            *string
+}
+
+// int32AsTokenHookResponseCommandsInnerValueInnerValue is a convenience function that returns int32 wrapped in TokenHookResponseCommandsInnerValueInnerValue
+func Int32AsTokenHookResponseCommandsInnerValueInnerValue(v *int32) TokenHookResponseCommandsInnerValueInnerValue {
+	return TokenHookResponseCommandsInnerValueInnerValue{
+		Int32: v,
+	}
+}
+
+// map[string]interface{}AsTokenHookResponseCommandsInnerValueInnerValue is a convenience function that returns map[string]interface{} wrapped in TokenHookResponseCommandsInnerValueInnerValue
+func MapmapOfStringAnyAsTokenHookResponseCommandsInnerValueInnerValue(v *map[string]interface{}) TokenHookResponseCommandsInnerValueInnerValue {
+	return TokenHookResponseCommandsInnerValueInnerValue{
+		MapmapOfStringAny: v,
+	}
+}
+
+// stringAsTokenHookResponseCommandsInnerValueInnerValue is a convenience function that returns string wrapped in TokenHookResponseCommandsInnerValueInnerValue
+func StringAsTokenHookResponseCommandsInnerValueInnerValue(v *string) TokenHookResponseCommandsInnerValueInnerValue {
+	return TokenHookResponseCommandsInnerValueInnerValue{
+		String: v,
+	}
+}
+
+// Unmarshal JSON data into one of the pointers in the struct
+func (dst *TokenHookResponseCommandsInnerValueInnerValue) UnmarshalJSON(data []byte) error {
+	var err error
+	match := 0
+	// try to unmarshal data into Int32
+	err = json.Unmarshal(data, &dst.Int32)
+	if err == nil {
+		jsonInt32, _ := json.Marshal(dst.Int32)
+		if string(jsonInt32) == "{}" { // empty struct
+			dst.Int32 = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.Int32 = nil
+	}
+
+	// try to unmarshal data into MapmapOfStringAny
+	err = json.Unmarshal(data, &dst.MapmapOfStringAny)
+	if err == nil {
+		jsonMapmapOfStringAny, _ := json.Marshal(dst.MapmapOfStringAny)
+		if string(jsonMapmapOfStringAny) == "{}" { // empty struct
+			dst.MapmapOfStringAny = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.MapmapOfStringAny = nil
+	}
+
+	// try to unmarshal data into String
+	err = json.Unmarshal(data, &dst.String)
+	if err == nil {
+		jsonString, _ := json.Marshal(dst.String)
+		if string(jsonString) == "{}" { // empty struct
+			dst.String = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.String = nil
+	}
+
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.Int32 = nil
+		dst.MapmapOfStringAny = nil
+		dst.String = nil
+
+		return fmt.Errorf("data matches more than one schema in oneOf(TokenHookResponseCommandsInnerValueInnerValue)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("data failed to match schemas in oneOf(TokenHookResponseCommandsInnerValueInnerValue)")
+	}
+}
+
+// Marshal data from the first non-nil pointers in the struct to JSON
+func (src TokenHookResponseCommandsInnerValueInnerValue) MarshalJSON() ([]byte, error) {
+	if src.Int32 != nil {
+		return json.Marshal(&src.Int32)
+	}
+
+	if src.MapmapOfStringAny != nil {
+		return json.Marshal(&src.MapmapOfStringAny)
+	}
+
+	if src.String != nil {
+		return json.Marshal(&src.String)
+	}
+
+	return nil, nil // no data in oneOf schemas
+}
+
+// Get the actual instance
+func (obj *TokenHookResponseCommandsInnerValueInnerValue) GetActualInstance() interface{} {
+	if obj == nil {
+		return nil
+	}
+	if obj.Int32 != nil {
+		return obj.Int32
+	}
+
+	if obj.MapmapOfStringAny != nil {
+		return obj.MapmapOfStringAny
+	}
+
+	if obj.String != nil {
+		return obj.String
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj TokenHookResponseCommandsInnerValueInnerValue) GetActualInstanceValue() interface{} {
+	if obj.Int32 != nil {
+		return *obj.Int32
+	}
+
+	if obj.MapmapOfStringAny != nil {
+		return *obj.MapmapOfStringAny
+	}
+
+	if obj.String != nil {
+		return *obj.String
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+type NullableTokenHookResponseCommandsInnerValueInnerValue struct {
+	value *TokenHookResponseCommandsInnerValueInnerValue
+	isSet bool
+}
+
+func (v NullableTokenHookResponseCommandsInnerValueInnerValue) Get() *TokenHookResponseCommandsInnerValueInnerValue {
+	return v.value
+}
+
+func (v *NullableTokenHookResponseCommandsInnerValueInnerValue) Set(val *TokenHookResponseCommandsInnerValueInnerValue) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableTokenHookResponseCommandsInnerValueInnerValue) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableTokenHookResponseCommandsInnerValueInnerValue) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableTokenHookResponseCommandsInnerValueInnerValue(val *TokenHookResponseCommandsInnerValueInnerValue) *NullableTokenHookResponseCommandsInnerValueInnerValue {
+	return &NullableTokenHookResponseCommandsInnerValueInnerValue{value: val, isSet: true}
+}
+
+func (v NullableTokenHookResponseCommandsInnerValueInnerValue) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableTokenHookResponseCommandsInnerValueInnerValue) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}

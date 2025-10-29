@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the OrgPreferences type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrgPreferences{}
+
 // OrgPreferences struct for OrgPreferences
 type OrgPreferences struct {
-	ShowEndUserFooter *bool `json:"showEndUserFooter,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	// Indicates if the footer is shown on the End-User Dashboard
+	ShowEndUserFooter    *bool                `json:"showEndUserFooter,omitempty"`
+	Links                *OrgPreferencesLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +59,7 @@ func NewOrgPreferencesWithDefaults() *OrgPreferences {
 
 // GetShowEndUserFooter returns the ShowEndUserFooter field value if set, zero value otherwise.
 func (o *OrgPreferences) GetShowEndUserFooter() bool {
-	if o == nil || o.ShowEndUserFooter == nil {
+	if o == nil || IsNil(o.ShowEndUserFooter) {
 		var ret bool
 		return ret
 	}
@@ -65,7 +69,7 @@ func (o *OrgPreferences) GetShowEndUserFooter() bool {
 // GetShowEndUserFooterOk returns a tuple with the ShowEndUserFooter field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgPreferences) GetShowEndUserFooterOk() (*bool, bool) {
-	if o == nil || o.ShowEndUserFooter == nil {
+	if o == nil || IsNil(o.ShowEndUserFooter) {
 		return nil, false
 	}
 	return o.ShowEndUserFooter, true
@@ -73,7 +77,7 @@ func (o *OrgPreferences) GetShowEndUserFooterOk() (*bool, bool) {
 
 // HasShowEndUserFooter returns a boolean if a field has been set.
 func (o *OrgPreferences) HasShowEndUserFooter() bool {
-	if o != nil && o.ShowEndUserFooter != nil {
+	if o != nil && !IsNil(o.ShowEndUserFooter) {
 		return true
 	}
 
@@ -86,9 +90,9 @@ func (o *OrgPreferences) SetShowEndUserFooter(v bool) {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *OrgPreferences) GetLinks() LinksSelf {
-	if o == nil || o.Links == nil {
-		var ret LinksSelf
+func (o *OrgPreferences) GetLinks() OrgPreferencesLinks {
+	if o == nil || IsNil(o.Links) {
+		var ret OrgPreferencesLinks
 		return ret
 	}
 	return *o.Links
@@ -96,8 +100,8 @@ func (o *OrgPreferences) GetLinks() LinksSelf {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OrgPreferences) GetLinksOk() (*LinksSelf, bool) {
-	if o == nil || o.Links == nil {
+func (o *OrgPreferences) GetLinksOk() (*OrgPreferencesLinks, bool) {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -105,24 +109,32 @@ func (o *OrgPreferences) GetLinksOk() (*LinksSelf, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *OrgPreferences) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
 	return false
 }
 
-// SetLinks gets a reference to the given LinksSelf and assigns it to the Links field.
-func (o *OrgPreferences) SetLinks(v LinksSelf) {
+// SetLinks gets a reference to the given OrgPreferencesLinks and assigns it to the Links field.
+func (o *OrgPreferences) SetLinks(v OrgPreferencesLinks) {
 	o.Links = &v
 }
 
 func (o OrgPreferences) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OrgPreferences) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ShowEndUserFooter != nil {
+	if !IsNil(o.ShowEndUserFooter) {
 		toSerialize["showEndUserFooter"] = o.ShowEndUserFooter
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -130,28 +142,26 @@ func (o OrgPreferences) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OrgPreferences) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OrgPreferences) UnmarshalJSON(data []byte) (err error) {
 	varOrgPreferences := _OrgPreferences{}
 
-	err = json.Unmarshal(bytes, &varOrgPreferences)
-	if err == nil {
-		*o = OrgPreferences(varOrgPreferences)
-	} else {
+	err = json.Unmarshal(data, &varOrgPreferences)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OrgPreferences(varOrgPreferences)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "showEndUserFooter")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +202,3 @@ func (v *NullableOrgPreferences) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

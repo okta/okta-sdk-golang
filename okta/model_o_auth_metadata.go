@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,19 +27,22 @@ import (
 	"encoding/json"
 )
 
+// checks if the OAuthMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OAuthMetadata{}
+
 // OAuthMetadata struct for OAuthMetadata
 type OAuthMetadata struct {
 	// URL of the authorization server's authorization endpoint.
 	AuthorizationEndpoint *string `json:"authorization_endpoint,omitempty"`
-	// <div class=\"x-lifecycle-container\"><x-lifecycle class=\"lea\"></x-lifecycle> <x-lifecycle class=\"oie\"></x-lifecycle></div>A list of signing algorithms that this authorization server supports for signed requests.
+	// <x-lifecycle-container><x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>A list of signing algorithms that this authorization server supports for signed requests.
 	BackchannelAuthenticationRequestSigningAlgValuesSupported []string `json:"backchannel_authentication_request_signing_alg_values_supported,omitempty"`
-	// <div class=\"x-lifecycle-container\"><x-lifecycle class=\"lea\"></x-lifecycle> <x-lifecycle class=\"oie\"></x-lifecycle></div>The delivery modes that this authorization server supports for Client-Initiated Backchannel Authentication.
+	// <x-lifecycle-container><x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>The delivery modes that this authorization server supports for Client-Initiated Backchannel Authentication.
 	BackchannelTokenDeliveryModesSupported []string `json:"backchannel_token_delivery_modes_supported,omitempty"`
 	// A list of the claims supported by this authorization server.
 	ClaimsSupported []string `json:"claims_supported,omitempty"`
 	// A list of PKCE code challenge methods supported by this authorization server.
 	CodeChallengeMethodsSupported []string `json:"code_challenge_methods_supported,omitempty"`
-	DeviceAuthorizationEndpoint *string `json:"device_authorization_endpoint,omitempty"`
+	DeviceAuthorizationEndpoint   *string  `json:"device_authorization_endpoint,omitempty"`
 	// A list of signing algorithms supported by this authorization server for Demonstrating Proof-of-Possession (DPoP) JWTs.
 	DpopSigningAlgValuesSupported []string `json:"dpop_signing_alg_values_supported,omitempty"`
 	// URL of the authorization server's logout endpoint.
@@ -53,7 +56,7 @@ type OAuthMetadata struct {
 	// The authorization server's issuer identifier. In the context of this document, this is your authorization server's base URL. This becomes the `iss` claim in an access token.
 	Issuer *string `json:"issuer,omitempty"`
 	// URL of the authorization server's JSON Web Key Set document.
-	JwksUri *string `json:"jwks_uri,omitempty"`
+	JwksUri                            *string `json:"jwks_uri,omitempty"`
 	PushedAuthorizationRequestEndpoint *string `json:"pushed_authorization_request_endpoint,omitempty"`
 	// URL of the authorization server's JSON Web Key Set document.
 	RegistrationEndpoint *string `json:"registration_endpoint,omitempty"`
@@ -77,7 +80,7 @@ type OAuthMetadata struct {
 	TokenEndpoint *string `json:"token_endpoint,omitempty"`
 	// A list of client authentication methods supported by this token endpoint.
 	TokenEndpointAuthMethodsSupported []string `json:"token_endpoint_auth_methods_supported,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties              map[string]interface{}
 }
 
 type _OAuthMetadata OAuthMetadata
@@ -101,7 +104,7 @@ func NewOAuthMetadataWithDefaults() *OAuthMetadata {
 
 // GetAuthorizationEndpoint returns the AuthorizationEndpoint field value if set, zero value otherwise.
 func (o *OAuthMetadata) GetAuthorizationEndpoint() string {
-	if o == nil || o.AuthorizationEndpoint == nil {
+	if o == nil || IsNil(o.AuthorizationEndpoint) {
 		var ret string
 		return ret
 	}
@@ -111,7 +114,7 @@ func (o *OAuthMetadata) GetAuthorizationEndpoint() string {
 // GetAuthorizationEndpointOk returns a tuple with the AuthorizationEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthMetadata) GetAuthorizationEndpointOk() (*string, bool) {
-	if o == nil || o.AuthorizationEndpoint == nil {
+	if o == nil || IsNil(o.AuthorizationEndpoint) {
 		return nil, false
 	}
 	return o.AuthorizationEndpoint, true
@@ -119,7 +122,7 @@ func (o *OAuthMetadata) GetAuthorizationEndpointOk() (*string, bool) {
 
 // HasAuthorizationEndpoint returns a boolean if a field has been set.
 func (o *OAuthMetadata) HasAuthorizationEndpoint() bool {
-	if o != nil && o.AuthorizationEndpoint != nil {
+	if o != nil && !IsNil(o.AuthorizationEndpoint) {
 		return true
 	}
 
@@ -133,7 +136,7 @@ func (o *OAuthMetadata) SetAuthorizationEndpoint(v string) {
 
 // GetBackchannelAuthenticationRequestSigningAlgValuesSupported returns the BackchannelAuthenticationRequestSigningAlgValuesSupported field value if set, zero value otherwise.
 func (o *OAuthMetadata) GetBackchannelAuthenticationRequestSigningAlgValuesSupported() []string {
-	if o == nil || o.BackchannelAuthenticationRequestSigningAlgValuesSupported == nil {
+	if o == nil || IsNil(o.BackchannelAuthenticationRequestSigningAlgValuesSupported) {
 		var ret []string
 		return ret
 	}
@@ -143,7 +146,7 @@ func (o *OAuthMetadata) GetBackchannelAuthenticationRequestSigningAlgValuesSuppo
 // GetBackchannelAuthenticationRequestSigningAlgValuesSupportedOk returns a tuple with the BackchannelAuthenticationRequestSigningAlgValuesSupported field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthMetadata) GetBackchannelAuthenticationRequestSigningAlgValuesSupportedOk() ([]string, bool) {
-	if o == nil || o.BackchannelAuthenticationRequestSigningAlgValuesSupported == nil {
+	if o == nil || IsNil(o.BackchannelAuthenticationRequestSigningAlgValuesSupported) {
 		return nil, false
 	}
 	return o.BackchannelAuthenticationRequestSigningAlgValuesSupported, true
@@ -151,7 +154,7 @@ func (o *OAuthMetadata) GetBackchannelAuthenticationRequestSigningAlgValuesSuppo
 
 // HasBackchannelAuthenticationRequestSigningAlgValuesSupported returns a boolean if a field has been set.
 func (o *OAuthMetadata) HasBackchannelAuthenticationRequestSigningAlgValuesSupported() bool {
-	if o != nil && o.BackchannelAuthenticationRequestSigningAlgValuesSupported != nil {
+	if o != nil && !IsNil(o.BackchannelAuthenticationRequestSigningAlgValuesSupported) {
 		return true
 	}
 
@@ -165,7 +168,7 @@ func (o *OAuthMetadata) SetBackchannelAuthenticationRequestSigningAlgValuesSuppo
 
 // GetBackchannelTokenDeliveryModesSupported returns the BackchannelTokenDeliveryModesSupported field value if set, zero value otherwise.
 func (o *OAuthMetadata) GetBackchannelTokenDeliveryModesSupported() []string {
-	if o == nil || o.BackchannelTokenDeliveryModesSupported == nil {
+	if o == nil || IsNil(o.BackchannelTokenDeliveryModesSupported) {
 		var ret []string
 		return ret
 	}
@@ -175,7 +178,7 @@ func (o *OAuthMetadata) GetBackchannelTokenDeliveryModesSupported() []string {
 // GetBackchannelTokenDeliveryModesSupportedOk returns a tuple with the BackchannelTokenDeliveryModesSupported field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthMetadata) GetBackchannelTokenDeliveryModesSupportedOk() ([]string, bool) {
-	if o == nil || o.BackchannelTokenDeliveryModesSupported == nil {
+	if o == nil || IsNil(o.BackchannelTokenDeliveryModesSupported) {
 		return nil, false
 	}
 	return o.BackchannelTokenDeliveryModesSupported, true
@@ -183,7 +186,7 @@ func (o *OAuthMetadata) GetBackchannelTokenDeliveryModesSupportedOk() ([]string,
 
 // HasBackchannelTokenDeliveryModesSupported returns a boolean if a field has been set.
 func (o *OAuthMetadata) HasBackchannelTokenDeliveryModesSupported() bool {
-	if o != nil && o.BackchannelTokenDeliveryModesSupported != nil {
+	if o != nil && !IsNil(o.BackchannelTokenDeliveryModesSupported) {
 		return true
 	}
 
@@ -197,7 +200,7 @@ func (o *OAuthMetadata) SetBackchannelTokenDeliveryModesSupported(v []string) {
 
 // GetClaimsSupported returns the ClaimsSupported field value if set, zero value otherwise.
 func (o *OAuthMetadata) GetClaimsSupported() []string {
-	if o == nil || o.ClaimsSupported == nil {
+	if o == nil || IsNil(o.ClaimsSupported) {
 		var ret []string
 		return ret
 	}
@@ -207,7 +210,7 @@ func (o *OAuthMetadata) GetClaimsSupported() []string {
 // GetClaimsSupportedOk returns a tuple with the ClaimsSupported field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthMetadata) GetClaimsSupportedOk() ([]string, bool) {
-	if o == nil || o.ClaimsSupported == nil {
+	if o == nil || IsNil(o.ClaimsSupported) {
 		return nil, false
 	}
 	return o.ClaimsSupported, true
@@ -215,7 +218,7 @@ func (o *OAuthMetadata) GetClaimsSupportedOk() ([]string, bool) {
 
 // HasClaimsSupported returns a boolean if a field has been set.
 func (o *OAuthMetadata) HasClaimsSupported() bool {
-	if o != nil && o.ClaimsSupported != nil {
+	if o != nil && !IsNil(o.ClaimsSupported) {
 		return true
 	}
 
@@ -229,7 +232,7 @@ func (o *OAuthMetadata) SetClaimsSupported(v []string) {
 
 // GetCodeChallengeMethodsSupported returns the CodeChallengeMethodsSupported field value if set, zero value otherwise.
 func (o *OAuthMetadata) GetCodeChallengeMethodsSupported() []string {
-	if o == nil || o.CodeChallengeMethodsSupported == nil {
+	if o == nil || IsNil(o.CodeChallengeMethodsSupported) {
 		var ret []string
 		return ret
 	}
@@ -239,7 +242,7 @@ func (o *OAuthMetadata) GetCodeChallengeMethodsSupported() []string {
 // GetCodeChallengeMethodsSupportedOk returns a tuple with the CodeChallengeMethodsSupported field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthMetadata) GetCodeChallengeMethodsSupportedOk() ([]string, bool) {
-	if o == nil || o.CodeChallengeMethodsSupported == nil {
+	if o == nil || IsNil(o.CodeChallengeMethodsSupported) {
 		return nil, false
 	}
 	return o.CodeChallengeMethodsSupported, true
@@ -247,7 +250,7 @@ func (o *OAuthMetadata) GetCodeChallengeMethodsSupportedOk() ([]string, bool) {
 
 // HasCodeChallengeMethodsSupported returns a boolean if a field has been set.
 func (o *OAuthMetadata) HasCodeChallengeMethodsSupported() bool {
-	if o != nil && o.CodeChallengeMethodsSupported != nil {
+	if o != nil && !IsNil(o.CodeChallengeMethodsSupported) {
 		return true
 	}
 
@@ -261,7 +264,7 @@ func (o *OAuthMetadata) SetCodeChallengeMethodsSupported(v []string) {
 
 // GetDeviceAuthorizationEndpoint returns the DeviceAuthorizationEndpoint field value if set, zero value otherwise.
 func (o *OAuthMetadata) GetDeviceAuthorizationEndpoint() string {
-	if o == nil || o.DeviceAuthorizationEndpoint == nil {
+	if o == nil || IsNil(o.DeviceAuthorizationEndpoint) {
 		var ret string
 		return ret
 	}
@@ -271,7 +274,7 @@ func (o *OAuthMetadata) GetDeviceAuthorizationEndpoint() string {
 // GetDeviceAuthorizationEndpointOk returns a tuple with the DeviceAuthorizationEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthMetadata) GetDeviceAuthorizationEndpointOk() (*string, bool) {
-	if o == nil || o.DeviceAuthorizationEndpoint == nil {
+	if o == nil || IsNil(o.DeviceAuthorizationEndpoint) {
 		return nil, false
 	}
 	return o.DeviceAuthorizationEndpoint, true
@@ -279,7 +282,7 @@ func (o *OAuthMetadata) GetDeviceAuthorizationEndpointOk() (*string, bool) {
 
 // HasDeviceAuthorizationEndpoint returns a boolean if a field has been set.
 func (o *OAuthMetadata) HasDeviceAuthorizationEndpoint() bool {
-	if o != nil && o.DeviceAuthorizationEndpoint != nil {
+	if o != nil && !IsNil(o.DeviceAuthorizationEndpoint) {
 		return true
 	}
 
@@ -293,7 +296,7 @@ func (o *OAuthMetadata) SetDeviceAuthorizationEndpoint(v string) {
 
 // GetDpopSigningAlgValuesSupported returns the DpopSigningAlgValuesSupported field value if set, zero value otherwise.
 func (o *OAuthMetadata) GetDpopSigningAlgValuesSupported() []string {
-	if o == nil || o.DpopSigningAlgValuesSupported == nil {
+	if o == nil || IsNil(o.DpopSigningAlgValuesSupported) {
 		var ret []string
 		return ret
 	}
@@ -303,7 +306,7 @@ func (o *OAuthMetadata) GetDpopSigningAlgValuesSupported() []string {
 // GetDpopSigningAlgValuesSupportedOk returns a tuple with the DpopSigningAlgValuesSupported field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthMetadata) GetDpopSigningAlgValuesSupportedOk() ([]string, bool) {
-	if o == nil || o.DpopSigningAlgValuesSupported == nil {
+	if o == nil || IsNil(o.DpopSigningAlgValuesSupported) {
 		return nil, false
 	}
 	return o.DpopSigningAlgValuesSupported, true
@@ -311,7 +314,7 @@ func (o *OAuthMetadata) GetDpopSigningAlgValuesSupportedOk() ([]string, bool) {
 
 // HasDpopSigningAlgValuesSupported returns a boolean if a field has been set.
 func (o *OAuthMetadata) HasDpopSigningAlgValuesSupported() bool {
-	if o != nil && o.DpopSigningAlgValuesSupported != nil {
+	if o != nil && !IsNil(o.DpopSigningAlgValuesSupported) {
 		return true
 	}
 
@@ -325,7 +328,7 @@ func (o *OAuthMetadata) SetDpopSigningAlgValuesSupported(v []string) {
 
 // GetEndSessionEndpoint returns the EndSessionEndpoint field value if set, zero value otherwise.
 func (o *OAuthMetadata) GetEndSessionEndpoint() string {
-	if o == nil || o.EndSessionEndpoint == nil {
+	if o == nil || IsNil(o.EndSessionEndpoint) {
 		var ret string
 		return ret
 	}
@@ -335,7 +338,7 @@ func (o *OAuthMetadata) GetEndSessionEndpoint() string {
 // GetEndSessionEndpointOk returns a tuple with the EndSessionEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthMetadata) GetEndSessionEndpointOk() (*string, bool) {
-	if o == nil || o.EndSessionEndpoint == nil {
+	if o == nil || IsNil(o.EndSessionEndpoint) {
 		return nil, false
 	}
 	return o.EndSessionEndpoint, true
@@ -343,7 +346,7 @@ func (o *OAuthMetadata) GetEndSessionEndpointOk() (*string, bool) {
 
 // HasEndSessionEndpoint returns a boolean if a field has been set.
 func (o *OAuthMetadata) HasEndSessionEndpoint() bool {
-	if o != nil && o.EndSessionEndpoint != nil {
+	if o != nil && !IsNil(o.EndSessionEndpoint) {
 		return true
 	}
 
@@ -357,7 +360,7 @@ func (o *OAuthMetadata) SetEndSessionEndpoint(v string) {
 
 // GetGrantTypesSupported returns the GrantTypesSupported field value if set, zero value otherwise.
 func (o *OAuthMetadata) GetGrantTypesSupported() []string {
-	if o == nil || o.GrantTypesSupported == nil {
+	if o == nil || IsNil(o.GrantTypesSupported) {
 		var ret []string
 		return ret
 	}
@@ -367,7 +370,7 @@ func (o *OAuthMetadata) GetGrantTypesSupported() []string {
 // GetGrantTypesSupportedOk returns a tuple with the GrantTypesSupported field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthMetadata) GetGrantTypesSupportedOk() ([]string, bool) {
-	if o == nil || o.GrantTypesSupported == nil {
+	if o == nil || IsNil(o.GrantTypesSupported) {
 		return nil, false
 	}
 	return o.GrantTypesSupported, true
@@ -375,7 +378,7 @@ func (o *OAuthMetadata) GetGrantTypesSupportedOk() ([]string, bool) {
 
 // HasGrantTypesSupported returns a boolean if a field has been set.
 func (o *OAuthMetadata) HasGrantTypesSupported() bool {
-	if o != nil && o.GrantTypesSupported != nil {
+	if o != nil && !IsNil(o.GrantTypesSupported) {
 		return true
 	}
 
@@ -389,7 +392,7 @@ func (o *OAuthMetadata) SetGrantTypesSupported(v []string) {
 
 // GetIntrospectionEndpoint returns the IntrospectionEndpoint field value if set, zero value otherwise.
 func (o *OAuthMetadata) GetIntrospectionEndpoint() string {
-	if o == nil || o.IntrospectionEndpoint == nil {
+	if o == nil || IsNil(o.IntrospectionEndpoint) {
 		var ret string
 		return ret
 	}
@@ -399,7 +402,7 @@ func (o *OAuthMetadata) GetIntrospectionEndpoint() string {
 // GetIntrospectionEndpointOk returns a tuple with the IntrospectionEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthMetadata) GetIntrospectionEndpointOk() (*string, bool) {
-	if o == nil || o.IntrospectionEndpoint == nil {
+	if o == nil || IsNil(o.IntrospectionEndpoint) {
 		return nil, false
 	}
 	return o.IntrospectionEndpoint, true
@@ -407,7 +410,7 @@ func (o *OAuthMetadata) GetIntrospectionEndpointOk() (*string, bool) {
 
 // HasIntrospectionEndpoint returns a boolean if a field has been set.
 func (o *OAuthMetadata) HasIntrospectionEndpoint() bool {
-	if o != nil && o.IntrospectionEndpoint != nil {
+	if o != nil && !IsNil(o.IntrospectionEndpoint) {
 		return true
 	}
 
@@ -421,7 +424,7 @@ func (o *OAuthMetadata) SetIntrospectionEndpoint(v string) {
 
 // GetIntrospectionEndpointAuthMethodsSupported returns the IntrospectionEndpointAuthMethodsSupported field value if set, zero value otherwise.
 func (o *OAuthMetadata) GetIntrospectionEndpointAuthMethodsSupported() []string {
-	if o == nil || o.IntrospectionEndpointAuthMethodsSupported == nil {
+	if o == nil || IsNil(o.IntrospectionEndpointAuthMethodsSupported) {
 		var ret []string
 		return ret
 	}
@@ -431,7 +434,7 @@ func (o *OAuthMetadata) GetIntrospectionEndpointAuthMethodsSupported() []string 
 // GetIntrospectionEndpointAuthMethodsSupportedOk returns a tuple with the IntrospectionEndpointAuthMethodsSupported field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthMetadata) GetIntrospectionEndpointAuthMethodsSupportedOk() ([]string, bool) {
-	if o == nil || o.IntrospectionEndpointAuthMethodsSupported == nil {
+	if o == nil || IsNil(o.IntrospectionEndpointAuthMethodsSupported) {
 		return nil, false
 	}
 	return o.IntrospectionEndpointAuthMethodsSupported, true
@@ -439,7 +442,7 @@ func (o *OAuthMetadata) GetIntrospectionEndpointAuthMethodsSupportedOk() ([]stri
 
 // HasIntrospectionEndpointAuthMethodsSupported returns a boolean if a field has been set.
 func (o *OAuthMetadata) HasIntrospectionEndpointAuthMethodsSupported() bool {
-	if o != nil && o.IntrospectionEndpointAuthMethodsSupported != nil {
+	if o != nil && !IsNil(o.IntrospectionEndpointAuthMethodsSupported) {
 		return true
 	}
 
@@ -453,7 +456,7 @@ func (o *OAuthMetadata) SetIntrospectionEndpointAuthMethodsSupported(v []string)
 
 // GetIssuer returns the Issuer field value if set, zero value otherwise.
 func (o *OAuthMetadata) GetIssuer() string {
-	if o == nil || o.Issuer == nil {
+	if o == nil || IsNil(o.Issuer) {
 		var ret string
 		return ret
 	}
@@ -463,7 +466,7 @@ func (o *OAuthMetadata) GetIssuer() string {
 // GetIssuerOk returns a tuple with the Issuer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthMetadata) GetIssuerOk() (*string, bool) {
-	if o == nil || o.Issuer == nil {
+	if o == nil || IsNil(o.Issuer) {
 		return nil, false
 	}
 	return o.Issuer, true
@@ -471,7 +474,7 @@ func (o *OAuthMetadata) GetIssuerOk() (*string, bool) {
 
 // HasIssuer returns a boolean if a field has been set.
 func (o *OAuthMetadata) HasIssuer() bool {
-	if o != nil && o.Issuer != nil {
+	if o != nil && !IsNil(o.Issuer) {
 		return true
 	}
 
@@ -485,7 +488,7 @@ func (o *OAuthMetadata) SetIssuer(v string) {
 
 // GetJwksUri returns the JwksUri field value if set, zero value otherwise.
 func (o *OAuthMetadata) GetJwksUri() string {
-	if o == nil || o.JwksUri == nil {
+	if o == nil || IsNil(o.JwksUri) {
 		var ret string
 		return ret
 	}
@@ -495,7 +498,7 @@ func (o *OAuthMetadata) GetJwksUri() string {
 // GetJwksUriOk returns a tuple with the JwksUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthMetadata) GetJwksUriOk() (*string, bool) {
-	if o == nil || o.JwksUri == nil {
+	if o == nil || IsNil(o.JwksUri) {
 		return nil, false
 	}
 	return o.JwksUri, true
@@ -503,7 +506,7 @@ func (o *OAuthMetadata) GetJwksUriOk() (*string, bool) {
 
 // HasJwksUri returns a boolean if a field has been set.
 func (o *OAuthMetadata) HasJwksUri() bool {
-	if o != nil && o.JwksUri != nil {
+	if o != nil && !IsNil(o.JwksUri) {
 		return true
 	}
 
@@ -517,7 +520,7 @@ func (o *OAuthMetadata) SetJwksUri(v string) {
 
 // GetPushedAuthorizationRequestEndpoint returns the PushedAuthorizationRequestEndpoint field value if set, zero value otherwise.
 func (o *OAuthMetadata) GetPushedAuthorizationRequestEndpoint() string {
-	if o == nil || o.PushedAuthorizationRequestEndpoint == nil {
+	if o == nil || IsNil(o.PushedAuthorizationRequestEndpoint) {
 		var ret string
 		return ret
 	}
@@ -527,7 +530,7 @@ func (o *OAuthMetadata) GetPushedAuthorizationRequestEndpoint() string {
 // GetPushedAuthorizationRequestEndpointOk returns a tuple with the PushedAuthorizationRequestEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthMetadata) GetPushedAuthorizationRequestEndpointOk() (*string, bool) {
-	if o == nil || o.PushedAuthorizationRequestEndpoint == nil {
+	if o == nil || IsNil(o.PushedAuthorizationRequestEndpoint) {
 		return nil, false
 	}
 	return o.PushedAuthorizationRequestEndpoint, true
@@ -535,7 +538,7 @@ func (o *OAuthMetadata) GetPushedAuthorizationRequestEndpointOk() (*string, bool
 
 // HasPushedAuthorizationRequestEndpoint returns a boolean if a field has been set.
 func (o *OAuthMetadata) HasPushedAuthorizationRequestEndpoint() bool {
-	if o != nil && o.PushedAuthorizationRequestEndpoint != nil {
+	if o != nil && !IsNil(o.PushedAuthorizationRequestEndpoint) {
 		return true
 	}
 
@@ -549,7 +552,7 @@ func (o *OAuthMetadata) SetPushedAuthorizationRequestEndpoint(v string) {
 
 // GetRegistrationEndpoint returns the RegistrationEndpoint field value if set, zero value otherwise.
 func (o *OAuthMetadata) GetRegistrationEndpoint() string {
-	if o == nil || o.RegistrationEndpoint == nil {
+	if o == nil || IsNil(o.RegistrationEndpoint) {
 		var ret string
 		return ret
 	}
@@ -559,7 +562,7 @@ func (o *OAuthMetadata) GetRegistrationEndpoint() string {
 // GetRegistrationEndpointOk returns a tuple with the RegistrationEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthMetadata) GetRegistrationEndpointOk() (*string, bool) {
-	if o == nil || o.RegistrationEndpoint == nil {
+	if o == nil || IsNil(o.RegistrationEndpoint) {
 		return nil, false
 	}
 	return o.RegistrationEndpoint, true
@@ -567,7 +570,7 @@ func (o *OAuthMetadata) GetRegistrationEndpointOk() (*string, bool) {
 
 // HasRegistrationEndpoint returns a boolean if a field has been set.
 func (o *OAuthMetadata) HasRegistrationEndpoint() bool {
-	if o != nil && o.RegistrationEndpoint != nil {
+	if o != nil && !IsNil(o.RegistrationEndpoint) {
 		return true
 	}
 
@@ -581,7 +584,7 @@ func (o *OAuthMetadata) SetRegistrationEndpoint(v string) {
 
 // GetRequestObjectSigningAlgValuesSupported returns the RequestObjectSigningAlgValuesSupported field value if set, zero value otherwise.
 func (o *OAuthMetadata) GetRequestObjectSigningAlgValuesSupported() []string {
-	if o == nil || o.RequestObjectSigningAlgValuesSupported == nil {
+	if o == nil || IsNil(o.RequestObjectSigningAlgValuesSupported) {
 		var ret []string
 		return ret
 	}
@@ -591,7 +594,7 @@ func (o *OAuthMetadata) GetRequestObjectSigningAlgValuesSupported() []string {
 // GetRequestObjectSigningAlgValuesSupportedOk returns a tuple with the RequestObjectSigningAlgValuesSupported field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthMetadata) GetRequestObjectSigningAlgValuesSupportedOk() ([]string, bool) {
-	if o == nil || o.RequestObjectSigningAlgValuesSupported == nil {
+	if o == nil || IsNil(o.RequestObjectSigningAlgValuesSupported) {
 		return nil, false
 	}
 	return o.RequestObjectSigningAlgValuesSupported, true
@@ -599,7 +602,7 @@ func (o *OAuthMetadata) GetRequestObjectSigningAlgValuesSupportedOk() ([]string,
 
 // HasRequestObjectSigningAlgValuesSupported returns a boolean if a field has been set.
 func (o *OAuthMetadata) HasRequestObjectSigningAlgValuesSupported() bool {
-	if o != nil && o.RequestObjectSigningAlgValuesSupported != nil {
+	if o != nil && !IsNil(o.RequestObjectSigningAlgValuesSupported) {
 		return true
 	}
 
@@ -613,7 +616,7 @@ func (o *OAuthMetadata) SetRequestObjectSigningAlgValuesSupported(v []string) {
 
 // GetRequestParameterSupported returns the RequestParameterSupported field value if set, zero value otherwise.
 func (o *OAuthMetadata) GetRequestParameterSupported() bool {
-	if o == nil || o.RequestParameterSupported == nil {
+	if o == nil || IsNil(o.RequestParameterSupported) {
 		var ret bool
 		return ret
 	}
@@ -623,7 +626,7 @@ func (o *OAuthMetadata) GetRequestParameterSupported() bool {
 // GetRequestParameterSupportedOk returns a tuple with the RequestParameterSupported field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthMetadata) GetRequestParameterSupportedOk() (*bool, bool) {
-	if o == nil || o.RequestParameterSupported == nil {
+	if o == nil || IsNil(o.RequestParameterSupported) {
 		return nil, false
 	}
 	return o.RequestParameterSupported, true
@@ -631,7 +634,7 @@ func (o *OAuthMetadata) GetRequestParameterSupportedOk() (*bool, bool) {
 
 // HasRequestParameterSupported returns a boolean if a field has been set.
 func (o *OAuthMetadata) HasRequestParameterSupported() bool {
-	if o != nil && o.RequestParameterSupported != nil {
+	if o != nil && !IsNil(o.RequestParameterSupported) {
 		return true
 	}
 
@@ -645,7 +648,7 @@ func (o *OAuthMetadata) SetRequestParameterSupported(v bool) {
 
 // GetResponseModesSupported returns the ResponseModesSupported field value if set, zero value otherwise.
 func (o *OAuthMetadata) GetResponseModesSupported() []string {
-	if o == nil || o.ResponseModesSupported == nil {
+	if o == nil || IsNil(o.ResponseModesSupported) {
 		var ret []string
 		return ret
 	}
@@ -655,7 +658,7 @@ func (o *OAuthMetadata) GetResponseModesSupported() []string {
 // GetResponseModesSupportedOk returns a tuple with the ResponseModesSupported field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthMetadata) GetResponseModesSupportedOk() ([]string, bool) {
-	if o == nil || o.ResponseModesSupported == nil {
+	if o == nil || IsNil(o.ResponseModesSupported) {
 		return nil, false
 	}
 	return o.ResponseModesSupported, true
@@ -663,7 +666,7 @@ func (o *OAuthMetadata) GetResponseModesSupportedOk() ([]string, bool) {
 
 // HasResponseModesSupported returns a boolean if a field has been set.
 func (o *OAuthMetadata) HasResponseModesSupported() bool {
-	if o != nil && o.ResponseModesSupported != nil {
+	if o != nil && !IsNil(o.ResponseModesSupported) {
 		return true
 	}
 
@@ -677,7 +680,7 @@ func (o *OAuthMetadata) SetResponseModesSupported(v []string) {
 
 // GetResponseTypesSupported returns the ResponseTypesSupported field value if set, zero value otherwise.
 func (o *OAuthMetadata) GetResponseTypesSupported() []string {
-	if o == nil || o.ResponseTypesSupported == nil {
+	if o == nil || IsNil(o.ResponseTypesSupported) {
 		var ret []string
 		return ret
 	}
@@ -687,7 +690,7 @@ func (o *OAuthMetadata) GetResponseTypesSupported() []string {
 // GetResponseTypesSupportedOk returns a tuple with the ResponseTypesSupported field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthMetadata) GetResponseTypesSupportedOk() ([]string, bool) {
-	if o == nil || o.ResponseTypesSupported == nil {
+	if o == nil || IsNil(o.ResponseTypesSupported) {
 		return nil, false
 	}
 	return o.ResponseTypesSupported, true
@@ -695,7 +698,7 @@ func (o *OAuthMetadata) GetResponseTypesSupportedOk() ([]string, bool) {
 
 // HasResponseTypesSupported returns a boolean if a field has been set.
 func (o *OAuthMetadata) HasResponseTypesSupported() bool {
-	if o != nil && o.ResponseTypesSupported != nil {
+	if o != nil && !IsNil(o.ResponseTypesSupported) {
 		return true
 	}
 
@@ -709,7 +712,7 @@ func (o *OAuthMetadata) SetResponseTypesSupported(v []string) {
 
 // GetRevocationEndpoint returns the RevocationEndpoint field value if set, zero value otherwise.
 func (o *OAuthMetadata) GetRevocationEndpoint() string {
-	if o == nil || o.RevocationEndpoint == nil {
+	if o == nil || IsNil(o.RevocationEndpoint) {
 		var ret string
 		return ret
 	}
@@ -719,7 +722,7 @@ func (o *OAuthMetadata) GetRevocationEndpoint() string {
 // GetRevocationEndpointOk returns a tuple with the RevocationEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthMetadata) GetRevocationEndpointOk() (*string, bool) {
-	if o == nil || o.RevocationEndpoint == nil {
+	if o == nil || IsNil(o.RevocationEndpoint) {
 		return nil, false
 	}
 	return o.RevocationEndpoint, true
@@ -727,7 +730,7 @@ func (o *OAuthMetadata) GetRevocationEndpointOk() (*string, bool) {
 
 // HasRevocationEndpoint returns a boolean if a field has been set.
 func (o *OAuthMetadata) HasRevocationEndpoint() bool {
-	if o != nil && o.RevocationEndpoint != nil {
+	if o != nil && !IsNil(o.RevocationEndpoint) {
 		return true
 	}
 
@@ -741,7 +744,7 @@ func (o *OAuthMetadata) SetRevocationEndpoint(v string) {
 
 // GetRevocationEndpointAuthMethodsSupported returns the RevocationEndpointAuthMethodsSupported field value if set, zero value otherwise.
 func (o *OAuthMetadata) GetRevocationEndpointAuthMethodsSupported() []string {
-	if o == nil || o.RevocationEndpointAuthMethodsSupported == nil {
+	if o == nil || IsNil(o.RevocationEndpointAuthMethodsSupported) {
 		var ret []string
 		return ret
 	}
@@ -751,7 +754,7 @@ func (o *OAuthMetadata) GetRevocationEndpointAuthMethodsSupported() []string {
 // GetRevocationEndpointAuthMethodsSupportedOk returns a tuple with the RevocationEndpointAuthMethodsSupported field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthMetadata) GetRevocationEndpointAuthMethodsSupportedOk() ([]string, bool) {
-	if o == nil || o.RevocationEndpointAuthMethodsSupported == nil {
+	if o == nil || IsNil(o.RevocationEndpointAuthMethodsSupported) {
 		return nil, false
 	}
 	return o.RevocationEndpointAuthMethodsSupported, true
@@ -759,7 +762,7 @@ func (o *OAuthMetadata) GetRevocationEndpointAuthMethodsSupportedOk() ([]string,
 
 // HasRevocationEndpointAuthMethodsSupported returns a boolean if a field has been set.
 func (o *OAuthMetadata) HasRevocationEndpointAuthMethodsSupported() bool {
-	if o != nil && o.RevocationEndpointAuthMethodsSupported != nil {
+	if o != nil && !IsNil(o.RevocationEndpointAuthMethodsSupported) {
 		return true
 	}
 
@@ -773,7 +776,7 @@ func (o *OAuthMetadata) SetRevocationEndpointAuthMethodsSupported(v []string) {
 
 // GetScopesSupported returns the ScopesSupported field value if set, zero value otherwise.
 func (o *OAuthMetadata) GetScopesSupported() []string {
-	if o == nil || o.ScopesSupported == nil {
+	if o == nil || IsNil(o.ScopesSupported) {
 		var ret []string
 		return ret
 	}
@@ -783,7 +786,7 @@ func (o *OAuthMetadata) GetScopesSupported() []string {
 // GetScopesSupportedOk returns a tuple with the ScopesSupported field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthMetadata) GetScopesSupportedOk() ([]string, bool) {
-	if o == nil || o.ScopesSupported == nil {
+	if o == nil || IsNil(o.ScopesSupported) {
 		return nil, false
 	}
 	return o.ScopesSupported, true
@@ -791,7 +794,7 @@ func (o *OAuthMetadata) GetScopesSupportedOk() ([]string, bool) {
 
 // HasScopesSupported returns a boolean if a field has been set.
 func (o *OAuthMetadata) HasScopesSupported() bool {
-	if o != nil && o.ScopesSupported != nil {
+	if o != nil && !IsNil(o.ScopesSupported) {
 		return true
 	}
 
@@ -805,7 +808,7 @@ func (o *OAuthMetadata) SetScopesSupported(v []string) {
 
 // GetSubjectTypesSupported returns the SubjectTypesSupported field value if set, zero value otherwise.
 func (o *OAuthMetadata) GetSubjectTypesSupported() []string {
-	if o == nil || o.SubjectTypesSupported == nil {
+	if o == nil || IsNil(o.SubjectTypesSupported) {
 		var ret []string
 		return ret
 	}
@@ -815,7 +818,7 @@ func (o *OAuthMetadata) GetSubjectTypesSupported() []string {
 // GetSubjectTypesSupportedOk returns a tuple with the SubjectTypesSupported field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthMetadata) GetSubjectTypesSupportedOk() ([]string, bool) {
-	if o == nil || o.SubjectTypesSupported == nil {
+	if o == nil || IsNil(o.SubjectTypesSupported) {
 		return nil, false
 	}
 	return o.SubjectTypesSupported, true
@@ -823,7 +826,7 @@ func (o *OAuthMetadata) GetSubjectTypesSupportedOk() ([]string, bool) {
 
 // HasSubjectTypesSupported returns a boolean if a field has been set.
 func (o *OAuthMetadata) HasSubjectTypesSupported() bool {
-	if o != nil && o.SubjectTypesSupported != nil {
+	if o != nil && !IsNil(o.SubjectTypesSupported) {
 		return true
 	}
 
@@ -837,7 +840,7 @@ func (o *OAuthMetadata) SetSubjectTypesSupported(v []string) {
 
 // GetTokenEndpoint returns the TokenEndpoint field value if set, zero value otherwise.
 func (o *OAuthMetadata) GetTokenEndpoint() string {
-	if o == nil || o.TokenEndpoint == nil {
+	if o == nil || IsNil(o.TokenEndpoint) {
 		var ret string
 		return ret
 	}
@@ -847,7 +850,7 @@ func (o *OAuthMetadata) GetTokenEndpoint() string {
 // GetTokenEndpointOk returns a tuple with the TokenEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthMetadata) GetTokenEndpointOk() (*string, bool) {
-	if o == nil || o.TokenEndpoint == nil {
+	if o == nil || IsNil(o.TokenEndpoint) {
 		return nil, false
 	}
 	return o.TokenEndpoint, true
@@ -855,7 +858,7 @@ func (o *OAuthMetadata) GetTokenEndpointOk() (*string, bool) {
 
 // HasTokenEndpoint returns a boolean if a field has been set.
 func (o *OAuthMetadata) HasTokenEndpoint() bool {
-	if o != nil && o.TokenEndpoint != nil {
+	if o != nil && !IsNil(o.TokenEndpoint) {
 		return true
 	}
 
@@ -869,7 +872,7 @@ func (o *OAuthMetadata) SetTokenEndpoint(v string) {
 
 // GetTokenEndpointAuthMethodsSupported returns the TokenEndpointAuthMethodsSupported field value if set, zero value otherwise.
 func (o *OAuthMetadata) GetTokenEndpointAuthMethodsSupported() []string {
-	if o == nil || o.TokenEndpointAuthMethodsSupported == nil {
+	if o == nil || IsNil(o.TokenEndpointAuthMethodsSupported) {
 		var ret []string
 		return ret
 	}
@@ -879,7 +882,7 @@ func (o *OAuthMetadata) GetTokenEndpointAuthMethodsSupported() []string {
 // GetTokenEndpointAuthMethodsSupportedOk returns a tuple with the TokenEndpointAuthMethodsSupported field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthMetadata) GetTokenEndpointAuthMethodsSupportedOk() ([]string, bool) {
-	if o == nil || o.TokenEndpointAuthMethodsSupported == nil {
+	if o == nil || IsNil(o.TokenEndpointAuthMethodsSupported) {
 		return nil, false
 	}
 	return o.TokenEndpointAuthMethodsSupported, true
@@ -887,7 +890,7 @@ func (o *OAuthMetadata) GetTokenEndpointAuthMethodsSupportedOk() ([]string, bool
 
 // HasTokenEndpointAuthMethodsSupported returns a boolean if a field has been set.
 func (o *OAuthMetadata) HasTokenEndpointAuthMethodsSupported() bool {
-	if o != nil && o.TokenEndpointAuthMethodsSupported != nil {
+	if o != nil && !IsNil(o.TokenEndpointAuthMethodsSupported) {
 		return true
 	}
 
@@ -900,80 +903,88 @@ func (o *OAuthMetadata) SetTokenEndpointAuthMethodsSupported(v []string) {
 }
 
 func (o OAuthMetadata) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OAuthMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AuthorizationEndpoint != nil {
+	if !IsNil(o.AuthorizationEndpoint) {
 		toSerialize["authorization_endpoint"] = o.AuthorizationEndpoint
 	}
-	if o.BackchannelAuthenticationRequestSigningAlgValuesSupported != nil {
+	if !IsNil(o.BackchannelAuthenticationRequestSigningAlgValuesSupported) {
 		toSerialize["backchannel_authentication_request_signing_alg_values_supported"] = o.BackchannelAuthenticationRequestSigningAlgValuesSupported
 	}
-	if o.BackchannelTokenDeliveryModesSupported != nil {
+	if !IsNil(o.BackchannelTokenDeliveryModesSupported) {
 		toSerialize["backchannel_token_delivery_modes_supported"] = o.BackchannelTokenDeliveryModesSupported
 	}
-	if o.ClaimsSupported != nil {
+	if !IsNil(o.ClaimsSupported) {
 		toSerialize["claims_supported"] = o.ClaimsSupported
 	}
-	if o.CodeChallengeMethodsSupported != nil {
+	if !IsNil(o.CodeChallengeMethodsSupported) {
 		toSerialize["code_challenge_methods_supported"] = o.CodeChallengeMethodsSupported
 	}
-	if o.DeviceAuthorizationEndpoint != nil {
+	if !IsNil(o.DeviceAuthorizationEndpoint) {
 		toSerialize["device_authorization_endpoint"] = o.DeviceAuthorizationEndpoint
 	}
-	if o.DpopSigningAlgValuesSupported != nil {
+	if !IsNil(o.DpopSigningAlgValuesSupported) {
 		toSerialize["dpop_signing_alg_values_supported"] = o.DpopSigningAlgValuesSupported
 	}
-	if o.EndSessionEndpoint != nil {
+	if !IsNil(o.EndSessionEndpoint) {
 		toSerialize["end_session_endpoint"] = o.EndSessionEndpoint
 	}
-	if o.GrantTypesSupported != nil {
+	if !IsNil(o.GrantTypesSupported) {
 		toSerialize["grant_types_supported"] = o.GrantTypesSupported
 	}
-	if o.IntrospectionEndpoint != nil {
+	if !IsNil(o.IntrospectionEndpoint) {
 		toSerialize["introspection_endpoint"] = o.IntrospectionEndpoint
 	}
-	if o.IntrospectionEndpointAuthMethodsSupported != nil {
+	if !IsNil(o.IntrospectionEndpointAuthMethodsSupported) {
 		toSerialize["introspection_endpoint_auth_methods_supported"] = o.IntrospectionEndpointAuthMethodsSupported
 	}
-	if o.Issuer != nil {
+	if !IsNil(o.Issuer) {
 		toSerialize["issuer"] = o.Issuer
 	}
-	if o.JwksUri != nil {
+	if !IsNil(o.JwksUri) {
 		toSerialize["jwks_uri"] = o.JwksUri
 	}
-	if o.PushedAuthorizationRequestEndpoint != nil {
+	if !IsNil(o.PushedAuthorizationRequestEndpoint) {
 		toSerialize["pushed_authorization_request_endpoint"] = o.PushedAuthorizationRequestEndpoint
 	}
-	if o.RegistrationEndpoint != nil {
+	if !IsNil(o.RegistrationEndpoint) {
 		toSerialize["registration_endpoint"] = o.RegistrationEndpoint
 	}
-	if o.RequestObjectSigningAlgValuesSupported != nil {
+	if !IsNil(o.RequestObjectSigningAlgValuesSupported) {
 		toSerialize["request_object_signing_alg_values_supported"] = o.RequestObjectSigningAlgValuesSupported
 	}
-	if o.RequestParameterSupported != nil {
+	if !IsNil(o.RequestParameterSupported) {
 		toSerialize["request_parameter_supported"] = o.RequestParameterSupported
 	}
-	if o.ResponseModesSupported != nil {
+	if !IsNil(o.ResponseModesSupported) {
 		toSerialize["response_modes_supported"] = o.ResponseModesSupported
 	}
-	if o.ResponseTypesSupported != nil {
+	if !IsNil(o.ResponseTypesSupported) {
 		toSerialize["response_types_supported"] = o.ResponseTypesSupported
 	}
-	if o.RevocationEndpoint != nil {
+	if !IsNil(o.RevocationEndpoint) {
 		toSerialize["revocation_endpoint"] = o.RevocationEndpoint
 	}
-	if o.RevocationEndpointAuthMethodsSupported != nil {
+	if !IsNil(o.RevocationEndpointAuthMethodsSupported) {
 		toSerialize["revocation_endpoint_auth_methods_supported"] = o.RevocationEndpointAuthMethodsSupported
 	}
-	if o.ScopesSupported != nil {
+	if !IsNil(o.ScopesSupported) {
 		toSerialize["scopes_supported"] = o.ScopesSupported
 	}
-	if o.SubjectTypesSupported != nil {
+	if !IsNil(o.SubjectTypesSupported) {
 		toSerialize["subject_types_supported"] = o.SubjectTypesSupported
 	}
-	if o.TokenEndpoint != nil {
+	if !IsNil(o.TokenEndpoint) {
 		toSerialize["token_endpoint"] = o.TokenEndpoint
 	}
-	if o.TokenEndpointAuthMethodsSupported != nil {
+	if !IsNil(o.TokenEndpointAuthMethodsSupported) {
 		toSerialize["token_endpoint_auth_methods_supported"] = o.TokenEndpointAuthMethodsSupported
 	}
 
@@ -981,23 +992,23 @@ func (o OAuthMetadata) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OAuthMetadata) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OAuthMetadata) UnmarshalJSON(data []byte) (err error) {
 	varOAuthMetadata := _OAuthMetadata{}
 
-	err = json.Unmarshal(bytes, &varOAuthMetadata)
-	if err == nil {
-		*o = OAuthMetadata(varOAuthMetadata)
-	} else {
+	err = json.Unmarshal(data, &varOAuthMetadata)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OAuthMetadata(varOAuthMetadata)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "authorization_endpoint")
 		delete(additionalProperties, "backchannel_authentication_request_signing_alg_values_supported")
 		delete(additionalProperties, "backchannel_token_delivery_modes_supported")
@@ -1024,8 +1035,6 @@ func (o *OAuthMetadata) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "token_endpoint")
 		delete(additionalProperties, "token_endpoint_auth_methods_supported")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -1066,4 +1075,3 @@ func (v *NullableOAuthMetadata) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

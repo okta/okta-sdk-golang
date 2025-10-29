@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the DeviceListAllOfEmbedded type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeviceListAllOfEmbedded{}
+
 // DeviceListAllOfEmbedded List of associated users for the device if the `expand=user` query parameter is specified in the request. Use `expand=userSummary` to get only a summary of each associated user for the device.
 type DeviceListAllOfEmbedded struct {
 	// Users for the device
-	Users []DeviceUser `json:"users,omitempty"`
+	Users                []DeviceUser `json:"users,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewDeviceListAllOfEmbeddedWithDefaults() *DeviceListAllOfEmbedded {
 
 // GetUsers returns the Users field value if set, zero value otherwise.
 func (o *DeviceListAllOfEmbedded) GetUsers() []DeviceUser {
-	if o == nil || o.Users == nil {
+	if o == nil || IsNil(o.Users) {
 		var ret []DeviceUser
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *DeviceListAllOfEmbedded) GetUsers() []DeviceUser {
 // GetUsersOk returns a tuple with the Users field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeviceListAllOfEmbedded) GetUsersOk() ([]DeviceUser, bool) {
-	if o == nil || o.Users == nil {
+	if o == nil || IsNil(o.Users) {
 		return nil, false
 	}
 	return o.Users, true
@@ -73,7 +76,7 @@ func (o *DeviceListAllOfEmbedded) GetUsersOk() ([]DeviceUser, bool) {
 
 // HasUsers returns a boolean if a field has been set.
 func (o *DeviceListAllOfEmbedded) HasUsers() bool {
-	if o != nil && o.Users != nil {
+	if o != nil && !IsNil(o.Users) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *DeviceListAllOfEmbedded) SetUsers(v []DeviceUser) {
 }
 
 func (o DeviceListAllOfEmbedded) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DeviceListAllOfEmbedded) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Users != nil {
+	if !IsNil(o.Users) {
 		toSerialize["users"] = o.Users
 	}
 
@@ -95,27 +106,25 @@ func (o DeviceListAllOfEmbedded) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DeviceListAllOfEmbedded) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DeviceListAllOfEmbedded) UnmarshalJSON(data []byte) (err error) {
 	varDeviceListAllOfEmbedded := _DeviceListAllOfEmbedded{}
 
-	err = json.Unmarshal(bytes, &varDeviceListAllOfEmbedded)
-	if err == nil {
-		*o = DeviceListAllOfEmbedded(varDeviceListAllOfEmbedded)
-	} else {
+	err = json.Unmarshal(data, &varDeviceListAllOfEmbedded)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DeviceListAllOfEmbedded(varDeviceListAllOfEmbedded)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "users")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableDeviceListAllOfEmbedded) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

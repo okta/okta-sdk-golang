@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the JsonPatchOperation type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &JsonPatchOperation{}
+
 // JsonPatchOperation The update action
 type JsonPatchOperation struct {
 	// The operation (PATCH action)
@@ -34,7 +37,7 @@ type JsonPatchOperation struct {
 	// The resource path of the attribute to update
 	Path *string `json:"path,omitempty"`
 	// The update operation value
-	Value map[string]interface{} `json:"value,omitempty"`
+	Value                map[string]interface{} `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +62,7 @@ func NewJsonPatchOperationWithDefaults() *JsonPatchOperation {
 
 // GetOp returns the Op field value if set, zero value otherwise.
 func (o *JsonPatchOperation) GetOp() string {
-	if o == nil || o.Op == nil {
+	if o == nil || IsNil(o.Op) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *JsonPatchOperation) GetOp() string {
 // GetOpOk returns a tuple with the Op field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *JsonPatchOperation) GetOpOk() (*string, bool) {
-	if o == nil || o.Op == nil {
+	if o == nil || IsNil(o.Op) {
 		return nil, false
 	}
 	return o.Op, true
@@ -77,7 +80,7 @@ func (o *JsonPatchOperation) GetOpOk() (*string, bool) {
 
 // HasOp returns a boolean if a field has been set.
 func (o *JsonPatchOperation) HasOp() bool {
-	if o != nil && o.Op != nil {
+	if o != nil && !IsNil(o.Op) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *JsonPatchOperation) SetOp(v string) {
 
 // GetPath returns the Path field value if set, zero value otherwise.
 func (o *JsonPatchOperation) GetPath() string {
-	if o == nil || o.Path == nil {
+	if o == nil || IsNil(o.Path) {
 		var ret string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *JsonPatchOperation) GetPath() string {
 // GetPathOk returns a tuple with the Path field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *JsonPatchOperation) GetPathOk() (*string, bool) {
-	if o == nil || o.Path == nil {
+	if o == nil || IsNil(o.Path) {
 		return nil, false
 	}
 	return o.Path, true
@@ -109,7 +112,7 @@ func (o *JsonPatchOperation) GetPathOk() (*string, bool) {
 
 // HasPath returns a boolean if a field has been set.
 func (o *JsonPatchOperation) HasPath() bool {
-	if o != nil && o.Path != nil {
+	if o != nil && !IsNil(o.Path) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *JsonPatchOperation) SetPath(v string) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *JsonPatchOperation) GetValue() map[string]interface{} {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -133,15 +136,15 @@ func (o *JsonPatchOperation) GetValue() map[string]interface{} {
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *JsonPatchOperation) GetValueOk() (map[string]interface{}, bool) {
-	if o == nil || o.Value == nil {
-		return nil, false
+	if o == nil || IsNil(o.Value) {
+		return map[string]interface{}{}, false
 	}
 	return o.Value, true
 }
 
 // HasValue returns a boolean if a field has been set.
 func (o *JsonPatchOperation) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -154,14 +157,22 @@ func (o *JsonPatchOperation) SetValue(v map[string]interface{}) {
 }
 
 func (o JsonPatchOperation) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o JsonPatchOperation) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Op != nil {
+	if !IsNil(o.Op) {
 		toSerialize["op"] = o.Op
 	}
-	if o.Path != nil {
+	if !IsNil(o.Path) {
 		toSerialize["path"] = o.Path
 	}
-	if o.Value != nil {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
 
@@ -169,29 +180,27 @@ func (o JsonPatchOperation) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *JsonPatchOperation) UnmarshalJSON(bytes []byte) (err error) {
+func (o *JsonPatchOperation) UnmarshalJSON(data []byte) (err error) {
 	varJsonPatchOperation := _JsonPatchOperation{}
 
-	err = json.Unmarshal(bytes, &varJsonPatchOperation)
-	if err == nil {
-		*o = JsonPatchOperation(varJsonPatchOperation)
-	} else {
+	err = json.Unmarshal(data, &varJsonPatchOperation)
+
+	if err != nil {
 		return err
 	}
 
+	*o = JsonPatchOperation(varJsonPatchOperation)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "op")
 		delete(additionalProperties, "path")
 		delete(additionalProperties, "value")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -232,4 +241,3 @@ func (v *NullableJsonPatchOperation) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

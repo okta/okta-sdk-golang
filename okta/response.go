@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,24 +17,22 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
 package okta
 
 import (
+	"bytes"
+	"encoding/json"
+	"encoding/xml"
 	"errors"
+	"io"
 	"net/http"
 	"net/url"
-	"io/ioutil"
 	"strings"
-	"bytes"
-	"encoding/xml"
-	"encoding/json"
-	"io"
 )
-
 
 // APIResponse stores the API response returned by the server.
 type APIResponse struct {
@@ -48,7 +46,7 @@ func newAPIResponse(r *http.Response, cli *APIClient, v interface{}) *APIRespons
 	// switch v
 	pg = newPaginationInHeader(r)
 	response := &APIResponse{Response: r, cli: cli, pg: pg}
-	return response 
+	return response
 }
 
 func buildResponse(resp *http.Response, cli *APIClient, v interface{}) (*APIResponse, error) {
@@ -58,11 +56,11 @@ func buildResponse(resp *http.Response, cli *APIClient, v interface{}) (*APIResp
 	if err != nil {
 		return response, err
 	}
-	bodyBytes, _ := ioutil.ReadAll(resp.Body)
+	bodyBytes, _ := io.ReadAll(resp.Body)
 	copyBodyBytes := make([]byte, len(bodyBytes))
 	copy(copyBodyBytes, bodyBytes)
-	_ = resp.Body.Close()                                    // close it to avoid memory leaks
-	resp.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes)) // restore the original response body
+	_ = resp.Body.Close()                                // close it to avoid memory leaks
+	resp.Body = io.NopCloser(bytes.NewBuffer(bodyBytes)) // restore the original response body
 	if len(copyBodyBytes) == 0 {
 		return response, nil
 	}
@@ -84,9 +82,9 @@ func buildResponse(resp *http.Response, cli *APIClient, v interface{}) (*APIResp
 }
 
 func (c *APIClient) checkResponseForError(resp *http.Response) error {
-	localVarBody, _ := ioutil.ReadAll(resp.Body)
+	localVarBody, _ := io.ReadAll(resp.Body)
 	resp.Body.Close()
-	resp.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	resp.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if resp.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -100,7 +98,7 @@ func (c *APIClient) checkResponseForError(resp *http.Response) error {
 				return newErr
 			}
 			newErr.model = v
-			return  newErr
+			return newErr
 		}
 		if resp.StatusCode == 404 {
 			var v Error
@@ -110,7 +108,7 @@ func (c *APIClient) checkResponseForError(resp *http.Response) error {
 				return newErr
 			}
 			newErr.model = v
-			return  newErr
+			return newErr
 		}
 		if resp.StatusCode == 429 {
 			var v Error
@@ -120,7 +118,7 @@ func (c *APIClient) checkResponseForError(resp *http.Response) error {
 				return newErr
 			}
 			newErr.model = v
-			return  newErr
+			return newErr
 		}
 	}
 	return nil

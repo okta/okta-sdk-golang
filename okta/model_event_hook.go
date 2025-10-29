@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -25,8 +25,12 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the EventHook type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EventHook{}
 
 // EventHook struct for EventHook
 type EventHook struct {
@@ -36,8 +40,8 @@ type EventHook struct {
 	// The ID of the user who created the event hook
 	CreatedBy *string `json:"createdBy,omitempty"`
 	// Description of the event hook
-	Description NullableString `json:"description,omitempty"`
-	Events EventSubscriptions `json:"events"`
+	Description NullableString     `json:"description,omitempty"`
+	Events      EventSubscriptions `json:"events"`
 	// Unique key for the event hook
 	Id *string `json:"id,omitempty"`
 	// Date of the last event hook update
@@ -47,8 +51,8 @@ type EventHook struct {
 	// Status of the event hook
 	Status *string `json:"status,omitempty"`
 	// Verification status of the event hook. `UNVERIFIED` event hooks won't receive any events.
-	VerificationStatus *string `json:"verificationStatus,omitempty"`
-	Links *EventHookLinks `json:"_links,omitempty"`
+	VerificationStatus   *string         `json:"verificationStatus,omitempty"`
+	Links                *EventHookLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -100,7 +104,7 @@ func (o *EventHook) SetChannel(v EventHookChannel) {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *EventHook) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -110,7 +114,7 @@ func (o *EventHook) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventHook) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -118,7 +122,7 @@ func (o *EventHook) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *EventHook) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -132,7 +136,7 @@ func (o *EventHook) SetCreated(v time.Time) {
 
 // GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
 func (o *EventHook) GetCreatedBy() string {
-	if o == nil || o.CreatedBy == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		var ret string
 		return ret
 	}
@@ -142,7 +146,7 @@ func (o *EventHook) GetCreatedBy() string {
 // GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventHook) GetCreatedByOk() (*string, bool) {
-	if o == nil || o.CreatedBy == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		return nil, false
 	}
 	return o.CreatedBy, true
@@ -150,7 +154,7 @@ func (o *EventHook) GetCreatedByOk() (*string, bool) {
 
 // HasCreatedBy returns a boolean if a field has been set.
 func (o *EventHook) HasCreatedBy() bool {
-	if o != nil && o.CreatedBy != nil {
+	if o != nil && !IsNil(o.CreatedBy) {
 		return true
 	}
 
@@ -164,7 +168,7 @@ func (o *EventHook) SetCreatedBy(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *EventHook) GetDescription() string {
-	if o == nil || o.Description.Get() == nil {
+	if o == nil || IsNil(o.Description.Get()) {
 		var ret string
 		return ret
 	}
@@ -194,6 +198,7 @@ func (o *EventHook) HasDescription() bool {
 func (o *EventHook) SetDescription(v string) {
 	o.Description.Set(&v)
 }
+
 // SetDescriptionNil sets the value for Description to be an explicit nil
 func (o *EventHook) SetDescriptionNil() {
 	o.Description.Set(nil)
@@ -230,7 +235,7 @@ func (o *EventHook) SetEvents(v EventSubscriptions) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *EventHook) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -240,7 +245,7 @@ func (o *EventHook) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventHook) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -248,7 +253,7 @@ func (o *EventHook) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *EventHook) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -262,7 +267,7 @@ func (o *EventHook) SetId(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *EventHook) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -272,7 +277,7 @@ func (o *EventHook) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventHook) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -280,7 +285,7 @@ func (o *EventHook) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *EventHook) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -318,7 +323,7 @@ func (o *EventHook) SetName(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *EventHook) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -328,7 +333,7 @@ func (o *EventHook) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventHook) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -336,7 +341,7 @@ func (o *EventHook) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *EventHook) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -350,7 +355,7 @@ func (o *EventHook) SetStatus(v string) {
 
 // GetVerificationStatus returns the VerificationStatus field value if set, zero value otherwise.
 func (o *EventHook) GetVerificationStatus() string {
-	if o == nil || o.VerificationStatus == nil {
+	if o == nil || IsNil(o.VerificationStatus) {
 		var ret string
 		return ret
 	}
@@ -360,7 +365,7 @@ func (o *EventHook) GetVerificationStatus() string {
 // GetVerificationStatusOk returns a tuple with the VerificationStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventHook) GetVerificationStatusOk() (*string, bool) {
-	if o == nil || o.VerificationStatus == nil {
+	if o == nil || IsNil(o.VerificationStatus) {
 		return nil, false
 	}
 	return o.VerificationStatus, true
@@ -368,7 +373,7 @@ func (o *EventHook) GetVerificationStatusOk() (*string, bool) {
 
 // HasVerificationStatus returns a boolean if a field has been set.
 func (o *EventHook) HasVerificationStatus() bool {
-	if o != nil && o.VerificationStatus != nil {
+	if o != nil && !IsNil(o.VerificationStatus) {
 		return true
 	}
 
@@ -382,7 +387,7 @@ func (o *EventHook) SetVerificationStatus(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *EventHook) GetLinks() EventHookLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret EventHookLinks
 		return ret
 	}
@@ -392,7 +397,7 @@ func (o *EventHook) GetLinks() EventHookLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventHook) GetLinksOk() (*EventHookLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -400,7 +405,7 @@ func (o *EventHook) GetLinksOk() (*EventHookLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *EventHook) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -413,38 +418,40 @@ func (o *EventHook) SetLinks(v EventHookLinks) {
 }
 
 func (o EventHook) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["channel"] = o.Channel
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Created != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o EventHook) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["channel"] = o.Channel
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.CreatedBy != nil {
+	if !IsNil(o.CreatedBy) {
 		toSerialize["createdBy"] = o.CreatedBy
 	}
 	if o.Description.IsSet() {
 		toSerialize["description"] = o.Description.Get()
 	}
-	if true {
-		toSerialize["events"] = o.Events
-	}
-	if o.Id != nil {
+	toSerialize["events"] = o.Events
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Status != nil {
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.VerificationStatus != nil {
+	if !IsNil(o.VerificationStatus) {
 		toSerialize["verificationStatus"] = o.VerificationStatus
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -452,23 +459,46 @@ func (o EventHook) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EventHook) UnmarshalJSON(bytes []byte) (err error) {
-	varEventHook := _EventHook{}
+func (o *EventHook) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"channel",
+		"events",
+		"name",
+	}
 
-	err = json.Unmarshal(bytes, &varEventHook)
-	if err == nil {
-		*o = EventHook(varEventHook)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varEventHook := _EventHook{}
+
+	err = json.Unmarshal(data, &varEventHook)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EventHook(varEventHook)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "channel")
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "createdBy")
@@ -481,8 +511,6 @@ func (o *EventHook) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "verificationStatus")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -523,4 +551,3 @@ func (v *NullableEventHook) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

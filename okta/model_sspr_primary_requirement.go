@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the SsprPrimaryRequirement type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SsprPrimaryRequirement{}
+
 // SsprPrimaryRequirement Defines the authenticators permitted for the initial authentication step of password recovery
 type SsprPrimaryRequirement struct {
 	// Constraints on the values specified in the `methods` array. Specifying a constraint limits methods to specific authenticator(s). Currently, Google OTP is the only accepted constraint.
 	MethodConstraints []AuthenticatorMethodConstraint `json:"methodConstraints,omitempty"`
 	// Authenticator methods allowed for the initial authentication step of password recovery. Method `otp` requires a constraint limiting it to a Google authenticator.
-	Methods []string `json:"methods,omitempty"`
+	Methods              []string `json:"methods,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewSsprPrimaryRequirementWithDefaults() *SsprPrimaryRequirement {
 
 // GetMethodConstraints returns the MethodConstraints field value if set, zero value otherwise.
 func (o *SsprPrimaryRequirement) GetMethodConstraints() []AuthenticatorMethodConstraint {
-	if o == nil || o.MethodConstraints == nil {
+	if o == nil || IsNil(o.MethodConstraints) {
 		var ret []AuthenticatorMethodConstraint
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *SsprPrimaryRequirement) GetMethodConstraints() []AuthenticatorMethodCon
 // GetMethodConstraintsOk returns a tuple with the MethodConstraints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SsprPrimaryRequirement) GetMethodConstraintsOk() ([]AuthenticatorMethodConstraint, bool) {
-	if o == nil || o.MethodConstraints == nil {
+	if o == nil || IsNil(o.MethodConstraints) {
 		return nil, false
 	}
 	return o.MethodConstraints, true
@@ -75,7 +78,7 @@ func (o *SsprPrimaryRequirement) GetMethodConstraintsOk() ([]AuthenticatorMethod
 
 // HasMethodConstraints returns a boolean if a field has been set.
 func (o *SsprPrimaryRequirement) HasMethodConstraints() bool {
-	if o != nil && o.MethodConstraints != nil {
+	if o != nil && !IsNil(o.MethodConstraints) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *SsprPrimaryRequirement) SetMethodConstraints(v []AuthenticatorMethodCon
 
 // GetMethods returns the Methods field value if set, zero value otherwise.
 func (o *SsprPrimaryRequirement) GetMethods() []string {
-	if o == nil || o.Methods == nil {
+	if o == nil || IsNil(o.Methods) {
 		var ret []string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *SsprPrimaryRequirement) GetMethods() []string {
 // GetMethodsOk returns a tuple with the Methods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SsprPrimaryRequirement) GetMethodsOk() ([]string, bool) {
-	if o == nil || o.Methods == nil {
+	if o == nil || IsNil(o.Methods) {
 		return nil, false
 	}
 	return o.Methods, true
@@ -107,7 +110,7 @@ func (o *SsprPrimaryRequirement) GetMethodsOk() ([]string, bool) {
 
 // HasMethods returns a boolean if a field has been set.
 func (o *SsprPrimaryRequirement) HasMethods() bool {
-	if o != nil && o.Methods != nil {
+	if o != nil && !IsNil(o.Methods) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *SsprPrimaryRequirement) SetMethods(v []string) {
 }
 
 func (o SsprPrimaryRequirement) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SsprPrimaryRequirement) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.MethodConstraints != nil {
+	if !IsNil(o.MethodConstraints) {
 		toSerialize["methodConstraints"] = o.MethodConstraints
 	}
-	if o.Methods != nil {
+	if !IsNil(o.Methods) {
 		toSerialize["methods"] = o.Methods
 	}
 
@@ -132,28 +143,26 @@ func (o SsprPrimaryRequirement) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SsprPrimaryRequirement) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SsprPrimaryRequirement) UnmarshalJSON(data []byte) (err error) {
 	varSsprPrimaryRequirement := _SsprPrimaryRequirement{}
 
-	err = json.Unmarshal(bytes, &varSsprPrimaryRequirement)
-	if err == nil {
-		*o = SsprPrimaryRequirement(varSsprPrimaryRequirement)
-	} else {
+	err = json.Unmarshal(data, &varSsprPrimaryRequirement)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SsprPrimaryRequirement(varSsprPrimaryRequirement)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "methodConstraints")
 		delete(additionalProperties, "methods")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableSsprPrimaryRequirement) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

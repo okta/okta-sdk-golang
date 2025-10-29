@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
-// PasswordImportResponseCommandsInnerValue The parameter value of the command. * To indicate that the supplied credentials are valid, supply a type property set to `com.okta.action.update` together with a value property set to `{\"credential\": \"VERIFIED\"}`. * To indicate that the supplied credentials are invalid, supply a type property set to `com.okta.action.update` together with a value property set to `{\"credential\": \"UNVERIFIED\"}`.   Alternatively, you can send an empty response (`204`). By default, the `data.action.credential` is always set to `UNVERIFIED`.
+// checks if the PasswordImportResponseCommandsInnerValue type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordImportResponseCommandsInnerValue{}
+
+// PasswordImportResponseCommandsInnerValue The parameter value of the command. * To indicate that the supplied credentials are valid, supply a type property set to `com.okta.action.update` together with a value property set to `{\"credential\": \"VERIFIED\"}`. * To indicate that the supplied credentials are invalid, supply a type property set to `com.okta.action.update` together with a value property set to `{\"credential\": \"UNVERIFIED\"}`. Alternatively, you can send an empty response (`204`). By default, the `data.action.credential` is always set to `UNVERIFIED`.
 type PasswordImportResponseCommandsInnerValue struct {
-	Credential *string `json:"credential,omitempty"`
+	Credential           *string `json:"credential,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +57,7 @@ func NewPasswordImportResponseCommandsInnerValueWithDefaults() *PasswordImportRe
 
 // GetCredential returns the Credential field value if set, zero value otherwise.
 func (o *PasswordImportResponseCommandsInnerValue) GetCredential() string {
-	if o == nil || o.Credential == nil {
+	if o == nil || IsNil(o.Credential) {
 		var ret string
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *PasswordImportResponseCommandsInnerValue) GetCredential() string {
 // GetCredentialOk returns a tuple with the Credential field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordImportResponseCommandsInnerValue) GetCredentialOk() (*string, bool) {
-	if o == nil || o.Credential == nil {
+	if o == nil || IsNil(o.Credential) {
 		return nil, false
 	}
 	return o.Credential, true
@@ -72,7 +75,7 @@ func (o *PasswordImportResponseCommandsInnerValue) GetCredentialOk() (*string, b
 
 // HasCredential returns a boolean if a field has been set.
 func (o *PasswordImportResponseCommandsInnerValue) HasCredential() bool {
-	if o != nil && o.Credential != nil {
+	if o != nil && !IsNil(o.Credential) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *PasswordImportResponseCommandsInnerValue) SetCredential(v string) {
 }
 
 func (o PasswordImportResponseCommandsInnerValue) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordImportResponseCommandsInnerValue) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Credential != nil {
+	if !IsNil(o.Credential) {
 		toSerialize["credential"] = o.Credential
 	}
 
@@ -94,27 +105,25 @@ func (o PasswordImportResponseCommandsInnerValue) MarshalJSON() ([]byte, error) 
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordImportResponseCommandsInnerValue) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordImportResponseCommandsInnerValue) UnmarshalJSON(data []byte) (err error) {
 	varPasswordImportResponseCommandsInnerValue := _PasswordImportResponseCommandsInnerValue{}
 
-	err = json.Unmarshal(bytes, &varPasswordImportResponseCommandsInnerValue)
-	if err == nil {
-		*o = PasswordImportResponseCommandsInnerValue(varPasswordImportResponseCommandsInnerValue)
-	} else {
+	err = json.Unmarshal(data, &varPasswordImportResponseCommandsInnerValue)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PasswordImportResponseCommandsInnerValue(varPasswordImportResponseCommandsInnerValue)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "credential")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +164,3 @@ func (v *NullablePasswordImportResponseCommandsInnerValue) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

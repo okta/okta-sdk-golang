@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -28,15 +28,18 @@ import (
 	"time"
 )
 
+// checks if the ResourceSetBindingMember type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceSetBindingMember{}
+
 // ResourceSetBindingMember struct for ResourceSetBindingMember
 type ResourceSetBindingMember struct {
-	// Timestamp when the role was created
+	// Timestamp when the member was created
 	Created *time.Time `json:"created,omitempty"`
-	// Unique key for the role
+	// Role resource set binding member ID
 	Id *string `json:"id,omitempty"`
-	// Timestamp when the role was last updated
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	// Timestamp when the member was last updated
+	LastUpdated          *time.Time `json:"lastUpdated,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewResourceSetBindingMemberWithDefaults() *ResourceSetBindingMember {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *ResourceSetBindingMember) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *ResourceSetBindingMember) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSetBindingMember) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -79,7 +82,7 @@ func (o *ResourceSetBindingMember) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *ResourceSetBindingMember) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *ResourceSetBindingMember) SetCreated(v time.Time) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *ResourceSetBindingMember) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *ResourceSetBindingMember) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSetBindingMember) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -111,7 +114,7 @@ func (o *ResourceSetBindingMember) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *ResourceSetBindingMember) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *ResourceSetBindingMember) SetId(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *ResourceSetBindingMember) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *ResourceSetBindingMember) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSetBindingMember) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -143,7 +146,7 @@ func (o *ResourceSetBindingMember) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *ResourceSetBindingMember) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *ResourceSetBindingMember) SetLastUpdated(v time.Time) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *ResourceSetBindingMember) GetLinks() LinksSelf {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksSelf
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *ResourceSetBindingMember) GetLinks() LinksSelf {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSetBindingMember) GetLinksOk() (*LinksSelf, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -175,7 +178,7 @@ func (o *ResourceSetBindingMember) GetLinksOk() (*LinksSelf, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *ResourceSetBindingMember) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -188,17 +191,25 @@ func (o *ResourceSetBindingMember) SetLinks(v LinksSelf) {
 }
 
 func (o ResourceSetBindingMember) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ResourceSetBindingMember) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -206,30 +217,28 @@ func (o ResourceSetBindingMember) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResourceSetBindingMember) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ResourceSetBindingMember) UnmarshalJSON(data []byte) (err error) {
 	varResourceSetBindingMember := _ResourceSetBindingMember{}
 
-	err = json.Unmarshal(bytes, &varResourceSetBindingMember)
-	if err == nil {
-		*o = ResourceSetBindingMember(varResourceSetBindingMember)
-	} else {
+	err = json.Unmarshal(data, &varResourceSetBindingMember)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ResourceSetBindingMember(varResourceSetBindingMember)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "lastUpdated")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -270,4 +279,3 @@ func (v *NullableResourceSetBindingMember) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

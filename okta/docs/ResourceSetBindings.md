@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Roles** | Pointer to [**[]ResourceSetBindingRole**](ResourceSetBindingRole.md) |  | [optional] 
-**Links** | Pointer to [**ResourceSetBindingResponseLinks**](ResourceSetBindingResponseLinks.md) |  | [optional] 
+**Roles** | Pointer to [**[]ResourceSetBindingRole**](ResourceSetBindingRole.md) | Roles associated with the resource set binding. If there are more than 100 bindings for the specified resource set, then the &#x60;_links.next&#x60; resource is returned with the next list of bindings. | [optional] 
+**Links** | Pointer to [**ResourceSetBindingsLinks**](ResourceSetBindingsLinks.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasRoles returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *ResourceSetBindings) GetLinks() ResourceSetBindingResponseLinks`
+`func (o *ResourceSetBindings) GetLinks() ResourceSetBindingsLinks`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *ResourceSetBindings) GetLinksOk() (*ResourceSetBindingResponseLinks, bool)`
+`func (o *ResourceSetBindings) GetLinksOk() (*ResourceSetBindingsLinks, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *ResourceSetBindings) SetLinks(v ResourceSetBindingResponseLinks)`
+`func (o *ResourceSetBindings) SetLinks(v ResourceSetBindingsLinks)`
 
 SetLinks sets Links field to given value.
 

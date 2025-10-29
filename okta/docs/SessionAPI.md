@@ -4,13 +4,13 @@ All URIs are relative to *https://subdomain.okta.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CloseCurrentSession**](SessionAPI.md#CloseCurrentSession) | **Delete** /api/v1/sessions/me | Close the current Session
-[**CreateSession**](SessionAPI.md#CreateSession) | **Post** /api/v1/sessions | Create a Session with session token
-[**GetCurrentSession**](SessionAPI.md#GetCurrentSession) | **Get** /api/v1/sessions/me | Retrieve the current Session
-[**GetSession**](SessionAPI.md#GetSession) | **Get** /api/v1/sessions/{sessionId} | Retrieve a Session
-[**RefreshCurrentSession**](SessionAPI.md#RefreshCurrentSession) | **Post** /api/v1/sessions/me/lifecycle/refresh | Refresh the current Session
-[**RefreshSession**](SessionAPI.md#RefreshSession) | **Post** /api/v1/sessions/{sessionId}/lifecycle/refresh | Refresh a Session
-[**RevokeSession**](SessionAPI.md#RevokeSession) | **Delete** /api/v1/sessions/{sessionId} | Revoke a Session
+[**CloseCurrentSession**](SessionAPI.md#CloseCurrentSession) | **Delete** /api/v1/sessions/me | Close the current session
+[**CreateSession**](SessionAPI.md#CreateSession) | **Post** /api/v1/sessions | Create a session with session token
+[**GetCurrentSession**](SessionAPI.md#GetCurrentSession) | **Get** /api/v1/sessions/me | Retrieve the current session
+[**GetSession**](SessionAPI.md#GetSession) | **Get** /api/v1/sessions/{sessionId} | Retrieve a session
+[**RefreshCurrentSession**](SessionAPI.md#RefreshCurrentSession) | **Post** /api/v1/sessions/me/lifecycle/refresh | Refresh the current session
+[**RefreshSession**](SessionAPI.md#RefreshSession) | **Post** /api/v1/sessions/{sessionId}/lifecycle/refresh | Refresh a session
+[**RevokeSession**](SessionAPI.md#RevokeSession) | **Delete** /api/v1/sessions/{sessionId} | Revoke a session
 
 
 
@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 > CloseCurrentSession(ctx).Cookie(cookie).Execute()
 
-Close the current Session
+Close the current session
 
 
 
@@ -28,22 +28,22 @@ Close the current Session
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    cookie := "sid=abcde-123 or idx=abcde-123" // string |  (optional)
+	cookie := "sid=abcde-123 or idx=abcde-123" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.SessionAPI.CloseCurrentSession(context.Background()).Cookie(cookie).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.CloseCurrentSession``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SessionAPI.CloseCurrentSession(context.Background()).Cookie(cookie).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.CloseCurrentSession``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -82,7 +82,7 @@ No authorization required
 
 > Session CreateSession(ctx).CreateSessionRequest(createSessionRequest).Execute()
 
-Create a Session with session token
+Create a session with session token
 
 
 
@@ -92,24 +92,24 @@ Create a Session with session token
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    createSessionRequest := *openapiclient.NewCreateSessionRequest() // CreateSessionRequest | 
+	createSessionRequest := *openapiclient.NewCreateSessionRequest() // CreateSessionRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SessionAPI.CreateSession(context.Background()).CreateSessionRequest(createSessionRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.CreateSession``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateSession`: Session
-    fmt.Fprintf(os.Stdout, "Response from `SessionAPI.CreateSession`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SessionAPI.CreateSession(context.Background()).CreateSessionRequest(createSessionRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.CreateSession``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateSession`: Session
+	fmt.Fprintf(os.Stdout, "Response from `SessionAPI.CreateSession`: %v\n", resp)
 }
 ```
 
@@ -148,7 +148,7 @@ Name | Type | Description  | Notes
 
 > Session GetCurrentSession(ctx).Cookie(cookie).Execute()
 
-Retrieve the current Session
+Retrieve the current session
 
 
 
@@ -158,24 +158,24 @@ Retrieve the current Session
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    cookie := "sid=abcde-123 or idx=abcde-123" // string |  (optional)
+	cookie := "sid=abcde-123 or idx=abcde-123" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SessionAPI.GetCurrentSession(context.Background()).Cookie(cookie).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.GetCurrentSession``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetCurrentSession`: Session
-    fmt.Fprintf(os.Stdout, "Response from `SessionAPI.GetCurrentSession`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SessionAPI.GetCurrentSession(context.Background()).Cookie(cookie).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.GetCurrentSession``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCurrentSession`: Session
+	fmt.Fprintf(os.Stdout, "Response from `SessionAPI.GetCurrentSession`: %v\n", resp)
 }
 ```
 
@@ -214,7 +214,7 @@ No authorization required
 
 > Session GetSession(ctx, sessionId).Execute()
 
-Retrieve a Session
+Retrieve a session
 
 
 
@@ -224,24 +224,24 @@ Retrieve a Session
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    sessionId := "l7FbDVqS8zHSy65uJD85" // string | `id` of the Session
+	sessionId := "l7FbDVqS8zHSy65uJD85" // string | `id` of the Session
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SessionAPI.GetSession(context.Background(), sessionId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.GetSession``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSession`: Session
-    fmt.Fprintf(os.Stdout, "Response from `SessionAPI.GetSession`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SessionAPI.GetSession(context.Background(), sessionId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.GetSession``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSession`: Session
+	fmt.Fprintf(os.Stdout, "Response from `SessionAPI.GetSession`: %v\n", resp)
 }
 ```
 
@@ -284,7 +284,7 @@ Name | Type | Description  | Notes
 
 > Session RefreshCurrentSession(ctx).Cookie(cookie).Execute()
 
-Refresh the current Session
+Refresh the current session
 
 
 
@@ -294,24 +294,24 @@ Refresh the current Session
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    cookie := "sid=abcde-123 or idx=abcde-123" // string |  (optional)
+	cookie := "sid=abcde-123 or idx=abcde-123" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SessionAPI.RefreshCurrentSession(context.Background()).Cookie(cookie).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.RefreshCurrentSession``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `RefreshCurrentSession`: Session
-    fmt.Fprintf(os.Stdout, "Response from `SessionAPI.RefreshCurrentSession`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SessionAPI.RefreshCurrentSession(context.Background()).Cookie(cookie).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.RefreshCurrentSession``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `RefreshCurrentSession`: Session
+	fmt.Fprintf(os.Stdout, "Response from `SessionAPI.RefreshCurrentSession`: %v\n", resp)
 }
 ```
 
@@ -350,7 +350,7 @@ No authorization required
 
 > Session RefreshSession(ctx, sessionId).Execute()
 
-Refresh a Session
+Refresh a session
 
 
 
@@ -360,24 +360,24 @@ Refresh a Session
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    sessionId := "l7FbDVqS8zHSy65uJD85" // string | `id` of the Session
+	sessionId := "l7FbDVqS8zHSy65uJD85" // string | `id` of the Session
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SessionAPI.RefreshSession(context.Background(), sessionId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.RefreshSession``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `RefreshSession`: Session
-    fmt.Fprintf(os.Stdout, "Response from `SessionAPI.RefreshSession`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SessionAPI.RefreshSession(context.Background(), sessionId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.RefreshSession``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `RefreshSession`: Session
+	fmt.Fprintf(os.Stdout, "Response from `SessionAPI.RefreshSession`: %v\n", resp)
 }
 ```
 
@@ -420,7 +420,7 @@ Name | Type | Description  | Notes
 
 > RevokeSession(ctx, sessionId).Execute()
 
-Revoke a Session
+Revoke a session
 
 
 
@@ -430,22 +430,22 @@ Revoke a Session
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    sessionId := "l7FbDVqS8zHSy65uJD85" // string | `id` of the Session
+	sessionId := "l7FbDVqS8zHSy65uJD85" // string | `id` of the Session
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.SessionAPI.RevokeSession(context.Background(), sessionId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.RevokeSession``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SessionAPI.RevokeSession(context.Background(), sessionId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.RevokeSession``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

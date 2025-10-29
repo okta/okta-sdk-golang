@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Commands** | Pointer to [**[]TelephonyResponseCommandsInner**](TelephonyResponseCommandsInner.md) | The &#x60;commands&#x60; object specifies whether Okta accepts the end user&#39;s sign-in credentials as valid or not. For the Telephony inline hook, you typically only return one &#x60;commands&#x60; object with one array element in it. | [optional] 
+**Commands** | Pointer to [**[]TelephonyResponseCommandsInner**](TelephonyResponseCommandsInner.md) | The &#x60;commands&#x60; object specifies whether Okta accepts the end user&#39;s sign-in credentials as valid or not. For the telephony inline hook, you typically only return one &#x60;commands&#x60; object with one array element in it. | [optional] 
 
 ## Methods
 

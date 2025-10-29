@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Dtc** | Pointer to [**DTCMacOS**](DTCMacOS.md) |  | [optional] 
+**DevicePostureIdP** | Pointer to [**DevicePostureIdP**](DevicePostureIdP.md) |  | [optional] 
 
 ## Methods
 
@@ -49,6 +50,31 @@ SetDtc sets Dtc field to given value.
 `func (o *DeviceAssuranceMacOSPlatformAllOfThirdPartySignalProviders) HasDtc() bool`
 
 HasDtc returns a boolean if a field has been set.
+
+### GetDevicePostureIdP
+
+`func (o *DeviceAssuranceMacOSPlatformAllOfThirdPartySignalProviders) GetDevicePostureIdP() DevicePostureIdP`
+
+GetDevicePostureIdP returns the DevicePostureIdP field if non-nil, zero value otherwise.
+
+### GetDevicePostureIdPOk
+
+`func (o *DeviceAssuranceMacOSPlatformAllOfThirdPartySignalProviders) GetDevicePostureIdPOk() (*DevicePostureIdP, bool)`
+
+GetDevicePostureIdPOk returns a tuple with the DevicePostureIdP field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDevicePostureIdP
+
+`func (o *DeviceAssuranceMacOSPlatformAllOfThirdPartySignalProviders) SetDevicePostureIdP(v DevicePostureIdP)`
+
+SetDevicePostureIdP sets DevicePostureIdP field to given value.
+
+### HasDevicePostureIdP
+
+`func (o *DeviceAssuranceMacOSPlatformAllOfThirdPartySignalProviders) HasDevicePostureIdP() bool`
+
+HasDevicePostureIdP returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

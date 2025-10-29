@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**EnrollmentRpIds** | Pointer to **[]string** | List of Relying Party hostnames to register on the YubiKey. | [optional] 
-**FulfillmentProvider** | Pointer to **string** | Name of the fulfillment provider for the WebAuthn Preregistration Factor | [optional] 
+**EnrollmentRpIds** | Pointer to **[]string** | List of relying party hostnames to register on the YubiKey | [optional] 
+**FulfillmentProvider** | Pointer to **string** | Name of the fulfillment provider for the WebAuthn preregistration factor | [optional] 
 **UserId** | Pointer to **string** | ID of an existing Okta user | [optional] 
 **YubicoTransportKeyJWK** | Pointer to [**ECKeyJWK**](ECKeyJWK.md) |  | [optional] 
 

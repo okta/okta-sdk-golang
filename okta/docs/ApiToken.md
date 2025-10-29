@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **LastUpdated** | Pointer to **time.Time** |  | [optional] [readonly] 
 **Name** | **string** |  | 
 **Network** | Pointer to [**ApiTokenNetwork**](ApiTokenNetwork.md) |  | [optional] 
-**TokenWindow** | Pointer to **string** | A time duration specified as an [ISO-8601 duration](https://en.wikipedia.org/wiki/ISO_8601#Durations). | [optional] 
+**TokenWindow** | Pointer to **string** | A time duration specified as an [ISO 8601 duration](https://en.wikipedia.org/wiki/ISO_8601#Durations). | [optional] 
 **UserId** | Pointer to **string** |  | [optional] 
 **Link** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
 

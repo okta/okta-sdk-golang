@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,15 +27,18 @@ import (
 	"encoding/json"
 )
 
+// checks if the TelephonyRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TelephonyRequest{}
+
 // TelephonyRequest struct for TelephonyRequest
 type TelephonyRequest struct {
 	Data *TelephonyRequestData `json:"data,omitempty"`
-	// The type of inline hook. The Telephony inline hook type is `com.okta.telephony.provider`.
+	// The type of inline hook. The telephony inline hook type is `com.okta.telephony.provider`.
 	EventType *string `json:"eventType,omitempty"`
 	// The type of inline hook request. For example, `com.okta.user.telephony.pre-enrollment`.
 	RequestType *string `json:"requestType,omitempty"`
-	// The ID and URL of the Telephony inline hook
-	Source *string `json:"source,omitempty"`
+	// The ID and URL of the telephony inline hook
+	Source               *string `json:"source,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +63,7 @@ func NewTelephonyRequestWithDefaults() *TelephonyRequest {
 
 // GetData returns the Data field value if set, zero value otherwise.
 func (o *TelephonyRequest) GetData() TelephonyRequestData {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		var ret TelephonyRequestData
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *TelephonyRequest) GetData() TelephonyRequestData {
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TelephonyRequest) GetDataOk() (*TelephonyRequestData, bool) {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
 	return o.Data, true
@@ -78,7 +81,7 @@ func (o *TelephonyRequest) GetDataOk() (*TelephonyRequestData, bool) {
 
 // HasData returns a boolean if a field has been set.
 func (o *TelephonyRequest) HasData() bool {
-	if o != nil && o.Data != nil {
+	if o != nil && !IsNil(o.Data) {
 		return true
 	}
 
@@ -92,7 +95,7 @@ func (o *TelephonyRequest) SetData(v TelephonyRequestData) {
 
 // GetEventType returns the EventType field value if set, zero value otherwise.
 func (o *TelephonyRequest) GetEventType() string {
-	if o == nil || o.EventType == nil {
+	if o == nil || IsNil(o.EventType) {
 		var ret string
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *TelephonyRequest) GetEventType() string {
 // GetEventTypeOk returns a tuple with the EventType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TelephonyRequest) GetEventTypeOk() (*string, bool) {
-	if o == nil || o.EventType == nil {
+	if o == nil || IsNil(o.EventType) {
 		return nil, false
 	}
 	return o.EventType, true
@@ -110,7 +113,7 @@ func (o *TelephonyRequest) GetEventTypeOk() (*string, bool) {
 
 // HasEventType returns a boolean if a field has been set.
 func (o *TelephonyRequest) HasEventType() bool {
-	if o != nil && o.EventType != nil {
+	if o != nil && !IsNil(o.EventType) {
 		return true
 	}
 
@@ -124,7 +127,7 @@ func (o *TelephonyRequest) SetEventType(v string) {
 
 // GetRequestType returns the RequestType field value if set, zero value otherwise.
 func (o *TelephonyRequest) GetRequestType() string {
-	if o == nil || o.RequestType == nil {
+	if o == nil || IsNil(o.RequestType) {
 		var ret string
 		return ret
 	}
@@ -134,7 +137,7 @@ func (o *TelephonyRequest) GetRequestType() string {
 // GetRequestTypeOk returns a tuple with the RequestType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TelephonyRequest) GetRequestTypeOk() (*string, bool) {
-	if o == nil || o.RequestType == nil {
+	if o == nil || IsNil(o.RequestType) {
 		return nil, false
 	}
 	return o.RequestType, true
@@ -142,7 +145,7 @@ func (o *TelephonyRequest) GetRequestTypeOk() (*string, bool) {
 
 // HasRequestType returns a boolean if a field has been set.
 func (o *TelephonyRequest) HasRequestType() bool {
-	if o != nil && o.RequestType != nil {
+	if o != nil && !IsNil(o.RequestType) {
 		return true
 	}
 
@@ -156,7 +159,7 @@ func (o *TelephonyRequest) SetRequestType(v string) {
 
 // GetSource returns the Source field value if set, zero value otherwise.
 func (o *TelephonyRequest) GetSource() string {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		var ret string
 		return ret
 	}
@@ -166,7 +169,7 @@ func (o *TelephonyRequest) GetSource() string {
 // GetSourceOk returns a tuple with the Source field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TelephonyRequest) GetSourceOk() (*string, bool) {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		return nil, false
 	}
 	return o.Source, true
@@ -174,7 +177,7 @@ func (o *TelephonyRequest) GetSourceOk() (*string, bool) {
 
 // HasSource returns a boolean if a field has been set.
 func (o *TelephonyRequest) HasSource() bool {
-	if o != nil && o.Source != nil {
+	if o != nil && !IsNil(o.Source) {
 		return true
 	}
 
@@ -187,17 +190,25 @@ func (o *TelephonyRequest) SetSource(v string) {
 }
 
 func (o TelephonyRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TelephonyRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Data != nil {
+	if !IsNil(o.Data) {
 		toSerialize["data"] = o.Data
 	}
-	if o.EventType != nil {
+	if !IsNil(o.EventType) {
 		toSerialize["eventType"] = o.EventType
 	}
-	if o.RequestType != nil {
+	if !IsNil(o.RequestType) {
 		toSerialize["requestType"] = o.RequestType
 	}
-	if o.Source != nil {
+	if !IsNil(o.Source) {
 		toSerialize["source"] = o.Source
 	}
 
@@ -205,30 +216,28 @@ func (o TelephonyRequest) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *TelephonyRequest) UnmarshalJSON(bytes []byte) (err error) {
+func (o *TelephonyRequest) UnmarshalJSON(data []byte) (err error) {
 	varTelephonyRequest := _TelephonyRequest{}
 
-	err = json.Unmarshal(bytes, &varTelephonyRequest)
-	if err == nil {
-		*o = TelephonyRequest(varTelephonyRequest)
-	} else {
+	err = json.Unmarshal(data, &varTelephonyRequest)
+
+	if err != nil {
 		return err
 	}
 
+	*o = TelephonyRequest(varTelephonyRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "data")
 		delete(additionalProperties, "eventType")
 		delete(additionalProperties, "requestType")
 		delete(additionalProperties, "source")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -269,4 +278,3 @@ func (v *NullableTelephonyRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

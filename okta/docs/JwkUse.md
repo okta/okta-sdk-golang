@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Use** | Pointer to **string** |  | [optional] 
+**Use** | Pointer to **string** | Purpose of the certificate. The only supported value is &#x60;sig&#x60;. | [optional] 
 
 ## Methods
 

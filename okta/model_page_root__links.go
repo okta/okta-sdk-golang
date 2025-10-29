@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the PageRootLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PageRootLinks{}
+
 // PageRootLinks struct for PageRootLinks
 type PageRootLinks struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Default *HrefObject `json:"default,omitempty"`
-	Customized *HrefObject `json:"customized,omitempty"`
-	Preview *HrefObject `json:"preview,omitempty"`
+	Self                 *HrefObjectSelfLink `json:"self,omitempty"`
+	Default              *HrefObject         `json:"default,omitempty"`
+	Customized           *HrefObject         `json:"customized,omitempty"`
+	Preview              *HrefObject         `json:"preview,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewPageRootLinksWithDefaults() *PageRootLinks {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *PageRootLinks) GetSelf() HrefObjectSelfLink {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret HrefObjectSelfLink
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *PageRootLinks) GetSelf() HrefObjectSelfLink {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PageRootLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -75,7 +78,7 @@ func (o *PageRootLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *PageRootLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *PageRootLinks) SetSelf(v HrefObjectSelfLink) {
 
 // GetDefault returns the Default field value if set, zero value otherwise.
 func (o *PageRootLinks) GetDefault() HrefObject {
-	if o == nil || o.Default == nil {
+	if o == nil || IsNil(o.Default) {
 		var ret HrefObject
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *PageRootLinks) GetDefault() HrefObject {
 // GetDefaultOk returns a tuple with the Default field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PageRootLinks) GetDefaultOk() (*HrefObject, bool) {
-	if o == nil || o.Default == nil {
+	if o == nil || IsNil(o.Default) {
 		return nil, false
 	}
 	return o.Default, true
@@ -107,7 +110,7 @@ func (o *PageRootLinks) GetDefaultOk() (*HrefObject, bool) {
 
 // HasDefault returns a boolean if a field has been set.
 func (o *PageRootLinks) HasDefault() bool {
-	if o != nil && o.Default != nil {
+	if o != nil && !IsNil(o.Default) {
 		return true
 	}
 
@@ -121,7 +124,7 @@ func (o *PageRootLinks) SetDefault(v HrefObject) {
 
 // GetCustomized returns the Customized field value if set, zero value otherwise.
 func (o *PageRootLinks) GetCustomized() HrefObject {
-	if o == nil || o.Customized == nil {
+	if o == nil || IsNil(o.Customized) {
 		var ret HrefObject
 		return ret
 	}
@@ -131,7 +134,7 @@ func (o *PageRootLinks) GetCustomized() HrefObject {
 // GetCustomizedOk returns a tuple with the Customized field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PageRootLinks) GetCustomizedOk() (*HrefObject, bool) {
-	if o == nil || o.Customized == nil {
+	if o == nil || IsNil(o.Customized) {
 		return nil, false
 	}
 	return o.Customized, true
@@ -139,7 +142,7 @@ func (o *PageRootLinks) GetCustomizedOk() (*HrefObject, bool) {
 
 // HasCustomized returns a boolean if a field has been set.
 func (o *PageRootLinks) HasCustomized() bool {
-	if o != nil && o.Customized != nil {
+	if o != nil && !IsNil(o.Customized) {
 		return true
 	}
 
@@ -153,7 +156,7 @@ func (o *PageRootLinks) SetCustomized(v HrefObject) {
 
 // GetPreview returns the Preview field value if set, zero value otherwise.
 func (o *PageRootLinks) GetPreview() HrefObject {
-	if o == nil || o.Preview == nil {
+	if o == nil || IsNil(o.Preview) {
 		var ret HrefObject
 		return ret
 	}
@@ -163,7 +166,7 @@ func (o *PageRootLinks) GetPreview() HrefObject {
 // GetPreviewOk returns a tuple with the Preview field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PageRootLinks) GetPreviewOk() (*HrefObject, bool) {
-	if o == nil || o.Preview == nil {
+	if o == nil || IsNil(o.Preview) {
 		return nil, false
 	}
 	return o.Preview, true
@@ -171,7 +174,7 @@ func (o *PageRootLinks) GetPreviewOk() (*HrefObject, bool) {
 
 // HasPreview returns a boolean if a field has been set.
 func (o *PageRootLinks) HasPreview() bool {
-	if o != nil && o.Preview != nil {
+	if o != nil && !IsNil(o.Preview) {
 		return true
 	}
 
@@ -184,17 +187,25 @@ func (o *PageRootLinks) SetPreview(v HrefObject) {
 }
 
 func (o PageRootLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PageRootLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-	if o.Default != nil {
+	if !IsNil(o.Default) {
 		toSerialize["default"] = o.Default
 	}
-	if o.Customized != nil {
+	if !IsNil(o.Customized) {
 		toSerialize["customized"] = o.Customized
 	}
-	if o.Preview != nil {
+	if !IsNil(o.Preview) {
 		toSerialize["preview"] = o.Preview
 	}
 
@@ -202,30 +213,28 @@ func (o PageRootLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PageRootLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PageRootLinks) UnmarshalJSON(data []byte) (err error) {
 	varPageRootLinks := _PageRootLinks{}
 
-	err = json.Unmarshal(bytes, &varPageRootLinks)
-	if err == nil {
-		*o = PageRootLinks(varPageRootLinks)
-	} else {
+	err = json.Unmarshal(data, &varPageRootLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PageRootLinks(varPageRootLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "default")
 		delete(additionalProperties, "customized")
 		delete(additionalProperties, "preview")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -266,4 +275,3 @@ func (v *NullablePageRootLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

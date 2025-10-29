@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] [readonly] 
-**Type** | Pointer to **string** |  | [optional] [readonly] 
+**Id** | Pointer to **string** | Varies depending on the type of authentication. If authentication is SAML 2.0, &#x60;id&#x60; is the issuer in the SAML assertion. For social login, &#x60;id&#x60; is the issuer of the token. | [optional] [readonly] 
+**Type** | Pointer to **string** | Information on the &#x60;issuer&#x60; and source of the SAML assertion or token | [optional] [readonly] 
 
 ## Methods
 

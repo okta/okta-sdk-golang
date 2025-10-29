@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,17 @@ import (
 	"encoding/json"
 )
 
-// Provisioning struct for Provisioning
+// checks if the Provisioning type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Provisioning{}
+
+// Provisioning Specifies the behavior for just-in-time (JIT) provisioning of an IdP user as a new Okta user and their group memberships
 type Provisioning struct {
-	Action *string `json:"action,omitempty"`
+	// Specifies the user provisioning action during authentication when an IdP user isn't linked to an existing Okta user. * To successfully provision a new Okta user, you must enable just-in-time (JIT) provisioning in your org security settings. * If the target username isn't unique or the resulting Okta user profile is missing a required profile attribute, JIT provisioning may fail. * New Okta users are provisioned with either a `FEDERATION` or `SOCIAL` authentication provider depending on the IdP type.
+	Action     *string                 `json:"action,omitempty"`
 	Conditions *ProvisioningConditions `json:"conditions,omitempty"`
-	Groups *ProvisioningGroups `json:"groups,omitempty"`
-	ProfileMaster *bool `json:"profileMaster,omitempty"`
+	Groups     *ProvisioningGroups     `json:"groups,omitempty"`
+	// Determines if the IdP should act as a source of truth for user profile attributes
+	ProfileMaster        *bool `json:"profileMaster,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +62,7 @@ func NewProvisioningWithDefaults() *Provisioning {
 
 // GetAction returns the Action field value if set, zero value otherwise.
 func (o *Provisioning) GetAction() string {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		var ret string
 		return ret
 	}
@@ -67,7 +72,7 @@ func (o *Provisioning) GetAction() string {
 // GetActionOk returns a tuple with the Action field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Provisioning) GetActionOk() (*string, bool) {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		return nil, false
 	}
 	return o.Action, true
@@ -75,7 +80,7 @@ func (o *Provisioning) GetActionOk() (*string, bool) {
 
 // HasAction returns a boolean if a field has been set.
 func (o *Provisioning) HasAction() bool {
-	if o != nil && o.Action != nil {
+	if o != nil && !IsNil(o.Action) {
 		return true
 	}
 
@@ -89,7 +94,7 @@ func (o *Provisioning) SetAction(v string) {
 
 // GetConditions returns the Conditions field value if set, zero value otherwise.
 func (o *Provisioning) GetConditions() ProvisioningConditions {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		var ret ProvisioningConditions
 		return ret
 	}
@@ -99,7 +104,7 @@ func (o *Provisioning) GetConditions() ProvisioningConditions {
 // GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Provisioning) GetConditionsOk() (*ProvisioningConditions, bool) {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		return nil, false
 	}
 	return o.Conditions, true
@@ -107,7 +112,7 @@ func (o *Provisioning) GetConditionsOk() (*ProvisioningConditions, bool) {
 
 // HasConditions returns a boolean if a field has been set.
 func (o *Provisioning) HasConditions() bool {
-	if o != nil && o.Conditions != nil {
+	if o != nil && !IsNil(o.Conditions) {
 		return true
 	}
 
@@ -121,7 +126,7 @@ func (o *Provisioning) SetConditions(v ProvisioningConditions) {
 
 // GetGroups returns the Groups field value if set, zero value otherwise.
 func (o *Provisioning) GetGroups() ProvisioningGroups {
-	if o == nil || o.Groups == nil {
+	if o == nil || IsNil(o.Groups) {
 		var ret ProvisioningGroups
 		return ret
 	}
@@ -131,7 +136,7 @@ func (o *Provisioning) GetGroups() ProvisioningGroups {
 // GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Provisioning) GetGroupsOk() (*ProvisioningGroups, bool) {
-	if o == nil || o.Groups == nil {
+	if o == nil || IsNil(o.Groups) {
 		return nil, false
 	}
 	return o.Groups, true
@@ -139,7 +144,7 @@ func (o *Provisioning) GetGroupsOk() (*ProvisioningGroups, bool) {
 
 // HasGroups returns a boolean if a field has been set.
 func (o *Provisioning) HasGroups() bool {
-	if o != nil && o.Groups != nil {
+	if o != nil && !IsNil(o.Groups) {
 		return true
 	}
 
@@ -153,7 +158,7 @@ func (o *Provisioning) SetGroups(v ProvisioningGroups) {
 
 // GetProfileMaster returns the ProfileMaster field value if set, zero value otherwise.
 func (o *Provisioning) GetProfileMaster() bool {
-	if o == nil || o.ProfileMaster == nil {
+	if o == nil || IsNil(o.ProfileMaster) {
 		var ret bool
 		return ret
 	}
@@ -163,7 +168,7 @@ func (o *Provisioning) GetProfileMaster() bool {
 // GetProfileMasterOk returns a tuple with the ProfileMaster field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Provisioning) GetProfileMasterOk() (*bool, bool) {
-	if o == nil || o.ProfileMaster == nil {
+	if o == nil || IsNil(o.ProfileMaster) {
 		return nil, false
 	}
 	return o.ProfileMaster, true
@@ -171,7 +176,7 @@ func (o *Provisioning) GetProfileMasterOk() (*bool, bool) {
 
 // HasProfileMaster returns a boolean if a field has been set.
 func (o *Provisioning) HasProfileMaster() bool {
-	if o != nil && o.ProfileMaster != nil {
+	if o != nil && !IsNil(o.ProfileMaster) {
 		return true
 	}
 
@@ -184,17 +189,25 @@ func (o *Provisioning) SetProfileMaster(v bool) {
 }
 
 func (o Provisioning) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Provisioning) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Action != nil {
+	if !IsNil(o.Action) {
 		toSerialize["action"] = o.Action
 	}
-	if o.Conditions != nil {
+	if !IsNil(o.Conditions) {
 		toSerialize["conditions"] = o.Conditions
 	}
-	if o.Groups != nil {
+	if !IsNil(o.Groups) {
 		toSerialize["groups"] = o.Groups
 	}
-	if o.ProfileMaster != nil {
+	if !IsNil(o.ProfileMaster) {
 		toSerialize["profileMaster"] = o.ProfileMaster
 	}
 
@@ -202,30 +215,28 @@ func (o Provisioning) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Provisioning) UnmarshalJSON(bytes []byte) (err error) {
+func (o *Provisioning) UnmarshalJSON(data []byte) (err error) {
 	varProvisioning := _Provisioning{}
 
-	err = json.Unmarshal(bytes, &varProvisioning)
-	if err == nil {
-		*o = Provisioning(varProvisioning)
-	} else {
+	err = json.Unmarshal(data, &varProvisioning)
+
+	if err != nil {
 		return err
 	}
 
+	*o = Provisioning(varProvisioning)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "action")
 		delete(additionalProperties, "conditions")
 		delete(additionalProperties, "groups")
 		delete(additionalProperties, "profileMaster")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -266,4 +277,3 @@ func (v *NullableProvisioning) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

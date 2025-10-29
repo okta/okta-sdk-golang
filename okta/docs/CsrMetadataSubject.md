@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CommonName** | Pointer to **string** |  | [optional] 
-**CountryName** | Pointer to **string** |  | [optional] 
-**LocalityName** | Pointer to **string** |  | [optional] 
-**OrganizationalUnitName** | Pointer to **string** |  | [optional] 
-**OrganizationName** | Pointer to **string** |  | [optional] 
-**StateOrProvinceName** | Pointer to **string** |  | [optional] 
+**CommonName** | Pointer to **string** | Common name of the subject | [optional] 
+**CountryName** | Pointer to **string** | Country name or code | [optional] 
+**LocalityName** | Pointer to **string** | Locality (city) name | [optional] 
+**OrganizationalUnitName** | Pointer to **string** | Name of the smaller organization, for example, the department or the division | [optional] 
+**OrganizationName** | Pointer to **string** | Large organization name | [optional] 
+**StateOrProvinceName** | Pointer to **string** | State or province name | [optional] 
 
 ## Methods
 

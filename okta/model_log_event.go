@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -28,24 +28,35 @@ import (
 	"time"
 )
 
+// checks if the LogEvent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LogEvent{}
+
 // LogEvent struct for LogEvent
 type LogEvent struct {
-	Actor *LogActor `json:"actor,omitempty"`
+	Actor                 *LogActor                 `json:"actor,omitempty"`
 	AuthenticationContext *LogAuthenticationContext `json:"authenticationContext,omitempty"`
-	Client *LogClient `json:"client,omitempty"`
-	DebugContext *LogDebugContext `json:"debugContext,omitempty"`
+	Client                *LogClient                `json:"client,omitempty"`
+	DebugContext          *LogDebugContext          `json:"debugContext,omitempty"`
+	// The display message for an event
 	DisplayMessage *string `json:"displayMessage,omitempty"`
+	// The published event type. Event instances are categorized by action in the event type attribute. This attribute is key to navigating the System Log through expression filters. See [Event Types catalog](https://developer.okta.com/docs/reference/api/event-types/#catalog) for a complete list of System Log event types.
 	EventType *string `json:"eventType,omitempty"`
-	LegacyEventType *string `json:"legacyEventType,omitempty"`
-	Outcome *LogOutcome `json:"outcome,omitempty"`
-	Published *time.Time `json:"published,omitempty"`
-	Request *LogRequest `json:"request,omitempty"`
+	// Associated Events API Action `objectType` attribute value
+	LegacyEventType *string     `json:"legacyEventType,omitempty"`
+	Outcome         *LogOutcome `json:"outcome,omitempty"`
+	// Timestamp when the event is published
+	Published       *time.Time          `json:"published,omitempty"`
+	Request         *LogRequest         `json:"request,omitempty"`
 	SecurityContext *LogSecurityContext `json:"securityContext,omitempty"`
+	// Indicates how severe the event is
 	Severity *string `json:"severity,omitempty"`
-	Target []LogTarget `json:"target,omitempty"`
+	// The entity that an actor performs an action on. Targets can be anything, such as an app user, a sign-in token, or anything else.  > **Note:** When searching the target array, search for a given `type` rather than the array location. Target types, such as `User` and `AppInstance`, for a given `eventType` are not always in the same array location.
+	Target      []LogTarget     `json:"target,omitempty"`
 	Transaction *LogTransaction `json:"transaction,omitempty"`
+	// Unique identifier for an individual event
 	Uuid *string `json:"uuid,omitempty"`
-	Version *string `json:"version,omitempty"`
+	// Versioning indicator
+	Version              *string `json:"version,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -70,7 +81,7 @@ func NewLogEventWithDefaults() *LogEvent {
 
 // GetActor returns the Actor field value if set, zero value otherwise.
 func (o *LogEvent) GetActor() LogActor {
-	if o == nil || o.Actor == nil {
+	if o == nil || IsNil(o.Actor) {
 		var ret LogActor
 		return ret
 	}
@@ -80,7 +91,7 @@ func (o *LogEvent) GetActor() LogActor {
 // GetActorOk returns a tuple with the Actor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogEvent) GetActorOk() (*LogActor, bool) {
-	if o == nil || o.Actor == nil {
+	if o == nil || IsNil(o.Actor) {
 		return nil, false
 	}
 	return o.Actor, true
@@ -88,7 +99,7 @@ func (o *LogEvent) GetActorOk() (*LogActor, bool) {
 
 // HasActor returns a boolean if a field has been set.
 func (o *LogEvent) HasActor() bool {
-	if o != nil && o.Actor != nil {
+	if o != nil && !IsNil(o.Actor) {
 		return true
 	}
 
@@ -102,7 +113,7 @@ func (o *LogEvent) SetActor(v LogActor) {
 
 // GetAuthenticationContext returns the AuthenticationContext field value if set, zero value otherwise.
 func (o *LogEvent) GetAuthenticationContext() LogAuthenticationContext {
-	if o == nil || o.AuthenticationContext == nil {
+	if o == nil || IsNil(o.AuthenticationContext) {
 		var ret LogAuthenticationContext
 		return ret
 	}
@@ -112,7 +123,7 @@ func (o *LogEvent) GetAuthenticationContext() LogAuthenticationContext {
 // GetAuthenticationContextOk returns a tuple with the AuthenticationContext field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogEvent) GetAuthenticationContextOk() (*LogAuthenticationContext, bool) {
-	if o == nil || o.AuthenticationContext == nil {
+	if o == nil || IsNil(o.AuthenticationContext) {
 		return nil, false
 	}
 	return o.AuthenticationContext, true
@@ -120,7 +131,7 @@ func (o *LogEvent) GetAuthenticationContextOk() (*LogAuthenticationContext, bool
 
 // HasAuthenticationContext returns a boolean if a field has been set.
 func (o *LogEvent) HasAuthenticationContext() bool {
-	if o != nil && o.AuthenticationContext != nil {
+	if o != nil && !IsNil(o.AuthenticationContext) {
 		return true
 	}
 
@@ -134,7 +145,7 @@ func (o *LogEvent) SetAuthenticationContext(v LogAuthenticationContext) {
 
 // GetClient returns the Client field value if set, zero value otherwise.
 func (o *LogEvent) GetClient() LogClient {
-	if o == nil || o.Client == nil {
+	if o == nil || IsNil(o.Client) {
 		var ret LogClient
 		return ret
 	}
@@ -144,7 +155,7 @@ func (o *LogEvent) GetClient() LogClient {
 // GetClientOk returns a tuple with the Client field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogEvent) GetClientOk() (*LogClient, bool) {
-	if o == nil || o.Client == nil {
+	if o == nil || IsNil(o.Client) {
 		return nil, false
 	}
 	return o.Client, true
@@ -152,7 +163,7 @@ func (o *LogEvent) GetClientOk() (*LogClient, bool) {
 
 // HasClient returns a boolean if a field has been set.
 func (o *LogEvent) HasClient() bool {
-	if o != nil && o.Client != nil {
+	if o != nil && !IsNil(o.Client) {
 		return true
 	}
 
@@ -166,7 +177,7 @@ func (o *LogEvent) SetClient(v LogClient) {
 
 // GetDebugContext returns the DebugContext field value if set, zero value otherwise.
 func (o *LogEvent) GetDebugContext() LogDebugContext {
-	if o == nil || o.DebugContext == nil {
+	if o == nil || IsNil(o.DebugContext) {
 		var ret LogDebugContext
 		return ret
 	}
@@ -176,7 +187,7 @@ func (o *LogEvent) GetDebugContext() LogDebugContext {
 // GetDebugContextOk returns a tuple with the DebugContext field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogEvent) GetDebugContextOk() (*LogDebugContext, bool) {
-	if o == nil || o.DebugContext == nil {
+	if o == nil || IsNil(o.DebugContext) {
 		return nil, false
 	}
 	return o.DebugContext, true
@@ -184,7 +195,7 @@ func (o *LogEvent) GetDebugContextOk() (*LogDebugContext, bool) {
 
 // HasDebugContext returns a boolean if a field has been set.
 func (o *LogEvent) HasDebugContext() bool {
-	if o != nil && o.DebugContext != nil {
+	if o != nil && !IsNil(o.DebugContext) {
 		return true
 	}
 
@@ -198,7 +209,7 @@ func (o *LogEvent) SetDebugContext(v LogDebugContext) {
 
 // GetDisplayMessage returns the DisplayMessage field value if set, zero value otherwise.
 func (o *LogEvent) GetDisplayMessage() string {
-	if o == nil || o.DisplayMessage == nil {
+	if o == nil || IsNil(o.DisplayMessage) {
 		var ret string
 		return ret
 	}
@@ -208,7 +219,7 @@ func (o *LogEvent) GetDisplayMessage() string {
 // GetDisplayMessageOk returns a tuple with the DisplayMessage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogEvent) GetDisplayMessageOk() (*string, bool) {
-	if o == nil || o.DisplayMessage == nil {
+	if o == nil || IsNil(o.DisplayMessage) {
 		return nil, false
 	}
 	return o.DisplayMessage, true
@@ -216,7 +227,7 @@ func (o *LogEvent) GetDisplayMessageOk() (*string, bool) {
 
 // HasDisplayMessage returns a boolean if a field has been set.
 func (o *LogEvent) HasDisplayMessage() bool {
-	if o != nil && o.DisplayMessage != nil {
+	if o != nil && !IsNil(o.DisplayMessage) {
 		return true
 	}
 
@@ -230,7 +241,7 @@ func (o *LogEvent) SetDisplayMessage(v string) {
 
 // GetEventType returns the EventType field value if set, zero value otherwise.
 func (o *LogEvent) GetEventType() string {
-	if o == nil || o.EventType == nil {
+	if o == nil || IsNil(o.EventType) {
 		var ret string
 		return ret
 	}
@@ -240,7 +251,7 @@ func (o *LogEvent) GetEventType() string {
 // GetEventTypeOk returns a tuple with the EventType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogEvent) GetEventTypeOk() (*string, bool) {
-	if o == nil || o.EventType == nil {
+	if o == nil || IsNil(o.EventType) {
 		return nil, false
 	}
 	return o.EventType, true
@@ -248,7 +259,7 @@ func (o *LogEvent) GetEventTypeOk() (*string, bool) {
 
 // HasEventType returns a boolean if a field has been set.
 func (o *LogEvent) HasEventType() bool {
-	if o != nil && o.EventType != nil {
+	if o != nil && !IsNil(o.EventType) {
 		return true
 	}
 
@@ -262,7 +273,7 @@ func (o *LogEvent) SetEventType(v string) {
 
 // GetLegacyEventType returns the LegacyEventType field value if set, zero value otherwise.
 func (o *LogEvent) GetLegacyEventType() string {
-	if o == nil || o.LegacyEventType == nil {
+	if o == nil || IsNil(o.LegacyEventType) {
 		var ret string
 		return ret
 	}
@@ -272,7 +283,7 @@ func (o *LogEvent) GetLegacyEventType() string {
 // GetLegacyEventTypeOk returns a tuple with the LegacyEventType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogEvent) GetLegacyEventTypeOk() (*string, bool) {
-	if o == nil || o.LegacyEventType == nil {
+	if o == nil || IsNil(o.LegacyEventType) {
 		return nil, false
 	}
 	return o.LegacyEventType, true
@@ -280,7 +291,7 @@ func (o *LogEvent) GetLegacyEventTypeOk() (*string, bool) {
 
 // HasLegacyEventType returns a boolean if a field has been set.
 func (o *LogEvent) HasLegacyEventType() bool {
-	if o != nil && o.LegacyEventType != nil {
+	if o != nil && !IsNil(o.LegacyEventType) {
 		return true
 	}
 
@@ -294,7 +305,7 @@ func (o *LogEvent) SetLegacyEventType(v string) {
 
 // GetOutcome returns the Outcome field value if set, zero value otherwise.
 func (o *LogEvent) GetOutcome() LogOutcome {
-	if o == nil || o.Outcome == nil {
+	if o == nil || IsNil(o.Outcome) {
 		var ret LogOutcome
 		return ret
 	}
@@ -304,7 +315,7 @@ func (o *LogEvent) GetOutcome() LogOutcome {
 // GetOutcomeOk returns a tuple with the Outcome field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogEvent) GetOutcomeOk() (*LogOutcome, bool) {
-	if o == nil || o.Outcome == nil {
+	if o == nil || IsNil(o.Outcome) {
 		return nil, false
 	}
 	return o.Outcome, true
@@ -312,7 +323,7 @@ func (o *LogEvent) GetOutcomeOk() (*LogOutcome, bool) {
 
 // HasOutcome returns a boolean if a field has been set.
 func (o *LogEvent) HasOutcome() bool {
-	if o != nil && o.Outcome != nil {
+	if o != nil && !IsNil(o.Outcome) {
 		return true
 	}
 
@@ -326,7 +337,7 @@ func (o *LogEvent) SetOutcome(v LogOutcome) {
 
 // GetPublished returns the Published field value if set, zero value otherwise.
 func (o *LogEvent) GetPublished() time.Time {
-	if o == nil || o.Published == nil {
+	if o == nil || IsNil(o.Published) {
 		var ret time.Time
 		return ret
 	}
@@ -336,7 +347,7 @@ func (o *LogEvent) GetPublished() time.Time {
 // GetPublishedOk returns a tuple with the Published field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogEvent) GetPublishedOk() (*time.Time, bool) {
-	if o == nil || o.Published == nil {
+	if o == nil || IsNil(o.Published) {
 		return nil, false
 	}
 	return o.Published, true
@@ -344,7 +355,7 @@ func (o *LogEvent) GetPublishedOk() (*time.Time, bool) {
 
 // HasPublished returns a boolean if a field has been set.
 func (o *LogEvent) HasPublished() bool {
-	if o != nil && o.Published != nil {
+	if o != nil && !IsNil(o.Published) {
 		return true
 	}
 
@@ -358,7 +369,7 @@ func (o *LogEvent) SetPublished(v time.Time) {
 
 // GetRequest returns the Request field value if set, zero value otherwise.
 func (o *LogEvent) GetRequest() LogRequest {
-	if o == nil || o.Request == nil {
+	if o == nil || IsNil(o.Request) {
 		var ret LogRequest
 		return ret
 	}
@@ -368,7 +379,7 @@ func (o *LogEvent) GetRequest() LogRequest {
 // GetRequestOk returns a tuple with the Request field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogEvent) GetRequestOk() (*LogRequest, bool) {
-	if o == nil || o.Request == nil {
+	if o == nil || IsNil(o.Request) {
 		return nil, false
 	}
 	return o.Request, true
@@ -376,7 +387,7 @@ func (o *LogEvent) GetRequestOk() (*LogRequest, bool) {
 
 // HasRequest returns a boolean if a field has been set.
 func (o *LogEvent) HasRequest() bool {
-	if o != nil && o.Request != nil {
+	if o != nil && !IsNil(o.Request) {
 		return true
 	}
 
@@ -390,7 +401,7 @@ func (o *LogEvent) SetRequest(v LogRequest) {
 
 // GetSecurityContext returns the SecurityContext field value if set, zero value otherwise.
 func (o *LogEvent) GetSecurityContext() LogSecurityContext {
-	if o == nil || o.SecurityContext == nil {
+	if o == nil || IsNil(o.SecurityContext) {
 		var ret LogSecurityContext
 		return ret
 	}
@@ -400,7 +411,7 @@ func (o *LogEvent) GetSecurityContext() LogSecurityContext {
 // GetSecurityContextOk returns a tuple with the SecurityContext field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogEvent) GetSecurityContextOk() (*LogSecurityContext, bool) {
-	if o == nil || o.SecurityContext == nil {
+	if o == nil || IsNil(o.SecurityContext) {
 		return nil, false
 	}
 	return o.SecurityContext, true
@@ -408,7 +419,7 @@ func (o *LogEvent) GetSecurityContextOk() (*LogSecurityContext, bool) {
 
 // HasSecurityContext returns a boolean if a field has been set.
 func (o *LogEvent) HasSecurityContext() bool {
-	if o != nil && o.SecurityContext != nil {
+	if o != nil && !IsNil(o.SecurityContext) {
 		return true
 	}
 
@@ -422,7 +433,7 @@ func (o *LogEvent) SetSecurityContext(v LogSecurityContext) {
 
 // GetSeverity returns the Severity field value if set, zero value otherwise.
 func (o *LogEvent) GetSeverity() string {
-	if o == nil || o.Severity == nil {
+	if o == nil || IsNil(o.Severity) {
 		var ret string
 		return ret
 	}
@@ -432,7 +443,7 @@ func (o *LogEvent) GetSeverity() string {
 // GetSeverityOk returns a tuple with the Severity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogEvent) GetSeverityOk() (*string, bool) {
-	if o == nil || o.Severity == nil {
+	if o == nil || IsNil(o.Severity) {
 		return nil, false
 	}
 	return o.Severity, true
@@ -440,7 +451,7 @@ func (o *LogEvent) GetSeverityOk() (*string, bool) {
 
 // HasSeverity returns a boolean if a field has been set.
 func (o *LogEvent) HasSeverity() bool {
-	if o != nil && o.Severity != nil {
+	if o != nil && !IsNil(o.Severity) {
 		return true
 	}
 
@@ -454,7 +465,7 @@ func (o *LogEvent) SetSeverity(v string) {
 
 // GetTarget returns the Target field value if set, zero value otherwise.
 func (o *LogEvent) GetTarget() []LogTarget {
-	if o == nil || o.Target == nil {
+	if o == nil || IsNil(o.Target) {
 		var ret []LogTarget
 		return ret
 	}
@@ -464,7 +475,7 @@ func (o *LogEvent) GetTarget() []LogTarget {
 // GetTargetOk returns a tuple with the Target field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogEvent) GetTargetOk() ([]LogTarget, bool) {
-	if o == nil || o.Target == nil {
+	if o == nil || IsNil(o.Target) {
 		return nil, false
 	}
 	return o.Target, true
@@ -472,7 +483,7 @@ func (o *LogEvent) GetTargetOk() ([]LogTarget, bool) {
 
 // HasTarget returns a boolean if a field has been set.
 func (o *LogEvent) HasTarget() bool {
-	if o != nil && o.Target != nil {
+	if o != nil && !IsNil(o.Target) {
 		return true
 	}
 
@@ -486,7 +497,7 @@ func (o *LogEvent) SetTarget(v []LogTarget) {
 
 // GetTransaction returns the Transaction field value if set, zero value otherwise.
 func (o *LogEvent) GetTransaction() LogTransaction {
-	if o == nil || o.Transaction == nil {
+	if o == nil || IsNil(o.Transaction) {
 		var ret LogTransaction
 		return ret
 	}
@@ -496,7 +507,7 @@ func (o *LogEvent) GetTransaction() LogTransaction {
 // GetTransactionOk returns a tuple with the Transaction field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogEvent) GetTransactionOk() (*LogTransaction, bool) {
-	if o == nil || o.Transaction == nil {
+	if o == nil || IsNil(o.Transaction) {
 		return nil, false
 	}
 	return o.Transaction, true
@@ -504,7 +515,7 @@ func (o *LogEvent) GetTransactionOk() (*LogTransaction, bool) {
 
 // HasTransaction returns a boolean if a field has been set.
 func (o *LogEvent) HasTransaction() bool {
-	if o != nil && o.Transaction != nil {
+	if o != nil && !IsNil(o.Transaction) {
 		return true
 	}
 
@@ -518,7 +529,7 @@ func (o *LogEvent) SetTransaction(v LogTransaction) {
 
 // GetUuid returns the Uuid field value if set, zero value otherwise.
 func (o *LogEvent) GetUuid() string {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		var ret string
 		return ret
 	}
@@ -528,7 +539,7 @@ func (o *LogEvent) GetUuid() string {
 // GetUuidOk returns a tuple with the Uuid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogEvent) GetUuidOk() (*string, bool) {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		return nil, false
 	}
 	return o.Uuid, true
@@ -536,7 +547,7 @@ func (o *LogEvent) GetUuidOk() (*string, bool) {
 
 // HasUuid returns a boolean if a field has been set.
 func (o *LogEvent) HasUuid() bool {
-	if o != nil && o.Uuid != nil {
+	if o != nil && !IsNil(o.Uuid) {
 		return true
 	}
 
@@ -550,7 +561,7 @@ func (o *LogEvent) SetUuid(v string) {
 
 // GetVersion returns the Version field value if set, zero value otherwise.
 func (o *LogEvent) GetVersion() string {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		var ret string
 		return ret
 	}
@@ -560,7 +571,7 @@ func (o *LogEvent) GetVersion() string {
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogEvent) GetVersionOk() (*string, bool) {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
 	return o.Version, true
@@ -568,7 +579,7 @@ func (o *LogEvent) GetVersionOk() (*string, bool) {
 
 // HasVersion returns a boolean if a field has been set.
 func (o *LogEvent) HasVersion() bool {
-	if o != nil && o.Version != nil {
+	if o != nil && !IsNil(o.Version) {
 		return true
 	}
 
@@ -581,53 +592,61 @@ func (o *LogEvent) SetVersion(v string) {
 }
 
 func (o LogEvent) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LogEvent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Actor != nil {
+	if !IsNil(o.Actor) {
 		toSerialize["actor"] = o.Actor
 	}
-	if o.AuthenticationContext != nil {
+	if !IsNil(o.AuthenticationContext) {
 		toSerialize["authenticationContext"] = o.AuthenticationContext
 	}
-	if o.Client != nil {
+	if !IsNil(o.Client) {
 		toSerialize["client"] = o.Client
 	}
-	if o.DebugContext != nil {
+	if !IsNil(o.DebugContext) {
 		toSerialize["debugContext"] = o.DebugContext
 	}
-	if o.DisplayMessage != nil {
+	if !IsNil(o.DisplayMessage) {
 		toSerialize["displayMessage"] = o.DisplayMessage
 	}
-	if o.EventType != nil {
+	if !IsNil(o.EventType) {
 		toSerialize["eventType"] = o.EventType
 	}
-	if o.LegacyEventType != nil {
+	if !IsNil(o.LegacyEventType) {
 		toSerialize["legacyEventType"] = o.LegacyEventType
 	}
-	if o.Outcome != nil {
+	if !IsNil(o.Outcome) {
 		toSerialize["outcome"] = o.Outcome
 	}
-	if o.Published != nil {
+	if !IsNil(o.Published) {
 		toSerialize["published"] = o.Published
 	}
-	if o.Request != nil {
+	if !IsNil(o.Request) {
 		toSerialize["request"] = o.Request
 	}
-	if o.SecurityContext != nil {
+	if !IsNil(o.SecurityContext) {
 		toSerialize["securityContext"] = o.SecurityContext
 	}
-	if o.Severity != nil {
+	if !IsNil(o.Severity) {
 		toSerialize["severity"] = o.Severity
 	}
-	if o.Target != nil {
+	if !IsNil(o.Target) {
 		toSerialize["target"] = o.Target
 	}
-	if o.Transaction != nil {
+	if !IsNil(o.Transaction) {
 		toSerialize["transaction"] = o.Transaction
 	}
-	if o.Uuid != nil {
+	if !IsNil(o.Uuid) {
 		toSerialize["uuid"] = o.Uuid
 	}
-	if o.Version != nil {
+	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
 
@@ -635,23 +654,23 @@ func (o LogEvent) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LogEvent) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LogEvent) UnmarshalJSON(data []byte) (err error) {
 	varLogEvent := _LogEvent{}
 
-	err = json.Unmarshal(bytes, &varLogEvent)
-	if err == nil {
-		*o = LogEvent(varLogEvent)
-	} else {
+	err = json.Unmarshal(data, &varLogEvent)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LogEvent(varLogEvent)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "actor")
 		delete(additionalProperties, "authenticationContext")
 		delete(additionalProperties, "client")
@@ -669,8 +688,6 @@ func (o *LogEvent) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "uuid")
 		delete(additionalProperties, "version")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -711,4 +728,3 @@ func (v *NullableLogEvent) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

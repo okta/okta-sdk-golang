@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Expression** | Pointer to **string** | Combination or single source properties that are mapped to the target property | [optional] 
-**PushStatus** | Pointer to **string** | Indicates whether to update target properties for user create and update or just for user create.  Having a pushStatus of &#x60;PUSH&#x60; causes properties in the target to be updated on create and update. Having a pushStatus of &#x60;DONT_PUSH&#x60; causes properties in the target to be updated only on create. | [optional] 
+**Expression** | Pointer to **string** | Combination or single source properties that are mapped to the target property. See [Okta Expression Language](https://developer.okta.com/docs/reference/okta-expression-language/). | [optional] 
+**PushStatus** | Pointer to **string** | Indicates whether to update target properties for user create and update or just for user create.  - Having a pushStatus of &#x60;PUSH&#x60; causes properties in the target to be updated on create and update. - Having a pushStatus of &#x60;DONT_PUSH&#x60; causes properties in the target to be updated only on create. | [optional] 
 
 ## Methods
 

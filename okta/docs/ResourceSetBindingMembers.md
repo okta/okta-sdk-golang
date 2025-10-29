@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Members** | Pointer to [**[]ResourceSetBindingMember**](ResourceSetBindingMember.md) |  | [optional] 
+**Members** | Pointer to [**[]ResourceSetBindingMember**](ResourceSetBindingMember.md) | The members of the role resource set binding. If there are more than 100 members for the binding, then the &#x60;_links.next&#x60; resource is returned with the next list of members. | [optional] 
 **Links** | Pointer to [**ResourceSetBindingMembersLinks**](ResourceSetBindingMembersLinks.md) |  | [optional] 
 
 ## Methods

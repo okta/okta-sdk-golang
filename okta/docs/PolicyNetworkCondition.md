@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Connection** | Pointer to **string** | Network selection mode | [optional] 
-**Exclude** | Pointer to **[]string** |  | [optional] 
-**Include** | Pointer to **[]string** |  | [optional] 
+**Exclude** | Pointer to **[]string** | The zones to exclude. Required only if connection data type is &#x60;ZONE&#x60; | [optional] 
+**Include** | Pointer to **[]string** | The zones to include. Required only if connection data type is &#x60;ZONE&#x60; | [optional] 
 
 ## Methods
 

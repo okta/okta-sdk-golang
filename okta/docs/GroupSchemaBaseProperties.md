@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Description** | Pointer to [**GroupSchemaAttribute**](GroupSchemaAttribute.md) |  | [optional] 
-**Name** | Pointer to [**GroupSchemaAttribute**](GroupSchemaAttribute.md) |  | [optional] 
+**Description** | Pointer to [**GroupSchemaAttribute**](GroupSchemaAttribute.md) | Human readable description of the group | [optional] 
+**Name** | Pointer to [**GroupSchemaAttribute**](GroupSchemaAttribute.md) | Unique identifier for the group | [optional] 
 
 ## Methods
 

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -25,16 +25,20 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the CreateResourceSetRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateResourceSetRequest{}
 
 // CreateResourceSetRequest struct for CreateResourceSetRequest
 type CreateResourceSetRequest struct {
-	// Description of the Resource Set
-	Description *string `json:"description,omitempty"`
-	// Unique name for the Resource Set
-	Label *string `json:"label,omitempty"`
-	// The endpoint (URL) that references all resource objects included in the Resource Set. Resources are identified by either an Okta Resource Name (ORN) or by a REST URL format. See [Okta Resource Name](/openapi/okta-management/guides/roles/#okta-resource-name-orn).
-	Resources []string `json:"resources,omitempty"`
+	// Description of the resource set
+	Description string `json:"description"`
+	// Unique name for the resource set
+	Label string `json:"label"`
+	// The endpoint (URL) that references all resource objects included in the resource set. Resources are identified by either an Okta Resource Name (ORN) or by a REST URL format. See [Okta Resource Name](/openapi/okta-management/guides/roles/#okta-resource-name-orn).
+	Resources            []string `json:"resources"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -44,8 +48,11 @@ type _CreateResourceSetRequest CreateResourceSetRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateResourceSetRequest() *CreateResourceSetRequest {
+func NewCreateResourceSetRequest(description string, label string, resources []string) *CreateResourceSetRequest {
 	this := CreateResourceSetRequest{}
+	this.Description = description
+	this.Label = label
+	this.Resources = resources
 	return &this
 }
 
@@ -57,141 +64,140 @@ func NewCreateResourceSetRequestWithDefaults() *CreateResourceSetRequest {
 	return &this
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
+// GetDescription returns the Description field value
 func (o *CreateResourceSetRequest) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Description
+
+	return o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// GetDescriptionOk returns a tuple with the Description field value
 // and a boolean to check if the value has been set.
 func (o *CreateResourceSetRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return &o.Description, true
 }
 
-// HasDescription returns a boolean if a field has been set.
-func (o *CreateResourceSetRequest) HasDescription() bool {
-	if o != nil && o.Description != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
+// SetDescription sets field value
 func (o *CreateResourceSetRequest) SetDescription(v string) {
-	o.Description = &v
+	o.Description = v
 }
 
-// GetLabel returns the Label field value if set, zero value otherwise.
+// GetLabel returns the Label field value
 func (o *CreateResourceSetRequest) GetLabel() string {
-	if o == nil || o.Label == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Label
+
+	return o.Label
 }
 
-// GetLabelOk returns a tuple with the Label field value if set, nil otherwise
+// GetLabelOk returns a tuple with the Label field value
 // and a boolean to check if the value has been set.
 func (o *CreateResourceSetRequest) GetLabelOk() (*string, bool) {
-	if o == nil || o.Label == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.Label, true
+	return &o.Label, true
 }
 
-// HasLabel returns a boolean if a field has been set.
-func (o *CreateResourceSetRequest) HasLabel() bool {
-	if o != nil && o.Label != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLabel gets a reference to the given string and assigns it to the Label field.
+// SetLabel sets field value
 func (o *CreateResourceSetRequest) SetLabel(v string) {
-	o.Label = &v
+	o.Label = v
 }
 
-// GetResources returns the Resources field value if set, zero value otherwise.
+// GetResources returns the Resources field value
 func (o *CreateResourceSetRequest) GetResources() []string {
-	if o == nil || o.Resources == nil {
+	if o == nil {
 		var ret []string
 		return ret
 	}
+
 	return o.Resources
 }
 
-// GetResourcesOk returns a tuple with the Resources field value if set, nil otherwise
+// GetResourcesOk returns a tuple with the Resources field value
 // and a boolean to check if the value has been set.
 func (o *CreateResourceSetRequest) GetResourcesOk() ([]string, bool) {
-	if o == nil || o.Resources == nil {
+	if o == nil {
 		return nil, false
 	}
 	return o.Resources, true
 }
 
-// HasResources returns a boolean if a field has been set.
-func (o *CreateResourceSetRequest) HasResources() bool {
-	if o != nil && o.Resources != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetResources gets a reference to the given []string and assigns it to the Resources field.
+// SetResources sets field value
 func (o *CreateResourceSetRequest) SetResources(v []string) {
 	o.Resources = v
 }
 
 func (o CreateResourceSetRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CreateResourceSetRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.Label != nil {
-		toSerialize["label"] = o.Label
-	}
-	if o.Resources != nil {
-		toSerialize["resources"] = o.Resources
-	}
+	toSerialize["description"] = o.Description
+	toSerialize["label"] = o.Label
+	toSerialize["resources"] = o.Resources
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CreateResourceSetRequest) UnmarshalJSON(bytes []byte) (err error) {
-	varCreateResourceSetRequest := _CreateResourceSetRequest{}
+func (o *CreateResourceSetRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"description",
+		"label",
+		"resources",
+	}
 
-	err = json.Unmarshal(bytes, &varCreateResourceSetRequest)
-	if err == nil {
-		*o = CreateResourceSetRequest(varCreateResourceSetRequest)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCreateResourceSetRequest := _CreateResourceSetRequest{}
+
+	err = json.Unmarshal(data, &varCreateResourceSetRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreateResourceSetRequest(varCreateResourceSetRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "label")
 		delete(additionalProperties, "resources")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -232,4 +238,3 @@ func (v *NullableCreateResourceSetRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

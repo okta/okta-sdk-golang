@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -25,18 +25,22 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ProvisioningConnectionResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ProvisioningConnectionResponse{}
 
 // ProvisioningConnectionResponse struct for ProvisioningConnectionResponse
 type ProvisioningConnectionResponse struct {
 	// A token is used to authenticate with the app. This property is only returned for the `TOKEN` authentication scheme.
 	AuthScheme *string `json:"authScheme,omitempty"`
 	// Base URL
-	BaseUrl *string `json:"baseUrl,omitempty"`
+	BaseUrl *string                               `json:"baseUrl,omitempty"`
 	Profile ProvisioningConnectionResponseProfile `json:"profile"`
-	// Provisioning Connection status
-	Status string `json:"status"`
-	Links *LinksSelfLifecycleAndAuthorize `json:"_links,omitempty"`
+	// Provisioning connection status
+	Status               string                          `json:"status"`
+	Links                *LinksSelfLifecycleAndAuthorize `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -65,7 +69,7 @@ func NewProvisioningConnectionResponseWithDefaults() *ProvisioningConnectionResp
 
 // GetAuthScheme returns the AuthScheme field value if set, zero value otherwise.
 func (o *ProvisioningConnectionResponse) GetAuthScheme() string {
-	if o == nil || o.AuthScheme == nil {
+	if o == nil || IsNil(o.AuthScheme) {
 		var ret string
 		return ret
 	}
@@ -75,7 +79,7 @@ func (o *ProvisioningConnectionResponse) GetAuthScheme() string {
 // GetAuthSchemeOk returns a tuple with the AuthScheme field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProvisioningConnectionResponse) GetAuthSchemeOk() (*string, bool) {
-	if o == nil || o.AuthScheme == nil {
+	if o == nil || IsNil(o.AuthScheme) {
 		return nil, false
 	}
 	return o.AuthScheme, true
@@ -83,7 +87,7 @@ func (o *ProvisioningConnectionResponse) GetAuthSchemeOk() (*string, bool) {
 
 // HasAuthScheme returns a boolean if a field has been set.
 func (o *ProvisioningConnectionResponse) HasAuthScheme() bool {
-	if o != nil && o.AuthScheme != nil {
+	if o != nil && !IsNil(o.AuthScheme) {
 		return true
 	}
 
@@ -97,7 +101,7 @@ func (o *ProvisioningConnectionResponse) SetAuthScheme(v string) {
 
 // GetBaseUrl returns the BaseUrl field value if set, zero value otherwise.
 func (o *ProvisioningConnectionResponse) GetBaseUrl() string {
-	if o == nil || o.BaseUrl == nil {
+	if o == nil || IsNil(o.BaseUrl) {
 		var ret string
 		return ret
 	}
@@ -107,7 +111,7 @@ func (o *ProvisioningConnectionResponse) GetBaseUrl() string {
 // GetBaseUrlOk returns a tuple with the BaseUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProvisioningConnectionResponse) GetBaseUrlOk() (*string, bool) {
-	if o == nil || o.BaseUrl == nil {
+	if o == nil || IsNil(o.BaseUrl) {
 		return nil, false
 	}
 	return o.BaseUrl, true
@@ -115,7 +119,7 @@ func (o *ProvisioningConnectionResponse) GetBaseUrlOk() (*string, bool) {
 
 // HasBaseUrl returns a boolean if a field has been set.
 func (o *ProvisioningConnectionResponse) HasBaseUrl() bool {
-	if o != nil && o.BaseUrl != nil {
+	if o != nil && !IsNil(o.BaseUrl) {
 		return true
 	}
 
@@ -177,7 +181,7 @@ func (o *ProvisioningConnectionResponse) SetStatus(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *ProvisioningConnectionResponse) GetLinks() LinksSelfLifecycleAndAuthorize {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinksSelfLifecycleAndAuthorize
 		return ret
 	}
@@ -187,7 +191,7 @@ func (o *ProvisioningConnectionResponse) GetLinks() LinksSelfLifecycleAndAuthori
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProvisioningConnectionResponse) GetLinksOk() (*LinksSelfLifecycleAndAuthorize, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -195,7 +199,7 @@ func (o *ProvisioningConnectionResponse) GetLinksOk() (*LinksSelfLifecycleAndAut
 
 // HasLinks returns a boolean if a field has been set.
 func (o *ProvisioningConnectionResponse) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -208,20 +212,24 @@ func (o *ProvisioningConnectionResponse) SetLinks(v LinksSelfLifecycleAndAuthori
 }
 
 func (o ProvisioningConnectionResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ProvisioningConnectionResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AuthScheme != nil {
+	if !IsNil(o.AuthScheme) {
 		toSerialize["authScheme"] = o.AuthScheme
 	}
-	if o.BaseUrl != nil {
+	if !IsNil(o.BaseUrl) {
 		toSerialize["baseUrl"] = o.BaseUrl
 	}
-	if true {
-		toSerialize["profile"] = o.Profile
-	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
-	if o.Links != nil {
+	toSerialize["profile"] = o.Profile
+	toSerialize["status"] = o.Status
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -229,31 +237,51 @@ func (o ProvisioningConnectionResponse) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ProvisioningConnectionResponse) UnmarshalJSON(bytes []byte) (err error) {
-	varProvisioningConnectionResponse := _ProvisioningConnectionResponse{}
+func (o *ProvisioningConnectionResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"profile",
+		"status",
+	}
 
-	err = json.Unmarshal(bytes, &varProvisioningConnectionResponse)
-	if err == nil {
-		*o = ProvisioningConnectionResponse(varProvisioningConnectionResponse)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varProvisioningConnectionResponse := _ProvisioningConnectionResponse{}
+
+	err = json.Unmarshal(data, &varProvisioningConnectionResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ProvisioningConnectionResponse(varProvisioningConnectionResponse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "authScheme")
 		delete(additionalProperties, "baseUrl")
 		delete(additionalProperties, "profile")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -294,4 +322,3 @@ func (v *NullableProvisioningConnectionResponse) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

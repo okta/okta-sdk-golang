@@ -4,24 +4,24 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AttributeStatements** | Pointer to **string** |  | [optional] 
-**AudienceRestriction** | Pointer to **string** |  | [optional] 
-**AuthnContextClassRef** | Pointer to **string** |  | [optional] 
-**GroupFilter** | Pointer to **string** |  | [optional] 
-**GroupName** | Pointer to **string** |  | [optional] 
-**GroupValueFormat** | Pointer to **string** |  | [optional] 
-**NameIDFormat** | Pointer to **string** |  | [optional] 
-**Realm** | Pointer to **string** |  | [optional] 
-**SiteURL** | Pointer to **string** |  | [optional] 
-**UsernameAttribute** | Pointer to **string** |  | [optional] 
-**WReplyOverride** | Pointer to **bool** |  | [optional] 
-**WReplyURL** | Pointer to **string** |  | [optional] 
+**AttributeStatements** | Pointer to **string** | You can federate user attributes such as Okta profile fields, LDAP, Active Directory, and Workday values. The SP uses the federated WS-Fed attribute values accordingly. | [optional] 
+**AudienceRestriction** | **string** | The entity ID of the SP. Use the entity ID value exactly as provided by the SP. | 
+**AuthnContextClassRef** | **string** | Identifies the SAML authentication context class for the assertion&#39;s authentication statement | 
+**GroupFilter** | Pointer to **string** | A regular expression that filters for the User Groups you want included with the &#x60;groupName&#x60; attribute. If the matching User Group has a corresponding AD group, then the attribute statement includes the value of the attribute specified by &#x60;groupValueFormat&#x60;. If the matching User Group doesn&#39;t contain a corresponding AD group, then the &#x60;groupName&#x60; is used in the attribute statement. | [optional] 
+**GroupName** | Pointer to **string** | The group name to include in the WS-Fed response attribute statement. This property is used in conjunction with the &#x60;groupFilter&#x60; property.  Groups that are filtered through the &#x60;groupFilter&#x60; expression are included with the &#x60;groupName&#x60; in the attribute statement. Any users that belong to the group you&#39;ve filtered are included in the WS-Fed response attribute statement. | [optional] 
+**GroupValueFormat** | **string** | Specifies the WS-Fed assertion attribute value for filtered groups. This attribute is only applied to Active Directory groups. | 
+**NameIDFormat** | **string** | The username format that you send in the WS-Fed response | 
+**Realm** | Pointer to **string** | The uniform resource identifier (URI) of the WS-Fed app that&#39;s used to share resources securely within a domain. It&#39;s the identity that&#39;s sent to the Okta IdP when signing in. See [Realm name](https://help.okta.com/okta_help.htm?type&#x3D;oie&amp;id&#x3D;ext_Apps_Configure_Okta_Template_WS_Federation#Realm). | [optional] 
+**SiteURL** | **string** | Launch URL for the web app | 
+**UsernameAttribute** | **string** | Specifies additional username attribute statements to include in the WS-Fed assertion | 
+**WReplyOverride** | Pointer to **bool** | Enables a web app to override the &#x60;wReplyURL&#x60; URL with a reply parameter. | [optional] 
+**WReplyURL** | **string** | The WS-Fed SP endpoint where your users sign in | 
 
 ## Methods
 
 ### NewWsFederationApplicationSettingsApplication
 
-`func NewWsFederationApplicationSettingsApplication() *WsFederationApplicationSettingsApplication`
+`func NewWsFederationApplicationSettingsApplication(audienceRestriction string, authnContextClassRef string, groupValueFormat string, nameIDFormat string, siteURL string, usernameAttribute string, wReplyURL string, ) *WsFederationApplicationSettingsApplication`
 
 NewWsFederationApplicationSettingsApplication instantiates a new WsFederationApplicationSettingsApplication object
 This constructor will assign default values to properties that have it defined,
@@ -80,11 +80,6 @@ and a boolean to check if the value has been set.
 
 SetAudienceRestriction sets AudienceRestriction field to given value.
 
-### HasAudienceRestriction
-
-`func (o *WsFederationApplicationSettingsApplication) HasAudienceRestriction() bool`
-
-HasAudienceRestriction returns a boolean if a field has been set.
 
 ### GetAuthnContextClassRef
 
@@ -105,11 +100,6 @@ and a boolean to check if the value has been set.
 
 SetAuthnContextClassRef sets AuthnContextClassRef field to given value.
 
-### HasAuthnContextClassRef
-
-`func (o *WsFederationApplicationSettingsApplication) HasAuthnContextClassRef() bool`
-
-HasAuthnContextClassRef returns a boolean if a field has been set.
 
 ### GetGroupFilter
 
@@ -180,11 +170,6 @@ and a boolean to check if the value has been set.
 
 SetGroupValueFormat sets GroupValueFormat field to given value.
 
-### HasGroupValueFormat
-
-`func (o *WsFederationApplicationSettingsApplication) HasGroupValueFormat() bool`
-
-HasGroupValueFormat returns a boolean if a field has been set.
 
 ### GetNameIDFormat
 
@@ -205,11 +190,6 @@ and a boolean to check if the value has been set.
 
 SetNameIDFormat sets NameIDFormat field to given value.
 
-### HasNameIDFormat
-
-`func (o *WsFederationApplicationSettingsApplication) HasNameIDFormat() bool`
-
-HasNameIDFormat returns a boolean if a field has been set.
 
 ### GetRealm
 
@@ -255,11 +235,6 @@ and a boolean to check if the value has been set.
 
 SetSiteURL sets SiteURL field to given value.
 
-### HasSiteURL
-
-`func (o *WsFederationApplicationSettingsApplication) HasSiteURL() bool`
-
-HasSiteURL returns a boolean if a field has been set.
 
 ### GetUsernameAttribute
 
@@ -280,11 +255,6 @@ and a boolean to check if the value has been set.
 
 SetUsernameAttribute sets UsernameAttribute field to given value.
 
-### HasUsernameAttribute
-
-`func (o *WsFederationApplicationSettingsApplication) HasUsernameAttribute() bool`
-
-HasUsernameAttribute returns a boolean if a field has been set.
 
 ### GetWReplyOverride
 
@@ -330,11 +300,6 @@ and a boolean to check if the value has been set.
 
 SetWReplyURL sets WReplyURL field to given value.
 
-### HasWReplyURL
-
-`func (o *WsFederationApplicationSettingsApplication) HasWReplyURL() bool`
-
-HasWReplyURL returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

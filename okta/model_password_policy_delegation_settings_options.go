@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the PasswordPolicyDelegationSettingsOptions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordPolicyDelegationSettingsOptions{}
+
 // PasswordPolicyDelegationSettingsOptions struct for PasswordPolicyDelegationSettingsOptions
 type PasswordPolicyDelegationSettingsOptions struct {
-	SkipUnlock *bool `json:"skipUnlock,omitempty"`
+	// Indicates if, when performing an unlock operation on an Active Directory sourced User who is locked out of Okta, the system should also attempt to unlock the User's Windows account
+	SkipUnlock           *bool `json:"skipUnlock,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -41,6 +45,8 @@ type _PasswordPolicyDelegationSettingsOptions PasswordPolicyDelegationSettingsOp
 // will change when the set of required properties is changed
 func NewPasswordPolicyDelegationSettingsOptions() *PasswordPolicyDelegationSettingsOptions {
 	this := PasswordPolicyDelegationSettingsOptions{}
+	var skipUnlock bool = false
+	this.SkipUnlock = &skipUnlock
 	return &this
 }
 
@@ -49,12 +55,14 @@ func NewPasswordPolicyDelegationSettingsOptions() *PasswordPolicyDelegationSetti
 // but it doesn't guarantee that properties required by API are set
 func NewPasswordPolicyDelegationSettingsOptionsWithDefaults() *PasswordPolicyDelegationSettingsOptions {
 	this := PasswordPolicyDelegationSettingsOptions{}
+	var skipUnlock bool = false
+	this.SkipUnlock = &skipUnlock
 	return &this
 }
 
 // GetSkipUnlock returns the SkipUnlock field value if set, zero value otherwise.
 func (o *PasswordPolicyDelegationSettingsOptions) GetSkipUnlock() bool {
-	if o == nil || o.SkipUnlock == nil {
+	if o == nil || IsNil(o.SkipUnlock) {
 		var ret bool
 		return ret
 	}
@@ -64,7 +72,7 @@ func (o *PasswordPolicyDelegationSettingsOptions) GetSkipUnlock() bool {
 // GetSkipUnlockOk returns a tuple with the SkipUnlock field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordPolicyDelegationSettingsOptions) GetSkipUnlockOk() (*bool, bool) {
-	if o == nil || o.SkipUnlock == nil {
+	if o == nil || IsNil(o.SkipUnlock) {
 		return nil, false
 	}
 	return o.SkipUnlock, true
@@ -72,7 +80,7 @@ func (o *PasswordPolicyDelegationSettingsOptions) GetSkipUnlockOk() (*bool, bool
 
 // HasSkipUnlock returns a boolean if a field has been set.
 func (o *PasswordPolicyDelegationSettingsOptions) HasSkipUnlock() bool {
-	if o != nil && o.SkipUnlock != nil {
+	if o != nil && !IsNil(o.SkipUnlock) {
 		return true
 	}
 
@@ -85,8 +93,16 @@ func (o *PasswordPolicyDelegationSettingsOptions) SetSkipUnlock(v bool) {
 }
 
 func (o PasswordPolicyDelegationSettingsOptions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordPolicyDelegationSettingsOptions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.SkipUnlock != nil {
+	if !IsNil(o.SkipUnlock) {
 		toSerialize["skipUnlock"] = o.SkipUnlock
 	}
 
@@ -94,27 +110,25 @@ func (o PasswordPolicyDelegationSettingsOptions) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordPolicyDelegationSettingsOptions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordPolicyDelegationSettingsOptions) UnmarshalJSON(data []byte) (err error) {
 	varPasswordPolicyDelegationSettingsOptions := _PasswordPolicyDelegationSettingsOptions{}
 
-	err = json.Unmarshal(bytes, &varPasswordPolicyDelegationSettingsOptions)
-	if err == nil {
-		*o = PasswordPolicyDelegationSettingsOptions(varPasswordPolicyDelegationSettingsOptions)
-	} else {
+	err = json.Unmarshal(data, &varPasswordPolicyDelegationSettingsOptions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PasswordPolicyDelegationSettingsOptions(varPasswordPolicyDelegationSettingsOptions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "skipUnlock")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +169,3 @@ func (v *NullablePasswordPolicyDelegationSettingsOptions) UnmarshalJSON(src []by
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

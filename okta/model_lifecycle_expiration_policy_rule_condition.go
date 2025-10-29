@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the LifecycleExpirationPolicyRuleCondition type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LifecycleExpirationPolicyRuleCondition{}
+
 // LifecycleExpirationPolicyRuleCondition struct for LifecycleExpirationPolicyRuleCondition
 type LifecycleExpirationPolicyRuleCondition struct {
-	LifecycleStatus *string `json:"lifecycleStatus,omitempty"`
-	Number *int32 `json:"number,omitempty"`
-	Unit *string `json:"unit,omitempty"`
+	LifecycleStatus      *string `json:"lifecycleStatus,omitempty"`
+	Number               *int32  `json:"number,omitempty"`
+	Unit                 *string `json:"unit,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewLifecycleExpirationPolicyRuleConditionWithDefaults() *LifecycleExpiratio
 
 // GetLifecycleStatus returns the LifecycleStatus field value if set, zero value otherwise.
 func (o *LifecycleExpirationPolicyRuleCondition) GetLifecycleStatus() string {
-	if o == nil || o.LifecycleStatus == nil {
+	if o == nil || IsNil(o.LifecycleStatus) {
 		var ret string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *LifecycleExpirationPolicyRuleCondition) GetLifecycleStatus() string {
 // GetLifecycleStatusOk returns a tuple with the LifecycleStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LifecycleExpirationPolicyRuleCondition) GetLifecycleStatusOk() (*string, bool) {
-	if o == nil || o.LifecycleStatus == nil {
+	if o == nil || IsNil(o.LifecycleStatus) {
 		return nil, false
 	}
 	return o.LifecycleStatus, true
@@ -74,7 +77,7 @@ func (o *LifecycleExpirationPolicyRuleCondition) GetLifecycleStatusOk() (*string
 
 // HasLifecycleStatus returns a boolean if a field has been set.
 func (o *LifecycleExpirationPolicyRuleCondition) HasLifecycleStatus() bool {
-	if o != nil && o.LifecycleStatus != nil {
+	if o != nil && !IsNil(o.LifecycleStatus) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *LifecycleExpirationPolicyRuleCondition) SetLifecycleStatus(v string) {
 
 // GetNumber returns the Number field value if set, zero value otherwise.
 func (o *LifecycleExpirationPolicyRuleCondition) GetNumber() int32 {
-	if o == nil || o.Number == nil {
+	if o == nil || IsNil(o.Number) {
 		var ret int32
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *LifecycleExpirationPolicyRuleCondition) GetNumber() int32 {
 // GetNumberOk returns a tuple with the Number field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LifecycleExpirationPolicyRuleCondition) GetNumberOk() (*int32, bool) {
-	if o == nil || o.Number == nil {
+	if o == nil || IsNil(o.Number) {
 		return nil, false
 	}
 	return o.Number, true
@@ -106,7 +109,7 @@ func (o *LifecycleExpirationPolicyRuleCondition) GetNumberOk() (*int32, bool) {
 
 // HasNumber returns a boolean if a field has been set.
 func (o *LifecycleExpirationPolicyRuleCondition) HasNumber() bool {
-	if o != nil && o.Number != nil {
+	if o != nil && !IsNil(o.Number) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *LifecycleExpirationPolicyRuleCondition) SetNumber(v int32) {
 
 // GetUnit returns the Unit field value if set, zero value otherwise.
 func (o *LifecycleExpirationPolicyRuleCondition) GetUnit() string {
-	if o == nil || o.Unit == nil {
+	if o == nil || IsNil(o.Unit) {
 		var ret string
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *LifecycleExpirationPolicyRuleCondition) GetUnit() string {
 // GetUnitOk returns a tuple with the Unit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LifecycleExpirationPolicyRuleCondition) GetUnitOk() (*string, bool) {
-	if o == nil || o.Unit == nil {
+	if o == nil || IsNil(o.Unit) {
 		return nil, false
 	}
 	return o.Unit, true
@@ -138,7 +141,7 @@ func (o *LifecycleExpirationPolicyRuleCondition) GetUnitOk() (*string, bool) {
 
 // HasUnit returns a boolean if a field has been set.
 func (o *LifecycleExpirationPolicyRuleCondition) HasUnit() bool {
-	if o != nil && o.Unit != nil {
+	if o != nil && !IsNil(o.Unit) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *LifecycleExpirationPolicyRuleCondition) SetUnit(v string) {
 }
 
 func (o LifecycleExpirationPolicyRuleCondition) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LifecycleExpirationPolicyRuleCondition) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.LifecycleStatus != nil {
+	if !IsNil(o.LifecycleStatus) {
 		toSerialize["lifecycleStatus"] = o.LifecycleStatus
 	}
-	if o.Number != nil {
+	if !IsNil(o.Number) {
 		toSerialize["number"] = o.Number
 	}
-	if o.Unit != nil {
+	if !IsNil(o.Unit) {
 		toSerialize["unit"] = o.Unit
 	}
 
@@ -166,29 +177,27 @@ func (o LifecycleExpirationPolicyRuleCondition) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LifecycleExpirationPolicyRuleCondition) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LifecycleExpirationPolicyRuleCondition) UnmarshalJSON(data []byte) (err error) {
 	varLifecycleExpirationPolicyRuleCondition := _LifecycleExpirationPolicyRuleCondition{}
 
-	err = json.Unmarshal(bytes, &varLifecycleExpirationPolicyRuleCondition)
-	if err == nil {
-		*o = LifecycleExpirationPolicyRuleCondition(varLifecycleExpirationPolicyRuleCondition)
-	} else {
+	err = json.Unmarshal(data, &varLifecycleExpirationPolicyRuleCondition)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LifecycleExpirationPolicyRuleCondition(varLifecycleExpirationPolicyRuleCondition)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "lifecycleStatus")
 		delete(additionalProperties, "number")
 		delete(additionalProperties, "unit")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -229,4 +238,3 @@ func (v *NullableLifecycleExpirationPolicyRuleCondition) UnmarshalJSON(src []byt
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

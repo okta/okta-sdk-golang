@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ExternalId** | Pointer to **string** |  | [optional] 
+**ExternalId** | Pointer to **string** | The external ID of the entity that needs to be deleted in Okta | [optional] 
 
 ## Methods
 

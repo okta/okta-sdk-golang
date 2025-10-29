@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Errors** | Pointer to [**[]BouncesRemoveListError**](BouncesRemoveListError.md) |  | [optional] 
+**Errors** | Pointer to [**[]BouncesRemoveListError**](BouncesRemoveListError.md) | A list of emails that wasn&#39;t added to the email-bounced remove list and the error reason | [optional] 
 
 ## Methods
 

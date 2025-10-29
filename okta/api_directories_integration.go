@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -26,24 +26,25 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type DirectoriesIntegrationAPI interface {
 
 	/*
-	UpdateADGroupMembership Update an AD Group membership
+			UpdateADGroupMembership Update an Active Directory group membership
 
-	Updates an AD Group membership directly in AD
+			Updates an Active Directory group membership directly in Active Directory
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appInstanceId ID of the AD AppInstance in Okta
-	@return ApiUpdateADGroupMembershipRequest
+		> **Note:** See **Before you begin: Active Directory integration with the following setup** in the [Use Okta Access Certifications to manage AD group membership](https://help.okta.com/okta_help.htm?type=oie&id=ad-bidirectional-group-mgt-configure) product documentation.
+
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appInstanceId ID of the Active Directory app instance in Okta
+			@return ApiUpdateADGroupMembershipRequest
 	*/
 	UpdateADGroupMembership(ctx context.Context, appInstanceId string) ApiUpdateADGroupMembershipRequest
 
@@ -55,11 +56,11 @@ type DirectoriesIntegrationAPI interface {
 type DirectoriesIntegrationAPIService service
 
 type ApiUpdateADGroupMembershipRequest struct {
-	ctx context.Context
-	ApiService DirectoriesIntegrationAPI
+	ctx           context.Context
+	ApiService    DirectoriesIntegrationAPI
 	appInstanceId string
-	agentAction *AgentAction
-	retryCount int32
+	agentAction   *AgentAction
+	retryCount    int32
 }
 
 func (r ApiUpdateADGroupMembershipRequest) AgentAction(agentAction AgentAction) ApiUpdateADGroupMembershipRequest {
@@ -72,20 +73,22 @@ func (r ApiUpdateADGroupMembershipRequest) Execute() (*APIResponse, error) {
 }
 
 /*
-UpdateADGroupMembership Update an AD Group membership
+UpdateADGroupMembership Update an Active Directory group membership
 
-Updates an AD Group membership directly in AD
+# Updates an Active Directory group membership directly in Active Directory
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appInstanceId ID of the AD AppInstance in Okta
- @return ApiUpdateADGroupMembershipRequest
+> **Note:** See **Before you begin: Active Directory integration with the following setup** in the [Use Okta Access Certifications to manage AD group membership](https://help.okta.com/okta_help.htm?type=oie&id=ad-bidirectional-group-mgt-configure) product documentation.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appInstanceId ID of the Active Directory app instance in Okta
+	@return ApiUpdateADGroupMembershipRequest
 */
 func (a *DirectoriesIntegrationAPIService) UpdateADGroupMembership(ctx context.Context, appInstanceId string) ApiUpdateADGroupMembershipRequest {
 	return ApiUpdateADGroupMembershipRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		appInstanceId: appInstanceId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -97,7 +100,7 @@ func (a *DirectoriesIntegrationAPIService) UpdateADGroupMembershipExecute(r ApiU
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -149,9 +152,9 @@ func (a *DirectoriesIntegrationAPIService) UpdateADGroupMembershipExecute(r ApiU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err

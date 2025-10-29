@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the PasswordImportRequestDataContextCredential type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PasswordImportRequestDataContextCredential{}
+
 // PasswordImportRequestDataContextCredential struct for PasswordImportRequestDataContextCredential
 type PasswordImportRequestDataContextCredential struct {
-	// The `username` that the end user supplied when attempting to sign in to Okta.
+	// The `username` that the user supplied when attempting to sign in to Okta.
 	Username *string `json:"username,omitempty"`
-	// The `password` that the end user supplied when attempting to sign in to Okta.
-	Password *string `json:"password,omitempty"`
+	// The `password` that the user supplied when attempting to sign in to Okta.
+	Password             *string `json:"password,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewPasswordImportRequestDataContextCredentialWithDefaults() *PasswordImport
 
 // GetUsername returns the Username field value if set, zero value otherwise.
 func (o *PasswordImportRequestDataContextCredential) GetUsername() string {
-	if o == nil || o.Username == nil {
+	if o == nil || IsNil(o.Username) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *PasswordImportRequestDataContextCredential) GetUsername() string {
 // GetUsernameOk returns a tuple with the Username field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordImportRequestDataContextCredential) GetUsernameOk() (*string, bool) {
-	if o == nil || o.Username == nil {
+	if o == nil || IsNil(o.Username) {
 		return nil, false
 	}
 	return o.Username, true
@@ -75,7 +78,7 @@ func (o *PasswordImportRequestDataContextCredential) GetUsernameOk() (*string, b
 
 // HasUsername returns a boolean if a field has been set.
 func (o *PasswordImportRequestDataContextCredential) HasUsername() bool {
-	if o != nil && o.Username != nil {
+	if o != nil && !IsNil(o.Username) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *PasswordImportRequestDataContextCredential) SetUsername(v string) {
 
 // GetPassword returns the Password field value if set, zero value otherwise.
 func (o *PasswordImportRequestDataContextCredential) GetPassword() string {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *PasswordImportRequestDataContextCredential) GetPassword() string {
 // GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PasswordImportRequestDataContextCredential) GetPasswordOk() (*string, bool) {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		return nil, false
 	}
 	return o.Password, true
@@ -107,7 +110,7 @@ func (o *PasswordImportRequestDataContextCredential) GetPasswordOk() (*string, b
 
 // HasPassword returns a boolean if a field has been set.
 func (o *PasswordImportRequestDataContextCredential) HasPassword() bool {
-	if o != nil && o.Password != nil {
+	if o != nil && !IsNil(o.Password) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *PasswordImportRequestDataContextCredential) SetPassword(v string) {
 }
 
 func (o PasswordImportRequestDataContextCredential) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PasswordImportRequestDataContextCredential) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Username != nil {
+	if !IsNil(o.Username) {
 		toSerialize["username"] = o.Username
 	}
-	if o.Password != nil {
+	if !IsNil(o.Password) {
 		toSerialize["password"] = o.Password
 	}
 
@@ -132,28 +143,26 @@ func (o PasswordImportRequestDataContextCredential) MarshalJSON() ([]byte, error
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PasswordImportRequestDataContextCredential) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PasswordImportRequestDataContextCredential) UnmarshalJSON(data []byte) (err error) {
 	varPasswordImportRequestDataContextCredential := _PasswordImportRequestDataContextCredential{}
 
-	err = json.Unmarshal(bytes, &varPasswordImportRequestDataContextCredential)
-	if err == nil {
-		*o = PasswordImportRequestDataContextCredential(varPasswordImportRequestDataContextCredential)
-	} else {
+	err = json.Unmarshal(data, &varPasswordImportRequestDataContextCredential)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PasswordImportRequestDataContextCredential(varPasswordImportRequestDataContextCredential)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "username")
 		delete(additionalProperties, "password")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullablePasswordImportRequestDataContextCredential) UnmarshalJSON(src [
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

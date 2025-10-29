@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthenticatorKeyCustomAppAllOfProviderConfiguration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorKeyCustomAppAllOfProviderConfiguration{}
+
 // AuthenticatorKeyCustomAppAllOfProviderConfiguration The configuration of the provider
 type AuthenticatorKeyCustomAppAllOfProviderConfiguration struct {
-	Apns *AuthenticatorKeyCustomAppAllOfProviderConfigurationApns `json:"apns,omitempty"`
-	Fcm *AuthenticatorKeyCustomAppAllOfProviderConfigurationFcm `json:"fcm,omitempty"`
+	Apns                 *AuthenticatorKeyCustomAppAllOfProviderConfigurationApns `json:"apns,omitempty"`
+	Fcm                  *AuthenticatorKeyCustomAppAllOfProviderConfigurationFcm  `json:"fcm,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewAuthenticatorKeyCustomAppAllOfProviderConfigurationWithDefaults() *Authe
 
 // GetApns returns the Apns field value if set, zero value otherwise.
 func (o *AuthenticatorKeyCustomAppAllOfProviderConfiguration) GetApns() AuthenticatorKeyCustomAppAllOfProviderConfigurationApns {
-	if o == nil || o.Apns == nil {
+	if o == nil || IsNil(o.Apns) {
 		var ret AuthenticatorKeyCustomAppAllOfProviderConfigurationApns
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *AuthenticatorKeyCustomAppAllOfProviderConfiguration) GetApns() Authenti
 // GetApnsOk returns a tuple with the Apns field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorKeyCustomAppAllOfProviderConfiguration) GetApnsOk() (*AuthenticatorKeyCustomAppAllOfProviderConfigurationApns, bool) {
-	if o == nil || o.Apns == nil {
+	if o == nil || IsNil(o.Apns) {
 		return nil, false
 	}
 	return o.Apns, true
@@ -73,7 +76,7 @@ func (o *AuthenticatorKeyCustomAppAllOfProviderConfiguration) GetApnsOk() (*Auth
 
 // HasApns returns a boolean if a field has been set.
 func (o *AuthenticatorKeyCustomAppAllOfProviderConfiguration) HasApns() bool {
-	if o != nil && o.Apns != nil {
+	if o != nil && !IsNil(o.Apns) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *AuthenticatorKeyCustomAppAllOfProviderConfiguration) SetApns(v Authenti
 
 // GetFcm returns the Fcm field value if set, zero value otherwise.
 func (o *AuthenticatorKeyCustomAppAllOfProviderConfiguration) GetFcm() AuthenticatorKeyCustomAppAllOfProviderConfigurationFcm {
-	if o == nil || o.Fcm == nil {
+	if o == nil || IsNil(o.Fcm) {
 		var ret AuthenticatorKeyCustomAppAllOfProviderConfigurationFcm
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *AuthenticatorKeyCustomAppAllOfProviderConfiguration) GetFcm() Authentic
 // GetFcmOk returns a tuple with the Fcm field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorKeyCustomAppAllOfProviderConfiguration) GetFcmOk() (*AuthenticatorKeyCustomAppAllOfProviderConfigurationFcm, bool) {
-	if o == nil || o.Fcm == nil {
+	if o == nil || IsNil(o.Fcm) {
 		return nil, false
 	}
 	return o.Fcm, true
@@ -105,7 +108,7 @@ func (o *AuthenticatorKeyCustomAppAllOfProviderConfiguration) GetFcmOk() (*Authe
 
 // HasFcm returns a boolean if a field has been set.
 func (o *AuthenticatorKeyCustomAppAllOfProviderConfiguration) HasFcm() bool {
-	if o != nil && o.Fcm != nil {
+	if o != nil && !IsNil(o.Fcm) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *AuthenticatorKeyCustomAppAllOfProviderConfiguration) SetFcm(v Authentic
 }
 
 func (o AuthenticatorKeyCustomAppAllOfProviderConfiguration) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorKeyCustomAppAllOfProviderConfiguration) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Apns != nil {
+	if !IsNil(o.Apns) {
 		toSerialize["apns"] = o.Apns
 	}
-	if o.Fcm != nil {
+	if !IsNil(o.Fcm) {
 		toSerialize["fcm"] = o.Fcm
 	}
 
@@ -130,28 +141,26 @@ func (o AuthenticatorKeyCustomAppAllOfProviderConfiguration) MarshalJSON() ([]by
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorKeyCustomAppAllOfProviderConfiguration) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorKeyCustomAppAllOfProviderConfiguration) UnmarshalJSON(data []byte) (err error) {
 	varAuthenticatorKeyCustomAppAllOfProviderConfiguration := _AuthenticatorKeyCustomAppAllOfProviderConfiguration{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorKeyCustomAppAllOfProviderConfiguration)
-	if err == nil {
-		*o = AuthenticatorKeyCustomAppAllOfProviderConfiguration(varAuthenticatorKeyCustomAppAllOfProviderConfiguration)
-	} else {
+	err = json.Unmarshal(data, &varAuthenticatorKeyCustomAppAllOfProviderConfiguration)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthenticatorKeyCustomAppAllOfProviderConfiguration(varAuthenticatorKeyCustomAppAllOfProviderConfiguration)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "apns")
 		delete(additionalProperties, "fcm")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableAuthenticatorKeyCustomAppAllOfProviderConfiguration) UnmarshalJ
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

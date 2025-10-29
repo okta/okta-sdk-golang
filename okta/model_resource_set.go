@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -28,19 +28,22 @@ import (
 	"time"
 )
 
+// checks if the ResourceSet type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceSet{}
+
 // ResourceSet struct for ResourceSet
 type ResourceSet struct {
 	// Timestamp when the role was created
 	Created *time.Time `json:"created,omitempty"`
-	// Description of the Resource Set
+	// Description of the resource set
 	Description *string `json:"description,omitempty"`
-	// Unique key for the role
+	// Unique ID for the resource set object
 	Id *string `json:"id,omitempty"`
-	// Unique label for the Resource Set
+	// Unique label for the resource set
 	Label *string `json:"label,omitempty"`
 	// Timestamp when the role was last updated
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Links *ResourceSetLinks `json:"_links,omitempty"`
+	LastUpdated          *time.Time        `json:"lastUpdated,omitempty"`
+	Links                *ResourceSetLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -65,7 +68,7 @@ func NewResourceSetWithDefaults() *ResourceSet {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *ResourceSet) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -75,7 +78,7 @@ func (o *ResourceSet) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSet) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -83,7 +86,7 @@ func (o *ResourceSet) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *ResourceSet) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -97,7 +100,7 @@ func (o *ResourceSet) SetCreated(v time.Time) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *ResourceSet) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -107,7 +110,7 @@ func (o *ResourceSet) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSet) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -115,7 +118,7 @@ func (o *ResourceSet) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *ResourceSet) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -129,7 +132,7 @@ func (o *ResourceSet) SetDescription(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *ResourceSet) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -139,7 +142,7 @@ func (o *ResourceSet) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSet) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -147,7 +150,7 @@ func (o *ResourceSet) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *ResourceSet) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -161,7 +164,7 @@ func (o *ResourceSet) SetId(v string) {
 
 // GetLabel returns the Label field value if set, zero value otherwise.
 func (o *ResourceSet) GetLabel() string {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		var ret string
 		return ret
 	}
@@ -171,7 +174,7 @@ func (o *ResourceSet) GetLabel() string {
 // GetLabelOk returns a tuple with the Label field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSet) GetLabelOk() (*string, bool) {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		return nil, false
 	}
 	return o.Label, true
@@ -179,7 +182,7 @@ func (o *ResourceSet) GetLabelOk() (*string, bool) {
 
 // HasLabel returns a boolean if a field has been set.
 func (o *ResourceSet) HasLabel() bool {
-	if o != nil && o.Label != nil {
+	if o != nil && !IsNil(o.Label) {
 		return true
 	}
 
@@ -193,7 +196,7 @@ func (o *ResourceSet) SetLabel(v string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *ResourceSet) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -203,7 +206,7 @@ func (o *ResourceSet) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSet) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -211,7 +214,7 @@ func (o *ResourceSet) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *ResourceSet) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -225,7 +228,7 @@ func (o *ResourceSet) SetLastUpdated(v time.Time) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *ResourceSet) GetLinks() ResourceSetLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret ResourceSetLinks
 		return ret
 	}
@@ -235,7 +238,7 @@ func (o *ResourceSet) GetLinks() ResourceSetLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSet) GetLinksOk() (*ResourceSetLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -243,7 +246,7 @@ func (o *ResourceSet) GetLinksOk() (*ResourceSetLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *ResourceSet) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -256,23 +259,31 @@ func (o *ResourceSet) SetLinks(v ResourceSetLinks) {
 }
 
 func (o ResourceSet) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ResourceSet) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Created != nil {
+	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Label != nil {
+	if !IsNil(o.Label) {
 		toSerialize["label"] = o.Label
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["lastUpdated"] = o.LastUpdated
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -280,23 +291,23 @@ func (o ResourceSet) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResourceSet) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ResourceSet) UnmarshalJSON(data []byte) (err error) {
 	varResourceSet := _ResourceSet{}
 
-	err = json.Unmarshal(bytes, &varResourceSet)
-	if err == nil {
-		*o = ResourceSet(varResourceSet)
-	} else {
+	err = json.Unmarshal(data, &varResourceSet)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ResourceSet(varResourceSet)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "id")
@@ -304,8 +315,6 @@ func (o *ResourceSet) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "lastUpdated")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -346,4 +355,3 @@ func (v *NullableResourceSet) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

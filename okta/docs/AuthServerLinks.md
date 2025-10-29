@@ -5,12 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Self** | Pointer to [**HrefObjectSelfLink**](HrefObjectSelfLink.md) |  | [optional] 
-**Claims** | Pointer to [**AuthServerLinksAllOfClaims**](AuthServerLinksAllOfClaims.md) |  | [optional] 
+**Claims** | Pointer to [**HrefObject**](HrefObject.md) | Link to the authorization server claims | [optional] 
 **Deactivate** | Pointer to [**HrefObjectDeactivateLink**](HrefObjectDeactivateLink.md) |  | [optional] 
 **Metadata** | Pointer to [**[]HrefObject**](HrefObject.md) | Link to the authorization server metadata | [optional] 
-**Policies** | Pointer to [**AuthServerLinksAllOfPolicies**](AuthServerLinksAllOfPolicies.md) |  | [optional] 
-**RotateKey** | Pointer to [**AuthServerLinksAllOfRotateKey**](AuthServerLinksAllOfRotateKey.md) |  | [optional] 
-**Scopes** | Pointer to [**AuthServerLinksAllOfScopes**](AuthServerLinksAllOfScopes.md) |  | [optional] 
+**Policies** | Pointer to [**HrefObject**](HrefObject.md) | Link to the authorization server policies | [optional] 
+**RotateKey** | Pointer to [**HrefObject**](HrefObject.md) | Link to the authorization server key rotation | [optional] 
+**Scopes** | Pointer to [**HrefObject**](HrefObject.md) | Link to the authorization server scopes | [optional] 
 
 ## Methods
 
@@ -58,20 +58,20 @@ HasSelf returns a boolean if a field has been set.
 
 ### GetClaims
 
-`func (o *AuthServerLinks) GetClaims() AuthServerLinksAllOfClaims`
+`func (o *AuthServerLinks) GetClaims() HrefObject`
 
 GetClaims returns the Claims field if non-nil, zero value otherwise.
 
 ### GetClaimsOk
 
-`func (o *AuthServerLinks) GetClaimsOk() (*AuthServerLinksAllOfClaims, bool)`
+`func (o *AuthServerLinks) GetClaimsOk() (*HrefObject, bool)`
 
 GetClaimsOk returns a tuple with the Claims field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetClaims
 
-`func (o *AuthServerLinks) SetClaims(v AuthServerLinksAllOfClaims)`
+`func (o *AuthServerLinks) SetClaims(v HrefObject)`
 
 SetClaims sets Claims field to given value.
 
@@ -133,20 +133,20 @@ HasMetadata returns a boolean if a field has been set.
 
 ### GetPolicies
 
-`func (o *AuthServerLinks) GetPolicies() AuthServerLinksAllOfPolicies`
+`func (o *AuthServerLinks) GetPolicies() HrefObject`
 
 GetPolicies returns the Policies field if non-nil, zero value otherwise.
 
 ### GetPoliciesOk
 
-`func (o *AuthServerLinks) GetPoliciesOk() (*AuthServerLinksAllOfPolicies, bool)`
+`func (o *AuthServerLinks) GetPoliciesOk() (*HrefObject, bool)`
 
 GetPoliciesOk returns a tuple with the Policies field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPolicies
 
-`func (o *AuthServerLinks) SetPolicies(v AuthServerLinksAllOfPolicies)`
+`func (o *AuthServerLinks) SetPolicies(v HrefObject)`
 
 SetPolicies sets Policies field to given value.
 
@@ -158,20 +158,20 @@ HasPolicies returns a boolean if a field has been set.
 
 ### GetRotateKey
 
-`func (o *AuthServerLinks) GetRotateKey() AuthServerLinksAllOfRotateKey`
+`func (o *AuthServerLinks) GetRotateKey() HrefObject`
 
 GetRotateKey returns the RotateKey field if non-nil, zero value otherwise.
 
 ### GetRotateKeyOk
 
-`func (o *AuthServerLinks) GetRotateKeyOk() (*AuthServerLinksAllOfRotateKey, bool)`
+`func (o *AuthServerLinks) GetRotateKeyOk() (*HrefObject, bool)`
 
 GetRotateKeyOk returns a tuple with the RotateKey field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRotateKey
 
-`func (o *AuthServerLinks) SetRotateKey(v AuthServerLinksAllOfRotateKey)`
+`func (o *AuthServerLinks) SetRotateKey(v HrefObject)`
 
 SetRotateKey sets RotateKey field to given value.
 
@@ -183,20 +183,20 @@ HasRotateKey returns a boolean if a field has been set.
 
 ### GetScopes
 
-`func (o *AuthServerLinks) GetScopes() AuthServerLinksAllOfScopes`
+`func (o *AuthServerLinks) GetScopes() HrefObject`
 
 GetScopes returns the Scopes field if non-nil, zero value otherwise.
 
 ### GetScopesOk
 
-`func (o *AuthServerLinks) GetScopesOk() (*AuthServerLinksAllOfScopes, bool)`
+`func (o *AuthServerLinks) GetScopesOk() (*HrefObject, bool)`
 
 GetScopesOk returns a tuple with the Scopes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScopes
 
-`func (o *AuthServerLinks) SetScopes(v AuthServerLinksAllOfScopes)`
+`func (o *AuthServerLinks) SetScopes(v HrefObject)`
 
 SetScopes sets Scopes field to given value.
 

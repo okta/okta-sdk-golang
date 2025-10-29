@@ -4,9 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**IdentityStoreId** | Pointer to **string** |  | [optional] 
-**ImplicitAssignment** | Pointer to **bool** |  | [optional] 
-**InlineHookId** | Pointer to **string** |  | [optional] 
+**EmOptInStatus** | Pointer to **string** | The Governance Engine opt-in status for the app | [optional] [readonly] 
+**IdentityStoreId** | Pointer to **string** | Identifies an additional identity store app, if your app supports it. The &#x60;identityStoreId&#x60; value must be a valid identity store app ID. This identity store app must be created in the same org as your app. | [optional] 
+**ImplicitAssignment** | Pointer to **bool** | Controls whether Okta automatically assigns users to the app based on the user&#39;s role or group membership. | [optional] 
+**InlineHookId** | Pointer to **string** | Identifier of an inline hook. Inline hooks are outbound calls from Okta to your own custom code, triggered at specific points in Okta process flows. They allow you to integrate custom functionality into those flows. See [Inline hooks](/openapi/okta-management/management/tag/InlineHook/). | [optional] 
 **Notes** | Pointer to [**ApplicationSettingsNotes**](ApplicationSettingsNotes.md) |  | [optional] 
 **Notifications** | Pointer to [**ApplicationSettingsNotifications**](ApplicationSettingsNotifications.md) |  | [optional] 
 **App** | Pointer to **map[string]interface{}** |  | [optional] 
@@ -30,6 +31,31 @@ will change when the set of required properties is changed
 NewSaml11ApplicationSettingsWithDefaults instantiates a new Saml11ApplicationSettings object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetEmOptInStatus
+
+`func (o *Saml11ApplicationSettings) GetEmOptInStatus() string`
+
+GetEmOptInStatus returns the EmOptInStatus field if non-nil, zero value otherwise.
+
+### GetEmOptInStatusOk
+
+`func (o *Saml11ApplicationSettings) GetEmOptInStatusOk() (*string, bool)`
+
+GetEmOptInStatusOk returns a tuple with the EmOptInStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEmOptInStatus
+
+`func (o *Saml11ApplicationSettings) SetEmOptInStatus(v string)`
+
+SetEmOptInStatus sets EmOptInStatus field to given value.
+
+### HasEmOptInStatus
+
+`func (o *Saml11ApplicationSettings) HasEmOptInStatus() bool`
+
+HasEmOptInStatus returns a boolean if a field has been set.
 
 ### GetIdentityStoreId
 

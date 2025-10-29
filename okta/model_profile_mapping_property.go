@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the ProfileMappingProperty type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ProfileMappingProperty{}
+
 // ProfileMappingProperty A target property, in string form, that maps to a valid [JSON Schema Draft](https://tools.ietf.org/html/draft-zyp-json-schema-04) document.
 type ProfileMappingProperty struct {
-	// Combination or single source properties that are mapped to the target property
+	// Combination or single source properties that are mapped to the target property. See [Okta Expression Language](https://developer.okta.com/docs/reference/okta-expression-language/).
 	Expression *string `json:"expression,omitempty"`
-	// Indicates whether to update target properties for user create and update or just for user create.  Having a pushStatus of `PUSH` causes properties in the target to be updated on create and update. Having a pushStatus of `DONT_PUSH` causes properties in the target to be updated only on create.
-	PushStatus *string `json:"pushStatus,omitempty"`
+	// Indicates whether to update target properties for user create and update or just for user create.  - Having a pushStatus of `PUSH` causes properties in the target to be updated on create and update. - Having a pushStatus of `DONT_PUSH` causes properties in the target to be updated only on create.
+	PushStatus           *string `json:"pushStatus,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewProfileMappingPropertyWithDefaults() *ProfileMappingProperty {
 
 // GetExpression returns the Expression field value if set, zero value otherwise.
 func (o *ProfileMappingProperty) GetExpression() string {
-	if o == nil || o.Expression == nil {
+	if o == nil || IsNil(o.Expression) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *ProfileMappingProperty) GetExpression() string {
 // GetExpressionOk returns a tuple with the Expression field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProfileMappingProperty) GetExpressionOk() (*string, bool) {
-	if o == nil || o.Expression == nil {
+	if o == nil || IsNil(o.Expression) {
 		return nil, false
 	}
 	return o.Expression, true
@@ -75,7 +78,7 @@ func (o *ProfileMappingProperty) GetExpressionOk() (*string, bool) {
 
 // HasExpression returns a boolean if a field has been set.
 func (o *ProfileMappingProperty) HasExpression() bool {
-	if o != nil && o.Expression != nil {
+	if o != nil && !IsNil(o.Expression) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *ProfileMappingProperty) SetExpression(v string) {
 
 // GetPushStatus returns the PushStatus field value if set, zero value otherwise.
 func (o *ProfileMappingProperty) GetPushStatus() string {
-	if o == nil || o.PushStatus == nil {
+	if o == nil || IsNil(o.PushStatus) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *ProfileMappingProperty) GetPushStatus() string {
 // GetPushStatusOk returns a tuple with the PushStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProfileMappingProperty) GetPushStatusOk() (*string, bool) {
-	if o == nil || o.PushStatus == nil {
+	if o == nil || IsNil(o.PushStatus) {
 		return nil, false
 	}
 	return o.PushStatus, true
@@ -107,7 +110,7 @@ func (o *ProfileMappingProperty) GetPushStatusOk() (*string, bool) {
 
 // HasPushStatus returns a boolean if a field has been set.
 func (o *ProfileMappingProperty) HasPushStatus() bool {
-	if o != nil && o.PushStatus != nil {
+	if o != nil && !IsNil(o.PushStatus) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *ProfileMappingProperty) SetPushStatus(v string) {
 }
 
 func (o ProfileMappingProperty) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ProfileMappingProperty) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Expression != nil {
+	if !IsNil(o.Expression) {
 		toSerialize["expression"] = o.Expression
 	}
-	if o.PushStatus != nil {
+	if !IsNil(o.PushStatus) {
 		toSerialize["pushStatus"] = o.PushStatus
 	}
 
@@ -132,28 +143,26 @@ func (o ProfileMappingProperty) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ProfileMappingProperty) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ProfileMappingProperty) UnmarshalJSON(data []byte) (err error) {
 	varProfileMappingProperty := _ProfileMappingProperty{}
 
-	err = json.Unmarshal(bytes, &varProfileMappingProperty)
-	if err == nil {
-		*o = ProfileMappingProperty(varProfileMappingProperty)
-	} else {
+	err = json.Unmarshal(data, &varProfileMappingProperty)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ProfileMappingProperty(varProfileMappingProperty)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "expression")
 		delete(additionalProperties, "pushStatus")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableProfileMappingProperty) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

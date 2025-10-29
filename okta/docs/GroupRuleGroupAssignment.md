@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**GroupIds** | Pointer to **[]string** |  | [optional] 
+**GroupIds** | Pointer to **[]string** | Array of &#x60;groupIds&#x60; to which users are added | [optional] 
 
 ## Methods
 

@@ -4,27 +4,29 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**SignInLabel** | Pointer to **string** |  | [optional] 
-**UsernameLabel** | Pointer to **string** |  | [optional] 
-**UsernameInfoTip** | Pointer to **string** |  | [optional] 
-**PasswordLabel** | Pointer to **string** |  | [optional] 
-**PasswordInfoTip** | Pointer to **string** |  | [optional] 
-**ShowPasswordVisibilityToggle** | Pointer to **bool** |  | [optional] 
-**ShowUserIdentifier** | Pointer to **bool** |  | [optional] 
-**ForgotPasswordLabel** | Pointer to **string** |  | [optional] 
-**ForgotPasswordUrl** | Pointer to **string** |  | [optional] 
-**UnlockAccountLabel** | Pointer to **string** |  | [optional] 
-**UnlockAccountUrl** | Pointer to **string** |  | [optional] 
-**HelpLabel** | Pointer to **string** |  | [optional] 
-**HelpUrl** | Pointer to **string** |  | [optional] 
-**CustomLink1Label** | Pointer to **string** |  | [optional] 
-**CustomLink1Url** | Pointer to **string** |  | [optional] 
-**CustomLink2Label** | Pointer to **string** |  | [optional] 
-**CustomLink2Url** | Pointer to **string** |  | [optional] 
-**AuthenticatorPageCustomLinkLabel** | Pointer to **string** |  | [optional] 
-**AuthenticatorPageCustomLinkUrl** | Pointer to **string** |  | [optional] 
-**ClassicRecoveryFlowEmailOrUsernameLabel** | Pointer to **string** |  | [optional] 
-**WidgetGeneration** | Pointer to **string** |  | [optional] 
+**SignInLabel** | Pointer to **string** | The label for the sign in widget | [optional] 
+**UsernameLabel** | Pointer to **string** | The label for the username field | [optional] 
+**UsernameInfoTip** | Pointer to **string** | The label for the username information tip | [optional] 
+**PasswordLabel** | Pointer to **string** | The label for the password field | [optional] 
+**PasswordInfoTip** | Pointer to **string** | The label for the password information tip | [optional] 
+**ShowPasswordVisibilityToggle** | Pointer to **bool** | Allows users to see their passwords as they type | [optional] 
+**ShowUserIdentifier** | Pointer to **bool** | Allows the user&#39;s identifier to appear on authentication and enrollment pages | [optional] 
+**ForgotPasswordLabel** | Pointer to **string** | The label for the forgot password page | [optional] 
+**ForgotPasswordUrl** | Pointer to **string** | The forgot password URL | [optional] 
+**UnlockAccountLabel** | Pointer to **string** | The label for the unlock account link | [optional] 
+**UnlockAccountUrl** | Pointer to **string** | The unlock account URL | [optional] 
+**HelpLabel** | Pointer to **string** | The label for the help link | [optional] 
+**HelpUrl** | Pointer to **string** | The help link URL | [optional] 
+**CustomLink1Label** | Pointer to **string** | The label for the first custom link | [optional] 
+**CustomLink1Url** | Pointer to **string** | The URL for the first custom link | [optional] 
+**CustomLink2Label** | Pointer to **string** | The label for the second custom link | [optional] 
+**CustomLink2Url** | Pointer to **string** | The URL for the second custom link | [optional] 
+**AuthenticatorPageCustomLinkLabel** | Pointer to **string** | The label for the authenticator page custom link | [optional] 
+**AuthenticatorPageCustomLinkUrl** | Pointer to **string** | The URL for the authenticator page custom link | [optional] 
+**ClassicRecoveryFlowEmailOrUsernameLabel** | Pointer to **string** | The label for the username field in the classic recovery flow | [optional] 
+**WidgetGeneration** | Pointer to **string** | The generation of the Sign-in Widget | [optional] 
+**PostAuthKeepMeSignedInPrompt** | Pointer to [**PostAuthKeepMeSignedInPrompt**](PostAuthKeepMeSignedInPrompt.md) |  | [optional] 
+**ClassicFooterHelpTitle** | Pointer to **string** | The title of the footer link on the sign-in page. Only applicable for Classic Engine orgs. | [optional] 
 
 ## Methods
 
@@ -569,6 +571,56 @@ SetWidgetGeneration sets WidgetGeneration field to given value.
 `func (o *SignInPageAllOfWidgetCustomizations) HasWidgetGeneration() bool`
 
 HasWidgetGeneration returns a boolean if a field has been set.
+
+### GetPostAuthKeepMeSignedInPrompt
+
+`func (o *SignInPageAllOfWidgetCustomizations) GetPostAuthKeepMeSignedInPrompt() PostAuthKeepMeSignedInPrompt`
+
+GetPostAuthKeepMeSignedInPrompt returns the PostAuthKeepMeSignedInPrompt field if non-nil, zero value otherwise.
+
+### GetPostAuthKeepMeSignedInPromptOk
+
+`func (o *SignInPageAllOfWidgetCustomizations) GetPostAuthKeepMeSignedInPromptOk() (*PostAuthKeepMeSignedInPrompt, bool)`
+
+GetPostAuthKeepMeSignedInPromptOk returns a tuple with the PostAuthKeepMeSignedInPrompt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPostAuthKeepMeSignedInPrompt
+
+`func (o *SignInPageAllOfWidgetCustomizations) SetPostAuthKeepMeSignedInPrompt(v PostAuthKeepMeSignedInPrompt)`
+
+SetPostAuthKeepMeSignedInPrompt sets PostAuthKeepMeSignedInPrompt field to given value.
+
+### HasPostAuthKeepMeSignedInPrompt
+
+`func (o *SignInPageAllOfWidgetCustomizations) HasPostAuthKeepMeSignedInPrompt() bool`
+
+HasPostAuthKeepMeSignedInPrompt returns a boolean if a field has been set.
+
+### GetClassicFooterHelpTitle
+
+`func (o *SignInPageAllOfWidgetCustomizations) GetClassicFooterHelpTitle() string`
+
+GetClassicFooterHelpTitle returns the ClassicFooterHelpTitle field if non-nil, zero value otherwise.
+
+### GetClassicFooterHelpTitleOk
+
+`func (o *SignInPageAllOfWidgetCustomizations) GetClassicFooterHelpTitleOk() (*string, bool)`
+
+GetClassicFooterHelpTitleOk returns a tuple with the ClassicFooterHelpTitle field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClassicFooterHelpTitle
+
+`func (o *SignInPageAllOfWidgetCustomizations) SetClassicFooterHelpTitle(v string)`
+
+SetClassicFooterHelpTitle sets ClassicFooterHelpTitle field to given value.
+
+### HasClassicFooterHelpTitle
+
+`func (o *SignInPageAllOfWidgetCustomizations) HasClassicFooterHelpTitle() bool`
+
+HasClassicFooterHelpTitle returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

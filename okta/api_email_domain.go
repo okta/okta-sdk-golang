@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -26,23 +26,22 @@ package okta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type EmailDomainAPI interface {
 
 	/*
-	CreateEmailDomain Create an Email Domain
+		CreateEmailDomain Create an email domain
 
-	Creates an Email Domain in your org
+		Creates an Email Domain in your org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateEmailDomainRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateEmailDomainRequest
 	*/
 	CreateEmailDomain(ctx context.Context) ApiCreateEmailDomainRequest
 
@@ -51,13 +50,13 @@ type EmailDomainAPI interface {
 	CreateEmailDomainExecute(r ApiCreateEmailDomainRequest) (*EmailDomainResponse, *APIResponse, error)
 
 	/*
-	DeleteEmailDomain Delete an Email Domain
+		DeleteEmailDomain Delete an email domain
 
-	Deletes an Email Domain by `emailDomainId`
+		Deletes an Email Domain by `emailDomainId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param emailDomainId
-	@return ApiDeleteEmailDomainRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param emailDomainId
+		@return ApiDeleteEmailDomainRequest
 	*/
 	DeleteEmailDomain(ctx context.Context, emailDomainId string) ApiDeleteEmailDomainRequest
 
@@ -65,13 +64,13 @@ type EmailDomainAPI interface {
 	DeleteEmailDomainExecute(r ApiDeleteEmailDomainRequest) (*APIResponse, error)
 
 	/*
-	GetEmailDomain Retrieve an Email Domain
+		GetEmailDomain Retrieve an email domain
 
-	Retrieves an Email Domain by `emailDomainId`
+		Retrieves an Email Domain by `emailDomainId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param emailDomainId
-	@return ApiGetEmailDomainRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param emailDomainId
+		@return ApiGetEmailDomainRequest
 	*/
 	GetEmailDomain(ctx context.Context, emailDomainId string) ApiGetEmailDomainRequest
 
@@ -80,12 +79,12 @@ type EmailDomainAPI interface {
 	GetEmailDomainExecute(r ApiGetEmailDomainRequest) (*EmailDomainResponseWithEmbedded, *APIResponse, error)
 
 	/*
-	ListEmailDomains List all Email Domains
+		ListEmailDomains List all email domains
 
-	Lists all the Email Domains in your org
+		Lists all the Email Domains in your org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListEmailDomainsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListEmailDomainsRequest
 	*/
 	ListEmailDomains(ctx context.Context) ApiListEmailDomainsRequest
 
@@ -94,13 +93,13 @@ type EmailDomainAPI interface {
 	ListEmailDomainsExecute(r ApiListEmailDomainsRequest) ([]EmailDomainResponseWithEmbedded, *APIResponse, error)
 
 	/*
-	ReplaceEmailDomain Replace an Email Domain
+		ReplaceEmailDomain Replace an email domain
 
-	Replaces associated username and sender display name by `emailDomainId`
+		Replaces associated username and sender display name by `emailDomainId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param emailDomainId
-	@return ApiReplaceEmailDomainRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param emailDomainId
+		@return ApiReplaceEmailDomainRequest
 	*/
 	ReplaceEmailDomain(ctx context.Context, emailDomainId string) ApiReplaceEmailDomainRequest
 
@@ -109,13 +108,13 @@ type EmailDomainAPI interface {
 	ReplaceEmailDomainExecute(r ApiReplaceEmailDomainRequest) (*EmailDomainResponse, *APIResponse, error)
 
 	/*
-	VerifyEmailDomain Verify an Email Domain
+		VerifyEmailDomain Verify an email domain
 
-	Verifies an Email Domain by `emailDomainId`
+		Verifies an Email Domain by `emailDomainId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param emailDomainId
-	@return ApiVerifyEmailDomainRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param emailDomainId
+		@return ApiVerifyEmailDomainRequest
 	*/
 	VerifyEmailDomain(ctx context.Context, emailDomainId string) ApiVerifyEmailDomainRequest
 
@@ -128,11 +127,11 @@ type EmailDomainAPI interface {
 type EmailDomainAPIService service
 
 type ApiCreateEmailDomainRequest struct {
-	ctx context.Context
-	ApiService EmailDomainAPI
+	ctx         context.Context
+	ApiService  EmailDomainAPI
 	emailDomain *EmailDomain
-	expand *[]string
-	retryCount int32
+	expand      *[]string
+	retryCount  int32
 }
 
 func (r ApiCreateEmailDomainRequest) EmailDomain(emailDomain EmailDomain) ApiCreateEmailDomainRequest {
@@ -151,23 +150,24 @@ func (r ApiCreateEmailDomainRequest) Execute() (*EmailDomainResponse, *APIRespon
 }
 
 /*
-CreateEmailDomain Create an Email Domain
+CreateEmailDomain Create an email domain
 
 Creates an Email Domain in your org
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateEmailDomainRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateEmailDomainRequest
 */
 func (a *EmailDomainAPIService) CreateEmailDomain(ctx context.Context) ApiCreateEmailDomainRequest {
 	return ApiCreateEmailDomainRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return EmailDomainResponse
+//
+//	@return EmailDomainResponse
 func (a *EmailDomainAPIService) CreateEmailDomainExecute(r ApiCreateEmailDomainRequest) (*EmailDomainResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -176,7 +176,7 @@ func (a *EmailDomainAPIService) CreateEmailDomainExecute(r ApiCreateEmailDomainR
 		localVarReturnValue  *EmailDomainResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -244,9 +244,9 @@ func (a *EmailDomainAPIService) CreateEmailDomainExecute(r ApiCreateEmailDomainR
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -328,17 +328,17 @@ func (a *EmailDomainAPIService) CreateEmailDomainExecute(r ApiCreateEmailDomainR
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteEmailDomainRequest struct {
-	ctx context.Context
-	ApiService EmailDomainAPI
+	ctx           context.Context
+	ApiService    EmailDomainAPI
 	emailDomainId string
-	expand *[]string
-	retryCount int32
+	expand        *[]string
+	retryCount    int32
 }
 
 // Specifies additional metadata to be included in the response
@@ -352,20 +352,20 @@ func (r ApiDeleteEmailDomainRequest) Execute() (*APIResponse, error) {
 }
 
 /*
-DeleteEmailDomain Delete an Email Domain
+DeleteEmailDomain Delete an email domain
 
 Deletes an Email Domain by `emailDomainId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param emailDomainId
- @return ApiDeleteEmailDomainRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param emailDomainId
+	@return ApiDeleteEmailDomainRequest
 */
 func (a *EmailDomainAPIService) DeleteEmailDomain(ctx context.Context, emailDomainId string) ApiDeleteEmailDomainRequest {
 	return ApiDeleteEmailDomainRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		emailDomainId: emailDomainId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -377,7 +377,7 @@ func (a *EmailDomainAPIService) DeleteEmailDomainExecute(r ApiDeleteEmailDomainR
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -441,9 +441,9 @@ func (a *EmailDomainAPIService) DeleteEmailDomainExecute(r ApiDeleteEmailDomainR
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -509,11 +509,11 @@ func (a *EmailDomainAPIService) DeleteEmailDomainExecute(r ApiDeleteEmailDomainR
 }
 
 type ApiGetEmailDomainRequest struct {
-	ctx context.Context
-	ApiService EmailDomainAPI
+	ctx           context.Context
+	ApiService    EmailDomainAPI
 	emailDomainId string
-	expand *[]string
-	retryCount int32
+	expand        *[]string
+	retryCount    int32
 }
 
 // Specifies additional metadata to be included in the response
@@ -527,25 +527,26 @@ func (r ApiGetEmailDomainRequest) Execute() (*EmailDomainResponseWithEmbedded, *
 }
 
 /*
-GetEmailDomain Retrieve an Email Domain
+GetEmailDomain Retrieve an email domain
 
 Retrieves an Email Domain by `emailDomainId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param emailDomainId
- @return ApiGetEmailDomainRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param emailDomainId
+	@return ApiGetEmailDomainRequest
 */
 func (a *EmailDomainAPIService) GetEmailDomain(ctx context.Context, emailDomainId string) ApiGetEmailDomainRequest {
 	return ApiGetEmailDomainRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		emailDomainId: emailDomainId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
 // Execute executes the request
-//  @return EmailDomainResponseWithEmbedded
+//
+//	@return EmailDomainResponseWithEmbedded
 func (a *EmailDomainAPIService) GetEmailDomainExecute(r ApiGetEmailDomainRequest) (*EmailDomainResponseWithEmbedded, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -554,7 +555,7 @@ func (a *EmailDomainAPIService) GetEmailDomainExecute(r ApiGetEmailDomainRequest
 		localVarReturnValue  *EmailDomainResponseWithEmbedded
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -618,9 +619,9 @@ func (a *EmailDomainAPIService) GetEmailDomainExecute(r ApiGetEmailDomainRequest
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -678,15 +679,15 @@ func (a *EmailDomainAPIService) GetEmailDomainExecute(r ApiGetEmailDomainRequest
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListEmailDomainsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService EmailDomainAPI
-	expand *[]string
+	expand     *[]string
 	retryCount int32
 }
 
@@ -701,23 +702,24 @@ func (r ApiListEmailDomainsRequest) Execute() ([]EmailDomainResponseWithEmbedded
 }
 
 /*
-ListEmailDomains List all Email Domains
+ListEmailDomains List all email domains
 
 Lists all the Email Domains in your org
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListEmailDomainsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListEmailDomainsRequest
 */
 func (a *EmailDomainAPIService) ListEmailDomains(ctx context.Context) ApiListEmailDomainsRequest {
 	return ApiListEmailDomainsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []EmailDomainResponseWithEmbedded
+//
+//	@return []EmailDomainResponseWithEmbedded
 func (a *EmailDomainAPIService) ListEmailDomainsExecute(r ApiListEmailDomainsRequest) ([]EmailDomainResponseWithEmbedded, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -726,7 +728,7 @@ func (a *EmailDomainAPIService) ListEmailDomainsExecute(r ApiListEmailDomainsReq
 		localVarReturnValue  []EmailDomainResponseWithEmbedded
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -789,9 +791,9 @@ func (a *EmailDomainAPIService) ListEmailDomainsExecute(r ApiListEmailDomainsReq
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -837,18 +839,18 @@ func (a *EmailDomainAPIService) ListEmailDomainsExecute(r ApiListEmailDomainsReq
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceEmailDomainRequest struct {
-	ctx context.Context
-	ApiService EmailDomainAPI
-	emailDomainId string
+	ctx               context.Context
+	ApiService        EmailDomainAPI
+	emailDomainId     string
 	updateEmailDomain *UpdateEmailDomain
-	expand *[]string
-	retryCount int32
+	expand            *[]string
+	retryCount        int32
 }
 
 func (r ApiReplaceEmailDomainRequest) UpdateEmailDomain(updateEmailDomain UpdateEmailDomain) ApiReplaceEmailDomainRequest {
@@ -867,25 +869,26 @@ func (r ApiReplaceEmailDomainRequest) Execute() (*EmailDomainResponse, *APIRespo
 }
 
 /*
-ReplaceEmailDomain Replace an Email Domain
+ReplaceEmailDomain Replace an email domain
 
 Replaces associated username and sender display name by `emailDomainId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param emailDomainId
- @return ApiReplaceEmailDomainRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param emailDomainId
+	@return ApiReplaceEmailDomainRequest
 */
 func (a *EmailDomainAPIService) ReplaceEmailDomain(ctx context.Context, emailDomainId string) ApiReplaceEmailDomainRequest {
 	return ApiReplaceEmailDomainRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		emailDomainId: emailDomainId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
 // Execute executes the request
-//  @return EmailDomainResponse
+//
+//	@return EmailDomainResponse
 func (a *EmailDomainAPIService) ReplaceEmailDomainExecute(r ApiReplaceEmailDomainRequest) (*EmailDomainResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -894,7 +897,7 @@ func (a *EmailDomainAPIService) ReplaceEmailDomainExecute(r ApiReplaceEmailDomai
 		localVarReturnValue  *EmailDomainResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -963,9 +966,9 @@ func (a *EmailDomainAPIService) ReplaceEmailDomainExecute(r ApiReplaceEmailDomai
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1035,16 +1038,16 @@ func (a *EmailDomainAPIService) ReplaceEmailDomainExecute(r ApiReplaceEmailDomai
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiVerifyEmailDomainRequest struct {
-	ctx context.Context
-	ApiService EmailDomainAPI
+	ctx           context.Context
+	ApiService    EmailDomainAPI
 	emailDomainId string
-	retryCount int32
+	retryCount    int32
 }
 
 func (r ApiVerifyEmailDomainRequest) Execute() (*EmailDomainResponse, *APIResponse, error) {
@@ -1052,25 +1055,26 @@ func (r ApiVerifyEmailDomainRequest) Execute() (*EmailDomainResponse, *APIRespon
 }
 
 /*
-VerifyEmailDomain Verify an Email Domain
+VerifyEmailDomain Verify an email domain
 
 Verifies an Email Domain by `emailDomainId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param emailDomainId
- @return ApiVerifyEmailDomainRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param emailDomainId
+	@return ApiVerifyEmailDomainRequest
 */
 func (a *EmailDomainAPIService) VerifyEmailDomain(ctx context.Context, emailDomainId string) ApiVerifyEmailDomainRequest {
 	return ApiVerifyEmailDomainRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		emailDomainId: emailDomainId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
 // Execute executes the request
-//  @return EmailDomainResponse
+//
+//	@return EmailDomainResponse
 func (a *EmailDomainAPIService) VerifyEmailDomainExecute(r ApiVerifyEmailDomainRequest) (*EmailDomainResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1079,7 +1083,7 @@ func (a *EmailDomainAPIService) VerifyEmailDomainExecute(r ApiVerifyEmailDomainR
 		localVarReturnValue  *EmailDomainResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1140,9 +1144,9 @@ func (a *EmailDomainAPIService) VerifyEmailDomainExecute(r ApiVerifyEmailDomainR
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1212,7 +1216,7 @@ func (a *EmailDomainAPIService) VerifyEmailDomainExecute(r ApiVerifyEmailDomainR
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

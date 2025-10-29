@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
-// ProvisioningConditions struct for ProvisioningConditions
+// checks if the ProvisioningConditions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ProvisioningConditions{}
+
+// ProvisioningConditions Conditional behaviors for an IdP user during authentication
 type ProvisioningConditions struct {
-	Deprovisioned *ProvisioningDeprovisionedCondition `json:"deprovisioned,omitempty"`
-	Suspended *ProvisioningSuspendedCondition `json:"suspended,omitempty"`
+	Deprovisioned        *ProvisioningDeprovisionedCondition `json:"deprovisioned,omitempty"`
+	Suspended            *ProvisioningSuspendedCondition     `json:"suspended,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewProvisioningConditionsWithDefaults() *ProvisioningConditions {
 
 // GetDeprovisioned returns the Deprovisioned field value if set, zero value otherwise.
 func (o *ProvisioningConditions) GetDeprovisioned() ProvisioningDeprovisionedCondition {
-	if o == nil || o.Deprovisioned == nil {
+	if o == nil || IsNil(o.Deprovisioned) {
 		var ret ProvisioningDeprovisionedCondition
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *ProvisioningConditions) GetDeprovisioned() ProvisioningDeprovisionedCon
 // GetDeprovisionedOk returns a tuple with the Deprovisioned field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProvisioningConditions) GetDeprovisionedOk() (*ProvisioningDeprovisionedCondition, bool) {
-	if o == nil || o.Deprovisioned == nil {
+	if o == nil || IsNil(o.Deprovisioned) {
 		return nil, false
 	}
 	return o.Deprovisioned, true
@@ -73,7 +76,7 @@ func (o *ProvisioningConditions) GetDeprovisionedOk() (*ProvisioningDeprovisione
 
 // HasDeprovisioned returns a boolean if a field has been set.
 func (o *ProvisioningConditions) HasDeprovisioned() bool {
-	if o != nil && o.Deprovisioned != nil {
+	if o != nil && !IsNil(o.Deprovisioned) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *ProvisioningConditions) SetDeprovisioned(v ProvisioningDeprovisionedCon
 
 // GetSuspended returns the Suspended field value if set, zero value otherwise.
 func (o *ProvisioningConditions) GetSuspended() ProvisioningSuspendedCondition {
-	if o == nil || o.Suspended == nil {
+	if o == nil || IsNil(o.Suspended) {
 		var ret ProvisioningSuspendedCondition
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *ProvisioningConditions) GetSuspended() ProvisioningSuspendedCondition {
 // GetSuspendedOk returns a tuple with the Suspended field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProvisioningConditions) GetSuspendedOk() (*ProvisioningSuspendedCondition, bool) {
-	if o == nil || o.Suspended == nil {
+	if o == nil || IsNil(o.Suspended) {
 		return nil, false
 	}
 	return o.Suspended, true
@@ -105,7 +108,7 @@ func (o *ProvisioningConditions) GetSuspendedOk() (*ProvisioningSuspendedConditi
 
 // HasSuspended returns a boolean if a field has been set.
 func (o *ProvisioningConditions) HasSuspended() bool {
-	if o != nil && o.Suspended != nil {
+	if o != nil && !IsNil(o.Suspended) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *ProvisioningConditions) SetSuspended(v ProvisioningSuspendedCondition) 
 }
 
 func (o ProvisioningConditions) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ProvisioningConditions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Deprovisioned != nil {
+	if !IsNil(o.Deprovisioned) {
 		toSerialize["deprovisioned"] = o.Deprovisioned
 	}
-	if o.Suspended != nil {
+	if !IsNil(o.Suspended) {
 		toSerialize["suspended"] = o.Suspended
 	}
 
@@ -130,28 +141,26 @@ func (o ProvisioningConditions) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ProvisioningConditions) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ProvisioningConditions) UnmarshalJSON(data []byte) (err error) {
 	varProvisioningConditions := _ProvisioningConditions{}
 
-	err = json.Unmarshal(bytes, &varProvisioningConditions)
-	if err == nil {
-		*o = ProvisioningConditions(varProvisioningConditions)
-	} else {
+	err = json.Unmarshal(data, &varProvisioningConditions)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ProvisioningConditions(varProvisioningConditions)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "deprovisioned")
 		delete(additionalProperties, "suspended")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableProvisioningConditions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -26,6 +26,9 @@ package okta
 import (
 	"encoding/json"
 )
+
+// checks if the AuthenticatorMethodTotpAllOfSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorMethodTotpAllOfSettings{}
 
 // AuthenticatorMethodTotpAllOfSettings struct for AuthenticatorMethodTotpAllOfSettings
 type AuthenticatorMethodTotpAllOfSettings struct {
@@ -36,7 +39,7 @@ type AuthenticatorMethodTotpAllOfSettings struct {
 	// HMAC algorithm
 	Algorithm *string `json:"algorithm,omitempty"`
 	// Number of digits in an OTP value
-	PassCodeLength *int32 `json:"passCodeLength,omitempty"`
+	PassCodeLength       *int32 `json:"passCodeLength,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewAuthenticatorMethodTotpAllOfSettingsWithDefaults() *AuthenticatorMethodT
 
 // GetTimeIntervalInSeconds returns the TimeIntervalInSeconds field value if set, zero value otherwise.
 func (o *AuthenticatorMethodTotpAllOfSettings) GetTimeIntervalInSeconds() int32 {
-	if o == nil || o.TimeIntervalInSeconds == nil {
+	if o == nil || IsNil(o.TimeIntervalInSeconds) {
 		var ret int32
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *AuthenticatorMethodTotpAllOfSettings) GetTimeIntervalInSeconds() int32 
 // GetTimeIntervalInSecondsOk returns a tuple with the TimeIntervalInSeconds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorMethodTotpAllOfSettings) GetTimeIntervalInSecondsOk() (*int32, bool) {
-	if o == nil || o.TimeIntervalInSeconds == nil {
+	if o == nil || IsNil(o.TimeIntervalInSeconds) {
 		return nil, false
 	}
 	return o.TimeIntervalInSeconds, true
@@ -79,7 +82,7 @@ func (o *AuthenticatorMethodTotpAllOfSettings) GetTimeIntervalInSecondsOk() (*in
 
 // HasTimeIntervalInSeconds returns a boolean if a field has been set.
 func (o *AuthenticatorMethodTotpAllOfSettings) HasTimeIntervalInSeconds() bool {
-	if o != nil && o.TimeIntervalInSeconds != nil {
+	if o != nil && !IsNil(o.TimeIntervalInSeconds) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *AuthenticatorMethodTotpAllOfSettings) SetTimeIntervalInSeconds(v int32)
 
 // GetEncoding returns the Encoding field value if set, zero value otherwise.
 func (o *AuthenticatorMethodTotpAllOfSettings) GetEncoding() string {
-	if o == nil || o.Encoding == nil {
+	if o == nil || IsNil(o.Encoding) {
 		var ret string
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *AuthenticatorMethodTotpAllOfSettings) GetEncoding() string {
 // GetEncodingOk returns a tuple with the Encoding field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorMethodTotpAllOfSettings) GetEncodingOk() (*string, bool) {
-	if o == nil || o.Encoding == nil {
+	if o == nil || IsNil(o.Encoding) {
 		return nil, false
 	}
 	return o.Encoding, true
@@ -111,7 +114,7 @@ func (o *AuthenticatorMethodTotpAllOfSettings) GetEncodingOk() (*string, bool) {
 
 // HasEncoding returns a boolean if a field has been set.
 func (o *AuthenticatorMethodTotpAllOfSettings) HasEncoding() bool {
-	if o != nil && o.Encoding != nil {
+	if o != nil && !IsNil(o.Encoding) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *AuthenticatorMethodTotpAllOfSettings) SetEncoding(v string) {
 
 // GetAlgorithm returns the Algorithm field value if set, zero value otherwise.
 func (o *AuthenticatorMethodTotpAllOfSettings) GetAlgorithm() string {
-	if o == nil || o.Algorithm == nil {
+	if o == nil || IsNil(o.Algorithm) {
 		var ret string
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *AuthenticatorMethodTotpAllOfSettings) GetAlgorithm() string {
 // GetAlgorithmOk returns a tuple with the Algorithm field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorMethodTotpAllOfSettings) GetAlgorithmOk() (*string, bool) {
-	if o == nil || o.Algorithm == nil {
+	if o == nil || IsNil(o.Algorithm) {
 		return nil, false
 	}
 	return o.Algorithm, true
@@ -143,7 +146,7 @@ func (o *AuthenticatorMethodTotpAllOfSettings) GetAlgorithmOk() (*string, bool) 
 
 // HasAlgorithm returns a boolean if a field has been set.
 func (o *AuthenticatorMethodTotpAllOfSettings) HasAlgorithm() bool {
-	if o != nil && o.Algorithm != nil {
+	if o != nil && !IsNil(o.Algorithm) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *AuthenticatorMethodTotpAllOfSettings) SetAlgorithm(v string) {
 
 // GetPassCodeLength returns the PassCodeLength field value if set, zero value otherwise.
 func (o *AuthenticatorMethodTotpAllOfSettings) GetPassCodeLength() int32 {
-	if o == nil || o.PassCodeLength == nil {
+	if o == nil || IsNil(o.PassCodeLength) {
 		var ret int32
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *AuthenticatorMethodTotpAllOfSettings) GetPassCodeLength() int32 {
 // GetPassCodeLengthOk returns a tuple with the PassCodeLength field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorMethodTotpAllOfSettings) GetPassCodeLengthOk() (*int32, bool) {
-	if o == nil || o.PassCodeLength == nil {
+	if o == nil || IsNil(o.PassCodeLength) {
 		return nil, false
 	}
 	return o.PassCodeLength, true
@@ -175,7 +178,7 @@ func (o *AuthenticatorMethodTotpAllOfSettings) GetPassCodeLengthOk() (*int32, bo
 
 // HasPassCodeLength returns a boolean if a field has been set.
 func (o *AuthenticatorMethodTotpAllOfSettings) HasPassCodeLength() bool {
-	if o != nil && o.PassCodeLength != nil {
+	if o != nil && !IsNil(o.PassCodeLength) {
 		return true
 	}
 
@@ -188,17 +191,25 @@ func (o *AuthenticatorMethodTotpAllOfSettings) SetPassCodeLength(v int32) {
 }
 
 func (o AuthenticatorMethodTotpAllOfSettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorMethodTotpAllOfSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.TimeIntervalInSeconds != nil {
+	if !IsNil(o.TimeIntervalInSeconds) {
 		toSerialize["timeIntervalInSeconds"] = o.TimeIntervalInSeconds
 	}
-	if o.Encoding != nil {
+	if !IsNil(o.Encoding) {
 		toSerialize["encoding"] = o.Encoding
 	}
-	if o.Algorithm != nil {
+	if !IsNil(o.Algorithm) {
 		toSerialize["algorithm"] = o.Algorithm
 	}
-	if o.PassCodeLength != nil {
+	if !IsNil(o.PassCodeLength) {
 		toSerialize["passCodeLength"] = o.PassCodeLength
 	}
 
@@ -206,30 +217,28 @@ func (o AuthenticatorMethodTotpAllOfSettings) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorMethodTotpAllOfSettings) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorMethodTotpAllOfSettings) UnmarshalJSON(data []byte) (err error) {
 	varAuthenticatorMethodTotpAllOfSettings := _AuthenticatorMethodTotpAllOfSettings{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorMethodTotpAllOfSettings)
-	if err == nil {
-		*o = AuthenticatorMethodTotpAllOfSettings(varAuthenticatorMethodTotpAllOfSettings)
-	} else {
+	err = json.Unmarshal(data, &varAuthenticatorMethodTotpAllOfSettings)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AuthenticatorMethodTotpAllOfSettings(varAuthenticatorMethodTotpAllOfSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "timeIntervalInSeconds")
 		delete(additionalProperties, "encoding")
 		delete(additionalProperties, "algorithm")
 		delete(additionalProperties, "passCodeLength")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -270,4 +279,3 @@ func (v *NullableAuthenticatorMethodTotpAllOfSettings) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

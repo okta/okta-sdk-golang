@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **GrantedScopes** | Pointer to **[]string** | The list of Okta management scopes granted to the API Service Integration instance. See [Okta management OAuth 2.0 scopes](/oauth2/#okta-admin-management). | [optional] 
 **Id** | Pointer to **string** | The ID of the API Service Integration instance | [optional] [readonly] 
 **Name** | Pointer to **string** | The name of the API service integration that corresponds with the &#x60;type&#x60; property. This is the full name of the API service integration listed in the Okta Integration Network (OIN) catalog. | [optional] [readonly] 
+**Properties** | Pointer to [**map[string]AppPropertiesValue**](AppPropertiesValue.md) | App instance properties | [optional] 
 **Type** | Pointer to **string** | The type of the API service integration. This string is an underscore-concatenated, lowercased API service integration name. For example, &#x60;my_api_log_integration&#x60;. | [optional] 
 **Links** | Pointer to [**APIServiceIntegrationLinks**](APIServiceIntegrationLinks.md) |  | [optional] 
 
@@ -181,6 +182,31 @@ SetName sets Name field to given value.
 `func (o *APIServiceIntegrationInstance) HasName() bool`
 
 HasName returns a boolean if a field has been set.
+
+### GetProperties
+
+`func (o *APIServiceIntegrationInstance) GetProperties() map[string]AppPropertiesValue`
+
+GetProperties returns the Properties field if non-nil, zero value otherwise.
+
+### GetPropertiesOk
+
+`func (o *APIServiceIntegrationInstance) GetPropertiesOk() (*map[string]AppPropertiesValue, bool)`
+
+GetPropertiesOk returns a tuple with the Properties field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProperties
+
+`func (o *APIServiceIntegrationInstance) SetProperties(v map[string]AppPropertiesValue)`
+
+SetProperties sets Properties field to given value.
+
+### HasProperties
+
+`func (o *APIServiceIntegrationInstance) HasProperties() bool`
+
+HasProperties returns a boolean if a field has been set.
 
 ### GetType
 

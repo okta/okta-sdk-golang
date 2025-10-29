@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserFactorPushTransaction type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserFactorPushTransaction{}
+
 // UserFactorPushTransaction struct for UserFactorPushTransaction
 type UserFactorPushTransaction struct {
 	// Result of the verification transaction
-	FactorResult *string `json:"factorResult,omitempty"`
+	FactorResult         *string `json:"factorResult,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewUserFactorPushTransactionWithDefaults() *UserFactorPushTransaction {
 
 // GetFactorResult returns the FactorResult field value if set, zero value otherwise.
 func (o *UserFactorPushTransaction) GetFactorResult() string {
-	if o == nil || o.FactorResult == nil {
+	if o == nil || IsNil(o.FactorResult) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *UserFactorPushTransaction) GetFactorResult() string {
 // GetFactorResultOk returns a tuple with the FactorResult field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorPushTransaction) GetFactorResultOk() (*string, bool) {
-	if o == nil || o.FactorResult == nil {
+	if o == nil || IsNil(o.FactorResult) {
 		return nil, false
 	}
 	return o.FactorResult, true
@@ -73,7 +76,7 @@ func (o *UserFactorPushTransaction) GetFactorResultOk() (*string, bool) {
 
 // HasFactorResult returns a boolean if a field has been set.
 func (o *UserFactorPushTransaction) HasFactorResult() bool {
-	if o != nil && o.FactorResult != nil {
+	if o != nil && !IsNil(o.FactorResult) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *UserFactorPushTransaction) SetFactorResult(v string) {
 }
 
 func (o UserFactorPushTransaction) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserFactorPushTransaction) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.FactorResult != nil {
+	if !IsNil(o.FactorResult) {
 		toSerialize["factorResult"] = o.FactorResult
 	}
 
@@ -95,27 +106,25 @@ func (o UserFactorPushTransaction) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserFactorPushTransaction) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserFactorPushTransaction) UnmarshalJSON(data []byte) (err error) {
 	varUserFactorPushTransaction := _UserFactorPushTransaction{}
 
-	err = json.Unmarshal(bytes, &varUserFactorPushTransaction)
-	if err == nil {
-		*o = UserFactorPushTransaction(varUserFactorPushTransaction)
-	} else {
+	err = json.Unmarshal(data, &varUserFactorPushTransaction)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserFactorPushTransaction(varUserFactorPushTransaction)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "factorResult")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableUserFactorPushTransaction) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

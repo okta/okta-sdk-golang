@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -29,10 +29,13 @@ import (
 	"strings"
 )
 
+// checks if the AuthenticatorKeyPhone type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticatorKeyPhone{}
+
 // AuthenticatorKeyPhone struct for AuthenticatorKeyPhone
 type AuthenticatorKeyPhone struct {
 	AuthenticatorSimple
-	Settings *AuthenticatorKeyPhoneAllOfSettings `json:"settings,omitempty"`
+	Settings             *AuthenticatorKeyPhoneAllOfSettings `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewAuthenticatorKeyPhoneWithDefaults() *AuthenticatorKeyPhone {
 
 // GetSettings returns the Settings field value if set, zero value otherwise.
 func (o *AuthenticatorKeyPhone) GetSettings() AuthenticatorKeyPhoneAllOfSettings {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		var ret AuthenticatorKeyPhoneAllOfSettings
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *AuthenticatorKeyPhone) GetSettings() AuthenticatorKeyPhoneAllOfSettings
 // GetSettingsOk returns a tuple with the Settings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticatorKeyPhone) GetSettingsOk() (*AuthenticatorKeyPhoneAllOfSettings, bool) {
-	if o == nil || o.Settings == nil {
+	if o == nil || IsNil(o.Settings) {
 		return nil, false
 	}
 	return o.Settings, true
@@ -75,7 +78,7 @@ func (o *AuthenticatorKeyPhone) GetSettingsOk() (*AuthenticatorKeyPhoneAllOfSett
 
 // HasSettings returns a boolean if a field has been set.
 func (o *AuthenticatorKeyPhone) HasSettings() bool {
-	if o != nil && o.Settings != nil {
+	if o != nil && !IsNil(o.Settings) {
 		return true
 	}
 
@@ -88,16 +91,24 @@ func (o *AuthenticatorKeyPhone) SetSettings(v AuthenticatorKeyPhoneAllOfSettings
 }
 
 func (o AuthenticatorKeyPhone) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthenticatorKeyPhone) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	serializedAuthenticatorSimple, errAuthenticatorSimple := json.Marshal(o.AuthenticatorSimple)
 	if errAuthenticatorSimple != nil {
-		return []byte{}, errAuthenticatorSimple
+		return map[string]interface{}{}, errAuthenticatorSimple
 	}
 	errAuthenticatorSimple = json.Unmarshal([]byte(serializedAuthenticatorSimple), &toSerialize)
 	if errAuthenticatorSimple != nil {
-		return []byte{}, errAuthenticatorSimple
+		return map[string]interface{}{}, errAuthenticatorSimple
 	}
-	if o.Settings != nil {
+	if !IsNil(o.Settings) {
 		toSerialize["settings"] = o.Settings
 	}
 
@@ -105,17 +116,17 @@ func (o AuthenticatorKeyPhone) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AuthenticatorKeyPhone) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AuthenticatorKeyPhone) UnmarshalJSON(data []byte) (err error) {
 	type AuthenticatorKeyPhoneWithoutEmbeddedStruct struct {
 		Settings *AuthenticatorKeyPhoneAllOfSettings `json:"settings,omitempty"`
 	}
 
 	varAuthenticatorKeyPhoneWithoutEmbeddedStruct := AuthenticatorKeyPhoneWithoutEmbeddedStruct{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorKeyPhoneWithoutEmbeddedStruct)
+	err = json.Unmarshal(data, &varAuthenticatorKeyPhoneWithoutEmbeddedStruct)
 	if err == nil {
 		varAuthenticatorKeyPhone := _AuthenticatorKeyPhone{}
 		varAuthenticatorKeyPhone.Settings = varAuthenticatorKeyPhoneWithoutEmbeddedStruct.Settings
@@ -126,7 +137,7 @@ func (o *AuthenticatorKeyPhone) UnmarshalJSON(bytes []byte) (err error) {
 
 	varAuthenticatorKeyPhone := _AuthenticatorKeyPhone{}
 
-	err = json.Unmarshal(bytes, &varAuthenticatorKeyPhone)
+	err = json.Unmarshal(data, &varAuthenticatorKeyPhone)
 	if err == nil {
 		o.AuthenticatorSimple = varAuthenticatorKeyPhone.AuthenticatorSimple
 	} else {
@@ -135,8 +146,7 @@ func (o *AuthenticatorKeyPhone) UnmarshalJSON(bytes []byte) (err error) {
 
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "settings")
 
 		// remove fields from embedded structs
@@ -158,8 +168,6 @@ func (o *AuthenticatorKeyPhone) UnmarshalJSON(bytes []byte) (err error) {
 		}
 
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -200,4 +208,3 @@ func (v *NullableAuthenticatorKeyPhone) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **GrantedScopes** | **[]string** | The list of Okta management scopes granted to the API Service Integration instance. See [Okta management OAuth 2.0 scopes](/oauth2/#okta-admin-management). | 
+**Properties** | Pointer to [**map[string]AppPropertiesValue**](AppPropertiesValue.md) | App instance properties | [optional] 
 **Type** | **string** | The type of the API service integration. This string is an underscore-concatenated, lowercased API service integration name. For example, &#x60;my_api_log_integration&#x60;. | 
 
 ## Methods
@@ -45,6 +46,31 @@ and a boolean to check if the value has been set.
 
 SetGrantedScopes sets GrantedScopes field to given value.
 
+
+### GetProperties
+
+`func (o *PostAPIServiceIntegrationInstanceRequest) GetProperties() map[string]AppPropertiesValue`
+
+GetProperties returns the Properties field if non-nil, zero value otherwise.
+
+### GetPropertiesOk
+
+`func (o *PostAPIServiceIntegrationInstanceRequest) GetPropertiesOk() (*map[string]AppPropertiesValue, bool)`
+
+GetPropertiesOk returns a tuple with the Properties field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProperties
+
+`func (o *PostAPIServiceIntegrationInstanceRequest) SetProperties(v map[string]AppPropertiesValue)`
+
+SetProperties sets Properties field to given value.
+
+### HasProperties
+
+`func (o *PostAPIServiceIntegrationInstanceRequest) HasProperties() bool`
+
+HasProperties returns a boolean if a field has been set.
 
 ### GetType
 

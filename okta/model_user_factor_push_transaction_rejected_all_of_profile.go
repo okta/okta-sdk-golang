@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserFactorPushTransactionRejectedAllOfProfile type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserFactorPushTransactionRejectedAllOfProfile{}
+
 // UserFactorPushTransactionRejectedAllOfProfile struct for UserFactorPushTransactionRejectedAllOfProfile
 type UserFactorPushTransactionRejectedAllOfProfile struct {
-	// ID for the Factor credential
-	CredentialId *string `json:"credentialId,omitempty"`
+	// ID for the factor credential
+	CredentialId         *string `json:"credentialId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewUserFactorPushTransactionRejectedAllOfProfileWithDefaults() *UserFactorP
 
 // GetCredentialId returns the CredentialId field value if set, zero value otherwise.
 func (o *UserFactorPushTransactionRejectedAllOfProfile) GetCredentialId() string {
-	if o == nil || o.CredentialId == nil {
+	if o == nil || IsNil(o.CredentialId) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *UserFactorPushTransactionRejectedAllOfProfile) GetCredentialId() string
 // GetCredentialIdOk returns a tuple with the CredentialId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorPushTransactionRejectedAllOfProfile) GetCredentialIdOk() (*string, bool) {
-	if o == nil || o.CredentialId == nil {
+	if o == nil || IsNil(o.CredentialId) {
 		return nil, false
 	}
 	return o.CredentialId, true
@@ -73,7 +76,7 @@ func (o *UserFactorPushTransactionRejectedAllOfProfile) GetCredentialIdOk() (*st
 
 // HasCredentialId returns a boolean if a field has been set.
 func (o *UserFactorPushTransactionRejectedAllOfProfile) HasCredentialId() bool {
-	if o != nil && o.CredentialId != nil {
+	if o != nil && !IsNil(o.CredentialId) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *UserFactorPushTransactionRejectedAllOfProfile) SetCredentialId(v string
 }
 
 func (o UserFactorPushTransactionRejectedAllOfProfile) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserFactorPushTransactionRejectedAllOfProfile) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.CredentialId != nil {
+	if !IsNil(o.CredentialId) {
 		toSerialize["credentialId"] = o.CredentialId
 	}
 
@@ -95,27 +106,25 @@ func (o UserFactorPushTransactionRejectedAllOfProfile) MarshalJSON() ([]byte, er
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserFactorPushTransactionRejectedAllOfProfile) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserFactorPushTransactionRejectedAllOfProfile) UnmarshalJSON(data []byte) (err error) {
 	varUserFactorPushTransactionRejectedAllOfProfile := _UserFactorPushTransactionRejectedAllOfProfile{}
 
-	err = json.Unmarshal(bytes, &varUserFactorPushTransactionRejectedAllOfProfile)
-	if err == nil {
-		*o = UserFactorPushTransactionRejectedAllOfProfile(varUserFactorPushTransactionRejectedAllOfProfile)
-	} else {
+	err = json.Unmarshal(data, &varUserFactorPushTransactionRejectedAllOfProfile)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserFactorPushTransactionRejectedAllOfProfile(varUserFactorPushTransactionRejectedAllOfProfile)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "credentialId")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableUserFactorPushTransactionRejectedAllOfProfile) UnmarshalJSON(sr
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

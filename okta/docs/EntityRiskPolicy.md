@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Conditions** | Pointer to **NullableString** | Policy conditions aren&#39;t supported for this policy types. | [optional] 
+**Conditions** | Pointer to **NullableString** | Policy conditions aren&#39;t supported for this policy type. | [optional] 
 
 ## Methods
 

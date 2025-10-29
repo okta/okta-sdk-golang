@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Category** | Pointer to **string** |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**DisplayName** | Pointer to **string** |  | [optional] 
-**Features** | Pointer to **[]string** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] [readonly] 
-**LastUpdated** | Pointer to **time.Time** |  | [optional] [readonly] 
-**Name** | Pointer to **string** |  | [optional] 
-**SignOnModes** | Pointer to **[]string** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**VerificationStatus** | Pointer to **string** |  | [optional] 
-**Website** | Pointer to **string** |  | [optional] 
-**Links** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
+**Category** | Pointer to **string** | Category for the app in the OIN catalog | [optional] [readonly] 
+**Description** | Pointer to **string** | Description of the app in the OIN catalog | [optional] [readonly] 
+**DisplayName** | Pointer to **string** | OIN catalog app display name | [optional] [readonly] 
+**Features** | Pointer to **[]string** | Features supported by the app. See app [features](/openapi/okta-management/management/tag/Application/#tag/Application/operation/listApplications!c&#x3D;200&amp;path&#x3D;0/features&amp;t&#x3D;response). | [optional] [readonly] 
+**Id** | Pointer to **string** | ID of the app instance. Okta returns this property only for apps not in the OIN catalog. | [optional] [readonly] 
+**LastUpdated** | Pointer to **time.Time** | Timestamp when the object was last updated | [optional] [readonly] 
+**Name** | Pointer to **string** | App key name. For OIN catalog apps, this is a unique key for the app definition. | [optional] 
+**SignOnModes** | Pointer to **[]string** | Authentication mode for the app. See app [signOnMode](/openapi/okta-management/management/tag/Application/#tag/Application/operation/listApplications!c&#x3D;200&amp;path&#x3D;0/signOnMode&amp;t&#x3D;response). | [optional] 
+**Status** | Pointer to **string** | App status | [optional] 
+**VerificationStatus** | Pointer to **string** | OIN verification status of the catalog app | [optional] 
+**Website** | Pointer to **string** | Website of the OIN catalog app | [optional] 
+**Links** | Pointer to [**CatalogApplicationLinks**](CatalogApplicationLinks.md) |  | [optional] 
 
 ## Methods
 
@@ -313,20 +313,20 @@ HasWebsite returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *CatalogApplication) GetLinks() LinksSelf`
+`func (o *CatalogApplication) GetLinks() CatalogApplicationLinks`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *CatalogApplication) GetLinksOk() (*LinksSelf, bool)`
+`func (o *CatalogApplication) GetLinksOk() (*CatalogApplicationLinks, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *CatalogApplication) SetLinks(v LinksSelf)`
+`func (o *CatalogApplication) SetLinks(v CatalogApplicationLinks)`
 
 SetLinks sets Links field to given value.
 

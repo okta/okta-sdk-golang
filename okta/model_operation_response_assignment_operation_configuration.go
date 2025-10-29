@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,17 @@ import (
 	"encoding/json"
 )
 
-// OperationResponseAssignmentOperationConfiguration struct for OperationResponseAssignmentOperationConfiguration
+// checks if the OperationResponseAssignmentOperationConfiguration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OperationResponseAssignmentOperationConfiguration{}
+
+// OperationResponseAssignmentOperationConfiguration Configuration defintion of the realm
 type OperationResponseAssignmentOperationConfiguration struct {
-	Actions *OperationResponseAssignmentOperationConfigurationActions `json:"actions,omitempty"`
-	Conditions *Conditions `json:"conditions,omitempty"`
+	Actions    *OperationResponseAssignmentOperationConfigurationActions `json:"actions,omitempty"`
+	Conditions *Conditions                                               `json:"conditions,omitempty"`
+	// ID of the realm assignment operation
 	Id *string `json:"id,omitempty"`
-	Name *string `json:"name,omitempty"`
+	// Name of the realm assignment operation
+	Name                 *string `json:"name,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +62,7 @@ func NewOperationResponseAssignmentOperationConfigurationWithDefaults() *Operati
 
 // GetActions returns the Actions field value if set, zero value otherwise.
 func (o *OperationResponseAssignmentOperationConfiguration) GetActions() OperationResponseAssignmentOperationConfigurationActions {
-	if o == nil || o.Actions == nil {
+	if o == nil || IsNil(o.Actions) {
 		var ret OperationResponseAssignmentOperationConfigurationActions
 		return ret
 	}
@@ -67,7 +72,7 @@ func (o *OperationResponseAssignmentOperationConfiguration) GetActions() Operati
 // GetActionsOk returns a tuple with the Actions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OperationResponseAssignmentOperationConfiguration) GetActionsOk() (*OperationResponseAssignmentOperationConfigurationActions, bool) {
-	if o == nil || o.Actions == nil {
+	if o == nil || IsNil(o.Actions) {
 		return nil, false
 	}
 	return o.Actions, true
@@ -75,7 +80,7 @@ func (o *OperationResponseAssignmentOperationConfiguration) GetActionsOk() (*Ope
 
 // HasActions returns a boolean if a field has been set.
 func (o *OperationResponseAssignmentOperationConfiguration) HasActions() bool {
-	if o != nil && o.Actions != nil {
+	if o != nil && !IsNil(o.Actions) {
 		return true
 	}
 
@@ -89,7 +94,7 @@ func (o *OperationResponseAssignmentOperationConfiguration) SetActions(v Operati
 
 // GetConditions returns the Conditions field value if set, zero value otherwise.
 func (o *OperationResponseAssignmentOperationConfiguration) GetConditions() Conditions {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		var ret Conditions
 		return ret
 	}
@@ -99,7 +104,7 @@ func (o *OperationResponseAssignmentOperationConfiguration) GetConditions() Cond
 // GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OperationResponseAssignmentOperationConfiguration) GetConditionsOk() (*Conditions, bool) {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		return nil, false
 	}
 	return o.Conditions, true
@@ -107,7 +112,7 @@ func (o *OperationResponseAssignmentOperationConfiguration) GetConditionsOk() (*
 
 // HasConditions returns a boolean if a field has been set.
 func (o *OperationResponseAssignmentOperationConfiguration) HasConditions() bool {
-	if o != nil && o.Conditions != nil {
+	if o != nil && !IsNil(o.Conditions) {
 		return true
 	}
 
@@ -121,7 +126,7 @@ func (o *OperationResponseAssignmentOperationConfiguration) SetConditions(v Cond
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *OperationResponseAssignmentOperationConfiguration) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -131,7 +136,7 @@ func (o *OperationResponseAssignmentOperationConfiguration) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OperationResponseAssignmentOperationConfiguration) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -139,7 +144,7 @@ func (o *OperationResponseAssignmentOperationConfiguration) GetIdOk() (*string, 
 
 // HasId returns a boolean if a field has been set.
 func (o *OperationResponseAssignmentOperationConfiguration) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -153,7 +158,7 @@ func (o *OperationResponseAssignmentOperationConfiguration) SetId(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *OperationResponseAssignmentOperationConfiguration) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -163,7 +168,7 @@ func (o *OperationResponseAssignmentOperationConfiguration) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OperationResponseAssignmentOperationConfiguration) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -171,7 +176,7 @@ func (o *OperationResponseAssignmentOperationConfiguration) GetNameOk() (*string
 
 // HasName returns a boolean if a field has been set.
 func (o *OperationResponseAssignmentOperationConfiguration) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -184,17 +189,25 @@ func (o *OperationResponseAssignmentOperationConfiguration) SetName(v string) {
 }
 
 func (o OperationResponseAssignmentOperationConfiguration) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OperationResponseAssignmentOperationConfiguration) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Actions != nil {
+	if !IsNil(o.Actions) {
 		toSerialize["actions"] = o.Actions
 	}
-	if o.Conditions != nil {
+	if !IsNil(o.Conditions) {
 		toSerialize["conditions"] = o.Conditions
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
 
@@ -202,30 +215,28 @@ func (o OperationResponseAssignmentOperationConfiguration) MarshalJSON() ([]byte
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OperationResponseAssignmentOperationConfiguration) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OperationResponseAssignmentOperationConfiguration) UnmarshalJSON(data []byte) (err error) {
 	varOperationResponseAssignmentOperationConfiguration := _OperationResponseAssignmentOperationConfiguration{}
 
-	err = json.Unmarshal(bytes, &varOperationResponseAssignmentOperationConfiguration)
-	if err == nil {
-		*o = OperationResponseAssignmentOperationConfiguration(varOperationResponseAssignmentOperationConfiguration)
-	} else {
+	err = json.Unmarshal(data, &varOperationResponseAssignmentOperationConfiguration)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OperationResponseAssignmentOperationConfiguration(varOperationResponseAssignmentOperationConfiguration)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "actions")
 		delete(additionalProperties, "conditions")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -266,4 +277,3 @@ func (v *NullableOperationResponseAssignmentOperationConfiguration) UnmarshalJSO
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

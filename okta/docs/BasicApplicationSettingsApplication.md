@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AuthURL** | Pointer to **string** |  | [optional] 
-**Url** | Pointer to **string** |  | [optional] 
+**AuthURL** | **string** | The URL of the authenticating site for this app | 
+**Url** | **string** | The URL of the sign-in page for this app | 
 
 ## Methods
 
 ### NewBasicApplicationSettingsApplication
 
-`func NewBasicApplicationSettingsApplication() *BasicApplicationSettingsApplication`
+`func NewBasicApplicationSettingsApplication(authURL string, url string, ) *BasicApplicationSettingsApplication`
 
 NewBasicApplicationSettingsApplication instantiates a new BasicApplicationSettingsApplication object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetAuthURL sets AuthURL field to given value.
 
-### HasAuthURL
-
-`func (o *BasicApplicationSettingsApplication) HasAuthURL() bool`
-
-HasAuthURL returns a boolean if a field has been set.
 
 ### GetUrl
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetUrl sets Url field to given value.
 
-### HasUrl
-
-`func (o *BasicApplicationSettingsApplication) HasUrl() bool`
-
-HasUrl returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Aaguids** | Pointer to **[]string** | A list of YubiKey hardware FIDO2 Authenticator Attestation Global Unique Identifiers (AAGUIDs). The available [AAGUIDs](https://support.yubico.com/hc/en-us/articles/360016648959-YubiKey-Hardware-FIDO2-AAGUIDs) (opens new window) are provided by the FIDO Alliance Metadata Service. | [optional] 
+**Aaguids** | Pointer to **[]string** | A list of YubiKey hardware FIDO2 AAGUIDs. The available [AAGUIDs](https://support.yubico.com/hc/en-us/articles/360016648959-YubiKey-Hardware-FIDO2-AAGUIDs) are provided by the FIDO Alliance Metadata Service. | [optional] 
 **Name** | Pointer to **string** | A name to identify the group of YubiKey hardware FIDO2 AAGUIDs | [optional] 
 
 ## Methods

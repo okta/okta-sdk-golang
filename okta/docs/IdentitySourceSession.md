@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | Pointer to **time.Time** |  | [optional] [readonly] 
-**Id** | Pointer to **string** |  | [optional] [readonly] 
-**IdentitySourceId** | Pointer to **string** |  | [optional] [readonly] 
-**ImportType** | Pointer to **string** |  | [optional] [readonly] 
-**LastUpdated** | Pointer to **time.Time** |  | [optional] [readonly] 
-**Status** | Pointer to **string** |  | [optional] 
+**Created** | Pointer to **time.Time** | The timestamp when the identity source session was created | [optional] [readonly] 
+**Id** | Pointer to **string** | The ID of the identity source session | [optional] [readonly] 
+**IdentitySourceId** | Pointer to **string** | The ID of the custom identity source for which the session is created | [optional] [readonly] 
+**ImportType** | Pointer to **string** | The type of import.  All imports are &#x60;INCREMENTAL&#x60; imports. | [optional] [readonly] 
+**LastUpdated** | Pointer to **time.Time** | The timestamp when the identity source session was created | [optional] [readonly] 
+**Status** | Pointer to **string** | The current status of the identity source session | [optional] 
 
 ## Methods
 

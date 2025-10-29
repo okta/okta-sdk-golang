@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserFactorWebAuthnProfile type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserFactorWebAuthnProfile{}
+
 // UserFactorWebAuthnProfile struct for UserFactorWebAuthnProfile
 type UserFactorWebAuthnProfile struct {
 	// Human-readable name of the authenticator
 	AuthenticatorName *string `json:"authenticatorName,omitempty"`
-	// ID for the Factor credential
-	CredentialId *string `json:"credentialId,omitempty"`
+	// ID for the factor credential
+	CredentialId         *string `json:"credentialId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +60,7 @@ func NewUserFactorWebAuthnProfileWithDefaults() *UserFactorWebAuthnProfile {
 
 // GetAuthenticatorName returns the AuthenticatorName field value if set, zero value otherwise.
 func (o *UserFactorWebAuthnProfile) GetAuthenticatorName() string {
-	if o == nil || o.AuthenticatorName == nil {
+	if o == nil || IsNil(o.AuthenticatorName) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *UserFactorWebAuthnProfile) GetAuthenticatorName() string {
 // GetAuthenticatorNameOk returns a tuple with the AuthenticatorName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorWebAuthnProfile) GetAuthenticatorNameOk() (*string, bool) {
-	if o == nil || o.AuthenticatorName == nil {
+	if o == nil || IsNil(o.AuthenticatorName) {
 		return nil, false
 	}
 	return o.AuthenticatorName, true
@@ -75,7 +78,7 @@ func (o *UserFactorWebAuthnProfile) GetAuthenticatorNameOk() (*string, bool) {
 
 // HasAuthenticatorName returns a boolean if a field has been set.
 func (o *UserFactorWebAuthnProfile) HasAuthenticatorName() bool {
-	if o != nil && o.AuthenticatorName != nil {
+	if o != nil && !IsNil(o.AuthenticatorName) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *UserFactorWebAuthnProfile) SetAuthenticatorName(v string) {
 
 // GetCredentialId returns the CredentialId field value if set, zero value otherwise.
 func (o *UserFactorWebAuthnProfile) GetCredentialId() string {
-	if o == nil || o.CredentialId == nil {
+	if o == nil || IsNil(o.CredentialId) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *UserFactorWebAuthnProfile) GetCredentialId() string {
 // GetCredentialIdOk returns a tuple with the CredentialId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserFactorWebAuthnProfile) GetCredentialIdOk() (*string, bool) {
-	if o == nil || o.CredentialId == nil {
+	if o == nil || IsNil(o.CredentialId) {
 		return nil, false
 	}
 	return o.CredentialId, true
@@ -107,7 +110,7 @@ func (o *UserFactorWebAuthnProfile) GetCredentialIdOk() (*string, bool) {
 
 // HasCredentialId returns a boolean if a field has been set.
 func (o *UserFactorWebAuthnProfile) HasCredentialId() bool {
-	if o != nil && o.CredentialId != nil {
+	if o != nil && !IsNil(o.CredentialId) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *UserFactorWebAuthnProfile) SetCredentialId(v string) {
 }
 
 func (o UserFactorWebAuthnProfile) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserFactorWebAuthnProfile) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AuthenticatorName != nil {
+	if !IsNil(o.AuthenticatorName) {
 		toSerialize["authenticatorName"] = o.AuthenticatorName
 	}
-	if o.CredentialId != nil {
+	if !IsNil(o.CredentialId) {
 		toSerialize["credentialId"] = o.CredentialId
 	}
 
@@ -132,28 +143,26 @@ func (o UserFactorWebAuthnProfile) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UserFactorWebAuthnProfile) UnmarshalJSON(bytes []byte) (err error) {
+func (o *UserFactorWebAuthnProfile) UnmarshalJSON(data []byte) (err error) {
 	varUserFactorWebAuthnProfile := _UserFactorWebAuthnProfile{}
 
-	err = json.Unmarshal(bytes, &varUserFactorWebAuthnProfile)
-	if err == nil {
-		*o = UserFactorWebAuthnProfile(varUserFactorWebAuthnProfile)
-	} else {
+	err = json.Unmarshal(data, &varUserFactorWebAuthnProfile)
+
+	if err != nil {
 		return err
 	}
 
+	*o = UserFactorWebAuthnProfile(varUserFactorWebAuthnProfile)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "authenticatorName")
 		delete(additionalProperties, "credentialId")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -194,4 +203,3 @@ func (v *NullableUserFactorWebAuthnProfile) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

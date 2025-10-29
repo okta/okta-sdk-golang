@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedBy** | Pointer to **string** |  | [optional] [readonly] 
-**CreatedDate** | Pointer to **time.Time** |  | [optional] [readonly] 
-**DefaultConcurrencyPercentage** | Pointer to **int32** |  | [optional] [readonly] 
-**DefaultPercentage** | Pointer to **int32** |  | [optional] [readonly] 
-**Id** | Pointer to **string** |  | [optional] [readonly] 
-**LastUpdate** | Pointer to **time.Time** |  | [optional] [readonly] 
-**LastUpdatedBy** | Pointer to **string** |  | [optional] [readonly] 
-**OrgId** | Pointer to **string** |  | [optional] [readonly] 
-**PrincipalId** | **string** |  | 
-**PrincipalType** | **string** |  | 
+**CreatedBy** | Pointer to **string** | The Okta user ID of the user who created the principle rate limit entity | [optional] [readonly] 
+**CreatedDate** | Pointer to **time.Time** | The date and time the principle rate limit entity was created | [optional] [readonly] 
+**DefaultConcurrencyPercentage** | Pointer to **int32** | The default percentage of a given concurrency limit threshold that the owning principal can consume | [optional] 
+**DefaultPercentage** | Pointer to **int32** | The default percentage of a given rate limit threshold that the owning principal can consume | [optional] 
+**Id** | Pointer to **string** | The unique identifier of the principle rate limit entity | [optional] [readonly] 
+**LastUpdate** | Pointer to **time.Time** | The date and time the principle rate limit entity was last updated | [optional] [readonly] 
+**LastUpdatedBy** | Pointer to **string** | The Okta user ID of the user who last updated the principle rate limit entity | [optional] [readonly] 
+**OrgId** | Pointer to **string** | The unique identifier of the Okta org | [optional] [readonly] 
+**PrincipalId** | **string** | The unique identifier of the principal. This is the ID of the API token or OAuth 2.0 app. | 
+**PrincipalType** | **string** | The type of principal, either an API token or an OAuth 2.0 app | 
 
 ## Methods
 

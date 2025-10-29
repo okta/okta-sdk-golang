@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the AppUserPasswordCredential type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AppUserPasswordCredential{}
+
 // AppUserPasswordCredential The user's password. This is a write-only property. An empty `password` object is returned to indicate that a password value exists.
 type AppUserPasswordCredential struct {
 	// Password value
-	Value *string `json:"value,omitempty"`
+	Value                *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewAppUserPasswordCredentialWithDefaults() *AppUserPasswordCredential {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *AppUserPasswordCredential) GetValue() string {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *AppUserPasswordCredential) GetValue() string {
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppUserPasswordCredential) GetValueOk() (*string, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -73,7 +76,7 @@ func (o *AppUserPasswordCredential) GetValueOk() (*string, bool) {
 
 // HasValue returns a boolean if a field has been set.
 func (o *AppUserPasswordCredential) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *AppUserPasswordCredential) SetValue(v string) {
 }
 
 func (o AppUserPasswordCredential) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AppUserPasswordCredential) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Value != nil {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
 
@@ -95,27 +106,25 @@ func (o AppUserPasswordCredential) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AppUserPasswordCredential) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AppUserPasswordCredential) UnmarshalJSON(data []byte) (err error) {
 	varAppUserPasswordCredential := _AppUserPasswordCredential{}
 
-	err = json.Unmarshal(bytes, &varAppUserPasswordCredential)
-	if err == nil {
-		*o = AppUserPasswordCredential(varAppUserPasswordCredential)
-	} else {
+	err = json.Unmarshal(data, &varAppUserPasswordCredential)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AppUserPasswordCredential(varAppUserPasswordCredential)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "value")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableAppUserPasswordCredential) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -26,6 +26,9 @@ package okta
 import (
 	"encoding/json"
 )
+
+// checks if the SimulateResultRules type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SimulateResultRules{}
 
 // SimulateResultRules struct for SimulateResultRules
 type SimulateResultRules struct {
@@ -36,7 +39,7 @@ type SimulateResultRules struct {
 	// The name of the policy rule
 	Name *string `json:"name,omitempty"`
 	// The result of this entity evaluation
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +64,7 @@ func NewSimulateResultRulesWithDefaults() *SimulateResultRules {
 
 // GetConditions returns the Conditions field value if set, zero value otherwise.
 func (o *SimulateResultRules) GetConditions() []SimulateResultConditions {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		var ret []SimulateResultConditions
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *SimulateResultRules) GetConditions() []SimulateResultConditions {
 // GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SimulateResultRules) GetConditionsOk() ([]SimulateResultConditions, bool) {
-	if o == nil || o.Conditions == nil {
+	if o == nil || IsNil(o.Conditions) {
 		return nil, false
 	}
 	return o.Conditions, true
@@ -79,7 +82,7 @@ func (o *SimulateResultRules) GetConditionsOk() ([]SimulateResultConditions, boo
 
 // HasConditions returns a boolean if a field has been set.
 func (o *SimulateResultRules) HasConditions() bool {
-	if o != nil && o.Conditions != nil {
+	if o != nil && !IsNil(o.Conditions) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *SimulateResultRules) SetConditions(v []SimulateResultConditions) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *SimulateResultRules) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *SimulateResultRules) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SimulateResultRules) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -111,7 +114,7 @@ func (o *SimulateResultRules) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *SimulateResultRules) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *SimulateResultRules) SetId(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *SimulateResultRules) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *SimulateResultRules) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SimulateResultRules) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -143,7 +146,7 @@ func (o *SimulateResultRules) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *SimulateResultRules) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *SimulateResultRules) SetName(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *SimulateResultRules) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *SimulateResultRules) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SimulateResultRules) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -175,7 +178,7 @@ func (o *SimulateResultRules) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *SimulateResultRules) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -188,17 +191,25 @@ func (o *SimulateResultRules) SetStatus(v string) {
 }
 
 func (o SimulateResultRules) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SimulateResultRules) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Conditions != nil {
+	if !IsNil(o.Conditions) {
 		toSerialize["conditions"] = o.Conditions
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
 
@@ -206,30 +217,28 @@ func (o SimulateResultRules) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SimulateResultRules) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SimulateResultRules) UnmarshalJSON(data []byte) (err error) {
 	varSimulateResultRules := _SimulateResultRules{}
 
-	err = json.Unmarshal(bytes, &varSimulateResultRules)
-	if err == nil {
-		*o = SimulateResultRules(varSimulateResultRules)
-	} else {
+	err = json.Unmarshal(data, &varSimulateResultRules)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SimulateResultRules(varSimulateResultRules)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "conditions")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "status")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -270,4 +279,3 @@ func (v *NullableSimulateResultRules) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

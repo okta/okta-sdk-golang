@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Action** | Pointer to **string** |  | [optional] 
+**Action** | Pointer to **string** | Specifies the account linking action for an IdP user | [optional] 
 **Filter** | Pointer to [**PolicyAccountLinkFilter**](PolicyAccountLinkFilter.md) |  | [optional] 
 
 ## Methods

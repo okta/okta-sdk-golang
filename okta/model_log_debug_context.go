@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,9 +27,13 @@ import (
 	"encoding/json"
 )
 
-// LogDebugContext struct for LogDebugContext
+// checks if the LogDebugContext type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LogDebugContext{}
+
+// LogDebugContext For some kinds of events (for example, OLM provisioning, sign-in request, second factor SMS, and so on), the fields that are provided in other response objects aren't sufficient to adequately describe the operations that the event has performed. In such cases, the `debugContext` object provides a way to store additional information.  For example, an event where a second factor SMS token is sent to a user may have a `debugContext` that looks like the following: ``` {     \"debugData\": {         \"requestUri\": \"/api/v1/users/00u3gjksoiRGRAZHLSYV/factors/smsf8luacpZJAva10x45/verify\",         \"smsProvider\": \"TELESIGN\",         \"transactionId\": \"268632458E3C100F5F5F594C6DC689D4\"     } } ``` By inspecting the debugData field, you can find the URI that is used to trigger the second factor SMS (`/api/v1/users/00u3gjksoiRGRAZHLSYV/factors/smsf8luacpZJAva10x45/verify`), the SMS provider (`TELESIGN`), and the ID used by Telesign to identify this transaction (`268632458E3C100F5F5F594C6DC689D4`).  If for some reason the information that is needed to implement a feature isn't provided in other response objects, you should scan the `debugContext.debugData` field for potentially useful fields. > **Important:** The information contained in `debugContext.debugData` is intended to add context when troubleshooting customer platform issues. Both key names and values may change from release to release and aren't guaranteed to be stable. Therefore, they shouldn't be viewed as a data contract but as a debugging aid instead.
 type LogDebugContext struct {
-	DebugData map[string]interface{} `json:"debugData,omitempty"`
+	// A dynamic field that contains miscellaneous information that is dependent on the event type.
+	DebugData            map[string]interface{} `json:"debugData,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,7 +58,7 @@ func NewLogDebugContextWithDefaults() *LogDebugContext {
 
 // GetDebugData returns the DebugData field value if set, zero value otherwise.
 func (o *LogDebugContext) GetDebugData() map[string]interface{} {
-	if o == nil || o.DebugData == nil {
+	if o == nil || IsNil(o.DebugData) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -64,15 +68,15 @@ func (o *LogDebugContext) GetDebugData() map[string]interface{} {
 // GetDebugDataOk returns a tuple with the DebugData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogDebugContext) GetDebugDataOk() (map[string]interface{}, bool) {
-	if o == nil || o.DebugData == nil {
-		return nil, false
+	if o == nil || IsNil(o.DebugData) {
+		return map[string]interface{}{}, false
 	}
 	return o.DebugData, true
 }
 
 // HasDebugData returns a boolean if a field has been set.
 func (o *LogDebugContext) HasDebugData() bool {
-	if o != nil && o.DebugData != nil {
+	if o != nil && !IsNil(o.DebugData) {
 		return true
 	}
 
@@ -85,8 +89,16 @@ func (o *LogDebugContext) SetDebugData(v map[string]interface{}) {
 }
 
 func (o LogDebugContext) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LogDebugContext) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.DebugData != nil {
+	if !IsNil(o.DebugData) {
 		toSerialize["debugData"] = o.DebugData
 	}
 
@@ -94,27 +106,25 @@ func (o LogDebugContext) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LogDebugContext) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LogDebugContext) UnmarshalJSON(data []byte) (err error) {
 	varLogDebugContext := _LogDebugContext{}
 
-	err = json.Unmarshal(bytes, &varLogDebugContext)
-	if err == nil {
-		*o = LogDebugContext(varLogDebugContext)
-	} else {
+	err = json.Unmarshal(data, &varLogDebugContext)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LogDebugContext(varLogDebugContext)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "debugData")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -155,4 +165,3 @@ func (v *NullableLogDebugContext) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

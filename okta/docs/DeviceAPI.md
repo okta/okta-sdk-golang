@@ -4,12 +4,12 @@ All URIs are relative to *https://subdomain.okta.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ActivateDevice**](DeviceAPI.md#ActivateDevice) | **Post** /api/v1/devices/{deviceId}/lifecycle/activate | Activate a Device
-[**DeactivateDevice**](DeviceAPI.md#DeactivateDevice) | **Post** /api/v1/devices/{deviceId}/lifecycle/deactivate | Deactivate a Device
-[**DeleteDevice**](DeviceAPI.md#DeleteDevice) | **Delete** /api/v1/devices/{deviceId} | Delete a Device
-[**GetDevice**](DeviceAPI.md#GetDevice) | **Get** /api/v1/devices/{deviceId} | Retrieve a Device
-[**ListDeviceUsers**](DeviceAPI.md#ListDeviceUsers) | **Get** /api/v1/devices/{deviceId}/users | List all Users for a Device
-[**ListDevices**](DeviceAPI.md#ListDevices) | **Get** /api/v1/devices | List all Devices
+[**ActivateDevice**](DeviceAPI.md#ActivateDevice) | **Post** /api/v1/devices/{deviceId}/lifecycle/activate | Activate a device
+[**DeactivateDevice**](DeviceAPI.md#DeactivateDevice) | **Post** /api/v1/devices/{deviceId}/lifecycle/deactivate | Deactivate a device
+[**DeleteDevice**](DeviceAPI.md#DeleteDevice) | **Delete** /api/v1/devices/{deviceId} | Delete a device
+[**GetDevice**](DeviceAPI.md#GetDevice) | **Get** /api/v1/devices/{deviceId} | Retrieve a device
+[**ListDeviceUsers**](DeviceAPI.md#ListDeviceUsers) | **Get** /api/v1/devices/{deviceId}/users | List all users for a device
+[**ListDevices**](DeviceAPI.md#ListDevices) | **Get** /api/v1/devices | List all devices
 [**SuspendDevice**](DeviceAPI.md#SuspendDevice) | **Post** /api/v1/devices/{deviceId}/lifecycle/suspend | Suspend a Device
 [**UnsuspendDevice**](DeviceAPI.md#UnsuspendDevice) | **Post** /api/v1/devices/{deviceId}/lifecycle/unsuspend | Unsuspend a Device
 
@@ -19,7 +19,7 @@ Method | HTTP request | Description
 
 > ActivateDevice(ctx, deviceId).Execute()
 
-Activate a Device
+Activate a device
 
 
 
@@ -29,22 +29,22 @@ Activate a Device
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    deviceId := "guo4a5u7JHHhjXrMK0g4" // string | `id` of the device
+	deviceId := "guo4a5u7JHHhjXrMK0g4" // string | `id` of the device
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.DeviceAPI.ActivateDevice(context.Background(), deviceId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.ActivateDevice``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.DeviceAPI.ActivateDevice(context.Background(), deviceId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.ActivateDevice``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -87,7 +87,7 @@ Name | Type | Description  | Notes
 
 > DeactivateDevice(ctx, deviceId).Execute()
 
-Deactivate a Device
+Deactivate a device
 
 
 
@@ -97,22 +97,22 @@ Deactivate a Device
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    deviceId := "guo4a5u7JHHhjXrMK0g4" // string | `id` of the device
+	deviceId := "guo4a5u7JHHhjXrMK0g4" // string | `id` of the device
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.DeviceAPI.DeactivateDevice(context.Background(), deviceId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.DeactivateDevice``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.DeviceAPI.DeactivateDevice(context.Background(), deviceId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.DeactivateDevice``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -155,7 +155,7 @@ Name | Type | Description  | Notes
 
 > DeleteDevice(ctx, deviceId).Execute()
 
-Delete a Device
+Delete a device
 
 
 
@@ -165,22 +165,22 @@ Delete a Device
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    deviceId := "guo4a5u7JHHhjXrMK0g4" // string | `id` of the device
+	deviceId := "guo4a5u7JHHhjXrMK0g4" // string | `id` of the device
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.DeviceAPI.DeleteDevice(context.Background(), deviceId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.DeleteDevice``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.DeviceAPI.DeleteDevice(context.Background(), deviceId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.DeleteDevice``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -223,7 +223,7 @@ Name | Type | Description  | Notes
 
 > Device GetDevice(ctx, deviceId).Execute()
 
-Retrieve a Device
+Retrieve a device
 
 
 
@@ -233,24 +233,24 @@ Retrieve a Device
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    deviceId := "guo4a5u7JHHhjXrMK0g4" // string | `id` of the device
+	deviceId := "guo4a5u7JHHhjXrMK0g4" // string | `id` of the device
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.DeviceAPI.GetDevice(context.Background(), deviceId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.GetDevice``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetDevice`: Device
-    fmt.Fprintf(os.Stdout, "Response from `DeviceAPI.GetDevice`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DeviceAPI.GetDevice(context.Background(), deviceId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.GetDevice``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetDevice`: Device
+	fmt.Fprintf(os.Stdout, "Response from `DeviceAPI.GetDevice`: %v\n", resp)
 }
 ```
 
@@ -293,7 +293,7 @@ Name | Type | Description  | Notes
 
 > []DeviceUser ListDeviceUsers(ctx, deviceId).Execute()
 
-List all Users for a Device
+List all users for a device
 
 
 
@@ -303,24 +303,24 @@ List all Users for a Device
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    deviceId := "guo4a5u7JHHhjXrMK0g4" // string | `id` of the device
+	deviceId := "guo4a5u7JHHhjXrMK0g4" // string | `id` of the device
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.DeviceAPI.ListDeviceUsers(context.Background(), deviceId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.ListDeviceUsers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListDeviceUsers`: []DeviceUser
-    fmt.Fprintf(os.Stdout, "Response from `DeviceAPI.ListDeviceUsers`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DeviceAPI.ListDeviceUsers(context.Background(), deviceId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.ListDeviceUsers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListDeviceUsers`: []DeviceUser
+	fmt.Fprintf(os.Stdout, "Response from `DeviceAPI.ListDeviceUsers`: %v\n", resp)
 }
 ```
 
@@ -363,7 +363,7 @@ Name | Type | Description  | Notes
 
 > []DeviceList ListDevices(ctx).After(after).Limit(limit).Search(search).Expand(expand).Execute()
 
-List all Devices
+List all devices
 
 
 
@@ -373,27 +373,27 @@ List all Devices
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    after := "200u3des4afA47rYJu1d7" // string |  (optional)
-    limit := int32(20) // int32 | A limit on the number of objects to return (recommend `20`) (optional) (default to 200)
-    search := "status eq "ACTIVE"" // string | A SCIM filter expression that filters the results. Searches include all Device `profile` properties and the Device `id`, `status`, and `lastUpdated` properties. (optional)
-    expand := "user" // string | Includes associated user details and management status for the device in the `_embedded` attribute (optional)
+	after := "200u3des4afA47rYJu1d7" // string |  (optional)
+	limit := int32(20) // int32 | A limit on the number of objects to return (recommend `20`) (optional) (default to 200)
+	search := "status%20eq%20%22ACTIVE%22" // string | A SCIM filter expression that filters the results. Searches include all device `profile` properties and the device `id`, `status`, and `lastUpdated` properties.  Searches for devices can be filtered by the contains (`co`) operator. You can only use `co` with these select device profile attributes: `profile.displayName`, `profile.serialNumber`, `profile.imei`, `profile.meid`, `profile.udid`, and `profile.sid`. See [Operators](https://developer.okta.com/docs/api/#operators). (optional)
+	expand := "user" // string | Includes associated user details and management status for the device in the `_embedded` attribute (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.DeviceAPI.ListDevices(context.Background()).After(after).Limit(limit).Search(search).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.ListDevices``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListDevices`: []DeviceList
-    fmt.Fprintf(os.Stdout, "Response from `DeviceAPI.ListDevices`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DeviceAPI.ListDevices(context.Background()).After(after).Limit(limit).Search(search).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.ListDevices``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListDevices`: []DeviceList
+	fmt.Fprintf(os.Stdout, "Response from `DeviceAPI.ListDevices`: %v\n", resp)
 }
 ```
 
@@ -410,7 +410,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **after** | **string** |  | 
  **limit** | **int32** | A limit on the number of objects to return (recommend &#x60;20&#x60;) | [default to 200]
- **search** | **string** | A SCIM filter expression that filters the results. Searches include all Device &#x60;profile&#x60; properties and the Device &#x60;id&#x60;, &#x60;status&#x60;, and &#x60;lastUpdated&#x60; properties. | 
+ **search** | **string** | A SCIM filter expression that filters the results. Searches include all device &#x60;profile&#x60; properties and the device &#x60;id&#x60;, &#x60;status&#x60;, and &#x60;lastUpdated&#x60; properties.  Searches for devices can be filtered by the contains (&#x60;co&#x60;) operator. You can only use &#x60;co&#x60; with these select device profile attributes: &#x60;profile.displayName&#x60;, &#x60;profile.serialNumber&#x60;, &#x60;profile.imei&#x60;, &#x60;profile.meid&#x60;, &#x60;profile.udid&#x60;, and &#x60;profile.sid&#x60;. See [Operators](https://developer.okta.com/docs/api/#operators). | 
  **expand** | **string** | Includes associated user details and management status for the device in the &#x60;_embedded&#x60; attribute | 
 
 ### Return type
@@ -445,22 +445,22 @@ Suspend a Device
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    deviceId := "guo4a5u7JHHhjXrMK0g4" // string | `id` of the device
+	deviceId := "guo4a5u7JHHhjXrMK0g4" // string | `id` of the device
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.DeviceAPI.SuspendDevice(context.Background(), deviceId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.SuspendDevice``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.DeviceAPI.SuspendDevice(context.Background(), deviceId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.SuspendDevice``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -513,22 +513,22 @@ Unsuspend a Device
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    deviceId := "guo4a5u7JHHhjXrMK0g4" // string | `id` of the device
+	deviceId := "guo4a5u7JHHhjXrMK0g4" // string | `id` of the device
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.DeviceAPI.UnsuspendDevice(context.Background(), deviceId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.UnsuspendDevice``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.DeviceAPI.UnsuspendDevice(context.Background(), deviceId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.UnsuspendDevice``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

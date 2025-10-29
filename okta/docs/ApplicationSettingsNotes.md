@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Admin** | Pointer to **string** |  | [optional] 
-**Enduser** | Pointer to **string** |  | [optional] 
+**Admin** | Pointer to **string** | An app message that&#39;s visible to admins | [optional] 
+**Enduser** | Pointer to **string** | A message that&#39;s visible in the End-User Dashboard | [optional] 
 
 ## Methods
 

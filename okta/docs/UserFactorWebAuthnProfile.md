@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AuthenticatorName** | Pointer to **string** | Human-readable name of the authenticator | [optional] 
-**CredentialId** | Pointer to **string** | ID for the Factor credential | [optional] 
+**CredentialId** | Pointer to **string** | ID for the factor credential | [optional] 
 
 ## Methods
 

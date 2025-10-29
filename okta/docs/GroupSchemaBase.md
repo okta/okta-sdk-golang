@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] [readonly] 
-**Properties** | Pointer to [**GroupSchemaBaseProperties**](GroupSchemaBaseProperties.md) |  | [optional] 
-**Required** | Pointer to **[]string** |  | [optional] 
-**Type** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | The subschema name | [optional] [readonly] 
+**Properties** | Pointer to [**GroupSchemaBaseProperties**](GroupSchemaBaseProperties.md) | The &#x60;#base&#x60; object properties | [optional] 
+**Required** | Pointer to **[]string** | A collection indicating required property names | [optional] [readonly] 
+**Type** | Pointer to **string** | The object type | [optional] [readonly] 
 
 ## Methods
 

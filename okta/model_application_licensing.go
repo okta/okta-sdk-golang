@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
-// ApplicationLicensing struct for ApplicationLicensing
+// checks if the ApplicationLicensing type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApplicationLicensing{}
+
+// ApplicationLicensing Licenses for the app
 type ApplicationLicensing struct {
 	// Number of licenses purchased for the app
-	SeatCount *int32 `json:"seatCount,omitempty"`
+	SeatCount            *int32 `json:"seatCount,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewApplicationLicensingWithDefaults() *ApplicationLicensing {
 
 // GetSeatCount returns the SeatCount field value if set, zero value otherwise.
 func (o *ApplicationLicensing) GetSeatCount() int32 {
-	if o == nil || o.SeatCount == nil {
+	if o == nil || IsNil(o.SeatCount) {
 		var ret int32
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *ApplicationLicensing) GetSeatCount() int32 {
 // GetSeatCountOk returns a tuple with the SeatCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationLicensing) GetSeatCountOk() (*int32, bool) {
-	if o == nil || o.SeatCount == nil {
+	if o == nil || IsNil(o.SeatCount) {
 		return nil, false
 	}
 	return o.SeatCount, true
@@ -73,7 +76,7 @@ func (o *ApplicationLicensing) GetSeatCountOk() (*int32, bool) {
 
 // HasSeatCount returns a boolean if a field has been set.
 func (o *ApplicationLicensing) HasSeatCount() bool {
-	if o != nil && o.SeatCount != nil {
+	if o != nil && !IsNil(o.SeatCount) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *ApplicationLicensing) SetSeatCount(v int32) {
 }
 
 func (o ApplicationLicensing) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApplicationLicensing) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.SeatCount != nil {
+	if !IsNil(o.SeatCount) {
 		toSerialize["seatCount"] = o.SeatCount
 	}
 
@@ -95,27 +106,25 @@ func (o ApplicationLicensing) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ApplicationLicensing) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ApplicationLicensing) UnmarshalJSON(data []byte) (err error) {
 	varApplicationLicensing := _ApplicationLicensing{}
 
-	err = json.Unmarshal(bytes, &varApplicationLicensing)
-	if err == nil {
-		*o = ApplicationLicensing(varApplicationLicensing)
-	} else {
+	err = json.Unmarshal(data, &varApplicationLicensing)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ApplicationLicensing(varApplicationLicensing)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "seatCount")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableApplicationLicensing) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Schema** | Pointer to **string** |  | [optional] [readonly] 
-**Created** | Pointer to **string** |  | [optional] [readonly] 
+**Schema** | Pointer to **string** | JSON schema version identifier | [optional] [readonly] 
+**Created** | Pointer to **string** | Timestamp when the schema was created | [optional] [readonly] 
 **Definitions** | Pointer to [**GroupSchemaDefinitions**](GroupSchemaDefinitions.md) |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] [readonly] 
-**LastUpdated** | Pointer to **string** |  | [optional] [readonly] 
-**Name** | Pointer to **string** |  | [optional] [readonly] 
+**Description** | Pointer to **string** | Description for the schema | [optional] 
+**Id** | Pointer to **string** | URI of group schema | [optional] [readonly] 
+**LastUpdated** | Pointer to **string** | Timestamp when the schema was last updated | [optional] [readonly] 
+**Name** | Pointer to **string** | Name of the schema | [optional] [readonly] 
 **Properties** | Pointer to [**UserSchemaProperties**](UserSchemaProperties.md) |  | [optional] 
-**Title** | Pointer to **string** |  | [optional] 
-**Type** | Pointer to **string** |  | [optional] [readonly] 
+**Title** | Pointer to **string** | User-defined display name for the schema | [optional] 
+**Type** | Pointer to **string** | Type of [root schema](https://tools.ietf.org/html/draft-zyp-json-schema-04#section-3.4) | [optional] [readonly] 
 **Links** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
 
 ## Methods

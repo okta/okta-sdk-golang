@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -26,6 +26,9 @@ package okta
 import (
 	"encoding/json"
 )
+
+// checks if the TelephonyRequestDataMessageProfile type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TelephonyRequestDataMessageProfile{}
 
 // TelephonyRequestDataMessageProfile Message profile specifies information about the telephony (sms/voice) message to be sent to the Okta user
 type TelephonyRequestDataMessageProfile struct {
@@ -40,7 +43,7 @@ type TelephonyRequestDataMessageProfile struct {
 	// The OTP code requested by the Okta user
 	OtpCode *string `json:"otpCode,omitempty"`
 	// The locale associated with the Okta user
-	Locale *string `json:"locale,omitempty"`
+	Locale               *string `json:"locale,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -65,7 +68,7 @@ func NewTelephonyRequestDataMessageProfileWithDefaults() *TelephonyRequestDataMe
 
 // GetMsgTemplate returns the MsgTemplate field value if set, zero value otherwise.
 func (o *TelephonyRequestDataMessageProfile) GetMsgTemplate() string {
-	if o == nil || o.MsgTemplate == nil {
+	if o == nil || IsNil(o.MsgTemplate) {
 		var ret string
 		return ret
 	}
@@ -75,7 +78,7 @@ func (o *TelephonyRequestDataMessageProfile) GetMsgTemplate() string {
 // GetMsgTemplateOk returns a tuple with the MsgTemplate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TelephonyRequestDataMessageProfile) GetMsgTemplateOk() (*string, bool) {
-	if o == nil || o.MsgTemplate == nil {
+	if o == nil || IsNil(o.MsgTemplate) {
 		return nil, false
 	}
 	return o.MsgTemplate, true
@@ -83,7 +86,7 @@ func (o *TelephonyRequestDataMessageProfile) GetMsgTemplateOk() (*string, bool) 
 
 // HasMsgTemplate returns a boolean if a field has been set.
 func (o *TelephonyRequestDataMessageProfile) HasMsgTemplate() bool {
-	if o != nil && o.MsgTemplate != nil {
+	if o != nil && !IsNil(o.MsgTemplate) {
 		return true
 	}
 
@@ -97,7 +100,7 @@ func (o *TelephonyRequestDataMessageProfile) SetMsgTemplate(v string) {
 
 // GetPhoneNumber returns the PhoneNumber field value if set, zero value otherwise.
 func (o *TelephonyRequestDataMessageProfile) GetPhoneNumber() string {
-	if o == nil || o.PhoneNumber == nil {
+	if o == nil || IsNil(o.PhoneNumber) {
 		var ret string
 		return ret
 	}
@@ -107,7 +110,7 @@ func (o *TelephonyRequestDataMessageProfile) GetPhoneNumber() string {
 // GetPhoneNumberOk returns a tuple with the PhoneNumber field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TelephonyRequestDataMessageProfile) GetPhoneNumberOk() (*string, bool) {
-	if o == nil || o.PhoneNumber == nil {
+	if o == nil || IsNil(o.PhoneNumber) {
 		return nil, false
 	}
 	return o.PhoneNumber, true
@@ -115,7 +118,7 @@ func (o *TelephonyRequestDataMessageProfile) GetPhoneNumberOk() (*string, bool) 
 
 // HasPhoneNumber returns a boolean if a field has been set.
 func (o *TelephonyRequestDataMessageProfile) HasPhoneNumber() bool {
-	if o != nil && o.PhoneNumber != nil {
+	if o != nil && !IsNil(o.PhoneNumber) {
 		return true
 	}
 
@@ -129,7 +132,7 @@ func (o *TelephonyRequestDataMessageProfile) SetPhoneNumber(v string) {
 
 // GetOtpExpires returns the OtpExpires field value if set, zero value otherwise.
 func (o *TelephonyRequestDataMessageProfile) GetOtpExpires() string {
-	if o == nil || o.OtpExpires == nil {
+	if o == nil || IsNil(o.OtpExpires) {
 		var ret string
 		return ret
 	}
@@ -139,7 +142,7 @@ func (o *TelephonyRequestDataMessageProfile) GetOtpExpires() string {
 // GetOtpExpiresOk returns a tuple with the OtpExpires field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TelephonyRequestDataMessageProfile) GetOtpExpiresOk() (*string, bool) {
-	if o == nil || o.OtpExpires == nil {
+	if o == nil || IsNil(o.OtpExpires) {
 		return nil, false
 	}
 	return o.OtpExpires, true
@@ -147,7 +150,7 @@ func (o *TelephonyRequestDataMessageProfile) GetOtpExpiresOk() (*string, bool) {
 
 // HasOtpExpires returns a boolean if a field has been set.
 func (o *TelephonyRequestDataMessageProfile) HasOtpExpires() bool {
-	if o != nil && o.OtpExpires != nil {
+	if o != nil && !IsNil(o.OtpExpires) {
 		return true
 	}
 
@@ -161,7 +164,7 @@ func (o *TelephonyRequestDataMessageProfile) SetOtpExpires(v string) {
 
 // GetDeliveryChannel returns the DeliveryChannel field value if set, zero value otherwise.
 func (o *TelephonyRequestDataMessageProfile) GetDeliveryChannel() string {
-	if o == nil || o.DeliveryChannel == nil {
+	if o == nil || IsNil(o.DeliveryChannel) {
 		var ret string
 		return ret
 	}
@@ -171,7 +174,7 @@ func (o *TelephonyRequestDataMessageProfile) GetDeliveryChannel() string {
 // GetDeliveryChannelOk returns a tuple with the DeliveryChannel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TelephonyRequestDataMessageProfile) GetDeliveryChannelOk() (*string, bool) {
-	if o == nil || o.DeliveryChannel == nil {
+	if o == nil || IsNil(o.DeliveryChannel) {
 		return nil, false
 	}
 	return o.DeliveryChannel, true
@@ -179,7 +182,7 @@ func (o *TelephonyRequestDataMessageProfile) GetDeliveryChannelOk() (*string, bo
 
 // HasDeliveryChannel returns a boolean if a field has been set.
 func (o *TelephonyRequestDataMessageProfile) HasDeliveryChannel() bool {
-	if o != nil && o.DeliveryChannel != nil {
+	if o != nil && !IsNil(o.DeliveryChannel) {
 		return true
 	}
 
@@ -193,7 +196,7 @@ func (o *TelephonyRequestDataMessageProfile) SetDeliveryChannel(v string) {
 
 // GetOtpCode returns the OtpCode field value if set, zero value otherwise.
 func (o *TelephonyRequestDataMessageProfile) GetOtpCode() string {
-	if o == nil || o.OtpCode == nil {
+	if o == nil || IsNil(o.OtpCode) {
 		var ret string
 		return ret
 	}
@@ -203,7 +206,7 @@ func (o *TelephonyRequestDataMessageProfile) GetOtpCode() string {
 // GetOtpCodeOk returns a tuple with the OtpCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TelephonyRequestDataMessageProfile) GetOtpCodeOk() (*string, bool) {
-	if o == nil || o.OtpCode == nil {
+	if o == nil || IsNil(o.OtpCode) {
 		return nil, false
 	}
 	return o.OtpCode, true
@@ -211,7 +214,7 @@ func (o *TelephonyRequestDataMessageProfile) GetOtpCodeOk() (*string, bool) {
 
 // HasOtpCode returns a boolean if a field has been set.
 func (o *TelephonyRequestDataMessageProfile) HasOtpCode() bool {
-	if o != nil && o.OtpCode != nil {
+	if o != nil && !IsNil(o.OtpCode) {
 		return true
 	}
 
@@ -225,7 +228,7 @@ func (o *TelephonyRequestDataMessageProfile) SetOtpCode(v string) {
 
 // GetLocale returns the Locale field value if set, zero value otherwise.
 func (o *TelephonyRequestDataMessageProfile) GetLocale() string {
-	if o == nil || o.Locale == nil {
+	if o == nil || IsNil(o.Locale) {
 		var ret string
 		return ret
 	}
@@ -235,7 +238,7 @@ func (o *TelephonyRequestDataMessageProfile) GetLocale() string {
 // GetLocaleOk returns a tuple with the Locale field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TelephonyRequestDataMessageProfile) GetLocaleOk() (*string, bool) {
-	if o == nil || o.Locale == nil {
+	if o == nil || IsNil(o.Locale) {
 		return nil, false
 	}
 	return o.Locale, true
@@ -243,7 +246,7 @@ func (o *TelephonyRequestDataMessageProfile) GetLocaleOk() (*string, bool) {
 
 // HasLocale returns a boolean if a field has been set.
 func (o *TelephonyRequestDataMessageProfile) HasLocale() bool {
-	if o != nil && o.Locale != nil {
+	if o != nil && !IsNil(o.Locale) {
 		return true
 	}
 
@@ -256,23 +259,31 @@ func (o *TelephonyRequestDataMessageProfile) SetLocale(v string) {
 }
 
 func (o TelephonyRequestDataMessageProfile) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TelephonyRequestDataMessageProfile) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.MsgTemplate != nil {
+	if !IsNil(o.MsgTemplate) {
 		toSerialize["msgTemplate"] = o.MsgTemplate
 	}
-	if o.PhoneNumber != nil {
+	if !IsNil(o.PhoneNumber) {
 		toSerialize["phoneNumber"] = o.PhoneNumber
 	}
-	if o.OtpExpires != nil {
+	if !IsNil(o.OtpExpires) {
 		toSerialize["otpExpires"] = o.OtpExpires
 	}
-	if o.DeliveryChannel != nil {
+	if !IsNil(o.DeliveryChannel) {
 		toSerialize["deliveryChannel"] = o.DeliveryChannel
 	}
-	if o.OtpCode != nil {
+	if !IsNil(o.OtpCode) {
 		toSerialize["otpCode"] = o.OtpCode
 	}
-	if o.Locale != nil {
+	if !IsNil(o.Locale) {
 		toSerialize["locale"] = o.Locale
 	}
 
@@ -280,23 +291,23 @@ func (o TelephonyRequestDataMessageProfile) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *TelephonyRequestDataMessageProfile) UnmarshalJSON(bytes []byte) (err error) {
+func (o *TelephonyRequestDataMessageProfile) UnmarshalJSON(data []byte) (err error) {
 	varTelephonyRequestDataMessageProfile := _TelephonyRequestDataMessageProfile{}
 
-	err = json.Unmarshal(bytes, &varTelephonyRequestDataMessageProfile)
-	if err == nil {
-		*o = TelephonyRequestDataMessageProfile(varTelephonyRequestDataMessageProfile)
-	} else {
+	err = json.Unmarshal(data, &varTelephonyRequestDataMessageProfile)
+
+	if err != nil {
 		return err
 	}
 
+	*o = TelephonyRequestDataMessageProfile(varTelephonyRequestDataMessageProfile)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "msgTemplate")
 		delete(additionalProperties, "phoneNumber")
 		delete(additionalProperties, "otpExpires")
@@ -304,8 +315,6 @@ func (o *TelephonyRequestDataMessageProfile) UnmarshalJSON(bytes []byte) (err er
 		delete(additionalProperties, "otpCode")
 		delete(additionalProperties, "locale")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -346,4 +355,3 @@ func (v *NullableTelephonyRequestDataMessageProfile) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

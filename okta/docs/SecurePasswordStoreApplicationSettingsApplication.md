@@ -4,21 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**OptionalField1** | Pointer to **string** |  | [optional] 
-**OptionalField1Value** | Pointer to **string** |  | [optional] 
-**OptionalField2** | Pointer to **string** |  | [optional] 
-**OptionalField2Value** | Pointer to **string** |  | [optional] 
-**OptionalField3** | Pointer to **string** |  | [optional] 
-**OptionalField3Value** | Pointer to **string** |  | [optional] 
-**PasswordField** | Pointer to **string** |  | [optional] 
-**Url** | Pointer to **string** |  | [optional] 
-**UsernameField** | Pointer to **string** |  | [optional] 
+**OptionalField1** | Pointer to **string** | Name of the optional parameter in the sign-in form | [optional] 
+**OptionalField1Value** | Pointer to **string** | Name of the optional value in the sign-in form | [optional] 
+**OptionalField2** | Pointer to **string** | Name of the optional parameter in the sign-in form | [optional] 
+**OptionalField2Value** | Pointer to **string** | Name of the optional value in the sign-in form | [optional] 
+**OptionalField3** | Pointer to **string** | Name of the optional parameter in the sign-in form | [optional] 
+**OptionalField3Value** | Pointer to **string** | Name of the optional value in the sign-in form | [optional] 
+**PasswordField** | **string** | CSS selector for the **Password** field in the sign-in form | 
+**Url** | **string** | The URL of the sign-in page for this app | 
+**UsernameField** | **string** | CSS selector for the **Username** field in the sign-in form | 
 
 ## Methods
 
 ### NewSecurePasswordStoreApplicationSettingsApplication
 
-`func NewSecurePasswordStoreApplicationSettingsApplication() *SecurePasswordStoreApplicationSettingsApplication`
+`func NewSecurePasswordStoreApplicationSettingsApplication(passwordField string, url string, usernameField string, ) *SecurePasswordStoreApplicationSettingsApplication`
 
 NewSecurePasswordStoreApplicationSettingsApplication instantiates a new SecurePasswordStoreApplicationSettingsApplication object
 This constructor will assign default values to properties that have it defined,
@@ -202,11 +202,6 @@ and a boolean to check if the value has been set.
 
 SetPasswordField sets PasswordField field to given value.
 
-### HasPasswordField
-
-`func (o *SecurePasswordStoreApplicationSettingsApplication) HasPasswordField() bool`
-
-HasPasswordField returns a boolean if a field has been set.
 
 ### GetUrl
 
@@ -227,11 +222,6 @@ and a boolean to check if the value has been set.
 
 SetUrl sets Url field to given value.
 
-### HasUrl
-
-`func (o *SecurePasswordStoreApplicationSettingsApplication) HasUrl() bool`
-
-HasUrl returns a boolean if a field has been set.
 
 ### GetUsernameField
 
@@ -252,11 +242,6 @@ and a boolean to check if the value has been set.
 
 SetUsernameField sets UsernameField field to given value.
 
-### HasUsernameField
-
-`func (o *SecurePasswordStoreApplicationSettingsApplication) HasUsernameField() bool`
-
-HasUsernameField returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the FeatureLinksAllOfDependents type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FeatureLinksAllOfDependents{}
+
 // FeatureLinksAllOfDependents Link to feature dependents
 type FeatureLinksAllOfDependents struct {
 	// Link URI
-	Href *string `json:"href,omitempty"`
+	Href                 *string `json:"href,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewFeatureLinksAllOfDependentsWithDefaults() *FeatureLinksAllOfDependents {
 
 // GetHref returns the Href field value if set, zero value otherwise.
 func (o *FeatureLinksAllOfDependents) GetHref() string {
-	if o == nil || o.Href == nil {
+	if o == nil || IsNil(o.Href) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *FeatureLinksAllOfDependents) GetHref() string {
 // GetHrefOk returns a tuple with the Href field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FeatureLinksAllOfDependents) GetHrefOk() (*string, bool) {
-	if o == nil || o.Href == nil {
+	if o == nil || IsNil(o.Href) {
 		return nil, false
 	}
 	return o.Href, true
@@ -73,7 +76,7 @@ func (o *FeatureLinksAllOfDependents) GetHrefOk() (*string, bool) {
 
 // HasHref returns a boolean if a field has been set.
 func (o *FeatureLinksAllOfDependents) HasHref() bool {
-	if o != nil && o.Href != nil {
+	if o != nil && !IsNil(o.Href) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *FeatureLinksAllOfDependents) SetHref(v string) {
 }
 
 func (o FeatureLinksAllOfDependents) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o FeatureLinksAllOfDependents) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Href != nil {
+	if !IsNil(o.Href) {
 		toSerialize["href"] = o.Href
 	}
 
@@ -95,27 +106,25 @@ func (o FeatureLinksAllOfDependents) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *FeatureLinksAllOfDependents) UnmarshalJSON(bytes []byte) (err error) {
+func (o *FeatureLinksAllOfDependents) UnmarshalJSON(data []byte) (err error) {
 	varFeatureLinksAllOfDependents := _FeatureLinksAllOfDependents{}
 
-	err = json.Unmarshal(bytes, &varFeatureLinksAllOfDependents)
-	if err == nil {
-		*o = FeatureLinksAllOfDependents(varFeatureLinksAllOfDependents)
-	} else {
+	err = json.Unmarshal(data, &varFeatureLinksAllOfDependents)
+
+	if err != nil {
 		return err
 	}
 
+	*o = FeatureLinksAllOfDependents(varFeatureLinksAllOfDependents)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "href")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -156,4 +165,3 @@ func (v *NullableFeatureLinksAllOfDependents) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

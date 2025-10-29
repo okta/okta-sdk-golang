@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,15 +27,18 @@ import (
 	"encoding/json"
 )
 
+// checks if the SecurityEventTokenRequestJwtEvents type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SecurityEventTokenRequestJwtEvents{}
+
 // SecurityEventTokenRequestJwtEvents A non-empty collection of events
 type SecurityEventTokenRequestJwtEvents struct {
-	HttpsSchemasOktaComSeceventOktaEventTypeDeviceRiskChange *OktaDeviceRiskChangeEvent `json:"https://schemas.okta.com/secevent/okta/event-type/device-risk-change,omitempty"`
-	HttpsSchemasOktaComSeceventOktaEventTypeIpChange *OktaIpChangeEvent `json:"https://schemas.okta.com/secevent/okta/event-type/ip-change,omitempty"`
-	HttpsSchemasOktaComSeceventOktaEventTypeUserRiskChange *OktaUserRiskChangeEvent `json:"https://schemas.okta.com/secevent/okta/event-type/user-risk-change,omitempty"`
+	HttpsSchemasOktaComSeceventOktaEventTypeDeviceRiskChange         *OktaDeviceRiskChangeEvent       `json:"https://schemas.okta.com/secevent/okta/event-type/device-risk-change,omitempty"`
+	HttpsSchemasOktaComSeceventOktaEventTypeIpChange                 *OktaIpChangeEvent               `json:"https://schemas.okta.com/secevent/okta/event-type/ip-change,omitempty"`
+	HttpsSchemasOktaComSeceventOktaEventTypeUserRiskChange           *OktaUserRiskChangeEvent         `json:"https://schemas.okta.com/secevent/okta/event-type/user-risk-change,omitempty"`
 	HttpsSchemasOpenidNetSeceventCaepEventTypeDeviceComplianceChange *CaepDeviceComplianceChangeEvent `json:"https://schemas.openid.net/secevent/caep/event-type/device-compliance-change,omitempty"`
-	HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked *CaepSessionRevokedEvent `json:"https://schemas.openid.net/secevent/caep/event-type/session-revoked,omitempty"`
-	HttpsSchemasOpenidNetSeceventRiscEventTypeIdentifierChanged *RiscIdentifierChangedEvent `json:"https://schemas.openid.net/secevent/risc/event-type/identifier-changed,omitempty"`
-	AdditionalProperties map[string]interface{}
+	HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked         *CaepSessionRevokedEvent         `json:"https://schemas.openid.net/secevent/caep/event-type/session-revoked,omitempty"`
+	HttpsSchemasOpenidNetSeceventRiscEventTypeIdentifierChanged      *RiscIdentifierChangedEvent      `json:"https://schemas.openid.net/secevent/risc/event-type/identifier-changed,omitempty"`
+	AdditionalProperties                                             map[string]interface{}
 }
 
 type _SecurityEventTokenRequestJwtEvents SecurityEventTokenRequestJwtEvents
@@ -59,7 +62,7 @@ func NewSecurityEventTokenRequestJwtEventsWithDefaults() *SecurityEventTokenRequ
 
 // GetHttpsSchemasOktaComSeceventOktaEventTypeDeviceRiskChange returns the HttpsSchemasOktaComSeceventOktaEventTypeDeviceRiskChange field value if set, zero value otherwise.
 func (o *SecurityEventTokenRequestJwtEvents) GetHttpsSchemasOktaComSeceventOktaEventTypeDeviceRiskChange() OktaDeviceRiskChangeEvent {
-	if o == nil || o.HttpsSchemasOktaComSeceventOktaEventTypeDeviceRiskChange == nil {
+	if o == nil || IsNil(o.HttpsSchemasOktaComSeceventOktaEventTypeDeviceRiskChange) {
 		var ret OktaDeviceRiskChangeEvent
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *SecurityEventTokenRequestJwtEvents) GetHttpsSchemasOktaComSeceventOktaE
 // GetHttpsSchemasOktaComSeceventOktaEventTypeDeviceRiskChangeOk returns a tuple with the HttpsSchemasOktaComSeceventOktaEventTypeDeviceRiskChange field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityEventTokenRequestJwtEvents) GetHttpsSchemasOktaComSeceventOktaEventTypeDeviceRiskChangeOk() (*OktaDeviceRiskChangeEvent, bool) {
-	if o == nil || o.HttpsSchemasOktaComSeceventOktaEventTypeDeviceRiskChange == nil {
+	if o == nil || IsNil(o.HttpsSchemasOktaComSeceventOktaEventTypeDeviceRiskChange) {
 		return nil, false
 	}
 	return o.HttpsSchemasOktaComSeceventOktaEventTypeDeviceRiskChange, true
@@ -77,7 +80,7 @@ func (o *SecurityEventTokenRequestJwtEvents) GetHttpsSchemasOktaComSeceventOktaE
 
 // HasHttpsSchemasOktaComSeceventOktaEventTypeDeviceRiskChange returns a boolean if a field has been set.
 func (o *SecurityEventTokenRequestJwtEvents) HasHttpsSchemasOktaComSeceventOktaEventTypeDeviceRiskChange() bool {
-	if o != nil && o.HttpsSchemasOktaComSeceventOktaEventTypeDeviceRiskChange != nil {
+	if o != nil && !IsNil(o.HttpsSchemasOktaComSeceventOktaEventTypeDeviceRiskChange) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *SecurityEventTokenRequestJwtEvents) SetHttpsSchemasOktaComSeceventOktaE
 
 // GetHttpsSchemasOktaComSeceventOktaEventTypeIpChange returns the HttpsSchemasOktaComSeceventOktaEventTypeIpChange field value if set, zero value otherwise.
 func (o *SecurityEventTokenRequestJwtEvents) GetHttpsSchemasOktaComSeceventOktaEventTypeIpChange() OktaIpChangeEvent {
-	if o == nil || o.HttpsSchemasOktaComSeceventOktaEventTypeIpChange == nil {
+	if o == nil || IsNil(o.HttpsSchemasOktaComSeceventOktaEventTypeIpChange) {
 		var ret OktaIpChangeEvent
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *SecurityEventTokenRequestJwtEvents) GetHttpsSchemasOktaComSeceventOktaE
 // GetHttpsSchemasOktaComSeceventOktaEventTypeIpChangeOk returns a tuple with the HttpsSchemasOktaComSeceventOktaEventTypeIpChange field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityEventTokenRequestJwtEvents) GetHttpsSchemasOktaComSeceventOktaEventTypeIpChangeOk() (*OktaIpChangeEvent, bool) {
-	if o == nil || o.HttpsSchemasOktaComSeceventOktaEventTypeIpChange == nil {
+	if o == nil || IsNil(o.HttpsSchemasOktaComSeceventOktaEventTypeIpChange) {
 		return nil, false
 	}
 	return o.HttpsSchemasOktaComSeceventOktaEventTypeIpChange, true
@@ -109,7 +112,7 @@ func (o *SecurityEventTokenRequestJwtEvents) GetHttpsSchemasOktaComSeceventOktaE
 
 // HasHttpsSchemasOktaComSeceventOktaEventTypeIpChange returns a boolean if a field has been set.
 func (o *SecurityEventTokenRequestJwtEvents) HasHttpsSchemasOktaComSeceventOktaEventTypeIpChange() bool {
-	if o != nil && o.HttpsSchemasOktaComSeceventOktaEventTypeIpChange != nil {
+	if o != nil && !IsNil(o.HttpsSchemasOktaComSeceventOktaEventTypeIpChange) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *SecurityEventTokenRequestJwtEvents) SetHttpsSchemasOktaComSeceventOktaE
 
 // GetHttpsSchemasOktaComSeceventOktaEventTypeUserRiskChange returns the HttpsSchemasOktaComSeceventOktaEventTypeUserRiskChange field value if set, zero value otherwise.
 func (o *SecurityEventTokenRequestJwtEvents) GetHttpsSchemasOktaComSeceventOktaEventTypeUserRiskChange() OktaUserRiskChangeEvent {
-	if o == nil || o.HttpsSchemasOktaComSeceventOktaEventTypeUserRiskChange == nil {
+	if o == nil || IsNil(o.HttpsSchemasOktaComSeceventOktaEventTypeUserRiskChange) {
 		var ret OktaUserRiskChangeEvent
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *SecurityEventTokenRequestJwtEvents) GetHttpsSchemasOktaComSeceventOktaE
 // GetHttpsSchemasOktaComSeceventOktaEventTypeUserRiskChangeOk returns a tuple with the HttpsSchemasOktaComSeceventOktaEventTypeUserRiskChange field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityEventTokenRequestJwtEvents) GetHttpsSchemasOktaComSeceventOktaEventTypeUserRiskChangeOk() (*OktaUserRiskChangeEvent, bool) {
-	if o == nil || o.HttpsSchemasOktaComSeceventOktaEventTypeUserRiskChange == nil {
+	if o == nil || IsNil(o.HttpsSchemasOktaComSeceventOktaEventTypeUserRiskChange) {
 		return nil, false
 	}
 	return o.HttpsSchemasOktaComSeceventOktaEventTypeUserRiskChange, true
@@ -141,7 +144,7 @@ func (o *SecurityEventTokenRequestJwtEvents) GetHttpsSchemasOktaComSeceventOktaE
 
 // HasHttpsSchemasOktaComSeceventOktaEventTypeUserRiskChange returns a boolean if a field has been set.
 func (o *SecurityEventTokenRequestJwtEvents) HasHttpsSchemasOktaComSeceventOktaEventTypeUserRiskChange() bool {
-	if o != nil && o.HttpsSchemasOktaComSeceventOktaEventTypeUserRiskChange != nil {
+	if o != nil && !IsNil(o.HttpsSchemasOktaComSeceventOktaEventTypeUserRiskChange) {
 		return true
 	}
 
@@ -155,7 +158,7 @@ func (o *SecurityEventTokenRequestJwtEvents) SetHttpsSchemasOktaComSeceventOktaE
 
 // GetHttpsSchemasOpenidNetSeceventCaepEventTypeDeviceComplianceChange returns the HttpsSchemasOpenidNetSeceventCaepEventTypeDeviceComplianceChange field value if set, zero value otherwise.
 func (o *SecurityEventTokenRequestJwtEvents) GetHttpsSchemasOpenidNetSeceventCaepEventTypeDeviceComplianceChange() CaepDeviceComplianceChangeEvent {
-	if o == nil || o.HttpsSchemasOpenidNetSeceventCaepEventTypeDeviceComplianceChange == nil {
+	if o == nil || IsNil(o.HttpsSchemasOpenidNetSeceventCaepEventTypeDeviceComplianceChange) {
 		var ret CaepDeviceComplianceChangeEvent
 		return ret
 	}
@@ -165,7 +168,7 @@ func (o *SecurityEventTokenRequestJwtEvents) GetHttpsSchemasOpenidNetSeceventCae
 // GetHttpsSchemasOpenidNetSeceventCaepEventTypeDeviceComplianceChangeOk returns a tuple with the HttpsSchemasOpenidNetSeceventCaepEventTypeDeviceComplianceChange field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityEventTokenRequestJwtEvents) GetHttpsSchemasOpenidNetSeceventCaepEventTypeDeviceComplianceChangeOk() (*CaepDeviceComplianceChangeEvent, bool) {
-	if o == nil || o.HttpsSchemasOpenidNetSeceventCaepEventTypeDeviceComplianceChange == nil {
+	if o == nil || IsNil(o.HttpsSchemasOpenidNetSeceventCaepEventTypeDeviceComplianceChange) {
 		return nil, false
 	}
 	return o.HttpsSchemasOpenidNetSeceventCaepEventTypeDeviceComplianceChange, true
@@ -173,7 +176,7 @@ func (o *SecurityEventTokenRequestJwtEvents) GetHttpsSchemasOpenidNetSeceventCae
 
 // HasHttpsSchemasOpenidNetSeceventCaepEventTypeDeviceComplianceChange returns a boolean if a field has been set.
 func (o *SecurityEventTokenRequestJwtEvents) HasHttpsSchemasOpenidNetSeceventCaepEventTypeDeviceComplianceChange() bool {
-	if o != nil && o.HttpsSchemasOpenidNetSeceventCaepEventTypeDeviceComplianceChange != nil {
+	if o != nil && !IsNil(o.HttpsSchemasOpenidNetSeceventCaepEventTypeDeviceComplianceChange) {
 		return true
 	}
 
@@ -187,7 +190,7 @@ func (o *SecurityEventTokenRequestJwtEvents) SetHttpsSchemasOpenidNetSeceventCae
 
 // GetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked returns the HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked field value if set, zero value otherwise.
 func (o *SecurityEventTokenRequestJwtEvents) GetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked() CaepSessionRevokedEvent {
-	if o == nil || o.HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked == nil {
+	if o == nil || IsNil(o.HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked) {
 		var ret CaepSessionRevokedEvent
 		return ret
 	}
@@ -197,7 +200,7 @@ func (o *SecurityEventTokenRequestJwtEvents) GetHttpsSchemasOpenidNetSeceventCae
 // GetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevokedOk returns a tuple with the HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityEventTokenRequestJwtEvents) GetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevokedOk() (*CaepSessionRevokedEvent, bool) {
-	if o == nil || o.HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked == nil {
+	if o == nil || IsNil(o.HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked) {
 		return nil, false
 	}
 	return o.HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked, true
@@ -205,7 +208,7 @@ func (o *SecurityEventTokenRequestJwtEvents) GetHttpsSchemasOpenidNetSeceventCae
 
 // HasHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked returns a boolean if a field has been set.
 func (o *SecurityEventTokenRequestJwtEvents) HasHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked() bool {
-	if o != nil && o.HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked != nil {
+	if o != nil && !IsNil(o.HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked) {
 		return true
 	}
 
@@ -219,7 +222,7 @@ func (o *SecurityEventTokenRequestJwtEvents) SetHttpsSchemasOpenidNetSeceventCae
 
 // GetHttpsSchemasOpenidNetSeceventRiscEventTypeIdentifierChanged returns the HttpsSchemasOpenidNetSeceventRiscEventTypeIdentifierChanged field value if set, zero value otherwise.
 func (o *SecurityEventTokenRequestJwtEvents) GetHttpsSchemasOpenidNetSeceventRiscEventTypeIdentifierChanged() RiscIdentifierChangedEvent {
-	if o == nil || o.HttpsSchemasOpenidNetSeceventRiscEventTypeIdentifierChanged == nil {
+	if o == nil || IsNil(o.HttpsSchemasOpenidNetSeceventRiscEventTypeIdentifierChanged) {
 		var ret RiscIdentifierChangedEvent
 		return ret
 	}
@@ -229,7 +232,7 @@ func (o *SecurityEventTokenRequestJwtEvents) GetHttpsSchemasOpenidNetSeceventRis
 // GetHttpsSchemasOpenidNetSeceventRiscEventTypeIdentifierChangedOk returns a tuple with the HttpsSchemasOpenidNetSeceventRiscEventTypeIdentifierChanged field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityEventTokenRequestJwtEvents) GetHttpsSchemasOpenidNetSeceventRiscEventTypeIdentifierChangedOk() (*RiscIdentifierChangedEvent, bool) {
-	if o == nil || o.HttpsSchemasOpenidNetSeceventRiscEventTypeIdentifierChanged == nil {
+	if o == nil || IsNil(o.HttpsSchemasOpenidNetSeceventRiscEventTypeIdentifierChanged) {
 		return nil, false
 	}
 	return o.HttpsSchemasOpenidNetSeceventRiscEventTypeIdentifierChanged, true
@@ -237,7 +240,7 @@ func (o *SecurityEventTokenRequestJwtEvents) GetHttpsSchemasOpenidNetSeceventRis
 
 // HasHttpsSchemasOpenidNetSeceventRiscEventTypeIdentifierChanged returns a boolean if a field has been set.
 func (o *SecurityEventTokenRequestJwtEvents) HasHttpsSchemasOpenidNetSeceventRiscEventTypeIdentifierChanged() bool {
-	if o != nil && o.HttpsSchemasOpenidNetSeceventRiscEventTypeIdentifierChanged != nil {
+	if o != nil && !IsNil(o.HttpsSchemasOpenidNetSeceventRiscEventTypeIdentifierChanged) {
 		return true
 	}
 
@@ -250,23 +253,31 @@ func (o *SecurityEventTokenRequestJwtEvents) SetHttpsSchemasOpenidNetSeceventRis
 }
 
 func (o SecurityEventTokenRequestJwtEvents) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SecurityEventTokenRequestJwtEvents) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.HttpsSchemasOktaComSeceventOktaEventTypeDeviceRiskChange != nil {
+	if !IsNil(o.HttpsSchemasOktaComSeceventOktaEventTypeDeviceRiskChange) {
 		toSerialize["https://schemas.okta.com/secevent/okta/event-type/device-risk-change"] = o.HttpsSchemasOktaComSeceventOktaEventTypeDeviceRiskChange
 	}
-	if o.HttpsSchemasOktaComSeceventOktaEventTypeIpChange != nil {
+	if !IsNil(o.HttpsSchemasOktaComSeceventOktaEventTypeIpChange) {
 		toSerialize["https://schemas.okta.com/secevent/okta/event-type/ip-change"] = o.HttpsSchemasOktaComSeceventOktaEventTypeIpChange
 	}
-	if o.HttpsSchemasOktaComSeceventOktaEventTypeUserRiskChange != nil {
+	if !IsNil(o.HttpsSchemasOktaComSeceventOktaEventTypeUserRiskChange) {
 		toSerialize["https://schemas.okta.com/secevent/okta/event-type/user-risk-change"] = o.HttpsSchemasOktaComSeceventOktaEventTypeUserRiskChange
 	}
-	if o.HttpsSchemasOpenidNetSeceventCaepEventTypeDeviceComplianceChange != nil {
+	if !IsNil(o.HttpsSchemasOpenidNetSeceventCaepEventTypeDeviceComplianceChange) {
 		toSerialize["https://schemas.openid.net/secevent/caep/event-type/device-compliance-change"] = o.HttpsSchemasOpenidNetSeceventCaepEventTypeDeviceComplianceChange
 	}
-	if o.HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked != nil {
+	if !IsNil(o.HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked) {
 		toSerialize["https://schemas.openid.net/secevent/caep/event-type/session-revoked"] = o.HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked
 	}
-	if o.HttpsSchemasOpenidNetSeceventRiscEventTypeIdentifierChanged != nil {
+	if !IsNil(o.HttpsSchemasOpenidNetSeceventRiscEventTypeIdentifierChanged) {
 		toSerialize["https://schemas.openid.net/secevent/risc/event-type/identifier-changed"] = o.HttpsSchemasOpenidNetSeceventRiscEventTypeIdentifierChanged
 	}
 
@@ -274,23 +285,23 @@ func (o SecurityEventTokenRequestJwtEvents) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SecurityEventTokenRequestJwtEvents) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SecurityEventTokenRequestJwtEvents) UnmarshalJSON(data []byte) (err error) {
 	varSecurityEventTokenRequestJwtEvents := _SecurityEventTokenRequestJwtEvents{}
 
-	err = json.Unmarshal(bytes, &varSecurityEventTokenRequestJwtEvents)
-	if err == nil {
-		*o = SecurityEventTokenRequestJwtEvents(varSecurityEventTokenRequestJwtEvents)
-	} else {
+	err = json.Unmarshal(data, &varSecurityEventTokenRequestJwtEvents)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SecurityEventTokenRequestJwtEvents(varSecurityEventTokenRequestJwtEvents)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "https://schemas.okta.com/secevent/okta/event-type/device-risk-change")
 		delete(additionalProperties, "https://schemas.okta.com/secevent/okta/event-type/ip-change")
 		delete(additionalProperties, "https://schemas.okta.com/secevent/okta/event-type/user-risk-change")
@@ -298,8 +309,6 @@ func (o *SecurityEventTokenRequestJwtEvents) UnmarshalJSON(bytes []byte) (err er
 		delete(additionalProperties, "https://schemas.openid.net/secevent/caep/event-type/session-revoked")
 		delete(additionalProperties, "https://schemas.openid.net/secevent/risc/event-type/identifier-changed")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -340,4 +349,3 @@ func (v *NullableSecurityEventTokenRequestJwtEvents) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

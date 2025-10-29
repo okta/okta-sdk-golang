@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,15 +27,25 @@ import (
 	"encoding/json"
 )
 
-// AgentPool An AgentPool is a collection of agents that serve a common purpose. An AgentPool has a unique ID within an org, and contains a collection of agents disjoint to every other AgentPool (i.e. no two AgentPools share an Agent).
+// checks if the AgentPool type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AgentPool{}
+
+// AgentPool An agent pool is a collection of agents that serve a common purpose. An agent pool has a unique ID within an org, and contains a collection of agents disjoint to every other agent pool, meaning that no two agent pools share an agent.
 type AgentPool struct {
 	Agents []Agent `json:"agents,omitempty"`
+	// Number of agents in the pool that are in a disrupted state
+	DisruptedAgents *int32 `json:"disruptedAgents,omitempty"`
+	// Agent pool ID
 	Id *string `json:"id,omitempty"`
+	// Number of agents in the pool that are in an inactive state
+	InactiveAgents *int32 `json:"inactiveAgents,omitempty"`
+	// Agent pool name
 	Name *string `json:"name,omitempty"`
 	// Operational status of a given agent
 	OperationalStatus *string `json:"operationalStatus,omitempty"`
 	// Agent types that are being monitored
-	Type *string `json:"type,omitempty"`
+	Type                 *string    `json:"type,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +70,7 @@ func NewAgentPoolWithDefaults() *AgentPool {
 
 // GetAgents returns the Agents field value if set, zero value otherwise.
 func (o *AgentPool) GetAgents() []Agent {
-	if o == nil || o.Agents == nil {
+	if o == nil || IsNil(o.Agents) {
 		var ret []Agent
 		return ret
 	}
@@ -70,7 +80,7 @@ func (o *AgentPool) GetAgents() []Agent {
 // GetAgentsOk returns a tuple with the Agents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AgentPool) GetAgentsOk() ([]Agent, bool) {
-	if o == nil || o.Agents == nil {
+	if o == nil || IsNil(o.Agents) {
 		return nil, false
 	}
 	return o.Agents, true
@@ -78,7 +88,7 @@ func (o *AgentPool) GetAgentsOk() ([]Agent, bool) {
 
 // HasAgents returns a boolean if a field has been set.
 func (o *AgentPool) HasAgents() bool {
-	if o != nil && o.Agents != nil {
+	if o != nil && !IsNil(o.Agents) {
 		return true
 	}
 
@@ -90,9 +100,41 @@ func (o *AgentPool) SetAgents(v []Agent) {
 	o.Agents = v
 }
 
+// GetDisruptedAgents returns the DisruptedAgents field value if set, zero value otherwise.
+func (o *AgentPool) GetDisruptedAgents() int32 {
+	if o == nil || IsNil(o.DisruptedAgents) {
+		var ret int32
+		return ret
+	}
+	return *o.DisruptedAgents
+}
+
+// GetDisruptedAgentsOk returns a tuple with the DisruptedAgents field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentPool) GetDisruptedAgentsOk() (*int32, bool) {
+	if o == nil || IsNil(o.DisruptedAgents) {
+		return nil, false
+	}
+	return o.DisruptedAgents, true
+}
+
+// HasDisruptedAgents returns a boolean if a field has been set.
+func (o *AgentPool) HasDisruptedAgents() bool {
+	if o != nil && !IsNil(o.DisruptedAgents) {
+		return true
+	}
+
+	return false
+}
+
+// SetDisruptedAgents gets a reference to the given int32 and assigns it to the DisruptedAgents field.
+func (o *AgentPool) SetDisruptedAgents(v int32) {
+	o.DisruptedAgents = &v
+}
+
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *AgentPool) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -102,7 +144,7 @@ func (o *AgentPool) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AgentPool) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -110,7 +152,7 @@ func (o *AgentPool) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *AgentPool) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -122,9 +164,41 @@ func (o *AgentPool) SetId(v string) {
 	o.Id = &v
 }
 
+// GetInactiveAgents returns the InactiveAgents field value if set, zero value otherwise.
+func (o *AgentPool) GetInactiveAgents() int32 {
+	if o == nil || IsNil(o.InactiveAgents) {
+		var ret int32
+		return ret
+	}
+	return *o.InactiveAgents
+}
+
+// GetInactiveAgentsOk returns a tuple with the InactiveAgents field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentPool) GetInactiveAgentsOk() (*int32, bool) {
+	if o == nil || IsNil(o.InactiveAgents) {
+		return nil, false
+	}
+	return o.InactiveAgents, true
+}
+
+// HasInactiveAgents returns a boolean if a field has been set.
+func (o *AgentPool) HasInactiveAgents() bool {
+	if o != nil && !IsNil(o.InactiveAgents) {
+		return true
+	}
+
+	return false
+}
+
+// SetInactiveAgents gets a reference to the given int32 and assigns it to the InactiveAgents field.
+func (o *AgentPool) SetInactiveAgents(v int32) {
+	o.InactiveAgents = &v
+}
+
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *AgentPool) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -134,7 +208,7 @@ func (o *AgentPool) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AgentPool) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -142,7 +216,7 @@ func (o *AgentPool) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *AgentPool) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -156,7 +230,7 @@ func (o *AgentPool) SetName(v string) {
 
 // GetOperationalStatus returns the OperationalStatus field value if set, zero value otherwise.
 func (o *AgentPool) GetOperationalStatus() string {
-	if o == nil || o.OperationalStatus == nil {
+	if o == nil || IsNil(o.OperationalStatus) {
 		var ret string
 		return ret
 	}
@@ -166,7 +240,7 @@ func (o *AgentPool) GetOperationalStatus() string {
 // GetOperationalStatusOk returns a tuple with the OperationalStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AgentPool) GetOperationalStatusOk() (*string, bool) {
-	if o == nil || o.OperationalStatus == nil {
+	if o == nil || IsNil(o.OperationalStatus) {
 		return nil, false
 	}
 	return o.OperationalStatus, true
@@ -174,7 +248,7 @@ func (o *AgentPool) GetOperationalStatusOk() (*string, bool) {
 
 // HasOperationalStatus returns a boolean if a field has been set.
 func (o *AgentPool) HasOperationalStatus() bool {
-	if o != nil && o.OperationalStatus != nil {
+	if o != nil && !IsNil(o.OperationalStatus) {
 		return true
 	}
 
@@ -188,7 +262,7 @@ func (o *AgentPool) SetOperationalStatus(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *AgentPool) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -198,7 +272,7 @@ func (o *AgentPool) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AgentPool) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -206,7 +280,7 @@ func (o *AgentPool) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *AgentPool) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -218,53 +292,103 @@ func (o *AgentPool) SetType(v string) {
 	o.Type = &v
 }
 
+// GetLinks returns the Links field value if set, zero value otherwise.
+func (o *AgentPool) GetLinks() LinksSelf {
+	if o == nil || IsNil(o.Links) {
+		var ret LinksSelf
+		return ret
+	}
+	return *o.Links
+}
+
+// GetLinksOk returns a tuple with the Links field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentPool) GetLinksOk() (*LinksSelf, bool) {
+	if o == nil || IsNil(o.Links) {
+		return nil, false
+	}
+	return o.Links, true
+}
+
+// HasLinks returns a boolean if a field has been set.
+func (o *AgentPool) HasLinks() bool {
+	if o != nil && !IsNil(o.Links) {
+		return true
+	}
+
+	return false
+}
+
+// SetLinks gets a reference to the given LinksSelf and assigns it to the Links field.
+func (o *AgentPool) SetLinks(v LinksSelf) {
+	o.Links = &v
+}
+
 func (o AgentPool) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AgentPool) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Agents != nil {
+	if !IsNil(o.Agents) {
 		toSerialize["agents"] = o.Agents
 	}
-	if o.Id != nil {
+	if !IsNil(o.DisruptedAgents) {
+		toSerialize["disruptedAgents"] = o.DisruptedAgents
+	}
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Name != nil {
+	if !IsNil(o.InactiveAgents) {
+		toSerialize["inactiveAgents"] = o.InactiveAgents
+	}
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.OperationalStatus != nil {
+	if !IsNil(o.OperationalStatus) {
 		toSerialize["operationalStatus"] = o.OperationalStatus
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Links) {
+		toSerialize["_links"] = o.Links
 	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AgentPool) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AgentPool) UnmarshalJSON(data []byte) (err error) {
 	varAgentPool := _AgentPool{}
 
-	err = json.Unmarshal(bytes, &varAgentPool)
-	if err == nil {
-		*o = AgentPool(varAgentPool)
-	} else {
+	err = json.Unmarshal(data, &varAgentPool)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AgentPool(varAgentPool)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "agents")
+		delete(additionalProperties, "disruptedAgents")
 		delete(additionalProperties, "id")
+		delete(additionalProperties, "inactiveAgents")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "operationalStatus")
 		delete(additionalProperties, "type")
+		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -305,4 +429,3 @@ func (v *NullableAgentPool) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the Sso type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Sso{}
+
 // Sso Supported SSO protocol configurations. You must configure at least one protocol: `oidc` or `saml`
 type Sso struct {
-	Oidc *Oidc `json:"oidc,omitempty"`
-	Saml *Saml `json:"saml,omitempty"`
+	Oidc                 *Oidc `json:"oidc,omitempty"`
+	Saml                 *Saml `json:"saml,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +58,7 @@ func NewSsoWithDefaults() *Sso {
 
 // GetOidc returns the Oidc field value if set, zero value otherwise.
 func (o *Sso) GetOidc() Oidc {
-	if o == nil || o.Oidc == nil {
+	if o == nil || IsNil(o.Oidc) {
 		var ret Oidc
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *Sso) GetOidc() Oidc {
 // GetOidcOk returns a tuple with the Oidc field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Sso) GetOidcOk() (*Oidc, bool) {
-	if o == nil || o.Oidc == nil {
+	if o == nil || IsNil(o.Oidc) {
 		return nil, false
 	}
 	return o.Oidc, true
@@ -73,7 +76,7 @@ func (o *Sso) GetOidcOk() (*Oidc, bool) {
 
 // HasOidc returns a boolean if a field has been set.
 func (o *Sso) HasOidc() bool {
-	if o != nil && o.Oidc != nil {
+	if o != nil && !IsNil(o.Oidc) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *Sso) SetOidc(v Oidc) {
 
 // GetSaml returns the Saml field value if set, zero value otherwise.
 func (o *Sso) GetSaml() Saml {
-	if o == nil || o.Saml == nil {
+	if o == nil || IsNil(o.Saml) {
 		var ret Saml
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *Sso) GetSaml() Saml {
 // GetSamlOk returns a tuple with the Saml field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Sso) GetSamlOk() (*Saml, bool) {
-	if o == nil || o.Saml == nil {
+	if o == nil || IsNil(o.Saml) {
 		return nil, false
 	}
 	return o.Saml, true
@@ -105,7 +108,7 @@ func (o *Sso) GetSamlOk() (*Saml, bool) {
 
 // HasSaml returns a boolean if a field has been set.
 func (o *Sso) HasSaml() bool {
-	if o != nil && o.Saml != nil {
+	if o != nil && !IsNil(o.Saml) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *Sso) SetSaml(v Saml) {
 }
 
 func (o Sso) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Sso) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Oidc != nil {
+	if !IsNil(o.Oidc) {
 		toSerialize["oidc"] = o.Oidc
 	}
-	if o.Saml != nil {
+	if !IsNil(o.Saml) {
 		toSerialize["saml"] = o.Saml
 	}
 
@@ -130,28 +141,26 @@ func (o Sso) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Sso) UnmarshalJSON(bytes []byte) (err error) {
+func (o *Sso) UnmarshalJSON(data []byte) (err error) {
 	varSso := _Sso{}
 
-	err = json.Unmarshal(bytes, &varSso)
-	if err == nil {
-		*o = Sso(varSso)
-	} else {
+	err = json.Unmarshal(data, &varSso)
+
+	if err != nil {
 		return err
 	}
 
+	*o = Sso(varSso)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "oidc")
 		delete(additionalProperties, "saml")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +201,3 @@ func (v *NullableSso) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

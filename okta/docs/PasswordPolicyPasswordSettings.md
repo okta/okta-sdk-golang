@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Age** | Pointer to [**PasswordPolicyPasswordSettingsAge**](PasswordPolicyPasswordSettingsAge.md) |  | [optional] 
 **Complexity** | Pointer to [**PasswordPolicyPasswordSettingsComplexity**](PasswordPolicyPasswordSettingsComplexity.md) |  | [optional] 
 **Lockout** | Pointer to [**PasswordPolicyPasswordSettingsLockout**](PasswordPolicyPasswordSettingsLockout.md) |  | [optional] 
+**BreachedProtection** | Pointer to [**PasswordPolicyPasswordSettingsBreachedProtection**](PasswordPolicyPasswordSettingsBreachedProtection.md) |  | [optional] 
 
 ## Methods
 
@@ -101,6 +102,31 @@ SetLockout sets Lockout field to given value.
 `func (o *PasswordPolicyPasswordSettings) HasLockout() bool`
 
 HasLockout returns a boolean if a field has been set.
+
+### GetBreachedProtection
+
+`func (o *PasswordPolicyPasswordSettings) GetBreachedProtection() PasswordPolicyPasswordSettingsBreachedProtection`
+
+GetBreachedProtection returns the BreachedProtection field if non-nil, zero value otherwise.
+
+### GetBreachedProtectionOk
+
+`func (o *PasswordPolicyPasswordSettings) GetBreachedProtectionOk() (*PasswordPolicyPasswordSettingsBreachedProtection, bool)`
+
+GetBreachedProtectionOk returns a tuple with the BreachedProtection field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBreachedProtection
+
+`func (o *PasswordPolicyPasswordSettings) SetBreachedProtection(v PasswordPolicyPasswordSettingsBreachedProtection)`
+
+SetBreachedProtection sets BreachedProtection field to given value.
+
+### HasBreachedProtection
+
+`func (o *PasswordPolicyPasswordSettings) HasBreachedProtection() bool`
+
+HasBreachedProtection returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

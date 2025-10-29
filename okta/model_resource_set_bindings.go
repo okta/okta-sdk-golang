@@ -3,7 +3,7 @@ Okta Admin Management
 
 Allows customers to easily access the Okta Management APIs
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-API version: 2024.06.1
+API version: 2025.08.0
 Contact: devex-public@okta.com
 */
 
@@ -27,10 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the ResourceSetBindings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceSetBindings{}
+
 // ResourceSetBindings struct for ResourceSetBindings
 type ResourceSetBindings struct {
-	Roles []ResourceSetBindingRole `json:"roles,omitempty"`
-	Links *ResourceSetBindingResponseLinks `json:"_links,omitempty"`
+	// Roles associated with the resource set binding. If there are more than 100 bindings for the specified resource set, then the `_links.next` resource is returned with the next list of bindings.
+	Roles                []ResourceSetBindingRole  `json:"roles,omitempty"`
+	Links                *ResourceSetBindingsLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,7 +59,7 @@ func NewResourceSetBindingsWithDefaults() *ResourceSetBindings {
 
 // GetRoles returns the Roles field value if set, zero value otherwise.
 func (o *ResourceSetBindings) GetRoles() []ResourceSetBindingRole {
-	if o == nil || o.Roles == nil {
+	if o == nil || IsNil(o.Roles) {
 		var ret []ResourceSetBindingRole
 		return ret
 	}
@@ -65,7 +69,7 @@ func (o *ResourceSetBindings) GetRoles() []ResourceSetBindingRole {
 // GetRolesOk returns a tuple with the Roles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSetBindings) GetRolesOk() ([]ResourceSetBindingRole, bool) {
-	if o == nil || o.Roles == nil {
+	if o == nil || IsNil(o.Roles) {
 		return nil, false
 	}
 	return o.Roles, true
@@ -73,7 +77,7 @@ func (o *ResourceSetBindings) GetRolesOk() ([]ResourceSetBindingRole, bool) {
 
 // HasRoles returns a boolean if a field has been set.
 func (o *ResourceSetBindings) HasRoles() bool {
-	if o != nil && o.Roles != nil {
+	if o != nil && !IsNil(o.Roles) {
 		return true
 	}
 
@@ -86,9 +90,9 @@ func (o *ResourceSetBindings) SetRoles(v []ResourceSetBindingRole) {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *ResourceSetBindings) GetLinks() ResourceSetBindingResponseLinks {
-	if o == nil || o.Links == nil {
-		var ret ResourceSetBindingResponseLinks
+func (o *ResourceSetBindings) GetLinks() ResourceSetBindingsLinks {
+	if o == nil || IsNil(o.Links) {
+		var ret ResourceSetBindingsLinks
 		return ret
 	}
 	return *o.Links
@@ -96,8 +100,8 @@ func (o *ResourceSetBindings) GetLinks() ResourceSetBindingResponseLinks {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResourceSetBindings) GetLinksOk() (*ResourceSetBindingResponseLinks, bool) {
-	if o == nil || o.Links == nil {
+func (o *ResourceSetBindings) GetLinksOk() (*ResourceSetBindingsLinks, bool) {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -105,24 +109,32 @@ func (o *ResourceSetBindings) GetLinksOk() (*ResourceSetBindingResponseLinks, bo
 
 // HasLinks returns a boolean if a field has been set.
 func (o *ResourceSetBindings) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
 	return false
 }
 
-// SetLinks gets a reference to the given ResourceSetBindingResponseLinks and assigns it to the Links field.
-func (o *ResourceSetBindings) SetLinks(v ResourceSetBindingResponseLinks) {
+// SetLinks gets a reference to the given ResourceSetBindingsLinks and assigns it to the Links field.
+func (o *ResourceSetBindings) SetLinks(v ResourceSetBindingsLinks) {
 	o.Links = &v
 }
 
 func (o ResourceSetBindings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ResourceSetBindings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Roles != nil {
+	if !IsNil(o.Roles) {
 		toSerialize["roles"] = o.Roles
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -130,28 +142,26 @@ func (o ResourceSetBindings) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResourceSetBindings) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ResourceSetBindings) UnmarshalJSON(data []byte) (err error) {
 	varResourceSetBindings := _ResourceSetBindings{}
 
-	err = json.Unmarshal(bytes, &varResourceSetBindings)
-	if err == nil {
-		*o = ResourceSetBindings(varResourceSetBindings)
-	} else {
+	err = json.Unmarshal(data, &varResourceSetBindings)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ResourceSetBindings(varResourceSetBindings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "roles")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -192,4 +202,3 @@ func (v *NullableResourceSetBindings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
