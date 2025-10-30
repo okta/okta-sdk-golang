@@ -1,6 +1,5 @@
 [<img src="https://cdn.brandfolder.io/2VK5Y09C/at/bb3mqsj5ssrgxtc5fbvtx/Logo-H_Developer-blue.svg" align="right" width="384px"/>](https://developer.okta.com/)
-[![Build Status](https://img.shields.io/travis/okta/okta-sdk-golang.svg?logo=travis)](https://travis-ci.org/okta/okta-sdk-golang)
-[![License](https://img.shields.io/github/license/okta/okta-sdk-golang.svg)](https://opensource.org/licenses/Apache-2.0)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Support](https://img.shields.io/badge/support-Developer%20Forum-blue.svg)][devforum]
 [![API Reference](https://img.shields.io/badge/docs-reference-lightgrey.svg)][sdkapiref]
 
@@ -56,7 +55,7 @@ If you run into problems using the SDK, you can
 
 ## Getting started
 
-The SDK is compatible with Go version 1.23.x and up. For SDK v2 and above, you
+The SDK is compatible with Go version 1.24.x and up. For SDK v2 and above, you
 must use [Go Modules](https://blog.golang.org/using-go-modules) to install the
 SDK.
 
