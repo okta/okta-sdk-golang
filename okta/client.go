@@ -53,11 +53,11 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/cenkalti/backoff/v4"
+	"github.com/cenkalti/backoff/v5"
 	"github.com/go-jose/go-jose/v4"
 	"github.com/go-jose/go-jose/v4/jwt"
 	"github.com/google/uuid"
-	"github.com/lestrrat-go/jwx/jwk"
+	"github.com/lestrrat-go/jwx/v3/jwk"
 	goCache "github.com/patrickmn/go-cache"
 	"golang.org/x/oauth2"
 )
@@ -698,11 +698,13 @@ func convertJWKToPrivateKey(jwks, encryptionType string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	for it := set.Iterate(context.Background()); it.Next(context.Background()); {
-		pair := it.Pair()
-		key := pair.Value.(jwk.Key)
+	for i := 0; i < set.Len(); i++ {
+		key, ok := set.Key(i)
+		if !ok {
+			continue
+		}
 		var rawkey interface{} // This is the raw key, like *rsa.PrivateKey or *ecdsa.PrivateKey
-		err := key.Raw(&rawkey)
+		err := jwk.Export(key, &rawkey)
 		if err != nil {
 			return "", err
 		}
@@ -793,17 +795,17 @@ func getAccessTokenForPrivateKey(httpClient *http.Client, orgURL, clientAssertio
 	tokenRequest.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	tokenRequest.Header.Add("User-Agent", userAgent)
 	bOff := &oktaBackoff{
-		ctx:             context.TODO(),
+		ctx:             context.Background(),
 		maxRetries:      maxRetries,
 		backoffDuration: time.Duration(maxBackoff),
 	}
 	var tokenResponse *http.Response
-	operation := func() error {
-		tokenResponse, err = httpClient.Do(tokenRequest)
+	operation := func() (*http.Response, error) {
+		resp, err := httpClient.Do(tokenRequest)
 		bOff.retryCount++
-		return err
+		return resp, err
 	}
-	err = backoff.Retry(operation, bOff)
+	tokenResponse, err = backoff.Retry(context.Background(), operation, backoff.WithBackOff(bOff))
 	if err != nil {
 		return nil, "", nil, err
 	}
@@ -856,17 +858,17 @@ func getAccessTokenForDpopPrivateKey(tokenRequest *http.Request, httpClient *htt
 	tokenRequest.Header.Set("DPoP", dpopJWT)
 
 	bOff := &oktaBackoff{
-		ctx:             context.TODO(),
+		ctx:             context.Background(),
 		maxRetries:      maxRetries,
 		backoffDuration: time.Duration(maxBackoff),
 	}
 	var tokenResponse *http.Response
-	operation := func() error {
-		tokenResponse, err = httpClient.Do(tokenRequest)
+	operation := func() (*http.Response, error) {
+		resp, err := httpClient.Do(tokenRequest)
 		bOff.retryCount++
-		return err
+		return resp, err
 	}
-	err = backoff.Retry(operation, bOff)
+	tokenResponse, err = backoff.Retry(context.Background(), operation, backoff.WithBackOff(bOff))
 	if err != nil {
 		return nil, "", nil, err
 	}
@@ -1476,28 +1478,28 @@ func (c *APIClient) doWithRetries(ctx context.Context, req *http.Request) (*http
 		ctx:        ctx,
 		maxRetries: c.cfg.Okta.Client.RateLimit.MaxRetries,
 	}
-	operation := func() error {
+	operation := func() (*http.Response, error) {
 		// Always rewind the request body when non-nil.
 		if bodyReader != nil {
 			req.Body = bodyReader()
 		}
-		resp, err = c.callAPI(req)
+		resp, err := c.callAPI(req)
 		if errors.Is(err, io.EOF) {
 			// retry on EOF errors, which might be caused by network connectivity issues
-			return fmt.Errorf("network error: %w", err)
+			return nil, fmt.Errorf("network error: %w", err)
 		} else if err != nil {
 			// this is error is considered to be permanent and should not be retried
-			return backoff.Permanent(err)
+			return nil, backoff.Permanent(err)
 		}
 		if !tooManyRequests(resp) {
-			return nil
+			return resp, nil
 		}
 		if err = tryDrainBody(resp.Body); err != nil {
-			return err
+			return nil, err
 		}
 		backoffDuration, err := Get429BackoffTime(resp)
 		if err != nil {
-			return err
+			return nil, err
 		}
 		if c.cfg.Okta.Client.RateLimit.MaxBackoff < backoffDuration {
 			backoffDuration = c.cfg.Okta.Client.RateLimit.MaxBackoff
@@ -1506,9 +1508,9 @@ func (c *APIClient) doWithRetries(ctx context.Context, req *http.Request) (*http
 		bOff.retryCount++
 		req.Header.Add("X-Okta-Retry-For", resp.Header.Get("X-Okta-Request-Id"))
 		req.Header.Add("X-Okta-Retry-Count", fmt.Sprint(bOff.retryCount))
-		return errors.New("too many requests")
+		return nil, errors.New("too many requests")
 	}
-	err = backoff.Retry(operation, bOff)
+	resp, err = backoff.Retry(ctx, operation, backoff.WithBackOff(bOff))
 	return resp, err
 }
 
@@ -1751,19 +1753,19 @@ type DpopClaims struct {
 }
 
 func generateDpopJWT(privateKey *rsa.PrivateKey, httpMethod, URL, nonce, accessToken string) (string, error) {
-	set, err := jwk.New(privateKey.PublicKey)
+	jwkKey, err := jwk.Import(privateKey.PublicKey)
 	if err != nil {
 		return "", err
 	}
-	err = jwk.AssignKeyID(set)
+	err = jwk.AssignKeyID(jwkKey)
 	if err != nil {
 		return "", err
 	}
-	key := jose.SigningKey{Algorithm: jose.RS256, Key: privateKey}
+	signingKey := jose.SigningKey{Algorithm: jose.RS256, Key: privateKey}
 	signerOpts := jose.SignerOptions{}
 	signerOpts.WithType("dpop+jwt")
-	signerOpts.WithHeader("jwk", set)
-	rsaSigner, err := jose.NewSigner(key, &signerOpts)
+	signerOpts.WithHeader("jwk", jwkKey)
+	rsaSigner, err := jose.NewSigner(signingKey, &signerOpts)
 	if err != nil {
 		return "", err
 	}

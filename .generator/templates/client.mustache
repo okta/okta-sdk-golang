@@ -1164,28 +1164,28 @@ func (c *APIClient) doWithRetries(ctx context.Context, req *http.Request) (*http
 		ctx:        ctx,
 		maxRetries: c.cfg.Okta.Client.RateLimit.MaxRetries,
 	}
-	operation := func() error {
+	operation := func() (*http.Response, error) {
 		// Always rewind the request body when non-nil.
 		if bodyReader != nil {
 			req.Body = bodyReader()
 		}
-		resp, err = c.callAPI(req)
+		resp, err := c.callAPI(req)
 		if errors.Is(err, io.EOF) {
 			// retry on EOF errors, which might be caused by network connectivity issues
-			return fmt.Errorf("network error: %w", err)
+			return nil, fmt.Errorf("network error: %w", err)
 		} else if err != nil {
 			// this is error is considered to be permanent and should not be retried
-			return backoff.Permanent(err)
+			return nil, backoff.Permanent(err)
 		}
 		if !tooManyRequests(resp) {
-			return nil
+			return resp, nil
 		}
 		if err = tryDrainBody(resp.Body); err != nil {
-			return err
+			return nil, err
 		}
 		backoffDuration, err := Get429BackoffTime(resp)
 		if err != nil {
-			return err
+			return nil, err
 		}
 		if c.cfg.Okta.Client.RateLimit.MaxBackoff < backoffDuration {
 			backoffDuration = c.cfg.Okta.Client.RateLimit.MaxBackoff
@@ -1194,9 +1194,9 @@ func (c *APIClient) doWithRetries(ctx context.Context, req *http.Request) (*http
 		bOff.retryCount++
 		req.Header.Add("X-Okta-Retry-For", resp.Header.Get("X-Okta-Request-Id"))
 		req.Header.Add("X-Okta-Retry-Count", fmt.Sprint(bOff.retryCount))
-		return errors.New("too many requests")
+		return nil, errors.New("too many requests")
 	}
-	err = backoff.Retry(operation, bOff)
+	resp, err = backoff.Retry(ctx, operation, backoff.WithBackOff(bOff))
 	return resp, err
 }
 
@@ -1439,19 +1439,19 @@ type DpopClaims struct {
 }
 
 func generateDpopJWT(privateKey *rsa.PrivateKey, httpMethod, URL, nonce, accessToken string) (string, error) {
-	set, err := jwk.New(privateKey.PublicKey)
+	jwkKey, err := jwk.Import(privateKey.PublicKey)
 	if err != nil {
 		return "", err
 	}
-	err = jwk.AssignKeyID(set)
+	err = jwk.AssignKeyID(jwkKey)
 	if err != nil {
 		return "", err
 	}
-	key := jose.SigningKey{Algorithm: jose.RS256, Key: privateKey}
+	signingKey := jose.SigningKey{Algorithm: jose.RS256, Key: privateKey}
 	signerOpts := jose.SignerOptions{}
 	signerOpts.WithType("dpop+jwt")
-	signerOpts.WithHeader("jwk", set)
-	rsaSigner, err := jose.NewSigner(key, &signerOpts)
+	signerOpts.WithHeader("jwk", jwkKey)
+	rsaSigner, err := jose.NewSigner(signingKey, &signerOpts)
 	if err != nil {
 		return "", err
 	}
