@@ -58,7 +58,7 @@ type UserGrantAPI interface {
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param userId ID of an existing Okta user
-		@param clientId Client app ID
+		@param clientId `client_id` of the app
 		@return ApiListGrantsForUserAndClientRequest
 	*/
 	ListGrantsForUserAndClient(ctx context.Context, userId string, clientId string) ApiListGrantsForUserAndClientRequest
@@ -89,7 +89,7 @@ type UserGrantAPI interface {
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param userId ID of an existing Okta user
-		@param clientId Client app ID
+		@param clientId `client_id` of the app
 		@return ApiRevokeGrantsForUserAndClientRequest
 	*/
 	RevokeGrantsForUserAndClient(ctx context.Context, userId string, clientId string) ApiRevokeGrantsForUserAndClientRequest
@@ -350,7 +350,7 @@ Lists all grants for a specified user and client
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId ID of an existing Okta user
-	@param clientId Client app ID
+	@param clientId `client_id` of the app
 	@return ApiListGrantsForUserAndClientRequest
 */
 func (a *UserGrantAPIService) ListGrantsForUserAndClient(ctx context.Context, userId string, clientId string) ApiListGrantsForUserAndClientRequest {
@@ -735,7 +735,7 @@ Revokes all grants for the specified user and client
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId ID of an existing Okta user
-	@param clientId Client app ID
+	@param clientId `client_id` of the app
 	@return ApiRevokeGrantsForUserAndClientRequest
 */
 func (a *UserGrantAPIService) RevokeGrantsForUserAndClient(ctx context.Context, userId string, clientId string) ApiRevokeGrantsForUserAndClientRequest {

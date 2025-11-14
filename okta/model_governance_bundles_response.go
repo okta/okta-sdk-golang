@@ -32,6 +32,7 @@ var _ MappedNullable = &GovernanceBundlesResponse{}
 
 // GovernanceBundlesResponse struct for GovernanceBundlesResponse
 type GovernanceBundlesResponse struct {
+	// List of governance bundles
 	Bundles              []GovernanceBundle              `json:"bundles,omitempty"`
 	Links                *GovernanceBundlesResponseLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}

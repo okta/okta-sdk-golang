@@ -52,7 +52,7 @@ type GroupRuleAPI interface {
 	/*
 			CreateGroupRule Create a group rule
 
-			Creates a group rule to dynamically add users to the specified group if they match the condition
+			Creates a group rule to dynamically add users to the specified group if they match the condition.
 		> **Note:** Group rules are created with the status set to `'INACTIVE'`.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -125,9 +125,9 @@ type GroupRuleAPI interface {
 			ReplaceGroupRule Replace a group rule
 
 			Replaces a group rule
-		> **Notes:** You can only update rules with a group whose status is set to `'INACTIVE'`.
+		> **Notes:** You can only update rules with a group whose status is set to `INACTIVE`.
 		>
-		> You currently can't update the `action` section.
+		> You currently can't update the `actions` section.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param groupRuleId The `id` of the group rule
@@ -315,7 +315,7 @@ func (r ApiCreateGroupRuleRequest) Execute() (*GroupRule, *APIResponse, error) {
 /*
 CreateGroupRule Create a group rule
 
-Creates a group rule to dynamically add users to the specified group if they match the condition
+Creates a group rule to dynamically add users to the specified group if they match the condition.
 > **Note:** Group rules are created with the status set to `'INACTIVE'`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -1173,9 +1173,9 @@ func (r ApiReplaceGroupRuleRequest) Execute() (*GroupRule, *APIResponse, error) 
 ReplaceGroupRule Replace a group rule
 
 Replaces a group rule
-> **Notes:** You can only update rules with a group whose status is set to `'INACTIVE'`.
+> **Notes:** You can only update rules with a group whose status is set to `INACTIVE`.
 >
-> You currently can't update the `action` section.
+> You currently can't update the `actions` section.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupRuleId The `id` of the group rule

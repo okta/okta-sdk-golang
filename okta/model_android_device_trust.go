@@ -30,7 +30,7 @@ import (
 // checks if the AndroidDeviceTrust type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AndroidDeviceTrust{}
 
-// AndroidDeviceTrust <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Android Device Trust integration provider
+// AndroidDeviceTrust Android Device Trust integration provider
 type AndroidDeviceTrust struct {
 	// Indicates how well a device can enforce app integrity
 	DeviceIntegrityLevel *string `json:"deviceIntegrityLevel,omitempty"`

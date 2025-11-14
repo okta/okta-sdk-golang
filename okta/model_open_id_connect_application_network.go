@@ -31,7 +31,7 @@ import (
 // checks if the OpenIdConnectApplicationNetwork type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &OpenIdConnectApplicationNetwork{}
 
-// OpenIdConnectApplicationNetwork <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>The network restrictions of the client
+// OpenIdConnectApplicationNetwork The network restrictions of the client
 type OpenIdConnectApplicationNetwork struct {
 	// The connection type of the network. Can be `ANYWHERE` or `ZONE`.
 	Connection string `json:"connection"`

@@ -57,6 +57,7 @@ type NetworkZoneAPI interface {
 		* For an IP Network Zone, you must define either `gateways` or `proxies`.
 		* For a Dynamic Network Zone, you must define at least one of the following: `asns`, `locations`, or `proxyType`.
 		* For an Enhanced Dynamic Network Zone, you must define at least one of the following: `asns`, `locations`, or `ipServiceCategories`.
+		> **Note:** To view all properties for an Enhanced Dynamic Network Zone, select `DYNAMIC_V2` from the `type` dropdown list.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@return ApiCreateNetworkZoneRequest
@@ -348,6 +349,7 @@ Creates a Network Zone
 * For an IP Network Zone, you must define either `gateways` or `proxies`.
 * For a Dynamic Network Zone, you must define at least one of the following: `asns`, `locations`, or `proxyType`.
 * For an Enhanced Dynamic Network Zone, you must define at least one of the following: `asns`, `locations`, or `ipServiceCategories`.
+> **Note:** To view all properties for an Enhanced Dynamic Network Zone, select `DYNAMIC_V2` from the `type` dropdown list.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiCreateNetworkZoneRequest

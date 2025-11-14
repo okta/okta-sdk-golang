@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **BrandId** | Pointer to **string** | The ID number of the brand | [optional] 
 **CertificateSourceType** | Pointer to **string** | Certificate source type that indicates whether the certificate is provided by the user or Okta. | [optional] 
-**DnsRecords** | Pointer to [**[]DNSRecord**](DNSRecord.md) |  | [optional] 
+**DnsRecords** | Pointer to [**[]DNSRecordDomains**](DNSRecordDomains.md) |  | [optional] 
 **Domain** | Pointer to **string** | Custom domain name | [optional] 
 **Id** | Pointer to **string** | Unique ID of the domain | [optional] 
 **PublicCertificate** | Pointer to [**DomainCertificateMetadata**](DomainCertificateMetadata.md) |  | [optional] 
@@ -84,20 +84,20 @@ HasCertificateSourceType returns a boolean if a field has been set.
 
 ### GetDnsRecords
 
-`func (o *DomainResponse) GetDnsRecords() []DNSRecord`
+`func (o *DomainResponse) GetDnsRecords() []DNSRecordDomains`
 
 GetDnsRecords returns the DnsRecords field if non-nil, zero value otherwise.
 
 ### GetDnsRecordsOk
 
-`func (o *DomainResponse) GetDnsRecordsOk() (*[]DNSRecord, bool)`
+`func (o *DomainResponse) GetDnsRecordsOk() (*[]DNSRecordDomains, bool)`
 
 GetDnsRecordsOk returns a tuple with the DnsRecords field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDnsRecords
 
-`func (o *DomainResponse) SetDnsRecords(v []DNSRecord)`
+`func (o *DomainResponse) SetDnsRecords(v []DNSRecordDomains)`
 
 SetDnsRecords sets DnsRecords field to given value.
 

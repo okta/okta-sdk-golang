@@ -36,9 +36,9 @@ import (
 type GovernanceBundleAPI interface {
 
 	/*
-		CreateGovernanceBundle Create a governance bundle for the Admin Console in RAMP
+		CreateGovernanceBundle Create a governance bundle
 
-		Creates a Governance Bundle for the Admin Console in RAMP
+		Creates a governance bundle of entitlements for the Admin Console
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return ApiCreateGovernanceBundleRequest
@@ -50,9 +50,9 @@ type GovernanceBundleAPI interface {
 	CreateGovernanceBundleExecute(r ApiCreateGovernanceBundleRequest) (*GovernanceBundle, *APIResponse, error)
 
 	/*
-		DeleteGovernanceBundle Delete a governance bundle from RAMP
+		DeleteGovernanceBundle Delete a governance bundle
 
-		Deletes a Governance Bundle from RAMP
+		Deletes an Admin Console governance bundle
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param bundleId The `id` of a bundle
@@ -64,9 +64,9 @@ type GovernanceBundleAPI interface {
 	DeleteGovernanceBundleExecute(r ApiDeleteGovernanceBundleRequest) (*APIResponse, error)
 
 	/*
-		GetGovernanceBundle Retrieve a governance bundle from RAMP
+		GetGovernanceBundle Retrieve a governance bundle
 
-		Retrieves a Governance Bundle from RAMP
+		Retrieves a governance bundle for the Admin Console
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param bundleId The `id` of a bundle
@@ -79,9 +79,9 @@ type GovernanceBundleAPI interface {
 	GetGovernanceBundleExecute(r ApiGetGovernanceBundleRequest) (*GovernanceBundle, *APIResponse, error)
 
 	/*
-		GetOptInStatus Retrieve the opt-in status from RAMP
+		GetOptInStatus Retrieve the Admin Console opt-in status
 
-		Retrieves the opt-in status of the Admin Console from RAMP
+		Retrieves the entitlement management opt-in status for the Admin Console
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return ApiGetOptInStatusRequest
@@ -93,9 +93,9 @@ type GovernanceBundleAPI interface {
 	GetOptInStatusExecute(r ApiGetOptInStatusRequest) (*OptInStatusResponse, *APIResponse, error)
 
 	/*
-		ListBundleEntitlementValues List all entitlement values for a bundle entitlement
+		ListBundleEntitlementValues List all values for a governance bundle entitlement
 
-		Lists all Entitlement Values specific to a Bundle Entitlement
+		Lists all entitlement values that are specific to a governance bundle entitlement
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param bundleId The `id` of a bundle
@@ -111,7 +111,7 @@ type GovernanceBundleAPI interface {
 	/*
 		ListBundleEntitlements List all entitlements for a governance bundle
 
-		Lists all Entitlements specific to a Governance Bundle
+		Lists all entitlements specific to a governance bundle
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param bundleId The `id` of a bundle
@@ -124,9 +124,9 @@ type GovernanceBundleAPI interface {
 	ListBundleEntitlementsExecute(r ApiListBundleEntitlementsRequest) (*BundleEntitlementsResponse, *APIResponse, error)
 
 	/*
-		ListGovernanceBundles List all governance bundles for the Admin Console
+		ListGovernanceBundles List all governance bundles
 
-		Lists all Governance Bundles for the Admin Console in your org
+		Lists all governance bundles for the Admin Console in your org
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return ApiListGovernanceBundlesRequest
@@ -138,9 +138,9 @@ type GovernanceBundleAPI interface {
 	ListGovernanceBundlesExecute(r ApiListGovernanceBundlesRequest) (*GovernanceBundlesResponse, *APIResponse, error)
 
 	/*
-		OptIn Opt in the Admin Console to RAMP
+		OptIn Opt in the Admin Console to entitlement management
 
-		Opts in the Admin Console to RAMP
+		Opts in the Admin Console to entitlement management
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return ApiOptInRequest
@@ -152,9 +152,9 @@ type GovernanceBundleAPI interface {
 	OptInExecute(r ApiOptInRequest) (*OptInStatusResponse, *APIResponse, error)
 
 	/*
-		OptOut Opt out the Admin Console from RAMP
+		OptOut Opt out the Admin Console from entitlement management
 
-		Opts out the Admin Console from RAMP
+		Opts out the Admin Console from entitlement management
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return ApiOptOutRequest
@@ -166,9 +166,9 @@ type GovernanceBundleAPI interface {
 	OptOutExecute(r ApiOptOutRequest) (*OptInStatusResponse, *APIResponse, error)
 
 	/*
-		ReplaceGovernanceBundle Replace a governance bundle in RAMP
+		ReplaceGovernanceBundle Replace a governance bundle
 
-		Replaces a Governance Bundle in RAMP
+		Replaces the properties of a governance bundle for the Admin Console
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param bundleId The `id` of a bundle
@@ -201,9 +201,9 @@ func (r ApiCreateGovernanceBundleRequest) Execute() (*GovernanceBundle, *APIResp
 }
 
 /*
-CreateGovernanceBundle Create a governance bundle for the Admin Console in RAMP
+CreateGovernanceBundle Create a governance bundle
 
-Creates a Governance Bundle for the Admin Console in RAMP
+Creates a governance bundle of entitlements for the Admin Console
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiCreateGovernanceBundleRequest
@@ -369,9 +369,9 @@ func (r ApiDeleteGovernanceBundleRequest) Execute() (*APIResponse, error) {
 }
 
 /*
-DeleteGovernanceBundle Delete a governance bundle from RAMP
+DeleteGovernanceBundle Delete a governance bundle
 
-Deletes a Governance Bundle from RAMP
+Deletes an Admin Console governance bundle
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param bundleId The `id` of a bundle
@@ -510,9 +510,9 @@ func (r ApiGetGovernanceBundleRequest) Execute() (*GovernanceBundle, *APIRespons
 }
 
 /*
-GetGovernanceBundle Retrieve a governance bundle from RAMP
+GetGovernanceBundle Retrieve a governance bundle
 
-Retrieves a Governance Bundle from RAMP
+Retrieves a governance bundle for the Admin Console
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param bundleId The `id` of a bundle
@@ -675,9 +675,9 @@ func (r ApiGetOptInStatusRequest) Execute() (*OptInStatusResponse, *APIResponse,
 }
 
 /*
-GetOptInStatus Retrieve the opt-in status from RAMP
+GetOptInStatus Retrieve the Admin Console opt-in status
 
-Retrieves the opt-in status of the Admin Console from RAMP
+Retrieves the entitlement management opt-in status for the Admin Console
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiGetOptInStatusRequest
@@ -841,9 +841,9 @@ func (r ApiListBundleEntitlementValuesRequest) Execute() (*EntitlementValuesResp
 }
 
 /*
-ListBundleEntitlementValues List all entitlement values for a bundle entitlement
+ListBundleEntitlementValues List all values for a governance bundle entitlement
 
-Lists all Entitlement Values specific to a Bundle Entitlement
+Lists all entitlement values that are specific to a governance bundle entitlement
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param bundleId The `id` of a bundle
@@ -1020,7 +1020,7 @@ func (r ApiListBundleEntitlementsRequest) Execute() (*BundleEntitlementsResponse
 /*
 ListBundleEntitlements List all entitlements for a governance bundle
 
-Lists all Entitlements specific to a Governance Bundle
+Lists all entitlements specific to a governance bundle
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param bundleId The `id` of a bundle
@@ -1191,9 +1191,9 @@ func (r ApiListGovernanceBundlesRequest) Execute() (*GovernanceBundlesResponse, 
 }
 
 /*
-ListGovernanceBundles List all governance bundles for the Admin Console
+ListGovernanceBundles List all governance bundles
 
-Lists all Governance Bundles for the Admin Console in your org
+Lists all governance bundles for the Admin Console in your org
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiListGovernanceBundlesRequest
@@ -1347,9 +1347,9 @@ func (r ApiOptInRequest) Execute() (*OptInStatusResponse, *APIResponse, error) {
 }
 
 /*
-OptIn Opt in the Admin Console to RAMP
+OptIn Opt in the Admin Console to entitlement management
 
-Opts in the Admin Console to RAMP
+Opts in the Admin Console to entitlement management
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiOptInRequest
@@ -1497,9 +1497,9 @@ func (r ApiOptOutRequest) Execute() (*OptInStatusResponse, *APIResponse, error) 
 }
 
 /*
-OptOut Opt out the Admin Console from RAMP
+OptOut Opt out the Admin Console from entitlement management
 
-Opts out the Admin Console from RAMP
+Opts out the Admin Console from entitlement management
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiOptOutRequest
@@ -1654,9 +1654,9 @@ func (r ApiReplaceGovernanceBundleRequest) Execute() (*GovernanceBundle, *APIRes
 }
 
 /*
-ReplaceGovernanceBundle Replace a governance bundle in RAMP
+ReplaceGovernanceBundle Replace a governance bundle
 
-Replaces a Governance Bundle in RAMP
+Replaces the properties of a governance bundle for the Admin Console
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param bundleId The `id` of a bundle

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Self** | Pointer to [**HrefObjectSelfLink**](HrefObjectSelfLink.md) |  | [optional] 
-**User** | Pointer to [**HrefObject**](HrefObject.md) | Returns information on the specified user | [optional] 
+**User** | Pointer to [**HrefObject**](HrefObject.md) | Returns information about the specified user | [optional] 
 **Authenticator** | Pointer to [**HrefObject**](HrefObject.md) | Returns information about a specific authenticator. See [Retrieve an authenticator](/openapi/okta-management/management/tag/Authenticator/#tag/Authenticator/operation/getAuthenticator). | [optional] 
 
 ## Methods

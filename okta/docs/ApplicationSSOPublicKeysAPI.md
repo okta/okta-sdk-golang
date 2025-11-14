@@ -41,7 +41,7 @@ import (
 
 func main() {
 	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	keyId := "apk2f4zrZbs8nUa7p0g4" // string | Unique `id` of the Custom Authorization Server JSON Web Key
+	keyId := "pks2f4zrZbs8nUa7p0g4" // string | Unique `id` of the OAuth 2.0 Client JSON Web Key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **appId** | **string** | Application ID | 
-**keyId** | **string** | Unique &#x60;id&#x60; of the Custom Authorization Server JSON Web Key | 
+**keyId** | **string** | Unique &#x60;id&#x60; of the OAuth 2.0 Client JSON Web Key | 
 
 ### Other Parameters
 
@@ -311,7 +311,7 @@ Name | Type | Description  | Notes
 
 ## DeactivateOAuth2ClientJsonWebKey
 
-> OAuth2ClientJsonSigningKeyResponse DeactivateOAuth2ClientJsonWebKey(ctx, appId, keyId).Execute()
+> DeactivateOAuth2ClientJsonWebKey200Response DeactivateOAuth2ClientJsonWebKey(ctx, appId, keyId).Execute()
 
 Deactivate an OAuth 2.0 client JSON Web Key
 
@@ -331,7 +331,7 @@ import (
 
 func main() {
 	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	keyId := "apk2f4zrZbs8nUa7p0g4" // string | Unique `id` of the Custom Authorization Server JSON Web Key
+	keyId := "pks2f4zrZbs8nUa7p0g4" // string | Unique `id` of the OAuth 2.0 Client JSON Web Key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -340,7 +340,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationSSOPublicKeysAPI.DeactivateOAuth2ClientJsonWebKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeactivateOAuth2ClientJsonWebKey`: OAuth2ClientJsonSigningKeyResponse
+	// response from `DeactivateOAuth2ClientJsonWebKey`: DeactivateOAuth2ClientJsonWebKey200Response
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationSSOPublicKeysAPI.DeactivateOAuth2ClientJsonWebKey`: %v\n", resp)
 }
 ```
@@ -352,7 +352,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **appId** | **string** | Application ID | 
-**keyId** | **string** | Unique &#x60;id&#x60; of the Custom Authorization Server JSON Web Key | 
+**keyId** | **string** | Unique &#x60;id&#x60; of the OAuth 2.0 Client JSON Web Key | 
 
 ### Other Parameters
 
@@ -366,7 +366,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OAuth2ClientJsonSigningKeyResponse**](OAuth2ClientJsonSigningKeyResponse.md)
+[**DeactivateOAuth2ClientJsonWebKey200Response**](DeactivateOAuth2ClientJsonWebKey200Response.md)
 
 ### Authorization
 
@@ -548,7 +548,7 @@ import (
 
 func main() {
 	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	keyId := "apk2f4zrZbs8nUa7p0g4" // string | Unique `id` of the Custom Authorization Server JSON Web Key
+	keyId := "pks2f4zrZbs8nUa7p0g4" // string | Unique `id` of the OAuth 2.0 Client JSON Web Key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -567,7 +567,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **appId** | **string** | Application ID | 
-**keyId** | **string** | Unique &#x60;id&#x60; of the Custom Authorization Server JSON Web Key | 
+**keyId** | **string** | Unique &#x60;id&#x60; of the OAuth 2.0 Client JSON Web Key | 
 
 ### Other Parameters
 
@@ -619,7 +619,7 @@ import (
 
 func main() {
 	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	keyId := "apk2f4zrZbs8nUa7p0g4" // string | Unique `id` of the Custom Authorization Server JSON Web Key
+	keyId := "pks2f4zrZbs8nUa7p0g4" // string | Unique `id` of the OAuth 2.0 Client JSON Web Key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -640,7 +640,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **appId** | **string** | Application ID | 
-**keyId** | **string** | Unique &#x60;id&#x60; of the Custom Authorization Server JSON Web Key | 
+**keyId** | **string** | Unique &#x60;id&#x60; of the OAuth 2.0 Client JSON Web Key | 
 
 ### Other Parameters
 

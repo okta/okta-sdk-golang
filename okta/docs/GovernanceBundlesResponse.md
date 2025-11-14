@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Bundles** | Pointer to [**[]GovernanceBundle**](GovernanceBundle.md) |  | [optional] 
+**Bundles** | Pointer to [**[]GovernanceBundle**](GovernanceBundle.md) | List of governance bundles | [optional] 
 **Links** | Pointer to [**GovernanceBundlesResponseLinks**](GovernanceBundlesResponseLinks.md) |  | [optional] 
 
 ## Methods

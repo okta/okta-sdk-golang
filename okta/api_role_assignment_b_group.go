@@ -53,8 +53,8 @@ type RoleAssignmentBGroupAPI interface {
 	AssignRoleToGroup(ctx context.Context, groupId string) ApiAssignRoleToGroupRequest
 
 	// AssignRoleToGroupExecute executes the request
-	//  @return ListGroupAssignedRoles200ResponseInner
-	AssignRoleToGroupExecute(r ApiAssignRoleToGroupRequest) (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error)
+	//  @return AssignRoleToGroup200Response
+	AssignRoleToGroupExecute(r ApiAssignRoleToGroupRequest) (*AssignRoleToGroup200Response, *APIResponse, error)
 
 	/*
 		GetGroupAssignedRole Retrieve a group role assignment
@@ -69,8 +69,8 @@ type RoleAssignmentBGroupAPI interface {
 	GetGroupAssignedRole(ctx context.Context, groupId string, roleAssignmentId string) ApiGetGroupAssignedRoleRequest
 
 	// GetGroupAssignedRoleExecute executes the request
-	//  @return ListGroupAssignedRoles200ResponseInner
-	GetGroupAssignedRoleExecute(r ApiGetGroupAssignedRoleRequest) (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error)
+	//  @return AssignRoleToGroup200Response
+	GetGroupAssignedRoleExecute(r ApiGetGroupAssignedRoleRequest) (*AssignRoleToGroup200Response, *APIResponse, error)
 
 	/*
 		ListGroupAssignedRoles List all group role assignments
@@ -126,7 +126,7 @@ func (r ApiAssignRoleToGroupRequest) DisableNotifications(disableNotifications b
 	return r
 }
 
-func (r ApiAssignRoleToGroupRequest) Execute() (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error) {
+func (r ApiAssignRoleToGroupRequest) Execute() (*AssignRoleToGroup200Response, *APIResponse, error) {
 	return r.ApiService.AssignRoleToGroupExecute(r)
 }
 
@@ -156,13 +156,13 @@ func (a *RoleAssignmentBGroupAPIService) AssignRoleToGroup(ctx context.Context, 
 
 // Execute executes the request
 //
-//	@return ListGroupAssignedRoles200ResponseInner
-func (a *RoleAssignmentBGroupAPIService) AssignRoleToGroupExecute(r ApiAssignRoleToGroupRequest) (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error) {
+//	@return AssignRoleToGroup200Response
+func (a *RoleAssignmentBGroupAPIService) AssignRoleToGroupExecute(r ApiAssignRoleToGroupRequest) (*AssignRoleToGroup200Response, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ListGroupAssignedRoles200ResponseInner
+		localVarReturnValue  *AssignRoleToGroup200Response
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -319,7 +319,7 @@ type ApiGetGroupAssignedRoleRequest struct {
 	retryCount       int32
 }
 
-func (r ApiGetGroupAssignedRoleRequest) Execute() (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error) {
+func (r ApiGetGroupAssignedRoleRequest) Execute() (*AssignRoleToGroup200Response, *APIResponse, error) {
 	return r.ApiService.GetGroupAssignedRoleExecute(r)
 }
 
@@ -345,13 +345,13 @@ func (a *RoleAssignmentBGroupAPIService) GetGroupAssignedRole(ctx context.Contex
 
 // Execute executes the request
 //
-//	@return ListGroupAssignedRoles200ResponseInner
-func (a *RoleAssignmentBGroupAPIService) GetGroupAssignedRoleExecute(r ApiGetGroupAssignedRoleRequest) (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error) {
+//	@return AssignRoleToGroup200Response
+func (a *RoleAssignmentBGroupAPIService) GetGroupAssignedRoleExecute(r ApiGetGroupAssignedRoleRequest) (*AssignRoleToGroup200Response, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ListGroupAssignedRoles200ResponseInner
+		localVarReturnValue  *AssignRoleToGroup200Response
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error

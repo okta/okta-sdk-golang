@@ -362,7 +362,7 @@ Name | Type | Description  | Notes
 
 ## ListApplications
 
-> []ListApplications200ResponseInner ListApplications(ctx).Q(q).After(after).UseOptimization(useOptimization).Limit(limit).Filter(filter).Expand(expand).IncludeNonDeleted(includeNonDeleted).Execute()
+> []ListApplications200ResponseInner ListApplications(ctx).Q(q).After(after).UseOptimization(useOptimization).AlwaysIncludeVpnSettings(alwaysIncludeVpnSettings).Limit(limit).Filter(filter).Expand(expand).IncludeNonDeleted(includeNonDeleted).Execute()
 
 List all applications
 
@@ -384,14 +384,15 @@ func main() {
 	q := "Okta" // string | Searches for apps with `name` or `label` properties that starts with the `q` value using the `startsWith` operation (optional)
 	after := "16278919418571" // string | Specifies the [pagination](/#pagination) cursor for the next page of results. Treat this as an opaque value obtained through the `next` link relationship. (optional)
 	useOptimization := true // bool | Specifies whether to use query optimization. If you specify `useOptimization=true` in the request query, the response contains a subset of app instance properties. (optional) (default to false)
+	alwaysIncludeVpnSettings := true // bool | Specifies whether to include the VPN configuration for existing notifications in the result, regardless of whether VPN notifications are configured (optional) (default to false)
 	limit := int32(56) // int32 | Specifies the number of results per page (optional) (default to -1)
-	filter := "status%20eq%20%22ACTIVE%22" // string | Filters apps by `status`, `user.id`, `group.id`, `credentials.signing.kid` or `name` expression that supports the `eq` operator (optional)
+	filter := "status%20eq%20%22ACTIVE%22" // string | Filters apps with a supported expression for a subset of properties. Filtering supports the following limited number of properties: `id`, `status`, `credentials.signing.kid`, `settings.slo.enabled`, or `name`. See [Filter](https://developer.okta.com/docs/api/#filter). (optional)
 	expand := "user/0oa1gjh63g214q0Hq0g4" // string | An optional parameter used for link expansion to embed more resources in the response. Only supports `expand=user/{userId}` and must be used with the `user.id eq \"{userId}\"` filter query for the same user. Returns the assigned [application user](/openapi/okta-management/management/tag/ApplicationUsers/) in the `_embedded` property. (optional)
 	includeNonDeleted := true // bool | Specifies whether to include non-active, but not deleted apps in the results (optional) (default to false)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationAPI.ListApplications(context.Background()).Q(q).After(after).UseOptimization(useOptimization).Limit(limit).Filter(filter).Expand(expand).IncludeNonDeleted(includeNonDeleted).Execute()
+	resp, r, err := apiClient.ApplicationAPI.ListApplications(context.Background()).Q(q).After(after).UseOptimization(useOptimization).AlwaysIncludeVpnSettings(alwaysIncludeVpnSettings).Limit(limit).Filter(filter).Expand(expand).IncludeNonDeleted(includeNonDeleted).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationAPI.ListApplications``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -415,8 +416,9 @@ Name | Type | Description  | Notes
  **q** | **string** | Searches for apps with &#x60;name&#x60; or &#x60;label&#x60; properties that starts with the &#x60;q&#x60; value using the &#x60;startsWith&#x60; operation | 
  **after** | **string** | Specifies the [pagination](/#pagination) cursor for the next page of results. Treat this as an opaque value obtained through the &#x60;next&#x60; link relationship. | 
  **useOptimization** | **bool** | Specifies whether to use query optimization. If you specify &#x60;useOptimization&#x3D;true&#x60; in the request query, the response contains a subset of app instance properties. | [default to false]
+ **alwaysIncludeVpnSettings** | **bool** | Specifies whether to include the VPN configuration for existing notifications in the result, regardless of whether VPN notifications are configured | [default to false]
  **limit** | **int32** | Specifies the number of results per page | [default to -1]
- **filter** | **string** | Filters apps by &#x60;status&#x60;, &#x60;user.id&#x60;, &#x60;group.id&#x60;, &#x60;credentials.signing.kid&#x60; or &#x60;name&#x60; expression that supports the &#x60;eq&#x60; operator | 
+ **filter** | **string** | Filters apps with a supported expression for a subset of properties. Filtering supports the following limited number of properties: &#x60;id&#x60;, &#x60;status&#x60;, &#x60;credentials.signing.kid&#x60;, &#x60;settings.slo.enabled&#x60;, or &#x60;name&#x60;. See [Filter](https://developer.okta.com/docs/api/#filter). | 
  **expand** | **string** | An optional parameter used for link expansion to embed more resources in the response. Only supports &#x60;expand&#x3D;user/{userId}&#x60; and must be used with the &#x60;user.id eq \&quot;{userId}\&quot;&#x60; filter query for the same user. Returns the assigned [application user](/openapi/okta-management/management/tag/ApplicationUsers/) in the &#x60;_embedded&#x60; property. | 
  **includeNonDeleted** | **bool** | Specifies whether to include non-active, but not deleted apps in the results | [default to false]
 

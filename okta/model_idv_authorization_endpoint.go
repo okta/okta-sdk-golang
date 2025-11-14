@@ -33,7 +33,7 @@ var _ MappedNullable = &IDVAuthorizationEndpoint{}
 // IDVAuthorizationEndpoint IDV authorization endpoint
 type IDVAuthorizationEndpoint struct {
 	Binding *string `json:"binding,omitempty"`
-	// URL of the IDV `authorization` endpoint
+	// URL of the `authorization` endpoint of the IDV vendor
 	Url                  *string `json:"url,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

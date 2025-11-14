@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** | ID of the group rule | [optional] [readonly] 
 **LastUpdated** | Pointer to **time.Time** | Date group rule was last updated | [optional] [readonly] 
 **Name** | Pointer to **string** | Name of the group rule | [optional] 
-**Status** | Pointer to **string** | Status of group rule | [optional] 
+**Status** | Pointer to **string** | Status of group rule. You can&#39;t update the status of a rule from &#x60;INACTIVE&#x60; to &#x60;ACTIVE&#x60;. You must use the activate and deactivate lifecycle operations. | [optional] 
 **Type** | Pointer to **string** | Type to indicate a group rule operation. Only &#x60;group_rule&#x60; is allowed. | [optional] 
 
 ## Methods

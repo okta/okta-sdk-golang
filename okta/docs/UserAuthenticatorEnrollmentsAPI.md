@@ -229,7 +229,7 @@ Name | Type | Description  | Notes
 
 ## GetAuthenticatorEnrollment
 
-> AuthenticatorEnrollment GetAuthenticatorEnrollment(ctx, userId, enrollmentId).Execute()
+> AuthenticatorEnrollment GetAuthenticatorEnrollment(ctx, userId, enrollmentId).DiscloseIdentifiers(discloseIdentifiers).Execute()
 
 Retrieve an authenticator enrollment
 
@@ -250,10 +250,11 @@ import (
 func main() {
 	userId := "00ub0oNGTSWTBKOLGLNR" // string | ID of an existing Okta user
 	enrollmentId := "sms8lqwuzSpWT4kVs0g4" // string | Unique identifier of an enrollment
+	discloseIdentifiers := []string{"DiscloseIdentifiers_example"} // []string | Indicates whether or not the identifier of an authenticator enrollment is disclosed or anonymized. If it's included in the operation query, then the identifier of the authenticator enrollment (the actual phone number, for example) is included in the response. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAuthenticatorEnrollmentsAPI.GetAuthenticatorEnrollment(context.Background(), userId, enrollmentId).Execute()
+	resp, r, err := apiClient.UserAuthenticatorEnrollmentsAPI.GetAuthenticatorEnrollment(context.Background(), userId, enrollmentId).DiscloseIdentifiers(discloseIdentifiers).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UserAuthenticatorEnrollmentsAPI.GetAuthenticatorEnrollment``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -281,6 +282,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **discloseIdentifiers** | **[]string** | Indicates whether or not the identifier of an authenticator enrollment is disclosed or anonymized. If it&#39;s included in the operation query, then the identifier of the authenticator enrollment (the actual phone number, for example) is included in the response. | 
 
 ### Return type
 
@@ -302,7 +304,7 @@ Name | Type | Description  | Notes
 
 ## ListAuthenticatorEnrollments
 
-> AuthenticatorEnrollment ListAuthenticatorEnrollments(ctx, userId).Execute()
+> AuthenticatorEnrollment ListAuthenticatorEnrollments(ctx, userId).DiscloseIdentifiers(discloseIdentifiers).Execute()
 
 List all authenticator enrollments
 
@@ -322,10 +324,11 @@ import (
 
 func main() {
 	userId := "00ub0oNGTSWTBKOLGLNR" // string | ID of an existing Okta user
+	discloseIdentifiers := []string{"DiscloseIdentifiers_example"} // []string | Indicates whether or not the identifier of an authenticator enrollment is disclosed or anonymized. If it's included in the operation query, then the identifier of the authenticator enrollment (the actual phone number, for example) is included in the response. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAuthenticatorEnrollmentsAPI.ListAuthenticatorEnrollments(context.Background(), userId).Execute()
+	resp, r, err := apiClient.UserAuthenticatorEnrollmentsAPI.ListAuthenticatorEnrollments(context.Background(), userId).DiscloseIdentifiers(discloseIdentifiers).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UserAuthenticatorEnrollmentsAPI.ListAuthenticatorEnrollments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -351,6 +354,7 @@ Other parameters are passed through a pointer to a apiListAuthenticatorEnrollmen
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **discloseIdentifiers** | **[]string** | Indicates whether or not the identifier of an authenticator enrollment is disclosed or anonymized. If it&#39;s included in the operation query, then the identifier of the authenticator enrollment (the actual phone number, for example) is included in the response. | 
 
 ### Return type
 

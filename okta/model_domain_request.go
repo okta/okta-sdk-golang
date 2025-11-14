@@ -35,7 +35,7 @@ var _ MappedNullable = &DomainRequest{}
 type DomainRequest struct {
 	// Certificate source type that indicates whether the certificate is provided by the user or Okta.
 	CertificateSourceType string `json:"certificateSourceType"`
-	// Custom domain name
+	// Custom domain name  > **Note:** You can't use the reserved `drapp.{yourOrgSubDomain}.okta.com` domain.
 	Domain               string `json:"domain"`
 	AdditionalProperties map[string]interface{}
 }

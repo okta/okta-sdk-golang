@@ -36,12 +36,12 @@ import (
 type ApplicationPoliciesAPI interface {
 
 	/*
-			AssignApplicationPolicy Assign an authentication policy
+			AssignApplicationPolicy Assign an app sign-in policy
 
-			Assigns an app to an [authentication policy](/openapi/okta-management/management/tag/Policy/), identified by `policyId`.
+			Assigns an app to an [app sign-in policy](/openapi/okta-management/management/tag/Policy/), identified by `policyId`.
 		If the app was previously assigned to another policy, this operation replaces that assignment with the updated policy identified by `policyId`.
 
-		> **Note:** When you [merge duplicate authentication policies](https://help.okta.com/okta_help.htm?type=oie&id=ext-merge-auth-policies),
+		> **Note:** When you [merge duplicate app sign-in policies](https://help.okta.com/okta_help.htm?type=oie&id=ext-merge-auth-policies),
 		the policy and mapping CRUD operations may be unavailable during the consolidation. When the consolidation is complete, you receive an email with merged results.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -71,12 +71,12 @@ func (r ApiAssignApplicationPolicyRequest) Execute() (*APIResponse, error) {
 }
 
 /*
-AssignApplicationPolicy Assign an authentication policy
+AssignApplicationPolicy Assign an app sign-in policy
 
-Assigns an app to an [authentication policy](/openapi/okta-management/management/tag/Policy/), identified by `policyId`.
+Assigns an app to an [app sign-in policy](/openapi/okta-management/management/tag/Policy/), identified by `policyId`.
 If the app was previously assigned to another policy, this operation replaces that assignment with the updated policy identified by `policyId`.
 
-> **Note:** When you [merge duplicate authentication policies](https://help.okta.com/okta_help.htm?type=oie&id=ext-merge-auth-policies),
+> **Note:** When you [merge duplicate app sign-in policies](https://help.okta.com/okta_help.htm?type=oie&id=ext-merge-auth-policies),
 the policy and mapping CRUD operations may be unavailable during the consolidation. When the consolidation is complete, you receive an email with merged results.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().

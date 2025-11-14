@@ -33,8 +33,8 @@ var _ MappedNullable = &UISchemaObject{}
 // UISchemaObject Properties of the UI schema
 type UISchemaObject struct {
 	// Specifies the button label for the `Submit` button at the bottom of the enrollment form
-	ButtonLabel *string    `json:"buttonLabel,omitempty"`
-	Elements    *UIElement `json:"elements,omitempty"`
+	ButtonLabel *string     `json:"buttonLabel,omitempty"`
+	Elements    []UIElement `json:"elements,omitempty"`
 	// Specifies the label at the top of the enrollment form under the logo
 	Label *string `json:"label,omitempty"`
 	// Specifies the type of layout
@@ -102,17 +102,17 @@ func (o *UISchemaObject) SetButtonLabel(v string) {
 }
 
 // GetElements returns the Elements field value if set, zero value otherwise.
-func (o *UISchemaObject) GetElements() UIElement {
+func (o *UISchemaObject) GetElements() []UIElement {
 	if o == nil || IsNil(o.Elements) {
-		var ret UIElement
+		var ret []UIElement
 		return ret
 	}
-	return *o.Elements
+	return o.Elements
 }
 
 // GetElementsOk returns a tuple with the Elements field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UISchemaObject) GetElementsOk() (*UIElement, bool) {
+func (o *UISchemaObject) GetElementsOk() ([]UIElement, bool) {
 	if o == nil || IsNil(o.Elements) {
 		return nil, false
 	}
@@ -128,9 +128,9 @@ func (o *UISchemaObject) HasElements() bool {
 	return false
 }
 
-// SetElements gets a reference to the given UIElement and assigns it to the Elements field.
-func (o *UISchemaObject) SetElements(v UIElement) {
-	o.Elements = &v
+// SetElements gets a reference to the given []UIElement and assigns it to the Elements field.
+func (o *UISchemaObject) SetElements(v []UIElement) {
+	o.Elements = v
 }
 
 // GetLabel returns the Label field value if set, zero value otherwise.

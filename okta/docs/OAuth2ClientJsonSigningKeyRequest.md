@@ -4,16 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Alg** | Pointer to **string** | Algorithm used in the key | [optional] 
-**Use** | Pointer to **string** | Acceptable use of the JSON Web Key | [optional] 
-**Kid** | Pointer to **NullableString** | Unique identifier of the JSON Web Key in the OAUth 2.0 client&#39;s JWKS | [optional] 
+**Alg** | **string** | Algorithm used in the key | 
+**Kid** | Pointer to **NullableString** | Unique identifier of the JSON Web Key in the OAuth 2.0 client&#39;s JWKS | [optional] 
+**Kty** | **string** | Cryptographic algorithm family for the certificate&#39;s key pair | 
 **Status** | Pointer to **string** | Status of the OAuth 2.0 client JSON Web Key | [optional] [default to "ACTIVE"]
+**Use** | **string** | Acceptable use of the JSON Web Key | 
 
 ## Methods
 
 ### NewOAuth2ClientJsonSigningKeyRequest
 
-`func NewOAuth2ClientJsonSigningKeyRequest() *OAuth2ClientJsonSigningKeyRequest`
+`func NewOAuth2ClientJsonSigningKeyRequest(alg string, kty string, use string, ) *OAuth2ClientJsonSigningKeyRequest`
 
 NewOAuth2ClientJsonSigningKeyRequest instantiates a new OAuth2ClientJsonSigningKeyRequest object
 This constructor will assign default values to properties that have it defined,
@@ -47,36 +48,6 @@ and a boolean to check if the value has been set.
 
 SetAlg sets Alg field to given value.
 
-### HasAlg
-
-`func (o *OAuth2ClientJsonSigningKeyRequest) HasAlg() bool`
-
-HasAlg returns a boolean if a field has been set.
-
-### GetUse
-
-`func (o *OAuth2ClientJsonSigningKeyRequest) GetUse() string`
-
-GetUse returns the Use field if non-nil, zero value otherwise.
-
-### GetUseOk
-
-`func (o *OAuth2ClientJsonSigningKeyRequest) GetUseOk() (*string, bool)`
-
-GetUseOk returns a tuple with the Use field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUse
-
-`func (o *OAuth2ClientJsonSigningKeyRequest) SetUse(v string)`
-
-SetUse sets Use field to given value.
-
-### HasUse
-
-`func (o *OAuth2ClientJsonSigningKeyRequest) HasUse() bool`
-
-HasUse returns a boolean if a field has been set.
 
 ### GetKid
 
@@ -113,6 +84,26 @@ HasKid returns a boolean if a field has been set.
 `func (o *OAuth2ClientJsonSigningKeyRequest) UnsetKid()`
 
 UnsetKid ensures that no value is present for Kid, not even an explicit nil
+### GetKty
+
+`func (o *OAuth2ClientJsonSigningKeyRequest) GetKty() string`
+
+GetKty returns the Kty field if non-nil, zero value otherwise.
+
+### GetKtyOk
+
+`func (o *OAuth2ClientJsonSigningKeyRequest) GetKtyOk() (*string, bool)`
+
+GetKtyOk returns a tuple with the Kty field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKty
+
+`func (o *OAuth2ClientJsonSigningKeyRequest) SetKty(v string)`
+
+SetKty sets Kty field to given value.
+
+
 ### GetStatus
 
 `func (o *OAuth2ClientJsonSigningKeyRequest) GetStatus() string`
@@ -137,6 +128,26 @@ SetStatus sets Status field to given value.
 `func (o *OAuth2ClientJsonSigningKeyRequest) HasStatus() bool`
 
 HasStatus returns a boolean if a field has been set.
+
+### GetUse
+
+`func (o *OAuth2ClientJsonSigningKeyRequest) GetUse() string`
+
+GetUse returns the Use field if non-nil, zero value otherwise.
+
+### GetUseOk
+
+`func (o *OAuth2ClientJsonSigningKeyRequest) GetUseOk() (*string, bool)`
+
+GetUseOk returns a tuple with the Use field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUse
+
+`func (o *OAuth2ClientJsonSigningKeyRequest) SetUse(v string)`
+
+SetUse sets Use field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

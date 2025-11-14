@@ -97,7 +97,7 @@ type RoleCResourceSetAPI interface {
 	/*
 		ReplaceResourceSet Replace a resource set
 
-		Replaces the label and description of a resource set
+		Replaces the label and description of a resource set. See [Supported resources](/openapi/okta-management/guides/roles/#supported-resources).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param resourceSetIdOrLabel `id` or `label` of the resource set
@@ -787,7 +787,7 @@ func (r ApiReplaceResourceSetRequest) Execute() (*ResourceSet, *APIResponse, err
 /*
 ReplaceResourceSet Replace a resource set
 
-Replaces the label and description of a resource set
+Replaces the label and description of a resource set. See [Supported resources](/openapi/okta-management/guides/roles/#supported-resources).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param resourceSetIdOrLabel `id` or `label` of the resource set

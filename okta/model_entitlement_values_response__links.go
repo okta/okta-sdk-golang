@@ -25,76 +25,219 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
+
+// checks if the EntitlementValuesResponseLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EntitlementValuesResponseLinks{}
 
 // EntitlementValuesResponseLinks struct for EntitlementValuesResponseLinks
 type EntitlementValuesResponseLinks struct {
-	EntitlementValuesResponseLinksAnyOf *EntitlementValuesResponseLinksAnyOf
-	LinksNext                           *LinksNext
-	LinksSelf                           *LinksSelf
+	Self                 *HrefObjectSelfLink `json:"self,omitempty"`
+	Bundle               *BundleLink         `json:"bundle,omitempty"`
+	Entitlements         *EntitlementsLink   `json:"entitlements,omitempty"`
+	Next                 *HrefObjectNextLink `json:"next,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
-// Unmarshal JSON data into any of the pointers in the struct
-func (dst *EntitlementValuesResponseLinks) UnmarshalJSON(data []byte) error {
-	var err error
-	// try to unmarshal JSON data into EntitlementValuesResponseLinksAnyOf
-	err = json.Unmarshal(data, &dst.EntitlementValuesResponseLinksAnyOf)
-	if err == nil {
-		jsonEntitlementValuesResponseLinksAnyOf, _ := json.Marshal(dst.EntitlementValuesResponseLinksAnyOf)
-		if string(jsonEntitlementValuesResponseLinksAnyOf) == "{}" { // empty struct
-			dst.EntitlementValuesResponseLinksAnyOf = nil
-		} else {
-			return nil // data stored in dst.EntitlementValuesResponseLinksAnyOf, return on the first match
-		}
-	} else {
-		dst.EntitlementValuesResponseLinksAnyOf = nil
-	}
+type _EntitlementValuesResponseLinks EntitlementValuesResponseLinks
 
-	// try to unmarshal JSON data into LinksNext
-	err = json.Unmarshal(data, &dst.LinksNext)
-	if err == nil {
-		jsonLinksNext, _ := json.Marshal(dst.LinksNext)
-		if string(jsonLinksNext) == "{}" { // empty struct
-			dst.LinksNext = nil
-		} else {
-			return nil // data stored in dst.LinksNext, return on the first match
-		}
-	} else {
-		dst.LinksNext = nil
-	}
-
-	// try to unmarshal JSON data into LinksSelf
-	err = json.Unmarshal(data, &dst.LinksSelf)
-	if err == nil {
-		jsonLinksSelf, _ := json.Marshal(dst.LinksSelf)
-		if string(jsonLinksSelf) == "{}" { // empty struct
-			dst.LinksSelf = nil
-		} else {
-			return nil // data stored in dst.LinksSelf, return on the first match
-		}
-	} else {
-		dst.LinksSelf = nil
-	}
-
-	return fmt.Errorf("data failed to match schemas in anyOf(EntitlementValuesResponseLinks)")
+// NewEntitlementValuesResponseLinks instantiates a new EntitlementValuesResponseLinks object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewEntitlementValuesResponseLinks() *EntitlementValuesResponseLinks {
+	this := EntitlementValuesResponseLinks{}
+	return &this
 }
 
-// Marshal data from the first non-nil pointers in the struct to JSON
-func (src EntitlementValuesResponseLinks) MarshalJSON() ([]byte, error) {
-	if src.EntitlementValuesResponseLinksAnyOf != nil {
-		return json.Marshal(&src.EntitlementValuesResponseLinksAnyOf)
+// NewEntitlementValuesResponseLinksWithDefaults instantiates a new EntitlementValuesResponseLinks object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewEntitlementValuesResponseLinksWithDefaults() *EntitlementValuesResponseLinks {
+	this := EntitlementValuesResponseLinks{}
+	return &this
+}
+
+// GetSelf returns the Self field value if set, zero value otherwise.
+func (o *EntitlementValuesResponseLinks) GetSelf() HrefObjectSelfLink {
+	if o == nil || IsNil(o.Self) {
+		var ret HrefObjectSelfLink
+		return ret
+	}
+	return *o.Self
+}
+
+// GetSelfOk returns a tuple with the Self field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EntitlementValuesResponseLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
+	if o == nil || IsNil(o.Self) {
+		return nil, false
+	}
+	return o.Self, true
+}
+
+// HasSelf returns a boolean if a field has been set.
+func (o *EntitlementValuesResponseLinks) HasSelf() bool {
+	if o != nil && !IsNil(o.Self) {
+		return true
 	}
 
-	if src.LinksNext != nil {
-		return json.Marshal(&src.LinksNext)
+	return false
+}
+
+// SetSelf gets a reference to the given HrefObjectSelfLink and assigns it to the Self field.
+func (o *EntitlementValuesResponseLinks) SetSelf(v HrefObjectSelfLink) {
+	o.Self = &v
+}
+
+// GetBundle returns the Bundle field value if set, zero value otherwise.
+func (o *EntitlementValuesResponseLinks) GetBundle() BundleLink {
+	if o == nil || IsNil(o.Bundle) {
+		var ret BundleLink
+		return ret
+	}
+	return *o.Bundle
+}
+
+// GetBundleOk returns a tuple with the Bundle field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EntitlementValuesResponseLinks) GetBundleOk() (*BundleLink, bool) {
+	if o == nil || IsNil(o.Bundle) {
+		return nil, false
+	}
+	return o.Bundle, true
+}
+
+// HasBundle returns a boolean if a field has been set.
+func (o *EntitlementValuesResponseLinks) HasBundle() bool {
+	if o != nil && !IsNil(o.Bundle) {
+		return true
 	}
 
-	if src.LinksSelf != nil {
-		return json.Marshal(&src.LinksSelf)
+	return false
+}
+
+// SetBundle gets a reference to the given BundleLink and assigns it to the Bundle field.
+func (o *EntitlementValuesResponseLinks) SetBundle(v BundleLink) {
+	o.Bundle = &v
+}
+
+// GetEntitlements returns the Entitlements field value if set, zero value otherwise.
+func (o *EntitlementValuesResponseLinks) GetEntitlements() EntitlementsLink {
+	if o == nil || IsNil(o.Entitlements) {
+		var ret EntitlementsLink
+		return ret
+	}
+	return *o.Entitlements
+}
+
+// GetEntitlementsOk returns a tuple with the Entitlements field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EntitlementValuesResponseLinks) GetEntitlementsOk() (*EntitlementsLink, bool) {
+	if o == nil || IsNil(o.Entitlements) {
+		return nil, false
+	}
+	return o.Entitlements, true
+}
+
+// HasEntitlements returns a boolean if a field has been set.
+func (o *EntitlementValuesResponseLinks) HasEntitlements() bool {
+	if o != nil && !IsNil(o.Entitlements) {
+		return true
 	}
 
-	return nil, nil // no data in anyOf schemas
+	return false
+}
+
+// SetEntitlements gets a reference to the given EntitlementsLink and assigns it to the Entitlements field.
+func (o *EntitlementValuesResponseLinks) SetEntitlements(v EntitlementsLink) {
+	o.Entitlements = &v
+}
+
+// GetNext returns the Next field value if set, zero value otherwise.
+func (o *EntitlementValuesResponseLinks) GetNext() HrefObjectNextLink {
+	if o == nil || IsNil(o.Next) {
+		var ret HrefObjectNextLink
+		return ret
+	}
+	return *o.Next
+}
+
+// GetNextOk returns a tuple with the Next field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EntitlementValuesResponseLinks) GetNextOk() (*HrefObjectNextLink, bool) {
+	if o == nil || IsNil(o.Next) {
+		return nil, false
+	}
+	return o.Next, true
+}
+
+// HasNext returns a boolean if a field has been set.
+func (o *EntitlementValuesResponseLinks) HasNext() bool {
+	if o != nil && !IsNil(o.Next) {
+		return true
+	}
+
+	return false
+}
+
+// SetNext gets a reference to the given HrefObjectNextLink and assigns it to the Next field.
+func (o *EntitlementValuesResponseLinks) SetNext(v HrefObjectNextLink) {
+	o.Next = &v
+}
+
+func (o EntitlementValuesResponseLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EntitlementValuesResponseLinks) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Self) {
+		toSerialize["self"] = o.Self
+	}
+	if !IsNil(o.Bundle) {
+		toSerialize["bundle"] = o.Bundle
+	}
+	if !IsNil(o.Entitlements) {
+		toSerialize["entitlements"] = o.Entitlements
+	}
+	if !IsNil(o.Next) {
+		toSerialize["next"] = o.Next
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *EntitlementValuesResponseLinks) UnmarshalJSON(data []byte) (err error) {
+	varEntitlementValuesResponseLinks := _EntitlementValuesResponseLinks{}
+
+	err = json.Unmarshal(data, &varEntitlementValuesResponseLinks)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EntitlementValuesResponseLinks(varEntitlementValuesResponseLinks)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "self")
+		delete(additionalProperties, "bundle")
+		delete(additionalProperties, "entitlements")
+		delete(additionalProperties, "next")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableEntitlementValuesResponseLinks struct {

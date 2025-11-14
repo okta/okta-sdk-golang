@@ -34,9 +34,9 @@ var _ MappedNullable = &EmailTestAddresses{}
 // EmailTestAddresses struct for EmailTestAddresses
 type EmailTestAddresses struct {
 	// Email address that sends test emails
-	From string `json:"from"`
+	FromAddress string `json:"fromAddress"`
 	// Email address that receives test emails
-	To                   string `json:"to"`
+	ToAddress            string `json:"toAddress"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -46,10 +46,10 @@ type _EmailTestAddresses EmailTestAddresses
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEmailTestAddresses(from string, to string) *EmailTestAddresses {
+func NewEmailTestAddresses(fromAddress string, toAddress string) *EmailTestAddresses {
 	this := EmailTestAddresses{}
-	this.From = from
-	this.To = to
+	this.FromAddress = fromAddress
+	this.ToAddress = toAddress
 	return &this
 }
 
@@ -61,52 +61,52 @@ func NewEmailTestAddressesWithDefaults() *EmailTestAddresses {
 	return &this
 }
 
-// GetFrom returns the From field value
-func (o *EmailTestAddresses) GetFrom() string {
+// GetFromAddress returns the FromAddress field value
+func (o *EmailTestAddresses) GetFromAddress() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.From
+	return o.FromAddress
 }
 
-// GetFromOk returns a tuple with the From field value
+// GetFromAddressOk returns a tuple with the FromAddress field value
 // and a boolean to check if the value has been set.
-func (o *EmailTestAddresses) GetFromOk() (*string, bool) {
+func (o *EmailTestAddresses) GetFromAddressOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.From, true
+	return &o.FromAddress, true
 }
 
-// SetFrom sets field value
-func (o *EmailTestAddresses) SetFrom(v string) {
-	o.From = v
+// SetFromAddress sets field value
+func (o *EmailTestAddresses) SetFromAddress(v string) {
+	o.FromAddress = v
 }
 
-// GetTo returns the To field value
-func (o *EmailTestAddresses) GetTo() string {
+// GetToAddress returns the ToAddress field value
+func (o *EmailTestAddresses) GetToAddress() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.To
+	return o.ToAddress
 }
 
-// GetToOk returns a tuple with the To field value
+// GetToAddressOk returns a tuple with the ToAddress field value
 // and a boolean to check if the value has been set.
-func (o *EmailTestAddresses) GetToOk() (*string, bool) {
+func (o *EmailTestAddresses) GetToAddressOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.To, true
+	return &o.ToAddress, true
 }
 
-// SetTo sets field value
-func (o *EmailTestAddresses) SetTo(v string) {
-	o.To = v
+// SetToAddress sets field value
+func (o *EmailTestAddresses) SetToAddress(v string) {
+	o.ToAddress = v
 }
 
 func (o EmailTestAddresses) MarshalJSON() ([]byte, error) {
@@ -119,8 +119,8 @@ func (o EmailTestAddresses) MarshalJSON() ([]byte, error) {
 
 func (o EmailTestAddresses) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["from"] = o.From
-	toSerialize["to"] = o.To
+	toSerialize["fromAddress"] = o.FromAddress
+	toSerialize["toAddress"] = o.ToAddress
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -134,8 +134,8 @@ func (o *EmailTestAddresses) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"from",
-		"to",
+		"fromAddress",
+		"toAddress",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -165,8 +165,8 @@ func (o *EmailTestAddresses) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "from")
-		delete(additionalProperties, "to")
+		delete(additionalProperties, "fromAddress")
+		delete(additionalProperties, "toAddress")
 		o.AdditionalProperties = additionalProperties
 	}
 

@@ -33,7 +33,7 @@ var _ MappedNullable = &GoogleApplicationSettings{}
 
 // GoogleApplicationSettings struct for GoogleApplicationSettings
 type GoogleApplicationSettings struct {
-	// The Governance Engine opt-in status for the app
+	// The entitlement management opt-in status for the app
 	EmOptInStatus *string `json:"emOptInStatus,omitempty"`
 	// Identifies an additional identity store app, if your app supports it. The `identityStoreId` value must be a valid identity store app ID. This identity store app must be created in the same org as your app.
 	IdentityStoreId *string `json:"identityStoreId,omitempty"`

@@ -30,7 +30,7 @@ import (
 // checks if the AuthenticatorKeyTacAllOfProvider type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AuthenticatorKeyTacAllOfProvider{}
 
-// AuthenticatorKeyTacAllOfProvider <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Settings for the TAC authenticator
+// AuthenticatorKeyTacAllOfProvider <x-lifecycle-container><x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>Settings for the TAC authenticator
 type AuthenticatorKeyTacAllOfProvider struct {
 	// Provider type
 	Type                 *string                                        `json:"type,omitempty"`

@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **DefaultApp** | Pointer to [**DefaultApp**](DefaultApp.md) |  | [optional] 
 **EmailDomainId** | Pointer to **string** | The ID of the email domain | [optional] 
 **Locale** | Pointer to **string** | The language specified as an [IETF BCP 47 language tag](https://datatracker.ietf.org/doc/html/rfc5646) | [optional] 
-**Name** | **string** | The name of the Brand | 
+**Name** | **string** | The name of the brand  &gt; **Note:** You can&#39;t use the reserved &#x60;DRAPP_DOMAIN_BRAND&#x60; name. | 
 **RemovePoweredByOkta** | Pointer to **bool** | Removes \&quot;Powered by Okta\&quot; from the sign-in page in redirect authentication deployments, and \&quot;© [current year] Okta, Inc.\&quot; from the Okta End-User Dashboard | [optional] [default to false]
 
 ## Methods

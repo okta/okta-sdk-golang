@@ -243,7 +243,7 @@ Name | Type | Description  | Notes
 
 ## GetUserAssignedRole
 
-> ListGroupAssignedRoles200ResponseInner GetUserAssignedRole(ctx, userId, roleAssignmentId).Execute()
+> AssignRoleToGroup200Response GetUserAssignedRole(ctx, userId, roleAssignmentId).Execute()
 
 Retrieve a user role assignment
 
@@ -272,7 +272,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAUserAPI.GetUserAssignedRole``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetUserAssignedRole`: ListGroupAssignedRoles200ResponseInner
+	// response from `GetUserAssignedRole`: AssignRoleToGroup200Response
 	fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentAUserAPI.GetUserAssignedRole`: %v\n", resp)
 }
 ```
@@ -298,7 +298,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListGroupAssignedRoles200ResponseInner**](ListGroupAssignedRoles200ResponseInner.md)
+[**AssignRoleToGroup200Response**](AssignRoleToGroup200Response.md)
 
 ### Authorization
 
@@ -389,7 +389,7 @@ Name | Type | Description  | Notes
 
 ## ListAssignedRolesForUser
 
-> []ListGroupAssignedRoles200ResponseInner ListAssignedRolesForUser(ctx, userId).Expand(expand).Execute()
+> []AssignRoleToGroup200Response ListAssignedRolesForUser(ctx, userId).Expand(expand).Execute()
 
 List all user role assignments
 
@@ -418,7 +418,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAUserAPI.ListAssignedRolesForUser``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListAssignedRolesForUser`: []ListGroupAssignedRoles200ResponseInner
+	// response from `ListAssignedRolesForUser`: []AssignRoleToGroup200Response
 	fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentAUserAPI.ListAssignedRolesForUser`: %v\n", resp)
 }
 ```
@@ -443,7 +443,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]ListGroupAssignedRoles200ResponseInner**](ListGroupAssignedRoles200ResponseInner.md)
+[**[]AssignRoleToGroup200Response**](AssignRoleToGroup200Response.md)
 
 ### Authorization
 

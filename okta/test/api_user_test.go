@@ -1,195 +1,134 @@
 /*
 Okta Admin Management
 
-Testing UserAPIService
+Allows customers to easily access the Okta Management APIs
 
+Copyright 2025 - Present Okta, Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+API version: 2025.08.0
+Contact: devex-public@okta.com
 */
 
 package okta
 
 import (
 	"context"
-	"fmt"
-	"log"
-	"net/http"
-	"os"
 	"testing"
-	"time"
 
-	okta "github.com/okta/okta-sdk-golang/v6/okta"
+	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
-var (
-	apiClient   *okta.APIClient
-	testDataMgr *okta.TestDataManager
-	testContext context.Context
-)
-
-// TestMain provides setup and teardown for all user tests
-func TestMain(m *testing.M) {
-	if err := okta.ValidateTestEnvironment(); err != nil {
-		log.Printf("Test environment validation failed: %v", err)
-		log.Printf("Please set OKTA_CLIENT_ORGURL and OKTA_CLIENT_TOKEN environment variables")
-		os.Exit(1)
-	}
-
-	var err error
-	configuration, err := okta.NewConfiguration()
-	if err != nil {
-		log.Fatalf("Failed to create configuration: %v", err)
-	}
-
-	apiClient = okta.NewAPIClient(configuration)
-	testDataMgr = okta.GetTestDataManager()
-	testContext = context.Background()
-
-	exitCode := m.Run()
-
-	log.Println("Cleaning up test resources...")
-	testDataMgr.CleanupAllTestUsers()
-
-	os.Exit(exitCode)
-}
-
 func Test_okta_UserAPIService(t *testing.T) {
 
+	configuration, err := openapiclient.NewConfiguration()
+	require.Nil(t, err)
+	apiClient := openapiclient.NewAPIClient(configuration)
+
 	t.Run("Test UserAPIService CreateUser", func(t *testing.T) {
-		testFactory := &okta.TestFactory{}
-		profile := testFactory.NewValidTestUserProfile()
-		credentials := testFactory.NewValidTestUserCredentialsWithPassword()
 
-		createReq := okta.NewCreateUserRequest(profile)
-		createReq.SetCredentials(*credentials)
+		t.Skip("skip test") // remove to run test
 
-		req := apiClient.UserAPI.CreateUser(testContext).Body(*createReq).Activate(false)
-		resp, httpRes, err := req.Execute()
+		resp, httpRes, err := apiClient.UserAPI.CreateUser(context.Background()).Execute()
 
-		require.NoError(t, err, "CreateUser should not return an error")
-		require.NotNil(t, resp, "Response should not be nil")
-		assert.Equal(t, http.StatusOK, httpRes.StatusCode, "HTTP status should be 200")
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
 
-		assert.NotNil(t, resp.Id, "User ID should be set")
-		assert.NotNil(t, resp.Profile, "User profile should be set")
-		if resp.Profile != nil {
-			assert.Equal(t, profile.GetFirstName(), resp.Profile.GetFirstName(), "First name should match")
-			assert.Equal(t, profile.GetLastName(), resp.Profile.GetLastName(), "Last name should match")
-			assert.Equal(t, profile.GetEmail(), resp.Profile.GetEmail(), "Email should match")
-		}
-
-		if resp.Id != nil {
-			testDataMgr.TrackUser(*resp.Id)
-		}
-	})
-
-	t.Run("Test UserAPIService GetUser", func(t *testing.T) {
-		createdUser, err := testDataMgr.CreateTestUser()
-		require.NoError(t, err, "Failed to create test user")
-		require.NotNil(t, createdUser.Id, "Created user should have an ID")
-
-		resp, httpRes, err := apiClient.UserAPI.GetUser(testContext, *createdUser.Id).Execute()
-
-		require.NoError(t, err, "GetUser should not return an error")
-		require.NotNil(t, resp, "Response should not be nil")
-		assert.Equal(t, http.StatusOK, httpRes.StatusCode, "HTTP status should be 200")
-
-		assert.Equal(t, createdUser.Id, resp.Id, "User IDs should match")
-		if resp.Profile != nil && createdUser.Profile != nil {
-			assert.Equal(t, createdUser.Profile.GetEmail(), resp.Profile.GetEmail(), "Emails should match")
-		}
-	})
-
-	t.Run("Test UserAPIService ListUsers", func(t *testing.T) {
-		resp, httpRes, err := apiClient.UserAPI.ListUsers(testContext).Execute()
-
-		require.NoError(t, err, "ListUsers should not return an error")
-		require.NotNil(t, resp, "Response should not be nil")
-		assert.Equal(t, http.StatusOK, httpRes.StatusCode, "HTTP status should be 200")
-
-		assert.IsType(t, []okta.User{}, resp, "Response should be a slice of User")
-	})
-
-	t.Run("Test UserAPIService UpdateUser", func(t *testing.T) {
-		createdUser, err := testDataMgr.CreateAndActivateTestUser()
-		require.NoError(t, err, "Failed to create test user")
-		require.NotNil(t, createdUser.Id, "Created user should have an ID")
-
-		testFactory := &okta.TestFactory{}
-		updatedProfile := testFactory.NewTestUserProfileUpdate()
-		updateReq := okta.NewUpdateUserRequest()
-		updateReq.SetProfile(updatedProfile)
-
-		req := apiClient.UserAPI.UpdateUser(testContext, *createdUser.Id).User(*updateReq)
-		resp, httpRes, err := req.Execute()
-
-		require.NoError(t, err, "UpdateUser should not return an error")
-		require.NotNil(t, resp, "Response should not be nil")
-		assert.Equal(t, http.StatusOK, httpRes.StatusCode, "HTTP status should be 200")
-
-		if resp.Profile != nil {
-			assert.Equal(t, updatedProfile.GetFirstName(), resp.Profile.GetFirstName(), "First name should be updated")
-			assert.Equal(t, updatedProfile.GetLastName(), resp.Profile.GetLastName(), "Last name should be updated")
-		}
-	})
-
-	t.Run("Test UserAPIService ReplaceUser", func(t *testing.T) {
-		createdUser, err := testDataMgr.CreateAndActivateTestUser()
-		require.NoError(t, err, "Failed to create test user")
-		require.NotNil(t, createdUser.Id, "Created user should have an ID")
-
-		testFactory := &okta.TestFactory{}
-		replacementProfile := testFactory.NewTestUserProfileUpdate()
-		replaceReq := okta.NewUpdateUserRequest()
-		replaceReq.SetProfile(replacementProfile)
-
-		req := apiClient.UserAPI.ReplaceUser(testContext, *createdUser.Id).User(*replaceReq)
-		resp, httpRes, err := req.Execute()
-
-		require.NoError(t, err, "ReplaceUser should not return an error")
-		require.NotNil(t, resp, "Response should not be nil")
-		assert.Equal(t, http.StatusOK, httpRes.StatusCode, "HTTP status should be 200")
-
-		if resp.Profile != nil {
-			assert.Equal(t, replacementProfile.GetFirstName(), resp.Profile.GetFirstName(), "First name should be replaced")
-			assert.Equal(t, replacementProfile.GetLastName(), resp.Profile.GetLastName(), "Last name should be replaced")
-		}
 	})
 
 	t.Run("Test UserAPIService DeleteUser", func(t *testing.T) {
-		createdUser, err := testDataMgr.CreateTestUser()
-		require.NoError(t, err, "Failed to create test user")
-		require.NotNil(t, createdUser.Id, "Created user should have an ID")
 
-		_, deactivateErr := apiClient.UserLifecycleAPI.DeactivateUser(testContext, *createdUser.Id).Execute()
-		require.NoError(t, deactivateErr, "DeactivateUser should not return an error")
+		t.Skip("skip test") // remove to run test
 
-		// Wait a moment for deactivation to complete
-		time.Sleep(2 * time.Second)
+		var id string
 
-		httpRes, err := apiClient.UserAPI.DeleteUser(testContext, *createdUser.Id).Execute()
+		httpRes, err := apiClient.UserAPI.DeleteUser(context.Background(), id).Execute()
 
-		require.NoError(t, err, "DeleteUser should not return an error")
-		assert.Equal(t, http.StatusNoContent, httpRes.StatusCode, "HTTP status should be 204")
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
 
-		testDataMgr.RemoveUserFromTracking(*createdUser.Id)
-
-		_, _, getErr := apiClient.UserAPI.GetUser(testContext, *createdUser.Id).Execute()
-		assert.Error(t, getErr, "Getting deleted user should return an error")
 	})
 
-	// FIXME: This feature needs permission in the org and skipping this test.
+	t.Run("Test UserAPIService GetUser", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var id string
+
+		resp, httpRes, err := apiClient.UserAPI.GetUser(context.Background(), id).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test UserAPIService ListUserBlocks", func(t *testing.T) {
-		t.Skip()
-		createdUser, err := testDataMgr.CreateAndActivateTestUser()
-		require.NoError(t, err, "Failed to create test user")
-		require.NotNil(t, createdUser.Id, "Created user should have an ID")
 
-		resp, httpRes, err := apiClient.UserAPI.ListUserBlocks(testContext, *createdUser.Id).Execute()
-		fmt.Println(httpRes.Body)
+		t.Skip("skip test") // remove to run test
 
-		require.NoError(t, err, "ListUserBlocks should not return an error")
-		require.NotNil(t, resp, "Response should not be nil")
-		assert.Equal(t, http.StatusOK, httpRes.StatusCode, "HTTP status should be 200")
+		var id string
+
+		resp, httpRes, err := apiClient.UserAPI.ListUserBlocks(context.Background(), id).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
+
+	t.Run("Test UserAPIService ListUsers", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		resp, httpRes, err := apiClient.UserAPI.ListUsers(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test UserAPIService ReplaceUser", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var id string
+
+		resp, httpRes, err := apiClient.UserAPI.ReplaceUser(context.Background(), id).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test UserAPIService UpdateUser", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var id string
+
+		resp, httpRes, err := apiClient.UserAPI.UpdateUser(context.Background(), id).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 }

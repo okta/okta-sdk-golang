@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CertificateSourceType** | **string** | Certificate source type that indicates whether the certificate is provided by the user or Okta. | 
-**Domain** | **string** | Custom domain name | 
+**Domain** | **string** | Custom domain name  &gt; **Note:** You can&#39;t use the reserved &#x60;drapp.{yourOrgSubDomain}.okta.com&#x60; domain. | 
 
 ## Methods
 

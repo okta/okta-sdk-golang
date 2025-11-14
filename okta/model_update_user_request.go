@@ -35,7 +35,8 @@ type UpdateUserRequest struct {
 	Credentials *UserCredentials `json:"credentials,omitempty"`
 	Profile     *UserProfile     `json:"profile,omitempty"`
 	// The ID of the realm in which the user is residing. See [Realms](/openapi/okta-management/management/tag/Realm/).
-	RealmId              *string `json:"realmId,omitempty"`
+	RealmId              *string                `json:"realmId,omitempty"`
+	Type                 *UpdateUserRequestType `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -154,6 +155,38 @@ func (o *UpdateUserRequest) SetRealmId(v string) {
 	o.RealmId = &v
 }
 
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *UpdateUserRequest) GetType() UpdateUserRequestType {
+	if o == nil || IsNil(o.Type) {
+		var ret UpdateUserRequestType
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateUserRequest) GetTypeOk() (*UpdateUserRequestType, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *UpdateUserRequest) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given UpdateUserRequestType and assigns it to the Type field.
+func (o *UpdateUserRequest) SetType(v UpdateUserRequestType) {
+	o.Type = &v
+}
+
 func (o UpdateUserRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -172,6 +205,9 @@ func (o UpdateUserRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.RealmId) {
 		toSerialize["realmId"] = o.RealmId
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -198,6 +234,7 @@ func (o *UpdateUserRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "credentials")
 		delete(additionalProperties, "profile")
 		delete(additionalProperties, "realmId")
+		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
 	}
 
