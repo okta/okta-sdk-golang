@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Description** | Pointer to **string** |  | [optional] 
-**Entitlements** | Pointer to [**[]IAMBundleEntitlement**](IAMBundleEntitlement.md) |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
+**Description** | Pointer to **string** | Description of the governance bundle | [optional] 
+**Entitlements** | Pointer to [**[]IAMBundleEntitlement**](IAMBundleEntitlement.md) | List of entitlements to include in the governance bundle | [optional] 
+**Name** | Pointer to **string** | Name of the governance bundle | [optional] 
 
 ## Methods
 

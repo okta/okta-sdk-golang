@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**EntitlementValues** | Pointer to [**[]EntitlementValue**](EntitlementValue.md) |  | [optional] 
+**EntitlementValues** | Pointer to [**[]EntitlementValue**](EntitlementValue.md) | List of entitlement values for a bundle entitlement | [optional] 
 **Links** | Pointer to [**EntitlementValuesResponseLinks**](EntitlementValuesResponseLinks.md) |  | [optional] 
 
 ## Methods

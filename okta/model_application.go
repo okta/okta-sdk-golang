@@ -36,7 +36,8 @@ var _ MappedNullable = &Application{}
 type Application struct {
 	Accessibility *ApplicationAccessibility `json:"accessibility,omitempty"`
 	// Timestamp when the application object was created
-	Created *time.Time `json:"created,omitempty"`
+	Created              *time.Time                       `json:"created,omitempty"`
+	ExpressConfiguration *ApplicationExpressConfiguration `json:"expressConfiguration,omitempty"`
 	// Enabled app features > **Note:** See [Application Features](/openapi/okta-management/management/tag/ApplicationFeatures/) for app provisioning features.
 	Features []string `json:"features,omitempty"`
 	// Unique ID for the app instance
@@ -144,6 +145,38 @@ func (o *Application) HasCreated() bool {
 // SetCreated gets a reference to the given time.Time and assigns it to the Created field.
 func (o *Application) SetCreated(v time.Time) {
 	o.Created = &v
+}
+
+// GetExpressConfiguration returns the ExpressConfiguration field value if set, zero value otherwise.
+func (o *Application) GetExpressConfiguration() ApplicationExpressConfiguration {
+	if o == nil || IsNil(o.ExpressConfiguration) {
+		var ret ApplicationExpressConfiguration
+		return ret
+	}
+	return *o.ExpressConfiguration
+}
+
+// GetExpressConfigurationOk returns a tuple with the ExpressConfiguration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Application) GetExpressConfigurationOk() (*ApplicationExpressConfiguration, bool) {
+	if o == nil || IsNil(o.ExpressConfiguration) {
+		return nil, false
+	}
+	return o.ExpressConfiguration, true
+}
+
+// HasExpressConfiguration returns a boolean if a field has been set.
+func (o *Application) HasExpressConfiguration() bool {
+	if o != nil && !IsNil(o.ExpressConfiguration) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpressConfiguration gets a reference to the given ApplicationExpressConfiguration and assigns it to the ExpressConfiguration field.
+func (o *Application) SetExpressConfiguration(v ApplicationExpressConfiguration) {
+	o.ExpressConfiguration = &v
 }
 
 // GetFeatures returns the Features field value if set, zero value otherwise.
@@ -562,6 +595,9 @@ func (o Application) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
+	if !IsNil(o.ExpressConfiguration) {
+		toSerialize["expressConfiguration"] = o.ExpressConfiguration
+	}
 	if !IsNil(o.Features) {
 		toSerialize["features"] = o.Features
 	}
@@ -643,6 +679,7 @@ func (o *Application) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "accessibility")
 		delete(additionalProperties, "created")
+		delete(additionalProperties, "expressConfiguration")
 		delete(additionalProperties, "features")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "label")

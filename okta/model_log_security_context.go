@@ -33,15 +33,17 @@ var _ MappedNullable = &LogSecurityContext{}
 // LogSecurityContext The `securityContext` object provides security information that is directly related to the evaluation of the event's IP reputation. IP reputation is a trustworthiness rating that evaluates how likely a sender is to be malicious and is based on the sender's IP address. As the name implies, the `securityContext` object is useful for security applications-flagging and inspecting suspicious events.
 type LogSecurityContext struct {
 	// The [Autonomous system](https://docs.telemetry.mozilla.org/datasets/other/asn_aggregates/reference) number that's associated with the autonomous system the event request was sourced to
-	AsNumber *int32 `json:"asNumber,omitempty"`
+	AsNumber NullableInt32 `json:"asNumber,omitempty"`
 	// The organization that is associated with the autonomous system that the event request is sourced to
-	AsOrg *string `json:"asOrg,omitempty"`
+	AsOrg NullableString `json:"asOrg,omitempty"`
 	// The domain name that's associated with the IP address of the inbound event request
-	Domain *string `json:"domain,omitempty"`
+	Domain NullableString `json:"domain,omitempty"`
 	// The Internet service provider that's used to send the event's request
-	Isp *string `json:"isp,omitempty"`
+	Isp NullableString `json:"isp,omitempty"`
 	// Specifies whether an event's request is from a known proxy
-	IsProxy              *bool `json:"isProxy,omitempty"`
+	IsProxy NullableBool `json:"isProxy,omitempty"`
+	// The result of the user behavior detection models associated with the event
+	UserBehaviors        []string `json:"userBehaviors,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -64,164 +66,252 @@ func NewLogSecurityContextWithDefaults() *LogSecurityContext {
 	return &this
 }
 
-// GetAsNumber returns the AsNumber field value if set, zero value otherwise.
+// GetAsNumber returns the AsNumber field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *LogSecurityContext) GetAsNumber() int32 {
-	if o == nil || IsNil(o.AsNumber) {
+	if o == nil || IsNil(o.AsNumber.Get()) {
 		var ret int32
 		return ret
 	}
-	return *o.AsNumber
+	return *o.AsNumber.Get()
 }
 
 // GetAsNumberOk returns a tuple with the AsNumber field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *LogSecurityContext) GetAsNumberOk() (*int32, bool) {
-	if o == nil || IsNil(o.AsNumber) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AsNumber, true
+	return o.AsNumber.Get(), o.AsNumber.IsSet()
 }
 
 // HasAsNumber returns a boolean if a field has been set.
 func (o *LogSecurityContext) HasAsNumber() bool {
-	if o != nil && !IsNil(o.AsNumber) {
+	if o != nil && o.AsNumber.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetAsNumber gets a reference to the given int32 and assigns it to the AsNumber field.
+// SetAsNumber gets a reference to the given NullableInt32 and assigns it to the AsNumber field.
 func (o *LogSecurityContext) SetAsNumber(v int32) {
-	o.AsNumber = &v
+	o.AsNumber.Set(&v)
 }
 
-// GetAsOrg returns the AsOrg field value if set, zero value otherwise.
+// SetAsNumberNil sets the value for AsNumber to be an explicit nil
+func (o *LogSecurityContext) SetAsNumberNil() {
+	o.AsNumber.Set(nil)
+}
+
+// UnsetAsNumber ensures that no value is present for AsNumber, not even an explicit nil
+func (o *LogSecurityContext) UnsetAsNumber() {
+	o.AsNumber.Unset()
+}
+
+// GetAsOrg returns the AsOrg field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *LogSecurityContext) GetAsOrg() string {
-	if o == nil || IsNil(o.AsOrg) {
+	if o == nil || IsNil(o.AsOrg.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.AsOrg
+	return *o.AsOrg.Get()
 }
 
 // GetAsOrgOk returns a tuple with the AsOrg field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *LogSecurityContext) GetAsOrgOk() (*string, bool) {
-	if o == nil || IsNil(o.AsOrg) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AsOrg, true
+	return o.AsOrg.Get(), o.AsOrg.IsSet()
 }
 
 // HasAsOrg returns a boolean if a field has been set.
 func (o *LogSecurityContext) HasAsOrg() bool {
-	if o != nil && !IsNil(o.AsOrg) {
+	if o != nil && o.AsOrg.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetAsOrg gets a reference to the given string and assigns it to the AsOrg field.
+// SetAsOrg gets a reference to the given NullableString and assigns it to the AsOrg field.
 func (o *LogSecurityContext) SetAsOrg(v string) {
-	o.AsOrg = &v
+	o.AsOrg.Set(&v)
 }
 
-// GetDomain returns the Domain field value if set, zero value otherwise.
+// SetAsOrgNil sets the value for AsOrg to be an explicit nil
+func (o *LogSecurityContext) SetAsOrgNil() {
+	o.AsOrg.Set(nil)
+}
+
+// UnsetAsOrg ensures that no value is present for AsOrg, not even an explicit nil
+func (o *LogSecurityContext) UnsetAsOrg() {
+	o.AsOrg.Unset()
+}
+
+// GetDomain returns the Domain field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *LogSecurityContext) GetDomain() string {
-	if o == nil || IsNil(o.Domain) {
+	if o == nil || IsNil(o.Domain.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Domain
+	return *o.Domain.Get()
 }
 
 // GetDomainOk returns a tuple with the Domain field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *LogSecurityContext) GetDomainOk() (*string, bool) {
-	if o == nil || IsNil(o.Domain) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Domain, true
+	return o.Domain.Get(), o.Domain.IsSet()
 }
 
 // HasDomain returns a boolean if a field has been set.
 func (o *LogSecurityContext) HasDomain() bool {
-	if o != nil && !IsNil(o.Domain) {
+	if o != nil && o.Domain.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDomain gets a reference to the given string and assigns it to the Domain field.
+// SetDomain gets a reference to the given NullableString and assigns it to the Domain field.
 func (o *LogSecurityContext) SetDomain(v string) {
-	o.Domain = &v
+	o.Domain.Set(&v)
 }
 
-// GetIsp returns the Isp field value if set, zero value otherwise.
+// SetDomainNil sets the value for Domain to be an explicit nil
+func (o *LogSecurityContext) SetDomainNil() {
+	o.Domain.Set(nil)
+}
+
+// UnsetDomain ensures that no value is present for Domain, not even an explicit nil
+func (o *LogSecurityContext) UnsetDomain() {
+	o.Domain.Unset()
+}
+
+// GetIsp returns the Isp field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *LogSecurityContext) GetIsp() string {
-	if o == nil || IsNil(o.Isp) {
+	if o == nil || IsNil(o.Isp.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Isp
+	return *o.Isp.Get()
 }
 
 // GetIspOk returns a tuple with the Isp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *LogSecurityContext) GetIspOk() (*string, bool) {
-	if o == nil || IsNil(o.Isp) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Isp, true
+	return o.Isp.Get(), o.Isp.IsSet()
 }
 
 // HasIsp returns a boolean if a field has been set.
 func (o *LogSecurityContext) HasIsp() bool {
-	if o != nil && !IsNil(o.Isp) {
+	if o != nil && o.Isp.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetIsp gets a reference to the given string and assigns it to the Isp field.
+// SetIsp gets a reference to the given NullableString and assigns it to the Isp field.
 func (o *LogSecurityContext) SetIsp(v string) {
-	o.Isp = &v
+	o.Isp.Set(&v)
 }
 
-// GetIsProxy returns the IsProxy field value if set, zero value otherwise.
+// SetIspNil sets the value for Isp to be an explicit nil
+func (o *LogSecurityContext) SetIspNil() {
+	o.Isp.Set(nil)
+}
+
+// UnsetIsp ensures that no value is present for Isp, not even an explicit nil
+func (o *LogSecurityContext) UnsetIsp() {
+	o.Isp.Unset()
+}
+
+// GetIsProxy returns the IsProxy field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *LogSecurityContext) GetIsProxy() bool {
-	if o == nil || IsNil(o.IsProxy) {
+	if o == nil || IsNil(o.IsProxy.Get()) {
 		var ret bool
 		return ret
 	}
-	return *o.IsProxy
+	return *o.IsProxy.Get()
 }
 
 // GetIsProxyOk returns a tuple with the IsProxy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *LogSecurityContext) GetIsProxyOk() (*bool, bool) {
-	if o == nil || IsNil(o.IsProxy) {
+	if o == nil {
 		return nil, false
 	}
-	return o.IsProxy, true
+	return o.IsProxy.Get(), o.IsProxy.IsSet()
 }
 
 // HasIsProxy returns a boolean if a field has been set.
 func (o *LogSecurityContext) HasIsProxy() bool {
-	if o != nil && !IsNil(o.IsProxy) {
+	if o != nil && o.IsProxy.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetIsProxy gets a reference to the given bool and assigns it to the IsProxy field.
+// SetIsProxy gets a reference to the given NullableBool and assigns it to the IsProxy field.
 func (o *LogSecurityContext) SetIsProxy(v bool) {
-	o.IsProxy = &v
+	o.IsProxy.Set(&v)
+}
+
+// SetIsProxyNil sets the value for IsProxy to be an explicit nil
+func (o *LogSecurityContext) SetIsProxyNil() {
+	o.IsProxy.Set(nil)
+}
+
+// UnsetIsProxy ensures that no value is present for IsProxy, not even an explicit nil
+func (o *LogSecurityContext) UnsetIsProxy() {
+	o.IsProxy.Unset()
+}
+
+// GetUserBehaviors returns the UserBehaviors field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *LogSecurityContext) GetUserBehaviors() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+	return o.UserBehaviors
+}
+
+// GetUserBehaviorsOk returns a tuple with the UserBehaviors field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *LogSecurityContext) GetUserBehaviorsOk() ([]string, bool) {
+	if o == nil || IsNil(o.UserBehaviors) {
+		return nil, false
+	}
+	return o.UserBehaviors, true
+}
+
+// HasUserBehaviors returns a boolean if a field has been set.
+func (o *LogSecurityContext) HasUserBehaviors() bool {
+	if o != nil && !IsNil(o.UserBehaviors) {
+		return true
+	}
+
+	return false
+}
+
+// SetUserBehaviors gets a reference to the given []string and assigns it to the UserBehaviors field.
+func (o *LogSecurityContext) SetUserBehaviors(v []string) {
+	o.UserBehaviors = v
 }
 
 func (o LogSecurityContext) MarshalJSON() ([]byte, error) {
@@ -234,20 +324,23 @@ func (o LogSecurityContext) MarshalJSON() ([]byte, error) {
 
 func (o LogSecurityContext) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.AsNumber) {
-		toSerialize["asNumber"] = o.AsNumber
+	if o.AsNumber.IsSet() {
+		toSerialize["asNumber"] = o.AsNumber.Get()
 	}
-	if !IsNil(o.AsOrg) {
-		toSerialize["asOrg"] = o.AsOrg
+	if o.AsOrg.IsSet() {
+		toSerialize["asOrg"] = o.AsOrg.Get()
 	}
-	if !IsNil(o.Domain) {
-		toSerialize["domain"] = o.Domain
+	if o.Domain.IsSet() {
+		toSerialize["domain"] = o.Domain.Get()
 	}
-	if !IsNil(o.Isp) {
-		toSerialize["isp"] = o.Isp
+	if o.Isp.IsSet() {
+		toSerialize["isp"] = o.Isp.Get()
 	}
-	if !IsNil(o.IsProxy) {
-		toSerialize["isProxy"] = o.IsProxy
+	if o.IsProxy.IsSet() {
+		toSerialize["isProxy"] = o.IsProxy.Get()
+	}
+	if o.UserBehaviors != nil {
+		toSerialize["userBehaviors"] = o.UserBehaviors
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -276,6 +369,7 @@ func (o *LogSecurityContext) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "domain")
 		delete(additionalProperties, "isp")
 		delete(additionalProperties, "isProxy")
+		delete(additionalProperties, "userBehaviors")
 		o.AdditionalProperties = additionalProperties
 	}
 

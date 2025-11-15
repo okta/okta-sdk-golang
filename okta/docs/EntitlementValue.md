@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Value** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | Entitlement value ID | [optional] 
+**Name** | Pointer to **string** | The entitlement value resource name | [optional] 
+**Value** | Pointer to **string** | The entitlement value resource [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) | [optional] 
 **Links** | Pointer to [**EntitlementValueLinks**](EntitlementValueLinks.md) |  | [optional] 
 
 ## Methods

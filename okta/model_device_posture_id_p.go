@@ -30,7 +30,7 @@ import (
 // checks if the DevicePostureIdP type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &DevicePostureIdP{}
 
-// DevicePostureIdP <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Device Posture IdP provider
+// DevicePostureIdP <x-lifecycle-container><x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>Device Posture IdP provider
 type DevicePostureIdP struct {
 	// Indicates whether the device is compliant according to the custom IDP
 	Compliant *bool `json:"compliant,omitempty"`

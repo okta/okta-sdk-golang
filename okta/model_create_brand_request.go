@@ -33,7 +33,7 @@ var _ MappedNullable = &CreateBrandRequest{}
 
 // CreateBrandRequest struct for CreateBrandRequest
 type CreateBrandRequest struct {
-	// The name of the Brand
+	// The name of the brand  > **Note:** You can't use the reserved `DRAPP_DOMAIN_BRAND` name.
 	Name                 string `json:"name"`
 	AdditionalProperties map[string]interface{}
 }

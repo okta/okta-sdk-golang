@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 **Audience** | Pointer to **string** | Not used | [optional] 
 **Issuer** | Pointer to **string** | Description of the certificate issuer | [optional] 
 **Kid** | Pointer to **string** | IdP key credential reference to the Okta X.509 signature certificate | [optional] 
-**Revocation** | Pointer to **string** | Mechanism to validate the certificate | [optional] 
-**RevocationCacheLifetime** | Pointer to **float32** | Time in minutes to cache the certificate revocation information | [optional] 
+**Revocation** | Pointer to **string** | Mechanism to validate the certificate  &gt; **Note:** This property isn&#39;t supported. Okta now handles CRL caching automatically. As of October 8, 2025, in Preview orgs, and October 13, 2025, in Production orgs, this property is ignored if it&#39;s specified in any API requests. Specifying the property in your API requests doesn&#39;t cause any errors since the property has no effect. &gt; &gt; See [Deprecation Notice - Smart Card IdP Legacy CRL Cache Setting](https://support.okta.com/help/s/article/deprecation-notice-smart-card-idp-legacy-crl-cache-setting?language&#x3D;en_US). | [optional] 
+**RevocationCacheLifetime** | Pointer to **float32** | Time in minutes to cache the certificate revocation information  &gt; **Note:** This property isn&#39;t supported. Okta now handles CRL caching automatically. As of October 8, 2025, in Preview orgs, and October 13, 2025, in Production orgs, this property is ignored if it&#39;s specified in any API requests. Specifying this property in your API requests doesn&#39;t cause errors since the property has no effect. &gt; &gt; See [Deprecation Notice - Smart Card IdP Legacy CRL Cache Setting](https://support.okta.com/help/s/article/deprecation-notice-smart-card-idp-legacy-crl-cache-setting?language&#x3D;en_US). | [optional] 
 
 ## Methods
 

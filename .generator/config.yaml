@@ -22,3 +22,5 @@ files:
   noopcache.go: {}
   proxy_test.go: {}
   user_agent.go: {}
+  test_helpers.go: {}
+  test_data_manager.go: {}

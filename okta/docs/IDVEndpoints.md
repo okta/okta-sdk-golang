@@ -4,15 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Authorization** | Pointer to [**IDVAuthorizationEndpoint**](IDVAuthorizationEndpoint.md) |  | [optional] 
-**Par** | Pointer to [**IDVParEndpoint**](IDVParEndpoint.md) |  | [optional] 
-**Token** | Pointer to [**IDVTokenEndpoint**](IDVTokenEndpoint.md) |  | [optional] 
+**Authorization** | [**IDVAuthorizationEndpoint**](IDVAuthorizationEndpoint.md) |  | 
+**Jwks** | [**OidcJwksEndpoint**](OidcJwksEndpoint.md) |  | 
+**Par** | [**IDVParEndpoint**](IDVParEndpoint.md) |  | 
+**Token** | [**IDVTokenEndpoint**](IDVTokenEndpoint.md) |  | 
 
 ## Methods
 
 ### NewIDVEndpoints
 
-`func NewIDVEndpoints() *IDVEndpoints`
+`func NewIDVEndpoints(authorization IDVAuthorizationEndpoint, jwks OidcJwksEndpoint, par IDVParEndpoint, token IDVTokenEndpoint, ) *IDVEndpoints`
 
 NewIDVEndpoints instantiates a new IDVEndpoints object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +47,26 @@ and a boolean to check if the value has been set.
 
 SetAuthorization sets Authorization field to given value.
 
-### HasAuthorization
 
-`func (o *IDVEndpoints) HasAuthorization() bool`
+### GetJwks
 
-HasAuthorization returns a boolean if a field has been set.
+`func (o *IDVEndpoints) GetJwks() OidcJwksEndpoint`
+
+GetJwks returns the Jwks field if non-nil, zero value otherwise.
+
+### GetJwksOk
+
+`func (o *IDVEndpoints) GetJwksOk() (*OidcJwksEndpoint, bool)`
+
+GetJwksOk returns a tuple with the Jwks field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetJwks
+
+`func (o *IDVEndpoints) SetJwks(v OidcJwksEndpoint)`
+
+SetJwks sets Jwks field to given value.
+
 
 ### GetPar
 
@@ -71,11 +87,6 @@ and a boolean to check if the value has been set.
 
 SetPar sets Par field to given value.
 
-### HasPar
-
-`func (o *IDVEndpoints) HasPar() bool`
-
-HasPar returns a boolean if a field has been set.
 
 ### GetToken
 
@@ -96,11 +107,6 @@ and a boolean to check if the value has been set.
 
 SetToken sets Token field to given value.
 
-### HasToken
-
-`func (o *IDVEndpoints) HasToken() bool`
-
-HasToken returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

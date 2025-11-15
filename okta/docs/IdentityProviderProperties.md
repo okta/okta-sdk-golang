@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **AalValue** | Pointer to **NullableString** | The [authentication assurance level](https://developers.login.gov/oidc/#aal-values) (AAL) value for the Login.gov IdP. See [Add a Login.gov IdP](https://developer.okta.com/docs/guides/add-logingov-idp/). Applies to &#x60;LOGINGOV&#x60; and &#x60;LOGINGOV_SANDBOX&#x60; IdP types. | [optional] 
 **AdditionalAmr** | Pointer to **[]string** | The additional Assurance Methods References (AMR) values for Smart Card IdPs. Applies to &#x60;X509&#x60; IdP type. | [optional] 
 **IalValue** | Pointer to **NullableString** | The [type of identity verification](https://developers.login.gov/oidc/#ial-values) (IAL) value for the Login.gov IdP. See [Add a Login.gov IdP](https://developer.okta.com/docs/guides/add-logingov-idp/). Applies to &#x60;LOGINGOV&#x60; and &#x60;LOGINGOV_SANDBOX&#x60; IdP types. | [optional] 
+**IdvMetadata** | Pointer to [**IdentityProviderPropertiesIdvMetadata**](IdentityProviderPropertiesIdvMetadata.md) |  | [optional] 
 **InquiryTemplateId** | **string** | The ID of the inquiry template from your Persona dashboard. The inquiry template always starts with &#x60;itmpl&#x60;. Applies to the &#x60;IDV_PERSONA&#x60; IdP type. | 
 
 ## Methods
@@ -133,6 +134,31 @@ HasIalValue returns a boolean if a field has been set.
 `func (o *IdentityProviderProperties) UnsetIalValue()`
 
 UnsetIalValue ensures that no value is present for IalValue, not even an explicit nil
+### GetIdvMetadata
+
+`func (o *IdentityProviderProperties) GetIdvMetadata() IdentityProviderPropertiesIdvMetadata`
+
+GetIdvMetadata returns the IdvMetadata field if non-nil, zero value otherwise.
+
+### GetIdvMetadataOk
+
+`func (o *IdentityProviderProperties) GetIdvMetadataOk() (*IdentityProviderPropertiesIdvMetadata, bool)`
+
+GetIdvMetadataOk returns a tuple with the IdvMetadata field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIdvMetadata
+
+`func (o *IdentityProviderProperties) SetIdvMetadata(v IdentityProviderPropertiesIdvMetadata)`
+
+SetIdvMetadata sets IdvMetadata field to given value.
+
+### HasIdvMetadata
+
+`func (o *IdentityProviderProperties) HasIdvMetadata() bool`
+
+HasIdvMetadata returns a boolean if a field has been set.
+
 ### GetInquiryTemplateId
 
 `func (o *IdentityProviderProperties) GetInquiryTemplateId() string`

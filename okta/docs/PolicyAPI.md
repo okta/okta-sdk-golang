@@ -1037,7 +1037,7 @@ import (
 )
 
 func main() {
-	type_ := "type__example" // string | Specifies the type of policy to return. The following policy types are available only with the Okta Identity Engine - `ACCESS_POLICY`, <x-lifecycle class=\"ea\"></x-lifecycle> `DEVICE_SIGNAL_COLLECTION`, `PROFILE_ENROLLMENT`, `POST_AUTH_SESSION`, and `ENTITY_RISK`.
+	type_ := "type__example" // string | Specifies the type of policy to return. The following policy types are available only with the Okta Identity Engine - `ACCESS_POLICY`, <x-lifecycle class=\"ea\"></x-lifecycle> `DEVICE_SIGNAL_COLLECTION`, `PROFILE_ENROLLMENT`, `POST_AUTH_SESSION` and `ENTITY_RISK`.
 	status := "status_example" // string | Refines the query by the `status` of the policy - `ACTIVE` or `INACTIVE` (optional)
 	q := "q_example" // string | Refines the query by policy name prefix (startWith method) passed in as `q=string` (optional)
 	expand := "expand_example" // string |  (optional) (default to "")
@@ -1069,7 +1069,7 @@ Other parameters are passed through a pointer to a apiListPoliciesRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **type_** | **string** | Specifies the type of policy to return. The following policy types are available only with the Okta Identity Engine - &#x60;ACCESS_POLICY&#x60;, &lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &#x60;DEVICE_SIGNAL_COLLECTION&#x60;, &#x60;PROFILE_ENROLLMENT&#x60;, &#x60;POST_AUTH_SESSION&#x60;, and &#x60;ENTITY_RISK&#x60;. | 
+ **type_** | **string** | Specifies the type of policy to return. The following policy types are available only with the Okta Identity Engine - &#x60;ACCESS_POLICY&#x60;, &lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &#x60;DEVICE_SIGNAL_COLLECTION&#x60;, &#x60;PROFILE_ENROLLMENT&#x60;, &#x60;POST_AUTH_SESSION&#x60; and &#x60;ENTITY_RISK&#x60;. | 
  **status** | **string** | Refines the query by the &#x60;status&#x60; of the policy - &#x60;ACTIVE&#x60; or &#x60;INACTIVE&#x60; | 
  **q** | **string** | Refines the query by policy name prefix (startWith method) passed in as &#x60;q&#x3D;string&#x60; | 
  **expand** | **string** |  | [default to &quot;&quot;]

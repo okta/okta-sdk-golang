@@ -32,7 +32,7 @@ var _ MappedNullable = &WebAuthnRpIdDomain{}
 
 // WebAuthnRpIdDomain The RP domain object for the WebAuthn configuration
 type WebAuthnRpIdDomain struct {
-	DnsRecord *DNSRecord `json:"dnsRecord,omitempty"`
+	DnsRecord *DNSRecordAuthenticators `json:"dnsRecord,omitempty"`
 	// The [RP ID](https://www.w3.org/TR/webauthn/#relying-party-identifier) domain value to be used for all WebAuthn operations.  If it isn't specified, the `domain` object isn't included in the request, and the domain value defaults to the domain of the current page (the domain of your org or a custom domain, for example).  > **Note:** If you don't use a custom RP ID (the default behavior), the domain value defaults to the end user's current page. The domain value defaults to the full domain name of the page that the end user is on when they're attempting the WebAuthn credential operation (enrollment or verification).
 	Name *string `json:"name,omitempty"`
 	// Indicates the validation status of the domain
@@ -60,9 +60,9 @@ func NewWebAuthnRpIdDomainWithDefaults() *WebAuthnRpIdDomain {
 }
 
 // GetDnsRecord returns the DnsRecord field value if set, zero value otherwise.
-func (o *WebAuthnRpIdDomain) GetDnsRecord() DNSRecord {
+func (o *WebAuthnRpIdDomain) GetDnsRecord() DNSRecordAuthenticators {
 	if o == nil || IsNil(o.DnsRecord) {
-		var ret DNSRecord
+		var ret DNSRecordAuthenticators
 		return ret
 	}
 	return *o.DnsRecord
@@ -70,7 +70,7 @@ func (o *WebAuthnRpIdDomain) GetDnsRecord() DNSRecord {
 
 // GetDnsRecordOk returns a tuple with the DnsRecord field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WebAuthnRpIdDomain) GetDnsRecordOk() (*DNSRecord, bool) {
+func (o *WebAuthnRpIdDomain) GetDnsRecordOk() (*DNSRecordAuthenticators, bool) {
 	if o == nil || IsNil(o.DnsRecord) {
 		return nil, false
 	}
@@ -86,8 +86,8 @@ func (o *WebAuthnRpIdDomain) HasDnsRecord() bool {
 	return false
 }
 
-// SetDnsRecord gets a reference to the given DNSRecord and assigns it to the DnsRecord field.
-func (o *WebAuthnRpIdDomain) SetDnsRecord(v DNSRecord) {
+// SetDnsRecord gets a reference to the given DNSRecordAuthenticators and assigns it to the DnsRecord field.
+func (o *WebAuthnRpIdDomain) SetDnsRecord(v DNSRecordAuthenticators) {
 	o.DnsRecord = &v
 }
 

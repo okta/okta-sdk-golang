@@ -310,13 +310,15 @@ type PolicyAPI interface {
 	ListPolicyRulesExecute(r ApiListPolicyRulesRequest) ([]ListPolicyRules200ResponseInner, *APIResponse, error)
 
 	/*
-		MapResourceToPolicy Map a resource to a policy
+			MapResourceToPolicy Map a resource to a policy
 
-		Maps a resource to a policy identified by `policyId`
+			Maps a resource to a policy identified by `policyId`
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param policyId `id` of the Policy
-		@return ApiMapResourceToPolicyRequest
+		> **Note:** Use the [Assign an app sign-in policy](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/ApplicationPolicies/#tag/ApplicationPolicies/operation/assignApplicationPolicy) endpoint to assign an app sign-in policy to an app.
+
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param policyId `id` of the Policy
+			@return ApiMapResourceToPolicyRequest
 	*/
 	MapResourceToPolicy(ctx context.Context, policyId string) ApiMapResourceToPolicyRequest
 
@@ -2731,7 +2733,7 @@ type ApiListPoliciesRequest struct {
 	retryCount int32
 }
 
-// Specifies the type of policy to return. The following policy types are available only with the Okta Identity Engine - &#x60;ACCESS_POLICY&#x60;, &lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &#x60;DEVICE_SIGNAL_COLLECTION&#x60;, &#x60;PROFILE_ENROLLMENT&#x60;, &#x60;POST_AUTH_SESSION&#x60;, and &#x60;ENTITY_RISK&#x60;.
+// Specifies the type of policy to return. The following policy types are available only with the Okta Identity Engine - &#x60;ACCESS_POLICY&#x60;, &lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &#x60;DEVICE_SIGNAL_COLLECTION&#x60;, &#x60;PROFILE_ENROLLMENT&#x60;, &#x60;POST_AUTH_SESSION&#x60; and &#x60;ENTITY_RISK&#x60;.
 func (r ApiListPoliciesRequest) Type_(type_ string) ApiListPoliciesRequest {
 	r.type_ = &type_
 	return r
@@ -3482,6 +3484,8 @@ func (r ApiMapResourceToPolicyRequest) Execute() (*PolicyMapping, *APIResponse, 
 MapResourceToPolicy Map a resource to a policy
 
 Maps a resource to a policy identified by `policyId`
+
+> **Note:** Use the [Assign an app sign-in policy](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/ApplicationPolicies/#tag/ApplicationPolicies/operation/assignApplicationPolicy) endpoint to assign an app sign-in policy to an app.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param policyId `id` of the Policy

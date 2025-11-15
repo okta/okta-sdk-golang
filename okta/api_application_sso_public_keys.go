@@ -43,7 +43,7 @@ type ApplicationSSOPublicKeysAPI interface {
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param appId Application ID
-			@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
+			@param keyId Unique `id` of the OAuth 2.0 Client JSON Web Key
 			@return ApiActivateOAuth2ClientJsonWebKeyRequest
 	*/
 	ActivateOAuth2ClientJsonWebKey(ctx context.Context, appId string, keyId string) ApiActivateOAuth2ClientJsonWebKeyRequest
@@ -108,14 +108,14 @@ type ApplicationSSOPublicKeysAPI interface {
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param appId Application ID
-			@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
+			@param keyId Unique `id` of the OAuth 2.0 Client JSON Web Key
 			@return ApiDeactivateOAuth2ClientJsonWebKeyRequest
 	*/
 	DeactivateOAuth2ClientJsonWebKey(ctx context.Context, appId string, keyId string) ApiDeactivateOAuth2ClientJsonWebKeyRequest
 
 	// DeactivateOAuth2ClientJsonWebKeyExecute executes the request
-	//  @return OAuth2ClientJsonSigningKeyResponse
-	DeactivateOAuth2ClientJsonWebKeyExecute(r ApiDeactivateOAuth2ClientJsonWebKeyRequest) (*OAuth2ClientJsonSigningKeyResponse, *APIResponse, error)
+	//  @return DeactivateOAuth2ClientJsonWebKey200Response
+	DeactivateOAuth2ClientJsonWebKeyExecute(r ApiDeactivateOAuth2ClientJsonWebKeyRequest) (*DeactivateOAuth2ClientJsonWebKey200Response, *APIResponse, error)
 
 	/*
 		DeactivateOAuth2ClientSecret Deactivate an OAuth 2.0 client secret
@@ -155,7 +155,7 @@ type ApplicationSSOPublicKeysAPI interface {
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param appId Application ID
-		@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
+		@param keyId Unique `id` of the OAuth 2.0 Client JSON Web Key
 		@return ApiDeletejwkRequest
 	*/
 	Deletejwk(ctx context.Context, appId string, keyId string) ApiDeletejwkRequest
@@ -170,7 +170,7 @@ type ApplicationSSOPublicKeysAPI interface {
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param appId Application ID
-		@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
+		@param keyId Unique `id` of the OAuth 2.0 Client JSON Web Key
 		@return ApiGetJwkRequest
 	*/
 	GetJwk(ctx context.Context, appId string, keyId string) ApiGetJwkRequest
@@ -249,7 +249,7 @@ Activates an OAuth 2.0 Client JSON Web Key by `keyId`
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param appId Application ID
-	@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
+	@param keyId Unique `id` of the OAuth 2.0 Client JSON Web Key
 	@return ApiActivateOAuth2ClientJsonWebKeyRequest
 */
 func (a *ApplicationSSOPublicKeysAPIService) ActivateOAuth2ClientJsonWebKey(ctx context.Context, appId string, keyId string) ApiActivateOAuth2ClientJsonWebKeyRequest {
@@ -979,7 +979,7 @@ type ApiDeactivateOAuth2ClientJsonWebKeyRequest struct {
 	retryCount int32
 }
 
-func (r ApiDeactivateOAuth2ClientJsonWebKeyRequest) Execute() (*OAuth2ClientJsonSigningKeyResponse, *APIResponse, error) {
+func (r ApiDeactivateOAuth2ClientJsonWebKeyRequest) Execute() (*DeactivateOAuth2ClientJsonWebKey200Response, *APIResponse, error) {
 	return r.ApiService.DeactivateOAuth2ClientJsonWebKeyExecute(r)
 }
 
@@ -991,7 +991,7 @@ Deactivates an OAuth 2.0 Client JSON Web Key by `keyId`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param appId Application ID
-	@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
+	@param keyId Unique `id` of the OAuth 2.0 Client JSON Web Key
 	@return ApiDeactivateOAuth2ClientJsonWebKeyRequest
 */
 func (a *ApplicationSSOPublicKeysAPIService) DeactivateOAuth2ClientJsonWebKey(ctx context.Context, appId string, keyId string) ApiDeactivateOAuth2ClientJsonWebKeyRequest {
@@ -1006,13 +1006,13 @@ func (a *ApplicationSSOPublicKeysAPIService) DeactivateOAuth2ClientJsonWebKey(ct
 
 // Execute executes the request
 //
-//	@return OAuth2ClientJsonSigningKeyResponse
-func (a *ApplicationSSOPublicKeysAPIService) DeactivateOAuth2ClientJsonWebKeyExecute(r ApiDeactivateOAuth2ClientJsonWebKeyRequest) (*OAuth2ClientJsonSigningKeyResponse, *APIResponse, error) {
+//	@return DeactivateOAuth2ClientJsonWebKey200Response
+func (a *ApplicationSSOPublicKeysAPIService) DeactivateOAuth2ClientJsonWebKeyExecute(r ApiDeactivateOAuth2ClientJsonWebKeyRequest) (*DeactivateOAuth2ClientJsonWebKey200Response, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *OAuth2ClientJsonSigningKeyResponse
+		localVarReturnValue  *DeactivateOAuth2ClientJsonWebKey200Response
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -1560,7 +1560,7 @@ Deletes an OAuth 2.0 Client JSON Web Key by `keyId`. You can only delete an inac
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param appId Application ID
-	@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
+	@param keyId Unique `id` of the OAuth 2.0 Client JSON Web Key
 	@return ApiDeletejwkRequest
 */
 func (a *ApplicationSSOPublicKeysAPIService) Deletejwk(ctx context.Context, appId string, keyId string) ApiDeletejwkRequest {
@@ -1741,7 +1741,7 @@ Retrieves an OAuth 2.0 Client JSON Web Key by `keyId`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param appId Application ID
-	@param keyId Unique `id` of the Custom Authorization Server JSON Web Key
+	@param keyId Unique `id` of the OAuth 2.0 Client JSON Web Key
 	@return ApiGetJwkRequest
 */
 func (a *ApplicationSSOPublicKeysAPIService) GetJwk(ctx context.Context, appId string, keyId string) ApiGetJwkRequest {

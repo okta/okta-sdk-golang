@@ -45,7 +45,7 @@ type RoleBTargetClientAPI interface {
 		For example, you can't specify that an admin has access to manage all instances of the Salesforce app and then also manage only specific configurations of the Salesforce app.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param clientId Client app ID
+			@param clientId `client_id` of the app
 			@param roleAssignmentId The `id` of the role assignment
 			@param appName Name of the app definition (the OIN catalog app key name)
 			@param appId Application ID
@@ -66,7 +66,7 @@ type RoleBTargetClientAPI interface {
 		For example, if a user is assigned to administer a specific Facebook instance, a successful request to add an OIN app target with `facebook` for `appName` makes that user the administrator for all Facebook instances.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param clientId Client app ID
+			@param clientId `client_id` of the app
 			@param roleAssignmentId The `id` of the role assignment
 			@param appName Name of the app definition (the OIN catalog app key name)
 			@return ApiAssignAppTargetRoleToClientRequest
@@ -82,7 +82,7 @@ type RoleBTargetClientAPI interface {
 		Assigns a group target to a [`USER_ADMIN`](/openapi/okta-management/guides/roles/#standard-roles), `HELP_DESK_ADMIN`, or `GROUP_MEMBERSHIP_ADMIN` role assignment to a client app. When you assign the first group target, you reduce the scope of the role assignment. The role no longer applies to all targets, but applies only to the specified target.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param clientId Client app ID
+		@param clientId `client_id` of the app
 		@param roleAssignmentId The `id` of the role assignment
 		@param groupId The `id` of the group
 		@return ApiAssignGroupTargetRoleForClientRequest
@@ -98,7 +98,7 @@ type RoleBTargetClientAPI interface {
 		Lists all OIN app targets for an `APP_ADMIN` role that's assigned to a client (by `clientId`).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param clientId Client app ID
+		@param clientId `client_id` of the app
 		@param roleAssignmentId The `id` of the role assignment
 		@return ApiListAppTargetRoleToClientRequest
 	*/
@@ -114,7 +114,7 @@ type RoleBTargetClientAPI interface {
 		Lists all group targets for a [`USER_ADMIN`](/openapi/okta-management/guides/roles/#standard-roles), `HELP_DESK_ADMIN`, or `GROUP_MEMBERSHIP_ADMIN` role assignment to a client. If the role isn't scoped to specific group targets, Okta returns an empty array `[]`.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param clientId Client app ID
+		@param clientId `client_id` of the app
 		@param roleAssignmentId The `id` of the role assignment
 		@return ApiListGroupTargetRoleForClientRequest
 	*/
@@ -133,7 +133,7 @@ type RoleBTargetClientAPI interface {
 		> If you need a role assignment that applies to all the apps, delete the role assignment with the instance target and create another one.  See [Unassign a client role](/openapi/okta-management/management/tag/RoleAssignmentClient/#tag/RoleAssignmentClient/operation/deleteRoleFromClient).
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param clientId Client app ID
+			@param clientId `client_id` of the app
 			@param roleAssignmentId The `id` of the role assignment
 			@param appName Name of the app definition (the OIN catalog app key name)
 			@param appId Application ID
@@ -153,7 +153,7 @@ type RoleBTargetClientAPI interface {
 		> If you need a role assignment that applies to all apps, delete the role assignment with the target and create another one. See [Unassign a client role](/openapi/okta-management/management/tag/RoleAssignmentClient/#tag/RoleAssignmentClient/operation/deleteRoleFromClient).
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param clientId Client app ID
+			@param clientId `client_id` of the app
 			@param roleAssignmentId The `id` of the role assignment
 			@param appName Name of the app definition (the OIN catalog app key name)
 			@return ApiRemoveAppTargetRoleFromClientRequest
@@ -171,7 +171,7 @@ type RoleBTargetClientAPI interface {
 		> **Note:** You can't remove the last group target from a role assignment. If you need a role assignment that applies to all groups, delete the role assignment with the target and create another one. See [Unassign a client role](/openapi/okta-management/management/tag/RoleAssignmentClient/#tag/RoleAssignmentClient/operation/deleteRoleFromClient).
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param clientId Client app ID
+			@param clientId `client_id` of the app
 			@param roleAssignmentId The `id` of the role assignment
 			@param groupId The `id` of the group
 			@return ApiRemoveGroupTargetRoleFromClientRequest
@@ -209,7 +209,7 @@ The role no longer applies to all app targets, but applies only to the specified
 For example, you can't specify that an admin has access to manage all instances of the Salesforce app and then also manage only specific configurations of the Salesforce app.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId Client app ID
+	@param clientId `client_id` of the app
 	@param roleAssignmentId The `id` of the role assignment
 	@param appName Name of the app definition (the OIN catalog app key name)
 	@param appId Application ID
@@ -377,7 +377,7 @@ An assigned OIN app target overrides any existing app instance targets.
 For example, if a user is assigned to administer a specific Facebook instance, a successful request to add an OIN app target with `facebook` for `appName` makes that user the administrator for all Facebook instances.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId Client app ID
+	@param clientId `client_id` of the app
 	@param roleAssignmentId The `id` of the role assignment
 	@param appName Name of the app definition (the OIN catalog app key name)
 	@return ApiAssignAppTargetRoleToClientRequest
@@ -538,7 +538,7 @@ AssignGroupTargetRoleForClient Assign a client role group target
 Assigns a group target to a [`USER_ADMIN`](/openapi/okta-management/guides/roles/#standard-roles), `HELP_DESK_ADMIN`, or `GROUP_MEMBERSHIP_ADMIN` role assignment to a client app. When you assign the first group target, you reduce the scope of the role assignment. The role no longer applies to all targets, but applies only to the specified target.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId Client app ID
+	@param clientId `client_id` of the app
 	@param roleAssignmentId The `id` of the role assignment
 	@param groupId The `id` of the group
 	@return ApiAssignGroupTargetRoleForClientRequest
@@ -712,7 +712,7 @@ ListAppTargetRoleToClient List all client role app targets
 Lists all OIN app targets for an `APP_ADMIN` role that's assigned to a client (by `clientId`).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId Client app ID
+	@param clientId `client_id` of the app
 	@param roleAssignmentId The `id` of the role assignment
 	@return ApiListAppTargetRoleToClientRequest
 */
@@ -902,7 +902,7 @@ ListGroupTargetRoleForClient List all client role group targets
 Lists all group targets for a [`USER_ADMIN`](/openapi/okta-management/guides/roles/#standard-roles), `HELP_DESK_ADMIN`, or `GROUP_MEMBERSHIP_ADMIN` role assignment to a client. If the role isn't scoped to specific group targets, Okta returns an empty array `[]`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId Client app ID
+	@param clientId `client_id` of the app
 	@param roleAssignmentId The `id` of the role assignment
 	@return ApiListGroupTargetRoleForClientRequest
 */
@@ -1083,7 +1083,7 @@ RemoveAppTargetInstanceRoleForClient Unassign a client role app instance target
 > If you need a role assignment that applies to all the apps, delete the role assignment with the instance target and create another one.  See [Unassign a client role](/openapi/okta-management/management/tag/RoleAssignmentClient/#tag/RoleAssignmentClient/operation/deleteRoleFromClient).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId Client app ID
+	@param clientId `client_id` of the app
 	@param roleAssignmentId The `id` of the role assignment
 	@param appName Name of the app definition (the OIN catalog app key name)
 	@param appId Application ID
@@ -1250,7 +1250,7 @@ RemoveAppTargetRoleFromClient Unassign a client role app target
 > If you need a role assignment that applies to all apps, delete the role assignment with the target and create another one. See [Unassign a client role](/openapi/okta-management/management/tag/RoleAssignmentClient/#tag/RoleAssignmentClient/operation/deleteRoleFromClient).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId Client app ID
+	@param clientId `client_id` of the app
 	@param roleAssignmentId The `id` of the role assignment
 	@param appName Name of the app definition (the OIN catalog app key name)
 	@return ApiRemoveAppTargetRoleFromClientRequest
@@ -1413,7 +1413,7 @@ Unassigns a Group target from a `USER_ADMIN`, `HELP_DESK_ADMIN`, or `GROUP_MEMBE
 > **Note:** You can't remove the last group target from a role assignment. If you need a role assignment that applies to all groups, delete the role assignment with the target and create another one. See [Unassign a client role](/openapi/okta-management/management/tag/RoleAssignmentClient/#tag/RoleAssignmentClient/operation/deleteRoleFromClient).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId Client app ID
+	@param clientId `client_id` of the app
 	@param roleAssignmentId The `id` of the role assignment
 	@param groupId The `id` of the group
 	@return ApiRemoveGroupTargetRoleFromClientRequest

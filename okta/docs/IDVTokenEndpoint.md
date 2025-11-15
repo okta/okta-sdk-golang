@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Binding** | Pointer to **string** |  | [optional] 
-**Url** | Pointer to **string** | URL of the IDV &#x60;token&#x60; endpoint | [optional] 
+**Url** | Pointer to **string** | URL of the &#x60;token&#x60; endpoint of the IDV vendor | [optional] 
 
 ## Methods
 

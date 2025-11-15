@@ -32,8 +32,8 @@ var _ MappedNullable = &SecurityEventTokenJwtEvents{}
 
 // SecurityEventTokenJwtEvents A non-empty set of events. Expected size is 1 for each SET
 type SecurityEventTokenJwtEvents struct {
-	HttpsSchemasOpenidNetSeceventCaepEventTypeCredentialChange *CaepCredentialChangeEvent `json:"https://schemas.openid.net/secevent/caep/event-type/credential-change,omitempty"`
-	HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked   *CaepSessionRevokedEvent   `json:"https://schemas.openid.net/secevent/caep/event-type/session-revoked,omitempty"`
+	HttpsSchemasOpenidNetSeceventCaepEventTypeCredentialChange *CaepCredentialChangeEvent             `json:"https://schemas.openid.net/secevent/caep/event-type/credential-change,omitempty"`
+	HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked   *SsfTransmitterCaepSessionRevokedEvent `json:"https://schemas.openid.net/secevent/caep/event-type/session-revoked,omitempty"`
 	AdditionalProperties                                       map[string]interface{}
 }
 
@@ -89,9 +89,9 @@ func (o *SecurityEventTokenJwtEvents) SetHttpsSchemasOpenidNetSeceventCaepEventT
 }
 
 // GetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked returns the HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked field value if set, zero value otherwise.
-func (o *SecurityEventTokenJwtEvents) GetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked() CaepSessionRevokedEvent {
+func (o *SecurityEventTokenJwtEvents) GetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked() SsfTransmitterCaepSessionRevokedEvent {
 	if o == nil || IsNil(o.HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked) {
-		var ret CaepSessionRevokedEvent
+		var ret SsfTransmitterCaepSessionRevokedEvent
 		return ret
 	}
 	return *o.HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked
@@ -99,7 +99,7 @@ func (o *SecurityEventTokenJwtEvents) GetHttpsSchemasOpenidNetSeceventCaepEventT
 
 // GetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevokedOk returns a tuple with the HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SecurityEventTokenJwtEvents) GetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevokedOk() (*CaepSessionRevokedEvent, bool) {
+func (o *SecurityEventTokenJwtEvents) GetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevokedOk() (*SsfTransmitterCaepSessionRevokedEvent, bool) {
 	if o == nil || IsNil(o.HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked) {
 		return nil, false
 	}
@@ -115,8 +115,8 @@ func (o *SecurityEventTokenJwtEvents) HasHttpsSchemasOpenidNetSeceventCaepEventT
 	return false
 }
 
-// SetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked gets a reference to the given CaepSessionRevokedEvent and assigns it to the HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked field.
-func (o *SecurityEventTokenJwtEvents) SetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked(v CaepSessionRevokedEvent) {
+// SetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked gets a reference to the given SsfTransmitterCaepSessionRevokedEvent and assigns it to the HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked field.
+func (o *SecurityEventTokenJwtEvents) SetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked(v SsfTransmitterCaepSessionRevokedEvent) {
 	o.HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked = &v
 }
 

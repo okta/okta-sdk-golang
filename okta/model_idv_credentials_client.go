@@ -33,9 +33,9 @@ var _ MappedNullable = &IDVCredentialsClient{}
 
 // IDVCredentialsClient <x-lifecycle-container><x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>Client credentials for `IDV_CLEAR` and `IDV_INCODE` IdP types
 type IDVCredentialsClient struct {
-	// The client ID that you generate in your IDV
+	// The client ID that you generate in your IDV vendor
 	ClientId string `json:"client_id"`
-	// The client secret that you generate in your IDV
+	// The client secret that you generate in your IDV vendor
 	ClientSecret         string `json:"client_secret"`
 	AdditionalProperties map[string]interface{}
 }

@@ -32,6 +32,7 @@ var _ MappedNullable = &OptInStatusResponse{}
 
 // OptInStatusResponse struct for OptInStatusResponse
 type OptInStatusResponse struct {
+	// The entitlement management opt-in status for the Admin Console
 	OptInStatus          *string                   `json:"optInStatus,omitempty"`
 	Links                *OptInStatusResponseLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}

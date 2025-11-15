@@ -4,8 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Actions** | Pointer to [**[]SubmissionAction**](SubmissionAction.md) | List of actions supported by this integration | [optional] 
+**AuthSettings** | Pointer to [**AuthSettings**](AuthSettings.md) |  | [optional] 
+**Capabilities** | Pointer to [**[]SubmissionCapability**](SubmissionCapability.md) | List of capabilities supported by this integration | [optional] 
 **Config** | Pointer to [**[]SubmissionResponseConfigInner**](SubmissionResponseConfigInner.md) | List of org-level variables for the customer per-tenant configuration. For example, a &#x60;subdomain&#x60; variable can be used in the ACS URL: &#x60;https://${org.subdomain}.example.com/saml/login&#x60; | [optional] 
 **Description** | **string** | A general description of your application and the benefits provided to your customers | 
+**GlobalTokenRevocation** | Pointer to [**SubmissionResponseGlobalTokenRevocation**](SubmissionResponseGlobalTokenRevocation.md) |  | [optional] 
 **Id** | Pointer to **string** | OIN Integration ID | [optional] [readonly] 
 **LastPublished** | Pointer to **string** | Timestamp when the OIN Integration was last published | [optional] [readonly] 
 **LastUpdated** | Pointer to **string** | Timestamp when the OIN Integration instance was last updated | [optional] [readonly] 
@@ -34,6 +38,81 @@ will change when the set of required properties is changed
 NewSubmissionRequestWithDefaults instantiates a new SubmissionRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetActions
+
+`func (o *SubmissionRequest) GetActions() []SubmissionAction`
+
+GetActions returns the Actions field if non-nil, zero value otherwise.
+
+### GetActionsOk
+
+`func (o *SubmissionRequest) GetActionsOk() (*[]SubmissionAction, bool)`
+
+GetActionsOk returns a tuple with the Actions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActions
+
+`func (o *SubmissionRequest) SetActions(v []SubmissionAction)`
+
+SetActions sets Actions field to given value.
+
+### HasActions
+
+`func (o *SubmissionRequest) HasActions() bool`
+
+HasActions returns a boolean if a field has been set.
+
+### GetAuthSettings
+
+`func (o *SubmissionRequest) GetAuthSettings() AuthSettings`
+
+GetAuthSettings returns the AuthSettings field if non-nil, zero value otherwise.
+
+### GetAuthSettingsOk
+
+`func (o *SubmissionRequest) GetAuthSettingsOk() (*AuthSettings, bool)`
+
+GetAuthSettingsOk returns a tuple with the AuthSettings field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAuthSettings
+
+`func (o *SubmissionRequest) SetAuthSettings(v AuthSettings)`
+
+SetAuthSettings sets AuthSettings field to given value.
+
+### HasAuthSettings
+
+`func (o *SubmissionRequest) HasAuthSettings() bool`
+
+HasAuthSettings returns a boolean if a field has been set.
+
+### GetCapabilities
+
+`func (o *SubmissionRequest) GetCapabilities() []SubmissionCapability`
+
+GetCapabilities returns the Capabilities field if non-nil, zero value otherwise.
+
+### GetCapabilitiesOk
+
+`func (o *SubmissionRequest) GetCapabilitiesOk() (*[]SubmissionCapability, bool)`
+
+GetCapabilitiesOk returns a tuple with the Capabilities field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCapabilities
+
+`func (o *SubmissionRequest) SetCapabilities(v []SubmissionCapability)`
+
+SetCapabilities sets Capabilities field to given value.
+
+### HasCapabilities
+
+`func (o *SubmissionRequest) HasCapabilities() bool`
+
+HasCapabilities returns a boolean if a field has been set.
 
 ### GetConfig
 
@@ -79,6 +158,31 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
+
+### GetGlobalTokenRevocation
+
+`func (o *SubmissionRequest) GetGlobalTokenRevocation() SubmissionResponseGlobalTokenRevocation`
+
+GetGlobalTokenRevocation returns the GlobalTokenRevocation field if non-nil, zero value otherwise.
+
+### GetGlobalTokenRevocationOk
+
+`func (o *SubmissionRequest) GetGlobalTokenRevocationOk() (*SubmissionResponseGlobalTokenRevocation, bool)`
+
+GetGlobalTokenRevocationOk returns a tuple with the GlobalTokenRevocation field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGlobalTokenRevocation
+
+`func (o *SubmissionRequest) SetGlobalTokenRevocation(v SubmissionResponseGlobalTokenRevocation)`
+
+SetGlobalTokenRevocation sets GlobalTokenRevocation field to given value.
+
+### HasGlobalTokenRevocation
+
+`func (o *SubmissionRequest) HasGlobalTokenRevocation() bool`
+
+HasGlobalTokenRevocation returns a boolean if a field has been set.
 
 ### GetId
 

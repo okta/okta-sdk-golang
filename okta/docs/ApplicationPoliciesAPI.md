@@ -4,7 +4,7 @@ All URIs are relative to *https://subdomain.okta.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AssignApplicationPolicy**](ApplicationPoliciesAPI.md#AssignApplicationPolicy) | **Put** /api/v1/apps/{appId}/policies/{policyId} | Assign an authentication policy
+[**AssignApplicationPolicy**](ApplicationPoliciesAPI.md#AssignApplicationPolicy) | **Put** /api/v1/apps/{appId}/policies/{policyId} | Assign an app sign-in policy
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > AssignApplicationPolicy(ctx, appId, policyId).Execute()
 
-Assign an authentication policy
+Assign an app sign-in policy
 
 
 

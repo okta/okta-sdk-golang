@@ -30,11 +30,15 @@ import (
 // checks if the BundleEntitlement type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &BundleEntitlement{}
 
-// BundleEntitlement struct for BundleEntitlement
+// BundleEntitlement An entitlement in a governance bundle
 type BundleEntitlement struct {
-	Description          *string                 `json:"description,omitempty"`
-	Id                   *string                 `json:"id,omitempty"`
-	Name                 *string                 `json:"name,omitempty"`
+	// The description of the role
+	Description *string `json:"description,omitempty"`
+	// Entitlement ID
+	Id *string `json:"id,omitempty"`
+	// The name of the role
+	Name *string `json:"name,omitempty"`
+	// The role key
 	Role                 *string                 `json:"role,omitempty"`
 	Links                *BundleEntitlementLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}

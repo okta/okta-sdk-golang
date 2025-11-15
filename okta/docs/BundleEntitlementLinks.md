@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Values** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**Values** | Pointer to [**HrefObject**](HrefObject.md) | Link to the entitlement values resource | [optional] 
 
 ## Methods
 

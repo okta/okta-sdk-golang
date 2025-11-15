@@ -4,73 +4,8 @@ All URIs are relative to *https://subdomain.okta.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**EndUserSessions**](UserSessionsAPI.md#EndUserSessions) | **Post** /api/v1/users/me/lifecycle/delete_sessions | End a current user session
 [**RevokeUserSessions**](UserSessionsAPI.md#RevokeUserSessions) | **Delete** /api/v1/users/{userId}/sessions | Revoke all user sessions
 
-
-
-## EndUserSessions
-
-> EndUserSessions(ctx).KeepCurrent(keepCurrent).Execute()
-
-End a current user session
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
-)
-
-func main() {
-	keepCurrent := *openapiclient.NewKeepCurrent() // KeepCurrent |  (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.UserSessionsAPI.EndUserSessions(context.Background()).KeepCurrent(keepCurrent).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserSessionsAPI.EndUserSessions``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiEndUserSessionsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **keepCurrent** | [**KeepCurrent**](KeepCurrent.md) |  | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
 
 
 ## RevokeUserSessions

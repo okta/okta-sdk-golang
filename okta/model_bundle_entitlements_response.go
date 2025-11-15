@@ -30,8 +30,9 @@ import (
 // checks if the BundleEntitlementsResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &BundleEntitlementsResponse{}
 
-// BundleEntitlementsResponse struct for BundleEntitlementsResponse
+// BundleEntitlementsResponse Entitlement list for a governance bundle
 type BundleEntitlementsResponse struct {
+	// List of bundle entitlements
 	Entitlements         []BundleEntitlement              `json:"entitlements,omitempty"`
 	Links                *BundleEntitlementsResponseLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}

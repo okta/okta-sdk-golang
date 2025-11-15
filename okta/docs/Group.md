@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **ObjectClass** | Pointer to **[]string** | Determines the group&#39;s &#x60;profile&#x60; | [optional] [readonly] 
 **Profile** | Pointer to [**GroupProfile**](GroupProfile.md) |  | [optional] 
 **Type** | Pointer to **string** | Determines how a group&#39;s profile and memberships are managed | [optional] 
-**Embedded** | Pointer to **map[string]map[string]interface{}** | Embedded resources related to the group | [optional] [readonly] 
+**Embedded** | Pointer to [**GroupEmbedded**](GroupEmbedded.md) |  | [optional] 
 **Links** | Pointer to [**GroupLinks**](GroupLinks.md) |  | [optional] 
 
 ## Methods
@@ -210,20 +210,20 @@ HasType returns a boolean if a field has been set.
 
 ### GetEmbedded
 
-`func (o *Group) GetEmbedded() map[string]map[string]interface{}`
+`func (o *Group) GetEmbedded() GroupEmbedded`
 
 GetEmbedded returns the Embedded field if non-nil, zero value otherwise.
 
 ### GetEmbeddedOk
 
-`func (o *Group) GetEmbeddedOk() (*map[string]map[string]interface{}, bool)`
+`func (o *Group) GetEmbeddedOk() (*GroupEmbedded, bool)`
 
 GetEmbeddedOk returns a tuple with the Embedded field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEmbedded
 
-`func (o *Group) SetEmbedded(v map[string]map[string]interface{})`
+`func (o *Group) SetEmbedded(v GroupEmbedded)`
 
 SetEmbedded sets Embedded field to given value.
 

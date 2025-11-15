@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**AntivirusEnabled** | Pointer to **bool** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;Indicates whether antivirus software is enabled | [optional] 
 **BrowserVersion** | Pointer to [**ChromeBrowserVersion**](ChromeBrowserVersion.md) |  | [optional] 
 **BuiltInDnsClientEnabled** | Pointer to **bool** | Indicates if a software stack is used to communicate with the DNS server | [optional] 
 **ChromeRemoteDesktopAppBlocked** | Pointer to **bool** | Indicates whether access to the Chrome Remote Desktop application is blocked through a policy | [optional] 
@@ -42,6 +43,31 @@ will change when the set of required properties is changed
 NewDTCWindowsWithDefaults instantiates a new DTCWindows object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAntivirusEnabled
+
+`func (o *DTCWindows) GetAntivirusEnabled() bool`
+
+GetAntivirusEnabled returns the AntivirusEnabled field if non-nil, zero value otherwise.
+
+### GetAntivirusEnabledOk
+
+`func (o *DTCWindows) GetAntivirusEnabledOk() (*bool, bool)`
+
+GetAntivirusEnabledOk returns a tuple with the AntivirusEnabled field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAntivirusEnabled
+
+`func (o *DTCWindows) SetAntivirusEnabled(v bool)`
+
+SetAntivirusEnabled sets AntivirusEnabled field to given value.
+
+### HasAntivirusEnabled
+
+`func (o *DTCWindows) HasAntivirusEnabled() bool`
+
+HasAntivirusEnabled returns a boolean if a field has been set.
 
 ### GetBrowserVersion
 

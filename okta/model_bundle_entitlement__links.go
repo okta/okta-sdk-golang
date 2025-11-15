@@ -30,8 +30,9 @@ import (
 // checks if the BundleEntitlementLinks type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &BundleEntitlementLinks{}
 
-// BundleEntitlementLinks struct for BundleEntitlementLinks
+// BundleEntitlementLinks Link relations available
 type BundleEntitlementLinks struct {
+	// Link to the entitlement values resource
 	Values               *HrefObject `json:"values,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

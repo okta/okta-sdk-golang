@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Accessibility** | Pointer to [**ApplicationAccessibility**](ApplicationAccessibility.md) |  | [optional] 
 **Created** | Pointer to **time.Time** | Timestamp when the application object was created | [optional] [readonly] 
+**ExpressConfiguration** | Pointer to [**ApplicationExpressConfiguration**](ApplicationExpressConfiguration.md) |  | [optional] 
 **Features** | Pointer to **[]string** | Enabled app features &gt; **Note:** See [Application Features](/openapi/okta-management/management/tag/ApplicationFeatures/) for app provisioning features.  | [optional] [readonly] 
 **Id** | Pointer to **string** | Unique ID for the app instance | [optional] [readonly] 
 **Label** | **string** | User-defined display name for app | 
@@ -88,6 +89,31 @@ SetCreated sets Created field to given value.
 `func (o *Application) HasCreated() bool`
 
 HasCreated returns a boolean if a field has been set.
+
+### GetExpressConfiguration
+
+`func (o *Application) GetExpressConfiguration() ApplicationExpressConfiguration`
+
+GetExpressConfiguration returns the ExpressConfiguration field if non-nil, zero value otherwise.
+
+### GetExpressConfigurationOk
+
+`func (o *Application) GetExpressConfigurationOk() (*ApplicationExpressConfiguration, bool)`
+
+GetExpressConfigurationOk returns a tuple with the ExpressConfiguration field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExpressConfiguration
+
+`func (o *Application) SetExpressConfiguration(v ApplicationExpressConfiguration)`
+
+SetExpressConfiguration sets ExpressConfiguration field to given value.
+
+### HasExpressConfiguration
+
+`func (o *Application) HasExpressConfiguration() bool`
+
+HasExpressConfiguration returns a boolean if a field has been set.
 
 ### GetFeatures
 

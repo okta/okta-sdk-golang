@@ -33,7 +33,7 @@ var _ MappedNullable = &IDVParEndpoint{}
 // IDVParEndpoint IDV [PAR](https://datatracker.ietf.org/doc/html/rfc9126) endpoint
 type IDVParEndpoint struct {
 	Binding *string `json:"binding,omitempty"`
-	// URL of the IDV `par` endpoint
+	// URL of the `par` endpoint of the IDV vendor
 	Url                  *string `json:"url,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

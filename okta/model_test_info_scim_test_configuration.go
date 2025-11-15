@@ -36,8 +36,10 @@ type TestInfoScimTestConfiguration struct {
 	// The Runscope URL to your SCIM server specification test results. See [Test your SCIM API](https://developer.okta.com/docs/guides/build-provisioning-integration/test-scim-api/).
 	SpecTestResults string `json:"specTestResults"`
 	// The Runscope URL to your Okta SCIM CRUD test results. See [Test your Okta SCIM integration](https://developer.okta.com/docs/guides/scim-provisioning-integration-test/main/).
-	CrudTestResults      string `json:"crudTestResults"`
-	AdditionalProperties map[string]interface{}
+	CrudTestResults string `json:"crudTestResults"`
+	// The Runscope URL to your entitlements test results
+	EntitlementsTestResults *string `json:"entitlementsTestResults,omitempty"`
+	AdditionalProperties    map[string]interface{}
 }
 
 type _TestInfoScimTestConfiguration TestInfoScimTestConfiguration
@@ -109,6 +111,38 @@ func (o *TestInfoScimTestConfiguration) SetCrudTestResults(v string) {
 	o.CrudTestResults = v
 }
 
+// GetEntitlementsTestResults returns the EntitlementsTestResults field value if set, zero value otherwise.
+func (o *TestInfoScimTestConfiguration) GetEntitlementsTestResults() string {
+	if o == nil || IsNil(o.EntitlementsTestResults) {
+		var ret string
+		return ret
+	}
+	return *o.EntitlementsTestResults
+}
+
+// GetEntitlementsTestResultsOk returns a tuple with the EntitlementsTestResults field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TestInfoScimTestConfiguration) GetEntitlementsTestResultsOk() (*string, bool) {
+	if o == nil || IsNil(o.EntitlementsTestResults) {
+		return nil, false
+	}
+	return o.EntitlementsTestResults, true
+}
+
+// HasEntitlementsTestResults returns a boolean if a field has been set.
+func (o *TestInfoScimTestConfiguration) HasEntitlementsTestResults() bool {
+	if o != nil && !IsNil(o.EntitlementsTestResults) {
+		return true
+	}
+
+	return false
+}
+
+// SetEntitlementsTestResults gets a reference to the given string and assigns it to the EntitlementsTestResults field.
+func (o *TestInfoScimTestConfiguration) SetEntitlementsTestResults(v string) {
+	o.EntitlementsTestResults = &v
+}
+
 func (o TestInfoScimTestConfiguration) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -121,6 +155,9 @@ func (o TestInfoScimTestConfiguration) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["specTestResults"] = o.SpecTestResults
 	toSerialize["crudTestResults"] = o.CrudTestResults
+	if !IsNil(o.EntitlementsTestResults) {
+		toSerialize["entitlementsTestResults"] = o.EntitlementsTestResults
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -167,6 +204,7 @@ func (o *TestInfoScimTestConfiguration) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "specTestResults")
 		delete(additionalProperties, "crudTestResults")
+		delete(additionalProperties, "entitlementsTestResults")
 		o.AdditionalProperties = additionalProperties
 	}
 

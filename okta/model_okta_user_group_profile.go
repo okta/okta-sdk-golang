@@ -35,7 +35,9 @@ type OktaUserGroupProfile struct {
 	// Description of the group
 	Description *string `json:"description,omitempty"`
 	// Name of the group
-	Name                 *string `json:"name,omitempty"`
+	Name *string `json:"name,omitempty"`
+	// The object class type
+	ObjectClass          *string `json:"objectClass,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -122,6 +124,38 @@ func (o *OktaUserGroupProfile) SetName(v string) {
 	o.Name = &v
 }
 
+// GetObjectClass returns the ObjectClass field value if set, zero value otherwise.
+func (o *OktaUserGroupProfile) GetObjectClass() string {
+	if o == nil || IsNil(o.ObjectClass) {
+		var ret string
+		return ret
+	}
+	return *o.ObjectClass
+}
+
+// GetObjectClassOk returns a tuple with the ObjectClass field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OktaUserGroupProfile) GetObjectClassOk() (*string, bool) {
+	if o == nil || IsNil(o.ObjectClass) {
+		return nil, false
+	}
+	return o.ObjectClass, true
+}
+
+// HasObjectClass returns a boolean if a field has been set.
+func (o *OktaUserGroupProfile) HasObjectClass() bool {
+	if o != nil && !IsNil(o.ObjectClass) {
+		return true
+	}
+
+	return false
+}
+
+// SetObjectClass gets a reference to the given string and assigns it to the ObjectClass field.
+func (o *OktaUserGroupProfile) SetObjectClass(v string) {
+	o.ObjectClass = &v
+}
+
 func (o OktaUserGroupProfile) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -137,6 +171,9 @@ func (o OktaUserGroupProfile) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.ObjectClass) {
+		toSerialize["objectClass"] = o.ObjectClass
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -162,6 +199,7 @@ func (o *OktaUserGroupProfile) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "name")
+		delete(additionalProperties, "objectClass")
 		o.AdditionalProperties = additionalProperties
 	}
 
