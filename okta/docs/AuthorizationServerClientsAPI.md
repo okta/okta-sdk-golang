@@ -34,7 +34,7 @@ import (
 
 func main() {
 	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | Client app ID
+	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
 	tokenId := "sHHSth53yJAyNSTQKDJZ" // string | `id` of Token
 	expand := "expand_example" // string | Valid value: `scope`. If specified, scope details are included in the `_embedded` attribute. (optional)
 
@@ -57,7 +57,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **authServerId** | **string** | &#x60;id&#x60; of the Authorization Server | 
-**clientId** | **string** | Client app ID | 
+**clientId** | **string** | &#x60;client_id&#x60; of the app | 
 **tokenId** | **string** | &#x60;id&#x60; of Token | 
 
 ### Other Parameters
@@ -182,7 +182,7 @@ import (
 
 func main() {
 	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | Client app ID
+	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
 	expand := "expand_example" // string | Valid value: `scope`. If specified, scope details are included in the `_embedded` attribute. (optional)
 	after := "after_example" // string | Specifies the pagination cursor for the next page of tokens (optional)
 	limit := int32(56) // int32 | The maximum number of tokens to return (maximum 200) (optional) (default to -1)
@@ -206,7 +206,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **authServerId** | **string** | &#x60;id&#x60; of the Authorization Server | 
-**clientId** | **string** | Client app ID | 
+**clientId** | **string** | &#x60;client_id&#x60; of the app | 
 
 ### Other Parameters
 
@@ -261,7 +261,7 @@ import (
 
 func main() {
 	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | Client app ID
+	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
 	tokenId := "sHHSth53yJAyNSTQKDJZ" // string | `id` of Token
 
 	configuration := openapiclient.NewConfiguration()
@@ -281,7 +281,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **authServerId** | **string** | &#x60;id&#x60; of the Authorization Server | 
-**clientId** | **string** | Client app ID | 
+**clientId** | **string** | &#x60;client_id&#x60; of the app | 
 **tokenId** | **string** | &#x60;id&#x60; of Token | 
 
 ### Other Parameters
@@ -335,7 +335,7 @@ import (
 
 func main() {
 	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | Client app ID
+	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -354,7 +354,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **authServerId** | **string** | &#x60;id&#x60; of the Authorization Server | 
-**clientId** | **string** | Client app ID | 
+**clientId** | **string** | &#x60;client_id&#x60; of the app | 
 
 ### Other Parameters
 

@@ -53,9 +53,8 @@ type _AppConfigActiveDirectory AppConfigActiveDirectory
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAppConfigActiveDirectory(distinguishedName string, groupScope string, groupType string, samAccountName string, type_ string) *AppConfigActiveDirectory {
+func NewAppConfigActiveDirectory(distinguishedName string, groupScope string, groupType string, samAccountName string) *AppConfigActiveDirectory {
 	this := AppConfigActiveDirectory{}
-	this.Type = type_
 	return &this
 }
 
@@ -202,7 +201,6 @@ func (o *AppConfigActiveDirectory) UnmarshalJSON(data []byte) (err error) {
 		"groupScope",
 		"groupType",
 		"samAccountName",
-		"type",
 	}
 
 	allProperties := make(map[string]interface{})

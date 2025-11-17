@@ -32,6 +32,7 @@ var _ MappedNullable = &EntitlementValuesResponse{}
 
 // EntitlementValuesResponse struct for EntitlementValuesResponse
 type EntitlementValuesResponse struct {
+	// List of entitlement values for a bundle entitlement
 	EntitlementValues    []EntitlementValue              `json:"entitlementValues,omitempty"`
 	Links                *EntitlementValuesResponseLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}

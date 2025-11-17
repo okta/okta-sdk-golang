@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **HttpsSchemasOpenidNetSeceventCaepEventTypeCredentialChange** | Pointer to [**CaepCredentialChangeEvent**](CaepCredentialChangeEvent.md) |  | [optional] 
-**HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked** | Pointer to [**CaepSessionRevokedEvent**](CaepSessionRevokedEvent.md) |  | [optional] 
+**HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked** | Pointer to [**SsfTransmitterCaepSessionRevokedEvent**](SsfTransmitterCaepSessionRevokedEvent.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasHttpsSchemasOpenidNetSeceventCaepEventTypeCredentialChange returns a boolean 
 
 ### GetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked
 
-`func (o *SecurityEventTokenJwtEvents) GetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked() CaepSessionRevokedEvent`
+`func (o *SecurityEventTokenJwtEvents) GetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked() SsfTransmitterCaepSessionRevokedEvent`
 
 GetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked returns the HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked field if non-nil, zero value otherwise.
 
 ### GetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevokedOk
 
-`func (o *SecurityEventTokenJwtEvents) GetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevokedOk() (*CaepSessionRevokedEvent, bool)`
+`func (o *SecurityEventTokenJwtEvents) GetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevokedOk() (*SsfTransmitterCaepSessionRevokedEvent, bool)`
 
 GetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevokedOk returns a tuple with the HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked
 
-`func (o *SecurityEventTokenJwtEvents) SetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked(v CaepSessionRevokedEvent)`
+`func (o *SecurityEventTokenJwtEvents) SetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked(v SsfTransmitterCaepSessionRevokedEvent)`
 
 SetHttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked sets HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked field to given value.
 

@@ -32,8 +32,11 @@ var _ MappedNullable = &EntitlementValue{}
 
 // EntitlementValue struct for EntitlementValue
 type EntitlementValue struct {
-	Id                   *string                `json:"id,omitempty"`
-	Name                 *string                `json:"name,omitempty"`
+	// Entitlement value ID
+	Id *string `json:"id,omitempty"`
+	// The entitlement value resource name
+	Name *string `json:"name,omitempty"`
+	// The entitlement value resource [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
 	Value                *string                `json:"value,omitempty"`
 	Links                *EntitlementValueLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}

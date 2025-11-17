@@ -38,9 +38,11 @@ type MtlsTrustCredentials struct {
 	Issuer *string `json:"issuer,omitempty"`
 	// IdP key credential reference to the Okta X.509 signature certificate
 	Kid *string `json:"kid,omitempty"`
-	// Mechanism to validate the certificate
+	// Mechanism to validate the certificate  > **Note:** This property isn't supported. Okta now handles CRL caching automatically. As of October 8, 2025, in Preview orgs, and October 13, 2025, in Production orgs, this property is ignored if it's specified in any API requests. Specifying the property in your API requests doesn't cause any errors since the property has no effect. > > See [Deprecation Notice - Smart Card IdP Legacy CRL Cache Setting](https://support.okta.com/help/s/article/deprecation-notice-smart-card-idp-legacy-crl-cache-setting?language=en_US).
+	// Deprecated
 	Revocation *string `json:"revocation,omitempty"`
-	// Time in minutes to cache the certificate revocation information
+	// Time in minutes to cache the certificate revocation information  > **Note:** This property isn't supported. Okta now handles CRL caching automatically. As of October 8, 2025, in Preview orgs, and October 13, 2025, in Production orgs, this property is ignored if it's specified in any API requests. Specifying this property in your API requests doesn't cause errors since the property has no effect. > > See [Deprecation Notice - Smart Card IdP Legacy CRL Cache Setting](https://support.okta.com/help/s/article/deprecation-notice-smart-card-idp-legacy-crl-cache-setting?language=en_US).
+	// Deprecated
 	RevocationCacheLifetime *float32 `json:"revocationCacheLifetime,omitempty"`
 	AdditionalProperties    map[string]interface{}
 }
@@ -161,6 +163,7 @@ func (o *MtlsTrustCredentials) SetKid(v string) {
 }
 
 // GetRevocation returns the Revocation field value if set, zero value otherwise.
+// Deprecated
 func (o *MtlsTrustCredentials) GetRevocation() string {
 	if o == nil || IsNil(o.Revocation) {
 		var ret string
@@ -171,6 +174,7 @@ func (o *MtlsTrustCredentials) GetRevocation() string {
 
 // GetRevocationOk returns a tuple with the Revocation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *MtlsTrustCredentials) GetRevocationOk() (*string, bool) {
 	if o == nil || IsNil(o.Revocation) {
 		return nil, false
@@ -188,11 +192,13 @@ func (o *MtlsTrustCredentials) HasRevocation() bool {
 }
 
 // SetRevocation gets a reference to the given string and assigns it to the Revocation field.
+// Deprecated
 func (o *MtlsTrustCredentials) SetRevocation(v string) {
 	o.Revocation = &v
 }
 
 // GetRevocationCacheLifetime returns the RevocationCacheLifetime field value if set, zero value otherwise.
+// Deprecated
 func (o *MtlsTrustCredentials) GetRevocationCacheLifetime() float32 {
 	if o == nil || IsNil(o.RevocationCacheLifetime) {
 		var ret float32
@@ -203,6 +209,7 @@ func (o *MtlsTrustCredentials) GetRevocationCacheLifetime() float32 {
 
 // GetRevocationCacheLifetimeOk returns a tuple with the RevocationCacheLifetime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *MtlsTrustCredentials) GetRevocationCacheLifetimeOk() (*float32, bool) {
 	if o == nil || IsNil(o.RevocationCacheLifetime) {
 		return nil, false
@@ -220,6 +227,7 @@ func (o *MtlsTrustCredentials) HasRevocationCacheLifetime() bool {
 }
 
 // SetRevocationCacheLifetime gets a reference to the given float32 and assigns it to the RevocationCacheLifetime field.
+// Deprecated
 func (o *MtlsTrustCredentials) SetRevocationCacheLifetime(v float32) {
 	o.RevocationCacheLifetime = &v
 }

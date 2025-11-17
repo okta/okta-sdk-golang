@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**OptInStatus** | Pointer to **string** |  | [optional] 
+**OptInStatus** | Pointer to **string** | The entitlement management opt-in status for the Admin Console | [optional] 
 **Links** | Pointer to [**OptInStatusResponseLinks**](OptInStatusResponseLinks.md) |  | [optional] 
 
 ## Methods

@@ -45,10 +45,9 @@ type Group struct {
 	ObjectClass []string      `json:"objectClass,omitempty"`
 	Profile     *GroupProfile `json:"profile,omitempty"`
 	// Determines how a group's profile and memberships are managed
-	Type *string `json:"type,omitempty"`
-	// Embedded resources related to the group
-	Embedded             map[string]map[string]interface{} `json:"_embedded,omitempty"`
-	Links                *GroupLinks                       `json:"_links,omitempty"`
+	Type                 *string        `json:"type,omitempty"`
+	Embedded             *GroupEmbedded `json:"_embedded,omitempty"`
+	Links                *GroupLinks    `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -296,19 +295,19 @@ func (o *Group) SetType(v string) {
 }
 
 // GetEmbedded returns the Embedded field value if set, zero value otherwise.
-func (o *Group) GetEmbedded() map[string]map[string]interface{} {
+func (o *Group) GetEmbedded() GroupEmbedded {
 	if o == nil || IsNil(o.Embedded) {
-		var ret map[string]map[string]interface{}
+		var ret GroupEmbedded
 		return ret
 	}
-	return o.Embedded
+	return *o.Embedded
 }
 
 // GetEmbeddedOk returns a tuple with the Embedded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Group) GetEmbeddedOk() (map[string]map[string]interface{}, bool) {
+func (o *Group) GetEmbeddedOk() (*GroupEmbedded, bool) {
 	if o == nil || IsNil(o.Embedded) {
-		return map[string]map[string]interface{}{}, false
+		return nil, false
 	}
 	return o.Embedded, true
 }
@@ -322,9 +321,9 @@ func (o *Group) HasEmbedded() bool {
 	return false
 }
 
-// SetEmbedded gets a reference to the given map[string]map[string]interface{} and assigns it to the Embedded field.
-func (o *Group) SetEmbedded(v map[string]map[string]interface{}) {
-	o.Embedded = v
+// SetEmbedded gets a reference to the given GroupEmbedded and assigns it to the Embedded field.
+func (o *Group) SetEmbedded(v GroupEmbedded) {
+	o.Embedded = &v
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.

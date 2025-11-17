@@ -4,10 +4,10 @@ All URIs are relative to *https://subdomain.okta.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateCustomDomain**](CustomDomainAPI.md#CreateCustomDomain) | **Post** /api/v1/domains | Create a Custom Domain
+[**CreateCustomDomain**](CustomDomainAPI.md#CreateCustomDomain) | **Post** /api/v1/domains | Create a custom domain
 [**DeleteCustomDomain**](CustomDomainAPI.md#DeleteCustomDomain) | **Delete** /api/v1/domains/{domainId} | Delete a custom domain
 [**GetCustomDomain**](CustomDomainAPI.md#GetCustomDomain) | **Get** /api/v1/domains/{domainId} | Retrieve a custom domain
-[**ListCustomDomains**](CustomDomainAPI.md#ListCustomDomains) | **Get** /api/v1/domains | List all Custom Domains
+[**ListCustomDomains**](CustomDomainAPI.md#ListCustomDomains) | **Get** /api/v1/domains | List all custom domains
 [**ReplaceCustomDomain**](CustomDomainAPI.md#ReplaceCustomDomain) | **Put** /api/v1/domains/{domainId} | Replace a custom domain&#39;s brand
 [**UpsertCertificate**](CustomDomainAPI.md#UpsertCertificate) | **Put** /api/v1/domains/{domainId}/certificate | Upsert the custom domain&#39;s certificate
 [**VerifyDomain**](CustomDomainAPI.md#VerifyDomain) | **Post** /api/v1/domains/{domainId}/verify | Verify a custom domain
@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 > DomainResponse CreateCustomDomain(ctx).Domain(domain).Execute()
 
-Create a Custom Domain
+Create a custom domain
 
 
 
@@ -222,7 +222,7 @@ Name | Type | Description  | Notes
 
 > DomainListResponse ListCustomDomains(ctx).Execute()
 
-List all Custom Domains
+List all custom domains
 
 
 

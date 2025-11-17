@@ -30,7 +30,7 @@ import (
 // checks if the IDVCredentials type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &IDVCredentials{}
 
-// IDVCredentials Credentials for verifying requests to the IDV
+// IDVCredentials Credentials for verifying requests to the IDV vendor
 type IDVCredentials struct {
 	Bearer               *IDVCredentialsBearer `json:"bearer,omitempty"`
 	Client               *IDVCredentialsClient `json:"client,omitempty"`

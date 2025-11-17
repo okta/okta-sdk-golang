@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Config** | [**EventHookChannelConfig**](EventHookChannelConfig.md) |  | 
 **Type** | **string** | The channel type. Currently supports &#x60;HTTP&#x60;. | 
-**Version** | **string** | Version of the channel. Currently the only supported version is &#x60;1.0.0&#x60;&#x60;. | 
+**Version** | **string** | Version of the channel. Currently the only supported version is &#x60;1.0.0&#x60;. | 
 
 ## Methods
 

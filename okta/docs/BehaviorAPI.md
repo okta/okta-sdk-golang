@@ -105,7 +105,7 @@ import (
 )
 
 func main() {
-	rule := openapiclient.listBehaviorDetectionRules_200_response_inner{BehaviorRuleAnomalousDevice: openapiclient.NewBehaviorRuleAnomalousDevice("Name_example", "Type_example")} // ListBehaviorDetectionRules200ResponseInner | 
+	rule := openapiclient.listBehaviorDetectionRules_200_response_inner{BehaviorRuleASN: openapiclient.NewBehaviorRuleASN("Name_example", "Type_example")} // ListBehaviorDetectionRules200ResponseInner | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -441,7 +441,7 @@ import (
 
 func main() {
 	behaviorId := "abcd1234" // string | ID of the Behavior Detection Rule
-	rule := openapiclient.listBehaviorDetectionRules_200_response_inner{BehaviorRuleAnomalousDevice: openapiclient.NewBehaviorRuleAnomalousDevice("Name_example", "Type_example")} // ListBehaviorDetectionRules200ResponseInner | 
+	rule := openapiclient.listBehaviorDetectionRules_200_response_inner{BehaviorRuleASN: openapiclient.NewBehaviorRuleASN("Name_example", "Type_example")} // ListBehaviorDetectionRules200ResponseInner | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

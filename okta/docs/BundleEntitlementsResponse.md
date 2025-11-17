@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Entitlements** | Pointer to [**[]BundleEntitlement**](BundleEntitlement.md) |  | [optional] 
+**Entitlements** | Pointer to [**[]BundleEntitlement**](BundleEntitlement.md) | List of bundle entitlements | [optional] 
 **Links** | Pointer to [**BundleEntitlementsResponseLinks**](BundleEntitlementsResponseLinks.md) |  | [optional] 
 
 ## Methods

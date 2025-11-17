@@ -30,7 +30,7 @@ import (
 // checks if the UserType type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &UserType{}
 
-// UserType The user type that determines the schema for the user's profile. The `type` property is a map that identifies the [User Types](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserType/#tag/UserType).  Currently it contains a single element, `id`. It can be specified when creating a new user, and ca be updated by an admin on a full replace of an existing user (but not a partial update).
+// UserType The user type that determines the schema for the user's profile. The `type` property is a map that identifies the [User Types](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserType/#tag/UserType).  Currently it contains a single element, `id`. It can be specified when creating a new user, and can be updated by an admin on a full replace of an existing user (but not a partial update).
 type UserType struct {
 	// The ID of the user type
 	Id                   *string `json:"id,omitempty"`

@@ -80,7 +80,7 @@ type RateLimit struct {
 	Reset     int64
 }
 
-// APIClient manages communication with the Okta Admin Management API v2025.08.0
+// APIClient manages communication with the Okta Admin Management API v5.1.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg           *Configuration
@@ -162,8 +162,6 @@ type APIClient struct {
 	CustomTemplatesAPI CustomTemplatesAPI
 
 	DeviceAPI DeviceAPI
-
-	DeviceAccessAPI DeviceAccessAPI
 
 	DeviceAssuranceAPI DeviceAssuranceAPI
 
@@ -248,10 +246,6 @@ type APIClient struct {
 	RealmAPI RealmAPI
 
 	RealmAssignmentAPI RealmAssignmentAPI
-
-	RiskEventAPI RiskEventAPI
-
-	RiskProviderAPI RiskProviderAPI
 
 	RoleAssignmentAUserAPI RoleAssignmentAUserAPI
 
@@ -962,7 +956,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.CustomPagesAPI = (*CustomPagesAPIService)(&c.common)
 	c.CustomTemplatesAPI = (*CustomTemplatesAPIService)(&c.common)
 	c.DeviceAPI = (*DeviceAPIService)(&c.common)
-	c.DeviceAccessAPI = (*DeviceAccessAPIService)(&c.common)
 	c.DeviceAssuranceAPI = (*DeviceAssuranceAPIService)(&c.common)
 	c.DeviceIntegrationsAPI = (*DeviceIntegrationsAPIService)(&c.common)
 	c.DevicePostureCheckAPI = (*DevicePostureCheckAPIService)(&c.common)
@@ -1005,8 +998,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.RateLimitSettingsAPI = (*RateLimitSettingsAPIService)(&c.common)
 	c.RealmAPI = (*RealmAPIService)(&c.common)
 	c.RealmAssignmentAPI = (*RealmAssignmentAPIService)(&c.common)
-	c.RiskEventAPI = (*RiskEventAPIService)(&c.common)
-	c.RiskProviderAPI = (*RiskProviderAPIService)(&c.common)
 	c.RoleAssignmentAUserAPI = (*RoleAssignmentAUserAPIService)(&c.common)
 	c.RoleAssignmentBGroupAPI = (*RoleAssignmentBGroupAPIService)(&c.common)
 	c.RoleAssignmentClientAPI = (*RoleAssignmentClientAPIService)(&c.common)

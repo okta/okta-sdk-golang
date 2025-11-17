@@ -30,10 +30,10 @@ import (
 // checks if the IDVTokenEndpoint type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &IDVTokenEndpoint{}
 
-// IDVTokenEndpoint IDV token endpoint
+// IDVTokenEndpoint Token endpoint of the IDV vendor
 type IDVTokenEndpoint struct {
 	Binding *string `json:"binding,omitempty"`
-	// URL of the IDV `token` endpoint
+	// URL of the `token` endpoint of the IDV vendor
 	Url                  *string `json:"url,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **SpecTestResults** | **string** | The Runscope URL to your SCIM server specification test results. See [Test your SCIM API](https://developer.okta.com/docs/guides/build-provisioning-integration/test-scim-api/). | 
 **CrudTestResults** | **string** | The Runscope URL to your Okta SCIM CRUD test results. See [Test your Okta SCIM integration](https://developer.okta.com/docs/guides/scim-provisioning-integration-test/main/). | 
+**EntitlementsTestResults** | Pointer to **string** | The Runscope URL to your entitlements test results | [optional] 
 
 ## Methods
 
@@ -65,6 +66,31 @@ and a boolean to check if the value has been set.
 
 SetCrudTestResults sets CrudTestResults field to given value.
 
+
+### GetEntitlementsTestResults
+
+`func (o *TestInfoScimTestConfiguration) GetEntitlementsTestResults() string`
+
+GetEntitlementsTestResults returns the EntitlementsTestResults field if non-nil, zero value otherwise.
+
+### GetEntitlementsTestResultsOk
+
+`func (o *TestInfoScimTestConfiguration) GetEntitlementsTestResultsOk() (*string, bool)`
+
+GetEntitlementsTestResultsOk returns a tuple with the EntitlementsTestResults field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEntitlementsTestResults
+
+`func (o *TestInfoScimTestConfiguration) SetEntitlementsTestResults(v string)`
+
+SetEntitlementsTestResults sets EntitlementsTestResults field to given value.
+
+### HasEntitlementsTestResults
+
+`func (o *TestInfoScimTestConfiguration) HasEntitlementsTestResults() bool`
+
+HasEntitlementsTestResults returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

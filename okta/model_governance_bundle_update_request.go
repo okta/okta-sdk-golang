@@ -30,11 +30,14 @@ import (
 // checks if the GovernanceBundleUpdateRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GovernanceBundleUpdateRequest{}
 
-// GovernanceBundleUpdateRequest struct for GovernanceBundleUpdateRequest
+// GovernanceBundleUpdateRequest Request to update a governance bundle
 type GovernanceBundleUpdateRequest struct {
-	Description          *string                `json:"description,omitempty"`
-	Entitlements         []IAMBundleEntitlement `json:"entitlements,omitempty"`
-	Name                 *string                `json:"name,omitempty"`
+	// Description of the governance bundle
+	Description *string `json:"description,omitempty"`
+	// List of entitlements to include in the governance bundle
+	Entitlements []IAMBundleEntitlement `json:"entitlements,omitempty"`
+	// Name of the governance bundle
+	Name                 *string `json:"name,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 

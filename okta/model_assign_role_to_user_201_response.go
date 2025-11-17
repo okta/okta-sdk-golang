@@ -51,44 +51,194 @@ func StandardRoleAsAssignRoleToUser201Response(v *StandardRole) AssignRoleToUser
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *AssignRoleToUser201Response) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into CustomRole
-	err = json.Unmarshal(data, &dst.CustomRole)
-	if err == nil {
-		jsonCustomRole, _ := json.Marshal(dst.CustomRole)
-		if string(jsonCustomRole) == "{}" { // empty struct
-			dst.CustomRole = nil
-		} else {
-			match++
-		}
-	} else {
-		dst.CustomRole = nil
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]interface{}
+	err = newStrictDecoder(data).Decode(&jsonDict)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	// try to unmarshal data into StandardRole
-	err = json.Unmarshal(data, &dst.StandardRole)
-	if err == nil {
-		jsonStandardRole, _ := json.Marshal(dst.StandardRole)
-		if string(jsonStandardRole) == "{}" { // empty struct
+	// check if the discriminator value is 'API_ACCESS_MANAGEMENT_ADMIN'
+	if jsonDict["type"] == "API_ACCESS_MANAGEMENT_ADMIN" {
+		// try to unmarshal JSON data into StandardRole
+		err = json.Unmarshal(data, &dst.StandardRole)
+		if err == nil {
+			return nil // data stored in dst.StandardRole, return on the first match
+		} else {
 			dst.StandardRole = nil
-		} else {
-			match++
+			return fmt.Errorf("failed to unmarshal AssignRoleToUser201Response as StandardRole: %s", err.Error())
 		}
-	} else {
-		dst.StandardRole = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.CustomRole = nil
-		dst.StandardRole = nil
-
-		return fmt.Errorf("data matches more than one schema in oneOf(AssignRoleToUser201Response)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(AssignRoleToUser201Response)")
+	// check if the discriminator value is 'API_ADMIN'
+	if jsonDict["type"] == "API_ADMIN" {
+		// try to unmarshal JSON data into StandardRole
+		err = json.Unmarshal(data, &dst.StandardRole)
+		if err == nil {
+			return nil // data stored in dst.StandardRole, return on the first match
+		} else {
+			dst.StandardRole = nil
+			return fmt.Errorf("failed to unmarshal AssignRoleToUser201Response as StandardRole: %s", err.Error())
+		}
 	}
+
+	// check if the discriminator value is 'APP_ADMIN'
+	if jsonDict["type"] == "APP_ADMIN" {
+		// try to unmarshal JSON data into StandardRole
+		err = json.Unmarshal(data, &dst.StandardRole)
+		if err == nil {
+			return nil // data stored in dst.StandardRole, return on the first match
+		} else {
+			dst.StandardRole = nil
+			return fmt.Errorf("failed to unmarshal AssignRoleToUser201Response as StandardRole: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'ASA_ADMIN'
+	if jsonDict["type"] == "ASA_ADMIN" {
+		// try to unmarshal JSON data into StandardRole
+		err = json.Unmarshal(data, &dst.StandardRole)
+		if err == nil {
+			return nil // data stored in dst.StandardRole, return on the first match
+		} else {
+			dst.StandardRole = nil
+			return fmt.Errorf("failed to unmarshal AssignRoleToUser201Response as StandardRole: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'CUSTOM'
+	if jsonDict["type"] == "CUSTOM" {
+		// try to unmarshal JSON data into CustomRole
+		err = json.Unmarshal(data, &dst.CustomRole)
+		if err == nil {
+			return nil // data stored in dst.CustomRole, return on the first match
+		} else {
+			dst.CustomRole = nil
+			return fmt.Errorf("failed to unmarshal AssignRoleToUser201Response as CustomRole: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'GROUP_ADMIN'
+	if jsonDict["type"] == "GROUP_ADMIN" {
+		// try to unmarshal JSON data into StandardRole
+		err = json.Unmarshal(data, &dst.StandardRole)
+		if err == nil {
+			return nil // data stored in dst.StandardRole, return on the first match
+		} else {
+			dst.StandardRole = nil
+			return fmt.Errorf("failed to unmarshal AssignRoleToUser201Response as StandardRole: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'GROUP_MEMBERSHIP_ADMIN'
+	if jsonDict["type"] == "GROUP_MEMBERSHIP_ADMIN" {
+		// try to unmarshal JSON data into StandardRole
+		err = json.Unmarshal(data, &dst.StandardRole)
+		if err == nil {
+			return nil // data stored in dst.StandardRole, return on the first match
+		} else {
+			dst.StandardRole = nil
+			return fmt.Errorf("failed to unmarshal AssignRoleToUser201Response as StandardRole: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'HELP_DESK_ADMIN'
+	if jsonDict["type"] == "HELP_DESK_ADMIN" {
+		// try to unmarshal JSON data into StandardRole
+		err = json.Unmarshal(data, &dst.StandardRole)
+		if err == nil {
+			return nil // data stored in dst.StandardRole, return on the first match
+		} else {
+			dst.StandardRole = nil
+			return fmt.Errorf("failed to unmarshal AssignRoleToUser201Response as StandardRole: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'IDP_ADMIN'
+	if jsonDict["type"] == "IDP_ADMIN" {
+		// try to unmarshal JSON data into StandardRole
+		err = json.Unmarshal(data, &dst.StandardRole)
+		if err == nil {
+			return nil // data stored in dst.StandardRole, return on the first match
+		} else {
+			dst.StandardRole = nil
+			return fmt.Errorf("failed to unmarshal AssignRoleToUser201Response as StandardRole: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'MOBILE_ADMIN'
+	if jsonDict["type"] == "MOBILE_ADMIN" {
+		// try to unmarshal JSON data into StandardRole
+		err = json.Unmarshal(data, &dst.StandardRole)
+		if err == nil {
+			return nil // data stored in dst.StandardRole, return on the first match
+		} else {
+			dst.StandardRole = nil
+			return fmt.Errorf("failed to unmarshal AssignRoleToUser201Response as StandardRole: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'ORG_ADMIN'
+	if jsonDict["type"] == "ORG_ADMIN" {
+		// try to unmarshal JSON data into StandardRole
+		err = json.Unmarshal(data, &dst.StandardRole)
+		if err == nil {
+			return nil // data stored in dst.StandardRole, return on the first match
+		} else {
+			dst.StandardRole = nil
+			return fmt.Errorf("failed to unmarshal AssignRoleToUser201Response as StandardRole: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'READ_ONLY_ADMIN'
+	if jsonDict["type"] == "READ_ONLY_ADMIN" {
+		// try to unmarshal JSON data into StandardRole
+		err = json.Unmarshal(data, &dst.StandardRole)
+		if err == nil {
+			return nil // data stored in dst.StandardRole, return on the first match
+		} else {
+			dst.StandardRole = nil
+			return fmt.Errorf("failed to unmarshal AssignRoleToUser201Response as StandardRole: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'REPORT_ADMIN'
+	if jsonDict["type"] == "REPORT_ADMIN" {
+		// try to unmarshal JSON data into StandardRole
+		err = json.Unmarshal(data, &dst.StandardRole)
+		if err == nil {
+			return nil // data stored in dst.StandardRole, return on the first match
+		} else {
+			dst.StandardRole = nil
+			return fmt.Errorf("failed to unmarshal AssignRoleToUser201Response as StandardRole: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'SUPER_ADMIN'
+	if jsonDict["type"] == "SUPER_ADMIN" {
+		// try to unmarshal JSON data into StandardRole
+		err = json.Unmarshal(data, &dst.StandardRole)
+		if err == nil {
+			return nil // data stored in dst.StandardRole, return on the first match
+		} else {
+			dst.StandardRole = nil
+			return fmt.Errorf("failed to unmarshal AssignRoleToUser201Response as StandardRole: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'USER_ADMIN'
+	if jsonDict["type"] == "USER_ADMIN" {
+		// try to unmarshal JSON data into StandardRole
+		err = json.Unmarshal(data, &dst.StandardRole)
+		if err == nil {
+			return nil // data stored in dst.StandardRole, return on the first match
+		} else {
+			dst.StandardRole = nil
+			return fmt.Errorf("failed to unmarshal AssignRoleToUser201Response as StandardRole: %s", err.Error())
+		}
+	}
+
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON

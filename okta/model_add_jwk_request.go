@@ -51,44 +51,38 @@ func OAuth2ClientJsonSigningKeyRequestAsAddJwkRequest(v *OAuth2ClientJsonSigning
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *AddJwkRequest) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into OAuth2ClientJsonEncryptionKeyRequest
-	err = json.Unmarshal(data, &dst.OAuth2ClientJsonEncryptionKeyRequest)
-	if err == nil {
-		jsonOAuth2ClientJsonEncryptionKeyRequest, _ := json.Marshal(dst.OAuth2ClientJsonEncryptionKeyRequest)
-		if string(jsonOAuth2ClientJsonEncryptionKeyRequest) == "{}" { // empty struct
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]interface{}
+	err = newStrictDecoder(data).Decode(&jsonDict)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
+	}
+
+	// check if the discriminator value is 'enc'
+	if jsonDict["use"] == "enc" {
+		// try to unmarshal JSON data into OAuth2ClientJsonEncryptionKeyRequest
+		err = json.Unmarshal(data, &dst.OAuth2ClientJsonEncryptionKeyRequest)
+		if err == nil {
+			return nil // data stored in dst.OAuth2ClientJsonEncryptionKeyRequest, return on the first match
+		} else {
 			dst.OAuth2ClientJsonEncryptionKeyRequest = nil
-		} else {
-			match++
+			return fmt.Errorf("failed to unmarshal AddJwkRequest as OAuth2ClientJsonEncryptionKeyRequest: %s", err.Error())
 		}
-	} else {
-		dst.OAuth2ClientJsonEncryptionKeyRequest = nil
 	}
 
-	// try to unmarshal data into OAuth2ClientJsonSigningKeyRequest
-	err = json.Unmarshal(data, &dst.OAuth2ClientJsonSigningKeyRequest)
-	if err == nil {
-		jsonOAuth2ClientJsonSigningKeyRequest, _ := json.Marshal(dst.OAuth2ClientJsonSigningKeyRequest)
-		if string(jsonOAuth2ClientJsonSigningKeyRequest) == "{}" { // empty struct
+	// check if the discriminator value is 'sig'
+	if jsonDict["use"] == "sig" {
+		// try to unmarshal JSON data into OAuth2ClientJsonSigningKeyRequest
+		err = json.Unmarshal(data, &dst.OAuth2ClientJsonSigningKeyRequest)
+		if err == nil {
+			return nil // data stored in dst.OAuth2ClientJsonSigningKeyRequest, return on the first match
+		} else {
 			dst.OAuth2ClientJsonSigningKeyRequest = nil
-		} else {
-			match++
+			return fmt.Errorf("failed to unmarshal AddJwkRequest as OAuth2ClientJsonSigningKeyRequest: %s", err.Error())
 		}
-	} else {
-		dst.OAuth2ClientJsonSigningKeyRequest = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.OAuth2ClientJsonEncryptionKeyRequest = nil
-		dst.OAuth2ClientJsonSigningKeyRequest = nil
-
-		return fmt.Errorf("data matches more than one schema in oneOf(AddJwkRequest)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(AddJwkRequest)")
-	}
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON

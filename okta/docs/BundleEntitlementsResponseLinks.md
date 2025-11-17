@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Next** | Pointer to [**HrefObject**](HrefObject.md) | Link to the next resource | [optional] 
 **Self** | Pointer to [**HrefObjectSelfLink**](HrefObjectSelfLink.md) |  | [optional] 
-**Bundle** | Pointer to [**HrefObject**](HrefObject.md) | Link to the bundle resource | [optional] 
+**Next** | Pointer to [**HrefObjectNextLink**](HrefObjectNextLink.md) |  | [optional] 
+**Bundle** | Pointer to [**BundleLink**](BundleLink.md) |  | [optional] 
 
 ## Methods
 
@@ -26,31 +26,6 @@ will change when the set of required properties is changed
 NewBundleEntitlementsResponseLinksWithDefaults instantiates a new BundleEntitlementsResponseLinks object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetNext
-
-`func (o *BundleEntitlementsResponseLinks) GetNext() HrefObject`
-
-GetNext returns the Next field if non-nil, zero value otherwise.
-
-### GetNextOk
-
-`func (o *BundleEntitlementsResponseLinks) GetNextOk() (*HrefObject, bool)`
-
-GetNextOk returns a tuple with the Next field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetNext
-
-`func (o *BundleEntitlementsResponseLinks) SetNext(v HrefObject)`
-
-SetNext sets Next field to given value.
-
-### HasNext
-
-`func (o *BundleEntitlementsResponseLinks) HasNext() bool`
-
-HasNext returns a boolean if a field has been set.
 
 ### GetSelf
 
@@ -77,22 +52,47 @@ SetSelf sets Self field to given value.
 
 HasSelf returns a boolean if a field has been set.
 
+### GetNext
+
+`func (o *BundleEntitlementsResponseLinks) GetNext() HrefObjectNextLink`
+
+GetNext returns the Next field if non-nil, zero value otherwise.
+
+### GetNextOk
+
+`func (o *BundleEntitlementsResponseLinks) GetNextOk() (*HrefObjectNextLink, bool)`
+
+GetNextOk returns a tuple with the Next field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNext
+
+`func (o *BundleEntitlementsResponseLinks) SetNext(v HrefObjectNextLink)`
+
+SetNext sets Next field to given value.
+
+### HasNext
+
+`func (o *BundleEntitlementsResponseLinks) HasNext() bool`
+
+HasNext returns a boolean if a field has been set.
+
 ### GetBundle
 
-`func (o *BundleEntitlementsResponseLinks) GetBundle() HrefObject`
+`func (o *BundleEntitlementsResponseLinks) GetBundle() BundleLink`
 
 GetBundle returns the Bundle field if non-nil, zero value otherwise.
 
 ### GetBundleOk
 
-`func (o *BundleEntitlementsResponseLinks) GetBundleOk() (*HrefObject, bool)`
+`func (o *BundleEntitlementsResponseLinks) GetBundleOk() (*BundleLink, bool)`
 
 GetBundleOk returns a tuple with the Bundle field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBundle
 
-`func (o *BundleEntitlementsResponseLinks) SetBundle(v HrefObject)`
+`func (o *BundleEntitlementsResponseLinks) SetBundle(v BundleLink)`
 
 SetBundle sets Bundle field to given value.
 

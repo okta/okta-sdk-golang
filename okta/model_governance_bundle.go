@@ -32,10 +32,15 @@ var _ MappedNullable = &GovernanceBundle{}
 
 // GovernanceBundle struct for GovernanceBundle
 type GovernanceBundle struct {
-	Description          *string                `json:"description,omitempty"`
-	Id                   *string                `json:"id,omitempty"`
-	Name                 *string                `json:"name,omitempty"`
-	Orn                  *string                `json:"orn,omitempty"`
+	// Description of the governance bundle
+	Description *string `json:"description,omitempty"`
+	// Governance bundle ID
+	Id *string `json:"id,omitempty"`
+	// Name of the governance bundle
+	Name *string `json:"name,omitempty"`
+	// The governance bundle resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
+	Orn *string `json:"orn,omitempty"`
+	// Status of the governance bundle
 	Status               *string                `json:"status,omitempty"`
 	Links                *GovernanceBundleLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}

@@ -30,7 +30,7 @@ import (
 // checks if the ProtocolIdVerification type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ProtocolIdVerification{}
 
-// ProtocolIdVerification Protocol settings for the IDV
+// ProtocolIdVerification Protocol settings for the IDV vendor
 type ProtocolIdVerification struct {
 	Credentials *IDVCredentials `json:"credentials,omitempty"`
 	Endpoints   *IDVEndpoints   `json:"endpoints,omitempty"`

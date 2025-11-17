@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Status** | Pointer to **string** |  | [optional] 
 **Type** | **string** |  | 
 **Link** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
-**Settings** | Pointer to [**BehaviorRuleSettingsVelocity**](BehaviorRuleSettingsVelocity.md) |  | [optional] 
+**Settings** | Pointer to [**BehaviorRuleSettingsAnomalousASN**](BehaviorRuleSettingsAnomalousASN.md) |  | [optional] 
 
 ## Methods
 
@@ -199,20 +199,20 @@ HasLink returns a boolean if a field has been set.
 
 ### GetSettings
 
-`func (o *ListBehaviorDetectionRules200ResponseInner) GetSettings() BehaviorRuleSettingsVelocity`
+`func (o *ListBehaviorDetectionRules200ResponseInner) GetSettings() BehaviorRuleSettingsAnomalousASN`
 
 GetSettings returns the Settings field if non-nil, zero value otherwise.
 
 ### GetSettingsOk
 
-`func (o *ListBehaviorDetectionRules200ResponseInner) GetSettingsOk() (*BehaviorRuleSettingsVelocity, bool)`
+`func (o *ListBehaviorDetectionRules200ResponseInner) GetSettingsOk() (*BehaviorRuleSettingsAnomalousASN, bool)`
 
 GetSettingsOk returns a tuple with the Settings field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSettings
 
-`func (o *ListBehaviorDetectionRules200ResponseInner) SetSettings(v BehaviorRuleSettingsVelocity)`
+`func (o *ListBehaviorDetectionRules200ResponseInner) SetSettings(v BehaviorRuleSettingsAnomalousASN)`
 
 SetSettings sets Settings field to given value.
 

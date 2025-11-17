@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ClientId** | **string** | The client ID that you generate in your IDV | 
-**ClientSecret** | **string** | The client secret that you generate in your IDV | 
+**ClientId** | **string** | The client ID that you generate in your IDV vendor | 
+**ClientSecret** | **string** | The client secret that you generate in your IDV vendor | 
 
 ## Methods
 

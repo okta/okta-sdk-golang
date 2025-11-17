@@ -32,7 +32,9 @@ var _ MappedNullable = &DTCWindows{}
 
 // DTCWindows Google Chrome Device Trust Connector provider
 type DTCWindows struct {
-	BrowserVersion *ChromeBrowserVersion `json:"browserVersion,omitempty"`
+	// <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Indicates whether antivirus software is enabled
+	AntivirusEnabled *bool                 `json:"antivirusEnabled,omitempty"`
+	BrowserVersion   *ChromeBrowserVersion `json:"browserVersion,omitempty"`
 	// Indicates if a software stack is used to communicate with the DNS server
 	BuiltInDnsClientEnabled *bool `json:"builtInDnsClientEnabled,omitempty"`
 	// Indicates whether access to the Chrome Remote Desktop application is blocked through a policy
@@ -89,6 +91,38 @@ func NewDTCWindows() *DTCWindows {
 func NewDTCWindowsWithDefaults() *DTCWindows {
 	this := DTCWindows{}
 	return &this
+}
+
+// GetAntivirusEnabled returns the AntivirusEnabled field value if set, zero value otherwise.
+func (o *DTCWindows) GetAntivirusEnabled() bool {
+	if o == nil || IsNil(o.AntivirusEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.AntivirusEnabled
+}
+
+// GetAntivirusEnabledOk returns a tuple with the AntivirusEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DTCWindows) GetAntivirusEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.AntivirusEnabled) {
+		return nil, false
+	}
+	return o.AntivirusEnabled, true
+}
+
+// HasAntivirusEnabled returns a boolean if a field has been set.
+func (o *DTCWindows) HasAntivirusEnabled() bool {
+	if o != nil && !IsNil(o.AntivirusEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetAntivirusEnabled gets a reference to the given bool and assigns it to the AntivirusEnabled field.
+func (o *DTCWindows) SetAntivirusEnabled(v bool) {
+	o.AntivirusEnabled = &v
 }
 
 // GetBrowserVersion returns the BrowserVersion field value if set, zero value otherwise.
@@ -712,6 +746,9 @@ func (o DTCWindows) MarshalJSON() ([]byte, error) {
 
 func (o DTCWindows) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AntivirusEnabled) {
+		toSerialize["antivirusEnabled"] = o.AntivirusEnabled
+	}
 	if !IsNil(o.BrowserVersion) {
 		toSerialize["browserVersion"] = o.BrowserVersion
 	}
@@ -791,6 +828,7 @@ func (o *DTCWindows) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "antivirusEnabled")
 		delete(additionalProperties, "browserVersion")
 		delete(additionalProperties, "builtInDnsClientEnabled")
 		delete(additionalProperties, "chromeRemoteDesktopAppBlocked")

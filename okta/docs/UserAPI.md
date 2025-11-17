@@ -304,7 +304,7 @@ Name | Type | Description  | Notes
 
 ## ListUsers
 
-> []User ListUsers(ctx).ContentType(contentType).Search(search).Filter(filter).Q(q).After(after).Limit(limit).SortBy(sortBy).SortOrder(sortOrder).Expand(expand).Execute()
+> []User ListUsers(ctx).ContentType(contentType).Search(search).Filter(filter).Q(q).After(after).Limit(limit).SortBy(sortBy).SortOrder(sortOrder).Fields(fields).Expand(expand).Execute()
 
 List all users
 
@@ -331,11 +331,12 @@ func main() {
 	limit := int32(56) // int32 | Specifies the number of results returned. Defaults to 10 if `q` is provided. (optional) (default to 200)
 	sortBy := "sortBy_example" // string | Specifies field to sort by (for search queries only). This can be any single property, for example `sortBy=profile.lastName`. Users with the same value for the `sortBy` property will be ordered by `id`. (optional)
 	sortOrder := "sortOrder_example" // string | Specifies the sort order: `asc` or `desc` (for search queries only). Sorting is done in ASCII sort order (that is, by ASCII character value), but isn't case sensitive. `sortOrder` is ignored if `sortBy` isn't present. (optional)
+	fields := "id,status,profile:(firstName,lastName,city)" // string | Specifies a select set of user properties to query. Any other properties will be filtered out of the returned users.  Requested fields should be comma-separated. Profile attributes should be contained within a `profile:({field1}, {field2}, ...)` directive. (optional)
 	expand := "classification" // string | <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>A parameter to include metadata in the `_embedded` property. Supported value: `classification`. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.ListUsers(context.Background()).ContentType(contentType).Search(search).Filter(filter).Q(q).After(after).Limit(limit).SortBy(sortBy).SortOrder(sortOrder).Expand(expand).Execute()
+	resp, r, err := apiClient.UserAPI.ListUsers(context.Background()).ContentType(contentType).Search(search).Filter(filter).Q(q).After(after).Limit(limit).SortBy(sortBy).SortOrder(sortOrder).Fields(fields).Expand(expand).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListUsers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -364,6 +365,7 @@ Name | Type | Description  | Notes
  **limit** | **int32** | Specifies the number of results returned. Defaults to 10 if &#x60;q&#x60; is provided. | [default to 200]
  **sortBy** | **string** | Specifies field to sort by (for search queries only). This can be any single property, for example &#x60;sortBy&#x3D;profile.lastName&#x60;. Users with the same value for the &#x60;sortBy&#x60; property will be ordered by &#x60;id&#x60;. | 
  **sortOrder** | **string** | Specifies the sort order: &#x60;asc&#x60; or &#x60;desc&#x60; (for search queries only). Sorting is done in ASCII sort order (that is, by ASCII character value), but isn&#39;t case sensitive. &#x60;sortOrder&#x60; is ignored if &#x60;sortBy&#x60; isn&#39;t present. | 
+ **fields** | **string** | Specifies a select set of user properties to query. Any other properties will be filtered out of the returned users.  Requested fields should be comma-separated. Profile attributes should be contained within a &#x60;profile:({field1}, {field2}, ...)&#x60; directive. | 
  **expand** | **string** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;A parameter to include metadata in the &#x60;_embedded&#x60; property. Supported value: &#x60;classification&#x60;. | 
 
 ### Return type

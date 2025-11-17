@@ -25,58 +25,145 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
+
+// checks if the GovernanceBundlesResponseLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GovernanceBundlesResponseLinks{}
 
 // GovernanceBundlesResponseLinks struct for GovernanceBundlesResponseLinks
 type GovernanceBundlesResponseLinks struct {
-	LinksNext *LinksNext
-	LinksSelf *LinksSelf
+	Self                 *HrefObjectSelfLink `json:"self,omitempty"`
+	Next                 *HrefObjectNextLink `json:"next,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
-// Unmarshal JSON data into any of the pointers in the struct
-func (dst *GovernanceBundlesResponseLinks) UnmarshalJSON(data []byte) error {
-	var err error
-	// try to unmarshal JSON data into LinksNext
-	err = json.Unmarshal(data, &dst.LinksNext)
-	if err == nil {
-		jsonLinksNext, _ := json.Marshal(dst.LinksNext)
-		if string(jsonLinksNext) == "{}" { // empty struct
-			dst.LinksNext = nil
-		} else {
-			return nil // data stored in dst.LinksNext, return on the first match
-		}
-	} else {
-		dst.LinksNext = nil
-	}
+type _GovernanceBundlesResponseLinks GovernanceBundlesResponseLinks
 
-	// try to unmarshal JSON data into LinksSelf
-	err = json.Unmarshal(data, &dst.LinksSelf)
-	if err == nil {
-		jsonLinksSelf, _ := json.Marshal(dst.LinksSelf)
-		if string(jsonLinksSelf) == "{}" { // empty struct
-			dst.LinksSelf = nil
-		} else {
-			return nil // data stored in dst.LinksSelf, return on the first match
-		}
-	} else {
-		dst.LinksSelf = nil
-	}
-
-	return fmt.Errorf("data failed to match schemas in anyOf(GovernanceBundlesResponseLinks)")
+// NewGovernanceBundlesResponseLinks instantiates a new GovernanceBundlesResponseLinks object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewGovernanceBundlesResponseLinks() *GovernanceBundlesResponseLinks {
+	this := GovernanceBundlesResponseLinks{}
+	return &this
 }
 
-// Marshal data from the first non-nil pointers in the struct to JSON
-func (src GovernanceBundlesResponseLinks) MarshalJSON() ([]byte, error) {
-	if src.LinksNext != nil {
-		return json.Marshal(&src.LinksNext)
+// NewGovernanceBundlesResponseLinksWithDefaults instantiates a new GovernanceBundlesResponseLinks object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewGovernanceBundlesResponseLinksWithDefaults() *GovernanceBundlesResponseLinks {
+	this := GovernanceBundlesResponseLinks{}
+	return &this
+}
+
+// GetSelf returns the Self field value if set, zero value otherwise.
+func (o *GovernanceBundlesResponseLinks) GetSelf() HrefObjectSelfLink {
+	if o == nil || IsNil(o.Self) {
+		var ret HrefObjectSelfLink
+		return ret
+	}
+	return *o.Self
+}
+
+// GetSelfOk returns a tuple with the Self field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GovernanceBundlesResponseLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
+	if o == nil || IsNil(o.Self) {
+		return nil, false
+	}
+	return o.Self, true
+}
+
+// HasSelf returns a boolean if a field has been set.
+func (o *GovernanceBundlesResponseLinks) HasSelf() bool {
+	if o != nil && !IsNil(o.Self) {
+		return true
 	}
 
-	if src.LinksSelf != nil {
-		return json.Marshal(&src.LinksSelf)
+	return false
+}
+
+// SetSelf gets a reference to the given HrefObjectSelfLink and assigns it to the Self field.
+func (o *GovernanceBundlesResponseLinks) SetSelf(v HrefObjectSelfLink) {
+	o.Self = &v
+}
+
+// GetNext returns the Next field value if set, zero value otherwise.
+func (o *GovernanceBundlesResponseLinks) GetNext() HrefObjectNextLink {
+	if o == nil || IsNil(o.Next) {
+		var ret HrefObjectNextLink
+		return ret
+	}
+	return *o.Next
+}
+
+// GetNextOk returns a tuple with the Next field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GovernanceBundlesResponseLinks) GetNextOk() (*HrefObjectNextLink, bool) {
+	if o == nil || IsNil(o.Next) {
+		return nil, false
+	}
+	return o.Next, true
+}
+
+// HasNext returns a boolean if a field has been set.
+func (o *GovernanceBundlesResponseLinks) HasNext() bool {
+	if o != nil && !IsNil(o.Next) {
+		return true
 	}
 
-	return nil, nil // no data in anyOf schemas
+	return false
+}
+
+// SetNext gets a reference to the given HrefObjectNextLink and assigns it to the Next field.
+func (o *GovernanceBundlesResponseLinks) SetNext(v HrefObjectNextLink) {
+	o.Next = &v
+}
+
+func (o GovernanceBundlesResponseLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o GovernanceBundlesResponseLinks) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Self) {
+		toSerialize["self"] = o.Self
+	}
+	if !IsNil(o.Next) {
+		toSerialize["next"] = o.Next
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *GovernanceBundlesResponseLinks) UnmarshalJSON(data []byte) (err error) {
+	varGovernanceBundlesResponseLinks := _GovernanceBundlesResponseLinks{}
+
+	err = json.Unmarshal(data, &varGovernanceBundlesResponseLinks)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GovernanceBundlesResponseLinks(varGovernanceBundlesResponseLinks)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "self")
+		delete(additionalProperties, "next")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableGovernanceBundlesResponseLinks struct {

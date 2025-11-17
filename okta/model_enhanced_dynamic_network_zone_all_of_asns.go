@@ -33,7 +33,9 @@ var _ MappedNullable = &EnhancedDynamicNetworkZoneAllOfAsns{}
 // EnhancedDynamicNetworkZoneAllOfAsns The list of ASNs associated with an Enhanced Dynamic Network Zone
 type EnhancedDynamicNetworkZoneAllOfAsns struct {
 	// An array of ASNs to include for an Enhanced Dynamic Network Zone
-	Include              []string `json:"include,omitempty"`
+	Include []string `json:"include,omitempty"`
+	// An array of ASNs to exclude for an Enhanced Dynamic Network Zone
+	Exclude              []string `json:"exclude,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -88,6 +90,38 @@ func (o *EnhancedDynamicNetworkZoneAllOfAsns) SetInclude(v []string) {
 	o.Include = v
 }
 
+// GetExclude returns the Exclude field value if set, zero value otherwise.
+func (o *EnhancedDynamicNetworkZoneAllOfAsns) GetExclude() []string {
+	if o == nil || IsNil(o.Exclude) {
+		var ret []string
+		return ret
+	}
+	return o.Exclude
+}
+
+// GetExcludeOk returns a tuple with the Exclude field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnhancedDynamicNetworkZoneAllOfAsns) GetExcludeOk() ([]string, bool) {
+	if o == nil || IsNil(o.Exclude) {
+		return nil, false
+	}
+	return o.Exclude, true
+}
+
+// HasExclude returns a boolean if a field has been set.
+func (o *EnhancedDynamicNetworkZoneAllOfAsns) HasExclude() bool {
+	if o != nil && !IsNil(o.Exclude) {
+		return true
+	}
+
+	return false
+}
+
+// SetExclude gets a reference to the given []string and assigns it to the Exclude field.
+func (o *EnhancedDynamicNetworkZoneAllOfAsns) SetExclude(v []string) {
+	o.Exclude = v
+}
+
 func (o EnhancedDynamicNetworkZoneAllOfAsns) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -100,6 +134,9 @@ func (o EnhancedDynamicNetworkZoneAllOfAsns) ToMap() (map[string]interface{}, er
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Include) {
 		toSerialize["include"] = o.Include
+	}
+	if !IsNil(o.Exclude) {
+		toSerialize["exclude"] = o.Exclude
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -124,6 +161,7 @@ func (o *EnhancedDynamicNetworkZoneAllOfAsns) UnmarshalJSON(data []byte) (err er
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "include")
+		delete(additionalProperties, "exclude")
 		o.AdditionalProperties = additionalProperties
 	}
 

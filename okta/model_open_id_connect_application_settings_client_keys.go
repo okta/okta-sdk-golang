@@ -32,7 +32,7 @@ var _ MappedNullable = &OpenIdConnectApplicationSettingsClientKeys{}
 
 // OpenIdConnectApplicationSettingsClientKeys A [JSON Web Key Set](https://tools.ietf.org/html/rfc7517#section-5) for validating JWTs presented to Okta or for encrypting ID tokens minted by Okta for the client
 type OpenIdConnectApplicationSettingsClientKeys struct {
-	Keys                 []ListJwk200ResponseInner `json:"keys,omitempty"`
+	Keys                 []OpenIdConnectApplicationSettingsClientKeysKeysInner `json:"keys,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,9 +56,9 @@ func NewOpenIdConnectApplicationSettingsClientKeysWithDefaults() *OpenIdConnectA
 }
 
 // GetKeys returns the Keys field value if set, zero value otherwise.
-func (o *OpenIdConnectApplicationSettingsClientKeys) GetKeys() []ListJwk200ResponseInner {
+func (o *OpenIdConnectApplicationSettingsClientKeys) GetKeys() []OpenIdConnectApplicationSettingsClientKeysKeysInner {
 	if o == nil || IsNil(o.Keys) {
-		var ret []ListJwk200ResponseInner
+		var ret []OpenIdConnectApplicationSettingsClientKeysKeysInner
 		return ret
 	}
 	return o.Keys
@@ -66,7 +66,7 @@ func (o *OpenIdConnectApplicationSettingsClientKeys) GetKeys() []ListJwk200Respo
 
 // GetKeysOk returns a tuple with the Keys field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OpenIdConnectApplicationSettingsClientKeys) GetKeysOk() ([]ListJwk200ResponseInner, bool) {
+func (o *OpenIdConnectApplicationSettingsClientKeys) GetKeysOk() ([]OpenIdConnectApplicationSettingsClientKeysKeysInner, bool) {
 	if o == nil || IsNil(o.Keys) {
 		return nil, false
 	}
@@ -82,8 +82,8 @@ func (o *OpenIdConnectApplicationSettingsClientKeys) HasKeys() bool {
 	return false
 }
 
-// SetKeys gets a reference to the given []ListJwk200ResponseInner and assigns it to the Keys field.
-func (o *OpenIdConnectApplicationSettingsClientKeys) SetKeys(v []ListJwk200ResponseInner) {
+// SetKeys gets a reference to the given []OpenIdConnectApplicationSettingsClientKeysKeysInner and assigns it to the Keys field.
+func (o *OpenIdConnectApplicationSettingsClientKeys) SetKeys(v []OpenIdConnectApplicationSettingsClientKeysKeysInner) {
 	o.Keys = v
 }
 
