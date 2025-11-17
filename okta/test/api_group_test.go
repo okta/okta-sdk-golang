@@ -25,138 +25,291 @@ package okta
 
 import (
 	"context"
+	"net/http"
 	"testing"
+	"time"
 
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
+	okta "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 func Test_okta_GroupAPIService(t *testing.T) {
+	err := okta.ValidateTestEnvironment()
+	if err != nil {
+		t.Skip("Test environment not configured:", err)
+	}
 
-	configuration, err := openapiclient.NewConfiguration()
+	configuration, err := okta.NewConfiguration()
 	require.Nil(t, err)
-	apiClient := openapiclient.NewAPIClient(configuration)
+	apiClient := okta.NewAPIClient(configuration)
+	testDataManager := okta.GetTestDataManager()
+
+	defer func() {
+		testDataManager.CleanupAllTestGroups()
+		testDataManager.CleanupAllTestUsers()
+	}()
 
 	t.Run("Test GroupAPIService AddGroup", func(t *testing.T) {
+		var testFactoryInstance okta.TestFactory
+		groupRequest := testFactoryInstance.NewValidTestAddGroupRequest()
 
-		t.Skip("skip test") // remove to run test
-
-		resp, httpRes, err := apiClient.GroupAPI.AddGroup(context.Background()).Execute()
+		resp, httpRes, err := apiClient.GroupAPI.AddGroup(context.Background()).Group(groupRequest).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 
-	})
+		assert.NotNil(t, resp.Id)
+		assert.NotNil(t, resp.Profile)
 
-	t.Run("Test GroupAPIService AssignUserToGroup", func(t *testing.T) {
+		if resp.Profile != nil && resp.Profile.OktaUserGroupProfile != nil {
+			assert.Equal(t, *groupRequest.Profile.Name, *resp.Profile.OktaUserGroupProfile.Name)
+			assert.Equal(t, *groupRequest.Profile.Description, *resp.Profile.OktaUserGroupProfile.Description)
+		}
 
-		t.Skip("skip test") // remove to run test
+		assert.NotNil(t, resp.Created)
+		assert.NotNil(t, resp.LastUpdated)
 
-		var groupId string
-		var userId string
-
-		httpRes, err := apiClient.GroupAPI.AssignUserToGroup(context.Background(), groupId, userId).Execute()
-
-		require.Nil(t, err)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test GroupAPIService DeleteGroup", func(t *testing.T) {
-
-		t.Skip("skip test") // remove to run test
-
-		var groupId string
-
-		httpRes, err := apiClient.GroupAPI.DeleteGroup(context.Background(), groupId).Execute()
-
-		require.Nil(t, err)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
+		if resp.Id != nil {
+			testDataManager.TrackGroup(*resp.Id)
+		}
 	})
 
 	t.Run("Test GroupAPIService GetGroup", func(t *testing.T) {
+		createdGroup, err := testDataManager.CreateTestGroup()
+		require.Nil(t, err)
+		require.NotNil(t, createdGroup)
+		require.NotNil(t, createdGroup.Id)
 
-		t.Skip("skip test") // remove to run test
-
-		var groupId string
-
-		resp, httpRes, err := apiClient.GroupAPI.GetGroup(context.Background(), groupId).Execute()
+		resp, httpRes, err := apiClient.GroupAPI.GetGroup(context.Background(), *createdGroup.Id).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 
-	})
+		assert.Equal(t, *createdGroup.Id, *resp.Id)
+		assert.NotNil(t, resp.Profile)
 
-	t.Run("Test GroupAPIService ListAssignedApplicationsForGroup", func(t *testing.T) {
-
-		t.Skip("skip test") // remove to run test
-
-		var groupId string
-
-		resp, httpRes, err := apiClient.GroupAPI.ListAssignedApplicationsForGroup(context.Background(), groupId).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test GroupAPIService ListGroupUsers", func(t *testing.T) {
-
-		t.Skip("skip test") // remove to run test
-
-		var groupId string
-
-		resp, httpRes, err := apiClient.GroupAPI.ListGroupUsers(context.Background(), groupId).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test GroupAPIService ListGroups", func(t *testing.T) {
-
-		t.Skip("skip test") // remove to run test
-
-		resp, httpRes, err := apiClient.GroupAPI.ListGroups(context.Background()).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
+		if resp.Profile != nil && resp.Profile.OktaUserGroupProfile != nil &&
+			createdGroup.Profile != nil && createdGroup.Profile.OktaUserGroupProfile != nil {
+			assert.Equal(t, *createdGroup.Profile.OktaUserGroupProfile.Name, *resp.Profile.OktaUserGroupProfile.Name)
+			assert.Equal(t, *createdGroup.Profile.OktaUserGroupProfile.Description, *resp.Profile.OktaUserGroupProfile.Description)
+		}
 	})
 
 	t.Run("Test GroupAPIService ReplaceGroup", func(t *testing.T) {
+		createdGroup, err := testDataManager.CreateTestGroup()
+		require.Nil(t, err)
+		require.NotNil(t, createdGroup)
+		require.NotNil(t, createdGroup.Id)
 
-		t.Skip("skip test") // remove to run test
+		var testFactoryInstance okta.TestFactory
+		updateProfile := testFactoryInstance.NewTestGroupProfileUpdate()
+		updateRequest := okta.NewAddGroupRequest()
+		updateRequest.SetProfile(updateProfile)
 
-		var groupId string
-
-		resp, httpRes, err := apiClient.GroupAPI.ReplaceGroup(context.Background(), groupId).Execute()
+		resp, httpRes, err := apiClient.GroupAPI.ReplaceGroup(context.Background(), *createdGroup.Id).Group(*updateRequest).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 
+		assert.Equal(t, *createdGroup.Id, *resp.Id)
+		assert.NotNil(t, resp.Profile)
+
+		if resp.Profile != nil && resp.Profile.OktaUserGroupProfile != nil {
+			assert.Equal(t, *updateProfile.Name, *resp.Profile.OktaUserGroupProfile.Name)
+			assert.Equal(t, *updateProfile.Description, *resp.Profile.OktaUserGroupProfile.Description)
+		}
+	})
+
+	t.Run("Test GroupAPIService ListGroups", func(t *testing.T) {
+		createdGroup, err := testDataManager.CreateTestGroup()
+		require.Nil(t, err)
+		require.NotNil(t, createdGroup)
+
+		resp, httpRes, err := apiClient.GroupAPI.ListGroups(context.Background()).Limit(200).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
+
+		assert.Greater(t, len(resp), 0)
+
+		foundCreatedGroup := false
+		for _, group := range resp {
+			if group.Id != nil && *group.Id == *createdGroup.Id {
+				foundCreatedGroup = true
+				break
+			}
+		}
+		assert.True(t, foundCreatedGroup, "Created group should appear in the list")
+	})
+
+	t.Run("Test GroupAPIService DeleteGroup", func(t *testing.T) {
+		createdGroup, err := testDataManager.CreateTestGroup()
+		require.Nil(t, err)
+		require.NotNil(t, createdGroup)
+		require.NotNil(t, createdGroup.Id)
+
+		httpRes, err := apiClient.GroupAPI.DeleteGroup(context.Background(), *createdGroup.Id).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, http.StatusNoContent, httpRes.StatusCode)
+
+		testDataManager.RemoveGroupFromTracking(*createdGroup.Id)
+
+		_, httpRes, err = apiClient.GroupAPI.GetGroup(context.Background(), *createdGroup.Id).Execute()
+		assert.NotNil(t, err)
+		assert.Equal(t, http.StatusNotFound, httpRes.StatusCode)
+	})
+
+	t.Run("Test GroupAPIService AssignUserToGroup", func(t *testing.T) {
+		createdGroup, err := testDataManager.CreateTestGroup()
+		require.Nil(t, err)
+		require.NotNil(t, createdGroup)
+		require.NotNil(t, createdGroup.Id)
+
+		createdUser, err := testDataManager.CreateAndActivateTestUser()
+		require.Nil(t, err)
+		require.NotNil(t, createdUser)
+		require.NotNil(t, createdUser.Id)
+
+		httpRes, err := apiClient.GroupAPI.AssignUserToGroup(context.Background(), *createdGroup.Id, *createdUser.Id).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, http.StatusNoContent, httpRes.StatusCode)
+
+		// Small delay to allow the assignment to propagate
+		time.Sleep(3 * time.Second)
+
+		users, httpRes, err := apiClient.GroupAPI.ListGroupUsers(context.Background(), *createdGroup.Id).Execute()
+		require.Nil(t, err)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
+
+		foundUser := false
+		for _, user := range users {
+			if user.Id != nil && *user.Id == *createdUser.Id {
+				foundUser = true
+				break
+			}
+		}
+		assert.True(t, foundUser, "User should be found in group membership")
+	})
+
+	t.Run("Test GroupAPIService ListGroupUsers", func(t *testing.T) {
+		createdGroup, err := testDataManager.CreateTestGroup()
+		require.Nil(t, err)
+		require.NotNil(t, createdGroup)
+		require.NotNil(t, createdGroup.Id)
+
+		createdUser, err := testDataManager.CreateAndActivateTestUser()
+		require.Nil(t, err)
+		require.NotNil(t, createdUser)
+		require.NotNil(t, createdUser.Id)
+
+		_, err = apiClient.GroupAPI.AssignUserToGroup(context.Background(), *createdGroup.Id, *createdUser.Id).Execute()
+		require.Nil(t, err)
+
+		// Allow time for API propagation
+		time.Sleep(3 * time.Second)
+
+		resp, httpRes, err := apiClient.GroupAPI.ListGroupUsers(context.Background(), *createdGroup.Id).Limit(200).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
+
+		foundUser := false
+		for _, user := range resp {
+			if user.Id != nil && *user.Id == *createdUser.Id {
+				foundUser = true
+				assert.NotNil(t, user.Profile)
+				break
+			}
+		}
+		assert.True(t, foundUser, "Assigned user should appear in group users list")
 	})
 
 	t.Run("Test GroupAPIService UnassignUserFromGroup", func(t *testing.T) {
+		createdGroup, err := testDataManager.CreateTestGroup()
+		require.Nil(t, err)
+		require.NotNil(t, createdGroup)
+		require.NotNil(t, createdGroup.Id)
 
-		t.Skip("skip test") // remove to run test
+		createdUser, err := testDataManager.CreateAndActivateTestUser()
+		require.Nil(t, err)
+		require.NotNil(t, createdUser)
+		require.NotNil(t, createdUser.Id)
 
-		var groupId string
-		var userId string
+		_, err = apiClient.GroupAPI.AssignUserToGroup(context.Background(), *createdGroup.Id, *createdUser.Id).Execute()
+		require.Nil(t, err)
 
-		httpRes, err := apiClient.GroupAPI.UnassignUserFromGroup(context.Background(), groupId, userId).Execute()
+		httpRes, err := apiClient.GroupAPI.UnassignUserFromGroup(context.Background(), *createdGroup.Id, *createdUser.Id).Execute()
 
 		require.Nil(t, err)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusNoContent, httpRes.StatusCode)
 
+		// Allow time for API propagation
+		time.Sleep(3 * time.Second)
+
+		users, httpRes, err := apiClient.GroupAPI.ListGroupUsers(context.Background(), *createdGroup.Id).Execute()
+		require.Nil(t, err)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
+
+		foundUser := false
+		for _, user := range users {
+			if user.Id != nil && *user.Id == *createdUser.Id {
+				foundUser = true
+				break
+			}
+		}
+		assert.False(t, foundUser, "User should not be found in group membership after unassignment")
 	})
 
+	t.Run("Test GroupAPIService ListAssignedApplicationsForGroup", func(t *testing.T) {
+		createdGroup, err := testDataManager.CreateTestGroup()
+		require.Nil(t, err)
+		require.NotNil(t, createdGroup)
+		require.NotNil(t, createdGroup.Id)
+
+		resp, httpRes, err := apiClient.GroupAPI.ListAssignedApplicationsForGroup(context.Background(), *createdGroup.Id).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
+	})
+
+	t.Run("Test GroupAPIService Error Handling - Get Nonexistent Group", func(t *testing.T) {
+		nonExistentGroupID := "00g000000000000000000"
+
+		_, httpRes, err := apiClient.GroupAPI.GetGroup(context.Background(), nonExistentGroupID).Execute()
+
+		assert.NotNil(t, err)
+		assert.Equal(t, http.StatusNotFound, httpRes.StatusCode)
+	})
+
+	t.Run("Test GroupAPIService Error Handling - Delete Nonexistent Group", func(t *testing.T) {
+		nonExistentGroupID := "00g000000000000000000"
+
+		httpRes, err := apiClient.GroupAPI.DeleteGroup(context.Background(), nonExistentGroupID).Execute()
+
+		assert.NotNil(t, err)
+		assert.Equal(t, http.StatusNotFound, httpRes.StatusCode)
+	})
+
+	t.Run("Test GroupAPIService Error Handling - Assign Nonexistent User to Group", func(t *testing.T) {
+		createdGroup, err := testDataManager.CreateTestGroup()
+		require.Nil(t, err)
+		require.NotNil(t, createdGroup)
+		require.NotNil(t, createdGroup.Id)
+
+		nonExistentUserID := "00u000000000000000000"
+
+		httpRes, err := apiClient.GroupAPI.AssignUserToGroup(context.Background(), *createdGroup.Id, nonExistentUserID).Execute()
+
+		assert.NotNil(t, err)
+		assert.Equal(t, http.StatusNotFound, httpRes.StatusCode)
+	})
 }
