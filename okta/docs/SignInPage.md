@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **PageContent** | Pointer to **string** | The HTML for the page | [optional] 
 **ContentSecurityPolicySetting** | Pointer to [**ContentSecurityPolicySetting**](ContentSecurityPolicySetting.md) |  | [optional] 
 **WidgetCustomizations** | Pointer to [**SignInPageAllOfWidgetCustomizations**](SignInPageAllOfWidgetCustomizations.md) |  | [optional] 
-**WidgetVersion** | Pointer to **string** | The version specified as a [Semantic Version](https://semver.org/). | [optional] 
+**WidgetVersion** | Pointer to **string** | The version specified as a [Semantic Version](https://semver.org/). This value can be a wildcard (&#x60;*&#x60;), a major version range (for example, &#x60;^2&#x60;), a major-only version (for example, &#x60;7&#x60;), or a specific &#x60;Major.Minor&#x60; version (for example, &#x60;5.15&#x60;). | [optional] 
 
 ## Methods
 

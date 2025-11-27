@@ -37,7 +37,7 @@ import (
 
 func main() {
 	userId := "00ub0oNGTSWTBKOLGLNR" // string | ID of an existing Okta user
-	assignRoleRequest := openapiclient.assignRoleToUser_request{CustomRoleAssignmentSchema: openapiclient.NewCustomRoleAssignmentSchema()} // AssignRoleToUserRequest | 
+	assignRoleRequest := openapiclient.assignRoleToUser_request{CustomRoleAssignmentSchema: openapiclient.NewCustomRoleAssignmentSchema("ResourceSet_example", "Role_example", "Type_example")} // AssignRoleToUserRequest | 
 	disableNotifications := true // bool | Setting this to `true` grants the user third-party admin status (optional) (default to false)
 
 	configuration := openapiclient.NewConfiguration()
@@ -243,7 +243,7 @@ Name | Type | Description  | Notes
 
 ## GetUserAssignedRole
 
-> ListGroupAssignedRoles200ResponseInner GetUserAssignedRole(ctx, userId, roleAssignmentId).Execute()
+> AssignRoleToGroup200Response GetUserAssignedRole(ctx, userId, roleAssignmentId).Execute()
 
 Retrieve a user role assignment
 
@@ -272,7 +272,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAUserAPI.GetUserAssignedRole``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetUserAssignedRole`: ListGroupAssignedRoles200ResponseInner
+	// response from `GetUserAssignedRole`: AssignRoleToGroup200Response
 	fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentAUserAPI.GetUserAssignedRole`: %v\n", resp)
 }
 ```
@@ -298,7 +298,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListGroupAssignedRoles200ResponseInner**](ListGroupAssignedRoles200ResponseInner.md)
+[**AssignRoleToGroup200Response**](AssignRoleToGroup200Response.md)
 
 ### Authorization
 

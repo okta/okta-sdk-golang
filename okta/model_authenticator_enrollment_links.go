@@ -33,7 +33,7 @@ var _ MappedNullable = &AuthenticatorEnrollmentLinks{}
 // AuthenticatorEnrollmentLinks struct for AuthenticatorEnrollmentLinks
 type AuthenticatorEnrollmentLinks struct {
 	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	// Returns information on the specified user
+	// Returns information about the specified user
 	User *HrefObject `json:"user,omitempty"`
 	// Returns information about a specific authenticator. See [Retrieve an authenticator](/openapi/okta-management/management/tag/Authenticator/#tag/Authenticator/operation/getAuthenticator).
 	Authenticator        *HrefObject `json:"authenticator,omitempty"`

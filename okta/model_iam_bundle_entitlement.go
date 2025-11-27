@@ -30,10 +30,13 @@ import (
 // checks if the IAMBundleEntitlement type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &IAMBundleEntitlement{}
 
-// IAMBundleEntitlement struct for IAMBundleEntitlement
+// IAMBundleEntitlement An entitlement in a governance bundle
 type IAMBundleEntitlement struct {
-	ResourceSets         []string `json:"resourceSets,omitempty"`
-	Role                 *string  `json:"role,omitempty"`
+	// List of resource set IDs for the custom role
+	ResourceSets []string `json:"resourceSets,omitempty"`
+	// The role
+	Role *string `json:"role,omitempty"`
+	// List of target resource IDs to scope the entitlement with the role
 	Targets              []string `json:"targets,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

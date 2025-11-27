@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Description** | Pointer to **string** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Orn** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
+**Description** | Pointer to **string** | Description of the governance bundle | [optional] 
+**Id** | Pointer to **string** | Governance bundle ID | [optional] 
+**Name** | Pointer to **string** | Name of the governance bundle | [optional] 
+**Orn** | Pointer to **string** | The governance bundle resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) | [optional] 
+**Status** | Pointer to **string** | Status of the governance bundle | [optional] 
 **Links** | Pointer to [**GovernanceBundleLinks**](GovernanceBundleLinks.md) |  | [optional] 
 
 ## Methods

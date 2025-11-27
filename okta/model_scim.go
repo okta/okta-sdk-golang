@@ -36,8 +36,10 @@ type Scim struct {
 	// The authentication mode for requests to your SCIM server  | authMode | Description | | -------- | ----------- | | `header` | Uses authorization header with a customer-provided token value in the following format: `Authorization: {API token}` | | `bearer` | Uses authorization header with a customer-provided bearer token in the following format: `Authorization: Bearer {API token}` | | {authModeId} | The ID of the auth mode object that contains OAuth 2.0 credentials. <br> **Note:** Use the `/integrations/api/v1/internal/authModes` endpoint to create the auth mode object. |
 	AuthMode string `json:"authMode"`
 	// The base URL that Okta uses to send outbound calls to your SCIM server. Only the HTTPS protocol is supported. You can use the app-level variables defined in the `config` array for the base URL. For example, if you have a `subdomain` variable defined in the `config` array and the URL to retrieve SCIM users for your integration is `https://${subdomain}.example.com/scim/v2/Users`, then specify the following base URL: `'https://' + app.subdomain + '.example.com/scim/v2'`.
-	BaseUri          string               `json:"baseUri"`
-	ScimServerConfig ScimScimServerConfig `json:"scimServerConfig"`
+	BaseUri string `json:"baseUri"`
+	// List of supported entitlement types
+	EntitlementTypes []EntitlementTypesInner `json:"entitlementTypes,omitempty"`
+	ScimServerConfig ScimScimServerConfig    `json:"scimServerConfig"`
 	// The URL to your customer-facing instructions for configuring your SCIM integration. See [Customer configuration document guidelines](https://developer.okta.com/docs/guides/submit-app-prereq/main/#customer-configuration-document-guidelines).
 	SetupInstructionsUri string `json:"setupInstructionsUri"`
 	AdditionalProperties map[string]interface{}
@@ -114,6 +116,38 @@ func (o *Scim) SetBaseUri(v string) {
 	o.BaseUri = v
 }
 
+// GetEntitlementTypes returns the EntitlementTypes field value if set, zero value otherwise.
+func (o *Scim) GetEntitlementTypes() []EntitlementTypesInner {
+	if o == nil || IsNil(o.EntitlementTypes) {
+		var ret []EntitlementTypesInner
+		return ret
+	}
+	return o.EntitlementTypes
+}
+
+// GetEntitlementTypesOk returns a tuple with the EntitlementTypes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Scim) GetEntitlementTypesOk() ([]EntitlementTypesInner, bool) {
+	if o == nil || IsNil(o.EntitlementTypes) {
+		return nil, false
+	}
+	return o.EntitlementTypes, true
+}
+
+// HasEntitlementTypes returns a boolean if a field has been set.
+func (o *Scim) HasEntitlementTypes() bool {
+	if o != nil && !IsNil(o.EntitlementTypes) {
+		return true
+	}
+
+	return false
+}
+
+// SetEntitlementTypes gets a reference to the given []EntitlementTypesInner and assigns it to the EntitlementTypes field.
+func (o *Scim) SetEntitlementTypes(v []EntitlementTypesInner) {
+	o.EntitlementTypes = v
+}
+
 // GetScimServerConfig returns the ScimServerConfig field value
 func (o *Scim) GetScimServerConfig() ScimScimServerConfig {
 	if o == nil {
@@ -174,6 +208,9 @@ func (o Scim) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["authMode"] = o.AuthMode
 	toSerialize["baseUri"] = o.BaseUri
+	if !IsNil(o.EntitlementTypes) {
+		toSerialize["entitlementTypes"] = o.EntitlementTypes
+	}
 	toSerialize["scimServerConfig"] = o.ScimServerConfig
 	toSerialize["setupInstructionsUri"] = o.SetupInstructionsUri
 
@@ -224,6 +261,7 @@ func (o *Scim) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "authMode")
 		delete(additionalProperties, "baseUri")
+		delete(additionalProperties, "entitlementTypes")
 		delete(additionalProperties, "scimServerConfig")
 		delete(additionalProperties, "setupInstructionsUri")
 		o.AdditionalProperties = additionalProperties

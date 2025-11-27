@@ -123,7 +123,8 @@ type DeviceAPI interface {
 
 		You can return a subset of devices that match a supported search criteria using the `search` query parameter.
 		Searches for devices based on the properties specified in the `search` parameter conforming SCIM filter specifications (case-insensitive). This data is eventually consistent. The API returns different results depending on specified queries in the request. Empty list is returned if no objects match `search` request.
-		> **Note:** Listing devices with `search` should not be used as a part of any critical flow, such as authentication or updates, to prevent potential data loss. `search` results may not reflect the latest information, as this endpoint uses a search index which may not be up-to-date with recent updates to the object.
+
+		> **Note:** The `search` parameter results are sourced from an eventually consistent datasource and may not reflect the latest information.
 
 		Don't use search results directly for record updates, as the data might be stale and therefore overwrite newer data, resulting in data loss.
 
@@ -1021,7 +1022,8 @@ Lists all devices with pagination support.
 
 You can return a subset of devices that match a supported search criteria using the `search` query parameter.
 Searches for devices based on the properties specified in the `search` parameter conforming SCIM filter specifications (case-insensitive). This data is eventually consistent. The API returns different results depending on specified queries in the request. Empty list is returned if no objects match `search` request.
-> **Note:** Listing devices with `search` should not be used as a part of any critical flow, such as authentication or updates, to prevent potential data loss. `search` results may not reflect the latest information, as this endpoint uses a search index which may not be up-to-date with recent updates to the object.
+
+> **Note:** The `search` parameter results are sourced from an eventually consistent datasource and may not reflect the latest information.
 
 Don't use search results directly for record updates, as the data might be stale and therefore overwrite newer data, resulting in data loss.
 

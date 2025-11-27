@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Label** | Pointer to **string** | Label for the role assignment | [optional] [readonly] 
 **LastUpdated** | Pointer to **time.Time** | Timestamp when the object was last updated | [optional] [readonly] 
 **Status** | Pointer to **string** | Status of the role assignment | [optional] 
-**Type** | Pointer to **string** | Standard role type | [optional] 
+**Type** | **string** | | Role type                    | Description                                                 | |------------------------------|-------------------------------------------------------------| | ACCESS_CERTIFICATIONS_ADMIN  | Access Certifications Administrator IAM-based standard role | | ACCESS_REQUESTS_ADMIN        | Access Requests Administrator IAM-based standard role       | | API_ACCESS_MANAGEMENT_ADMIN  | Access Management Administrator standard role               | | APP_ADMIN                    | Application Administrator standard role                     | | CUSTOM                       | Custom admin role                                           | | GROUP_MEMBERSHIP_ADMIN       | Group Membership Administrator standard role                | | HELP_DESK_ADMIN              | Help Desk Administrator standard role                       | | ORG_ADMIN                    | Organizational Administrator standard role                  | | READ_ONLY_ADMIN              | Read-Only Administrator standard role                       | | REPORT_ADMIN                 | Report Administrator standard role                          | | SUPER_ADMIN                  | Super Administrator standard role                           | | USER_ADMIN                   | User Administrator standard role                            | | WORKFLOWS_ADMIN              | Workflows Administrator IAM-based standard role             | | 
 **Embedded** | Pointer to [**StandardRoleEmbedded**](StandardRoleEmbedded.md) |  | [optional] 
 **Links** | Pointer to [**LinksAssignee**](LinksAssignee.md) |  | [optional] 
 
@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewStandardRole
 
-`func NewStandardRole() *StandardRole`
+`func NewStandardRole(type_ string, ) *StandardRole`
 
 NewStandardRole instantiates a new StandardRole object
 This constructor will assign default values to properties that have it defined,
@@ -202,11 +202,6 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
-### HasType
-
-`func (o *StandardRole) HasType() bool`
-
-HasType returns a boolean if a field has been set.
 
 ### GetEmbedded
 

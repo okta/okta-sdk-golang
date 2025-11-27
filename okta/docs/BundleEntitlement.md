@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Description** | Pointer to **string** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Role** | Pointer to **string** |  | [optional] 
+**Description** | Pointer to **string** | The description of the role | [optional] 
+**Id** | Pointer to **string** | Entitlement ID | [optional] 
+**Name** | Pointer to **string** | The name of the role | [optional] 
+**Role** | Pointer to **string** | The role key | [optional] 
 **Links** | Pointer to [**BundleEntitlementLinks**](BundleEntitlementLinks.md) |  | [optional] 
 
 ## Methods

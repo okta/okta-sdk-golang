@@ -25,6 +25,7 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the CustomRoleAssignmentSchema type satisfies the MappedNullable interface at compile time
@@ -33,11 +34,11 @@ var _ MappedNullable = &CustomRoleAssignmentSchema{}
 // CustomRoleAssignmentSchema struct for CustomRoleAssignmentSchema
 type CustomRoleAssignmentSchema struct {
 	// Resource set ID
-	ResourceSet *string `json:"resource-set,omitempty"`
+	ResourceSet string `json:"resource-set"`
 	// Custom role ID
-	Role *string `json:"role,omitempty"`
-	// The type of role. Specify `CUSTOM` for a custom role.
-	Type                 *string `json:"type,omitempty"`
+	Role string `json:"role"`
+	// Specify a [standard admin role](/openapi/okta-management/guides/roles/#standard-roles), an [IAM-based standard role](/openapi/okta-management/guides/roles/#iam-based-standard-roles), or `CUSTOM` for a custom role type:
+	Type                 string `json:"type"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -47,8 +48,11 @@ type _CustomRoleAssignmentSchema CustomRoleAssignmentSchema
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCustomRoleAssignmentSchema() *CustomRoleAssignmentSchema {
+func NewCustomRoleAssignmentSchema(resourceSet string, role string, type_ string) *CustomRoleAssignmentSchema {
 	this := CustomRoleAssignmentSchema{}
+	this.ResourceSet = resourceSet
+	this.Role = role
+	this.Type = type_
 	return &this
 }
 
@@ -60,100 +64,76 @@ func NewCustomRoleAssignmentSchemaWithDefaults() *CustomRoleAssignmentSchema {
 	return &this
 }
 
-// GetResourceSet returns the ResourceSet field value if set, zero value otherwise.
+// GetResourceSet returns the ResourceSet field value
 func (o *CustomRoleAssignmentSchema) GetResourceSet() string {
-	if o == nil || IsNil(o.ResourceSet) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.ResourceSet
+
+	return o.ResourceSet
 }
 
-// GetResourceSetOk returns a tuple with the ResourceSet field value if set, nil otherwise
+// GetResourceSetOk returns a tuple with the ResourceSet field value
 // and a boolean to check if the value has been set.
 func (o *CustomRoleAssignmentSchema) GetResourceSetOk() (*string, bool) {
-	if o == nil || IsNil(o.ResourceSet) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ResourceSet, true
+	return &o.ResourceSet, true
 }
 
-// HasResourceSet returns a boolean if a field has been set.
-func (o *CustomRoleAssignmentSchema) HasResourceSet() bool {
-	if o != nil && !IsNil(o.ResourceSet) {
-		return true
-	}
-
-	return false
-}
-
-// SetResourceSet gets a reference to the given string and assigns it to the ResourceSet field.
+// SetResourceSet sets field value
 func (o *CustomRoleAssignmentSchema) SetResourceSet(v string) {
-	o.ResourceSet = &v
+	o.ResourceSet = v
 }
 
-// GetRole returns the Role field value if set, zero value otherwise.
+// GetRole returns the Role field value
 func (o *CustomRoleAssignmentSchema) GetRole() string {
-	if o == nil || IsNil(o.Role) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Role
+
+	return o.Role
 }
 
-// GetRoleOk returns a tuple with the Role field value if set, nil otherwise
+// GetRoleOk returns a tuple with the Role field value
 // and a boolean to check if the value has been set.
 func (o *CustomRoleAssignmentSchema) GetRoleOk() (*string, bool) {
-	if o == nil || IsNil(o.Role) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Role, true
+	return &o.Role, true
 }
 
-// HasRole returns a boolean if a field has been set.
-func (o *CustomRoleAssignmentSchema) HasRole() bool {
-	if o != nil && !IsNil(o.Role) {
-		return true
-	}
-
-	return false
-}
-
-// SetRole gets a reference to the given string and assigns it to the Role field.
+// SetRole sets field value
 func (o *CustomRoleAssignmentSchema) SetRole(v string) {
-	o.Role = &v
+	o.Role = v
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
+// GetType returns the Type field value
 func (o *CustomRoleAssignmentSchema) GetType() string {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Type
+
+	return o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *CustomRoleAssignmentSchema) GetTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Type, true
+	return &o.Type, true
 }
 
-// HasType returns a boolean if a field has been set.
-func (o *CustomRoleAssignmentSchema) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given string and assigns it to the Type field.
+// SetType sets field value
 func (o *CustomRoleAssignmentSchema) SetType(v string) {
-	o.Type = &v
+	o.Type = v
 }
 
 func (o CustomRoleAssignmentSchema) MarshalJSON() ([]byte, error) {
@@ -166,15 +146,9 @@ func (o CustomRoleAssignmentSchema) MarshalJSON() ([]byte, error) {
 
 func (o CustomRoleAssignmentSchema) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.ResourceSet) {
-		toSerialize["resource-set"] = o.ResourceSet
-	}
-	if !IsNil(o.Role) {
-		toSerialize["role"] = o.Role
-	}
-	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
-	}
+	toSerialize["resource-set"] = o.ResourceSet
+	toSerialize["role"] = o.Role
+	toSerialize["type"] = o.Type
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -184,6 +158,29 @@ func (o CustomRoleAssignmentSchema) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *CustomRoleAssignmentSchema) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"resource-set",
+		"role",
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varCustomRoleAssignmentSchema := _CustomRoleAssignmentSchema{}
 
 	err = json.Unmarshal(data, &varCustomRoleAssignmentSchema)

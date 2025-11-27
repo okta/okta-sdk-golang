@@ -22,6 +22,7 @@ Method | HTTP request | Description
 [**ReplaceAuthenticatorMethod**](AuthenticatorAPI.md#ReplaceAuthenticatorMethod) | **Put** /api/v1/authenticators/{authenticatorId}/methods/{methodType} | Replace an authenticator method
 [**ReplaceCustomAAGUID**](AuthenticatorAPI.md#ReplaceCustomAAGUID) | **Put** /api/v1/authenticators/{authenticatorId}/aaguids/{aaguid} | Replace a custom AAGUID
 [**UpdateCustomAAGUID**](AuthenticatorAPI.md#UpdateCustomAAGUID) | **Patch** /api/v1/authenticators/{authenticatorId}/aaguids/{aaguid} | Update a custom AAGUID
+[**VerifyRpIdDomain**](AuthenticatorAPI.md#VerifyRpIdDomain) | **Post** /api/v1/authenticators/{authenticatorId}/methods/{webAuthnMethodType}/verify-rp-id-domain | Verify a Relying Party ID domain
 
 
 
@@ -1295,6 +1296,77 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/merge-patch+json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## VerifyRpIdDomain
+
+> VerifyRpIdDomain(ctx, authenticatorId, webAuthnMethodType).Execute()
+
+Verify a Relying Party ID domain
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
+)
+
+func main() {
+	authenticatorId := "aut1nd8PQhGcQtSxB0g4" // string | `id` of the authenticator
+	webAuthnMethodType := "webAuthnMethodType_example" // string | Type of authenticator method
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AuthenticatorAPI.VerifyRpIdDomain(context.Background(), authenticatorId, webAuthnMethodType).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.VerifyRpIdDomain``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**authenticatorId** | **string** | &#x60;id&#x60; of the authenticator | 
+**webAuthnMethodType** | **string** | Type of authenticator method | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiVerifyRpIdDomainRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

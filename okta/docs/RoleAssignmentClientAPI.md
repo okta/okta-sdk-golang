@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## AssignRoleToClient
 
-> ListGroupAssignedRoles200ResponseInner AssignRoleToClient(ctx, clientId).AssignRoleToGroupRequest(assignRoleToGroupRequest).Execute()
+> AssignRoleToClient200Response AssignRoleToClient(ctx, clientId).AssignRoleToClientRequest(assignRoleToClientRequest).Execute()
 
 Assign a client role
 
@@ -32,17 +32,17 @@ import (
 )
 
 func main() {
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | Client app ID
-	assignRoleToGroupRequest := openapiclient.assignRoleToGroup_request{CustomRoleAssignmentSchema: openapiclient.NewCustomRoleAssignmentSchema()} // AssignRoleToGroupRequest | 
+	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
+	assignRoleToClientRequest := openapiclient.assignRoleToClient_request{CustomRoleAssignmentSchema: openapiclient.NewCustomRoleAssignmentSchema("ResourceSet_example", "Role_example", "Type_example")} // AssignRoleToClientRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RoleAssignmentClientAPI.AssignRoleToClient(context.Background(), clientId).AssignRoleToGroupRequest(assignRoleToGroupRequest).Execute()
+	resp, r, err := apiClient.RoleAssignmentClientAPI.AssignRoleToClient(context.Background(), clientId).AssignRoleToClientRequest(assignRoleToClientRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentClientAPI.AssignRoleToClient``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `AssignRoleToClient`: ListGroupAssignedRoles200ResponseInner
+	// response from `AssignRoleToClient`: AssignRoleToClient200Response
 	fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentClientAPI.AssignRoleToClient`: %v\n", resp)
 }
 ```
@@ -53,7 +53,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**clientId** | **string** | Client app ID | 
+**clientId** | **string** | &#x60;client_id&#x60; of the app | 
 
 ### Other Parameters
 
@@ -63,11 +63,11 @@ Other parameters are passed through a pointer to a apiAssignRoleToClientRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **assignRoleToGroupRequest** | [**AssignRoleToGroupRequest**](AssignRoleToGroupRequest.md) |  | 
+ **assignRoleToClientRequest** | [**AssignRoleToClientRequest**](AssignRoleToClientRequest.md) |  | 
 
 ### Return type
 
-[**ListGroupAssignedRoles200ResponseInner**](ListGroupAssignedRoles200ResponseInner.md)
+[**AssignRoleToClient200Response**](AssignRoleToClient200Response.md)
 
 ### Authorization
 
@@ -104,7 +104,7 @@ import (
 )
 
 func main() {
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | Client app ID
+	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
 	roleAssignmentId := "JBCUYUC7IRCVGS27IFCE2SKO" // string | The `id` of the role assignment
 
 	configuration := openapiclient.NewConfiguration()
@@ -123,7 +123,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**clientId** | **string** | Client app ID | 
+**clientId** | **string** | &#x60;client_id&#x60; of the app | 
 **roleAssignmentId** | **string** | The &#x60;id&#x60; of the role assignment | 
 
 ### Other Parameters
@@ -156,7 +156,7 @@ Name | Type | Description  | Notes
 
 ## ListRolesForClient
 
-> ListGroupAssignedRoles200ResponseInner ListRolesForClient(ctx, clientId).Execute()
+> []ListRolesForClient200ResponseInner ListRolesForClient(ctx, clientId).Execute()
 
 List all client role assignments
 
@@ -175,7 +175,7 @@ import (
 )
 
 func main() {
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | Client app ID
+	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -184,7 +184,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentClientAPI.ListRolesForClient``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListRolesForClient`: ListGroupAssignedRoles200ResponseInner
+	// response from `ListRolesForClient`: []ListRolesForClient200ResponseInner
 	fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentClientAPI.ListRolesForClient`: %v\n", resp)
 }
 ```
@@ -195,7 +195,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**clientId** | **string** | Client app ID | 
+**clientId** | **string** | &#x60;client_id&#x60; of the app | 
 
 ### Other Parameters
 
@@ -208,7 +208,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListGroupAssignedRoles200ResponseInner**](ListGroupAssignedRoles200ResponseInner.md)
+[**[]ListRolesForClient200ResponseInner**](ListRolesForClient200ResponseInner.md)
 
 ### Authorization
 
@@ -226,7 +226,7 @@ Name | Type | Description  | Notes
 
 ## RetrieveClientRole
 
-> ListGroupAssignedRoles200ResponseInner RetrieveClientRole(ctx, clientId, roleAssignmentId).Execute()
+> AssignRoleToClient200Response RetrieveClientRole(ctx, clientId, roleAssignmentId).Execute()
 
 Retrieve a client role
 
@@ -245,7 +245,7 @@ import (
 )
 
 func main() {
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | Client app ID
+	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
 	roleAssignmentId := "JBCUYUC7IRCVGS27IFCE2SKO" // string | The `id` of the role assignment
 
 	configuration := openapiclient.NewConfiguration()
@@ -255,7 +255,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentClientAPI.RetrieveClientRole``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RetrieveClientRole`: ListGroupAssignedRoles200ResponseInner
+	// response from `RetrieveClientRole`: AssignRoleToClient200Response
 	fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentClientAPI.RetrieveClientRole`: %v\n", resp)
 }
 ```
@@ -266,7 +266,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**clientId** | **string** | Client app ID | 
+**clientId** | **string** | &#x60;client_id&#x60; of the app | 
 **roleAssignmentId** | **string** | The &#x60;id&#x60; of the role assignment | 
 
 ### Other Parameters
@@ -281,7 +281,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListGroupAssignedRoles200ResponseInner**](ListGroupAssignedRoles200ResponseInner.md)
+[**AssignRoleToClient200Response**](AssignRoleToClient200Response.md)
 
 ### Authorization
 

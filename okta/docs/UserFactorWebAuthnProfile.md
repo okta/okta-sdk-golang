@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AuthenticatorName** | Pointer to **string** | Human-readable name of the authenticator | [optional] 
+**AuthenticatorName** | Pointer to **string** | Human-readable name of the authenticator  &gt; **Note:** This name is set from the AAGUID metadata during enrollment. It can&#39;t be changed in the Admin Console or by using any Okta APIs. | [optional] 
 **CredentialId** | Pointer to **string** | ID for the factor credential | [optional] 
 
 ## Methods

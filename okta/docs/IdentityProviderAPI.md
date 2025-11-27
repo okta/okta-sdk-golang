@@ -380,7 +380,7 @@ import (
 
 func main() {
 	q := "Example SAML" // string | Searches the `name` property of IdPs for matching value (optional)
-	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/api/#pagination). (optional)
+	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header). (optional)
 	limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
 	type_ := "type__example" // string | Filters IdPs by `type` (optional)
 
@@ -408,7 +408,7 @@ Other parameters are passed through a pointer to a apiListIdentityProvidersReque
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **q** | **string** | Searches the &#x60;name&#x60; property of IdPs for matching value | 
- **after** | **string** | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination). | 
+ **after** | **string** | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header). | 
  **limit** | **int32** | A limit on the number of objects to return | [default to 20]
  **type_** | **string** | Filters IdPs by &#x60;type&#x60; | 
 

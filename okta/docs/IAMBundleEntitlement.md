@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ResourceSets** | Pointer to **[]string** |  | [optional] 
-**Role** | Pointer to **string** |  | [optional] 
-**Targets** | Pointer to **[]string** |  | [optional] 
+**ResourceSets** | Pointer to **[]string** | List of resource set IDs for the custom role | [optional] 
+**Role** | Pointer to **string** | The role | [optional] 
+**Targets** | Pointer to **[]string** | List of target resource IDs to scope the entitlement with the role | [optional] 
 
 ## Methods
 

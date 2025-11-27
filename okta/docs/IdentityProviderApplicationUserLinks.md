@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Self** | Pointer to [**HrefObjectSelfLink**](HrefObjectSelfLink.md) |  | [optional] 
-**Next** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**Next** | Pointer to [**HrefObjectNextLink**](HrefObjectNextLink.md) |  | [optional] 
 **Idp** | Pointer to [**HrefObject**](HrefObject.md) | The IdP instance | [optional] 
 **User** | Pointer to [**HrefObject**](HrefObject.md) | The linked Okta user | [optional] 
 
@@ -55,20 +55,20 @@ HasSelf returns a boolean if a field has been set.
 
 ### GetNext
 
-`func (o *IdentityProviderApplicationUserLinks) GetNext() HrefObject`
+`func (o *IdentityProviderApplicationUserLinks) GetNext() HrefObjectNextLink`
 
 GetNext returns the Next field if non-nil, zero value otherwise.
 
 ### GetNextOk
 
-`func (o *IdentityProviderApplicationUserLinks) GetNextOk() (*HrefObject, bool)`
+`func (o *IdentityProviderApplicationUserLinks) GetNextOk() (*HrefObjectNextLink, bool)`
 
 GetNextOk returns a tuple with the Next field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNext
 
-`func (o *IdentityProviderApplicationUserLinks) SetNext(v HrefObject)`
+`func (o *IdentityProviderApplicationUserLinks) SetNext(v HrefObjectNextLink)`
 
 SetNext sets Next field to given value.
 

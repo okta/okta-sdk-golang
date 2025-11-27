@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**OptInStatus** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**OptInStatus** | Pointer to [**HrefObject**](HrefObject.md) | Link to the opt-in status resource | [optional] 
 
 ## Methods
 

@@ -216,7 +216,7 @@ func main() {
   }
   client := okta.NewAPIClient(config)
 
-  user, resp, err := client.UserAPI.GetUser(client.GetConfig().Context, "{UserId|Username|Email}").Execute()
+  user, resp, err := client.UserAPI.GetUser(context.Background(), "{UserId|Username|Email}").Execute()
   if err != nil {
       fmt.Printf("Error Getting User: %v\n", err)
   }
@@ -243,7 +243,7 @@ func main() {
   }
   client := okta.NewAPIClient(config)
 
-  users, resp, err := client.UserAPI.ListUsers(client.GetConfig().Context).Execute()
+  users, resp, err := client.UserAPI.ListUsers(context.Background()).Execute()
   if err != nil {
     fmt.Printf("Error Getting Users: %v\n", err)
   }
@@ -273,7 +273,7 @@ func main() {
   }
   client := okta.NewAPIClient(config)
 
-  users, resp, err := client.UserAPI.ListUsers(client.GetConfig().Context).Filter("status eq \"ACTIVE\"").Execute()
+  users, resp, err := client.UserAPI.ListUsers(context.Background()).Filter("status eq \"ACTIVE\"").Execute()
   if err != nil {
     fmt.Printf("Error Getting Users: %v\n", err)
   }
@@ -324,7 +324,7 @@ func main() {
 		Profile: &profile,
 	}
 
-  users, resp, err := client.UserAPI.CreateUser(client.GetConfig().Context).Body(createUserRequest).Activate(true).Execute()
+  users, resp, err := client.UserAPI.CreateUser(context.Background()).Body(createUserRequest).Activate(true).Execute()
   if err != nil {
     fmt.Printf("Error Creating Users: %v\n", err)
   }
@@ -352,7 +352,7 @@ func main() {
   }
   client := okta.NewAPIClient(config)
 
-  userToUpdate, resp, err := client.UserAPI.GetUser(client.GetConfig().Context, "{userId}")
+  userToUpdate, resp, err := client.UserAPI.GetUser(context.Background(), "{userId}")
 	if err != nil {
 		fmt.Printf("Error Getting User to update: %v\n", err)
 	}
@@ -365,7 +365,7 @@ func main() {
 		Profile: &newProfile,
 	}
 
-	updatedUser, resp, err := client.UserAPI.UpdateUser(client.GetConfig().Context, userToUpdate.Id).Body(updateUser).Execute()
+	updatedUser, resp, err := client.UserAPI.UpdateUser(context.Background(), userToUpdate.Id).Body(updateUser).Execute()
 	if err != nil {
 		fmt.Printf("Error updating user: %v\n", err)
 	}
@@ -400,7 +400,7 @@ func main() {
   }
   client := okta.NewAPIClient(config)
 
-	resp, err = client.UserAPI.DeleteUser(client.GetConfig().Context, "00u14ffhw5szVqide0h8").Execute()
+	resp, err = client.UserAPI.DeleteUser(context.Background(), "00u14aabbc5szVqide0h8").Execute()
 	if err != nil {
 		fmt.Printf("Error deleting user: %v\n", err)
 	}
@@ -436,7 +436,7 @@ func main() {
 		Profile: grpProfile,
 	}
 	// Add the group using the GroupAPI
-	group, resp, err := client.GroupAPI.AddGroup(client.GetConfig().Context).Group(addGrpRequest).Execute()
+	group, resp, err := client.GroupAPI.AddGroup(context.Background()).Group(addGrpRequest).Execute()
 	if err != nil {
 		fmt.Printf("Error creating group: %v\n", err)
 	}
@@ -464,7 +464,7 @@ func main() {
   }
   client := okta.NewAPIClient(config)
 
-  resp, err := client.GroupAPI.AssignUserToGroup(client.GetConfig().Context, "{groupId}", "{userId}").Execute()
+  resp, err := client.GroupAPI.AssignUserToGroup(context.Background(), "{groupId}", "{userId}").Execute()
 	if err != nil {
 		fmt.Printf("Error adding user to group: %v\n", err)
 	}
@@ -492,7 +492,7 @@ func main() {
   }
   client := okta.NewAPIClient(config)
 
-  applicationList, resp, err := client.ApplicationAPI.ListApplications(client.GetConfig().Context).Execute()
+  applicationList, resp, err := client.ApplicationAPI.ListApplications(context.Background()).Execute()
 	if err != nil {
 		fmt.Printf("Error listing applications: %v\n", err)
 	}
@@ -520,7 +520,7 @@ func main() {
   }
   client := okta.NewAPIClient(config)
 
-  application, resp, err := client.ApplicationAPI.GetApplication(client.GetConfig().Context, "0oaswjmkbtlpBDWpu0h7").Execute()
+  application, resp, err := client.ApplicationAPI.GetApplication(context.Background(), "0oaswjmkbtlpBDWpu0h7").Execute()
 	if err != nil {
 		fmt.Printf("Error getting application: %v\n", err)
 	}
@@ -574,7 +574,7 @@ func main() {
   res.SetSignOnMode("OPENID_CONNECT")
   res.SetLabel("label")
 
-  application, resp, err := client.ApplicationAPI.CreateApplication(client.GetConfig().Context).Application(okta.ListApplications200ResponseInner{OpenIdConnectApplication: &res}).Execute()
+  application, resp, err := client.ApplicationAPI.CreateApplication(context.Background()).Application(okta.ListApplications200ResponseInner{OpenIdConnectApplication: &res}).Execute()
   if err != nil {
       fmt.Printf("Error creating application: %v\n", err)
   }
@@ -1020,6 +1020,46 @@ if resp.HasNextPage() {
   resp, err = resp.Next(&user2)
 }
 ```
+
+## Known Issues
+
+### GroupProfile Discriminator Bug (v6.0.0)
+
+**Root Cause:** This is an OpenAPI spec issue where the generated code ignores the `objectClass` discriminator field. The code generator uses "anyOf" semantics instead of "oneOf", causing the first matching type (`OktaActiveDirectoryGroupProfile`) to be used since both profiles share common fields (`name`, `description`).
+
+#### Workaround: Check `ObjectClass` Field (Recommended)
+
+Use the `ObjectClass` field on the `Group` object to determine which profile pointer to use:
+
+```go
+func getGroupName(group *okta.Group) string {
+    if group == nil || group.Profile == nil {
+        return ""
+    }
+
+    // Check ObjectClass to determine the correct profile type
+    objectClass := group.GetObjectClass()
+
+    if len(objectClass) > 0 {
+        switch objectClass[0] {
+        case "okta:user_group":
+            // Standard Okta group
+            if group.Profile.OktaUserGroupProfile != nil {
+                return group.Profile.OktaUserGroupProfile.GetName()
+            }
+        case "okta:windows_security_principal":
+            // Active Directory group
+            if group.Profile.OktaActiveDirectoryGroupProfile != nil {
+                return group.Profile.OktaActiveDirectoryGroupProfile.GetName()
+            }
+        }
+    }
+
+    return ""
+}
+```
+
+For more details and an alternative SDK patch solution, see [issue #551](https://github.com/okta/okta-sdk-golang/issues/551).
 
 ## Contributing
 

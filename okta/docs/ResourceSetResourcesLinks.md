@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Next** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**Next** | Pointer to [**HrefObjectNextLink**](HrefObjectNextLink.md) |  | [optional] 
 **ResourceSet** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetNext
 
-`func (o *ResourceSetResourcesLinks) GetNext() HrefObject`
+`func (o *ResourceSetResourcesLinks) GetNext() HrefObjectNextLink`
 
 GetNext returns the Next field if non-nil, zero value otherwise.
 
 ### GetNextOk
 
-`func (o *ResourceSetResourcesLinks) GetNextOk() (*HrefObject, bool)`
+`func (o *ResourceSetResourcesLinks) GetNextOk() (*HrefObjectNextLink, bool)`
 
 GetNextOk returns a tuple with the Next field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNext
 
-`func (o *ResourceSetResourcesLinks) SetNext(v HrefObject)`
+`func (o *ResourceSetResourcesLinks) SetNext(v HrefObjectNextLink)`
 
 SetNext sets Next field to given value.
 

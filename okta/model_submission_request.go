@@ -33,10 +33,16 @@ var _ MappedNullable = &SubmissionRequest{}
 
 // SubmissionRequest struct for SubmissionRequest
 type SubmissionRequest struct {
+	// List of actions supported by this integration
+	Actions      []SubmissionAction `json:"actions,omitempty"`
+	AuthSettings *AuthSettings      `json:"authSettings,omitempty"`
+	// List of capabilities supported by this integration
+	Capabilities []SubmissionCapability `json:"capabilities,omitempty"`
 	// List of org-level variables for the customer per-tenant configuration. For example, a `subdomain` variable can be used in the ACS URL: `https://${org.subdomain}.example.com/saml/login`
 	Config []SubmissionResponseConfigInner `json:"config,omitempty"`
 	// A general description of your application and the benefits provided to your customers
-	Description string `json:"description"`
+	Description           string                                   `json:"description"`
+	GlobalTokenRevocation *SubmissionResponseGlobalTokenRevocation `json:"globalTokenRevocation,omitempty"`
 	// OIN Integration ID
 	Id *string `json:"id,omitempty"`
 	// Timestamp when the OIN Integration was last published
@@ -76,6 +82,102 @@ func NewSubmissionRequest(description string, logo string, name string) *Submiss
 func NewSubmissionRequestWithDefaults() *SubmissionRequest {
 	this := SubmissionRequest{}
 	return &this
+}
+
+// GetActions returns the Actions field value if set, zero value otherwise.
+func (o *SubmissionRequest) GetActions() []SubmissionAction {
+	if o == nil || IsNil(o.Actions) {
+		var ret []SubmissionAction
+		return ret
+	}
+	return o.Actions
+}
+
+// GetActionsOk returns a tuple with the Actions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SubmissionRequest) GetActionsOk() ([]SubmissionAction, bool) {
+	if o == nil || IsNil(o.Actions) {
+		return nil, false
+	}
+	return o.Actions, true
+}
+
+// HasActions returns a boolean if a field has been set.
+func (o *SubmissionRequest) HasActions() bool {
+	if o != nil && !IsNil(o.Actions) {
+		return true
+	}
+
+	return false
+}
+
+// SetActions gets a reference to the given []SubmissionAction and assigns it to the Actions field.
+func (o *SubmissionRequest) SetActions(v []SubmissionAction) {
+	o.Actions = v
+}
+
+// GetAuthSettings returns the AuthSettings field value if set, zero value otherwise.
+func (o *SubmissionRequest) GetAuthSettings() AuthSettings {
+	if o == nil || IsNil(o.AuthSettings) {
+		var ret AuthSettings
+		return ret
+	}
+	return *o.AuthSettings
+}
+
+// GetAuthSettingsOk returns a tuple with the AuthSettings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SubmissionRequest) GetAuthSettingsOk() (*AuthSettings, bool) {
+	if o == nil || IsNil(o.AuthSettings) {
+		return nil, false
+	}
+	return o.AuthSettings, true
+}
+
+// HasAuthSettings returns a boolean if a field has been set.
+func (o *SubmissionRequest) HasAuthSettings() bool {
+	if o != nil && !IsNil(o.AuthSettings) {
+		return true
+	}
+
+	return false
+}
+
+// SetAuthSettings gets a reference to the given AuthSettings and assigns it to the AuthSettings field.
+func (o *SubmissionRequest) SetAuthSettings(v AuthSettings) {
+	o.AuthSettings = &v
+}
+
+// GetCapabilities returns the Capabilities field value if set, zero value otherwise.
+func (o *SubmissionRequest) GetCapabilities() []SubmissionCapability {
+	if o == nil || IsNil(o.Capabilities) {
+		var ret []SubmissionCapability
+		return ret
+	}
+	return o.Capabilities
+}
+
+// GetCapabilitiesOk returns a tuple with the Capabilities field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SubmissionRequest) GetCapabilitiesOk() ([]SubmissionCapability, bool) {
+	if o == nil || IsNil(o.Capabilities) {
+		return nil, false
+	}
+	return o.Capabilities, true
+}
+
+// HasCapabilities returns a boolean if a field has been set.
+func (o *SubmissionRequest) HasCapabilities() bool {
+	if o != nil && !IsNil(o.Capabilities) {
+		return true
+	}
+
+	return false
+}
+
+// SetCapabilities gets a reference to the given []SubmissionCapability and assigns it to the Capabilities field.
+func (o *SubmissionRequest) SetCapabilities(v []SubmissionCapability) {
+	o.Capabilities = v
 }
 
 // GetConfig returns the Config field value if set, zero value otherwise.
@@ -132,6 +234,38 @@ func (o *SubmissionRequest) GetDescriptionOk() (*string, bool) {
 // SetDescription sets field value
 func (o *SubmissionRequest) SetDescription(v string) {
 	o.Description = v
+}
+
+// GetGlobalTokenRevocation returns the GlobalTokenRevocation field value if set, zero value otherwise.
+func (o *SubmissionRequest) GetGlobalTokenRevocation() SubmissionResponseGlobalTokenRevocation {
+	if o == nil || IsNil(o.GlobalTokenRevocation) {
+		var ret SubmissionResponseGlobalTokenRevocation
+		return ret
+	}
+	return *o.GlobalTokenRevocation
+}
+
+// GetGlobalTokenRevocationOk returns a tuple with the GlobalTokenRevocation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SubmissionRequest) GetGlobalTokenRevocationOk() (*SubmissionResponseGlobalTokenRevocation, bool) {
+	if o == nil || IsNil(o.GlobalTokenRevocation) {
+		return nil, false
+	}
+	return o.GlobalTokenRevocation, true
+}
+
+// HasGlobalTokenRevocation returns a boolean if a field has been set.
+func (o *SubmissionRequest) HasGlobalTokenRevocation() bool {
+	if o != nil && !IsNil(o.GlobalTokenRevocation) {
+		return true
+	}
+
+	return false
+}
+
+// SetGlobalTokenRevocation gets a reference to the given SubmissionResponseGlobalTokenRevocation and assigns it to the GlobalTokenRevocation field.
+func (o *SubmissionRequest) SetGlobalTokenRevocation(v SubmissionResponseGlobalTokenRevocation) {
+	o.GlobalTokenRevocation = &v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -416,10 +550,22 @@ func (o SubmissionRequest) MarshalJSON() ([]byte, error) {
 
 func (o SubmissionRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Actions) {
+		toSerialize["actions"] = o.Actions
+	}
+	if !IsNil(o.AuthSettings) {
+		toSerialize["authSettings"] = o.AuthSettings
+	}
+	if !IsNil(o.Capabilities) {
+		toSerialize["capabilities"] = o.Capabilities
+	}
 	if !IsNil(o.Config) {
 		toSerialize["config"] = o.Config
 	}
 	toSerialize["description"] = o.Description
+	if !IsNil(o.GlobalTokenRevocation) {
+		toSerialize["globalTokenRevocation"] = o.GlobalTokenRevocation
+	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
@@ -488,8 +634,12 @@ func (o *SubmissionRequest) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "actions")
+		delete(additionalProperties, "authSettings")
+		delete(additionalProperties, "capabilities")
 		delete(additionalProperties, "config")
 		delete(additionalProperties, "description")
+		delete(additionalProperties, "globalTokenRevocation")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "lastPublished")
 		delete(additionalProperties, "lastUpdated")

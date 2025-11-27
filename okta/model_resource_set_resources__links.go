@@ -32,8 +32,8 @@ var _ MappedNullable = &ResourceSetResourcesLinks{}
 
 // ResourceSetResourcesLinks struct for ResourceSetResourcesLinks
 type ResourceSetResourcesLinks struct {
-	Next                 *HrefObject `json:"next,omitempty"`
-	ResourceSet          *HrefObject `json:"resource-set,omitempty"`
+	Next                 *HrefObjectNextLink `json:"next,omitempty"`
+	ResourceSet          *HrefObject         `json:"resource-set,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,9 +57,9 @@ func NewResourceSetResourcesLinksWithDefaults() *ResourceSetResourcesLinks {
 }
 
 // GetNext returns the Next field value if set, zero value otherwise.
-func (o *ResourceSetResourcesLinks) GetNext() HrefObject {
+func (o *ResourceSetResourcesLinks) GetNext() HrefObjectNextLink {
 	if o == nil || IsNil(o.Next) {
-		var ret HrefObject
+		var ret HrefObjectNextLink
 		return ret
 	}
 	return *o.Next
@@ -67,7 +67,7 @@ func (o *ResourceSetResourcesLinks) GetNext() HrefObject {
 
 // GetNextOk returns a tuple with the Next field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResourceSetResourcesLinks) GetNextOk() (*HrefObject, bool) {
+func (o *ResourceSetResourcesLinks) GetNextOk() (*HrefObjectNextLink, bool) {
 	if o == nil || IsNil(o.Next) {
 		return nil, false
 	}
@@ -83,8 +83,8 @@ func (o *ResourceSetResourcesLinks) HasNext() bool {
 	return false
 }
 
-// SetNext gets a reference to the given HrefObject and assigns it to the Next field.
-func (o *ResourceSetResourcesLinks) SetNext(v HrefObject) {
+// SetNext gets a reference to the given HrefObjectNextLink and assigns it to the Next field.
+func (o *ResourceSetResourcesLinks) SetNext(v HrefObjectNextLink) {
 	o.Next = &v
 }
 

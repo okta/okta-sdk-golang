@@ -38,7 +38,8 @@ type IdentityProviderProperties struct {
 	// The additional Assurance Methods References (AMR) values for Smart Card IdPs. Applies to `X509` IdP type.
 	AdditionalAmr []string `json:"additionalAmr,omitempty"`
 	// The [type of identity verification](https://developers.login.gov/oidc/#ial-values) (IAL) value for the Login.gov IdP. See [Add a Login.gov IdP](https://developer.okta.com/docs/guides/add-logingov-idp/). Applies to `LOGINGOV` and `LOGINGOV_SANDBOX` IdP types.
-	IalValue NullableString `json:"ialValue,omitempty"`
+	IalValue    NullableString                         `json:"ialValue,omitempty"`
+	IdvMetadata *IdentityProviderPropertiesIdvMetadata `json:"idvMetadata,omitempty"`
 	// The ID of the inquiry template from your Persona dashboard. The inquiry template always starts with `itmpl`. Applies to the `IDV_PERSONA` IdP type.
 	InquiryTemplateId    string `json:"inquiryTemplateId"`
 	AdditionalProperties map[string]interface{}
@@ -183,6 +184,38 @@ func (o *IdentityProviderProperties) UnsetIalValue() {
 	o.IalValue.Unset()
 }
 
+// GetIdvMetadata returns the IdvMetadata field value if set, zero value otherwise.
+func (o *IdentityProviderProperties) GetIdvMetadata() IdentityProviderPropertiesIdvMetadata {
+	if o == nil || IsNil(o.IdvMetadata) {
+		var ret IdentityProviderPropertiesIdvMetadata
+		return ret
+	}
+	return *o.IdvMetadata
+}
+
+// GetIdvMetadataOk returns a tuple with the IdvMetadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IdentityProviderProperties) GetIdvMetadataOk() (*IdentityProviderPropertiesIdvMetadata, bool) {
+	if o == nil || IsNil(o.IdvMetadata) {
+		return nil, false
+	}
+	return o.IdvMetadata, true
+}
+
+// HasIdvMetadata returns a boolean if a field has been set.
+func (o *IdentityProviderProperties) HasIdvMetadata() bool {
+	if o != nil && !IsNil(o.IdvMetadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetIdvMetadata gets a reference to the given IdentityProviderPropertiesIdvMetadata and assigns it to the IdvMetadata field.
+func (o *IdentityProviderProperties) SetIdvMetadata(v IdentityProviderPropertiesIdvMetadata) {
+	o.IdvMetadata = &v
+}
+
 // GetInquiryTemplateId returns the InquiryTemplateId field value
 func (o *IdentityProviderProperties) GetInquiryTemplateId() string {
 	if o == nil {
@@ -225,6 +258,9 @@ func (o IdentityProviderProperties) ToMap() (map[string]interface{}, error) {
 	}
 	if o.IalValue.IsSet() {
 		toSerialize["ialValue"] = o.IalValue.Get()
+	}
+	if !IsNil(o.IdvMetadata) {
+		toSerialize["idvMetadata"] = o.IdvMetadata
 	}
 	toSerialize["inquiryTemplateId"] = o.InquiryTemplateId
 
@@ -273,6 +309,7 @@ func (o *IdentityProviderProperties) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "aalValue")
 		delete(additionalProperties, "additionalAmr")
 		delete(additionalProperties, "ialValue")
+		delete(additionalProperties, "idvMetadata")
 		delete(additionalProperties, "inquiryTemplateId")
 		o.AdditionalProperties = additionalProperties
 	}

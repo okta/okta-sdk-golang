@@ -36,7 +36,7 @@ import (
 )
 
 func main() {
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | Client app ID
+	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
 	roleAssignmentId := "JBCUYUC7IRCVGS27IFCE2SKO" // string | The `id` of the role assignment
 	appName := "google" // string | Name of the app definition (the OIN catalog app key name)
 	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
@@ -57,7 +57,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**clientId** | **string** | Client app ID | 
+**clientId** | **string** | &#x60;client_id&#x60; of the app | 
 **roleAssignmentId** | **string** | The &#x60;id&#x60; of the role assignment | 
 **appName** | **string** | Name of the app definition (the OIN catalog app key name) | 
 **appId** | **string** | Application ID | 
@@ -113,7 +113,7 @@ import (
 )
 
 func main() {
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | Client app ID
+	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
 	roleAssignmentId := "JBCUYUC7IRCVGS27IFCE2SKO" // string | The `id` of the role assignment
 	appName := "google" // string | Name of the app definition (the OIN catalog app key name)
 
@@ -133,7 +133,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**clientId** | **string** | Client app ID | 
+**clientId** | **string** | &#x60;client_id&#x60; of the app | 
 **roleAssignmentId** | **string** | The &#x60;id&#x60; of the role assignment | 
 **appName** | **string** | Name of the app definition (the OIN catalog app key name) | 
 
@@ -187,7 +187,7 @@ import (
 )
 
 func main() {
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | Client app ID
+	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
 	roleAssignmentId := "JBCUYUC7IRCVGS27IFCE2SKO" // string | The `id` of the role assignment
 	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
 
@@ -207,7 +207,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**clientId** | **string** | Client app ID | 
+**clientId** | **string** | &#x60;client_id&#x60; of the app | 
 **roleAssignmentId** | **string** | The &#x60;id&#x60; of the role assignment | 
 **groupId** | **string** | The &#x60;id&#x60; of the group | 
 
@@ -261,9 +261,9 @@ import (
 )
 
 func main() {
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | Client app ID
+	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
 	roleAssignmentId := "JBCUYUC7IRCVGS27IFCE2SKO" // string | The `id` of the role assignment
-	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/api/#pagination). (optional)
+	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header). (optional)
 	limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
 
 	configuration := openapiclient.NewConfiguration()
@@ -284,7 +284,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**clientId** | **string** | Client app ID | 
+**clientId** | **string** | &#x60;client_id&#x60; of the app | 
 **roleAssignmentId** | **string** | The &#x60;id&#x60; of the role assignment | 
 
 ### Other Parameters
@@ -296,7 +296,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **after** | **string** | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination). | 
+ **after** | **string** | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header). | 
  **limit** | **int32** | A limit on the number of objects to return | [default to 20]
 
 ### Return type
@@ -338,9 +338,9 @@ import (
 )
 
 func main() {
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | Client app ID
+	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
 	roleAssignmentId := "JBCUYUC7IRCVGS27IFCE2SKO" // string | The `id` of the role assignment
-	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/api/#pagination). (optional)
+	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header). (optional)
 	limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
 
 	configuration := openapiclient.NewConfiguration()
@@ -361,7 +361,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**clientId** | **string** | Client app ID | 
+**clientId** | **string** | &#x60;client_id&#x60; of the app | 
 **roleAssignmentId** | **string** | The &#x60;id&#x60; of the role assignment | 
 
 ### Other Parameters
@@ -373,7 +373,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **after** | **string** | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination). | 
+ **after** | **string** | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header). | 
  **limit** | **int32** | A limit on the number of objects to return | [default to 20]
 
 ### Return type
@@ -415,7 +415,7 @@ import (
 )
 
 func main() {
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | Client app ID
+	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
 	roleAssignmentId := "JBCUYUC7IRCVGS27IFCE2SKO" // string | The `id` of the role assignment
 	appName := "google" // string | Name of the app definition (the OIN catalog app key name)
 	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
@@ -436,7 +436,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**clientId** | **string** | Client app ID | 
+**clientId** | **string** | &#x60;client_id&#x60; of the app | 
 **roleAssignmentId** | **string** | The &#x60;id&#x60; of the role assignment | 
 **appName** | **string** | Name of the app definition (the OIN catalog app key name) | 
 **appId** | **string** | Application ID | 
@@ -492,7 +492,7 @@ import (
 )
 
 func main() {
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | Client app ID
+	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
 	roleAssignmentId := "JBCUYUC7IRCVGS27IFCE2SKO" // string | The `id` of the role assignment
 	appName := "google" // string | Name of the app definition (the OIN catalog app key name)
 
@@ -512,7 +512,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**clientId** | **string** | Client app ID | 
+**clientId** | **string** | &#x60;client_id&#x60; of the app | 
 **roleAssignmentId** | **string** | The &#x60;id&#x60; of the role assignment | 
 **appName** | **string** | Name of the app definition (the OIN catalog app key name) | 
 
@@ -566,7 +566,7 @@ import (
 )
 
 func main() {
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | Client app ID
+	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
 	roleAssignmentId := "JBCUYUC7IRCVGS27IFCE2SKO" // string | The `id` of the role assignment
 	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
 
@@ -586,7 +586,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**clientId** | **string** | Client app ID | 
+**clientId** | **string** | &#x60;client_id&#x60; of the app | 
 **roleAssignmentId** | **string** | The &#x60;id&#x60; of the role assignment | 
 **groupId** | **string** | The &#x60;id&#x60; of the group | 
 

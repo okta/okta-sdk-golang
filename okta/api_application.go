@@ -986,16 +986,17 @@ func (a *ApplicationAPIService) GetApplicationExecute(r ApiGetApplicationRequest
 }
 
 type ApiListApplicationsRequest struct {
-	ctx               context.Context
-	ApiService        ApplicationAPI
-	q                 *string
-	after             *string
-	useOptimization   *bool
-	limit             *int32
-	filter            *string
-	expand            *string
-	includeNonDeleted *bool
-	retryCount        int32
+	ctx                      context.Context
+	ApiService               ApplicationAPI
+	q                        *string
+	after                    *string
+	useOptimization          *bool
+	alwaysIncludeVpnSettings *bool
+	limit                    *int32
+	filter                   *string
+	expand                   *string
+	includeNonDeleted        *bool
+	retryCount               int32
 }
 
 // Searches for apps with &#x60;name&#x60; or &#x60;label&#x60; properties that starts with the &#x60;q&#x60; value using the &#x60;startsWith&#x60; operation
@@ -1016,13 +1017,19 @@ func (r ApiListApplicationsRequest) UseOptimization(useOptimization bool) ApiLis
 	return r
 }
 
+// Specifies whether to include the VPN configuration for existing notifications in the result, regardless of whether VPN notifications are configured
+func (r ApiListApplicationsRequest) AlwaysIncludeVpnSettings(alwaysIncludeVpnSettings bool) ApiListApplicationsRequest {
+	r.alwaysIncludeVpnSettings = &alwaysIncludeVpnSettings
+	return r
+}
+
 // Specifies the number of results per page
 func (r ApiListApplicationsRequest) Limit(limit int32) ApiListApplicationsRequest {
 	r.limit = &limit
 	return r
 }
 
-// Filters apps by &#x60;status&#x60;, &#x60;user.id&#x60;, &#x60;group.id&#x60;, &#x60;credentials.signing.kid&#x60; or &#x60;name&#x60; expression that supports the &#x60;eq&#x60; operator
+// Filters apps with a supported expression for a subset of properties. Filtering supports the following limited number of properties: &#x60;id&#x60;, &#x60;status&#x60;, &#x60;credentials.signing.kid&#x60;, &#x60;settings.slo.enabled&#x60;, or &#x60;name&#x60;. See [Filter](https://developer.okta.com/docs/api/#filter).
 func (r ApiListApplicationsRequest) Filter(filter string) ApiListApplicationsRequest {
 	r.filter = &filter
 	return r
@@ -1100,6 +1107,9 @@ func (a *ApplicationAPIService) ListApplicationsExecute(r ApiListApplicationsReq
 	}
 	if r.useOptimization != nil {
 		localVarQueryParams.Add("useOptimization", parameterToString(*r.useOptimization, ""))
+	}
+	if r.alwaysIncludeVpnSettings != nil {
+		localVarQueryParams.Add("alwaysIncludeVpnSettings", parameterToString(*r.alwaysIncludeVpnSettings, ""))
 	}
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))

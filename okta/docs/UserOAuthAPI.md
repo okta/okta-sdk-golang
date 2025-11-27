@@ -33,7 +33,7 @@ import (
 
 func main() {
 	userId := "00ub0oNGTSWTBKOLGLNR" // string | ID of an existing Okta user
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | Client app ID
+	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
 	tokenId := "sHHSth53yJAyNSTQKDJZ" // string | `id` of Token
 	expand := "scope" // string | Valid value: `scope`. If specified, scope details are included in the `_embedded` attribute. (optional)
 
@@ -56,7 +56,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **userId** | **string** | ID of an existing Okta user | 
-**clientId** | **string** | Client app ID | 
+**clientId** | **string** | &#x60;client_id&#x60; of the app | 
 **tokenId** | **string** | &#x60;id&#x60; of Token | 
 
 ### Other Parameters
@@ -111,7 +111,7 @@ import (
 
 func main() {
 	userId := "00ub0oNGTSWTBKOLGLNR" // string | ID of an existing Okta user
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | Client app ID
+	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
 	expand := "scope" // string | Valid value: `scope`. If specified, scope details are included in the `_embedded` attribute. (optional)
 	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/api/#pagination). (optional)
 	limit := int32(56) // int32 | Specifies the number of tokens to return (optional) (default to 20)
@@ -135,7 +135,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **userId** | **string** | ID of an existing Okta user | 
-**clientId** | **string** | Client app ID | 
+**clientId** | **string** | &#x60;client_id&#x60; of the app | 
 
 ### Other Parameters
 
@@ -190,7 +190,7 @@ import (
 
 func main() {
 	userId := "00ub0oNGTSWTBKOLGLNR" // string | ID of an existing Okta user
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | Client app ID
+	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
 	tokenId := "sHHSth53yJAyNSTQKDJZ" // string | `id` of Token
 
 	configuration := openapiclient.NewConfiguration()
@@ -210,7 +210,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **userId** | **string** | ID of an existing Okta user | 
-**clientId** | **string** | Client app ID | 
+**clientId** | **string** | &#x60;client_id&#x60; of the app | 
 **tokenId** | **string** | &#x60;id&#x60; of Token | 
 
 ### Other Parameters
@@ -264,7 +264,7 @@ import (
 
 func main() {
 	userId := "00ub0oNGTSWTBKOLGLNR" // string | ID of an existing Okta user
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | Client app ID
+	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -283,7 +283,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **userId** | **string** | ID of an existing Okta user | 
-**clientId** | **string** | Client app ID | 
+**clientId** | **string** | &#x60;client_id&#x60; of the app | 
 
 ### Other Parameters
 

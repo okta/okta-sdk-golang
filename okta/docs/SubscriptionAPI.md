@@ -36,7 +36,7 @@ import (
 )
 
 func main() {
-	roleRef := openapiclient.listSubscriptionsRole_roleRef_parameter{String: new(string)} // ListSubscriptionsRoleRoleRefParameter | A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
+	roleRef := openapiclient.listSubscriptionsRole_roleRef_parameter{String: new(string)} // ListSubscriptionsRoleRoleRefParameter | A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard roles](/openapi/okta-management/guides/roles/#standard-roles).
 	notificationType := "notificationType_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
@@ -57,7 +57,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**roleRef** | [**ListSubscriptionsRoleRoleRefParameter**](.md) | A reference to an existing role. Standard roles require a &#x60;roleType&#x60;, while Custom Roles require a &#x60;roleId&#x60;. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles). | 
+**roleRef** | [**ListSubscriptionsRoleRoleRefParameter**](.md) | A reference to an existing role. Standard roles require a &#x60;roleType&#x60;, while Custom Roles require a &#x60;roleId&#x60;. See [Standard roles](/openapi/okta-management/guides/roles/#standard-roles). | 
 **notificationType** | **string** |  | 
 
 ### Other Parameters
@@ -182,7 +182,7 @@ import (
 )
 
 func main() {
-	roleRef := openapiclient.listSubscriptionsRole_roleRef_parameter{String: new(string)} // ListSubscriptionsRoleRoleRefParameter | A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
+	roleRef := openapiclient.listSubscriptionsRole_roleRef_parameter{String: new(string)} // ListSubscriptionsRoleRoleRefParameter | A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard roles](/openapi/okta-management/guides/roles/#standard-roles).
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -202,7 +202,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**roleRef** | [**ListSubscriptionsRoleRoleRefParameter**](.md) | A reference to an existing role. Standard roles require a &#x60;roleType&#x60;, while Custom Roles require a &#x60;roleId&#x60;. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles). | 
+**roleRef** | [**ListSubscriptionsRoleRoleRefParameter**](.md) | A reference to an existing role. Standard roles require a &#x60;roleType&#x60;, while Custom Roles require a &#x60;roleId&#x60;. See [Standard roles](/openapi/okta-management/guides/roles/#standard-roles). | 
 
 ### Other Parameters
 
@@ -322,7 +322,7 @@ import (
 )
 
 func main() {
-	roleRef := openapiclient.listSubscriptionsRole_roleRef_parameter{String: new(string)} // ListSubscriptionsRoleRoleRefParameter | A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
+	roleRef := openapiclient.listSubscriptionsRole_roleRef_parameter{String: new(string)} // ListSubscriptionsRoleRoleRefParameter | A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard roles](/openapi/okta-management/guides/roles/#standard-roles).
 	notificationType := "notificationType_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
@@ -341,7 +341,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**roleRef** | [**ListSubscriptionsRoleRoleRefParameter**](.md) | A reference to an existing role. Standard roles require a &#x60;roleType&#x60;, while Custom Roles require a &#x60;roleId&#x60;. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles). | 
+**roleRef** | [**ListSubscriptionsRoleRoleRefParameter**](.md) | A reference to an existing role. Standard roles require a &#x60;roleType&#x60;, while Custom Roles require a &#x60;roleId&#x60;. See [Standard roles](/openapi/okta-management/guides/roles/#standard-roles). | 
 **notificationType** | **string** |  | 
 
 ### Other Parameters
@@ -464,7 +464,7 @@ import (
 )
 
 func main() {
-	roleRef := openapiclient.listSubscriptionsRole_roleRef_parameter{String: new(string)} // ListSubscriptionsRoleRoleRefParameter | A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
+	roleRef := openapiclient.listSubscriptionsRole_roleRef_parameter{String: new(string)} // ListSubscriptionsRoleRoleRefParameter | A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard roles](/openapi/okta-management/guides/roles/#standard-roles).
 	notificationType := "notificationType_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
@@ -483,7 +483,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**roleRef** | [**ListSubscriptionsRoleRoleRefParameter**](.md) | A reference to an existing role. Standard roles require a &#x60;roleType&#x60;, while Custom Roles require a &#x60;roleId&#x60;. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles). | 
+**roleRef** | [**ListSubscriptionsRoleRoleRefParameter**](.md) | A reference to an existing role. Standard roles require a &#x60;roleType&#x60;, while Custom Roles require a &#x60;roleId&#x60;. See [Standard roles](/openapi/okta-management/guides/roles/#standard-roles). | 
 **notificationType** | **string** |  | 
 
 ### Other Parameters

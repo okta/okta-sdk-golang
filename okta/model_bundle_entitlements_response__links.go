@@ -30,13 +30,11 @@ import (
 // checks if the BundleEntitlementsResponseLinks type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &BundleEntitlementsResponseLinks{}
 
-// BundleEntitlementsResponseLinks Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification
+// BundleEntitlementsResponseLinks struct for BundleEntitlementsResponseLinks
 type BundleEntitlementsResponseLinks struct {
-	// Link to the next resource
-	Next *HrefObject         `json:"next,omitempty"`
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	// Link to the bundle resource
-	Bundle               *HrefObject `json:"bundle,omitempty"`
+	Self                 *HrefObjectSelfLink `json:"self,omitempty"`
+	Next                 *HrefObjectNextLink `json:"next,omitempty"`
+	Bundle               *BundleLink         `json:"bundle,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,38 +55,6 @@ func NewBundleEntitlementsResponseLinks() *BundleEntitlementsResponseLinks {
 func NewBundleEntitlementsResponseLinksWithDefaults() *BundleEntitlementsResponseLinks {
 	this := BundleEntitlementsResponseLinks{}
 	return &this
-}
-
-// GetNext returns the Next field value if set, zero value otherwise.
-func (o *BundleEntitlementsResponseLinks) GetNext() HrefObject {
-	if o == nil || IsNil(o.Next) {
-		var ret HrefObject
-		return ret
-	}
-	return *o.Next
-}
-
-// GetNextOk returns a tuple with the Next field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BundleEntitlementsResponseLinks) GetNextOk() (*HrefObject, bool) {
-	if o == nil || IsNil(o.Next) {
-		return nil, false
-	}
-	return o.Next, true
-}
-
-// HasNext returns a boolean if a field has been set.
-func (o *BundleEntitlementsResponseLinks) HasNext() bool {
-	if o != nil && !IsNil(o.Next) {
-		return true
-	}
-
-	return false
-}
-
-// SetNext gets a reference to the given HrefObject and assigns it to the Next field.
-func (o *BundleEntitlementsResponseLinks) SetNext(v HrefObject) {
-	o.Next = &v
 }
 
 // GetSelf returns the Self field value if set, zero value otherwise.
@@ -123,10 +89,42 @@ func (o *BundleEntitlementsResponseLinks) SetSelf(v HrefObjectSelfLink) {
 	o.Self = &v
 }
 
+// GetNext returns the Next field value if set, zero value otherwise.
+func (o *BundleEntitlementsResponseLinks) GetNext() HrefObjectNextLink {
+	if o == nil || IsNil(o.Next) {
+		var ret HrefObjectNextLink
+		return ret
+	}
+	return *o.Next
+}
+
+// GetNextOk returns a tuple with the Next field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BundleEntitlementsResponseLinks) GetNextOk() (*HrefObjectNextLink, bool) {
+	if o == nil || IsNil(o.Next) {
+		return nil, false
+	}
+	return o.Next, true
+}
+
+// HasNext returns a boolean if a field has been set.
+func (o *BundleEntitlementsResponseLinks) HasNext() bool {
+	if o != nil && !IsNil(o.Next) {
+		return true
+	}
+
+	return false
+}
+
+// SetNext gets a reference to the given HrefObjectNextLink and assigns it to the Next field.
+func (o *BundleEntitlementsResponseLinks) SetNext(v HrefObjectNextLink) {
+	o.Next = &v
+}
+
 // GetBundle returns the Bundle field value if set, zero value otherwise.
-func (o *BundleEntitlementsResponseLinks) GetBundle() HrefObject {
+func (o *BundleEntitlementsResponseLinks) GetBundle() BundleLink {
 	if o == nil || IsNil(o.Bundle) {
-		var ret HrefObject
+		var ret BundleLink
 		return ret
 	}
 	return *o.Bundle
@@ -134,7 +132,7 @@ func (o *BundleEntitlementsResponseLinks) GetBundle() HrefObject {
 
 // GetBundleOk returns a tuple with the Bundle field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BundleEntitlementsResponseLinks) GetBundleOk() (*HrefObject, bool) {
+func (o *BundleEntitlementsResponseLinks) GetBundleOk() (*BundleLink, bool) {
 	if o == nil || IsNil(o.Bundle) {
 		return nil, false
 	}
@@ -150,8 +148,8 @@ func (o *BundleEntitlementsResponseLinks) HasBundle() bool {
 	return false
 }
 
-// SetBundle gets a reference to the given HrefObject and assigns it to the Bundle field.
-func (o *BundleEntitlementsResponseLinks) SetBundle(v HrefObject) {
+// SetBundle gets a reference to the given BundleLink and assigns it to the Bundle field.
+func (o *BundleEntitlementsResponseLinks) SetBundle(v BundleLink) {
 	o.Bundle = &v
 }
 
@@ -165,11 +163,11 @@ func (o BundleEntitlementsResponseLinks) MarshalJSON() ([]byte, error) {
 
 func (o BundleEntitlementsResponseLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Next) {
-		toSerialize["next"] = o.Next
-	}
 	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
+	}
+	if !IsNil(o.Next) {
+		toSerialize["next"] = o.Next
 	}
 	if !IsNil(o.Bundle) {
 		toSerialize["bundle"] = o.Bundle
@@ -196,8 +194,8 @@ func (o *BundleEntitlementsResponseLinks) UnmarshalJSON(data []byte) (err error)
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "next")
 		delete(additionalProperties, "self")
+		delete(additionalProperties, "next")
 		delete(additionalProperties, "bundle")
 		o.AdditionalProperties = additionalProperties
 	}

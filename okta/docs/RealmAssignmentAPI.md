@@ -288,7 +288,7 @@ Name | Type | Description  | Notes
 
 ## ExecuteRealmAssignment
 
-> OperationResponse ExecuteRealmAssignment(ctx).Body(body).Execute()
+> RealmAssignmentOperationResponse ExecuteRealmAssignment(ctx).Body(body).Execute()
 
 Execute a realm assignment
 
@@ -316,7 +316,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RealmAssignmentAPI.ExecuteRealmAssignment``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ExecuteRealmAssignment`: OperationResponse
+	// response from `ExecuteRealmAssignment`: RealmAssignmentOperationResponse
 	fmt.Fprintf(os.Stdout, "Response from `RealmAssignmentAPI.ExecuteRealmAssignment`: %v\n", resp)
 }
 ```
@@ -336,7 +336,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OperationResponse**](OperationResponse.md)
+[**RealmAssignmentOperationResponse**](RealmAssignmentOperationResponse.md)
 
 ### Authorization
 
@@ -424,7 +424,7 @@ Name | Type | Description  | Notes
 
 ## ListRealmAssignmentOperations
 
-> []OperationResponse ListRealmAssignmentOperations(ctx).Limit(limit).After(after).Execute()
+> []RealmAssignmentOperationResponse ListRealmAssignmentOperations(ctx).Limit(limit).After(after).Execute()
 
 List all realm assignment operations
 
@@ -444,7 +444,7 @@ import (
 
 func main() {
 	limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
-	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/api/#pagination). (optional)
+	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header). (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -453,7 +453,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RealmAssignmentAPI.ListRealmAssignmentOperations``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListRealmAssignmentOperations`: []OperationResponse
+	// response from `ListRealmAssignmentOperations`: []RealmAssignmentOperationResponse
 	fmt.Fprintf(os.Stdout, "Response from `RealmAssignmentAPI.ListRealmAssignmentOperations`: %v\n", resp)
 }
 ```
@@ -470,11 +470,11 @@ Other parameters are passed through a pointer to a apiListRealmAssignmentOperati
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **int32** | A limit on the number of objects to return | [default to 20]
- **after** | **string** | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination). | 
+ **after** | **string** | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header). | 
 
 ### Return type
 
-[**[]OperationResponse**](OperationResponse.md)
+[**[]RealmAssignmentOperationResponse**](RealmAssignmentOperationResponse.md)
 
 ### Authorization
 

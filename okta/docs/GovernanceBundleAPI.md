@@ -4,16 +4,16 @@ All URIs are relative to *https://subdomain.okta.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateGovernanceBundle**](GovernanceBundleAPI.md#CreateGovernanceBundle) | **Post** /api/v1/iam/governance/bundles | Create a governance bundle for the Admin Console in RAMP
-[**DeleteGovernanceBundle**](GovernanceBundleAPI.md#DeleteGovernanceBundle) | **Delete** /api/v1/iam/governance/bundles/{bundleId} | Delete a governance bundle from RAMP
-[**GetGovernanceBundle**](GovernanceBundleAPI.md#GetGovernanceBundle) | **Get** /api/v1/iam/governance/bundles/{bundleId} | Retrieve a governance bundle from RAMP
-[**GetOptInStatus**](GovernanceBundleAPI.md#GetOptInStatus) | **Get** /api/v1/iam/governance/optIn | Retrieve the opt-in status from RAMP
-[**ListBundleEntitlementValues**](GovernanceBundleAPI.md#ListBundleEntitlementValues) | **Get** /api/v1/iam/governance/bundles/{bundleId}/entitlements/{entitlementId}/values | List all entitlement values for a bundle entitlement
+[**CreateGovernanceBundle**](GovernanceBundleAPI.md#CreateGovernanceBundle) | **Post** /api/v1/iam/governance/bundles | Create a governance bundle
+[**DeleteGovernanceBundle**](GovernanceBundleAPI.md#DeleteGovernanceBundle) | **Delete** /api/v1/iam/governance/bundles/{bundleId} | Delete a governance bundle
+[**GetGovernanceBundle**](GovernanceBundleAPI.md#GetGovernanceBundle) | **Get** /api/v1/iam/governance/bundles/{bundleId} | Retrieve a governance bundle
+[**GetOptInStatus**](GovernanceBundleAPI.md#GetOptInStatus) | **Get** /api/v1/iam/governance/optIn | Retrieve the Admin Console opt-in status
+[**ListBundleEntitlementValues**](GovernanceBundleAPI.md#ListBundleEntitlementValues) | **Get** /api/v1/iam/governance/bundles/{bundleId}/entitlements/{entitlementId}/values | List all values for a governance bundle entitlement
 [**ListBundleEntitlements**](GovernanceBundleAPI.md#ListBundleEntitlements) | **Get** /api/v1/iam/governance/bundles/{bundleId}/entitlements | List all entitlements for a governance bundle
-[**ListGovernanceBundles**](GovernanceBundleAPI.md#ListGovernanceBundles) | **Get** /api/v1/iam/governance/bundles | List all governance bundles for the Admin Console
-[**OptIn**](GovernanceBundleAPI.md#OptIn) | **Post** /api/v1/iam/governance/optIn | Opt in the Admin Console to RAMP
-[**OptOut**](GovernanceBundleAPI.md#OptOut) | **Post** /api/v1/iam/governance/optOut | Opt out the Admin Console from RAMP
-[**ReplaceGovernanceBundle**](GovernanceBundleAPI.md#ReplaceGovernanceBundle) | **Put** /api/v1/iam/governance/bundles/{bundleId} | Replace a governance bundle in RAMP
+[**ListGovernanceBundles**](GovernanceBundleAPI.md#ListGovernanceBundles) | **Get** /api/v1/iam/governance/bundles | List all governance bundles
+[**OptIn**](GovernanceBundleAPI.md#OptIn) | **Post** /api/v1/iam/governance/optIn | Opt in the Admin Console to entitlement management
+[**OptOut**](GovernanceBundleAPI.md#OptOut) | **Post** /api/v1/iam/governance/optOut | Opt out the Admin Console from entitlement management
+[**ReplaceGovernanceBundle**](GovernanceBundleAPI.md#ReplaceGovernanceBundle) | **Put** /api/v1/iam/governance/bundles/{bundleId} | Replace a governance bundle
 
 
 
@@ -21,7 +21,7 @@ Method | HTTP request | Description
 
 > GovernanceBundle CreateGovernanceBundle(ctx).GovernanceBundleCreateRequest(governanceBundleCreateRequest).Execute()
 
-Create a governance bundle for the Admin Console in RAMP
+Create a governance bundle
 
 
 
@@ -87,7 +87,7 @@ Name | Type | Description  | Notes
 
 > DeleteGovernanceBundle(ctx, bundleId).Execute()
 
-Delete a governance bundle from RAMP
+Delete a governance bundle
 
 
 
@@ -155,7 +155,7 @@ Name | Type | Description  | Notes
 
 > GovernanceBundle GetGovernanceBundle(ctx, bundleId).Execute()
 
-Retrieve a governance bundle from RAMP
+Retrieve a governance bundle
 
 
 
@@ -225,7 +225,7 @@ Name | Type | Description  | Notes
 
 > OptInStatusResponse GetOptInStatus(ctx).Execute()
 
-Retrieve the opt-in status from RAMP
+Retrieve the Admin Console opt-in status
 
 
 
@@ -286,7 +286,7 @@ Other parameters are passed through a pointer to a apiGetOptInStatusRequest stru
 
 > EntitlementValuesResponse ListBundleEntitlementValues(ctx, bundleId, entitlementId).After(after).Limit(limit).Execute()
 
-List all entitlement values for a bundle entitlement
+List all values for a governance bundle entitlement
 
 
 
@@ -305,7 +305,7 @@ import (
 func main() {
 	bundleId := "enbllojq9J9J105DL1d6" // string | The `id` of a bundle
 	entitlementId := "ent4rg7fltWSgrlDT8g6" // string | The `id` of a bundle entitlement
-	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/api/#pagination). (optional)
+	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header). (optional)
 	limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
 
 	configuration := openapiclient.NewConfiguration()
@@ -338,7 +338,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **after** | **string** | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination). | 
+ **after** | **string** | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header). | 
  **limit** | **int32** | A limit on the number of objects to return | [default to 20]
 
 ### Return type
@@ -381,7 +381,7 @@ import (
 
 func main() {
 	bundleId := "enbllojq9J9J105DL1d6" // string | The `id` of a bundle
-	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/api/#pagination). (optional)
+	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header). (optional)
 	limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
 
 	configuration := openapiclient.NewConfiguration()
@@ -412,7 +412,7 @@ Other parameters are passed through a pointer to a apiListBundleEntitlementsRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **after** | **string** | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination). | 
+ **after** | **string** | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header). | 
  **limit** | **int32** | A limit on the number of objects to return | [default to 20]
 
 ### Return type
@@ -437,7 +437,7 @@ Name | Type | Description  | Notes
 
 > GovernanceBundlesResponse ListGovernanceBundles(ctx).After(after).Limit(limit).Execute()
 
-List all governance bundles for the Admin Console
+List all governance bundles
 
 
 
@@ -454,7 +454,7 @@ import (
 )
 
 func main() {
-	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/api/#pagination). (optional)
+	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header). (optional)
 	limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
 
 	configuration := openapiclient.NewConfiguration()
@@ -480,7 +480,7 @@ Other parameters are passed through a pointer to a apiListGovernanceBundlesReque
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **after** | **string** | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination). | 
+ **after** | **string** | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header). | 
  **limit** | **int32** | A limit on the number of objects to return | [default to 20]
 
 ### Return type
@@ -505,7 +505,7 @@ Name | Type | Description  | Notes
 
 > OptInStatusResponse OptIn(ctx).Execute()
 
-Opt in the Admin Console to RAMP
+Opt in the Admin Console to entitlement management
 
 
 
@@ -566,7 +566,7 @@ Other parameters are passed through a pointer to a apiOptInRequest struct via th
 
 > OptInStatusResponse OptOut(ctx).Execute()
 
-Opt out the Admin Console from RAMP
+Opt out the Admin Console from entitlement management
 
 
 
@@ -627,7 +627,7 @@ Other parameters are passed through a pointer to a apiOptOutRequest struct via t
 
 > GovernanceBundle ReplaceGovernanceBundle(ctx, bundleId).GovernanceBundleUpdateRequest(governanceBundleUpdateRequest).Execute()
 
-Replace a governance bundle in RAMP
+Replace a governance bundle
 
 
 

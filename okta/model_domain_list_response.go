@@ -30,9 +30,9 @@ import (
 // checks if the DomainListResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &DomainListResponse{}
 
-// DomainListResponse Defines a list of domains with a subset of the properties for each domain.
+// DomainListResponse Defines a list of domains with a subset of the properties for each domain
 type DomainListResponse struct {
-	// Each element of the array defines an individual domain.
+	// Each element of the array defines an individual domain
 	Domains              []DomainResponse `json:"domains,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

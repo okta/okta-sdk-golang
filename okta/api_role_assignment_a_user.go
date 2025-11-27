@@ -103,8 +103,8 @@ type RoleAssignmentAUserAPI interface {
 	GetUserAssignedRole(ctx context.Context, userId string, roleAssignmentId string) ApiGetUserAssignedRoleRequest
 
 	// GetUserAssignedRoleExecute executes the request
-	//  @return ListGroupAssignedRoles200ResponseInner
-	GetUserAssignedRoleExecute(r ApiGetUserAssignedRoleRequest) (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error)
+	//  @return AssignRoleToGroup200Response
+	GetUserAssignedRoleExecute(r ApiGetUserAssignedRoleRequest) (*AssignRoleToGroup200Response, *APIResponse, error)
 
 	/*
 		GetUserAssignedRoleGovernance Retrieve all user role governance sources
@@ -731,7 +731,7 @@ type ApiGetUserAssignedRoleRequest struct {
 	retryCount       int32
 }
 
-func (r ApiGetUserAssignedRoleRequest) Execute() (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error) {
+func (r ApiGetUserAssignedRoleRequest) Execute() (*AssignRoleToGroup200Response, *APIResponse, error) {
 	return r.ApiService.GetUserAssignedRoleExecute(r)
 }
 
@@ -757,13 +757,13 @@ func (a *RoleAssignmentAUserAPIService) GetUserAssignedRole(ctx context.Context,
 
 // Execute executes the request
 //
-//	@return ListGroupAssignedRoles200ResponseInner
-func (a *RoleAssignmentAUserAPIService) GetUserAssignedRoleExecute(r ApiGetUserAssignedRoleRequest) (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error) {
+//	@return AssignRoleToGroup200Response
+func (a *RoleAssignmentAUserAPIService) GetUserAssignedRoleExecute(r ApiGetUserAssignedRoleRequest) (*AssignRoleToGroup200Response, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ListGroupAssignedRoles200ResponseInner
+		localVarReturnValue  *AssignRoleToGroup200Response
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error

@@ -654,7 +654,7 @@ func (r ApiListAppServiceAccountsRequest) Limit(limit int32) ApiListAppServiceAc
 	return r
 }
 
-// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination).
+// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header).
 func (r ApiListAppServiceAccountsRequest) After(after string) ApiListAppServiceAccountsRequest {
 	r.after = &after
 	return r

@@ -41,7 +41,7 @@ type SubscriptionAPI interface {
 		Retrieves a subscription by `notificationType` for a specified Role
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
+		@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard roles](/openapi/okta-management/guides/roles/#standard-roles).
 		@param notificationType
 		@return ApiGetSubscriptionsNotificationTypeRoleRequest
 	*/
@@ -73,7 +73,7 @@ type SubscriptionAPI interface {
 		Lists all subscriptions available to a specified Role
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
+		@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard roles](/openapi/okta-management/guides/roles/#standard-roles).
 		@return ApiListSubscriptionsRoleRequest
 	*/
 	ListSubscriptionsRole(ctx context.Context, roleRef ListSubscriptionsRoleRoleRefParameter) ApiListSubscriptionsRoleRequest
@@ -103,7 +103,7 @@ type SubscriptionAPI interface {
 		Subscribes a Role to a specified notification type. Changes to Role subscriptions override the subscription status of any individual users with the Role.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
+		@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard roles](/openapi/okta-management/guides/roles/#standard-roles).
 		@param notificationType
 		@return ApiSubscribeByNotificationTypeRoleRequest
 	*/
@@ -133,7 +133,7 @@ type SubscriptionAPI interface {
 		Unsubscribes a Role from a specified notification type. Changes to Role subscriptions override the subscription status of any individual users with the Role.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
+		@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard roles](/openapi/okta-management/guides/roles/#standard-roles).
 		@param notificationType
 		@return ApiUnsubscribeByNotificationTypeRoleRequest
 	*/
@@ -179,7 +179,7 @@ GetSubscriptionsNotificationTypeRole Retrieve a subscription for a role
 Retrieves a subscription by `notificationType` for a specified Role
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
+	@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard roles](/openapi/okta-management/guides/roles/#standard-roles).
 	@param notificationType
 	@return ApiGetSubscriptionsNotificationTypeRoleRequest
 */
@@ -494,7 +494,7 @@ ListSubscriptionsRole List all subscriptions for a role
 Lists all subscriptions available to a specified Role
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
+	@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard roles](/openapi/okta-management/guides/roles/#standard-roles).
 	@return ApiListSubscriptionsRoleRequest
 */
 func (a *SubscriptionAPIService) ListSubscriptionsRole(ctx context.Context, roleRef ListSubscriptionsRoleRoleRefParameter) ApiListSubscriptionsRoleRequest {
@@ -803,7 +803,7 @@ SubscribeByNotificationTypeRole Subscribe a role to a specific notification type
 Subscribes a Role to a specified notification type. Changes to Role subscriptions override the subscription status of any individual users with the Role.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
+	@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard roles](/openapi/okta-management/guides/roles/#standard-roles).
 	@param notificationType
 	@return ApiSubscribeByNotificationTypeRoleRequest
 */
@@ -1093,7 +1093,7 @@ UnsubscribeByNotificationTypeRole Unsubscribe a role from a specific notificatio
 Unsubscribes a Role from a specified notification type. Changes to Role subscriptions override the subscription status of any individual users with the Role.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
+	@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard roles](/openapi/okta-management/guides/roles/#standard-roles).
 	@param notificationType
 	@return ApiUnsubscribeByNotificationTypeRoleRequest
 */

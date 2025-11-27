@@ -97,7 +97,7 @@ type RoleCResourceSetAPI interface {
 	/*
 		ReplaceResourceSet Replace a resource set
 
-		Replaces the label and description of a resource set
+		Replaces the label and description of a resource set. See [Supported resources](/openapi/okta-management/guides/roles/#supported-resources).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param resourceSetIdOrLabel `id` or `label` of the resource set
@@ -614,7 +614,7 @@ type ApiListResourceSetsRequest struct {
 	retryCount int32
 }
 
-// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination).
+// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header).
 func (r ApiListResourceSetsRequest) After(after string) ApiListResourceSetsRequest {
 	r.after = &after
 	return r
@@ -787,7 +787,7 @@ func (r ApiReplaceResourceSetRequest) Execute() (*ResourceSet, *APIResponse, err
 /*
 ReplaceResourceSet Replace a resource set
 
-Replaces the label and description of a resource set
+Replaces the label and description of a resource set. See [Supported resources](/openapi/okta-management/guides/roles/#supported-resources).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param resourceSetIdOrLabel `id` or `label` of the resource set

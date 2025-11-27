@@ -47,14 +47,14 @@ type RoleAssignmentClientAPI interface {
 		> * For IAM-based standard role assignments, use the request payload for standard roles. However, the response payload for IAM-based role assignments is similar to the custom role's assignment response.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param clientId Client app ID
+			@param clientId `client_id` of the app
 			@return ApiAssignRoleToClientRequest
 	*/
 	AssignRoleToClient(ctx context.Context, clientId string) ApiAssignRoleToClientRequest
 
 	// AssignRoleToClientExecute executes the request
-	//  @return ListGroupAssignedRoles200ResponseInner
-	AssignRoleToClientExecute(r ApiAssignRoleToClientRequest) (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error)
+	//  @return AssignRoleToClient200Response
+	AssignRoleToClientExecute(r ApiAssignRoleToClientRequest) (*AssignRoleToClient200Response, *APIResponse, error)
 
 	/*
 		DeleteRoleFromClient Unassign a client role
@@ -62,7 +62,7 @@ type RoleAssignmentClientAPI interface {
 		Unassigns a role assignment (identified by `roleAssignmentId`) from a client app (identified by `clientId`)
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param clientId Client app ID
+		@param clientId `client_id` of the app
 		@param roleAssignmentId The `id` of the role assignment
 		@return ApiDeleteRoleFromClientRequest
 	*/
@@ -77,14 +77,14 @@ type RoleAssignmentClientAPI interface {
 		Lists all roles assigned to a client app identified by `clientId`
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param clientId Client app ID
+		@param clientId `client_id` of the app
 		@return ApiListRolesForClientRequest
 	*/
 	ListRolesForClient(ctx context.Context, clientId string) ApiListRolesForClientRequest
 
 	// ListRolesForClientExecute executes the request
-	//  @return ListGroupAssignedRoles200ResponseInner
-	ListRolesForClientExecute(r ApiListRolesForClientRequest) (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error)
+	//  @return []ListRolesForClient200ResponseInner
+	ListRolesForClientExecute(r ApiListRolesForClientRequest) ([]ListRolesForClient200ResponseInner, *APIResponse, error)
 
 	/*
 		RetrieveClientRole Retrieve a client role
@@ -92,34 +92,34 @@ type RoleAssignmentClientAPI interface {
 		Retrieves a role assignment (identified by `roleAssignmentId`) for a client app (identified by `clientId`)
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param clientId Client app ID
+		@param clientId `client_id` of the app
 		@param roleAssignmentId The `id` of the role assignment
 		@return ApiRetrieveClientRoleRequest
 	*/
 	RetrieveClientRole(ctx context.Context, clientId string, roleAssignmentId string) ApiRetrieveClientRoleRequest
 
 	// RetrieveClientRoleExecute executes the request
-	//  @return ListGroupAssignedRoles200ResponseInner
-	RetrieveClientRoleExecute(r ApiRetrieveClientRoleRequest) (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error)
+	//  @return AssignRoleToClient200Response
+	RetrieveClientRoleExecute(r ApiRetrieveClientRoleRequest) (*AssignRoleToClient200Response, *APIResponse, error)
 }
 
 // RoleAssignmentClientAPIService RoleAssignmentClientAPI service
 type RoleAssignmentClientAPIService service
 
 type ApiAssignRoleToClientRequest struct {
-	ctx                      context.Context
-	ApiService               RoleAssignmentClientAPI
-	clientId                 string
-	assignRoleToGroupRequest *AssignRoleToGroupRequest
-	retryCount               int32
+	ctx                       context.Context
+	ApiService                RoleAssignmentClientAPI
+	clientId                  string
+	assignRoleToClientRequest *AssignRoleToClientRequest
+	retryCount                int32
 }
 
-func (r ApiAssignRoleToClientRequest) AssignRoleToGroupRequest(assignRoleToGroupRequest AssignRoleToGroupRequest) ApiAssignRoleToClientRequest {
-	r.assignRoleToGroupRequest = &assignRoleToGroupRequest
+func (r ApiAssignRoleToClientRequest) AssignRoleToClientRequest(assignRoleToClientRequest AssignRoleToClientRequest) ApiAssignRoleToClientRequest {
+	r.assignRoleToClientRequest = &assignRoleToClientRequest
 	return r
 }
 
-func (r ApiAssignRoleToClientRequest) Execute() (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error) {
+func (r ApiAssignRoleToClientRequest) Execute() (*AssignRoleToClient200Response, *APIResponse, error) {
 	return r.ApiService.AssignRoleToClientExecute(r)
 }
 
@@ -135,7 +135,7 @@ You can also assign a custom role to a client app, but the preferred method to a
 > * For IAM-based standard role assignments, use the request payload for standard roles. However, the response payload for IAM-based role assignments is similar to the custom role's assignment response.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId Client app ID
+	@param clientId `client_id` of the app
 	@return ApiAssignRoleToClientRequest
 */
 func (a *RoleAssignmentClientAPIService) AssignRoleToClient(ctx context.Context, clientId string) ApiAssignRoleToClientRequest {
@@ -149,13 +149,13 @@ func (a *RoleAssignmentClientAPIService) AssignRoleToClient(ctx context.Context,
 
 // Execute executes the request
 //
-//	@return ListGroupAssignedRoles200ResponseInner
-func (a *RoleAssignmentClientAPIService) AssignRoleToClientExecute(r ApiAssignRoleToClientRequest) (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error) {
+//	@return AssignRoleToClient200Response
+func (a *RoleAssignmentClientAPIService) AssignRoleToClientExecute(r ApiAssignRoleToClientRequest) (*AssignRoleToClient200Response, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ListGroupAssignedRoles200ResponseInner
+		localVarReturnValue  *AssignRoleToClient200Response
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -177,8 +177,8 @@ func (a *RoleAssignmentClientAPIService) AssignRoleToClientExecute(r ApiAssignRo
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.assignRoleToGroupRequest == nil {
-		return localVarReturnValue, nil, reportError("assignRoleToGroupRequest is required and must be specified")
+	if r.assignRoleToClientRequest == nil {
+		return localVarReturnValue, nil, reportError("assignRoleToClientRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -199,7 +199,7 @@ func (a *RoleAssignmentClientAPIService) AssignRoleToClientExecute(r ApiAssignRo
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.assignRoleToGroupRequest
+	localVarPostBody = r.assignRoleToClientRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -307,7 +307,7 @@ DeleteRoleFromClient Unassign a client role
 Unassigns a role assignment (identified by `roleAssignmentId`) from a client app (identified by `clientId`)
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId Client app ID
+	@param clientId `client_id` of the app
 	@param roleAssignmentId The `id` of the role assignment
 	@return ApiDeleteRoleFromClientRequest
 */
@@ -453,7 +453,7 @@ type ApiListRolesForClientRequest struct {
 	retryCount int32
 }
 
-func (r ApiListRolesForClientRequest) Execute() (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error) {
+func (r ApiListRolesForClientRequest) Execute() ([]ListRolesForClient200ResponseInner, *APIResponse, error) {
 	return r.ApiService.ListRolesForClientExecute(r)
 }
 
@@ -463,7 +463,7 @@ ListRolesForClient List all client role assignments
 Lists all roles assigned to a client app identified by `clientId`
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId Client app ID
+	@param clientId `client_id` of the app
 	@return ApiListRolesForClientRequest
 */
 func (a *RoleAssignmentClientAPIService) ListRolesForClient(ctx context.Context, clientId string) ApiListRolesForClientRequest {
@@ -477,13 +477,13 @@ func (a *RoleAssignmentClientAPIService) ListRolesForClient(ctx context.Context,
 
 // Execute executes the request
 //
-//	@return ListGroupAssignedRoles200ResponseInner
-func (a *RoleAssignmentClientAPIService) ListRolesForClientExecute(r ApiListRolesForClientRequest) (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error) {
+//	@return []ListRolesForClient200ResponseInner
+func (a *RoleAssignmentClientAPIService) ListRolesForClientExecute(r ApiListRolesForClientRequest) ([]ListRolesForClient200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ListGroupAssignedRoles200ResponseInner
+		localVarReturnValue  []ListRolesForClient200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -620,7 +620,7 @@ type ApiRetrieveClientRoleRequest struct {
 	retryCount       int32
 }
 
-func (r ApiRetrieveClientRoleRequest) Execute() (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error) {
+func (r ApiRetrieveClientRoleRequest) Execute() (*AssignRoleToClient200Response, *APIResponse, error) {
 	return r.ApiService.RetrieveClientRoleExecute(r)
 }
 
@@ -630,7 +630,7 @@ RetrieveClientRole Retrieve a client role
 Retrieves a role assignment (identified by `roleAssignmentId`) for a client app (identified by `clientId`)
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId Client app ID
+	@param clientId `client_id` of the app
 	@param roleAssignmentId The `id` of the role assignment
 	@return ApiRetrieveClientRoleRequest
 */
@@ -646,13 +646,13 @@ func (a *RoleAssignmentClientAPIService) RetrieveClientRole(ctx context.Context,
 
 // Execute executes the request
 //
-//	@return ListGroupAssignedRoles200ResponseInner
-func (a *RoleAssignmentClientAPIService) RetrieveClientRoleExecute(r ApiRetrieveClientRoleRequest) (*ListGroupAssignedRoles200ResponseInner, *APIResponse, error) {
+//	@return AssignRoleToClient200Response
+func (a *RoleAssignmentClientAPIService) RetrieveClientRoleExecute(r ApiRetrieveClientRoleRequest) (*AssignRoleToClient200Response, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ListGroupAssignedRoles200ResponseInner
+		localVarReturnValue  *AssignRoleToClient200Response
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error

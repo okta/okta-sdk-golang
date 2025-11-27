@@ -30,9 +30,10 @@ import (
 // checks if the GovernanceBundleLinks type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GovernanceBundleLinks{}
 
-// GovernanceBundleLinks struct for GovernanceBundleLinks
+// GovernanceBundleLinks Link relations available
 type GovernanceBundleLinks struct {
-	Entitlements         *HrefObject `json:"entitlements,omitempty"`
+	Entitlements         *EntitlementsLink   `json:"entitlements,omitempty"`
+	Self                 *HrefObjectSelfLink `json:"self,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,9 +57,9 @@ func NewGovernanceBundleLinksWithDefaults() *GovernanceBundleLinks {
 }
 
 // GetEntitlements returns the Entitlements field value if set, zero value otherwise.
-func (o *GovernanceBundleLinks) GetEntitlements() HrefObject {
+func (o *GovernanceBundleLinks) GetEntitlements() EntitlementsLink {
 	if o == nil || IsNil(o.Entitlements) {
-		var ret HrefObject
+		var ret EntitlementsLink
 		return ret
 	}
 	return *o.Entitlements
@@ -66,7 +67,7 @@ func (o *GovernanceBundleLinks) GetEntitlements() HrefObject {
 
 // GetEntitlementsOk returns a tuple with the Entitlements field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GovernanceBundleLinks) GetEntitlementsOk() (*HrefObject, bool) {
+func (o *GovernanceBundleLinks) GetEntitlementsOk() (*EntitlementsLink, bool) {
 	if o == nil || IsNil(o.Entitlements) {
 		return nil, false
 	}
@@ -82,9 +83,41 @@ func (o *GovernanceBundleLinks) HasEntitlements() bool {
 	return false
 }
 
-// SetEntitlements gets a reference to the given HrefObject and assigns it to the Entitlements field.
-func (o *GovernanceBundleLinks) SetEntitlements(v HrefObject) {
+// SetEntitlements gets a reference to the given EntitlementsLink and assigns it to the Entitlements field.
+func (o *GovernanceBundleLinks) SetEntitlements(v EntitlementsLink) {
 	o.Entitlements = &v
+}
+
+// GetSelf returns the Self field value if set, zero value otherwise.
+func (o *GovernanceBundleLinks) GetSelf() HrefObjectSelfLink {
+	if o == nil || IsNil(o.Self) {
+		var ret HrefObjectSelfLink
+		return ret
+	}
+	return *o.Self
+}
+
+// GetSelfOk returns a tuple with the Self field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GovernanceBundleLinks) GetSelfOk() (*HrefObjectSelfLink, bool) {
+	if o == nil || IsNil(o.Self) {
+		return nil, false
+	}
+	return o.Self, true
+}
+
+// HasSelf returns a boolean if a field has been set.
+func (o *GovernanceBundleLinks) HasSelf() bool {
+	if o != nil && !IsNil(o.Self) {
+		return true
+	}
+
+	return false
+}
+
+// SetSelf gets a reference to the given HrefObjectSelfLink and assigns it to the Self field.
+func (o *GovernanceBundleLinks) SetSelf(v HrefObjectSelfLink) {
+	o.Self = &v
 }
 
 func (o GovernanceBundleLinks) MarshalJSON() ([]byte, error) {
@@ -99,6 +132,9 @@ func (o GovernanceBundleLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Entitlements) {
 		toSerialize["entitlements"] = o.Entitlements
+	}
+	if !IsNil(o.Self) {
+		toSerialize["self"] = o.Self
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -123,6 +159,7 @@ func (o *GovernanceBundleLinks) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "entitlements")
+		delete(additionalProperties, "self")
 		o.AdditionalProperties = additionalProperties
 	}
 

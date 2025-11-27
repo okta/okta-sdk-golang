@@ -4,17 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Crv** | **string** | The cryptographic curve used with the key | 
 **Kty** | Pointer to **string** | Cryptographic algorithm family for the certificate&#39;s key pair | [optional] 
-**X** | Pointer to **string** | The public x coordinate for the elliptic curve point | [optional] 
-**Y** | Pointer to **string** | The public y coordinate for the elliptic curve point | [optional] 
-**Kid** | Pointer to **NullableString** | Unique identifier of the JSON Web Key in the OAUth 2.0 client&#39;s JWKS | [optional] 
-**Status** | Pointer to **string** | Status of the OAuth 2.0 client JSON Web Key | [optional] [default to "ACTIVE"]
+**X** | **string** | The public x coordinate for the elliptic curve point | 
+**Y** | **string** | The public y coordinate for the elliptic curve point | 
 
 ## Methods
 
 ### NewOAuth2ClientJsonWebKeyECRequest
 
-`func NewOAuth2ClientJsonWebKeyECRequest() *OAuth2ClientJsonWebKeyECRequest`
+`func NewOAuth2ClientJsonWebKeyECRequest(crv string, x string, y string, ) *OAuth2ClientJsonWebKeyECRequest`
 
 NewOAuth2ClientJsonWebKeyECRequest instantiates a new OAuth2ClientJsonWebKeyECRequest object
 This constructor will assign default values to properties that have it defined,
@@ -28,6 +27,26 @@ will change when the set of required properties is changed
 NewOAuth2ClientJsonWebKeyECRequestWithDefaults instantiates a new OAuth2ClientJsonWebKeyECRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetCrv
+
+`func (o *OAuth2ClientJsonWebKeyECRequest) GetCrv() string`
+
+GetCrv returns the Crv field if non-nil, zero value otherwise.
+
+### GetCrvOk
+
+`func (o *OAuth2ClientJsonWebKeyECRequest) GetCrvOk() (*string, bool)`
+
+GetCrvOk returns a tuple with the Crv field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCrv
+
+`func (o *OAuth2ClientJsonWebKeyECRequest) SetCrv(v string)`
+
+SetCrv sets Crv field to given value.
+
 
 ### GetKty
 
@@ -73,11 +92,6 @@ and a boolean to check if the value has been set.
 
 SetX sets X field to given value.
 
-### HasX
-
-`func (o *OAuth2ClientJsonWebKeyECRequest) HasX() bool`
-
-HasX returns a boolean if a field has been set.
 
 ### GetY
 
@@ -98,71 +112,6 @@ and a boolean to check if the value has been set.
 
 SetY sets Y field to given value.
 
-### HasY
-
-`func (o *OAuth2ClientJsonWebKeyECRequest) HasY() bool`
-
-HasY returns a boolean if a field has been set.
-
-### GetKid
-
-`func (o *OAuth2ClientJsonWebKeyECRequest) GetKid() string`
-
-GetKid returns the Kid field if non-nil, zero value otherwise.
-
-### GetKidOk
-
-`func (o *OAuth2ClientJsonWebKeyECRequest) GetKidOk() (*string, bool)`
-
-GetKidOk returns a tuple with the Kid field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetKid
-
-`func (o *OAuth2ClientJsonWebKeyECRequest) SetKid(v string)`
-
-SetKid sets Kid field to given value.
-
-### HasKid
-
-`func (o *OAuth2ClientJsonWebKeyECRequest) HasKid() bool`
-
-HasKid returns a boolean if a field has been set.
-
-### SetKidNil
-
-`func (o *OAuth2ClientJsonWebKeyECRequest) SetKidNil(b bool)`
-
- SetKidNil sets the value for Kid to be an explicit nil
-
-### UnsetKid
-`func (o *OAuth2ClientJsonWebKeyECRequest) UnsetKid()`
-
-UnsetKid ensures that no value is present for Kid, not even an explicit nil
-### GetStatus
-
-`func (o *OAuth2ClientJsonWebKeyECRequest) GetStatus() string`
-
-GetStatus returns the Status field if non-nil, zero value otherwise.
-
-### GetStatusOk
-
-`func (o *OAuth2ClientJsonWebKeyECRequest) GetStatusOk() (*string, bool)`
-
-GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetStatus
-
-`func (o *OAuth2ClientJsonWebKeyECRequest) SetStatus(v string)`
-
-SetStatus sets Status field to given value.
-
-### HasStatus
-
-`func (o *OAuth2ClientJsonWebKeyECRequest) HasStatus() bool`
-
-HasStatus returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

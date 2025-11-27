@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ButtonLabel** | Pointer to **string** | Specifies the button label for the &#x60;Submit&#x60; button at the bottom of the enrollment form | [optional] [default to "Submit"]
-**Elements** | Pointer to [**UIElement**](UIElement.md) |  | [optional] 
+**Elements** | Pointer to [**[]UIElement**](UIElement.md) |  | [optional] 
 **Label** | Pointer to **string** | Specifies the label at the top of the enrollment form under the logo | [optional] [default to "Sign in"]
 **Type** | Pointer to **string** | Specifies the type of layout | [optional] 
 
@@ -55,20 +55,20 @@ HasButtonLabel returns a boolean if a field has been set.
 
 ### GetElements
 
-`func (o *UISchemaObject) GetElements() UIElement`
+`func (o *UISchemaObject) GetElements() []UIElement`
 
 GetElements returns the Elements field if non-nil, zero value otherwise.
 
 ### GetElementsOk
 
-`func (o *UISchemaObject) GetElementsOk() (*UIElement, bool)`
+`func (o *UISchemaObject) GetElementsOk() (*[]UIElement, bool)`
 
 GetElementsOk returns a tuple with the Elements field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetElements
 
-`func (o *UISchemaObject) SetElements(v UIElement)`
+`func (o *UISchemaObject) SetElements(v []UIElement)`
 
 SetElements sets Elements field to given value.
 

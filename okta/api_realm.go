@@ -79,12 +79,14 @@ type RealmAPI interface {
 	GetRealmExecute(r ApiGetRealmRequest) (*Realm, *APIResponse, error)
 
 	/*
-		ListRealms List all realms
+			ListRealms List all realms
 
-		Lists all Realms
+			Lists all realms.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiListRealmsRequest
+		> **Note:** The `search` parameter results are sourced from an eventually consistent datasource and may not reflect the latest information.
+
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiListRealmsRequest
 	*/
 	ListRealms(ctx context.Context) ApiListRealmsRequest
 
@@ -644,7 +646,7 @@ func (r ApiListRealmsRequest) Limit(limit int32) ApiListRealmsRequest {
 	return r
 }
 
-// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination).
+// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header).
 func (r ApiListRealmsRequest) After(after string) ApiListRealmsRequest {
 	r.after = &after
 	return r
@@ -662,7 +664,7 @@ func (r ApiListRealmsRequest) SortBy(sortBy string) ApiListRealmsRequest {
 	return r
 }
 
-// Specifies the sort order: &#x60;asc&#x60; or &#x60;desc&#x60; (for search queries only). This parameter is ignored if &#x60;sortBy&#x60; isn&#39;t present.
+// Specifies sort order: &#x60;asc&#x60; or &#x60;desc&#x60; (for search queries only). This parameter is ignored if &#x60;sortBy&#x60; isn&#39;t present.
 func (r ApiListRealmsRequest) SortOrder(sortOrder string) ApiListRealmsRequest {
 	r.sortOrder = &sortOrder
 	return r
@@ -675,7 +677,9 @@ func (r ApiListRealmsRequest) Execute() ([]Realm, *APIResponse, error) {
 /*
 ListRealms List all realms
 
-Lists all Realms
+Lists all realms.
+
+> **Note:** The `search` parameter results are sourced from an eventually consistent datasource and may not reflect the latest information.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiListRealmsRequest

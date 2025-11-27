@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **EventTimestamp** | Pointer to **int64** | The time of the event (UNIX timestamp) | [optional] 
 **ReasonAdmin** | Pointer to [**CaepCredentialChangeEventReasonAdmin**](CaepCredentialChangeEventReasonAdmin.md) |  | [optional] 
 **ReasonUser** | Pointer to [**CaepCredentialChangeEventReasonUser**](CaepCredentialChangeEventReasonUser.md) |  | [optional] 
-**Subject** | Pointer to [**SecurityEventSubject**](SecurityEventSubject.md) |  | [optional] 
+**Subject** | Pointer to [**SsfTransmitterSecurityEventSubject**](SsfTransmitterSecurityEventSubject.md) |  | [optional] 
 
 ## Methods
 
@@ -105,20 +105,20 @@ HasReasonUser returns a boolean if a field has been set.
 
 ### GetSubject
 
-`func (o *CaepEvent) GetSubject() SecurityEventSubject`
+`func (o *CaepEvent) GetSubject() SsfTransmitterSecurityEventSubject`
 
 GetSubject returns the Subject field if non-nil, zero value otherwise.
 
 ### GetSubjectOk
 
-`func (o *CaepEvent) GetSubjectOk() (*SecurityEventSubject, bool)`
+`func (o *CaepEvent) GetSubjectOk() (*SsfTransmitterSecurityEventSubject, bool)`
 
 GetSubjectOk returns a tuple with the Subject field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSubject
 
-`func (o *CaepEvent) SetSubject(v SecurityEventSubject)`
+`func (o *CaepEvent) SetSubject(v SsfTransmitterSecurityEventSubject)`
 
 SetSubject sets Subject field to given value.
 

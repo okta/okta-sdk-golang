@@ -29,6 +29,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"reflect"
 	"strings"
 	"time"
 )
@@ -627,11 +628,18 @@ func (a *UserAuthenticatorEnrollmentsAPIService) DeleteAuthenticatorEnrollmentEx
 }
 
 type ApiGetAuthenticatorEnrollmentRequest struct {
-	ctx          context.Context
-	ApiService   UserAuthenticatorEnrollmentsAPI
-	userId       string
-	enrollmentId string
-	retryCount   int32
+	ctx                 context.Context
+	ApiService          UserAuthenticatorEnrollmentsAPI
+	userId              string
+	enrollmentId        string
+	discloseIdentifiers *[]string
+	retryCount          int32
+}
+
+// Indicates whether or not the identifier of an authenticator enrollment is disclosed or anonymized. If it&#39;s included in the operation query, then the identifier of the authenticator enrollment (the actual phone number, for example) is included in the response.
+func (r ApiGetAuthenticatorEnrollmentRequest) DiscloseIdentifiers(discloseIdentifiers []string) ApiGetAuthenticatorEnrollmentRequest {
+	r.discloseIdentifiers = &discloseIdentifiers
+	return r
 }
 
 func (r ApiGetAuthenticatorEnrollmentRequest) Execute() (*AuthenticatorEnrollment, *APIResponse, error) {
@@ -690,6 +698,17 @@ func (a *UserAuthenticatorEnrollmentsAPIService) GetAuthenticatorEnrollmentExecu
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.discloseIdentifiers != nil {
+		t := *r.discloseIdentifiers
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				localVarQueryParams.Add("discloseIdentifiers", parameterToString(s.Index(i), "multi"))
+			}
+		} else {
+			localVarQueryParams.Add("discloseIdentifiers", parameterToString(t, "multi"))
+		}
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -797,10 +816,17 @@ func (a *UserAuthenticatorEnrollmentsAPIService) GetAuthenticatorEnrollmentExecu
 }
 
 type ApiListAuthenticatorEnrollmentsRequest struct {
-	ctx        context.Context
-	ApiService UserAuthenticatorEnrollmentsAPI
-	userId     string
-	retryCount int32
+	ctx                 context.Context
+	ApiService          UserAuthenticatorEnrollmentsAPI
+	userId              string
+	discloseIdentifiers *[]string
+	retryCount          int32
+}
+
+// Indicates whether or not the identifier of an authenticator enrollment is disclosed or anonymized. If it&#39;s included in the operation query, then the identifier of the authenticator enrollment (the actual phone number, for example) is included in the response.
+func (r ApiListAuthenticatorEnrollmentsRequest) DiscloseIdentifiers(discloseIdentifiers []string) ApiListAuthenticatorEnrollmentsRequest {
+	r.discloseIdentifiers = &discloseIdentifiers
+	return r
 }
 
 func (r ApiListAuthenticatorEnrollmentsRequest) Execute() (*AuthenticatorEnrollment, *APIResponse, error) {
@@ -856,6 +882,17 @@ func (a *UserAuthenticatorEnrollmentsAPIService) ListAuthenticatorEnrollmentsExe
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.discloseIdentifiers != nil {
+		t := *r.discloseIdentifiers
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				localVarQueryParams.Add("discloseIdentifiers", parameterToString(s.Index(i), "multi"))
+			}
+		} else {
+			localVarQueryParams.Add("discloseIdentifiers", parameterToString(t, "multi"))
+		}
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

@@ -25,6 +25,7 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -33,26 +34,18 @@ var _ MappedNullable = &OperationResponse{}
 
 // OperationResponse struct for OperationResponse
 type OperationResponse struct {
-	AssignmentOperation *OperationResponseAssignmentOperation `json:"assignmentOperation,omitempty"`
-	// Timestamp when the realm assignment operation completed
+	// Timestamp of when the operation completed
 	Completed *time.Time `json:"completed,omitempty"`
-	// Timestamp when the realm assignment operation was created
-	Created *time.Time `json:"created,omitempty"`
-	// ID of the realm
-	Id *string `json:"id,omitempty"`
-	// Number of users moved
-	NumUserMoved *float32 `json:"numUserMoved,omitempty"`
-	// ID of the realm
-	RealmId *string `json:"realmId,omitempty"`
-	// Name of the realm
-	RealmName *string `json:"realmName,omitempty"`
-	// Timestamp when the realm assignment operation started
+	// Timestamp of when the operation was created
+	Created time.Time `json:"created"`
+	// ID of the asynchronous operation
+	Id string `json:"id"`
+	// Timestamp of when the operation started
 	Started *time.Time `json:"started,omitempty"`
-	// Current status of the operation
-	Status *string `json:"status,omitempty"`
-	// Realm type
-	Type                 *string    `json:"type,omitempty"`
-	Links                *LinksSelf `json:"_links,omitempty"`
+	// The status of the asynchronous operation
+	Status string `json:"status"`
+	// The operation type
+	Type                 string `json:"type"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -62,8 +55,12 @@ type _OperationResponse OperationResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOperationResponse() *OperationResponse {
+func NewOperationResponse(created time.Time, id string, status string, type_ string) *OperationResponse {
 	this := OperationResponse{}
+	this.Created = created
+	this.Id = id
+	this.Status = status
+	this.Type = type_
 	return &this
 }
 
@@ -73,38 +70,6 @@ func NewOperationResponse() *OperationResponse {
 func NewOperationResponseWithDefaults() *OperationResponse {
 	this := OperationResponse{}
 	return &this
-}
-
-// GetAssignmentOperation returns the AssignmentOperation field value if set, zero value otherwise.
-func (o *OperationResponse) GetAssignmentOperation() OperationResponseAssignmentOperation {
-	if o == nil || IsNil(o.AssignmentOperation) {
-		var ret OperationResponseAssignmentOperation
-		return ret
-	}
-	return *o.AssignmentOperation
-}
-
-// GetAssignmentOperationOk returns a tuple with the AssignmentOperation field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *OperationResponse) GetAssignmentOperationOk() (*OperationResponseAssignmentOperation, bool) {
-	if o == nil || IsNil(o.AssignmentOperation) {
-		return nil, false
-	}
-	return o.AssignmentOperation, true
-}
-
-// HasAssignmentOperation returns a boolean if a field has been set.
-func (o *OperationResponse) HasAssignmentOperation() bool {
-	if o != nil && !IsNil(o.AssignmentOperation) {
-		return true
-	}
-
-	return false
-}
-
-// SetAssignmentOperation gets a reference to the given OperationResponseAssignmentOperation and assigns it to the AssignmentOperation field.
-func (o *OperationResponse) SetAssignmentOperation(v OperationResponseAssignmentOperation) {
-	o.AssignmentOperation = &v
 }
 
 // GetCompleted returns the Completed field value if set, zero value otherwise.
@@ -139,164 +104,52 @@ func (o *OperationResponse) SetCompleted(v time.Time) {
 	o.Completed = &v
 }
 
-// GetCreated returns the Created field value if set, zero value otherwise.
+// GetCreated returns the Created field value
 func (o *OperationResponse) GetCreated() time.Time {
-	if o == nil || IsNil(o.Created) {
+	if o == nil {
 		var ret time.Time
 		return ret
 	}
-	return *o.Created
+
+	return o.Created
 }
 
-// GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
+// GetCreatedOk returns a tuple with the Created field value
 // and a boolean to check if the value has been set.
 func (o *OperationResponse) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.Created) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Created, true
+	return &o.Created, true
 }
 
-// HasCreated returns a boolean if a field has been set.
-func (o *OperationResponse) HasCreated() bool {
-	if o != nil && !IsNil(o.Created) {
-		return true
-	}
-
-	return false
-}
-
-// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
+// SetCreated sets field value
 func (o *OperationResponse) SetCreated(v time.Time) {
-	o.Created = &v
+	o.Created = v
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *OperationResponse) GetId() string {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *OperationResponse) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *OperationResponse) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *OperationResponse) SetId(v string) {
-	o.Id = &v
-}
-
-// GetNumUserMoved returns the NumUserMoved field value if set, zero value otherwise.
-func (o *OperationResponse) GetNumUserMoved() float32 {
-	if o == nil || IsNil(o.NumUserMoved) {
-		var ret float32
-		return ret
-	}
-	return *o.NumUserMoved
-}
-
-// GetNumUserMovedOk returns a tuple with the NumUserMoved field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *OperationResponse) GetNumUserMovedOk() (*float32, bool) {
-	if o == nil || IsNil(o.NumUserMoved) {
-		return nil, false
-	}
-	return o.NumUserMoved, true
-}
-
-// HasNumUserMoved returns a boolean if a field has been set.
-func (o *OperationResponse) HasNumUserMoved() bool {
-	if o != nil && !IsNil(o.NumUserMoved) {
-		return true
-	}
-
-	return false
-}
-
-// SetNumUserMoved gets a reference to the given float32 and assigns it to the NumUserMoved field.
-func (o *OperationResponse) SetNumUserMoved(v float32) {
-	o.NumUserMoved = &v
-}
-
-// GetRealmId returns the RealmId field value if set, zero value otherwise.
-func (o *OperationResponse) GetRealmId() string {
-	if o == nil || IsNil(o.RealmId) {
-		var ret string
-		return ret
-	}
-	return *o.RealmId
-}
-
-// GetRealmIdOk returns a tuple with the RealmId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *OperationResponse) GetRealmIdOk() (*string, bool) {
-	if o == nil || IsNil(o.RealmId) {
-		return nil, false
-	}
-	return o.RealmId, true
-}
-
-// HasRealmId returns a boolean if a field has been set.
-func (o *OperationResponse) HasRealmId() bool {
-	if o != nil && !IsNil(o.RealmId) {
-		return true
-	}
-
-	return false
-}
-
-// SetRealmId gets a reference to the given string and assigns it to the RealmId field.
-func (o *OperationResponse) SetRealmId(v string) {
-	o.RealmId = &v
-}
-
-// GetRealmName returns the RealmName field value if set, zero value otherwise.
-func (o *OperationResponse) GetRealmName() string {
-	if o == nil || IsNil(o.RealmName) {
-		var ret string
-		return ret
-	}
-	return *o.RealmName
-}
-
-// GetRealmNameOk returns a tuple with the RealmName field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *OperationResponse) GetRealmNameOk() (*string, bool) {
-	if o == nil || IsNil(o.RealmName) {
-		return nil, false
-	}
-	return o.RealmName, true
-}
-
-// HasRealmName returns a boolean if a field has been set.
-func (o *OperationResponse) HasRealmName() bool {
-	if o != nil && !IsNil(o.RealmName) {
-		return true
-	}
-
-	return false
-}
-
-// SetRealmName gets a reference to the given string and assigns it to the RealmName field.
-func (o *OperationResponse) SetRealmName(v string) {
-	o.RealmName = &v
+	o.Id = v
 }
 
 // GetStarted returns the Started field value if set, zero value otherwise.
@@ -331,100 +184,52 @@ func (o *OperationResponse) SetStarted(v time.Time) {
 	o.Started = &v
 }
 
-// GetStatus returns the Status field value if set, zero value otherwise.
+// GetStatus returns the Status field value
 func (o *OperationResponse) GetStatus() string {
-	if o == nil || IsNil(o.Status) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Status
+
+	return o.Status
 }
 
-// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
 func (o *OperationResponse) GetStatusOk() (*string, bool) {
-	if o == nil || IsNil(o.Status) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Status, true
+	return &o.Status, true
 }
 
-// HasStatus returns a boolean if a field has been set.
-func (o *OperationResponse) HasStatus() bool {
-	if o != nil && !IsNil(o.Status) {
-		return true
-	}
-
-	return false
-}
-
-// SetStatus gets a reference to the given string and assigns it to the Status field.
+// SetStatus sets field value
 func (o *OperationResponse) SetStatus(v string) {
-	o.Status = &v
+	o.Status = v
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
+// GetType returns the Type field value
 func (o *OperationResponse) GetType() string {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Type
+
+	return o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *OperationResponse) GetTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Type, true
+	return &o.Type, true
 }
 
-// HasType returns a boolean if a field has been set.
-func (o *OperationResponse) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given string and assigns it to the Type field.
+// SetType sets field value
 func (o *OperationResponse) SetType(v string) {
-	o.Type = &v
-}
-
-// GetLinks returns the Links field value if set, zero value otherwise.
-func (o *OperationResponse) GetLinks() LinksSelf {
-	if o == nil || IsNil(o.Links) {
-		var ret LinksSelf
-		return ret
-	}
-	return *o.Links
-}
-
-// GetLinksOk returns a tuple with the Links field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *OperationResponse) GetLinksOk() (*LinksSelf, bool) {
-	if o == nil || IsNil(o.Links) {
-		return nil, false
-	}
-	return o.Links, true
-}
-
-// HasLinks returns a boolean if a field has been set.
-func (o *OperationResponse) HasLinks() bool {
-	if o != nil && !IsNil(o.Links) {
-		return true
-	}
-
-	return false
-}
-
-// SetLinks gets a reference to the given LinksSelf and assigns it to the Links field.
-func (o *OperationResponse) SetLinks(v LinksSelf) {
-	o.Links = &v
+	o.Type = v
 }
 
 func (o OperationResponse) MarshalJSON() ([]byte, error) {
@@ -437,39 +242,16 @@ func (o OperationResponse) MarshalJSON() ([]byte, error) {
 
 func (o OperationResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.AssignmentOperation) {
-		toSerialize["assignmentOperation"] = o.AssignmentOperation
-	}
 	if !IsNil(o.Completed) {
 		toSerialize["completed"] = o.Completed
 	}
-	if !IsNil(o.Created) {
-		toSerialize["created"] = o.Created
-	}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.NumUserMoved) {
-		toSerialize["numUserMoved"] = o.NumUserMoved
-	}
-	if !IsNil(o.RealmId) {
-		toSerialize["realmId"] = o.RealmId
-	}
-	if !IsNil(o.RealmName) {
-		toSerialize["realmName"] = o.RealmName
-	}
+	toSerialize["created"] = o.Created
+	toSerialize["id"] = o.Id
 	if !IsNil(o.Started) {
 		toSerialize["started"] = o.Started
 	}
-	if !IsNil(o.Status) {
-		toSerialize["status"] = o.Status
-	}
-	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
-	}
-	if !IsNil(o.Links) {
-		toSerialize["_links"] = o.Links
-	}
+	toSerialize["status"] = o.Status
+	toSerialize["type"] = o.Type
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -479,6 +261,30 @@ func (o OperationResponse) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *OperationResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"created",
+		"id",
+		"status",
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varOperationResponse := _OperationResponse{}
 
 	err = json.Unmarshal(data, &varOperationResponse)
@@ -492,17 +298,12 @@ func (o *OperationResponse) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "assignmentOperation")
 		delete(additionalProperties, "completed")
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "id")
-		delete(additionalProperties, "numUserMoved")
-		delete(additionalProperties, "realmId")
-		delete(additionalProperties, "realmName")
 		delete(additionalProperties, "started")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "type")
-		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
 	}
 

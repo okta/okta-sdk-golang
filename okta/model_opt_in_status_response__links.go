@@ -30,8 +30,9 @@ import (
 // checks if the OptInStatusResponseLinks type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &OptInStatusResponseLinks{}
 
-// OptInStatusResponseLinks struct for OptInStatusResponseLinks
+// OptInStatusResponseLinks Link relations available
 type OptInStatusResponseLinks struct {
+	// Link to the opt-in status resource
 	OptInStatus          *HrefObject `json:"optInStatus,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
