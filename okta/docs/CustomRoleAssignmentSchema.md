@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ResourceSet** | Pointer to **string** | Resource set ID | [optional] 
-**Role** | Pointer to **string** | Custom role ID | [optional] 
-**Type** | Pointer to **string** | The type of role. Specify &#x60;CUSTOM&#x60; for a custom role. | [optional] 
+**ResourceSet** | **string** | Resource set ID | 
+**Role** | **string** | Custom role ID | 
+**Type** | **string** | Specify a [standard admin role](/openapi/okta-management/guides/roles/#standard-roles), an [IAM-based standard role](/openapi/okta-management/guides/roles/#iam-based-standard-roles), or &#x60;CUSTOM&#x60; for a custom role type: | 
 
 ## Methods
 
 ### NewCustomRoleAssignmentSchema
 
-`func NewCustomRoleAssignmentSchema() *CustomRoleAssignmentSchema`
+`func NewCustomRoleAssignmentSchema(resourceSet string, role string, type_ string, ) *CustomRoleAssignmentSchema`
 
 NewCustomRoleAssignmentSchema instantiates a new CustomRoleAssignmentSchema object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetResourceSet sets ResourceSet field to given value.
 
-### HasResourceSet
-
-`func (o *CustomRoleAssignmentSchema) HasResourceSet() bool`
-
-HasResourceSet returns a boolean if a field has been set.
 
 ### GetRole
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetRole sets Role field to given value.
 
-### HasRole
-
-`func (o *CustomRoleAssignmentSchema) HasRole() bool`
-
-HasRole returns a boolean if a field has been set.
 
 ### GetType
 
@@ -96,11 +86,6 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
-### HasType
-
-`func (o *CustomRoleAssignmentSchema) HasType() bool`
-
-HasType returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

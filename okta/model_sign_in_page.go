@@ -36,8 +36,8 @@ type SignInPage struct {
 	PageContent                  *string                              `json:"pageContent,omitempty"`
 	ContentSecurityPolicySetting *ContentSecurityPolicySetting        `json:"contentSecurityPolicySetting,omitempty"`
 	WidgetCustomizations         *SignInPageAllOfWidgetCustomizations `json:"widgetCustomizations,omitempty"`
-	// The version specified as a [Semantic Version](https://semver.org/).
-	WidgetVersion        *string `json:"widgetVersion,omitempty" validate:"regexp=^(0|[1-9]\\\\d*)\\\\.(0|[1-9]\\\\d*)\\\\.(0|[1-9]\\\\d*)(?:-((?:0|[1-9]\\\\d*|\\\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\\\.(?:0|[1-9]\\\\d*|\\\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\\+([0-9a-zA-Z-]+(?:\\\\.[0-9a-zA-Z-]+)*))?$"`
+	// The version specified as a [Semantic Version](https://semver.org/). This value can be a wildcard (`*`), a major version range (for example, `^2`), a major-only version (for example, `7`), or a specific `Major.Minor` version (for example, `5.15`).
+	WidgetVersion        *string `json:"widgetVersion,omitempty" validate:"regexp=^(?:\\\\*|\\\\^?\\\\d+(?:\\\\.\\\\d+){0,2})$"`
 	AdditionalProperties map[string]interface{}
 }
 

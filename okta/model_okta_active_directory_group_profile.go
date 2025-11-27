@@ -40,8 +40,6 @@ type OktaActiveDirectoryGroupProfile struct {
 	ExternalId *string `json:"externalId,omitempty"`
 	// Name of the Windows group
 	Name *string `json:"name,omitempty"`
-	// The object class type
-	ObjectClass *string `json:"objectClass,omitempty"`
 	// Pre-Windows 2000 name of the Windows group
 	SamAccountName *string `json:"samAccountName,omitempty"`
 	// Fully qualified name of the Windows group
@@ -196,38 +194,6 @@ func (o *OktaActiveDirectoryGroupProfile) SetName(v string) {
 	o.Name = &v
 }
 
-// GetObjectClass returns the ObjectClass field value if set, zero value otherwise.
-func (o *OktaActiveDirectoryGroupProfile) GetObjectClass() string {
-	if o == nil || IsNil(o.ObjectClass) {
-		var ret string
-		return ret
-	}
-	return *o.ObjectClass
-}
-
-// GetObjectClassOk returns a tuple with the ObjectClass field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *OktaActiveDirectoryGroupProfile) GetObjectClassOk() (*string, bool) {
-	if o == nil || IsNil(o.ObjectClass) {
-		return nil, false
-	}
-	return o.ObjectClass, true
-}
-
-// HasObjectClass returns a boolean if a field has been set.
-func (o *OktaActiveDirectoryGroupProfile) HasObjectClass() bool {
-	if o != nil && !IsNil(o.ObjectClass) {
-		return true
-	}
-
-	return false
-}
-
-// SetObjectClass gets a reference to the given string and assigns it to the ObjectClass field.
-func (o *OktaActiveDirectoryGroupProfile) SetObjectClass(v string) {
-	o.ObjectClass = &v
-}
-
 // GetSamAccountName returns the SamAccountName field value if set, zero value otherwise.
 func (o *OktaActiveDirectoryGroupProfile) GetSamAccountName() string {
 	if o == nil || IsNil(o.SamAccountName) {
@@ -314,9 +280,6 @@ func (o OktaActiveDirectoryGroupProfile) ToMap() (map[string]interface{}, error)
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if !IsNil(o.ObjectClass) {
-		toSerialize["objectClass"] = o.ObjectClass
-	}
 	if !IsNil(o.SamAccountName) {
 		toSerialize["samAccountName"] = o.SamAccountName
 	}
@@ -349,7 +312,6 @@ func (o *OktaActiveDirectoryGroupProfile) UnmarshalJSON(data []byte) (err error)
 		delete(additionalProperties, "dn")
 		delete(additionalProperties, "externalId")
 		delete(additionalProperties, "name")
-		delete(additionalProperties, "objectClass")
 		delete(additionalProperties, "samAccountName")
 		delete(additionalProperties, "windowsDomainQualifiedName")
 		o.AdditionalProperties = additionalProperties

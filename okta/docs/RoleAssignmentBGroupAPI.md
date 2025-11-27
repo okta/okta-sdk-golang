@@ -33,7 +33,7 @@ import (
 
 func main() {
 	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
-	assignRoleRequest := openapiclient.assignRoleToGroup_request{CustomRoleAssignmentSchema: openapiclient.NewCustomRoleAssignmentSchema()} // AssignRoleToGroupRequest | 
+	assignRoleRequest := openapiclient.assignRoleToGroup_request{CustomRoleAssignmentSchema: openapiclient.NewCustomRoleAssignmentSchema("ResourceSet_example", "Role_example", "Type_example")} // AssignRoleToGroupRequest | 
 	disableNotifications := true // bool | Grants the group third-party admin status when set to `true` (optional) (default to false)
 
 	configuration := openapiclient.NewConfiguration()

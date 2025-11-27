@@ -824,7 +824,7 @@ type ApiListBundleEntitlementValuesRequest struct {
 	retryCount    int32
 }
 
-// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination).
+// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header).
 func (r ApiListBundleEntitlementValuesRequest) After(after string) ApiListBundleEntitlementValuesRequest {
 	r.after = &after
 	return r
@@ -1001,7 +1001,7 @@ type ApiListBundleEntitlementsRequest struct {
 	retryCount int32
 }
 
-// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination).
+// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header).
 func (r ApiListBundleEntitlementsRequest) After(after string) ApiListBundleEntitlementsRequest {
 	r.after = &after
 	return r
@@ -1174,7 +1174,7 @@ type ApiListGovernanceBundlesRequest struct {
 	retryCount int32
 }
 
-// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination).
+// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header).
 func (r ApiListGovernanceBundlesRequest) After(after string) ApiListGovernanceBundlesRequest {
 	r.after = &after
 	return r

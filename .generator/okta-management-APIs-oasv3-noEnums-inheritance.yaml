@@ -11011,7 +11011,7 @@ paths:
         - name: search
           in: query
           description: |-
-            Searches for groups with a supported [filtering](https://developer.okta.com/docs/api/#filter) expression for all properties except for `_embedded`, `_links`, and `objectClass`.  Okta recommends using this parameter for optimal search performance.
+            Searches for groups with a supported [filtering](https://developer.okta.com/docs/api/#filter) expression for all properties except for `_embedded`, `_links`, and `objectClass`. Okta recommends this query parameter because it provides the largest range of search options and optimal performance.
 
             This operation supports [pagination](https://developer.okta.com/docs/api/#pagination).
 
@@ -11064,7 +11064,7 @@ paths:
 
             Filtering supports the following limited number of properties: `id`, `type`, `lastUpdated`, and `lastMembershipUpdated`.
 
-            > **Note:** All filters must be [URL encoded](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding). For example, `filter=lastUpdated gt "2013-06-01T00:00:00.000Z"` is encoded as `filter=lastUpdated%20gt%20%222013-06-01T00:00:00.000Z%22`.
+            > **Note:** All filters must be [URL encoded](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding). For example, `filter=lastUpdated gt "2013-06-01T00:00:00.000Z"` is encoded as `filter=lastUpdated%20gt%20%222013-06-01T00:00:00.000Z%22`.  See [Special characters](https://developer.okta.com/docs/api/#special-characters).
           schema:
             type: string
           examples:
@@ -11119,16 +11119,11 @@ paths:
             type: string
         - name: sortBy
           in: query
-          description: Specifies field to sort by **(for search queries only)**. `sortBy` can be any single property, for example `sortBy=profile.name`.
+          description: Specifies the field to sort by (for search queries only). `sortBy` can be any single property, for example `sortBy=profile.name`. Groups with the same value for the `sortBy` property are ordered by `id`'. Use with `sortOrder` to control the order of results.
           schema:
             type: string
             example: lastUpdated
-        - name: sortOrder
-          in: query
-          description: 'Specifies sort order: `asc` or `desc` (for search queries only). This parameter is ignored if `sortBy` isn''t present. Groups with the same value for the `sortBy` property are ordered by `id`''.'
-          schema:
-            type: string
-            default: asc
+        - $ref: '#/components/parameters/querySortOrder'
       responses:
         '200':
           description: Success
@@ -11701,6 +11696,7 @@ paths:
             application/json:
               schema:
                 type: array
+                description: List of role assignments
                 items:
                   oneOf:
                     - $ref: '#/components/schemas/StandardRole'
@@ -11709,7 +11705,6 @@ paths:
                     propertyName: type
                     mapping:
                       API_ACCESS_MANAGEMENT_ADMIN: '#/components/schemas/StandardRole'
-                      API_ADMIN: '#/components/schemas/StandardRole'
                       APP_ADMIN: '#/components/schemas/StandardRole'
                       GROUP_MEMBERSHIP_ADMIN: '#/components/schemas/StandardRole'
                       HELP_DESK_ADMIN: '#/components/schemas/StandardRole'
@@ -11719,9 +11714,9 @@ paths:
                       REPORT_ADMIN: '#/components/schemas/StandardRole'
                       SUPER_ADMIN: '#/components/schemas/StandardRole'
                       USER_ADMIN: '#/components/schemas/StandardRole'
-                      WORKFLOWS_ADMIN: '#/components/schemas/StandardRole'
-                      ACCESS_CERTIFICATIONS_ADMIN: '#/components/schemas/StandardRole'
-                      ACCESS_REQUESTS_ADMIN: '#/components/schemas/StandardRole'
+                      WORKFLOWS_ADMIN: '#/components/schemas/CustomRole'
+                      ACCESS_CERTIFICATIONS_ADMIN: '#/components/schemas/CustomRole'
+                      ACCESS_REQUESTS_ADMIN: '#/components/schemas/CustomRole'
                       CUSTOM: '#/components/schemas/CustomRole'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
@@ -11768,19 +11763,17 @@ paths:
                 propertyName: type
                 mapping:
                   API_ACCESS_MANAGEMENT_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
-                  API_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
                   APP_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
                   GROUP_MEMBERSHIP_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
                   HELP_DESK_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
-                  MOBILE_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
                   ORG_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
                   READ_ONLY_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
                   REPORT_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
                   SUPER_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
                   USER_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
-                  ASA_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
-                  GROUP_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
-                  IDP_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
+                  WORKFLOWS_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
+                  ACCESS_CERTIFICATIONS_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
+                  ACCESS_REQUESTS_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
                   CUSTOM: '#/components/schemas/CustomRoleAssignmentSchema'
         required: true
       responses:
@@ -11796,19 +11789,17 @@ paths:
                   propertyName: type
                   mapping:
                     API_ACCESS_MANAGEMENT_ADMIN: '#/components/schemas/StandardRole'
-                    API_ADMIN: '#/components/schemas/StandardRole'
                     APP_ADMIN: '#/components/schemas/StandardRole'
                     GROUP_MEMBERSHIP_ADMIN: '#/components/schemas/StandardRole'
                     HELP_DESK_ADMIN: '#/components/schemas/StandardRole'
-                    MOBILE_ADMIN: '#/components/schemas/StandardRole'
                     ORG_ADMIN: '#/components/schemas/StandardRole'
                     READ_ONLY_ADMIN: '#/components/schemas/StandardRole'
                     REPORT_ADMIN: '#/components/schemas/StandardRole'
                     SUPER_ADMIN: '#/components/schemas/StandardRole'
                     USER_ADMIN: '#/components/schemas/StandardRole'
-                    ASA_ADMIN: '#/components/schemas/StandardRole'
-                    GROUP_ADMIN: '#/components/schemas/StandardRole'
-                    IDP_ADMIN: '#/components/schemas/StandardRole'
+                    WORKFLOWS_ADMIN: '#/components/schemas/CustomRole'
+                    ACCESS_CERTIFICATIONS_ADMIN: '#/components/schemas/CustomRole'
+                    ACCESS_REQUESTS_ADMIN: '#/components/schemas/CustomRole'
                     CUSTOM: '#/components/schemas/CustomRole'
         '201':
           description: Success
@@ -11851,19 +11842,17 @@ paths:
                   propertyName: type
                   mapping:
                     API_ACCESS_MANAGEMENT_ADMIN: '#/components/schemas/StandardRole'
-                    API_ADMIN: '#/components/schemas/StandardRole'
                     APP_ADMIN: '#/components/schemas/StandardRole'
                     GROUP_MEMBERSHIP_ADMIN: '#/components/schemas/StandardRole'
                     HELP_DESK_ADMIN: '#/components/schemas/StandardRole'
-                    MOBILE_ADMIN: '#/components/schemas/StandardRole'
                     ORG_ADMIN: '#/components/schemas/StandardRole'
                     READ_ONLY_ADMIN: '#/components/schemas/StandardRole'
                     REPORT_ADMIN: '#/components/schemas/StandardRole'
                     SUPER_ADMIN: '#/components/schemas/StandardRole'
                     USER_ADMIN: '#/components/schemas/StandardRole'
-                    ASA_ADMIN: '#/components/schemas/StandardRole'
-                    GROUP_ADMIN: '#/components/schemas/StandardRole'
-                    IDP_ADMIN: '#/components/schemas/StandardRole'
+                    WORKFLOWS_ADMIN: '#/components/schemas/CustomRole'
+                    ACCESS_CERTIFICATIONS_ADMIN: '#/components/schemas/CustomRole'
+                    ACCESS_REQUESTS_ADMIN: '#/components/schemas/CustomRole'
                     CUSTOM: '#/components/schemas/CustomRole'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
@@ -19149,7 +19138,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/OperationResponse'
+                  $ref: '#/components/schemas/RealmAssignmentOperationResponse'
         '403':
           description: Forbidden
           content:
@@ -19183,7 +19172,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OperationResponse'
+                $ref: '#/components/schemas/RealmAssignmentOperationResponse'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -19383,12 +19372,7 @@ paths:
           schema:
             type: string
             example: profile.name
-        - name: sortOrder
-          in: query
-          description: 'Specifies the sort order: `asc` or `desc` (for search queries only). This parameter is ignored if `sortBy` isn''t present.'
-          schema:
-            type: string
-            default: asc
+        - $ref: '#/components/parameters/querySortOrder'
       responses:
         '200':
           description: OK
@@ -20769,7 +20753,7 @@ paths:
         - name: search
           in: query
           description: |-
-            Searches for users with a supported filtering expression for most properties. Okta recommends using this parameter for optimal search performance.
+            Searches for users with a supported filtering expression for most properties. Okta recommends this query parameter because it provides the largest range of search options and optimal performance.
 
             > **Note:** Using an overly complex or long search query can result in an error.
 
@@ -20777,12 +20761,13 @@ paths:
 
             Property names in the search parameter are case sensitive, whereas operators (`eq`, `sw`, and so on) and string values are case insensitive. Unlike with user logins, diacritical marks are significant in search string values: a search for `isaac.brock` finds `Isaac.Brock`, but doesn't find a property whose value is `isáàc.bröck`.
 
-            This operation requires [URL encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding). For example, `search=profile.department eq "Engineering"` is encoded as `search=profile.department%20eq%20%22Engineering%22`. If you use the special character `"` within a quoted string, it must also be escaped `\` and encoded. For example, `search=profile.lastName eq "bob"smith"` is encoded as `search=profile.lastName%20eq%20%22bob%5C%22smith%22`. See [Special Characters](https://developer.okta.com/docs/api/#special-characters).
+            This operation requires [URL encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding). See [Special characters](https://developer.okta.com/docs/api/#special-characters).
 
             This operation searches many properties:
               * Any user profile attribute, including custom-defined attributes
               * The top-level properties: `id`, `status`, `created`, `activated`, `statusChanged`, and `lastUpdated`
               * The [user type](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserType/#tag/UserType/operation/updateUserType) accessed as `type.id`
+              * Properties that have array values
 
             > **Note:** <x-lifecycle class="ea"></x-lifecycle> The ability to search by user classification is available as an [Early Access](https://developer.okta.com/docs/api/openapi/okta-management/guides/release-lifecycle/#early-access-ea) feature. The `classification.type` property cannot be used in conjunction with other search terms. You can search using `classification.type eq "LITE"` or `classification.type eq "STANDARD"`.
 
@@ -20852,41 +20837,39 @@ paths:
         - name: q
           in: query
           description: |-
-            Finds users who match the specified query. This doesn't support pagination.
-
-            > **Note:** For optimal performance, use the `search` parameter instead.
-
-            Use the `q` parameter for simple queries, such as a lookup of users by name when creating a people picker.
+            Finds users who match the specified query. Use the `q` parameter for simple queries, such as a lookup of users by name when creating a people picker.
 
             The value of `q` is matched against `firstName`, `lastName`, or `email`. This performs a `startsWith` match, but this is an implementation detail and can change without notice. You don't need to specify `firstName`, `lastName`, or `email`.
 
-            > **Note:** Using the `q` parameter in a request omits users that have a status of `DEPROVISIONED`. To return all users, use a filter or search query instead.
+            > **Notes:**
+            > * Using the `q` parameter in a request omits users that have a status of `DEPROVISIONED`. To return all users, use a `filter` or `search` query instead.
+            > * This doesn't support pagination, but you can use `limit`.
+            > * This isn't designed for large data sets. For optimal performance, use the `search` parameter instead.
           schema:
             type: string
         - $ref: '#/components/parameters/queryAfter'
         - name: limit
           in: query
-          description: Specifies the number of results returned. Defaults to 10 if `q` is provided.
+          description: |-
+            Specifies the number of results returned. Defaults to 10 if `q` is provided.
+
+            You can use `limit` with `after` to define the cursor location in the data set and manage the user records per page.
           schema:
             type: integer
             format: int32
             default: 200
         - name: sortBy
           in: query
-          description: Specifies field to sort by (for search queries only). This can be any single property, for example `sortBy=profile.lastName`. Users with the same value for the `sortBy` property will be ordered by `id`.
+          description: Specifies the field to sort by (for search queries only). This can be any single property, for example `sortBy=profile.lastName`. Users with the same value for the `sortBy` property are ordered by `id`. Use with `sortOrder` to control the order of results.
           schema:
             type: string
-        - name: sortOrder
-          in: query
-          description: 'Specifies the sort order: `asc` or `desc` (for search queries only). Sorting is done in ASCII sort order (that is, by ASCII character value), but isn''t case sensitive. `sortOrder` is ignored if `sortBy` isn''t present.'
-          schema:
-            type: string
+        - $ref: '#/components/parameters/querySortOrder'
         - name: fields
           in: query
           description: |-
-            Specifies a select set of user properties to query. Any other properties will be filtered out of the returned users.
+            Specifies a select set of user properties to query. Any other properties will be filtered out of the returned users. This is often called field projections in APIs, which can reduce payload size, improve performance, and limit unneccessary data exposure.
 
-            Requested fields should be comma-separated. Profile attributes should be contained within a `profile:({field1}, {field2}, ...)` directive.
+            Requested fields should be comma-separated. Comma-separate the fields and place sub-fields in the profile object inside a `profile:()` directive, for example `profile:(firstName, city)`. The `id` field is always included, regardless of whether it's specified in the `fields` parameter.
           schema:
             type: string
           examples:
@@ -23415,7 +23398,6 @@ paths:
                     propertyName: type
                     mapping:
                       API_ACCESS_MANAGEMENT_ADMIN: '#/components/schemas/StandardRole'
-                      API_ADMIN: '#/components/schemas/StandardRole'
                       APP_ADMIN: '#/components/schemas/StandardRole'
                       GROUP_MEMBERSHIP_ADMIN: '#/components/schemas/StandardRole'
                       HELP_DESK_ADMIN: '#/components/schemas/StandardRole'
@@ -23425,9 +23407,9 @@ paths:
                       REPORT_ADMIN: '#/components/schemas/StandardRole'
                       SUPER_ADMIN: '#/components/schemas/StandardRole'
                       USER_ADMIN: '#/components/schemas/StandardRole'
-                      ASA_ADMIN: '#/components/schemas/StandardRole'
-                      GROUP_ADMIN: '#/components/schemas/StandardRole'
-                      IDP_ADMIN: '#/components/schemas/StandardRole'
+                      WORKFLOWS_ADMIN: '#/components/schemas/CustomRole'
+                      ACCESS_CERTIFICATIONS_ADMIN: '#/components/schemas/CustomRole'
+                      ACCESS_REQUESTS_ADMIN: '#/components/schemas/CustomRole'
                       CUSTOM: '#/components/schemas/CustomRole'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
@@ -23475,19 +23457,17 @@ paths:
                 propertyName: type
                 mapping:
                   API_ACCESS_MANAGEMENT_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
-                  API_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
                   APP_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
                   GROUP_MEMBERSHIP_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
                   HELP_DESK_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
-                  MOBILE_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
                   ORG_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
                   READ_ONLY_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
                   REPORT_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
                   SUPER_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
                   USER_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
-                  ASA_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
-                  GROUP_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
-                  IDP_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
+                  WORKFLOWS_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
+                  ACCESS_CERTIFICATIONS_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
+                  ACCESS_REQUESTS_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
                   CUSTOM: '#/components/schemas/CustomRoleAssignmentSchema'
         required: true
       responses:
@@ -23504,19 +23484,17 @@ paths:
                   propertyName: type
                   mapping:
                     API_ACCESS_MANAGEMENT_ADMIN: '#/components/schemas/StandardRole'
-                    API_ADMIN: '#/components/schemas/StandardRole'
                     APP_ADMIN: '#/components/schemas/StandardRole'
                     GROUP_MEMBERSHIP_ADMIN: '#/components/schemas/StandardRole'
                     HELP_DESK_ADMIN: '#/components/schemas/StandardRole'
-                    MOBILE_ADMIN: '#/components/schemas/StandardRole'
                     ORG_ADMIN: '#/components/schemas/StandardRole'
                     READ_ONLY_ADMIN: '#/components/schemas/StandardRole'
                     REPORT_ADMIN: '#/components/schemas/StandardRole'
                     SUPER_ADMIN: '#/components/schemas/StandardRole'
                     USER_ADMIN: '#/components/schemas/StandardRole'
-                    ASA_ADMIN: '#/components/schemas/StandardRole'
-                    GROUP_ADMIN: '#/components/schemas/StandardRole'
-                    IDP_ADMIN: '#/components/schemas/StandardRole'
+                    WORKFLOWS_ADMIN: '#/components/schemas/CustomRole'
+                    ACCESS_CERTIFICATIONS_ADMIN: '#/components/schemas/CustomRole'
+                    ACCESS_REQUESTS_ADMIN: '#/components/schemas/CustomRole'
                     CUSTOM: '#/components/schemas/CustomRole'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
@@ -23556,19 +23534,17 @@ paths:
                   propertyName: type
                   mapping:
                     API_ACCESS_MANAGEMENT_ADMIN: '#/components/schemas/StandardRole'
-                    API_ADMIN: '#/components/schemas/StandardRole'
                     APP_ADMIN: '#/components/schemas/StandardRole'
                     GROUP_MEMBERSHIP_ADMIN: '#/components/schemas/StandardRole'
                     HELP_DESK_ADMIN: '#/components/schemas/StandardRole'
-                    MOBILE_ADMIN: '#/components/schemas/StandardRole'
                     ORG_ADMIN: '#/components/schemas/StandardRole'
                     READ_ONLY_ADMIN: '#/components/schemas/StandardRole'
                     REPORT_ADMIN: '#/components/schemas/StandardRole'
                     SUPER_ADMIN: '#/components/schemas/StandardRole'
                     USER_ADMIN: '#/components/schemas/StandardRole'
-                    ASA_ADMIN: '#/components/schemas/StandardRole'
-                    GROUP_ADMIN: '#/components/schemas/StandardRole'
-                    IDP_ADMIN: '#/components/schemas/StandardRole'
+                    WORKFLOWS_ADMIN: '#/components/schemas/CustomRole'
+                    ACCESS_CERTIFICATIONS_ADMIN: '#/components/schemas/CustomRole'
+                    ACCESS_REQUESTS_ADMIN: '#/components/schemas/CustomRole'
                     CUSTOM: '#/components/schemas/CustomRole'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
@@ -24917,19 +24893,17 @@ paths:
                   propertyName: type
                   mapping:
                     API_ACCESS_MANAGEMENT_ADMIN: '#/components/schemas/StandardRole'
-                    API_ADMIN: '#/components/schemas/StandardRole'
                     APP_ADMIN: '#/components/schemas/StandardRole'
                     GROUP_MEMBERSHIP_ADMIN: '#/components/schemas/StandardRole'
                     HELP_DESK_ADMIN: '#/components/schemas/StandardRole'
-                    MOBILE_ADMIN: '#/components/schemas/StandardRole'
                     ORG_ADMIN: '#/components/schemas/StandardRole'
                     READ_ONLY_ADMIN: '#/components/schemas/StandardRole'
                     REPORT_ADMIN: '#/components/schemas/StandardRole'
                     SUPER_ADMIN: '#/components/schemas/StandardRole'
                     USER_ADMIN: '#/components/schemas/StandardRole'
-                    ASA_ADMIN: '#/components/schemas/StandardRole'
-                    GROUP_ADMIN: '#/components/schemas/StandardRole'
-                    IDP_ADMIN: '#/components/schemas/StandardRole'
+                    ACCESS_CERTIFICATIONS_ADMIN: '#/components/schemas/CustomRole'
+                    ACCESS_REQUESTS_ADMIN: '#/components/schemas/CustomRole'
+                    WORKFLOWS_ADMIN: '#/components/schemas/CustomRole'
                     CUSTOM: '#/components/schemas/CustomRole'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
@@ -24969,19 +24943,17 @@ paths:
                 propertyName: type
                 mapping:
                   API_ACCESS_MANAGEMENT_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
-                  API_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
                   APP_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
                   GROUP_MEMBERSHIP_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
                   HELP_DESK_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
-                  MOBILE_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
                   ORG_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
                   READ_ONLY_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
                   REPORT_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
                   SUPER_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
                   USER_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
-                  ASA_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
-                  GROUP_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
-                  IDP_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
+                  ACCESS_CERTIFICATIONS_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
+                  ACCESS_REQUESTS_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
+                  WORKFLOWS_ADMIN: '#/components/schemas/StandardRoleAssignmentSchema'
                   CUSTOM: '#/components/schemas/CustomRoleAssignmentSchema'
       responses:
         '200':
@@ -24996,19 +24968,17 @@ paths:
                   propertyName: type
                   mapping:
                     API_ACCESS_MANAGEMENT_ADMIN: '#/components/schemas/StandardRole'
-                    API_ADMIN: '#/components/schemas/StandardRole'
                     APP_ADMIN: '#/components/schemas/StandardRole'
                     GROUP_MEMBERSHIP_ADMIN: '#/components/schemas/StandardRole'
                     HELP_DESK_ADMIN: '#/components/schemas/StandardRole'
-                    MOBILE_ADMIN: '#/components/schemas/StandardRole'
                     ORG_ADMIN: '#/components/schemas/StandardRole'
                     READ_ONLY_ADMIN: '#/components/schemas/StandardRole'
                     REPORT_ADMIN: '#/components/schemas/StandardRole'
                     SUPER_ADMIN: '#/components/schemas/StandardRole'
                     USER_ADMIN: '#/components/schemas/StandardRole'
-                    ASA_ADMIN: '#/components/schemas/StandardRole'
-                    GROUP_ADMIN: '#/components/schemas/StandardRole'
-                    IDP_ADMIN: '#/components/schemas/StandardRole'
+                    ACCESS_CERTIFICATIONS_ADMIN: '#/components/schemas/CustomRole'
+                    ACCESS_REQUESTS_ADMIN: '#/components/schemas/CustomRole'
+                    WORKFLOWS_ADMIN: '#/components/schemas/CustomRole'
                     CUSTOM: '#/components/schemas/CustomRole'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
@@ -25046,19 +25016,17 @@ paths:
                   propertyName: type
                   mapping:
                     API_ACCESS_MANAGEMENT_ADMIN: '#/components/schemas/StandardRole'
-                    API_ADMIN: '#/components/schemas/StandardRole'
                     APP_ADMIN: '#/components/schemas/StandardRole'
                     GROUP_MEMBERSHIP_ADMIN: '#/components/schemas/StandardRole'
                     HELP_DESK_ADMIN: '#/components/schemas/StandardRole'
-                    MOBILE_ADMIN: '#/components/schemas/StandardRole'
                     ORG_ADMIN: '#/components/schemas/StandardRole'
                     READ_ONLY_ADMIN: '#/components/schemas/StandardRole'
                     REPORT_ADMIN: '#/components/schemas/StandardRole'
                     SUPER_ADMIN: '#/components/schemas/StandardRole'
                     USER_ADMIN: '#/components/schemas/StandardRole'
-                    ASA_ADMIN: '#/components/schemas/StandardRole'
-                    GROUP_ADMIN: '#/components/schemas/StandardRole'
-                    IDP_ADMIN: '#/components/schemas/StandardRole'
+                    ACCESS_CERTIFICATIONS_ADMIN: '#/components/schemas/CustomRole'
+                    ACCESS_REQUESTS_ADMIN: '#/components/schemas/CustomRole'
+                    WORKFLOWS_ADMIN: '#/components/schemas/CustomRole'
                     CUSTOM: '#/components/schemas/CustomRole'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
@@ -25933,7 +25901,7 @@ paths:
       - $ref: '#/components/parameters/pathAIAgentId'
   /workload-principals/api/v1/operations/{operationId}:
     parameters:
-      - $ref: '#/components/parameters/operationId'
+      - $ref: '#/components/parameters/aiAgentOperationId'
 x-webhooks:
   CreateTelephonyInlineHook:
     post:
@@ -26424,6 +26392,14 @@ components:
       schema:
         type: string
         example: uis4a7liocgcRgcxZ0g7
+    aiAgentOperationId:
+      name: operationId
+      description: ID of the AI agent operation
+      in: path
+      required: true
+      schema:
+        type: string
+        example: op-1a2b3c4d
     appInstanceId:
       name: appInstanceId
       in: path
@@ -26591,12 +26567,11 @@ components:
         example: salesforce
     operationId:
       name: operationId
-      description: ID of the AI agent operation
       in: path
-      required: true
+      description: ID of the asynchronous operation in Okta
       schema:
         type: string
-        example: op-1a2b3c4d
+      required: true
     pathAAGUID:
       name: aaguid
       description: Unique ID of a custom AAGUID
@@ -27306,7 +27281,7 @@ components:
     pathRoleRef:
       name: roleRef
       in: path
-      description: A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
+      description: A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard roles](/openapi/okta-management/guides/roles/#standard-roles).
       required: true
       schema:
         oneOf:
@@ -27536,7 +27511,7 @@ components:
       in: query
       schema:
         type: string
-      description: The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/api/#pagination).
+      description: The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header).
     queryAppAfter:
       name: after
       in: query
@@ -27796,6 +27771,13 @@ components:
       schema:
         type: boolean
       required: false
+    querySortOrder:
+      name: sortOrder
+      in: query
+      description: 'Specifies sort order: `asc` or `desc` (for search queries only). This parameter is ignored if `sortBy` isn''t present.'
+      schema:
+        type: string
+        default: asc
     queryUserExpand:
       name: expand
       in: query
@@ -32314,10 +32296,14 @@ components:
           default: false
           description: Removes "Powered by Okta" from the sign-in page in redirect authentication deployments, and "© [current year] Okta, Inc." from the Okta End-User Dashboard
     BrandDomains:
-      title: BrandDomains
-      items:
-        $ref: '#/components/schemas/DomainResponse'
-      type: array
+      description: Defines a list of domains with a subset of the properties for each domain
+      type: object
+      properties:
+        domains:
+          description: Each element of the array defines an individual domain
+          type: array
+          items:
+            $ref: '#/components/schemas/DomainResponse'
     BrandRequest:
       type: object
       properties:
@@ -33695,7 +33681,7 @@ components:
           readOnly: true
         label:
           type: string
-          description: Label for the custom role assignment
+          description: Label for the role assignment
           readOnly: true
         lastUpdated:
           type: string
@@ -33708,19 +33694,18 @@ components:
           readOnly: true
         role:
           type: string
-          description: Custom role ID
+          description: Role ID
           readOnly: true
         status:
           allOf:
             - $ref: '#/components/schemas/LifecycleStatus'
-            - description: Status of the custom role assignment
+            - description: Status of the role assignment
         type:
-          type: string
-          description: CUSTOM for a custom role
-          enum:
-            - CUSTOM
+          $ref: '#/components/schemas/RoleType'
         _links:
           $ref: '#/components/schemas/LinksCustomRoleResponse'
+      required:
+        - type
     CustomRoleAssignmentSchema:
       title: Custom Role
       type: object
@@ -33733,9 +33718,13 @@ components:
           description: Custom role ID
         type:
           type: string
-          description: The type of role. Specify `CUSTOM` for a custom role.
+          description: 'Specify a [standard admin role](/openapi/okta-management/guides/roles/#standard-roles), an [IAM-based standard role](/openapi/okta-management/guides/roles/#iam-based-standard-roles), or `CUSTOM` for a custom role type:'
           enum:
             - CUSTOM
+      required:
+        - type
+        - role
+        - resource-set
     CustomizablePage:
       type: object
       properties:
@@ -34877,11 +34866,11 @@ components:
                 - $ref: '#/components/schemas/HrefObject'
                 - description: The verify link verifies the domain and transitions the domain status to `VERIFIED`
     DomainListResponse:
-      description: Defines a list of domains with a subset of the properties for each domain.
+      description: Defines a list of domains with a subset of the properties for each domain
       type: object
       properties:
         domains:
-          description: Each element of the array defines an individual domain.
+          description: Each element of the array defines an individual domain
           type: array
           items:
             $ref: '#/components/schemas/DomainResponse'
@@ -36523,14 +36512,9 @@ components:
         You can extend group profiles with custom properties, but you must first add the properties to the group profile schema before you can reference them. Use the Profile Editor in the Admin Console or the [Schemas API](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Schema/) to manage schema extensions.
 
         Custom properties can contain HTML tags. It is the client's responsibility to escape or encode this data before displaying it. Use [best-practices](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html) to prevent cross-site scripting.
-      oneOf:
+      anyOf:
         - $ref: '#/components/schemas/OktaUserGroupProfile'
         - $ref: '#/components/schemas/OktaActiveDirectoryGroupProfile'
-      discriminator:
-        propertyName: objectClass
-        mapping:
-          okta:user_group: '#/components/schemas/OktaUserGroupProfile'
-          okta:windows_security_principal: '#/components/schemas/OktaActiveDirectoryGroupProfile'
     GroupPushMapping:
       type: object
       properties:
@@ -41507,7 +41491,7 @@ components:
               - RS384
               - RS512
           x-okta-lifecycle:
-            lifecycle: GA
+            lifecycle: TOMBSTONE
             isGenerallyAvailable: true
         end_session_endpoint:
           description: URL of the authorization server's logout endpoint.
@@ -42029,13 +42013,6 @@ components:
           type: string
           example: West Coast users
           description: Name of the Windows group
-        objectClass:
-          type: string
-          readOnly: true
-          description: The object class type
-          enum:
-            - okta:windows_security_principal
-          example: okta:windows_security_principal
         samAccountName:
           type: string
           example: West Coast users
@@ -42334,13 +42311,6 @@ components:
           type: string
           example: West Coast users
           description: Name of the group
-        objectClass:
-          type: string
-          readOnly: true
-          description: The object class type
-          enum:
-            - okta:user_group
-          example: okta:user_group
       x-okta-extensible: true
     OktaUserRiskChangeEvent:
       description: The user risk level changed
@@ -42578,7 +42548,7 @@ components:
             > **Note:** If `dpop_bound_access_tokens` is true, then `client_credentials` and `implicit` aren't allowed in `grant_types`.
           default: false
           x-okta-lifecycle:
-            lifecycle: GA
+            lifecycle: TOMBSTONE
             isGenerallyAvailable: true
         frontchannel_logout_session_required:
           description: <x-lifecycle-container><x-lifecycle class="ea"></x-lifecycle> <x-lifecycle class="oie"></x-lifecycle></x-lifecycle-container>Determines whether Okta sends `sid` and `iss` in the logout request
@@ -42764,79 +42734,37 @@ components:
     OperationResponse:
       type: object
       properties:
-        assignmentOperation:
-          type: object
-          description: Definition of the realm assignment operation
-          properties:
-            configuration:
-              description: Configuration defintion of the realm
-              type: object
-              properties:
-                actions:
-                  type: object
-                  description: Realm assignment action
-                  properties:
-                    assignUserToRealm:
-                      type: object
-                      description: Action that assigns a user to a realm
-                      properties:
-                        realmId:
-                          description: ID of the realm
-                          type: string
-                conditions:
-                  $ref: '#/components/schemas/Conditions'
-                id:
-                  type: string
-                  description: ID of the realm assignment operation
-                name:
-                  type: string
-                  description: Name of the realm assignment operation
         completed:
-          description: Timestamp when the realm assignment operation completed
           type: string
+          description: Timestamp of when the operation completed
           format: date-time
-          readOnly: true
         created:
-          description: Timestamp when the realm assignment operation was created
           type: string
+          description: Timestamp of when the operation was created
           format: date-time
-          readOnly: true
         id:
-          description: ID of the realm
           type: string
-          readOnly: true
-        numUserMoved:
-          description: Number of users moved
-          type: number
-          readOnly: true
-        realmId:
-          description: ID of the realm
-          type: string
-          readOnly: true
-        realmName:
-          description: Name of the realm
-          type: string
-          readOnly: true
+          description: ID of the asynchronous operation
         started:
-          description: Timestamp when the realm assignment operation started
           type: string
+          description: Timestamp of when the operation started
           format: date-time
-          readOnly: true
         status:
-          description: Current status of the operation
           type: string
-          readOnly: true
+          description: The status of the asynchronous operation
           enum:
             - COMPLETED
             - SCHEDULED
             - IN_PROGRESS
             - FAILED
         type:
-          description: Realm type
           type: string
-          readOnly: true
-        _links:
-          $ref: '#/components/schemas/LinksSelf'
+          description: The operation type
+      required:
+        - id
+        - type
+        - status
+        - created
     OperationalStatus:
       description: Operational status of a given agent
       type: string
@@ -45765,6 +45693,52 @@ components:
           $ref: '#/components/schemas/LifecycleStatus'
         _links:
           $ref: '#/components/schemas/LinksSelf'
+    RealmAssignmentOperationResponse:
+      allOf:
+        - $ref: '#/components/schemas/OperationResponse'
+        - type: object
+          properties:
+            assignmentOperation:
+              type: object
+              description: Definition of the realm assignment operation
+              properties:
+                configuration:
+                  description: Configuration defintion of the realm
+                  type: object
+                  properties:
+                    actions:
+                      type: object
+                      description: Realm assignment action
+                      properties:
+                        assignUserToRealm:
+                          type: object
+                          description: Action that assigns a user to a realm
+                          properties:
+                            realmId:
+                              description: ID of the realm
+                              type: string
+                    conditions:
+                      $ref: '#/components/schemas/Conditions'
+                    id:
+                      type: string
+                      description: ID of the realm assignment operation
+                    name:
+                      type: string
+                      description: Name of the realm assignment operation
+            numUserMoved:
+              description: Number of users moved
+              type: number
+              readOnly: true
+            realmId:
+              description: ID of the realm
+              type: string
+              readOnly: true
+            realmName:
+              description: Name of the realm
+              type: string
+              readOnly: true
+            _links:
+              $ref: '#/components/schemas/LinksSelf'
     RealmProfile:
       type: object
       properties:
@@ -46639,7 +46613,6 @@ components:
       required:
         - type
         - grantId
-        - resources
     RoleTarget:
       type: object
       properties:
@@ -46662,34 +46635,31 @@ components:
         _links:
           $ref: '#/components/schemas/LinksSelf'
     RoleType:
-      description: Standard role type
+      description: |-
+        | Role type                    | Description                                                 |
+        |------------------------------|-------------------------------------------------------------|
+        | ACCESS_CERTIFICATIONS_ADMIN  | Access Certifications Administrator IAM-based standard role |
+        | ACCESS_REQUESTS_ADMIN        | Access Requests Administrator IAM-based standard role       |
+        | API_ACCESS_MANAGEMENT_ADMIN  | Access Management Administrator standard role               |
+        | APP_ADMIN                    | Application Administrator standard role                     |
+        | CUSTOM                       | Custom admin role                                           |
+        | GROUP_MEMBERSHIP_ADMIN       | Group Membership Administrator standard role                |
+        | HELP_DESK_ADMIN              | Help Desk Administrator standard role                       |
+        | ORG_ADMIN                    | Organizational Administrator standard role                  |
+        | READ_ONLY_ADMIN              | Read-Only Administrator standard role                       |
+        | REPORT_ADMIN                 | Report Administrator standard role                          |
+        | SUPER_ADMIN                  | Super Administrator standard role                           |
+        | USER_ADMIN                   | User Administrator standard role                            |
+        | WORKFLOWS_ADMIN              | Workflows Administrator IAM-based standard role             |
       type: string
-      x-enumDescriptions:
-        API_ACCESS_MANAGEMENT_ADMIN: Access Management Administrator
-        API_ADMIN: Access Management Administrator
-        APP_ADMIN: Application Administrator
-        CUSTOM: Custom label specified by the client
-        GROUP_MEMBERSHIP_ADMIN: Group Membership Administrator
-        HELP_DESK_ADMIN: Help Desk Administrator
-        MOBILE_ADMIN: Mobile Administrator
-        ORG_ADMIN: Organizational Administrator
-        READ_ONLY_ADMIN: Read-Only Administrator
-        REPORT_ADMIN: Report Administrator
-        SUPER_ADMIN: Super Administrator
-        USER_ADMIN: Group Administrator
-        WORKFLOWS_ADMIN: Workflows Administrator
-        ACCESS_CERTIFICATIONS_ADMIN: Access Certifications Administrator (predefined resource sets)
-        ACCESS_REQUESTS_ADMIN: Access Requests Administrator (predefined resource sets)
       x-okta-known-values:
         - ACCESS_CERTIFICATIONS_ADMIN
         - ACCESS_REQUESTS_ADMIN
         - API_ACCESS_MANAGEMENT_ADMIN
-        - API_ADMIN
         - APP_ADMIN
         - CUSTOM
         - GROUP_MEMBERSHIP_ADMIN
         - HELP_DESK_ADMIN
-        - MOBILE_ADMIN
         - ORG_ADMIN
         - READ_ONLY_ADMIN
         - REPORT_ADMIN
@@ -48431,6 +48401,7 @@ components:
         ROTATION_FAILED: The account is assigned to a project in Okta Privileged Access. An error occurred while using Okta Lifecycle Management to rotate the password.
         VAULTED: The account is assigned to a project in Okta Privileged Access. A manually managed password is assigned to the account.
         MISSING_PASSWORD: The account is assigned to a project in Okta Privileged Access. A password isn't assigned to the account.
+        UNMANAGED: The account is assigned to a project in Okta Privileged Access. Initial password sync hasn't been attempted.
       readOnly: true
       x-okta-known-values:
         - CREATION_FAILED
@@ -48440,6 +48411,7 @@ components:
         - ROTATING
         - ROTATION_FAILED
         - STAGED
+        - UNMANAGED
         - VAULTED
     ServiceAccountType:
       description: The type of service account
@@ -49070,7 +49042,7 @@ components:
         required:
           type: boolean
     StandardRole:
-      title: Standard Role Assignment
+      title: Standard role assignment
       type: object
       properties:
         assignmentType:
@@ -49121,13 +49093,30 @@ components:
                         $ref: '#/components/schemas/CatalogApplication'
         _links:
           $ref: '#/components/schemas/LinksAssignee'
+      required:
+        - type
     StandardRoleAssignmentSchema:
-      title: Standard Role
+      title: Standard role
       type: object
       properties:
         type:
           type: string
-          description: Specify the standard or IAM-based role type. See [standard roles](/openapi/okta-management/guides/roles/#standard-roles).
+          description: 'Specify a [standard admin role](/openapi/okta-management/guides/roles/#standard-roles), an [IAM-based standard role](/openapi/okta-management/guides/roles/#iam-based-standard-roles), or `CUSTOM` for a custom role type:'
+          enum:
+            - ACCESS_CERTIFICATIONS_ADMIN
+            - ACCESS_REQUESTS_ADMIN
+            - API_ACCESS_MANAGEMENT_ADMIN
+            - APP_ADMIN
+            - GROUP_MEMBERSHIP_ADMIN
+            - HELP_DESK_ADMIN
+            - ORG_ADMIN
+            - READ_ONLY_ADMIN
+            - REPORT_ADMIN
+            - SUPER_ADMIN
+            - USER_ADMIN
+            - WORKFLOWS_ADMIN
+      required:
+        - type
     StreamConfiguration:
       title: Stream Configuration
       type: object
@@ -53250,9 +53239,9 @@ components:
           AUTH_METHOD_CHAIN: '#/components/schemas/AuthenticationMethodChainMethod'
           ID_PROOFING: '#/components/schemas/IdProofingMethod'
     Version:
-      description: The version specified as a [Semantic Version](https://semver.org/).
+      description: The version specified as a [Semantic Version](https://semver.org/). This value can be a wildcard (`*`), a major version range (for example, `^2`), a major-only version (for example, `7`), or a specific `Major.Minor` version (for example, `5.15`).
       type: string
-      pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+      pattern: ^(?:\*|\^?\d+(?:\.\d+){0,2})$
     WebAuthnAttachmentEnum:
       description: Method attachment
       type: string
@@ -54086,6 +54075,7 @@ components:
             okta.networkZones.read: Allows the app to read Network Zones in your Okta organization
             okta.oauthIntegrations.manage: Allows the app to create and manage API service Integration instances in your Okta organization
             okta.oauthIntegrations.read: Allows the app to read API service Integration instances in your Okta organization
+            okta.operations.read: Allows the app to read the status of asynchronous operations in your Okta organization
             okta.orgs.manage: Allows the app to manage organization-specific details for your Okta organization
             okta.orgs.read: Allows the app to read organization-specific details about your Okta organization
             okta.personal.adminSettings.manage: Allows the app to manage the personal admin settings for the signed-in user

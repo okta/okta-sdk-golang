@@ -25,6 +25,7 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -39,18 +40,18 @@ type CustomRole struct {
 	Created *time.Time `json:"created,omitempty"`
 	// Binding object ID
 	Id *string `json:"id,omitempty"`
-	// Label for the custom role assignment
+	// Label for the role assignment
 	Label *string `json:"label,omitempty"`
 	// Timestamp when the object was last updated
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	// Resource set ID
 	ResourceSet *string `json:"resource-set,omitempty"`
-	// Custom role ID
+	// Role ID
 	Role *string `json:"role,omitempty"`
-	// Status of the custom role assignment
+	// Status of the role assignment
 	Status *string `json:"status,omitempty"`
-	// CUSTOM for a custom role
-	Type                 *string                  `json:"type,omitempty"`
+	// | Role type                    | Description                                                 | |------------------------------|-------------------------------------------------------------| | ACCESS_CERTIFICATIONS_ADMIN  | Access Certifications Administrator IAM-based standard role | | ACCESS_REQUESTS_ADMIN        | Access Requests Administrator IAM-based standard role       | | API_ACCESS_MANAGEMENT_ADMIN  | Access Management Administrator standard role               | | APP_ADMIN                    | Application Administrator standard role                     | | CUSTOM                       | Custom admin role                                           | | GROUP_MEMBERSHIP_ADMIN       | Group Membership Administrator standard role                | | HELP_DESK_ADMIN              | Help Desk Administrator standard role                       | | ORG_ADMIN                    | Organizational Administrator standard role                  | | READ_ONLY_ADMIN              | Read-Only Administrator standard role                       | | REPORT_ADMIN                 | Report Administrator standard role                          | | SUPER_ADMIN                  | Super Administrator standard role                           | | USER_ADMIN                   | User Administrator standard role                            | | WORKFLOWS_ADMIN              | Workflows Administrator IAM-based standard role             |
+	Type                 string                   `json:"type"`
 	Links                *LinksCustomRoleResponse `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -61,8 +62,9 @@ type _CustomRole CustomRole
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCustomRole() *CustomRole {
+func NewCustomRole(type_ string) *CustomRole {
 	this := CustomRole{}
+	this.Type = type_
 	return &this
 }
 
@@ -330,36 +332,28 @@ func (o *CustomRole) SetStatus(v string) {
 	o.Status = &v
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
+// GetType returns the Type field value
 func (o *CustomRole) GetType() string {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Type
+
+	return o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *CustomRole) GetTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Type, true
+	return &o.Type, true
 }
 
-// HasType returns a boolean if a field has been set.
-func (o *CustomRole) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given string and assigns it to the Type field.
+// SetType sets field value
 func (o *CustomRole) SetType(v string) {
-	o.Type = &v
+	o.Type = v
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
@@ -428,9 +422,7 @@ func (o CustomRole) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
-	}
+	toSerialize["type"] = o.Type
 	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
@@ -443,6 +435,27 @@ func (o CustomRole) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *CustomRole) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varCustomRole := _CustomRole{}
 
 	err = json.Unmarshal(data, &varCustomRole)

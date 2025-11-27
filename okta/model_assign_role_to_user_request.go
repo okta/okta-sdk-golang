@@ -58,8 +58,8 @@ func (dst *AssignRoleToUserRequest) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	// check if the discriminator value is 'API_ACCESS_MANAGEMENT_ADMIN'
-	if jsonDict["type"] == "API_ACCESS_MANAGEMENT_ADMIN" {
+	// check if the discriminator value is 'ACCESS_CERTIFICATIONS_ADMIN'
+	if jsonDict["type"] == "ACCESS_CERTIFICATIONS_ADMIN" {
 		// try to unmarshal JSON data into StandardRoleAssignmentSchema
 		err = json.Unmarshal(data, &dst.StandardRoleAssignmentSchema)
 		if err == nil {
@@ -70,8 +70,20 @@ func (dst *AssignRoleToUserRequest) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	// check if the discriminator value is 'API_ADMIN'
-	if jsonDict["type"] == "API_ADMIN" {
+	// check if the discriminator value is 'ACCESS_REQUESTS_ADMIN'
+	if jsonDict["type"] == "ACCESS_REQUESTS_ADMIN" {
+		// try to unmarshal JSON data into StandardRoleAssignmentSchema
+		err = json.Unmarshal(data, &dst.StandardRoleAssignmentSchema)
+		if err == nil {
+			return nil // data stored in dst.StandardRoleAssignmentSchema, return on the first match
+		} else {
+			dst.StandardRoleAssignmentSchema = nil
+			return fmt.Errorf("failed to unmarshal AssignRoleToUserRequest as StandardRoleAssignmentSchema: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'API_ACCESS_MANAGEMENT_ADMIN'
+	if jsonDict["type"] == "API_ACCESS_MANAGEMENT_ADMIN" {
 		// try to unmarshal JSON data into StandardRoleAssignmentSchema
 		err = json.Unmarshal(data, &dst.StandardRoleAssignmentSchema)
 		if err == nil {
@@ -94,18 +106,6 @@ func (dst *AssignRoleToUserRequest) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	// check if the discriminator value is 'ASA_ADMIN'
-	if jsonDict["type"] == "ASA_ADMIN" {
-		// try to unmarshal JSON data into StandardRoleAssignmentSchema
-		err = json.Unmarshal(data, &dst.StandardRoleAssignmentSchema)
-		if err == nil {
-			return nil // data stored in dst.StandardRoleAssignmentSchema, return on the first match
-		} else {
-			dst.StandardRoleAssignmentSchema = nil
-			return fmt.Errorf("failed to unmarshal AssignRoleToUserRequest as StandardRoleAssignmentSchema: %s", err.Error())
-		}
-	}
-
 	// check if the discriminator value is 'CUSTOM'
 	if jsonDict["type"] == "CUSTOM" {
 		// try to unmarshal JSON data into CustomRoleAssignmentSchema
@@ -115,18 +115,6 @@ func (dst *AssignRoleToUserRequest) UnmarshalJSON(data []byte) error {
 		} else {
 			dst.CustomRoleAssignmentSchema = nil
 			return fmt.Errorf("failed to unmarshal AssignRoleToUserRequest as CustomRoleAssignmentSchema: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'GROUP_ADMIN'
-	if jsonDict["type"] == "GROUP_ADMIN" {
-		// try to unmarshal JSON data into StandardRoleAssignmentSchema
-		err = json.Unmarshal(data, &dst.StandardRoleAssignmentSchema)
-		if err == nil {
-			return nil // data stored in dst.StandardRoleAssignmentSchema, return on the first match
-		} else {
-			dst.StandardRoleAssignmentSchema = nil
-			return fmt.Errorf("failed to unmarshal AssignRoleToUserRequest as StandardRoleAssignmentSchema: %s", err.Error())
 		}
 	}
 
@@ -144,30 +132,6 @@ func (dst *AssignRoleToUserRequest) UnmarshalJSON(data []byte) error {
 
 	// check if the discriminator value is 'HELP_DESK_ADMIN'
 	if jsonDict["type"] == "HELP_DESK_ADMIN" {
-		// try to unmarshal JSON data into StandardRoleAssignmentSchema
-		err = json.Unmarshal(data, &dst.StandardRoleAssignmentSchema)
-		if err == nil {
-			return nil // data stored in dst.StandardRoleAssignmentSchema, return on the first match
-		} else {
-			dst.StandardRoleAssignmentSchema = nil
-			return fmt.Errorf("failed to unmarshal AssignRoleToUserRequest as StandardRoleAssignmentSchema: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'IDP_ADMIN'
-	if jsonDict["type"] == "IDP_ADMIN" {
-		// try to unmarshal JSON data into StandardRoleAssignmentSchema
-		err = json.Unmarshal(data, &dst.StandardRoleAssignmentSchema)
-		if err == nil {
-			return nil // data stored in dst.StandardRoleAssignmentSchema, return on the first match
-		} else {
-			dst.StandardRoleAssignmentSchema = nil
-			return fmt.Errorf("failed to unmarshal AssignRoleToUserRequest as StandardRoleAssignmentSchema: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'MOBILE_ADMIN'
-	if jsonDict["type"] == "MOBILE_ADMIN" {
 		// try to unmarshal JSON data into StandardRoleAssignmentSchema
 		err = json.Unmarshal(data, &dst.StandardRoleAssignmentSchema)
 		if err == nil {
@@ -228,6 +192,18 @@ func (dst *AssignRoleToUserRequest) UnmarshalJSON(data []byte) error {
 
 	// check if the discriminator value is 'USER_ADMIN'
 	if jsonDict["type"] == "USER_ADMIN" {
+		// try to unmarshal JSON data into StandardRoleAssignmentSchema
+		err = json.Unmarshal(data, &dst.StandardRoleAssignmentSchema)
+		if err == nil {
+			return nil // data stored in dst.StandardRoleAssignmentSchema, return on the first match
+		} else {
+			dst.StandardRoleAssignmentSchema = nil
+			return fmt.Errorf("failed to unmarshal AssignRoleToUserRequest as StandardRoleAssignmentSchema: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'WORKFLOWS_ADMIN'
+	if jsonDict["type"] == "WORKFLOWS_ADMIN" {
 		// try to unmarshal JSON data into StandardRoleAssignmentSchema
 		err = json.Unmarshal(data, &dst.StandardRoleAssignmentSchema)
 		if err == nil {

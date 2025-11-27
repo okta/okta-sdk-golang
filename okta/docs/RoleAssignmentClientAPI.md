@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## AssignRoleToClient
 
-> AssignRoleToGroup200Response AssignRoleToClient(ctx, clientId).AssignRoleToGroupRequest(assignRoleToGroupRequest).Execute()
+> AssignRoleToClient200Response AssignRoleToClient(ctx, clientId).AssignRoleToClientRequest(assignRoleToClientRequest).Execute()
 
 Assign a client role
 
@@ -33,16 +33,16 @@ import (
 
 func main() {
 	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
-	assignRoleToGroupRequest := openapiclient.assignRoleToGroup_request{CustomRoleAssignmentSchema: openapiclient.NewCustomRoleAssignmentSchema()} // AssignRoleToGroupRequest | 
+	assignRoleToClientRequest := openapiclient.assignRoleToClient_request{CustomRoleAssignmentSchema: openapiclient.NewCustomRoleAssignmentSchema("ResourceSet_example", "Role_example", "Type_example")} // AssignRoleToClientRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RoleAssignmentClientAPI.AssignRoleToClient(context.Background(), clientId).AssignRoleToGroupRequest(assignRoleToGroupRequest).Execute()
+	resp, r, err := apiClient.RoleAssignmentClientAPI.AssignRoleToClient(context.Background(), clientId).AssignRoleToClientRequest(assignRoleToClientRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentClientAPI.AssignRoleToClient``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `AssignRoleToClient`: AssignRoleToGroup200Response
+	// response from `AssignRoleToClient`: AssignRoleToClient200Response
 	fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentClientAPI.AssignRoleToClient`: %v\n", resp)
 }
 ```
@@ -63,11 +63,11 @@ Other parameters are passed through a pointer to a apiAssignRoleToClientRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **assignRoleToGroupRequest** | [**AssignRoleToGroupRequest**](AssignRoleToGroupRequest.md) |  | 
+ **assignRoleToClientRequest** | [**AssignRoleToClientRequest**](AssignRoleToClientRequest.md) |  | 
 
 ### Return type
 
-[**AssignRoleToGroup200Response**](AssignRoleToGroup200Response.md)
+[**AssignRoleToClient200Response**](AssignRoleToClient200Response.md)
 
 ### Authorization
 
@@ -226,7 +226,7 @@ Name | Type | Description  | Notes
 
 ## RetrieveClientRole
 
-> AssignRoleToGroup200Response RetrieveClientRole(ctx, clientId, roleAssignmentId).Execute()
+> AssignRoleToClient200Response RetrieveClientRole(ctx, clientId, roleAssignmentId).Execute()
 
 Retrieve a client role
 
@@ -255,7 +255,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentClientAPI.RetrieveClientRole``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RetrieveClientRole`: AssignRoleToGroup200Response
+	// response from `RetrieveClientRole`: AssignRoleToClient200Response
 	fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentClientAPI.RetrieveClientRole`: %v\n", resp)
 }
 ```
@@ -281,7 +281,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AssignRoleToGroup200Response**](AssignRoleToGroup200Response.md)
+[**AssignRoleToClient200Response**](AssignRoleToClient200Response.md)
 
 ### Authorization
 

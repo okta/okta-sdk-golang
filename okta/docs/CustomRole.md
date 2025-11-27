@@ -7,19 +7,19 @@ Name | Type | Description | Notes
 **AssignmentType** | Pointer to **string** | Role assignment type | [optional] 
 **Created** | Pointer to **time.Time** | Timestamp when the object was created | [optional] [readonly] 
 **Id** | Pointer to **string** | Binding object ID | [optional] [readonly] 
-**Label** | Pointer to **string** | Label for the custom role assignment | [optional] [readonly] 
+**Label** | Pointer to **string** | Label for the role assignment | [optional] [readonly] 
 **LastUpdated** | Pointer to **time.Time** | Timestamp when the object was last updated | [optional] [readonly] 
 **ResourceSet** | Pointer to **string** | Resource set ID | [optional] [readonly] 
-**Role** | Pointer to **string** | Custom role ID | [optional] [readonly] 
-**Status** | Pointer to **string** | Status of the custom role assignment | [optional] 
-**Type** | Pointer to **string** | CUSTOM for a custom role | [optional] 
+**Role** | Pointer to **string** | Role ID | [optional] [readonly] 
+**Status** | Pointer to **string** | Status of the role assignment | [optional] 
+**Type** | **string** | | Role type                    | Description                                                 | |------------------------------|-------------------------------------------------------------| | ACCESS_CERTIFICATIONS_ADMIN  | Access Certifications Administrator IAM-based standard role | | ACCESS_REQUESTS_ADMIN        | Access Requests Administrator IAM-based standard role       | | API_ACCESS_MANAGEMENT_ADMIN  | Access Management Administrator standard role               | | APP_ADMIN                    | Application Administrator standard role                     | | CUSTOM                       | Custom admin role                                           | | GROUP_MEMBERSHIP_ADMIN       | Group Membership Administrator standard role                | | HELP_DESK_ADMIN              | Help Desk Administrator standard role                       | | ORG_ADMIN                    | Organizational Administrator standard role                  | | READ_ONLY_ADMIN              | Read-Only Administrator standard role                       | | REPORT_ADMIN                 | Report Administrator standard role                          | | SUPER_ADMIN                  | Super Administrator standard role                           | | USER_ADMIN                   | User Administrator standard role                            | | WORKFLOWS_ADMIN              | Workflows Administrator IAM-based standard role             | | 
 **Links** | Pointer to [**LinksCustomRoleResponse**](LinksCustomRoleResponse.md) |  | [optional] 
 
 ## Methods
 
 ### NewCustomRole
 
-`func NewCustomRole() *CustomRole`
+`func NewCustomRole(type_ string, ) *CustomRole`
 
 NewCustomRole instantiates a new CustomRole object
 This constructor will assign default values to properties that have it defined,
@@ -253,11 +253,6 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
-### HasType
-
-`func (o *CustomRole) HasType() bool`
-
-HasType returns a boolean if a field has been set.
 
 ### GetLinks
 

@@ -221,7 +221,7 @@ Name | Type | Description  | Notes
 
 ## ListBrandDomains
 
-> []DomainResponse ListBrandDomains(ctx, brandId).Execute()
+> BrandDomains ListBrandDomains(ctx, brandId).Execute()
 
 List all domains associated with a brand
 
@@ -249,7 +249,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BrandsAPI.ListBrandDomains``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListBrandDomains`: []DomainResponse
+	// response from `ListBrandDomains`: BrandDomains
 	fmt.Fprintf(os.Stdout, "Response from `BrandsAPI.ListBrandDomains`: %v\n", resp)
 }
 ```
@@ -273,7 +273,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]DomainResponse**](DomainResponse.md)
+[**BrandDomains**](BrandDomains.md)
 
 ### Authorization
 
@@ -311,7 +311,7 @@ import (
 
 func main() {
 	expand := []string{"Expand_example"} // []string | Specifies additional metadata to be included in the response (optional)
-	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/api/#pagination). (optional)
+	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header). (optional)
 	limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
 	q := "q_example" // string | Searches the records for matching value (optional)
 
@@ -339,7 +339,7 @@ Other parameters are passed through a pointer to a apiListBrandsRequest struct v
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **expand** | **[]string** | Specifies additional metadata to be included in the response | 
- **after** | **string** | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination). | 
+ **after** | **string** | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header). | 
  **limit** | **int32** | A limit on the number of objects to return | [default to 20]
  **q** | **string** | Searches the records for matching value | 
 

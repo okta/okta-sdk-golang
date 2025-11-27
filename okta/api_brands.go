@@ -90,8 +90,8 @@ type BrandsAPI interface {
 	ListBrandDomains(ctx context.Context, brandId string) ApiListBrandDomainsRequest
 
 	// ListBrandDomainsExecute executes the request
-	//  @return []DomainResponse
-	ListBrandDomainsExecute(r ApiListBrandDomainsRequest) ([]DomainResponse, *APIResponse, error)
+	//  @return BrandDomains
+	ListBrandDomainsExecute(r ApiListBrandDomainsRequest) (*BrandDomains, *APIResponse, error)
 
 	/*
 		ListBrands List all brands
@@ -662,7 +662,7 @@ type ApiListBrandDomainsRequest struct {
 	retryCount int32
 }
 
-func (r ApiListBrandDomainsRequest) Execute() ([]DomainResponse, *APIResponse, error) {
+func (r ApiListBrandDomainsRequest) Execute() (*BrandDomains, *APIResponse, error) {
 	return r.ApiService.ListBrandDomainsExecute(r)
 }
 
@@ -686,13 +686,13 @@ func (a *BrandsAPIService) ListBrandDomains(ctx context.Context, brandId string)
 
 // Execute executes the request
 //
-//	@return []DomainResponse
-func (a *BrandsAPIService) ListBrandDomainsExecute(r ApiListBrandDomainsRequest) ([]DomainResponse, *APIResponse, error) {
+//	@return BrandDomains
+func (a *BrandsAPIService) ListBrandDomainsExecute(r ApiListBrandDomainsRequest) (*BrandDomains, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  []DomainResponse
+		localVarReturnValue  *BrandDomains
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -837,7 +837,7 @@ func (r ApiListBrandsRequest) Expand(expand []string) ApiListBrandsRequest {
 	return r
 }
 
-// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination).
+// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header).
 func (r ApiListBrandsRequest) After(after string) ApiListBrandsRequest {
 	r.after = &after
 	return r

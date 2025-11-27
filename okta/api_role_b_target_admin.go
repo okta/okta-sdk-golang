@@ -897,7 +897,7 @@ func (r ApiGetRoleTargetsByUserIdAndRoleIdRequest) AssignmentType(assignmentType
 	return r
 }
 
-// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination).
+// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header).
 func (r ApiGetRoleTargetsByUserIdAndRoleIdRequest) After(after string) ApiGetRoleTargetsByUserIdAndRoleIdRequest {
 	r.after = &after
 	return r
@@ -1091,7 +1091,7 @@ type ApiListApplicationTargetsForApplicationAdministratorRoleForUserRequest stru
 	retryCount       int32
 }
 
-// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination).
+// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header).
 func (r ApiListApplicationTargetsForApplicationAdministratorRoleForUserRequest) After(after string) ApiListApplicationTargetsForApplicationAdministratorRoleForUserRequest {
 	r.after = &after
 	return r
@@ -1281,7 +1281,7 @@ type ApiListGroupTargetsForRoleRequest struct {
 	retryCount       int32
 }
 
-// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination).
+// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header).
 func (r ApiListGroupTargetsForRoleRequest) After(after string) ApiListGroupTargetsForRoleRequest {
 	r.after = &after
 	return r

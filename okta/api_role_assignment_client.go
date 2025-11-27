@@ -53,8 +53,8 @@ type RoleAssignmentClientAPI interface {
 	AssignRoleToClient(ctx context.Context, clientId string) ApiAssignRoleToClientRequest
 
 	// AssignRoleToClientExecute executes the request
-	//  @return AssignRoleToGroup200Response
-	AssignRoleToClientExecute(r ApiAssignRoleToClientRequest) (*AssignRoleToGroup200Response, *APIResponse, error)
+	//  @return AssignRoleToClient200Response
+	AssignRoleToClientExecute(r ApiAssignRoleToClientRequest) (*AssignRoleToClient200Response, *APIResponse, error)
 
 	/*
 		DeleteRoleFromClient Unassign a client role
@@ -99,27 +99,27 @@ type RoleAssignmentClientAPI interface {
 	RetrieveClientRole(ctx context.Context, clientId string, roleAssignmentId string) ApiRetrieveClientRoleRequest
 
 	// RetrieveClientRoleExecute executes the request
-	//  @return AssignRoleToGroup200Response
-	RetrieveClientRoleExecute(r ApiRetrieveClientRoleRequest) (*AssignRoleToGroup200Response, *APIResponse, error)
+	//  @return AssignRoleToClient200Response
+	RetrieveClientRoleExecute(r ApiRetrieveClientRoleRequest) (*AssignRoleToClient200Response, *APIResponse, error)
 }
 
 // RoleAssignmentClientAPIService RoleAssignmentClientAPI service
 type RoleAssignmentClientAPIService service
 
 type ApiAssignRoleToClientRequest struct {
-	ctx                      context.Context
-	ApiService               RoleAssignmentClientAPI
-	clientId                 string
-	assignRoleToGroupRequest *AssignRoleToGroupRequest
-	retryCount               int32
+	ctx                       context.Context
+	ApiService                RoleAssignmentClientAPI
+	clientId                  string
+	assignRoleToClientRequest *AssignRoleToClientRequest
+	retryCount                int32
 }
 
-func (r ApiAssignRoleToClientRequest) AssignRoleToGroupRequest(assignRoleToGroupRequest AssignRoleToGroupRequest) ApiAssignRoleToClientRequest {
-	r.assignRoleToGroupRequest = &assignRoleToGroupRequest
+func (r ApiAssignRoleToClientRequest) AssignRoleToClientRequest(assignRoleToClientRequest AssignRoleToClientRequest) ApiAssignRoleToClientRequest {
+	r.assignRoleToClientRequest = &assignRoleToClientRequest
 	return r
 }
 
-func (r ApiAssignRoleToClientRequest) Execute() (*AssignRoleToGroup200Response, *APIResponse, error) {
+func (r ApiAssignRoleToClientRequest) Execute() (*AssignRoleToClient200Response, *APIResponse, error) {
 	return r.ApiService.AssignRoleToClientExecute(r)
 }
 
@@ -149,13 +149,13 @@ func (a *RoleAssignmentClientAPIService) AssignRoleToClient(ctx context.Context,
 
 // Execute executes the request
 //
-//	@return AssignRoleToGroup200Response
-func (a *RoleAssignmentClientAPIService) AssignRoleToClientExecute(r ApiAssignRoleToClientRequest) (*AssignRoleToGroup200Response, *APIResponse, error) {
+//	@return AssignRoleToClient200Response
+func (a *RoleAssignmentClientAPIService) AssignRoleToClientExecute(r ApiAssignRoleToClientRequest) (*AssignRoleToClient200Response, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *AssignRoleToGroup200Response
+		localVarReturnValue  *AssignRoleToClient200Response
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -177,8 +177,8 @@ func (a *RoleAssignmentClientAPIService) AssignRoleToClientExecute(r ApiAssignRo
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.assignRoleToGroupRequest == nil {
-		return localVarReturnValue, nil, reportError("assignRoleToGroupRequest is required and must be specified")
+	if r.assignRoleToClientRequest == nil {
+		return localVarReturnValue, nil, reportError("assignRoleToClientRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -199,7 +199,7 @@ func (a *RoleAssignmentClientAPIService) AssignRoleToClientExecute(r ApiAssignRo
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.assignRoleToGroupRequest
+	localVarPostBody = r.assignRoleToClientRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -620,7 +620,7 @@ type ApiRetrieveClientRoleRequest struct {
 	retryCount       int32
 }
 
-func (r ApiRetrieveClientRoleRequest) Execute() (*AssignRoleToGroup200Response, *APIResponse, error) {
+func (r ApiRetrieveClientRoleRequest) Execute() (*AssignRoleToClient200Response, *APIResponse, error) {
 	return r.ApiService.RetrieveClientRoleExecute(r)
 }
 
@@ -646,13 +646,13 @@ func (a *RoleAssignmentClientAPIService) RetrieveClientRole(ctx context.Context,
 
 // Execute executes the request
 //
-//	@return AssignRoleToGroup200Response
-func (a *RoleAssignmentClientAPIService) RetrieveClientRoleExecute(r ApiRetrieveClientRoleRequest) (*AssignRoleToGroup200Response, *APIResponse, error) {
+//	@return AssignRoleToClient200Response
+func (a *RoleAssignmentClientAPIService) RetrieveClientRoleExecute(r ApiRetrieveClientRoleRequest) (*AssignRoleToClient200Response, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *AssignRoleToGroup200Response
+		localVarReturnValue  *AssignRoleToClient200Response
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error

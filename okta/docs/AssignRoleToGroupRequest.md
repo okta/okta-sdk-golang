@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | Pointer to **string** | Specify the standard or IAM-based role type. See [standard roles](/openapi/okta-management/guides/roles/#standard-roles). | [optional] 
-**ResourceSet** | Pointer to **string** | Resource set ID | [optional] 
-**Role** | Pointer to **string** | Custom role ID | [optional] 
+**Type** | **string** | Specify a [standard admin role](/openapi/okta-management/guides/roles/#standard-roles), an [IAM-based standard role](/openapi/okta-management/guides/roles/#iam-based-standard-roles), or &#x60;CUSTOM&#x60; for a custom role type: | 
+**ResourceSet** | **string** | Resource set ID | 
+**Role** | **string** | Custom role ID | 
 
 ## Methods
 
 ### NewAssignRoleToGroupRequest
 
-`func NewAssignRoleToGroupRequest() *AssignRoleToGroupRequest`
+`func NewAssignRoleToGroupRequest(type_ string, resourceSet string, role string, ) *AssignRoleToGroupRequest`
 
 NewAssignRoleToGroupRequest instantiates a new AssignRoleToGroupRequest object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
-### HasType
-
-`func (o *AssignRoleToGroupRequest) HasType() bool`
-
-HasType returns a boolean if a field has been set.
 
 ### GetResourceSet
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetResourceSet sets ResourceSet field to given value.
 
-### HasResourceSet
-
-`func (o *AssignRoleToGroupRequest) HasResourceSet() bool`
-
-HasResourceSet returns a boolean if a field has been set.
 
 ### GetRole
 
@@ -96,11 +86,6 @@ and a boolean to check if the value has been set.
 
 SetRole sets Role field to given value.
 
-### HasRole
-
-`func (o *AssignRoleToGroupRequest) HasRole() bool`
-
-HasRole returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

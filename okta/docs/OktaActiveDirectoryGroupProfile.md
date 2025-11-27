@@ -8,7 +8,6 @@ Name | Type | Description | Notes
 **Dn** | Pointer to **string** | The distinguished name of the Windows group | [optional] 
 **ExternalId** | Pointer to **string** | Base-64 encoded GUID (&#x60;objectGUID&#x60;) of the Windows group | [optional] 
 **Name** | Pointer to **string** | Name of the Windows group | [optional] 
-**ObjectClass** | Pointer to **string** | The object class type | [optional] [readonly] 
 **SamAccountName** | Pointer to **string** | Pre-Windows 2000 name of the Windows group | [optional] 
 **WindowsDomainQualifiedName** | Pointer to **string** | Fully qualified name of the Windows group | [optional] 
 
@@ -130,31 +129,6 @@ SetName sets Name field to given value.
 `func (o *OktaActiveDirectoryGroupProfile) HasName() bool`
 
 HasName returns a boolean if a field has been set.
-
-### GetObjectClass
-
-`func (o *OktaActiveDirectoryGroupProfile) GetObjectClass() string`
-
-GetObjectClass returns the ObjectClass field if non-nil, zero value otherwise.
-
-### GetObjectClassOk
-
-`func (o *OktaActiveDirectoryGroupProfile) GetObjectClassOk() (*string, bool)`
-
-GetObjectClassOk returns a tuple with the ObjectClass field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetObjectClass
-
-`func (o *OktaActiveDirectoryGroupProfile) SetObjectClass(v string)`
-
-SetObjectClass sets ObjectClass field to given value.
-
-### HasObjectClass
-
-`func (o *OktaActiveDirectoryGroupProfile) HasObjectClass() bool`
-
-HasObjectClass returns a boolean if a field has been set.
 
 ### GetSamAccountName
 

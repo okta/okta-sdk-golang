@@ -102,8 +102,8 @@ type RealmAssignmentAPI interface {
 	ExecuteRealmAssignment(ctx context.Context) ApiExecuteRealmAssignmentRequest
 
 	// ExecuteRealmAssignmentExecute executes the request
-	//  @return OperationResponse
-	ExecuteRealmAssignmentExecute(r ApiExecuteRealmAssignmentRequest) (*OperationResponse, *APIResponse, error)
+	//  @return RealmAssignmentOperationResponse
+	ExecuteRealmAssignmentExecute(r ApiExecuteRealmAssignmentRequest) (*RealmAssignmentOperationResponse, *APIResponse, error)
 
 	/*
 		GetRealmAssignment Retrieve a realm assignment
@@ -131,8 +131,8 @@ type RealmAssignmentAPI interface {
 	ListRealmAssignmentOperations(ctx context.Context) ApiListRealmAssignmentOperationsRequest
 
 	// ListRealmAssignmentOperationsExecute executes the request
-	//  @return []OperationResponse
-	ListRealmAssignmentOperationsExecute(r ApiListRealmAssignmentOperationsRequest) ([]OperationResponse, *APIResponse, error)
+	//  @return []RealmAssignmentOperationResponse
+	ListRealmAssignmentOperationsExecute(r ApiListRealmAssignmentOperationsRequest) ([]RealmAssignmentOperationResponse, *APIResponse, error)
 
 	/*
 		ListRealmAssignments List all realm assignments
@@ -847,7 +847,7 @@ func (r ApiExecuteRealmAssignmentRequest) Body(body OperationRequest) ApiExecute
 	return r
 }
 
-func (r ApiExecuteRealmAssignmentRequest) Execute() (*OperationResponse, *APIResponse, error) {
+func (r ApiExecuteRealmAssignmentRequest) Execute() (*RealmAssignmentOperationResponse, *APIResponse, error) {
 	return r.ApiService.ExecuteRealmAssignmentExecute(r)
 }
 
@@ -869,13 +869,13 @@ func (a *RealmAssignmentAPIService) ExecuteRealmAssignment(ctx context.Context) 
 
 // Execute executes the request
 //
-//	@return OperationResponse
-func (a *RealmAssignmentAPIService) ExecuteRealmAssignmentExecute(r ApiExecuteRealmAssignmentRequest) (*OperationResponse, *APIResponse, error) {
+//	@return RealmAssignmentOperationResponse
+func (a *RealmAssignmentAPIService) ExecuteRealmAssignmentExecute(r ApiExecuteRealmAssignmentRequest) (*RealmAssignmentOperationResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *OperationResponse
+		localVarReturnValue  *RealmAssignmentOperationResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -1200,13 +1200,13 @@ func (r ApiListRealmAssignmentOperationsRequest) Limit(limit int32) ApiListRealm
 	return r
 }
 
-// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination).
+// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header).
 func (r ApiListRealmAssignmentOperationsRequest) After(after string) ApiListRealmAssignmentOperationsRequest {
 	r.after = &after
 	return r
 }
 
-func (r ApiListRealmAssignmentOperationsRequest) Execute() ([]OperationResponse, *APIResponse, error) {
+func (r ApiListRealmAssignmentOperationsRequest) Execute() ([]RealmAssignmentOperationResponse, *APIResponse, error) {
 	return r.ApiService.ListRealmAssignmentOperationsExecute(r)
 }
 
@@ -1228,13 +1228,13 @@ func (a *RealmAssignmentAPIService) ListRealmAssignmentOperations(ctx context.Co
 
 // Execute executes the request
 //
-//	@return []OperationResponse
-func (a *RealmAssignmentAPIService) ListRealmAssignmentOperationsExecute(r ApiListRealmAssignmentOperationsRequest) ([]OperationResponse, *APIResponse, error) {
+//	@return []RealmAssignmentOperationResponse
+func (a *RealmAssignmentAPIService) ListRealmAssignmentOperationsExecute(r ApiListRealmAssignmentOperationsRequest) ([]RealmAssignmentOperationResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  []OperationResponse
+		localVarReturnValue  []RealmAssignmentOperationResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error

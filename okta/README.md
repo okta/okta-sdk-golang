@@ -889,6 +889,8 @@ Class | Method | HTTP request | Description
  - [ApplicationVisibilityHide](docs/ApplicationVisibilityHide.md)
  - [AssignGroupOwnerRequestBody](docs/AssignGroupOwnerRequestBody.md)
  - [AssignRoleRequest](docs/AssignRoleRequest.md)
+ - [AssignRoleToClient200Response](docs/AssignRoleToClient200Response.md)
+ - [AssignRoleToClientRequest](docs/AssignRoleToClientRequest.md)
  - [AssignRoleToGroup200Response](docs/AssignRoleToGroup200Response.md)
  - [AssignRoleToGroupRequest](docs/AssignRoleToGroupRequest.md)
  - [AssignRoleToUser201Response](docs/AssignRoleToUser201Response.md)
@@ -1033,6 +1035,7 @@ Class | Method | HTTP request | Description
  - [BouncesRemoveListObj](docs/BouncesRemoveListObj.md)
  - [BouncesRemoveListResult](docs/BouncesRemoveListResult.md)
  - [Brand](docs/Brand.md)
+ - [BrandDomains](docs/BrandDomains.md)
  - [BrandRequest](docs/BrandRequest.md)
  - [BrandWithEmbedded](docs/BrandWithEmbedded.md)
  - [BrowserPluginApplication](docs/BrowserPluginApplication.md)
@@ -1640,10 +1643,6 @@ Class | Method | HTTP request | Description
  - [OpenIdConnectApplicationSettingsRefreshToken](docs/OpenIdConnectApplicationSettingsRefreshToken.md)
  - [OperationRequest](docs/OperationRequest.md)
  - [OperationResponse](docs/OperationResponse.md)
- - [OperationResponseAssignmentOperation](docs/OperationResponseAssignmentOperation.md)
- - [OperationResponseAssignmentOperationConfiguration](docs/OperationResponseAssignmentOperationConfiguration.md)
- - [OperationResponseAssignmentOperationConfigurationActions](docs/OperationResponseAssignmentOperationConfigurationActions.md)
- - [OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm](docs/OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm.md)
  - [OptInStatusResponse](docs/OptInStatusResponse.md)
  - [OptInStatusResponseLinks](docs/OptInStatusResponseLinks.md)
  - [Org2OrgApplication](docs/Org2OrgApplication.md)
@@ -1823,6 +1822,11 @@ Class | Method | HTTP request | Description
  - [RateLimitWarningThresholdResponse](docs/RateLimitWarningThresholdResponse.md)
  - [Realm](docs/Realm.md)
  - [RealmAssignment](docs/RealmAssignment.md)
+ - [RealmAssignmentOperationResponse](docs/RealmAssignmentOperationResponse.md)
+ - [RealmAssignmentOperationResponseAllOfAssignmentOperation](docs/RealmAssignmentOperationResponseAllOfAssignmentOperation.md)
+ - [RealmAssignmentOperationResponseAllOfAssignmentOperationConfiguration](docs/RealmAssignmentOperationResponseAllOfAssignmentOperationConfiguration.md)
+ - [RealmAssignmentOperationResponseAllOfAssignmentOperationConfigurationActions](docs/RealmAssignmentOperationResponseAllOfAssignmentOperationConfigurationActions.md)
+ - [RealmAssignmentOperationResponseAllOfAssignmentOperationConfigurationActionsAssignUserToRealm](docs/RealmAssignmentOperationResponseAllOfAssignmentOperationConfigurationActionsAssignUserToRealm.md)
  - [RealmProfile](docs/RealmProfile.md)
  - [RecoveryQuestionCredential](docs/RecoveryQuestionCredential.md)
  - [RefreshToken](docs/RefreshToken.md)
@@ -2343,6 +2347,7 @@ Note, each API key must be added to a map of `map[string]APIKey` where the key i
  - **okta.networkZones.read**: Allows the app to read Network Zones in your Okta organization
  - **okta.oauthIntegrations.manage**: Allows the app to create and manage API service Integration instances in your Okta organization
  - **okta.oauthIntegrations.read**: Allows the app to read API service Integration instances in your Okta organization
+ - **okta.operations.read**: Allows the app to read the status of asynchronous operations in your Okta organization
  - **okta.orgs.manage**: Allows the app to manage organization-specific details for your Okta organization
  - **okta.orgs.read**: Allows the app to read organization-specific details about your Okta organization
  - **okta.personal.adminSettings.manage**: Allows the app to manage the personal admin settings for the signed-in user

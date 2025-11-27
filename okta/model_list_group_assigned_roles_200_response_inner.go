@@ -60,42 +60,30 @@ func (dst *ListGroupAssignedRoles200ResponseInner) UnmarshalJSON(data []byte) er
 
 	// check if the discriminator value is 'ACCESS_CERTIFICATIONS_ADMIN'
 	if jsonDict["type"] == "ACCESS_CERTIFICATIONS_ADMIN" {
-		// try to unmarshal JSON data into StandardRole
-		err = json.Unmarshal(data, &dst.StandardRole)
+		// try to unmarshal JSON data into CustomRole
+		err = json.Unmarshal(data, &dst.CustomRole)
 		if err == nil {
-			return nil // data stored in dst.StandardRole, return on the first match
+			return nil // data stored in dst.CustomRole, return on the first match
 		} else {
-			dst.StandardRole = nil
-			return fmt.Errorf("failed to unmarshal ListGroupAssignedRoles200ResponseInner as StandardRole: %s", err.Error())
+			dst.CustomRole = nil
+			return fmt.Errorf("failed to unmarshal ListGroupAssignedRoles200ResponseInner as CustomRole: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'ACCESS_REQUESTS_ADMIN'
 	if jsonDict["type"] == "ACCESS_REQUESTS_ADMIN" {
-		// try to unmarshal JSON data into StandardRole
-		err = json.Unmarshal(data, &dst.StandardRole)
+		// try to unmarshal JSON data into CustomRole
+		err = json.Unmarshal(data, &dst.CustomRole)
 		if err == nil {
-			return nil // data stored in dst.StandardRole, return on the first match
+			return nil // data stored in dst.CustomRole, return on the first match
 		} else {
-			dst.StandardRole = nil
-			return fmt.Errorf("failed to unmarshal ListGroupAssignedRoles200ResponseInner as StandardRole: %s", err.Error())
+			dst.CustomRole = nil
+			return fmt.Errorf("failed to unmarshal ListGroupAssignedRoles200ResponseInner as CustomRole: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'API_ACCESS_MANAGEMENT_ADMIN'
 	if jsonDict["type"] == "API_ACCESS_MANAGEMENT_ADMIN" {
-		// try to unmarshal JSON data into StandardRole
-		err = json.Unmarshal(data, &dst.StandardRole)
-		if err == nil {
-			return nil // data stored in dst.StandardRole, return on the first match
-		} else {
-			dst.StandardRole = nil
-			return fmt.Errorf("failed to unmarshal ListGroupAssignedRoles200ResponseInner as StandardRole: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'API_ADMIN'
-	if jsonDict["type"] == "API_ADMIN" {
 		// try to unmarshal JSON data into StandardRole
 		err = json.Unmarshal(data, &dst.StandardRole)
 		if err == nil {
@@ -228,13 +216,13 @@ func (dst *ListGroupAssignedRoles200ResponseInner) UnmarshalJSON(data []byte) er
 
 	// check if the discriminator value is 'WORKFLOWS_ADMIN'
 	if jsonDict["type"] == "WORKFLOWS_ADMIN" {
-		// try to unmarshal JSON data into StandardRole
-		err = json.Unmarshal(data, &dst.StandardRole)
+		// try to unmarshal JSON data into CustomRole
+		err = json.Unmarshal(data, &dst.CustomRole)
 		if err == nil {
-			return nil // data stored in dst.StandardRole, return on the first match
+			return nil // data stored in dst.CustomRole, return on the first match
 		} else {
-			dst.StandardRole = nil
-			return fmt.Errorf("failed to unmarshal ListGroupAssignedRoles200ResponseInner as StandardRole: %s", err.Error())
+			dst.CustomRole = nil
+			return fmt.Errorf("failed to unmarshal ListGroupAssignedRoles200ResponseInner as CustomRole: %s", err.Error())
 		}
 	}
 

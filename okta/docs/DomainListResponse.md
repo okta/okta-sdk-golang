@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Domains** | Pointer to [**[]DomainResponse**](DomainResponse.md) | Each element of the array defines an individual domain. | [optional] 
+**Domains** | Pointer to [**[]DomainResponse**](DomainResponse.md) | Each element of the array defines an individual domain | [optional] 
 
 ## Methods
 

@@ -134,8 +134,8 @@ type RoleAssignmentAUserAPI interface {
 	ListAssignedRolesForUser(ctx context.Context, userId string) ApiListAssignedRolesForUserRequest
 
 	// ListAssignedRolesForUserExecute executes the request
-	//  @return []AssignRoleToGroup200Response
-	ListAssignedRolesForUserExecute(r ApiListAssignedRolesForUserRequest) ([]AssignRoleToGroup200Response, *APIResponse, error)
+	//  @return []ListGroupAssignedRoles200ResponseInner
+	ListAssignedRolesForUserExecute(r ApiListAssignedRolesForUserRequest) ([]ListGroupAssignedRoles200ResponseInner, *APIResponse, error)
 
 	/*
 		ListUsersWithRoleAssignments List all users with role assignments
@@ -1077,7 +1077,7 @@ func (r ApiListAssignedRolesForUserRequest) Expand(expand string) ApiListAssigne
 	return r
 }
 
-func (r ApiListAssignedRolesForUserRequest) Execute() ([]AssignRoleToGroup200Response, *APIResponse, error) {
+func (r ApiListAssignedRolesForUserRequest) Execute() ([]ListGroupAssignedRoles200ResponseInner, *APIResponse, error) {
 	return r.ApiService.ListAssignedRolesForUserExecute(r)
 }
 
@@ -1101,13 +1101,13 @@ func (a *RoleAssignmentAUserAPIService) ListAssignedRolesForUser(ctx context.Con
 
 // Execute executes the request
 //
-//	@return []AssignRoleToGroup200Response
-func (a *RoleAssignmentAUserAPIService) ListAssignedRolesForUserExecute(r ApiListAssignedRolesForUserRequest) ([]AssignRoleToGroup200Response, *APIResponse, error) {
+//	@return []ListGroupAssignedRoles200ResponseInner
+func (a *RoleAssignmentAUserAPIService) ListAssignedRolesForUserExecute(r ApiListAssignedRolesForUserRequest) ([]ListGroupAssignedRoles200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  []AssignRoleToGroup200Response
+		localVarReturnValue  []ListGroupAssignedRoles200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
