@@ -1,6 +1,9 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v6.0.1
+- Fix role assignment APIs `oneOf` schema issues in spec [#553](https://github.com/okta/okta-sdk-golang/pull/553). Thanks [@pranav-okta](https://github.com/okta/pranav-okta)
+
 ## v6.0.0
 - Update to latest Okta Management API specification
 - Breaking changes from v5.x - see [migration guide](MIGRATING.md)
