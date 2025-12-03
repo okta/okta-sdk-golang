@@ -51,9 +51,9 @@ type Policy struct {
 	// Specifies whether Okta created the policy
 	System *bool `json:"system,omitempty"`
 	// All Okta orgs contain only one IdP discovery policy with an immutable default rule routing to your org's sign-in page, one entity risk policy, and one session protection policy. Creating or replacing a policy with the `IDP_DISCOVERY` type, the `ENTITY_RISK` type, or the `POST_AUTH_SESSION` type isn't supported. The following policy types are available with Identity Engine: `ACCESS_POLICY`, `PROFILE_ENROLLMENT`, `POST_AUTH_SESSION`, <x-lifecycle class=\"ea\"></x-lifecycle> `DEVICE_SIGNAL_COLLECTION`, `ENTITY_RISK`.
-	Type                 string                            `json:"type"`
-	Embedded             map[string]map[string]interface{} `json:"_embedded,omitempty"`
-	Links                *PolicyLinks                      `json:"_links,omitempty"`
+	Type                 string                 `json:"type"`
+	Embedded             map[string]interface{} `json:"_embedded,omitempty"`
+	Links                *PolicyLinks           `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -355,9 +355,9 @@ func (o *Policy) SetType(v string) {
 }
 
 // GetEmbedded returns the Embedded field value if set, zero value otherwise.
-func (o *Policy) GetEmbedded() map[string]map[string]interface{} {
+func (o *Policy) GetEmbedded() map[string]interface{} {
 	if o == nil || IsNil(o.Embedded) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Embedded
@@ -365,9 +365,9 @@ func (o *Policy) GetEmbedded() map[string]map[string]interface{} {
 
 // GetEmbeddedOk returns a tuple with the Embedded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Policy) GetEmbeddedOk() (map[string]map[string]interface{}, bool) {
+func (o *Policy) GetEmbeddedOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Embedded) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Embedded, true
 }
@@ -381,8 +381,8 @@ func (o *Policy) HasEmbedded() bool {
 	return false
 }
 
-// SetEmbedded gets a reference to the given map[string]map[string]interface{} and assigns it to the Embedded field.
-func (o *Policy) SetEmbedded(v map[string]map[string]interface{}) {
+// SetEmbedded gets a reference to the given map[string]interface{} and assigns it to the Embedded field.
+func (o *Policy) SetEmbedded(v map[string]interface{}) {
 	o.Embedded = v
 }
 
