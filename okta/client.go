@@ -834,22 +834,11 @@ func getAccessTokenForDpopPrivateKey(tokenRequest *http.Request, httpClient *htt
 	if err != nil {
 		return nil, "", nil, err
 	}
-	dpopJWT, err := generateDpopJWT(privateKey, http.MethodPost, fmt.Sprintf("%v%v", orgURL, "/oauth2/v1/token"), nonce, "")
-	if err != nil {
-		return nil, "", nil, err
-	}
-	newClientAssertion, err := createClientAssertion(orgURL, clientID, signer)
-	if err != nil {
-		return nil, "", nil, err
-	}
 
 	query := url.Values{}
 	query.Add("grant_type", "client_credentials")
 	query.Add("scope", scopes)
 	query.Add("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer")
-	query.Add("client_assertion", newClientAssertion)
-	tokenRequest.Body = io.NopCloser(strings.NewReader(query.Encode()))
-	tokenRequest.Header.Set("DPoP", dpopJWT)
 
 	bOff := &oktaBackoff{
 		ctx:             context.Background(),
@@ -858,6 +847,19 @@ func getAccessTokenForDpopPrivateKey(tokenRequest *http.Request, httpClient *htt
 	}
 	var tokenResponse *http.Response
 	operation := func() (*http.Response, error) {
+		dpopJWT, err := generateDpopJWT(privateKey, http.MethodPost, fmt.Sprintf("%v%v", orgURL, "/oauth2/v1/token"), nonce, "")
+		if err != nil {
+			return nil, err
+		}
+		newClientAssertion, err := createClientAssertion(orgURL, clientID, signer)
+		if err != nil {
+			return nil, err
+		}
+
+		query.Add("client_assertion", newClientAssertion)
+		tokenRequest.Body = io.NopCloser(strings.NewReader(query.Encode()))
+		tokenRequest.Header.Set("DPoP", dpopJWT)
+
 		resp, err := httpClient.Do(tokenRequest)
 		bOff.retryCount++
 		return resp, err
@@ -1497,8 +1499,22 @@ func (c *APIClient) doWithRetries(ctx context.Context, req *http.Request) (*http
 		}
 		bOff.backoffDuration = time.Second * time.Duration(backoffDuration)
 		bOff.retryCount++
-		req.Header.Add("X-Okta-Retry-For", resp.Header.Get("X-Okta-Request-Id"))
-		req.Header.Add("X-Okta-Retry-Count", fmt.Sprint(bOff.retryCount))
+
+		headerParams := make(map[string]string)
+		if len(req.Header["Accept"]) > 0 {
+			headerParams["Accept"] = req.Header["Accept"][0]
+		}
+		if len(req.Header["Content-Type"]) > 0 {
+			headerParams["Content-Type"] = req.Header["Content-Type"][0]
+		}
+		headerParams["X-Okta-Retry-For"] = resp.Header.Get("X-Okta-Request-Id")
+		headerParams["X-Okta-Retry-Count"] = fmt.Sprint(bOff.retryCount)
+		queryParams := req.URL.Query()
+		req.URL.RawQuery = ""
+		req, err = c.prepareRequest(ctx, req.URL.String(), req.Method, req.Body, headerParams, queryParams, url.Values{}, []formFile{})
+		if err != nil {
+			return nil, err
+		}
 		return nil, errors.New("too many requests")
 	}
 	resp, err = backoff.Retry(ctx, operation, backoff.WithBackOff(bOff))
