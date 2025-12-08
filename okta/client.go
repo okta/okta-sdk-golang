@@ -1474,6 +1474,75 @@ func (c *APIClient) doWithRetries(ctx context.Context, req *http.Request) (*http
 		if bodyReader != nil {
 			req.Body = bodyReader()
 		}
+
+		// Clear token cache on retries for PrivateKey, JWT, JWK auth modes to regenerate DPoP JWTs
+		if bOff.retryCount > 0 && (c.cfg.Okta.Client.AuthorizationMode == "PrivateKey" ||
+			c.cfg.Okta.Client.AuthorizationMode == "JWT" ||
+			c.cfg.Okta.Client.AuthorizationMode == "JWK") {
+			c.tokenCache.Delete(AccessTokenCacheKey)
+			c.tokenCache.Delete(DpopAccessTokenNonce)
+			c.tokenCache.Delete(DpopAccessTokenPrivateKey)
+
+			// Regenerate auth headers by creating new auth object
+			method := req.Method
+			urlWithoutQuery := *req.URL
+			urlWithoutQuery.RawQuery = ""
+
+			var auth Authorization
+			switch c.cfg.Okta.Client.AuthorizationMode {
+			case "PrivateKey":
+				auth = NewPrivateKeyAuth(PrivateKeyAuthConfig{
+					TokenCache:       c.tokenCache,
+					HttpClient:       c.cfg.HTTPClient,
+					PrivateKeySigner: c.cfg.PrivateKeySigner,
+					PrivateKey:       c.cfg.Okta.Client.PrivateKey,
+					PrivateKeyId:     c.cfg.Okta.Client.PrivateKeyId,
+					ClientId:         c.cfg.Okta.Client.ClientId,
+					OrgURL:           c.cfg.Okta.Client.OrgUrl,
+					UserAgent:        NewUserAgent(c.cfg).String(),
+					Scopes:           c.cfg.Okta.Client.Scopes,
+					MaxRetries:       c.cfg.Okta.Client.RateLimit.MaxRetries,
+					MaxBackoff:       c.cfg.Okta.Client.RateLimit.MaxBackoff,
+					Req:              req,
+				})
+			case "JWT":
+				auth = NewJWTAuth(JWTAuthConfig{
+					TokenCache:      c.tokenCache,
+					HttpClient:      c.cfg.HTTPClient,
+					OrgURL:          c.cfg.Okta.Client.OrgUrl,
+					UserAgent:       NewUserAgent(c.cfg).String(),
+					Scopes:          c.cfg.Okta.Client.Scopes,
+					ClientAssertion: c.cfg.Okta.Client.ClientAssertion,
+					MaxRetries:      c.cfg.Okta.Client.RateLimit.MaxRetries,
+					MaxBackoff:      c.cfg.Okta.Client.RateLimit.MaxBackoff,
+					Req:             req,
+				})
+			case "JWK":
+				auth = NewJWKAuth(JWKAuthConfig{
+					TokenCache:       c.tokenCache,
+					HttpClient:       c.cfg.HTTPClient,
+					JWK:              c.cfg.Okta.Client.JWK,
+					EncryptionType:   c.cfg.Okta.Client.EncryptionType,
+					PrivateKeySigner: c.cfg.PrivateKeySigner,
+					PrivateKeyId:     c.cfg.Okta.Client.PrivateKeyId,
+					ClientId:         c.cfg.Okta.Client.ClientId,
+					OrgURL:           c.cfg.Okta.Client.OrgUrl,
+					UserAgent:        NewUserAgent(c.cfg).String(),
+					Scopes:           c.cfg.Okta.Client.Scopes,
+					MaxRetries:       c.cfg.Okta.Client.RateLimit.MaxRetries,
+					MaxBackoff:       c.cfg.Okta.Client.RateLimit.MaxBackoff,
+					Req:              req,
+				})
+			}
+
+			if auth != nil {
+				err := auth.Authorize(method, urlWithoutQuery.String())
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+
 		resp, err := c.callAPI(req)
 		if errors.Is(err, io.EOF) {
 			// retry on EOF errors, which might be caused by network connectivity issues
