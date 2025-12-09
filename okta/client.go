@@ -68,7 +68,7 @@ var (
 )
 
 const (
-	VERSION                   = "6.0.0"
+	VERSION                   = "6.0.1"
 	AccessTokenCacheKey       = "OKTA_ACCESS_TOKEN"
 	DpopAccessTokenNonce      = "DPOP_OKTA_ACCESS_TOKEN_NONCE"
 	DpopAccessTokenPrivateKey = "DPOP_OKTA_ACCESS_TOKEN_PRIVATE_KEY"

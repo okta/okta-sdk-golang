@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **Status** | Pointer to **string** | Whether or not the policy is active. Use the &#x60;activate&#x60; query parameter to set the status of a policy. | [optional] 
 **System** | Pointer to **bool** | Specifies whether Okta created the policy | [optional] [default to false]
 **Type** | **string** | All Okta orgs contain only one IdP discovery policy with an immutable default rule routing to your org&#39;s sign-in page, one entity risk policy, and one session protection policy. Creating or replacing a policy with the &#x60;IDP_DISCOVERY&#x60; type, the &#x60;ENTITY_RISK&#x60; type, or the &#x60;POST_AUTH_SESSION&#x60; type isn&#39;t supported. The following policy types are available with Identity Engine: &#x60;ACCESS_POLICY&#x60;, &#x60;PROFILE_ENROLLMENT&#x60;, &#x60;POST_AUTH_SESSION&#x60;, &lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &#x60;DEVICE_SIGNAL_COLLECTION&#x60;, &#x60;ENTITY_RISK&#x60;. | 
-**Embedded** | Pointer to **map[string]map[string]interface{}** |  | [optional] [readonly] 
+**Embedded** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
 **Links** | Pointer to [**PolicyLinks**](PolicyLinks.md) |  | [optional] 
 
 ## Methods
@@ -252,20 +252,20 @@ SetType sets Type field to given value.
 
 ### GetEmbedded
 
-`func (o *Policy) GetEmbedded() map[string]map[string]interface{}`
+`func (o *Policy) GetEmbedded() map[string]interface{}`
 
 GetEmbedded returns the Embedded field if non-nil, zero value otherwise.
 
 ### GetEmbeddedOk
 
-`func (o *Policy) GetEmbeddedOk() (*map[string]map[string]interface{}, bool)`
+`func (o *Policy) GetEmbeddedOk() (*map[string]interface{}, bool)`
 
 GetEmbeddedOk returns a tuple with the Embedded field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEmbedded
 
-`func (o *Policy) SetEmbedded(v map[string]map[string]interface{})`
+`func (o *Policy) SetEmbedded(v map[string]interface{})`
 
 SetEmbedded sets Embedded field to given value.
 
