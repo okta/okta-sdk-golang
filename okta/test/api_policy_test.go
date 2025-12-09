@@ -423,8 +423,8 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 		require.NotNil(t, createdResp.AccessPolicy)
 		require.NotNil(t, createdResp.AccessPolicy.Id)
 
-		policyId := *createdResp.AccessPolicy.Id
-		testDataManager.TrackPolicy(policyId)
+		policyID := *createdResp.AccessPolicy.Id
+		testDataManager.TrackPolicy(policyID)
 
 		// List policies of ACCESS_POLICY type
 		resp, httpRes, err := apiClient.PolicyAPI.ListPolicies(context.Background()).Type_("ACCESS_POLICY").Execute()
@@ -434,18 +434,22 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 		// For now, we'll verify that we get a 200 response and the error is related to unmarshaling
 		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 
-		// The error should be related to JSON unmarshaling due to array vs single object mismatch
-		if err != nil {
-			// Verify this is the expected unmarshaling error
-			assert.Contains(t, err.Error(), "failed to unmarshal JSON")
-			// Even though there's an unmarshaling error, the HTTP call succeeded
-			// This test validates that the API endpoint is working correctly
-		} else {
-			// If no error, verify the response structure
-			require.NotNil(t, resp)
-			if resp.AccessPolicy != nil {
-				assert.NotNil(t, resp.AccessPolicy.Id)
-				assert.Equal(t, "ACCESS_POLICY", resp.AccessPolicy.Type)
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
+		for _, policyItem := range resp {
+			actualInstance := policyItem.GetActualInstance()
+			if actualInstance == nil {
+				continue
+			}
+
+			// Type assert to AccessPolicy
+			if accessPolicy, ok := actualInstance.(*okta.AccessPolicy); ok {
+				if accessPolicy.Id != nil && *accessPolicy.Id == policyID {
+					assert.NotNil(t, accessPolicy.Id)
+					assert.Equal(t, "ACCESS_POLICY", accessPolicy.Type)
+					break
+				}
 			}
 		}
 	})
