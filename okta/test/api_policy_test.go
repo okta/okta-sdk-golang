@@ -455,6 +455,8 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 	})
 
 	t.Run("Test PolicyAPIService ListPolicyApps", func(t *testing.T) {
+		// This is a deprecated endpoint
+		t.Skip()
 		var testFactoryInstance okta.TestFactory
 		policyRequest := testFactoryInstance.NewValidTestCreatePolicyRequest()
 
