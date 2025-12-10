@@ -17833,28 +17833,30 @@ paths:
           content:
             application/json:
               schema:
-                oneOf: &ref_14
-                  - $ref: '#/components/schemas/AccessPolicy'
-                  - $ref: '#/components/schemas/IdpDiscoveryPolicy'
-                  - $ref: '#/components/schemas/AuthenticatorEnrollmentPolicy'
-                  - $ref: '#/components/schemas/OktaSignOnPolicy'
-                  - $ref: '#/components/schemas/PasswordPolicy'
-                  - $ref: '#/components/schemas/ProfileEnrollmentPolicy'
-                  - $ref: '#/components/schemas/PostAuthSessionPolicy'
-                  - $ref: '#/components/schemas/EntityRiskPolicy'
-                  - $ref: '#/components/schemas/DeviceSignalCollectionPolicy'
-                discriminator: &ref_15
-                  propertyName: type
-                  mapping:
-                    ACCESS_POLICY: '#/components/schemas/AccessPolicy'
-                    IDP_DISCOVERY: '#/components/schemas/IdpDiscoveryPolicy'
-                    MFA_ENROLL: '#/components/schemas/AuthenticatorEnrollmentPolicy'
-                    OKTA_SIGN_ON: '#/components/schemas/OktaSignOnPolicy'
-                    PASSWORD: '#/components/schemas/PasswordPolicy'
-                    PROFILE_ENROLLMENT: '#/components/schemas/ProfileEnrollmentPolicy'
-                    POST_AUTH_SESSION: '#/components/schemas/PostAuthSessionPolicy'
-                    ENTITY_RISK: '#/components/schemas/EntityRiskPolicy'
-                    DEVICE_SIGNAL_COLLECTION: '#/components/schemas/DeviceSignalCollectionPolicy'
+                type: array
+                items:
+                  oneOf: &ref_14
+                    - $ref: '#/components/schemas/AccessPolicy'
+                    - $ref: '#/components/schemas/IdpDiscoveryPolicy'
+                    - $ref: '#/components/schemas/AuthenticatorEnrollmentPolicy'
+                    - $ref: '#/components/schemas/OktaSignOnPolicy'
+                    - $ref: '#/components/schemas/PasswordPolicy'
+                    - $ref: '#/components/schemas/ProfileEnrollmentPolicy'
+                    - $ref: '#/components/schemas/PostAuthSessionPolicy'
+                    - $ref: '#/components/schemas/EntityRiskPolicy'
+                    - $ref: '#/components/schemas/DeviceSignalCollectionPolicy'
+                  discriminator: &ref_15
+                    propertyName: type
+                    mapping:
+                      ACCESS_POLICY: '#/components/schemas/AccessPolicy'
+                      IDP_DISCOVERY: '#/components/schemas/IdpDiscoveryPolicy'
+                      MFA_ENROLL: '#/components/schemas/AuthenticatorEnrollmentPolicy'
+                      OKTA_SIGN_ON: '#/components/schemas/OktaSignOnPolicy'
+                      PASSWORD: '#/components/schemas/PasswordPolicy'
+                      PROFILE_ENROLLMENT: '#/components/schemas/ProfileEnrollmentPolicy'
+                      POST_AUTH_SESSION: '#/components/schemas/PostAuthSessionPolicy'
+                      ENTITY_RISK: '#/components/schemas/EntityRiskPolicy'
+                      DEVICE_SIGNAL_COLLECTION: '#/components/schemas/DeviceSignalCollectionPolicy'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '429':
@@ -44090,9 +44092,7 @@ components:
           $ref: '#/components/schemas/PolicyType'
         _embedded:
           type: object
-          additionalProperties:
-            type: object
-            properties: {}
+          additionalProperties: true
           readOnly: true
         _links:
           $ref: '#/components/schemas/PolicyLinks'

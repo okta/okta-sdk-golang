@@ -169,7 +169,7 @@ Name | Type | Description  | Notes
 
 ## ClonePolicy
 
-> ListPolicies200Response ClonePolicy(ctx, policyId).Execute()
+> ListPolicies200ResponseInner ClonePolicy(ctx, policyId).Execute()
 
 Clone an existing policy
 
@@ -197,7 +197,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.ClonePolicy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ClonePolicy`: ListPolicies200Response
+	// response from `ClonePolicy`: ListPolicies200ResponseInner
 	fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.ClonePolicy`: %v\n", resp)
 }
 ```
@@ -221,7 +221,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListPolicies200Response**](ListPolicies200Response.md)
+[**ListPolicies200ResponseInner**](ListPolicies200ResponseInner.md)
 
 ### Authorization
 
@@ -800,7 +800,7 @@ Name | Type | Description  | Notes
 
 ## GetPolicy
 
-> ListPolicies200Response GetPolicy(ctx, policyId).Expand(expand).Execute()
+> ListPolicies200ResponseInner GetPolicy(ctx, policyId).Expand(expand).Execute()
 
 Retrieve a policy
 
@@ -829,7 +829,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.GetPolicy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPolicy`: ListPolicies200Response
+	// response from `GetPolicy`: ListPolicies200ResponseInner
 	fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.GetPolicy`: %v\n", resp)
 }
 ```
@@ -854,7 +854,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListPolicies200Response**](ListPolicies200Response.md)
+[**ListPolicies200ResponseInner**](ListPolicies200ResponseInner.md)
 
 ### Authorization
 
@@ -1018,7 +1018,7 @@ Name | Type | Description  | Notes
 
 ## ListPolicies
 
-> ListPolicies200Response ListPolicies(ctx).Type_(type_).Status(status).Q(q).Expand(expand).SortBy(sortBy).Limit(limit).ResourceId(resourceId).After(after).Execute()
+> []ListPolicies200ResponseInner ListPolicies(ctx).Type_(type_).Status(status).Q(q).Expand(expand).SortBy(sortBy).Limit(limit).ResourceId(resourceId).After(after).Execute()
 
 List all policies
 
@@ -1053,7 +1053,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.ListPolicies``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListPolicies`: ListPolicies200Response
+	// response from `ListPolicies`: []ListPolicies200ResponseInner
 	fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.ListPolicies`: %v\n", resp)
 }
 ```
@@ -1080,7 +1080,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListPolicies200Response**](ListPolicies200Response.md)
+[**[]ListPolicies200ResponseInner**](ListPolicies200ResponseInner.md)
 
 ### Authorization
 
@@ -1382,7 +1382,7 @@ Name | Type | Description  | Notes
 
 ## ReplacePolicy
 
-> ListPolicies200Response ReplacePolicy(ctx, policyId).Policy(policy).Execute()
+> ListPolicies200ResponseInner ReplacePolicy(ctx, policyId).Policy(policy).Execute()
 
 Replace a policy
 
@@ -1411,7 +1411,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.ReplacePolicy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ReplacePolicy`: ListPolicies200Response
+	// response from `ReplacePolicy`: ListPolicies200ResponseInner
 	fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.ReplacePolicy`: %v\n", resp)
 }
 ```
@@ -1436,7 +1436,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListPolicies200Response**](ListPolicies200Response.md)
+[**ListPolicies200ResponseInner**](ListPolicies200ResponseInner.md)
 
 ### Authorization
 

@@ -76,8 +76,8 @@ type PolicyAPI interface {
 	ClonePolicy(ctx context.Context, policyId string) ApiClonePolicyRequest
 
 	// ClonePolicyExecute executes the request
-	//  @return ListPolicies200Response
-	ClonePolicyExecute(r ApiClonePolicyRequest) (*ListPolicies200Response, *APIResponse, error)
+	//  @return ListPolicies200ResponseInner
+	ClonePolicyExecute(r ApiClonePolicyRequest) (*ListPolicies200ResponseInner, *APIResponse, error)
 
 	/*
 		CreatePolicy Create a policy
@@ -210,8 +210,8 @@ type PolicyAPI interface {
 	GetPolicy(ctx context.Context, policyId string) ApiGetPolicyRequest
 
 	// GetPolicyExecute executes the request
-	//  @return ListPolicies200Response
-	GetPolicyExecute(r ApiGetPolicyRequest) (*ListPolicies200Response, *APIResponse, error)
+	//  @return ListPolicies200ResponseInner
+	GetPolicyExecute(r ApiGetPolicyRequest) (*ListPolicies200ResponseInner, *APIResponse, error)
 
 	/*
 		GetPolicyMapping Retrieve a policy resource mapping
@@ -256,8 +256,8 @@ type PolicyAPI interface {
 	ListPolicies(ctx context.Context) ApiListPoliciesRequest
 
 	// ListPoliciesExecute executes the request
-	//  @return ListPolicies200Response
-	ListPoliciesExecute(r ApiListPoliciesRequest) (*ListPolicies200Response, *APIResponse, error)
+	//  @return []ListPolicies200ResponseInner
+	ListPoliciesExecute(r ApiListPoliciesRequest) ([]ListPolicies200ResponseInner, *APIResponse, error)
 
 	/*
 			ListPolicyApps List all apps mapped to a policy
@@ -338,8 +338,8 @@ type PolicyAPI interface {
 	ReplacePolicy(ctx context.Context, policyId string) ApiReplacePolicyRequest
 
 	// ReplacePolicyExecute executes the request
-	//  @return ListPolicies200Response
-	ReplacePolicyExecute(r ApiReplacePolicyRequest) (*ListPolicies200Response, *APIResponse, error)
+	//  @return ListPolicies200ResponseInner
+	ReplacePolicyExecute(r ApiReplacePolicyRequest) (*ListPolicies200ResponseInner, *APIResponse, error)
 
 	/*
 		ReplacePolicyRule Replace a policy rule
@@ -678,7 +678,7 @@ type ApiClonePolicyRequest struct {
 	retryCount int32
 }
 
-func (r ApiClonePolicyRequest) Execute() (*ListPolicies200Response, *APIResponse, error) {
+func (r ApiClonePolicyRequest) Execute() (*ListPolicies200ResponseInner, *APIResponse, error) {
 	return r.ApiService.ClonePolicyExecute(r)
 }
 
@@ -702,13 +702,13 @@ func (a *PolicyAPIService) ClonePolicy(ctx context.Context, policyId string) Api
 
 // Execute executes the request
 //
-//	@return ListPolicies200Response
-func (a *PolicyAPIService) ClonePolicyExecute(r ApiClonePolicyRequest) (*ListPolicies200Response, *APIResponse, error) {
+//	@return ListPolicies200ResponseInner
+func (a *PolicyAPIService) ClonePolicyExecute(r ApiClonePolicyRequest) (*ListPolicies200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ListPolicies200Response
+		localVarReturnValue  *ListPolicies200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -2217,7 +2217,7 @@ func (r ApiGetPolicyRequest) Expand(expand string) ApiGetPolicyRequest {
 	return r
 }
 
-func (r ApiGetPolicyRequest) Execute() (*ListPolicies200Response, *APIResponse, error) {
+func (r ApiGetPolicyRequest) Execute() (*ListPolicies200ResponseInner, *APIResponse, error) {
 	return r.ApiService.GetPolicyExecute(r)
 }
 
@@ -2241,13 +2241,13 @@ func (a *PolicyAPIService) GetPolicy(ctx context.Context, policyId string) ApiGe
 
 // Execute executes the request
 //
-//	@return ListPolicies200Response
-func (a *PolicyAPIService) GetPolicyExecute(r ApiGetPolicyRequest) (*ListPolicies200Response, *APIResponse, error) {
+//	@return ListPolicies200ResponseInner
+func (a *PolicyAPIService) GetPolicyExecute(r ApiGetPolicyRequest) (*ListPolicies200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ListPolicies200Response
+		localVarReturnValue  *ListPolicies200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -2780,7 +2780,7 @@ func (r ApiListPoliciesRequest) After(after string) ApiListPoliciesRequest {
 	return r
 }
 
-func (r ApiListPoliciesRequest) Execute() (*ListPolicies200Response, *APIResponse, error) {
+func (r ApiListPoliciesRequest) Execute() ([]ListPolicies200ResponseInner, *APIResponse, error) {
 	return r.ApiService.ListPoliciesExecute(r)
 }
 
@@ -2802,13 +2802,13 @@ func (a *PolicyAPIService) ListPolicies(ctx context.Context) ApiListPoliciesRequ
 
 // Execute executes the request
 //
-//	@return ListPolicies200Response
-func (a *PolicyAPIService) ListPoliciesExecute(r ApiListPoliciesRequest) (*ListPolicies200Response, *APIResponse, error) {
+//	@return []ListPolicies200ResponseInner
+func (a *PolicyAPIService) ListPoliciesExecute(r ApiListPoliciesRequest) ([]ListPolicies200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ListPolicies200Response
+		localVarReturnValue  []ListPolicies200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -3667,7 +3667,7 @@ func (r ApiReplacePolicyRequest) Policy(policy CreatePolicyRequest) ApiReplacePo
 	return r
 }
 
-func (r ApiReplacePolicyRequest) Execute() (*ListPolicies200Response, *APIResponse, error) {
+func (r ApiReplacePolicyRequest) Execute() (*ListPolicies200ResponseInner, *APIResponse, error) {
 	return r.ApiService.ReplacePolicyExecute(r)
 }
 
@@ -3691,13 +3691,13 @@ func (a *PolicyAPIService) ReplacePolicy(ctx context.Context, policyId string) A
 
 // Execute executes the request
 //
-//	@return ListPolicies200Response
-func (a *PolicyAPIService) ReplacePolicyExecute(r ApiReplacePolicyRequest) (*ListPolicies200Response, *APIResponse, error) {
+//	@return ListPolicies200ResponseInner
+func (a *PolicyAPIService) ReplacePolicyExecute(r ApiReplacePolicyRequest) (*ListPolicies200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ListPolicies200Response
+		localVarReturnValue  *ListPolicies200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
