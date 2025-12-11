@@ -1470,9 +1470,43 @@ func (c *APIClient) doWithRetries(ctx context.Context, req *http.Request) (*http
 		maxRetries: c.cfg.Okta.Client.RateLimit.MaxRetries,
 	}
 	operation := func() (*http.Response, error) {
-		// Always rewind the request body when non-nil.
-		if bodyReader != nil {
-			req.Body = bodyReader()
+		if bOff.retryCount > 0 && (c.cfg.Okta.Client.AuthorizationMode == "PrivateKey" || c.cfg.Okta.Client.AuthorizationMode == "JWT") {
+			// Clear the token cache to force fresh authorization
+			// This will get a new access token and potentially a new nonce
+			c.tokenCache.Delete(AccessTokenCacheKey)
+			c.tokenCache.Delete(DpopAccessTokenNonce)
+			c.tokenCache.Delete(DpopAccessTokenPrivateKey)
+
+			headerParams := make(map[string]string)
+			queryParams := req.URL.Query()
+			req.URL.RawQuery = ""
+			auth, err := c.prepareRequest(ctx, req.URL.String(), req.Method, nil, headerParams, queryParams, url.Values{}, []formFile{})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header = req.Header.Clone() // Start with original headers
+
+			// Update only the authentication headers from the fresh auth request
+			req.Header.Set("Authorization", auth.Header.Get("Authorization"))
+			if dpopHeader := auth.Header.Get("Dpop"); dpopHeader != "" {
+				req.Header.Set("Dpop", dpopHeader)
+			}
+			if userAgentExt := auth.Header.Get("x-okta-user-agent-extended"); userAgentExt != "" {
+				req.Header.Set("x-okta-user-agent-extended", userAgentExt)
+			}
+
+			// Always rewind the request body when non-nil.
+			if bodyReader != nil {
+				req.Body = bodyReader()
+			}
+		} else {
+			// Reuse the existing request headers and body
+			req.Header = req.Header.Clone()
+			// Always rewind the request body when non-nil.
+			if bodyReader != nil {
+				req.Body = bodyReader()
+			}
 		}
 		resp, err := c.callAPI(req)
 		if errors.Is(err, io.EOF) {
