@@ -37697,6 +37697,14 @@ components:
             - $ref: '#/components/schemas/ProtocolOidc'
             - $ref: '#/components/schemas/ProtocolMtls'
             - $ref: '#/components/schemas/ProtocolIdVerification'
+          discriminator:
+            propertyName: type
+            mapping:
+              SAML2: '#/components/schemas/ProtocolSaml'
+              OAUTH2: '#/components/schemas/ProtocolOAuth'
+              OIDC: '#/components/schemas/ProtocolOidc'
+              MTLS: '#/components/schemas/ProtocolMtls'
+              ID_PROOFING: '#/components/schemas/ProtocolIdVerification'
         status:
           $ref: '#/components/schemas/LifecycleStatus'
         type:

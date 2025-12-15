@@ -75,86 +75,74 @@ func ProtocolSamlAsIdentityProviderProtocol(v *ProtocolSaml) IdentityProviderPro
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *IdentityProviderProtocol) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into ProtocolIdVerification
-	err = json.Unmarshal(data, &dst.ProtocolIdVerification)
-	if err == nil {
-		jsonProtocolIdVerification, _ := json.Marshal(dst.ProtocolIdVerification)
-		if string(jsonProtocolIdVerification) == "{}" { // empty struct
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]interface{}
+	err = newStrictDecoder(data).Decode(&jsonDict)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
+	}
+
+	// check if the discriminator value is 'ID_PROOFING'
+	if jsonDict["type"] == "ID_PROOFING" {
+		// try to unmarshal JSON data into ProtocolIdVerification
+		err = json.Unmarshal(data, &dst.ProtocolIdVerification)
+		if err == nil {
+			return nil // data stored in dst.ProtocolIdVerification, return on the first match
+		} else {
 			dst.ProtocolIdVerification = nil
-		} else {
-			match++
+			return fmt.Errorf("failed to unmarshal IdentityProviderProtocol as ProtocolIdVerification: %s", err.Error())
 		}
-	} else {
-		dst.ProtocolIdVerification = nil
 	}
 
-	// try to unmarshal data into ProtocolMtls
-	err = json.Unmarshal(data, &dst.ProtocolMtls)
-	if err == nil {
-		jsonProtocolMtls, _ := json.Marshal(dst.ProtocolMtls)
-		if string(jsonProtocolMtls) == "{}" { // empty struct
+	// check if the discriminator value is 'MTLS'
+	if jsonDict["type"] == "MTLS" {
+		// try to unmarshal JSON data into ProtocolMtls
+		err = json.Unmarshal(data, &dst.ProtocolMtls)
+		if err == nil {
+			return nil // data stored in dst.ProtocolMtls, return on the first match
+		} else {
 			dst.ProtocolMtls = nil
-		} else {
-			match++
+			return fmt.Errorf("failed to unmarshal IdentityProviderProtocol as ProtocolMtls: %s", err.Error())
 		}
-	} else {
-		dst.ProtocolMtls = nil
 	}
 
-	// try to unmarshal data into ProtocolOAuth
-	err = json.Unmarshal(data, &dst.ProtocolOAuth)
-	if err == nil {
-		jsonProtocolOAuth, _ := json.Marshal(dst.ProtocolOAuth)
-		if string(jsonProtocolOAuth) == "{}" { // empty struct
+	// check if the discriminator value is 'OAUTH2'
+	if jsonDict["type"] == "OAUTH2" {
+		// try to unmarshal JSON data into ProtocolOAuth
+		err = json.Unmarshal(data, &dst.ProtocolOAuth)
+		if err == nil {
+			return nil // data stored in dst.ProtocolOAuth, return on the first match
+		} else {
 			dst.ProtocolOAuth = nil
-		} else {
-			match++
+			return fmt.Errorf("failed to unmarshal IdentityProviderProtocol as ProtocolOAuth: %s", err.Error())
 		}
-	} else {
-		dst.ProtocolOAuth = nil
 	}
 
-	// try to unmarshal data into ProtocolOidc
-	err = json.Unmarshal(data, &dst.ProtocolOidc)
-	if err == nil {
-		jsonProtocolOidc, _ := json.Marshal(dst.ProtocolOidc)
-		if string(jsonProtocolOidc) == "{}" { // empty struct
+	// check if the discriminator value is 'OIDC'
+	if jsonDict["type"] == "OIDC" {
+		// try to unmarshal JSON data into ProtocolOidc
+		err = json.Unmarshal(data, &dst.ProtocolOidc)
+		if err == nil {
+			return nil // data stored in dst.ProtocolOidc, return on the first match
+		} else {
 			dst.ProtocolOidc = nil
-		} else {
-			match++
+			return fmt.Errorf("failed to unmarshal IdentityProviderProtocol as ProtocolOidc: %s", err.Error())
 		}
-	} else {
-		dst.ProtocolOidc = nil
 	}
 
-	// try to unmarshal data into ProtocolSaml
-	err = json.Unmarshal(data, &dst.ProtocolSaml)
-	if err == nil {
-		jsonProtocolSaml, _ := json.Marshal(dst.ProtocolSaml)
-		if string(jsonProtocolSaml) == "{}" { // empty struct
+	// check if the discriminator value is 'SAML2'
+	if jsonDict["type"] == "SAML2" {
+		// try to unmarshal JSON data into ProtocolSaml
+		err = json.Unmarshal(data, &dst.ProtocolSaml)
+		if err == nil {
+			return nil // data stored in dst.ProtocolSaml, return on the first match
+		} else {
 			dst.ProtocolSaml = nil
-		} else {
-			match++
+			return fmt.Errorf("failed to unmarshal IdentityProviderProtocol as ProtocolSaml: %s", err.Error())
 		}
-	} else {
-		dst.ProtocolSaml = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.ProtocolIdVerification = nil
-		dst.ProtocolMtls = nil
-		dst.ProtocolOAuth = nil
-		dst.ProtocolOidc = nil
-		dst.ProtocolSaml = nil
-
-		return fmt.Errorf("data matches more than one schema in oneOf(IdentityProviderProtocol)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(IdentityProviderProtocol)")
-	}
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
