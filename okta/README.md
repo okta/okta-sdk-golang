@@ -889,7 +889,6 @@ Class | Method | HTTP request | Description
  - [ApplicationVisibilityHide](docs/ApplicationVisibilityHide.md)
  - [AssignGroupOwnerRequestBody](docs/AssignGroupOwnerRequestBody.md)
  - [AssignRoleRequest](docs/AssignRoleRequest.md)
- - [AssignRoleToClient200Response](docs/AssignRoleToClient200Response.md)
  - [AssignRoleToClientRequest](docs/AssignRoleToClientRequest.md)
  - [AssignRoleToGroup200Response](docs/AssignRoleToGroup200Response.md)
  - [AssignRoleToGroupRequest](docs/AssignRoleToGroupRequest.md)

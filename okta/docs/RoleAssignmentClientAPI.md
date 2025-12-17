@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## AssignRoleToClient
 
-> AssignRoleToClient200Response AssignRoleToClient(ctx, clientId).AssignRoleToClientRequest(assignRoleToClientRequest).Execute()
+> ListRolesForClient200ResponseInner AssignRoleToClient(ctx, clientId).AssignRoleToClientRequest(assignRoleToClientRequest).Execute()
 
 Assign a client role
 
@@ -42,7 +42,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentClientAPI.AssignRoleToClient``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `AssignRoleToClient`: AssignRoleToClient200Response
+	// response from `AssignRoleToClient`: ListRolesForClient200ResponseInner
 	fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentClientAPI.AssignRoleToClient`: %v\n", resp)
 }
 ```
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AssignRoleToClient200Response**](AssignRoleToClient200Response.md)
+[**ListRolesForClient200ResponseInner**](ListRolesForClient200ResponseInner.md)
 
 ### Authorization
 
@@ -226,7 +226,7 @@ Name | Type | Description  | Notes
 
 ## RetrieveClientRole
 
-> AssignRoleToClient200Response RetrieveClientRole(ctx, clientId, roleAssignmentId).Execute()
+> ListRolesForClient200ResponseInner RetrieveClientRole(ctx, clientId, roleAssignmentId).Execute()
 
 Retrieve a client role
 
@@ -255,7 +255,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentClientAPI.RetrieveClientRole``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RetrieveClientRole`: AssignRoleToClient200Response
+	// response from `RetrieveClientRole`: ListRolesForClient200ResponseInner
 	fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentClientAPI.RetrieveClientRole`: %v\n", resp)
 }
 ```
@@ -281,7 +281,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AssignRoleToClient200Response**](AssignRoleToClient200Response.md)
+[**ListRolesForClient200ResponseInner**](ListRolesForClient200ResponseInner.md)
 
 ### Authorization
 

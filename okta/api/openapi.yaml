@@ -40987,22 +40987,6 @@ paths:
           content:
             application/json:
               schema:
-                discriminator:
-                  mapping:
-                    API_ACCESS_MANAGEMENT_ADMIN: "#/components/schemas/StandardRole"
-                    APP_ADMIN: "#/components/schemas/StandardRole"
-                    GROUP_MEMBERSHIP_ADMIN: "#/components/schemas/StandardRole"
-                    HELP_DESK_ADMIN: "#/components/schemas/StandardRole"
-                    ORG_ADMIN: "#/components/schemas/StandardRole"
-                    READ_ONLY_ADMIN: "#/components/schemas/StandardRole"
-                    REPORT_ADMIN: "#/components/schemas/StandardRole"
-                    SUPER_ADMIN: "#/components/schemas/StandardRole"
-                    USER_ADMIN: "#/components/schemas/StandardRole"
-                    ACCESS_CERTIFICATIONS_ADMIN: "#/components/schemas/CustomRole"
-                    ACCESS_REQUESTS_ADMIN: "#/components/schemas/CustomRole"
-                    WORKFLOWS_ADMIN: "#/components/schemas/CustomRole"
-                    CUSTOM: "#/components/schemas/CustomRole"
-                  propertyName: type
                 items:
                   $ref: "#/components/schemas/listRolesForClient_200_response_inner"
                 type: array
@@ -41066,7 +41050,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/assignRoleToClient_200_response"
+                $ref: "#/components/schemas/listRolesForClient_200_response_inner"
           description: Success
         "403":
           content:
@@ -41180,7 +41164,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/assignRoleToClient_200_response"
+                $ref: "#/components/schemas/listRolesForClient_200_response_inner"
           description: Success
         "403":
           content:
@@ -82100,6 +82084,22 @@ components:
       - $ref: "#/components/schemas/DynamicNetworkZone"
       - $ref: "#/components/schemas/EnhancedDynamicNetworkZone"
     listRolesForClient_200_response_inner:
+      discriminator:
+        mapping:
+          API_ACCESS_MANAGEMENT_ADMIN: "#/components/schemas/StandardRole"
+          APP_ADMIN: "#/components/schemas/StandardRole"
+          GROUP_MEMBERSHIP_ADMIN: "#/components/schemas/StandardRole"
+          HELP_DESK_ADMIN: "#/components/schemas/StandardRole"
+          ORG_ADMIN: "#/components/schemas/StandardRole"
+          READ_ONLY_ADMIN: "#/components/schemas/StandardRole"
+          REPORT_ADMIN: "#/components/schemas/StandardRole"
+          SUPER_ADMIN: "#/components/schemas/StandardRole"
+          USER_ADMIN: "#/components/schemas/StandardRole"
+          ACCESS_CERTIFICATIONS_ADMIN: "#/components/schemas/CustomRole"
+          ACCESS_REQUESTS_ADMIN: "#/components/schemas/CustomRole"
+          WORKFLOWS_ADMIN: "#/components/schemas/CustomRole"
+          CUSTOM: "#/components/schemas/CustomRole"
+        propertyName: type
       oneOf:
       - $ref: "#/components/schemas/StandardRole"
       - $ref: "#/components/schemas/CustomRole"
@@ -82123,26 +82123,6 @@ components:
       oneOf:
       - $ref: "#/components/schemas/StandardRoleAssignmentSchema"
       - $ref: "#/components/schemas/CustomRoleAssignmentSchema"
-    assignRoleToClient_200_response:
-      discriminator:
-        mapping:
-          API_ACCESS_MANAGEMENT_ADMIN: "#/components/schemas/StandardRole"
-          APP_ADMIN: "#/components/schemas/StandardRole"
-          GROUP_MEMBERSHIP_ADMIN: "#/components/schemas/StandardRole"
-          HELP_DESK_ADMIN: "#/components/schemas/StandardRole"
-          ORG_ADMIN: "#/components/schemas/StandardRole"
-          READ_ONLY_ADMIN: "#/components/schemas/StandardRole"
-          REPORT_ADMIN: "#/components/schemas/StandardRole"
-          SUPER_ADMIN: "#/components/schemas/StandardRole"
-          USER_ADMIN: "#/components/schemas/StandardRole"
-          ACCESS_CERTIFICATIONS_ADMIN: "#/components/schemas/CustomRole"
-          ACCESS_REQUESTS_ADMIN: "#/components/schemas/CustomRole"
-          WORKFLOWS_ADMIN: "#/components/schemas/CustomRole"
-          CUSTOM: "#/components/schemas/CustomRole"
-        propertyName: type
-      oneOf:
-      - $ref: "#/components/schemas/StandardRole"
-      - $ref: "#/components/schemas/CustomRole"
     AIAgentOperationListResponse__links:
       allOf:
       - $ref: "#/components/schemas/LinksSelf"
