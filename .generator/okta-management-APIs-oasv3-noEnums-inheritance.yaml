@@ -24891,22 +24891,22 @@ paths:
                   oneOf:
                     - $ref: '#/components/schemas/StandardRole'
                     - $ref: '#/components/schemas/CustomRole'
-                discriminator:
-                  propertyName: type
-                  mapping:
-                    API_ACCESS_MANAGEMENT_ADMIN: '#/components/schemas/StandardRole'
-                    APP_ADMIN: '#/components/schemas/StandardRole'
-                    GROUP_MEMBERSHIP_ADMIN: '#/components/schemas/StandardRole'
-                    HELP_DESK_ADMIN: '#/components/schemas/StandardRole'
-                    ORG_ADMIN: '#/components/schemas/StandardRole'
-                    READ_ONLY_ADMIN: '#/components/schemas/StandardRole'
-                    REPORT_ADMIN: '#/components/schemas/StandardRole'
-                    SUPER_ADMIN: '#/components/schemas/StandardRole'
-                    USER_ADMIN: '#/components/schemas/StandardRole'
-                    ACCESS_CERTIFICATIONS_ADMIN: '#/components/schemas/CustomRole'
-                    ACCESS_REQUESTS_ADMIN: '#/components/schemas/CustomRole'
-                    WORKFLOWS_ADMIN: '#/components/schemas/CustomRole'
-                    CUSTOM: '#/components/schemas/CustomRole'
+                  discriminator:
+                    propertyName: type
+                    mapping:
+                      API_ACCESS_MANAGEMENT_ADMIN: '#/components/schemas/StandardRole'
+                      APP_ADMIN: '#/components/schemas/StandardRole'
+                      GROUP_MEMBERSHIP_ADMIN: '#/components/schemas/StandardRole'
+                      HELP_DESK_ADMIN: '#/components/schemas/StandardRole'
+                      ORG_ADMIN: '#/components/schemas/StandardRole'
+                      READ_ONLY_ADMIN: '#/components/schemas/StandardRole'
+                      REPORT_ADMIN: '#/components/schemas/StandardRole'
+                      SUPER_ADMIN: '#/components/schemas/StandardRole'
+                      USER_ADMIN: '#/components/schemas/StandardRole'
+                      ACCESS_CERTIFICATIONS_ADMIN: '#/components/schemas/CustomRole'
+                      ACCESS_REQUESTS_ADMIN: '#/components/schemas/CustomRole'
+                      WORKFLOWS_ADMIN: '#/components/schemas/CustomRole'
+                      CUSTOM: '#/components/schemas/CustomRole'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -37697,6 +37697,14 @@ components:
             - $ref: '#/components/schemas/ProtocolOidc'
             - $ref: '#/components/schemas/ProtocolMtls'
             - $ref: '#/components/schemas/ProtocolIdVerification'
+          discriminator:
+            propertyName: type
+            mapping:
+              SAML2: '#/components/schemas/ProtocolSaml'
+              OAUTH2: '#/components/schemas/ProtocolOAuth'
+              OIDC: '#/components/schemas/ProtocolOidc'
+              MTLS: '#/components/schemas/ProtocolMtls'
+              ID_PROOFING: '#/components/schemas/ProtocolIdVerification'
         status:
           $ref: '#/components/schemas/LifecycleStatus'
         type:
