@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // checks if the Agent type satisfies the MappedNullable interface at compile time
@@ -39,8 +38,8 @@ type Agent struct {
 	IsHidden *bool `json:"isHidden,omitempty"`
 	// Determines if the agent is on the latest generally available version
 	IsLatestGAedVersion *bool `json:"isLatestGAedVersion,omitempty"`
-	// Timestamp when the agent last connected to Okta
-	LastConnection *time.Time `json:"lastConnection,omitempty"`
+	// Unix timestamp in milliseconds when the agent last connected to Okta
+	LastConnection *int64 `json:"lastConnection,omitempty"`
 	// Agent name
 	Name *string `json:"name,omitempty"`
 	// Operational status of a given agent
@@ -175,9 +174,9 @@ func (o *Agent) SetIsLatestGAedVersion(v bool) {
 }
 
 // GetLastConnection returns the LastConnection field value if set, zero value otherwise.
-func (o *Agent) GetLastConnection() time.Time {
+func (o *Agent) GetLastConnection() int64 {
 	if o == nil || IsNil(o.LastConnection) {
-		var ret time.Time
+		var ret int64
 		return ret
 	}
 	return *o.LastConnection
@@ -185,7 +184,7 @@ func (o *Agent) GetLastConnection() time.Time {
 
 // GetLastConnectionOk returns a tuple with the LastConnection field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Agent) GetLastConnectionOk() (*time.Time, bool) {
+func (o *Agent) GetLastConnectionOk() (*int64, bool) {
 	if o == nil || IsNil(o.LastConnection) {
 		return nil, false
 	}
@@ -201,8 +200,8 @@ func (o *Agent) HasLastConnection() bool {
 	return false
 }
 
-// SetLastConnection gets a reference to the given time.Time and assigns it to the LastConnection field.
-func (o *Agent) SetLastConnection(v time.Time) {
+// SetLastConnection gets a reference to the given int64 and assigns it to the LastConnection field.
+func (o *Agent) SetLastConnection(v int64) {
 	o.LastConnection = &v
 }
 
