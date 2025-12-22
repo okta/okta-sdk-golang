@@ -17,6 +17,7 @@ files:
   asset/logo.png: {}
   cache_test.go: {}
   cache.go: {}
+  client_retry_test.go: {}
   configuration_test.go: {}
   gocache.go: {}
   noopcache.go: {}

@@ -45688,7 +45688,7 @@ components:
         version: 3.19.0
         updateMessage: Queued for update.
         isHidden: true
-        lastConnection: 2000-01-23T04:56:07.000+00:00
+        lastConnection: 0
       properties:
         id:
           description: Unique identifier for the agent that's generated during installation
@@ -45703,9 +45703,10 @@ components:
             version
           type: boolean
         lastConnection:
-          description: Timestamp when the agent last connected to Okta
-          format: date-time
-          type: string
+          description: Unix timestamp in milliseconds when the agent last connected
+            to Okta
+          format: int64
+          type: integer
         name:
           description: Agent name
           example: WIN-region1A-dc
@@ -46001,11 +46002,11 @@ components:
             name: name
             href: href
             type: type
-        disruptedAgents: 0
+        disruptedAgents: 6
         name: name
         id: id
         type: type
-        inactiveAgents: 6
+        inactiveAgents: 1
         agents:
         - operationalStatus: operationalStatus
           isLatestGAedVersion: true
@@ -46027,7 +46028,7 @@ components:
           version: 3.19.0
           updateMessage: Queued for update.
           isHidden: true
-          lastConnection: 2000-01-23T04:56:07.000+00:00
+          lastConnection: 0
         - operationalStatus: operationalStatus
           isLatestGAedVersion: true
           _links:
@@ -46048,7 +46049,7 @@ components:
           version: 3.19.0
           updateMessage: Queued for update.
           isHidden: true
-          lastConnection: 2000-01-23T04:56:07.000+00:00
+          lastConnection: 0
       properties:
         agents:
           items:
@@ -46136,7 +46137,7 @@ components:
           version: 3.19.0
           updateMessage: Queued for update.
           isHidden: true
-          lastConnection: 2000-01-23T04:56:07.000+00:00
+          lastConnection: 0
         - operationalStatus: operationalStatus
           isLatestGAedVersion: true
           _links:
@@ -46157,7 +46158,7 @@ components:
           version: 3.19.0
           updateMessage: Queued for update.
           isHidden: true
-          lastConnection: 2000-01-23T04:56:07.000+00:00
+          lastConnection: 0
         status: status
         targetVersion: 3.20.0
       properties:
@@ -87647,7 +87648,7 @@ components:
       description: "Information about the original token request used to get the refresh\
         \ token being used, when in a refresh token request"
       properties:
-        request:
+        authorization:
           $ref: "#/components/schemas/TokenProtocolRequest"
         refresh_token:
           $ref: "#/components/schemas/RefreshToken"

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Request** | Pointer to [**TokenProtocolRequest**](TokenProtocolRequest.md) |  | [optional] 
+**Authorization** | Pointer to [**TokenProtocolRequest**](TokenProtocolRequest.md) |  | [optional] 
 **RefreshToken** | Pointer to [**RefreshToken**](RefreshToken.md) |  | [optional] 
 
 ## Methods
@@ -26,30 +26,30 @@ NewTokenPayLoadDataContextAllOfProtocolOriginalGrantWithDefaults instantiates a 
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetRequest
+### GetAuthorization
 
-`func (o *TokenPayLoadDataContextAllOfProtocolOriginalGrant) GetRequest() TokenProtocolRequest`
+`func (o *TokenPayLoadDataContextAllOfProtocolOriginalGrant) GetAuthorization() TokenProtocolRequest`
 
-GetRequest returns the Request field if non-nil, zero value otherwise.
+GetAuthorization returns the Authorization field if non-nil, zero value otherwise.
 
-### GetRequestOk
+### GetAuthorizationOk
 
-`func (o *TokenPayLoadDataContextAllOfProtocolOriginalGrant) GetRequestOk() (*TokenProtocolRequest, bool)`
+`func (o *TokenPayLoadDataContextAllOfProtocolOriginalGrant) GetAuthorizationOk() (*TokenProtocolRequest, bool)`
 
-GetRequestOk returns a tuple with the Request field if it's non-nil, zero value otherwise
+GetAuthorizationOk returns a tuple with the Authorization field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetRequest
+### SetAuthorization
 
-`func (o *TokenPayLoadDataContextAllOfProtocolOriginalGrant) SetRequest(v TokenProtocolRequest)`
+`func (o *TokenPayLoadDataContextAllOfProtocolOriginalGrant) SetAuthorization(v TokenProtocolRequest)`
 
-SetRequest sets Request field to given value.
+SetAuthorization sets Authorization field to given value.
 
-### HasRequest
+### HasAuthorization
 
-`func (o *TokenPayLoadDataContextAllOfProtocolOriginalGrant) HasRequest() bool`
+`func (o *TokenPayLoadDataContextAllOfProtocolOriginalGrant) HasAuthorization() bool`
 
-HasRequest returns a boolean if a field has been set.
+HasAuthorization returns a boolean if a field has been set.
 
 ### GetRefreshToken
 

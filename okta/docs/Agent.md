@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** | Unique identifier for the agent that&#39;s generated during installation | [optional] [readonly] 
 **IsHidden** | Pointer to **bool** | Determines if an agent is hidden from the Admin Console | [optional] 
 **IsLatestGAedVersion** | Pointer to **bool** | Determines if the agent is on the latest generally available version | [optional] 
-**LastConnection** | Pointer to **time.Time** | Timestamp when the agent last connected to Okta | [optional] 
+**LastConnection** | Pointer to **int64** | Unix timestamp in milliseconds when the agent last connected to Okta | [optional] 
 **Name** | Pointer to **string** | Agent name | [optional] 
 **OperationalStatus** | Pointer to **string** | Operational status of a given agent | [optional] 
 **PoolId** | Pointer to **string** | Pool ID | [optional] 
@@ -113,20 +113,20 @@ HasIsLatestGAedVersion returns a boolean if a field has been set.
 
 ### GetLastConnection
 
-`func (o *Agent) GetLastConnection() time.Time`
+`func (o *Agent) GetLastConnection() int64`
 
 GetLastConnection returns the LastConnection field if non-nil, zero value otherwise.
 
 ### GetLastConnectionOk
 
-`func (o *Agent) GetLastConnectionOk() (*time.Time, bool)`
+`func (o *Agent) GetLastConnectionOk() (*int64, bool)`
 
 GetLastConnectionOk returns a tuple with the LastConnection field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastConnection
 
-`func (o *Agent) SetLastConnection(v time.Time)`
+`func (o *Agent) SetLastConnection(v int64)`
 
 SetLastConnection sets LastConnection field to given value.
 
