@@ -1,6 +1,11 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v6.0.2
+- Fix datatype of `lastConnection` in agent pools response [#566](https://github.com/okta/okta-sdk-golang/pull/566). Thanks [@pranav-okta](https://github.com/okta/pranav-okta)
+- Add `oneOf` discriminator to idp protocol response [#563](https://github.com/okta/okta-sdk-golang/pull/563). Thanks [@pranav-okta](https://github.com/okta/pranav-okta)
+- Fix invalid DPoP token by re-authorizing the retries [#562](https://github.com/okta/okta-sdk-golang/pull/562). Thanks [@pranav-okta](https://github.com/okta/pranav-okta)
+
 ## v6.0.1
 - Fix role assignment APIs `oneOf` schema issues in spec [#553](https://github.com/okta/okta-sdk-golang/pull/553). Thanks [@pranav-okta](https://github.com/okta/pranav-okta)
 
