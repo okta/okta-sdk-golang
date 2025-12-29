@@ -156,10 +156,7 @@ func (t *TestFactory) NewValidTestPolicyRule() ListPolicyRules200ResponseInner {
 	rule.SetName(name)
 	rule.SetType("ACCESS_POLICY")
 
-	// Create required conditions structure
-	groupCondition := NewGroupCondition([]string{}, []string{}) // empty include/exclude arrays
-	userCondition := NewUserCondition([]string{}, []string{})   // empty include/exclude arrays
-	peopleCondition := NewPolicyPeopleCondition(*groupCondition, *userCondition)
+	peopleCondition := NewPolicyPeopleCondition()
 
 	conditions := NewAccessPolicyRuleConditions()
 	conditions.SetPeople(*peopleCondition)

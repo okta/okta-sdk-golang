@@ -76,5 +76,11 @@ test\:unit:
 	go test -cover -coverpkg=./okta -failfast -race ./okta -test.v
 
 generate:
-	npx @openapitools/openapi-generator-cli generate -c ./.generator/config.yaml -i .generator/okta-management-APIs-oasv3-noEnums-inheritance.yaml --skip-validate-spec
-
+	rm -rf okta openapi tests go.mod go.sum
+	npm install @openapitools/openapi-generator-cli -g
+	openapi-generator-cli version-manager set 7.15.0
+	openapi-generator-cli generate -c ./.generator/config.yaml -i .generator/okta-management-APIs-oasv3-noEnums-inheritance.yaml --skip-validate-spec
+	make fmt
+	make import
+	cd okta/v6 && mv go.mod go.sum ../../
+	cd okta && mv v6/* ./ && rm -rf v6
