@@ -1479,8 +1479,10 @@ func (c *APIClient) doWithRetries(ctx context.Context, req *http.Request) (*http
 
 			headerParams := make(map[string]string)
 			queryParams := req.URL.Query()
-			req.URL.RawQuery = ""
-			auth, err := c.prepareRequest(ctx, req.URL.String(), req.Method, nil, headerParams, queryParams, url.Values{}, []formFile{})
+			urlWithoutQuery := *req.URL
+			urlWithoutQuery.RawQuery = ""
+
+			auth, err := c.prepareRequest(ctx, urlWithoutQuery.String(), req.Method, nil, headerParams, queryParams, url.Values{}, []formFile{})
 			if err != nil {
 				return nil, err
 			}
