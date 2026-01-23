@@ -28475,6 +28475,10 @@ components:
         - type
         - url
         - externalId
+      discriminator:
+        propertyName: type
+        mapping:
+          WORKFLOWS: '#/components/schemas/WorkflowActionProvider'
     ActionProviderPayloadType:
       description: Type of action provider
       type: string
@@ -31811,6 +31815,10 @@ components:
         - url
         - externalId
         - type
+      discriminator:
+        propertyName: type
+        mapping:
+          WORKFLOWS: '#/components/schemas/WorkflowAvailableActionProvider'
     AvailableActions:
       type: object
       properties:

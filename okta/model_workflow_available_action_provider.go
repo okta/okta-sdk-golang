@@ -26,6 +26,8 @@ package okta
 import (
 	"encoding/json"
 	"fmt"
+	"reflect"
+	"strings"
 )
 
 // checks if the WorkflowAvailableActionProvider type satisfies the MappedNullable interface at compile time
@@ -33,14 +35,7 @@ var _ MappedNullable = &WorkflowAvailableActionProvider{}
 
 // WorkflowAvailableActionProvider struct for WorkflowAvailableActionProvider
 type WorkflowAvailableActionProvider struct {
-	// The name of the action flow
-	ActionName string `json:"actionName"`
-	// The unique identifier of the action flow in the provider system
-	ExternalId string `json:"externalId"`
-	// Type of action provider
-	Type string `json:"type"`
-	// The URL to the action flow
-	Url                  string `json:"url"`
+	AvailableActionProvider
 	AdditionalProperties map[string]interface{}
 }
 
@@ -67,102 +62,6 @@ func NewWorkflowAvailableActionProviderWithDefaults() *WorkflowAvailableActionPr
 	return &this
 }
 
-// GetActionName returns the ActionName field value
-func (o *WorkflowAvailableActionProvider) GetActionName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.ActionName
-}
-
-// GetActionNameOk returns a tuple with the ActionName field value
-// and a boolean to check if the value has been set.
-func (o *WorkflowAvailableActionProvider) GetActionNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ActionName, true
-}
-
-// SetActionName sets field value
-func (o *WorkflowAvailableActionProvider) SetActionName(v string) {
-	o.ActionName = v
-}
-
-// GetExternalId returns the ExternalId field value
-func (o *WorkflowAvailableActionProvider) GetExternalId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.ExternalId
-}
-
-// GetExternalIdOk returns a tuple with the ExternalId field value
-// and a boolean to check if the value has been set.
-func (o *WorkflowAvailableActionProvider) GetExternalIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ExternalId, true
-}
-
-// SetExternalId sets field value
-func (o *WorkflowAvailableActionProvider) SetExternalId(v string) {
-	o.ExternalId = v
-}
-
-// GetType returns the Type field value
-func (o *WorkflowAvailableActionProvider) GetType() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Type
-}
-
-// GetTypeOk returns a tuple with the Type field value
-// and a boolean to check if the value has been set.
-func (o *WorkflowAvailableActionProvider) GetTypeOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Type, true
-}
-
-// SetType sets field value
-func (o *WorkflowAvailableActionProvider) SetType(v string) {
-	o.Type = v
-}
-
-// GetUrl returns the Url field value
-func (o *WorkflowAvailableActionProvider) GetUrl() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Url
-}
-
-// GetUrlOk returns a tuple with the Url field value
-// and a boolean to check if the value has been set.
-func (o *WorkflowAvailableActionProvider) GetUrlOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Url, true
-}
-
-// SetUrl sets field value
-func (o *WorkflowAvailableActionProvider) SetUrl(v string) {
-	o.Url = v
-}
-
 func (o WorkflowAvailableActionProvider) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -173,10 +72,14 @@ func (o WorkflowAvailableActionProvider) MarshalJSON() ([]byte, error) {
 
 func (o WorkflowAvailableActionProvider) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["actionName"] = o.ActionName
-	toSerialize["externalId"] = o.ExternalId
-	toSerialize["type"] = o.Type
-	toSerialize["url"] = o.Url
+	serializedAvailableActionProvider, errAvailableActionProvider := json.Marshal(o.AvailableActionProvider)
+	if errAvailableActionProvider != nil {
+		return map[string]interface{}{}, errAvailableActionProvider
+	}
+	errAvailableActionProvider = json.Unmarshal([]byte(serializedAvailableActionProvider), &toSerialize)
+	if errAvailableActionProvider != nil {
+		return map[string]interface{}{}, errAvailableActionProvider
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -210,23 +113,50 @@ func (o *WorkflowAvailableActionProvider) UnmarshalJSON(data []byte) (err error)
 		}
 	}
 
-	varWorkflowAvailableActionProvider := _WorkflowAvailableActionProvider{}
+	type WorkflowAvailableActionProviderWithoutEmbeddedStruct struct {
+	}
 
-	err = json.Unmarshal(data, &varWorkflowAvailableActionProvider)
+	varWorkflowAvailableActionProviderWithoutEmbeddedStruct := WorkflowAvailableActionProviderWithoutEmbeddedStruct{}
 
-	if err != nil {
+	err = json.Unmarshal(data, &varWorkflowAvailableActionProviderWithoutEmbeddedStruct)
+	if err == nil {
+		varWorkflowAvailableActionProvider := _WorkflowAvailableActionProvider{}
+		*o = WorkflowAvailableActionProvider(varWorkflowAvailableActionProvider)
+	} else {
 		return err
 	}
 
-	*o = WorkflowAvailableActionProvider(varWorkflowAvailableActionProvider)
+	varWorkflowAvailableActionProvider := _WorkflowAvailableActionProvider{}
+
+	err = json.Unmarshal(data, &varWorkflowAvailableActionProvider)
+	if err == nil {
+		o.AvailableActionProvider = varWorkflowAvailableActionProvider.AvailableActionProvider
+	} else {
+		return err
+	}
 
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "actionName")
-		delete(additionalProperties, "externalId")
-		delete(additionalProperties, "type")
-		delete(additionalProperties, "url")
+
+		// remove fields from embedded structs
+		reflectAvailableActionProvider := reflect.ValueOf(o.AvailableActionProvider)
+		for i := 0; i < reflectAvailableActionProvider.Type().NumField(); i++ {
+			t := reflectAvailableActionProvider.Type().Field(i)
+
+			if jsonTag := t.Tag.Get("json"); jsonTag != "" {
+				fieldName := ""
+				if commaIdx := strings.Index(jsonTag, ","); commaIdx > 0 {
+					fieldName = jsonTag[:commaIdx]
+				} else {
+					fieldName = jsonTag
+				}
+				if fieldName != "AdditionalProperties" {
+					delete(additionalProperties, fieldName)
+				}
+			}
+		}
+
 		o.AdditionalProperties = additionalProperties
 	}
 

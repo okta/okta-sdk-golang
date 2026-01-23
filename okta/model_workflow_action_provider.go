@@ -26,6 +26,8 @@ package okta
 import (
 	"encoding/json"
 	"fmt"
+	"reflect"
+	"strings"
 )
 
 // checks if the WorkflowActionProvider type satisfies the MappedNullable interface at compile time
@@ -33,12 +35,7 @@ var _ MappedNullable = &WorkflowActionProvider{}
 
 // WorkflowActionProvider struct for WorkflowActionProvider
 type WorkflowActionProvider struct {
-	// The unique identifier of the action flow in the provider system
-	ExternalId string `json:"externalId"`
-	// Type of action provider
-	Type string `json:"type"`
-	// The URL to the action flow
-	Url                  string `json:"url"`
+	ActionProvider
 	AdditionalProperties map[string]interface{}
 }
 
@@ -64,78 +61,6 @@ func NewWorkflowActionProviderWithDefaults() *WorkflowActionProvider {
 	return &this
 }
 
-// GetExternalId returns the ExternalId field value
-func (o *WorkflowActionProvider) GetExternalId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.ExternalId
-}
-
-// GetExternalIdOk returns a tuple with the ExternalId field value
-// and a boolean to check if the value has been set.
-func (o *WorkflowActionProvider) GetExternalIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ExternalId, true
-}
-
-// SetExternalId sets field value
-func (o *WorkflowActionProvider) SetExternalId(v string) {
-	o.ExternalId = v
-}
-
-// GetType returns the Type field value
-func (o *WorkflowActionProvider) GetType() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Type
-}
-
-// GetTypeOk returns a tuple with the Type field value
-// and a boolean to check if the value has been set.
-func (o *WorkflowActionProvider) GetTypeOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Type, true
-}
-
-// SetType sets field value
-func (o *WorkflowActionProvider) SetType(v string) {
-	o.Type = v
-}
-
-// GetUrl returns the Url field value
-func (o *WorkflowActionProvider) GetUrl() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Url
-}
-
-// GetUrlOk returns a tuple with the Url field value
-// and a boolean to check if the value has been set.
-func (o *WorkflowActionProvider) GetUrlOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Url, true
-}
-
-// SetUrl sets field value
-func (o *WorkflowActionProvider) SetUrl(v string) {
-	o.Url = v
-}
-
 func (o WorkflowActionProvider) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -146,9 +71,14 @@ func (o WorkflowActionProvider) MarshalJSON() ([]byte, error) {
 
 func (o WorkflowActionProvider) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["externalId"] = o.ExternalId
-	toSerialize["type"] = o.Type
-	toSerialize["url"] = o.Url
+	serializedActionProvider, errActionProvider := json.Marshal(o.ActionProvider)
+	if errActionProvider != nil {
+		return map[string]interface{}{}, errActionProvider
+	}
+	errActionProvider = json.Unmarshal([]byte(serializedActionProvider), &toSerialize)
+	if errActionProvider != nil {
+		return map[string]interface{}{}, errActionProvider
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -181,22 +111,50 @@ func (o *WorkflowActionProvider) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varWorkflowActionProvider := _WorkflowActionProvider{}
+	type WorkflowActionProviderWithoutEmbeddedStruct struct {
+	}
 
-	err = json.Unmarshal(data, &varWorkflowActionProvider)
+	varWorkflowActionProviderWithoutEmbeddedStruct := WorkflowActionProviderWithoutEmbeddedStruct{}
 
-	if err != nil {
+	err = json.Unmarshal(data, &varWorkflowActionProviderWithoutEmbeddedStruct)
+	if err == nil {
+		varWorkflowActionProvider := _WorkflowActionProvider{}
+		*o = WorkflowActionProvider(varWorkflowActionProvider)
+	} else {
 		return err
 	}
 
-	*o = WorkflowActionProvider(varWorkflowActionProvider)
+	varWorkflowActionProvider := _WorkflowActionProvider{}
+
+	err = json.Unmarshal(data, &varWorkflowActionProvider)
+	if err == nil {
+		o.ActionProvider = varWorkflowActionProvider.ActionProvider
+	} else {
+		return err
+	}
 
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "externalId")
-		delete(additionalProperties, "type")
-		delete(additionalProperties, "url")
+
+		// remove fields from embedded structs
+		reflectActionProvider := reflect.ValueOf(o.ActionProvider)
+		for i := 0; i < reflectActionProvider.Type().NumField(); i++ {
+			t := reflectActionProvider.Type().Field(i)
+
+			if jsonTag := t.Tag.Get("json"); jsonTag != "" {
+				fieldName := ""
+				if commaIdx := strings.Index(jsonTag, ","); commaIdx > 0 {
+					fieldName = jsonTag[:commaIdx]
+				} else {
+					fieldName = jsonTag
+				}
+				if fieldName != "AdditionalProperties" {
+					delete(additionalProperties, fieldName)
+				}
+			}
+		}
+
 		o.AdditionalProperties = additionalProperties
 	}
 

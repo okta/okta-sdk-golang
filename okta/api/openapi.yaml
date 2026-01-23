@@ -45590,6 +45590,10 @@ components:
       - url
       type: object
     ActionProvider:
+      discriminator:
+        mapping:
+          WORKFLOWS: "#/components/schemas/WorkflowActionProvider"
+        propertyName: type
       properties:
         externalId:
           description: The unique identifier of the action flow in the provider system
@@ -50744,6 +50748,10 @@ components:
       - provider
       type: object
     AvailableActionProvider:
+      discriminator:
+        mapping:
+          WORKFLOWS: "#/components/schemas/WorkflowAvailableActionProvider"
+        propertyName: type
       properties:
         actionName:
           description: The name of the action flow
