@@ -58,11 +58,11 @@ func NewOAuth2ClientJsonWebKeyECResponse(crv string, x string, y string, alg str
 	this.Alg = alg
 	this.Created = created
 	this.Id = id
-	this.X = x
-	this.Y = y
 	this.LastUpdated = lastUpdated
 	this.Use = use
 	this.Crv = crv
+	this.X = x
+	this.Y = y
 	return &this
 }
 
