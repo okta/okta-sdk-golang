@@ -41,8 +41,16 @@ type OAuth2ClientJsonSigningKeyResponse struct {
 	Id string `json:"id"`
 	// Unique identifier of the JSON Web Key in the OAuth 2.0 client's JWKS
 	Kid NullableString `json:"kid,omitempty"`
+	// RSA key value (exponent) for key binding
+	E *string `json:"e,omitempty"`
+	// RSA key value (modulus) for key binding
+	N *string `json:"n,omitempty"`
 	// Cryptographic algorithm family for the certificate's key pair
 	Kty string `json:"kty"`
+	// The public x coordinate for the elliptic curve point
+	X *string `json:"x,omitempty"`
+	// The public y coordinate for the elliptic curve point
+	Y *string `json:"y,omitempty"`
 	// Timestamp when the OAuth 2.0 client JSON Web Key was updated
 	LastUpdated string `json:"lastUpdated"`
 	// Status of the OAuth 2.0 client JSON Web Key
@@ -193,6 +201,70 @@ func (o *OAuth2ClientJsonSigningKeyResponse) UnsetKid() {
 	o.Kid.Unset()
 }
 
+// GetE returns the E field value if set, zero value otherwise.
+func (o *OAuth2ClientJsonSigningKeyResponse) GetE() string {
+	if o == nil || IsNil(o.E) {
+		var ret string
+		return ret
+	}
+	return *o.E
+}
+
+// GetEOk returns a tuple with the E field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OAuth2ClientJsonSigningKeyResponse) GetEOk() (*string, bool) {
+	if o == nil || IsNil(o.E) {
+		return nil, false
+	}
+	return o.E, true
+}
+
+// HasE returns a boolean if a field has been set.
+func (o *OAuth2ClientJsonSigningKeyResponse) HasE() bool {
+	if o != nil && !IsNil(o.E) {
+		return true
+	}
+
+	return false
+}
+
+// SetE gets a reference to the given string and assigns it to the E field.
+func (o *OAuth2ClientJsonSigningKeyResponse) SetE(v string) {
+	o.E = &v
+}
+
+// GetN returns the N field value if set, zero value otherwise.
+func (o *OAuth2ClientJsonSigningKeyResponse) GetN() string {
+	if o == nil || IsNil(o.N) {
+		var ret string
+		return ret
+	}
+	return *o.N
+}
+
+// GetNOk returns a tuple with the N field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OAuth2ClientJsonSigningKeyResponse) GetNOk() (*string, bool) {
+	if o == nil || IsNil(o.N) {
+		return nil, false
+	}
+	return o.N, true
+}
+
+// HasN returns a boolean if a field has been set.
+func (o *OAuth2ClientJsonSigningKeyResponse) HasN() bool {
+	if o != nil && !IsNil(o.N) {
+		return true
+	}
+
+	return false
+}
+
+// SetN gets a reference to the given string and assigns it to the N field.
+func (o *OAuth2ClientJsonSigningKeyResponse) SetN(v string) {
+	o.N = &v
+}
+
 // GetKty returns the Kty field value
 func (o *OAuth2ClientJsonSigningKeyResponse) GetKty() string {
 	if o == nil {
@@ -215,6 +287,70 @@ func (o *OAuth2ClientJsonSigningKeyResponse) GetKtyOk() (*string, bool) {
 // SetKty sets field value
 func (o *OAuth2ClientJsonSigningKeyResponse) SetKty(v string) {
 	o.Kty = v
+}
+
+// GetX returns the X field value if set, zero value otherwise.
+func (o *OAuth2ClientJsonSigningKeyResponse) GetX() string {
+	if o == nil || IsNil(o.X) {
+		var ret string
+		return ret
+	}
+	return *o.X
+}
+
+// GetXOk returns a tuple with the X field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OAuth2ClientJsonSigningKeyResponse) GetXOk() (*string, bool) {
+	if o == nil || IsNil(o.X) {
+		return nil, false
+	}
+	return o.X, true
+}
+
+// HasX returns a boolean if a field has been set.
+func (o *OAuth2ClientJsonSigningKeyResponse) HasX() bool {
+	if o != nil && !IsNil(o.X) {
+		return true
+	}
+
+	return false
+}
+
+// SetX gets a reference to the given string and assigns it to the X field.
+func (o *OAuth2ClientJsonSigningKeyResponse) SetX(v string) {
+	o.X = &v
+}
+
+// GetY returns the Y field value if set, zero value otherwise.
+func (o *OAuth2ClientJsonSigningKeyResponse) GetY() string {
+	if o == nil || IsNil(o.Y) {
+		var ret string
+		return ret
+	}
+	return *o.Y
+}
+
+// GetYOk returns a tuple with the Y field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OAuth2ClientJsonSigningKeyResponse) GetYOk() (*string, bool) {
+	if o == nil || IsNil(o.Y) {
+		return nil, false
+	}
+	return o.Y, true
+}
+
+// HasY returns a boolean if a field has been set.
+func (o *OAuth2ClientJsonSigningKeyResponse) HasY() bool {
+	if o != nil && !IsNil(o.Y) {
+		return true
+	}
+
+	return false
+}
+
+// SetY gets a reference to the given string and assigns it to the Y field.
+func (o *OAuth2ClientJsonSigningKeyResponse) SetY(v string) {
+	o.Y = &v
 }
 
 // GetLastUpdated returns the LastUpdated field value
@@ -345,7 +481,19 @@ func (o OAuth2ClientJsonSigningKeyResponse) ToMap() (map[string]interface{}, err
 	if o.Kid.IsSet() {
 		toSerialize["kid"] = o.Kid.Get()
 	}
+	if !IsNil(o.E) {
+		toSerialize["e"] = o.E
+	}
+	if !IsNil(o.N) {
+		toSerialize["n"] = o.N
+	}
 	toSerialize["kty"] = o.Kty
+	if !IsNil(o.X) {
+		toSerialize["x"] = o.X
+	}
+	if !IsNil(o.Y) {
+		toSerialize["y"] = o.Y
+	}
 	toSerialize["lastUpdated"] = o.LastUpdated
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
@@ -406,7 +554,11 @@ func (o *OAuth2ClientJsonSigningKeyResponse) UnmarshalJSON(data []byte) (err err
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "kid")
+		delete(additionalProperties, "e")
+		delete(additionalProperties, "n")
 		delete(additionalProperties, "kty")
+		delete(additionalProperties, "x")
+		delete(additionalProperties, "y")
 		delete(additionalProperties, "lastUpdated")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "use")

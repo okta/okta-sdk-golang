@@ -45590,10 +45590,6 @@ components:
       - url
       type: object
     ActionProvider:
-      discriminator:
-        mapping:
-          WORKFLOWS: "#/components/schemas/WorkflowActionProvider"
-        propertyName: type
       properties:
         externalId:
           description: The unique identifier of the action flow in the provider system
@@ -50748,10 +50744,6 @@ components:
       - provider
       type: object
     AvailableActionProvider:
-      discriminator:
-        mapping:
-          WORKFLOWS: "#/components/schemas/WorkflowAvailableActionProvider"
-        propertyName: type
       properties:
         actionName:
           description: The name of the action flow
@@ -64464,8 +64456,7 @@ components:
           EC: "#/components/schemas/OAuth2ClientJsonWebKeyECResponse"
         propertyName: kty
       example:
-        kty: RSA
-        lastUpdated: 2023-02-21T20:08:24.000Z
+        e: AQAB
         _links:
           activate:
             templated: true
@@ -64497,6 +64488,11 @@ components:
         created: 2023-02-21T20:08:24.000Z
         use: sig
         kid: SIMcCQNY3uwXoW3y0vf6VxiBb5n9pf8L2fK8d-FIbm4
+        "n": mkC6yAJVvFwUlmM9gKjb2d-YK5qHFt-mXSsbjWKKs4EfNm-BoQeeovBZtSACyaqLc8IYFTPEURFcbDQ9DkAL04uUIRD2gaHYY7uK0jsluEaXGq2RAIsmzAwNTzkiDw4q9pDL_q7n0f_SDt1TsMaMQayB6bU5jWsmqcWJ8MCRJ1aJMjZ16un5UVx51IIeCbe4QRDxEXGAvYNczsBoZxspDt28esSpq5W0dBFxcyGVudyl54Er3FzAguhgfMVjH-bUec9j2Tl40qDTktrYgYfxz9pfjm01Hl4WYP1YQxeETpSL7cQ5Ihz4jGDtHUEOcZ4GfJrPzrGpUrak8Qp5xcwCqQ
+        kty: RSA
+        lastUpdated: 2023-02-21T20:08:24.000Z
+        x: x
+        "y": "y"
         id: pks2f4zrZbs8nUa7p0g4
         alg: RS256
         status: ACTIVE
@@ -64524,6 +64520,16 @@ components:
           example: SIMcCQNY3uwXoW3y0vf6VxiBb5n9pf8L2fK8d-FIbm4
           nullable: true
           type: string
+        e:
+          description: RSA key value (exponent) for key binding
+          example: AQAB
+          nullable: false
+          type: string
+        "n":
+          description: RSA key value (modulus) for key binding
+          example: mkC6yAJVvFwUlmM9gKjb2d-YK5qHFt-mXSsbjWKKs4EfNm-BoQeeovBZtSACyaqLc8IYFTPEURFcbDQ9DkAL04uUIRD2gaHYY7uK0jsluEaXGq2RAIsmzAwNTzkiDw4q9pDL_q7n0f_SDt1TsMaMQayB6bU5jWsmqcWJ8MCRJ1aJMjZ16un5UVx51IIeCbe4QRDxEXGAvYNczsBoZxspDt28esSpq5W0dBFxcyGVudyl54Er3FzAguhgfMVjH-bUec9j2Tl40qDTktrYgYfxz9pfjm01Hl4WYP1YQxeETpSL7cQ5Ihz4jGDtHUEOcZ4GfJrPzrGpUrak8Qp5xcwCqQ
+          nullable: false
+          type: string
         kty:
           description: Cryptographic algorithm family for the certificate's key pair
           enum:
@@ -64531,6 +64537,12 @@ components:
           - EC
           example: RSA
           nullable: false
+          type: string
+        x:
+          description: The public x coordinate for the elliptic curve point
+          type: string
+        "y":
+          description: The public y coordinate for the elliptic curve point
           type: string
         lastUpdated:
           description: Timestamp when the OAuth 2.0 client JSON Web Key was updated
@@ -64774,8 +64786,7 @@ components:
         type: object
       description: An RSA signing key
       example:
-        kty: RSA
-        lastUpdated: 2023-02-21T20:08:24.000Z
+        e: AQAB
         _links:
           activate:
             templated: true
@@ -64804,13 +64815,16 @@ components:
             name: name
             href: href
             type: type
-        e: AQAB
         created: 2023-02-21T20:08:24.000Z
         use: sig
         kid: SIMcCQNY3uwXoW3y0vf6VxiBb5n9pf8L2fK8d-FIbm4
+        "n": mkC6yAJVvFwUlmM9gKjb2d-YK5qHFt-mXSsbjWKKs4EfNm-BoQeeovBZtSACyaqLc8IYFTPEURFcbDQ9DkAL04uUIRD2gaHYY7uK0jsluEaXGq2RAIsmzAwNTzkiDw4q9pDL_q7n0f_SDt1TsMaMQayB6bU5jWsmqcWJ8MCRJ1aJMjZ16un5UVx51IIeCbe4QRDxEXGAvYNczsBoZxspDt28esSpq5W0dBFxcyGVudyl54Er3FzAguhgfMVjH-bUec9j2Tl40qDTktrYgYfxz9pfjm01Hl4WYP1YQxeETpSL7cQ5Ihz4jGDtHUEOcZ4GfJrPzrGpUrak8Qp5xcwCqQ
+        kty: RSA
+        lastUpdated: 2023-02-21T20:08:24.000Z
+        x: x
+        "y": "y"
         id: pks2f4zrZbs8nUa7p0g4
         alg: RS256
-        "n": mkC6yAJVvFwUlmM9gKjb2d-YK5qHFt-mXSsbjWKKs4EfNm-BoQeeovBZtSACyaqLc8IYFTPEURFcbDQ9DkAL04uUIRD2gaHYY7uK0jsluEaXGq2RAIsmzAwNTzkiDw4q9pDL_q7n0f_SDt1TsMaMQayB6bU5jWsmqcWJ8MCRJ1aJMjZ16un5UVx51IIeCbe4QRDxEXGAvYNczsBoZxspDt28esSpq5W0dBFxcyGVudyl54Er3FzAguhgfMVjH-bUec9j2Tl40qDTktrYgYfxz9pfjm01Hl4WYP1YQxeETpSL7cQ5Ihz4jGDtHUEOcZ4GfJrPzrGpUrak8Qp5xcwCqQ
         status: ACTIVE
       title: RSA Signing Key
     OAuth2ClientSecret:

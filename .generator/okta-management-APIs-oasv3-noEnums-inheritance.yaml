@@ -28371,9 +28371,9 @@ components:
         possession:
           $ref: '#/components/schemas/PossessionConstraint'
     AccessPolicyLink:
+      description: Link to the app access policy resource
       allOf:
         - $ref: '#/components/schemas/HrefObject'
-        - description: Link to the app access policy resource
     AccessPolicyRule:
       allOf:
         - $ref: '#/components/schemas/PolicyRule'
@@ -28475,10 +28475,6 @@ components:
         - type
         - url
         - externalId
-      discriminator:
-        propertyName: type
-        mapping:
-          WORKFLOWS: '#/components/schemas/WorkflowActionProvider'
     ActionProviderPayloadType:
       description: Type of action provider
       type: string
@@ -31815,10 +31811,6 @@ components:
         - url
         - externalId
         - type
-      discriminator:
-        propertyName: type
-        mapping:
-          WORKFLOWS: '#/components/schemas/WorkflowAvailableActionProvider'
     AvailableActions:
       type: object
       properties:
@@ -40642,6 +40634,16 @@ components:
           description: Unique identifier of the JSON Web Key in the OAuth 2.0 client's JWKS
           example: SIMcCQNY3uwXoW3y0vf6VxiBb5n9pf8L2fK8d-FIbm4
           nullable: true
+        e:
+          type: string
+          description: RSA key value (exponent) for key binding
+          example: AQAB
+          nullable: false
+        'n':
+          type: string
+          description: RSA key value (modulus) for key binding
+          example: mkC6yAJVvFwUlmM9gKjb2d-YK5qHFt-mXSsbjWKKs4EfNm-BoQeeovBZtSACyaqLc8IYFTPEURFcbDQ9DkAL04uUIRD2gaHYY7uK0jsluEaXGq2RAIsmzAwNTzkiDw4q9pDL_q7n0f_SDt1TsMaMQayB6bU5jWsmqcWJ8MCRJ1aJMjZ16un5UVx51IIeCbe4QRDxEXGAvYNczsBoZxspDt28esSpq5W0dBFxcyGVudyl54Er3FzAguhgfMVjH-bUec9j2Tl40qDTktrYgYfxz9pfjm01Hl4WYP1YQxeETpSL7cQ5Ihz4jGDtHUEOcZ4GfJrPzrGpUrak8Qp5xcwCqQ
+          nullable: false
         kty:
           type: string
           description: Cryptographic algorithm family for the certificate's key pair
@@ -40650,6 +40652,12 @@ components:
           enum:
             - RSA
             - EC
+        x:
+          type: string
+          description: The public x coordinate for the elliptic curve point
+        'y':
+          type: string
+          description: The public y coordinate for the elliptic curve point
         lastUpdated:
           type: string
           description: Timestamp when the OAuth 2.0 client JSON Web Key was updated

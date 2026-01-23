@@ -56,10 +56,10 @@ func NewOAuth2ClientJsonWebKeyRsaResponse(e string, n string, alg string, create
 	this.Alg = alg
 	this.Created = created
 	this.Id = id
-	this.LastUpdated = lastUpdated
-	this.Use = use
 	this.E = e
 	this.N = n
+	this.LastUpdated = lastUpdated
+	this.Use = use
 	return &this
 }
 
