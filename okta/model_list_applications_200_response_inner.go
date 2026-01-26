@@ -114,8 +114,11 @@ func (dst *ListApplications200ResponseInner) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
+	// Get discriminator value, treating nil/missing as empty string for comparison
+	discriminatorValue, _ := jsonDict["signOnMode"].(string)
+
 	// check if the discriminator value is 'AUTO_LOGIN'
-	if jsonDict["signOnMode"] == "AUTO_LOGIN" {
+	if discriminatorValue == "AUTO_LOGIN" {
 		// try to unmarshal JSON data into AutoLoginApplication
 		err = json.Unmarshal(data, &dst.AutoLoginApplication)
 		if err == nil {
@@ -127,7 +130,7 @@ func (dst *ListApplications200ResponseInner) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'BASIC_AUTH'
-	if jsonDict["signOnMode"] == "BASIC_AUTH" {
+	if discriminatorValue == "BASIC_AUTH" {
 		// try to unmarshal JSON data into BasicAuthApplication
 		err = json.Unmarshal(data, &dst.BasicAuthApplication)
 		if err == nil {
@@ -139,7 +142,7 @@ func (dst *ListApplications200ResponseInner) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'BOOKMARK'
-	if jsonDict["signOnMode"] == "BOOKMARK" {
+	if discriminatorValue == "BOOKMARK" {
 		// try to unmarshal JSON data into BookmarkApplication
 		err = json.Unmarshal(data, &dst.BookmarkApplication)
 		if err == nil {
@@ -151,7 +154,7 @@ func (dst *ListApplications200ResponseInner) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'BROWSER_PLUGIN'
-	if jsonDict["signOnMode"] == "BROWSER_PLUGIN" {
+	if discriminatorValue == "BROWSER_PLUGIN" {
 		// try to unmarshal JSON data into BrowserPluginApplication
 		err = json.Unmarshal(data, &dst.BrowserPluginApplication)
 		if err == nil {
@@ -163,7 +166,7 @@ func (dst *ListApplications200ResponseInner) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'OPENID_CONNECT'
-	if jsonDict["signOnMode"] == "OPENID_CONNECT" {
+	if discriminatorValue == "OPENID_CONNECT" {
 		// try to unmarshal JSON data into OpenIdConnectApplication
 		err = json.Unmarshal(data, &dst.OpenIdConnectApplication)
 		if err == nil {
@@ -175,7 +178,7 @@ func (dst *ListApplications200ResponseInner) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'SAML_1_1'
-	if jsonDict["signOnMode"] == "SAML_1_1" {
+	if discriminatorValue == "SAML_1_1" {
 		// try to unmarshal JSON data into Saml11Application
 		err = json.Unmarshal(data, &dst.Saml11Application)
 		if err == nil {
@@ -187,7 +190,7 @@ func (dst *ListApplications200ResponseInner) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'SAML_2_0'
-	if jsonDict["signOnMode"] == "SAML_2_0" {
+	if discriminatorValue == "SAML_2_0" {
 		// try to unmarshal JSON data into SamlApplication
 		err = json.Unmarshal(data, &dst.SamlApplication)
 		if err == nil {
@@ -199,7 +202,7 @@ func (dst *ListApplications200ResponseInner) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'SECURE_PASSWORD_STORE'
-	if jsonDict["signOnMode"] == "SECURE_PASSWORD_STORE" {
+	if discriminatorValue == "SECURE_PASSWORD_STORE" {
 		// try to unmarshal JSON data into SecurePasswordStoreApplication
 		err = json.Unmarshal(data, &dst.SecurePasswordStoreApplication)
 		if err == nil {
@@ -211,7 +214,7 @@ func (dst *ListApplications200ResponseInner) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'WS_FEDERATION'
-	if jsonDict["signOnMode"] == "WS_FEDERATION" {
+	if discriminatorValue == "WS_FEDERATION" {
 		// try to unmarshal JSON data into WsFederationApplication
 		err = json.Unmarshal(data, &dst.WsFederationApplication)
 		if err == nil {
@@ -222,6 +225,16 @@ func (dst *ListApplications200ResponseInner) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// If discriminator value is empty/missing, default to the last mapped model (typically the most common type)
+	if discriminatorValue == "" {
+		err = json.Unmarshal(data, &dst.WsFederationApplication)
+		if err == nil {
+			return nil
+		}
+		dst.WsFederationApplication = nil
+	}
+
+	// No match found or unmarshal failed - return nil to allow partial unmarshalling
 	return nil
 }
 

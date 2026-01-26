@@ -58,8 +58,11 @@ func (dst *ReplaceLogStreamRequest) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
+	// Get discriminator value, treating nil/missing as empty string for comparison
+	discriminatorValue, _ := jsonDict["type"].(string)
+
 	// check if the discriminator value is 'aws_eventbridge'
-	if jsonDict["type"] == "aws_eventbridge" {
+	if discriminatorValue == "aws_eventbridge" {
 		// try to unmarshal JSON data into LogStreamAwsPutSchema
 		err = json.Unmarshal(data, &dst.LogStreamAwsPutSchema)
 		if err == nil {
@@ -71,7 +74,7 @@ func (dst *ReplaceLogStreamRequest) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'splunk_cloud_logstreaming'
-	if jsonDict["type"] == "splunk_cloud_logstreaming" {
+	if discriminatorValue == "splunk_cloud_logstreaming" {
 		// try to unmarshal JSON data into LogStreamSplunkPutSchema
 		err = json.Unmarshal(data, &dst.LogStreamSplunkPutSchema)
 		if err == nil {
@@ -82,6 +85,16 @@ func (dst *ReplaceLogStreamRequest) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// If discriminator value is empty/missing, default to the last mapped model (typically the most common type)
+	if discriminatorValue == "" {
+		err = json.Unmarshal(data, &dst.LogStreamSplunkPutSchema)
+		if err == nil {
+			return nil
+		}
+		dst.LogStreamSplunkPutSchema = nil
+	}
+
+	// No match found or unmarshal failed - return nil to allow partial unmarshalling
 	return nil
 }
 

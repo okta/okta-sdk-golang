@@ -58,8 +58,11 @@ func (dst *AddJwkRequest) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
+	// Get discriminator value, treating nil/missing as empty string for comparison
+	discriminatorValue, _ := jsonDict["use"].(string)
+
 	// check if the discriminator value is 'enc'
-	if jsonDict["use"] == "enc" {
+	if discriminatorValue == "enc" {
 		// try to unmarshal JSON data into OAuth2ClientJsonEncryptionKeyRequest
 		err = json.Unmarshal(data, &dst.OAuth2ClientJsonEncryptionKeyRequest)
 		if err == nil {
@@ -71,7 +74,7 @@ func (dst *AddJwkRequest) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'sig'
-	if jsonDict["use"] == "sig" {
+	if discriminatorValue == "sig" {
 		// try to unmarshal JSON data into OAuth2ClientJsonSigningKeyRequest
 		err = json.Unmarshal(data, &dst.OAuth2ClientJsonSigningKeyRequest)
 		if err == nil {
@@ -82,6 +85,16 @@ func (dst *AddJwkRequest) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// If discriminator value is empty/missing, default to the last mapped model (typically the most common type)
+	if discriminatorValue == "" {
+		err = json.Unmarshal(data, &dst.OAuth2ClientJsonSigningKeyRequest)
+		if err == nil {
+			return nil
+		}
+		dst.OAuth2ClientJsonSigningKeyRequest = nil
+	}
+
+	// No match found or unmarshal failed - return nil to allow partial unmarshalling
 	return nil
 }
 

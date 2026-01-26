@@ -32,24 +32,24 @@ var _ MappedNullable = &OAuth2ClientJsonEncryptionKeyResponse{}
 
 // OAuth2ClientJsonEncryptionKeyResponse <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>A [JSON Web Key (JWK)](https://tools.ietf.org/html/rfc7517) is a JSON representation of a cryptographic key. Okta uses an encryption key to encrypt an ID token JWT minted by the org authorization server or custom authorization server. Okta supports only RSA keys for encrypting tokens.
 type OAuth2ClientJsonEncryptionKeyResponse struct {
+	// Timestamp when the OAuth 2.0 client JSON Web Key was created
+	Created *string `json:"created,omitempty"`
 	// RSA key value (exponent) for key binding
 	E *string `json:"e,omitempty"`
+	// The unique ID of the OAuth Client JSON Web Key
+	Id *string `json:"id,omitempty"`
 	// Cryptographic algorithm family for the certificate's key pair
 	Kty *string `json:"kty,omitempty"`
+	// Timestamp when the OAuth 2.0 client JSON Web Key was updated
+	LastUpdated *string `json:"lastUpdated,omitempty"`
 	// RSA key value (modulus) for key binding
 	N *string `json:"n,omitempty"`
 	// Acceptable use of the JSON Web Key
 	Use *string `json:"use,omitempty"`
-	// Unique identifier of the JSON Web Key in the OAUth 2.0 client's JWKS
+	// Unique identifier of the JSON Web Key in the OAuth 2.0 client's JWKS
 	Kid NullableString `json:"kid,omitempty"`
 	// Status of the OAuth 2.0 client JSON Web Key
-	Status *string `json:"status,omitempty"`
-	// Timestamp when the OAuth 2.0 client JSON Web Key was created
-	Created *string `json:"created,omitempty"`
-	// The unique ID of the OAuth Client JSON Web Key
-	Id *string `json:"id,omitempty"`
-	// Timestamp when the OAuth 2.0 client JSON Web Key was updated
-	LastUpdated          *string                 `json:"lastUpdated,omitempty"`
+	Status               *string                 `json:"status,omitempty"`
 	Links                *OAuthClientSecretLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -75,6 +75,38 @@ func NewOAuth2ClientJsonEncryptionKeyResponseWithDefaults() *OAuth2ClientJsonEnc
 	var status string = "ACTIVE"
 	this.Status = &status
 	return &this
+}
+
+// GetCreated returns the Created field value if set, zero value otherwise.
+func (o *OAuth2ClientJsonEncryptionKeyResponse) GetCreated() string {
+	if o == nil || IsNil(o.Created) {
+		var ret string
+		return ret
+	}
+	return *o.Created
+}
+
+// GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OAuth2ClientJsonEncryptionKeyResponse) GetCreatedOk() (*string, bool) {
+	if o == nil || IsNil(o.Created) {
+		return nil, false
+	}
+	return o.Created, true
+}
+
+// HasCreated returns a boolean if a field has been set.
+func (o *OAuth2ClientJsonEncryptionKeyResponse) HasCreated() bool {
+	if o != nil && !IsNil(o.Created) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreated gets a reference to the given string and assigns it to the Created field.
+func (o *OAuth2ClientJsonEncryptionKeyResponse) SetCreated(v string) {
+	o.Created = &v
 }
 
 // GetE returns the E field value if set, zero value otherwise.
@@ -109,6 +141,38 @@ func (o *OAuth2ClientJsonEncryptionKeyResponse) SetE(v string) {
 	o.E = &v
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *OAuth2ClientJsonEncryptionKeyResponse) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OAuth2ClientJsonEncryptionKeyResponse) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *OAuth2ClientJsonEncryptionKeyResponse) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *OAuth2ClientJsonEncryptionKeyResponse) SetId(v string) {
+	o.Id = &v
+}
+
 // GetKty returns the Kty field value if set, zero value otherwise.
 func (o *OAuth2ClientJsonEncryptionKeyResponse) GetKty() string {
 	if o == nil || IsNil(o.Kty) {
@@ -139,6 +203,38 @@ func (o *OAuth2ClientJsonEncryptionKeyResponse) HasKty() bool {
 // SetKty gets a reference to the given string and assigns it to the Kty field.
 func (o *OAuth2ClientJsonEncryptionKeyResponse) SetKty(v string) {
 	o.Kty = &v
+}
+
+// GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
+func (o *OAuth2ClientJsonEncryptionKeyResponse) GetLastUpdated() string {
+	if o == nil || IsNil(o.LastUpdated) {
+		var ret string
+		return ret
+	}
+	return *o.LastUpdated
+}
+
+// GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OAuth2ClientJsonEncryptionKeyResponse) GetLastUpdatedOk() (*string, bool) {
+	if o == nil || IsNil(o.LastUpdated) {
+		return nil, false
+	}
+	return o.LastUpdated, true
+}
+
+// HasLastUpdated returns a boolean if a field has been set.
+func (o *OAuth2ClientJsonEncryptionKeyResponse) HasLastUpdated() bool {
+	if o != nil && !IsNil(o.LastUpdated) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastUpdated gets a reference to the given string and assigns it to the LastUpdated field.
+func (o *OAuth2ClientJsonEncryptionKeyResponse) SetLastUpdated(v string) {
+	o.LastUpdated = &v
 }
 
 // GetN returns the N field value if set, zero value otherwise.
@@ -280,102 +376,6 @@ func (o *OAuth2ClientJsonEncryptionKeyResponse) SetStatus(v string) {
 	o.Status = &v
 }
 
-// GetCreated returns the Created field value if set, zero value otherwise.
-func (o *OAuth2ClientJsonEncryptionKeyResponse) GetCreated() string {
-	if o == nil || IsNil(o.Created) {
-		var ret string
-		return ret
-	}
-	return *o.Created
-}
-
-// GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *OAuth2ClientJsonEncryptionKeyResponse) GetCreatedOk() (*string, bool) {
-	if o == nil || IsNil(o.Created) {
-		return nil, false
-	}
-	return o.Created, true
-}
-
-// HasCreated returns a boolean if a field has been set.
-func (o *OAuth2ClientJsonEncryptionKeyResponse) HasCreated() bool {
-	if o != nil && !IsNil(o.Created) {
-		return true
-	}
-
-	return false
-}
-
-// SetCreated gets a reference to the given string and assigns it to the Created field.
-func (o *OAuth2ClientJsonEncryptionKeyResponse) SetCreated(v string) {
-	o.Created = &v
-}
-
-// GetId returns the Id field value if set, zero value otherwise.
-func (o *OAuth2ClientJsonEncryptionKeyResponse) GetId() string {
-	if o == nil || IsNil(o.Id) {
-		var ret string
-		return ret
-	}
-	return *o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *OAuth2ClientJsonEncryptionKeyResponse) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
-		return nil, false
-	}
-	return o.Id, true
-}
-
-// HasId returns a boolean if a field has been set.
-func (o *OAuth2ClientJsonEncryptionKeyResponse) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
-func (o *OAuth2ClientJsonEncryptionKeyResponse) SetId(v string) {
-	o.Id = &v
-}
-
-// GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
-func (o *OAuth2ClientJsonEncryptionKeyResponse) GetLastUpdated() string {
-	if o == nil || IsNil(o.LastUpdated) {
-		var ret string
-		return ret
-	}
-	return *o.LastUpdated
-}
-
-// GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *OAuth2ClientJsonEncryptionKeyResponse) GetLastUpdatedOk() (*string, bool) {
-	if o == nil || IsNil(o.LastUpdated) {
-		return nil, false
-	}
-	return o.LastUpdated, true
-}
-
-// HasLastUpdated returns a boolean if a field has been set.
-func (o *OAuth2ClientJsonEncryptionKeyResponse) HasLastUpdated() bool {
-	if o != nil && !IsNil(o.LastUpdated) {
-		return true
-	}
-
-	return false
-}
-
-// SetLastUpdated gets a reference to the given string and assigns it to the LastUpdated field.
-func (o *OAuth2ClientJsonEncryptionKeyResponse) SetLastUpdated(v string) {
-	o.LastUpdated = &v
-}
-
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *OAuth2ClientJsonEncryptionKeyResponse) GetLinks() OAuthClientSecretLinks {
 	if o == nil || IsNil(o.Links) {
@@ -418,11 +418,20 @@ func (o OAuth2ClientJsonEncryptionKeyResponse) MarshalJSON() ([]byte, error) {
 
 func (o OAuth2ClientJsonEncryptionKeyResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Created) {
+		toSerialize["created"] = o.Created
+	}
 	if !IsNil(o.E) {
 		toSerialize["e"] = o.E
 	}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
 	if !IsNil(o.Kty) {
 		toSerialize["kty"] = o.Kty
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["lastUpdated"] = o.LastUpdated
 	}
 	if !IsNil(o.N) {
 		toSerialize["n"] = o.N
@@ -435,15 +444,6 @@ func (o OAuth2ClientJsonEncryptionKeyResponse) ToMap() (map[string]interface{}, 
 	}
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
-	}
-	if !IsNil(o.Created) {
-		toSerialize["created"] = o.Created
-	}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.LastUpdated) {
-		toSerialize["lastUpdated"] = o.LastUpdated
 	}
 	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
@@ -470,15 +470,15 @@ func (o *OAuth2ClientJsonEncryptionKeyResponse) UnmarshalJSON(data []byte) (err 
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "created")
 		delete(additionalProperties, "e")
+		delete(additionalProperties, "id")
 		delete(additionalProperties, "kty")
+		delete(additionalProperties, "lastUpdated")
 		delete(additionalProperties, "n")
 		delete(additionalProperties, "use")
 		delete(additionalProperties, "kid")
 		delete(additionalProperties, "status")
-		delete(additionalProperties, "created")
-		delete(additionalProperties, "id")
-		delete(additionalProperties, "lastUpdated")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
 	}

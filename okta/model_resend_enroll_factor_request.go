@@ -66,8 +66,11 @@ func (dst *ResendEnrollFactorRequest) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
+	// Get discriminator value, treating nil/missing as empty string for comparison
+	discriminatorValue, _ := jsonDict["factorType"].(string)
+
 	// check if the discriminator value is 'call'
-	if jsonDict["factorType"] == "call" {
+	if discriminatorValue == "call" {
 		// try to unmarshal JSON data into UserFactorCall
 		err = json.Unmarshal(data, &dst.UserFactorCall)
 		if err == nil {
@@ -79,7 +82,7 @@ func (dst *ResendEnrollFactorRequest) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'email'
-	if jsonDict["factorType"] == "email" {
+	if discriminatorValue == "email" {
 		// try to unmarshal JSON data into UserFactorEmail
 		err = json.Unmarshal(data, &dst.UserFactorEmail)
 		if err == nil {
@@ -91,7 +94,7 @@ func (dst *ResendEnrollFactorRequest) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'sms'
-	if jsonDict["factorType"] == "sms" {
+	if discriminatorValue == "sms" {
 		// try to unmarshal JSON data into UserFactorSMS
 		err = json.Unmarshal(data, &dst.UserFactorSMS)
 		if err == nil {
@@ -102,6 +105,16 @@ func (dst *ResendEnrollFactorRequest) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// If discriminator value is empty/missing, default to the last mapped model (typically the most common type)
+	if discriminatorValue == "" {
+		err = json.Unmarshal(data, &dst.UserFactorSMS)
+		if err == nil {
+			return nil
+		}
+		dst.UserFactorSMS = nil
+	}
+
+	// No match found or unmarshal failed - return nil to allow partial unmarshalling
 	return nil
 }
 

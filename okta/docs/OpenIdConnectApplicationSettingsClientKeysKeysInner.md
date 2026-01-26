@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Created** | Pointer to **string** | Timestamp when the OAuth 2.0 client JSON Web Key was created | [optional] [readonly] 
 **E** | Pointer to **string** | RSA key value (exponent) for key binding | [optional] 
+**Id** | Pointer to **string** | The unique ID of the OAuth Client JSON Web Key | [optional] [readonly] 
 **Kty** | Pointer to **string** | Cryptographic algorithm family for the certificate&#39;s key pair | [optional] 
+**LastUpdated** | Pointer to **string** | Timestamp when the OAuth 2.0 client JSON Web Key was updated | [optional] [readonly] 
 **N** | Pointer to **string** | RSA key value (modulus) for key binding | [optional] 
 **Use** | Pointer to **string** | Acceptable use of the JSON Web Key | [optional] 
-**Kid** | Pointer to **NullableString** | Unique identifier of the JSON Web Key in the OAUth 2.0 client&#39;s JWKS | [optional] 
+**Kid** | Pointer to **NullableString** | Unique identifier of the JSON Web Key in the OAuth 2.0 client&#39;s JWKS | [optional] 
 **Status** | Pointer to **string** | Status of the OAuth 2.0 client JSON Web Key | [optional] [default to "ACTIVE"]
-**Created** | Pointer to **string** | Timestamp when the OAuth 2.0 client JSON Web Key was created | [optional] [readonly] 
-**Id** | Pointer to **string** | The unique ID of the OAuth Client JSON Web Key | [optional] [readonly] 
-**LastUpdated** | Pointer to **string** | Timestamp when the OAuth 2.0 client JSON Web Key was updated | [optional] [readonly] 
 **Links** | Pointer to [**OAuthClientSecretLinks**](OAuthClientSecretLinks.md) |  | [optional] 
 
 ## Methods
@@ -33,6 +33,31 @@ will change when the set of required properties is changed
 NewOpenIdConnectApplicationSettingsClientKeysKeysInnerWithDefaults instantiates a new OpenIdConnectApplicationSettingsClientKeysKeysInner object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetCreated
+
+`func (o *OpenIdConnectApplicationSettingsClientKeysKeysInner) GetCreated() string`
+
+GetCreated returns the Created field if non-nil, zero value otherwise.
+
+### GetCreatedOk
+
+`func (o *OpenIdConnectApplicationSettingsClientKeysKeysInner) GetCreatedOk() (*string, bool)`
+
+GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreated
+
+`func (o *OpenIdConnectApplicationSettingsClientKeysKeysInner) SetCreated(v string)`
+
+SetCreated sets Created field to given value.
+
+### HasCreated
+
+`func (o *OpenIdConnectApplicationSettingsClientKeysKeysInner) HasCreated() bool`
+
+HasCreated returns a boolean if a field has been set.
 
 ### GetE
 
@@ -59,6 +84,31 @@ SetE sets E field to given value.
 
 HasE returns a boolean if a field has been set.
 
+### GetId
+
+`func (o *OpenIdConnectApplicationSettingsClientKeysKeysInner) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *OpenIdConnectApplicationSettingsClientKeysKeysInner) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *OpenIdConnectApplicationSettingsClientKeysKeysInner) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *OpenIdConnectApplicationSettingsClientKeysKeysInner) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
 ### GetKty
 
 `func (o *OpenIdConnectApplicationSettingsClientKeysKeysInner) GetKty() string`
@@ -83,6 +133,31 @@ SetKty sets Kty field to given value.
 `func (o *OpenIdConnectApplicationSettingsClientKeysKeysInner) HasKty() bool`
 
 HasKty returns a boolean if a field has been set.
+
+### GetLastUpdated
+
+`func (o *OpenIdConnectApplicationSettingsClientKeysKeysInner) GetLastUpdated() string`
+
+GetLastUpdated returns the LastUpdated field if non-nil, zero value otherwise.
+
+### GetLastUpdatedOk
+
+`func (o *OpenIdConnectApplicationSettingsClientKeysKeysInner) GetLastUpdatedOk() (*string, bool)`
+
+GetLastUpdatedOk returns a tuple with the LastUpdated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastUpdated
+
+`func (o *OpenIdConnectApplicationSettingsClientKeysKeysInner) SetLastUpdated(v string)`
+
+SetLastUpdated sets LastUpdated field to given value.
+
+### HasLastUpdated
+
+`func (o *OpenIdConnectApplicationSettingsClientKeysKeysInner) HasLastUpdated() bool`
+
+HasLastUpdated returns a boolean if a field has been set.
 
 ### GetN
 
@@ -193,81 +268,6 @@ SetStatus sets Status field to given value.
 `func (o *OpenIdConnectApplicationSettingsClientKeysKeysInner) HasStatus() bool`
 
 HasStatus returns a boolean if a field has been set.
-
-### GetCreated
-
-`func (o *OpenIdConnectApplicationSettingsClientKeysKeysInner) GetCreated() string`
-
-GetCreated returns the Created field if non-nil, zero value otherwise.
-
-### GetCreatedOk
-
-`func (o *OpenIdConnectApplicationSettingsClientKeysKeysInner) GetCreatedOk() (*string, bool)`
-
-GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCreated
-
-`func (o *OpenIdConnectApplicationSettingsClientKeysKeysInner) SetCreated(v string)`
-
-SetCreated sets Created field to given value.
-
-### HasCreated
-
-`func (o *OpenIdConnectApplicationSettingsClientKeysKeysInner) HasCreated() bool`
-
-HasCreated returns a boolean if a field has been set.
-
-### GetId
-
-`func (o *OpenIdConnectApplicationSettingsClientKeysKeysInner) GetId() string`
-
-GetId returns the Id field if non-nil, zero value otherwise.
-
-### GetIdOk
-
-`func (o *OpenIdConnectApplicationSettingsClientKeysKeysInner) GetIdOk() (*string, bool)`
-
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetId
-
-`func (o *OpenIdConnectApplicationSettingsClientKeysKeysInner) SetId(v string)`
-
-SetId sets Id field to given value.
-
-### HasId
-
-`func (o *OpenIdConnectApplicationSettingsClientKeysKeysInner) HasId() bool`
-
-HasId returns a boolean if a field has been set.
-
-### GetLastUpdated
-
-`func (o *OpenIdConnectApplicationSettingsClientKeysKeysInner) GetLastUpdated() string`
-
-GetLastUpdated returns the LastUpdated field if non-nil, zero value otherwise.
-
-### GetLastUpdatedOk
-
-`func (o *OpenIdConnectApplicationSettingsClientKeysKeysInner) GetLastUpdatedOk() (*string, bool)`
-
-GetLastUpdatedOk returns a tuple with the LastUpdated field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLastUpdated
-
-`func (o *OpenIdConnectApplicationSettingsClientKeysKeysInner) SetLastUpdated(v string)`
-
-SetLastUpdated sets LastUpdated field to given value.
-
-### HasLastUpdated
-
-`func (o *OpenIdConnectApplicationSettingsClientKeysKeysInner) HasLastUpdated() bool`
-
-HasLastUpdated returns a boolean if a field has been set.
 
 ### GetLinks
 

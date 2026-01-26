@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// OpenIdConnectApplicationSettingsClientKeysKeysInner - struct for OpenIdConnectApplicationSettingsClientKeysKeysInner
+// OpenIdConnectApplicationSettingsClientKeysKeysInner - A JSON Web Key for an OpenID Connect application
 type OpenIdConnectApplicationSettingsClientKeysKeysInner struct {
 	OAuth2ClientJsonEncryptionKeyResponse *OAuth2ClientJsonEncryptionKeyResponse
 	OAuth2ClientJsonSigningKeyResponse    *OAuth2ClientJsonSigningKeyResponse
@@ -51,44 +51,51 @@ func OAuth2ClientJsonSigningKeyResponseAsOpenIdConnectApplicationSettingsClientK
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *OpenIdConnectApplicationSettingsClientKeysKeysInner) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into OAuth2ClientJsonEncryptionKeyResponse
-	err = json.Unmarshal(data, &dst.OAuth2ClientJsonEncryptionKeyResponse)
-	if err == nil {
-		jsonOAuth2ClientJsonEncryptionKeyResponse, _ := json.Marshal(dst.OAuth2ClientJsonEncryptionKeyResponse)
-		if string(jsonOAuth2ClientJsonEncryptionKeyResponse) == "{}" { // empty struct
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]interface{}
+	err = newStrictDecoder(data).Decode(&jsonDict)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
+	}
+
+	// Get discriminator value, treating nil/missing as empty string for comparison
+	discriminatorValue, _ := jsonDict["use"].(string)
+
+	// check if the discriminator value is 'enc'
+	if discriminatorValue == "enc" {
+		// try to unmarshal JSON data into OAuth2ClientJsonEncryptionKeyResponse
+		err = json.Unmarshal(data, &dst.OAuth2ClientJsonEncryptionKeyResponse)
+		if err == nil {
+			return nil // data stored in dst.OAuth2ClientJsonEncryptionKeyResponse, return on the first match
+		} else {
 			dst.OAuth2ClientJsonEncryptionKeyResponse = nil
-		} else {
-			match++
+			return fmt.Errorf("failed to unmarshal OpenIdConnectApplicationSettingsClientKeysKeysInner as OAuth2ClientJsonEncryptionKeyResponse: %s", err.Error())
 		}
-	} else {
-		dst.OAuth2ClientJsonEncryptionKeyResponse = nil
 	}
 
-	// try to unmarshal data into OAuth2ClientJsonSigningKeyResponse
-	err = json.Unmarshal(data, &dst.OAuth2ClientJsonSigningKeyResponse)
-	if err == nil {
-		jsonOAuth2ClientJsonSigningKeyResponse, _ := json.Marshal(dst.OAuth2ClientJsonSigningKeyResponse)
-		if string(jsonOAuth2ClientJsonSigningKeyResponse) == "{}" { // empty struct
+	// check if the discriminator value is 'sig'
+	if discriminatorValue == "sig" {
+		// try to unmarshal JSON data into OAuth2ClientJsonSigningKeyResponse
+		err = json.Unmarshal(data, &dst.OAuth2ClientJsonSigningKeyResponse)
+		if err == nil {
+			return nil // data stored in dst.OAuth2ClientJsonSigningKeyResponse, return on the first match
+		} else {
 			dst.OAuth2ClientJsonSigningKeyResponse = nil
-		} else {
-			match++
+			return fmt.Errorf("failed to unmarshal OpenIdConnectApplicationSettingsClientKeysKeysInner as OAuth2ClientJsonSigningKeyResponse: %s", err.Error())
 		}
-	} else {
+	}
+
+	// If discriminator value is empty/missing, default to the last mapped model (typically the most common type)
+	if discriminatorValue == "" {
+		err = json.Unmarshal(data, &dst.OAuth2ClientJsonSigningKeyResponse)
+		if err == nil {
+			return nil
+		}
 		dst.OAuth2ClientJsonSigningKeyResponse = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.OAuth2ClientJsonEncryptionKeyResponse = nil
-		dst.OAuth2ClientJsonSigningKeyResponse = nil
-
-		return fmt.Errorf("data matches more than one schema in oneOf(OpenIdConnectApplicationSettingsClientKeysKeysInner)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(OpenIdConnectApplicationSettingsClientKeysKeysInner)")
-	}
+	// No match found or unmarshal failed - return nil to allow partial unmarshalling
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON

@@ -4,15 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**E** | **string** | RSA key value (exponent) for key binding | 
+**Alg** | Pointer to **string** | Algorithm used in the key | [optional] 
+**E** | Pointer to **string** | RSA key value (exponent) for key binding | [optional] 
 **Kty** | Pointer to **string** | Cryptographic algorithm family for the certificate&#39;s key pair | [optional] 
-**N** | **string** | RSA key value (modulus) for key binding | 
+**N** | Pointer to **string** | RSA key value (modulus) for key binding | [optional] 
+**Kid** | Pointer to **NullableString** | Unique identifier of the JSON Web Key in the OAuth 2.0 client&#39;s JWKS | [optional] 
+**Status** | Pointer to **string** | Status of the OAuth 2.0 client JSON Web Key | [optional] [default to "ACTIVE"]
+**Use** | Pointer to **string** | Acceptable use of the JSON Web Key | [optional] 
 
 ## Methods
 
 ### NewOAuth2ClientJsonWebKeyRsaRequest
 
-`func NewOAuth2ClientJsonWebKeyRsaRequest(e string, n string, ) *OAuth2ClientJsonWebKeyRsaRequest`
+`func NewOAuth2ClientJsonWebKeyRsaRequest() *OAuth2ClientJsonWebKeyRsaRequest`
 
 NewOAuth2ClientJsonWebKeyRsaRequest instantiates a new OAuth2ClientJsonWebKeyRsaRequest object
 This constructor will assign default values to properties that have it defined,
@@ -26,6 +30,31 @@ will change when the set of required properties is changed
 NewOAuth2ClientJsonWebKeyRsaRequestWithDefaults instantiates a new OAuth2ClientJsonWebKeyRsaRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAlg
+
+`func (o *OAuth2ClientJsonWebKeyRsaRequest) GetAlg() string`
+
+GetAlg returns the Alg field if non-nil, zero value otherwise.
+
+### GetAlgOk
+
+`func (o *OAuth2ClientJsonWebKeyRsaRequest) GetAlgOk() (*string, bool)`
+
+GetAlgOk returns a tuple with the Alg field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAlg
+
+`func (o *OAuth2ClientJsonWebKeyRsaRequest) SetAlg(v string)`
+
+SetAlg sets Alg field to given value.
+
+### HasAlg
+
+`func (o *OAuth2ClientJsonWebKeyRsaRequest) HasAlg() bool`
+
+HasAlg returns a boolean if a field has been set.
 
 ### GetE
 
@@ -46,6 +75,11 @@ and a boolean to check if the value has been set.
 
 SetE sets E field to given value.
 
+### HasE
+
+`func (o *OAuth2ClientJsonWebKeyRsaRequest) HasE() bool`
+
+HasE returns a boolean if a field has been set.
 
 ### GetKty
 
@@ -91,6 +125,96 @@ and a boolean to check if the value has been set.
 
 SetN sets N field to given value.
 
+### HasN
+
+`func (o *OAuth2ClientJsonWebKeyRsaRequest) HasN() bool`
+
+HasN returns a boolean if a field has been set.
+
+### GetKid
+
+`func (o *OAuth2ClientJsonWebKeyRsaRequest) GetKid() string`
+
+GetKid returns the Kid field if non-nil, zero value otherwise.
+
+### GetKidOk
+
+`func (o *OAuth2ClientJsonWebKeyRsaRequest) GetKidOk() (*string, bool)`
+
+GetKidOk returns a tuple with the Kid field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKid
+
+`func (o *OAuth2ClientJsonWebKeyRsaRequest) SetKid(v string)`
+
+SetKid sets Kid field to given value.
+
+### HasKid
+
+`func (o *OAuth2ClientJsonWebKeyRsaRequest) HasKid() bool`
+
+HasKid returns a boolean if a field has been set.
+
+### SetKidNil
+
+`func (o *OAuth2ClientJsonWebKeyRsaRequest) SetKidNil(b bool)`
+
+ SetKidNil sets the value for Kid to be an explicit nil
+
+### UnsetKid
+`func (o *OAuth2ClientJsonWebKeyRsaRequest) UnsetKid()`
+
+UnsetKid ensures that no value is present for Kid, not even an explicit nil
+### GetStatus
+
+`func (o *OAuth2ClientJsonWebKeyRsaRequest) GetStatus() string`
+
+GetStatus returns the Status field if non-nil, zero value otherwise.
+
+### GetStatusOk
+
+`func (o *OAuth2ClientJsonWebKeyRsaRequest) GetStatusOk() (*string, bool)`
+
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatus
+
+`func (o *OAuth2ClientJsonWebKeyRsaRequest) SetStatus(v string)`
+
+SetStatus sets Status field to given value.
+
+### HasStatus
+
+`func (o *OAuth2ClientJsonWebKeyRsaRequest) HasStatus() bool`
+
+HasStatus returns a boolean if a field has been set.
+
+### GetUse
+
+`func (o *OAuth2ClientJsonWebKeyRsaRequest) GetUse() string`
+
+GetUse returns the Use field if non-nil, zero value otherwise.
+
+### GetUseOk
+
+`func (o *OAuth2ClientJsonWebKeyRsaRequest) GetUseOk() (*string, bool)`
+
+GetUseOk returns a tuple with the Use field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUse
+
+`func (o *OAuth2ClientJsonWebKeyRsaRequest) SetUse(v string)`
+
+SetUse sets Use field to given value.
+
+### HasUse
+
+`func (o *OAuth2ClientJsonWebKeyRsaRequest) HasUse() bool`
+
+HasUse returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

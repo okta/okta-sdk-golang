@@ -114,8 +114,11 @@ func (dst *ListPolicyRules200ResponseInner) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
+	// Get discriminator value, treating nil/missing as empty string for comparison
+	discriminatorValue, _ := jsonDict["type"].(string)
+
 	// check if the discriminator value is 'ACCESS_POLICY'
-	if jsonDict["type"] == "ACCESS_POLICY" {
+	if discriminatorValue == "ACCESS_POLICY" {
 		// try to unmarshal JSON data into AccessPolicyRule
 		err = json.Unmarshal(data, &dst.AccessPolicyRule)
 		if err == nil {
@@ -127,7 +130,7 @@ func (dst *ListPolicyRules200ResponseInner) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'DEVICE_SIGNAL_COLLECTION'
-	if jsonDict["type"] == "DEVICE_SIGNAL_COLLECTION" {
+	if discriminatorValue == "DEVICE_SIGNAL_COLLECTION" {
 		// try to unmarshal JSON data into DeviceSignalCollectionPolicyRule
 		err = json.Unmarshal(data, &dst.DeviceSignalCollectionPolicyRule)
 		if err == nil {
@@ -139,7 +142,7 @@ func (dst *ListPolicyRules200ResponseInner) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'ENTITY_RISK'
-	if jsonDict["type"] == "ENTITY_RISK" {
+	if discriminatorValue == "ENTITY_RISK" {
 		// try to unmarshal JSON data into EntityRiskPolicyRule
 		err = json.Unmarshal(data, &dst.EntityRiskPolicyRule)
 		if err == nil {
@@ -151,7 +154,7 @@ func (dst *ListPolicyRules200ResponseInner) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'IDP_DISCOVERY'
-	if jsonDict["type"] == "IDP_DISCOVERY" {
+	if discriminatorValue == "IDP_DISCOVERY" {
 		// try to unmarshal JSON data into IdpDiscoveryPolicyRule
 		err = json.Unmarshal(data, &dst.IdpDiscoveryPolicyRule)
 		if err == nil {
@@ -163,7 +166,7 @@ func (dst *ListPolicyRules200ResponseInner) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'MFA_ENROLL'
-	if jsonDict["type"] == "MFA_ENROLL" {
+	if discriminatorValue == "MFA_ENROLL" {
 		// try to unmarshal JSON data into AuthenticatorEnrollmentPolicyRule
 		err = json.Unmarshal(data, &dst.AuthenticatorEnrollmentPolicyRule)
 		if err == nil {
@@ -175,7 +178,7 @@ func (dst *ListPolicyRules200ResponseInner) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'PASSWORD'
-	if jsonDict["type"] == "PASSWORD" {
+	if discriminatorValue == "PASSWORD" {
 		// try to unmarshal JSON data into PasswordPolicyRule
 		err = json.Unmarshal(data, &dst.PasswordPolicyRule)
 		if err == nil {
@@ -187,7 +190,7 @@ func (dst *ListPolicyRules200ResponseInner) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'POST_AUTH_SESSION'
-	if jsonDict["type"] == "POST_AUTH_SESSION" {
+	if discriminatorValue == "POST_AUTH_SESSION" {
 		// try to unmarshal JSON data into PostAuthSessionPolicyRule
 		err = json.Unmarshal(data, &dst.PostAuthSessionPolicyRule)
 		if err == nil {
@@ -199,7 +202,7 @@ func (dst *ListPolicyRules200ResponseInner) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'PROFILE_ENROLLMENT'
-	if jsonDict["type"] == "PROFILE_ENROLLMENT" {
+	if discriminatorValue == "PROFILE_ENROLLMENT" {
 		// try to unmarshal JSON data into ProfileEnrollmentPolicyRule
 		err = json.Unmarshal(data, &dst.ProfileEnrollmentPolicyRule)
 		if err == nil {
@@ -211,7 +214,7 @@ func (dst *ListPolicyRules200ResponseInner) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'SIGN_ON'
-	if jsonDict["type"] == "SIGN_ON" {
+	if discriminatorValue == "SIGN_ON" {
 		// try to unmarshal JSON data into OktaSignOnPolicyRule
 		err = json.Unmarshal(data, &dst.OktaSignOnPolicyRule)
 		if err == nil {
@@ -222,6 +225,16 @@ func (dst *ListPolicyRules200ResponseInner) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// If discriminator value is empty/missing, default to the last mapped model (typically the most common type)
+	if discriminatorValue == "" {
+		err = json.Unmarshal(data, &dst.OktaSignOnPolicyRule)
+		if err == nil {
+			return nil
+		}
+		dst.OktaSignOnPolicyRule = nil
+	}
+
+	// No match found or unmarshal failed - return nil to allow partial unmarshalling
 	return nil
 }
 

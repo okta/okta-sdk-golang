@@ -36,9 +36,12 @@ func (dst *{{classname}}) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
+	// Get discriminator value, treating nil/missing as empty string for comparison
+	discriminatorValue, _ := jsonDict["{{{propertyBaseName}}}"].(string)
+
 	{{/-first}}
 	// check if the discriminator value is '{{{mappingName}}}'
-	if jsonDict["{{{propertyBaseName}}}"] == "{{{mappingName}}}" {
+	if discriminatorValue == "{{{mappingName}}}" {
 		// try to unmarshal JSON data into {{{modelName}}}
 		err = json.Unmarshal(data, &dst.{{{modelName}}})
 		if err == nil {
@@ -49,8 +52,20 @@ func (dst *{{classname}}) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	{{/mappedModels}}
+	{{#-last}}
+	// If discriminator value is empty/missing, default to the last mapped model (typically the most common type)
+	if discriminatorValue == "" {
+		err = json.Unmarshal(data, &dst.{{{modelName}}})
+		if err == nil {
+			return nil
+		}
+		dst.{{{modelName}}} = nil
+	}
+
+	// No match found or unmarshal failed - return nil to allow partial unmarshalling
 	return nil
+	{{/-last}}
+	{{/mappedModels}}
 	{{/discriminator}}
 	{{^discriminator}}
 	match := 0

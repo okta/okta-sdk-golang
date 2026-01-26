@@ -82,8 +82,11 @@ func (dst *IdentityProviderProtocol) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
+	// Get discriminator value, treating nil/missing as empty string for comparison
+	discriminatorValue, _ := jsonDict["type"].(string)
+
 	// check if the discriminator value is 'ID_PROOFING'
-	if jsonDict["type"] == "ID_PROOFING" {
+	if discriminatorValue == "ID_PROOFING" {
 		// try to unmarshal JSON data into ProtocolIdVerification
 		err = json.Unmarshal(data, &dst.ProtocolIdVerification)
 		if err == nil {
@@ -95,7 +98,7 @@ func (dst *IdentityProviderProtocol) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'MTLS'
-	if jsonDict["type"] == "MTLS" {
+	if discriminatorValue == "MTLS" {
 		// try to unmarshal JSON data into ProtocolMtls
 		err = json.Unmarshal(data, &dst.ProtocolMtls)
 		if err == nil {
@@ -107,7 +110,7 @@ func (dst *IdentityProviderProtocol) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'OAUTH2'
-	if jsonDict["type"] == "OAUTH2" {
+	if discriminatorValue == "OAUTH2" {
 		// try to unmarshal JSON data into ProtocolOAuth
 		err = json.Unmarshal(data, &dst.ProtocolOAuth)
 		if err == nil {
@@ -119,7 +122,7 @@ func (dst *IdentityProviderProtocol) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'OIDC'
-	if jsonDict["type"] == "OIDC" {
+	if discriminatorValue == "OIDC" {
 		// try to unmarshal JSON data into ProtocolOidc
 		err = json.Unmarshal(data, &dst.ProtocolOidc)
 		if err == nil {
@@ -131,7 +134,7 @@ func (dst *IdentityProviderProtocol) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'SAML2'
-	if jsonDict["type"] == "SAML2" {
+	if discriminatorValue == "SAML2" {
 		// try to unmarshal JSON data into ProtocolSaml
 		err = json.Unmarshal(data, &dst.ProtocolSaml)
 		if err == nil {
@@ -142,6 +145,16 @@ func (dst *IdentityProviderProtocol) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// If discriminator value is empty/missing, default to the last mapped model (typically the most common type)
+	if discriminatorValue == "" {
+		err = json.Unmarshal(data, &dst.ProtocolSaml)
+		if err == nil {
+			return nil
+		}
+		dst.ProtocolSaml = nil
+	}
+
+	// No match found or unmarshal failed - return nil to allow partial unmarshalling
 	return nil
 }
 

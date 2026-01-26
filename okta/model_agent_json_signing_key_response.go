@@ -58,8 +58,11 @@ func (dst *AgentJsonSigningKeyResponse) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
+	// Get discriminator value, treating nil/missing as empty string for comparison
+	discriminatorValue, _ := jsonDict["kty"].(string)
+
 	// check if the discriminator value is 'EC'
-	if jsonDict["kty"] == "EC" {
+	if discriminatorValue == "EC" {
 		// try to unmarshal JSON data into AgentJsonWebKeyECResponse
 		err = json.Unmarshal(data, &dst.AgentJsonWebKeyECResponse)
 		if err == nil {
@@ -71,7 +74,7 @@ func (dst *AgentJsonSigningKeyResponse) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'RSA'
-	if jsonDict["kty"] == "RSA" {
+	if discriminatorValue == "RSA" {
 		// try to unmarshal JSON data into AgentJsonWebKeyRsaResponse
 		err = json.Unmarshal(data, &dst.AgentJsonWebKeyRsaResponse)
 		if err == nil {
@@ -82,6 +85,16 @@ func (dst *AgentJsonSigningKeyResponse) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// If discriminator value is empty/missing, default to the last mapped model (typically the most common type)
+	if discriminatorValue == "" {
+		err = json.Unmarshal(data, &dst.AgentJsonWebKeyRsaResponse)
+		if err == nil {
+			return nil
+		}
+		dst.AgentJsonWebKeyRsaResponse = nil
+	}
+
+	// No match found or unmarshal failed - return nil to allow partial unmarshalling
 	return nil
 }
 

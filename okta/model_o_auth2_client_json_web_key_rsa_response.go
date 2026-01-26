@@ -25,9 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
-	"reflect"
-	"strings"
 )
 
 // checks if the OAuth2ClientJsonWebKeyRsaResponse type satisfies the MappedNullable interface at compile time
@@ -35,13 +32,27 @@ var _ MappedNullable = &OAuth2ClientJsonWebKeyRsaResponse{}
 
 // OAuth2ClientJsonWebKeyRsaResponse An RSA signing key
 type OAuth2ClientJsonWebKeyRsaResponse struct {
-	OAuth2ClientJsonSigningKeyResponse
+	// Algorithm used in the key
+	Alg *string `json:"alg,omitempty"`
+	// Timestamp when the OAuth 2.0 client JSON Web Key was created
+	Created *string `json:"created,omitempty"`
 	// RSA key value (exponent) for key binding
-	E string `json:"e"`
+	E *string `json:"e,omitempty"`
+	// The unique ID of the OAuth Client JSON Web Key
+	Id *string `json:"id,omitempty"`
 	// Cryptographic algorithm family for the certificate's key pair
 	Kty *string `json:"kty,omitempty"`
+	// Timestamp when the OAuth 2.0 client JSON Web Key was updated
+	LastUpdated *string `json:"lastUpdated,omitempty"`
 	// RSA key value (modulus) for key binding
-	N                    string `json:"n"`
+	N *string `json:"n,omitempty"`
+	// Unique identifier of the JSON Web Key in the OAuth 2.0 client's JWKS
+	Kid NullableString `json:"kid,omitempty"`
+	// Status of the OAuth 2.0 client JSON Web Key
+	Status *string `json:"status,omitempty"`
+	// Acceptable use of the JSON Web Key
+	Use                  *string                 `json:"use,omitempty"`
+	Links                *OAuthClientSecretLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -51,15 +62,10 @@ type _OAuth2ClientJsonWebKeyRsaResponse OAuth2ClientJsonWebKeyRsaResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOAuth2ClientJsonWebKeyRsaResponse(e string, n string, alg string, created string, id string, lastUpdated string, use string) *OAuth2ClientJsonWebKeyRsaResponse {
+func NewOAuth2ClientJsonWebKeyRsaResponse() *OAuth2ClientJsonWebKeyRsaResponse {
 	this := OAuth2ClientJsonWebKeyRsaResponse{}
-	this.Alg = alg
-	this.Created = created
-	this.Id = id
-	this.E = e
-	this.N = n
-	this.LastUpdated = lastUpdated
-	this.Use = use
+	var status string = "ACTIVE"
+	this.Status = &status
 	return &this
 }
 
@@ -68,31 +74,137 @@ func NewOAuth2ClientJsonWebKeyRsaResponse(e string, n string, alg string, create
 // but it doesn't guarantee that properties required by API are set
 func NewOAuth2ClientJsonWebKeyRsaResponseWithDefaults() *OAuth2ClientJsonWebKeyRsaResponse {
 	this := OAuth2ClientJsonWebKeyRsaResponse{}
+	var status string = "ACTIVE"
+	this.Status = &status
 	return &this
 }
 
-// GetE returns the E field value
-func (o *OAuth2ClientJsonWebKeyRsaResponse) GetE() string {
-	if o == nil {
+// GetAlg returns the Alg field value if set, zero value otherwise.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) GetAlg() string {
+	if o == nil || IsNil(o.Alg) {
 		var ret string
 		return ret
 	}
-
-	return o.E
+	return *o.Alg
 }
 
-// GetEOk returns a tuple with the E field value
+// GetAlgOk returns a tuple with the Alg field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OAuth2ClientJsonWebKeyRsaResponse) GetEOk() (*string, bool) {
-	if o == nil {
+func (o *OAuth2ClientJsonWebKeyRsaResponse) GetAlgOk() (*string, bool) {
+	if o == nil || IsNil(o.Alg) {
 		return nil, false
 	}
-	return &o.E, true
+	return o.Alg, true
 }
 
-// SetE sets field value
+// HasAlg returns a boolean if a field has been set.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) HasAlg() bool {
+	if o != nil && !IsNil(o.Alg) {
+		return true
+	}
+
+	return false
+}
+
+// SetAlg gets a reference to the given string and assigns it to the Alg field.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) SetAlg(v string) {
+	o.Alg = &v
+}
+
+// GetCreated returns the Created field value if set, zero value otherwise.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) GetCreated() string {
+	if o == nil || IsNil(o.Created) {
+		var ret string
+		return ret
+	}
+	return *o.Created
+}
+
+// GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) GetCreatedOk() (*string, bool) {
+	if o == nil || IsNil(o.Created) {
+		return nil, false
+	}
+	return o.Created, true
+}
+
+// HasCreated returns a boolean if a field has been set.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) HasCreated() bool {
+	if o != nil && !IsNil(o.Created) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreated gets a reference to the given string and assigns it to the Created field.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) SetCreated(v string) {
+	o.Created = &v
+}
+
+// GetE returns the E field value if set, zero value otherwise.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) GetE() string {
+	if o == nil || IsNil(o.E) {
+		var ret string
+		return ret
+	}
+	return *o.E
+}
+
+// GetEOk returns a tuple with the E field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) GetEOk() (*string, bool) {
+	if o == nil || IsNil(o.E) {
+		return nil, false
+	}
+	return o.E, true
+}
+
+// HasE returns a boolean if a field has been set.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) HasE() bool {
+	if o != nil && !IsNil(o.E) {
+		return true
+	}
+
+	return false
+}
+
+// SetE gets a reference to the given string and assigns it to the E field.
 func (o *OAuth2ClientJsonWebKeyRsaResponse) SetE(v string) {
-	o.E = v
+	o.E = &v
+}
+
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) SetId(v string) {
+	o.Id = &v
 }
 
 // GetKty returns the Kty field value if set, zero value otherwise.
@@ -127,28 +239,207 @@ func (o *OAuth2ClientJsonWebKeyRsaResponse) SetKty(v string) {
 	o.Kty = &v
 }
 
-// GetN returns the N field value
-func (o *OAuth2ClientJsonWebKeyRsaResponse) GetN() string {
-	if o == nil {
+// GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) GetLastUpdated() string {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret string
 		return ret
 	}
-
-	return o.N
+	return *o.LastUpdated
 }
 
-// GetNOk returns a tuple with the N field value
+// GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) GetLastUpdatedOk() (*string, bool) {
+	if o == nil || IsNil(o.LastUpdated) {
+		return nil, false
+	}
+	return o.LastUpdated, true
+}
+
+// HasLastUpdated returns a boolean if a field has been set.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) HasLastUpdated() bool {
+	if o != nil && !IsNil(o.LastUpdated) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastUpdated gets a reference to the given string and assigns it to the LastUpdated field.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) SetLastUpdated(v string) {
+	o.LastUpdated = &v
+}
+
+// GetN returns the N field value if set, zero value otherwise.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) GetN() string {
+	if o == nil || IsNil(o.N) {
+		var ret string
+		return ret
+	}
+	return *o.N
+}
+
+// GetNOk returns a tuple with the N field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuth2ClientJsonWebKeyRsaResponse) GetNOk() (*string, bool) {
+	if o == nil || IsNil(o.N) {
+		return nil, false
+	}
+	return o.N, true
+}
+
+// HasN returns a boolean if a field has been set.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) HasN() bool {
+	if o != nil && !IsNil(o.N) {
+		return true
+	}
+
+	return false
+}
+
+// SetN gets a reference to the given string and assigns it to the N field.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) SetN(v string) {
+	o.N = &v
+}
+
+// GetKid returns the Kid field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *OAuth2ClientJsonWebKeyRsaResponse) GetKid() string {
+	if o == nil || IsNil(o.Kid.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Kid.Get()
+}
+
+// GetKidOk returns a tuple with the Kid field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *OAuth2ClientJsonWebKeyRsaResponse) GetKidOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.N, true
+	return o.Kid.Get(), o.Kid.IsSet()
 }
 
-// SetN sets field value
-func (o *OAuth2ClientJsonWebKeyRsaResponse) SetN(v string) {
-	o.N = v
+// HasKid returns a boolean if a field has been set.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) HasKid() bool {
+	if o != nil && o.Kid.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetKid gets a reference to the given NullableString and assigns it to the Kid field.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) SetKid(v string) {
+	o.Kid.Set(&v)
+}
+
+// SetKidNil sets the value for Kid to be an explicit nil
+func (o *OAuth2ClientJsonWebKeyRsaResponse) SetKidNil() {
+	o.Kid.Set(nil)
+}
+
+// UnsetKid ensures that no value is present for Kid, not even an explicit nil
+func (o *OAuth2ClientJsonWebKeyRsaResponse) UnsetKid() {
+	o.Kid.Unset()
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetUse returns the Use field value if set, zero value otherwise.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) GetUse() string {
+	if o == nil || IsNil(o.Use) {
+		var ret string
+		return ret
+	}
+	return *o.Use
+}
+
+// GetUseOk returns a tuple with the Use field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) GetUseOk() (*string, bool) {
+	if o == nil || IsNil(o.Use) {
+		return nil, false
+	}
+	return o.Use, true
+}
+
+// HasUse returns a boolean if a field has been set.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) HasUse() bool {
+	if o != nil && !IsNil(o.Use) {
+		return true
+	}
+
+	return false
+}
+
+// SetUse gets a reference to the given string and assigns it to the Use field.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) SetUse(v string) {
+	o.Use = &v
+}
+
+// GetLinks returns the Links field value if set, zero value otherwise.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) GetLinks() OAuthClientSecretLinks {
+	if o == nil || IsNil(o.Links) {
+		var ret OAuthClientSecretLinks
+		return ret
+	}
+	return *o.Links
+}
+
+// GetLinksOk returns a tuple with the Links field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) GetLinksOk() (*OAuthClientSecretLinks, bool) {
+	if o == nil || IsNil(o.Links) {
+		return nil, false
+	}
+	return o.Links, true
+}
+
+// HasLinks returns a boolean if a field has been set.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) HasLinks() bool {
+	if o != nil && !IsNil(o.Links) {
+		return true
+	}
+
+	return false
+}
+
+// SetLinks gets a reference to the given OAuthClientSecretLinks and assigns it to the Links field.
+func (o *OAuth2ClientJsonWebKeyRsaResponse) SetLinks(v OAuthClientSecretLinks) {
+	o.Links = &v
 }
 
 func (o OAuth2ClientJsonWebKeyRsaResponse) MarshalJSON() ([]byte, error) {
@@ -161,19 +452,39 @@ func (o OAuth2ClientJsonWebKeyRsaResponse) MarshalJSON() ([]byte, error) {
 
 func (o OAuth2ClientJsonWebKeyRsaResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	serializedOAuth2ClientJsonSigningKeyResponse, errOAuth2ClientJsonSigningKeyResponse := json.Marshal(o.OAuth2ClientJsonSigningKeyResponse)
-	if errOAuth2ClientJsonSigningKeyResponse != nil {
-		return map[string]interface{}{}, errOAuth2ClientJsonSigningKeyResponse
+	if !IsNil(o.Alg) {
+		toSerialize["alg"] = o.Alg
 	}
-	errOAuth2ClientJsonSigningKeyResponse = json.Unmarshal([]byte(serializedOAuth2ClientJsonSigningKeyResponse), &toSerialize)
-	if errOAuth2ClientJsonSigningKeyResponse != nil {
-		return map[string]interface{}{}, errOAuth2ClientJsonSigningKeyResponse
+	if !IsNil(o.Created) {
+		toSerialize["created"] = o.Created
 	}
-	toSerialize["e"] = o.E
+	if !IsNil(o.E) {
+		toSerialize["e"] = o.E
+	}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
 	if !IsNil(o.Kty) {
 		toSerialize["kty"] = o.Kty
 	}
-	toSerialize["n"] = o.N
+	if !IsNil(o.LastUpdated) {
+		toSerialize["lastUpdated"] = o.LastUpdated
+	}
+	if !IsNil(o.N) {
+		toSerialize["n"] = o.N
+	}
+	if o.Kid.IsSet() {
+		toSerialize["kid"] = o.Kid.Get()
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.Use) {
+		toSerialize["use"] = o.Use
+	}
+	if !IsNil(o.Links) {
+		toSerialize["_links"] = o.Links
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -183,89 +494,30 @@ func (o OAuth2ClientJsonWebKeyRsaResponse) ToMap() (map[string]interface{}, erro
 }
 
 func (o *OAuth2ClientJsonWebKeyRsaResponse) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"e",
-		"n",
-		"alg",
-		"created",
-		"id",
-		"lastUpdated",
-		"use",
-	}
+	varOAuth2ClientJsonWebKeyRsaResponse := _OAuth2ClientJsonWebKeyRsaResponse{}
 
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
+	err = json.Unmarshal(data, &varOAuth2ClientJsonWebKeyRsaResponse)
 
 	if err != nil {
 		return err
 	}
 
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	type OAuth2ClientJsonWebKeyRsaResponseWithoutEmbeddedStruct struct {
-		// RSA key value (exponent) for key binding
-		E string `json:"e"`
-		// Cryptographic algorithm family for the certificate's key pair
-		Kty *string `json:"kty,omitempty"`
-		// RSA key value (modulus) for key binding
-		N string `json:"n"`
-	}
-
-	varOAuth2ClientJsonWebKeyRsaResponseWithoutEmbeddedStruct := OAuth2ClientJsonWebKeyRsaResponseWithoutEmbeddedStruct{}
-
-	err = json.Unmarshal(data, &varOAuth2ClientJsonWebKeyRsaResponseWithoutEmbeddedStruct)
-	if err == nil {
-		varOAuth2ClientJsonWebKeyRsaResponse := _OAuth2ClientJsonWebKeyRsaResponse{}
-		varOAuth2ClientJsonWebKeyRsaResponse.E = varOAuth2ClientJsonWebKeyRsaResponseWithoutEmbeddedStruct.E
-		varOAuth2ClientJsonWebKeyRsaResponse.Kty = varOAuth2ClientJsonWebKeyRsaResponseWithoutEmbeddedStruct.Kty
-		varOAuth2ClientJsonWebKeyRsaResponse.N = varOAuth2ClientJsonWebKeyRsaResponseWithoutEmbeddedStruct.N
-		*o = OAuth2ClientJsonWebKeyRsaResponse(varOAuth2ClientJsonWebKeyRsaResponse)
-	} else {
-		return err
-	}
-
-	varOAuth2ClientJsonWebKeyRsaResponse := _OAuth2ClientJsonWebKeyRsaResponse{}
-
-	err = json.Unmarshal(data, &varOAuth2ClientJsonWebKeyRsaResponse)
-	if err == nil {
-		o.OAuth2ClientJsonSigningKeyResponse = varOAuth2ClientJsonWebKeyRsaResponse.OAuth2ClientJsonSigningKeyResponse
-	} else {
-		return err
-	}
+	*o = OAuth2ClientJsonWebKeyRsaResponse(varOAuth2ClientJsonWebKeyRsaResponse)
 
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "alg")
+		delete(additionalProperties, "created")
 		delete(additionalProperties, "e")
+		delete(additionalProperties, "id")
 		delete(additionalProperties, "kty")
+		delete(additionalProperties, "lastUpdated")
 		delete(additionalProperties, "n")
-
-		// remove fields from embedded structs
-		reflectOAuth2ClientJsonSigningKeyResponse := reflect.ValueOf(o.OAuth2ClientJsonSigningKeyResponse)
-		for i := 0; i < reflectOAuth2ClientJsonSigningKeyResponse.Type().NumField(); i++ {
-			t := reflectOAuth2ClientJsonSigningKeyResponse.Type().Field(i)
-
-			if jsonTag := t.Tag.Get("json"); jsonTag != "" {
-				fieldName := ""
-				if commaIdx := strings.Index(jsonTag, ","); commaIdx > 0 {
-					fieldName = jsonTag[:commaIdx]
-				} else {
-					fieldName = jsonTag
-				}
-				if fieldName != "AdditionalProperties" {
-					delete(additionalProperties, fieldName)
-				}
-			}
-		}
-
+		delete(additionalProperties, "kid")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "use")
+		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
 	}
 
