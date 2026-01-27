@@ -28371,9 +28371,9 @@ components:
         possession:
           $ref: '#/components/schemas/PossessionConstraint'
     AccessPolicyLink:
+      description: Link to the app access policy resource
       allOf:
         - $ref: '#/components/schemas/HrefObject'
-        - description: Link to the app access policy resource
     AccessPolicyRule:
       allOf:
         - $ref: '#/components/schemas/PolicyRule'
@@ -33268,7 +33268,6 @@ components:
       type: object
       properties:
         appConfig:
-          type: object
           $ref: '#/components/schemas/AppConfig'
         sourceGroupId:
           description: The ID of the source group for the group push mapping
