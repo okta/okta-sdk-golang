@@ -58,8 +58,11 @@ func (dst *ListPushProviders200ResponseInner) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
+	// Get discriminator value, treating nil/missing as empty string for comparison
+	discriminatorValue, _ := jsonDict["providerType"].(string)
+
 	// check if the discriminator value is 'APNS'
-	if jsonDict["providerType"] == "APNS" {
+	if discriminatorValue == "APNS" {
 		// try to unmarshal JSON data into APNSPushProvider
 		err = json.Unmarshal(data, &dst.APNSPushProvider)
 		if err == nil {
@@ -71,7 +74,7 @@ func (dst *ListPushProviders200ResponseInner) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'FCM'
-	if jsonDict["providerType"] == "FCM" {
+	if discriminatorValue == "FCM" {
 		// try to unmarshal JSON data into FCMPushProvider
 		err = json.Unmarshal(data, &dst.FCMPushProvider)
 		if err == nil {
@@ -82,6 +85,16 @@ func (dst *ListPushProviders200ResponseInner) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// If discriminator value is empty/missing, default to the last mapped model (typically the most common type)
+	if discriminatorValue == "" {
+		err = json.Unmarshal(data, &dst.FCMPushProvider)
+		if err == nil {
+			return nil
+		}
+		dst.FCMPushProvider = nil
+	}
+
+	// No match found or unmarshal failed - return nil to allow partial unmarshalling
 	return nil
 }
 

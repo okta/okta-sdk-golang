@@ -58,8 +58,11 @@ func (dst *ListFeaturesForApplication200ResponseInner) UnmarshalJSON(data []byte
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
+	// Get discriminator value, treating nil/missing as empty string for comparison
+	discriminatorValue, _ := jsonDict["name"].(string)
+
 	// check if the discriminator value is 'INBOUND_PROVISIONING'
-	if jsonDict["name"] == "INBOUND_PROVISIONING" {
+	if discriminatorValue == "INBOUND_PROVISIONING" {
 		// try to unmarshal JSON data into InboundProvisioningApplicationFeature
 		err = json.Unmarshal(data, &dst.InboundProvisioningApplicationFeature)
 		if err == nil {
@@ -71,7 +74,7 @@ func (dst *ListFeaturesForApplication200ResponseInner) UnmarshalJSON(data []byte
 	}
 
 	// check if the discriminator value is 'USER_PROVISIONING'
-	if jsonDict["name"] == "USER_PROVISIONING" {
+	if discriminatorValue == "USER_PROVISIONING" {
 		// try to unmarshal JSON data into UserProvisioningApplicationFeature
 		err = json.Unmarshal(data, &dst.UserProvisioningApplicationFeature)
 		if err == nil {
@@ -82,6 +85,16 @@ func (dst *ListFeaturesForApplication200ResponseInner) UnmarshalJSON(data []byte
 		}
 	}
 
+	// If discriminator value is empty/missing, default to the last mapped model (typically the most common type)
+	if discriminatorValue == "" {
+		err = json.Unmarshal(data, &dst.UserProvisioningApplicationFeature)
+		if err == nil {
+			return nil
+		}
+		dst.UserProvisioningApplicationFeature = nil
+	}
+
+	// No match found or unmarshal failed - return nil to allow partial unmarshalling
 	return nil
 }
 

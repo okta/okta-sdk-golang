@@ -82,8 +82,11 @@ func (dst *ListBehaviorDetectionRules200ResponseInner) UnmarshalJSON(data []byte
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
+	// Get discriminator value, treating nil/missing as empty string for comparison
+	discriminatorValue, _ := jsonDict["type"].(string)
+
 	// check if the discriminator value is 'ANOMALOUS_ASN'
-	if jsonDict["type"] == "ANOMALOUS_ASN" {
+	if discriminatorValue == "ANOMALOUS_ASN" {
 		// try to unmarshal JSON data into BehaviorRuleASN
 		err = json.Unmarshal(data, &dst.BehaviorRuleASN)
 		if err == nil {
@@ -95,7 +98,7 @@ func (dst *ListBehaviorDetectionRules200ResponseInner) UnmarshalJSON(data []byte
 	}
 
 	// check if the discriminator value is 'ANOMALOUS_DEVICE'
-	if jsonDict["type"] == "ANOMALOUS_DEVICE" {
+	if discriminatorValue == "ANOMALOUS_DEVICE" {
 		// try to unmarshal JSON data into BehaviorRuleAnomalousDevice
 		err = json.Unmarshal(data, &dst.BehaviorRuleAnomalousDevice)
 		if err == nil {
@@ -107,7 +110,7 @@ func (dst *ListBehaviorDetectionRules200ResponseInner) UnmarshalJSON(data []byte
 	}
 
 	// check if the discriminator value is 'ANOMALOUS_IP'
-	if jsonDict["type"] == "ANOMALOUS_IP" {
+	if discriminatorValue == "ANOMALOUS_IP" {
 		// try to unmarshal JSON data into BehaviorRuleAnomalousIP
 		err = json.Unmarshal(data, &dst.BehaviorRuleAnomalousIP)
 		if err == nil {
@@ -119,7 +122,7 @@ func (dst *ListBehaviorDetectionRules200ResponseInner) UnmarshalJSON(data []byte
 	}
 
 	// check if the discriminator value is 'ANOMALOUS_LOCATION'
-	if jsonDict["type"] == "ANOMALOUS_LOCATION" {
+	if discriminatorValue == "ANOMALOUS_LOCATION" {
 		// try to unmarshal JSON data into BehaviorRuleAnomalousLocation
 		err = json.Unmarshal(data, &dst.BehaviorRuleAnomalousLocation)
 		if err == nil {
@@ -131,7 +134,7 @@ func (dst *ListBehaviorDetectionRules200ResponseInner) UnmarshalJSON(data []byte
 	}
 
 	// check if the discriminator value is 'VELOCITY'
-	if jsonDict["type"] == "VELOCITY" {
+	if discriminatorValue == "VELOCITY" {
 		// try to unmarshal JSON data into BehaviorRuleVelocity
 		err = json.Unmarshal(data, &dst.BehaviorRuleVelocity)
 		if err == nil {
@@ -142,6 +145,16 @@ func (dst *ListBehaviorDetectionRules200ResponseInner) UnmarshalJSON(data []byte
 		}
 	}
 
+	// If discriminator value is empty/missing, default to the last mapped model (typically the most common type)
+	if discriminatorValue == "" {
+		err = json.Unmarshal(data, &dst.BehaviorRuleVelocity)
+		if err == nil {
+			return nil
+		}
+		dst.BehaviorRuleVelocity = nil
+	}
+
+	// No match found or unmarshal failed - return nil to allow partial unmarshalling
 	return nil
 }
 

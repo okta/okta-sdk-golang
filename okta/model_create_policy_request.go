@@ -90,8 +90,11 @@ func (dst *CreatePolicyRequest) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
+	// Get discriminator value, treating nil/missing as empty string for comparison
+	discriminatorValue, _ := jsonDict["type"].(string)
+
 	// check if the discriminator value is 'ACCESS_POLICY'
-	if jsonDict["type"] == "ACCESS_POLICY" {
+	if discriminatorValue == "ACCESS_POLICY" {
 		// try to unmarshal JSON data into AccessPolicy
 		err = json.Unmarshal(data, &dst.AccessPolicy)
 		if err == nil {
@@ -103,7 +106,7 @@ func (dst *CreatePolicyRequest) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'DEVICE_SIGNAL_COLLECTION'
-	if jsonDict["type"] == "DEVICE_SIGNAL_COLLECTION" {
+	if discriminatorValue == "DEVICE_SIGNAL_COLLECTION" {
 		// try to unmarshal JSON data into DeviceSignalCollectionPolicy
 		err = json.Unmarshal(data, &dst.DeviceSignalCollectionPolicy)
 		if err == nil {
@@ -115,7 +118,7 @@ func (dst *CreatePolicyRequest) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'MFA_ENROLL'
-	if jsonDict["type"] == "MFA_ENROLL" {
+	if discriminatorValue == "MFA_ENROLL" {
 		// try to unmarshal JSON data into AuthenticatorEnrollmentPolicy
 		err = json.Unmarshal(data, &dst.AuthenticatorEnrollmentPolicy)
 		if err == nil {
@@ -127,7 +130,7 @@ func (dst *CreatePolicyRequest) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'OKTA_SIGN_ON'
-	if jsonDict["type"] == "OKTA_SIGN_ON" {
+	if discriminatorValue == "OKTA_SIGN_ON" {
 		// try to unmarshal JSON data into OktaSignOnPolicy
 		err = json.Unmarshal(data, &dst.OktaSignOnPolicy)
 		if err == nil {
@@ -139,7 +142,7 @@ func (dst *CreatePolicyRequest) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'PASSWORD'
-	if jsonDict["type"] == "PASSWORD" {
+	if discriminatorValue == "PASSWORD" {
 		// try to unmarshal JSON data into PasswordPolicy
 		err = json.Unmarshal(data, &dst.PasswordPolicy)
 		if err == nil {
@@ -151,7 +154,7 @@ func (dst *CreatePolicyRequest) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'PROFILE_ENROLLMENT'
-	if jsonDict["type"] == "PROFILE_ENROLLMENT" {
+	if discriminatorValue == "PROFILE_ENROLLMENT" {
 		// try to unmarshal JSON data into ProfileEnrollmentPolicy
 		err = json.Unmarshal(data, &dst.ProfileEnrollmentPolicy)
 		if err == nil {
@@ -162,6 +165,16 @@ func (dst *CreatePolicyRequest) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// If discriminator value is empty/missing, default to the last mapped model (typically the most common type)
+	if discriminatorValue == "" {
+		err = json.Unmarshal(data, &dst.ProfileEnrollmentPolicy)
+		if err == nil {
+			return nil
+		}
+		dst.ProfileEnrollmentPolicy = nil
+	}
+
+	// No match found or unmarshal failed - return nil to allow partial unmarshalling
 	return nil
 }
 

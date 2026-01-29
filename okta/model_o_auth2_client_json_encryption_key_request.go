@@ -40,7 +40,7 @@ type OAuth2ClientJsonEncryptionKeyRequest struct {
 	N *string `json:"n,omitempty"`
 	// Acceptable use of the JSON Web Key
 	Use *string `json:"use,omitempty"`
-	// Unique identifier of the JSON Web Key in the OAUth 2.0 client's JWKS
+	// Unique identifier of the JSON Web Key in the OAuth 2.0 client's JWKS
 	Kid NullableString `json:"kid,omitempty"`
 	// Status of the OAuth 2.0 client JSON Web Key
 	Status               *string `json:"status,omitempty"`

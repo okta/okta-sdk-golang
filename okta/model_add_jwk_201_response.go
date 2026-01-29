@@ -28,28 +28,28 @@ import (
 	"fmt"
 )
 
-// ListJwk200ResponseInner - struct for ListJwk200ResponseInner
-type ListJwk200ResponseInner struct {
+// AddJwk201Response - struct for AddJwk201Response
+type AddJwk201Response struct {
 	OAuth2ClientJsonEncryptionKeyResponse *OAuth2ClientJsonEncryptionKeyResponse
 	OAuth2ClientJsonSigningKeyResponse    *OAuth2ClientJsonSigningKeyResponse
 }
 
-// OAuth2ClientJsonEncryptionKeyResponseAsListJwk200ResponseInner is a convenience function that returns OAuth2ClientJsonEncryptionKeyResponse wrapped in ListJwk200ResponseInner
-func OAuth2ClientJsonEncryptionKeyResponseAsListJwk200ResponseInner(v *OAuth2ClientJsonEncryptionKeyResponse) ListJwk200ResponseInner {
-	return ListJwk200ResponseInner{
+// OAuth2ClientJsonEncryptionKeyResponseAsAddJwk201Response is a convenience function that returns OAuth2ClientJsonEncryptionKeyResponse wrapped in AddJwk201Response
+func OAuth2ClientJsonEncryptionKeyResponseAsAddJwk201Response(v *OAuth2ClientJsonEncryptionKeyResponse) AddJwk201Response {
+	return AddJwk201Response{
 		OAuth2ClientJsonEncryptionKeyResponse: v,
 	}
 }
 
-// OAuth2ClientJsonSigningKeyResponseAsListJwk200ResponseInner is a convenience function that returns OAuth2ClientJsonSigningKeyResponse wrapped in ListJwk200ResponseInner
-func OAuth2ClientJsonSigningKeyResponseAsListJwk200ResponseInner(v *OAuth2ClientJsonSigningKeyResponse) ListJwk200ResponseInner {
-	return ListJwk200ResponseInner{
+// OAuth2ClientJsonSigningKeyResponseAsAddJwk201Response is a convenience function that returns OAuth2ClientJsonSigningKeyResponse wrapped in AddJwk201Response
+func OAuth2ClientJsonSigningKeyResponseAsAddJwk201Response(v *OAuth2ClientJsonSigningKeyResponse) AddJwk201Response {
+	return AddJwk201Response{
 		OAuth2ClientJsonSigningKeyResponse: v,
 	}
 }
 
 // Unmarshal JSON data into one of the pointers in the struct
-func (dst *ListJwk200ResponseInner) UnmarshalJSON(data []byte) error {
+func (dst *AddJwk201Response) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
@@ -58,35 +58,48 @@ func (dst *ListJwk200ResponseInner) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
+	// Get discriminator value, treating nil/missing as empty string for comparison
+	discriminatorValue, _ := jsonDict["use"].(string)
+
 	// check if the discriminator value is 'enc'
-	if jsonDict["use"] == "enc" {
+	if discriminatorValue == "enc" {
 		// try to unmarshal JSON data into OAuth2ClientJsonEncryptionKeyResponse
 		err = json.Unmarshal(data, &dst.OAuth2ClientJsonEncryptionKeyResponse)
 		if err == nil {
 			return nil // data stored in dst.OAuth2ClientJsonEncryptionKeyResponse, return on the first match
 		} else {
 			dst.OAuth2ClientJsonEncryptionKeyResponse = nil
-			return fmt.Errorf("failed to unmarshal ListJwk200ResponseInner as OAuth2ClientJsonEncryptionKeyResponse: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal AddJwk201Response as OAuth2ClientJsonEncryptionKeyResponse: %s", err.Error())
 		}
 	}
 
 	// check if the discriminator value is 'sig'
-	if jsonDict["use"] == "sig" {
+	if discriminatorValue == "sig" {
 		// try to unmarshal JSON data into OAuth2ClientJsonSigningKeyResponse
 		err = json.Unmarshal(data, &dst.OAuth2ClientJsonSigningKeyResponse)
 		if err == nil {
 			return nil // data stored in dst.OAuth2ClientJsonSigningKeyResponse, return on the first match
 		} else {
 			dst.OAuth2ClientJsonSigningKeyResponse = nil
-			return fmt.Errorf("failed to unmarshal ListJwk200ResponseInner as OAuth2ClientJsonSigningKeyResponse: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal AddJwk201Response as OAuth2ClientJsonSigningKeyResponse: %s", err.Error())
 		}
 	}
 
+	// If discriminator value is empty/missing, default to the last mapped model (typically the most common type)
+	if discriminatorValue == "" {
+		err = json.Unmarshal(data, &dst.OAuth2ClientJsonSigningKeyResponse)
+		if err == nil {
+			return nil
+		}
+		dst.OAuth2ClientJsonSigningKeyResponse = nil
+	}
+
+	// No match found or unmarshal failed - return nil to allow partial unmarshalling
 	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
-func (src ListJwk200ResponseInner) MarshalJSON() ([]byte, error) {
+func (src AddJwk201Response) MarshalJSON() ([]byte, error) {
 	if src.OAuth2ClientJsonEncryptionKeyResponse != nil {
 		return json.Marshal(&src.OAuth2ClientJsonEncryptionKeyResponse)
 	}
@@ -99,7 +112,7 @@ func (src ListJwk200ResponseInner) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *ListJwk200ResponseInner) GetActualInstance() interface{} {
+func (obj *AddJwk201Response) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -116,7 +129,7 @@ func (obj *ListJwk200ResponseInner) GetActualInstance() interface{} {
 }
 
 // Get the actual instance value
-func (obj ListJwk200ResponseInner) GetActualInstanceValue() interface{} {
+func (obj AddJwk201Response) GetActualInstanceValue() interface{} {
 	if obj.OAuth2ClientJsonEncryptionKeyResponse != nil {
 		return *obj.OAuth2ClientJsonEncryptionKeyResponse
 	}
@@ -129,38 +142,38 @@ func (obj ListJwk200ResponseInner) GetActualInstanceValue() interface{} {
 	return nil
 }
 
-type NullableListJwk200ResponseInner struct {
-	value *ListJwk200ResponseInner
+type NullableAddJwk201Response struct {
+	value *AddJwk201Response
 	isSet bool
 }
 
-func (v NullableListJwk200ResponseInner) Get() *ListJwk200ResponseInner {
+func (v NullableAddJwk201Response) Get() *AddJwk201Response {
 	return v.value
 }
 
-func (v *NullableListJwk200ResponseInner) Set(val *ListJwk200ResponseInner) {
+func (v *NullableAddJwk201Response) Set(val *AddJwk201Response) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableListJwk200ResponseInner) IsSet() bool {
+func (v NullableAddJwk201Response) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableListJwk200ResponseInner) Unset() {
+func (v *NullableAddJwk201Response) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableListJwk200ResponseInner(val *ListJwk200ResponseInner) *NullableListJwk200ResponseInner {
-	return &NullableListJwk200ResponseInner{value: val, isSet: true}
+func NewNullableAddJwk201Response(val *AddJwk201Response) *NullableAddJwk201Response {
+	return &NullableAddJwk201Response{value: val, isSet: true}
 }
 
-func (v NullableListJwk200ResponseInner) MarshalJSON() ([]byte, error) {
+func (v NullableAddJwk201Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableListJwk200ResponseInner) UnmarshalJSON(src []byte) error {
+func (v *NullableAddJwk201Response) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

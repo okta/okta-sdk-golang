@@ -82,8 +82,11 @@ func (dst *ListDeviceAssurancePolicies200ResponseInner) UnmarshalJSON(data []byt
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
+	// Get discriminator value, treating nil/missing as empty string for comparison
+	discriminatorValue, _ := jsonDict["platform"].(string)
+
 	// check if the discriminator value is 'ANDROID'
-	if jsonDict["platform"] == "ANDROID" {
+	if discriminatorValue == "ANDROID" {
 		// try to unmarshal JSON data into DeviceAssuranceAndroidPlatform
 		err = json.Unmarshal(data, &dst.DeviceAssuranceAndroidPlatform)
 		if err == nil {
@@ -95,7 +98,7 @@ func (dst *ListDeviceAssurancePolicies200ResponseInner) UnmarshalJSON(data []byt
 	}
 
 	// check if the discriminator value is 'CHROMEOS'
-	if jsonDict["platform"] == "CHROMEOS" {
+	if discriminatorValue == "CHROMEOS" {
 		// try to unmarshal JSON data into DeviceAssuranceChromeOSPlatform
 		err = json.Unmarshal(data, &dst.DeviceAssuranceChromeOSPlatform)
 		if err == nil {
@@ -107,7 +110,7 @@ func (dst *ListDeviceAssurancePolicies200ResponseInner) UnmarshalJSON(data []byt
 	}
 
 	// check if the discriminator value is 'IOS'
-	if jsonDict["platform"] == "IOS" {
+	if discriminatorValue == "IOS" {
 		// try to unmarshal JSON data into DeviceAssuranceIOSPlatform
 		err = json.Unmarshal(data, &dst.DeviceAssuranceIOSPlatform)
 		if err == nil {
@@ -119,7 +122,7 @@ func (dst *ListDeviceAssurancePolicies200ResponseInner) UnmarshalJSON(data []byt
 	}
 
 	// check if the discriminator value is 'MACOS'
-	if jsonDict["platform"] == "MACOS" {
+	if discriminatorValue == "MACOS" {
 		// try to unmarshal JSON data into DeviceAssuranceMacOSPlatform
 		err = json.Unmarshal(data, &dst.DeviceAssuranceMacOSPlatform)
 		if err == nil {
@@ -131,7 +134,7 @@ func (dst *ListDeviceAssurancePolicies200ResponseInner) UnmarshalJSON(data []byt
 	}
 
 	// check if the discriminator value is 'WINDOWS'
-	if jsonDict["platform"] == "WINDOWS" {
+	if discriminatorValue == "WINDOWS" {
 		// try to unmarshal JSON data into DeviceAssuranceWindowsPlatform
 		err = json.Unmarshal(data, &dst.DeviceAssuranceWindowsPlatform)
 		if err == nil {
@@ -142,6 +145,16 @@ func (dst *ListDeviceAssurancePolicies200ResponseInner) UnmarshalJSON(data []byt
 		}
 	}
 
+	// If discriminator value is empty/missing, default to the last mapped model (typically the most common type)
+	if discriminatorValue == "" {
+		err = json.Unmarshal(data, &dst.DeviceAssuranceWindowsPlatform)
+		if err == nil {
+			return nil
+		}
+		dst.DeviceAssuranceWindowsPlatform = nil
+	}
+
+	// No match found or unmarshal failed - return nil to allow partial unmarshalling
 	return nil
 }
 

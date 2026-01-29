@@ -58,8 +58,11 @@ func (dst *GetUserRisk200Response) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
+	// Get discriminator value, treating nil/missing as empty string for comparison
+	discriminatorValue, _ := jsonDict["riskLevel"].(string)
+
 	// check if the discriminator value is 'HIGH'
-	if jsonDict["riskLevel"] == "HIGH" {
+	if discriminatorValue == "HIGH" {
 		// try to unmarshal JSON data into UserRiskLevelExists
 		err = json.Unmarshal(data, &dst.UserRiskLevelExists)
 		if err == nil {
@@ -71,7 +74,7 @@ func (dst *GetUserRisk200Response) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'LOW'
-	if jsonDict["riskLevel"] == "LOW" {
+	if discriminatorValue == "LOW" {
 		// try to unmarshal JSON data into UserRiskLevelExists
 		err = json.Unmarshal(data, &dst.UserRiskLevelExists)
 		if err == nil {
@@ -83,7 +86,7 @@ func (dst *GetUserRisk200Response) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'MEDIUM'
-	if jsonDict["riskLevel"] == "MEDIUM" {
+	if discriminatorValue == "MEDIUM" {
 		// try to unmarshal JSON data into UserRiskLevelExists
 		err = json.Unmarshal(data, &dst.UserRiskLevelExists)
 		if err == nil {
@@ -95,7 +98,7 @@ func (dst *GetUserRisk200Response) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'NONE'
-	if jsonDict["riskLevel"] == "NONE" {
+	if discriminatorValue == "NONE" {
 		// try to unmarshal JSON data into UserRiskLevelNone
 		err = json.Unmarshal(data, &dst.UserRiskLevelNone)
 		if err == nil {
@@ -106,6 +109,16 @@ func (dst *GetUserRisk200Response) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// If discriminator value is empty/missing, default to the last mapped model (typically the most common type)
+	if discriminatorValue == "" {
+		err = json.Unmarshal(data, &dst.UserRiskLevelNone)
+		if err == nil {
+			return nil
+		}
+		dst.UserRiskLevelNone = nil
+	}
+
+	// No match found or unmarshal failed - return nil to allow partial unmarshalling
 	return nil
 }
 

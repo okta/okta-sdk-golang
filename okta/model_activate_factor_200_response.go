@@ -98,8 +98,11 @@ func (dst *ActivateFactor200Response) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
+	// Get discriminator value, treating nil/missing as empty string for comparison
+	discriminatorValue, _ := jsonDict["factorType"].(string)
+
 	// check if the discriminator value is 'call'
-	if jsonDict["factorType"] == "call" {
+	if discriminatorValue == "call" {
 		// try to unmarshal JSON data into UserFactorCall
 		err = json.Unmarshal(data, &dst.UserFactorCall)
 		if err == nil {
@@ -111,7 +114,7 @@ func (dst *ActivateFactor200Response) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'email'
-	if jsonDict["factorType"] == "email" {
+	if discriminatorValue == "email" {
 		// try to unmarshal JSON data into UserFactorEmail
 		err = json.Unmarshal(data, &dst.UserFactorEmail)
 		if err == nil {
@@ -123,7 +126,7 @@ func (dst *ActivateFactor200Response) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'push'
-	if jsonDict["factorType"] == "push" {
+	if discriminatorValue == "push" {
 		// try to unmarshal JSON data into UserFactorPush
 		err = json.Unmarshal(data, &dst.UserFactorPush)
 		if err == nil {
@@ -135,7 +138,7 @@ func (dst *ActivateFactor200Response) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'sms'
-	if jsonDict["factorType"] == "sms" {
+	if discriminatorValue == "sms" {
 		// try to unmarshal JSON data into UserFactorSMS
 		err = json.Unmarshal(data, &dst.UserFactorSMS)
 		if err == nil {
@@ -147,7 +150,7 @@ func (dst *ActivateFactor200Response) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'token:software:totp'
-	if jsonDict["factorType"] == "token:software:totp" {
+	if discriminatorValue == "token:software:totp" {
 		// try to unmarshal JSON data into UserFactorTokenSoftwareTOTP
 		err = json.Unmarshal(data, &dst.UserFactorTokenSoftwareTOTP)
 		if err == nil {
@@ -159,7 +162,7 @@ func (dst *ActivateFactor200Response) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'u2f'
-	if jsonDict["factorType"] == "u2f" {
+	if discriminatorValue == "u2f" {
 		// try to unmarshal JSON data into UserFactorU2F
 		err = json.Unmarshal(data, &dst.UserFactorU2F)
 		if err == nil {
@@ -171,7 +174,7 @@ func (dst *ActivateFactor200Response) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'webauthn'
-	if jsonDict["factorType"] == "webauthn" {
+	if discriminatorValue == "webauthn" {
 		// try to unmarshal JSON data into UserFactorWebAuthn
 		err = json.Unmarshal(data, &dst.UserFactorWebAuthn)
 		if err == nil {
@@ -182,6 +185,16 @@ func (dst *ActivateFactor200Response) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// If discriminator value is empty/missing, default to the last mapped model (typically the most common type)
+	if discriminatorValue == "" {
+		err = json.Unmarshal(data, &dst.UserFactorWebAuthn)
+		if err == nil {
+			return nil
+		}
+		dst.UserFactorWebAuthn = nil
+	}
+
+	// No match found or unmarshal failed - return nil to allow partial unmarshalling
 	return nil
 }
 

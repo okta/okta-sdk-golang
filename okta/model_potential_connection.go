@@ -74,8 +74,11 @@ func (dst *PotentialConnection) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
+	// Get discriminator value, treating nil/missing as empty string for comparison
+	discriminatorValue, _ := jsonDict["connectionType"].(string)
+
 	// check if the discriminator value is 'IDENTITY_ASSERTION_APP_INSTANCE'
-	if jsonDict["connectionType"] == "IDENTITY_ASSERTION_APP_INSTANCE" {
+	if discriminatorValue == "IDENTITY_ASSERTION_APP_INSTANCE" {
 		// try to unmarshal JSON data into IdentityAssertionAppInstanceConnection
 		err = json.Unmarshal(data, &dst.IdentityAssertionAppInstanceConnection)
 		if err == nil {
@@ -87,7 +90,7 @@ func (dst *PotentialConnection) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'IDENTITY_ASSERTION_CUSTOM_AS'
-	if jsonDict["connectionType"] == "IDENTITY_ASSERTION_CUSTOM_AS" {
+	if discriminatorValue == "IDENTITY_ASSERTION_CUSTOM_AS" {
 		// try to unmarshal JSON data into IdentityAssertionCustomASConnection
 		err = json.Unmarshal(data, &dst.IdentityAssertionCustomASConnection)
 		if err == nil {
@@ -99,7 +102,7 @@ func (dst *PotentialConnection) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'STS_SERVICE_ACCOUNT'
-	if jsonDict["connectionType"] == "STS_SERVICE_ACCOUNT" {
+	if discriminatorValue == "STS_SERVICE_ACCOUNT" {
 		// try to unmarshal JSON data into STSServiceAccountConnection
 		err = json.Unmarshal(data, &dst.STSServiceAccountConnection)
 		if err == nil {
@@ -111,7 +114,7 @@ func (dst *PotentialConnection) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'STS_VAULT_SECRET'
-	if jsonDict["connectionType"] == "STS_VAULT_SECRET" {
+	if discriminatorValue == "STS_VAULT_SECRET" {
 		// try to unmarshal JSON data into STSVaultSecretConnection
 		err = json.Unmarshal(data, &dst.STSVaultSecretConnection)
 		if err == nil {
@@ -122,6 +125,16 @@ func (dst *PotentialConnection) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// If discriminator value is empty/missing, default to the last mapped model (typically the most common type)
+	if discriminatorValue == "" {
+		err = json.Unmarshal(data, &dst.STSVaultSecretConnection)
+		if err == nil {
+			return nil
+		}
+		dst.STSVaultSecretConnection = nil
+	}
+
+	// No match found or unmarshal failed - return nil to allow partial unmarshalling
 	return nil
 }
 

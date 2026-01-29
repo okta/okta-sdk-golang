@@ -106,8 +106,11 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
+	// Get discriminator value, treating nil/missing as empty string for comparison
+	discriminatorValue, _ := jsonDict["type"].(string)
+
 	// check if the discriminator value is 'cert'
-	if jsonDict["type"] == "cert" {
+	if discriminatorValue == "cert" {
 		// try to unmarshal JSON data into AuthenticatorMethodWithVerifiableProperties
 		err = json.Unmarshal(data, &dst.AuthenticatorMethodWithVerifiableProperties)
 		if err == nil {
@@ -119,7 +122,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 	}
 
 	// check if the discriminator value is 'duo'
-	if jsonDict["type"] == "duo" {
+	if discriminatorValue == "duo" {
 		// try to unmarshal JSON data into AuthenticatorMethodWithVerifiableProperties
 		err = json.Unmarshal(data, &dst.AuthenticatorMethodWithVerifiableProperties)
 		if err == nil {
@@ -131,7 +134,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 	}
 
 	// check if the discriminator value is 'email'
-	if jsonDict["type"] == "email" {
+	if discriminatorValue == "email" {
 		// try to unmarshal JSON data into AuthenticatorMethodSimple
 		err = json.Unmarshal(data, &dst.AuthenticatorMethodSimple)
 		if err == nil {
@@ -143,7 +146,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 	}
 
 	// check if the discriminator value is 'idp'
-	if jsonDict["type"] == "idp" {
+	if discriminatorValue == "idp" {
 		// try to unmarshal JSON data into AuthenticatorMethodWithVerifiableProperties
 		err = json.Unmarshal(data, &dst.AuthenticatorMethodWithVerifiableProperties)
 		if err == nil {
@@ -155,7 +158,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 	}
 
 	// check if the discriminator value is 'otp'
-	if jsonDict["type"] == "otp" {
+	if discriminatorValue == "otp" {
 		// try to unmarshal JSON data into AuthenticatorMethodOtp
 		err = json.Unmarshal(data, &dst.AuthenticatorMethodOtp)
 		if err == nil {
@@ -167,7 +170,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 	}
 
 	// check if the discriminator value is 'password'
-	if jsonDict["type"] == "password" {
+	if discriminatorValue == "password" {
 		// try to unmarshal JSON data into AuthenticatorMethodSimple
 		err = json.Unmarshal(data, &dst.AuthenticatorMethodSimple)
 		if err == nil {
@@ -179,7 +182,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 	}
 
 	// check if the discriminator value is 'push'
-	if jsonDict["type"] == "push" {
+	if discriminatorValue == "push" {
 		// try to unmarshal JSON data into AuthenticatorMethodPush
 		err = json.Unmarshal(data, &dst.AuthenticatorMethodPush)
 		if err == nil {
@@ -191,7 +194,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 	}
 
 	// check if the discriminator value is 'security_question'
-	if jsonDict["type"] == "security_question" {
+	if discriminatorValue == "security_question" {
 		// try to unmarshal JSON data into AuthenticatorMethodSimple
 		err = json.Unmarshal(data, &dst.AuthenticatorMethodSimple)
 		if err == nil {
@@ -203,7 +206,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 	}
 
 	// check if the discriminator value is 'signed_nonce'
-	if jsonDict["type"] == "signed_nonce" {
+	if discriminatorValue == "signed_nonce" {
 		// try to unmarshal JSON data into AuthenticatorMethodSignedNonce
 		err = json.Unmarshal(data, &dst.AuthenticatorMethodSignedNonce)
 		if err == nil {
@@ -215,7 +218,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 	}
 
 	// check if the discriminator value is 'sms'
-	if jsonDict["type"] == "sms" {
+	if discriminatorValue == "sms" {
 		// try to unmarshal JSON data into AuthenticatorMethodSimple
 		err = json.Unmarshal(data, &dst.AuthenticatorMethodSimple)
 		if err == nil {
@@ -227,7 +230,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 	}
 
 	// check if the discriminator value is 'tac'
-	if jsonDict["type"] == "tac" {
+	if discriminatorValue == "tac" {
 		// try to unmarshal JSON data into AuthenticatorMethodTac
 		err = json.Unmarshal(data, &dst.AuthenticatorMethodTac)
 		if err == nil {
@@ -239,7 +242,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 	}
 
 	// check if the discriminator value is 'totp'
-	if jsonDict["type"] == "totp" {
+	if discriminatorValue == "totp" {
 		// try to unmarshal JSON data into AuthenticatorMethodTotp
 		err = json.Unmarshal(data, &dst.AuthenticatorMethodTotp)
 		if err == nil {
@@ -251,7 +254,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 	}
 
 	// check if the discriminator value is 'voice'
-	if jsonDict["type"] == "voice" {
+	if discriminatorValue == "voice" {
 		// try to unmarshal JSON data into AuthenticatorMethodSimple
 		err = json.Unmarshal(data, &dst.AuthenticatorMethodSimple)
 		if err == nil {
@@ -263,7 +266,7 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 	}
 
 	// check if the discriminator value is 'webauthn'
-	if jsonDict["type"] == "webauthn" {
+	if discriminatorValue == "webauthn" {
 		// try to unmarshal JSON data into AuthenticatorMethodWebAuthn
 		err = json.Unmarshal(data, &dst.AuthenticatorMethodWebAuthn)
 		if err == nil {
@@ -274,6 +277,16 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 		}
 	}
 
+	// If discriminator value is empty/missing, default to the last mapped model (typically the most common type)
+	if discriminatorValue == "" {
+		err = json.Unmarshal(data, &dst.AuthenticatorMethodWebAuthn)
+		if err == nil {
+			return nil
+		}
+		dst.AuthenticatorMethodWebAuthn = nil
+	}
+
+	// No match found or unmarshal failed - return nil to allow partial unmarshalling
 	return nil
 }
 
