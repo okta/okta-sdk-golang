@@ -1,6 +1,15 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v6.0.3
+- Fix `CreateGroupPushMapping` API request body structure [#570](https://github.com/okta/okta-sdk-golang/pull/570). Thanks [@aditya-okta](https://github.com/aditya-okta)
+- Fix "data matches more than one schema in oneOf" error when creating/reading OIDC applications with JWKS keys [#571](https://github.com/okta/okta-sdk-golang/pull/571). Thanks [@aditya-okta](https://github.com/aditya-okta)
+- Add fallback logic in `oneOf` discriminator unmarshalling that returns nil instead of an error when the discriminator value doesn't match any explicit mapping [#571](https://github.com/okta/okta-sdk-golang/pull/571)
+- Add `OAuth2ClientJsonWebKeySet` schema for JWKS API responses [#571](https://github.com/okta/okta-sdk-golang/pull/571)
+- Add missing fields to JWKS schemas (`alg`, `use`, `created`, `id`, `lastUpdated`, `_links`) [#571](https://github.com/okta/okta-sdk-golang/pull/571)
+- Add `crv` (curve) field to EC key schemas for ECDSA key support [#571](https://github.com/okta/okta-sdk-golang/pull/571)
+- Add named schema `OpenIdConnectApplicationSettingsClientKeysKeysInner` to ensure JWKS key documentation is generated [#571](https://github.com/okta/okta-sdk-golang/pull/571)
+
 ## v6.0.2
 - Fix datatype of `lastConnection` in agent pools response [#566](https://github.com/okta/okta-sdk-golang/pull/566). Thanks [@pranav-okta](https://github.com/okta/pranav-okta)
 - Add `oneOf` discriminator to idp protocol response [#563](https://github.com/okta/okta-sdk-golang/pull/563). Thanks [@pranav-okta](https://github.com/okta/pranav-okta)
